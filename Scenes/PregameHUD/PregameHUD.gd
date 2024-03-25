@@ -49,6 +49,11 @@ func show_network_status(text: String):
 	_host_details_label.visible = true
 
 
+func show_auth_status(text: String):
+	_auth_details_label.text = text
+	_auth_details_label.visible = true
+
+
 func get_current_tab() -> PregameHUD.Tab:
 	var current_tab: PregameHUD.Tab = _tab_container.current_tab as PregameHUD.Tab
 	

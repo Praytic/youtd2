@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/PregameHUD/AuthMenu.tscn" id="9_hm563"]
 [ext_resource type="PackedScene" uid="uid://bfesvqnocb2jg" path="res://Scenes/PregameHUD/WaitingForHostMenu.tscn" id="10_hnfvc"]
 
-[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu", "_coop_menu", "_game_length_menu", "_game_mode_menu", "_difficulty_menu")]
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_auth_details_label", "_player_mode_menu", "_coop_menu", "_game_length_menu", "_game_mode_menu", "_difficulty_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ theme = ExtResource("1_i3yfj")
 script = ExtResource("2_ljcwn")
 _tab_container = NodePath("VBoxContainer/TabContainer")
 _host_details_label = NodePath("VBoxContainer/HostDetailsLabel")
+_auth_details_label = NodePath("VBoxContainer/AuthDetailsLabel")
 _player_mode_menu = NodePath("VBoxContainer/TabContainer/PlayerModeMenu")
 _coop_menu = NodePath("VBoxContainer/TabContainer/CoopMenu")
 _game_length_menu = NodePath("VBoxContainer/TabContainer/GameLengthMenu")

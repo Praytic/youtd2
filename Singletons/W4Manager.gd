@@ -69,7 +69,9 @@ func run_static(sdk) -> void:
 ## Returns a username for a given user id.
 ##
 ## Returns name_if_unknown if the player was not found.
-func get_username(id: String, name_if_unknown := "UnknownPlayer") -> String:
+func get_username(id: String = "", name_if_unknown := "UnknownPlayer") -> String:
+	if id == "":
+		id = W4GD.get_identity().get_uid()
 	var profile: Profile = await W4GD.mapper.get_by_id(Profile, id)
 	if profile == null:
 		return name_if_unknown
@@ -83,9 +85,7 @@ func get_username(id: String, name_if_unknown := "UnknownPlayer") -> String:
 ## If a profile existed, this will update the username.
 ## If the username is unchanged from its previous state, nothing will happen.
 func set_own_username(new_username: String) -> void:
-	var profile: Profile = await W4GD.mapper.get_by_id(Profile, W4GD.get_identity().get_uid())
-	if profile == null:
-		profile = Profile.new()
-		profile.username = new_username
-		await W4GD.mapper.create(profile)
-	EventBus.player_authenticated.emit(profile)
+	var profile = Profile.new()
+	profile.username = new_username
+	await W4GD.mapper.create(profile)
+	EventBus.player_authenticated.emit()

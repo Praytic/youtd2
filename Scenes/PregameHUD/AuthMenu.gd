@@ -5,6 +5,19 @@ class_name AuthMenu extends PregameTab
 @export var _info_message_label: Label
 
 #########################
+###     Built-in      ###
+#########################
+
+# NOTE: To disable login and authentication set Config variable
+# config/enable_auth=false. If it's not disabled, players will
+# be automatically logged in using their local device ID.
+func _ready():
+	if !Config.enable_auth():
+		return
+	await W4Manager.login()
+
+
+#########################
 ###       Public      ###
 #########################
 
@@ -24,11 +37,9 @@ func _on_generic_button_pressed():
 
 
 func _on_log_in_button_pressed():
-	W4Manager.login()
 	_on_generic_button_pressed()
 
 
 func _on_create_account_button_pressed():
-	W4Manager.login()
-	W4Manager.set_own_username(_player_name_text_edit.text)
+	await W4Manager.set_own_username(_player_name_text_edit.text)
 	_on_generic_button_pressed()

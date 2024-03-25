@@ -30,6 +30,9 @@ var _pregame_hud: PregameHUD = null
 func _ready():
 	EventBus.player_requested_to_host_room.connect(_on_player_requested_to_host_room)
 	EventBus.player_requested_to_join_room.connect(_on_player_requested_to_join_room)
+	EventBus.login_succeeded.connect(_on_player_login_succeeded)
+	EventBus.login_failed.connect(_on_player_login_failed)
+	EventBus.player_authenticated.connect(_on_player_authenticated)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -74,6 +77,18 @@ func _finish():
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_player_login_failed():
+	_pregame_hud.show_auth_status("Player failed to log in.")
+
+
+func _on_player_login_succeeded():
+	_pregame_hud.show_auth_status("Player successfully logged in.")
+
+
+func _on_player_authenticated():
+	_pregame_hud.show_auth_status("Logged in as: %s" % await W4Manager.get_username())
+
 
 func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
