@@ -149,7 +149,7 @@ func on_attack(_event: Event):
 
 	tower.add_mana_perc(0.01)
 
-	tower.issue_target_order("attack", random_unit)
+	tower.issue_target_order(random_unit)
 
 
 func on_damage(event: Event):

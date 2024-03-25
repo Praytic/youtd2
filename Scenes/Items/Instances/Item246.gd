@@ -37,4 +37,4 @@ func on_attack(_event: Event):
 	if random_unit == null:
 		return
 
-	tower.issue_target_order("attack", random_unit)
+	tower.issue_target_order(random_unit)

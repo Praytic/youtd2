@@ -34,4 +34,4 @@ func on_attack(_event: Event):
 	var iterator: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), tower.get_range())
 	var random_unit: Unit = iterator.next_random()
 
-	tower.issue_target_order("attack", random_unit)
+	tower.issue_target_order(random_unit)

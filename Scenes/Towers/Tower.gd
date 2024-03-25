@@ -279,14 +279,10 @@ func order_stop():
 	_was_ordered_to_stop_attack = true
 
 
-# NOTE: "attack" is the only order_type encountered in tower
-# scripts so ignore that parameter
-# 
+# Forces tower to attack a particular target. Works only if
+# called during ATTACK event callback.
 # NOTE: tower.issueTargetOrder() in JASS
-func issue_target_order(order_type: String, target: Unit):
-	if order_type != "attack":
-		print_debug("Unhandled order_type in issue_target_order()")
-
+func issue_target_order(target: Unit):
 	if target == null:
 		return
 

@@ -107,7 +107,7 @@ func on_attack(event: Event):
 
 		if next != target && next.get_buff_of_type(fisherman_slow_bt) == null:
 			CombatLog.log_ability(tower, next, "Impatient")
-			tower.issue_target_order("attack", next)
+			tower.issue_target_order(next)
 
 			return
 
