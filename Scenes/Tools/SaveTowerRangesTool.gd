@@ -31,7 +31,7 @@ static func run(player: Player):
 	for tower_id in tower_id_list:
 		var tower: Tower = Tower.make(tower_id, player)
 		player.add_child(tower)
-		var range_data_list: Array[Tower.RangeData] = SaveTowerRangesTool._get_range_data_from_tower(tower)
+		var range_data_list: Array[RangeData] = SaveTowerRangesTool._get_range_data_from_tower(tower)
 
 		for range_data in range_data_list:
 			var range_name: String = range_data.name
@@ -74,19 +74,19 @@ static func run(player: Player):
 # 
 # Each range is assigned a unique color. Attack range is
 # always same AQUA color, for consistency.
-static func _get_range_data_from_tower(tower: Tower) -> Array[Tower.RangeData]:
-	var list: Array[Tower.RangeData] = []
+static func _get_range_data_from_tower(tower: Tower) -> Array[RangeData]:
+	var list: Array[RangeData] = []
 
 	var aura_list: Array[AuraType] = tower.get_aura_types()
 
 	for i in aura_list.size():
 		var aura: AuraType = aura_list[i]
 		var aura_name: String = "Aura %d" % (i + 1)
-		var aura_range: Tower.RangeData = Tower.RangeData.new(aura_name, aura.get_range(tower.get_player()), aura.target_type)
+		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(tower.get_player()), aura.target_type)
 		aura_range.affected_by_builder = true
 		list.append(aura_range)
 
-	var ability_list: Array[Tower.RangeData] = tower.get_ability_ranges()
+	var ability_list: Array[RangeData] = tower.get_ability_ranges()
 
 	for ability_range in ability_list:
 		list.append(ability_range)

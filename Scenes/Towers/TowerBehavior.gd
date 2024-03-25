@@ -81,7 +81,7 @@ func get_ability_description_short() -> String:
 # this list.
 # NOTE: this function is called to generate data into csv
 # file. Not used during normal gameplay.
-func get_ability_ranges() -> Array[Tower.RangeData]:
+func get_ability_ranges() -> Array[RangeData]:
 	return []
 
 

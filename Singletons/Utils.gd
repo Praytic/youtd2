@@ -534,7 +534,7 @@ func get_creep_list() -> Array[Creep]:
 # Setup range indicators for tower attack, auras and extra
 # abilities.
 # NOTE: tower stats must be initialized before calling this
-func setup_range_indicators(range_data_list: Array[Tower.RangeData], parent: Node2D, player: Player) -> Array[RangeIndicator]:
+func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, player: Player) -> Array[RangeIndicator]:
 	var indicator_list: Array[RangeIndicator] = []
 
 	var occupied_radius_list: Array = []

@@ -33,7 +33,7 @@ func set_tower(tower_id: int):
 	_tower_sprite = TowerSprites.get_sprite(tower_id)
 	add_child(_tower_sprite)
 	
-	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower_id)
+	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(tower_id)
 	var local_player: Player = PlayerManager.get_local_player()
 	Utils.setup_range_indicators(range_data_list, _range_indicator_container, local_player)
 

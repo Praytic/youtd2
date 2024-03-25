@@ -379,7 +379,7 @@ func _get_tower_details_text(tower: Tower) -> String:
 func _get_tower_ranges_text(tower: Tower) -> String:
 	var text: String = ""
 
-	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower.get_id())
+	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(tower.get_id())
 
 	text += "[color=GOLD]Ranges:[/color]\n \n"
 

@@ -447,13 +447,13 @@ func get_upgrade_id_for_tower(tower_id: int) -> int:
 	return -1
 
 
-func get_range_data_list(tower_id: int) -> Array[Tower.RangeData]:
+func get_range_data_list(tower_id: int) -> Array[RangeData]:
 	if !_tower_ranges.has(tower_id):
-		var empty_list: Array[Tower.RangeData] = []
+		var empty_list: Array[RangeData] = []
 
 		return empty_list
 
-	var range_data_list: Array[Tower.RangeData] = _tower_ranges[tower_id]
+	var range_data_list: Array[RangeData] = _tower_ranges[tower_id]
 
 	return range_data_list
 
@@ -548,14 +548,14 @@ func _load_tower_ranges_map() -> Dictionary:
 # 	Add attack ranges
 	var tower_id_list: Array = get_tower_id_list()
 	for tower_id in tower_id_list:
-		var empty_list: Array[Tower.RangeData] = []
+		var empty_list: Array[RangeData] = []
 		result[tower_id] = empty_list
 		
 		var attack_enabled: bool = get_attack_enabled(tower_id)
 
 		if attack_enabled:
 			var attack_range: float = get_range(tower_id)
-			var range_data: Tower.RangeData = Tower.RangeData.new("Attack Range", attack_range)
+			var range_data: RangeData = RangeData.new("Attack Range", attack_range)
 			range_data.targets_creeps = true
 			range_data.affected_by_builder = true
 			result[tower_id].append(range_data)
@@ -569,7 +569,7 @@ func _load_tower_ranges_map() -> Dictionary:
 		var targets_creeps_string: String = properties[TowerProperties.RangeColumn.TARGETS_CREEPS]
 		var targets_creeps: bool = targets_creeps_string == "TRUE"
 
-		var range_data: Tower.RangeData = Tower.RangeData.new(range_name, radius)
+		var range_data: RangeData = RangeData.new(range_name, radius)
 		range_data.targets_creeps = targets_creeps
 
 		result[tower_id].append(range_data)
