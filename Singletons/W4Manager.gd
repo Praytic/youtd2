@@ -104,6 +104,9 @@ func set_own_username(username: String, is_new: bool) -> bool:
 	if is_new && possible_profile != "UnknownPlayer":
 		return _update_status("You already have a profile. Try to log in as: %s." % possible_profile, true)
 	
+	if !is_new && possible_profile != username:
+		return _update_status("You already have a profile. Try to log in as: %s." % possible_profile, true)
+	
 #	Player should have valid new username
 	if !_validate_username(username):
 		return _update_status("Please enter valid username." % possible_profile, true)
@@ -116,8 +119,8 @@ func set_own_username(username: String, is_new: bool) -> bool:
 		if not res:
 			return _update_status("Player profile creation failed for username: %s" % username, true)
 	
-	set_current_state(State.AUTHENTICATED)
 	current_username = username
+	set_current_state(State.AUTHENTICATED)
 	return _update_status("Player name: %s" % username)
 
 

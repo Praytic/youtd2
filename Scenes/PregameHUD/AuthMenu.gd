@@ -37,14 +37,13 @@ func get_player_name() -> String:
 func _on_auth_state_changed():
 	var current_state = W4Manager.current_state
 	if current_state == W4Manager.State.AUTHENTICATED:
-		await Utils.create_timer(1.0).timeout
 		finished.emit()
 
 
 func _on_last_request_status_updated(message: String, is_error: bool):
 	if is_error:
 		_info_message_label.text = message
-		_info_message_label.add_theme_color_override("font_color", Color.ORANGE_RED)
+		_info_message_label.add_theme_color_override("font_color", Color.RED)
 	else:
 		_info_message_label.text = message
 		_info_message_label.add_theme_color_override("font_color", Color.WHITE_SMOKE)

@@ -75,14 +75,6 @@ func _finish():
 ###     Callbacks     ###
 #########################
 
-func _on_player_login_failed():
-	_pregame_hud.show_auth_status("Player failed to log in.")
-
-
-func _on_player_login_succeeded():
-	_pregame_hud.show_auth_status("Player successfully logged in.")
-
-
 func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
 	
