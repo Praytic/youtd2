@@ -17,9 +17,9 @@ func _ready():
 #		Follow https://gitlab.com/W4Games/sdk/w4gd/-/issues/1 for more info.
 		get_tree().get_root().get_node("W4GD").queue_free()
 		return
-	await W4Manager.login()
 	W4Manager.last_request_status_updated.connect(_on_last_request_status_updated)
 	W4Manager.auth_state_changed.connect(_on_auth_state_changed)
+	await W4Manager.login()
 
 
 #########################
@@ -44,10 +44,10 @@ func _on_auth_state_changed():
 func _on_last_request_status_updated(message: String, is_error: bool):
 	if is_error:
 		_info_message_label.text = message
-		_info_message_label.color = Color.ORANGE_RED
+		_info_message_label.add_theme_color_override("font_color", Color.ORANGE_RED)
 	else:
 		_info_message_label.text = message
-		_info_message_label.color = Color.WHITE_SMOKE
+		_info_message_label.add_theme_color_override("font_color", Color.WHITE_SMOKE)
 
 
 func _on_log_in_button_pressed():
