@@ -100,3 +100,5 @@ var EXTREME_DELAY_BEFORE_NEXT_WAVE: float = 25.0
 const MAX_ELEMENT_LEVEL: int = 15
 
 const TOWERS_DIR: String = "res://Scenes/Towers/Instances"
+
+const BUFFGROUP_COUNT: int = 6

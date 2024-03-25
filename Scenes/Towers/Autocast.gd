@@ -386,21 +386,39 @@ func _get_target_for_buff_autocast() -> Unit:
 	return null
 
 
+# Examples:
+# 
+# a) Caster has no buffgroups, target has no buffgroups =>
+#    accept
+# 
+# b) Caster has buffgroup 1=outgoing, target has no
+#    buffgroups => reject
+# 
+# c) Caster has buffgroup 1=outgoing, target has buffgroup
+#    1=incoming => accept
+# 
+# d) Caster has buffgroup 1=outgoing 2=outgoing, target has
+#    buffgroup 1=incoming => accept
+# 
+# e) Caster has no buffgroups, target has
+#    buffgroup 1=incoming => accept
 func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) -> Array:
-	var caster_outgoing_buff_groups: Array[String] = caster.get_buff_groups(BuffGroup.Mode.OUTGOING)
-	
-	if caster_outgoing_buff_groups.is_empty():
+	var caster_outgoing: Array[int] = caster.get_buff_groups([BuffGroup.Mode.OUTGOING, BuffGroup.Mode.BOTH])
+
+	if caster_outgoing.is_empty():
 		return targets
-	
-	var caster_outgoing_buff_group_numbers: Array = caster_outgoing_buff_groups.map(func(group): \
-		return BuffGroup.get_buff_group_number(group))
-	
-	var filtered_targets: Array = []
-	for target in targets:
-		for target_group in target.get_buff_groups(BuffGroup.Mode.INCOMING):
-			var group_number: int = BuffGroup.get_buff_group_number(target_group)
-			if caster_outgoing_buff_group_numbers.has(group_number):
-				filtered_targets.append(target)
+
+	var filtered_targets: Array = targets.filter(
+		func(unit: Unit) -> bool:
+			for buff_group in caster_outgoing:
+				var target_mode: BuffGroup.Mode = unit.get_buff_group_mode(buff_group)
+				var buff_group_match: bool = target_mode == BuffGroup.Mode.INCOMING || target_mode == BuffGroup.Mode.BOTH
+
+				if buff_group_match:
+					return true
+
+			return false
+	)
 	
 	return filtered_targets
 

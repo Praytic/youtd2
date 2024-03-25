@@ -30,6 +30,7 @@ signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
 signal buff_list_changed()
+signal buff_group_changed()
 
 
 signal selected()
@@ -105,7 +106,7 @@ var _stun_effect_id: int = -1
 var _autocast_list: Array[Autocast] = []
 var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
-var _buff_groups: Array[String] = []
+var _buff_groups: Dictionary = {}
 var _player: Player = null
 static var _uid_max: int = 1
 var _uid: int = 0
@@ -204,6 +205,10 @@ func _init():
 	for mod_type in Modification.Type.values():
 		if !_mod_value_map.has(mod_type):
 			push_error("No default value defined for modification type: ", mod_type)
+
+	for buff_group in range(1, Constants.BUFFGROUP_COUNT + 1):
+		_buff_groups[buff_group] = BuffGroup.Mode.NONE
+
 
 func _ready():
 	if _player == null:
@@ -1739,11 +1744,30 @@ func reached_max_level() -> bool:
 	return is_max_level
 
 
-func get_buff_groups(filter_mode: BuffGroup.Mode = BuffGroup.Mode.BOTH) -> Array[String]:
-	if filter_mode == BuffGroup.Mode.BOTH:
-		return _buff_groups
-	
-	var is_outgoing_group: Callable = func(group) -> bool: \
-		return BuffGroup.get_buff_group_mode(group) == filter_mode
-	return _buff_groups.filter(is_outgoing_group)
-	
+func get_buff_groups(mode_list: Array) -> Array[int]:
+	var result: Array[int] = []
+
+# 	NOTE: need ordered iteration for determinism
+	for buff_group in range(1, Constants.BUFFGROUP_COUNT + 1):
+		var this_mode: BuffGroup.Mode = _buff_groups[buff_group]
+		if mode_list.has(this_mode):
+			result.append(buff_group)
+
+	return result
+
+
+func set_buff_group_mode(buff_group: int, mode: BuffGroup.Mode):
+	if !_buff_groups.has(buff_group):
+		push_error("Invalid buff group: ", buff_group)
+
+		return
+
+	_buff_groups[buff_group] = mode
+
+	buff_group_changed.emit()
+
+
+func get_buff_group_mode(buff_group: int) -> BuffGroup.Mode:
+	var mode: BuffGroup.Mode = _buff_groups[buff_group]
+
+	return mode

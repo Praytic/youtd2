@@ -54,6 +54,7 @@ func _ready():
 	EventBus.player_right_clicked_autocast.connect(_on_player_right_clicked_autocast)
 	EventBus.player_right_clicked_item.connect(_on_player_right_clicked_item)
 	EventBus.player_shift_right_clicked_item.connect(_on_player_shift_right_clicked_item)
+	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
 
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 
@@ -743,3 +744,9 @@ func _on_player_shift_right_clicked_item(item: Item):
 
 	if autocast != null:
 		_toggle_autocast(autocast)
+
+
+func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
+	var current_mode: BuffGroup.Mode = tower.get_buff_group_mode(buff_group)
+	var new_mode: BuffGroup.Mode = wrapi(current_mode + 1, BuffGroup.Mode.NONE, BuffGroup.Mode.BOTH + 1) as BuffGroup.Mode
+	tower.set_buff_group_mode(buff_group, new_mode)
