@@ -13,6 +13,9 @@ class_name AuthMenu extends PregameTab
 # be automatically logged in using their local device ID.
 func _ready():
 	if !Config.enable_auth():
+#		This is the simpliest way to disable W4GD addon in realtime right now.
+#		Follow https://gitlab.com/W4Games/sdk/w4gd/-/issues/1 for more info.
+		get_tree().get_root().get_node("W4GD").queue_free()
 		return
 	await W4Manager.login()
 
