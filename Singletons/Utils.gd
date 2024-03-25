@@ -539,7 +539,9 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 
 	var occupied_radius_list: Array = []
 
-	for range_data in range_data_list:
+	for i in range(0, range_data_list.size()):
+		var range_data: RangeData = range_data_list[i]
+
 #		NOTE: if there are multiple ranges with same radius,
 #		shift them slightly so that they don't get drawn on
 #		top of each other.
@@ -563,7 +565,8 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 #		fully located on the second floor.
 		range_indicator.enable_floor_collisions = range_data.targets_creeps
 		range_indicator.set_radius(indicator_radius)
-		range_indicator.color = range_data.color
+		var range_color: Color = RangeData.get_color_for_index(i)
+		range_indicator.color = range_color
 
 #		NOTE: range indicators which affect towers will be
 #		drawn at same height as tower.

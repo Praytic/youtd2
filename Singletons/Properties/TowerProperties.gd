@@ -574,16 +574,4 @@ func _load_tower_ranges_map() -> Dictionary:
 
 		result[tower_id].append(range_data)
 
-#	Assign colors to tower ranges
-#	NOTE: avoid using any greenish colors to avoid confusion
-#	with selection circle.
-	var color_list: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
-
-	for key in result.keys():
-		var color_index: int = 0
-		for range_data in result[key]:
-			var wrapped_color_index: int = wrapi(color_index, 0, color_list.size())
-			range_data.color = color_list[wrapped_color_index]
-			color_index += 1
-	
 	return result

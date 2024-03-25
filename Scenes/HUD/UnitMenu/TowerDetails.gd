@@ -385,10 +385,12 @@ func _get_tower_ranges_text(tower: Tower) -> String:
 
 	text += "[table=2]"
 
-	for range_data in range_data_list:
+	for i in range(0, range_data_list.size()):
+		var range_data: RangeData = range_data_list[i]
 		var radius: float = range_data.get_radius_with_builder_bonus(tower.get_player())
 		var radius_string: String = Utils.format_float(radius, 0)
-		radius_string = Utils.get_colored_string(radius_string, range_data.color)
+		var range_color: Color = RangeData.get_color_for_index(i)
+		radius_string = Utils.get_colored_string(radius_string, range_color)
 
 		text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [range_data.name, radius_string]
 

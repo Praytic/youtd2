@@ -10,8 +10,11 @@ class_name RangeData
 var name: String = "placeholder"
 var radius: float = 100
 var targets_creeps: bool = true
-var color: Color = Color.WHITE
 var affected_by_builder: bool = false
+
+# NOTE: avoid using any greenish colors to avoid confusion
+# with selection circle.
+const COLOR_LIST: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
 
 
 func _init(name_arg: String, radius_arg: float, target_type: TargetType = null):
@@ -28,3 +31,10 @@ func get_radius_with_builder_bonus(player: Player):
 	var with_bonus: float = radius + radius_bonus
 
 	return with_bonus
+
+
+static func get_color_for_index(index: int) -> Color:
+	var wrapped_index: int = wrapi(index, 0, COLOR_LIST.size())
+	var color: Color = COLOR_LIST[wrapped_index]
+
+	return color
