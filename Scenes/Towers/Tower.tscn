@@ -9,8 +9,12 @@ bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfdtb"]
 bg_color = Color(0.278431, 0.388235, 1, 1)
 
-[node name="Tower" type="Node2D"]
+[node name="Tower" type="Node2D" node_paths=PackedStringArray("_mana_bar", "_tower_selection_area", "_tower_actions", "_visual")]
 script = ExtResource("2")
+_mana_bar = NodePath("Visual/ManaBar")
+_tower_selection_area = NodePath("Visual/TowerSelectionArea")
+_tower_actions = NodePath("Visual/TowerActions")
+_visual = NodePath("Visual")
 
 [node name="Visual" type="Node2D" parent="."]
 z_index = 1

@@ -42,7 +42,6 @@ var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + Tar
 var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
 
 @export var _id: int = 0
-var _stats: Dictionary
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
@@ -58,7 +57,6 @@ var _was_ordered_to_stop_attack: bool = false
 var _was_ordered_to_change_target: bool = false
 var _new_target_from_order: Unit
 var _item_container: TowerItemContainer
-var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
 var _temp_preceding_tower: Tower = null
@@ -66,16 +64,14 @@ var _temp_preceding_tower: Tower = null
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _range_indicator_list: Array[RangeIndicator] = []
-
-
-# NOTE: need to use @onready instead of @export because
-# Tower.make() calls set_script() on towers which
-# rests export vars.
-@onready var _mana_bar: ProgressBar = $Visual/ManaBar
-@onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
+var _tower_behavior: TowerBehavior = null
 var _sprite: Sprite2D = null
-@onready var _tower_actions: Control = $Visual/TowerActions
-@onready var _visual: Node2D = $Visual
+
+
+@export var _mana_bar: ProgressBar
+@export var _tower_selection_area: Area2D
+@export var _tower_actions: Control
+@export var _visual: Node2D
 
 
 #########################
@@ -185,38 +181,12 @@ func _ready():
 	innate_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD)
 	add_modifier(innate_modifier)
 
-# 	Load stats for current tier. Stats are defined in
-# 	subclass.
-	var tier: int = get_tier()
-	var tier_stats: Dictionary = get_tier_stats()
-	_stats = tier_stats[tier]
-
-	load_specials(_specials_modifier)
-	add_modifier(_specials_modifier)
-
-#	NOTE: need to call load_triggers() after loading stats
-#	because stats must be available in load_triggers().
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	triggers_buff_type.set_hidden()
-	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
-	load_triggers(triggers_buff_type)
-	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
-
-	tower_init()
-
-#	NOTE: must setup aura's after calling tower_init()
-#	because auras use buff types which are initialized
-#	inside tower_init().
-	var aura_type_list: Array[AuraType] = get_aura_types()
-	for aura_type in aura_type_list:
-		add_aura(aura_type)
+	_tower_behavior.init(self, _temp_preceding_tower)
 
 #	NOTE: add aura range indicators to "visual" for correct
 #	positioning on y axis.
 	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(get_id())
 	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _visual, get_player())
-
-	on_create(_temp_preceding_tower)
 
 	_setup_selection_signals(_tower_selection_area)
 
@@ -284,8 +254,28 @@ func update(delta: float):
 ###       Public      ###
 #########################
 
+func get_ability_description() -> String:
+	return _tower_behavior.get_ability_description()
+
+
+func get_ability_description_short() -> String:
+	return _tower_behavior.get_ability_description_short()
+
+
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return _tower_behavior.get_ability_ranges()
+
+
+func get_aura_types() -> Array[AuraType]:
+	return _tower_behavior.get_aura_types()
+
+
+func on_tower_details() -> MultiboardValues:
+	return _tower_behavior.on_tower_details()
+
+
 func remove_from_game():
-	on_destruct()
+	_tower_behavior.on_destruct()
 
 	super()
 
@@ -326,93 +316,6 @@ func issue_target_order(order_type: String, target: Unit):
 
 	_was_ordered_to_change_target = true
 	_new_target_from_order = target
-
-
-#########################
-###  Override methods ###
-#########################
-
-# NOTE: below are the methods which should be overriden in
-# scripts for tower instances (subclasses).
-
-# Override in subclass to define custom stats for each tower
-# tier. Access as _stats.
-func get_tier_stats() -> Dictionary:
-	var tier: int = get_tier()
-	var default_out: Dictionary = {}
-
-	for i in range(1, tier + 1):
-		default_out[i] = {}
-
-	return default_out
-
-
-# Override in subclass to define the description of tower
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
-func get_ability_description() -> String:
-	return ""
-
-
-# Same as get_ability_description() but shorter. Should not
-# contain any numbers.
-func get_ability_description_short() -> String:
-	return ""
-
-
-# Override in subclass to attach trigger handlers to
-# triggers buff passed in the argument.
-func load_triggers(_triggers_buff_type: BuffType):
-	pass
-
-
-# Override in subclass to add tower specials. This includes
-# adding modifiers and changing attack styles to splash or
-# bounce.
-func load_specials(_modifier: Modifier):
-	pass
-
-
-# Override in subclass to initialize subclass tower.
-# NOTE: do *NOT* use _init() function in tower scripts -
-# that is a built-in Godot function and it is called too
-# early.
-# NOTE: tower.init() in JASS
-func tower_init():
-	pass
-
-
-# Override in subclass to define auras.
-func get_aura_types() -> Array[AuraType]:
-	var empty_list: Array[AuraType] = []
-
-	return empty_list
-
-
-# NOTE: tower.onCreate() in JASS
-func on_create(_preceding_tower: Tower):
-	pass
-
-
-# NOTE: tower.onDestruct() in JASS
-func on_destruct():
-	pass
-
-
-# NOTE: tower.onTowerDetails() in JASS
-func on_tower_details() -> MultiboardValues:
-	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
-
-	return empty_multiboard
-
-
-# Override in subclass to define ranges for abilities which
-# are not an aura or autocast. Ranges for auras and autocast
-# are displayed automatically and should not be included in
-# this list.
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return []
 
 
 #########################
@@ -989,8 +892,9 @@ func get_specials_tooltip_text() -> String:
 			text += _get_bounce_attack_tooltip_text()
 		AttackStyle.NORMAL:
 			text += ""
-
-	var modifier_text: String = _specials_modifier.get_tooltip_text()
+	
+	var specials_modifier: Modifier = _tower_behavior.get_specials_modifier()
+	var modifier_text: String = specials_modifier.get_tooltip_text()
 	text += modifier_text
 
 #	NOTE: need to use _target_count_from_tower without
@@ -1192,8 +1096,10 @@ func get_attack_enabled() -> bool:
 # of having to do it by hand in scene editor.
 static func make(id: int, player: Player, preceding_tower: Tower = null) -> Tower:
 	var tower: Tower = Preloads.tower_scene.instantiate()
-	var tower_script: Variant = Tower._get_tower_script(id)
-	tower.set_script(tower_script)
+	var tower_behavior_script: Script = Tower._get_tower_behavior_script(id)
+	var tower_behavior: TowerBehavior = tower_behavior_script.new()
+	tower._tower_behavior = tower_behavior
+	tower.add_child(tower_behavior)
 	var tower_sprite: Sprite2D = TowerSprites.get_sprite(id)
 	var visual_node: Node2D = tower.get_node("Visual")
 	
@@ -1220,7 +1126,7 @@ static func make(id: int, player: Player, preceding_tower: Tower = null) -> Towe
 # TinyShrub2.tscn -> TinyShrub1.gd
 # TinyShrub3.tscn -> TinyShrub1.gd
 # ...
-static func _get_tower_script(id: int) -> Variant:
+static func _get_tower_behavior_script(id: int) -> Script:
 	var family_name: String = TowerProperties.get_family_name(id)
 	var script_path: String = "%s/%s1.gd" % [Constants.TOWERS_DIR, family_name]
 	
@@ -1230,6 +1136,6 @@ static func _get_tower_script(id: int) -> Variant:
 		
 		return null
 
-	var script: Variant = load(script_path)
+	var script: Script = load(script_path)
 
 	return script

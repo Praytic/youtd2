@@ -1,7 +1,9 @@
-extends Tower
+extends TowerBehavior
 
-# NOTE: not a real tower script, used as a template for
-# tower scripts.
+
+# NOTE: this script can be used as a template for tower
+# behavior scripts.
+
 
 # var example_bt: BuffType
 # var example_pt: ProjectileType
@@ -124,7 +126,7 @@ extends Tower
 # 	autocast.buff_type = null
 # 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 # 	autocast.handler = on_autocast
-# 	add_autocast(autocast)
+# 	tower.add_autocast(autocast)
 
 
 # func get_aura_types() -> Array[AuraType]:
@@ -142,11 +144,11 @@ extends Tower
 
 
 # func on_damage(event: Event):
-# 	var tower: Tower = self
+#	pass
 
 
 # func on_autocast(event: Event):
-# 	var tower: Tower = self
+#	pass
 
 
 # func on_tower_details() -> MultiboardValues:
