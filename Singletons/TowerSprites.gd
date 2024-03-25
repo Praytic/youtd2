@@ -5,6 +5,8 @@ extends Node
 # on game startup or load sprites dynamically when they
 # become needed. Behavior depends on game config.
 
+const TOWER_SPRITES_DIR: String = "res://Scenes/Towers/TowerSprites"
+
 
 var _sprite_scene_map: Dictionary = {}
 
@@ -55,7 +57,7 @@ func get_sprite(tower_id: int) -> Sprite2D:
 func _load_tower_sprite_scene(tower_id: int):
 	var family_name: String = TowerProperties.get_family_name(tower_id)
 	var tier: int = TowerProperties.get_tier(tower_id)
-	var sprite_path: String = "%s/%s%s.tscn" % [Constants.TOWERS_DIR, family_name, str(tier)]
+	var sprite_path: String = "%s/%s%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
 	
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
 	if !sprite_exists:

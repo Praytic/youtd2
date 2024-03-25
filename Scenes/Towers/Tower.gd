@@ -37,6 +37,7 @@ class RangeData:
 		return with_bonus
 
 
+const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
 var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
@@ -1128,7 +1129,7 @@ static func make(id: int, player: Player, preceding_tower: Tower = null) -> Towe
 # ...
 static func _get_tower_behavior_script(id: int) -> Script:
 	var family_name: String = TowerProperties.get_family_name(id)
-	var script_path: String = "%s/%s1.gd" % [Constants.TOWERS_DIR, family_name]
+	var script_path: String = "%s/%s1.gd" % [TOWER_BEHAVIORS_DIR, family_name]
 	
 	var script_exists: bool = ResourceLoader.exists(script_path)
 	if !script_exists:
