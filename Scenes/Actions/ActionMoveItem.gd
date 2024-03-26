@@ -42,7 +42,9 @@ static func verify(player: Player, item: Item, dest_container: ItemContainer) ->
 	if item == null:
 		return true
 
-	var dest_has_space: bool = dest_container.have_item_space()
+#	NOTE: need to call can_add_item() instead of
+#	have_item_space() to handle case of adding oil to tower
+	var dest_has_space: bool = dest_container.can_add_item(item)
 
 	if !dest_has_space:
 		Messages.add_error(player, "No space for item")
