@@ -112,6 +112,7 @@ func _unhandled_input(event: InputEvent):
 		return
 
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")
+	var slash_pressed: bool = event.is_action_released("forward_slash")
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
@@ -121,7 +122,13 @@ func _unhandled_input(event: InputEvent):
 	var local_player: Player = PlayerManager.get_local_player()
 	var editing_chat: bool = _hud.editing_chat()
 	
-	if enter_pressed:
+	if slash_pressed && !editing_chat:
+#		NOTE: when "/" is pressed, automatically open chat
+#		and enter the slash in chat. This makes it
+#		convenient to enter chat commands.
+		_start_editing_chat()
+		_hud.enter_slash_into_chat()
+	elif enter_pressed:
 		if !editing_chat:
 			_start_editing_chat()
 		else:

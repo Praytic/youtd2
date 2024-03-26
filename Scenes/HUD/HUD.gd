@@ -76,6 +76,11 @@ func finish_editing_chat():
 	_chat_line_edit.hide()
 
 
+func enter_slash_into_chat():
+	_chat_line_edit.text = "/"
+	_chat_line_edit.caret_column = 1
+
+
 func editing_chat() -> bool:
 	return _chat_line_edit.visible
 
