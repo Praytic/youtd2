@@ -206,7 +206,7 @@ static func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Ra
 
 		return 0
 
-	var random_oil: int = oil_list.pick_random()
+	var random_oil: int = Utils.pick_random(Globals.synced_rng, oil_list)
 
 	return random_oil
 
@@ -241,7 +241,7 @@ static func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rari
 
 		return 0
 
-	var random_item: int = item_list.pick_random()
+	var random_item: int = Utils.pick_random(Globals.synced_rng, item_list)
 	
 	return random_item
 
@@ -281,6 +281,6 @@ static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 
 
 static func _get_random_bonus_mod() -> int:
-	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
+	var bonus_mod: int = Utils.random_weighted_pick(Globals.synced_rng, _bonus_mod_chance_map)
 
 	return bonus_mod

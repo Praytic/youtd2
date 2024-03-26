@@ -65,7 +65,7 @@ func on_attack(event: Event):
 	# PauseUnit(tower, true)
 
 	var fun_text: String
-	var fun_value: float = randf_range(0, 1.0)
+	var fun_value: float = Globals.synced_rng.randf_range(0, 1.0)
 	if fun_value < 0.03:
 		fun_text = "I'm faster than LIGHT!"
 	elif fun_value < 0.02:
@@ -95,7 +95,7 @@ func on_attack(event: Event):
 
 func damage(target: Unit):
 	var the_range: float = 80
-	var angle: float = deg_to_rad(randf_range(0, 360))
+	var angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 	var x: float = target.get_x() + cos(angle) * the_range
 	var y: float = target.get_y() + sin(angle) * the_range
 	var z: float = 0.0

@@ -47,6 +47,6 @@ func on_autocast(_event: Event):
 			break
 
 	if next != null:
-		tower.add_exp_flat(next.remove_exp_flat(randi_range(15, 60)))
+		tower.add_exp_flat(next.remove_exp_flat(Globals.synced_rng.randi_range(15, 60)))
 		SFX.sfx_on_unit("AnimateDeadTarget.mdl", next, Unit.BodyPart.HEAD)
 		SFX.sfx_on_unit("DeathCoilSpecialArt.mdl", tower, Unit.BodyPart.HEAD)

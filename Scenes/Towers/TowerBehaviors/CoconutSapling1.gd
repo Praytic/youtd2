@@ -92,8 +92,8 @@ func on_damage(event: Event):
 			break
 
 	for i in range(0, cast_count):
-		var radius: float = randf_range(0, 300)
-		var angle: float = deg_to_rad(randf_range(0, 360))
+		var radius: float = Globals.synced_rng.randf_range(0, 300)
+		var angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 		var offset_vector_top_down: Vector2 = Vector2(radius, 0).rotated(angle)
 		var offset_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_vector_top_down)
 		var coconut_pos: Vector2 = target.position + offset_vector_isometric
@@ -101,7 +101,7 @@ func on_damage(event: Event):
 		coconut_pos.y -= COCONUT_RANGE / 2.0
 		var projectile: Projectile = Projectile.create(cedi_coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
 		projectile.setScale(0.30)
-		var random_speed: float = projectile.get_speed() * randf_range(0.75, 1.25)
+		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
 		projectile.set_speed(random_speed)
 
 

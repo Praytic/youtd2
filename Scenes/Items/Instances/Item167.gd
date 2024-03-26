@@ -23,7 +23,7 @@ func load_modifier(modifier: Modifier):
 func on_damage(event: Event):
 	var itm: Item = self
 
-	if Utils.rand_chance(0.10):
+	if Utils.rand_chance(Globals.synced_rng, 0.10):
 		CombatLog.log_item_ability(self, null, "Drunk!")
 		itm.get_carrier().get_player().display_small_floating_text("Miss", itm.get_carrier(), Color8(255, 0, 0), 40.0)
 		event.damage = 0

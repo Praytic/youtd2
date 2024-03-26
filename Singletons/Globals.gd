@@ -9,12 +9,25 @@ var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 
-# NOTE: you must use visual_rng for any code which is
-# running only for local player. The global rng seed is
-# reserved for code which runs for all players, to ensure
-# determinism. A good example of where visual_rng should be
-# used is FloatingText.
-var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+# NOTE: you must use random functions via one of the
+# RandomNumberGenerator instances below. This is to prevent
+# desyncs.
+# 
+# synced_rng => for deterministic code, which is executed in
+# the same way on all multiplayer clients. Examples: picking
+# a random damage value, picking a random item.
+# 
+# local_rng => for non-deterministic code, which is executed
+# in a way which is particular to local client. Example:
+# random offset for floating text which is visible only to
+# local player.
+# 
+# NOTE: need to use RandomNumberGenerator instead of global
+# random functions because it's impossible to keep global
+# rng pure. This is because some Godot engine components
+# (CPUParticles2D) use global rng and corrupt it.
+var synced_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var local_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 # NOTE: current variables don't need to be reset. If you add

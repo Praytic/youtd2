@@ -249,7 +249,7 @@ func ashbringer_bounder_throw():
 	CombatLog.log_ability(tower, null, "Bounder")
 
 	var damage: float = (2.5 + 0.06 * tower.get_level()) * tower.get_current_attack_damage_with_bonus()
-	var random_glaivesaw_index: int = randi_range(0, glaivesaw_list.size() - 1)
+	var random_glaivesaw_index: int = Globals.synced_rng.randi_range(0, glaivesaw_list.size() - 1)
 	var random_glaivesaw: Glaivesaw = glaivesaw_list[random_glaivesaw_index]
 	var bounces: int = 1
 
@@ -285,7 +285,7 @@ func bounder_pt_on_finished(p: Projectile, _target: Unit):
 	if next_glaivesaw_list.is_empty():
 		return
 
-	var next_glaivesaw: Glaivesaw = next_glaivesaw_list.pick_random()
+	var next_glaivesaw: Glaivesaw = Utils.pick_random(Globals.synced_rng, next_glaivesaw_list)
 
 	p.avert_destruction()
 	p.start_bezier_interpolation_to_point(next_glaivesaw.position, 0, 0, 0)

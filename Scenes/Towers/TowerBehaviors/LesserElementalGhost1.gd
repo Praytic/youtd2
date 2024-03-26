@@ -84,7 +84,7 @@ func on_damage(event: Event):
 	if immune:
 		pos_damage_types = 2.0
 
-	if Utils.rand_chance(0.5):
+	if Utils.rand_chance(Globals.synced_rng, 0.5):
 		if sif || zod:
 			damage_add = 1.0
 		elif tower.calc_chance(1.0 / pos_damage_types):

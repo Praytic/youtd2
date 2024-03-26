@@ -46,7 +46,7 @@ func on_kill(_event: Event):
 	t = itm.get_carrier()
 
 	if t.calc_chance(0.25):		
-		if Utils.rand_chance(0.33):
+		if Utils.rand_chance(Globals.synced_rng, 0.33):
 			if itm.user_real >= -0.20:
 				CombatLog.log_item_ability(self, null, "Lower Item Chance")
 				

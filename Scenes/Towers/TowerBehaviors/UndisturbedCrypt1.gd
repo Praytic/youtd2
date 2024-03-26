@@ -143,7 +143,7 @@ func periodic(_event: Event):
 	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tvisualx, tvisualy)
 	Effect.destroy_effect_after_its_over(explode_effect)
 
-	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tvisualx, tvisualy, 0, randf_range(0, 360), 5)
+	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tvisualx, tvisualy, 0, Globals.synced_rng.randf_range(0, 360), 5)
 	Effect.destroy_effect_after_its_over(missile_effect)
 
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), tx, ty, 500)

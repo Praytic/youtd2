@@ -48,7 +48,7 @@ func item_init():
 func on_damage(event: Event):
 	var itm: Item = self
 	var target: Unit = event.get_target()
-	var a: int = randi_range(0, 4)
+	var a: int = Globals.synced_rng.randi_range(0, 4)
 	var tower: Tower = itm.get_carrier()
 	var speed: float = tower.get_base_attackspeed()
 

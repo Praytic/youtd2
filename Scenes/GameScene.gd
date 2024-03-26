@@ -333,9 +333,9 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	Globals._game_mode = game_mode
 	Globals._difficulty = difficulty
 	
-# 	Set the global seed so that rng on this game client is
-# 	the same as on all other clients.
-	seed(origin_seed)
+# 	Save the seed which host gave to this client so that rng
+# 	on this game client is the same as on all other clients.
+	Globals.synced_rng.set_seed(origin_seed)
 	
 	if multiplayer.is_server():
 		print_verbose("Host set origin seed to: ", origin_seed)

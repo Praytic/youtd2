@@ -232,6 +232,15 @@ func divide_safe(a: float, b: float, result_when_divide_by_zero: float = 0.0) ->
 		return result_when_divide_by_zero
 
 
+func pick_random(rng: RandomNumberGenerator, array: Array) -> Variant:
+	if array.is_empty():
+		return null
+		
+	var random_element: Variant = array[rng.randi() % array.size()]
+	
+	return random_element
+
+
 # Accepts a map of elements to weights and returns a random
 # element. For example:
 # { "a": 10, "b": 20, "c": 70 }
@@ -239,7 +248,7 @@ func divide_safe(a: float, b: float, result_when_divide_by_zero: float = 0.0) ->
 # Note that weights don't have to add up to 100!
 # { "a": 1, "b": 2}
 # Will result in 1/3 a, 2/3 b.
-func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
+func random_weighted_pick(rng: RandomNumberGenerator, element_to_weight_map: Dictionary) -> Variant:
 	if element_to_weight_map.is_empty():
 		push_error("Argument is empty")
 
@@ -262,7 +271,7 @@ func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
 	for i in range(1, pair_list.size()):
 		pair_list[i][1] += pair_list[i - 1][1]
 
-	var k: float = randf_range(0, weight_total)
+	var k: float = rng.randf_range(0, weight_total)
 
 	for pair in pair_list:
 		var element: Variant = pair[0]
@@ -306,9 +315,9 @@ func unit_is_valid(unit) -> bool:
 
 # Chance should be in range [0.0, 1.0]
 # To get chance for event with 10% occurence, call rand_chance(0.1)
-func rand_chance(chance: float) -> bool:
+func rand_chance(rng: RandomNumberGenerator, chance: float) -> bool:
 	var clamped_chance: float = clampf(chance, 0.0, 1.0)
-	var random_float: float = randf()
+	var random_float: float = rng.randf()
 	var chance_success = random_float <= clamped_chance
 
 	return chance_success

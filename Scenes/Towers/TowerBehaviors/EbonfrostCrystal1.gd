@@ -368,8 +368,8 @@ func ashbringer_icy_bombardment(target: Unit):
 	var target_pos: Vector2 = target.position
 
 	while true:
-		var random_angle: float = deg_to_rad(randf_range(0, 360))
-		var random_distance: float = randf_range(0, 150)
+		var random_angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
+		var random_distance: float = Globals.synced_rng.randf_range(0, 150)
 		var offset_top_down: Vector2 = Vector2(random_distance, 0).rotated(random_angle)
 		var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_top_down)
 		var launch_pos: Vector2 = target_pos + offset_isometric

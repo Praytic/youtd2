@@ -21,8 +21,11 @@ func _ready():
 #	Move corpse to a random small offset during death
 #	animation. Otherwise corpses line up perfectly and it
 #	looks weird.
+# 	NOTE: need to use synced_rng for corpse position because
+# 	corpse position affects game logic. For example, some
+# 	towers explode corpses in range.
 	var position_tween = create_tween()
-	var random_position: Vector2 = _sprite.position + Vector2(randf_range(-RANDOM_OFFSET, RANDOM_OFFSET), randf_range(-RANDOM_OFFSET, RANDOM_OFFSET))
+	var random_position: Vector2 = _sprite.position + Vector2(Globals.synced_rng.randf_range(-RANDOM_OFFSET, RANDOM_OFFSET), Globals.synced_rng.randf_range(-RANDOM_OFFSET, RANDOM_OFFSET))
 	position_tween.tween_property(_sprite, "position",
 		random_position,
 		0.2 * DURATION).set_trans(Tween.TRANS_LINEAR)
@@ -44,7 +47,7 @@ func _setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.sprite_frames.set_animation_loop(death_animation, false)
 #	NOTE: play death animation with random speed to make
 #	them look more diverse
-	_sprite.set_speed_scale(randf_range(1.0, 1.6))
+	_sprite.set_speed_scale(Globals.synced_rng.randf_range(1.0, 1.6))
 	var animation_offset: Vector2 = creep_sprite.get_offset_for_animation(death_animation)
 	_sprite.set_offset(animation_offset)
 	_sprite.play(death_animation)

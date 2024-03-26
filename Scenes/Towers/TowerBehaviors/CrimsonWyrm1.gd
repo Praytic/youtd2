@@ -80,7 +80,7 @@ func on_attack(_event: Event):
 			fireball_cd = 7
 
 #		set +0,+1 or +2 attacks and release bolts afterwards
-		fireball_cd += randi_range(0, 4)
+		fireball_cd += Globals.synced_rng.randi_range(0, 4)
 
 		if level >= 10:
 			release_fireballs(4)
@@ -162,7 +162,7 @@ func release_fireballs(fireball_count: int):
 		if next == null:
 			break
 
-		var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, next, 0, randf_range(-0.35, 0.35), randf_range(0.17, 0.4), true)
+		var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, next, 0, Globals.synced_rng.randf_range(-0.35, 0.35), Globals.synced_rng.randf_range(0.17, 0.4), true)
 		p.setScale(2.0)
 
 		fireball_count -= 1
@@ -176,7 +176,7 @@ func release_fireballs(fireball_count: int):
 		if last_target != null:
 # 			Shoot remaining balls at last target
 			for i in range(0, fireball_cd):
-				var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, last_target, 0, randf_range(-0.35, 0.35), randf_range(0.17, 0.4), true)
+				var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, last_target, 0, Globals.synced_rng.randf_range(-0.35, 0.35), Globals.synced_rng.randf_range(0.17, 0.4), true)
 				p.setScale(2.0)
 		else:
 # 			Shoot remaining balls during next attack

@@ -164,7 +164,7 @@ func on_attack(_event: Event):
 # 	NOTE: subtract 1 to exclude the tower itself
 	var num_towers: int = it.count() - 1
 
-	if !Utils.rand_chance(chance):
+	if !Utils.rand_chance(Globals.synced_rng, chance):
 		return
 
 	if blood_altar_buff != null:

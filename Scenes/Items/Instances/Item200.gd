@@ -46,7 +46,7 @@ func on_attack(event: Event):
 		
 		tower = itm.get_carrier()
 		player = itm.get_player()
-		choose = randi_range(1, 6)
+		choose = Globals.synced_rng.randi_range(1, 6)
 
 		if choose <= 4:
 			target = event.get_target()

@@ -129,10 +129,10 @@ func _do_victory_effects():
 		var effect_count: int = 100 + i * 20
 		
 		for j in range(effect_count):
-			var x: float = randf_range(-4000, 4000)
-			var y: float = randf_range(-4000, 4000)
-			var scale: float = randf_range(5.0, 10.0)
-			var speed: float = randf_range(0.3, 1.0)
+			var x: float = Globals.synced_rng.randf_range(-4000, 4000)
+			var y: float = Globals.synced_rng.randf_range(-4000, 4000)
+			var scale: float = Globals.synced_rng.randf_range(5.0, 10.0)
+			var speed: float = Globals.synced_rng.randf_range(0.3, 1.0)
 
 			var effect: int = Effect.create_simple("placeholder path", x, y)
 			Effect.set_scale(effect, scale)

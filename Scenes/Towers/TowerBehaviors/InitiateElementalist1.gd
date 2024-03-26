@@ -145,7 +145,7 @@ func on_attack(event: Event):
 
 
 func on_attack_1(event: Event):
-	var random_spell_id = randi_range(1, 3)
+	var random_spell_id = Globals.synced_rng.randi_range(1, 3)
 	var c: Creep = event.get_target()
 	var u: Unit
 	var it: Iterate
@@ -173,7 +173,7 @@ func on_attack_1(event: Event):
 			
 
 func on_attack_2(event: Event):
-	var random_spell_id = randi_range(1, 5)
+	var random_spell_id = Globals.synced_rng.randi_range(1, 5)
 	var c: Creep = event.get_target()
 	var u: Unit
 	var it: Iterate
@@ -206,7 +206,7 @@ func on_attack_2(event: Event):
 		tower.do_spell_damage_aoe_unit(c, 250, 250 + tower.get_level() * 8, tower.calc_spell_crit_no_bonus(), 0)
 
 func on_attack_3(event: Event):
-	var random_spell_id = randi_range(1, 10)
+	var random_spell_id = Globals.synced_rng.randi_range(1, 10)
 	var c: Creep = event.get_target()
 	var u: Unit
 	var it: Iterate
@@ -258,7 +258,7 @@ func on_attack_3(event: Event):
 
 
 func on_attack_4(event: Event):
-	var random_spell_id = randi_range(1, 10)
+	var random_spell_id = Globals.synced_rng.randi_range(1, 10)
 	var c: Creep = event.get_target()
 	var u: Unit
 	var it: Iterate

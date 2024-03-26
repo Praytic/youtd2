@@ -228,7 +228,7 @@ func launch_drakeling(drake: Drake, target: Unit):
 
 # NOTE: "launchRandomDrakeling()" in original script
 func launch_random_drakeling(target: Unit):
-	var i: int = randi_range(0, 2)
+	var i: int = Globals.synced_rng.randi_range(0, 2)
 
 	while true:
 		var drake: Drake = drake_list[i]

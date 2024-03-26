@@ -36,7 +36,7 @@ func daem_frog_attack(tower: Tower, target: Unit, temp: int):
 
 	var angle: float = rad_to_deg(atan2(target.get_y() - y, target.get_x() - x))
 
-	var p: Projectile = Projectile.create(daem_frog_PT, tower, 0, 0, x + randi_range(-40, 40), y + randi_range(-40, 40), 5.0, angle + temp)
+	var p: Projectile = Projectile.create(daem_frog_PT, tower, 0, 0, x + Globals.synced_rng.randi_range(-40, 40), y + Globals.synced_rng.randi_range(-40, 40), 5.0, angle + temp)
 	p.set_color(Color8(100, 255, 100, 255))
 	p.user_int = temp
 	p.user_real = tower.get_current_attack_damage_with_bonus()
@@ -72,10 +72,10 @@ func on_attack(event: Event):
 	if target.get_size() != CreepSize.enm.AIR:
 		CombatLog.log_ability(tower, target, "Frog Piper")
 		
-		daem_frog_attack(itm.get_carrier(), target, randi_range(-40, -20))
-		daem_frog_attack(itm.get_carrier(), target, randi_range(-20, -0))
-		daem_frog_attack(itm.get_carrier(), target, randi_range(0, 20))
-		daem_frog_attack(itm.get_carrier(), target, randi_range(20, 40))
+		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(-40, -20))
+		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(-20, -0))
+		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(0, 20))
+		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(20, 40))
 
 
 func daem_frog_PT_on_collision(p: Projectile, target: Unit):

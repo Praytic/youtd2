@@ -21,16 +21,16 @@ func _ready():
 
 #	Randomize properties of blood pool to make them look
 #	varied
-	var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+	var random_offset: Vector2 = Vector2(Globals.synced_rng.randf_range(-10, 10), Globals.synced_rng.randf_range(-10, 10))
 	_sprite.position += random_offset
 
-	var random_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05)) * randf_range(0.7, 1.0)
+	var random_scale: Vector2 = Vector2(Globals.synced_rng.randf_range(0.95, 1.05), Globals.synced_rng.randf_range(0.95, 1.05)) * Globals.synced_rng.randf_range(0.7, 1.0)
 	_sprite.scale = random_scale
 
-	_sprite.flip_h = Utils.rand_chance(0.5)
-	_sprite.flip_v = Utils.rand_chance(0.5)
+	_sprite.flip_h = Utils.rand_chance(Globals.synced_rng, 0.5)
+	_sprite.flip_v = Utils.rand_chance(Globals.synced_rng, 0.5)
 
-	var transparency_max: float = randf_range(0.4, 0.6)
+	var transparency_max: float = Globals.synced_rng.randf_range(0.4, 0.6)
 
 # 	Blood pool fades in shortly after creep death animation
 # 	falls to the ground.

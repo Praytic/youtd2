@@ -213,7 +213,7 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 func _generate_random_tower_for_element(player: Player, element: Element.enm) -> int:
 	var chance_for_element: float = _get_chance_for_element(player, element)
 	
-	var roll_success: bool = Utils.rand_chance(chance_for_element)
+	var roll_success: bool = Utils.rand_chance(Globals.synced_rng, chance_for_element)
 	if !roll_success:
 		return 0
 
@@ -264,7 +264,7 @@ func _generate_random_tower_for_element(player: Player, element: Element.enm) ->
 		var weight: float = floorf(100 * pow(cost, 0.8))
 		group_weights[tower] = weight
 
-	var tower: int = Utils.random_weighted_pick(group_weights)
+	var tower: int = Utils.random_weighted_pick(Globals.synced_rng, group_weights)
 
 	return tower
 
@@ -279,7 +279,7 @@ func _get_max_cost(player: Player, element: Element.enm) -> float:
 	var cost_multiplier: float = _get_cost_multiplier_for_element(player, element)
 	max_cost = max_cost * cost_multiplier
 	
-	max_cost = floori(max_cost * randf_range(1.0, 1.1))
+	max_cost = floori(max_cost * Globals.synced_rng.randf_range(1.0, 1.1))
 
 	return max_cost
 
@@ -322,7 +322,7 @@ func _roll_rarity_for_element(player: Player, element: Element.enm, max_cost: fl
 		if cost_threshold > max_cost:
 			rarity_chance_map.erase(rarity)
 
-	var random_rarity: Rarity.enm = Utils.random_weighted_pick(rarity_chance_map)
+	var random_rarity: Rarity.enm = Utils.random_weighted_pick(Globals.synced_rng, rarity_chance_map)
 
 	return random_rarity
 

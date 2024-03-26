@@ -397,7 +397,7 @@ func remove_exp(amount_no_bonus: float) -> float:
 func calc_chance(chance_base: float) -> bool:
 	var mod_trigger_chances: float = get_prop_trigger_chances()
 	var chance: float = chance_base * mod_trigger_chances
-	var success: bool = Utils.rand_chance(chance)
+	var success: bool = Utils.rand_chance(Globals.synced_rng, chance)
 
 	return success
 
@@ -410,7 +410,7 @@ func calc_chance(chance_base: float) -> bool:
 func calc_bad_chance(chance: float) -> bool:
 	var mod_trigger_chances: float = get_prop_trigger_chances()
 	var final_chance: float = Utils.divide_safe(chance, mod_trigger_chances)
-	var success: bool = Utils.rand_chance(final_chance)
+	var success: bool = Utils.rand_chance(Globals.synced_rng, final_chance)
 
 	return success
 
@@ -425,7 +425,7 @@ func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
 
 	var crit_count: int = 0
 
-	var crit_success: bool = Utils.rand_chance(crit_chance)
+	var crit_success: bool = Utils.rand_chance(Globals.synced_rng, crit_chance)
 	if crit_success:
 		crit_count += 1
 
@@ -454,7 +454,7 @@ func calc_attack_crit(bonus_chance: float, bonus_damage: float) -> float:
 	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
 	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
 
-	var crit_success: bool = Utils.rand_chance(crit_chance)
+	var crit_success: bool = Utils.rand_chance(Globals.synced_rng, crit_chance)
 
 	if crit_success:
 		return crit_damage
@@ -817,7 +817,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 	var current_crit_chance: float = min(crit_chance, Constants.ATK_CRIT_CHANCE_CAP)
 	
 	for _i in range(multicrit_count_max):
-		var is_critical: bool = Utils.rand_chance(current_crit_chance)
+		var is_critical: bool = Utils.rand_chance(Globals.synced_rng, current_crit_chance)
 
 		if is_critical:
 			crit_count += 1
@@ -957,7 +957,7 @@ func _killed_by_unit(caster: Unit):
 			item_chance = 1.0
 		
 		for i in range(0, item_drop_roll_count):
-			var item_dropped: bool = Utils.rand_chance(item_chance)
+			var item_dropped: bool = Utils.rand_chance(Globals.synced_rng, item_chance)
 
 			if item_dropped:
 				creep.drop_item(caster, false)

@@ -41,7 +41,7 @@ func on_damage(event: Event):
     var tower: Tower = itm.get_carrier()
 
     if event.is_main_target() == true:
-        if Utils.rand_chance(0.5):
+        if Utils.rand_chance(Globals.synced_rng, 0.5):
             Symphony_armorReduce.apply(tower, event.get_target(), 25 + tower.get_level())
         else:
             Symphony_armorReduce.apply(tower, event.get_target(), 50 + tower.get_level())

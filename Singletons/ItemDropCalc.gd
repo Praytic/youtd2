@@ -44,7 +44,7 @@ func get_random_item(tower: Tower, target: Creep) -> int:
 
 func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 	var rarity: int = 3
-	var rarity_chance: float = randf_range(0.0, 1.0)
+	var rarity_chance: float = Globals.synced_rng.randf_range(0.0, 1.0)
 
 #	Pick a random rarity, using
 #	_rarity_probabilities and quality_multiplier.
@@ -56,7 +56,7 @@ func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 
 		rarity = rarity - 1
 
-	var drop_oil_or_consumable: bool = Utils.rand_chance(0.4)
+	var drop_oil_or_consumable: bool = Utils.rand_chance(Globals.synced_rng, 0.4)
 
 	if drop_oil_or_consumable:
 #		Oil and consumable items
@@ -85,7 +85,7 @@ func get_random_oil_or_consumable(rarity: int) -> int:
 	var oil_list: Array = get_oil_and_consumables_list(rarity)
 
 	if !oil_list.is_empty():
-		var random_item: int = oil_list.pick_random()
+		var random_item: int = Utils.pick_random(Globals.synced_rng, oil_list)
 
 		return random_item
 	else:
@@ -113,7 +113,7 @@ func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) 
 	var items_are_available: bool = !available_item_list.is_empty()
 
 	if items_are_available:
-		var random_item: int = available_item_list.pick_random()
+		var random_item: int = Utils.pick_random(Globals.synced_rng, available_item_list)
 
 		return random_item
 	else:

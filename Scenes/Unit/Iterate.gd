@@ -65,7 +65,7 @@ func next_random() -> Unit:
 	var next_unit: Unit
 
 	if !_next_list.is_empty():
-		next_unit = _next_list.pick_random()
+		next_unit = Utils.pick_random(Globals.synced_rng, _next_list)
 		_next_list.erase(next_unit)
 	else:
 		next_unit = null

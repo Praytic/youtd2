@@ -121,7 +121,7 @@ func gift_create(event: Event):
 	target.modify_property(B.user_int, B.user_real)
 
 	if tower.calc_chance(0.25):
-		relem = randi_range(0, 5)
+		relem = Globals.synced_rng.randi_range(0, 5)
 #		Relem cannot be 6 (IRON), so we apply iron buff if elem == relem.
 		if elem == relem:
 			B.user_int = Modification.Type.MOD_ITEM_CHANCE_ON_KILL

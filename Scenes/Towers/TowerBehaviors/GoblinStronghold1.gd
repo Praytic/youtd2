@@ -158,7 +158,7 @@ func on_attack(event: Event):
 
 		if next != null:
 			var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_goblin_emitter_pt, tower, 1.0, 1.0, tower, next, 0.33, true)
-			var emitter_buff_level: int = randi_range(300, 600) + 6 * level
+			var emitter_buff_level: int = Globals.synced_rng.randi_range(300, 600) + 6 * level
 			projectile.user_int = emitter_buff_level
 
 	var used_ability: bool = do_sapper || do_robot || do_emitter
@@ -172,8 +172,8 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 		return
 
 	var level: int = tower.get_level()
-	var sapper_damage: float = randi_range(1350, 7650) + 180 * level
-	var slow_buff_level: int = randi_range(250, 450) + 6 * level
+	var sapper_damage: float = Globals.synced_rng.randi_range(1350, 7650) + 180 * level
+	var slow_buff_level: int = Globals.synced_rng.randi_range(250, 450) + 6 * level
 
 	if tower == null:
 		return
@@ -201,7 +201,7 @@ func cedi_goblin_robot_pt_on_hit(_projectile: Projectile, target: Unit):
 		return
 
 	var level: int = tower.get_level()
-	var buff_level: int = randi_range(100, 400) + 6 * level
+	var buff_level: int = Globals.synced_rng.randi_range(100, 400) + 6 * level
 
 	if tower == null:
 		return
@@ -217,7 +217,7 @@ func cedi_goblin_emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 		return
 
 	var level: int = tower.get_level()
-	var buff_level: int = randi_range(300, 600) + 6 * level
+	var buff_level: int = Globals.synced_rng.randi_range(300, 600) + 6 * level
 
 	if tower == null:
 		return

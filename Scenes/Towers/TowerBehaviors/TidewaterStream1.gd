@@ -152,9 +152,9 @@ func water_pt_periodic(p: Projectile):
 	if !caster.calc_chance(stone_chance):
 		return
 		
-	var stone_x: float = p.get_x() + randf_range(-30, 30)
-	var stone_y: float = p.get_y() + randf_range(-30, 30)
-	var stone_facing: float = p.get_direction() + randf_range(-30, 30)
+	var stone_x: float = p.get_x() + Globals.synced_rng.randf_range(-30, 30)
+	var stone_y: float = p.get_y() + Globals.synced_rng.randf_range(-30, 30)
+	var stone_facing: float = p.get_direction() + Globals.synced_rng.randf_range(-30, 30)
 	var stone_projectile: Projectile = Projectile.create(stone_pt, caster, 1.0, caster.calc_spell_crit_no_bonus(), stone_x, stone_y, 0.0, stone_facing)
 
 	var effect: int = Effect.add_special_effect("ImpaleTargetDust.mdl", stone_projectile.get_x(), stone_projectile.get_y())

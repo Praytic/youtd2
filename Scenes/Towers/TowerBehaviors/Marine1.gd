@@ -167,7 +167,7 @@ func boekie_shard_on_expiration(projectile: Projectile):
 		return
 
 	for i in range(0, num_projectiles):
-		var small_grenade: Projectile = Projectile.create(boekie_shard_pt, tower, dmg_ratio, tower.calc_spell_crit_no_bonus(), projectile.get_x(), projectile.get_y(), projectile.get_z(), angle + randf_range(-8, 8))
+		var small_grenade: Projectile = Projectile.create(boekie_shard_pt, tower, dmg_ratio, tower.calc_spell_crit_no_bonus(), projectile.get_x(), projectile.get_y(), projectile.get_z(), angle + Globals.synced_rng.randf_range(-8, 8))
 #		Set user_int to 0 to mark this grenade as "not main"
 #		and stop recursion
 		small_grenade.user_int = 0

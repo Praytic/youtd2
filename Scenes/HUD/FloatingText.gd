@@ -29,7 +29,7 @@ func _ready():
 	label.text = text
 	modulate = color
 
-	position += Vector2(Globals.visual_rng.randf_range(-random_offset, random_offset), Globals.visual_rng.randf_range(-random_offset, random_offset))
+	position += Vector2(Globals.local_rng.randf_range(-random_offset, random_offset), Globals.local_rng.randf_range(-random_offset, random_offset))
 
 # 	Text bounces up and right
 	var pos_tween = create_tween()

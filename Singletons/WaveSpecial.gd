@@ -39,7 +39,7 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
 		special_count = 0
 	else:
-		special_count = Utils.random_weighted_pick(_special_count_chances)
+		special_count = Utils.random_weighted_pick(Globals.synced_rng, _special_count_chances)
 
 	var random_special_list: Array[int] = []
 
@@ -106,7 +106,7 @@ func _get_random_special(available_special_list: Array[int]) -> int:
 		var frequency: int = WaveSpecialProperties.get_frequency(special)
 		special_to_frequency_map[special] = frequency
 
-	var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
+	var random_special: int = Utils.random_weighted_pick(Globals.synced_rng, special_to_frequency_map)
 
 	return random_special
 

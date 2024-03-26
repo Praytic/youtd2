@@ -71,7 +71,7 @@ func teacher_attack(xp: float):
 			result = in_range.next_random()
 
 		if result != null:
-			i = randi_range(1, 3)
+			i = Globals.synced_rng.randi_range(1, 3)
 
 			if i == 1:
 				pt = knowledge_green

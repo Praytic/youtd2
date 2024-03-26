@@ -22,7 +22,7 @@ func on_autocast(_event: Event):
 	var tower: Tower = itm.get_carrier()
 	var p: Player = itm.get_player()
 	var new: Item
-	var rnd: float = randi_range(0, 24)
+	var rnd: float = Globals.synced_rng.randi_range(0, 24)
 	var rarity: int = 1
 
 	if rnd < 2:
