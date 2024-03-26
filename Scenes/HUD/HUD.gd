@@ -60,6 +60,12 @@ func _ready():
 ###       Public      ###
 #########################
 
+func update_wave_details():
+	var local_player: Player = PlayerManager.get_local_player()
+	var next_waves: Array[Wave] = local_player.get_next_5_waves()
+	_top_left_menu.show_wave_details(next_waves)
+
+
 func start_editing_chat():
 	_chat_line_edit.show()
 	_chat_line_edit.grab_focus()
@@ -135,10 +141,6 @@ func set_menu_unit(unit: Unit):
 	_unit_status_menu_card.get_main_button().set_pressed(unit != null)
 
 
-func update_level(level: int):
-	_elements_tower_menu.update_level(level)
-
-
 func hide_roll_towers_button():
 	_elements_tower_menu.hide_roll_towers_button()
 
@@ -156,6 +158,10 @@ func connect_to_local_player(local_player: Player):
 
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	tower_stash.changed.connect(_on_local_player_tower_stash_changed)
+
+	var local_team: Team = local_player.get_team()
+	local_team.level_changed.connect(_on_local_team_level_changed)
+	_on_local_team_level_changed()
 
 
 func set_game_start_timer(timer: ManualTimer):
@@ -193,10 +199,6 @@ func show_next_wave_button():
 	_top_left_menu.show_next_wave_button()
 
 
-func show_wave_details(wave_list: Array[Wave]):
-	_top_left_menu.show_wave_details(wave_list)
-
-
 func show_game_over():
 	_game_over_label.show()
 
@@ -227,6 +229,15 @@ func _on_local_player_tower_stash_changed():
 	var towers: Dictionary = tower_stash.get_towers()
 	
 	_elements_tower_menu.set_towers(towers)
+
+
+func _on_local_team_level_changed():
+	update_wave_details()
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_team: Team = local_player.get_team()
+	var level: int = local_team.get_level()
+	_elements_tower_menu.update_level(level)
 
 
 func _on_creep_menu_hidden():

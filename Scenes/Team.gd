@@ -6,6 +6,7 @@ class_name Team extends Node
 # work on it for multiplayer.
 
 signal game_over()
+signal level_changed()
 
 
 var _id: int = -1
@@ -36,6 +37,7 @@ func start_first_wave():
 
 func start_next_wave():
 	_level += 1
+	level_changed.emit()
 	_start_wave()
 
 

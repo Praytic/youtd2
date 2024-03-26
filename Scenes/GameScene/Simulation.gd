@@ -175,7 +175,7 @@ func _process_action(player_id: int, action: Dictionary):
 		Action.Type.TRANSMUTE: ActionTransmute.execute(action, player)
 		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player, _hud)
 		Action.Type.ROLL_TOWERS: ActionRollTowers.execute(action, player)
-		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player, _hud)
+		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player)
 		Action.Type.AUTOCAST: ActionAutocast.execute(action, player)
 		Action.Type.FOCUS_TARGET: ActionFocusTarget.execute(action, player)
 		Action.Type.CHANGE_BUFFGROUP: ActionChangeBuffgroup.execute(action, player)

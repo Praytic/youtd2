@@ -391,8 +391,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	for player in player_list:
 		player.generate_waves()
 
-	var next_waves: Array[Wave] = local_player.get_next_5_waves()
-	_hud.show_wave_details(next_waves)
+	_hud.update_wave_details()
 
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		_hud.hide_roll_towers_button()
