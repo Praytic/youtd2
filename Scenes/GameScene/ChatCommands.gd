@@ -34,7 +34,7 @@ func _command_ready(player: Player):
 		player.vote_ready()
 
 
-func _command_pause(player: Player):
+func _command_pause(_player: Player):
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.set_waves_paused(true)
@@ -42,7 +42,7 @@ func _command_pause(player: Player):
 	Messages.add_normal(null, "Paused the waves. Unpause by typing /unpause.")
 
 
-func _command_unpause(player: Player):
+func _command_unpause(_player: Player):
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.set_waves_paused(false)
