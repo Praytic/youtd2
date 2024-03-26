@@ -18,11 +18,12 @@ static func execute(_action: Dictionary, player: Player, hud: HUD):
 	var team: Team = player.get_team()
 	team.start_next_wave()
 	
-	var local_player: Player = PlayerManager.get_local_player()
-	var local_level: int = local_player.get_team().get_level()
-	hud.update_level(local_level)
-	var next_waves: Array[Wave] = local_player.get_next_5_waves()
-	hud.show_wave_details(next_waves)
+	if team.is_local():
+		var new_level: int = team.get_level()
+		hud.update_level(new_level)
+		var local_player: Player = PlayerManager.get_local_player()
+		var next_waves: Array[Wave] = local_player.get_next_5_waves()
+		hud.show_wave_details(next_waves)
 
 
 static func verify(player: Player) -> bool:
