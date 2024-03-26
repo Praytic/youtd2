@@ -100,6 +100,11 @@ func is_local() -> bool:
 	return contains_local_player
 
 
+func set_waves_paused(paused: bool):
+	_next_wave_timer.set_paused(paused)
+	_extreme_timer.set_paused(paused)
+
+
 #########################
 ###      Private      ###
 #########################

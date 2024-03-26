@@ -144,8 +144,9 @@ _chat_commands = NodePath("../ChatCommands")
 script = ExtResource("17_0evig")
 _simulation = NodePath("../Simulation")
 
-[node name="ChatCommands" type="Node" parent="Gameplay"]
+[node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
 script = ExtResource("19_ldgwp")
+_team_container = NodePath("../TeamContainer")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

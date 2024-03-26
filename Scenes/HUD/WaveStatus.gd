@@ -177,6 +177,9 @@ func _generate_armor_hints() -> Dictionary:
 
 
 func _get_time_string(timer: ManualTimer) -> String:
+	if timer.is_paused():
+		return "Paused"
+
 	var time: int = floori(timer.get_time_left())
 	var time_minutes: int = floor(time / 60.0)
 	var time_seconds: int = time - time_minutes * 60
