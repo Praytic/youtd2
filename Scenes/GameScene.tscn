@@ -134,9 +134,10 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
-[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation")]
+[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation", "_hud")]
 script = ExtResource("17_0evig")
 _simulation = NodePath("../Simulation")
+_hud = NodePath("../../UI/HUD")
 
 [node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
 _game_host = NodePath("../GameHost")

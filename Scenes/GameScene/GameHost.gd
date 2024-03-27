@@ -27,6 +27,7 @@ const SINGLEPLAYER_ACTION_LATENCY: int = 1
 const MAX_LAG_AMOUNT: int = 10
 
 @export var _simulation: Simulation
+@export var _hud: HUD
 
 
 var _setup_done: bool = false
@@ -36,6 +37,8 @@ var _in_progress_timeslot: Array = []
 var _last_sent_timeslot_tick: int = 0
 var _timeslot_sent_count: int = 0
 var _player_ack_count_map: Dictionary = {}
+var _player_checksum_map: Dictionary = {}
+var _showed_desync_message: bool = false
 
 
 #########################
@@ -47,6 +50,7 @@ func _physics_process(_delta: float):
 		return
 
 	_check_lagging_players()
+	_check_desynced_players()
 
 	_current_tick += 1
 
@@ -96,12 +100,16 @@ func receive_action(action: Dictionary):
 
 
 @rpc("any_peer", "call_local", "reliable")
-func receive_timeslot_ack():
+func receive_timeslot_ack(checksum: PackedByteArray):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
 
 	_player_ack_count_map[player_id] += 1
+
+	if !_player_checksum_map.has(player_id):
+		_player_checksum_map[player_id] = []
+	_player_checksum_map[player_id].append(checksum)
 
 
 #########################
@@ -137,3 +145,45 @@ func _check_lagging_players() -> bool:
 			is_lagging = true
 
 	return is_lagging
+
+
+# TODO: kick desynced players from the game
+func _check_desynced_players():
+	var desync_detected: bool = false
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	var have_checksums_for_all_players: bool = true
+	for player in player_list:
+		var player_id: int = player.get_id()
+
+		if !_player_checksum_map.has(player_id) || _player_checksum_map[player_id].is_empty():
+			have_checksums_for_all_players = false
+
+	if !have_checksums_for_all_players:
+		return
+
+	var authority_player: Player = PlayerManager.get_player_by_peer_id(1)
+	var authority_player_id: int = authority_player.get_id()
+
+	var have_authority_checksum: bool = _player_checksum_map.has(authority_player_id) && !_player_checksum_map[authority_player_id].is_empty()
+
+	if !have_authority_checksum:
+		return
+
+	var authority_checksum: PackedByteArray = _player_checksum_map[authority_player_id].front()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
+		var checksum: PackedByteArray = _player_checksum_map[player_id].pop_front()
+		var checksum_match: bool = checksum == authority_checksum
+
+		if !checksum_match:
+			desync_detected = true
+
+	if desync_detected && !_showed_desync_message:
+		var game_time: float = Utils.get_time()
+		var game_time_string: String = Utils.convert_time_to_string(game_time)
+		var message: String = "Desync detected @ %s" % game_time_string
+		_hud.show_desync_message(message)
+		_showed_desync_message = true

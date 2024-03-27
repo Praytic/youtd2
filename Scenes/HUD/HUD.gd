@@ -24,6 +24,7 @@ const CHAT_FADE_DURATION: float = 2.0
 @export var _host_player_label: Label
 @export var _second_player_label: Label
 @export var _chat_line_edit: LineEdit
+@export var _desync_label: Label
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _tower_menu, _creep_menu]
 
@@ -59,6 +60,11 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func show_desync_message(message: String):
+	_desync_label.show()
+	_desync_label.text = message
+
 
 func update_wave_details():
 	var local_player: Player = PlayerManager.get_local_player()

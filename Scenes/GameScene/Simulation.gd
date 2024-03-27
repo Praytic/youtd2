@@ -131,14 +131,45 @@ func _do_tick():
 		_timeslot_tick_queue.pop_front()
 
 #		Tell host that this client has processed this
-#		timeslot
-		_game_host.receive_timeslot_ack.rpc_id(1)
+#		timeslot. Send checksum to check for desyncs.
+		var checksum: PackedByteArray = _calculate_game_state_checksum()
+		_game_host.receive_timeslot_ack.rpc_id(1, checksum)
 
 		for action in timeslot:
 			_execute_action(action)
 	
 	_update_state()
 	_current_tick += 1
+
+
+func _calculate_game_state_checksum():
+	var ctx: HashingContext = HashingContext.new()
+	ctx.start(HashingContext.HASH_MD5)
+
+	var game_state: PackedByteArray = PackedByteArray()
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var total_damage: int = floori(player.get_total_damage())
+		var gold_farmed: int = floori(player.get_gold_farmed())
+		var gold: int = floori(player.get_gold())
+		var tomes: int = player.get_tomes()
+		var lives: int = floori(player.get_team().get_lives_percent())
+		var level: int = player.get_team().get_level()
+
+		game_state.append(total_damage)
+		game_state.append(gold_farmed)
+		game_state.append(gold)
+		game_state.append(tomes)
+		game_state.append(lives)
+		game_state.append(level)
+
+	ctx.update(game_state)
+
+	var checksum: PackedByteArray = ctx.finish()
+
+	return checksum
 
 
 func _execute_action(action: Dictionary):
