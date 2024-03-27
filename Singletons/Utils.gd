@@ -1,6 +1,20 @@
 class_name UtilsStatic extends Node
 
 
+# Example: 93 -> "01:33"
+func convert_time_to_string(time_total_seconds: float):
+	var time_hours: int = floori(time_total_seconds / 3600)
+	var time_minutes: int = floori((time_total_seconds - time_hours * 3600) / 60)
+	var time_seconds: int = floori(time_total_seconds - time_hours * 3600 - time_minutes * 60)
+	var time_string: String
+	if time_hours > 0:
+		time_string = "%02d:%02d:%02d" % [time_hours, time_minutes, time_seconds]
+	else:
+		time_string = "%02d:%02d" % [time_minutes, time_seconds]
+	
+	return time_string
+
+
 # NOTE: you must use this instead of
 # get_tree().create_timer() because timers created using
 # get_tree().create_timer() do not handle game pause and

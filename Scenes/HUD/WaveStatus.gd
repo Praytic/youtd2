@@ -69,7 +69,9 @@ func _process(_delta: float):
 	var score_string: String = TowerDetails.int_format(floori(score))
 	_score_label.text = score_string
 	
-	_update_game_time()
+	var game_time: float = Utils.get_time()
+	var game_time_string: String = Utils.convert_time_to_string(game_time)
+	_game_time_label.text = game_time_string
 
 
 #########################
@@ -116,19 +118,6 @@ func show_wave_details(wave_list: Array[Wave]):
 	text += "[/table]"
 
 	_label.append_text(text)
-
-
-func _update_game_time():
-	var time: float = Utils.get_time()
-	var time_hours: int = floori(time / 3600)
-	var time_minutes: int = floori((time - time_hours * 3600) / 60)
-	var time_seconds: int = floori(time - time_hours * 3600 - time_minutes * 60)
-	var time_string: String
-	if time_hours > 0:
-		time_string = "%02d:%02d:%02d" % [time_hours, time_minutes, time_seconds]
-	else:
-		time_string = "%02d:%02d" % [time_minutes, time_seconds]
-	_game_time_label.text = time_string
 
 
 #########################
