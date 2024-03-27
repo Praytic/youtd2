@@ -1,10 +1,10 @@
-class_name Simulation extends Node
+class_name GameClient extends Node
 
 
-# Simulation for the game ticks, synchronized with other
-# players. 
+# GameClient for the game ticks, synchronized with the
+# server.
 # 
-# Simulation ticks 30 times per second (based on
+# GameClient ticks 30 times per second (based on
 # physics_ticks_per_second config value).
 # 
 # Peers send actions requested by local player to host.
@@ -13,8 +13,7 @@ class_name Simulation extends Node
 # 
 # Stops ticking if a timeslot is not ready for current tick.
 # 
-# The end result is that simulations for all players are
-# synchronized.
+# The end result is that clients are synchronized.
 
 
 const MAX_TICKS_PER_PROCESS: int = 10

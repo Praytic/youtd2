@@ -6,7 +6,7 @@ class_name BuildTower extends Node
 @export var _mouse_state: MouseState
 @export var _map: Map
 @export var _tower_preview: TowerPreview
-@export var _simulation: Simulation
+@export var _game_client: GameClient
 
 
 #########################
@@ -104,7 +104,7 @@ func _build_tower(tower_id: int):
 	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
 	var action: Action = ActionBuildTower.make(tower_id, mouse_pos)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _transform_tower(new_tower_id: int):
@@ -113,4 +113,4 @@ func _transform_tower(new_tower_id: int):
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", global_pos)
 	
 	var action: Action = ActionTransformTower.make(new_tower_id, global_pos)
-	_simulation.add_action(action)
+	_game_client.add_action(action)

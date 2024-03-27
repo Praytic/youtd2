@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="17_0evig"]
-[ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
+[ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="17_new70"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="19_ldgwp"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="22_0su8s"]
@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_simulation", "_game_host", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -80,7 +80,7 @@ _select_unit = NodePath("Gameplay/SelectUnit")
 _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
 _ui_layer = NodePath("UI")
-_simulation = NodePath("Gameplay/Simulation")
+_game_client = NodePath("Gameplay/GameClient")
 _game_host = NodePath("Gameplay/GameHost")
 _game_time = NodePath("Gameplay/GameTime")
 
@@ -102,28 +102,28 @@ script = ExtResource("16_tame0")
 [node name="SelectUnit" type="Node" parent="Gameplay"]
 script = ExtResource("8_b8m2t")
 
-[node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_simulation")]
+[node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
 script = ExtResource("8_r0gm8")
 _mouse_state = NodePath("../MouseState")
-_simulation = NodePath("../Simulation")
+_game_client = NodePath("../GameClient")
 
-[node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_simulation")]
+[node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
 script = ExtResource("9_14jv4")
 _mouse_state = NodePath("../MouseState")
-_simulation = NodePath("../Simulation")
+_game_client = NodePath("../GameClient")
 
-[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_simulation")]
+[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_game_client")]
 script = ExtResource("10_qbku7")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
-_simulation = NodePath("../Simulation")
+_game_client = NodePath("../GameClient")
 
-[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_simulation")]
+[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_game_client")]
 script = ExtResource("12_1xrfo")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
 _tower_preview = NodePath("../../World/TowerPreview")
-_simulation = NodePath("../Simulation")
+_game_client = NodePath("../GameClient")
 
 [node name="MouseState" type="Node" parent="Gameplay"]
 script = ExtResource("12_mmgdj")
@@ -134,12 +134,12 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
-[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation", "_hud")]
+[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud")]
 script = ExtResource("17_0evig")
-_simulation = NodePath("../Simulation")
+_game_client = NodePath("../GameClient")
 _hud = NodePath("../../UI/HUD")
 
-[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
+[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _hud = NodePath("../../UI/HUD")

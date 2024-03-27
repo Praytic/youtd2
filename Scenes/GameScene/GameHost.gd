@@ -4,7 +4,7 @@ class_name GameHost extends Node
 # Host receives actions from peers, combines them into
 # "timeslots" and sends timeslots back to the peers. A
 # "timeslot" is a group of actions for a given tick. A host
-# has it's own tick, independent of the Simulation on the
+# has it's own tick, independent of the GameClient on the
 # host's client. Host sends timeslots periodically with an
 # interval equal to current "latency" value.
 # 
@@ -12,7 +12,7 @@ class_name GameHost extends Node
 # same time.
 
 # NOTE: GameHost node needs to be positioned before
-# Simulation node in the tree, so that it is processed
+# GameClient node in the tree, so that it is processed
 # first.
 
 
@@ -26,7 +26,7 @@ const SINGLEPLAYER_ACTION_LATENCY: int = 1
 # it falls behind by more timeslots than this value.
 const MAX_LAG_AMOUNT: int = 10
 
-@export var _simulation: Simulation
+@export var _game_client: GameClient
 @export var _hud: HUD
 
 
@@ -119,7 +119,7 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 func _send_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_simulation.receive_timeslot.rpc(timeslot, _current_latency)
+	_game_client.receive_timeslot.rpc(timeslot, _current_latency)
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
 

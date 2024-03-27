@@ -2,7 +2,7 @@ class_name ManualTimer extends Node
 
 # ManualTimer must be used instead of native Timer for
 # everything except UI. ManualTimer ensures multiplayer
-# determinism because it is updated inside the simulation
+# determinism because it is updated inside the game client
 # tick. ManualTimer has the same API as native Timer.
 
 

@@ -21,7 +21,7 @@ func convert_time_to_string(time_total_seconds: float):
 # game restart.
 # 
 # NOTE: you must not use this for things which are not part
-# of the synchronized multiplayer simulation. If you
+# of the synchronized multiplayer client. If you
 # create_timer() for one player but not the others, you will
 # mess up the order of updating timers and cause desync.
 func create_timer(duration: float) -> ManualTimer:

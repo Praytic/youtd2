@@ -16,7 +16,7 @@ class_name GameScene extends Node
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
 @export var _ui_layer: CanvasLayer
-@export var _simulation: Simulation
+@export var _game_client: GameClient
 @export var _game_host: GameHost
 @export var _game_time: GameTime
 
@@ -199,7 +199,7 @@ func _toggle_autocast(autocast: Autocast):
 	var autocast_uid: int = autocast.get_uid()
 
 	var action: Action = ActionToggleAutocast.make(autocast_uid)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _get_camera_origin_pos() -> Vector2:
@@ -250,12 +250,12 @@ func _submit_chat_message():
 	_finish_editing_chat()
 
 	var chat_action: Action = ActionChat.make(chat_message)
-	_simulation.add_action(chat_action)
+	_game_client.add_action(chat_action)
 
 
 func _set_builder_for_local_player(builder_id: int):
 	var action: Action = ActionSelectBuilder.make(builder_id)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _cancel_current_mouse_action():
@@ -286,7 +286,7 @@ func _do_focus_target():
 		selected_tower_uid = 0
 
 	var action: Action = ActionFocusTarget.make(target_uid, selected_tower_uid)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _toggle_game_menu():
@@ -562,7 +562,7 @@ func _on_player_requested_start_game():
 		return
 
 	var action: Action = ActionChat.make(ChatCommands.READY)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_game_start_timer_timeout():
@@ -578,7 +578,7 @@ func _on_player_requested_next_wave():
 		return
 
 	var action: Action = ActionStartNextWave.make()
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_to_roll_towers():
@@ -590,7 +590,7 @@ func _on_player_requested_to_roll_towers():
 		return
 
 	var action: Action = ActionRollTowers.make()
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
@@ -602,7 +602,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 		return
 
 	var action: Action = ActionResearchElement.make(element)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
@@ -645,7 +645,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 func _on_player_requested_to_sell_tower(tower: Tower):
 	var tower_unit_id: int = tower.get_uid()
 	var action: Action = ActionSellTower.make(tower_unit_id)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_player_clicked_autocast(autocast: Autocast):
@@ -665,7 +665,7 @@ func _on_player_clicked_autocast(autocast: Autocast):
 		var target_uid: int = 0
 		var target_pos: Vector2 = Vector2.ZERO
 		var action: Action = ActionAutocast.make(autocast_uid, target_uid, target_pos)
-		_simulation.add_action(action)
+		_game_client.add_action(action)
 	elif autocast.type_is_point():
 		_select_point_for_cast.start(autocast)
 	else:
@@ -681,14 +681,14 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 	
 	var action: Action = ActionAutofill.make(recipe, rarity_filter)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_transmute():
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 	
 	var action: Action = ActionTransmute.make()
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 
 func _on_builder_menu_finished(builder_menu: BuilderMenu):
@@ -742,7 +742,7 @@ func _on_player_right_clicked_item(item: Item):
 	elif item.is_consumable():
 		var item_uid: int = item.get_uid()
 		var action: Action = ActionConsumeItem.make(item_uid)
-		_simulation.add_action(action)
+		_game_client.add_action(action)
 
 
 func _on_player_shift_right_clicked_item(item: Item):
@@ -764,4 +764,4 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 	var new_mode: BuffGroup.Mode = wrapi(current_mode + 1, BuffGroup.Mode.NONE, BuffGroup.Mode.BOTH + 1) as BuffGroup.Mode
 	
 	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
-	_simulation.add_action(action)
+	_game_client.add_action(action)

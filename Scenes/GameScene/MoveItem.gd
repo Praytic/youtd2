@@ -15,7 +15,7 @@ var _moved_item: Item = null
 
 @export var _mouse_state: MouseState
 @export var _map: Map
-@export var _simulation: Simulation
+@export var _game_client: GameClient
 
 
 #########################
@@ -57,7 +57,7 @@ func process_click_on_nothing():
 	_end_move_process()
 
 	var action: Action = ActionDropItem.make(item_uid, drop_pos, src_container_uid)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 	
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
@@ -84,7 +84,7 @@ func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_c
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
 	var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid)
-	_simulation.add_action(action)
+	_game_client.add_action(action)
 
 	return true
 
