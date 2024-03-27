@@ -437,7 +437,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		else:
 			latency = GameHost.MULTIPLAYER_ACTION_LATENCY
 		
-		_game_host.setup(latency)
+		_game_host.setup(latency, player_list)
 	
 	_camera.position = _get_camera_origin_pos()
 

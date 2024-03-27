@@ -130,6 +130,10 @@ func _do_tick():
 		_timeslot_map.erase(timeslot_tick)
 		_timeslot_tick_queue.pop_front()
 
+#		Tell host that this client has processed this
+#		timeslot
+		_game_host.receive_timeslot_ack.rpc_id(1)
+
 		for action in timeslot:
 			_execute_action(action)
 	
