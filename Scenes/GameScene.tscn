@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_simulation", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_simulation", "_game_host", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -81,6 +81,7 @@ _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
 _ui_layer = NodePath("UI")
 _simulation = NodePath("Gameplay/Simulation")
+_game_host = NodePath("Gameplay/GameHost")
 _game_time = NodePath("Gameplay/GameTime")
 
 [node name="Gameplay" type="Node" parent="."]
@@ -133,16 +134,16 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
+[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation")]
+script = ExtResource("17_0evig")
+_simulation = NodePath("../Simulation")
+
 [node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
 _chat_commands = NodePath("../ChatCommands")
-
-[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation")]
-script = ExtResource("17_0evig")
-_simulation = NodePath("../Simulation")
 
 [node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
 script = ExtResource("19_ldgwp")

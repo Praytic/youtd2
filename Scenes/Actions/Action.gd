@@ -14,6 +14,7 @@ class_name Action
 
 enum Field {
 	TYPE,
+	PLAYER_ID,
 	CHAT_MESSAGE,
 	TOWER_ID,
 	POSITION,

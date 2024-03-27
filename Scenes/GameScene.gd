@@ -17,6 +17,7 @@ class_name GameScene extends Node
 @export var _mouse_state: MouseState
 @export var _ui_layer: CanvasLayer
 @export var _simulation: Simulation
+@export var _game_host: GameHost
 @export var _game_time: GameTime
 
 
@@ -429,12 +430,14 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	
-#	NOTE: reduce action delay for singleplayer
-#	TODO: should really make the perceived latency good
-#	enough for both singleplayer and multiplayer to use the
-#	same delay.
-	if player_mode == PlayerMode.enm.SINGLE:
-		_simulation.set_delay(Simulation.SINGLEPLAYER_ACTION_DELAY)
+	if multiplayer.is_server():
+		var latency: int
+		if player_mode == PlayerMode.enm.SINGLE:
+			latency = GameHost.SINGLEPLAYER_ACTION_LATENCY
+		else:
+			latency = GameHost.MULTIPLAYER_ACTION_LATENCY
+		
+		_game_host.setup(latency)
 	
 	_camera.position = _get_camera_origin_pos()
 

@@ -17,36 +17,17 @@ class_name Simulation extends Node
 # synchronized.
 
 
-# TODO: process all timers here. Buff periodic timers, tower
-# attack timers, unit regen timers, "await" timers called in
-# tower scripts.
-
-# TODO: adjust action delay dynamically based on observed
-# latency. Do not adjust it constantly. A value should be
-# picked once and retained for the whole game duration.
-# Maybe increase it permanently if it's detected that
-# current value is consistently too small. Changing this
-# value too often will be disruptive to the player.
-
-# TODO: remove print() calls or change to print_verbose()
-
-
-# NOTE: 6 ticks at 30ticks/second = 200ms.
-# This amount needs to be big enough to account for latency.
-const MULTIPLAYER_ACTION_DELAY: int = 6
-const SINGLEPLAYER_ACTION_DELAY: int = 1
-
+const MAX_TICKS_PER_PROCESS: int = 10
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _action_delay: int
-var _sent_action_for_current_tick: bool = false
+var _received_latency: int = 0
 
-# Map of timeslots which were received from host. This data
-# is discarded after being processed.
+# A map of timeslots. Need to keep a map in case we receive
+# future timeslots before we processed current one.
 # {tick -> timeslot}
-# timeslot = {player_id -> serialized action}
 var _timeslot_map: Dictionary = {}
+var _timeslot_tick_queue: Array = [0]
 
 
 @export var _game_host: GameHost
@@ -61,8 +42,6 @@ var _timeslot_map: Dictionary = {}
 #########################
 
 func _ready():
-	set_delay(MULTIPLAYER_ACTION_DELAY)
-	
 	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 	if tick_rate != 30:
@@ -78,79 +57,88 @@ func _ready():
 # built-in way to do consistent tickrate, independent of
 # framerate.
 func _physics_process(_delta: float):
-	_do_tick()
+#	NOTE: depending on _should_tick() return value, client
+#	may tick 0, 1 or multiple times.
+	var ticks_during_this_process: int = 0
+	while _should_tick(ticks_during_this_process):
+		_do_tick()
+		ticks_during_this_process += 1
 
 
 #########################
 ###       Public      ###
 #########################
 
+# Send action from client to host
 func add_action(action: Action):
-	var process_tick: int = _current_tick + _action_delay
-	var local_player: Player = PlayerManager.get_local_player()
-	var local_player_id: int = local_player.get_id()
 	var serialized_action: Dictionary = action.serialize()
-	_game_host.save_action.rpc_id(1, process_tick, local_player_id, serialized_action)
-
-	_sent_action_for_current_tick = true
+	_game_host.receive_action.rpc_id(1, serialized_action)
 
 
-func set_delay(delay: int):
-	_action_delay = delay
-
-# 	Add dummy timeslots for initial ticks before the action
-# 	delay is reached. Need to do this to have valid data before real
-# 	actions from players start getting scheduled.
-	_timeslot_map.clear()
-	
-	for tick in range(0, delay):
-		_timeslot_map[tick] = {}
-
-
+# Receive timeslot sent by host to this client
 @rpc("authority", "call_local", "reliable")
-func save_timeslot(tick: int, timeslot: Dictionary):
-	_timeslot_map[tick] = timeslot
+func receive_timeslot(timeslot: Array, latency: int):
+	var tick_for_this_timeslot: int = _timeslot_tick_queue.back()
+	_timeslot_map[tick_for_this_timeslot] = timeslot
+	var tick_for_next_timeslot: int = tick_for_this_timeslot + latency
+	_timeslot_tick_queue.append(tick_for_next_timeslot)
+	_received_latency = latency
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _do_tick():
-#	NOTE: if local player didn't do any action for current tick, send an idle action to the server for synchronization purposes.
-	if !_sent_action_for_current_tick:
-		var idle_action: Action = ActionIdle.make()
-		add_action(idle_action)
+func _should_tick(ticks_during_this_process: int) -> bool:
+# 	NOTE: need to limit ticks per process to not disrupt
+# 	timing of _physics_process() too much
+	var too_many_ticks: bool = ticks_during_this_process > MAX_TICKS_PER_PROCESS
+	if too_many_ticks:
+		return false
 	
-	var timeslot_is_ready: bool = _timeslot_map.has(_current_tick)
+#	If current tick needs a timeslot and client hasn't
+#	received timeslot from host yet, client has to wait
+	var timeslot_tick: int = _timeslot_tick_queue.front()
+	var need_timeslot: bool = _current_tick == timeslot_tick
+	var have_timeslot: bool = _timeslot_map.has(timeslot_tick)
+	if need_timeslot && !have_timeslot:
+		return false
+	
+#	If client tick is behind host tick, catch up by fast
+#	forwarding
+	var latest_timeslot_tick: int = _timeslot_tick_queue.back()
+	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > _received_latency
+	if need_to_fast_forward:
+		return true
 
-	if !timeslot_is_ready:
-		print("waiting for player actions")
+#	Tick once per process if don't need to fast forward
+	var is_first_tick_during_process: bool = ticks_during_this_process == 0
 
+	return is_first_tick_during_process
+
+
+func _do_tick():
+	var timeslot_tick: int = _timeslot_tick_queue.front()
+	var need_timeslot: bool = _current_tick == timeslot_tick
+	var have_timeslot: bool = _timeslot_map.has(timeslot_tick)
+	
+	if need_timeslot && !have_timeslot:
 		return
 
-	var timeslot: Dictionary = _timeslot_map[_current_tick]
+	if need_timeslot:
+		var timeslot: Array = _timeslot_map[timeslot_tick]
+		_timeslot_map.erase(timeslot_tick)
+		_timeslot_tick_queue.pop_front()
 
-	_process_actions(timeslot)
+		for action in timeslot:
+			_execute_action(action)
+	
 	_update_state()
-	_sent_action_for_current_tick = false
-	_timeslot_map.erase(_current_tick)
-
 	_current_tick += 1
 
 
-func _process_actions(timeslot: Dictionary):
-	var player_id_list: Array = timeslot.keys()
-	
-#	NOTE: need to sort id list to ensure determinism
-	player_id_list.sort()
-	
-	for player_id in player_id_list:
-		var action: Dictionary = timeslot[player_id]
-		_process_action(player_id, action)
-
-
-func _process_action(player_id: int, action: Dictionary):
+func _execute_action(action: Dictionary):
+	var player_id: int = action[Action.Field.PLAYER_ID]
 	var player: Player = PlayerManager.get_player(player_id)
 
 	if player == null:
