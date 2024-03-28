@@ -76,6 +76,14 @@ func _init(config: Dictionary = {}, service:=false):
 	add_child(matchmaker)
 
 func _ready() -> void:
+#	NOTE: this early return was not in original addon code.
+#	Need to disable W4GD addon to stop it from spamming
+#	"realtime" errors. Couldn't find a better way, the addon
+#	seems to call connect_to_realtime() no matter what,
+#	without providing a way to disable it.
+	if !Config.enable_auth():
+		return
+
 	connect_to_realtime()
 
 func connect_to_realtime() -> void:
