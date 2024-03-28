@@ -6,6 +6,7 @@ class_name Player extends Node
 
 signal wave_finished(level: int)
 signal element_level_changed(element: Element.enm)
+signal selected_builder()
 signal voted_ready()
 
 
@@ -118,6 +119,8 @@ func set_builder(builder_id: int):
 	builder.apply_to_player(self)
 
 	_have_placeholder_builder = false
+
+	selected_builder.emit()
 
 
 func get_builder() -> Builder:

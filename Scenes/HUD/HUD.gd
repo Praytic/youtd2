@@ -125,10 +125,6 @@ func add_chat_message(player_id: int, message: String):
 		last_label.queue_free()
 
 
-func enable_extra_recipes():
-	_item_stash_menu.enable_extra_recipes()
-
-
 # Set tower or creep which should be displayed in unit menus
 # NOTE: the callback for set_pressed() which make tower menu
 # or creep menu visible.
@@ -173,13 +169,11 @@ func connect_to_local_player(local_player: Player):
 	local_player.element_level_changed.connect(_on_local_player_element_level_changed)
 	_on_local_player_element_level_changed()
 
+	local_player.selected_builder.connect(_on_local_player_selected_builder)
+
 
 func set_game_start_timer(timer: ManualTimer):
 	_top_left_menu.set_game_start_timer(timer)
-
-
-func set_local_builder_name(builder_name: String):
-	_top_left_menu.set_local_builder_name(builder_name)
 
 
 func hide_all_windows():
@@ -254,6 +248,18 @@ func _on_local_player_element_level_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var new_element_levels: Dictionary = local_player.get_element_level_map()
 	_elements_tower_menu.update_element_level(new_element_levels)
+
+
+func _on_local_player_selected_builder():
+	var local_player: Player = PlayerManager.get_local_player()
+	var builder: Builder = local_player.get_builder()
+	var builder_name: String = builder.get_display_name()
+
+	_top_left_menu.set_local_builder_name(builder_name)
+
+	var builder_adds_extra_recipes: bool = builder.get_adds_extra_recipes()
+	if builder_adds_extra_recipes:
+		_item_stash_menu.enable_extra_recipes()
 
 
 func _on_creep_menu_hidden():

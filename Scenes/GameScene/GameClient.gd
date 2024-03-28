@@ -188,7 +188,7 @@ func _execute_action(action: Dictionary):
 		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _map)
 		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player, _map)
 		Action.Type.SELL_TOWER: ActionSellTower.execute(action, player, _map)
-		Action.Type.SELECT_BUILDER: ActionSelectBuilder.execute(action, player, _hud)
+		Action.Type.SELECT_BUILDER: ActionSelectBuilder.execute(action, player)
 		Action.Type.TOGGLE_AUTOCAST: ActionToggleAutocast.execute(action, player)
 		Action.Type.CONSUME_ITEM: ActionConsumeItem.execute(action, player)
 		Action.Type.DROP_ITEM: ActionDropItem.execute(action, player)
