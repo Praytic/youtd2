@@ -15,7 +15,11 @@ func _ready():
 	if !Config.enable_auth():
 #		This is the simpliest way to disable W4GD addon in realtime right now.
 #		Follow https://gitlab.com/W4Games/sdk/w4gd/-/issues/1 for more info.
-		get_tree().get_root().get_node("W4GD").queue_free()
+		var w4_node: Node = get_tree().get_root().get_node_or_null("W4GD")
+		
+		if w4_node != null:
+			get_tree().get_root().get_node("W4GD").queue_free()
+	
 		return
 	W4Manager.last_request_status_updated.connect(_on_last_request_status_updated)
 	W4Manager.auth_state_changed.connect(_on_auth_state_changed)

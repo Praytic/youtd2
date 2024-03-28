@@ -250,4 +250,4 @@ visible = false
 
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
-[connection signal="restart_pressed" from="UI/GameMenu" to="." method="_on_pause_hud_restart_pressed"]
+[connection signal="restart_pressed" from="UI/GameMenu" to="." method="_on_game_menu_restart_pressed"]
