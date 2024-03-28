@@ -5,16 +5,7 @@ class_name GameStats extends VBoxContainer
 
 @export var _builder_label: Label
 
-@export var _player_stats_label: RichTextLabel
-
-@export var _most_damage_tower: Label
-@export var _most_damage_value: Label
-@export var _best_hit_tower: Label
-@export var _best_hit_value: Label
-@export var _most_exp_tower: Label
-@export var _most_exp_value: Label
-@export var _most_kills_tower: Label
-@export var _most_kills_value: Label
+@export var _stats_label: RichTextLabel
 
 
 #########################
@@ -22,61 +13,18 @@ class_name GameStats extends VBoxContainer
 #########################
 
 func _process(_delta: float):
-	var tower_list: Array[Tower] = Utils.get_tower_list()
+	var player_stats_text: String = _get_player_stats_text()
+	var your_best_towers_text: String = _get_your_best_towers_text()
+	var overall_best_towers_text: String = _get_overall_best_towers_text()
 
-	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
-	var most_damage_tower_name: String = ""
-	var most_damage_value: String = ""
-	if most_damage_tower != null:
-		most_damage_tower_name = most_damage_tower.get_display_name()
-		var most_damage: float = most_damage_tower.get_damage()
-		most_damage_value = TowerDetails.int_format(most_damage)
-
-	var tower_with_best_hit: Tower = _get_best_hit_tower(tower_list)
-	var best_hit_tower_name: String = ""
-	var best_hit_value: String = ""
-	if tower_with_best_hit != null:
-		best_hit_tower_name = tower_with_best_hit.get_display_name()
-		var best_hit: float = tower_with_best_hit.get_best_hit()
-		best_hit_value = TowerDetails.int_format(best_hit)
-
-	var most_exp_tower: Tower = _get_most_exp_tower(tower_list)
-	var most_exp_tower_name: String = ""
-	var most_exp_value: String = ""
-	if most_exp_tower != null:
-		most_exp_tower_name = most_exp_tower.get_display_name()
-		var most_exp: float = most_exp_tower.get_exp()
-		most_exp_value = TowerDetails.int_format(most_exp)
-
-	var most_kills_tower: Tower = _get_most_kills_tower(tower_list)
-	var most_kills_tower_name: String = ""
-	var most_kills_value: String = ""
-	if most_kills_tower != null:
-		most_kills_tower_name = most_kills_tower.get_display_name()
-		var most_kills: float = most_kills_tower.get_kills()
-		most_kills_value = TowerDetails.int_format(most_kills)
-
-	_most_damage_tower.text = most_damage_tower_name
-	_most_damage_value.text = most_damage_value
-	var most_damage_color: Color = _get_tower_color(most_damage_tower)
-	_most_damage_tower.set("theme_override_colors/font_color", most_damage_color)
-
-	_best_hit_tower.text = best_hit_tower_name
-	_best_hit_value.text = best_hit_value
-	var best_hit_color: Color = _get_tower_color(tower_with_best_hit)
-	_best_hit_tower.set("theme_override_colors/font_color", best_hit_color)
-
-	_most_exp_tower.text = most_exp_tower_name
-	_most_exp_value.text = most_exp_value
-	var most_exp_color: Color = _get_tower_color(most_exp_tower)
-	_most_exp_tower.set("theme_override_colors/font_color", most_exp_color)
-
-	_most_kills_tower.text = most_kills_tower_name
-	_most_kills_value.text = most_kills_value
-	var most_kills_color: Color = _get_tower_color(most_kills_tower)
-	_most_kills_tower.set("theme_override_colors/font_color", most_kills_color)
-
-	_update_player_stats()
+	_stats_label.clear()
+	_stats_label.append_text(player_stats_text)
+	_stats_label.append_text("\n[color=GOLD]Your best towers[/color]\n")
+	_stats_label.append_text(your_best_towers_text)
+	
+	if Globals.get_player_mode() == PlayerMode.enm.COOP:
+		_stats_label.append_text("\n[color=GOLD]Overall best towers[/color]\n")
+		_stats_label.append_text(overall_best_towers_text)
 
 
 #########################
@@ -99,7 +47,7 @@ func set_local_builder_name(builder_name: String):
 	_builder_label.text = builder_name
 
 
-func _update_player_stats():
+func _get_player_stats_text() -> String:
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	var text: String = ""
@@ -135,9 +83,70 @@ func _update_player_stats():
 		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
 
 	text += "[/table]"
+
+	return text
+
+
+func _get_your_best_towers_text() -> String:
+	var tower_list: Array[Tower] = Utils.get_tower_list()
 	
-	_player_stats_label.clear()
-	_player_stats_label.append_text(text)
+	tower_list = tower_list.filter(
+		func(tower: Tower) -> bool:
+			var player_match: bool = tower.belongs_to_local_player()
+
+			return player_match
+	)
+	
+	var text: String = _get_tower_stats_text_generic(tower_list)
+	
+	return text
+
+
+func _get_overall_best_towers_text() -> String:
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+	var text: String = _get_tower_stats_text_generic(tower_list)
+	
+	return text
+
+
+func _get_tower_stats_text_generic(tower_list: Array[Tower]) -> String:
+	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
+	var most_damage_tower_name: String = _get_colored_name_for_tower(most_damage_tower)
+	var most_damage_value: String = ""
+	if most_damage_tower != null:
+		var most_damage: float = most_damage_tower.get_damage()
+		most_damage_value = TowerDetails.int_format(most_damage)
+
+	var tower_with_best_hit: Tower = _get_best_hit_tower(tower_list)
+	var best_hit_tower_name: String = _get_colored_name_for_tower(tower_with_best_hit)
+	var best_hit_value: String = ""
+	if tower_with_best_hit != null:
+		var best_hit: float = tower_with_best_hit.get_best_hit()
+		best_hit_value = TowerDetails.int_format(best_hit)
+
+	var most_exp_tower: Tower = _get_most_exp_tower(tower_list)
+	var most_exp_tower_name: String = _get_colored_name_for_tower(most_exp_tower)
+	var most_exp_value: String = ""
+	if most_exp_tower != null:
+		var most_exp: float = most_exp_tower.get_exp()
+		most_exp_value = TowerDetails.int_format(most_exp)
+
+	var most_kills_tower: Tower = _get_most_kills_tower(tower_list)
+	var most_kills_tower_name: String = _get_colored_name_for_tower(most_kills_tower)
+	var most_kills_value: String = ""
+	if most_kills_tower != null:
+		var most_kills: float = most_kills_tower.get_kills()
+		most_kills_value = TowerDetails.int_format(most_kills)
+	
+	var text: String = ""
+	text += "[table=3]"
+	text += "[cell]Most Damage:[/cell][cell]%s[/cell][cell]%s[/cell]" % [most_damage_tower_name, most_damage_value]
+	text += "[cell]Best Hit:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [best_hit_tower_name, best_hit_value]
+	text += "[cell]Most Exp:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [most_exp_tower_name, most_exp_value]
+	text += "[cell]Most Kills:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [most_kills_tower_name, most_kills_value]
+	text += "[/table]"
+
+	return text
 
 
 #########################
@@ -208,11 +217,13 @@ func _get_best_tower_by_criteria(tower_list: Array[Tower], criteria_callable: Ca
 	return best_tower
 
 
-func _get_tower_color(tower: Tower) -> Color:
+func _get_colored_name_for_tower(tower: Tower) -> String:
 	if tower == null:
-		return Color.WHITE
+		return ""
 
+	var tower_name: String = tower.get_display_name()
 	var element: Element.enm = tower.get_element()
 	var element_color: Color = Element.get_color(element)
+	var colored_name: String = Utils.get_colored_string(tower_name, element_color)
 
-	return element_color
+	return colored_name
