@@ -7,6 +7,7 @@ extends Node
 # scenes cause cyclic references.
 
 
+const game_scene_scene: PackedScene = preload("res://Scenes/GameScene.tscn")
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://Scenes/HUD/FloatingText.tscn")

@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://d12sm4nc5wwqt"]
+
+[ext_resource type="Texture2D" uid="uid://bpfx0lg44dqkv" path="res://Assets/icob_ultra_wide.png" id="1_hbtge"]
+[ext_resource type="Script" path="res://Scenes/MainMenu.gd" id="1_hqsmq"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_hqsmq")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hbtge")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -35.5
+offset_right = 79.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 300
+
+[node name="Button" type="Button" parent="UI/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Start"
+
+[connection signal="pressed" from="UI/MarginContainer/Button" to="." method="_on_button_pressed"]
