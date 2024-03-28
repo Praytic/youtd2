@@ -156,10 +156,6 @@ func hide_roll_towers_button():
 	_elements_tower_menu.hide_roll_towers_button()
 
 
-func update_element_level(element_levels: Dictionary):
-	_elements_tower_menu.update_element_level(element_levels)
-
-
 func connect_to_local_player(local_player: Player):
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	item_stash.items_changed.connect(_on_local_player_item_stash_changed)
@@ -173,6 +169,9 @@ func connect_to_local_player(local_player: Player):
 	var local_team: Team = local_player.get_team()
 	local_team.level_changed.connect(_on_local_team_level_changed)
 	_on_local_team_level_changed()
+
+	local_player.element_level_changed.connect(_on_local_player_element_level_changed)
+	_on_local_player_element_level_changed()
 
 
 func set_game_start_timer(timer: ManualTimer):
@@ -249,6 +248,12 @@ func _on_local_team_level_changed():
 	var local_team: Team = local_player.get_team()
 	var level: int = local_team.get_level()
 	_elements_tower_menu.update_level(level)
+
+
+func _on_local_player_element_level_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var new_element_levels: Dictionary = local_player.get_element_level_map()
+	_elements_tower_menu.update_element_level(new_element_levels)
 
 
 func _on_creep_menu_hidden():

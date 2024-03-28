@@ -195,7 +195,7 @@ func _execute_action(action: Dictionary):
 		Action.Type.MOVE_ITEM: ActionMoveItem.execute(action, player)
 		Action.Type.AUTOFILL: ActionAutofill.execute(action, player)
 		Action.Type.TRANSMUTE: ActionTransmute.execute(action, player)
-		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player, _hud)
+		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player)
 		Action.Type.ROLL_TOWERS: ActionRollTowers.execute(action, player)
 		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player)
 		Action.Type.AUTOCAST: ActionAutocast.execute(action, player)

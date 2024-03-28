@@ -5,6 +5,7 @@ class_name Player extends Node
 # Team.create_player().
 
 signal wave_finished(level: int)
+signal element_level_changed(element: Element.enm)
 signal voted_ready()
 
 
@@ -145,6 +146,7 @@ func decrement_tower_count_for_starting_roll():
 
 func increment_element_level(element: Element.enm):
 	_element_level_map[element] += 1
+	element_level_changed.emit()
 
 
 func get_element_level(element: Element.enm) -> int:

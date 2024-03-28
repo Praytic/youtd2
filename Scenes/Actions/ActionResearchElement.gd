@@ -10,7 +10,7 @@ static func make(element_arg: Element.enm) -> Action:
 	return action
 
 
-static func execute(action: Dictionary, player: Player, hud: HUD):
+static func execute(action: Dictionary, player: Player):
 	var element: Element.enm = action[Action.Field.ELEMENT]
 
 	var verify_ok: bool = ActionResearchElement.verify(player, element)
@@ -21,11 +21,6 @@ static func execute(action: Dictionary, player: Player, hud: HUD):
 	var cost: int = player.get_research_cost(element)
 	player.spend_tomes(cost)
 	player.increment_element_level(element)
-	
-	var local_player: Player = PlayerManager.get_local_player()
-	if player == local_player:
-		var new_element_levels: Dictionary = local_player.get_element_level_map()
-		hud.update_element_level(new_element_levels)
 
 
 static func verify(player: Player, element: Element.enm) -> bool:
