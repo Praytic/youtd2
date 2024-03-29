@@ -6,7 +6,6 @@ enum Tab {
 	HELP,
 	HINTS,
 	SETTINGS,
-	CREDITS,
 }
 
 
@@ -33,19 +32,11 @@ func _on_settings_button_pressed():
 	_tab_container.current_tab = Tab.SETTINGS
 
 
-func _on_credits_button_pressed():
-	_tab_container.current_tab = Tab.CREDITS
-
-
 func _on_hidden():
 	_tab_container.current_tab = Tab.MAIN
 
 
 func _on_hints_menu_closed():
-	_tab_container.current_tab = Tab.MAIN
-
-
-func _on_credits_menu_hidden():
 	_tab_container.current_tab = Tab.MAIN
 
 

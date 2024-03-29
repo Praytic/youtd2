@@ -106,10 +106,10 @@ YouTD2 is based on [color=RED]geX[/color]'s [color=SILVER]YouTD[/color] - a cust
 [color=GOLD]zed[/color]"
 fit_content = true
 
-[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
-text = "Close"
+text = "Back"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

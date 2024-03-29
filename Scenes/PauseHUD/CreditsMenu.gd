@@ -1,5 +1,5 @@
 extends PanelContainer
 
 
-func _on_close_button_pressed():
+func _on_back_button_pressed():
 	hide()
