@@ -107,6 +107,11 @@ func flush():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	var cache_string: String = JSON.stringify(_cache, "    ")
 	settings_file.store_line(cache_string)
+
+#	NOTE: need to update interface size here so that this
+#	updates both in TitleScreen and GameScene
+	var interface_size: float = Settings.get_interface_size()
+	get_tree().root.content_scale_factor = interface_size
 	
 	changed.emit()
 

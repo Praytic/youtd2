@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=7 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/TitleScreen.gd" id="1_dx8oa"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_ec3wj"]
 [ext_resource type="Texture2D" uid="uid://bpfx0lg44dqkv" path="res://Assets/icob_ultra_wide.png" id="3_uvrn4"]
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_rdxi7"]
+[ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_q0hc3"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_k152k"]
 
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container")]
 script = ExtResource("1_dx8oa")
@@ -43,7 +46,7 @@ grow_vertical = 0
 theme_override_constants/margin_bottom = 200
 
 [node name="TabContainer" type="TabContainer" parent="UI/MarginContainer"]
-custom_minimum_size = Vector2(0, 350)
+custom_minimum_size = Vector2(0, 410)
 layout_mode = 2
 tabs_visible = false
 
@@ -54,6 +57,11 @@ layout_mode = 2
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Start"
+
+[node name="SettingsButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
+layout_mode = 2
+theme_type_variation = &"ButtonLarge"
+text = "Settings"
 
 [node name="CreditsButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
@@ -69,11 +77,18 @@ layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Quit"
 
+[node name="SettingsMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("5_q0hc3")]
+visible = false
+layout_mode = 2
+_interface_size_button_group = SubResource("ButtonGroup_k152k")
+
 [node name="CreditsMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/StartButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="hidden" from="UI/MarginContainer/TabContainer/SettingsMenu" to="." method="_on_settings_menu_hidden"]
 [connection signal="hidden" from="UI/MarginContainer/TabContainer/CreditsMenu" to="." method="_on_credits_menu_hidden"]
