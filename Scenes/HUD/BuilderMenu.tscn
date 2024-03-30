@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://4dakdefm73rd"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3giap"]
-[ext_resource type="Script" path="res://Scenes/PregameHUD/BuilderMenu.gd" id="2_rrrdq"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_phv1q"]
+[ext_resource type="Script" path="res://Scenes/HUD/BuilderMenu.gd" id="2_es4f5"]
 
 [node name="BuilderMenu" type="PanelContainer" node_paths=PackedStringArray("_beginner_container", "_advanced_container", "_specialist_container", "_hardcore_container")]
 custom_minimum_size = Vector2(0, 400)
@@ -17,9 +17,9 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_3giap")
+theme = ExtResource("1_phv1q")
 theme_type_variation = &"CenterPanel"
-script = ExtResource("2_rrrdq")
+script = ExtResource("2_es4f5")
 _beginner_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/BeginnerContainer")
 _advanced_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/AdvancedContainer")
 _specialist_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/SpecialistContainer")

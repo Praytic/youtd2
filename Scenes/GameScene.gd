@@ -169,7 +169,7 @@ func _ready():
 		var builder_id: int = Config.default_builder_id()
 		_set_builder_for_local_player(builder_id)
 	else:
-		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
+		var builder_menu: BuilderMenu = preload("res://Scenes/HUD/BuilderMenu.tscn").instantiate()
 		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		
 #		NOTE: add builder menu below game menu so that game
