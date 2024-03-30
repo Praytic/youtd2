@@ -216,7 +216,7 @@ func on_autocast_recreation(event: Event):
 	var last_pos: Vector2 = sum.to_pos
 	sum.to_pos = autocast.get_target_pos()
 
-	if Utils.is_point_on_creep_path(sum.to_pos):
+	if Utils.is_point_on_creep_path(sum.to_pos, tower.get_player()):
 		if recreation_field_exists:
 			Effect.set_position(sum.recreation_effect, sum.to_pos)
 		else:

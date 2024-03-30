@@ -121,13 +121,28 @@ func make_rich_text_tooltip(for_text: String) -> RichTextLabel:
 	return label
 
 
+func find_creep_path(player: Player, for_air_creeps: bool) -> Path2D:
+	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
+
+	for path in wave_path_list:
+		var player_match: bool = path.player_id == player.get_id()
+		var type_match: bool = (path.is_air && for_air_creeps) || (!path.is_air && !for_air_creeps)
+
+		if player_match && type_match:
+			return path
+
+	return null
+
+
 # NOTE: point should be isometric
-# TODO: fix this function to handle multiple players and
-# multiple paths. Should accept player arg of tower which
-# called this f-n. Then, find the path based on player.
-# Until then, returning false.
-func is_point_on_creep_path(point: Vector2) -> bool:
-	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/World/PathContainer/Ground1")
+func is_point_on_creep_path(point: Vector2, player: Player) -> bool:
+	var creep_path_ground: Path2D = Utils.find_creep_path(player, false)
+
+	if creep_path_ground == null:
+		push_error("Failed to find creep path.")
+
+		return false
+
 	var curve: Curve2D = creep_path_ground.curve
 
 	var min_distance: float = 10000.0

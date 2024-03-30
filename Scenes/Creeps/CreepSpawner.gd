@@ -37,15 +37,8 @@ func _ready():
 func set_player(player: Player):
 	_player = player
 
-	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
-	for path in wave_path_list:
-		var player_match: bool = path.player_id == player.get_id()
-
-		if player_match:
-			if path.is_air:
-				_air_path = path
-			else:
-				_ground_path = path
+	_ground_path = Utils.find_creep_path(player, false)
+	_air_path = Utils.find_creep_path(player, true)
 
 	if _air_path == null || _ground_path == null:
 		push_error("Failed to find paths for player %d, player index %d" % [player.get_id(), player.get_index()])
