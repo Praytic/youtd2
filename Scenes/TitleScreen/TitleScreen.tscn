@@ -4,14 +4,14 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_ec3wj"]
 [ext_resource type="Script" path="res://Scenes/TitleScreen/JoinOrHostController.gd" id="2_uac6j"]
 [ext_resource type="Texture2D" uid="uid://bpfx0lg44dqkv" path="res://Assets/icob_ultra_wide.png" id="3_uvrn4"]
-[ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_rdxi7"]
+[ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/GameMenu/CreditsMenu.tscn" id="4_rdxi7"]
 [ext_resource type="PackedScene" uid="uid://cnnkyqysqqyar" path="res://Scenes/TitleScreen/JoinOrHostMenu.tscn" id="5_pc1mj"]
-[ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_q0hc3"]
+[ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/GameMenu/SettingsMenu.tscn" id="5_q0hc3"]
 [ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://Scenes/TitleScreen/RoomMenu.tscn" id="6_65btw"]
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/TitleScreen/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_rgj60"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_5kub4"]
 
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
@@ -106,7 +106,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_rgj60")
+_interface_size_button_group = SubResource("ButtonGroup_5kub4")
 
 [node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
