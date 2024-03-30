@@ -29,7 +29,7 @@ func finish(map: Map):
 
 	var in_range: bool = _autocast.target_pos_is_in_range(target_pos)
 	if !in_range:
-		Messages.add_error(Globals.get_local_player(), "Out of range")
+		Messages.add_error(PlayerManager.get_local_player(), "Out of range")
 
 		return
 	
