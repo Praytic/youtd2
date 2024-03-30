@@ -2,5 +2,15 @@
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/RoomMenu.gd" id="1_gou4l"]
 
-[node name="RoomMenu" type="VBoxContainer"]
+[node name="RoomMenu" type="VBoxContainer" node_paths=PackedStringArray("_player_list")]
 script = ExtResource("1_gou4l")
+_player_list = NodePath("PlayerList")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Players:"
+
+[node name="PlayerList" type="ItemList" parent="."]
+layout_mode = 2
+allow_search = false
+auto_height = true

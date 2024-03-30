@@ -2,8 +2,29 @@
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/JoinOrHostMenu.gd" id="1_48kpm"]
 
-[node name="JoinOrHostMenu" type="VBoxContainer"]
+[node name="JoinOrHostMenu" type="VBoxContainer" node_paths=PackedStringArray("_status_label", "_address_text_edit")]
 script = ExtResource("1_48kpm")
+_status_label = NodePath("StatusLabel")
+_address_text_edit = NodePath("AddressTextEdit")
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "COOPERATIVE"
+horizontal_alignment = 1
+
+[node name="AddressTextEdit" type="TextEdit" parent="."]
+layout_mode = 2
+text = "127.0.0.1:8910"
+placeholder_text = "127.0.0.1:8910"
+highlight_current_line = true
+scroll_fit_content_height = true
+
+[node name="AddressErrorLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.254902, 0.270588, 1)
+text = "Entered address is not valid!"
 
 [node name="JoinButton" type="Button" parent="."]
 layout_mode = 2

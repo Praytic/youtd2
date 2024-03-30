@@ -7,7 +7,7 @@ enum Tab {
 	MAIN,
 	CONFIGURE_SINGLEPLAYER,
 	JOIN_OR_HOST,
-	ROOM_MENU,
+	MULTIPLAYER_ROOM,
 	SETTINGS,
 	CREDITS,
 	AUTH,
@@ -99,3 +99,7 @@ func _on_generic_tab_cancel_pressed():
 
 func _on_settings_menu_ok_pressed():
 	_switch_to_main_tab()
+
+
+func _on_join_or_host_controller_completed():
+	_tab_container.current_tab = Tab.MULTIPLAYER_ROOM
