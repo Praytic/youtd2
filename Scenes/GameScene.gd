@@ -164,9 +164,9 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
+	var skip_builder_menu: bool = Config.autostart_game()
 	if skip_builder_menu:
-		var builder_id: int = Config.default_builder_id()
+		var builder_id: int = Config.autostart_builder_id()
 		_set_builder_for_local_player(builder_id)
 	else:
 		var builder_menu: BuilderMenu = preload("res://Scenes/HUD/BuilderMenu.tscn").instantiate()

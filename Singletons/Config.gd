@@ -81,35 +81,24 @@ func show_position_info_label() -> bool:
 	return ProjectSettings.get_setting("application/config/show_position_info_label") as bool
 
 
-# Set to false to skip the pregame settings menu. In that
-# case, the default values for settings will be loaded.
-func show_pregame_settings_menu() -> bool:
-	return ProjectSettings.get_setting("application/config/show_pregame_settings_menu") as bool
+# Set to false to skip title screen and automatically start
+# the game.
+func autostart_game() -> bool:
+	return ProjectSettings.get_setting("application/config/autostart_game") as bool
 
 
-# Values for default game settings. These values will be
-# loaded if show_pregame_settings_menu is set to "false".
-# Note that these values will be ignored if the pregame
-# settings menu is enabled.
-func default_wave_count() -> int:
-	return ProjectSettings.get_setting("application/config/default_wave_count") as int
+func autostart_wave_count() -> int:
+	return ProjectSettings.get_setting("application/config/autostart_wave_count") as int
 
 
-func default_player_mode() -> PlayerMode.enm:
-	var player_mode_string: String = ProjectSettings.get_setting("application/config/default_player_mode") as String
-	var player_mode: PlayerMode.enm = PlayerMode.from_string(player_mode_string)
-
-	return player_mode
-
-
-func default_game_mode() -> GameMode.enm:
-	var game_mode_string: String = ProjectSettings.get_setting("application/config/default_game_mode") as String
+func autostart_game_mode() -> GameMode.enm:
+	var game_mode_string: String = ProjectSettings.get_setting("application/config/autostart_game_mode") as String
 	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
 
 	return game_mode
 
-func default_difficulty() -> Difficulty.enm:
-	var difficulty_string: String = ProjectSettings.get_setting("application/config/default_difficulty") as String
+func autostart_difficulty() -> Difficulty.enm:
+	var difficulty_string: String = ProjectSettings.get_setting("application/config/autostart_difficulty") as String
 	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
 
 	return difficulty
@@ -202,8 +191,8 @@ func show_hidden_buffs() -> bool:
 func enable_coop_button() -> bool:
 	return ProjectSettings.get_setting("application/config/enable_coop_button") as bool
 
-func default_builder_id() -> int:
-	var builder_string: String = ProjectSettings.get_setting("application/config/default_builder") as String
+func autostart_builder_id() -> int:
+	var builder_string: String = ProjectSettings.get_setting("application/config/autostart_builder") as String
 	var builder_id: int = BuilderProperties.string_to_id(builder_string)
 
 	return builder_id
