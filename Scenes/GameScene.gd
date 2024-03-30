@@ -22,11 +22,8 @@ class_name GameScene extends Node
 
 
 var _room_code: int = 0
-var _pregame_controller: PregameController = null
-var _pregame_hud: PregameHUD = null
 var _tutorial_controller: TutorialController = null
 var _tutorial_menu: TutorialMenu = null
-var _completed_pregame: bool = false
 
 
 #########################
@@ -76,42 +73,145 @@ func _ready():
 	Settings.changed.connect(_on_settings_changed)
 	_on_settings_changed()
 	
-	get_tree().set_pause(true)
-	
 	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
 		_room_code = _get_cmdline_value("room_code")
 		assert(_room_code, "Room code wasn't provided with headless mode enabled.")
 		print("Room code: %s" % _room_code)
+
+#	NOTE: load game settings which were selected during TitleScreen. They are passed via Globals.
+	var origin_seed: int = Globals.get_origin_seed()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var wave_count: int = Globals.get_wave_count()
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+
+	_hud.set_pregame_settings(wave_count, game_mode, difficulty)
 	
-	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
-
-	if show_pregame_settings_menu:
-		var pregame_hud_scene: PackedScene = preload("res://Scenes/PregameHUD/PregameHUD.tscn")
-		_pregame_hud = pregame_hud_scene.instantiate()
-		_ui_layer.add_child(_pregame_hud)
-
-		_pregame_controller = PregameController.new()
-		_pregame_controller.finished.connect(_on_pregame_controller_finished)
-		add_child(_pregame_controller)
-
-		_pregame_controller.start(_pregame_hud)
+# 	Save the seed which host gave to this client so that rng
+# 	on this game client is the same as on all other clients.
+	Globals.synced_rng.set_seed(origin_seed)
+	
+	if multiplayer.is_server():
+		print_verbose("Host set origin seed to: ", origin_seed)
 	else:
-#		Use default setting values when skipping pregame
-#		settings
-		var player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
-		var wave_count: int = Config.default_game_length()
-		var difficulty: Difficulty.enm = Config.default_difficulty()
-		var game_mode: GameMode.enm = Config.default_game_mode()
-		var origin_seed: int = randi()
-		print_verbose("Generated origin seed locally: ", origin_seed)
+		print_verbose("Peer received origin seed from host: ", origin_seed)
+	
+#	Create local player and remote players
+	var peer_id_list: Array[int] = []
+	var local_peer_id: int = multiplayer.get_unique_id()
+	peer_id_list.append(local_peer_id)
+	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	for peer_id in remote_peer_id_list:
+		peer_id_list.append(peer_id)
+
+#	NOTE: create players in the order of peer id's to ensure determinism
+	peer_id_list.sort()
+	
+	if peer_id_list.size() > 2:
+		push_error("Too many players. Game supports at most 2.")
+
+		return
+	
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for the amount of players and selected team mode
+	var team_count: int = peer_id_list.size()
+	for i in range(0, team_count):
+		var team: Team = Team.make(i)
+		_team_container.add_team(team)
+
+#	TODO: implement different team modes and assign teams based on selected team mode
+	for peer_id in peer_id_list:
+		var player_id: int = peer_id_list.find(peer_id)
+		var team_for_player: Team = _team_container.get_team(player_id)
+		var player: Player = team_for_player.create_player(player_id, peer_id)
+		PlayerManager.add_player(player)
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_team: Team = local_player.get_team()
+	local_team.game_over.connect(_on_local_team_game_over)
+	
+	_hud.connect_to_local_player(local_player)
+	
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		player.voted_ready.connect(_on_player_voted_ready)
+	
+	if game_mode == GameMode.enm.BUILD:
+		for player in player_list:
+			var tower_stash: TowerStash = player.get_tower_stash()
+			tower_stash.add_all_towers()
+	
+	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
+	var game_mode_string: String = GameMode.convert_to_string(game_mode)
+
+	Messages.add_normal(local_player, "Welcome to You TD 2!")
+	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
+	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
+
+	for player in player_list:
+		player.generate_waves()
+
+	_hud.update_wave_details()
+
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
+		_hud.hide_roll_towers_button()
+
+	var test_item_list: Array = Config.test_item_list()
+	for player in player_list:
+		for item_id in test_item_list:
+			var item: Item = Item.make(item_id, player)
+			var item_stash: ItemContainer = player.get_item_stash()
+			item_stash.add_item(item)
+
+	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
+	if skip_builder_menu:
+		var builder_id: int = Config.default_builder_id()
+		_set_builder_for_local_player(builder_id)
+	else:
+		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
+		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		
-		_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
+#		NOTE: add builder menu below game menu so that game
+#		can show the game menu on top of tutorial
+		_ui_layer.add_child(builder_menu)
+		var game_menu_index: int = _game_menu.get_index()
+		_ui_layer.move_child(builder_menu, game_menu_index)
+	
+	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
+	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+	
+	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
+	
+	if multiplayer.is_server():
+		var latency: int
+		if player_mode == PlayerMode.enm.SINGLE:
+			latency = GameHost.SINGLEPLAYER_ACTION_LATENCY
+		else:
+			latency = GameHost.MULTIPLAYER_ACTION_LATENCY
+		
+		_game_host.setup(latency, player_list)
+	
+	_camera.position = _get_camera_origin_pos()
+
+#	NOTE: below are special tools which are not run during
+#	normal gameplay.
+	if Config.run_save_tooltips_tool():
+		SaveTooltipsTool.run(local_player)
+	
+	if Config.run_save_ranges_tool():
+		SaveTowerRangesTool.run(local_player)
+
+#	NOTE: tower tests need to run after everything else has
+#	been initialized
+	if Config.run_test_towers_tool():
+		TestTowersTool.run(self, local_player)
+
+	if Config.run_test_horadric_tool():
+		TestHoradricTool.run(local_player)
 
 
 func _unhandled_input(event: InputEvent):
-	if !_completed_pregame:
-		return
-
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")
 	var slash_pressed: bool = event.is_action_released("forward_slash")
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
@@ -290,9 +390,6 @@ func _do_focus_target():
 
 
 func _toggle_game_menu():
-	if !_completed_pregame:
-		return
-	
 	_game_menu.visible = !_game_menu.visible
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
@@ -322,145 +419,6 @@ func _get_cmdline_value(key: String):
 	return cmdline_value
 
 
-# This is called when host is finished selecting all of the
-# pregame settings.
-@rpc("any_peer", "call_local", "reliable")
-func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
-	_pregame_hud.queue_free()
-	_pregame_controller.queue_free()
-	
-	Globals._player_mode = player_mode
-	Globals._wave_count = wave_count
-	Globals._game_mode = game_mode
-	Globals._difficulty = difficulty
-	
-# 	Save the seed which host gave to this client so that rng
-# 	on this game client is the same as on all other clients.
-	Globals.synced_rng.set_seed(origin_seed)
-	
-	if multiplayer.is_server():
-		print_verbose("Host set origin seed to: ", origin_seed)
-	else:
-		print_verbose("Peer received origin seed from host: ", origin_seed)
-	
-#	Create local player and remote players
-	var peer_id_list: Array[int] = []
-	var local_peer_id: int = multiplayer.get_unique_id()
-	peer_id_list.append(local_peer_id)
-	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
-	for peer_id in remote_peer_id_list:
-		peer_id_list.append(peer_id)
-
-#	NOTE: create players in the order of peer id's to ensure determinism
-	peer_id_list.sort()
-	
-	if peer_id_list.size() > 2:
-		push_error("Too many players. Game supports at most 2.")
-
-		return
-	
-#	Create teams
-#	TODO: create an amount of teams which is appropriate for the amount of players and selected team mode
-	var team_count: int = peer_id_list.size()
-	for i in range(0, team_count):
-		var team: Team = Team.make(i)
-		_team_container.add_team(team)
-
-#	TODO: implement different team modes and assign teams based on selected team mode
-	for peer_id in peer_id_list:
-		var player_id: int = peer_id_list.find(peer_id)
-		var team_for_player: Team = _team_container.get_team(player_id)
-		var player: Player = team_for_player.create_player(player_id, peer_id)
-		PlayerManager.add_player(player)
-
-	var local_player: Player = PlayerManager.get_local_player()
-	var local_team: Team = local_player.get_team()
-	local_team.game_over.connect(_on_local_team_game_over)
-	
-	_hud.connect_to_local_player(local_player)
-	
-	var player_list: Array[Player] = PlayerManager.get_player_list()
-
-	for player in player_list:
-		player.voted_ready.connect(_on_player_voted_ready)
-	
-	if game_mode == GameMode.enm.BUILD:
-		for player in player_list:
-			var tower_stash: TowerStash = player.get_tower_stash()
-			tower_stash.add_all_towers()
-	
-	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
-	var game_mode_string: String = GameMode.convert_to_string(game_mode)
-
-	Messages.add_normal(local_player, "Welcome to You TD 2!")
-	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
-
-	for player in player_list:
-		player.generate_waves()
-
-	_hud.update_wave_details()
-
-	if Globals.get_game_mode() == GameMode.enm.BUILD:
-		_hud.hide_roll_towers_button()
-
-	var test_item_list: Array = Config.test_item_list()
-	for player in player_list:
-		for item_id in test_item_list:
-			var item: Item = Item.make(item_id, player)
-			var item_stash: ItemContainer = player.get_item_stash()
-			item_stash.add_item(item)
-
-	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
-	if skip_builder_menu:
-		var builder_id: int = Config.default_builder_id()
-		_set_builder_for_local_player(builder_id)
-	else:
-		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
-		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
-		
-#		NOTE: add builder menu below game menu so that game
-#		can show the game menu on top of tutorial
-		_ui_layer.add_child(builder_menu)
-		var game_menu_index: int = _game_menu.get_index()
-		_ui_layer.move_child(builder_menu, game_menu_index)
-	
-	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
-	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
-	
-	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	
-	if multiplayer.is_server():
-		var latency: int
-		if player_mode == PlayerMode.enm.SINGLE:
-			latency = GameHost.SINGLEPLAYER_ACTION_LATENCY
-		else:
-			latency = GameHost.MULTIPLAYER_ACTION_LATENCY
-		
-		_game_host.setup(latency, player_list)
-	
-	_camera.position = _get_camera_origin_pos()
-
-	get_tree().set_pause(false)
-	_completed_pregame = true
-
-#	NOTE: below are special tools which are not run during
-#	normal gameplay.
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run(local_player)
-	
-	if Config.run_save_ranges_tool():
-		SaveTowerRangesTool.run(local_player)
-
-#	NOTE: tower tests need to run after everything else has
-#	been initialized
-	if Config.run_test_towers_tool():
-		TestTowersTool.run(self, local_player)
-
-	if Config.run_test_horadric_tool():
-		TestHoradricTool.run(local_player)
-
-
 func _start_tutorial(game_mode: GameMode.enm):
 #	Add items for tutorial, to allow player to practice moving them.
 	var local_player: Player = PlayerManager.get_local_player()
@@ -487,25 +445,6 @@ func _start_tutorial(game_mode: GameMode.enm):
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_pregame_controller_finished():
-#	NOTE: in singleplayer case, this simply sets the
-#	settings locally. In multiplayer case, this will
-#	cause the host to broadcast game settings to
-#	peers.
-	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
-	var wave_count: int = _pregame_controller.get_game_length()
-	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
-	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
-	
-#	NOTE: host randomizes their rng, other peers will
-#	receive this seed from host when connecting via
-#	_set_origin_rng_seed().
-	var origin_seed: int = randi()
-	print_verbose("Generated origin seed on host: ", origin_seed)
-
-	_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
-
 
 func _on_game_menu_close_pressed():
 	_toggle_game_menu()

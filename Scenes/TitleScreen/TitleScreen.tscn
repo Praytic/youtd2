@@ -1,16 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=11 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/TitleScreen.gd" id="1_dx8oa"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_ec3wj"]
 [ext_resource type="Texture2D" uid="uid://bpfx0lg44dqkv" path="res://Assets/icob_ultra_wide.png" id="3_uvrn4"]
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_rdxi7"]
+[ext_resource type="PackedScene" uid="uid://cnnkyqysqqyar" path="res://Scenes/TitleScreen/JoinOrHostMenu.tscn" id="5_pc1mj"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_q0hc3"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://Scenes/TitleScreen/RoomMenu.tscn" id="6_65btw"]
+[ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.tscn" id="6_nj3u5"]
+[ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/PregameHUD/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_k152k"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_b7erc"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/MarginContainer/TabContainer")
+_configure_singleplayer_menu = NodePath("UI/MarginContainer/TabContainer/ConfigureSingleplayerMenu")
+_auth_button = NodePath("UI/MarginContainer/TabContainer/MainTab/AuthButton")
+_spacer_before_quit_button = NodePath("UI/MarginContainer/TabContainer/MainTab/Spacer")
+_quit_button = NodePath("UI/MarginContainer/TabContainer/MainTab/QuitButton")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -46,17 +54,26 @@ grow_vertical = 0
 theme_override_constants/margin_bottom = 200
 
 [node name="TabContainer" type="TabContainer" parent="UI/MarginContainer"]
-custom_minimum_size = Vector2(0, 410)
 layout_mode = 2
 tabs_visible = false
 
 [node name="MainTab" type="VBoxContainer" parent="UI/MarginContainer/TabContainer"]
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
+[node name="SingleplayerButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
-text = "Start"
+text = "Singleplayer"
+
+[node name="MultiplayerButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
+layout_mode = 2
+theme_type_variation = &"ButtonLarge"
+text = "Multiplayer"
+
+[node name="AuthButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
+layout_mode = 2
+theme_type_variation = &"ButtonLarge"
+text = "Auth"
 
 [node name="SettingsButton" type="Button" parent="UI/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
@@ -69,6 +86,7 @@ theme_type_variation = &"ButtonLarge"
 text = "Credits"
 
 [node name="Spacer" type="VBoxContainer" parent="UI/MarginContainer/TabContainer/MainTab"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -77,18 +95,43 @@ layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Quit"
 
+[node name="ConfigureSingleplayerMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("6_nj3u5")]
+visible = false
+layout_mode = 2
+
+[node name="JoinOrHostMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("5_pc1mj")]
+visible = false
+layout_mode = 2
+
+[node name="RoomMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("6_65btw")]
+visible = false
+layout_mode = 2
+
 [node name="SettingsMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_k152k")
+_interface_size_button_group = SubResource("ButtonGroup_b7erc")
 
 [node name="CreditsMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
 layout_mode = 2
 
-[connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/StartButton" to="." method="_on_button_pressed"]
+[node name="AuthMenu" parent="UI/MarginContainer/TabContainer" instance=ExtResource("9_v765v")]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/AuthButton" to="." method="_on_auth_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/TabContainer/MainTab/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="hidden" from="UI/MarginContainer/TabContainer/SettingsMenu" to="." method="_on_settings_menu_hidden"]
-[connection signal="hidden" from="UI/MarginContainer/TabContainer/CreditsMenu" to="." method="_on_credits_menu_hidden"]
+[connection signal="cancel_pressed" from="UI/MarginContainer/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_generic_tab_cancel_pressed"]
+[connection signal="start_button_pressed" from="UI/MarginContainer/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_configure_singleplayer_menu_start_button_pressed"]
+[connection signal="cancel_pressed" from="UI/MarginContainer/TabContainer/JoinOrHostMenu" to="." method="_on_generic_tab_cancel_pressed"]
+[connection signal="host_button_pressed" from="UI/MarginContainer/TabContainer/JoinOrHostMenu" to="." method="_on_join_or_host_menu_host_button_pressed"]
+[connection signal="join_button_pressed" from="UI/MarginContainer/TabContainer/JoinOrHostMenu" to="." method="_on_join_or_host_menu_join_button_pressed"]
+[connection signal="cancel_pressed" from="UI/MarginContainer/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]
+[connection signal="ok_pressed" from="UI/MarginContainer/TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]
+[connection signal="close_pressed" from="UI/MarginContainer/TabContainer/CreditsMenu" to="." method="_on_generic_tab_cancel_pressed"]
+[connection signal="cancel_pressed" from="UI/MarginContainer/TabContainer/AuthMenu" to="." method="_on_generic_tab_cancel_pressed"]

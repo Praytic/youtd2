@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/PauseHUD/HelpMenu.tscn" id="6_q6xgl"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_41lwn"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_yjhfi"]
 
 [node name="GameMenu" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -98,7 +98,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_41lwn")
+_interface_size_button_group = SubResource("ButtonGroup_yjhfi")
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
@@ -108,4 +108,5 @@ _interface_size_button_group = SubResource("ButtonGroup_41lwn")
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="hidden" from="TabContainer/HelpMenu" to="." method="_on_help_menu_hidden"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]
-[connection signal="hidden" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_hidden"]
+[connection signal="cancel_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_cancel_pressed"]
+[connection signal="ok_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]

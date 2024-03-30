@@ -1,0 +1,94 @@
+[gd_scene load_steps=2 format=3 uid="uid://eies0lnegrf6"]
+
+[ext_resource type="Script" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.gd" id="1_dgq16"]
+
+[node name="ConfigureSingleplayerMenu" type="VBoxContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo")]
+script = ExtResource("1_dgq16")
+_difficulty_combo = NodePath("GridContainer/DifficultyCombo")
+_game_length_combo = NodePath("GridContainer/GameLengthCombo")
+_game_mode_combo = NodePath("GridContainer/GameModeCombo")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Choose game settings:"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Difficulty:"
+
+[node name="DifficultyCombo" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+item_count = 5
+selected = 2
+popup/item_0/text = "Beginner"
+popup/item_0/id = 0
+popup/item_1/text = "Easy"
+popup/item_1/id = 1
+popup/item_2/text = "Medium"
+popup/item_2/id = 2
+popup/item_3/text = "Hard"
+popup/item_3/id = 3
+popup/item_4/text = "Extreme"
+popup/item_4/id = 4
+
+[node name="Label2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Game length:"
+
+[node name="GameLengthCombo" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+item_count = 3
+selected = 1
+popup/item_0/text = "80 waves"
+popup/item_0/id = 0
+popup/item_1/text = "120 waves"
+popup/item_1/id = 1
+popup/item_2/text = "240 waves"
+popup/item_2/id = 2
+
+[node name="Label3" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Game mode:"
+
+[node name="GameModeCombo" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+tooltip_text = "Random with upgrades: you get towers randomly after each
+wave. Towers can be upgraded to higher tiers.
+ 
+Totally random: you get towers randomly after each wave.
+Upgraded versions of towers are also randomly distributed.
+ 
+Build: you can build any tower which meets requirements.
+Not recommended - game is best played in random modes."
+item_count = 3
+selected = 1
+popup/item_0/text = "Builld (lame)"
+popup/item_0/id = 0
+popup/item_1/text = "Random with upgrades"
+popup/item_1/id = 1
+popup/item_2/text = "Totally random"
+popup/item_2/id = 2
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="StartButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="pressed" from="HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

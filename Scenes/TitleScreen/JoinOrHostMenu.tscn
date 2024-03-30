@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnnkyqysqqyar"]
+
+[ext_resource type="Script" path="res://Scenes/TitleScreen/JoinOrHostMenu.gd" id="1_48kpm"]
+
+[node name="JoinOrHostMenu" type="VBoxContainer"]
+script = ExtResource("1_48kpm")
+
+[node name="JoinButton" type="Button" parent="."]
+layout_mode = 2
+text = "Join room"
+
+[node name="HostButton" type="Button" parent="."]
+layout_mode = 2
+text = "Host room"
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CancelButton" type="Button" parent="."]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]

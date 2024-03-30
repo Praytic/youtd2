@@ -8,6 +8,7 @@ var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
+var _origin_seed: int = 0
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
@@ -50,6 +51,10 @@ func get_game_mode() -> GameMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty
+
+
+func get_origin_seed() -> int:
+	return _origin_seed
 
 
 func game_mode_is_random() -> bool:

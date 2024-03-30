@@ -1,4 +1,8 @@
-class_name AuthMenu extends PregameTab
+class_name AuthMenu extends VBoxContainer
+
+
+signal finished()
+signal cancel_pressed()
 
 
 @export var _player_name_text_edit: TextEdit
@@ -52,3 +56,7 @@ func _on_log_in_button_pressed():
 
 func _on_create_account_button_pressed():
 	await W4Manager.set_own_username(_player_name_text_edit.text, true)
+
+
+func _on_cancel_button_pressed():
+	cancel_pressed.emit()

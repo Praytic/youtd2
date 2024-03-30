@@ -41,5 +41,13 @@ text = "We cannot guarantee the persistence of your progress because the game is
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
 [connection signal="pressed" from="LogInButton" to="." method="_on_log_in_button_pressed"]
 [connection signal="pressed" from="CreateAccountButton" to="." method="_on_create_account_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

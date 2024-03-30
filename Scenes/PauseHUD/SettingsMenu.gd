@@ -1,6 +1,10 @@
 extends PanelContainer
 
 
+signal cancel_pressed()
+signal ok_pressed()
+
+
 @export var _old_item_names: CheckBox
 @export var _damage_numbers: CheckBox
 @export var _enable_sfx: CheckBox
@@ -121,7 +125,7 @@ func _clear_dirty_state():
 
 func _on_cancel_button_pressed():
 	_load_current_settings()
-	hide()
+	cancel_pressed.emit()
 
 
 func _on_apply_button_pressed():
@@ -130,7 +134,7 @@ func _on_apply_button_pressed():
 
 func _on_ok_button_pressed():
 	_apply_changes()
-	hide()
+	ok_pressed.emit()
 
 
 func _on_button_group_pressed(_button: BaseButton):
