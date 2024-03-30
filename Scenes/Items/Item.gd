@@ -11,7 +11,7 @@ signal consumed()
 
 const FLY_DURATION: float = 1.0
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
-const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
+const FAILLBACK_SCRIPT: String = "res://Scenes/Items/ItemBehaviors/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.
@@ -427,6 +427,6 @@ static func make_item_drop(item: Item, drop_pos: Vector2):
 
 
 static func get_item_script_path(item_id: int):
-	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
+	var path: String = "res://Scenes/Items/ItemBehaviors/Item%d.gd" % item_id
 
 	return path
