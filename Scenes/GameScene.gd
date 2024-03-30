@@ -18,6 +18,7 @@ class_name GameScene extends Node
 @export var _game_client: GameClient
 @export var _game_host: GameHost
 @export var _game_time: GameTime
+@export var _pause_shadow_rect: ColorRect
 
 
 var _room_code: int = 0
@@ -395,6 +396,8 @@ func _toggle_game_menu():
 	if player_mode == PlayerMode.enm.SINGLE:
 		var tree: SceneTree = get_tree()
 		tree.paused = !tree.paused
+		
+		_pause_shadow_rect.visible = !_pause_shadow_rect.visible
 
 
 func _get_cmdline_value(key: String):

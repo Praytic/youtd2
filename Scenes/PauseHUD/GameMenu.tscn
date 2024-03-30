@@ -7,41 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://vno2fc0bkyjw" path="res://Scenes/PauseHUD/QuitMenu.tscn" id="6_mcdyf"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/PauseHUD/HelpMenu.tscn" id="6_q6xgl"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_hin6x"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_di8qs"]
 
-[node name="GameMenu" type="Control" node_paths=PackedStringArray("_tab_container")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
 theme = ExtResource("1_v8b77")
 script = ExtResource("1_8lyul")
 _tab_container = NodePath("TabContainer")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.392157)
-
 [node name="TabContainer" type="TabContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -71.5
-offset_top = -103.5
-offset_right = 71.5
-offset_bottom = 103.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 tabs_visible = false
 
 [node name="MainTab" type="MarginContainer" parent="TabContainer"]
@@ -93,7 +67,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_hin6x")
+_interface_size_button_group = SubResource("ButtonGroup_di8qs")
 
 [node name="QuitMenu" parent="TabContainer" instance=ExtResource("6_mcdyf")]
 visible = false

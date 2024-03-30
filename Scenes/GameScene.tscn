@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -82,6 +82,7 @@ _ui_layer = NodePath("UI")
 _game_client = NodePath("Gameplay/GameClient")
 _game_host = NodePath("Gameplay/GameHost")
 _game_time = NodePath("Gameplay/GameTime")
+_pause_shadow_rect = NodePath("UI/PauseShadowRect")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -243,9 +244,28 @@ process_mode = 1
 size_flags_horizontal = 1
 mouse_filter = 2
 
-[node name="GameMenu" parent="UI" instance=ExtResource("9_r46bb")]
-process_mode = 3
+[node name="PauseShadowRect" type="ColorRect" parent="UI"]
 visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="GameMenu" parent="UI" instance=ExtResource("9_r46bb")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -192.5
+offset_right = 121.5
+offset_bottom = 192.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
