@@ -12,6 +12,7 @@ const DEFAULT_PORT = 8910
 
 
 @export var _join_or_host_menu: JoinOrHostMenu
+@export var _room_menu: RoomMenu
 
 
 func _on_join_or_host_menu_host_pressed():
@@ -28,6 +29,7 @@ func _on_join_or_host_menu_host_pressed():
 
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
+	_room_menu.set_server_controls_disabled(false)
 	
 	completed.emit()
 
@@ -61,5 +63,6 @@ func _on_join_or_host_menu_join_pressed():
 
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
+	_room_menu.set_server_controls_disabled(true)
 	
 	completed.emit()

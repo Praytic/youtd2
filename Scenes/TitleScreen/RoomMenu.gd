@@ -7,6 +7,7 @@ signal start_pressed()
 
 @export var _player_list: ItemList
 @export var _game_mode_ui: GameModeUI
+@export var _start_button: Button
 
 
 #########################
@@ -28,6 +29,10 @@ func _process(_delta: float):
 		_player_list.set_item_selectable(i, false)
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_difficulty() -> Difficulty.enm:
 	return _game_mode_ui.get_difficulty()
 
@@ -38,6 +43,11 @@ func get_game_length() -> int:
 
 func get_game_mode() -> GameMode.enm:
 	return _game_mode_ui.get_game_mode()
+
+
+func set_server_controls_disabled(value: bool):
+	_game_mode_ui.set_disabled(value)
+	_start_button.disabled = value
 
 
 #########################

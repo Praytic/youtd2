@@ -6,6 +6,12 @@ class_name GameModeUI extends GridContainer
 @export var _game_mode_combo: OptionButton
 
 
+func set_disabled(value: bool):
+	_difficulty_combo.disabled = value
+	_game_length_combo.disabled = value
+	_game_mode_combo.disabled = value
+
+
 func get_difficulty() -> Difficulty.enm:
 	var selected_index: int = _difficulty_combo.get_selected()
 	var difficulty: Difficulty.enm = selected_index as Difficulty.enm

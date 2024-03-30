@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/PregameHUD/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_yydvw"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_rgj60"]
 
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
@@ -21,9 +21,10 @@ _auth_button = NodePath("UI/TabContainer/MainTab/AuthButton")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/QuitButton")
 
-[node name="JoinOrHostController" type="Node" parent="." node_paths=PackedStringArray("_join_or_host_menu")]
+[node name="JoinOrHostController" type="Node" parent="." node_paths=PackedStringArray("_join_or_host_menu", "_room_menu")]
 script = ExtResource("2_uac6j")
 _join_or_host_menu = NodePath("../UI/TabContainer/JoinOrHostMenu")
+_room_menu = NodePath("../UI/TabContainer/RoomMenu")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -105,7 +106,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_yydvw")
+_interface_size_button_group = SubResource("ButtonGroup_rgj60")
 
 [node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
