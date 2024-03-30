@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/PregameHUD/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_g3pb7"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_yydvw"]
 
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
@@ -105,7 +105,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_g3pb7")
+_interface_size_button_group = SubResource("ButtonGroup_yydvw")
 
 [node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
@@ -127,6 +127,8 @@ layout_mode = 2
 [connection signal="cancel_pressed" from="UI/TabContainer/JoinOrHostMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="host_pressed" from="UI/TabContainer/JoinOrHostMenu" to="JoinOrHostController" method="_on_join_or_host_menu_host_pressed"]
 [connection signal="join_pressed" from="UI/TabContainer/JoinOrHostMenu" to="JoinOrHostController" method="_on_join_or_host_menu_join_pressed"]
+[connection signal="back_pressed" from="UI/TabContainer/RoomMenu" to="." method="_on_room_menu_back_pressed"]
+[connection signal="start_pressed" from="UI/TabContainer/RoomMenu" to="." method="_on_room_menu_start_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="ok_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/CreditsMenu" to="." method="_on_generic_tab_cancel_pressed"]

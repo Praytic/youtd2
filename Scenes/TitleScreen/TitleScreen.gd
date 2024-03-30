@@ -41,6 +41,20 @@ func _switch_to_main_tab():
 	_tab_container.current_tab = Tab.MAIN
 
 
+# NOTE: this function transitions the game from title screen to game scene. Can be called either by client itself or the host if the game is in multiplayer mode.
+@rpc("any_peer", "call_local", "reliable")
+func _start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
+#	NOTE: save game settings into globals so that GameScene
+#	can access them
+	Globals._player_mode = player_mode
+	Globals._difficulty = difficulty
+	Globals._wave_count = wave_count
+	Globals._game_mode = game_mode
+	Globals._origin_seed = origin_seed
+	
+	get_tree().change_scene_to_packed(Preloads.game_scene_scene)
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -69,16 +83,9 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	var difficulty: Difficulty.enm = _configure_singleplayer_menu.get_difficulty()
 	var game_length: int = _configure_singleplayer_menu.get_game_length()
 	var game_mode: GameMode.enm = _configure_singleplayer_menu.get_game_mode()
+	var origin_seed: int = randi()
 	
-#	NOTE: save game settings into globals so that GameScene
-#	can access them
-	Globals._player_mode = PlayerMode.enm.SINGLE
-	Globals._difficulty = difficulty
-	Globals._wave_count = game_length
-	Globals._game_mode = game_mode
-	Globals._origin_seed = randi()
-	
-	get_tree().change_scene_to_packed(Preloads.game_scene_scene)
+	_start_game(PlayerMode.enm.SINGLE, game_length, game_mode, difficulty, origin_seed)
 
 
 func _on_join_or_host_menu_join_button_pressed():
@@ -103,3 +110,16 @@ func _on_settings_menu_ok_pressed():
 
 func _on_join_or_host_controller_completed():
 	_tab_container.current_tab = Tab.MULTIPLAYER_ROOM
+
+
+func _on_room_menu_back_pressed():
+	_tab_container.current_tab = Tab.JOIN_OR_HOST
+
+
+func _on_room_menu_start_pressed():
+	var difficulty: Difficulty.enm = _configure_singleplayer_menu.get_difficulty()
+	var game_length: int = _configure_singleplayer_menu.get_game_length()
+	var game_mode: GameMode.enm = _configure_singleplayer_menu.get_game_mode()
+	var origin_seed: int = randi()
+	
+	_start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)

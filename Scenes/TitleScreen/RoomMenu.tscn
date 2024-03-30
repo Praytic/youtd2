@@ -1,16 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://cecaq4wvkvxv3"]
+[gd_scene load_steps=3 format=3 uid="uid://cecaq4wvkvxv3"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/RoomMenu.gd" id="1_gou4l"]
+[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://GameModeUI.tscn" id="2_u4tk3"]
 
-[node name="RoomMenu" type="VBoxContainer" node_paths=PackedStringArray("_player_list")]
+[node name="RoomMenu" type="VBoxContainer" node_paths=PackedStringArray("_player_list", "_game_mode_ui")]
 script = ExtResource("1_gou4l")
 _player_list = NodePath("PlayerList")
+_game_mode_ui = NodePath("GameModeUI")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Players:"
+text = "Connected players:"
 
 [node name="PlayerList" type="ItemList" parent="."]
 layout_mode = 2
 allow_search = false
 auto_height = true
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "Choose game mode:"
+
+[node name="GameModeUI" parent="." instance=ExtResource("2_u4tk3")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="StartButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

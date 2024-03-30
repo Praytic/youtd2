@@ -27,6 +27,7 @@ func get_difficulty() -> Difficulty.enm:
 func get_game_length() -> int:
 	return _game_mode_ui.get_game_length()
 
+
 func get_game_mode() -> GameMode.enm:
 	return _game_mode_ui.get_game_mode()
 

@@ -1,11 +1,19 @@
 class_name RoomMenu extends VBoxContainer
 
 
+signal back_pressed()
+signal start_pressed()
+
+
 @export var _player_list: ItemList
+@export var _game_mode_ui: GameModeUI
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+#########################
+###     Built-in      ###
+#########################
+
+func _process(_delta: float):
 	var peer_id_list: Array = multiplayer.get_peers()
 	var local_peer_id: int = multiplayer.get_unique_id()
 	peer_id_list.append(local_peer_id)
@@ -18,3 +26,27 @@ func _process(delta):
 	
 	for i in _player_list.item_count:
 		_player_list.set_item_selectable(i, false)
+
+
+func get_difficulty() -> Difficulty.enm:
+	return _game_mode_ui.get_difficulty()
+
+
+func get_game_length() -> int:
+	return _game_mode_ui.get_game_length()
+
+
+func get_game_mode() -> GameMode.enm:
+	return _game_mode_ui.get_game_mode()
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_back_button_pressed():
+	back_pressed.emit()
+
+
+func _on_start_button_pressed():
+	start_pressed.emit()
