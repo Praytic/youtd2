@@ -46,11 +46,18 @@ texture = ExtResource("3_uvrn4")
 expand_mode = 3
 
 [node name="TabContainer" type="TabContainer" parent="UI"]
-layout_mode = 2
-offset_left = 1078.0
-offset_top = 670.0
-offset_right = 1482.0
-offset_bottom = 1240.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -247.5
+offset_right = 202.0
+offset_bottom = 247.5
+grow_horizontal = 2
+grow_vertical = 2
 tabs_visible = false
 
 [node name="MainTab" type="VBoxContainer" parent="UI/TabContainer"]
@@ -67,6 +74,7 @@ theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
 
 [node name="AuthButton" type="Button" parent="UI/TabContainer/MainTab"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Auth"
