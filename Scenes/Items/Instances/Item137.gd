@@ -1,5 +1,5 @@
 # Pendant of Promptness
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -20,8 +20,7 @@ func load_modifier(modifier: Modifier):
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if tower.subtract_mana(0.05 * tower.get_overall_mana(), false) == 0:
 		tower.order_stop()

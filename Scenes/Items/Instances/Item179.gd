@@ -1,5 +1,5 @@
 # Ritual Talisman
-extends Item
+extends ItemBehavior
 
 
 # NOTE: changed autocast.target_self to false. Original
@@ -47,4 +47,4 @@ func item_init():
 	autocast.cast_range = 450
 	autocast.auto_range = 450
 	autocast.handler = Callable()
-	set_autocast(autocast)
+	item.set_autocast(autocast)

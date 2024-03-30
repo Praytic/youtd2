@@ -1,5 +1,5 @@
 # Unyielding Maul
-extends Item
+extends ItemBehavior
 
 
 # NOTE: original script implemented miss effect via "attack"
@@ -31,11 +31,10 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var tower: Unit = itm.get_carrier()
+	var tower: Unit = item.get_carrier()
 
 	if !tower.calc_chance(0.90):
-		CombatLog.log_item_ability(self, null, "Miss")
+		CombatLog.log_item_ability(item, null, "Miss")
 
 		event.damage = 0
 		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)

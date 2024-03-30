@@ -1,5 +1,5 @@
 # Excalibur
-extends Item
+extends ItemBehavior
 
 
 var Symphony_armorReduce: BuffType
@@ -37,8 +37,7 @@ func item_init():
 
 
 func on_damage(event: Event):
-    var itm: Item = self
-    var tower: Tower = itm.get_carrier()
+    var tower: Tower = item.get_carrier()
 
     if event.is_main_target() == true:
         if Utils.rand_chance(Globals.synced_rng, 0.5):

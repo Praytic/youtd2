@@ -1,5 +1,5 @@
 # Silver Armor
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -17,14 +17,12 @@ func load_modifier(modifier: Modifier):
 
 
 func on_drop():
-    var itm: Item = self
-    var tower: Tower = itm.get_carrier()
+    var tower: Tower = item.get_carrier()
 
     tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -tower.get_gold_cost() * 0.0001)
 
 
 func on_pickup():
-    var itm: Item = self
-    var tower: Tower = itm.get_carrier()
+    var tower: Tower = item.get_carrier()
 
     tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, tower.get_gold_cost() * 0.0001)

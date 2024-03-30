@@ -1,5 +1,5 @@
 # Chrono Jumper
-extends Item
+extends ItemBehavior
 
 
 # TODO: implement. Very complicated script. Don't have to

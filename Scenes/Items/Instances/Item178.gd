@@ -1,5 +1,5 @@
 # Dark Matter Trident
-extends Item
+extends ItemBehavior
 
 
 var neg: BuffType
@@ -39,7 +39,6 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var B: Buff
 	var T: Tower
 	var C: Creep
@@ -47,7 +46,7 @@ func on_damage(event: Event):
 	var dur: float
 
 	if event.is_main_target():
-		T = itm.get_carrier()
+		T = item.get_carrier()
 		C = event.get_target()
 		level_add = int(100.0 * T.get_current_attackspeed())
 		dur = 5 + 0.1 * T.get_level()

@@ -1,5 +1,5 @@
 # Golden Decoration
-extends Item
+extends ItemBehavior
 
 
 var interest_bonus_mb: MultiboardValues
@@ -23,23 +23,19 @@ func item_init():
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0
+	item.user_real = 0
 
 
 func on_drop():
-	var itm: Item = self
-	itm.get_player().modify_interest_rate(-itm.user_real)
+	item.get_player().modify_interest_rate(-item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	itm.user_real = 0.004 * (tower.get_gold_cost() / 2500.0)
-	itm.get_player().modify_interest_rate(itm.user_real)
+	var tower: Tower = item.get_carrier()
+	item.user_real = 0.004 * (tower.get_gold_cost() / 2500.0)
+	item.get_player().modify_interest_rate(item.user_real)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	interest_bonus_mb.set_value(0, Utils.format_percent(itm.user_real, 3))
+	interest_bonus_mb.set_value(0, Utils.format_percent(item.user_real, 3))
 	return interest_bonus_mb

@@ -1,5 +1,5 @@
 # Currency Converter
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -19,13 +19,11 @@ func load_triggers(triggers: BuffType):
 
 
 func on_periodic(event: Event):
-	var itm = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var lvl: int = tower.get_level()
 	event.enable_advanced(15 - lvl * 0.3, false)
 	if tower.get_exp() >= 2.0:
-		CombatLog.log_item_ability(self, null, "Exchange")
+		CombatLog.log_item_ability(item, null, "Exchange")
 		SFX.sfx_on_unit("UI\\Feedback\\GoldCredit\\GoldCredit.mdl", tower, Unit.BodyPart.HEAD)
 		tower.remove_exp_flat(2)
 		tower.get_player().give_gold(7, tower, true, true)

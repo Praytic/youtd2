@@ -1,5 +1,5 @@
 # Even More Magical Hammer
-extends Item
+extends ItemBehavior
 
 
 var hammer_mark: BuffType
@@ -112,8 +112,7 @@ func item_init():
 
 
 func on_drop():
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var B: Buff = T.get_buff_of_type(hammer_mark)
 
 	if B != null:
@@ -129,8 +128,7 @@ func on_drop():
 
 
 func on_pickup():
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var B: Buff = T.get_buff_of_type(hammer_mark)
 
 	if B == null:
@@ -142,8 +140,7 @@ func on_pickup():
 
 
 func on_unit_in_range(event: Event):
-	var itm: Item = self
 	var U: Unit = event.get_target()
 
 	if U.get_buff_of_type(hammer_aura) == null:
-		hammer_aura.apply(itm.get_carrier(), U, 0)
+		hammer_aura.apply(item.get_carrier(), U, 0)

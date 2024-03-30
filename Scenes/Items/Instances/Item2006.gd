@@ -1,6 +1,6 @@
 # Arcane Book of Power
-extends Item
+extends ItemBehavior
 
 
 func on_consume():
-	get_player().add_tomes(8)
+	item.get_player().add_tomes(8)

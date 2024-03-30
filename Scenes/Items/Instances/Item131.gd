@@ -1,5 +1,5 @@
 # Mana Stone
-extends Item
+extends ItemBehavior
 
 
 var fright_mana_aura: BuffType
@@ -42,26 +42,23 @@ func item_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = fright_mana_aura
-	add_aura(aura)
+	item.add_aura(aura)
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	itm.user_int = itm.user_int + 1
+	item.user_int = item.user_int + 1
 
-	if itm.user_int == 3:
-		itm.get_carrier().add_mana_perc(0.01)
-		itm.user_int = 0
+	if item.user_int == 3:
+		item.get_carrier().add_mana_perc(0.01)
+		item.user_int = 0
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var effect: int = Effect.create_scaled("SpiritTouchTarget.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 10.0, 0.0, 5)
 	Effect.destroy_effect_after_its_over(effect)
 

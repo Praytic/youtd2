@@ -1,5 +1,5 @@
 # Frog Pipe
-extends Item
+extends ItemBehavior
 
 # NOTE: in original script, collision range was defined by
 # calling setCollisionParameters. Removed that because it's
@@ -61,8 +61,7 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var target: Unit = event.get_target()
 	var frog_chance: float = 0.2
 
@@ -72,10 +71,10 @@ func on_attack(event: Event):
 	if target.get_size() != CreepSize.enm.AIR:
 		CombatLog.log_ability(tower, target, "Frog Piper")
 		
-		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(-40, -20))
-		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(-20, -0))
-		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(0, 20))
-		daem_frog_attack(itm.get_carrier(), target, Globals.synced_rng.randi_range(20, 40))
+		daem_frog_attack(item.get_carrier(), target, Globals.synced_rng.randi_range(-40, -20))
+		daem_frog_attack(item.get_carrier(), target, Globals.synced_rng.randi_range(-20, -0))
+		daem_frog_attack(item.get_carrier(), target, Globals.synced_rng.randi_range(0, 20))
+		daem_frog_attack(item.get_carrier(), target, Globals.synced_rng.randi_range(20, 40))
 
 
 func daem_frog_PT_on_collision(p: Projectile, target: Unit):

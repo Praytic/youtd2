@@ -1,5 +1,5 @@
 # Mystical Shell
-extends Item
+extends ItemBehavior
 
 
 var drol_spellDmgRecieved: BuffType
@@ -29,10 +29,8 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if tower.calc_chance(0.10 * tower.get_base_attackspeed()):
-		CombatLog.log_item_ability(self, event.get_target(), "Resonance")
+		CombatLog.log_item_ability(item, event.get_target(), "Resonance")
 		drol_spellDmgRecieved.apply(tower, event.get_target(), tower.get_level())

@@ -1,5 +1,5 @@
 # Optimist's Preserved Face
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:

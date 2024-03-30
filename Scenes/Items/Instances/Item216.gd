@@ -1,5 +1,5 @@
 # Pendant of Mana Supremacy
-extends Item
+extends ItemBehavior
 
 
 func load_modifier(modifier: Modifier):
@@ -24,24 +24,22 @@ func load_triggers(triggers: BuffType):
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_spell_cast(event: Event):
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var t: Unit = T
 
 	if !event.get_autocast_type().get_manacost() > 0.45:
 #	  No cheating
 		return
 
-	if itm.user_int + 10.0 < Utils.get_time():
+	if item.user_int + 10.0 < Utils.get_time():
 		if T.calc_chance(0.2):
-			CombatLog.log_item_ability(self, null, "Magical Greed")
+			CombatLog.log_item_ability(item, null, "Magical Greed")
 
 			t.set_mana(t.get_mana() + t.get_overall_mana() * (0.15 + T.get_level() * 0.006))
 			var effect: int = Effect.create_simple_at_unit("ReplenishManaCasterOverhead.mdl", T)
 			Effect.destroy_effect_after_its_over(effect)
-			itm.user_int = roundi(Utils.get_time())
+			item.user_int = roundi(Utils.get_time())

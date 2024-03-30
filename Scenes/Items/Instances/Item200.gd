@@ -1,5 +1,5 @@
 # Spellbook of Item Mastery
-extends Item
+extends ItemBehavior
 
 
 var Maj_spellbook: MultiboardValues
@@ -34,18 +34,16 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
 	var choose: int
 	var target: Creep
 	var tower: Tower
 	var player: Player
 
-	if itm.user_int <= 0:
-		itm.user_int = 15
+	if item.user_int <= 0:
+		item.user_int = 15
 		
-		tower = itm.get_carrier()
-		player = itm.get_player()
+		tower = item.get_carrier()
+		player = item.get_player()
 		choose = Globals.synced_rng.randi_range(1, 6)
 
 		if choose <= 4:
@@ -75,46 +73,42 @@ func on_attack(event: Event):
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.25)
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.1)
-			itm.user_real = itm.user_real + 0.1
-			itm.user_real2 = itm.user_real2 + 0.1
+			item.user_real = item.user_real + 0.1
+			item.user_real2 = item.user_real2 + 0.1
 			player.display_floating_text("Two Items + Bonus!", tower, Color8(0, 0, 255))
 		elif choose == 5:
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.25)
-			itm.user_real2 = itm.user_real2 + 0.25
+			item.user_real2 = item.user_real2 + 0.25
 			player.display_floating_text("Item Chance", tower, Color8(0, 255, 0))
 		elif choose == 6:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
-			itm.user_real = itm.user_real + 0.25
+			item.user_real = item.user_real + 0.25
 			player.display_floating_text("Item Quality", tower, Color8(0, 255, 0))
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int = 0
-	itm.user_int2 = itm.get_player().get_team().get_level()
-	itm.user_real = 0
-	itm.user_real2 = 0
+	item.user_int = 0
+	item.user_int2 = item.get_player().get_team().get_level()
+	item.user_real = 0
+	item.user_real2 = 0
 
 
 func on_drop():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -itm.user_real)
-	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -itm.user_real2)
+	var tower: Tower = item.get_carrier()
+	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -item.user_real)
+	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -item.user_real2)
 
 
 func on_pickup():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, itm.user_real)
-	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, itm.user_real2)
+	var tower: Tower = item.get_carrier()
+	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, item.user_real)
+	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, item.user_real2)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var waves_left_text: String = Utils.format_float(itm.user_int, 2)
-	var item_quality_text: String = Utils.format_percent(itm.user_real, 0)
-	var item_chance_text: String = Utils.format_percent(itm.user_real2, 0)
+	var waves_left_text: String = Utils.format_float(item.user_int, 2)
+	var item_quality_text: String = Utils.format_percent(item.user_real, 0)
+	var item_chance_text: String = Utils.format_percent(item.user_real2, 0)
 	Maj_spellbook.set_value(0, waves_left_text)
 	Maj_spellbook.set_value(1, item_quality_text)
 	Maj_spellbook.set_value(2, item_chance_text)
@@ -123,9 +117,8 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	var level: int = itm.get_player().get_team().get_level()
+	var level: int = item.get_player().get_team().get_level()
 
-	if itm.user_int2 < level:
-		itm.user_int = itm.user_int - (level - itm.user_int2)
-		itm.user_int2 = level
+	if item.user_int2 < level:
+		item.user_int = item.user_int - (level - item.user_int2)
+		item.user_int2 = level

@@ -1,5 +1,5 @@
 # Doom's Ensign
-extends Item
+extends ItemBehavior
 
 
 var BT: BuffType
@@ -31,7 +31,5 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
 	if event.is_main_target():
-		BT.apply(itm.get_carrier(), event.get_target(), itm.get_carrier().get_level())
+		BT.apply(item.get_carrier(), event.get_target(), item.get_carrier().get_level())

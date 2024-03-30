@@ -1,5 +1,5 @@
 # Seeker's Oil
-class_name Item1018 extends Item
+class_name Item1018 extends ItemBehavior
 
 
 # NOTE: this range is a hand-picked value which hits 3x3
@@ -19,7 +19,7 @@ func load_modifier(modifier: Modifier):
 
 
 func on_pickup():
-	Item1018.seeker_oil_on_pickup(self, SEEKER_OIL_ID)
+	Item1018.seeker_oil_on_pickup(item, SEEKER_OIL_ID)
 
 
 static func seeker_oil_on_pickup(original_oil: Item, oil_id: int):

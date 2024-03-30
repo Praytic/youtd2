@@ -1,5 +1,5 @@
 # Magic Conductor
-extends Item
+extends ItemBehavior
 
 var boekie_magicConductor_buff: BuffType
 
@@ -30,9 +30,8 @@ func item_init():
 
 
 func on_spell_target(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var lvl: int = tower.get_level()
 
-	CombatLog.log_item_ability(self, null, "Conduct Magic")
+	CombatLog.log_item_ability(item, null, "Conduct Magic")
 	boekie_magicConductor_buff.apply_custom_timed(tower, tower, lvl, 10.0)

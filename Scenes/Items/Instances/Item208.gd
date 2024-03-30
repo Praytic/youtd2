@@ -1,5 +1,5 @@
 # Fragmentation Round
-extends Item
+extends ItemBehavior
 
 
 var PT: ProjectileType
@@ -56,15 +56,14 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var tower: Unit = itm.get_carrier()
+	var tower: Unit = item.get_carrier()
 
 	var fragmentation_round_chance: float = 0.40
 
 	if !tower.calc_chance(fragmentation_round_chance):
 		return
 
-	CombatLog.log_item_ability(self, null, "Fragmentation Round")
+	CombatLog.log_item_ability(item, null, "Fragmentation Round")
 
 	var I: Iterate
 	var U: Unit
@@ -73,7 +72,7 @@ func on_damage(event: Event):
 
 	if event.is_main_target():
 		Targ = event.get_target()
-		I = Iterate.over_units_in_range_of_unit(itm.get_carrier(), TargetType.new(TargetType.CREEPS), Targ, 500)
+		I = Iterate.over_units_in_range_of_unit(item.get_carrier(), TargetType.new(TargetType.CREEPS), Targ, 500)
 
 		while true:
 			U = I.next()
@@ -82,7 +81,7 @@ func on_damage(event: Event):
 				break
 
 			if U != Targ:
-				var projectile: Projectile = Projectile.create_from_unit_to_unit(PT, itm.get_carrier(), 1.0, 1.0, Targ, U, true, false, true)
+				var projectile: Projectile = Projectile.create_from_unit_to_unit(PT, item.get_carrier(), 1.0, 1.0, Targ, U, true, false, true)
 				projectile.user_real = event.damage
 				i = i - 1
 

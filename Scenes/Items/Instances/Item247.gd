@@ -1,5 +1,5 @@
 # Chameleons Soul
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -18,8 +18,7 @@ func get_ability_description() -> String:
 
 
 func on_drop():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if tower.get_element() == Element.enm.ASTRAL:
 		tower.modify_property(Modification.Type.MOD_EXP_RECEIVED, -1.00)
@@ -38,8 +37,7 @@ func on_drop():
 
 
 func on_pickup():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if tower.get_element() == Element.enm.ASTRAL:
 		tower.modify_property(Modification.Type.MOD_EXP_RECEIVED, 1.00)

@@ -1,5 +1,5 @@
 # Vampiric Skull
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,8 +16,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	tower.add_mana_perc(0.07)
 	var effect: int = Effect.create_simple_at_unit("VampPotionCaster.mdl", tower)
 	Effect.destroy_effect_after_its_over(effect)

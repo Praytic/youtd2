@@ -1,5 +1,5 @@
 # Soul Extractor
-extends Item
+extends ItemBehavior
 
 
 var cb_stun: BuffType
@@ -24,24 +24,18 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
 	var target: Unit = event.get_target()
 
-	if itm.user_int > 0:
-		cb_stun.apply_only_timed(itm.get_carrier(), target, 1.5)
-		itm.user_int = itm.user_int - 1
-		itm.set_charges(itm.user_int)
+	if item.user_int > 0:
+		cb_stun.apply_only_timed(item.get_carrier(), target, 1.5)
+		item.user_int = item.user_int - 1
+		item.set_charges(item.user_int)
 
 
 func on_pickup():
-	var itm: Item = self
-
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-
-	itm.user_int = itm.user_int + 2
-	itm.set_charges(itm.user_int)
+	item.user_int = item.user_int + 2
+	item.set_charges(item.user_int)

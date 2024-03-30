@@ -1,6 +1,6 @@
 # Divine Book of Omnipotence
-extends Item
+extends ItemBehavior
 
 
 func on_consume():
-	get_player().add_tomes(15)
+	item.get_player().add_tomes(15)

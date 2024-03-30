@@ -1,5 +1,5 @@
 # Magnetic Field
-extends Item
+extends ItemBehavior
 
 
 var dave_magnetic: BuffType
@@ -32,4 +32,4 @@ func item_init():
 	aura.power = 1
 	aura.power_add = 0
 	aura.aura_effect = dave_magnetic
-	add_aura(aura)
+	item.add_aura(aura)

@@ -1,5 +1,5 @@
 # Sign of Energy Infusion
-extends Item
+extends ItemBehavior
 
 
 # TODO: check whether this item assumes that
@@ -21,21 +21,19 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var carrier: Tower = itm.get_carrier()
+	var carrier: Tower = item.get_carrier()
 	var regen: float = carrier.get_base_mana_regen_bonus_percent()
 	
-	itm.user_int = itm.user_int + 1
+	item.user_int = item.user_int + 1
 
-	if itm.user_int >= 5:
-		CombatLog.log_item_ability(self, null, "Infuse with Regeneration")
+	if item.user_int >= 5:
+		CombatLog.log_item_ability(item, null, "Infuse with Regeneration")
 		
 		event.damage = event.damage * regen
-		itm.user_int = 0
+		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		carrier.get_player().display_small_floating_text(damage_text, carrier, Color8(255, 0, 255), 40.0)
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0

@@ -1,5 +1,5 @@
 # Mighty Tree's Acorns
-extends Item
+extends ItemBehavior
 
 
 var poussix_multi_aura: BuffType
@@ -45,4 +45,4 @@ func item_init():
 	aura_type.power = 0
 	aura_type.power_add = 1
 	aura_type.aura_effect = poussix_multi_aura
-	add_aura(aura_type)
+	item.add_aura(aura_type)

@@ -1,5 +1,5 @@
 # Forcefield Generator
-extends Item
+extends ItemBehavior
 
 
 var drol_debuff_aura: BuffType
@@ -35,4 +35,4 @@ func item_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = drol_debuff_aura
-	add_aura(aura)
+	item.add_aura(aura)

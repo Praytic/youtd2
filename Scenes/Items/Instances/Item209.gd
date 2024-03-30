@@ -1,5 +1,5 @@
 # Grounding Gloves
-extends Item
+extends ItemBehavior
 
 
 var entangling_roots_buff: BuffType
@@ -51,12 +51,11 @@ func item_init():
 	
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var target: Creep = event.get_target()
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if event.is_main_target() && tower.calc_chance(tower.get_base_attackspeed() * 0.06):
-		CombatLog.log_item_ability(self, null, "Entangling Roots")
+		CombatLog.log_item_ability(item, null, "Entangling Roots")
 	
 		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
 		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 5, Color8(210, 255, 180, 255))

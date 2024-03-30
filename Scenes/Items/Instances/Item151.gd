@@ -1,5 +1,5 @@
 # Wise Man's Cooking Recipe
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -20,5 +20,4 @@ func load_triggers(triggers: BuffType):
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-	itm.get_carrier().add_exp(1)
+	item.get_carrier().add_exp(1)

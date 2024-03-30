@@ -1,5 +1,5 @@
 # Writer's Knowledge
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -21,9 +21,7 @@ func load_triggers(triggers: BuffType):
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-
-	CombatLog.log_item_ability(self, null, "Learn")
+	CombatLog.log_item_ability(item, null, "Learn")
 	
-	var tower: Unit = itm.get_carrier()
+	var tower: Unit = item.get_carrier()
 	tower.add_exp(1)

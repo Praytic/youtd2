@@ -1,5 +1,5 @@
 # Wanted List
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,8 +16,6 @@ func load_triggers(triggers: BuffType):
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
-	CombatLog.log_item_ability(self, null, "Headhunt")
-	itm.get_carrier().get_player().give_gold(2, tower, true, true)
+	var tower: Tower = item.get_carrier()
+	CombatLog.log_item_ability(item, null, "Headhunt")
+	item.get_carrier().get_player().give_gold(2, tower, true, true)

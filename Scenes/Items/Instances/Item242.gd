@@ -1,5 +1,5 @@
 # Old Hunter
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,8 +16,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var next: Tower
 	var in_range: Iterate
 	var count: int

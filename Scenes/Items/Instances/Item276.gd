@@ -1,5 +1,5 @@
 # Phase Gloves
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,10 +16,9 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var damage: float = event.damage
 	var creep: Unit = event.get_target()
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	event.damage = damage * 0.7
 	tower.do_spell_damage(creep, damage * 0.3, tower.calc_spell_crit_no_bonus())

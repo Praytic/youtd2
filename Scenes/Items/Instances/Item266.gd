@@ -1,5 +1,5 @@
 # Elunes Bow
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,8 +16,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var dmg: float = itm.get_carrier().get_current_attack_damage_base()
+	var dmg: float = item.get_carrier().get_current_attack_damage_base()
 
 	if event.damage < dmg && event.is_main_target():
 		event.damage = dmg

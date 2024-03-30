@@ -1,5 +1,5 @@
 # Dagger of Bane
-extends Item
+extends ItemBehavior
 
 
 # NOTE: in original, tower is saved in buff's user_int.
@@ -42,8 +42,6 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
 	var P: Buff
 	var u: Unit
 
@@ -52,6 +50,6 @@ func on_damage(event: Event):
 		P = u.get_buff_of_type(fright_poison_dagger_buff)
 
 		if P != null:
-			fright_poison_dagger_buff.apply(itm.get_carrier(), event.get_target(), 0)
+			fright_poison_dagger_buff.apply(item.get_carrier(), event.get_target(), 0)
 		else:
-			fright_poison_dagger_buff.apply(itm.get_carrier(), event.get_target(), 0).user_int = itm.get_carrier().get_instance_id()
+			fright_poison_dagger_buff.apply(item.get_carrier(), event.get_target(), 0).user_int = item.get_carrier().get_instance_id()

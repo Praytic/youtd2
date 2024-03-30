@@ -1,5 +1,5 @@
 # Glaive of Supreme Follow Up
-extends Item
+extends ItemBehavior
 
 
 # NOTE: original script uses buff.userInt as a flag so that
@@ -51,12 +51,11 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if !tower.calc_chance(0.1 + 0.004 * tower.get_level()):
 		return
 
-	CombatLog.log_item_ability(self, null, "Follow up")
+	CombatLog.log_item_ability(item, null, "Follow up")
 
-	BT.apply(itm.get_carrier(), itm.get_carrier(), itm.get_carrier().get_level())
+	BT.apply(item.get_carrier(), item.get_carrier(), item.get_carrier().get_level())

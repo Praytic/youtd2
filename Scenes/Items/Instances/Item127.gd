@@ -1,5 +1,5 @@
 # Crescent Stone
-extends Item
+extends ItemBehavior
 
 
 var drol_moonStone: BuffType
@@ -32,7 +32,6 @@ func item_init():
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	CombatLog.log_item_ability(self, null, "Earth and Moon")
+	var tower: Tower = item.get_carrier()
+	CombatLog.log_item_ability(item, null, "Earth and Moon")
 	drol_moonStone.apply(tower, tower, tower.get_level())

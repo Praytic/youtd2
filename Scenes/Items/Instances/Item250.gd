@@ -1,5 +1,5 @@
 # Crit Blade
-extends Item
+extends ItemBehavior
 
 
 var crit_blade_multiboard: MultiboardValues
@@ -28,35 +28,29 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
 	if event.get_number_of_crits() > 0:
-		itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -itm.user_real)
-		itm.user_real = 0
+		item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -item.user_real)
+		item.user_real = 0
 	else:
-		if itm.user_real < 0.40:
-			itm.user_real = itm.user_real + 0.02
-			itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.02)
+		if item.user_real < 0.40:
+			item.user_real = item.user_real + 0.02
+			item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.02)
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0.00
+	item.user_real = 0.00
 
 
 func on_drop():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, item.user_real)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var crit_chance_bonus_text: String = Utils.format_percent(itm.user_real, 0)
+	var crit_chance_bonus_text: String = Utils.format_percent(item.user_real, 0)
 	crit_blade_multiboard.set_value(0, crit_chance_bonus_text)
 
 	return crit_blade_multiboard

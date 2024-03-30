@@ -1,5 +1,5 @@
 # Magic Link
-extends Item
+extends ItemBehavior
 
 
 func get_autocast_description() -> String:
@@ -28,10 +28,8 @@ func item_init():
 	autocast.cast_range = 1200
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var itm: Item = self
-
-	event.get_target().add_exp_flat(itm.get_carrier().remove_exp_flat(30))
+	event.get_target().add_exp_flat(item.get_carrier().remove_exp_flat(30))

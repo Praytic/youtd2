@@ -1,5 +1,5 @@
 # Strange Item
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,67 +16,62 @@ func load_triggers(triggers: BuffType):
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int2 = 12
-	itm.user_int = itm.user_int2
-	itm.set_charges(itm.user_int)
+	item.user_int2 = 12
+	item.user_int = item.user_int2
+	item.set_charges(item.user_int)
 
 
 func on_drop():
-	var itm: Item = self
 	var tower: Tower
-	var cur_level: int = itm.get_player().get_team().get_level()
+	var cur_level: int = item.get_player().get_team().get_level()
 
-	if cur_level > itm.user_int3:
-		itm.user_int = itm.user_int - (cur_level - itm.user_int3)
-		itm.user_int3 = cur_level
+	if cur_level > item.user_int3:
+		item.user_int = item.user_int - (cur_level - item.user_int3)
+		item.user_int3 = cur_level
 
-		if itm.user_int <= 0:
-			CombatLog.log_item_ability(self, null, "Duplication")
+		if item.user_int <= 0:
+			CombatLog.log_item_ability(item, null, "Duplication")
 			
-			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.get_player(), itm.get_id(), tower.get_visual_position())
+			tower = item.get_carrier()
+			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_visual_position())
 
-			new.user_int2 = itm.user_int2 + 6
+			new.user_int2 = item.user_int2 + 6
 			new.user_int = new.user_int2
 			new.set_charges(new.user_int)
-			itm.user_int = itm.user_int + itm.user_int2
+			item.user_int = item.user_int + item.user_int2
 
 			new.fly_to_stash(0.0)
 
-		itm.set_charges(itm.user_int)
+		item.set_charges(item.user_int)
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_int3 = itm.get_player().get_team().get_level()
-	itm.set_charges(itm.user_int)
+	item.user_int3 = item.get_player().get_team().get_level()
+	item.set_charges(item.user_int)
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-
 	var tower: Tower
-	var cur_level: int = itm.get_player().get_team().get_level()
+	var cur_level: int = item.get_player().get_team().get_level()
 
-	if cur_level > itm.user_int3:
-		itm.user_int = itm.user_int - (cur_level - itm.user_int3)
-		itm.user_int3 = cur_level
+	if cur_level > item.user_int3:
+		item.user_int = item.user_int - (cur_level - item.user_int3)
+		item.user_int3 = cur_level
 
-		if itm.user_int <= 0:
-			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.get_player(), itm.get_id(), tower.get_visual_position())
+		if item.user_int <= 0:
+			tower = item.get_carrier()
+			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_visual_position())
 
-			new.user_int2 = itm.user_int2 + 6
+			new.user_int2 = item.user_int2 + 6
 			new.user_int = new.user_int2
 			new.set_charges(new.user_int)
-			itm.user_int = itm.user_int + itm.user_int2
+			item.user_int = item.user_int + item.user_int2
 
 			if !new.pickup(tower):
 				new.fly_to_stash(0.0)
 
-		itm.set_charges(itm.user_int)
+		item.set_charges(item.user_int)
 
 	if cur_level > Utils.get_max_level():
-		itm.drop()
-		itm.fly_to_stash(0.0)
+		item.drop()
+		item.fly_to_stash(0.0)

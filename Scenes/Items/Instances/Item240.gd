@@ -1,5 +1,5 @@
 # Mini Furbolg
-extends Item
+extends ItemBehavior
 
 var BT: BuffType
 
@@ -34,9 +34,8 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if !(tower.get_buff_of_type(BT) != null) && tower.calc_chance(0.14 * tower.get_base_attackspeed()):
-		CombatLog.log_item_ability(self, null, "Rampage")
+		CombatLog.log_item_ability(item, null, "Rampage")
 		BT.apply(tower, tower, tower.get_level())

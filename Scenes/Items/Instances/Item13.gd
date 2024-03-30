@@ -1,5 +1,5 @@
 # Stasis Trap
-extends Item
+extends ItemBehavior
 
 
 # NOTE: reworked this script a bit because it seems that the
@@ -31,12 +31,11 @@ func item_init():
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var iterate: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var loop_counter: int = 3
 
-	CombatLog.log_item_ability(self, null, "Activate Trap")
+	CombatLog.log_item_ability(item, null, "Activate Trap")
 
 	while true:
 		var creep: Unit = iterate.next_random()

@@ -1,5 +1,5 @@
 # Bartuc's Spirit
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -19,18 +19,15 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(event: Event):
-	var itm: Item = self
+	var tower: Tower = item.get_carrier()
+	item.user_int = item.user_int + 1
 
-	var tower: Tower = itm.get_carrier()
-	itm.user_int = itm.user_int + 1
-
-	if itm.user_int == 10:
-		CombatLog.log_item_ability(self, event.get_target(), "Bartuc's Spirit")
+	if item.user_int == 10:
+		CombatLog.log_item_ability(item, event.get_target(), "Bartuc's Spirit")
 		tower.do_spell_damage_aoe_unit(event.get_target(), 300, 2000 + (tower.get_level() * 80), tower.calc_spell_crit_no_bonus(), 0.0)
 		SFX.sfx_at_unit("WarStompCaster.mdl", event.get_target())
-		itm.user_int = 0
+		item.user_int = 0
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0

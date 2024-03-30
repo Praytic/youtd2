@@ -1,5 +1,5 @@
 # Holy Hand Grenade
-extends Item
+extends ItemBehavior
 
 
 var PT: ProjectileType
@@ -39,8 +39,7 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var chance: float = 0.15
 	var r: float = event.damage * (0.75 + 0.01 * tower.get_level())
 	var P: Projectile
@@ -48,7 +47,7 @@ func on_damage(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
-	CombatLog.log_item_ability(self, null, "Big Badaboom")
+	CombatLog.log_item_ability(item, null, "Big Badaboom")
 
 	if event.is_main_target():
 		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:

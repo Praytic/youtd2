@@ -1,5 +1,5 @@
 # Bonk's Face
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -20,13 +20,12 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var creep: Unit = event.get_target()
-	var twr: Unit = itm.get_carrier()
+	var twr: Unit = item.get_carrier()
 	var target_effect: int
 
 	if creep.is_stunned():
-		CombatLog.log_item_ability(self, creep, "Crush")
+		CombatLog.log_item_ability(item, creep, "Crush")
 		twr.do_spell_damage_aoe_unit(creep, 250, twr.get_current_attack_damage_with_bonus() * 0.2, twr.calc_spell_crit_no_bonus(), 0)
 		target_effect = Effect.create_scaled("ImpaleTargetDust.mdl", creep.get_visual_position().x, creep.get_visual_position().y, 0.0, 0, 5)
 		Effect.set_lifetime(target_effect, 3.0)

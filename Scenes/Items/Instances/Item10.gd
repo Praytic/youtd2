@@ -1,5 +1,5 @@
 # Cursed Claw
-extends Item
+extends ItemBehavior
 
 
 var boekie_claw_slow: BuffType
@@ -33,7 +33,6 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	boekie_claw_slow.apply_custom_timed(tower, event.get_target(), 100 + tower.get_level() * 4, 5)

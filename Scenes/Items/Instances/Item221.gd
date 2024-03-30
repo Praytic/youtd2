@@ -1,5 +1,5 @@
 # Eye of True Sight
-extends Item
+extends ItemBehavior
 
 
 var eye_of_true_sight: BuffType
@@ -30,13 +30,10 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
 	if event.get_target().is_invisible():
-		event.damage = event.damage * (1.2 + 0.008 * itm.get_carrier().get_level())
+		event.damage = event.damage * (1.2 + 0.008 * item.get_carrier().get_level())
 
 
 func on_pickup():
-	var itm: Item = self
-	var carrier: Unit = itm.get_carrier()
+	var carrier: Unit = item.get_carrier()
 	eye_of_true_sight.apply_to_unit_permanent(carrier, carrier, 0)	

@@ -1,5 +1,5 @@
 # Stunner
-extends Item
+extends ItemBehavior
 
 
 var cb_stun: BuffType
@@ -26,17 +26,16 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var target: Creep = event.get_target()
 	var size: int = target.get_size()
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var speed: float = tower.get_base_attackspeed()
 
 	if size < CreepSize.enm.BOSS:
 		if tower.calc_chance((0.15 + tower.get_level() * 0.0025) * speed) && event.is_main_target() == true:
-			CombatLog.log_item_ability(self, null, "Stun")
+			CombatLog.log_item_ability(item, null, "Stun")
 			cb_stun.apply_only_timed(tower, target, 1)
 	else:
 		if tower.calc_chance((0.15 + tower.get_level() * 0.0025) / 3 * speed) && event.is_main_target() == true:
-			CombatLog.log_item_ability(self, null, "Stun")
+			CombatLog.log_item_ability(item, null, "Stun")
 			cb_stun.apply_only_timed(tower, target, 1)

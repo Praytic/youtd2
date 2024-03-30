@@ -1,5 +1,5 @@
 # Sleeve of Rage
-extends Item
+extends ItemBehavior
 
 
 var sir_sleeve_buff: BuffType
@@ -31,8 +31,7 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var b: Buff = tower.get_buff_of_type(sir_sleeve_buff)
 
 	var level: int

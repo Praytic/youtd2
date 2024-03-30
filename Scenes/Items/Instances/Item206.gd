@@ -1,5 +1,5 @@
 # Mindleecher
-extends Item
+extends ItemBehavior
 
 
 func get_autocast_description() -> String:
@@ -28,12 +28,11 @@ func item_init():
 	autocast.cast_range = 450
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 
 func on_autocast(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 450)
 	var next: Unit
 

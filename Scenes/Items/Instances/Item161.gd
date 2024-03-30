@@ -1,5 +1,5 @@
 # Commander
-extends Item
+extends ItemBehavior
 
 
 var stern_Commander_Attack: BuffType
@@ -33,15 +33,14 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier() 
+	var tower: Tower = item.get_carrier() 
 	var in_range: Iterate
 	var nxt: Tower
 	var spieler: Player = tower.get_player()
 	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(speed * (0.02 + 0.001 * tower.get_level())):
-		CombatLog.log_item_ability(self, null, "Attack!")
+		CombatLog.log_item_ability(item, null, "Attack!")
 		
 		spieler.display_floating_text("Attack!", tower, Color8(255, 0, 0))
 		SFX.sfx_on_unit("RoarCaster.mdl", tower, Unit.BodyPart.ORIGIN)

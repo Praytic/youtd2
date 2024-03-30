@@ -1,5 +1,5 @@
 # Wanted List
-extends Item
+extends ItemBehavior
 
 
 # NOTE: original script saves item reference in buff's
@@ -19,9 +19,7 @@ func get_autocast_description() -> String:
 
 
 func on_autocast(_event: Event):
-	var itm: Item = self
-
-	var tower: Unit = itm.get_carrier()
+	var tower: Unit = item.get_carrier()
 	boekie_backpackBuff.apply_only_timed(tower, tower, 1000)
 
 
@@ -44,7 +42,7 @@ func item_init():
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
 
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 	boekie_backpackBuff = BuffType.new("boekie_backpackBuff", 0, 0, true, self)
 	boekie_backpackBuff.set_buff_icon("@@0@@")
@@ -57,23 +55,20 @@ func backpack_kill(event: Event):
 	var B: Buff = event.get_buff()
 	var tower: Tower = B.get_buffed_unit()
 	var creep: Creep = event.get_target()
-	var itm: Item = self
 
 	creep.drop_item(tower, false)
 	tower.get_player().display_small_floating_text("Backpacked!", tower, Color8(255, 165, 0), 30)
-	itm.user_int = itm.user_int + 1
+	item.user_int = item.user_int + 1
 	B.remove_buff()
 
 
 func on_create():
-	var itm: Item = self
 #	Total items found
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var items_backpacked_text: String = Utils.format_float(itm.user_int, 0)
+	var items_backpacked_text: String = Utils.format_float(item.user_int, 0)
 	boekie_backpackMB.set_value(0, items_backpacked_text)
 
 	return boekie_backpackMB

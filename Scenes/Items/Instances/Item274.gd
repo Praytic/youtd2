@@ -1,5 +1,5 @@
 # Portable Tombstone
-extends Item
+extends ItemBehavior
 
 var boekie_tombstonejibs: MultiboardValues
 
@@ -26,29 +26,24 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var creep: Unit = event.get_target()
 
 	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance((0.0025 + (tower.get_level() * 0.0001)) * tower.get_base_attackspeed()):
-		CombatLog.log_item_ability(self, null, "Curse of the Grave")
+		CombatLog.log_item_ability(item, null, "Curse of the Grave")
 
 		tower.kill_instantly(creep)
 		SFX.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)
-		itm.user_int = itm.user_int + 1
+		item.user_int = item.user_int + 1
 
 
 func on_create():
-	var itm: Item = self
-
 #	number of innocent creeps slaughtered mercilessly.
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var tombstone_kills_text: String = Utils.format_float(itm.user_int, 0)
+	var tombstone_kills_text: String = Utils.format_float(item.user_int, 0)
 	boekie_tombstonejibs.set_value(0, tombstone_kills_text)
 	
 	return boekie_tombstonejibs

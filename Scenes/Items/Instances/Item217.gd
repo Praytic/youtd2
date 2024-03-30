@@ -1,5 +1,5 @@
 # Share Knowledge
-extends Item
+extends ItemBehavior
 
 
 
@@ -17,8 +17,7 @@ func load_triggers(triggers: BuffType):
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var next: Tower
 	var in_range: Iterate
 	var count: int
@@ -31,7 +30,7 @@ func periodic(_event: Event):
 		count = min(5, in_range.count())
 
 		if count > 0:
-			CombatLog.log_item_ability(self, null, "Share Knowledge")
+			CombatLog.log_item_ability(item, null, "Share Knowledge")
 
 # 			(8 + number of towers) / number of towers
 			experience = (8.0 + count) / count

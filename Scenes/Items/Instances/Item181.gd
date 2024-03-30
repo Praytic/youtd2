@@ -1,5 +1,5 @@
 # Bloodthirsty Wheel of Fortune
-extends Item
+extends ItemBehavior
 
 
 var slotMachineMB: MultiboardValues
@@ -24,46 +24,41 @@ func item_init():
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0.0
+	item.user_real = 0.0
 
 
 func on_drop():
-	var itm: Item = self
-	if itm.user_real != 0.0:
-		itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -1 * itm.user_real)
+	if item.user_real != 0.0:
+		item.get_carrier().modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -1 * item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-	if itm.user_real != 0.0:
-		itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, itm.user_real)
+	if item.user_real != 0.0:
+		item.get_carrier().modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, item.user_real)
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
 	var t: Tower
-	t = itm.get_carrier()
+	t = item.get_carrier()
 
 	if t.calc_chance(0.25):		
 		if Utils.rand_chance(Globals.synced_rng, 0.33):
-			if itm.user_real >= -0.20:
-				CombatLog.log_item_ability(self, null, "Lower Item Chance")
+			if item.user_real >= -0.20:
+				CombatLog.log_item_ability(item, null, "Lower Item Chance")
 				
-				itm.user_real = itm.user_real - 0.04
+				item.user_real = item.user_real - 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -0.04)
 				t.get_player().display_small_floating_text("Item Chance Lowered!", t, Color8(255, 0, 0), 30)
 		else:
-			if itm.user_real <= 0.44:
-				CombatLog.log_item_ability(self, null, "Raise Item Chance")
+			if item.user_real <= 0.44:
+				CombatLog.log_item_ability(item, null, "Raise Item Chance")
 				
-				itm.user_real = itm.user_real + 0.04
+				item.user_real = item.user_real + 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.04)
 				t.get_player().display_small_floating_text("Item Chance Raised!", t, Color8(0, 0, 255), 30)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	slotMachineMB.set_value(0, Utils.format_percent_add_color(itm.user_real, 0))
+	slotMachineMB.set_value(0, Utils.format_percent_add_color(item.user_real, 0))
 
 	return slotMachineMB

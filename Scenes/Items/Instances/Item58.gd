@@ -1,5 +1,5 @@
 # Warsong Double Bass
-extends Item
+extends ItemBehavior
 
 var Neotopia_Drumspeed: BuffType
 
@@ -33,4 +33,4 @@ func item_init():
 	aura.power = 0
 	aura.power_add = 10
 	aura.aura_effect = Neotopia_Drumspeed
-	add_aura(aura)
+	item.add_aura(aura)

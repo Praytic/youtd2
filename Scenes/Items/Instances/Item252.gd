@@ -1,5 +1,5 @@
 # Soul Collector's Scythe
-extends Item
+extends ItemBehavior
 
 
 var hokkei_critbonusMB: MultiboardValues
@@ -24,31 +24,25 @@ func item_init():
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0
+	item.user_real = 0
 
 
 func on_drop():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, -itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, -item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, item.user_real)
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-
-	if itm.user_real < 3:
-		itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.005)
-		itm.user_real = itm.user_real + 0.005
+	if item.user_real < 3:
+		item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.005)
+		item.user_real = item.user_real + 0.005
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var crit_damage_bonus_text: String = "x" + Utils.format_float(itm.user_real, 3)
+	var crit_damage_bonus_text: String = "x" + Utils.format_float(item.user_real, 3)
 	hokkei_critbonusMB.set_value(0, crit_damage_bonus_text)
 
 	return hokkei_critbonusMB

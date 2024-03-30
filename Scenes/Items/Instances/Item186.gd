@@ -1,5 +1,5 @@
 # Liquid Gold
-extends Item
+extends ItemBehavior
 
 
 var drol_hangover: BuffType
@@ -46,10 +46,9 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_bad_chance(0.1 * speed):
-		CombatLog.log_item_ability(self, null, "Hangover")
+		CombatLog.log_item_ability(item, null, "Hangover")
 		drol_hangover.apply(tower, tower, tower.get_level())

@@ -1,6 +1,6 @@
 # Mine Cart
-extends Item
+extends ItemBehavior
 
 
 func on_consume():
-	get_player().modify_income_rate(0.10)
+	item.get_player().modify_income_rate(0.10)

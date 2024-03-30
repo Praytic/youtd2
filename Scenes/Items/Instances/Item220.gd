@@ -1,5 +1,5 @@
 # Nermind's Eye
-extends Item
+extends ItemBehavior
 
 
 var nerminds_eye: BuffType
@@ -20,6 +20,5 @@ func item_init():
 
 
 func on_pickup():
-	var itm: Item = self
-	var carrier: Unit = itm.get_carrier()
+	var carrier: Unit = item.get_carrier()
 	nerminds_eye.apply_to_unit_permanent(carrier, carrier, 0)	

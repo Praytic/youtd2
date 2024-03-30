@@ -1,5 +1,5 @@
 # Touch of a Spirit
-extends Item
+extends ItemBehavior
 
 
 func load_modifier(modifier: Modifier):

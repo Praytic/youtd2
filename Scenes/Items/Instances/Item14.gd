@@ -1,5 +1,5 @@
 # Fist of Doom
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -21,6 +21,5 @@ func load_triggers(triggers: BuffType):
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	CombatLog.log_item_ability(self, null, "Pay With Blood")
-	itm.get_carrier().remove_exp(2)
+	CombatLog.log_item_ability(item, null, "Pay With Blood")
+	item.get_carrier().remove_exp(2)

@@ -1,5 +1,5 @@
 # Workbench
-extends Item
+extends ItemBehavior
 
 
 var boekie_itemQualBonus: MultiboardValues
@@ -23,28 +23,23 @@ func item_init():
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0.00
+	item.user_real = 0.00
 
 
 func on_drop():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, item.user_real)
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -itm.user_real)
-	itm.user_real = itm.user_real + 0.0015
-	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -item.user_real)
+	item.user_real = item.user_real + 0.0015
+	item.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, item.user_real)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	boekie_itemQualBonus.set_value(0, Utils.format_percent(itm.user_real, 2))
+	boekie_itemQualBonus.set_value(0, Utils.format_percent(item.user_real, 2))
 	return boekie_itemQualBonus

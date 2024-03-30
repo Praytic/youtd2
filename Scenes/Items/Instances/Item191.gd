@@ -1,5 +1,5 @@
 # Speed Demon's Reward
-extends Item
+extends ItemBehavior
 
 
 var palandu_SpeedBoard: MultiboardValues
@@ -23,36 +23,31 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
 	var c: Creep = event.get_target()
 	var creep_level: int = c.get_spawn_level()
 	var reward_value: float
 	var t: Unit
 
-	if itm.user_int > 0 && itm.user_int < creep_level:
-		reward_value = 12.0 - (Utils.get_time() - itm.user_int2)
+	if item.user_int > 0 && item.user_int < creep_level:
+		reward_value = 12.0 - (Utils.get_time() - item.user_int2)
 
 		if reward_value > 0:
-			CombatLog.log_item_ability(self, null, "Reward")
-			t = itm.get_carrier()
+			CombatLog.log_item_ability(item, null, "Reward")
+			t = item.get_carrier()
 			t.get_player().give_gold(reward_value, t, true, true)
 			t.add_exp(reward_value / 2)
-			itm.user_real = itm.user_real + reward_value
+			item.user_real = item.user_real + reward_value
 
-	itm.user_int = max(itm.user_int, creep_level)
-	itm.user_int2 = roundi(Utils.get_time())
+	item.user_int = max(item.user_int, creep_level)
+	item.user_int2 = roundi(Utils.get_time())
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int = -101
-	itm.user_int2 = -101
-	itm.user_real = 0
+	item.user_int = -101
+	item.user_int2 = -101
+	item.user_real = 0
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	
-	palandu_SpeedBoard.set_value(0, Utils.format_float(itm.user_real, 1))
+	palandu_SpeedBoard.set_value(0, Utils.format_float(item.user_real, 1))
 	return palandu_SpeedBoard

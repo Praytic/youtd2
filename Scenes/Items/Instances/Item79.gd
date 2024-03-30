@@ -1,5 +1,5 @@
 # Rusted Rifle
-extends Item
+extends ItemBehavior
 
 
 func load_modifier(modifier: Modifier):

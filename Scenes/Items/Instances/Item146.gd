@@ -1,5 +1,5 @@
 # Toy Boy
-extends Item
+extends ItemBehavior
 
 
 var BT: BuffType
@@ -32,6 +32,5 @@ func item_init():
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	CombatLog.log_item_ability(self, null, "Play with me!")
-	BT.apply(itm.get_carrier(), itm.get_carrier(), 1)
+	CombatLog.log_item_ability(item, null, "Play with me!")
+	BT.apply(item.get_carrier(), item.get_carrier(), 1)

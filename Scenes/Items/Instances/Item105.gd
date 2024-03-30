@@ -1,5 +1,5 @@
 # Spiderling
-extends Item
+extends ItemBehavior
 
 
 var boekie_spiderling_slow: BuffType
@@ -30,11 +30,9 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm = self
-
-	var tower: Tower = itm.get_carrier() 
+	var tower: Tower = item.get_carrier() 
 	var speed: float = tower.get_base_attackspeed()  
 
 	if tower.calc_chance(0.25 * speed) == true:
-		CombatLog.log_item_ability(self, event.get_target(), "Spiderling Poison")
+		CombatLog.log_item_ability(item, event.get_target(), "Spiderling Poison")
 		boekie_spiderling_slow.apply(tower, event.get_target(), 1)

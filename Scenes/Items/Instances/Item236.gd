@@ -1,5 +1,5 @@
 # Veteran's Tome of Battle
-extends Item
+extends ItemBehavior
 
 
 func load_modifier(modifier: Modifier):

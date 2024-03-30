@@ -1,5 +1,5 @@
 # Circle of Power
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -17,19 +17,17 @@ func load_triggers(triggers: BuffType):
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_real = itm.get_carrier().get_mana()
+	item.user_real = item.get_carrier().get_mana()
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	var u: Unit = itm.get_carrier()
+	var u: Unit = item.get_carrier()
 	var cur_mana: float = u.get_mana()
 
-	if cur_mana < itm.user_real && u.calc_chance(0.25):
-		CombatLog.log_item_ability(self, null, "Circle of Power")
-		u.set_mana(itm.user_real)
+	if cur_mana < item.user_real && u.calc_chance(0.25):
+		CombatLog.log_item_ability(item, null, "Circle of Power")
+		u.set_mana(item.user_real)
 		var effect: int = Effect.create_simple_at_unit("AImaTarget.mdl", u)
 		Effect.destroy_effect_after_its_over(effect)
 	else:
-		itm.user_real = cur_mana
+		item.user_real = cur_mana

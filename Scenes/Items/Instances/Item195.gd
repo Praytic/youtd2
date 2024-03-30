@@ -1,5 +1,5 @@
 # Aqueous Vapor
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:

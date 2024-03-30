@@ -1,5 +1,5 @@
 # Chameleon Glaive
-extends Item
+extends ItemBehavior
 
 
 var boekie_multi_gun: ProjectileType
@@ -35,15 +35,14 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var creep: Unit = event.get_target()
 	var p: Projectile
 
 	if !tower.calc_chance(0.4 + 0.004 * tower.get_level()):
 		return
 
-	CombatLog.log_item_ability(self, null, "Launch Glaive!")
+	CombatLog.log_item_ability(item, null, "Launch Glaive!")
 
 	await Utils.create_timer(0.1).timeout
 

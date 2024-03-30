@@ -1,5 +1,5 @@
 # Lich Mask
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -20,24 +20,21 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	itm.user_real = itm.user_real + 50.0 + 1.0 * itm.get_carrier().get_level()
-	itm.set_charges(int(itm.user_real))
+	item.user_real = item.user_real + 50.0 + 1.0 * item.get_carrier().get_level()
+	item.set_charges(int(item.user_real))
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var C: Creep = event.get_target()
 
-	if itm.user_real >= 100.0:
+	if item.user_real >= 100.0:
 		event.damage = event.damage / AttackType.get_damage_against(T.get_attack_type(), C.get_armor_type()) * AttackType.get_damage_against(AttackType.enm.DECAY, C.get_armor_type())
 		SFX.sfx_on_unit("DeathandDecayTarget.mdl", C, Unit.BodyPart.CHEST)
-		itm.user_real = itm.user_real - 100.0
-		itm.set_charges(int(itm.user_real))
+		item.user_real = item.user_real - 100.0
+		item.set_charges(int(item.user_real))
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_real = 0.0
-	itm.set_charges(0)
+	item.user_real = 0.0
+	item.set_charges(0)

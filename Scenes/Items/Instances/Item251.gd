@@ -1,5 +1,5 @@
 # Arcane Script
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,10 +16,8 @@ func load_triggers(triggers: BuffType):
 
 
 func on_spell_cast(event: Event):
-	var itm: Item = self
-
 	var cd: float = event.get_autocast_type().get_cooldown()
 
 	if !event.get_autocast_type().is_item_autocast():
-		itm.get_carrier().add_exp(0.2 * cd)
-		itm.get_carrier().get_player().give_gold(0.5 * cd, itm.get_carrier(), false, true)
+		item.get_carrier().add_exp(0.2 * cd)
+		item.get_carrier().get_player().give_gold(0.5 * cd, item.get_carrier(), false, true)

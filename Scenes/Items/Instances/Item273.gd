@@ -1,5 +1,5 @@
 # Scroll of Speed
-extends Item
+extends ItemBehavior
 
 
 var boekie_scroll_damage: BuffType
@@ -44,19 +44,18 @@ func item_init():
 	autocast.cast_range = 0
 	autocast.auto_range = 1000
 	autocast.handler = on_autocast
-	autocast.item_owner = self
+	autocast.item_owner = item
 	autocast.dont_cast_at_zero_charges = true
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 
 func on_autocast(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var lvl: int = tower.get_level()
 	var it: Iterate
 	var next: Unit
 
-	if itm.user_int > 0:
+	if item.user_int > 0:
 		it = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 350)
 
 		while true:
@@ -67,27 +66,25 @@ func on_autocast(_event: Event):
 
 			boekie_scroll_damage.apply_custom_timed(tower, next, lvl * 2, 4.0)
 
-		itm.user_int = itm.user_int - 1
+		item.user_int = item.user_int - 1
 
-	itm.set_charges(itm.user_int)
+	item.set_charges(item.user_int)
 	await Utils.create_timer(0.1).timeout
-	itm.set_charges(itm.user_int)
+	item.set_charges(item.user_int)
 
 
 func on_create():
-	var itm: Item = self
-	itm.set_charges(10)
+	item.set_charges(10)
 #	The item will use the userInt for charges, cause charges are bugged.
-	itm.user_int = 10
+	item.user_int = 10
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	itm.user_int = itm.user_int + 3
+	item.user_int = item.user_int + 3
 
-	if itm.user_int >= 11:
-		itm.user_int = 10
+	if item.user_int >= 11:
+		item.user_int = 10
 
-	itm.set_charges(itm.user_int)
+	item.set_charges(item.user_int)
 	await Utils.create_timer(0.1).timeout
-	itm.set_charges(itm.user_int)
+	item.set_charges(item.user_int)

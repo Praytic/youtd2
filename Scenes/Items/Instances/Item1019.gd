@@ -1,5 +1,5 @@
 # Seeker's Arcane Oil
-extends Item
+extends ItemBehavior
 
 
 const SEEKER_ARCANE_OIL_ID: int = 1019
@@ -15,4 +15,4 @@ func load_modifier(modifier: Modifier):
 
 
 func on_pickup():
-	Item1018.seeker_oil_on_pickup(self, SEEKER_ARCANE_OIL_ID)
+	Item1018.seeker_oil_on_pickup(item, SEEKER_ARCANE_OIL_ID)

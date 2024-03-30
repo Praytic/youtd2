@@ -1,5 +1,5 @@
 # Magic Hammer
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,16 +16,13 @@ func load_triggers(triggers: BuffType):
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_spell_cast(_event: Event):
-	var itm: Item = self
+	item.user_int = item.user_int + 1
 
-	itm.user_int = itm.user_int + 1
-
-	if itm.user_int >= 5:
-		CombatLog.log_item_ability(self, null, "Magic Weapon")
-		itm.get_carrier().add_spell_crit()
-		itm.user_int = 0
+	if item.user_int >= 5:
+		CombatLog.log_item_ability(item, null, "Magic Weapon")
+		item.get_carrier().add_spell_crit()
+		item.user_int = 0

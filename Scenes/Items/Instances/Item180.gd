@@ -1,5 +1,5 @@
 # Libram of Grace
-extends Item
+extends ItemBehavior
 
 
 var drol_libram: BuffType
@@ -35,4 +35,4 @@ func item_init():
 	aura.target_self = true
 	aura.aura_range = 150
 
-	add_aura(aura)
+	item.add_aura(aura)

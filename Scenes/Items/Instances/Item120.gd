@@ -1,5 +1,5 @@
 # Purifying Gloves
-extends Item
+extends ItemBehavior
 
 
 var drol_chain_st: SpellType
@@ -40,11 +40,9 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(0.125 * speed):
-		CombatLog.log_item_ability(self, event.get_target(), "Purify")
+		CombatLog.log_item_ability(item, event.get_target(), "Purify")
 		drol_chain_st.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())

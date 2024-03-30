@@ -1,5 +1,5 @@
 # Wand of Mana Zap
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -19,9 +19,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var creep: Creep = event.get_target()
 
 	# var l: Lightning

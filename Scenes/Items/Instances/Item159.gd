@@ -1,5 +1,5 @@
 # Charged Disk
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -19,9 +19,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
-	var twr: Tower = itm.get_carrier() 
+	var twr: Tower = item.get_carrier() 
 
 	if event.is_main_target():
 		twr.do_spell_damage(event.get_target(), (0.08 + 0.001 * twr.get_level()) * twr.get_gold_cost() * twr.get_base_attackspeed(), twr.calc_spell_crit_no_bonus())

@@ -1,5 +1,5 @@
 # Distorted Idol
-extends Item
+extends ItemBehavior
 
 
 # TODO: implement. Complicated script. Disabled until implemented. Maybe implement by adding hidden items that are copied from other items?

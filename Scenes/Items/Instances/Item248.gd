@@ -1,5 +1,5 @@
 # Pocket Emporium
-extends Item
+extends ItemBehavior
 
 
 func get_autocast_description() -> String:
@@ -17,10 +17,9 @@ func load_triggers(triggers: BuffType):
 
 
 func on_autocast(_event: Event):
-	var itm: Item = self
-	var i: int = itm.get_charges()
-	var tower: Tower = itm.get_carrier()
-	var p: Player = itm.get_player()
+	var i: int = item.get_charges()
+	var tower: Tower = item.get_carrier()
+	var p: Player = item.get_player()
 	var new: Item
 	var rnd: float = Globals.synced_rng.randi_range(0, 24)
 	var rarity: int = 1
@@ -30,33 +29,33 @@ func on_autocast(_event: Event):
 	elif rnd < 6:
 		rarity = 2
 
-	if i > 0 && get_player().get_gold() >= 500:
+	if i > 0 && item.get_player().get_gold() >= 500:
 		var random_item: int = ItemDropCalc.get_random_item_at_rarity_bounded(rarity, 14, 25)
 		
 		if random_item != 0:
-			itm.user_int2 = itm.user_int2 - 1
+			item.user_int2 = item.user_int2 - 1
 			p.give_gold(-500, tower, false, true)
 			new = Item.create(tower.get_player(), random_item, tower.get_visual_position())
 			new.fly_to_stash(0.0)
 
-	check_level(itm)
+	check_level()
 
 
-func check_level(itm: Item):
-	var cur_level: int = itm.get_player().get_team().get_level()
+func check_level():
+	var cur_level: int = item.get_player().get_team().get_level()
 
-	if cur_level > itm.user_int3:
-		itm.user_int = itm.user_int + (cur_level - itm.user_int3)
-		itm.user_int3 = cur_level
+	if cur_level > item.user_int3:
+		item.user_int = item.user_int + (cur_level - item.user_int3)
+		item.user_int3 = cur_level
 
 	while true:
-		if itm.user_int < 5 || itm.user_int2 >= 5:
+		if item.user_int < 5 || item.user_int2 >= 5:
 			break
 
-		itm.user_int = itm.user_int - 5
-		itm.user_int2 = itm.user_int2 + 1
+		item.user_int = item.user_int - 5
+		item.user_int2 = item.user_int2 + 1
 
-	itm.set_charges(itm.user_int2)
+	item.set_charges(item.user_int2)
 
 
 func item_init():
@@ -77,30 +76,26 @@ func item_init():
 	autocast.cast_range = 0
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
-	autocast.item_owner = self
+	autocast.item_owner = item
 	autocast.dont_cast_at_zero_charges = true
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 
 func on_create():
-	var itm: Item = self
-	itm.set_charges(1)
-	itm.user_int = 0
-	itm.user_int2 = 1
-	itm.user_int3 = itm.get_player().get_team().get_level()
-	check_level(itm)
+	item.set_charges(1)
+	item.user_int = 0
+	item.user_int2 = 1
+	item.user_int3 = item.get_player().get_team().get_level()
+	check_level()
 
 
 func on_drop():
-	var itm: Item = self
-	check_level(itm)
+	check_level()
 
 
 func on_pickup():
-	var itm: Item = self
-	check_level(itm)
+	check_level()
 
 
 func periodic(_event: Event):
-	var itm: Item = self
-	check_level(itm)
+	check_level()

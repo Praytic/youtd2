@@ -1,5 +1,5 @@
 # Essence of Rot
-extends Item
+extends ItemBehavior
 
 
 var maj_rot_tower_buff: BuffType
@@ -44,7 +44,7 @@ func item_init():
 	aura_tower.power = 0
 	aura_tower.power_add = 1
 	aura_tower.aura_effect = maj_rot_tower_buff
-	add_aura(aura_tower)
+	item.add_aura(aura_tower)
 
 	var aura_creep: AuraType = AuraType.new()
 	aura_creep.aura_range = 800
@@ -55,4 +55,4 @@ func item_init():
 	aura_creep.power = 0
 	aura_creep.power_add = 1
 	aura_creep.aura_effect = maj_rot_creep_buff
-	add_aura(aura_creep)
+	item.add_aura(aura_creep)

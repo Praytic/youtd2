@@ -1,5 +1,5 @@
 # Golden Trident
-extends Item
+extends ItemBehavior
 
 var MB: MultiboardValues
 
@@ -23,9 +23,7 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var gold_bonus: float = 2.0
 
 	if event.get_number_of_crits() > 0:
@@ -35,14 +33,10 @@ func on_attack(event: Event):
 
 
 func on_create():
-	var itm: Item = self
-
-	itm.user_real = 0.00
+	item.user_real = 0.00
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-
-	MB.set_value(0, Utils.format_float(itm.user_real, 1))
+	MB.set_value(0, Utils.format_float(item.user_real, 1))
 
 	return MB

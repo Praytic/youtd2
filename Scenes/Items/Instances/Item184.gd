@@ -1,5 +1,5 @@
 # Soul Collectors Cloak
-extends Item
+extends ItemBehavior
 
 var cedi_dps_cloak_mb: MultiboardValues
 
@@ -23,31 +23,25 @@ func item_init():
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_int = 0
+	item.user_int = 0
 
 
 func on_drop():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, -itm.user_int)
+	item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, -item.user_int)
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, itm.user_int)
+	item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, item.user_int)
 
 
 func on_kill(_event: Event):
-	var itm: Item = self
-
-	if itm.user_int < 4000:
-		itm.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, 10)
-		itm.user_int = itm.user_int + 10
+	if item.user_int < 4000:
+		item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, 10)
+		item.user_int = item.user_int + 10
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var dps_gained_text: String = Utils.format_float(itm.user_int, 0)
+	var dps_gained_text: String = Utils.format_float(item.user_int, 0)
 	cedi_dps_cloak_mb.set_value(0, dps_gained_text)
 
 	return cedi_dps_cloak_mb

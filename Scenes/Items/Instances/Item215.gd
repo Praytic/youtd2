@@ -1,5 +1,5 @@
 # Overcharge Shot
-extends Item
+extends ItemBehavior
 
 
 var PT: ProjectileType
@@ -36,14 +36,13 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var angle: float
 	var C: Creep
 	var T: Tower
 	var P: Projectile
 
 	if event.is_main_target():
-		T = itm.get_carrier()
+		T = item.get_carrier()
 		C = event.get_target()
 		angle = rad_to_deg(atan2(C.global_position.y - T.global_position.y, C.global_position.x - T.global_position.x))
 		P = Projectile.create_from_unit(PT, T, C, angle, 1.0, 1.0)

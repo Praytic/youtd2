@@ -1,5 +1,5 @@
 # Lunar Essence
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -12,19 +12,16 @@ func get_ability_description() -> String:
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 200
+	item.user_real = 200
 
 
 func on_drop():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	itm.user_real = tower.remove_exp_flat(200)
+	var tower: Tower = item.get_carrier()
+	item.user_real = tower.remove_exp_flat(200)
 
 
 func on_pickup():
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
-	var r: float = itm.user_real
+	var tower: Tower = item.get_carrier()
+	var r: float = item.user_real
 	if r > 0:
 		tower.add_exp_flat(r)

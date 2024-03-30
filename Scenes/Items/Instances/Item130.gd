@@ -1,5 +1,5 @@
 # Hippogryph Egg
-extends Item
+extends ItemBehavior
 
 var drol_hippo: ProjectileType
 
@@ -40,11 +40,10 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-	var twr: Tower = itm.get_carrier()
+	var twr: Tower = item.get_carrier()
 	var p: Projectile
 
 	if twr.calc_chance((0.15 * twr.get_base_attackspeed())):
-		CombatLog.log_item_ability(self, event.get_target(), "Hippogryph Young")
+		CombatLog.log_item_ability(item, event.get_target(), "Hippogryph Young")
 		p = Projectile.create_from_unit_to_unit(drol_hippo, twr, 1, twr.calc_spell_crit_no_bonus(), twr, event.get_target(), true, false, false)
 		p.setScale(0.6)

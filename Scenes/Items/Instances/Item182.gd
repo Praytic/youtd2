@@ -1,5 +1,5 @@
 # Spider Brooch
-extends Item
+extends ItemBehavior
 
 
 var drol_broach: BuffType
@@ -32,10 +32,8 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 
 	if tower.calc_chance(0.15 * tower.get_base_attackspeed()):
-		CombatLog.log_item_ability(self, null, "Silver Threads")
+		CombatLog.log_item_ability(item, null, "Silver Threads")
 		drol_broach.apply(tower, event.get_target(), tower.get_level())

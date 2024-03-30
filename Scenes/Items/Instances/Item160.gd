@@ -1,5 +1,5 @@
 # Young Thief's Cloak
-extends Item
+extends ItemBehavior
 
 
 func load_modifier(modifier: Modifier):

@@ -1,5 +1,5 @@
 # Lucky Gem
-extends Item
+extends ItemBehavior
 
 
 var cb_stun: BuffType
@@ -46,31 +46,30 @@ func item_init():
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var target: Unit = event.get_target()
 	var a: int = Globals.synced_rng.randi_range(0, 4)
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(0.20 * speed) && event.is_main_target() == true:
 		
 		if a < 1:
-			CombatLog.log_item_ability(self, null, "Stun!")
+			CombatLog.log_item_ability(item, null, "Stun!")
 			cb_stun.apply_only_timed(tower, target, 0.5)
 			tower.get_player().display_small_floating_text("Stun!", tower, Color8(255, 165, 0), 30)
 		elif a < 2:
-			CombatLog.log_item_ability(self, null, "Slow!")
+			CombatLog.log_item_ability(item, null, "Slow!")
 			boekie_gem_slow.apply_custom_timed(tower, target, 100, 3)
 			tower.get_player().display_small_floating_text("Slow!", tower, Color8(255, 165, 0), 30)
 		elif a < 3:
-			CombatLog.log_item_ability(self, null, "Gold!")
+			CombatLog.log_item_ability(item, null, "Gold!")
 			tower.get_player().give_gold(10, tower, true, true)
 			tower.get_player().display_small_floating_text("Gold!", tower, Color8(255, 165, 0), 30)
 		elif a < 4:
-			CombatLog.log_item_ability(self, null, "Exp!")
+			CombatLog.log_item_ability(item, null, "Exp!")
 			tower.add_exp(1.0)
 			tower.get_player().display_small_floating_text("Exp!", tower, Color8(255, 165, 0), 30)
 		elif a < 5:
-			CombatLog.log_item_ability(self, null, "Armor!")
+			CombatLog.log_item_ability(item, null, "Armor!")
 			boekie_gem_armor.apply_custom_timed(tower, target, 5, 3)
 			tower.get_player().display_small_floating_text("Armor!", tower, Color8(255, 165, 0), 30)

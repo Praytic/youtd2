@@ -1,5 +1,5 @@
 # Faithful Staff
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,12 +16,11 @@ func load_triggers(triggers: BuffType):
 
 
 func on_spell_cast(event: Event):
-	var itm: Item = self
-	var tower: Unit = itm.get_carrier()
+	var tower: Unit = item.get_carrier()
 	var target_unit: Unit = event.get_target()
 
 	if target_unit is Tower:
-		CombatLog.log_item_ability(self, null, "Reward the Faithful")
+		CombatLog.log_item_ability(item, null, "Reward the Faithful")
 		
 		target_unit.add_exp(1)
 		tower.add_exp(1)

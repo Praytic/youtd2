@@ -1,5 +1,5 @@
 # Spear of Loki
-extends Item
+extends ItemBehavior
 
 
 # NOTE: in original script, item is used as caster for
@@ -32,11 +32,9 @@ func item_init():
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-
-	var twr: Tower = itm.get_carrier()
+	var twr: Tower = item.get_carrier()
 
 	if Utils.rand_chance(Globals.synced_rng, 0.15 / twr.get_prop_trigger_chances()):
-		CombatLog.log_item_ability(self, null, "Tricky Weapon")
+		CombatLog.log_item_ability(item, null, "Tricky Weapon")
 
 		cb_stun.apply_only_timed(twr, twr, 1)

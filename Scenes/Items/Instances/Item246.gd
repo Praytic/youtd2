@@ -1,5 +1,5 @@
 # Haunted Hand
-extends Item
+extends ItemBehavior
 
 
 # NOTE: reworked original script. Used the same logic as in
@@ -29,8 +29,7 @@ func load_specials(modifier: Modifier):
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
-	var tower: Tower = itm.get_carrier()
+	var tower: Tower = item.get_carrier()
 	var iterator: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), tower.get_range())
 	var random_unit: Unit = iterator.next_random()
 

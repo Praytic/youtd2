@@ -1,5 +1,5 @@
 # Bones of Essence
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:

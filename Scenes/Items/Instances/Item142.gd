@@ -1,5 +1,5 @@
 # Jah'Rakal's Fury
-extends Item
+extends ItemBehavior
 
 
 var tomy_jahrakal_values: MultiboardValues
@@ -27,53 +27,44 @@ func item_init():
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	if itm.user_int == event.get_target().get_instance_id():
+	if item.user_int == event.get_target().get_instance_id():
 # 		100% attackspeed limit
-		if itm.user_real != 1.00 && itm.user_real + 0.02 > 1.00:
+		if item.user_real != 1.00 && item.user_real + 0.02 > 1.00:
 #			Add the remaining bonus (99% -> 101%; limit -> 100%; add 100% - 99% = 1%)
-			itm.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, 1.00 - itm.user_real)
-			itm.user_real = 1.00
+			item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, 1.00 - item.user_real)
+			item.user_real = 1.00
 		else:
 #			Add bonus
-			itm.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, 0.02)
-			itm.user_real = itm.user_real + 0.02
+			item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, 0.02)
+			item.user_real = item.user_real + 0.02
 	else:
 #		Save current target
-		itm.user_int = event.get_target().get_instance_id()
+		item.user_int = event.get_target().get_instance_id()
 #		Temp variable to store the current bonus
-		itm.user_real2 = itm.user_real
+		item.user_real2 = item.user_real
 #		Calculate the new bonus (Current bonus * (50% + towerlevel%))
-		itm.user_real = itm.user_real * (50.0 + itm.get_carrier().get_level()) / 100
+		item.user_real = item.user_real * (50.0 + item.get_carrier().get_level()) / 100
 #		Change the bonus (new Bonus - current Bonus)
-		itm.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, itm.user_real - itm.user_real2)
+		item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, item.user_real - item.user_real2)
 
 
 func on_create():
-	var itm: Item = self
-	itm.user_real = 0.00
-	itm.user_int = 0
+	item.user_real = 0.00
+	item.user_int = 0
 
 
 func on_drop():
-	var itm: Item = self
-
 # 	Remove bonus
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, -itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, -item.user_real)
 
 
 func on_pickup():
-	var itm: Item = self
-
 #	Add bonus
-	itm.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, itm.user_real)
+	item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, item.user_real)
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-
-	var attackspeed_bonus_text: String = Utils.format_percent(itm.user_real, 0)
+	var attackspeed_bonus_text: String = Utils.format_percent(item.user_real, 0)
 	tomy_jahrakal_values.set_value(0, attackspeed_bonus_text)
 
 	return tomy_jahrakal_values

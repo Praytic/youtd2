@@ -1,5 +1,5 @@
 # Medallion of Opulence
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,11 +16,9 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(event: Event):
-	var itm: Item = self
-
-	var tower: Tower = itm.get_carrier() 
+	var tower: Tower = item.get_carrier() 
 	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(0.2 * speed) == true:
-		CombatLog.log_item_ability(self, event.get_target(), "Greed Is Good")
-		tower.do_spell_damage(event.get_target(), get_player().get_gold() * (0.10), tower.calc_spell_crit_no_bonus())
+		CombatLog.log_item_ability(item, event.get_target(), "Greed Is Good")
+		tower.do_spell_damage(event.get_target(), item.get_player().get_gold() * (0.10), tower.calc_spell_crit_no_bonus())

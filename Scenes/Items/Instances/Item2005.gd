@@ -1,6 +1,6 @@
 # Consumable Piggy
-extends Item
+extends ItemBehavior
 
 
 func on_consume():
-	get_player().modify_food_cap(5)
+	item.get_player().modify_food_cap(5)

@@ -1,5 +1,5 @@
 # Sword of Decay
-extends Item
+extends ItemBehavior
 
 
 var nature_aura: BuffType
@@ -35,4 +35,4 @@ func item_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = nature_aura
-	add_aura(aura)
+	item.add_aura(aura)

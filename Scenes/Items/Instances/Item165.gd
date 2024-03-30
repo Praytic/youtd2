@@ -1,5 +1,5 @@
 # Basics of Calculus
-extends Item
+extends ItemBehavior
 
 
 func get_autocast_description() -> String:
@@ -31,9 +31,8 @@ func item_init():
 	autocast.cast_range = 200
 	autocast.auto_range = 200
 	autocast.handler = on_autocast
-	set_autocast(autocast)
+	item.set_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var itm: Item = self
-	event.get_target().add_exp(1.0 + itm.get_carrier().get_level() * 0.04)
+	event.get_target().add_exp(1.0 + item.get_carrier().get_level() * 0.04)

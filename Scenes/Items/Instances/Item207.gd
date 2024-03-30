@@ -1,5 +1,5 @@
 # M.E.F.I.S. Rocket
-extends Item
+extends ItemBehavior
 
 
 # NOTE: changed the 2nd "one_shot" arg passed to
@@ -46,18 +46,16 @@ func item_init():
 
 
 func on_pickup():
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 
 	if T.get_attack_type() != AttackType.enm.MAGIC:
-		itm.user_int = T.get_attack_type()
+		item.user_int = T.get_attack_type()
 	else:
-		itm.user_int = AttackType.enm.ESSENCE
+		item.user_int = AttackType.enm.ESSENCE
 
 
 func on_tower_details() -> MultiboardValues:
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var dmg: float = T.get_current_attack_damage_with_bonus() * ( T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.get_level()))
 	MB.set_value(0, Utils.format_float(dmg, 0))
 
@@ -65,8 +63,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(event: Event):
-	var itm: Item = self
-	var T: Tower = itm.get_carrier()
+	var T: Tower = item.get_carrier()
 	var I: Iterate = Iterate.over_units_in_range_of_caster(T, TargetType.new(TargetType.CREEPS), T.get_range())
 	var U: Unit
 	var dmg: float
@@ -86,4 +83,4 @@ func periodic(event: Event):
 	dmg = T.get_current_attack_damage_with_bonus() * (T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.get_level()))
 	P = Projectile.create_linear_interpolation_from_unit_to_unit(PT, T, 1.0, 1.0, T, U, 0.35, true)
 	P.user_real = dmg
-	P.user_int = itm.user_int
+	P.user_int = item.user_int

@@ -1,5 +1,5 @@
 # Granite Hammer
-extends Item
+extends ItemBehavior
 
 
 func get_ability_description() -> String:
@@ -16,19 +16,16 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(_event: Event):
-	var itm: Item = self
+	var tower: Tower = item.get_carrier()
+	item.user_int = item.user_int + 1
 
-	var tower: Tower = itm.get_carrier()
-	itm.user_int = itm.user_int + 1
-
-	if itm.user_int == 5:
-		CombatLog.log_item_ability(self, null, "Heavy Weapon")
+	if item.user_int == 5:
+		CombatLog.log_item_ability(item, null, "Heavy Weapon")
 		
 		tower.add_attack_crit()
 
-		itm.user_int = 0
+		item.user_int = 0
 
 
 func on_pickup():
-	var itm: Item = self
-	itm.user_int = 1
+	item.user_int = 1

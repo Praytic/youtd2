@@ -1,5 +1,5 @@
 # Bhaal's Essence
-extends Item
+extends ItemBehavior
 
 
 # NOTE: fixed an error in original script. Slow modifier
@@ -45,4 +45,4 @@ func item_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = poussix_fright_aura
-	add_aura(aura)
+	item.add_aura(aura)
