@@ -40,6 +40,7 @@ var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 var _triggers_buff: Buff = null
 var _inherited_periodic_timers: Dictionary = {}
 var _player: Player = null
+var _item_behavior: ItemBehavior
 
 static var _uid_max: int = 1
 var _uid: int = 0
@@ -61,8 +62,6 @@ func _init(id: int, player: Player):
 
 	_id = id
 	_player = player
-	load_modifier(_modifier)
-	item_init()
 
 	var item_name: String = get_display_name()
 
@@ -72,13 +71,12 @@ func _init(id: int, player: Player):
 	_triggers_buff_type.set_buff_tooltip("Triggers buff for item %s" % item_name)
 	_triggers_buff_type.set_hidden()
 
-	load_triggers(_triggers_buff_type)
 
-
-# NOTE: need to call on_create() because some item scripts
-# access the scene tree inside on_create()
+# NOTE: need to init item behavior inside _ready() because
+# some item scripts access the scene tree inside
+# ItemBehavior.on_create()
 func _ready():
-	on_create()
+	_item_behavior.init(self, _modifier, _triggers_buff_type)
 
 
 #########################
@@ -95,7 +93,7 @@ func add_aura(aura: AuraType):
 
 # Consume item. Only applicable to items of consumable type.
 func consume():
-	on_consume()
+	_item_behavior.on_consume()
 
 	print_verbose("Item was consumed. Removing item from game.")
 	
@@ -127,64 +125,13 @@ func get_autocast() -> Autocast:
 	return _autocast
 
 
-#########################
-###  Override methods ###
-#########################
-
-# NOTE: below are the methods which should be overriden in
-# scripts for item instances (subclasses).
-
-
-# Override this in subclass to attach trigger handlers to
-# triggers buff passed in the argument.
-func load_triggers(_triggers: BuffType):
-	pass
-
-
-# Override in subclass to define the modifier that will be
-# added to carrier of the item
-func load_modifier(_modifier_arg: Modifier):
-	pass
-
-
-# Override in subclass to define the description of item
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
 func get_ability_description() -> String:
-	return ""
-
-
-# Override in subclass to initialize subclass item
-# NOTE: item.init() in JASS
-func item_init():
-	pass
-
-
-# Override in subclass script to implement the effect that
-# should happen when the item is consumed.
-func on_consume():
-	pass
-
-
-# NOTE: item.onCreate() in JASS
-func on_create():
-	pass
-
-
-# NOTE: item.onPickup() in JASS
-func on_pickup():
-	pass
-
-
-# NOTE: item.onDrop() in JASS
-func on_drop():
-	pass
+	return _item_behavior.get_ability_description()
 
 
 # NOTE: item.onTowerDetails() in JASS
 func on_tower_details() -> MultiboardValues:
-	return null
+	return _item_behavior.on_tower_details()
 
 
 #########################
@@ -323,7 +270,7 @@ func _add_to_tower(tower: Tower):
 
 # 	NOTE: call on_pick() after setting carrier so that it's
 # 	available inside on_pickup() implementations.
-	on_pickup()
+	_item_behavior.on_pickup()
 
 	_carrier.add_modifier(_modifier)
 
@@ -362,7 +309,7 @@ func _remove_from_tower():
 	if _carrier == null:
 		return
 
-	on_drop()
+	_item_behavior.on_drop()
 
 	_carrier.remove_modifier(_modifier)
 
@@ -419,21 +366,24 @@ static func create(player: Player, item_id: int, position: Vector2) -> Item:
 
 
 static func make(id: int, player: Player) -> Item:
-	var item_script_path: String = get_item_script_path(id)
-	var script_exists: bool = ResourceLoader.exists(item_script_path)
+	var item_behavior_script_path: String = get_item_script_path(id)
+	var script_exists: bool = ResourceLoader.exists(item_behavior_script_path)
 	
 	if !script_exists:
 		if PRINT_SCRIPT_NOT_FOUND_ERROR:
-			print_debug("No item script found for id:", id, ". Tried at path:", item_script_path)
+			print_debug("No item behavior script found for id:", id, ". Tried at path:", item_behavior_script_path)
 
-		item_script_path = FAILLBACK_SCRIPT
+		item_behavior_script_path = FAILLBACK_SCRIPT
 
-	var item_script = load(item_script_path)
+	var item_behavior_script = load(item_behavior_script_path)
 
-	if item_script == null:
+	if item_behavior_script == null:
 		return null
 
-	var item: Item = item_script.new(id, player)
+	var item: Item = Item.new(id, player)
+	var item_behavior: ItemBehavior = item_behavior_script.new()
+	item._item_behavior = item_behavior
+	item.add_child(item_behavior)
 
 	return item
 

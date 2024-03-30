@@ -1,5 +1,5 @@
 # Template Item Advanced
-extends Item
+extends ItemBehavior
 
 # NOTE: not a real item script, used as a template for item
 # scripts. Use for advanced items that have special effects.
@@ -65,7 +65,7 @@ extends Item
 # 	autocast.cast_range = 200
 # 	autocast.auto_range = 200
 # 	autocast.handler = on_autocast
-# 	set_autocast(autocast)
+# 	item.set_autocast(autocast)
 
 # 	var aura: AuraType = AuraType.new()
 # 	aura.aura_range = 200
@@ -76,12 +76,12 @@ extends Item
 # 	aura.power = 0
 # 	aura.power_add = 1
 # 	aura.aura_effect = aura_effect
-# 	add_aura(aura)
+# 	item.add_aura(aura)
 
 
 # func on_damage(event: Event):
-# 	var itm: Item = self
+#	pass
 
 
 # func on_autocast(event: Event):
-# 	var itm: Item = self
+#	pass

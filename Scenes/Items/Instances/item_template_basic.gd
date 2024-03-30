@@ -1,5 +1,5 @@
 # Template Item Basic
-extends Item
+extends ItemBehavior
 
 # NOTE: not a real item script, used as a template for item
 # scripts. Use for basic items that only have modifiers.
