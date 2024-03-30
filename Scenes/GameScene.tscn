@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -72,7 +72,6 @@ _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
 _team_container = NodePath("Gameplay/TeamContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
-_object_container = NodePath("World/ObjectContainer")
 _select_point_for_cast = NodePath("Gameplay/SelectPointForCast")
 _select_target_for_cast = NodePath("Gameplay/SelectTargetForCast")
 _move_item = NodePath("Gameplay/MoveItem")
@@ -250,4 +249,3 @@ visible = false
 
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
-[connection signal="restart_pressed" from="UI/GameMenu" to="." method="_on_game_menu_restart_pressed"]

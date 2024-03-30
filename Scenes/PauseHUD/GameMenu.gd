@@ -10,7 +10,6 @@ enum Tab {
 
 
 signal close_pressed()
-signal restart_pressed()
 
 
 @export var _tab_container: TabContainer
@@ -42,10 +41,6 @@ func _on_hints_menu_closed():
 
 func _on_help_menu_hidden():
 	_tab_container.current_tab = Tab.MAIN
-
-
-func _on_restart_button_pressed():
-	restart_pressed.emit()
 
 
 func _on_settings_menu_cancel_pressed():

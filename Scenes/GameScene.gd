@@ -8,7 +8,6 @@ class_name GameScene extends Node
 @export var _camera: Camera2D
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
-@export var _object_container: Node2D
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
 @export var _move_item: MoveItem
@@ -468,20 +467,6 @@ func _on_settings_changed():
 #	work because the game is paused while the settings menu
 #	is open.
 	_camera.update_zoom()
-
-
-func _on_game_menu_restart_pressed():
-#	NOTE: need to remove all units before restarting the
-#	game to avoid issues with creeps emitting tree_exit()
-#	signals, triggering wave_finished() signal and then
-#	accessing Messages while HUD was already removed from
-#	the tree.
-	while _object_container.get_child_count() > 0:
-		for child in _object_container.get_children():
-			_object_container.remove_child(child)
-			child.queue_free()
-	
-	get_tree().reload_current_scene()
 
 
 func _on_player_requested_start_game():
