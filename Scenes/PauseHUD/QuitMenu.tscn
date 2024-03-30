@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://vno2fc0bkyjw"]
+
+[ext_resource type="Script" path="res://Scenes/PauseHUD/QuitMenu.gd" id="1_n2u7v"]
+
+[node name="QuitMenu" type="VBoxContainer"]
+script = ExtResource("1_n2u7v")
+
+[node name="GoToTitleButton" type="Button" parent="."]
+layout_mode = 2
+text = "Return to Title"
+
+[node name="QuitGameButton" type="Button" parent="."]
+layout_mode = 2
+text = "Quit the game"
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="."]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="GoToTitleButton" to="." method="_on_go_to_title_button_pressed"]
+[connection signal="pressed" from="QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -6,6 +6,7 @@ enum Tab {
 	HELP,
 	HINTS,
 	SETTINGS,
+	QUIT,
 }
 
 
@@ -49,3 +50,21 @@ func _on_settings_menu_cancel_pressed():
 
 func _on_settings_menu_ok_pressed():
 	_tab_container.current_tab = Tab.MAIN
+
+
+func _on_quit_button_pressed():
+	_tab_container.current_tab = Tab.QUIT
+
+
+func _on_quit_menu_cancel_pressed():
+	_tab_container.current_tab = Tab.MAIN
+
+
+func _on_quit_menu_go_to_title_pressed():
+	get_tree().set_pause(false)
+	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
+
+
+func _on_quit_menu_quit_game_pressed():
+	get_tree().set_pause(false)
+	get_tree().quit()
