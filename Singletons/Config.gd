@@ -159,6 +159,9 @@ func load_only_orc_scenes() -> bool:
 func run_test_towers_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_test_towers_tool") as bool
 
+func run_test_items_tool() -> bool:
+	return ProjectSettings.get_setting("application/config/run_test_items_tool") as bool
+
 func run_test_horadric_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_test_horadric_tool") as bool
 

@@ -42,6 +42,9 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_item_id_list() -> Array:
+	return _properties.keys()
+
 
 func get_id_list_by_filter(item_property: CsvProperty, filter_value: String) -> Array:
 	var all_item_list: Array = _properties.keys()

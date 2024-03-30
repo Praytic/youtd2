@@ -207,6 +207,9 @@ func _ready():
 	if Config.run_test_towers_tool():
 		TestTowersTool.run(self, local_player)
 
+	if Config.run_test_items_tool():
+		TestItemsTool.run(self, local_player)
+
 	if Config.run_test_horadric_tool():
 		TestHoradricTool.run(local_player)
 
