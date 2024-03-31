@@ -28,6 +28,7 @@ var event_handler_map: Dictionary = {}
 var _original_duration: float = 0.0
 var _tooltip_text: String
 var _buff_icon: String
+var _buff_icon_color: Color
 var _purgable: bool
 var _cleanup_done: bool = false
 var _inherited_periodic_timers: Dictionary = {}
@@ -372,14 +373,7 @@ func get_buff_icon() -> String:
 
 
 func get_buff_icon_color() -> Color:
-	if _caster is Tower:
-		var tower: Tower = _caster as Tower
-		var element: Element.enm = tower.get_element()
-		var element_color: Color = Element.get_color(element)
-
-		return element_color
-	else:
-		return Color.GRAY
+	return _buff_icon_color
 
 
 # NOTE: if no tooltip text is defined, return type name to

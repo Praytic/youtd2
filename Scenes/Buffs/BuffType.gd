@@ -43,6 +43,8 @@ var _range_handler_list: Array[RangeHandlerData] = []
 var _aura_type_list: Array[AuraType] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
+var _buff_icon_color: Color = Color.WHITE
+var _defined_custom_buff_icon_color: bool = false
 var _inherited_periodic_timers: Dictionary = {}
 var _is_hidden: bool = false
 
@@ -98,6 +100,19 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._tooltip_text = _tooltip_text
 	buff._is_hidden = _is_hidden
 	buff._buff_icon = _buff_icon
+	buff._buff_icon_color = _buff_icon_color
+
+	if _defined_custom_buff_icon_color:
+		buff._buff_icon_color = _buff_icon_color
+	elif get_parent() is TowerBehavior && caster is Tower:
+		var tower: Tower = caster as Tower
+		var element: Element.enm = tower.get_element()
+		var element_color: Color = Element.get_color(element)
+
+		buff._buff_icon_color = element_color
+	else:
+		buff._buff_icon_color = Color.WHITE
+
 
 # 	NOTE: this is part of the hack to preserve item
 # 	cooldowns when item is removed from tower. Must be done
@@ -361,6 +376,13 @@ func set_buff_tooltip(tooltip: String):
 # NOTE: buffType.setBuffIcon() in JASS
 func set_buff_icon(buff_icon: String):
 	_buff_icon = buff_icon
+
+
+# NOTE: if you don't define a color and bufftype belongs to
+# tower, then buff will use the color of the tower element.
+func set_buff_icon_color(color: Color):
+	_defined_custom_buff_icon_color = true
+	_buff_icon_color = color
 
 
 # NOTE: this f-n does nothing. According to original youtd
