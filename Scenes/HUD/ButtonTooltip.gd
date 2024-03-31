@@ -3,39 +3,29 @@ class_name ButtonTooltip extends PanelContainer
 
 # Tooltip used to display tower/item details when their
 # buttons are hovered by mouse. Note that this is different
-# from native Control tooltip because this tooltip has rich
-# text and is displayed at a certain position, not under
-# mouse cursor.
+# from native Control tooltip because this tooltip is
+# displayed at a pre-defined position, not under mouse
+# cursor.
 
 
-static var _tooltip_general: ButtonTooltip = null
-static var _tooltip_autocast: ButtonTooltip = null
+static var _tooltip_instance: ButtonTooltip = null
 
 @export var _label: RichTextLabel
-@export var used_for_autocasts: bool = false
 
 var _current_button: Button = null
 
 
 func _ready():
-	if used_for_autocasts:
-		_tooltip_autocast = self
-	else:
-		_tooltip_general = self
+	ButtonTooltip._tooltip_instance = self
 
 
 static func show_tooltip(button: Button, tooltip: String):
-	var tooltip_instance: ButtonTooltip
-	if button is AutocastButton:
-		tooltip_instance = ButtonTooltip._tooltip_autocast
-	else:
-		tooltip_instance = ButtonTooltip._tooltip_general
-	
-	if tooltip_instance == null:
+	if _tooltip_instance == null:
 		push_error("No tooltip instance")
+
 		return
 
-	tooltip_instance._show_tooltip(button, tooltip)
+	_tooltip_instance._show_tooltip(button, tooltip)
 
 
 func _show_tooltip(button: Button, tooltip: String):

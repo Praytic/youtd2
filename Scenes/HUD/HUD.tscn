@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
 [ext_resource type="PackedScene" uid="uid://cnavhmlpsk00o" path="res://Scenes/HUD/UnitMenu/CreepMenu.tscn" id="12_32wi7"]
 [ext_resource type="PackedScene" uid="uid://csayw0jxo1omx" path="res://Scenes/HUD/UnitStatusCard.tscn" id="12_rwl1n"]
-[ext_resource type="Script" path="res://Scenes/HUD/AutocastTooltipContainer.gd" id="13_fj5t7"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.tscn" id="15_eivr8"]
@@ -344,19 +343,6 @@ theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[color=RED]GAME OVER[/color]"
 fit_content = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." node_paths=PackedStringArray("_tooltip")]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-script = ExtResource("13_fj5t7")
-_tooltip = NodePath("ButtonTooltipForAutocast")
-
-[node name="ButtonTooltipForAutocast" parent="VBoxContainer" instance=ExtResource("11_ka7k1")]
-visible = false
-layout_mode = 2
-used_for_autocasts = true
 
 [node name="DesyncLabel" type="Label" parent="."]
 visible = false
