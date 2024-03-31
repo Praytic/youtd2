@@ -45,7 +45,8 @@ func item_init():
 	item.set_autocast(autocast)
 
 	boekie_backpackBuff = BuffType.new("boekie_backpackBuff", 0, 0, true, self)
-	boekie_backpackBuff.set_buff_icon("@@0@@")
+	boekie_backpackBuff.set_buff_icon("gear_1.tres")
+	boekie_backpackBuff.set_buff_icon_color(Color.BROWN)
 	boekie_backpackBuff.add_event_on_kill(backpack_kill)
 	boekie_backpackMB = MultiboardValues.new(1)
 	boekie_backpackMB.set_key(0, "Items Backpacked")

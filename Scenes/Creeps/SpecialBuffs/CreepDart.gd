@@ -24,11 +24,15 @@ func _init(parent: Node):
 	var darting_modifier: Modifier = Modifier.new()
 	darting_modifier.add_modification(Modification.Type.MOD_MOVESPEED, 3.00, 0.0)
 	creep_darting.set_buff_modifier(darting_modifier)
+	creep_darting.set_buff_icon("running_man_burning.tres")
+	creep_darting.set_buff_icon_color(Color.LIGHT_BLUE)
 	creep_darting.set_buff_tooltip("Darting\nIncreases movement speed.")
 	creep_darting.add_event_on_cleanup(on_darting_cleanup)
 
 	creep_tired = BuffType.new("creep_tired", 4.0, 0, false, self
 		)
+	creep_tired.set_buff_icon("skull.tres")
+	creep_tired.set_buff_icon_color(Color.LIGHT_BLUE)
 	creep_tired.set_buff_tooltip("Tired\nCan't dart for some time.")
 
 

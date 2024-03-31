@@ -15,6 +15,8 @@ func _init(parent: Node):
 	ethereal_active_buff.add_event_on_damaged(on_damaged)
 	ethereal_active_buff.add_event_on_create(on_create)
 	ethereal_active_buff.add_event_on_cleanup(on_cleanup)
+	ethereal_active_buff.set_buff_icon("bull_horns.tres")
+	ethereal_active_buff.set_buff_icon_color(Color.CYAN)
 	ethereal_active_buff.set_buff_tooltip("Ethereal\nImmune against physical attacks. Increases magic and spell damage taken.")
 
 	add_periodic_event(on_periodic, ETHEREAL_PERIOD)

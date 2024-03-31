@@ -30,7 +30,8 @@ func item_init():
 	fright_mana_aura = BuffType.create_aura_effect_type("fright_mana_aura", true, self)
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
 	fright_mana_aura.set_buff_modifier(m) 
-	fright_mana_aura.set_buff_icon("@@0@@")
+	fright_mana_aura.set_buff_icon("letter_omega.tres")
+	fright_mana_aura.set_buff_icon_color(Color.CORNFLOWER_BLUE)
 	fright_mana_aura.set_buff_tooltip("Mana Aura\nIncreases mana regeneration.")
 
 	var aura: AuraType = AuraType.new()

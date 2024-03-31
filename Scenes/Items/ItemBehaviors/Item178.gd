@@ -27,14 +27,16 @@ func item_init():
 	m_neg.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
 
 	neg = BuffType.new("item178_neg", 2.5, 0.0, false, self)
-	neg.set_buff_icon("@@0@@")
+	neg.set_buff_icon("crystal.tres")
+	neg.set_buff_icon_color(Color.WHITE)
 	neg.set_buff_modifier(m_neg)
 
 	var m_pos: Modifier = Modifier.new()
 	m_pos.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
 
 	pos = BuffType.new("item178_pos", 2.5, 0.0, true, self)
-	pos.set_buff_icon("@@1@@")
+	pos.set_buff_icon("foot.tres")
+	pos.set_buff_icon_color(Color.DARK_RED)
 	pos.set_buff_modifier(m_pos)
 
 

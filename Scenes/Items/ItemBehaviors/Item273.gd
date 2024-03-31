@@ -24,7 +24,8 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
 	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
 	boekie_scroll_damage.set_buff_modifier(m)
-	boekie_scroll_damage.set_buff_icon("@@0@@")
+	boekie_scroll_damage.set_buff_icon("hammer_swing.tres")
+	boekie_scroll_damage.set_buff_icon_color(Color.BROWN)
 	boekie_scroll_damage.set_buff_tooltip("Speed Boost\nIncreases attack speed.")
 
 	var autocast: Autocast = Autocast.make()

@@ -19,6 +19,8 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -1.3, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, -2, 0.0)
+	protector_curse.set_buff_icon("mask_occult.tres")
+	protector_curse.set_buff_icon_color(Color.DARK_RED)
 	protector_curse.set_buff_modifier(modifier)
 
 

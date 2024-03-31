@@ -31,7 +31,8 @@ func item_init():
 
 	poussix_rageitem_buff = BuffType.new("poussix_rageitem_buff", 0, 0, true, self)
 	poussix_rageitem_buff.set_buff_modifier(m)
-	poussix_rageitem_buff.set_buff_icon("@@0@@")
+	poussix_rageitem_buff.set_buff_icon("winged_man.tres")
+	poussix_rageitem_buff.set_buff_icon_color(Color.DARK_RED)
 	poussix_rageitem_buff.set_stacking_group("poussix_rageitem_buff")
 	poussix_rageitem_buff.set_buff_tooltip("Enraged\nIncreases attack speed.")
 

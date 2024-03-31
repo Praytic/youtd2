@@ -103,11 +103,13 @@ func hammer_aura_trig(event: Event):
 
 func item_init():
 	hammer_mark = BuffType.new("hammer_mark", -1, 0, true, self)
-	hammer_mark.set_buff_icon("@@0@@")
+	hammer_mark.set_buff_icon("hammer_swing.tres")
+	hammer_mark.set_buff_icon_color(Color.GRAY)
 	hammer_mark.add_event_on_create(mark_setup)
 
 	hammer_aura = BuffType.new("hammer_aura", -1, 0, true, self)
-	hammer_aura.set_buff_icon("@@1@@")
+	hammer_aura.set_buff_icon("hammer_swing.tres")
+	hammer_aura.set_buff_icon_color(Color.GRAY)
 	hammer_aura.add_event_on_damaged(hammer_aura_trig)
 
 

@@ -28,7 +28,8 @@ func item_init():
 	stern_Commander_Attack = BuffType.new("stern_Commander_Attack", 4, 0.1, true, self)
 	stern_Commander_Attack.set_buff_modifier(m) 
 	stern_Commander_Attack.set_stacking_group("stern_Commander_Attack")
-	stern_Commander_Attack.set_buff_icon("@@0@@")
+	stern_Commander_Attack.set_buff_icon("hammer_swing.tres")
+	stern_Commander_Attack.set_buff_icon_color(Color.BROWN)
 	stern_Commander_Attack.set_buff_tooltip("Attack!\nIncreases attack speed.")
 
 

@@ -50,7 +50,8 @@ func item_init():
 	PT.enable_homing(PT_hit, 0.1)
 
 	BT = BuffType.new("Item208_BT", 5.0, 0.0, false, self)
-	BT.set_buff_icon("@@0@@")
+	BT.set_buff_icon("gear_2.tres")
+	BT.set_buff_icon_color(Color.GRAY)
 	BT.add_event_on_damaged(BT_dmg)
 	BT.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
 

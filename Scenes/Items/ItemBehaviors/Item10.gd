@@ -26,6 +26,8 @@ func item_init():
 
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001) 
 	boekie_claw_slow = BuffType.new("boekie_claw_slow", 0, 0, false, self)
+	boekie_claw_slow.set_buff_icon("foot.tres")
+	boekie_claw_slow.set_buff_icon_color(Color.DARK_RED)
 	boekie_claw_slow.set_buff_modifier(m) 
 	boekie_claw_slow.set_stacking_group("boekie_claw_slow")
 

@@ -23,7 +23,8 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.12, 0.0024)
 	nature_aura.set_buff_modifier(m)
 	nature_aura.set_stacking_group("nature_aura")
-	nature_aura.set_buff_icon("@@0@@")
+	nature_aura.set_buff_icon("cup_with_wings.tres")
+	nature_aura.set_buff_icon_color(Color.PURPLE)
 	nature_aura.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
 
 	var aura: AuraType = AuraType.new()

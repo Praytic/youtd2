@@ -26,7 +26,8 @@ func item_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.5, 0.0)
 	BT = BuffType.new("Item146_BT", 2.0, 0, false, self)
-	BT.set_buff_icon("@@0@@")
+	BT.set_buff_icon("gear_1.tres")
+	BT.set_buff_icon_color(Color.PURPLE)
 	BT.set_buff_modifier(m)
 	BT.set_buff_tooltip("Playtime\nReduces attack speed.")
 

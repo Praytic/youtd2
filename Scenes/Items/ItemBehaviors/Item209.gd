@@ -42,7 +42,8 @@ func periodic_dmg(event: Event):
 func item_init():
 	entangling_roots_buff = CbStun.new("entangling_roots_buff", 1.8, 0, false, self)
 	entangling_roots_buff.add_periodic_event(periodic_dmg, 1.0)
-	entangling_roots_buff.set_buff_icon("@@1@@")
+	entangling_roots_buff.set_buff_icon("orb_empty.tres")
+	entangling_roots_buff.set_buff_icon_color(Color.BROWN)
 
 	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
 

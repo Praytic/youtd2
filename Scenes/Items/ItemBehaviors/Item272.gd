@@ -24,7 +24,8 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
 	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
 	boekie_scroll_damage.set_buff_modifier(m)
-	boekie_scroll_damage.set_buff_icon("@@0@@")
+	boekie_scroll_damage.set_buff_icon("flexing_arm.tres")
+	boekie_scroll_damage.set_buff_icon_color(Color.GRAY)
 	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nIncreases base attack damage.")
 
 	var autocast: Autocast = Autocast.make()

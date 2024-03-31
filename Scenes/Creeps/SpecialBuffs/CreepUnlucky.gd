@@ -14,6 +14,8 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, -0.001)
 	unlucky_active.set_buff_modifier(modifier)
+	unlucky_active.set_buff_icon("electricity.tres")
+	unlucky_active.set_buff_icon_color(Color.YELLOW)
 
 
 func on_damaged(event: Event):

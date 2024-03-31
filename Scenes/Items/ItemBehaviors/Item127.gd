@@ -26,7 +26,8 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 
 	drol_moonStone = BuffType.new("drol_moonStone", 5, 0, true, self)
-	drol_moonStone.set_buff_icon("@@0@@")
+	drol_moonStone.set_buff_icon("star.tres")
+	drol_moonStone.set_buff_icon_color(Color.GOLD)
 	drol_moonStone.set_buff_modifier(m)
 	drol_moonStone.set_buff_tooltip("Earth and Moon\nIncreases trigger chances.")
 

@@ -21,7 +21,8 @@ func item_init():
 	var m: Modifier = Modifier.new()
 	boekie_crit_aura2 = BuffType.create_aura_effect_type("boekie_crit_aura2", true, self)
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.035, 0.0)
-	boekie_crit_aura2.set_buff_icon("@@0@@")
+	boekie_crit_aura2.set_buff_icon("fireball.tres")
+	boekie_crit_aura2.set_buff_icon_color(Color.DARK_RED)
 	boekie_crit_aura2.set_buff_modifier(m)
 	boekie_crit_aura2.set_buff_tooltip("Flames of Fury\nIncreases critical chance.")
 

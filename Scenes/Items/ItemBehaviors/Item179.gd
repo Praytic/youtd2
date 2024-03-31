@@ -24,7 +24,8 @@ func get_autocast_description() -> String:
 func item_init():
 	var m: Modifier = Modifier.new()
 	drol_talisman = BuffType.new("drol_talisman", 10, 0, true, self)
-	drol_talisman.set_buff_icon("@@0@@")
+	drol_talisman.set_buff_icon("orb_triple.tres")
+	drol_talisman.set_buff_icon_color(Color.DARK_RED)
 	m.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.2, 0.008)
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.1, 0.002)
 	drol_talisman.set_buff_modifier(m)

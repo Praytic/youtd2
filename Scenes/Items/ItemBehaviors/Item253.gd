@@ -26,7 +26,8 @@ func item_init():
 	BT = BuffType.new("Item253_BT", 5, 0, false, self)
 	m.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
 	BT.set_buff_modifier(m)
-	BT.set_buff_icon("@@0@@")
+	BT.set_buff_icon("claw.tres")
+	BT.set_buff_icon_color(Color.GRAY)
 	BT.set_buff_tooltip("Ensign's Touch\nReduces armor.")
 
 

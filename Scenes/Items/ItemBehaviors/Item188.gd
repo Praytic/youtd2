@@ -54,7 +54,8 @@ func item_init():
 	drol_liftBuff.add_periodic_event(drol_lift_period, 0.1)
 	drol_liftBuff.add_event_on_cleanup(drol_lift_down)
 	drol_liftBuff.set_buff_modifier(m)
-	drol_liftBuff.set_buff_icon("@@0@@")
+	drol_liftBuff.set_buff_icon("orb_sparkly.tres")
+	drol_liftBuff.set_buff_icon_color(Color.SILVER)
 	drol_liftBuff.set_buff_tooltip("Ascended\nStuns and increases experience granted if killed while in the air.")
 
 

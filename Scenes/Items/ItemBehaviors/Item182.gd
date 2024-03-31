@@ -27,7 +27,8 @@ func item_init():
 	drol_broach = BuffType.new("drol_broach", 5.0, 0.1, false, self)
 	m.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
 	drol_broach.set_buff_modifier(m)
-	drol_broach.set_buff_icon("@@0@@")
+	drol_broach.set_buff_icon("electricity.tres")
+	drol_broach.set_buff_icon_color(Color.WHITE)
 	drol_broach.set_buff_tooltip("Silver Threads\nIncreases quality of dropped items.")
 
 

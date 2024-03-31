@@ -20,7 +20,8 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.15, 0.0)
 	m.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.1, 0.0)
 	dave_magnetic.set_buff_modifier(m)
-	dave_magnetic.set_buff_icon("@@0@@")
+	dave_magnetic.set_buff_icon("letter_omega_shiny.tres")
+	dave_magnetic.set_buff_icon_color(Color.PURPLE)
 	dave_magnetic.set_buff_tooltip("Magnetic Field\nIncreases buff duration and reduces debuff duration.")
 
 	var aura: AuraType = AuraType.new()
