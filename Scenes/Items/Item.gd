@@ -238,27 +238,29 @@ func drop():
 func fly_to_stash(_mystery_float: float):
 	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
 	var is_on_ground: bool = parent_item_drop != null
-	
+
 	if !is_on_ground:
 		return
 
 	var item_drop_screen_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
-
-	parent_item_drop.remove_child(self)
-	parent_item_drop.remove_from_game()
 
 	if belongs_to_local_player():
 		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)
 		flying_item.visible = _visible
 		_hud.add_child(flying_item)
 
-#	NOTE: item stays inside item drop
-	set_visible(false)
+#	NOTE: need to hide item drop because it continues to
+#	exist while item is "flying".
+	parent_item_drop.hide()
 
 #	NOTE: fly duration has to be a constant value, doesn't
 #	matter if fly animation will finish earlier. This is to
 #	prevent multiplayer desync.
 	await Utils.create_timer(FLY_DURATION).timeout
+
+#	After item is done flying, we can delete item drop
+	parent_item_drop.remove_child(self)
+	parent_item_drop.remove_from_game()
 
 	EventBus.item_flew_to_item_stash.emit(self)
 
