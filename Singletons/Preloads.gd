@@ -32,6 +32,7 @@ const player_scene: PackedScene = preload("res://Scenes/Player/Player.tscn")
 const team_scene: PackedScene = preload("res://Scenes/Player/Team.tscn")
 const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
+const buff_display_scene: PackedScene = preload("res://Scenes/HUD/UnitMenu/BuffDisplay.tscn")
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
 	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
