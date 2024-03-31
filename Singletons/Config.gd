@@ -202,3 +202,6 @@ func autostart_builder_id() -> int:
 
 func enable_auth() -> bool:
 	return ProjectSettings.get_setting("application/config/enable_auth") as bool
+
+func show_multiplayer_button() -> bool:
+	return ProjectSettings.get_setting("application/config/show_multiplayer_button") as bool

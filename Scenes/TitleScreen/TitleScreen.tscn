@@ -11,12 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/TitleScreen/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_uoyhn"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_42wpj"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_multiplayer_button", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
+_multiplayer_button = NodePath("UI/TabContainer/MainTab/MultiplayerButton")
 _auth_button = NodePath("UI/TabContainer/MainTab/AuthButton")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/QuitButton")
@@ -53,9 +54,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -202.0
-offset_top = -247.5
+offset_top = -210.0
 offset_right = 202.0
-offset_bottom = 247.5
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 tabs_visible = false
@@ -69,6 +70,7 @@ theme_type_variation = &"ButtonLarge"
 text = "Singleplayer"
 
 [node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
@@ -114,7 +116,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_uoyhn")
+_interface_size_button_group = SubResource("ButtonGroup_42wpj")
 
 [node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
