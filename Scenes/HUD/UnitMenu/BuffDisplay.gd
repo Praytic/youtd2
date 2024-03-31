@@ -1,6 +1,9 @@
 class_name BuffDisplay extends PanelContainer
 
 
+const BUFF_ICON_DIR: String = "res://Resources/Textures/Buffs"
+
+
 @export var _texture_rect: TextureRect
 
 
@@ -9,21 +12,20 @@ class_name BuffDisplay extends PanelContainer
 #########################
 
 func set_buff(buff: Buff):
-	var texture_path: String = buff.get_buff_icon()
+	var buff_icon_filename: String = buff.get_buff_icon()
+	var buff_icon_path: String = "%s/%s" % [BUFF_ICON_DIR, buff_icon_filename]
 
-	if !ResourceLoader.exists(texture_path):
-		if buff.is_hidden():
-			texture_path = "res://Assets/Buffs/question_mark.png"
-		elif buff.is_friendly():
-			texture_path = "res://Assets/Buffs/buff_plus.png"
-		else:
-			texture_path = "res://Assets/Buffs/buff_minus.png"
+	if !ResourceLoader.exists(buff_icon_path):
+		buff_icon_path = "%s/egg.tres" % BUFF_ICON_DIR
 	
-	var texture: Texture2D = load(texture_path)
+	var texture: Texture2D = load(buff_icon_path)
 	_texture_rect.texture = texture
 
 	var tooltip: String = buff.get_tooltip_text()
 	set_tooltip_text(tooltip)
+
+	var color: Color = buff.get_buff_icon_color()
+	_texture_rect.modulate = color
 
 
 #########################

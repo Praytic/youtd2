@@ -371,6 +371,17 @@ func get_buff_icon() -> String:
 	return _buff_icon
 
 
+func get_buff_icon_color() -> Color:
+	if _caster is Tower:
+		var tower: Tower = _caster as Tower
+		var element: Element.enm = tower.get_element()
+		var element_color: Color = Element.get_color(element)
+
+		return element_color
+	else:
+		return Color.GRAY
+
+
 # NOTE: if no tooltip text is defined, return type name to
 # at least make it possible to identify the buff
 func get_tooltip_text() -> String:
