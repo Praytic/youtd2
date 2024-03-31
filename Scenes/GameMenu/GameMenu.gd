@@ -11,6 +11,8 @@ enum Tab {
 
 
 signal close_pressed()
+signal quit_to_title_pressed()
+signal quit_pressed()
 
 
 @export var _tab_container: TabContainer
@@ -61,10 +63,8 @@ func _on_quit_menu_cancel_pressed():
 
 
 func _on_quit_menu_go_to_title_pressed():
-	get_tree().set_pause(false)
-	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
+	quit_to_title_pressed.emit()
 
 
 func _on_quit_menu_quit_game_pressed():
-	get_tree().set_pause(false)
-	get_tree().quit()
+	quit_pressed.emit()

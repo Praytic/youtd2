@@ -19,6 +19,7 @@ class_name GameScene extends Node
 @export var _game_host: GameHost
 @export var _game_time: GameTime
 @export var _pause_shadow_rect: ColorRect
+@export var _object_container: Node2D
 
 
 var _room_code: int = 0
@@ -447,6 +448,21 @@ func _start_tutorial(game_mode: GameMode.enm):
 	_tutorial_controller.start(_tutorial_menu, game_mode)
 
 
+# NOTE: need to remove objects from tree before quitting or
+# restarting. Otherwise, creeps will emit tree_exited()
+# signals, then WaveSpawner will react to those signals and
+# access tree nodes while it's in the process of deletion.
+# 
+# TODO: a better solution would be to not use tree_exited.
+# Can emit a custom signal in Unit.remove_from_game() for
+# example. Problem is that BuffType connects to tree_exited
+# at the moment and tree_exited() seems like the best choice
+# for that use case.
+func _cleanup_all_objects():
+	_object_container.get_parent().remove_child(_object_container)
+	_object_container.queue_free()
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -692,3 +708,15 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 	
 	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
 	_game_client.add_action(action)
+
+
+func _on_game_menu_quit_pressed():
+	_cleanup_all_objects()
+	get_tree().set_pause(true)
+	get_tree().quit()
+
+
+func _on_game_menu_quit_to_title_pressed():
+	_cleanup_all_objects()
+	get_tree().set_pause(true)
+	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
