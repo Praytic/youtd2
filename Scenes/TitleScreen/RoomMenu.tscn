@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cecaq4wvkvxv3"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/RoomMenu.gd" id="1_gou4l"]
-[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://GameModeUI.tscn" id="2_u4tk3"]
+[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://Scenes/TitleScreen/GameModeUI.tscn" id="2_u4tk3"]
 
 [node name="RoomMenu" type="VBoxContainer" node_paths=PackedStringArray("_player_list", "_game_mode_ui", "_start_button")]
 script = ExtResource("1_gou4l")

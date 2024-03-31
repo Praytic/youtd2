@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://eies0lnegrf6"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.gd" id="1_dgq16"]
-[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://GameModeUI.tscn" id="2_7m6il"]
+[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://Scenes/TitleScreen/GameModeUI.tscn" id="2_7m6il"]
 
 [node name="ConfigureSingleplayerMenu" type="VBoxContainer" node_paths=PackedStringArray("_game_mode_ui")]
 script = ExtResource("1_dgq16")
