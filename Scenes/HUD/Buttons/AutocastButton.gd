@@ -15,8 +15,6 @@ func _ready():
 	_cooldown_indicator.set_autocast(_autocast)
 	_auto_mode_indicator.set_autocast(_autocast)
 
-	mouse_entered.connect(_on_mouse_entered)
-	
 	var button_stylebox: StyleBox = get_theme_stylebox("normal", "Button")
 
 #	NOTE: need to load margins here because they are not
@@ -34,6 +32,12 @@ func _gui_input(event):
 		EventBus.player_right_clicked_autocast.emit(_autocast)
 
 
+func _make_custom_tooltip(for_text: String) -> Object:
+	var label: RichTextLabel = Utils.make_rich_text_tooltip(for_text)
+
+	return label
+
+
 #########################
 ###       Public      ###
 #########################
@@ -41,15 +45,13 @@ func _gui_input(event):
 func set_autocast(autocast: Autocast):
 	_autocast = autocast
 
+	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
+	set_tooltip_text(tooltip)
+
 
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_mouse_entered():
-	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
-	ButtonTooltip.show_tooltip(self, tooltip)
-
 
 func _on_pressed():
 	EventBus.player_clicked_autocast.emit(_autocast)
