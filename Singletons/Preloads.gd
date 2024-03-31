@@ -8,7 +8,7 @@ extends Node
 
 
 const title_screen_scene: PackedScene = preload("res://Scenes/TitleScreen/TitleScreen.tscn")
-const game_scene_scene: PackedScene = preload("res://Scenes/GameScene.tscn")
+const game_scene_scene: PackedScene = preload("res://Scenes/GameScene/GameScene.tscn")
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://Scenes/HUD/FloatingText.tscn")
@@ -29,7 +29,7 @@ const button_with_rich_tooltip_scene: PackedScene = preload("res://Scenes/HUD/Bu
 const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
 const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
 const player_scene: PackedScene = preload("res://Scenes/Player/Player.tscn")
-const team_scene: PackedScene = preload("res://Scenes/Team.tscn")
+const team_scene: PackedScene = preload("res://Scenes/Player/Team.tscn")
 const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 const element_icons: Dictionary = {

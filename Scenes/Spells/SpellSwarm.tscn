@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b14bbv4n46f1j" path="res://Scenes/Spells/SpellDummy.tscn" id="1_54xre"]
 [ext_resource type="Script" path="res://Scenes/Spells/SpellSwarm.gd" id="2_uvcqe"]
-[ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="3_kjb2g"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="3_kjb2g"]
 
 [node name="SpellSwarm" node_paths=PackedStringArray("_move_timer") instance=ExtResource("1_54xre")]
 script = ExtResource("2_uvcqe")

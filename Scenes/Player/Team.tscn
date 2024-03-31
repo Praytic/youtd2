@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://dprva0ovurf0c"]
 
-[ext_resource type="Script" path="res://Scenes/Team.gd" id="1_58bum"]
-[ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="2_r2jva"]
+[ext_resource type="Script" path="res://Scenes/Player/Team.gd" id="1_58bum"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="2_r2jva"]
+
 
 [node name="Team" type="Node" node_paths=PackedStringArray("_next_wave_timer", "_extreme_timer")]
 script = ExtResource("1_58bum")

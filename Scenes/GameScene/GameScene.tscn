@@ -1,31 +1,31 @@
 [gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
 
-[ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
-[ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="2_hiplt"]
-[ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
-[ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
-[ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
-[ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
-[ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
-[ext_resource type="Script" path="res://Scenes/GameScene/SelectUnit.gd" id="8_b8m2t"]
-[ext_resource type="Script" path="res://Scenes/GameScene/SelectPointForCast.gd" id="8_r0gm8"]
-[ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
-[ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="9_14jv4"]
-[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/GameMenu/GameMenu.tscn" id="9_r46bb"]
-[ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="10_qbku7"]
-[ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
-[ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
-[ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="12_mmgdj"]
-[ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
-[ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
-[ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="17_0evig"]
-[ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="17_new70"]
-[ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
-[ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="19_ldgwp"]
-[ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="22_0su8s"]
-[ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
-[ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="28_j7eu2"]
+[ext_resource type="Script" path="res://Scenes/GameScene/GameScene.gd" id="1_0wd1b"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="2_gestc"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="3_qsih1"]
+[ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/GameScene/AudioPlayerPool.tscn" id="4_l0jro"]
+[ext_resource type="Script" path="res://Scenes/GameScene/GameTime.gd" id="5_8syq6"]
+[ext_resource type="Script" path="res://Scenes/GameScene/SelectUnit.gd" id="6_vam2w"]
+[ext_resource type="Script" path="res://Scenes/GameScene/SelectPointForCast.gd" id="7_h82dk"]
+[ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="8_n5fu4"]
+[ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="9_tujdk"]
+[ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="10_tkjjb"]
+[ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="11_e0bvs"]
+[ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="12_8gb75"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="13_128bk"]
+[ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="14_y26vd"]
+[ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="15_a5l86"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="16_amwbk"]
+[ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="17_td8cv"]
+[ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="18_m2fcq"]
+[ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="19_jib72"]
+[ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="20_rnpn6"]
+[ext_resource type="Script" path="res://Scenes/GameScene/DefaultCamera.gd" id="21_8op63"]
+[ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="22_53ta1"]
+[ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="23_go3nh"]
+[ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="24_omg4c"]
+[ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="25_m068l"]
+[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/GameMenu/GameMenu.tscn" id="26_xukvx"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -52,19 +52,19 @@ _data = {
 point_count = 7
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cij5r"]
-shader = ExtResource("7_gxbw6")
+shader = ExtResource("23_go3nh")
 shader_parameter/vignette_intensity = 1.214
 shader_parameter/edge_saturation = 0.174
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6fevd"]
-shader = ExtResource("5_qgk1p")
+shader = ExtResource("24_omg4c")
 shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
 [node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect")]
 process_mode = 3
-script = ExtResource("9")
+script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
 _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
@@ -88,58 +88,58 @@ _pause_shadow_rect = NodePath("UI/PauseShadowRect")
 process_mode = 1
 
 [node name="GameStartTimer" type="Node" parent="Gameplay"]
-script = ExtResource("2_hiplt")
+script = ExtResource("2_gestc")
 one_shot = true
 
 [node name="TeamContainer" type="Node" parent="Gameplay"]
-script = ExtResource("28_j7eu2")
+script = ExtResource("3_qsih1")
 
-[node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("5_rin5y")]
+[node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("4_l0jro")]
 
 [node name="GameTime" type="Node" parent="Gameplay"]
-script = ExtResource("16_tame0")
+script = ExtResource("5_8syq6")
 
 [node name="SelectUnit" type="Node" parent="Gameplay"]
-script = ExtResource("8_b8m2t")
+script = ExtResource("6_vam2w")
 
 [node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
-script = ExtResource("8_r0gm8")
+script = ExtResource("7_h82dk")
 _mouse_state = NodePath("../MouseState")
 _game_client = NodePath("../GameClient")
 
 [node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
-script = ExtResource("9_14jv4")
+script = ExtResource("8_n5fu4")
 _mouse_state = NodePath("../MouseState")
 _game_client = NodePath("../GameClient")
 
 [node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_game_client")]
-script = ExtResource("10_qbku7")
+script = ExtResource("9_tujdk")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
 _game_client = NodePath("../GameClient")
 
 [node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_game_client")]
-script = ExtResource("12_1xrfo")
+script = ExtResource("10_tkjjb")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
 _tower_preview = NodePath("../../World/TowerPreview")
 _game_client = NodePath("../GameClient")
 
 [node name="MouseState" type="Node" parent="Gameplay"]
-script = ExtResource("12_mmgdj")
+script = ExtResource("11_e0bvs")
 
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
-script = ExtResource("15_ff1in")
+script = ExtResource("12_8gb75")
 
 [node name="TimerPool" type="Node" parent="Gameplay"]
-script = ExtResource("26_2tqw6")
+script = ExtResource("13_128bk")
 
 [node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud")]
-script = ExtResource("17_0evig")
+script = ExtResource("14_y26vd")
 _game_client = NodePath("../GameClient")
 _hud = NodePath("../../UI/HUD")
 
-[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
+[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("15_a5l86")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _hud = NodePath("../../UI/HUD")
@@ -147,14 +147,14 @@ _map = NodePath("../../World/Map")
 _chat_commands = NodePath("../ChatCommands")
 
 [node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
-script = ExtResource("19_ldgwp")
+script = ExtResource("16_amwbk")
 _team_container = NodePath("../TeamContainer")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1
 y_sort_enabled = true
 
-[node name="Map" parent="World" instance=ExtResource("5")]
+[node name="Map" parent="World" instance=ExtResource("17_td8cv")]
 unique_name_in_owner = true
 
 [node name="PathContainer" type="Node2D" parent="World"]
@@ -162,23 +162,23 @@ z_index = 999
 
 [node name="Ground0" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("1")
-script = ExtResource("3_abrkq")
+script = ExtResource("18_m2fcq")
 
 [node name="Air0" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("Curve2D_72x3r")
-script = ExtResource("3_abrkq")
+script = ExtResource("18_m2fcq")
 is_air = true
 
 [node name="Ground1" type="Path2D" parent="World/PathContainer"]
 modulate = Color(1, 0, 1, 1)
 curve = SubResource("Curve2D_u40fb")
-script = ExtResource("3_abrkq")
+script = ExtResource("18_m2fcq")
 player_id = 1
 
 [node name="Air1" type="Path2D" parent="World/PathContainer"]
 modulate = Color(1, 0, 1, 1)
 curve = SubResource("Curve2D_gtbgo")
-script = ExtResource("3_abrkq")
+script = ExtResource("18_m2fcq")
 is_air = true
 player_id = 1
 
@@ -186,11 +186,11 @@ player_id = 1
 
 [node name="CameraOrigin0" type="Node2D" parent="World/CameraOriginContainer"]
 position = Vector2(900, -1300)
-script = ExtResource("22_0su8s")
+script = ExtResource("19_jib72")
 
 [node name="CameraOrigin1" type="Node2D" parent="World/CameraOriginContainer"]
 position = Vector2(1100, -1300)
-script = ExtResource("22_0su8s")
+script = ExtResource("19_jib72")
 player_id = 1
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
@@ -199,7 +199,7 @@ y_sort_enabled = true
 
 [node name="EffectsContainer" type="Node2D" parent="World"]
 z_index = 100
-script = ExtResource("18_hqvt4")
+script = ExtResource("20_rnpn6")
 
 [node name="FloatingTextContainer" type="Node2D" parent="World"]
 z_index = 1000
@@ -212,9 +212,9 @@ scale = Vector2(0.31481, 0.5)
 limit_smoothed = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
-script = ExtResource("1")
+script = ExtResource("21_8op63")
 
-[node name="TowerPreview" parent="World" instance=ExtResource("11_0qewd")]
+[node name="TowerPreview" parent="World" instance=ExtResource("22_53ta1")]
 visible = false
 z_index = 100
 
@@ -238,7 +238,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HUD" parent="UI" instance=ExtResource("2")]
+[node name="HUD" parent="UI" instance=ExtResource("25_m068l")]
 unique_name_in_owner = true
 process_mode = 1
 size_flags_horizontal = 1
@@ -253,7 +253,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
-[node name="GameMenu" parent="UI" instance=ExtResource("9_r46bb")]
+[node name="GameMenu" parent="UI" instance=ExtResource("26_xukvx")]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
