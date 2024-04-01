@@ -99,7 +99,7 @@ func tower_init():
 	var cedi_goblin_sapper_mod: Modifier = Modifier.new()
 	cedi_goblin_sapper_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	cedi_goblin_sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
-	cedi_goblin_sapper_bt.set_buff_icon("@@2@@")
+	cedi_goblin_sapper_bt.set_buff_icon("foot.tres")
 	cedi_goblin_sapper_bt.set_buff_tooltip("Sapper Burn\nThis creep was hit by a Goblin Sapper; it has reduced movement speed.")
 
 	cedi_goblin_robot_bt = BuffType.new("cedi_goblin_robot_bt", 5, 0, true, self)
@@ -107,7 +107,7 @@ func tower_init():
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	cedi_goblin_robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
-	cedi_goblin_robot_bt.set_buff_icon("@@3@@")
+	cedi_goblin_robot_bt.set_buff_icon("gear_2.tres")
 	# TODO: BuffType.set_special_effect() is not implemented yet
 	# cedi_goblin_robot_bt.set_special_effect("HeroTinkerRobot.mdl", 120, 0.7)
 	cedi_goblin_robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
@@ -116,7 +116,7 @@ func tower_init():
 	var cedi_goblin_emitter_mod: Modifier = Modifier.new()
 	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	cedi_goblin_emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
-	cedi_goblin_emitter_bt.set_buff_icon("@@4@@")
+	cedi_goblin_emitter_bt.set_buff_icon("crystal.tres")
 	# TODO: BuffType.set_special_effect() is not implemented yet
 	# cedi_goblin_emitter_bt.set_special_effect("GoblinLandMine.mdl", 120, 1.0)
 	cedi_goblin_emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")

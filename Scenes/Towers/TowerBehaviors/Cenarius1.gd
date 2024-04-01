@@ -98,11 +98,11 @@ func tower_init():
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	cenarius_tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
-	cenarius_tranquility_bt.set_buff_icon("@@2@@")
+	cenarius_tranquility_bt.set_buff_icon("winged_man.tres")
 	cenarius_tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	cenarius_entangle_bt = CbStun.new("cenarius_entangle_bt", 1.5, 0.02, false, self)
-	cenarius_entangle_bt.set_buff_icon("@@4@@")
+	cenarius_entangle_bt.set_buff_icon("orb_empty.tres")
 	cenarius_entangle_bt.add_periodic_event(cenarius_entangle_bt_periodic, 1.0)
 	cenarius_entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
@@ -122,14 +122,14 @@ func tower_init():
 	cenarius_leaf_storm_bt = BuffType.new("cenarius_leaf_storm_bt", 1.0, 0.04, false, self)
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	cenarius_leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
-	cenarius_leaf_storm_bt.set_buff_icon("@@5@@")
+	cenarius_leaf_storm_bt.set_buff_icon("orb_swirly.tres")
 	cenarius_leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
 
 	cenarius_thorned_bt = BuffType.new("cenarius_thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	cenarius_thorned_bt.set_buff_modifier(cenarius_thorned_mod)
-	cenarius_thorned_bt.set_buff_icon("@@7@@")
+	cenarius_thorned_bt.set_buff_icon("star.tres")
 	cenarius_thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 	var autocast: Autocast = Autocast.make()

@@ -44,7 +44,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
 	boekie_crit_aura = BuffType.create_aura_effect_type("boekie_crit_aura", true, self)
-	boekie_crit_aura.set_buff_icon("@@0@@")
+	boekie_crit_aura.set_buff_icon("letter_omega_shiny.tres")
 	boekie_crit_aura.set_buff_modifier(m)
 	boekie_crit_aura.set_stacking_group("crit_aura")
 	boekie_crit_aura.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")

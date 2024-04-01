@@ -41,7 +41,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 1.0 / 10000)
 	velex_dmg_aura.set_buff_modifier(m)
 	velex_dmg_aura.set_stacking_group("dmg_aura")
-	velex_dmg_aura.set_buff_icon("@@0@@")
+	velex_dmg_aura.set_buff_icon("angel_wings.tres")
 	velex_dmg_aura.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 

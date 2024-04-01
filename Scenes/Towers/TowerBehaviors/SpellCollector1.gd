@@ -84,12 +84,12 @@ func tower_init():
 	cedi_spell_pt.set_event_on_interpolation_finished(cedi_spell_pt_on_hit)
 
 	cedi_spell_gathering_bt = BuffType.create_aura_effect_type("cedi_spell_gathering_bt", true, self)
-	cedi_spell_gathering_bt.set_buff_icon("@@2@@")
+	cedi_spell_gathering_bt.set_buff_icon("orb_empty.tres")
 	cedi_spell_gathering_bt.add_event_on_spell_casted(cedi_spell_gathering_bt_on_spell_casted)
 	cedi_spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
 
 	cedi_spell_missile_stacks_bt = BuffType.new("cedi_spell_missile_stacks_bt", 20, 0, true, self)
-	cedi_spell_missile_stacks_bt.set_buff_icon("@@2@@")
+	cedi_spell_missile_stacks_bt.set_buff_icon("letter_omega_shiny.tres")
 	cedi_spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
 
 	multiboard = MultiboardValues.new(1)

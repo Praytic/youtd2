@@ -66,7 +66,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
 	boekie_charged_obelisk_bt.set_buff_modifier(mod)
-	boekie_charged_obelisk_bt.set_buff_icon("@@0@@")
+	boekie_charged_obelisk_bt.set_buff_icon("electricity.tres")
 	boekie_charged_obelisk_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
 	boekie_charged_obelisk_bt.add_periodic_event(boekie_charged_obelisk_bt_periodic, 1.0)
 

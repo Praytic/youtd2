@@ -63,7 +63,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	sir_frost.set_buff_modifier(mod)
-	sir_frost.set_buff_icon("@@0@@")
+	sir_frost.set_buff_icon("crystal.tres")
 	sir_frost.add_event_on_create(sir_frost_on_create)
 	sir_frost.add_event_on_cleanup(sir_frost_on_cleanup)
 	sir_frost.set_buff_tooltip("Frozen\nReduces health regeneration.")

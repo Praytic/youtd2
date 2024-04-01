@@ -115,7 +115,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 
 	tomy_phoenix_fire_buff = BuffType.new("tomy_phoenix_fire_buff", 5, 0, false, self)
-	tomy_phoenix_fire_buff.set_buff_icon("@@0@@")
+	tomy_phoenix_fire_buff.set_buff_icon("armor_cuirass.tres")
 	tomy_phoenix_fire_buff.set_buff_modifier(mod)
 	tomy_phoenix_fire_buff.add_event_on_cleanup(phoenix_fire_buff_on_cleanup)
 	tomy_phoenix_fire_buff.add_event_on_purge(phoenix_fire_buff_on_purge)

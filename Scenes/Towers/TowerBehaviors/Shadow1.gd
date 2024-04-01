@@ -78,7 +78,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	mock_shadow_aura_bt = BuffType.create_aura_effect_type("mock_shadow_aura_bt", true, self)
-	mock_shadow_aura_bt.set_buff_icon("@@1@@")
+	mock_shadow_aura_bt.set_buff_icon("mask_occult.tres")
 	mock_shadow_aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
 	mock_shadow_aura_bt.add_event_on_damage(mock_shadow_aura_bt_on_damage)
 

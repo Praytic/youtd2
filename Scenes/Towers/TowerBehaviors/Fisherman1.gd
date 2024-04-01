@@ -67,14 +67,14 @@ func tower_init():
 	var fisherman_dps_boost_mod: Modifier = Modifier.new()
 	fisherman_dps_boost_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 0.001)
 	fisherman_dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
-	fisherman_dps_boost_bt.set_buff_icon("@@0@@")
+	fisherman_dps_boost_bt.set_buff_icon("meat.tres")
 	fisherman_dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
 
 	fisherman_slow_bt = BuffType.new("fisherman_slow_bt", 3, 0, false, self)
 	var fisherman_slow_mod: Modifier = Modifier.new()
 	fisherman_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, -0.01)
 	fisherman_slow_bt.set_buff_modifier(fisherman_slow_mod)
-	fisherman_slow_bt.set_buff_icon("@@1@@")
+	fisherman_slow_bt.set_buff_icon("letter_s_lying_down.tres")
 	fisherman_slow_bt.add_event_on_create(fisherman_slow_bt_on_create)
 	fisherman_slow_bt.add_event_on_expire(fisherman_slow_bt_on_expire)
 	fisherman_slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")
@@ -111,7 +111,7 @@ func on_attack(event: Event):
 
 			return
 
-	tower.current_attack_count = 0
+	current_attack_count = 0
 
 
 func on_damage(event: Event):

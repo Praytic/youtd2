@@ -38,7 +38,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
 	boekie_green_dragon_bt.set_buff_modifier(mod)
-	boekie_green_dragon_bt.set_buff_icon("@@0@@")
+	boekie_green_dragon_bt.set_buff_icon("flexing_arm.tres")
 	boekie_green_dragon_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
 
 

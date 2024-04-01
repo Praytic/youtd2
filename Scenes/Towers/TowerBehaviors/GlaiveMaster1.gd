@@ -105,7 +105,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	ashbringer_lacerate_bt = BuffType.new("ashbringer_lacerate_bt", 5, 0, false, self)
-	ashbringer_lacerate_bt.set_buff_icon("@@1@@")
+	ashbringer_lacerate_bt.set_buff_icon("claw.tres")
 	ashbringer_lacerate_bt.add_periodic_event(ashbringer_lacerate_bt_periodic, 1.0)
 	ashbringer_lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 

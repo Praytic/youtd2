@@ -47,7 +47,7 @@ func tower_init():
 	shard_pt.enable_collision(shard_pt_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
 	cedi_sapphiron_bt = BuffType.new("cedi_sapphiron_bt", -1, 0, false, self)
-	cedi_sapphiron_bt.set_buff_icon("@@0@@")
+	cedi_sapphiron_bt.set_buff_icon("fireball.tres")
 	cedi_sapphiron_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
 
 

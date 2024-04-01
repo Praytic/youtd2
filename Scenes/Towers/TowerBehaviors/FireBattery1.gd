@@ -104,7 +104,7 @@ func tower_init():
 
 	fire_battery_incinerate = BuffType.new("fire_battery_incinerate", 9, 0.3, false, self)
 	fire_battery_incinerate.set_buff_modifier(modifier)
-	fire_battery_incinerate.set_buff_icon("@@0@@")
+	fire_battery_incinerate.set_buff_icon("running_man_burning.tres")
 	fire_battery_incinerate.add_periodic_event(damage_periodic, 1)
 	fire_battery_incinerate.set_stacking_group("FireBattery")
 	fire_battery_incinerate.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")

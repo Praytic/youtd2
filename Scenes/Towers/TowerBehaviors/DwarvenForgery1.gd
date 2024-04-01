@@ -34,7 +34,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.15, 0.004)
 	dwarven_forgery_aura_bt.set_buff_modifier(mod)
-	dwarven_forgery_aura_bt.set_buff_icon("@@0@@")
+	dwarven_forgery_aura_bt.set_buff_icon("star.tres")
 	dwarven_forgery_aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
 
 

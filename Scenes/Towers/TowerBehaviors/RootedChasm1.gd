@@ -50,7 +50,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	chasm_entangle = CbStun.new("chasm_entangle", _stats.entangle_duration, 0.75, false, self)
-	chasm_entangle.set_buff_icon('@@0@@')
+	chasm_entangle.set_buff_icon("orb_swirly.tres")
 	chasm_entangle.add_periodic_event(chasm_entangle_damage, 1.0)
 
 

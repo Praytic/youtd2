@@ -39,7 +39,7 @@ func tower_init():
 	boekie_nerubian_queen_bt.set_buff_modifier(mod)
 	boekie_nerubian_queen_bt.add_periodic_event(boekie_nerubian_queen_bt_periodic, 1.0)
 	boekie_nerubian_queen_bt.add_event_on_death(boekie_nerubian_queen_bt_on_death)
-	boekie_nerubian_queen_bt.set_buff_icon("@@0@@")
+	boekie_nerubian_queen_bt.set_buff_icon("bug_in_amber.tres")
 	boekie_nerubian_queen_bt.set_buff_tooltip("Parasite\nDeals damage over time.")
 
 	boekie_nerubian_queen_pt = ProjectileType.create_interpolate("Spider.mdl", 500, self)

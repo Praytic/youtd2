@@ -58,7 +58,7 @@ func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	tomy_ElementalWrath = BuffType.new("tomy_ElementalWrath", 5, 0, true, self)
-	tomy_ElementalWrath.set_buff_icon("@@0@@")
+	tomy_ElementalWrath.set_buff_icon("cup_with_wings.tres")
 	tomy_ElementalWrath.set_buff_modifier(modifier)
 	tomy_ElementalWrath.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
 

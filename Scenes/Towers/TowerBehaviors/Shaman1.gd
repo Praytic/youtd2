@@ -85,13 +85,13 @@ func tower_init():
 	var bloodlust_mod: Modifier = Modifier.new()
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.15, 0.002)
-	hs_bloodlust_buff.set_buff_icon("@@1@@")
+	hs_bloodlust_buff.set_buff_icon("orb_triple.tres")
 	hs_bloodlust_buff.set_buff_modifier(bloodlust_mod)
 	hs_bloodlust_buff.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
 
 	hs_bloody_exp_aura = BuffType.create_aura_effect_type("hs_bloody_exp_aura", true, self)
 	hs_bloody_exp_aura.add_event_on_damage(bloody_exp_aura_on_damage)
-	hs_bloody_exp_aura.set_buff_icon("@@0@@")
+	hs_bloody_exp_aura.set_buff_icon("goldbar.tres")
 	hs_bloody_exp_aura.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
 	var autocast: Autocast = Autocast.make()

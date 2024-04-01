@@ -56,7 +56,7 @@ func sir_area_damage(event: Event):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	sir_area_rooster = BuffType.new("sir_area_rooster", 0, 0, false, self)
-	sir_area_rooster.set_buff_icon("@@1@@")
+	sir_area_rooster.set_buff_icon("running_man_burning.tres")
 	m.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
 	sir_area_rooster.set_buff_modifier(m)
 	sir_area_rooster.add_periodic_event(sir_area_damage, 0.5)

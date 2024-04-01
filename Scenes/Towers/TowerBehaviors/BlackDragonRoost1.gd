@@ -49,7 +49,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
 	cedi_black_dragon_bt.set_buff_modifier(mod)
-	cedi_black_dragon_bt.set_buff_icon("@@0@@")
+	cedi_black_dragon_bt.set_buff_icon("ghost.tres")
 	cedi_black_dragon_bt.add_event_on_create(cedi_black_dragon_bt_on_create)
 	cedi_black_dragon_bt.add_event_on_cleanup(cedi_black_dragon_bt_on_cleanup)
 	cedi_black_dragon_bt.add_event_on_damaged(cedi_black_dragon_bt_on_damage)

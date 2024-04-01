@@ -76,18 +76,18 @@ func tower_init():
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.05, 0.002)
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
 	poussix_blackrock_physique_bt.set_buff_modifier(poussix_blackrock_physique_mod)
-	poussix_blackrock_physique_bt.set_buff_icon("@@0@@")
+	poussix_blackrock_physique_bt.set_buff_icon("cup_with_wings.tres")
 	poussix_blackrock_physique_bt.set_buff_tooltip("Fighter Totem\nIncreases attack damage, crit chance and crit damage.")
 
 	poussix_blackrock_spell_bt = BuffType.new("poussix_blackrock_spell_bt", 5, 0.2, true, self)
 	var poussix_blackrock_spell_mod: Modifier = Modifier.new()
 	poussix_blackrock_spell_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
 	poussix_blackrock_spell_bt.set_buff_modifier(poussix_blackrock_spell_mod)
-	poussix_blackrock_spell_bt.set_buff_icon("@@2@@")
+	poussix_blackrock_spell_bt.set_buff_icon("skull.tres")
 	poussix_blackrock_spell_bt.set_buff_tooltip("Shamanic Totem\nIncreases spell damage.")
 
 	poussix_blackrock_damage_bt = BuffType.new("poussix_blackrock_damage_bt", 5, 0.2, false, self)
-	poussix_blackrock_damage_bt.set_buff_icon("@@1@@")
+	poussix_blackrock_damage_bt.set_buff_icon("mask_occult.tres")
 	poussix_blackrock_damage_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
 	poussix_blackrock_damage_bt.add_event_on_damaged(poussix_blackrock_damage_bt_on_damaged)
 

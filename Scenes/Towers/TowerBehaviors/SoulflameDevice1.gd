@@ -88,7 +88,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	ash_soulflame_aura_bt = BuffType.create_aura_effect_type("ash_soulflame_aura_bt", true, self)
-	ash_soulflame_aura_bt.set_buff_icon("@@2@@")
+	ash_soulflame_aura_bt.set_buff_icon("gear_1.tres")
 	ash_soulflame_aura_bt.add_event_on_create(ash_soulflame_aura_bt_on_create)
 	ash_soulflame_aura_bt.add_event_on_cleanup(ash_soulflame_aura_bt_on_cleanup)
 	ash_soulflame_aura_bt.add_periodic_event(ash_soulflame_aura_bt_periodic, 5)
@@ -98,7 +98,7 @@ func tower_init():
 	var ash_soulflame_soulfire_bt_mod: Modifier = Modifier.new()
 	ash_soulflame_soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	ash_soulflame_soulfire_bt.set_buff_modifier(ash_soulflame_soulfire_bt_mod)
-	ash_soulflame_soulfire_bt.set_buff_icon("@@1@@")
+	ash_soulflame_soulfire_bt.set_buff_icon("fireball.tres")
 	ash_soulflame_soulfire_bt.add_periodic_event(ash_soulflame_soulfire_bt_periodic, 1)
 	ash_soulflame_soulfire_bt.add_event_on_death(ash_soulflame_soulfire_bt_on_death)
 	ash_soulflame_soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
@@ -107,7 +107,7 @@ func tower_init():
 	var ash_soulflame_awaken_bt_mod: Modifier = Modifier.new()
 	ash_soulflame_awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	ash_soulflame_awaken_bt.set_buff_modifier(ash_soulflame_awaken_bt_mod)
-	ash_soulflame_awaken_bt.set_buff_icon("@@3@@")
+	ash_soulflame_awaken_bt.set_buff_icon("eye.tres")
 	ash_soulflame_awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
 	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)

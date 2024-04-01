@@ -51,7 +51,7 @@ func tower_init():
 	var cedi_firestar_burn_bt_mod: Modifier = Modifier.new()
 	cedi_firestar_burn_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
 	cedi_firestar_burn_bt.set_buff_modifier(cedi_firestar_burn_bt_mod)
-	cedi_firestar_burn_bt.set_buff_icon("@@1@@")
+	cedi_firestar_burn_bt.set_buff_icon("crystal.tres")
 	cedi_firestar_burn_bt.set_buff_tooltip("Ingite\nThis is Ignited; it will take periodic damage and has reduced movement speed.")
 	cedi_firestar_burn_bt.add_event_on_refresh(cedi_firestar_burn_bt_on_refresh)
 	cedi_firestar_burn_bt.add_periodic_event(cedi_firestar_burn_bt_periodic, 2.0)

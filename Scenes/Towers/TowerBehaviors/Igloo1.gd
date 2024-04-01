@@ -69,7 +69,7 @@ func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.cold_slow, -COLD_SLOW_ADD)
 	boekie_igloo_buff = BuffType.new("boekie_igloo_buff", COLD_SLOW_DURATION, 0, false, self)
-	boekie_igloo_buff.set_buff_icon("@@0@@")
+	boekie_igloo_buff.set_buff_icon("letter_u_striked.tres")
 	boekie_igloo_buff.set_buff_modifier(modifier)
 	boekie_igloo_buff.add_event_on_expire(boekie_igloo_end)
 	boekie_igloo_buff.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")

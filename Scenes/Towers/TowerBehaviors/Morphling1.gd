@@ -113,7 +113,7 @@ func tower_init():
 	dave_morph_damage_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
 	dave_morph_damage_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
 	dave_morph_damage_bt.set_buff_modifier(dave_morph_damage_bt_mod)
-	dave_morph_damage_bt.set_buff_icon("@@1@@")
+	dave_morph_damage_bt.set_buff_icon("flexing_arm.tres")
 	dave_morph_damage_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
 
 	dave_morph_speed_bt = BuffType.new("dave_morph_speed_bt", -1, 0, true, self)
@@ -121,15 +121,15 @@ func tower_init():
 	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
 	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
 	dave_morph_speed_bt.set_buff_modifier(dave_morph_speed_bt_mod)
-	dave_morph_speed_bt.set_buff_icon("@@0@@")
+	dave_morph_speed_bt.set_buff_icon("running_man.tres")
 	dave_morph_speed_bt.set_buff_tooltip("Morph: Swiftness\nIncreases attack speed and reduces attack damage after each attack.")
 
 	dave_morph_adapt_bt = BuffType.new("dave_morph_adapt_bt", -1, 0, true, self)
-	dave_morph_adapt_bt.set_buff_icon("@@2@@")
+	dave_morph_adapt_bt.set_buff_icon("orb_swirly.tres")
 	dave_morph_adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
 
 	dave_morph_dot_bt = BuffType.new("dave_morph_dot_bt", 5, 0, false, self)
-	dave_morph_dot_bt.set_buff_icon("@@4@@")
+	dave_morph_dot_bt.set_buff_icon("claw.tres")
 	dave_morph_dot_bt.add_periodic_event(dave_morph_dot_bt_periodic, 1.0)
 	dave_morph_dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
 
@@ -138,7 +138,7 @@ func tower_init():
 	dave_morph_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
 	dave_morph_slow_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
 	dave_morph_slow_bt.set_buff_modifier(dave_morph_slow_bt_mod)
-	dave_morph_slow_bt.set_buff_icon("@@3@@")
+	dave_morph_slow_bt.set_buff_icon("bug_in_amber.tres")
 	dave_morph_slow_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
 	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)

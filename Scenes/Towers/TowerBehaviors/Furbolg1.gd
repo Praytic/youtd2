@@ -58,7 +58,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	gex_rage_buff = BuffType.new("gex_rage_buff", 0, 0, true, self)
 	gex_rage_buff.set_buff_modifier(m)
-	gex_rage_buff.set_buff_icon("@@0@@")
+	gex_rage_buff.set_buff_icon("winged_man.tres")
 	gex_rage_buff.set_stacking_group("gex_rage")
 	gex_rage_buff.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance and crit damage.")
 
@@ -69,7 +69,7 @@ func tower_init():
 	m_15.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
 	gex_rage_buff_15 = BuffType.new("gex_rage_buff_15", 0, 0, true, self)
 	gex_rage_buff_15.set_buff_modifier(m_15)
-	gex_rage_buff_15.set_buff_icon("@@0@@")
+	gex_rage_buff_15.set_buff_icon("winged_man.tres")
 	gex_rage_buff_15.set_stacking_group("gex_rage")
 	gex_rage_buff_15.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
@@ -80,7 +80,7 @@ func tower_init():
 	m_25.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
 	gex_rage_buff_25 = BuffType.new("gex_rage_buff_25", 0, 0, true, self)
 	gex_rage_buff_25.set_buff_modifier(m_25)
-	gex_rage_buff_25.set_buff_icon("@@0@@")
+	gex_rage_buff_25.set_buff_icon("winged_man.tres")
 	gex_rage_buff_25.set_stacking_group("gex_rage")
 	gex_rage_buff_25.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 

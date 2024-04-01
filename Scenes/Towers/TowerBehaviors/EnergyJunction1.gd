@@ -95,7 +95,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	sir_junction_buff = BuffType.new("sir_junction_buff", 10, 0, true, self)
-	sir_junction_buff.set_buff_icon("@@0@@")
+	sir_junction_buff.set_buff_icon("electricity.tres")
 	sir_junction_buff.add_event_on_create(junction_on_create)
 	sir_junction_buff.add_event_on_attack(junction_on_damage)
 	sir_junction_buff.add_event_on_cleanup(junction_on_cleanup)

@@ -51,7 +51,7 @@ func tower_init():
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	mOck_ray_blaster.set_buff_modifier(iron_mod)
-	mOck_ray_blaster.set_buff_icon("@@0@@")
+	mOck_ray_blaster.set_buff_icon("bug_in_amber.tres")
 	mOck_ray_blaster.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
 
 

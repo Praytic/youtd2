@@ -101,7 +101,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
 	dark_battery_corruption = BuffType.new("dark_battery_corruption", 9, 0.3, false, self)
-	dark_battery_corruption.set_buff_icon("@@0@@")
+	dark_battery_corruption.set_buff_icon("beard.tres")
 	dark_battery_corruption.set_buff_modifier(modifier)
 	dark_battery_corruption.set_stacking_group("DarkBattery")
 	dark_battery_corruption.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")

@@ -53,7 +53,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
 	cedi_acidarmor = BuffType.new("cedi_acidarmor", 3.0, 0.12, false, self)
-	cedi_acidarmor.set_buff_icon("@@0@@")
+	cedi_acidarmor.set_buff_icon("armor_chest.tres")
 	cedi_acidarmor.set_buff_modifier(m)
 
 	cedi_acidarmor.set_buff_tooltip("Acid Corosion\nReduces armor.")

@@ -77,7 +77,7 @@ func tower_init():
 	drol_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	drol_slow_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
 	drol_slow.set_buff_modifier(drol_slow_mod)
-	drol_slow.set_buff_icon("@@0@@")
+	drol_slow.set_buff_icon("mask_occult.tres")
 	drol_slow.set_stacking_group("drol_slow1")
 	drol_slow.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
 
@@ -87,7 +87,7 @@ func tower_init():
 	drol_mortal_aura_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.1, 0.002)
 	drol_mortal_aura_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
 	drol_mortal_aura.set_buff_modifier(drol_mortal_aura_mod)
-	drol_mortal_aura.set_buff_icon("@@1@@")
+	drol_mortal_aura.set_buff_icon("letter_s_lying_down.tres")
 	drol_mortal_aura.set_stacking_group("drol_mortal_aura")
 	drol_mortal_aura.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
 

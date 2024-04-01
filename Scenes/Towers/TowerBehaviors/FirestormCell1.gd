@@ -76,7 +76,8 @@ func firestorm(event: Event):
 
 func tower_init():
 	ashbringer_firestorm_buff = BuffType.new("ashbringer_firestorm_buff", 1000, 0, false, self)
-	ashbringer_firestorm_buff.set_buff_icon("@@0@@")
+	ashbringer_firestorm_buff.set_buff_icon("fireball.tres")
+	ashbringer_firestorm_buff.set_buff_tooltip("Firestorm\nPeriodically deals AoE damage.")
 	ashbringer_firestorm_buff.add_event_on_create(ashbringer_firestorm_setint)
 	ashbringer_firestorm_buff.add_periodic_event(ashbringer_firestorm_periodic, 1)
 	ashbringer_firestorm_buff.add_event_on_death(firestorm)

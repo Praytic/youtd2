@@ -92,11 +92,11 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
 	cedi_love_potion.set_buff_modifier(mod)
-	cedi_love_potion.set_buff_icon("@@0@@")
+	cedi_love_potion.set_buff_icon("bug_in_amber.tres")
 	cedi_love_potion.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
 
 	cedi_soul_buff = BuffType.new("cedi_soul_buff", 10, 0, true, self)
-	cedi_soul_buff.set_buff_icon("@@1@@")
+	cedi_soul_buff.set_buff_icon("flexing_arm.tres")
 
 	cedi_love_missile = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
 	cedi_love_missile.enable_homing(cedi_love, 0.0)

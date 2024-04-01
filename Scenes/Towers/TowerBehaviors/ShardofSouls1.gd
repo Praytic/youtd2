@@ -78,7 +78,7 @@ func tower_init():
 	tomy_soul_link = BuffType.new("tomy_soul_link", SOUL_LINK_DURATION, 0, false, self)
 	tomy_soul_link.add_event_on_damaged(soul_link_on_damaged)
 	tomy_soul_link.add_event_on_death(soul_link_on_death)
-	tomy_soul_link.set_buff_icon("@@0@@")
+	tomy_soul_link.set_buff_icon("orb_empty.tres")
 	tomy_soul_link.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 	var autocast: Autocast = Autocast.make()

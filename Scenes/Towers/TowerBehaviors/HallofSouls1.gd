@@ -52,7 +52,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	natac_hall_of_souls_bt = BuffType.create_aura_effect_type("natac_hall_of_souls_bt", false, self)
-	natac_hall_of_souls_bt.set_buff_icon("@@0@@")
+	natac_hall_of_souls_bt.set_buff_icon("mask_occult.tres")
 	natac_hall_of_souls_bt.add_event_on_create(bt_on_create)
 	natac_hall_of_souls_bt.add_event_on_death(bt_on_death)
 

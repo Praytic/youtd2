@@ -101,7 +101,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	sir_voljin_maledict_bt = BuffType.new("sir_voljin_maledict_bt", 0, 0, false, self)
-	sir_voljin_maledict_bt.set_buff_icon("@@0@@")
+	sir_voljin_maledict_bt.set_buff_icon("letter_omega.tres")
 	sir_voljin_maledict_bt.add_event_on_damaged(sir_voljin_maledict_bt_on_damaged)
 	sir_voljin_maledict_bt.add_event_on_expire(sir_voljin_maledict_bt_on_expire)
 	sir_voljin_maledict_bt.add_event_on_purge(sir_voljin_maledict_bt_on_purge)
@@ -177,13 +177,13 @@ func on_attack(event: Event):
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var purged_count: int = 0
-	var purify_is_on_cd: bool = tower.time_for_next_purify > Utils.get_time()
+	var purify_is_on_cd: bool = time_for_next_purify > Utils.get_time()
 	
 	if purify_is_on_cd:
 		return
 
 	var purify_cd: float = 4.0 - 0.04 * tower.get_level()
-	tower.time_for_next_purify = Utils.get_time() + purify_cd
+	time_for_next_purify = Utils.get_time() + purify_cd
 
 #	Remove buffs (positive and negative buffs) and count them
 	while true:

@@ -69,7 +69,7 @@ func tower_init():
 	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
 	sternbogen_holy_buff.set_buff_modifier(light_mod)
-	sternbogen_holy_buff.set_buff_icon("@@1@@")
+	sternbogen_holy_buff.set_buff_icon("winged_man.tres")
 	sternbogen_holy_buff.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
 
 

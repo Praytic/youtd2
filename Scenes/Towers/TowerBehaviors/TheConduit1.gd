@@ -85,14 +85,14 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	ash_conduit_aura_bt = BuffType.create_aura_effect_type("ash_conduit_aura_bt", true, self)
-	ash_conduit_aura_bt.set_buff_icon("@@2@@")
+	ash_conduit_aura_bt.set_buff_icon("letter_s_lying_down.tres")
 	ash_conduit_aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
 	ash_conduit_unleash_bt = BuffType.new("ash_conduit_unleash_bt", 3, 0, false, self)
 	var ash_conduit_unleash_bt_mod: Modifier = Modifier.new()
 	ash_conduit_unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
 	ash_conduit_unleash_bt.set_buff_modifier(ash_conduit_unleash_bt_mod)
-	ash_conduit_unleash_bt.set_buff_icon("@@3@@")
+	ash_conduit_unleash_bt.set_buff_icon("mask_bat.tres")
 	ash_conduit_unleash_bt.add_event_on_create(ash_conduit_unleash_bt_on_create)
 	ash_conduit_unleash_bt.add_event_on_cleanup(ash_conduit_unleash_bt_on_cleanup)
 	ash_conduit_unleash_bt.add_periodic_event(ash_conduit_unleash_bt_periodic, 5)

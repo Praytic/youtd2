@@ -78,12 +78,12 @@ func tower_init():
 	cb_stun = CbStun.new("eredar_warlock_stun", 0, 0, false, self)
 
 	sir_eredar_siphon_bt = BuffType.new("sir_eredar_siphon_bt", 5, 0, true, self)
-	sir_eredar_siphon_bt.set_buff_icon("@@0@@")
+	sir_eredar_siphon_bt.set_buff_icon("letter_omega.tres")
 	sir_eredar_siphon_bt.add_event_on_attack(sir_eredar_siphon_bt_on_attack)
 	sir_eredar_siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
 
 	sir_eredar_aura_bt = BuffType.create_aura_effect_type("sir_eredar_aura_bt", false, self)
-	sir_eredar_aura_bt.set_buff_icon("@@1@@")
+	sir_eredar_aura_bt.set_buff_icon("mask_occult.tres")
 	sir_eredar_aura_bt.add_periodic_event(sir_eredar_aura_bt_periodic, 1.0)
 	sir_eredar_aura_bt.set_buff_tooltip("Slow Decay - Aura\nKills creep instantly if it reaches low health.")
 

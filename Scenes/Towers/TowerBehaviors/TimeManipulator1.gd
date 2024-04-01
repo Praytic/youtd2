@@ -81,7 +81,7 @@ func tower_init():
 	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
 	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
 	maj_manip_aura_bt.set_buff_modifier(maj_manip_aura_bt_mod)
-	maj_manip_aura_bt.set_buff_icon("@@0@@")
+	maj_manip_aura_bt.set_buff_icon("bull_horns.tres")
 	maj_manip_aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
 
 	multiboard = MultiboardValues.new(1)

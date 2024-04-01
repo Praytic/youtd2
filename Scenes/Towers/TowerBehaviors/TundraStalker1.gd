@@ -94,7 +94,7 @@ func tower_init():
 	drol_tundraStalker = BuffType.new("drol_tundraStalker", 5, 0.2, false, self)
 	drol_tundraStalker.set_buff_modifier(m)
 	
-	drol_tundraStalker.set_buff_icon("@@0@@")
+	drol_tundraStalker.set_buff_icon("claw.tres")
 	drol_tundraStalker.add_periodic_event(drol_f_tundraStalker, 1)
 	drol_tundraStalker.add_event_on_cleanup(drol_fade_tundraStalker)
 

@@ -51,7 +51,7 @@ func tower_init():
 	maj_ice_nova_slow = BuffType.new("maj_ice_nova_slow", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	maj_ice_nova_slow.set_buff_modifier(m)
-	maj_ice_nova_slow.set_buff_icon("@@0@@")
+	maj_ice_nova_slow.set_buff_icon("star.tres")
 	maj_ice_nova_slow.set_buff_tooltip("Slowed\nReduces movement speed.")
 
 

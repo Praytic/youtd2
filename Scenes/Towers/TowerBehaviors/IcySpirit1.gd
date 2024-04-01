@@ -57,7 +57,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 
 	boekie_icy_spirit_buff = BuffType.new("boekie_icy_spirit_buff", 5, 0, false, self)
-	boekie_icy_spirit_buff.set_buff_icon("@@0@@")
+	boekie_icy_spirit_buff.set_buff_icon("bug_in_amber.tres")
 	boekie_icy_spirit_buff.set_buff_modifier(m)
 	boekie_icy_spirit_buff.set_buff_tooltip("Frozen\nReduces movement speed.")
 

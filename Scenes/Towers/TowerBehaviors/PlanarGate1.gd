@@ -57,13 +57,13 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	maj_planar_eruption_bt = BuffType.new("maj_planar_eruption_bt", 6, 0.18, true, self)
-	maj_planar_eruption_bt.set_buff_icon("@@0@@")
-	maj_planar_eruption_bt.set_buff_tooltip("Title\nDescription.")
+	maj_planar_eruption_bt.set_buff_icon("crystal.tres")
+	maj_planar_eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
 	maj_planar_dmg_mod_bt = BuffType.new("maj_planar_dmg_mod_bt", -1, 0, false, self)
-	maj_planar_dmg_mod_bt.set_buff_icon("@@1@@")
+	maj_planar_dmg_mod_bt.set_buff_icon("ghost.tres")
 	maj_planar_dmg_mod_bt.add_event_on_cleanup(maj_planar_dmg_mod_bt_on_cleanup)
-	maj_planar_dmg_mod_bt.set_buff_tooltip("Title\nDescription.")
+	maj_planar_dmg_mod_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 
 	bouncing_pt = ProjectileType.create_interpolate("MurgulMagicMissile.mdl", 1250, self)
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)
@@ -170,7 +170,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 #	Check if this projectile has damage ratio left and if the target is still alive.
 	if p.user_real2 <= 0 || target == null:
 #		If the projectile had no damage ratio, end here and decrease the tower userInt.
-		tower.falcon_count -= 1
+		falcon_count -= 1
 
 		return
 
@@ -231,7 +231,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 #	If no valid targets in range, end here and decrease
 #	falcon count so portal can fire again.
 	if next == null:
-		tower.falcon_count -= 1
+		falcon_count -= 1
 
 		return
 

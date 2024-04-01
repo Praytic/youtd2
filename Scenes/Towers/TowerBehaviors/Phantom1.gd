@@ -75,7 +75,7 @@ func tower_init():
 	
 	drol_phantomBuff.set_buff_modifier(m)
 	
-	drol_phantomBuff.set_buff_icon("@@2@@")
+	drol_phantomBuff.set_buff_icon("orb_empty.tres")
 	
 	drol_phantomBuff.add_event_on_attack(phantom_attack)
 	

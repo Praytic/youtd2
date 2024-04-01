@@ -44,7 +44,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
 	bronze_dragon_bt.set_buff_modifier(mod)
-	bronze_dragon_bt.set_buff_icon("@@0@@")
+	bronze_dragon_bt.set_buff_icon("cup_with_wings.tres")
 	bronze_dragon_bt.add_event_on_create(bronze_dragon_bt_on_create)
 	bronze_dragon_bt.add_event_on_cleanup(bronze_dragon_bt_on_cleanup)
 	bronze_dragon_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")

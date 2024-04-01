@@ -65,11 +65,11 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.10, 0.004)
 	boekie_lord_liquid_fire_bt.set_buff_modifier(mod)
 	boekie_lord_liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
-	boekie_lord_liquid_fire_bt.set_buff_icon("@@0@@")
+	boekie_lord_liquid_fire_bt.set_buff_icon("running_man_burning.tres")
 	boekie_lord_liquid_fire_bt.set_buff_tooltip("Liquid Fire\nDeals damage over time and increases damage taken from Fire towers.")
 
 	boekie_lord_hellfire_bt = BuffType.new("boekie_lord_hellfire_bt", 7.5, 0.2, true, self)
-	boekie_lord_hellfire_bt.set_buff_icon("@@1@@")
+	boekie_lord_hellfire_bt.set_buff_icon("bug_in_amber.tres")
 	boekie_lord_hellfire_bt.add_event_on_create(hellfire_on_create)
 	boekie_lord_hellfire_bt.add_event_on_cleanup(hellfire_on_cleanup)
 	boekie_lord_hellfire_bt.set_buff_tooltip("Hellfire\nAttacks extra targets and increases attack speed.")

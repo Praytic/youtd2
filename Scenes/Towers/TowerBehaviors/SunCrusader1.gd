@@ -93,7 +93,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
 	cedi_crusader_buff.set_buff_modifier(mod)
-	cedi_crusader_buff.set_buff_icon("@@1@@")
+	cedi_crusader_buff.set_buff_icon("winged_man.tres")
 	cedi_crusader_buff.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 	var autocast: Autocast = Autocast.make()

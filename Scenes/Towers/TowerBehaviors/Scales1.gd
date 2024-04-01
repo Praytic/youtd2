@@ -94,7 +94,7 @@ func tower_init():
 	lightning_st.data.forked_lightning.target_count = 3
 
 	cedi_scales_electrify_bt = BuffType.new("cedi_scales_electrify_bt", 5, 0, false, self)
-	cedi_scales_electrify_bt.set_buff_icon("@@2@@")
+	cedi_scales_electrify_bt.set_buff_icon("electricity.tres")
 	cedi_scales_electrify_bt.add_periodic_event(cedi_scales_electrify_bt_periodic, 1.0)
 	cedi_scales_electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 

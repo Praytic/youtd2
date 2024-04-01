@@ -55,11 +55,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
 	mock_rift_slow_bt.set_buff_modifier(mod)
-	mock_rift_slow_bt.set_buff_icon("@@1@@")
+	mock_rift_slow_bt.set_buff_icon("ghost.tres")
 	mock_rift_slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
 
 	mock_rift_aura_bt = BuffType.create_aura_effect_type("mock_rift_aura_bt", false, self)
-	mock_rift_aura_bt.set_buff_icon("@@0@@")
+	mock_rift_aura_bt.set_buff_icon("letter_u_striked.tres")
 	mock_rift_aura_bt.add_periodic_event(mock_rift_aura_bt_periodic, 1.0)
 	mock_rift_aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
 

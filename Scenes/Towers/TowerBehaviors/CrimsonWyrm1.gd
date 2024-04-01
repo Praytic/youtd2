@@ -8,7 +8,6 @@ extends TowerBehavior
 
 var wyrm_pt: ProjectileType
 var multiboard: MultiboardValues
-var gold_hoard: float = 0
 var fireball_cd: int = 0
 
 
@@ -93,10 +92,10 @@ func on_kill(event: Event):
 	var value: float = 0.75 * creep.get_base_bounty_value() * creep.get_prop_bounty_granted() * tower.get_prop_bounty_received()
 	var hoard_size: float = 90000
 
-	if tower.gold_hoard >= hoard_size:
+	if tower.user_real >= hoard_size:
 		value = 0
-	elif tower.gold_hoard + value > hoard_size:
-		value = hoard_size - tower.gold_hoard
+	elif tower.user_real + value > hoard_size:
+		value = hoard_size - tower.user_real
 
 	if value != 0:
 		sir_update(value)
@@ -106,16 +105,17 @@ func on_kill(event: Event):
 
 func on_create(preceding: Tower):
 #	Somebody might replace this tower with this tower
+	tower.user_real = 0
 	if preceding != null && preceding.get_family() == tower.get_family():
-		sir_update(preceding.gold_hoard)
+		sir_update(preceding.user_real)
 
 #	Mediocre cd for first wave of fireballs
 	fireball_cd = 9
 
 
 func on_tower_details() -> MultiboardValues:
-	var gold_hoard_string: String = Utils.format_float(gold_hoard, 0)
-	var dmg_bonus_string: String = Utils.format_percent(gold_hoard / 5000, 0)
+	var gold_hoard_string: String = Utils.format_float(tower.user_real, 0)
+	var dmg_bonus_string: String = Utils.format_percent(tower.user_real / 5000, 0)
 	var fireball_cd_string: String = str(fireball_cd)
 
 	multiboard.set_value(0, gold_hoard_string)
@@ -126,11 +126,11 @@ func on_tower_details() -> MultiboardValues:
 
 
 func sir_update(new_gold: float):
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -tower.gold_hoard / 5000)
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -tower.gold_hoard / 5000)
-	tower.gold_hoard += new_gold
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, tower.gold_hoard / 5000)
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, tower.gold_hoard / 5000)
+	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -tower.user_real / 5000)
+	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -tower.user_real / 5000)
+	tower.user_real += new_gold
+	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, tower.user_real / 5000)
+	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, tower.user_real / 5000)
 
 
 func wyrm_pt_on_hit(p: Projectile, _target: Unit):

@@ -56,11 +56,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.1, 0.008)
 	sir_focus_freezing_bt.set_buff_modifier(mod)
-	sir_focus_freezing_bt.set_buff_icon("@@0@@")
+	sir_focus_freezing_bt.set_buff_icon("orb_swirly.tres")
 	sir_focus_freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
 
 	sir_focus_gust_bt = BuffType.create_aura_effect_type("sir_focus_gust_bt", true, self)
-	sir_focus_gust_bt.set_buff_icon("@@1@@")
+	sir_focus_gust_bt.set_buff_icon("orb_swirly.tres")
 	sir_focus_gust_bt.add_event_on_create(gust_on_create)
 	sir_focus_gust_bt.add_periodic_event(gust_periodic, 1.0)
 	sir_focus_gust_bt.add_event_on_cleanup(gust_on_cleanup)

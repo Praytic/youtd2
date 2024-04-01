@@ -49,7 +49,7 @@ func tower_init():
 	drol_magic_ruin = BuffType.new("drol_magic_ruin", 5, 0, false, self)
 	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	drol_magic_ruin.set_buff_modifier(astral_mod)
-	drol_magic_ruin.set_buff_icon("@@0@@")
+	drol_magic_ruin.set_buff_icon("star.tres")
 	
 	drol_magic_ruin.set_buff_tooltip("Illuminate\nIncreases experience granted.")
 

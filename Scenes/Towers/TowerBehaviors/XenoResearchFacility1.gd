@@ -101,7 +101,7 @@ func tower_init():
 	palandu_xeno_humanoid_bt.set_buff_modifier(palandu_xeno_humanoid_mod)
 
 	palandu_xeno_aura_bt = BuffType.create_aura_effect_type("palandu_xeno_aura_bt", true, self)
-	palandu_xeno_aura_bt.set_buff_icon("@@0@@")
+	palandu_xeno_aura_bt.set_buff_icon("egg.tres")
 	palandu_xeno_aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
 
 	

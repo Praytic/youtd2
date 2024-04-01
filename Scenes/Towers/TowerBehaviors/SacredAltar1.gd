@@ -29,12 +29,12 @@ func get_ability_description_short() -> String:
 
 func tower_init():
 	boekie_altar_entangle_bt = CbStun.new("boekie_altar_entangle_bt", 1.2, 0, false, self)
-	boekie_altar_entangle_bt.set_buff_icon("@@0@@")
+	boekie_altar_entangle_bt.set_buff_icon("letter_u_striked.tres")
 	boekie_altar_entangle_bt.add_periodic_event(boekie_altar_entangle_bt_periodic, 1.0)
 	boekie_altar_entangle_bt.set_buff_tooltip("Entangled\nThis creep is entangled; it can't move and will take periodic damage.")
 
 	boekie_altar_gift_bt = BuffType.create_aura_effect_type("boekie_altar_gift_bt", true, self)
-	boekie_altar_gift_bt.set_buff_icon("@@1@@")
+	boekie_altar_gift_bt.set_buff_icon("cup_with_wings.tres")
 	boekie_altar_gift_bt.add_event_on_attack(boekie_altar_gift_bt_on_attack)
 	boekie_altar_gift_bt.set_buff_tooltip("Gift of Nature\nChance to entangle creeps.")
 

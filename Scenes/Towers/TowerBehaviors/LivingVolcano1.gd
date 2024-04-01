@@ -58,7 +58,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	kricz_volcano_bt = BuffType.create_aura_effect_type("kricz_volcano_bt", false, self)
-	kricz_volcano_bt.set_buff_icon("@@0@@")
+	kricz_volcano_bt.set_buff_icon("orb_empty.tres")
 	kricz_volcano_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
 	kricz_volcano_bt.add_periodic_event(kricz_volcano_bt_periodic, 1.0)
 	kricz_volcano_bt.add_event_on_death(kricz_volcano_bt_on_death)

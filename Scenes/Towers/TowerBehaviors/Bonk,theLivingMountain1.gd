@@ -77,7 +77,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.10, 0.004)
 	boekie_mountain_morale_bt.set_buff_modifier(mod)
-	boekie_mountain_morale_bt.set_buff_icon("@@0@@")
+	boekie_mountain_morale_bt.set_buff_icon("flexing_arm.tres")
 	boekie_mountain_morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
 
 	rock_pt = ProjectileType.create("AncientProtectorMissile.mdl", 4, 700, self)

@@ -101,7 +101,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
 
 	magic_battery_faerie_fire = BuffType.new("magic_battery_faerie_fire", 9, 0.3, false, self)
-	magic_battery_faerie_fire.set_buff_icon("@@0@@")
+	magic_battery_faerie_fire.set_buff_icon("letter_h.tres")
 	magic_battery_faerie_fire.set_buff_modifier(modifier)
 	magic_battery_faerie_fire.set_stacking_group("MagicBattery")
 	magic_battery_faerie_fire.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it will take extra damage from spells and has increased debuff duration.")

@@ -129,7 +129,7 @@ func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	kel_slow = BuffType.new("kel_slow", 0, 0, false, self)
-	kel_slow.set_buff_icon("@@0@@")
+	kel_slow.set_buff_icon("letter_u_striked.tres")
 	kel_slow.set_buff_modifier(slow)
 	kel_slow.set_buff_tooltip("Slow\nReduces movement speed.")
 

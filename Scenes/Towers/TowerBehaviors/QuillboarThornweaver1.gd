@@ -89,7 +89,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	sir_boar_debuff = BuffType.new("sir_boar_debuff", 0, 0, false, self)
-	sir_boar_debuff.set_buff_icon("@@0@@")
+	sir_boar_debuff.set_buff_icon("star.tres")
 	sir_boar_debuff.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
 
 	sir_boar_proj = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)

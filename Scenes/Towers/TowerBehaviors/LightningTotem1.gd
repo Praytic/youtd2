@@ -46,7 +46,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
 	boekie_spell_crit_aura.set_buff_modifier(mod)
-	boekie_spell_crit_aura.set_buff_icon("@@0@@")
+	boekie_spell_crit_aura.set_buff_icon("star.tres")
 	boekie_spell_crit_aura.set_stacking_group("boekie_spell_crit_aura")
 	boekie_spell_crit_aura.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
 

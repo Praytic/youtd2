@@ -103,7 +103,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	natac_cloudy_temple_aura_bt = BuffType.create_aura_effect_type("natac_cloudy_temple_aura_bt", false, self)
-	natac_cloudy_temple_aura_bt.set_buff_icon("@@1@@")
+	natac_cloudy_temple_aura_bt.set_buff_icon("eye.tres")
 	natac_cloudy_temple_aura_bt.add_event_on_damaged(natac_cloudy_temple_aura_bt_on_damaged)
 	natac_cloudy_temple_aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 

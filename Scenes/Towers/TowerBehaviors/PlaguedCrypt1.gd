@@ -62,7 +62,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	cedi_crypt_plague_bt = BuffType.new("cedi_crypt_plague_bt", 5.0, 0.2, false, self)
-	cedi_crypt_plague_bt.set_buff_icon("@@0@@")
+	cedi_crypt_plague_bt.set_buff_icon("mask_occult.tres")
 	cedi_crypt_plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
 	cedi_crypt_plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
 	cedi_crypt_plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
@@ -78,7 +78,7 @@ func tower_init():
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.05)
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	cedi_crypt_army_bt.set_buff_modifier(cedi_crypt_army_mod)
-	cedi_crypt_army_bt.set_buff_icon("@@1@@")
+	cedi_crypt_army_bt.set_buff_icon("ghost.tres")
 	cedi_crypt_army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
 
 	multiboard = MultiboardValues.new(2)

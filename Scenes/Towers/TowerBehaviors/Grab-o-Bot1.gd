@@ -55,12 +55,12 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	cedi_bot_grapple_bt = CbStun.new("cedi_bot_grapple_bt", 2.5, 0, false, self)
-	cedi_bot_grapple_bt.set_buff_icon("@@0@@")
+	cedi_bot_grapple_bt.set_buff_icon("gear_1.tres")
 	cedi_bot_grapple_bt.add_event_on_create(cedi_bot_grapple_bt_on_create)
 	cedi_bot_grapple_bt.add_event_on_cleanup(cedi_bot_grapple_bt_on_cleanup)
 
 	cedi_bot_stun_bt = CbStun.new("cedi_bot_stun_bt", 2.5, 0, false, self)
-	cedi_bot_stun_bt.set_buff_icon("@@1@@")
+	cedi_bot_stun_bt.set_buff_icon("orb_swirly.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shock"

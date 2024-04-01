@@ -65,7 +65,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	stern_chaining_aura_bt = BuffType.create_aura_effect_type("stern_chaining_aura_bt", false, self)
-	stern_chaining_aura_bt.set_buff_icon("@@0@@")
+	stern_chaining_aura_bt.set_buff_icon("electricity.tres")
 	stern_chaining_aura_bt.add_event_on_create(stern_chaining_aura_bt_on_create)
 	stern_chaining_aura_bt.add_periodic_event(stern_chaining_aura_bt_periodic, 1.0)
 	stern_chaining_aura_bt.add_event_on_cleanup(stern_chaining_aura_bt_on_cleanup)

@@ -91,7 +91,7 @@ func tower_init():
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.01)
 	mock_genis_speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
-	mock_genis_speedcast_bt.set_buff_icon("@@1@@")
+	mock_genis_speedcast_bt.set_buff_icon("cup_with_wings.tres")
 	mock_genis_speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
 
 	mock_genis_spread_bt = CbStun.new("mock_genis_spread_bt", 0.8, 0, false, self)
@@ -103,7 +103,7 @@ func tower_init():
 	var mock_genis_magic_boost_mod: Modifier = Modifier.new()
 	mock_genis_magic_boost_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.2, 0.01)
 	mock_genis_magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
-	mock_genis_magic_boost_bt.set_buff_icon("@@2@@")
+	mock_genis_magic_boost_bt.set_buff_icon("goldbar.tres")
 	mock_genis_magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
 
 	mock_genis_edge_st = SpellType.new("@@0@@", "carrionswarm", 1, self)

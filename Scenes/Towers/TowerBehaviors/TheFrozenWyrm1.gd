@@ -39,13 +39,13 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	cassim_wyrm_stun_bt = CbStun.new("cassim_wyrm_stun_bt", 1.5, 0.0, false, self)
-	cassim_wyrm_stun_bt.set_buff_icon("@@1@@")
+	cassim_wyrm_stun_bt.set_buff_icon("letter_h.tres")
 
 	cassim_wyrm_slow_bt = BuffType.new("cassim_wyrm_slow_bt", 4.0, 0.24, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.27, -0.002)
 	cassim_wyrm_slow_bt.set_buff_modifier(mod)
-	cassim_wyrm_slow_bt.set_buff_icon("@@0@@")
+	cassim_wyrm_slow_bt.set_buff_icon("crystal.tres")
 	cassim_wyrm_slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
 
 

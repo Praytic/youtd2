@@ -73,7 +73,7 @@ func tower_init():
 	cb_stun = CbStun.new("coconut_sapling_stun", 0, 0, false, self)
 
 	cedi_coco_bt = CbStun.new("cedi_coco_bt", STUN_CD, 0, false, self)
-	cedi_coco_bt.set_buff_icon("@@0@@")
+	cedi_coco_bt.set_buff_icon("shield.tres")
 	cedi_coco_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
 
 

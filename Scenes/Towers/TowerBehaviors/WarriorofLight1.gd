@@ -69,7 +69,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
 	mock_warrior_of_light_bt.set_buff_modifier(mod)
-	mock_warrior_of_light_bt.set_buff_icon("@@1@@")
+	mock_warrior_of_light_bt.set_buff_icon("letter_omega_shiny.tres")
 	mock_warrior_of_light_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
 
 #	NOTE: original script and tooltip don't mention the

@@ -102,7 +102,7 @@ func tower_init():
 	cedi_dutch_panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
 	cedi_dutch_panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	cedi_dutch_panic_bt.set_buff_modifier(cedi_dutch_panic_bt_mod)
-	cedi_dutch_panic_bt.set_buff_icon("@@2@@")
+	cedi_dutch_panic_bt.set_buff_icon("skull.tres")
 	cedi_dutch_panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
 
 	multiboard = MultiboardValues.new(1)

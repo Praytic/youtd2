@@ -71,7 +71,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	drol_goldrush = BuffType.new("drol_goldrush", 5, 0.1, true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.2, 0.01)
-	drol_goldrush.set_buff_icon("@@0@@")
+	drol_goldrush.set_buff_icon("goldbar.tres")
 	drol_goldrush.set_buff_modifier(m)
 	drol_goldrush.set_stacking_group("drol_goldrush")
 	drol_goldrush.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")

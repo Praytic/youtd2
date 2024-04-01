@@ -74,11 +74,11 @@ func tower_init():
 	sir_totem_attraction_bt = BuffType.new("sir_totem_attraction_bt", 2.5, 0.05, true, self)
 	sir_totem_attraction_bt.add_event_on_attack(sir_totem_attraction_bt_on_attack)
 	sir_totem_attraction_bt.add_event_on_spell_casted(sir_totem_attraction_bt_on_spell_casted)
-	sir_totem_attraction_bt.set_buff_icon("@@0@@")
+	sir_totem_attraction_bt.set_buff_icon("fireball.tres")
 	sir_totem_attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
 	sir_totem_torture_bt = BuffType.new("sir_totem_torture_bt", 2.5, 0.05, false, self)
-	sir_totem_torture_bt.set_buff_icon("@@1@@")
+	sir_totem_torture_bt.set_buff_icon("skull.tres")
 	sir_totem_torture_bt.add_event_on_damaged(sir_totem_torture_bt_on_damaged)
 	sir_totem_torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 

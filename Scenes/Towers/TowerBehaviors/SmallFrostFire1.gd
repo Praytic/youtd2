@@ -71,7 +71,7 @@ func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	soul_chill = BuffType.new("soul_chill", 0, 0, false, self)
-	soul_chill.set_buff_icon("@@0@@")
+	soul_chill.set_buff_icon("foot.tres")
 	soul_chill.set_buff_modifier(slow)
 	soul_chill.set_buff_tooltip("Slowed\nReduces movement speed.")
 

@@ -59,7 +59,7 @@ func tower_init():
 	cedi_melt_bt.add_event_on_create(cedi_melt_bt_on_create)
 	cedi_melt_bt.add_periodic_event(cedi_melt_bt_on_periodic, 1.0)
 	cedi_melt_bt.add_event_on_cleanup(cedi_melt_bt_on_cleanup)
-	cedi_melt_bt.set_buff_icon("@@0@@")
+	cedi_melt_bt.set_buff_icon("bull_horns.tres")
 	cedi_melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 

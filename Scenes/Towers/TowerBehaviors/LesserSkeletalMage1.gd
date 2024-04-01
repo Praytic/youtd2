@@ -53,7 +53,7 @@ func tower_init():
 	boekie_amp_damage = BuffType.new("boekie_amp_damage", 0, 0, false, self)
 	boekie_amp_damage.set_buff_modifier(m)
 	boekie_amp_damage.set_stacking_group("boekie_amp_damage")
-	boekie_amp_damage.set_buff_icon("@@0@@")
+	boekie_amp_damage.set_buff_icon("mask_occult.tres")
 	boekie_amp_damage.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 	var autocast: Autocast = Autocast.make()

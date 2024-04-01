@@ -74,7 +74,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
-	sir_moonp_buff.set_buff_icon("'@@0@@")
+	sir_moonp_buff.set_buff_icon("star.tres")
 	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
 
 	sir_moonp_buff.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")

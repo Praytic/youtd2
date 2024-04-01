@@ -76,7 +76,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
 	slow_debuff = BuffType.new("slow_debuff", 0, 0, false, self)
-	slow_debuff.set_buff_icon("@@2@@")
+	slow_debuff.set_buff_icon("foot.tres")
 	slow_debuff.set_buff_modifier(mod)
 	slow_debuff.set_stacking_group("ForestArcherStacks")
 	slow_debuff.set_buff_tooltip("Forest Roots\nReduces movement speed.")

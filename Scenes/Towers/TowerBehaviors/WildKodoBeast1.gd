@@ -57,7 +57,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0010)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.0010)
 	sir_kodo_aura_bt.set_buff_modifier(mod)
-	sir_kodo_aura_bt.set_buff_icon("@@0@@")
+	sir_kodo_aura_bt.set_buff_icon("egg.tres")
 	sir_kodo_aura_bt.add_event_on_refresh(sir_kodo_aura_bt_on_refresh)
 	sir_kodo_aura_bt.set_buff_tooltip("Kodo Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
 
@@ -98,11 +98,11 @@ func on_attack(event: Event):
 	if !Utils.unit_is_valid(tower):
 		return
 
-	tower.devour_count -= 1
+	devour_count -= 1
 	tower.refresh_auras()
 
 
 func sir_kodo_aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
-	var new_power: int = (100 + 2 * tower.get_level()) * tower.devour_count
+	var new_power: int = (100 + 2 * tower.get_level()) * devour_count
 	buff.set_power(new_power)

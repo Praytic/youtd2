@@ -28,7 +28,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	natac_nuclear_target_bt = BuffType.new("natac_nuclear_target_bt", -1, 0, false, self)
-	natac_nuclear_target_bt.set_buff_icon("@@0@@")
+	natac_nuclear_target_bt.set_buff_icon("gear_1.tres")
 	natac_nuclear_target_bt.add_event_on_create(natac_nuclear_target_bt_on_create)
 	natac_nuclear_target_bt.add_event_on_refresh(natac_nuclear_target_bt_on_refresh)
 	natac_nuclear_target_bt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")

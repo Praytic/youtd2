@@ -100,7 +100,7 @@ func tower_init():
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
 	ice_battery_frozen = BuffType.new("ice_battery_frozen", 9, 0.3, false, self)
-	ice_battery_frozen.set_buff_icon("@@0@@")
+	ice_battery_frozen.set_buff_icon("crystal.tres")
 	ice_battery_frozen.set_buff_modifier(slow)
 	ice_battery_frozen.set_stacking_group("IceBattery")
 	ice_battery_frozen.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")

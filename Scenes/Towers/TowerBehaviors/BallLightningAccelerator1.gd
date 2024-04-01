@@ -78,14 +78,14 @@ func tower_init():
 	var tomy_energy_absorption_target_mod: Modifier = Modifier.new()
 	tomy_energy_absorption_target_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.1, 0.001)
 	tomy_energy_absorption_target_bt.set_buff_modifier(tomy_energy_absorption_target_mod)
-	tomy_energy_absorption_target_bt.set_buff_icon("@@0@@")
+	tomy_energy_absorption_target_bt.set_buff_icon("star.tres")
 	tomy_energy_absorption_target_bt.set_buff_tooltip("Energy Absorption\nDecreases attack speed.")
 
 	tomy_energy_absorption_caster_bt = BuffType.new("tomy_energy_absorption_caster_bt", 8, 0, true, self)
 	var tomy_energy_absorption_caster_mod: Modifier = Modifier.new()
 	tomy_energy_absorption_caster_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
 	tomy_energy_absorption_caster_bt.set_buff_modifier(tomy_energy_absorption_caster_mod)
-	tomy_energy_absorption_caster_bt.set_buff_icon("@@2@@")
+	tomy_energy_absorption_caster_bt.set_buff_icon("winged_man.tres")
 	tomy_energy_absorption_caster_bt.set_buff_tooltip("Energy Absorption\nIncreases mana regeneration.")
 
 	tomy_energetic_weapon_pt = ProjectileType.create_ranged("FarseerMissile.mdl", 1000, 650, self)
@@ -95,7 +95,7 @@ func tower_init():
 	var tomy_slow_mod: Modifier = Modifier.new()
 	tomy_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	tomy_slow_bt.set_buff_modifier(tomy_slow_mod)
-	tomy_slow_bt.set_buff_icon("@@1@@")
+	tomy_slow_bt.set_buff_icon("foot.tres")
 	tomy_slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
 	var autocast: Autocast = Autocast.make()

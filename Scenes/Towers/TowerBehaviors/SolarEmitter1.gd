@@ -55,7 +55,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, 0.0, 0.001)
 	solar_emitter_bt.set_buff_modifier(mod)
-	solar_emitter_bt.set_buff_icon("@@0@@")
+	solar_emitter_bt.set_buff_icon("winged_man.tres")
 	solar_emitter_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
 
 

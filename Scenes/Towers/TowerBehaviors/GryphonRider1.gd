@@ -92,7 +92,7 @@ func tower_init():
 	var cedi_gryphon_bt_mod: Modifier = Modifier.new()
 	cedi_gryphon_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	cedi_gryphon_bt.set_buff_modifier(cedi_gryphon_bt_mod)
-	cedi_gryphon_bt.set_buff_icon("@@0@@")
+	cedi_gryphon_bt.set_buff_icon("hammer_swing.tres")
 	cedi_gryphon_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)

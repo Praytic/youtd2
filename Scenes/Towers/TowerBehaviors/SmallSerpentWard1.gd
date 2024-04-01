@@ -52,7 +52,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0005)
 	sir_serpent_buff = BuffType.new("sir_serpent_buff", 0, 0.0005, true, self)
-	sir_serpent_buff.set_buff_icon("@@0@@")
+	sir_serpent_buff.set_buff_icon("ankh.tres")
 	sir_serpent_buff.set_buff_modifier(m)
 	sir_serpent_buff.set_stacking_group("sir_serpent_buff")
 	sir_serpent_buff.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")

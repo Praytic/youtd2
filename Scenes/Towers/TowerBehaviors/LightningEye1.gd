@@ -47,7 +47,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	mock_eye_aura_bt = BuffType.create_aura_effect_type("mock_eye_aura_bt", true, self)
-	mock_eye_aura_bt.set_buff_icon("@@1@@")
+	mock_eye_aura_bt.set_buff_icon("electricity.tres")
 	mock_eye_aura_bt.add_event_on_damage(mock_eye_aura_bt_on_damage)
 	mock_eye_aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
 

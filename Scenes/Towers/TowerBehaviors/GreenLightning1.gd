@@ -102,7 +102,7 @@ func tower_init():
 	drol_surge = BuffType.new("drol_surge", 8, 0, true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
 	drol_surge.set_buff_modifier(m)
-	drol_surge.set_buff_icon("@@1@@")
+	drol_surge.set_buff_icon("letter_s_lying_down.tres")
 	drol_surge.add_event_on_attack(surge)
 	drol_surge.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 

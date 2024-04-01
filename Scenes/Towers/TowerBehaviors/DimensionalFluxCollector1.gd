@@ -68,13 +68,13 @@ func get_ability_ranges() -> Array[RangeData]:
 func tower_init():
 	cedi_flux_aura_bt = BuffType.create_aura_effect_type("cedi_flux_aura_bt", false, self)
 	cedi_flux_aura_bt.add_event_on_damaged(cedi_flux_aura_bt_on_damaged)
-	cedi_flux_aura_bt.set_buff_icon("@@0@@")
+	cedi_flux_aura_bt.set_buff_icon("orb_empty.tres")
 	cedi_flux_aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
 
 	cedi_flux_link_bt = BuffType.new("cedi_flux_link_bt", -1, 0, true, self)
 	cedi_flux_link_bt.add_event_on_create(cedi_flux_aura_bt_on_create)
 	cedi_flux_link_bt.add_event_on_cleanup(cedi_flux_aura_bt_on_cleanup)
-	cedi_flux_link_bt.set_buff_icon("@@1@@")
+	cedi_flux_link_bt.set_buff_icon("electricity.tres")
 	cedi_flux_link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)

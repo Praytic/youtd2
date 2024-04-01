@@ -13,6 +13,8 @@ func _init(type: String, time_base: float, time_level_add: float,friendly: bool,
 #	NOTE: this is the default tooltip for stun buff. It may
 #	be overriden in buffs that extend this buff.
 	set_buff_tooltip("Stun\nStunned.")
+	set_buff_icon("orb_empty.tres")
+	set_buff_icon_color(Color.WHITE)
 
 
 func on_create(event: Event):

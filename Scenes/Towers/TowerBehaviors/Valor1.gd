@@ -66,14 +66,14 @@ func tower_init():
 
 #	Real buff, adding the damage bonus.
 	cedi_valor_lastline_real_bt = BuffType.new("cedi_valor_lastline_real_bt", -1.0, 0, false, self)
-	cedi_valor_lastline_real_bt.set_buff_icon("@@0@@")
+	cedi_valor_lastline_real_bt.set_buff_icon("eye.tres")
 	cedi_valor_lastline_real_bt.set_buff_tooltip("Last Line of Defense\nIncreases damage taken.")
 
 	cedi_valor_wewillnotfall_bt = BuffType.create_aura_effect_type("cedi_valor_wewillnotfall_bt", true, self)
 	var cedi_valor_aura_mod: Modifier = Modifier.new()
 	cedi_valor_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	cedi_valor_wewillnotfall_bt.set_buff_modifier(cedi_valor_aura_mod)
-	cedi_valor_wewillnotfall_bt.set_buff_icon("@@1@@")
+	cedi_valor_wewillnotfall_bt.set_buff_icon("letter_omega_shiny.tres")
 	cedi_valor_wewillnotfall_bt.add_event_on_create(cedi_valor_wewillnotfall_bt_on_create)
 	cedi_valor_wewillnotfall_bt.add_periodic_event(cedi_valor_wewillnotfall_bt_periodic, 15.0)
 	cedi_valor_wewillnotfall_bt.add_event_on_cleanup(cedi_valor_wewillnotfall_bt_on_cleanup)
@@ -83,7 +83,7 @@ func tower_init():
 	var cedi_valor_light_mod: Modifier = Modifier.new()
 	cedi_valor_light_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	cedi_valor_light_bt.set_buff_modifier(cedi_valor_light_mod)
-	cedi_valor_light_bt.set_buff_icon("@@2@@")
+	cedi_valor_light_bt.set_buff_icon("foot.tres")
 	cedi_valor_light_bt.add_periodic_event(cedi_valor_light_bt_periodic, 1.0)
 	cedi_valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
 

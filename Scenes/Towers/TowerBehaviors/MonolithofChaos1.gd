@@ -43,7 +43,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
 	cedi_monolith_chaos_bt.set_buff_modifier(mod)
-	cedi_monolith_chaos_bt.set_buff_icon("@@0@@")
+	cedi_monolith_chaos_bt.set_buff_icon("armor_with_shoulderpads.tres")
 	cedi_monolith_chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
 
 

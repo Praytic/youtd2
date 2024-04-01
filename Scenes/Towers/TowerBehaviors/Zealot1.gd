@@ -94,10 +94,10 @@ func tower_init():
 	storm_zealot_slow.set_buff_modifier(n)
 	storm_zealot_shield.set_buff_modifier(o)
 
-	storm_zealot_fury.set_buff_icon("@@0@@")
-	storm_zealot_wound.set_buff_icon("@@1@@")
-	storm_zealot_slow.set_buff_icon("@@3@@")
-	storm_zealot_shield.set_buff_icon("@@2@@")
+	storm_zealot_fury.set_buff_icon("winged_man.tres")
+	storm_zealot_wound.set_buff_icon("claw.tres")
+	storm_zealot_slow.set_buff_icon("foot.tres")
+	storm_zealot_shield.set_buff_icon("shield.tres")
 
 	storm_zealot_fury.set_buff_tooltip("Zeal\nIncreases attack speed.")
 	storm_zealot_wound.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")

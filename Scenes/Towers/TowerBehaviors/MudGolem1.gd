@@ -54,11 +54,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.60, 0.0)
 	sir_golem_slow_bt.set_buff_modifier(mod)
-	sir_golem_slow_bt.set_buff_icon("@@0@@")
+	sir_golem_slow_bt.set_buff_icon("hammer_swing.tres")
 	sir_golem_slow_bt.set_buff_tooltip("Smashed\nReduces movement speed.")
 
 	sir_golem_aura_bt = BuffType.create_aura_effect_type("sir_golem_aura_bt", true, self)
-	sir_golem_aura_bt.set_buff_icon("@@1@@")
+	sir_golem_aura_bt.set_buff_icon("gear_2.tres")
 	sir_golem_aura_bt.add_event_on_attack(sir_golem_aura_bt_on_attack)
 	sir_golem_aura_bt.set_buff_tooltip("Earthquake Aura\nChance to trigger Ground Smash.")
 

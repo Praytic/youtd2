@@ -180,7 +180,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	dave_gift = BuffType.new("dave_gift", 5, 0, true, self)
-	dave_gift.set_buff_icon("@@0@@")
+	dave_gift.set_buff_icon("cup_with_wings.tres")
 	dave_gift.add_event_on_create(gift_create)
 	dave_gift.add_event_on_cleanup(effect_clean)
 #	TODO:

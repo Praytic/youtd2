@@ -72,7 +72,7 @@ func tower_init():
 	cb_silence = CbSilence.new("nortrom_silence", 0, 0, false, self)
 
 	mock_nortrom_aura_bt = BuffType.create_aura_effect_type("mock_nortrom_aura_bt", true, self)
-	mock_nortrom_aura_bt.set_buff_icon("@@0@@")
+	mock_nortrom_aura_bt.set_buff_icon("bull_horns.tres")
 	mock_nortrom_aura_bt.add_event_on_attack(mock_nortrom_aura_bt_on_attack)
 	mock_nortrom_aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 

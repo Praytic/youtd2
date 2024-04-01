@@ -55,7 +55,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	boekie_coin_machine_bt.set_buff_modifier(mod)
-	boekie_coin_machine_bt.set_buff_icon("@@0@@")
+	boekie_coin_machine_bt.set_buff_icon("cup_with_wings.tres")
 	boekie_coin_machine_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 	var autocast: Autocast = Autocast.make()

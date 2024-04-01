@@ -50,7 +50,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	sir_frost_glacier = BuffType.new("sir_frost_glacier", 0, 0, false, self)
-	sir_frost_glacier.set_buff_icon("@@0@@")
+	sir_frost_glacier.set_buff_icon("foot.tres")
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	sir_frost_glacier.set_buff_modifier(m)
 

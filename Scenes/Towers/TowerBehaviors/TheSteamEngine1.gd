@@ -68,7 +68,7 @@ func tower_init():
 	cedi_steam_stun = CbStun.new("cedi_steam_stun", 1.0, 0, false, self)
 
 	cedi_steam_bt = BuffType.new("cedi_steam_bt", 5, 0, true, self)
-	cedi_steam_bt.set_buff_icon("@@0@@")
+	cedi_steam_bt.set_buff_icon("gear_1.tres")
 	cedi_steam_bt.add_event_on_create(cedi_steam_bt_on_create)
 	cedi_steam_bt.add_event_on_attack(cedi_steam_bt_on_attack)
 	cedi_steam_bt.add_periodic_event(cedi_steam_bt_periodic, 1.0)

@@ -13,8 +13,6 @@ var natac_lich_icy_curse_bt: BuffType
 var natac_lich_aura_bt: BuffType
 var multiboard: MultiboardValues
 
-var stored_damage: float = 0.0
-
 
 func get_ability_description() -> String:
 	var text: String = ""
@@ -56,11 +54,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.30, 0.008)
 	natac_lich_icy_curse_bt.set_buff_modifier(mod)
-	natac_lich_icy_curse_bt.set_buff_icon("@@0@@")
+	natac_lich_icy_curse_bt.set_buff_icon("ghost.tres")
 	natac_lich_icy_curse_bt.set_buff_tooltip("Icy Curse\nThis creep was cursed; it has increased debuff duration.")
 
 	natac_lich_aura_bt = BuffType.create_aura_effect_type("natac_lich_aura_bt", false, self)
-	natac_lich_aura_bt.set_buff_icon("@@1@@")
+	natac_lich_aura_bt.set_buff_icon("letter_omega.tres")
 	natac_lich_aura_bt.add_event_on_create(natac_lich_aura_bt_on_create)
 	natac_lich_aura_bt.add_event_on_refresh(natac_lich_aura_bt_on_refresh)
 	natac_lich_aura_bt.add_event_on_cleanup(natac_lich_aura_bt_on_cleanup)
@@ -90,7 +88,7 @@ func on_damage(event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var stored_damage_string: String = Utils.format_float(stored_damage, 0)
+	var stored_damage_string: String = Utils.format_float(tower.user_real, 0)
 	multiboard.set_value(0, stored_damage_string)
 
 	return multiboard
@@ -122,9 +120,9 @@ func natac_lich_aura_bt_on_refresh(event: Event):
 	if old_king == null:
 		return
 
-	var old_wrath_damage: float = old_king.stored_damage * (0.5 + 0.04 * old_king.get_level())
+	var old_wrath_damage: float = old_king.user_real * (0.5 + 0.04 * old_king.get_level())
 
-	old_king.stored_damage = 0.0
+	old_king.user_real = 0.0
 	buff.user_int3 = new_king_id
 
 	if new_dps > buff.user_int2:
@@ -147,15 +145,15 @@ func natac_lich_aura_bt_on_cleanup(event: Event):
 	damage += buff_stored_damage
 
 	if target.get_health() > 0:
-		if caster.stored_damage > 0:
+		if caster.user_real > 0:
 			caster.get_player().display_floating_text("Feel the Wrath!", caster, Color8(15, 15, 200))
 			var stored_damage_ratio: float = 0.5 + 0.04 * caster.get_level()
-			damage += caster.stored_damage * stored_damage_ratio
-			caster.stored_damage = 0.0
+			damage += caster.user_real * stored_damage_ratio
+			caster.user_real = 0.0
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", target)
 		caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 		caster.get_player().display_floating_text(Utils.format_float(damage, 0), caster, Color8(15, 15, 200))
 	else:
-		caster.stored_damage += damage
+		caster.user_real += damage
 		caster.get_player().display_floating_text("+" + Utils.format_float(damage, 0), caster, Color8(15, 15, 200))
