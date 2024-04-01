@@ -1,45 +1,124 @@
 class_name CreepProtector extends BuffType
 
 
-# TODO: how close does the champion have to be to dying
-# creep? Set it to 400.
+# NOTE: this doesn't 100% match original code logic but end
+# result is the same. Used autocast so that channeling is
+# affected by silence.
 
-# TODO: how long does the curse last? Set it to 10s for now.
 
-var protector_curse: BuffType
+const PROTECTOR_RANGE: int = 1000
+
+
+var creep_protector_aura_bt: BuffType
+var creep_protector_channel_bt: BuffType
+var creep_protector_curse_bt: BuffType
 
 
 func _init(parent: Node):
 	super("creep_protector", 0, 0, true, parent)
 
-	add_event_on_death(on_death)
-
-	protector_curse = BuffType.new("protector_curse", 10.0, 0, false, self
+	add_event_on_create(on_create)
+	
+	creep_protector_channel_bt = BuffType.new("creep_protector_channel_bt", 0, 0, true, self)
+	creep_protector_channel_bt.set_buff_icon("mask_occult.tres")
+	creep_protector_channel_bt.set_buff_icon_color(Color.DARK_RED)
+	creep_protector_channel_bt.set_buff_tooltip("Protector Channel\nChannels a protector curse.")
+	
+	creep_protector_curse_bt = BuffType.new("creep_protector_curse_bt", 1.5, 0, false, self
 		)
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -1.3, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, -2, 0.0)
-	protector_curse.set_buff_icon("mask_occult.tres")
-	protector_curse.set_buff_icon_color(Color.DARK_RED)
-	protector_curse.set_buff_modifier(modifier)
+	creep_protector_curse_bt.set_buff_icon("mask_occult.tres")
+	creep_protector_curse_bt.set_buff_icon_color(Color.DARK_RED)
+	creep_protector_curse_bt.set_buff_tooltip("Protector Curse\nReduces attack damage and multicrit.")
+	creep_protector_curse_bt.set_buff_modifier(modifier)
+
+	creep_protector_aura_bt = BuffType.create_aura_effect_type("creep_protector_aura_bt", true, self)
+	creep_protector_aura_bt.add_event_on_death(creep_protector_aura_bt_on_death)
+
+	var aura: AuraType = AuraType.new()
+	aura.aura_range = PROTECTOR_RANGE
+	aura.target_type = TargetType.new(TargetType.CREEPS)
+	aura.target_self = false
+	aura.level = 0
+	aura.level_add = 0
+	aura.power = 0
+	aura.power_add = 0
+	aura.aura_effect = creep_protector_aura_bt
+	add_aura(aura)
 
 
-func on_death(event: Event):
+func on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	var creep: Unit = buff.get_buffed_unit()
-	var attacker: Unit = event.get_target()
+	var protector: Unit = buff.get_buffed_unit()
 
-	var I: Iterate = Iterate.over_units_in_range_of_caster(creep, TargetType.new(TargetType.CREEPS + TargetType.SIZE_CHAMPION), 400.0)
+	var autocast: Autocast = Autocast.make()
+	autocast.title = "Protector Curse"
+	autocast.icon = "res://path/to/icon.png"
+	autocast.caster_art = ""
+	autocast.target_art = ""
+	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
+	autocast.num_buffs_before_idle = 0
+	autocast.cast_range = 0
+	autocast.auto_range = 0
+	autocast.cooldown = 1
+	autocast.mana_cost = 0
+	autocast.target_self = false
+	autocast.is_extended = false
+	autocast.buff_type = null
+	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.handler = on_autocast
+	protector.add_autocast(autocast)
 
-	while true:
-		var champion: Unit = I.next()
 
-		if champion == null:
-			break
+func creep_protector_aura_bt_on_death(event: Event):
+	var buff: Buff = event.get_buff()
+	var protector: Unit = buff.get_caster()
 
-		if champion == creep:
-			break
+	var channel_buff: Buff = protector.get_buff_of_type(creep_protector_channel_bt)
 
-		protector_curse.apply(champion, attacker, 0)
+	var protector_is_channeling: bool = channel_buff != null
 
-		break
+	if protector_is_channeling:
+		var it: Iterate = Iterate.over_units_in_range_of_caster(protector, TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_BOSS + TargetType.SIZE_AIR), PROTECTOR_RANGE)
+		var non_champion_count: int = it.count()
+		var stop_channel: bool = non_champion_count == 0
+
+		if stop_channel:
+			channel_buff.remove_buff()
+	else:
+		var attacker: Unit = event.get_target()
+		var new_channel_buff: Buff = creep_protector_channel_bt.apply_to_unit_permanent(protector, protector, 0)
+		new_channel_buff.user_int = attacker.get_instance_id()
+
+
+func on_autocast(event: Event):
+	var autocast: Autocast = event.get_autocast_type()
+	var protector: Unit = autocast.get_caster()
+	var channel_buff: Buff = protector.get_buff_of_type(creep_protector_channel_bt)
+	var protector_is_channeling: bool = channel_buff != null
+
+	if !protector_is_channeling:
+		return
+	
+	var cursed_tower_instance_id: int = channel_buff.user_int
+	var cursed_tower_object: Object = instance_from_id(cursed_tower_instance_id)
+
+	if cursed_tower_object == null || !Utils.unit_is_valid(cursed_tower_object):
+		return
+
+	var cursed_tower: Unit = cursed_tower_object as Unit
+
+	var cursed_tower_is_in_range: bool = Isometric.vector_in_range(cursed_tower.position, protector.position, PROTECTOR_RANGE)
+
+	if !cursed_tower_is_in_range:
+		channel_buff.remove_buff()
+
+		return
+
+	creep_protector_curse_bt.apply(protector, cursed_tower, 0)
+
+	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, protector, cursed_tower)
+	lightning.modulate = Color.DARK_OLIVE_GREEN
+	lightning.set_lifetime(1.0)
