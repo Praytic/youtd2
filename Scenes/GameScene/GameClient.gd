@@ -16,8 +16,6 @@ class_name GameClient extends Node
 # The end result is that clients are synchronized.
 
 
-const MAX_TICKS_PER_PROCESS: int = 10
-
 var _tick_delta: float
 var _current_tick: int = 0
 var _received_latency: int = 0
@@ -91,7 +89,7 @@ func receive_timeslot(timeslot: Array, latency: int):
 func _should_tick(ticks_during_this_process: int) -> bool:
 # 	NOTE: need to limit ticks per process to not disrupt
 # 	timing of _physics_process() too much
-	var too_many_ticks: bool = ticks_during_this_process > MAX_TICKS_PER_PROCESS
+	var too_many_ticks: bool = ticks_during_this_process > Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK
 	if too_many_ticks:
 		return false
 	

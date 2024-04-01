@@ -52,12 +52,15 @@ func _physics_process(_delta: float):
 	_check_lagging_players()
 	_check_desynced_players()
 
-	_current_tick += 1
+	var update_tick_count: int = min(Config.update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
 
-	var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_latency
+	for i in range(0, update_tick_count):
+		_current_tick += 1
 
-	if need_to_send_timeslot:
-		_send_timeslot()
+		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_latency
+
+		if need_to_send_timeslot:
+			_send_timeslot()
 
 
 #########################
