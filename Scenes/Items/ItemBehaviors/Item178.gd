@@ -29,6 +29,7 @@ func item_init():
 	neg = BuffType.new("item178_neg", 2.5, 0.0, false, self)
 	neg.set_buff_icon("crystal.tres")
 	neg.set_buff_icon_color(Color.WHITE)
+	neg.set_buff_tooltip("Drain Physical Energy\nIncreases attack speed.")
 	neg.set_buff_modifier(m_neg)
 
 	var m_pos: Modifier = Modifier.new()
@@ -37,6 +38,7 @@ func item_init():
 	pos = BuffType.new("item178_pos", 2.5, 0.0, true, self)
 	pos.set_buff_icon("foot.tres")
 	pos.set_buff_icon_color(Color.DARK_RED)
+	pos.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
 	pos.set_buff_modifier(m_pos)
 
 

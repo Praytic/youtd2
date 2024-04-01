@@ -72,6 +72,7 @@ func tower_init():
 	# TODO: implement BuffType.set_special_effect_advanced()
 	# maj_manip_field_bt.set_special_effect_advanced("EnergyField.mdl", 0, 0, 0, 3.5, 0, 255, 255, 255, 255, 180)
 	maj_manip_field_bt.add_periodic_event(maj_manip_field_bt_periodic, 1.0)
+	maj_manip_field_bt.set_buff_icon("orb_swirly.tres")
 	maj_manip_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
 
 	maj_manip_aura_bt = BuffType.create_aura_effect_type("maj_manip_aura_bt", true, self)

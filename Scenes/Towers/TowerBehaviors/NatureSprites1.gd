@@ -183,7 +183,6 @@ func tower_init():
 	dave_gift.set_buff_icon("cup_with_wings.tres")
 	dave_gift.add_event_on_create(gift_create)
 	dave_gift.add_event_on_cleanup(effect_clean)
-#	TODO:
 	dave_gift.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
 
 	dave_sprite = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)

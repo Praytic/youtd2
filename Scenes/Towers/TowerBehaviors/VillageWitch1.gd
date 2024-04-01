@@ -95,8 +95,12 @@ func tower_init():
 	cedi_love_potion.set_buff_icon("bug_in_amber.tres")
 	cedi_love_potion.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
 
+#	NOTE: this buff is needed to display the effect of the
+#	"Soul Split" ability. The actual effect of the ability
+#	is implemented via modify_property().
 	cedi_soul_buff = BuffType.new("cedi_soul_buff", 10, 0, true, self)
-	cedi_soul_buff.set_buff_icon("flexing_arm.tres")
+	cedi_soul_buff.set_buff_icon("ghost.tres")
+	cedi_soul_buff.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
 	cedi_love_missile = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
 	cedi_love_missile.enable_homing(cedi_love, 0.0)

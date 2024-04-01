@@ -46,6 +46,7 @@ func item_init():
 	entangling_roots_buff.set_buff_icon_color(Color.BROWN)
 
 	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
+	cooldown_buff.set_hidden()
 
 	blizzard_st = SpellType.new("@@0@@", "blizzard", 4.0, self)
 	blizzard_st.set_damage_event(overgrowth_dmg)
