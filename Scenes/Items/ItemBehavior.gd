@@ -20,6 +20,7 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 	load_modifier(modifier)
 	item_init()
 	load_triggers(triggers_buff_type)
+	on_create()
 
 
 # Override this in subclass to attach trigger handlers to
