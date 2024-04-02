@@ -8,6 +8,7 @@ signal wave_finished(level: int)
 signal element_level_changed(element: Element.enm)
 signal selected_builder()
 signal voted_ready()
+signal roll_was_disabled()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -456,6 +457,10 @@ func get_next_5_waves() -> Array[Wave]:
 			wave_list.append(wave)
 
 	return wave_list
+
+
+func disable_rolling():
+	roll_was_disabled.emit()
 
 
 #########################

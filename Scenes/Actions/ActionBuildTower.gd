@@ -31,6 +31,8 @@ static func execute(action: Dictionary, player: Player, map: Map):
 	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
 	player.spend_tomes(tomes_cost)
 
+	player.disable_rolling()
+
 	if Globals.get_game_mode() != GameMode.enm.BUILD:
 		var tower_stash: TowerStash = player.get_tower_stash()
 		tower_stash.remove_tower(tower_id)

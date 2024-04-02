@@ -173,6 +173,8 @@ func connect_to_local_player(local_player: Player):
 
 	local_player.selected_builder.connect(_on_local_player_selected_builder)
 
+	local_player.roll_was_disabled.connect(_on_local_player_roll_was_disabled)
+
 
 func set_game_start_timer(timer: ManualTimer):
 	_top_left_menu.set_game_start_timer(timer)
@@ -250,6 +252,10 @@ func _on_local_player_selected_builder():
 	var builder_adds_extra_recipes: bool = builder.get_adds_extra_recipes()
 	if builder_adds_extra_recipes:
 		_item_stash_menu.enable_extra_recipes()
+
+
+func _on_local_player_roll_was_disabled():
+	hide_roll_towers_button()
 
 
 func _on_creep_menu_hidden():
