@@ -1,6 +1,11 @@
 # Hippogryph Egg
 extends ItemBehavior
 
+
+# NOTE: fixed bug in original script where it used incorrect
+# order of args for do_spell_damage_aoe()
+
+
 var drol_hippo_pt: ProjectileType
 
 
@@ -28,7 +33,7 @@ func drol_hippo_pt_on_hit(p: Projectile, creep: Unit):
 	var caster: Unit = p.get_caster()
 
 	if creep.is_immune() == false:
-		caster.do_spell_damage_aoe(p.position.x, p.position.y, 200, 1250 + caster.get_level() * 50, 1.0, caster.calc_spell_crit_no_bonus())
+		caster.do_spell_damage_aoe(p.position.x, p.position.y, 200, 1250 + caster.get_level() * 50, caster.calc_spell_crit_no_bonus(), 1.0)
 		var effect: int = Effect.create_scaled("AncientProtectorMissile", p.global_position.x, p.global_position.y, 0, 0, 5)
 		Effect.destroy_effect_after_its_over(effect)
 
