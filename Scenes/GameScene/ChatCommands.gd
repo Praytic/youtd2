@@ -8,6 +8,10 @@ const READY: String = "/ready"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
 
+const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
+	READY,
+]
+
 @export var _team_container: TeamContainer
 
 
@@ -18,6 +22,16 @@ const UNPAUSE: String = "/unpause"
 func process_command(player: Player, command: String):
 	var command_split: Array = command.split(" ")
 	var command_main: String = command_split[0]
+
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
+	if is_multiplayer:
+		var command_is_allowed_in_multiplayer: bool = ALLOWED_IN_MULTIPLAYER_LIST.has(command_main)
+
+		if !command_is_allowed_in_multiplayer:
+			Messages.add_error(player, "This command is not allowed in multiplayer.")
+
+			return
 
 	match command_main:
 		ChatCommands.READY: _command_ready(player)
