@@ -20,6 +20,9 @@ signal attacked(event)
 # and bounce. It is not emitted when doAttackDamage() is
 # called in tower scripts.
 signal dealt_damage(event)
+# NOTE: DAMAGED event is triggered only when attacker is
+# tower. There are a few tower abilities which cause creeps
+# to deal damage to other creeps.
 signal damaged(event)
 signal kill(event)
 signal death(event)
@@ -893,16 +896,19 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	var damage_before_damaged_event: float = damage
 
-	var damaged_event: Event = Event.new(self)
-	damaged_event.damage = damage
-	damaged_event._is_main_target = is_main_target
-	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
-	damaged_event._number_of_crits = crit_count
-	target.damaged.emit(damaged_event)
+	var attacker: Unit = self
 
-# 	NOTE: update damage value because it could've been
-# 	altered by event handlers of target's "damaged" event
-	damage = damaged_event.damage
+	if attacker is Tower:
+		var damaged_event: Event = Event.new(attacker)
+		damaged_event.damage = damage
+		damaged_event._is_main_target = is_main_target
+		damaged_event._is_spell_damage = damage_source == DamageSource.Spell
+		damaged_event._number_of_crits = crit_count
+		target.damaged.emit(damaged_event)
+
+# 		NOTE: update damage value because it could've been
+# 		altered by event handlers of target's "damaged" event
+		damage = damaged_event.damage
 
 	var damage_is_in_bounds: bool = Constants.DAMAGE_MIN <= damage && damage <= Constants.DAMAGE_MAX
 
