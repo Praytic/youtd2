@@ -183,20 +183,6 @@ func hide_all_windows():
 		window.hide()
 
 
-func set_items(item_list: Array[Item]):
-	_item_stash_menu.set_items(item_list)
-	_items_menu_card.set_items(item_list)
-
-
-func set_items_for_horadric_cube(item_list: Array[Item]):
-	_item_stash_menu.set_items_for_horadric_cube(item_list)
-	
-
-func set_towers(towers: Dictionary):
-	_elements_tower_menu.set_towers(towers)
-	_towers_menu_card.set_towers(towers)
-
-
 func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty)
 
@@ -219,6 +205,7 @@ func _on_local_player_item_stash_changed():
 	var item_list: Array[Item] = item_stash.get_item_list()
 	
 	_item_stash_menu.set_items(item_list)
+	_items_menu_card.set_items(item_list)
 
 
 func _on_local_player_horadric_stash_changed():
@@ -235,6 +222,7 @@ func _on_local_player_tower_stash_changed():
 	var towers: Dictionary = tower_stash.get_towers()
 	
 	_elements_tower_menu.set_towers(towers)
+	_towers_menu_card.set_towers(towers)
 
 
 func _on_local_team_level_changed():
