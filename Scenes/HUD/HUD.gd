@@ -97,8 +97,10 @@ func get_chat_edit_text() -> String:
 	return text
 
 
-func add_chat_message(player_id: int, message: String):
-	var complete_message: String = "[player %d]: %s" % [player_id, message]
+func add_chat_message(player: Player, message: String):
+	var player_name: String = player.get_player_name()
+
+	var complete_message: String = "[%s]: %s" % [player_name, message]
 
 	var label: RichTextLabel = RichTextLabel.new()
 	label.append_text(complete_message)

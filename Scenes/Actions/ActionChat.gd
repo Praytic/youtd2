@@ -18,4 +18,4 @@ static func execute(action: Dictionary, player: Player, hud: HUD, chat_commands:
 	if is_chat_command:
 		chat_commands.process_command(player, message)
 	else:
-		hud.add_chat_message(player.get_id(), message)
+		hud.add_chat_message(player, message)
