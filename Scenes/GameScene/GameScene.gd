@@ -712,11 +712,10 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 
 func _on_game_menu_quit_pressed():
 	_cleanup_all_objects()
-	get_tree().set_pause(true)
 	get_tree().quit()
 
 
 func _on_game_menu_quit_to_title_pressed():
 	_cleanup_all_objects()
-	get_tree().set_pause(true)
+	get_tree().set_pause(false)
 	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
