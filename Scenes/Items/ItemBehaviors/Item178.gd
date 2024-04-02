@@ -61,8 +61,8 @@ func on_damage(event: Event):
 
 		B = C.get_buff_of_type(neg)
 		if B != null:
-			neg.apply_custom_timed(T, T, min(level_add + B.get_level(), 2000), dur)
+			neg.apply_custom_timed(T, C, min(level_add + B.get_level(), 2000), dur)
 		else:
-			neg.apply_custom_timed(T, T, level_add, dur)
+			neg.apply_custom_timed(T, C, level_add, dur)
 
 
