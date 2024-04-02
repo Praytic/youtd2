@@ -891,6 +891,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 #	need to care about it in this trigger."
 	damage *= crit_ratio
 
+	var damage_before_damaged_event: float = damage
+
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
 	damaged_event._is_main_target = is_main_target
@@ -902,18 +904,17 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 # 	altered by event handlers of target's "damaged" event
 	damage = damaged_event.damage
 
+	var damage_is_in_bounds: bool = Constants.DAMAGE_MIN <= damage && damage <= Constants.DAMAGE_MAX
+
+	if !damage_is_in_bounds:
+		push_error("Damage out of bounds. Damage base = %f, damage before damaged event = %f, damage final = %f" % [damage_base, damage_before_damaged_event, damage])
+
+		damage = clampf(damage, Constants.DAMAGE_MIN, Constants.DAMAGE_MAX)
+	
 	_damage_dealt_total += damage
 
 	if damage > _best_hit:
 		_best_hit = damage
-
-	if damage < 0:
-		push_error("Damage somehow turned negative.")
-		damage = 0
-
-	if damage > Constants.DAMAGE_MAX:
-		push_error("Damage somehow overflowed. Damage = %f" % damage)
-		damage = Constants.DAMAGE_MAX
 
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
