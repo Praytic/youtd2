@@ -60,6 +60,8 @@ static func execute(action: Dictionary, player: Player, map: Map):
 
 	prev_tower.remove_from_game()
 
+	tower_stash.remove_tower(new_tower_id)
+
 
 # This is the value refunded when a tower is transformed
 # into another tower
