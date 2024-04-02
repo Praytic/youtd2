@@ -20,9 +20,11 @@ const RANDOM_FUNC_LIST: Array = [
 	[GOOD_PREFIX, "randf_range"],
 	[GOOD_PREFIX, "randi"],
 	[GOOD_PREFIX, "randi_range"],
-#	NOTE: pick_random() is attached to Utils because
-#	RandomNumberGenerator doesn't have pick_random()
+#	NOTE: pick_random() and shuffle() are attached to Utils
+#	because RandomNumberGenerator doesn't have these
+#	functions
 	["Utils.", "pick_random"],
+	["Utils.", "shuffle"],
 ]
 
 

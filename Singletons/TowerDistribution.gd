@@ -50,7 +50,7 @@ func _generate_random_towers(player: Player) -> Array[int]:
 	var tower_list: Array[int] = []
 
 	var element_list: Array[Element.enm] = _get_possible_element_list(player)
-	element_list.shuffle()
+	Utils.shuffle(Globals.synced_rng, element_list)
 
 	if element_list.is_empty():
 		return []
@@ -78,7 +78,6 @@ func generate_random_towers_with_count(player: Player, count: int) -> Array[int]
 	var tower_list: Array[int] = []
 
 	var element_list: Array[Element.enm] = _get_possible_element_list(player)
-	element_list.shuffle()
 
 	if element_list.is_empty():
 		return []
@@ -88,7 +87,7 @@ func generate_random_towers_with_count(player: Player, count: int) -> Array[int]
 #	that causes some elements to incorrectly have higher
 #	probability. Therefore, we shuffle the elements before
 #	iterating over them.
-	element_list.shuffle()
+	Utils.shuffle(Globals.synced_rng, element_list)
 
 	var brute_force_count: int = 0
 

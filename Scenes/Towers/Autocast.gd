@@ -368,7 +368,7 @@ func _get_target_for_buff_autocast() -> Unit:
 	if autocast_targets_towers:
 		unit_list = _filter_target_units_for_caster_buff_group(_caster, unit_list)
 	
-	unit_list.shuffle()
+	Utils.shuffle(Globals.synced_rng, unit_list)
 
 	if !target_self:
 		unit_list.erase(_caster)

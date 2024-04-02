@@ -270,6 +270,18 @@ func pick_random(rng: RandomNumberGenerator, array: Array) -> Variant:
 	return random_element
 
 
+func shuffle(rng: RandomNumberGenerator, array: Array):
+	for i in array.size():
+		var random_index: int = rng.randi_range(0, array.size() - 1)
+
+		if random_index == i:
+			continue
+		else:
+			var temp = array[random_index]
+			array[random_index] = array[i]
+			array[i] = temp
+
+
 # Accepts a map of elements to weights and returns a random
 # element. For example:
 # { "a": 10, "b": 20, "c": 70 }
