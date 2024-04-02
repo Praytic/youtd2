@@ -109,6 +109,7 @@ func _on_auto_down_button_pressed():
 
 func _on_clear_button_pressed():
 	EventBus.player_requested_to_clear_combatlog.emit()
+	_auto_scroll_to_newest = true
 
 
 func _on_drag_finished():
