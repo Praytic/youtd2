@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_scroll_damage: BuffType
+var boekie_scroll_of_strength_bt: BuffType
 
 
 func get_autocast_description() -> String:
@@ -20,12 +20,12 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
-	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
-	boekie_scroll_damage.set_buff_modifier(m)
-	boekie_scroll_damage.set_buff_icon("flexing_arm.tres")
-	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nIncreases base attack damage.")
+	boekie_scroll_of_strength_bt = BuffType.new("boekie_scroll_of_strength_bt", 0.0, 0.0, true, self)
+	boekie_scroll_of_strength_bt.set_buff_icon("flexing_arm.tres")
+	boekie_scroll_of_strength_bt.set_buff_tooltip("Strength Boost\nIncreases base attack damage.")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
+	boekie_scroll_of_strength_bt.set_buff_modifier(mod)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Strength Boost"
@@ -64,7 +64,7 @@ func on_autocast(_event: Event):
 			if next == null:
 				break
 
-			boekie_scroll_damage.apply_custom_timed(tower, next, lvl * 2, 4.0)
+			boekie_scroll_of_strength_bt.apply_custom_timed(tower, next, lvl * 2, 4.0)
 
 		item.user_int = item.user_int - 1
 

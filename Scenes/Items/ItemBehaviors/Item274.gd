@@ -1,7 +1,8 @@
 # Portable Tombstone
 extends ItemBehavior
 
-var boekie_tombstonejibs: MultiboardValues
+
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -21,8 +22,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	boekie_tombstonejibs = MultiboardValues.new(1)
-	boekie_tombstonejibs.set_key(0, "Tombstone Kills")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Tombstone Kills")
 
 
 func on_attack(event: Event):
@@ -44,6 +45,6 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var tombstone_kills_text: String = Utils.format_float(item.user_int, 0)
-	boekie_tombstonejibs.set_value(0, tombstone_kills_text)
+	multiboard.set_value(0, tombstone_kills_text)
 	
-	return boekie_tombstonejibs
+	return multiboard

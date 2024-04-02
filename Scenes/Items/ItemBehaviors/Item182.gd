@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_broach: BuffType
+var drol_brooch_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -23,12 +23,12 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	drol_broach = BuffType.new("drol_broach", 5.0, 0.1, false, self)
-	m.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
-	drol_broach.set_buff_modifier(m)
-	drol_broach.set_buff_icon("electricity.tres")
-	drol_broach.set_buff_tooltip("Silver Threads\nIncreases quality of dropped items.")
+	drol_brooch_bt = BuffType.new("drol_brooch_bt", 5.0, 0.1, false, self)
+	drol_brooch_bt.set_buff_icon("electricity.tres")
+	drol_brooch_bt.set_buff_tooltip("Silver Threads\nIncreases quality of dropped items.")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
+	drol_brooch_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
@@ -36,4 +36,4 @@ func on_damage(event: Event):
 
 	if tower.calc_chance(0.15 * tower.get_base_attackspeed()):
 		CombatLog.log_item_ability(item, null, "Silver Threads")
-		drol_broach.apply(tower, event.get_target(), tower.get_level())
+		drol_brooch_bt.apply(tower, event.get_target(), tower.get_level())

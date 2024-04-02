@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var fright_mana_aura: BuffType
+var fright_mana_stone_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -26,12 +26,12 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new() 
-	fright_mana_aura = BuffType.create_aura_effect_type("fright_mana_aura", true, self)
-	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
-	fright_mana_aura.set_buff_modifier(m) 
-	fright_mana_aura.set_buff_icon("letter_omega.tres")
-	fright_mana_aura.set_buff_tooltip("Mana Aura\nIncreases mana regeneration.")
+	fright_mana_stone_bt = BuffType.create_aura_effect_type("fright_mana_stone_bt", true, self)
+	fright_mana_stone_bt.set_buff_icon("letter_omega.tres")
+	fright_mana_stone_bt.set_buff_tooltip("Mana Aura\nIncreases mana regeneration.")
+	var mod: Modifier = Modifier.new() 
+	mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
+	fright_mana_stone_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -41,7 +41,7 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = fright_mana_aura
+	aura.aura_effect = fright_mana_stone_bt
 	item.add_aura(aura)
 
 

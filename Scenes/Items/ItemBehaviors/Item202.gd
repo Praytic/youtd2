@@ -16,6 +16,6 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var u: Unit = event.get_target()
-	var r: float = u.get_health() / u.get_overall_health()
-	event.damage = event.damage * (1.75 - (1.25 * (1-r)))
+	var target: Unit = event.get_target()
+	var health_ratio: float = target.get_health() / target.get_overall_health()
+	event.damage = event.damage * (1.75 - (1.25 * (1 - health_ratio)))

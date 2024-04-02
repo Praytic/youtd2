@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var human_aura: BuffType
+var finger_bloody_key_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -24,15 +24,15 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	human_aura = BuffType.create_aura_effect_type("human_aura", true, self)
-	m.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.12, 0.0024)
-	m.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.12, 0.0024)
-	m.add_modification(Modification.Type.MOD_DPS_ADD, 100, 6)
-	human_aura.set_buff_modifier(m)
-	human_aura.set_stacking_group("human_aura")
-	human_aura.set_buff_icon("claw.tres")
-	human_aura.set_buff_tooltip("Bestial Rage\nIncreases damage dealt to orc and human creeps. Also increases DPS.")
+	finger_bloody_key_bt = BuffType.create_aura_effect_type("finger_bloody_key_bt", true, self)
+	finger_bloody_key_bt.set_buff_icon("claw.tres")
+	finger_bloody_key_bt.set_buff_tooltip("Bestial Rage\nIncreases damage dealt to orc and human creeps. Also increases DPS.")
+	finger_bloody_key_bt.set_stacking_group("finger_bloody_key_bt")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.12, 0.0024)
+	mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.12, 0.0024)
+	mod.add_modification(Modification.Type.MOD_DPS_ADD, 100, 6)
+	finger_bloody_key_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -42,5 +42,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = human_aura
+	aura.aura_effect = finger_bloody_key_bt
 	item.add_aura(aura)

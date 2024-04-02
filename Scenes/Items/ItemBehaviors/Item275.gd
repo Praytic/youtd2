@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_itemQualBonus: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -18,8 +18,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	boekie_itemQualBonus = MultiboardValues.new(1)
-	boekie_itemQualBonus.set_key(0, "Workbench")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Workbench")
 
 
 func on_create():
@@ -41,5 +41,5 @@ func on_kill(_event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	boekie_itemQualBonus.set_value(0, Utils.format_percent(item.user_real, 2))
-	return boekie_itemQualBonus
+	multiboard.set_value(0, Utils.format_percent(item.user_real, 2))
+	return multiboard

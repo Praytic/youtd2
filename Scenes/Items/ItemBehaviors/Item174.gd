@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var maj_rot_tower_buff: BuffType
-var maj_rot_creep_buff: BuffType
+var maj_essence_tower_bt: BuffType
+var maj_essence_creep_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -20,20 +20,20 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	var m_tower: Modifier = Modifier.new()
-	maj_rot_tower_buff = BuffType.create_aura_effect_type("maj_rot_tower_buff", false, self)
-	maj_rot_creep_buff = BuffType.create_aura_effect_type("maj_rot_creep_buff", false, self)
-	maj_rot_tower_buff.set_buff_icon("bug_in_amber.tres")
-	maj_rot_creep_buff.set_buff_icon("bug_in_amber.tres")
-	m_tower.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.002)
-	maj_rot_tower_buff.set_buff_modifier(m_tower)
-	var m_creep: Modifier = Modifier.new()
-	m_creep.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.2, 0.004)
-	m_creep.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.004)
-	maj_rot_creep_buff.set_buff_modifier(m_creep)
+	maj_essence_tower_bt = BuffType.create_aura_effect_type("maj_essence_tower_bt", false, self)
+	maj_essence_tower_bt.set_buff_icon("bug_in_amber.tres")
+	maj_essence_tower_bt.set_buff_tooltip("Putrescent Presence\nReduces attack speed.")
+	var maj_essence_tower_bt_mod: Modifier = Modifier.new()
+	maj_essence_tower_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.002)
+	maj_essence_tower_bt.set_buff_modifier(maj_essence_tower_bt_mod)
 
-	maj_rot_tower_buff.set_buff_tooltip("Putrescent Presence\nReduces attack speed.")
-	maj_rot_creep_buff.set_buff_tooltip("Putrescent Presence\nIncreases attack and spell damage taken.")
+	maj_essence_creep_bt = BuffType.create_aura_effect_type("maj_essence_creep_bt", false, self)
+	maj_essence_creep_bt.set_buff_icon("bug_in_amber.tres")
+	maj_essence_creep_bt.set_buff_tooltip("Putrescent Presence\nIncreases attack and spell damage taken.")
+	var maj_essence_creep_bt_mod: Modifier = Modifier.new()
+	maj_essence_creep_bt_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.2, 0.004)
+	maj_essence_creep_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.004)
+	maj_essence_creep_bt.set_buff_modifier(maj_essence_creep_bt_mod)
 
 	var aura_tower: AuraType = AuraType.new()
 	aura_tower.aura_range = 350
@@ -43,7 +43,7 @@ func item_init():
 	aura_tower.level_add = 1
 	aura_tower.power = 0
 	aura_tower.power_add = 1
-	aura_tower.aura_effect = maj_rot_tower_buff
+	aura_tower.aura_effect = maj_essence_tower_bt
 	item.add_aura(aura_tower)
 
 	var aura_creep: AuraType = AuraType.new()
@@ -54,5 +54,5 @@ func item_init():
 	aura_creep.level_add = 1
 	aura_creep.power = 0
 	aura_creep.power_add = 1
-	aura_creep.aura_effect = maj_rot_creep_buff
+	aura_creep.aura_effect = maj_essence_creep_bt
 	item.add_aura(aura_creep)

@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_claw_slow: BuffType
+var boekie_cursed_claw_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -22,18 +22,16 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new() 
-
-	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001) 
-	boekie_claw_slow = BuffType.new("boekie_claw_slow", 0, 0, false, self)
-	boekie_claw_slow.set_buff_icon("foot.tres")
-	boekie_claw_slow.set_buff_modifier(m) 
-	boekie_claw_slow.set_stacking_group("boekie_claw_slow")
-
-	boekie_claw_slow.set_buff_tooltip("Cripple\nReduces movement speed.")
+	boekie_cursed_claw_bt = BuffType.new("boekie_cursed_claw_bt", 0, 0, false, self)
+	boekie_cursed_claw_bt.set_buff_icon("foot.tres")
+	boekie_cursed_claw_bt.set_stacking_group("boekie_cursed_claw_bt")
+	boekie_cursed_claw_bt.set_buff_tooltip("Cripple\nReduces movement speed.")
+	var mod: Modifier = Modifier.new() 
+	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001) 
+	boekie_cursed_claw_bt.set_buff_modifier(mod) 
 
 
 func on_attack(event: Event):
 	var tower: Tower = item.get_carrier()
 
-	boekie_claw_slow.apply_custom_timed(tower, event.get_target(), 100 + tower.get_level() * 4, 5)
+	boekie_cursed_claw_bt.apply_custom_timed(tower, event.get_target(), 100 + tower.get_level() * 4, 5)

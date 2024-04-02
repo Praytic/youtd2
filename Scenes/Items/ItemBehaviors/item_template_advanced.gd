@@ -40,13 +40,13 @@ extends ItemBehavior
 
 
 # func item_init():
-# 	var m: Modifier = Modifier.new()
-# 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-# 	example_buff = BuffType.new("example_buff", 5, 0, true, self)
-# 	example_buff.set_buff_icon("egg.tres")
-# 	example_buff.set_buff_modifier(m)
-# 	example_buff.set_stacking_group("example_buff")
-# 	example_buff.set_buff_tooltip("Title\nDescription.")
+# 	author_item_bt = BuffType.new("author_item_bt", 5, 0, true, self)
+# 	author_item_bt.set_buff_icon("egg.tres")
+# 	author_item_bt.set_buff_tooltip("Title\nDescription.")
+# 	author_item_bt.set_stacking_group("author_item_bt")
+# 	var mod: Modifier = Modifier.new()
+# 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
+# 	author_item_bt.set_buff_modifier(mod)
 
 # 	var autocast: Autocast = Autocast.make()
 #	autocast.title = "Title"

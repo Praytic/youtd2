@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_multi_gun: ProjectileType
+var boekie_chameleon_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -21,7 +21,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func hit(p: Projectile, creep: Unit):
+# NOTE: hit() in original script
+func boekie_chameleon_pt_on_hit(p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
@@ -30,8 +31,8 @@ func hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	boekie_multi_gun = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
-	boekie_multi_gun.enable_homing(hit, 0)
+	boekie_chameleon_pt = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
+	boekie_chameleon_pt.enable_homing(boekie_chameleon_pt_on_hit, 0)
 
 
 func on_attack(event: Event):
@@ -49,5 +50,5 @@ func on_attack(event: Event):
 	if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(creep):
 		return
 
-	p = Projectile.create_from_unit_to_unit(boekie_multi_gun, tower, 1, 0, tower, creep, true, false, false)
+	p = Projectile.create_from_unit_to_unit(boekie_chameleon_pt, tower, 1, 0, tower, creep, true, false, false)
 	p.setScale(0.75)

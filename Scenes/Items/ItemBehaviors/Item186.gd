@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_hangover: BuffType
+var drol_liquid_gold_bt: BuffType
 var cb_stun: BuffType
 
 
@@ -27,7 +27,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func drol_drunk(event: Event):
+# NOTE: drolDrunk() in original script
+func drol_liquid_gold_bt_on_expire(event: Event):
 	var b: Buff = event.get_buff()
 	var tower: Unit = b.get_caster()
 	cb_stun.apply_only_timed(tower, tower, 3 - tower.get_level() * 0.1)
@@ -35,14 +36,14 @@ func drol_drunk(event: Event):
 
 func item_init():
 	cb_stun = CbStun.new("item_186_stun", 0, 0, false, self)
-
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.30, 0.01)
-	drol_hangover = BuffType.new("drol_hangover", 8, 0, false, self)
-	drol_hangover.set_buff_modifier(m)
-	drol_hangover.set_buff_icon("orb_empty.tres")
-	drol_hangover.add_event_on_expire(drol_drunk)
-	drol_hangover.set_buff_tooltip("Drunk\nReduces attack speed and stuns after a period of time.")
+	
+	drol_liquid_gold_bt = BuffType.new("drol_liquid_gold_bt", 8, 0, false, self)
+	drol_liquid_gold_bt.set_buff_icon("orb_empty.tres")
+	drol_liquid_gold_bt.set_buff_tooltip("Drunk\nReduces attack speed and stuns after a period of time.")
+	drol_liquid_gold_bt.add_event_on_expire(drol_liquid_gold_bt_on_expire)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.30, 0.01)
+	drol_liquid_gold_bt.set_buff_modifier(mod)
 
 
 func on_attack(_event: Event):
@@ -51,4 +52,4 @@ func on_attack(_event: Event):
 
 	if tower.calc_bad_chance(0.1 * speed):
 		CombatLog.log_item_ability(item, null, "Hangover")
-		drol_hangover.apply(tower, tower, tower.get_level())
+		drol_liquid_gold_bt.apply(tower, tower, tower.get_level())

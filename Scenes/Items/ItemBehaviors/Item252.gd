@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var hokkei_critbonusMB: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -19,8 +19,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	hokkei_critbonusMB = MultiboardValues.new(1)
-	hokkei_critbonusMB.set_key(0, "Crit Bonus")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Crit Bonus")
 
 
 func on_create():
@@ -43,6 +43,6 @@ func on_kill(_event: Event):
 
 func on_tower_details() -> MultiboardValues:
 	var crit_damage_bonus_text: String = "x" + Utils.format_float(item.user_real, 3)
-	hokkei_critbonusMB.set_value(0, crit_damage_bonus_text)
+	multiboard.set_value(0, crit_damage_bonus_text)
 
-	return hokkei_critbonusMB
+	return multiboard

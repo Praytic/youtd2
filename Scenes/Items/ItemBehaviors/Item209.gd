@@ -2,9 +2,9 @@
 extends ItemBehavior
 
 
-var entangling_roots_buff: BuffType
-var cooldown_buff: BuffType
-var blizzard_st: SpellType
+var sir_grounding_gloves_root_bt: BuffType
+var sir_grounding_globes_cooldown_bt: BuffType
+var sir_grounding_gloves_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -20,18 +20,19 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func overgrowth_dmg(event: Event, dummy: DummyUnit):
+# NOTE: overgrowth_dmg() in original script
+func sir_grounding_gloves_st_on_damage(event: Event, dummy: DummyUnit):
 	var target: Creep = event.get_target()
 	var tower: Tower = dummy.get_caster()
 	event.damage = 0
 
-	if target.get_buff_of_type(cooldown_buff) == null:
-		entangling_roots_buff.apply(tower, target, 0)
+	if target.get_buff_of_type(sir_grounding_globes_cooldown_bt) == null:
+		sir_grounding_gloves_root_bt.apply(tower, target, 0)
 
 		if target.get_size() < CreepSize.enm.BOSS:
-			cooldown_buff.apply(tower, target, 0)
+			sir_grounding_globes_cooldown_bt.apply(tower, target, 0)
 		else:
-			cooldown_buff.apply_only_timed(tower, target, -1)
+			sir_grounding_globes_cooldown_bt.apply_only_timed(tower, target, -1)
 
 
 func periodic_dmg(event: Event):
@@ -40,15 +41,15 @@ func periodic_dmg(event: Event):
 
 
 func item_init():
-	entangling_roots_buff = CbStun.new("entangling_roots_buff", 1.8, 0, false, self)
-	entangling_roots_buff.add_periodic_event(periodic_dmg, 1.0)
-	entangling_roots_buff.set_buff_icon("orb_empty.tres")
+	sir_grounding_gloves_root_bt = CbStun.new("sir_grounding_gloves_root_bt", 1.8, 0, false, self)
+	sir_grounding_gloves_root_bt.add_periodic_event(periodic_dmg, 1.0)
+	sir_grounding_gloves_root_bt.set_buff_icon("orb_empty.tres")
 
-	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
-	cooldown_buff.set_hidden()
+	sir_grounding_globes_cooldown_bt = BuffType.new("sir_grounding_globes_cooldown_bt", 4.8, 0.0, false, self)
+	sir_grounding_globes_cooldown_bt.set_hidden()
 
-	blizzard_st = SpellType.new("@@0@@", "blizzard", 4.0, self)
-	blizzard_st.set_damage_event(overgrowth_dmg)
+	sir_grounding_gloves_st = SpellType.new("@@0@@", "blizzard", 4.0, self)
+	sir_grounding_gloves_st.set_damage_event(sir_grounding_gloves_st_on_damage)
 	
 
 func on_damage(event: Event):
@@ -58,6 +59,6 @@ func on_damage(event: Event):
 	if event.is_main_target() && tower.calc_chance(tower.get_base_attackspeed() * 0.06):
 		CombatLog.log_item_ability(item, null, "Entangling Roots")
 	
-		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
+		sir_grounding_gloves_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
 		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 5, Color8(210, 255, 180, 255))
 		Effect.set_lifetime(effect, 2.5)

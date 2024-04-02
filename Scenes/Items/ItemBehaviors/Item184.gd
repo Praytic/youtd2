@@ -1,7 +1,8 @@
 # Soul Collectors Cloak
 extends ItemBehavior
 
-var cedi_dps_cloak_mb: MultiboardValues
+
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -18,8 +19,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cedi_dps_cloak_mb = MultiboardValues.new(1)
-	cedi_dps_cloak_mb.set_key(0, "DPS Gained")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "DPS Gained")
 
 
 func on_create():
@@ -42,6 +43,6 @@ func on_kill(_event: Event):
 
 func on_tower_details() -> MultiboardValues:
 	var dps_gained_text: String = Utils.format_float(item.user_int, 0)
-	cedi_dps_cloak_mb.set_value(0, dps_gained_text)
+	multiboard.set_value(0, dps_gained_text)
 
-	return cedi_dps_cloak_mb
+	return multiboard

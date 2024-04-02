@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var slotMachineMB: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -19,8 +19,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	slotMachineMB = MultiboardValues.new(1)
-	slotMachineMB.set_key(0, "Wheel of Fortune Bonus")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Wheel of Fortune Bonus")
 
 
 func on_create():
@@ -59,6 +59,6 @@ func on_kill(_event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	slotMachineMB.set_value(0, Utils.format_percent_add_color(item.user_real, 0))
+	multiboard.set_value(0, Utils.format_percent_add_color(item.user_real, 0))
 
-	return slotMachineMB
+	return multiboard

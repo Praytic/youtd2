@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var PT: ProjectileType
+var cedi_grenade_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -21,7 +21,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func hit(P: Projectile, U: Unit):
+# NOTE: hit() in original script
+func cedi_grenade_pt_on_hit(P: Projectile, U: Unit):
 	if U == null:
 		return
 
@@ -34,8 +35,8 @@ func hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create("GoldBottleMissile.mdl", 50.0, 1000.0, self)
-	PT.enable_homing(hit, 0.0)
+	cedi_grenade_pt = ProjectileType.create("GoldBottleMissile.mdl", 50.0, 1000.0, self)
+	cedi_grenade_pt.enable_homing(cedi_grenade_pt_on_hit, 0.0)
 
 
 func on_damage(event: Event):
@@ -53,5 +54,5 @@ func on_damage(event: Event):
 		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:
 			r = r * 1.5
 
-		P = Projectile.create_from_unit_to_unit(PT, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
+		P = Projectile.create_from_unit_to_unit(cedi_grenade_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
 		P.user_real = r

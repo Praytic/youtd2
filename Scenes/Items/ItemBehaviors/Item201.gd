@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var hammer_mark: BuffType
-var hammer_aura: BuffType
+var cedi_more_hammer_mark_bt: BuffType
+var cedi_more_hammer_aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -19,130 +19,133 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 2000, TargetType.new(TargetType.CREEPS))
 
 
-func mark_setup(event: Event):
-	var B: Buff = event.get_buff()
+# NOTE: Mark_Setup() in original script
+func cedi_more_hammer_mark_bt_on_create(event: Event):
+	var buff: Buff = event.get_buff()
 
-	B.user_int = 5
-	B.user_int2 = 5
-	B.user_int3 = 5
+	buff.user_int = 5
+	buff.user_int2 = 5
+	buff.user_int3 = 5
 
-	B.user_real = 50
-	B.user_real2 = 50
-	B.user_real3 = 50
+	buff.user_real = 50
+	buff.user_real2 = 50
+	buff.user_real3 = 50
 
 
-func hammer_aura_trig(event: Event):
-	var B: Buff = event.get_buff()
-	var T: Tower = event.get_target()
-	var lvl: int
+# NOTE: Hammer_Aura_Trig() in original script
+func cedi_more_hammer_aura_bt_on_damaged(event: Event):
+	if !event.is_spell_damage():
+		return
 
-	if event.is_spell_damage():
-#		Has attacker the mark buff?
-		B = T.get_buff_of_type(hammer_mark)
+#	Has attacker the mark buff?
+	var tower: Tower = event.get_target()
+	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
 
-		if B != null:
-			lvl = B.get_level()
+	if buff == null:
+		return
 
-#			Attacking tower carries a hammer
-#			Hammer 1
-			B.user_int = B.user_int - 1
-			if B.user_int <= 0:
-				B.user_int = 5
-				T.add_spell_crit()
+	var lvl: int = buff.get_level()
 
-#			Hammer 2
-			if lvl >= 2:
-				B.user_int2 = B.user_int2 - 1
-				if B.user_int2 <= 0:
-					B.user_int2 = 5
-					T.add_spell_crit()
-			else:
-#				Only 1 hammer
-				return
+#	Attacking tower carries a hammer
+#	Hammer 1
+	buff.user_int = buff.user_int - 1
+	if buff.user_int <= 0:
+		buff.user_int = 5
+		tower.add_spell_crit()
 
-#			Hammer 3
-			if lvl >= 3:
-				B.user_int3 = B.user_int3 - 1
-				if B.user_int3 <= 0:
-					B.user_int3 = 5
-					T.add_spell_crit()
-			else:
-#				Only 2 hammer
-				return
+#	Hammer 2
+	if lvl >= 2:
+		buff.user_int2 = buff.user_int2 - 1
+		if buff.user_int2 <= 0:
+			buff.user_int2 = 5
+			tower.add_spell_crit()
+	else:
+#		Only 1 hammer
+		return
 
-#			Hammer 4
-			if lvl >= 4:
-				B.user_real = B.user_real - 10
-#				Because real are realy not accurate at all.
-				if B.user_real < 5:
-					B.user_real = 50
-					T.add_spell_crit()
-			else:
-#				Only 3 hammer
-				return
+#	Hammer 3
+	if lvl >= 3:
+		buff.user_int3 = buff.user_int3 - 1
+		if buff.user_int3 <= 0:
+			buff.user_int3 = 5
+			tower.add_spell_crit()
+	else:
+#		Only 2 hammer
+		return
 
-#			Hammer 5
-			if lvl >= 5:
-				B.user_real2 = B.user_real2 - 10
-#				Because real are realy not accurate at all.
-				if B.user_real2 < 5:
-					B.user_real2 = 50
-					T.add_spell_crit()
-			else:
-#				Only 4 hammer
-				return
+#	Hammer 4
+	if lvl >= 4:
+		buff.user_real = buff.user_real - 10
+#		Because real are realy not accurate at all.
+		if buff.user_real < 5:
+			buff.user_real = 50
+			tower.add_spell_crit()
+	else:
+#		Only 3 hammer
+		return
 
-#			Hammer 6
-			if lvl >= 6:
-				B.user_real3 = B.user_real3 - 10
-#				Because real are realy not accurate at all.
-				if B.user_real3 < 5:
-					B.user_real3 = 50
-					T.add_spell_crit()
+#	Hammer 5
+	if lvl >= 5:
+		buff.user_real2 = buff.user_real2 - 10
+#		Because real are realy not accurate at all.
+		if buff.user_real2 < 5:
+			buff.user_real2 = 50
+			tower.add_spell_crit()
+	else:
+#		Only 4 hammer
+		return
+
+#	Hammer 6
+	if lvl >= 6:
+		buff.user_real3 = buff.user_real3 - 10
+#		Because real are realy not accurate at all.
+		if buff.user_real3 < 5:
+			buff.user_real3 = 50
+			tower.add_spell_crit()
 
 
 func item_init():
-	hammer_mark = BuffType.new("hammer_mark", -1, 0, true, self)
-	hammer_mark.set_buff_icon("hammer_swing.tres")
-	hammer_mark.add_event_on_create(mark_setup)
-	hammer_mark.set_hidden()
+	cedi_more_hammer_mark_bt = BuffType.new("cedi_more_hammer_mark_bt", -1, 0, true, self)
+	cedi_more_hammer_mark_bt.set_buff_icon("hammer_swing.tres")
+	cedi_more_hammer_mark_bt.add_event_on_create(cedi_more_hammer_mark_bt_on_create)
+	cedi_more_hammer_mark_bt.set_hidden()
 
-	hammer_aura = BuffType.new("hammer_aura", -1, 0, true, self)
-	hammer_aura.set_buff_icon("hammer_swing.tres")
-	hammer_aura.add_event_on_damaged(hammer_aura_trig)
-	hammer_aura.set_hidden()
+	cedi_more_hammer_aura_bt = BuffType.new("cedi_more_hammer_aura_bt", -1, 0, true, self)
+	cedi_more_hammer_aura_bt.set_buff_icon("hammer_swing.tres")
+	cedi_more_hammer_aura_bt.add_event_on_damaged(cedi_more_hammer_aura_bt_on_damaged)
+	cedi_more_hammer_aura_bt.set_hidden()
 
 
 func on_drop():
-	var T: Tower = item.get_carrier()
-	var B: Buff = T.get_buff_of_type(hammer_mark)
+	var tower: Tower = item.get_carrier()
+	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
 
-	if B != null:
+	if buff != null:
 #		First hammer on tower
-		if B.get_level() == 1:
+		if buff.get_level() == 1:
 #			Only one hammer was on tower
-			B.remove_buff()
+			buff.remove_buff()
 		else:
-			B.set_level(B.get_level() - 1)
+			buff.set_level(buff.get_level() - 1)
 	else:
 #		No buff, although there is still a hammer on the tower! Shit happened!
 		return
 
 
 func on_pickup():
-	var T: Tower = item.get_carrier()
-	var B: Buff = T.get_buff_of_type(hammer_mark)
+	var tower: Tower = item.get_carrier()
+	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
 
-	if B == null:
+	if buff == null:
 #		First hammer on tower
-		hammer_mark.apply(T, T, 1)
+		cedi_more_hammer_mark_bt.apply(tower, tower, 1)
 	else:
 #		Already a hammer on the tower
-		B.set_level(B.get_level() + 1)
+		buff.set_level(buff.get_level() + 1)
 
 
 func on_unit_in_range(event: Event):
-	var U: Unit = event.get_target()
+	var target: Unit = event.get_target()
 
-	if U.get_buff_of_type(hammer_aura) == null:
-		hammer_aura.apply(item.get_carrier(), U, 0)
+	if target.get_buff_of_type(cedi_more_hammer_aura_bt) == null:
+		cedi_more_hammer_aura_bt.apply(item.get_carrier(), target, 0)

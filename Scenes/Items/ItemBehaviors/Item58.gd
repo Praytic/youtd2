@@ -1,7 +1,9 @@
 # Warsong Double Bass
 extends ItemBehavior
 
-var Neotopia_Drumspeed: BuffType
+
+var neotopia_warsong_bt: BuffType
+
 
 func get_ability_description() -> String:
 	var text: String = ""
@@ -16,13 +18,13 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
-	Neotopia_Drumspeed = BuffType.create_aura_effect_type("Neotopia_Drumspeed", true, self)
-	Neotopia_Drumspeed.set_buff_icon("angel_wings.tres")
-	Neotopia_Drumspeed.set_buff_modifier(m)
-	Neotopia_Drumspeed.set_stacking_group("Neotopia_Drumspeed_Aura")
-	Neotopia_Drumspeed.set_buff_tooltip("Warsong Double Bass Effect\nIncreased attack speed.")
+	neotopia_warsong_bt = BuffType.create_aura_effect_type("neotopia_warsong_bt", true, self)
+	neotopia_warsong_bt.set_buff_icon("angel_wings.tres")
+	neotopia_warsong_bt.set_buff_tooltip("Warsong Double Bass Effect\nIncreased attack speed.")
+	neotopia_warsong_bt.set_stacking_group("neotopia_warsong_bt")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
+	neotopia_warsong_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -32,5 +34,5 @@ func item_init():
 	aura.level_add = 10
 	aura.power = 0
 	aura.power_add = 10
-	aura.aura_effect = Neotopia_Drumspeed
+	aura.aura_effect = neotopia_warsong_bt
 	item.add_aura(aura)

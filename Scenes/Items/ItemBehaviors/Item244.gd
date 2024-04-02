@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var limfa_dealerboard: MultiboardValues
+var multiboard: MultiboardValues
 
 
 
@@ -29,8 +29,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	limfa_dealerboard = MultiboardValues.new(1)
-	limfa_dealerboard.set_key(0, "Arms Sold$")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Arms Sold$")
 
 
 func on_create():
@@ -40,9 +40,9 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var arms_sold_text: String = Utils.format_float(item.user_int2, 0)
-	limfa_dealerboard.set_value(0, arms_sold_text)
+	multiboard.set_value(0, arms_sold_text)
 
-	return limfa_dealerboard
+	return multiboard
 
 
 func on_unit_in_range(event: Event):

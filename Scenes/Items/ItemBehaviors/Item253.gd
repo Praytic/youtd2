@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var BT: BuffType
+var cedi_ensign_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -22,14 +22,14 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	BT = BuffType.new("Item253_BT", 5, 0, false, self)
-	m.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
-	BT.set_buff_modifier(m)
-	BT.set_buff_icon("claw.tres")
-	BT.set_buff_tooltip("Ensign's Touch\nReduces armor.")
+	cedi_ensign_bt = BuffType.new("cedi_ensign_bt", 5, 0, false, self)
+	cedi_ensign_bt.set_buff_icon("claw.tres")
+	cedi_ensign_bt.set_buff_tooltip("Ensign's Touch\nReduces armor.")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
+	cedi_ensign_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
 	if event.is_main_target():
-		BT.apply(item.get_carrier(), event.get_target(), item.get_carrier().get_level())
+		cedi_ensign_bt.apply(item.get_carrier(), event.get_target(), item.get_carrier().get_level())

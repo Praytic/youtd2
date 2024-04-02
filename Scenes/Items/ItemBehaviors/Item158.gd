@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_digItemMulti: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -23,8 +23,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	drol_digItemMulti = MultiboardValues.new(1)
-	drol_digItemMulti.set_key(0, "Gold found")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Gold found")
 
 
 func on_create():
@@ -33,9 +33,9 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var gold_found_text: String = Utils.format_float(item.user_int, 0)
-	drol_digItemMulti.set_value(0, gold_found_text)
+	multiboard.set_value(0, gold_found_text)
 
-	return drol_digItemMulti
+	return multiboard
 
 
 func periodic(_event: Event):

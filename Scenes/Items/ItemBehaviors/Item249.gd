@@ -1,7 +1,8 @@
 # Golden Trident
 extends ItemBehavior
 
-var MB: MultiboardValues
+
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -18,8 +19,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	MB = MultiboardValues.new(1)
-	MB.set_key(1, "Golden Trident")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(1, "Golden Trident")
 
 
 func on_attack(event: Event):
@@ -37,6 +38,6 @@ func on_create():
 
 
 func on_tower_details() -> MultiboardValues:
-	MB.set_value(0, Utils.format_float(item.user_real, 1))
+	multiboard.set_value(0, Utils.format_float(item.user_real, 1))
 
-	return MB
+	return multiboard

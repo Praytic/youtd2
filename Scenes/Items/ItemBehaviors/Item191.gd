@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var palandu_SpeedBoard: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -18,8 +18,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	palandu_SpeedBoard = MultiboardValues.new(1)
-	palandu_SpeedBoard.set_key(0, "Total Gold Awarded")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Total Gold Awarded")
 
 
 func on_attack(event: Event):
@@ -49,5 +49,5 @@ func on_create():
 
 
 func on_tower_details() -> MultiboardValues:
-	palandu_SpeedBoard.set_value(0, Utils.format_float(item.user_real, 1))
-	return palandu_SpeedBoard
+	multiboard.set_value(0, Utils.format_float(item.user_real, 1))
+	return multiboard

@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var stern_Commander_Attack: BuffType
+var stern_commander_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -23,13 +23,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new() 
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
-	stern_Commander_Attack = BuffType.new("stern_Commander_Attack", 4, 0.1, true, self)
-	stern_Commander_Attack.set_buff_modifier(m) 
-	stern_Commander_Attack.set_stacking_group("stern_Commander_Attack")
-	stern_Commander_Attack.set_buff_icon("hammer_swing.tres")
-	stern_Commander_Attack.set_buff_tooltip("Attack!\nIncreases attack speed.")
+	stern_commander_bt = BuffType.new("stern_commander_bt", 4, 0.1, true, self)
+	stern_commander_bt.set_buff_icon("hammer_swing.tres")
+	stern_commander_bt.set_buff_tooltip("Attack!\nIncreases attack speed.")
+	stern_commander_bt.set_stacking_group("stern_commander_bt")
+	var mod: Modifier = Modifier.new() 
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
+	stern_commander_bt.set_buff_modifier(mod) 
 
 
 func on_attack(_event: Event):
@@ -52,4 +52,4 @@ func on_attack(_event: Event):
 			if nxt == null:
 				break
 
-			stern_Commander_Attack.apply_custom_timed(tower, nxt, tower.get_level(), 4 + 0.2 * tower.get_level())
+			stern_commander_bt.apply_custom_timed(tower, nxt, tower.get_level(), 4 + 0.2 * tower.get_level())

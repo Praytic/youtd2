@@ -1,7 +1,7 @@
 # Hippogryph Egg
 extends ItemBehavior
 
-var drol_hippo: ProjectileType
+var drol_hippo_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -20,7 +20,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func hippo_hit(p: Projectile, creep: Unit):
+# NOTE: hippoHit() in original script
+func drol_hippo_pt_on_hit(p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
@@ -33,10 +34,10 @@ func hippo_hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	drol_hippo = ProjectileType.create("Hippogryph.mdl", 20, 800, self)
-	drol_hippo.disable_explode_on_hit()
-	drol_hippo.disable_explode_on_expiration()
-	drol_hippo.enable_homing(hippo_hit, 0)
+	drol_hippo_pt = ProjectileType.create("Hippogryph.mdl", 20, 800, self)
+	drol_hippo_pt.disable_explode_on_hit()
+	drol_hippo_pt.disable_explode_on_expiration()
+	drol_hippo_pt.enable_homing(drol_hippo_pt_on_hit, 0)
 
 
 func on_attack(event: Event):
@@ -45,5 +46,5 @@ func on_attack(event: Event):
 
 	if twr.calc_chance((0.15 * twr.get_base_attackspeed())):
 		CombatLog.log_item_ability(item, event.get_target(), "Hippogryph Young")
-		p = Projectile.create_from_unit_to_unit(drol_hippo, twr, 1, twr.calc_spell_crit_no_bonus(), twr, event.get_target(), true, false, false)
+		p = Projectile.create_from_unit_to_unit(drol_hippo_pt, twr, 1, twr.calc_spell_crit_no_bonus(), twr, event.get_target(), true, false, false)
 		p.setScale(0.6)

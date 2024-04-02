@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var tomy_jahrakal_values: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -22,8 +22,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	tomy_jahrakal_values = MultiboardValues.new(1)
-	tomy_jahrakal_values.set_key(0, "Attackspeed Increase")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Attackspeed Increase")
 
 
 func on_attack(event: Event):
@@ -65,6 +65,6 @@ func on_pickup():
 
 func on_tower_details() -> MultiboardValues:
 	var attackspeed_bonus_text: String = Utils.format_percent(item.user_real, 0)
-	tomy_jahrakal_values.set_value(0, attackspeed_bonus_text)
+	multiboard.set_value(0, attackspeed_bonus_text)
 
-	return tomy_jahrakal_values
+	return multiboard

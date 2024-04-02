@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var crit_blade_multiboard: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -23,8 +23,8 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	crit_blade_multiboard = MultiboardValues.new(1)
-	crit_blade_multiboard.set_key(0, "Crit Gained")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Crit Gained")
 
 
 func on_attack(event: Event):
@@ -51,6 +51,6 @@ func on_pickup():
 
 func on_tower_details() -> MultiboardValues:
 	var crit_chance_bonus_text: String = Utils.format_percent(item.user_real, 0)
-	crit_blade_multiboard.set_value(0, crit_chance_bonus_text)
+	multiboard.set_value(0, crit_chance_bonus_text)
 
-	return crit_blade_multiboard
+	return multiboard

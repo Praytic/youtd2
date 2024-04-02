@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var undead_aura: BuffType
+var drol_sword_reck_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -18,13 +18,13 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	undead_aura = BuffType.create_aura_effect_type("undead_aura", true, self)
-	m.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.12, 0.0024)
-	undead_aura.set_buff_modifier(m)
-	undead_aura.set_stacking_group("undead_aura")
-	undead_aura.set_buff_icon("cup_with_wings.tres")
-	undead_aura.set_buff_tooltip("Holy Wrath\nIncreases damage dealt to Undead.")
+	drol_sword_reck_bt = BuffType.create_aura_effect_type("drol_sword_reck_bt", true, self)
+	drol_sword_reck_bt.set_buff_icon("cup_with_wings.tres")
+	drol_sword_reck_bt.set_buff_tooltip("Holy Wrath\nIncreases damage dealt to Undead.")
+	drol_sword_reck_bt.set_stacking_group("drol_sword_reck_bt")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.12, 0.0024)
+	drol_sword_reck_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -34,5 +34,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = undead_aura
+	aura.aura_effect = drol_sword_reck_bt
 	item.add_aura(aura)

@@ -2,7 +2,8 @@
 extends ItemBehavior
 
 
-var interest_bonus_mb: MultiboardValues
+var multiboard: MultiboardValues
+
 
 func get_ability_description() -> String:
 	var text: String = ""
@@ -18,8 +19,8 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	interest_bonus_mb = MultiboardValues.new(1)
-	interest_bonus_mb.set_key(0, "Interest Bonus")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Interest Bonus")
 
 
 func on_create():
@@ -37,5 +38,5 @@ func on_pickup():
 
 
 func on_tower_details() -> MultiboardValues:
-	interest_bonus_mb.set_value(0, Utils.format_percent(item.user_real, 3))
-	return interest_bonus_mb
+	multiboard.set_value(0, Utils.format_percent(item.user_real, 3))
+	return multiboard

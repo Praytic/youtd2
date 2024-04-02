@@ -3,8 +3,8 @@ extends ItemBehavior
 
 
 var cb_stun: BuffType
-var boekie_gem_slow: BuffType
-var boekie_gem_armor: BuffType
+var boekie_gem_slow_bt: BuffType
+var boekie_gem_armor_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -28,21 +28,21 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	cb_stun = CbStun.new("item_282_stun", 0, 0, false, self)
 	
-	var m: Modifier = Modifier.new()
-	var k: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	boekie_gem_slow = BuffType.new("boekie_gem_slow", 0, 0, false, self)
-	boekie_gem_slow.set_buff_icon("foot.tres")
-	boekie_gem_slow.set_buff_modifier(m)
-	boekie_gem_slow.set_stacking_group("boekie_gem_slow")
-	boekie_gem_slow.set_buff_tooltip("Gem Slow\nReduces movement speed.")
+	boekie_gem_slow_bt = BuffType.new("boekie_gem_slow_bt", 0, 0, false, self)
+	boekie_gem_slow_bt.set_buff_icon("foot.tres")
+	boekie_gem_slow_bt.set_buff_tooltip("Gem Slow\nReduces movement speed.")
+	boekie_gem_slow_bt.set_stacking_group("boekie_gem_slow_bt")
+	var boekie_gem_slow_bt_mod: Modifier = Modifier.new()
+	boekie_gem_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
+	boekie_gem_slow_bt.set_buff_modifier(boekie_gem_slow_bt_mod)
 
-	k.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
-	boekie_gem_armor = BuffType.new("boekie_gem_armor", 0, 0, false, self)
-	boekie_gem_armor.set_buff_icon("shield.tres")
-	boekie_gem_armor.set_buff_modifier(k)
-	boekie_gem_armor.set_stacking_group("boekie_gem_armor")
-	boekie_gem_armor.set_buff_tooltip("Gem Armor\nReduces armor.")
+	boekie_gem_armor_bt = BuffType.new("boekie_gem_armor_bt", 0, 0, false, self)
+	boekie_gem_armor_bt.set_buff_icon("shield.tres")
+	boekie_gem_armor_bt.set_buff_tooltip("Gem Armor\nReduces armor.")
+	boekie_gem_armor_bt.set_stacking_group("boekie_gem_armor_bt")
+	var boekie_gem_armor_bt_mod: Modifier = Modifier.new()
+	boekie_gem_armor_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
+	boekie_gem_armor_bt.set_buff_modifier(boekie_gem_armor_bt_mod)
 
 
 func on_damage(event: Event):
@@ -59,7 +59,7 @@ func on_damage(event: Event):
 			tower.get_player().display_small_floating_text("Stun!", tower, Color8(255, 165, 0), 30)
 		elif a < 2:
 			CombatLog.log_item_ability(item, null, "Slow!")
-			boekie_gem_slow.apply_custom_timed(tower, target, 100, 3)
+			boekie_gem_slow_bt.apply_custom_timed(tower, target, 100, 3)
 			tower.get_player().display_small_floating_text("Slow!", tower, Color8(255, 165, 0), 30)
 		elif a < 3:
 			CombatLog.log_item_ability(item, null, "Gold!")
@@ -71,5 +71,5 @@ func on_damage(event: Event):
 			tower.get_player().display_small_floating_text("Exp!", tower, Color8(255, 165, 0), 30)
 		elif a < 5:
 			CombatLog.log_item_ability(item, null, "Armor!")
-			boekie_gem_armor.apply_custom_timed(tower, target, 5, 3)
+			boekie_gem_armor_bt.apply_custom_timed(tower, target, 5, 3)
 			tower.get_player().display_small_floating_text("Armor!", tower, Color8(255, 165, 0), 30)

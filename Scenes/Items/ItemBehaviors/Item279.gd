@@ -1,7 +1,7 @@
 # Magic Conductor
 extends ItemBehavior
 
-var boekie_magicConductor_buff: BuffType
+var boekie_magic_conductor_bt: BuffType
 
 func get_ability_description() -> String:
 	var text: String = ""
@@ -20,13 +20,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.20, 0.005)
-	boekie_magicConductor_buff = BuffType.new("boekie_magicConductor_buff", 0.0, 0.0, true, self)
-	boekie_magicConductor_buff.set_buff_modifier(m)
-	boekie_magicConductor_buff.set_buff_icon("orb_swirly.tres")
-	boekie_magicConductor_buff.set_stacking_group("boekie_magicConductor")
-	boekie_magicConductor_buff.set_buff_tooltip("Magical Conduction\nIncreases attack speed.")
+	boekie_magic_conductor_bt = BuffType.new("boekie_magic_conductor_bt", 0.0, 0.0, true, self)
+	boekie_magic_conductor_bt.set_buff_icon("orb_swirly.tres")
+	boekie_magic_conductor_bt.set_buff_tooltip("Magical Conduction\nIncreases attack speed.")
+	boekie_magic_conductor_bt.set_stacking_group("boekie_magicConductor")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.20, 0.005)
+	boekie_magic_conductor_bt.set_buff_modifier(mod)
 
 
 func on_spell_target(_event: Event):
@@ -34,4 +34,4 @@ func on_spell_target(_event: Event):
 	var lvl: int = tower.get_level()
 
 	CombatLog.log_item_ability(item, null, "Conduct Magic")
-	boekie_magicConductor_buff.apply_custom_timed(tower, tower, lvl, 10.0)
+	boekie_magic_conductor_bt.apply_custom_timed(tower, tower, lvl, 10.0)

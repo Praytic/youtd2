@@ -10,7 +10,7 @@ extends ItemBehavior
 # where follow up attack to happen twice. So it was removed.
 
 
-var BT: BuffType
+var cedi_glaive_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -31,7 +31,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func attack(event: Event):
+# NOTE: attack() in original
+func cedi_glaive_bt_on_attack(event: Event):
 	var B: Buff = event.get_buff()
 	var t: Tower = B.get_buffed_unit()
 
@@ -40,14 +41,13 @@ func attack(event: Event):
 
 
 func item_init():
+	cedi_glaive_bt = BuffType.new("cedi_glaive_bt", 30, 0, true, self)
+	cedi_glaive_bt.set_buff_icon("hammer_swing.tres")
+	cedi_glaive_bt.set_buff_tooltip("Follow Up\nNext attack will be faster and will always be critical.")
+	cedi_glaive_bt.add_event_on_attack(cedi_glaive_bt_on_attack)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 3.0, 0.04)
-	
-	BT = BuffType.new("item162_bt", 30, 0, true, self)
-	BT.set_buff_icon("hammer_swing.tres")
-	BT.set_buff_modifier(mod)
-	BT.add_event_on_attack(attack)
-	BT.set_buff_tooltip("Follow Up\nNext attack will be faster and will always be critical.")
+	cedi_glaive_bt.set_buff_modifier(mod)
 
 
 func on_attack(_event: Event):
@@ -58,4 +58,4 @@ func on_attack(_event: Event):
 
 	CombatLog.log_item_ability(item, null, "Follow up")
 
-	BT.apply(item.get_carrier(), item.get_carrier(), item.get_carrier().get_level())
+	cedi_glaive_bt.apply(item.get_carrier(), item.get_carrier(), item.get_carrier().get_level())

@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_crit_aura2: BuffType
+var boekie_cruel_torch_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -18,12 +18,12 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	boekie_crit_aura2 = BuffType.create_aura_effect_type("boekie_crit_aura2", true, self)
-	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.035, 0.0)
-	boekie_crit_aura2.set_buff_icon("fireball.tres")
-	boekie_crit_aura2.set_buff_modifier(m)
-	boekie_crit_aura2.set_buff_tooltip("Flames of Fury\nIncreases critical chance.")
+	boekie_cruel_torch_bt = BuffType.create_aura_effect_type("boekie_cruel_torch_bt", true, self)
+	boekie_cruel_torch_bt.set_buff_icon("fireball.tres")
+	boekie_cruel_torch_bt.set_buff_tooltip("Flames of Fury\nIncreases critical chance.")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.035, 0.0)
+	boekie_cruel_torch_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 300
@@ -33,5 +33,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = boekie_crit_aura2
+	aura.aura_effect = boekie_cruel_torch_bt
 	item.add_aura(aura)

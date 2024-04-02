@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_spiderling_slow: BuffType
+var boekie_spiderling_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -19,15 +19,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	var m: Modifier = Modifier.new() 
-
-	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
-	boekie_spiderling_slow = BuffType.new("boekie_spiderling_slow", 4, 0, false, self)
-	boekie_spiderling_slow.set_buff_icon("star.tres") 
-	boekie_spiderling_slow.set_buff_modifier(m) 
-	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
-
-	boekie_spiderling_slow.set_buff_tooltip("Webbed\nReduces movement speed.")
+	boekie_spiderling_bt = BuffType.new("boekie_spiderling_bt", 4, 0, false, self)
+	boekie_spiderling_bt.set_buff_icon("star.tres") 
+	boekie_spiderling_bt.set_stacking_group("boekieSpiderlingSlow")
+	boekie_spiderling_bt.set_buff_tooltip("Webbed\nReduces movement speed.")
+	var mod: Modifier = Modifier.new() 
+	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
+	boekie_spiderling_bt.set_buff_modifier(mod) 
 
 
 func on_attack(event: Event):
@@ -36,4 +34,4 @@ func on_attack(event: Event):
 
 	if tower.calc_chance(0.25 * speed) == true:
 		CombatLog.log_item_ability(item, event.get_target(), "Spiderling Poison")
-		boekie_spiderling_slow.apply(tower, event.get_target(), 1)
+		boekie_spiderling_bt.apply(tower, event.get_target(), 1)

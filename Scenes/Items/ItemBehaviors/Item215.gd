@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var PT: ProjectileType
+var cedi_overcharge_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -21,7 +21,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func PT_Hit(P: Projectile, U: Unit):
+# NOTE: PT_Hit() in original script
+func cedi_overcharge_pt_on_collision(P: Projectile, U: Unit):
 	var T: Tower
 
 	if U.get_instance_id() != P.user_int:
@@ -31,8 +32,8 @@ func PT_Hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create_ranged("FireLordDeathExplode.mdl", 350.0, 1000.0, self)
-	PT.enable_collision(PT_Hit, 75.0, TargetType.new(TargetType.CREEPS), false)
+	cedi_overcharge_pt = ProjectileType.create_ranged("FireLordDeathExplode.mdl", 350.0, 1000.0, self)
+	cedi_overcharge_pt.enable_collision(cedi_overcharge_pt_on_collision, 75.0, TargetType.new(TargetType.CREEPS), false)
 
 
 func on_damage(event: Event):
@@ -45,6 +46,6 @@ func on_damage(event: Event):
 		T = item.get_carrier()
 		C = event.get_target()
 		angle = rad_to_deg(atan2(C.global_position.y - T.global_position.y, C.global_position.x - T.global_position.x))
-		P = Projectile.create_from_unit(PT, T, C, angle, 1.0, 1.0)
+		P = Projectile.create_from_unit(cedi_overcharge_pt, T, C, angle, 1.0, 1.0)
 		P.user_int = C.get_instance_id()
 		P.user_real = T.get_current_attack_damage_with_bonus() * (0.35 + 0.006 * T.get_level())

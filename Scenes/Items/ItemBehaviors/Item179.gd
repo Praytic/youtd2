@@ -6,7 +6,7 @@ extends ItemBehavior
 # script sets it to true but according to description
 # autocast is performed "on a nearby tower".
 
-var drol_talisman: BuffType
+var drol_talisman_bt: BuffType
 
 
 func get_autocast_description() -> String:
@@ -22,13 +22,13 @@ func get_autocast_description() -> String:
 
 
 func item_init():
-	var m: Modifier = Modifier.new()
-	drol_talisman = BuffType.new("drol_talisman", 10, 0, true, self)
-	drol_talisman.set_buff_icon("orb_triple.tres")
-	m.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.2, 0.008)
-	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.1, 0.002)
-	drol_talisman.set_buff_modifier(m)
-	drol_talisman.set_buff_tooltip("Shamanistic Ritual\nIncreases experience received and attack damage.")
+	drol_talisman_bt = BuffType.new("drol_talisman_bt", 10, 0, true, self)
+	drol_talisman_bt.set_buff_icon("orb_triple.tres")
+	drol_talisman_bt.set_buff_tooltip("Shamanistic Ritual\nIncreases experience received and attack damage.")
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.2, 0.008)
+	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.1, 0.002)
+	drol_talisman_bt.set_buff_modifier(mod)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shamanistic Ritual"
@@ -42,7 +42,7 @@ func item_init():
 	autocast.cooldown = 10
 	autocast.is_extended = false
 	autocast.mana_cost = 0
-	autocast.buff_type = drol_talisman
+	autocast.buff_type = drol_talisman_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.cast_range = 450
 	autocast.auto_range = 450

@@ -6,8 +6,8 @@ extends ItemBehavior
 # user_int. We don't need to save it because ItemBehavior
 # has access to item reference.
 
-var boekie_backpackBuff: BuffType
-var boekie_backpackMB: MultiboardValues
+var boekie_backpack_bt: BuffType
+var multiboard: MultiboardValues
 
 
 func get_autocast_description() -> String:
@@ -20,7 +20,7 @@ func get_autocast_description() -> String:
 
 func on_autocast(_event: Event):
 	var tower: Unit = item.get_carrier()
-	boekie_backpackBuff.apply_only_timed(tower, tower, 1000)
+	boekie_backpack_bt.apply_only_timed(tower, tower, 1000)
 
 
 func item_init():
@@ -44,15 +44,17 @@ func item_init():
 
 	item.set_autocast(autocast)
 
-	boekie_backpackBuff = BuffType.new("boekie_backpackBuff", 0, 0, true, self)
-	boekie_backpackBuff.set_buff_icon("gear_1.tres")
-	boekie_backpackBuff.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
-	boekie_backpackBuff.add_event_on_kill(backpack_kill)
-	boekie_backpackMB = MultiboardValues.new(1)
-	boekie_backpackMB.set_key(0, "Items Backpacked")
+	boekie_backpack_bt = BuffType.new("boekie_backpack_bt", 0, 0, true, self)
+	boekie_backpack_bt.set_buff_icon("gear_1.tres")
+	boekie_backpack_bt.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
+	boekie_backpack_bt.add_event_on_kill(boekie_backpack_bt_on_kill)
+	
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Items Backpacked")
 
 
-func backpack_kill(event: Event):
+# NOTE: backpackKill() in original script
+func boekie_backpack_bt_on_kill(event: Event):
 	var B: Buff = event.get_buff()
 	var tower: Tower = B.get_buffed_unit()
 	var creep: Creep = event.get_target()
@@ -70,6 +72,6 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var items_backpacked_text: String = Utils.format_float(item.user_int, 0)
-	boekie_backpackMB.set_value(0, items_backpacked_text)
+	multiboard.set_value(0, items_backpacked_text)
 
-	return boekie_backpackMB
+	return multiboard

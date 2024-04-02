@@ -12,7 +12,7 @@ extends ItemBehavior
 # turns blueish later.
 
 
-var daem_frog_PT: ProjectileType
+var daem_frog_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -30,20 +30,22 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
+# NOTE: deem_FrogAttack() in original script
 func daem_frog_attack(tower: Tower, target: Unit, temp: int):
 	var x: float = tower.get_visual_x()
 	var y: float = tower.get_visual_y()
 
 	var angle: float = rad_to_deg(atan2(target.get_y() - y, target.get_x() - x))
 
-	var p: Projectile = Projectile.create(daem_frog_PT, tower, 0, 0, x + Globals.synced_rng.randi_range(-40, 40), y + Globals.synced_rng.randi_range(-40, 40), 5.0, angle + temp)
+	var p: Projectile = Projectile.create(daem_frog_pt, tower, 0, 0, x + Globals.synced_rng.randi_range(-40, 40), y + Globals.synced_rng.randi_range(-40, 40), 5.0, angle + temp)
 	p.set_color(Color8(100, 255, 100, 255))
 	p.user_int = temp
 	p.user_real = tower.get_current_attack_damage_with_bonus()
 	p.user_real2 = tower.calc_attack_multicrit_no_bonus()
 
 
-func daem_frog_PT_on_hit(p: Projectile, target: Unit):
+# NOTE: deem_FrogCollision() in original script
+func daem_frog_pt_on_hit(p: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -52,12 +54,12 @@ func daem_frog_PT_on_hit(p: Projectile, target: Unit):
 
 
 func item_init():
-	daem_frog_PT = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
-	daem_frog_PT.enable_collision(daem_frog_PT_on_collision, 190, TargetType.new(TargetType.CREEPS), false)
-	daem_frog_PT.enable_homing(daem_frog_PT_on_hit, 0)
-	daem_frog_PT.enable_periodic(daem_frog_PT_periodic, 0.60)
-	daem_frog_PT.set_acceleration(-36)
-	daem_frog_PT.disable_explode_on_hit()
+	daem_frog_pt = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
+	daem_frog_pt.enable_collision(daem_frog_pt_on_collision, 190, TargetType.new(TargetType.CREEPS), false)
+	daem_frog_pt.enable_homing(daem_frog_pt_on_hit, 0)
+	daem_frog_pt.enable_periodic(daem_frog_pt_periodic, 0.60)
+	daem_frog_pt.set_acceleration(-36)
+	daem_frog_pt.disable_explode_on_hit()
 
 
 func on_attack(event: Event):
@@ -77,7 +79,8 @@ func on_attack(event: Event):
 		daem_frog_attack(item.get_carrier(), target, Globals.synced_rng.randi_range(20, 40))
 
 
-func daem_frog_PT_on_collision(p: Projectile, target: Unit):
+# NOTE: deem_FrogHome() in original script
+func daem_frog_pt_on_collision(p: Projectile, target: Unit):
 	if target.get_size() == CreepSize.enm.AIR:
 		return
 
@@ -90,7 +93,8 @@ func daem_frog_PT_on_collision(p: Projectile, target: Unit):
 	p.set_remaining_lifetime(3.0)
 
 
-func daem_frog_PT_periodic(projectile: Projectile):
+# NOTE: deem_FrogPeriodic() in original script
+func daem_frog_pt_periodic(projectile: Projectile):
 	projectile.user_int *= -1
 	projectile.set_speed(500)
 	projectile.set_direction(projectile.get_direction() + projectile.user_int)

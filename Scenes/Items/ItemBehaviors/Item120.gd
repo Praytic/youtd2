@@ -19,7 +19,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func drol_chainStun(event: Event, d: DummyUnit):
+# NOTE: drol_chainStun() in original script
+func drol_chain_st_on_damage(event: Event, d: DummyUnit):
 	var creep: Unit = event.get_target()
 
 	if creep.get_category() == 0 || creep.get_category() == 3:
@@ -29,11 +30,8 @@ func drol_chainStun(event: Event, d: DummyUnit):
 func item_init():
 	cb_stun = CbStun.new("item_120_stun", 0, 0, false, self)
 	
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)
-
 	drol_chain_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
-	drol_chain_st.set_damage_event(drol_chainStun)
+	drol_chain_st.set_damage_event(drol_chain_st_on_damage)
 	drol_chain_st.data.chain_lightning.damage = 250
 	drol_chain_st.data.chain_lightning.damage_reduction = 0.25
 	drol_chain_st.data.chain_lightning.chain_count = 3

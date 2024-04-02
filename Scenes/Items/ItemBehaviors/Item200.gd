@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var Maj_spellbook: MultiboardValues
+var multiboard: MultiboardValues
 
 
 func get_ability_description() -> String:
@@ -27,10 +27,10 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	Maj_spellbook = MultiboardValues.new(3)
-	Maj_spellbook.set_key(0, "Waves Left")
-	Maj_spellbook.set_key(1, "Item Quality")
-	Maj_spellbook.set_key(2, "Item Chance")
+	multiboard = MultiboardValues.new(3)
+	multiboard.set_key(0, "Waves Left")
+	multiboard.set_key(1, "Item Quality")
+	multiboard.set_key(2, "Item Chance")
 
 
 func on_attack(event: Event):
@@ -109,11 +109,11 @@ func on_tower_details() -> MultiboardValues:
 	var waves_left_text: String = Utils.format_float(item.user_int, 2)
 	var item_quality_text: String = Utils.format_percent(item.user_real, 0)
 	var item_chance_text: String = Utils.format_percent(item.user_real2, 0)
-	Maj_spellbook.set_value(0, waves_left_text)
-	Maj_spellbook.set_value(1, item_quality_text)
-	Maj_spellbook.set_value(2, item_chance_text)
+	multiboard.set_value(0, waves_left_text)
+	multiboard.set_value(1, item_quality_text)
+	multiboard.set_value(2, item_chance_text)
 	
-	return Maj_spellbook
+	return multiboard
 
 
 func periodic(_event: Event):
