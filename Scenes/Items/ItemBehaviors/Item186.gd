@@ -41,7 +41,6 @@ func item_init():
 	drol_hangover = BuffType.new("drol_hangover", 8, 0, false, self)
 	drol_hangover.set_buff_modifier(m)
 	drol_hangover.set_buff_icon("orb_empty.tres")
-	drol_hangover.set_buff_icon_color(Color.BROWN)
 	drol_hangover.add_event_on_expire(drol_drunk)
 	drol_hangover.set_buff_tooltip("Drunk\nReduces attack speed and stuns after a period of time.")
 

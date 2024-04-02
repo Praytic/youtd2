@@ -37,7 +37,6 @@ func item_init():
 #	+ 0.01 seconds is a dirty hack to make damage tick 4 times with 100% duration
 	fright_poison_dagger_buff = BuffType.new("fright_poison_dagger_buff", 4.01, 0, false, self)
 	fright_poison_dagger_buff.set_buff_icon("letter_u_striked.tres")
-	fright_poison_dagger_buff.set_buff_icon_color(Color.GREEN)
 	fright_poison_dagger_buff.add_periodic_event(deal_damage, 1)
 	fright_poison_dagger_buff.set_buff_tooltip("Deadly Poison\nDeals damage over time.")
 

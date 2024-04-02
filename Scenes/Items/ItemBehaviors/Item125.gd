@@ -24,7 +24,6 @@ func item_init():
 
 	drol_spellDmgRecieved = BuffType.new("drol_spellDmgRecieved", 5, 0, false, self)
 	drol_spellDmgRecieved.set_buff_icon("orb_swirly.tres")
-	drol_spellDmgRecieved.set_buff_icon_color(Color.GOLD)
 	drol_spellDmgRecieved.set_buff_modifier(m)
 	drol_spellDmgRecieved.set_buff_tooltip("Resonance\nIncreases spell damage taken.")
 

@@ -23,7 +23,6 @@ func item_init():
 
 	drol_debuff_aura = BuffType.create_aura_effect_type("drol_debuff_aura", true, self)
 	drol_debuff_aura.set_buff_icon("orb_empty.tres")
-	drol_debuff_aura.set_buff_icon_color(Color.CORNFLOWER_BLUE)
 	drol_debuff_aura.set_buff_modifier(m)
 	drol_debuff_aura.set_buff_tooltip("Forcefield\nReduces debuff duration.")
 

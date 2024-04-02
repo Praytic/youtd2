@@ -32,7 +32,6 @@ func item_init():
 	human_aura.set_buff_modifier(m)
 	human_aura.set_stacking_group("human_aura")
 	human_aura.set_buff_icon("claw.tres")
-	human_aura.set_buff_icon_color(Color.BROWN)
 	human_aura.set_buff_tooltip("Bestial Rage\nIncreases damage dealt to orc and human creeps. Also increases DPS.")
 
 	var aura: AuraType = AuraType.new()

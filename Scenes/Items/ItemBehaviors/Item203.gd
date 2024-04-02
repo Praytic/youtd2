@@ -24,7 +24,6 @@ func item_init():
 	undead_aura.set_buff_modifier(m)
 	undead_aura.set_stacking_group("undead_aura")
 	undead_aura.set_buff_icon("cup_with_wings.tres")
-	undead_aura.set_buff_icon_color(Color.GOLD)
 	undead_aura.set_buff_tooltip("Holy Wrath\nIncreases damage dealt to Undead.")
 
 	var aura: AuraType = AuraType.new()

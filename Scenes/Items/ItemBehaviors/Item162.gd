@@ -45,7 +45,6 @@ func item_init():
 	
 	BT = BuffType.new("item162_bt", 30, 0, true, self)
 	BT.set_buff_icon("hammer_swing.tres")
-	BT.set_buff_icon_color(Color.GOLD)
 	BT.set_buff_modifier(mod)
 	BT.add_event_on_attack(attack)
 	BT.set_buff_tooltip("Follow Up\nNext attack will be faster and will always be critical.")

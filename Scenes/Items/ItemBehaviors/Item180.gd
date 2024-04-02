@@ -23,7 +23,6 @@ func item_init():
 	drol_libram = BuffType.create_aura_effect_type("drol_libram", true, self)
 	drol_libram.set_buff_modifier(m)
 	drol_libram.set_buff_icon("winged_man.tres")
-	drol_libram.set_buff_icon_color(Color.GOLD)
 	drol_libram.set_buff_tooltip("Grace\nIncreases experience received.")
 
 	var aura: AuraType = AuraType.new()

@@ -24,7 +24,6 @@ func item_init():
 	boekie_alliance_aura.set_buff_modifier(m) 
 	boekie_alliance_aura.set_stacking_group("boekie_alliance_aura")
 	boekie_alliance_aura.set_buff_icon("crystal.tres")
-	boekie_alliance_aura.set_buff_icon_color(Color.VIOLET)
 	boekie_alliance_aura.set_buff_tooltip("Motivation\nIncreases attack speed.")
 
 	var aura: AuraType = AuraType.new()

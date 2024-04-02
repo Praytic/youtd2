@@ -34,7 +34,6 @@ func item_init():
 	poussix_fright_aura.set_buff_modifier(m)
 	poussix_fright_aura.set_stacking_group("fright_aura")
 	poussix_fright_aura.set_buff_icon("ghost.tres")
-	poussix_fright_aura.set_buff_icon_color(Color.WHITE)
 	poussix_fright_aura.set_buff_tooltip("Fright\nReduces movement speed and armor.")
 
 	var aura: AuraType = AuraType.new()

@@ -29,7 +29,6 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.40, 0.0) 
 	BT = BuffType.new("item240_BT", 4, 0, true, self)
 	BT.set_buff_icon("claw.tres")
-	BT.set_buff_icon_color(Color.DARK_RED)
 	BT.set_buff_modifier(m) 
 	BT.set_buff_tooltip("Rampage\nIncreases attack speed, multicrit, critical damage and critical chance.")
 

@@ -33,7 +33,6 @@ func item_init():
     Symphony_armorReduce = BuffType.new("Symphony_armorReduce", 5, 0, false, self)
     Symphony_armorReduce.set_buff_modifier(m)
     Symphony_armorReduce.set_buff_icon("letter_omega.tres")
-    Symphony_armorReduce.set_buff_icon_color(Color.ORANGE)
     Symphony_armorReduce.set_buff_tooltip("Power of the Sword\nReduces armor.")
 
 

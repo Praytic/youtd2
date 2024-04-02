@@ -20,7 +20,6 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
 	Neotopia_Drumspeed = BuffType.create_aura_effect_type("Neotopia_Drumspeed", true, self)
 	Neotopia_Drumspeed.set_buff_icon("angel_wings.tres")
-	Neotopia_Drumspeed.set_buff_icon_color(Color.GREEN)
 	Neotopia_Drumspeed.set_buff_modifier(m)
 	Neotopia_Drumspeed.set_stacking_group("Neotopia_Drumspeed_Aura")
 	Neotopia_Drumspeed.set_buff_tooltip("Warsong Double Bass Effect\nIncreased attack speed.")

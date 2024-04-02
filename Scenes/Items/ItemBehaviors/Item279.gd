@@ -25,7 +25,6 @@ func item_init():
 	boekie_magicConductor_buff = BuffType.new("boekie_magicConductor_buff", 0.0, 0.0, true, self)
 	boekie_magicConductor_buff.set_buff_modifier(m)
 	boekie_magicConductor_buff.set_buff_icon("orb_swirly.tres")
-	boekie_magicConductor_buff.set_buff_icon_color(Color.BLUE)
 	boekie_magicConductor_buff.set_stacking_group("boekie_magicConductor")
 	boekie_magicConductor_buff.set_buff_tooltip("Magical Conduction\nIncreases attack speed.")
 

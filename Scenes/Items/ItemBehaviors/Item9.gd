@@ -46,7 +46,6 @@ func item_init():
 
 	boekie_backpackBuff = BuffType.new("boekie_backpackBuff", 0, 0, true, self)
 	boekie_backpackBuff.set_buff_icon("gear_1.tres")
-	boekie_backpackBuff.set_buff_icon_color(Color.BROWN)
 	boekie_backpackBuff.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
 	boekie_backpackBuff.add_event_on_kill(backpack_kill)
 	boekie_backpackMB = MultiboardValues.new(1)

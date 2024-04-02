@@ -44,7 +44,6 @@ extends ItemBehavior
 # 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 # 	example_buff = BuffType.new("example_buff", 5, 0, true, self)
 # 	example_buff.set_buff_icon("egg.tres")
-# 	example_buff.set_buff_icon_color(Color.WHITE)
 # 	example_buff.set_buff_modifier(m)
 # 	example_buff.set_stacking_group("example_buff")
 # 	example_buff.set_buff_tooltip("Title\nDescription.")

@@ -24,7 +24,6 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
 	boekie_spiderling_slow = BuffType.new("boekie_spiderling_slow", 4, 0, false, self)
 	boekie_spiderling_slow.set_buff_icon("star.tres") 
-	boekie_spiderling_slow.set_buff_icon_color(Color.WHITE) 
 	boekie_spiderling_slow.set_buff_modifier(m) 
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
 

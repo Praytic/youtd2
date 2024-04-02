@@ -33,7 +33,6 @@ func item_init():
 	poussix_multi_aura.set_buff_modifier(m)
 	poussix_multi_aura.set_stacking_group("multi_aura")
 	poussix_multi_aura.set_buff_icon("letter_omega_shiny.tres")
-	poussix_multi_aura.set_buff_icon_color(Color.CYAN)
 
 	poussix_multi_aura.set_buff_tooltip("Charitable Presence\nIncreases maximum mana, spell damage and trigger chances.")
 

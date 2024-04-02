@@ -21,7 +21,6 @@ func item_init():
 	boekie_skadiSlow_aura.set_buff_modifier(m)
 	boekie_skadiSlow_aura.set_stacking_group("boekie_skadiSlow_aura")
 	boekie_skadiSlow_aura.set_buff_icon("foot.tres")
-	boekie_skadiSlow_aura.set_buff_icon_color(Color.DARK_RED)
 	boekie_skadiSlow_aura.set_buff_tooltip("Skadi's Influence\nReduces movement speed.")
 
 	var aura: AuraType = AuraType.new()

@@ -51,7 +51,6 @@ func item_init():
 
 	BT = BuffType.new("Item208_BT", 5.0, 0.0, false, self)
 	BT.set_buff_icon("gear_2.tres")
-	BT.set_buff_icon_color(Color.GRAY)
 	BT.add_event_on_damaged(BT_dmg)
 	BT.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
 
