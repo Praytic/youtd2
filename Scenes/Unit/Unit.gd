@@ -517,8 +517,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 	if self is Tower:
 		var tower: Tower = self as Tower
 		var element: Element.enm = tower.get_element()
-		var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
-		element_mod = target._mod_value_map[mod_type]
+		element_mod = target.get_damage_from_element(element)
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
 
@@ -1590,7 +1589,7 @@ func get_base_health_regen_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_HP_REGEN]
 
 func get_base_health_regen_bonus_percent() -> float:
-	return _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
 
 func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
@@ -1715,10 +1714,17 @@ func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
 
 
+func get_damage_from_element(element: Element.enm) -> float:
+	var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
+	var damage_mod: float = max(0, _mod_value_map[mod_type])
+
+	return damage_mod
+
+
 # NOTE: unit.getDamageToCategory() in JASS
 func get_damage_to_category(category: CreepCategory.enm) -> float:
 	var mod_type: Modification.Type = CreepCategory.convert_to_mod_dmg_type(category)
-	var damage_mod: float = _mod_value_map[mod_type]
+	var damage_mod: float = max(0, _mod_value_map[mod_type])
 
 	return damage_mod
 
@@ -1726,7 +1732,7 @@ func get_damage_to_category(category: CreepCategory.enm) -> float:
 # NOTE: unit.getDamageToSize() in JASS
 func get_damage_to_size(creep_size: CreepSize.enm) -> float:
 	var mod_type: Modification.Type = CreepSize.convert_to_mod_dmg_type(creep_size)
-	var damage_mod: float = _mod_value_map[mod_type]
+	var damage_mod: float = max(0, _mod_value_map[mod_type])
 
 	return damage_mod
 
