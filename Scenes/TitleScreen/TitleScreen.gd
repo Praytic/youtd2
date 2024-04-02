@@ -19,6 +19,7 @@ enum Tab {
 @export var _auth_button: Button
 @export var _spacer_before_quit_button: VBoxContainer
 @export var _quit_button: Button
+@export var _room_menu: RoomMenu
 
 
 #########################
@@ -130,9 +131,9 @@ func _on_room_menu_back_pressed():
 
 
 func _on_room_menu_start_pressed():
-	var difficulty: Difficulty.enm = _configure_singleplayer_menu.get_difficulty()
-	var game_length: int = _configure_singleplayer_menu.get_game_length()
-	var game_mode: GameMode.enm = _configure_singleplayer_menu.get_game_mode()
+	var difficulty: Difficulty.enm = _room_menu.get_difficulty()
+	var game_length: int = _room_menu.get_game_length()
+	var game_mode: GameMode.enm = _room_menu.get_game_mode()
 	var origin_seed: int = randi()
-	
+
 	_start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
