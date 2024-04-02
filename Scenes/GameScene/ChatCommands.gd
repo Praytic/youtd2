@@ -7,6 +7,7 @@ class_name ChatCommands extends Node
 const READY: String = "/ready"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
+const CREATE_ITEM: String = "/createitem"
 
 const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
 	READY,
@@ -22,6 +23,7 @@ const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
 func process_command(player: Player, command: String):
 	var command_split: Array = command.split(" ")
 	var command_main: String = command_split[0]
+	var command_args: Array = command_split.slice(1)
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
@@ -37,6 +39,7 @@ func process_command(player: Player, command: String):
 		ChatCommands.READY: _command_ready(player)
 		ChatCommands.PAUSE: _command_pause(player)
 		ChatCommands.UNPAUSE: _command_unpause(player)
+		ChatCommands.CREATE_ITEM: _command_create_item(player, command_args)
 
 
 #########################
@@ -62,3 +65,16 @@ func _command_unpause(_player: Player):
 		team.set_waves_paused(false)
 
 	Messages.add_normal(null, "Unpaused the waves.")
+
+
+func _command_create_item(player: Player, args: Array):
+	if args.size() != 1:
+		Messages.add_error(player, "Invalid command args.")
+
+		return
+
+	var item_id: int = args[0].to_int()
+	var item: Item = Item.create(player, item_id, Vector2(0, 0))
+	item.fly_to_stash(0.0)
+
+	Messages.add_normal(player, "Created item %d" % item_id)
