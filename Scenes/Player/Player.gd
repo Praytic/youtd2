@@ -191,9 +191,12 @@ func is_able_to_research(element: Element.enm) -> bool:
 
 
 func get_player_name() -> String:
-	var player_name = str(_id)
+	var player_name: String 
 	if Config.enable_auth():
 		player_name = W4Manager.current_username
+	else:
+		player_name = "Player %d" % _id
+
 	return player_name
 
 
