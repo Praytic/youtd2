@@ -361,6 +361,11 @@ func uses_charges() -> bool:
 # ItemDrop object.
 # NOTE: Item.create() in JASS
 static func create(player: Player, item_id: int, position: Vector2) -> Item:
+	if player == null:
+		push_error("Player is null")
+
+		return null
+
 	var item: Item = Item.make(item_id, player)
 	Item.make_item_drop(item, position)
 	
@@ -368,6 +373,11 @@ static func create(player: Player, item_id: int, position: Vector2) -> Item:
 
 
 static func make(id: int, player: Player) -> Item:
+	if player == null:
+		push_error("Player is null")
+
+		return null
+	
 	var item_behavior_script_path: String = get_item_script_path(id)
 	var script_exists: bool = ResourceLoader.exists(item_behavior_script_path)
 	
