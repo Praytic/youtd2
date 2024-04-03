@@ -46,6 +46,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Increases bounty gain of a nearby tower and gives gold to player.\n"
+
+	return text
+
+
 func get_ability_ranges() -> Array[RangeData]:
 	return [RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
 
@@ -61,6 +69,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Golden Influence"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = "ResourceEffectTarget.mdl"
