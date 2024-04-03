@@ -87,6 +87,9 @@ func modify_lives(amount: float):
 		_is_game_over = true
 		game_over.emit()
 
+		_next_wave_timer.stop()
+		_extreme_timer.stop()
+
 
 # Current level is the level of the last started wave.
 # Starts at 0 and becomes 1 when the first wave starts.
@@ -155,6 +158,9 @@ func _on_next_wave_timer_timeout():
 
 
 func _on_player_wave_finished(level: int):
+	if _is_game_over:
+		return
+
 #	NOTE: need to check that *current* level was finished
 #	because waves can be finished out of order if they are
 #	force spawned by player.
