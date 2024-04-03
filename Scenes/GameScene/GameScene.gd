@@ -439,6 +439,10 @@ func _start_tutorial(game_mode: GameMode.enm):
 		
 	var tutorial_menu_scene: PackedScene = preload("res://Scenes/HUD/TutorialMenu.tscn")
 	_tutorial_menu = tutorial_menu_scene.instantiate()
+
+#	NOTE: need to reduce z_index of tutorial menu so that it
+#	doesn't obstruct tooltips
+	_tutorial_menu.z_index = -1
 	
 #	NOTE: add tutorial below game menu so that game can show the game menu on top of tutorial
 	_ui_layer.add_child(_tutorial_menu)
