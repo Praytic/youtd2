@@ -158,7 +158,7 @@ func _add_tower_button(tower_id: int, index: int):
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
-	HighlightUI.register_target("tower_button", tower_button, true)
+	HighlightUI.register_target("tower_button", tower_button)
 	tower_button.pressed.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("press_tower_button"))
 
 

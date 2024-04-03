@@ -18,11 +18,11 @@ var _active_tween_map: Dictionary = {}
 
 # Register target by name. It will be available for
 # highlighting.
-func register_target(target_name: String, target: Control, append: bool = false):
-	if append and _target_map.has(target_name):
-		_target_map[target_name].append(target)
-	else:
-		_target_map[target_name] = [target]
+func register_target(target_name: String, target: Control):
+	if !_target_map.has(target_name):
+		_target_map[target_name] = []
+	
+	_target_map[target_name].append(target)
 
 #	NOTE: need to remove target when it exits tree to avoid
 #	using invalid reference
