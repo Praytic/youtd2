@@ -444,6 +444,10 @@ func _start_tutorial(game_mode: GameMode.enm):
 	_ui_layer.add_child(_tutorial_menu)
 	var game_menu_index: int = _game_menu.get_index()
 	_ui_layer.move_child(_tutorial_menu, game_menu_index)
+
+#	NOTE: pause "game start" timer during tutorial so that
+#	player doesn't feel rushed while doing the tutorial
+	_game_start_timer.set_paused(true)
 	
 	_tutorial_controller = TutorialController.new()
 	_tutorial_controller.finished.connect(_on_tutorial_controller_finished)
@@ -480,6 +484,8 @@ func _on_tutorial_controller_finished():
 #	on in settings.
 	Settings.set_setting(Settings.SHOW_TUTORIAL_ON_START, false)
 	Settings.flush()
+
+	_game_start_timer.set_paused(false)
 
 	_tutorial_controller.queue_free()
 	_tutorial_menu.queue_free()
