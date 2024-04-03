@@ -214,6 +214,9 @@ func _ready():
 	if Config.run_test_horadric_tool():
 		TestHoradricTool.run(local_player)
 
+	if Config.run_auto_playtest_bot():
+		PlaytestBot.run(_map)
+
 
 func _unhandled_input(event: InputEvent):
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")
