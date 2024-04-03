@@ -514,11 +514,13 @@ func _on_wave_spawner_wave_finished(level: int):
 
 	_builder.apply_wave_finished_effect(self)
 
-	var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
-	_tower_stash.add_towers(rolled_towers)
-
 	Messages.add_normal(self, "Income: %d upkeep, %d interest." % [upkeep, interest])
 	Messages.add_normal(self, "=== Level [color=GOLD]%d[/color] completed! ===" % level)
-	_add_message_about_rolled_towers(rolled_towers)
+
+	var game_mode_is_random: bool = Globals.game_mode_is_random()
+	if game_mode_is_random:
+		var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
+		_tower_stash.add_towers(rolled_towers)
+		_add_message_about_rolled_towers(rolled_towers)
 	
 	wave_finished.emit(level)
