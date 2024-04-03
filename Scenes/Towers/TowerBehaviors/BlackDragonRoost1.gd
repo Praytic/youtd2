@@ -97,9 +97,4 @@ func cedi_black_dragon_bt_on_damage(event: Event):
 		if creep.get_buff_of_type(cedi_black_dragon_bt) != null:
 			damage_increase *= 0.75
 
-	print("original damage=", event.damage)
-
 	event.damage *= (1.0 + damage_increase)
-
-	print("increased damage=", event.damage)
-

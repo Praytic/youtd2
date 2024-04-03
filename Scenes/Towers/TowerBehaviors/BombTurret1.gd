@@ -193,7 +193,6 @@ func on_damage(event: Event):
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), main_target, _stats.bomb_radius)
 
 	if is_concussive:
-		print("is_concussive")
 		while true:
 			var creep: Unit = creeps_in_range.next()
 			if creep == null:
@@ -225,7 +224,6 @@ func on_damage(event: Event):
 
 
 func on_autocast_concussive(_event: Event):
-	print("on_autocast_concussive")
 	switch_bomb_type(dave_concussive_tower_bt)
 
 
