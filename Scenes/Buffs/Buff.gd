@@ -139,9 +139,9 @@ func _add_periodic_event(handler: Callable, period: float):
 		timer.one_shot = false
 		timer.autostart = true
 		_inherited_periodic_timers[handler] = timer
+		timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
 
 	add_child(timer)
-	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
 
 
 func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
