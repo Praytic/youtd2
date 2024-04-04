@@ -177,7 +177,7 @@ func _update_upgrade_button():
 	var can_upgrade: bool
 	if upgrade_id != -1:
 		var local_player: Player = PlayerManager.get_local_player()
-		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, local_player) || Config.ignore_requirements()
+		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, local_player)
 		var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
 		var enough_tomes: bool = local_player.enough_tomes_for_tower(upgrade_id)
 		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes

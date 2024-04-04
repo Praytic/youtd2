@@ -40,12 +40,6 @@ func build_version() -> String:
 func minimap_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/minimap_enabled") as bool
 
-# Disables requirements for building and upgrading towers.
-# You will be able to perform all actions even if you don't
-# have enough gold, tomes or research levels.
-func ignore_requirements() -> bool:
-	return ProjectSettings.get_setting("application/config/ignore_requirements") as bool
-
 # Enable to make creeps always drop items on death.
 # Normally, items drop rarely, depending on creep's and
 # caster's item chance stats.

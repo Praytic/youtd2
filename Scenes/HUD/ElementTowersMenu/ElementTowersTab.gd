@@ -135,7 +135,7 @@ func _unlock_tower_buttons_if_possible():
 
 		var tower_id: int = button.get_tower_id()
 		var local_player: Player = PlayerManager.get_local_player()
-		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, local_player) || Config.ignore_requirements()
+		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, local_player)
 
 		if can_build_tower:
 			button.unlock()
