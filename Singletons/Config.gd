@@ -17,10 +17,6 @@ func starting_gold() -> int:
 func starting_tomes() -> int:
 	return ProjectSettings.get_setting("application/config/starting_tomes") as int
 
-# Removes time delay between waves 
-func fast_waves_enabled() -> bool:
-	return ProjectSettings.get_setting("application/config/fast_waves") as bool
-
 # Displays a godot icon texture on the location of a spell dummy.
 func visible_spell_dummys_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/visible_spell_dummys") as bool
@@ -43,10 +39,6 @@ func build_version() -> String:
 
 func minimap_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/minimap_enabled") as bool
-
-# Turns on visible damage numbers for all tower attacks.
-func damage_numbers() -> bool:
-	return ProjectSettings.get_setting("application/config/damage_numbers") as bool
 
 # Disables requirements for building and upgrading towers.
 # You will be able to perform all actions even if you don't
@@ -109,11 +101,6 @@ func always_show_tutorial() -> bool:
 
 	return tutorial_enabled
 
-
-# Enable to set random counters for item and tower buttons,
-# for testing purposes.
-func random_button_counters() -> bool:
-	return ProjectSettings.get_setting("application/config/random_button_counters") as bool
 
 # Override wave specials so that all waves have these
 # specials. Can be a single special or a comma-separated
@@ -185,17 +172,11 @@ func run_save_tooltips_tool() -> bool:
 func run_save_ranges_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_save_ranges_tool") as bool
 
-func use_saved_tooltips() -> bool:
-	return ProjectSettings.get_setting("application/config/use_saved_tooltips") as bool
-
 func unlimited_portal_lives() -> bool:
 	return ProjectSettings.get_setting("application/config/unlimited_portal_lives") as bool
 
 func show_hidden_buffs() -> bool:
 	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool
-
-func enable_coop_button() -> bool:
-	return ProjectSettings.get_setting("application/config/enable_coop_button") as bool
 
 func autostart_builder_id() -> int:
 	var builder_string: String = ProjectSettings.get_setting("application/config/autostart_builder") as String
