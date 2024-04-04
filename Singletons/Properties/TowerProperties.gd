@@ -277,7 +277,7 @@ func element_level_foo(tower_id: int, player: Player) -> bool:
 
 
 func requirements_are_satisfied(tower_id: int, player: Player) -> bool:
-	if Config.ignore_upgrade_requirements():
+	if Config.ignore_tower_requirements():
 		return true
 
 	var tier: int = TowerProperties.get_tier(tower_id)

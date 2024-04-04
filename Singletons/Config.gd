@@ -46,10 +46,10 @@ func minimap_enabled() -> bool:
 func always_drop_items() -> bool:
 	return ProjectSettings.get_setting("application/config/always_drop_items") as bool
 
-# Enable to be able to upgrade towers even if requirements
-# are not satisfied.
-func ignore_upgrade_requirements() -> bool:
-	return ProjectSettings.get_setting("application/config/ignore_upgrade_requirements") as bool
+# Makes the game ignore required wave level and element
+# level.
+func ignore_tower_requirements() -> bool:
+	return ProjectSettings.get_setting("application/config/ignore_tower_requirements") as bool
 
 # Enable to be able to zoom camera in and out using the
 # touchpad.
