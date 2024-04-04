@@ -4,6 +4,12 @@ signal go_to_title_pressed()
 signal quit_game_pressed()
 signal cancel_pressed()
 
+@export var _quit_game_button: Button
+
+
+func _ready():
+	_quit_game_button.visible = OS.has_feature("pc")
+
 
 func _on_go_to_title_button_pressed():
 	go_to_title_pressed.emit()

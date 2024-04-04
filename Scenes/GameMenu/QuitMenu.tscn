@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://Scenes/GameMenu/QuitMenu.gd" id="1_n2u7v"]
 
-[node name="QuitMenu" type="VBoxContainer"]
+[node name="QuitMenu" type="VBoxContainer" node_paths=PackedStringArray("_quit_game_button")]
 script = ExtResource("1_n2u7v")
+_quit_game_button = NodePath("QuitGameButton")
 
 [node name="GoToTitleButton" type="Button" parent="."]
 layout_mode = 2
