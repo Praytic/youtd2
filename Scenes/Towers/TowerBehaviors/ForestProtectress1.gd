@@ -6,8 +6,8 @@ extends TowerBehavior
 # Fixed it.
 
 
-var cedi_protectress_slow_bt: BuffType
-var cedi_protectress_aura_bt: BuffType
+var slow_bt: BuffType
+var aura_bt: BuffType
 var seconds_since_last_attack: int = 0
 var dmg_bonus_from_meld: float = 0.0
 
@@ -66,18 +66,18 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cedi_protectress_slow_bt = BuffType.new("cedi_protectress_slow_bt", 1.5, 0.04, true, self)
+	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.50, 0.0)
-	cedi_protectress_slow_bt.set_buff_modifier(mod)
-	cedi_protectress_slow_bt.set_buff_icon("foot.tres")
-	cedi_protectress_slow_bt.set_buff_tooltip("Protectress's Wrath\nReduces movement speed.")
+	slow_bt.set_buff_modifier(mod)
+	slow_bt.set_buff_icon("foot.tres")
+	slow_bt.set_buff_tooltip("Protectress's Wrath\nReduces movement speed.")
 
-	cedi_protectress_aura_bt = BuffType.create_aura_effect_type("cedi_protectress_aura_bt", true, self)
-	cedi_protectress_aura_bt.set_buff_icon("hammer_swing.tres")
-	cedi_protectress_aura_bt.add_event_on_attack(cedi_protectress_aura_bt_on_attack)
-	cedi_protectress_aura_bt.add_event_on_cleanup(cedi_protectress_aura_bt_on_cleanup)
-	cedi_protectress_aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nIncreases crit chance based on target's health.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("hammer_swing.tres")
+	aura_bt.add_event_on_attack(aura_bt_on_attack)
+	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
+	aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nIncreases crit chance based on target's health.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -89,7 +89,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = cedi_protectress_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -114,7 +114,7 @@ func on_damage(event: Event):
 		if next == null:
 			break
 
-		cedi_protectress_slow_bt.apply(tower, next, tower.get_level())
+		slow_bt.apply(tower, next, tower.get_level())
 
 	tower.set_sprite_color(Color.WHITE)
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -dmg_bonus_from_meld)
@@ -139,7 +139,7 @@ func periodic(event: Event):
 	event.enable_advanced(updated_period, false)
 
 
-func cedi_protectress_aura_bt_on_attack(event: Event):
+func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	var creep: Unit = event.get_target()
@@ -153,7 +153,7 @@ func cedi_protectress_aura_bt_on_attack(event: Event):
 	buff.user_real = new_bonus
 
 
-func cedi_protectress_aura_bt_on_cleanup(event: Event):
+func aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	var applied_bonus: float = buff.user_real

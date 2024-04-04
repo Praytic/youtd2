@@ -44,11 +44,11 @@ const missile_mod_to_string: Dictionary = {
 	MissileMod.AOE: "AoE",
 }
 
-var cb_silence: BuffType
-var cedi_sorc_slow_bt: BuffType
-var cedi_sorc_armor_bt: BuffType
-var cedi_sorc_spell_bt: BuffType
-var cedi_sorc_hpregen_bt: BuffType
+var silence_bt: BuffType
+var slow_bt: BuffType
+var sunder_bt: BuffType
+var spell_vuln_bt: BuffType
+var cripple_bt: BuffType
 var missile_pt: ProjectileType
 var multiboard: MultiboardValues
 var data: Data
@@ -137,38 +137,38 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	cb_silence = CbSilence.new("sorceress_silence", 0, 0, false, self)
+	silence_bt = CbSilence.new("sorceress_silence", 0, 0, false, self)
 
 	missile_pt = ProjectileType.create_ranged("FaerieDragonMissile.mdl", 1200, 1200, self)
 	missile_pt.enable_collision(missile_pt_on_collision, 150, TargetType.new(TargetType.CREEPS), false)
 
-	cedi_sorc_slow_bt = BuffType.new("cedi_sorc_slow_bt", 5, 0, false, self)
-	var cedi_sorc_slow_bt_mod: Modifier = Modifier.new()
-	cedi_sorc_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.01)
-	cedi_sorc_slow_bt.set_buff_modifier(cedi_sorc_slow_bt_mod)
-	cedi_sorc_slow_bt.set_buff_icon("foot.tres")
-	cedi_sorc_slow_bt.set_buff_tooltip("Magic Missile Slow\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.01)
+	slow_bt.set_buff_modifier(slow_bt_mod)
+	slow_bt.set_buff_icon("foot.tres")
+	slow_bt.set_buff_tooltip("Magic Missile Slow\nReduces movement speed.")
 
-	cedi_sorc_armor_bt = BuffType.new("cedi_sorc_armor_bt", 5, 0, false, self)
-	var cedi_sorc_armor_bt_mod: Modifier = Modifier.new()
-	cedi_sorc_armor_bt_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.0, -0.01)
-	cedi_sorc_armor_bt.set_buff_modifier(cedi_sorc_armor_bt_mod)
-	cedi_sorc_armor_bt.set_buff_icon("armor_cuirass.tres")
-	cedi_sorc_armor_bt.set_buff_tooltip("Magic Missile Sunder\nReduces armor.")
+	sunder_bt = BuffType.new("sunder_bt", 5, 0, false, self)
+	var sunder_bt_mod: Modifier = Modifier.new()
+	sunder_bt_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.0, -0.01)
+	sunder_bt.set_buff_modifier(sunder_bt_mod)
+	sunder_bt.set_buff_icon("armor_cuirass.tres")
+	sunder_bt.set_buff_tooltip("Magic Missile Sunder\nReduces armor.")
 
-	cedi_sorc_spell_bt = BuffType.new("cedi_sorc_spell_bt", 5, 0, false, self)
-	var cedi_sorc_spell_bt_mod: Modifier = Modifier.new()
-	cedi_sorc_spell_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.01)
-	cedi_sorc_spell_bt.set_buff_modifier(cedi_sorc_spell_bt_mod)
-	cedi_sorc_spell_bt.set_buff_icon("claw.tres")
-	cedi_sorc_spell_bt.set_buff_tooltip("Magic Missile Vulnerability\nIncreases spell damage taken.")
+	spell_vuln_bt = BuffType.new("spell_vuln_bt", 5, 0, false, self)
+	var spell_vuln_bt_mod: Modifier = Modifier.new()
+	spell_vuln_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.01)
+	spell_vuln_bt.set_buff_modifier(spell_vuln_bt_mod)
+	spell_vuln_bt.set_buff_icon("claw.tres")
+	spell_vuln_bt.set_buff_tooltip("Magic Missile Vulnerability\nIncreases spell damage taken.")
 
-	cedi_sorc_hpregen_bt = BuffType.new("cedi_sorc_hpregen_bt", 5, 0, false, self)
-	var cedi_sorc_hpregen_bt_mod: Modifier = Modifier.new()
-	cedi_sorc_hpregen_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.01)
-	cedi_sorc_hpregen_bt.set_buff_modifier(cedi_sorc_hpregen_bt_mod)
-	cedi_sorc_hpregen_bt.set_buff_icon("skull.tres")
-	cedi_sorc_hpregen_bt.set_buff_tooltip("Magic Missile Cripple\nReduces health regeneration.")
+	cripple_bt = BuffType.new("cripple_bt", 5, 0, false, self)
+	var cripple_bt_mod: Modifier = Modifier.new()
+	cripple_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.01)
+	cripple_bt.set_buff_modifier(cripple_bt_mod)
+	cripple_bt.set_buff_icon("skull.tres")
+	cripple_bt.set_buff_tooltip("Magic Missile Cripple\nReduces health regeneration.")
 
 	multiboard = MultiboardValues.new(8)
 	multiboard.set_key(0, "Damage %")
@@ -387,20 +387,20 @@ func missile_pt_on_collision(_p: Projectile, target: Unit):
 	var silence_chance: float = 0.50
 
 	if data.slow > 0:
-		cedi_sorc_slow_bt.apply(tower, target, data.slow)
+		slow_bt.apply(tower, target, data.slow)
 
 	if data.silence > 0:
 		if tower.calc_chance(silence_chance):
-			cb_silence.apply_only_timed(tower, target, data.silence)
+			silence_bt.apply_only_timed(tower, target, data.silence)
 
 	if data.regen > 0:
-		cedi_sorc_hpregen_bt.apply(tower, target, data.regen)
+		cripple_bt.apply(tower, target, data.regen)
 
 	if data.armor > 0:
-		cedi_sorc_armor_bt.apply(tower, target, data.armor)
+		sunder_bt.apply(tower, target, data.armor)
 
 	if data.spell:
-		cedi_sorc_spell_bt.apply(tower, target, data.spell)
+		spell_vuln_bt.apply(tower, target, data.spell)
 
 	if data.dmg > 0:
 		var damage: float = tower.get_current_attack_damage_with_bonus() * data.dmg / 100.0

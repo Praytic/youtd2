@@ -9,9 +9,9 @@ extends TowerBehavior
 # and making projectiles move along the y axis.
 
 
-var cedi_coco_bt: BuffType
-var cb_stun: BuffType
-var cedi_coco_pt: ProjectileType
+var cooldown_bt: BuffType
+var stun_bt: BuffType
+var coco_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -67,14 +67,14 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	var pt_range: float = COCONUT_RANGE
 	var pt_speed: float = 1000
-	cedi_coco_pt = ProjectileType.create_ranged("catapultmissile.mdl", pt_range, pt_speed, self)
-	cedi_coco_pt.set_event_on_expiration(cedi_coco_pt_on_hit)
+	coco_pt = ProjectileType.create_ranged("catapultmissile.mdl", pt_range, pt_speed, self)
+	coco_pt.set_event_on_expiration(coco_pt_on_hit)
 
-	cb_stun = CbStun.new("coconut_sapling_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	cedi_coco_bt = CbStun.new("cedi_coco_bt", STUN_CD, 0, false, self)
-	cedi_coco_bt.set_buff_icon("shield.tres")
-	cedi_coco_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
+	cooldown_bt = BuffType.new("cooldown_bt", STUN_CD, 0, false, self)
+	cooldown_bt.set_buff_icon("shield.tres")
+	cooldown_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
 
 
 func on_damage(event: Event):
@@ -99,13 +99,13 @@ func on_damage(event: Event):
 		var coconut_pos: Vector2 = target.position + offset_vector_isometric
 #		NOTE: divide by 2 to account for isometric projection
 		coconut_pos.y -= COCONUT_RANGE / 2.0
-		var projectile: Projectile = Projectile.create(cedi_coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
+		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
 		projectile.setScale(0.30)
 		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
 		projectile.set_speed(random_speed)
 
 
-func cedi_coco_pt_on_hit(p: Projectile):
+func coco_pt_on_hit(p: Projectile):
 	var caster: Unit = p.get_caster()
 	var pos: Vector2 = p.position
 	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), pos.x, pos.y, 150)
@@ -122,6 +122,6 @@ func cedi_coco_pt_on_hit(p: Projectile):
 
 		caster.do_spell_damage(target, dmg, caster.calc_spell_crit_no_bonus())
 
-		if target.get_buff_of_type(cedi_coco_bt) == null:
-			cb_stun.apply_only_timed(caster, target, STUN_DURATION)
-			cedi_coco_bt.apply_only_timed(caster, target, STUN_CD)
+		if target.get_buff_of_type(cooldown_bt) == null:
+			stun_bt.apply_only_timed(caster, target, STUN_DURATION)
+			cooldown_bt.apply_only_timed(caster, target, STUN_CD)

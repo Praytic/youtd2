@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var boekie_extract_exp_bt: BuffType
-var boekie_channel_energy_bt: BuffType
+var extract_bt: BuffType
+var channel_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -87,17 +87,17 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	boekie_extract_exp_bt = BuffType.new("boekie_extract_exp_bt", EXTRACT_DURATION, 0, false, self)
-	boekie_extract_exp_bt.add_event_on_damaged(boekie_extract_exp_bt_on_damaged)
-	boekie_extract_exp_bt.set_buff_icon("goldbar.tres")
-	boekie_extract_exp_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
+	extract_bt = BuffType.new("extract_bt", EXTRACT_DURATION, 0, false, self)
+	extract_bt.add_event_on_damaged(extract_bt_on_damaged)
+	extract_bt.set_buff_icon("goldbar.tres")
+	extract_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
 
-	boekie_channel_energy_bt = BuffType.new("boekie_channel_energy_bt", -1, 0, true, self)
+	channel_bt = BuffType.new("channel_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
-	boekie_channel_energy_bt.set_buff_modifier(mod)
-	boekie_channel_energy_bt.set_buff_icon("electricity.tres")
-	boekie_channel_energy_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
+	channel_bt.set_buff_modifier(mod)
+	channel_bt.set_buff_icon("electricity.tres")
+	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Extract Experience"
@@ -114,7 +114,7 @@ func tower_init():
 	autocast.mana_cost = 20
 	autocast.target_self = false
 	autocast.is_extended = false
-	autocast.buff_type = boekie_extract_exp_bt
+	autocast.buff_type = extract_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -122,7 +122,7 @@ func tower_init():
 
 func on_spell_target(event: Event):
 	var caster: Unit = event.get_target()
-	var buff: Buff = tower.get_buff_of_type(boekie_channel_energy_bt)
+	var buff: Buff = tower.get_buff_of_type(channel_bt)
 	var tower_level: int = tower.get_level()
 	var buff_level: int = int((_stats.channel_mod_dmg + CHANNEL_MOD_DMG_ADD * tower_level) * 1000)
 	var stack_duration: float = _stats.channel_buff_duration + CHANNEL_BUFF_DURATION_ADD * tower_level
@@ -133,7 +133,7 @@ func on_spell_target(event: Event):
 	caster.add_exp(1)
 
 	if buff == null:
-		buff = boekie_channel_energy_bt.apply(tower, tower, buff_level)
+		buff = channel_bt.apply(tower, tower, buff_level)
 		buff.user_int = 1
 	else:
 		var reached_max_stacks: bool = buff.user_int >= CHANNEL_STACK_COUNT
@@ -146,7 +146,7 @@ func on_spell_target(event: Event):
 	await Utils.create_timer(stack_duration).timeout
 
 	if Utils.unit_is_valid(tower):
-		buff = tower.get_buff_of_type(boekie_channel_energy_bt)
+		buff = tower.get_buff_of_type(channel_bt)
 
 		if buff == null:
 			return
@@ -160,12 +160,12 @@ func on_spell_target(event: Event):
 
 func on_autocast(event: Event):
 	var level: int = tower.get_level()
-	var buff: Buff = boekie_extract_exp_bt.apply(tower, event.get_target(), level)
+	var buff: Buff = extract_bt.apply(tower, event.get_target(), level)
 	var extraction_count: int = EXTRACT_COUNT + EXTRACT_COUNT_ADD * level
 	buff.user_int = extraction_count
 
 
-func boekie_extract_exp_bt_on_damaged(event: Event):
+func extract_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var exp_gain: float = _stats.extract_exp + buff.get_level() * _stats.extract_exp_add
 	var extract_count: int = buff.user_int

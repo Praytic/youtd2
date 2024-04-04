@@ -8,7 +8,7 @@ extends ItemBehavior
 # stuff.
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -27,7 +27,7 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cb_stun = CbStun.new("item_13_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func periodic(_event: Event):
@@ -46,9 +46,9 @@ func periodic(_event: Event):
 		loop_counter = loop_counter - 1
 
 		if tower.get_level() == 25:
-			cb_stun.apply_only_timed(tower, creep, 1.0)
+			stun_bt.apply_only_timed(tower, creep, 1.0)
 		else:
-			cb_stun.apply_only_timed(tower, creep, 0.5)
+			stun_bt.apply_only_timed(tower, creep, 0.5)
 
 		SFX.sfx_at_unit("feralspirittarget.mdl", creep)
 

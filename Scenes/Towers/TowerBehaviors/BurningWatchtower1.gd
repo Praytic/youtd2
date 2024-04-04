@@ -6,7 +6,7 @@ extends TowerBehavior
 # floating text isn't implemented
 
 
-var natac_burning_buff: BuffType
+var burning_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,14 +49,16 @@ func get_ability_description_short() -> String:
 
 
 # b.userReal: The user Real is the current bonus damage of the buff. Init with 0
-func init_on_create(event: Event):
+# NOTE: initOnCreate() in original script
+func burning_bt_on_create(event: Event):
 	var b: Buff = event.get_buff()
 	b.user_real = 0.0
 	b.user_int = 0
 
 
 # Increase damage gain and do direct damage to the target by setting the event damage
-func damage_on_fire_attack(event: Event):
+# NOTE: damageOnFireAttack() in original script
+func burning_bt_on_damaged(event: Event):
 	var b: Buff = event.get_buff()
 
 	var damage_gain: float
@@ -85,7 +87,8 @@ func damage_on_fire_attack(event: Event):
 
 # Does damage to all units around the buffed unit, if the buffed unit dies
 # b.userInt: AOE damage of the current buff.
-func explode_on_death(event: Event):
+# NOTE: explodeOnDeath() in original script
+func burning_bt_on_death(event: Event):
 	var b: Buff = event.get_buff()
 	var killer: Unit = event.get_target()
 	var buffed_unit: Unit = b.get_buffed_unit()
@@ -98,13 +101,13 @@ func tower_init():
 #   level: damage gain per attack
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
-	natac_burning_buff = BuffType.new("natac_burning_buff", 0.0, 0.0, false, self)
-	natac_burning_buff.set_buff_icon("running_man_burning.tres")
-	natac_burning_buff.add_event_on_create(init_on_create)
-	natac_burning_buff.add_event_on_damaged(damage_on_fire_attack)
-	natac_burning_buff.add_event_on_death(explode_on_death)
+	burning_bt = BuffType.new("burning_bt", 0.0, 0.0, false, self)
+	burning_bt.set_buff_icon("running_man_burning.tres")
+	burning_bt.add_event_on_create(burning_bt_on_create)
+	burning_bt.add_event_on_damaged(burning_bt_on_damaged)
+	burning_bt.add_event_on_death(burning_bt_on_death)
 
-	natac_burning_buff.set_buff_tooltip("Burning Structures\nIncreases damage taken from Fire towers. If the target dies while burning, it will explode dealing damage to nearby units.")
+	burning_bt.set_buff_tooltip("Burning Structures\nIncreases damage taken from Fire towers. If the target dies while burning, it will explode dealing damage to nearby units.")
 
 
 func load_triggers(triggers_buff_type: BuffType):
@@ -116,7 +119,7 @@ func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var level: float = _stats.bonus_damage + tower_level * _stats.bonus_damage_add
 	var duration: float = 5 + tower_level * 0.12
-	var b: Buff = natac_burning_buff.apply_custom_timed(tower, target, int(level * 100), duration)
+	var b: Buff = burning_bt.apply_custom_timed(tower, target, int(level * 100), duration)
 
 #	Upgrade AOE-damage, if it makes sense
 	if b.user_int < _stats.explode_damage:

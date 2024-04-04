@@ -5,7 +5,7 @@ extends TowerBehavior
 # event. Changed to use a bool flag instead.
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 var bolt_count: int = 0
@@ -74,7 +74,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cb_stun = CbStun.new("zeus_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Thunderstorm"
@@ -135,7 +135,7 @@ func periodic(_event: Event):
 				do_stun = true
 
 			if do_stun:
-				cb_stun.apply_only_timed(tower, bolt_target, 0.5)
+				stun_bt.apply_only_timed(tower, bolt_target, 0.5)
 
 			SFX.sfx_on_unit("MonsoonBoltTarget.mdl", bolt_target, Unit.BodyPart.ORIGIN)
 

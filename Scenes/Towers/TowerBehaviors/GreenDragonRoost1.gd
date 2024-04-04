@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_green_dragon_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -34,12 +34,12 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	boekie_green_dragon_bt = BuffType.create_aura_effect_type("boekie_green_dragon_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
-	boekie_green_dragon_bt.set_buff_modifier(mod)
-	boekie_green_dragon_bt.set_buff_icon("flexing_arm.tres")
-	boekie_green_dragon_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("flexing_arm.tres")
+	aura_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -51,5 +51,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = boekie_green_dragon_bt
+	aura.aura_effect = aura_bt
 	return [aura]

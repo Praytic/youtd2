@@ -7,7 +7,7 @@ extends TowerBehavior
 # ratio is calculated to be more straightforward.
 
 
-var natac_nuclear_target_bt: BuffType
+var targeted_pt: BuffType
 var _progress_bar: ProgressBar
 
 
@@ -27,11 +27,11 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	natac_nuclear_target_bt = BuffType.new("natac_nuclear_target_bt", -1, 0, false, self)
-	natac_nuclear_target_bt.set_buff_icon("gear_1.tres")
-	natac_nuclear_target_bt.add_event_on_create(natac_nuclear_target_bt_on_create)
-	natac_nuclear_target_bt.add_event_on_refresh(natac_nuclear_target_bt_on_refresh)
-	natac_nuclear_target_bt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")
+	targeted_pt = BuffType.new("targeted_pt", -1, 0, false, self)
+	targeted_pt.set_buff_icon("gear_1.tres")
+	targeted_pt.add_event_on_create(targeted_pt_on_create)
+	targeted_pt.add_event_on_refresh(targeted_pt_on_refresh)
+	targeted_pt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")
 
 
 func on_create(_preceding_tower: Tower):
@@ -46,7 +46,7 @@ func on_create(_preceding_tower: Tower):
 
 func on_attack(event: Event):
 	var target: Unit = event.get_target()
-	natac_nuclear_target_bt.apply(tower, target, tower.get_level())
+	targeted_pt.apply(tower, target, tower.get_level())
 
 
 func on_damage(event: Event):
@@ -59,7 +59,7 @@ func on_damage(event: Event):
 	Effect.set_animation_speed(target_effect, 0.5)
 	Effect.set_lifetime(target_effect, 0.05)
 
-	var target_buff: Buff = target.get_buff_of_type(natac_nuclear_target_bt)
+	var target_buff: Buff = target.get_buff_of_type(targeted_pt)
 
 # 	NOTE: do not remove buff if user_int is above 0 so that
 # 	the multiple launchers work correctly together
@@ -80,11 +80,11 @@ func periodic(_event: Event):
 	_progress_bar.set_as_ratio(cd_ratio)
 
 
-func natac_nuclear_target_bt_on_create(event: Event):
+func targeted_pt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	buff.user_int = 0
 
 
-func natac_nuclear_target_bt_on_refresh(event: Event):
+func targeted_pt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	buff.user_int += 1

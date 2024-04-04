@@ -1,8 +1,8 @@
 extends TowerBehavior
 
-var cb_stun: BuffType
-var dave_fatigue_bt: BuffType
-var dave_axe_pt: ProjectileType
+var stun_bt: BuffType
+var fatigue_bt: BuffType
+var axe_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -75,17 +75,17 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("northern_troll_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
-	dave_fatigue_bt = BuffType.new("dave_fatigue_bt", FATIGUE_DURATION, 0, false, self)
+	fatigue_bt = BuffType.new("fatigue_bt", FATIGUE_DURATION, 0, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
-	dave_fatigue_bt.set_buff_modifier(mod)
-	dave_fatigue_bt.set_buff_icon("skull.tres")
-	dave_fatigue_bt.set_buff_tooltip("Fatigue\nReduces attack speed.")
+	fatigue_bt.set_buff_modifier(mod)
+	fatigue_bt.set_buff_icon("skull.tres")
+	fatigue_bt.set_buff_tooltip("Fatigue\nReduces attack speed.")
 
-	dave_axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)
-	dave_axe_pt.set_event_on_interpolation_finished(on_projectile_hit)
+	axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)
+	axe_pt.set_event_on_interpolation_finished(on_projectile_hit)
 
 
 func on_attack(event: Event):
@@ -97,11 +97,11 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Ice Smashing Axe")
 
-	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(dave_axe_pt, tower, 1, 1, tower, creep, 0.2, true)
+	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(axe_pt, tower, 1, 1, tower, creep, 0.2, true)
 	var dmg_per_purge: float = _stats.smashing_axe_dmg + _stats.smashing_axe_dmg_add * level
 	projectile.user_real = dmg_per_purge
 	projectile.setScale(1.5)
-	dave_fatigue_bt.apply(tower, tower, tower.get_level())
+	fatigue_bt.apply(tower, tower, tower.get_level())
 
 
 func on_damage(event: Event):
@@ -146,6 +146,6 @@ func on_projectile_hit(projectile: Projectile, creep: Unit):
 		tower.do_attack_damage(creep, damage_from_purges, tower.calc_attack_multicrit_no_bonus())
 
 		if purged_count > PURGE_COUNT_FOR_STUN:
-			cb_stun.apply_only_timed(tower, creep, stun_duration)
+			stun_bt.apply_only_timed(tower, creep, stun_duration)
 
 	SFX.sfx_at_unit("FrostWyrmMissile.mdl", creep)

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var regen_well_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -72,12 +72,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	regen_well_bt = BuffType.create_aura_effect_type("regen_well_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.001)
-	regen_well_bt.set_buff_modifier(mod)
-	regen_well_bt.set_buff_icon("orb_swirly.tres")
-	regen_well_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("orb_swirly.tres")
+	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Replenish"
@@ -94,7 +94,7 @@ func tower_init():
 	autocast.mana_cost = 200
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = regen_well_bt
+	autocast.buff_type = aura_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -112,7 +112,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = regen_well_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

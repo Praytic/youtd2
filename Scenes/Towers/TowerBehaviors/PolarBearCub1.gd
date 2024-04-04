@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_frost_furbolg: BuffType
-var sir_frost_furbolg_2: BuffType
+var cold_feet_bt: BuffType
+var cold_arms_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -50,22 +50,22 @@ func on_cleanup(event: Event):
 
 
 func tower_init():
-	var m: Modifier = Modifier.new()
-	var m2: Modifier = Modifier.new()
+	var cold_feet_bt_mod: Modifier = Modifier.new()
+	var cold_arms_bt_mod: Modifier = Modifier.new()
 
-	sir_frost_furbolg = BuffType.new("sir_frost_furbolg", 0, 0, true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
-	sir_frost_furbolg.set_buff_modifier(m)
-	sir_frost_furbolg.set_stacking_group("sir_frost_furbolg")
-	sir_frost_furbolg.set_buff_icon("foot.tres")
-	sir_frost_furbolg.add_event_on_cleanup(on_cleanup)
-	sir_frost_furbolg.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
+	cold_feet_bt = BuffType.new("cold_feet_bt", 0, 0, true, self)
+	cold_feet_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
+	cold_feet_bt.set_buff_modifier(cold_feet_bt_mod)
+	cold_feet_bt.set_stacking_group("cold_feet_bt")
+	cold_feet_bt.set_buff_icon("foot.tres")
+	cold_feet_bt.add_event_on_cleanup(on_cleanup)
+	cold_feet_bt.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
 
-	sir_frost_furbolg_2 = BuffType.new("sir_frost_furbolg_2", 0, 0, true, self)
-	m2.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
-	sir_frost_furbolg_2.set_buff_modifier(m2)
-	sir_frost_furbolg_2.set_buff_icon("flexing_arm.tres")
-	sir_frost_furbolg_2.set_buff_tooltip("Cold Arms\nIncreases attack damage.")
+	cold_arms_bt = BuffType.new("cold_arms_bt", 0, 0, true, self)
+	cold_arms_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
+	cold_arms_bt.set_buff_modifier(cold_arms_bt_mod)
+	cold_arms_bt.set_buff_icon("flexing_arm.tres")
+	cold_arms_bt.set_buff_tooltip("Cold Arms\nIncreases attack damage.")
 
 
 func on_attack(_event: Event):
@@ -77,8 +77,8 @@ func on_attack(_event: Event):
 	elif tower.get_level() < 25:
 		power = 40
 
-	sir_frost_furbolg.apply_advanced(tower, tower, tower.user_int, tower.user_int * power, 6.0)
-	sir_frost_furbolg_2.apply_advanced(tower, tower, tower.user_int, tower.user_int * _stats.dmg_increase, 6.0)
+	cold_feet_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * power, 6.0)
+	cold_arms_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * _stats.dmg_increase, 6.0)
 
 
 func on_create(_preceding_tower: Tower):

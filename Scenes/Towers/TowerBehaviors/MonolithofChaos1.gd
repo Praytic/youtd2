@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_monolith_chaos_bt: BuffType
+var chaos_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -39,12 +39,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_monolith_chaos_bt = BuffType.new("cedi_monolith_chaos_bt", 3.0, 0.1, false, self)
+	chaos_bt = BuffType.new("chaos_bt", 3.0, 0.1, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
-	cedi_monolith_chaos_bt.set_buff_modifier(mod)
-	cedi_monolith_chaos_bt.set_buff_icon("armor_with_shoulderpads.tres")
-	cedi_monolith_chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
+	chaos_bt.set_buff_modifier(mod)
+	chaos_bt.set_buff_icon("armor_with_shoulderpads.tres")
+	chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
 
 
 func on_unit_in_range(event: Event, ):
@@ -64,4 +64,4 @@ func on_unit_in_range(event: Event, ):
 	else:
 		buff_level = 1
 
-	cedi_monolith_chaos_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
+	chaos_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)

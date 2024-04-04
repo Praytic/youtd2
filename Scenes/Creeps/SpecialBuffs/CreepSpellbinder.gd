@@ -1,21 +1,21 @@
 class_name CreepSpellbinder extends BuffType
 
 
-var slow_aura_effect: BuffType
-var cb_silence: BuffType
+var aura_bt: BuffType
+var silence_bt: BuffType
 
 
 func _init(parent: Node):
 	super("creep_spellbinder", 0, 0, true, parent)
 
-	cb_silence = CbSilence.new("creep_spellbinder_silence", 0, 0, false, self)
+	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
 	add_event_on_create(on_create)
 
-	slow_aura_effect = BuffType.create_aura_effect_type("creep_slow_aura_effect", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, -2.0, 0.0)
-	slow_aura_effect.set_buff_modifier(modifier)
+	aura_bt.set_buff_modifier(modifier)
 
 
 func on_create(event: Event):
@@ -70,6 +70,6 @@ func on_autocast(event: Event):
 		var tower_mana_after: float = tower_mana_before - stolen_mana
 		tower.set_mana(tower_mana_after)
 
-		cb_silence.apply_only_timed(creep, tower, 5.0) 
+		silence_bt.apply_only_timed(creep, tower, 5.0) 
 
 		zap_count += 1

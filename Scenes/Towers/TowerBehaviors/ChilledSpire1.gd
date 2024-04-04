@@ -11,7 +11,7 @@ extends TowerBehavior
 #    total regen reduction is halved for bosses.
 
 
-var sir_frost: BuffType
+var frozen_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -59,20 +59,20 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_frost = CbStun.new("sir_frost", -1, 0, false, self)
+	frozen_bt = CbStun.new("frozen_bt", -1, 0, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
-	sir_frost.set_buff_modifier(mod)
-	sir_frost.set_buff_icon("crystal.tres")
-	sir_frost.add_event_on_create(sir_frost_on_create)
-	sir_frost.add_event_on_cleanup(sir_frost_on_cleanup)
-	sir_frost.set_buff_tooltip("Frozen\nReduces health regeneration.")
+	frozen_bt.set_buff_modifier(mod)
+	frozen_bt.set_buff_icon("crystal.tres")
+	frozen_bt.add_event_on_create(frozen_bt_on_create)
+	frozen_bt.add_event_on_cleanup(frozen_bt_on_cleanup)
+	frozen_bt.set_buff_tooltip("Frozen\nReduces health regeneration.")
 
 
 func on_damage(event: Event):
 	var level: int = tower.get_level()
 	var creep: Creep = event.get_target()
-	var already_has_buff: bool = creep.get_buff_of_type(sir_frost) != null
+	var already_has_buff: bool = creep.get_buff_of_type(frozen_bt) != null
 	var effects_multiplier: float
 	if creep.get_size() >= CreepSize.enm.BOSS:
 		effects_multiplier = 0.5
@@ -90,17 +90,19 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Cold")
 
-	sir_frost.apply_custom_timed(tower, creep, buff_level, buff_duration)
+	frozen_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
 	SFX.sfx_at_unit("FreezingBreathTargetArt.mdl", creep)
 
 
-func sir_frost_on_create(event: Event):
+# NOTE: pauseAnim() in original script
+func frozen_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
 	creep.set_unit_time_scale(0.0)
 
 
-func sir_frost_on_cleanup(event: Event):
+# NOTE: unPauseAnim() in original script
+func frozen_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
 	creep.set_unit_time_scale(1.0)

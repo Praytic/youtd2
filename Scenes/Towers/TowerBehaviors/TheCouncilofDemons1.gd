@@ -10,11 +10,11 @@ extends TowerBehavior
 # projectile.
 
 
-var dave_council_aura_bt: BuffType
-var dave_council_mana_bt: BuffType
-var dave_council_maledict_bt: BuffType
-var dave_council_darkness_bt: BuffType
-var dave_council_pt: ProjectileType
+var aura_bt: BuffType
+var demonic_mana_bt: BuffType
+var maledict_bt: BuffType
+var darkness_bt: BuffType
+var missile_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -76,39 +76,39 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_council_darkness_bt = BuffType.new("dave_council_darkness_bt", 5, 0, false, self)
+	darkness_bt = BuffType.new("darkness_bt", 5, 0, false, self)
 	var dave_council_darkness_mod: Modifier = Modifier.new()
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.4, -0.006)
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, -0.95, 0.0)
-	dave_council_darkness_bt.set_buff_modifier(dave_council_darkness_mod)
-	dave_council_darkness_bt.set_buff_icon("running_man_burning.tres")
-	dave_council_darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
-	dave_council_darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
-	dave_council_darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
-	dave_council_darkness_bt.set_buff_tooltip("Impenetrable Darkness\nIncreases spell damage taken but reduces attack damage taken. Also deals damage on expiry.")
+	darkness_bt.set_buff_modifier(dave_council_darkness_mod)
+	darkness_bt.set_buff_icon("running_man_burning.tres")
+	darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
+	darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
+	darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
+	darkness_bt.set_buff_tooltip("Impenetrable Darkness\nIncreases spell damage taken but reduces attack damage taken. Also deals damage on expiry.")
 
-	dave_council_maledict_bt = BuffType.new("dave_council_maledict_bt", 5, 0, false, self)
+	maledict_bt = BuffType.new("maledict_bt", 5, 0, false, self)
 	var dave_council_maledict_mod: Modifier = Modifier.new()
 	dave_council_maledict_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.006)
-	dave_council_maledict_bt.set_buff_modifier(dave_council_maledict_mod)
-	dave_council_maledict_bt.set_buff_icon("running_man_burning.tres")
-	dave_council_maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
-	dave_council_maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
+	maledict_bt.set_buff_modifier(dave_council_maledict_mod)
+	maledict_bt.set_buff_icon("running_man_burning.tres")
+	maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
+	maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
 
-	dave_council_mana_bt = BuffType.new("dave_council_mana_bt", 3, 0, true, self)
+	demonic_mana_bt = BuffType.new("demonic_mana_bt", 3, 0, true, self)
 	var dave_council_mana_mod: Modifier = Modifier.new()
 	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
-	dave_council_mana_bt.set_buff_modifier(dave_council_mana_mod)
-	dave_council_mana_bt.set_buff_icon("orb_sparkly.tres")
-	dave_council_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
+	demonic_mana_bt.set_buff_modifier(dave_council_mana_mod)
+	demonic_mana_bt.set_buff_icon("orb_sparkly.tres")
+	demonic_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
 
-	dave_council_aura_bt = BuffType.create_aura_effect_type("dave_council_aura_bt", true, self)
-	dave_council_aura_bt.set_buff_icon("fireball.tres")
-	dave_council_aura_bt.add_event_on_spell_casted(dave_council_aura_bt_on_spell_casted)
-	dave_council_aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("fireball.tres")
+	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
+	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 
-	dave_council_pt = ProjectileType.create("DemonHunterMissile.mdl", 4, 1300, self)
-	dave_council_pt.enable_homing(dave_council_pt_on_hit, 0)
+	missile_pt = ProjectileType.create("DemonHunterMissile.mdl", 4, 1300, self)
+	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Impenetrable Darkness"
@@ -125,7 +125,7 @@ func tower_init():
 	autocast.mana_cost = 90
 	autocast.target_self = false
 	autocast.is_extended = false
-	autocast.buff_type = dave_council_darkness_bt
+	autocast.buff_type = darkness_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -140,7 +140,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = dave_council_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -155,16 +155,16 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Maledict")
 
-	dave_council_maledict_bt.apply(tower, creep, level)
+	maledict_bt.apply(tower, creep, level)
 
 
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	dave_council_darkness_bt.apply(tower, target, level)
+	darkness_bt.apply(tower, target, level)
 
 
-func dave_council_aura_bt_on_spell_casted(event: Event):
+func aura_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = event.get_target()
 	var caster: Tower = buff.get_buffed_unit()
@@ -178,12 +178,12 @@ func dave_council_aura_bt_on_spell_casted(event: Event):
 	CombatLog.log_ability(tower, target, "Demonic Edict on spell casted")
 	
 	SFX.sfx_at_unit("SleepSpecialArt.mdl", caster)
-	var p: Projectile = Projectile.create_from_unit_to_unit(dave_council_pt, tower, 1.0, 1.0, caster, target, true, false, true)
+	var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, caster, target, true, false, true)
 	p.user_real = projectile_damage
-	dave_council_mana_bt.apply(tower, caster, tower.get_level())
+	demonic_mana_bt.apply(tower, caster, tower.get_level())
 
 
-func dave_council_pt_on_hit(p: Projectile, creep: Unit):
+func missile_pt_on_hit(p: Projectile, creep: Unit):
 	if creep == null:
 		return
 

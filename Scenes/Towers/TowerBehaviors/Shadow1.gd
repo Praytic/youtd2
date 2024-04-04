@@ -22,7 +22,7 @@ extends TowerBehavior
 # kills that Shadow tower gets.
 
 
-var mock_shadow_aura_bt: BuffType
+var aura_bt: BuffType
 var orb_pt: ProjectileType
 var lesser_orb_pt: ProjectileType
 
@@ -77,10 +77,10 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	mock_shadow_aura_bt = BuffType.create_aura_effect_type("mock_shadow_aura_bt", true, self)
-	mock_shadow_aura_bt.set_buff_icon("mask_occult.tres")
-	mock_shadow_aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
-	mock_shadow_aura_bt.add_event_on_damage(mock_shadow_aura_bt_on_damage)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("mask_occult.tres")
+	aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
+	aura_bt.add_event_on_damage(aura_bt_on_damage)
 
 	orb_pt = ProjectileType.create("OrbDarkness.mdl", 8, 200, self)
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
@@ -98,7 +98,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = mock_shadow_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -133,7 +133,7 @@ func on_kill(event: Event):
 	# p.set_scale(1.25)
 
 
-func mock_shadow_aura_bt_on_damage(event: Event):
+func aura_bt_on_damage(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var target: Unit = event.get_target()

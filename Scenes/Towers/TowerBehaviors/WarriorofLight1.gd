@@ -2,7 +2,7 @@ extends TowerBehavior
 
 
 var shockwave_st: SpellType
-var mock_warrior_of_light_bt: BuffType
+var aura_bt: BuffType
 
 
 
@@ -65,12 +65,12 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	mock_warrior_of_light_bt = BuffType.create_aura_effect_type("mock_warrior_of_light_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
-	mock_warrior_of_light_bt.set_buff_modifier(mod)
-	mock_warrior_of_light_bt.set_buff_icon("letter_omega_shiny.tres")
-	mock_warrior_of_light_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("letter_omega_shiny.tres")
+	aura_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
 
 #	NOTE: original script and tooltip don't mention the
 #	radius of swarm so made it the same as for "Hell Bat"
@@ -93,7 +93,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = mock_warrior_of_light_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

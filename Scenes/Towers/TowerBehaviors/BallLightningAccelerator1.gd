@@ -1,10 +1,10 @@
 extends TowerBehavior
 
 
-var tomy_energetic_weapon_pt: ProjectileType
-var tomy_energy_absorption_target_bt: BuffType
-var tomy_energy_absorption_caster_bt: BuffType
-var tomy_slow_bt: BuffType
+var energetic_weapon_pt: ProjectileType
+var absorb_target_bt: BuffType
+var absorb_caster_bt: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -74,29 +74,29 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	tomy_energy_absorption_target_bt = BuffType.new("tomy_energy_absorption_target_bt", 8, 0, false, self)
-	var tomy_energy_absorption_target_mod: Modifier = Modifier.new()
-	tomy_energy_absorption_target_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.1, 0.001)
-	tomy_energy_absorption_target_bt.set_buff_modifier(tomy_energy_absorption_target_mod)
-	tomy_energy_absorption_target_bt.set_buff_icon("star.tres")
-	tomy_energy_absorption_target_bt.set_buff_tooltip("Energy Absorption\nDecreases attack speed.")
+	absorb_target_bt = BuffType.new("absorb_target_bt", 8, 0, false, self)
+	absorb_target_bt.set_buff_icon("star.tres")
+	absorb_target_bt.set_buff_tooltip("Energy Absorption\nDecreases attack speed.")
+	var absorb_target_bt_mod: Modifier = Modifier.new()
+	absorb_target_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.1, 0.001)
+	absorb_target_bt.set_buff_modifier(absorb_target_bt_mod)
 
-	tomy_energy_absorption_caster_bt = BuffType.new("tomy_energy_absorption_caster_bt", 8, 0, true, self)
-	var tomy_energy_absorption_caster_mod: Modifier = Modifier.new()
-	tomy_energy_absorption_caster_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
-	tomy_energy_absorption_caster_bt.set_buff_modifier(tomy_energy_absorption_caster_mod)
-	tomy_energy_absorption_caster_bt.set_buff_icon("winged_man.tres")
-	tomy_energy_absorption_caster_bt.set_buff_tooltip("Energy Absorption\nIncreases mana regeneration.")
+	absorb_caster_bt = BuffType.new("absorb_caster_bt", 8, 0, true, self)
+	absorb_caster_bt.set_buff_icon("winged_man.tres")
+	absorb_caster_bt.set_buff_tooltip("Energy Absorption\nIncreases mana regeneration.")
+	var absorb_caster_bt_mod: Modifier = Modifier.new()
+	absorb_caster_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
+	absorb_caster_bt.set_buff_modifier(absorb_caster_bt_mod)
 
-	tomy_energetic_weapon_pt = ProjectileType.create_ranged("FarseerMissile.mdl", 1000, 650, self)
-	tomy_energetic_weapon_pt.enable_collision(tomy_energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
+	energetic_weapon_pt = ProjectileType.create_ranged("FarseerMissile.mdl", 1000, 650, self)
+	energetic_weapon_pt.enable_collision(energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
 
-	tomy_slow_bt = BuffType.new("tomy_slow_bt", 1.5, 0.04, false, self)
-	var tomy_slow_mod: Modifier = Modifier.new()
-	tomy_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	tomy_slow_bt.set_buff_modifier(tomy_slow_mod)
-	tomy_slow_bt.set_buff_icon("foot.tres")
-	tomy_slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, false, self)
+	slow_bt.set_buff_icon("foot.tres")
+	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
+	slow_bt.set_buff_modifier(slow_bt_mod)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Energy Absorb"
@@ -124,7 +124,7 @@ func on_attack(event: Event):
 	var angle: float = atan2(target.get_y() - tower.get_y(), target.get_x() - tower.get_x())
 	var mana: float = tower.get_mana()
 
-	var p: Projectile = Projectile.create(tomy_energetic_weapon_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower.get_visual_x() + cos(angle) * 110, tower.get_visual_y() + sin(angle) * 110, 40, rad_to_deg(angle))
+	var p: Projectile = Projectile.create(energetic_weapon_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower.get_visual_x() + cos(angle) * 110, tower.get_visual_y() + sin(angle) * 110, 40, rad_to_deg(angle))
 	var damage_from_mana: float = mana * (3.0 + 0.05 * tower.get_level())
 	var projectile_damage: float = _stats.projectile_damage + _stats.projectile_damage_add * tower.get_level() + damage_from_mana
 	p.user_real = projectile_damage
@@ -146,14 +146,14 @@ func on_autocast(_event: Event):
 
 		if target != tower:
 			tower_count += 1
-			tomy_energy_absorption_target_bt.apply(tower, target, lvl)
+			absorb_target_bt.apply(tower, target, lvl)
 
 	if tower_count > 0:
 		var buff_level: int = (50 + lvl) * tower_count
-		tomy_energy_absorption_caster_bt.apply(tower, tower, buff_level)
+		absorb_caster_bt.apply(tower, tower, buff_level)
 
 
-func tomy_energetic_weapon_pt_on_hit(projectile: Projectile, target: Unit):
+func energetic_weapon_pt_on_hit(projectile: Projectile, target: Unit):
 	var caster: Unit = projectile.get_caster()
 	var lightning_start_pos: Vector3 = Vector3(
 		projectile.position.x + 50.0 * cos(deg_to_rad(projectile.get_direction())),
@@ -171,6 +171,6 @@ func tomy_energetic_weapon_pt_on_hit(projectile: Projectile, target: Unit):
 		slow = 20
 	var slow_buff_level: int = int(slow * 10)
 	var slow_buff_duration: float = 1.5 + 0.04 * caster.get_level()
-	tomy_slow_bt.apply_custom_timed(caster, target, slow_buff_level, slow_buff_duration)
+	slow_bt.apply_custom_timed(caster, target, slow_buff_level, slow_buff_duration)
 
 	SFX.sfx_at_unit("PurgeBuffTarget.mdl", target)

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cb_silence: BuffType
+var silence_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -67,7 +67,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_silence = CbSilence.new("void_drake_silence", 0, 0, false, self)
+	silence_bt = CbSilence.new("void_drake_silence", 0, 0, false, self)
 
 
 func on_damage(event: Event):
@@ -77,7 +77,7 @@ func on_damage(event: Event):
 	if creep.get_size() == CreepSize.enm.BOSS:
 		silence_duration = silence_duration * _stats.boss_silence_multiplier
 
-	cb_silence.apply_only_timed(tower, event.get_target(), silence_duration)
+	silence_bt.apply_only_timed(tower, event.get_target(), silence_duration)
 
 
 func periodic(_event: Event):

@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var maj_planar_eruption_bt: BuffType
-var maj_planar_dmg_mod_bt: BuffType
+var eruption_bt: BuffType
+var planar_shift_bt: BuffType
 var bouncing_pt: ProjectileType
 var falcon_count: int = 0
 
@@ -56,14 +56,14 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	maj_planar_eruption_bt = BuffType.new("maj_planar_eruption_bt", 6, 0.18, true, self)
-	maj_planar_eruption_bt.set_buff_icon("crystal.tres")
-	maj_planar_eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
+	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
+	eruption_bt.set_buff_icon("crystal.tres")
+	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
-	maj_planar_dmg_mod_bt = BuffType.new("maj_planar_dmg_mod_bt", -1, 0, false, self)
-	maj_planar_dmg_mod_bt.set_buff_icon("ghost.tres")
-	maj_planar_dmg_mod_bt.add_event_on_cleanup(maj_planar_dmg_mod_bt_on_cleanup)
-	maj_planar_dmg_mod_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
+	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
+	planar_shift_bt.set_buff_icon("ghost.tres")
+	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
+	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 
 	bouncing_pt = ProjectileType.create_interpolate("MurgulMagicMissile.mdl", 1250, self)
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)
@@ -83,7 +83,7 @@ func tower_init():
 	autocast.mana_cost = 1000
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = maj_planar_eruption_bt
+	autocast.buff_type = eruption_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -104,7 +104,7 @@ func on_attack(event: Event):
 
 	var crits: int = event.get_number_of_crits()
 	var cur_dmg: float = tower.get_current_attack_damage_with_bonus()
-	var eruption_buff: Buff = tower.get_buff_of_type(maj_planar_eruption_bt)
+	var eruption_buff: Buff = tower.get_buff_of_type(eruption_bt)
 
 #	Set the projectile values.
 	var p: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(bouncing_pt, tower, 1, 1, tower, target, 0.5, true)
@@ -140,7 +140,7 @@ func on_autocast(_event: Event):
 	var x: float = tower.get_visual_x()
 	var y: float = tower.get_visual_y()
 
-	maj_planar_eruption_bt.apply(tower, tower, tower.get_level())
+	eruption_bt.apply(tower, tower, tower.get_level())
 
 	var effect1: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect1, 0.5)
@@ -175,10 +175,10 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 		return
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 500)
-	var dmg_mod_buff: Buff = target.get_buff_of_type(maj_planar_dmg_mod_bt)
+	var dmg_mod_buff: Buff = target.get_buff_of_type(planar_shift_bt)
 
 #	Check if the tower cast the buff since the last time this projectile hit.
-	if tower.get_buff_of_type(maj_planar_eruption_bt) != null && p.user_int3 == 0:
+	if tower.get_buff_of_type(eruption_bt) != null && p.user_int3 == 0:
 		p.user_int3 = 1
 
 #	Check if the tower crit this attack, and if so, display
@@ -215,7 +215,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 			if dmg_mod_buff != null:
 				dmg_mod_buff.user_real += dmg_mod
 			else:
-				dmg_mod_buff = maj_planar_dmg_mod_bt.apply(tower, target, 0)
+				dmg_mod_buff = planar_shift_bt.apply(tower, target, 0)
 				dmg_mod_buff.user_real = dmg_mod
 
 #	Deal the damage (double if the projectile got buffed).
@@ -248,7 +248,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 
 # In case the buff gets purged.
 # NOTE: "removeMod()" in original script
-func maj_planar_dmg_mod_bt_on_cleanup(event: Event):
+func planar_shift_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	buffed_unit.modify_property(Modification.Type.MOD_DMG_FROM_ASTRAL, -buff.user_real)

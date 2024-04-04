@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var stern_commander_bt: BuffType
+var attack_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -23,13 +23,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	stern_commander_bt = BuffType.new("stern_commander_bt", 4, 0.1, true, self)
-	stern_commander_bt.set_buff_icon("hammer_swing.tres")
-	stern_commander_bt.set_buff_tooltip("Attack!\nIncreases attack speed.")
-	stern_commander_bt.set_stacking_group("stern_commander_bt")
+	attack_bt = BuffType.new("attack_bt", 4, 0.1, true, self)
+	attack_bt.set_buff_icon("hammer_swing.tres")
+	attack_bt.set_buff_tooltip("Attack!\nIncreases attack speed.")
+	attack_bt.set_stacking_group("attack_bt")
 	var mod: Modifier = Modifier.new() 
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
-	stern_commander_bt.set_buff_modifier(mod) 
+	attack_bt.set_buff_modifier(mod) 
 
 
 func on_attack(_event: Event):
@@ -52,4 +52,4 @@ func on_attack(_event: Event):
 			if nxt == null:
 				break
 
-			stern_commander_bt.apply_custom_timed(tower, nxt, tower.get_level(), 4 + 0.2 * tower.get_level())
+			attack_bt.apply_custom_timed(tower, nxt, tower.get_level(), 4 + 0.2 * tower.get_level())

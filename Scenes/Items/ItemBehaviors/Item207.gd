@@ -9,7 +9,7 @@ extends ItemBehavior
 # in some weird way.
 
 
-var drol_mefis_pt: ProjectileType
+var rocket_pt: ProjectileType
 var multiboard: MultiboardValues
 
 
@@ -30,7 +30,7 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: hitPT() in original script
-func drol_mefis_pt_on_hit(P: Projectile, U: Unit):
+func rocket_pt_on_hit(P: Projectile, U: Unit):
 	if U == null:
 		return
 
@@ -39,8 +39,8 @@ func drol_mefis_pt_on_hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	drol_mefis_pt = ProjectileType.create_interpolate("TinkerRocketMissile.mdl", 1000, self)
-	drol_mefis_pt.set_event_on_interpolation_finished(drol_mefis_pt_on_hit)
+	rocket_pt = ProjectileType.create_interpolate("TinkerRocketMissile.mdl", 1000, self)
+	rocket_pt.set_event_on_interpolation_finished(rocket_pt_on_hit)
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Damage")
@@ -82,6 +82,6 @@ func periodic(event: Event):
 			break
 
 	dmg = T.get_current_attack_damage_with_bonus() * (T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.get_level()))
-	P = Projectile.create_linear_interpolation_from_unit_to_unit(drol_mefis_pt, T, 1.0, 1.0, T, U, 0.35, true)
+	P = Projectile.create_linear_interpolation_from_unit_to_unit(rocket_pt, T, 1.0, 1.0, T, U, 0.35, true)
 	P.user_real = dmg
 	P.user_int = item.user_int

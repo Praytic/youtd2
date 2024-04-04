@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var drol_tundraStalker: BuffType
-var drol_tundraStalkerValues: MultiboardValues
+var ice_claw_bt: BuffType
+var multiboard: MultiboardValues
 
 
 func get_tier_stats() -> Dictionary:
@@ -74,7 +74,7 @@ func on_autocast(event: Event):
 
 	SFX.sfx_at_unit("FrostBoltMissile.mdl", event.get_target())
 	event.get_target().set_sprite_color(Color8(100, 100, 255, 255))
-	drol_tundraStalker.apply_custom_timed(tower, event.get_target(), _stats.buff_level, 5 + 0.2 * tower.get_level()).user_real = _stats.spell_damage + _stats.spell_damage_add * tower.get_level()
+	ice_claw_bt.apply_custom_timed(tower, event.get_target(), _stats.buff_level, 5 + 0.2 * tower.get_level()).user_real = _stats.spell_damage + _stats.spell_damage_add * tower.get_level()
 
 
 func drol_f_tundraStalker(event: Event):
@@ -91,17 +91,17 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.05)
 
-	drol_tundraStalker = BuffType.new("drol_tundraStalker", 5, 0.2, false, self)
-	drol_tundraStalker.set_buff_modifier(m)
+	ice_claw_bt = BuffType.new("ice_claw_bt", 5, 0.2, false, self)
+	ice_claw_bt.set_buff_modifier(m)
 	
-	drol_tundraStalker.set_buff_icon("claw.tres")
-	drol_tundraStalker.add_periodic_event(drol_f_tundraStalker, 1)
-	drol_tundraStalker.add_event_on_cleanup(drol_fade_tundraStalker)
+	ice_claw_bt.set_buff_icon("claw.tres")
+	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
+	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
-	drol_tundraStalker.set_buff_tooltip("Ice Claw\nDeals damage over time and reduces movement speed.")
+	ice_claw_bt.set_buff_tooltip("Ice Claw\nDeals damage over time and reduces movement speed.")
 
-	drol_tundraStalkerValues = MultiboardValues.new(1)
-	drol_tundraStalkerValues.set_key(0, "Speed Bonus")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Speed Bonus")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Ice Claw\n"
@@ -117,7 +117,7 @@ func tower_init():
 	autocast.cooldown = 2
 	autocast.is_extended = false
 	autocast.mana_cost = 10
-	autocast.buff_type = drol_tundraStalker
+	autocast.buff_type = ice_claw_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 850
 	autocast.handler = on_autocast
@@ -134,6 +134,6 @@ func on_create(preceding: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var speed_bonus_text: String = Utils.format_percent(tower.user_real, 1)
-	drol_tundraStalkerValues.set_value(0, speed_bonus_text)
+	multiboard.set_value(0, speed_bonus_text)
 
-	return drol_tundraStalkerValues
+	return multiboard

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var mc_slow: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,13 +49,13 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	mc_slow = BuffType.new("mc_slow", 0, 0, false, self)
-	mc_slow.set_buff_icon("foot.tres")
-	mc_slow.set_buff_modifier(slow)
-	mc_slow.set_buff_tooltip("Absolute Zero\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt.set_buff_icon("foot.tres")
+	slow_bt.set_buff_modifier(slow)
+	slow_bt.set_buff_tooltip("Absolute Zero\nReduces movement speed.")
 
 
 func on_damage(event: Event):
 	var s: int = int((_stats.slow_power + tower.get_level() * _stats.slow_power_add) * 10)
 
-	mc_slow.apply_custom_timed(tower, event.get_target(), s, 4)
+	slow_bt.apply_custom_timed(tower, event.get_target(), s, 4)

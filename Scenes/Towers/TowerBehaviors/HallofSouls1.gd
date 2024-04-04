@@ -7,7 +7,7 @@ extends TowerBehavior
 # for it's tier in apply_soul_bonus().
 
 
-var natac_hall_of_souls_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -51,10 +51,11 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	natac_hall_of_souls_bt = BuffType.create_aura_effect_type("natac_hall_of_souls_bt", false, self)
-	natac_hall_of_souls_bt.set_buff_icon("mask_occult.tres")
-	natac_hall_of_souls_bt.add_event_on_create(bt_on_create)
-	natac_hall_of_souls_bt.add_event_on_death(bt_on_death)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("mask_occult.tres")
+	aura_bt.add_event_on_create(aura_bt_on_create)
+	aura_bt.add_event_on_death(aura_bt_on_death)
+	aura_bt.set_hidden()
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -66,7 +67,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = natac_hall_of_souls_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -83,8 +84,8 @@ func on_create(preceding: Tower):
 	else:
 		tower.user_real3 = 0.0
 
-
-func bt_on_create(event: Event):
+# NOTE: setFamID() in original script
+func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var family: int = caster.get_family()
@@ -93,7 +94,8 @@ func bt_on_create(event: Event):
 
 # Iterate over all Hall of Souls towers in range of killed
 # creep and apply bonuses from "Revenge of Souls" ability
-func bt_on_death(event: Event):
+# NOTE: increaseDamageAndExp() in original script
+func aura_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(target, TargetType.new(TargetType.TOWERS), 1000)

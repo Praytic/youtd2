@@ -6,10 +6,9 @@ extends TowerBehavior
 # simpler method with same behavior.
 
 
-var ashbringer_intense_bt: BuffType
-var ashbringer_heart_aura_bt: BuffType
-var ashbringer_linger_bt: BuffType
-var ashbringer_attackrandom_bt: BuffType
+var intense_heat_bt: BuffType
+var aura_bt: BuffType
+var lingering_flames_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -89,24 +88,24 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	ashbringer_heart_aura_bt = BuffType.create_aura_effect_type("ashbringer_heart_aura_bt", true, self)
-	ashbringer_heart_aura_bt.set_buff_icon("hammer_swing.tres")
-	ashbringer_heart_aura_bt.add_event_on_create(ashbringer_heart_aura_bt_on_create)
-	ashbringer_heart_aura_bt.add_periodic_event(ashbringer_heart_aura_bt_periodic, 5.0)
-	ashbringer_heart_aura_bt.add_event_on_cleanup(ashbringer_heart_aura_bt_on_cleanup)
-	ashbringer_heart_aura_bt.set_buff_tooltip("Flames of the Forge\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("hammer_swing.tres")
+	aura_bt.add_event_on_create(aura_bt_on_create)
+	aura_bt.add_periodic_event(aura_bt_periodic, 5.0)
+	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
+	aura_bt.set_buff_tooltip("Flames of the Forge\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
-	ashbringer_intense_bt = BuffType.new("ashbringer_intense_bt", 4, 0, true, self)
-	var ashbringer_intense_bt_mod: Modifier = Modifier.new()
-	ashbringer_intense_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0005)
-	ashbringer_intense_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
-	ashbringer_intense_bt.set_buff_modifier(ashbringer_intense_bt_mod)
-	ashbringer_intense_bt.set_buff_icon("running_man_burning.tres")
-	ashbringer_intense_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
+	intense_heat_bt = BuffType.new("intense_heat_bt", 4, 0, true, self)
+	var intense_heat_bt_mod: Modifier = Modifier.new()
+	intense_heat_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0005)
+	intense_heat_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
+	intense_heat_bt.set_buff_modifier(intense_heat_bt_mod)
+	intense_heat_bt.set_buff_icon("running_man_burning.tres")
+	intense_heat_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
 
-	ashbringer_linger_bt = BuffType.new("ashbringer_linger_bt", 10, 0, false, self)
-	ashbringer_linger_bt.add_periodic_event(ashbringer_linger_bt_periodic, 1.0)
-	ashbringer_linger_bt.set_buff_tooltip("Lingering Flames\nDeals damage over time.")
+	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)
+	lingering_flames_bt.add_periodic_event(lingering_flames_bt_periodic, 1.0)
+	lingering_flames_bt.set_buff_tooltip("Lingering Flames\nDeals damage over time.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Intense Heat"
@@ -138,7 +137,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = ashbringer_heart_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -192,13 +191,13 @@ func on_autocast(_event: Event):
 		if next == null:
 			break
 
-		ashbringer_intense_bt.apply(tower, next, int(tower_mana / 15.0))
+		intense_heat_bt.apply(tower, next, int(tower_mana / 15.0))
 
 	tower.subtract_mana(tower_mana, true)
 
 
 func ashbringer_linger_apply(target: Unit):
-	var buff: Buff = target.get_buff_of_type(ashbringer_linger_bt)
+	var buff: Buff = target.get_buff_of_type(lingering_flames_bt)
 	
 	var power: int = 0
 	if buff != null:
@@ -206,10 +205,10 @@ func ashbringer_linger_apply(target: Unit):
 	else:
 		power = 1
 
-	ashbringer_linger_bt.apply_custom_power(tower, target, 1, power)
+	lingering_flames_bt.apply_custom_power(tower, target, 1, power)
 
 
-func ashbringer_linger_bt_periodic(event: Event):
+func lingering_flames_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var power: int = buff.get_power()
@@ -222,12 +221,12 @@ func ashbringer_linger_bt_periodic(event: Event):
 		tower.add_mana_perc(0.005 * power)
 
 
-func ashbringer_heart_aura_bt_on_create(event: Event):
+func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	ashbringer_heart_update(buff)
 
 
-func ashbringer_heart_aura_bt_periodic(event: Event):
+func aura_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	ashbringer_heart_update(buff)
 
@@ -260,7 +259,7 @@ func ashbringer_heart_update(buff: Buff):
 	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
 
 
-func ashbringer_heart_aura_bt_on_cleanup(event: Event):
+func aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_kodo_aura_bt: BuffType
+var aura_bt: BuffType
 var devour_count: int = 1
 
 
@@ -50,16 +50,16 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_kodo_aura_bt = BuffType.create_aura_effect_type("sir_kodo_aura_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0003)
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.0, 0.0015)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0010)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.0010)
-	sir_kodo_aura_bt.set_buff_modifier(mod)
-	sir_kodo_aura_bt.set_buff_icon("egg.tres")
-	sir_kodo_aura_bt.add_event_on_refresh(sir_kodo_aura_bt_on_refresh)
-	sir_kodo_aura_bt.set_buff_tooltip("Kodo Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("egg.tres")
+	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
+	aura_bt.set_buff_tooltip("Kodo Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -71,7 +71,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 100
 	aura.power_add = 2
-	aura.aura_effect = sir_kodo_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -102,7 +102,7 @@ func on_attack(event: Event):
 	tower.refresh_auras()
 
 
-func sir_kodo_aura_bt_on_refresh(event: Event):
+func aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_power: int = (100 + 2 * tower.get_level()) * devour_count
 	buff.set_power(new_power)

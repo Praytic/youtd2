@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var boekie_stim_bt: BuffType
-var boekie_grenade_bt: BuffType
-var boekie_shard_pt: ProjectileType
+var stim_bt: BuffType
+var fragged_bt: BuffType
+var shard_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -82,24 +82,24 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	boekie_stim_bt = BuffType.new("boekie_stim_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
+	stim_bt = BuffType.new("stim_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_stim_mod: Modifier = Modifier.new()
 	boekie_stim_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, STIM_ATTACKSPEED, 0.0)
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
-	boekie_stim_bt.set_buff_modifier(boekie_stim_mod)
-	boekie_stim_bt.set_buff_icon("meat.tres")
-	boekie_stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
+	stim_bt.set_buff_modifier(boekie_stim_mod)
+	stim_bt.set_buff_icon("meat.tres")
+	stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
 
-	boekie_grenade_bt = BuffType.new("boekie_grenade_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
+	fragged_bt = BuffType.new("fragged_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
-	boekie_grenade_bt.set_buff_modifier(boekie_grenade_mod)
-	boekie_grenade_bt.set_buff_icon("ankh.tres")
-	boekie_grenade_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
+	fragged_bt.set_buff_modifier(boekie_grenade_mod)
+	fragged_bt.set_buff_icon("ankh.tres")
+	fragged_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
 
-	boekie_shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
-	boekie_shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
-	boekie_shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
+	shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
+	shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
+	shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Stim"
@@ -130,19 +130,19 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, null, "Frag Grenade")
 
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(boekie_shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), false, true, false)
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), false, true, false)
 #	Set user_int to 1 to mark this grenade as "main grenade"
 	projectile.user_int = 1
 
 
 func on_autocast(_event: Event):
 	var level: int = tower.get_level()
-	boekie_stim_bt.apply(tower, tower, level)
+	stim_bt.apply(tower, tower, level)
 
 
 func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 	var level: int = tower.get_level()
-	var buff: Buff = target.get_buff_of_type(boekie_grenade_bt)
+	var buff: Buff = target.get_buff_of_type(fragged_bt)
 
 	var grenade_damage: float = _stats.grenade_damage + _stats.grenade_damage_add * level
 	projectile.do_spell_damage(target, grenade_damage)
@@ -151,9 +151,9 @@ func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 
 	if buff != null:
 		var buff_level: int = int(min(480, buff.get_level() + 20 + level))
-		boekie_grenade_bt.apply(tower, target, buff_level)
+		fragged_bt.apply(tower, target, buff_level)
 	else:
-		boekie_grenade_bt.apply(tower, target, level)
+		fragged_bt.apply(tower, target, level)
 
 
 func boekie_shard_on_expiration(projectile: Projectile):
@@ -167,7 +167,7 @@ func boekie_shard_on_expiration(projectile: Projectile):
 		return
 
 	for i in range(0, num_projectiles):
-		var small_grenade: Projectile = Projectile.create(boekie_shard_pt, tower, dmg_ratio, tower.calc_spell_crit_no_bonus(), projectile.get_x(), projectile.get_y(), projectile.get_z(), angle + Globals.synced_rng.randf_range(-8, 8))
+		var small_grenade: Projectile = Projectile.create(shard_pt, tower, dmg_ratio, tower.calc_spell_crit_no_bonus(), projectile.get_x(), projectile.get_y(), projectile.get_z(), angle + Globals.synced_rng.randf_range(-8, 8))
 #		Set user_int to 0 to mark this grenade as "not main"
 #		and stop recursion
 		small_grenade.user_int = 0

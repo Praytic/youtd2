@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var symphony_excalibur_bt: BuffType
+var power_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -28,12 +28,12 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-    symphony_excalibur_bt = BuffType.new("symphony_excalibur_bt", 5, 0, false, self)
-    symphony_excalibur_bt.set_buff_icon("letter_omega.tres")
-    symphony_excalibur_bt.set_buff_tooltip("Power of the Sword\nReduces armor.")
+    power_bt = BuffType.new("power_bt", 5, 0, false, self)
+    power_bt.set_buff_icon("letter_omega.tres")
+    power_bt.set_buff_tooltip("Power of the Sword\nReduces armor.")
     var mod: Modifier = Modifier.new()
     mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.2)
-    symphony_excalibur_bt.set_buff_modifier(mod)
+    power_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
@@ -41,6 +41,6 @@ func on_damage(event: Event):
 
     if event.is_main_target() == true:
         if Utils.rand_chance(Globals.synced_rng, 0.5):
-            symphony_excalibur_bt.apply(tower, event.get_target(), 25 + tower.get_level())
+            power_bt.apply(tower, event.get_target(), 25 + tower.get_level())
         else:
-            symphony_excalibur_bt.apply(tower, event.get_target(), 50 + tower.get_level())
+            power_bt.apply(tower, event.get_target(), 50 + tower.get_level())

@@ -10,7 +10,7 @@ class_name ShardofSouls1 extends TowerBehavior
 static var soul_link_id_max: int = 0
 
 
-var tomy_soul_link: BuffType
+var soul_link_bt: BuffType
 var is_soul_link_damage: bool = false
 
 
@@ -75,11 +75,11 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	tomy_soul_link = BuffType.new("tomy_soul_link", SOUL_LINK_DURATION, 0, false, self)
-	tomy_soul_link.add_event_on_damaged(soul_link_on_damaged)
-	tomy_soul_link.add_event_on_death(soul_link_on_death)
-	tomy_soul_link.set_buff_icon("orb_empty.tres")
-	tomy_soul_link.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
+	soul_link_bt = BuffType.new("soul_link_bt", SOUL_LINK_DURATION, 0, false, self)
+	soul_link_bt.add_event_on_damaged(soul_link_on_damaged)
+	soul_link_bt.add_event_on_death(soul_link_on_death)
+	soul_link_bt.set_buff_icon("orb_empty.tres")
+	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Link"
@@ -114,7 +114,7 @@ func on_autocast(event: Event):
 	elif level >= 15:
 		max_targets += 1
 
-	if current_target.get_buff_of_type(tomy_soul_link) == null:
+	if current_target.get_buff_of_type(soul_link_bt) == null:
 		target_list.append(current_target)
 		counter += 1
 	else:
@@ -131,7 +131,7 @@ func on_autocast(event: Event):
 		while true:
 			next = creeps_in_range.next()
 
-			if next == null || next.get_buff_of_type(tomy_soul_link) == null:
+			if next == null || next.get_buff_of_type(soul_link_bt) == null:
 				break
 
 		if next == null:
@@ -145,7 +145,7 @@ func on_autocast(event: Event):
 	ShardofSouls1.soul_link_id_max += 1
 
 	for target in target_list:
-		var buff: Buff = tomy_soul_link.apply(tower, target, level)
+		var buff: Buff = soul_link_bt.apply(tower, target, level)
 		buff.user_int = soul_link_id
 
 		var effect_id: int = Effect.create_simple_at_unit("FindSomeEffect.mdl", target)
@@ -172,7 +172,7 @@ func soul_link_on_damaged(event: Event):
 
 	while creeps_in_range.count() > 0:
 		var creep: Unit = creeps_in_range.next()
-		var creep_buff: Buff = creep.get_buff_of_type(tomy_soul_link)
+		var creep_buff: Buff = creep.get_buff_of_type(soul_link_bt)
 
 		if creep_buff == null:
 			continue

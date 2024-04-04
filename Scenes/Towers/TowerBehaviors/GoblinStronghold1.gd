@@ -12,12 +12,12 @@ extends TowerBehavior
 # and emitter. Created separate PT for emitter.
 
 
-var cedi_goblin_sapper_pt: ProjectileType
-var cedi_goblin_robot_pt: ProjectileType
-var cedi_goblin_emitter_pt: ProjectileType
-var cedi_goblin_sapper_bt: BuffType
-var cedi_goblin_robot_bt: BuffType
-var cedi_goblin_emitter_bt: BuffType
+var sapper_pt: ProjectileType
+var robot_pt: ProjectileType
+var emitter_pt: ProjectileType
+var sapper_bt: BuffType
+var robot_bt: BuffType
+var emitter_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -86,40 +86,40 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_goblin_sapper_pt = ProjectileType.create("GoblinSapper.mdl", 20, 700, self)
-	cedi_goblin_sapper_pt.enable_homing(cedi_goblin_sapper_pt_on_hit, 0)
+	sapper_pt = ProjectileType.create("GoblinSapper.mdl", 20, 700, self)
+	sapper_pt.enable_homing(sapper_pt_on_hit, 0)
 
-	cedi_goblin_robot_pt = ProjectileType.create_interpolate("HeroTinkerRobot.mdl", 200, self)
-	cedi_goblin_robot_pt.set_event_on_interpolation_finished(cedi_goblin_robot_pt_on_hit)
+	robot_pt = ProjectileType.create_interpolate("HeroTinkerRobot.mdl", 200, self)
+	robot_pt.set_event_on_interpolation_finished(robot_pt_on_hit)
 
-	cedi_goblin_emitter_pt = ProjectileType.create_interpolate("GoblinLandMine.mdl", 200, self)
-	cedi_goblin_emitter_pt.set_event_on_interpolation_finished(cedi_goblin_emitter_pt_on_hit)
+	emitter_pt = ProjectileType.create_interpolate("GoblinLandMine.mdl", 200, self)
+	emitter_pt.set_event_on_interpolation_finished(emitter_pt_on_hit)
 
-	cedi_goblin_sapper_bt = BuffType.new("cedi_goblin_sapper_bt", 3, 0, false, self)
+	sapper_bt = BuffType.new("sapper_bt", 3, 0, false, self)
 	var cedi_goblin_sapper_mod: Modifier = Modifier.new()
 	cedi_goblin_sapper_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	cedi_goblin_sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
-	cedi_goblin_sapper_bt.set_buff_icon("foot.tres")
-	cedi_goblin_sapper_bt.set_buff_tooltip("Sapper Burn\nThis creep was hit by a Goblin Sapper; it has reduced movement speed.")
+	sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
+	sapper_bt.set_buff_icon("foot.tres")
+	sapper_bt.set_buff_tooltip("Sapper Burn\nThis creep was hit by a Goblin Sapper; it has reduced movement speed.")
 
-	cedi_goblin_robot_bt = BuffType.new("cedi_goblin_robot_bt", 5, 0, true, self)
+	robot_bt = BuffType.new("robot_bt", 5, 0, true, self)
 	var cedi_goblin_robot_mod: Modifier = Modifier.new()
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
-	cedi_goblin_robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
-	cedi_goblin_robot_bt.set_buff_icon("gear_2.tres")
+	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
+	robot_bt.set_buff_icon("gear_2.tres")
 	# TODO: BuffType.set_special_effect() is not implemented yet
-	# cedi_goblin_robot_bt.set_special_effect("HeroTinkerRobot.mdl", 120, 0.7)
-	cedi_goblin_robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
+	# robot_bt.set_special_effect("HeroTinkerRobot.mdl", 120, 0.7)
+	robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
 
-	cedi_goblin_emitter_bt = BuffType.new("cedi_goblin_emitter_bt", 5, 0, true, self)
+	emitter_bt = BuffType.new("emitter_bt", 5, 0, true, self)
 	var cedi_goblin_emitter_mod: Modifier = Modifier.new()
 	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
-	cedi_goblin_emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
-	cedi_goblin_emitter_bt.set_buff_icon("crystal.tres")
+	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
+	emitter_bt.set_buff_icon("crystal.tres")
 	# TODO: BuffType.set_special_effect() is not implemented yet
-	# cedi_goblin_emitter_bt.set_special_effect("GoblinLandMine.mdl", 120, 1.0)
-	cedi_goblin_emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
+	# emitter_bt.set_special_effect("GoblinLandMine.mdl", 120, 1.0)
+	emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
 
 
 func on_attack(event: Event):
@@ -133,7 +133,7 @@ func on_attack(event: Event):
 
 	if do_sapper:
 		CombatLog.log_ability(tower, target, "Goblin Sapper")
-		Projectile.create_from_unit_to_unit(cedi_goblin_sapper_pt, tower, 1.0, 1.0, tower, target, true, false, false)
+		Projectile.create_from_unit_to_unit(sapper_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 
 	if do_robot:
 		CombatLog.log_ability(tower, target, "Clockwork Engineer")
@@ -145,7 +145,7 @@ func on_attack(event: Event):
 			next = it.next_random()
 
 		if next != null:
-			Projectile.create_linear_interpolation_from_unit_to_unit(cedi_goblin_robot_pt, tower, 1.0, 1.0, tower, next, 0.35, true)
+			Projectile.create_linear_interpolation_from_unit_to_unit(robot_pt, tower, 1.0, 1.0, tower, next, 0.35, true)
 
 	if do_emitter:
 		CombatLog.log_ability(tower, null, "Probability Field Emitter")
@@ -157,7 +157,7 @@ func on_attack(event: Event):
 			next = it.next_random()
 
 		if next != null:
-			var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_goblin_emitter_pt, tower, 1.0, 1.0, tower, next, 0.33, true)
+			var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(emitter_pt, tower, 1.0, 1.0, tower, next, 0.33, true)
 			var emitter_buff_level: int = Globals.synced_rng.randi_range(300, 600) + 6 * level
 			projectile.user_int = emitter_buff_level
 
@@ -167,7 +167,7 @@ func on_attack(event: Event):
 		tower.get_player().give_gold(5, tower, true, true)
 
 
-func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
+func sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -193,10 +193,10 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 			break
 
 		tower.do_spell_damage(next, sapper_damage, tower.calc_spell_crit_no_bonus())
-		cedi_goblin_sapper_bt.apply(tower, next, slow_buff_level)
+		sapper_bt.apply(tower, next, slow_buff_level)
 
 
-func cedi_goblin_robot_pt_on_hit(_projectile: Projectile, target: Unit):
+func robot_pt_on_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -206,13 +206,13 @@ func cedi_goblin_robot_pt_on_hit(_projectile: Projectile, target: Unit):
 	if tower == null:
 		return
 
-	cedi_goblin_robot_bt.apply(tower, target, buff_level)
+	robot_bt.apply(tower, target, buff_level)
 
 	var floating_text: String = "%d%% AS and DMG" % (buff_level / 10) 
 	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)
 
 
-func cedi_goblin_emitter_pt_on_hit(_projectile: Projectile, target: Unit):
+func emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -222,7 +222,7 @@ func cedi_goblin_emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 	if tower == null:
 		return
 
-	cedi_goblin_emitter_bt.apply(tower, target, buff_level)
+	emitter_bt.apply(tower, target, buff_level)
 
 	var floating_text: String = "%d%% Trigger Chance" % (buff_level / 10) 
 	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)

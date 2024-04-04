@@ -18,10 +18,10 @@ extends TowerBehavior
 # very powerful tower could be a net win.
 
 
-var dave_sacrifice_target_bt: BuffType
-var dave_sacrifice_altar_bt: BuffType
-var dave_blood_target_bt: BuffType
-var dave_blood_altar_bt: BuffType
+var sacrifice_boost_bt: BuffType
+var sacrifice_fatigue_bt: BuffType
+var bloodspill_boost_bt: BuffType
+var bloodspill_fatigue_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -109,31 +109,31 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_blood_target_bt = BuffType.new("dave_blood_target_bt", BUFF_DURATION, 0, true, self)
+	bloodspill_boost_bt = BuffType.new("bloodspill_boost_bt", BUFF_DURATION, 0, true, self)
 	var dave_blood_target: Modifier = Modifier.new()
 	dave_blood_target.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
-	dave_blood_target_bt.set_buff_modifier(dave_blood_target)
-	dave_blood_target_bt.set_buff_icon("running_man.tres")
-	dave_blood_target_bt.set_buff_tooltip("Blood Spill Boost\nIncreases attack speed.")
+	bloodspill_boost_bt.set_buff_modifier(dave_blood_target)
+	bloodspill_boost_bt.set_buff_icon("running_man.tres")
+	bloodspill_boost_bt.set_buff_tooltip("Blood Spill Boost\nIncreases attack speed.")
 
-	dave_blood_altar_bt = BuffType.new("dave_blood_altar_bt", BUFF_DURATION, 0, false, self)
+	bloodspill_fatigue_bt = BuffType.new("bloodspill_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_blood_altar: Modifier = Modifier.new()
 	dave_blood_altar.add_modification(Modification.Type.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
-	dave_blood_altar_bt.set_buff_modifier(dave_blood_altar)
-	dave_blood_altar_bt.set_buff_icon("mask_bat.tres")
-	dave_blood_altar_bt.set_buff_tooltip("Blood Spill Fatigue\nReduces attack damage by 100%.")
+	bloodspill_fatigue_bt.set_buff_modifier(dave_blood_altar)
+	bloodspill_fatigue_bt.set_buff_icon("mask_bat.tres")
+	bloodspill_fatigue_bt.set_buff_tooltip("Blood Spill Fatigue\nReduces attack damage by 100%.")
 
-	dave_sacrifice_target_bt = BuffType.new("dave_sacrifice_target_bt", BUFF_DURATION, 0, true, self)
-	dave_sacrifice_target_bt.set_buff_icon("skull.tres")
-	dave_sacrifice_target_bt.add_event_on_cleanup(dave_sacrifice_target_on_cleanup)
-	dave_sacrifice_target_bt.set_buff_tooltip("Sacrifice Boost\nIncreases DPS.")
+	sacrifice_boost_bt = BuffType.new("sacrifice_boost_bt", BUFF_DURATION, 0, true, self)
+	sacrifice_boost_bt.set_buff_icon("skull.tres")
+	sacrifice_boost_bt.add_event_on_cleanup(dave_sacrifice_target_on_cleanup)
+	sacrifice_boost_bt.set_buff_tooltip("Sacrifice Boost\nIncreases DPS.")
 
-	dave_sacrifice_altar_bt = BuffType.new("dave_sacrifice_altar_bt", BUFF_DURATION, 0, false, self)
+	sacrifice_fatigue_bt = BuffType.new("sacrifice_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_sacrifice_altar: Modifier = Modifier.new()
 	dave_sacrifice_altar.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
-	dave_sacrifice_altar_bt.set_buff_modifier(dave_sacrifice_altar)
-	dave_sacrifice_altar_bt.set_buff_icon("skull.tres")
-	dave_sacrifice_altar_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
+	sacrifice_fatigue_bt.set_buff_modifier(dave_sacrifice_altar)
+	sacrifice_fatigue_bt.set_buff_icon("skull.tres")
+	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sacrifice"
@@ -150,7 +150,7 @@ func tower_init():
 	autocast.mana_cost = 90
 	autocast.target_self = false
 	autocast.is_extended = false
-	autocast.buff_type = dave_sacrifice_target_bt
+	autocast.buff_type = sacrifice_boost_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -159,7 +159,7 @@ func tower_init():
 func on_attack(_event: Event):
 	var level: int = tower.get_level()
 	var chance: float = BLOODSPILL_CHANCE + _stats.bloodspill_chance_add * level
-	var blood_altar_buff: Buff = tower.get_buff_of_type(dave_blood_altar_bt)
+	var blood_altar_buff: Buff = tower.get_buff_of_type(bloodspill_fatigue_bt)
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), BLOODSPILL_RANGE)
 # 	NOTE: subtract 1 to exclude the tower itself
 	var num_towers: int = it.count() - 1
@@ -185,9 +185,9 @@ func on_attack(_event: Event):
 
 		if target != tower:
 			var buff_level: int = int((_stats.bloodspill_mod_attackspeed * 100 + level) / num_towers)
-			dave_blood_target_bt.apply(tower, target, buff_level)
+			bloodspill_boost_bt.apply(tower, target, buff_level)
 
-	dave_blood_altar_bt.apply(tower, tower, level)
+	bloodspill_fatigue_bt.apply(tower, tower, level)
 	var exp_gain: float = _stats.bloodspill_exp * num_towers
 	tower.add_exp(exp_gain)
 
@@ -195,21 +195,21 @@ func on_attack(_event: Event):
 func on_autocast(event: Event):
 	var target: Tower = event.get_target()
 	var same_family: bool = tower.get_family() == target.get_family()
-	var active_buff: Buff = target.get_buff_of_type(dave_sacrifice_target_bt)
+	var active_buff: Buff = target.get_buff_of_type(sacrifice_boost_bt)
 
 	if same_family:
 		return
 
 	if active_buff != null:
-		dave_sacrifice_target_bt.apply(tower, target, 0)
+		sacrifice_boost_bt.apply(tower, target, 0)
 	else:
-		var applied_buff: Buff = dave_sacrifice_target_bt.apply(tower, target, 0)
+		var applied_buff: Buff = sacrifice_boost_bt.apply(tower, target, 0)
 		var sacrifice_dmg_ratio: float = _stats.sacrifice_dmg_ratio + SACRIFICE_DMG_RATIO_ADD * tower.get_level()
 		var mod_dps_add_value: float = tower.get_current_attack_damage_with_bonus() * sacrifice_dmg_ratio
 		applied_buff.user_real = mod_dps_add_value
 		target.modify_property(Modification.Type.MOD_DPS_ADD, mod_dps_add_value)
 
-	dave_sacrifice_altar_bt.apply(tower, tower, tower.get_level())
+	sacrifice_fatigue_bt.apply(tower, tower, tower.get_level())
 
 
 func dave_sacrifice_target_on_cleanup(event: Event):

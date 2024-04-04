@@ -11,8 +11,8 @@ extends TowerBehavior
 #    single target damage.
 
 
-var cb_stun: BuffType
-var kel_slow: BuffType
+var stun_bt: BuffType
+var slow_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -124,14 +124,14 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("initiate_elementalist_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	kel_slow = BuffType.new("kel_slow", 0, 0, false, self)
-	kel_slow.set_buff_icon("letter_u_striked.tres")
-	kel_slow.set_buff_modifier(slow)
-	kel_slow.set_buff_tooltip("Slow\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt.set_buff_icon("letter_u_striked.tres")
+	slow_bt.set_buff_modifier(slow)
+	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")
 
 
 func on_attack(event: Event):
@@ -166,7 +166,7 @@ func on_attack_1(event: Event):
 			if u == null:
 				break
 
-			kel_slow.apply_custom_timed(tower, u, 100, 3)
+			slow_bt.apply_custom_timed(tower, u, 100, 3)
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
 		tower.do_spell_damage_aoe_unit(c, 250, 125 + tower.get_level() * 5, tower.calc_spell_crit_no_bonus(), 0)
@@ -187,7 +187,7 @@ func on_attack_2(event: Event):
 		CombatLog.log_ability(tower, c, "Aftershock")
 	
 		SFX.sfx_at_unit("AncientProtectorMissile.mdl", c)
-		cb_stun.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
+		stun_bt.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
 		tower.do_spell_damage(c, 750, tower.calc_spell_crit_no_bonus())
 	else:
 		CombatLog.log_ability(tower, c, "Frost Nova")
@@ -200,7 +200,7 @@ func on_attack_2(event: Event):
 			if u == null:
 				break
 
-			kel_slow.apply_custom_timed(tower, u, 120, 3)
+			slow_bt.apply_custom_timed(tower, u, 120, 3)
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
 		tower.do_spell_damage_aoe_unit(c, 250, 250 + tower.get_level() * 8, tower.calc_spell_crit_no_bonus(), 0)
@@ -221,7 +221,7 @@ func on_attack_3(event: Event):
 		CombatLog.log_ability(tower, c, "Aftershock")
 		
 		SFX.sfx_at_unit("AncientProtectorMissile.mdl", c)
-		cb_stun.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
+		stun_bt.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
 		tower.do_spell_damage(c, 2000, tower.calc_spell_crit_no_bonus())
 	elif random_spell_id < 9:
 		CombatLog.log_ability(tower, c, "Frost Nova")
@@ -234,7 +234,7 @@ func on_attack_3(event: Event):
 			if u == null:
 				break
 
-			kel_slow.apply_custom_timed(tower, u, 140, 4)
+			slow_bt.apply_custom_timed(tower, u, 140, 4)
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
 		tower.do_spell_damage_aoe_unit(c, 250, 800 + tower.get_level() * 10, tower.calc_spell_crit_no_bonus(), 0)
@@ -287,7 +287,7 @@ func on_attack_4(event: Event):
 			tower.user_int2 = 2
 
 		SFX.sfx_at_unit("MarkOfChaosTarget.mdl", c)
-		cb_stun.apply_only_timed(tower, c, 0.7 + tower.get_level() * 0.02)
+		stun_bt.apply_only_timed(tower, c, 0.7 + tower.get_level() * 0.02)
 		tower.do_spell_damage(c, 6000 * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus())
 	elif random_spell_id < 9:
 #		FrostNova
@@ -307,7 +307,7 @@ func on_attack_4(event: Event):
 			if u == null:
 				break
 
-			kel_slow.apply_custom_timed(tower, u, 150, 4)
+			slow_bt.apply_custom_timed(tower, u, 150, 4)
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
 		SFX.sfx_at_unit("FreezingBreathMissile.mdl", c)

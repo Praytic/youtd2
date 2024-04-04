@@ -10,9 +10,9 @@ extends TowerBehavior
 # confusing.
 
 
-var sir_totem_attraction_bt: BuffType
-var sir_totem_torture_bt: BuffType
-var sir_totem_pt: ProjectileType
+var attraction_bt: BuffType
+var torture_bt: BuffType
+var missile_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -71,19 +71,19 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	sir_totem_attraction_bt = BuffType.new("sir_totem_attraction_bt", 2.5, 0.05, true, self)
-	sir_totem_attraction_bt.add_event_on_attack(sir_totem_attraction_bt_on_attack)
-	sir_totem_attraction_bt.add_event_on_spell_casted(sir_totem_attraction_bt_on_spell_casted)
-	sir_totem_attraction_bt.set_buff_icon("fireball.tres")
-	sir_totem_attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
+	attraction_bt = BuffType.new("attraction_bt", 2.5, 0.05, true, self)
+	attraction_bt.add_event_on_attack(attraction_bt_on_attack)
+	attraction_bt.add_event_on_spell_casted(attraction_bt_on_spell_casted)
+	attraction_bt.set_buff_icon("fireball.tres")
+	attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
-	sir_totem_torture_bt = BuffType.new("sir_totem_torture_bt", 2.5, 0.05, false, self)
-	sir_totem_torture_bt.set_buff_icon("skull.tres")
-	sir_totem_torture_bt.add_event_on_damaged(sir_totem_torture_bt_on_damaged)
-	sir_totem_torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
+	torture_bt = BuffType.new("torture_bt", 2.5, 0.05, false, self)
+	torture_bt.set_buff_icon("skull.tres")
+	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
+	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 
-	sir_totem_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
-	sir_totem_pt.set_event_on_interpolation_finished(sir_totem_pt_on_hit)
+	missile_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
+	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Attraction"
@@ -108,7 +108,7 @@ func tower_init():
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
-	sir_totem_torture_bt.apply(tower, target, tower.get_level())
+	torture_bt.apply(tower, target, tower.get_level())
 
 
 func on_autocast(_event: Event):
@@ -122,16 +122,16 @@ func on_autocast(_event: Event):
 			break
 
 		if target != tower:
-			var buff: Buff = sir_totem_attraction_bt.apply(tower, target, tower.get_level())
+			var buff: Buff = attraction_bt.apply(tower, target, tower.get_level())
 			buff.user_int = 0
 
 
-func sir_totem_pt_on_hit(projectile: Projectile, _target: Unit):
+func missile_pt_on_hit(projectile: Projectile, _target: Unit):
 	tower.do_spell_damage_aoe(projectile.position.x, projectile.position.y, 220, projectile.user_int, tower.calc_spell_crit_no_bonus(), 0)
 	SFX.sfx_at_pos("DoomDeath.mdl", projectile.position)
 
 
-func sir_totem_attraction_bt_on_attack(event: Event):
+func attraction_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed: Tower = buff.get_buffed_unit()
 
@@ -140,7 +140,7 @@ func sir_totem_attraction_bt_on_attack(event: Event):
 		release_meteor(buff, triggered_by_attack)
 
 
-func sir_totem_attraction_bt_on_spell_casted(event: Event):
+func attraction_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
 	var triggered_by_attack: bool = false
 	release_meteor(buff, triggered_by_attack)
@@ -153,7 +153,7 @@ func release_meteor(buff: Buff, triggered_by_attack: bool):
 	var level: int = tower.get_level()
 
 	if result != null:
-		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(sir_totem_pt, buffed, 1.0, 1.0, buffed, result, 0.0, 0, 0.0, true)
+		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(missile_pt, buffed, 1.0, 1.0, buffed, result, 0.0, 0, 0.0, true)
 		
 		var projectile_damage: int
 		if triggered_by_attack:
@@ -166,7 +166,7 @@ func release_meteor(buff: Buff, triggered_by_attack: bool):
 	buff.remove_buff()
 
 
-func sir_totem_torture_bt_on_damaged(event: Event):
+func torture_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var damage: float = event.damage * (0.08 + 0.001 * caster.get_level())

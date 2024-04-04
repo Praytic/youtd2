@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var cb_stun: BuffType
-var cedi_tidewater_aura_bt: BuffType
-var cedi_tidewater_splash_bt: BuffType
+var stun_bt: BuffType
+var aura_bt: BuffType
+var splash_bt: BuffType
 var water_pt: ProjectileType
 var stone_pt: ProjectileType
 
@@ -59,21 +59,21 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	cb_stun = CbStun.new("tidewater_stream_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	cedi_tidewater_aura_bt = BuffType.create_aura_effect_type("cedi_tidewater_aura_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
 	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
-	cedi_tidewater_aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
-	cedi_tidewater_aura_bt.set_buff_icon("orb_empty.tres")
-	cedi_tidewater_aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
+	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
+	aura_bt.set_buff_icon("orb_empty.tres")
+	aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
 
-	cedi_tidewater_splash_bt = BuffType.new("cedi_tidewater_splash_bt", 6.0, 0, false, self)
+	splash_bt = BuffType.new("splash_bt", 6.0, 0, false, self)
 	var cedi_tidewater_splash_mod: Modifier = Modifier.new()
 	cedi_tidewater_splash_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
-	cedi_tidewater_splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
-	cedi_tidewater_splash_bt.set_buff_icon("orb_swirly.tres")
-	cedi_tidewater_splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
+	splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
+	splash_bt.set_buff_icon("orb_swirly.tres")
+	splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
 
 	water_pt = ProjectileType.create_ranged("Waterfall.mdl", 1200, 700, self)
 	water_pt.enable_collision(water_pt_on_hit, 200, TargetType.new(TargetType.CREEPS), false)
@@ -93,7 +93,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 1
 	aura.power_add = 1
-	aura.aura_effect = cedi_tidewater_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -134,7 +134,7 @@ func on_damage(event: Event):
 		if next == null:
 			break
 
-		cedi_tidewater_splash_bt.apply(tower, next, lvl)
+		splash_bt.apply(tower, next, lvl)
 
 
 func water_pt_on_hit(p: Projectile, target: Unit):
@@ -165,4 +165,4 @@ func stone_pt_on_hit(p: Projectile, target: Unit):
 	var caster: Unit = p.get_caster()
 	var wave_damage: float = 2200 + 88 * caster.get_level()
 	caster.do_spell_damage(target, wave_damage, caster.calc_spell_crit_no_bonus())
-	cb_stun.apply_only_timed(caster, target, 0.65)
+	stun_bt.apply_only_timed(caster, target, 0.65)

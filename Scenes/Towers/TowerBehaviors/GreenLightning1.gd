@@ -1,15 +1,15 @@
 extends TowerBehavior
 
 
-var drol_surge: BuffType
+var surge_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {drol_surge_level_bonus = 0, spell_crit = 0.050, spell_crit_add = 0.0010, damage_from_mana_multiplier = 15},
-		2: {drol_surge_level_bonus = 25, spell_crit = 0.075, spell_crit_add = 0.0015, damage_from_mana_multiplier = 25},
-		3: {drol_surge_level_bonus = 50, spell_crit = 0.100, spell_crit_add = 0.0020, damage_from_mana_multiplier = 35},
-		4: {drol_surge_level_bonus = 75, spell_crit = 0.125, spell_crit_add = 0.0025, damage_from_mana_multiplier = 45},
+		1: {surge_bt_level_bonus = 0, spell_crit = 0.050, spell_crit_add = 0.0010, damage_from_mana_multiplier = 15},
+		2: {surge_bt_level_bonus = 25, spell_crit = 0.075, spell_crit_add = 0.0015, damage_from_mana_multiplier = 25},
+		3: {surge_bt_level_bonus = 50, spell_crit = 0.100, spell_crit_add = 0.0020, damage_from_mana_multiplier = 35},
+		4: {surge_bt_level_bonus = 75, spell_crit = 0.125, spell_crit_add = 0.0025, damage_from_mana_multiplier = 45},
 	}
 
 
@@ -52,7 +52,7 @@ func get_ability_description_short() -> String:
 
 
 func get_autocast_description() -> String:
-	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.drol_surge_level_bonus, 2)
+	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
 
 	var text: String = ""
 
@@ -84,10 +84,11 @@ func load_specials(modifier: Modifier):
 
 func on_autocast(_event: Event):
 	tower.user_int = 5 + tower.get_level() / 5
-	drol_surge.apply(tower, tower, tower.get_level() + _stats.drol_surge_level_bonus)
+	surge_bt.apply(tower, tower, tower.get_level() + _stats.surge_bt_level_bonus)
 
 
-func surge(event: Event):
+# NOTE: surge() in original script
+func surge_bt_on_attack(event: Event):
 	var b: Buff = event.get_buff()
 	var caster: Unit = b.get_caster()
 
@@ -98,13 +99,13 @@ func surge(event: Event):
 
 
 func tower_init():
-	var m: Modifier = Modifier.new()
-	drol_surge = BuffType.new("drol_surge", 8, 0, true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
-	drol_surge.set_buff_modifier(m)
-	drol_surge.set_buff_icon("letter_s_lying_down.tres")
-	drol_surge.add_event_on_attack(surge)
-	drol_surge.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
+	var surge_bt_mod: Modifier = Modifier.new()
+	surge_bt = BuffType.new("surge_bt", 8, 0, true, self)
+	surge_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
+	surge_bt.set_buff_modifier(surge_bt_mod)
+	surge_bt.set_buff_icon("letter_s_lying_down.tres")
+	surge_bt.add_event_on_attack(surge_bt_on_attack)
+	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Lightning Surge"

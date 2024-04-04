@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var cedi_more_hammer_mark_bt: BuffType
-var cedi_more_hammer_aura_bt: BuffType
+var mark_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: Mark_Setup() in original script
-func cedi_more_hammer_mark_bt_on_create(event: Event):
+func mark_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 
 	buff.user_int = 5
@@ -33,13 +33,13 @@ func cedi_more_hammer_mark_bt_on_create(event: Event):
 
 
 # NOTE: Hammer_Aura_Trig() in original script
-func cedi_more_hammer_aura_bt_on_damaged(event: Event):
+func aura_bt_on_damaged(event: Event):
 	if !event.is_spell_damage():
 		return
 
 #	Has attacker the mark buff?
 	var tower: Tower = event.get_target()
-	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
+	var buff: Buff = tower.get_buff_of_type(mark_bt)
 
 	if buff == null:
 		return
@@ -105,20 +105,20 @@ func cedi_more_hammer_aura_bt_on_damaged(event: Event):
 
 
 func item_init():
-	cedi_more_hammer_mark_bt = BuffType.new("cedi_more_hammer_mark_bt", -1, 0, true, self)
-	cedi_more_hammer_mark_bt.set_buff_icon("hammer_swing.tres")
-	cedi_more_hammer_mark_bt.add_event_on_create(cedi_more_hammer_mark_bt_on_create)
-	cedi_more_hammer_mark_bt.set_hidden()
+	mark_bt = BuffType.new("mark_bt", -1, 0, true, self)
+	mark_bt.set_buff_icon("hammer_swing.tres")
+	mark_bt.add_event_on_create(mark_bt_on_create)
+	mark_bt.set_hidden()
 
-	cedi_more_hammer_aura_bt = BuffType.new("cedi_more_hammer_aura_bt", -1, 0, true, self)
-	cedi_more_hammer_aura_bt.set_buff_icon("hammer_swing.tres")
-	cedi_more_hammer_aura_bt.add_event_on_damaged(cedi_more_hammer_aura_bt_on_damaged)
-	cedi_more_hammer_aura_bt.set_hidden()
+	aura_bt = BuffType.new("aura_bt", -1, 0, true, self)
+	aura_bt.set_buff_icon("hammer_swing.tres")
+	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
+	aura_bt.set_hidden()
 
 
 func on_drop():
 	var tower: Tower = item.get_carrier()
-	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
+	var buff: Buff = tower.get_buff_of_type(mark_bt)
 
 	if buff != null:
 #		First hammer on tower
@@ -134,11 +134,11 @@ func on_drop():
 
 func on_pickup():
 	var tower: Tower = item.get_carrier()
-	var buff: Buff = tower.get_buff_of_type(cedi_more_hammer_mark_bt)
+	var buff: Buff = tower.get_buff_of_type(mark_bt)
 
 	if buff == null:
 #		First hammer on tower
-		cedi_more_hammer_mark_bt.apply(tower, tower, 1)
+		mark_bt.apply(tower, tower, 1)
 	else:
 #		Already a hammer on the tower
 		buff.set_level(buff.get_level() + 1)
@@ -147,5 +147,5 @@ func on_pickup():
 func on_unit_in_range(event: Event):
 	var target: Unit = event.get_target()
 
-	if target.get_buff_of_type(cedi_more_hammer_aura_bt) == null:
-		cedi_more_hammer_aura_bt.apply(item.get_carrier(), target, 0)
+	if target.get_buff_of_type(aura_bt) == null:
+		aura_bt.apply(item.get_carrier(), target, 0)

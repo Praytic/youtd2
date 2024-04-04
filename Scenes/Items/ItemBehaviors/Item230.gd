@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var symph_divine_wings_bt: BuffType
+var divine_wings_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -19,14 +19,14 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	symph_divine_wings_bt = BuffType.create_aura_effect_type("item230_symph_divine_wings_bt", true, self)
-	symph_divine_wings_bt.set_buff_icon("winged_man.tres")
-	symph_divine_wings_bt.set_buff_tooltip("The Divine Wings of Tragedy\nIncreases attack damage and attack speed.")
-	symph_divine_wings_bt.set_stacking_group("symph_divine_wings_bt")
+	divine_wings_bt = BuffType.create_aura_effect_type("item230_divine_wings_bt", true, self)
+	divine_wings_bt.set_buff_icon("winged_man.tres")
+	divine_wings_bt.set_buff_tooltip("The Divine Wings of Tragedy\nIncreases attack damage and attack speed.")
+	divine_wings_bt.set_stacking_group("divine_wings_bt")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.15, 0.0)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.15, 0.0)
-	symph_divine_wings_bt.set_buff_modifier(mod)
+	divine_wings_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 250
@@ -36,5 +36,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = symph_divine_wings_bt
+	aura.aura_effect = divine_wings_bt
 	item.add_aura(aura)

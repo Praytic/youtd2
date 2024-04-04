@@ -1,10 +1,10 @@
 extends TowerBehavior
 
 
-var storm_zealot_fury: BuffType
-var storm_zealot_wound: BuffType
-var storm_zealot_slow: BuffType
-var storm_zealot_shield: BuffType
+var zeal_bt: BuffType
+var wound_bt: BuffType
+var drain_bt: BuffType
+var shield_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -69,7 +69,7 @@ func load_triggers(triggers: BuffType):
 
 
 
-func storm_zealot_shield_cleanup(event: Event):
+func shield_bt_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 
 	if b.user_int2 != 0:
@@ -85,26 +85,26 @@ func tower_init():
 	n.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.0001)
 	o.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.0, -0.0001)
 
-	storm_zealot_fury = BuffType.new("storm_zealot_fury", 2.5, 0, true, self)
-	storm_zealot_wound = BuffType.new("storm_zealot_wound", 200, 0, false, self)
-	storm_zealot_slow = BuffType.new("storm_zealot_slow", 2.5, 0, true, self)
-	storm_zealot_shield = BuffType.new("storm_zealot_shield", 2.5, 0, true, self)
+	zeal_bt = BuffType.new("zeal_bt", 2.5, 0, true, self)
+	wound_bt = BuffType.new("wound_bt", 200, 0, false, self)
+	drain_bt = BuffType.new("drain_bt", 2.5, 0, true, self)
+	shield_bt = BuffType.new("shield_bt", 2.5, 0, true, self)
 
-	storm_zealot_fury.set_buff_modifier(m)
-	storm_zealot_slow.set_buff_modifier(n)
-	storm_zealot_shield.set_buff_modifier(o)
+	zeal_bt.set_buff_modifier(m)
+	drain_bt.set_buff_modifier(n)
+	shield_bt.set_buff_modifier(o)
 
-	storm_zealot_fury.set_buff_icon("winged_man.tres")
-	storm_zealot_wound.set_buff_icon("claw.tres")
-	storm_zealot_slow.set_buff_icon("foot.tres")
-	storm_zealot_shield.set_buff_icon("shield.tres")
+	zeal_bt.set_buff_icon("winged_man.tres")
+	wound_bt.set_buff_icon("claw.tres")
+	drain_bt.set_buff_icon("foot.tres")
+	shield_bt.set_buff_icon("shield.tres")
 
-	storm_zealot_fury.set_buff_tooltip("Zeal\nIncreases attack speed.")
-	storm_zealot_wound.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")
-	storm_zealot_slow.set_buff_tooltip("Zeal Drain\nDecreases attack speed.")
-	storm_zealot_shield.set_buff_tooltip("Lightning Shield\nReduces debuff duration.")
+	zeal_bt.set_buff_tooltip("Zeal\nIncreases attack speed.")
+	wound_bt.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")
+	drain_bt.set_buff_tooltip("Zeal Drain\nDecreases attack speed.")
+	shield_bt.set_buff_tooltip("Lightning Shield\nReduces debuff duration.")
 
-	storm_zealot_shield.add_event_on_cleanup(storm_zealot_shield_cleanup)
+	shield_bt.add_event_on_cleanup(shield_bt_cleanup)
 
 
 func on_attack(_event: Event):
@@ -140,25 +140,25 @@ func on_attack(_event: Event):
 			break
 
 		if u != tower && u.get_gold_cost() >= _stats.affected_gold_cost:
-			b = u.get_buff_of_type(storm_zealot_slow)
+			b = u.get_buff_of_type(drain_bt)
 
 			if b != null:
 				b.user_int = min(b.user_int + 1, max_stacks)
-				storm_zealot_slow.apply_custom_power(tower, u, b.user_int, leech_power * b.user_int)
+				drain_bt.apply_custom_power(tower, u, b.user_int, leech_power * b.user_int)
 			else:
-				storm_zealot_slow.apply_custom_power(tower, u, 1, leech_power).user_int = 1
+				drain_bt.apply_custom_power(tower, u, 1, leech_power).user_int = 1
 
 #	in a way, that's the per stack base
 	leech_power = leech_power * leech_counter
-	b = tower.get_buff_of_type(storm_zealot_fury)
+	b = tower.get_buff_of_type(zeal_bt)
 
 #	now apply zeal
 	if b != null:
-		storm_zealot_fury.apply(tower, tower, min(leech_power + b.get_level(), leech_power * max_stacks))
+		zeal_bt.apply(tower, tower, min(leech_power + b.get_level(), leech_power * max_stacks))
 	else:
-		storm_zealot_fury.apply(tower, tower, leech_power)
+		zeal_bt.apply(tower, tower, leech_power)
 
-	b = tower.get_buff_of_type(storm_zealot_shield)
+	b = tower.get_buff_of_type(shield_bt)
 
 	if b != null:
 		if b.user_int < max_stacks:
@@ -168,16 +168,16 @@ func on_attack(_event: Event):
 				if b.user_int2 == 0:
 					b.user_int2 = Effect.create_scaled("ManaShieldCaster.mdl", tower.get_visual_x(), tower.get_visual_y(), 115, 0, 5)
 
-		storm_zealot_shield.apply(tower, tower, _stats.shield_power * b.user_int)
+		shield_bt.apply(tower, tower, _stats.shield_power * b.user_int)
 	else:
-		b = storm_zealot_shield.apply(tower, tower, _stats.shield_power)
+		b = shield_bt.apply(tower, tower, _stats.shield_power)
 		b.user_int = 1
 		b.user_int2 = 0
 
 
 func on_damage(event: Event):
 	var target: Creep = event.get_target()
-	var phase_wound: Buff = target.get_buff_of_type(storm_zealot_wound)
+	var phase_wound: Buff = target.get_buff_of_type(wound_bt)
 	var damage_base: float = event.damage
 	var total_armor_pierce: float
 	var temp: float = AttackType.get_damage_against(AttackType.enm.PHYSICAL, target.get_armor_type())
@@ -187,7 +187,7 @@ func on_damage(event: Event):
 
 #	first check + upgrade the wound level
 	if phase_wound == null:
-		phase_wound = storm_zealot_wound.apply(tower, target, 1)
+		phase_wound = wound_bt.apply(tower, target, 1)
 #		stack counter
 		phase_wound.user_int = 1
 		phase_wound.user_int2 = Utils.getUID(tower)

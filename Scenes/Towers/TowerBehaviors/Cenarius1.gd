@@ -12,11 +12,11 @@ extends TowerBehavior
 
 
 var roots_pt: ProjectileType
-var cenarius_entangle_bt: BuffType
-var cenarius_thorned_bt: BuffType
-var cenarius_tranquility_bt: BuffType
-var cenarius_leaf_storm_bt: BuffType
-var cenarius_leaf_storm_st: SpellType
+var entangle_bt: BuffType
+var thorned_bt: BuffType
+var tranquility_bt: BuffType
+var leaf_storm_bt: BuffType
+var leaf_storm_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -93,18 +93,18 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cenarius_tranquility_bt = BuffType.create_aura_effect_type("cenarius_tranquility_bt", true, self)
+	tranquility_bt = BuffType.create_aura_effect_type("tranquility_bt", true, self)
 	var cenarius_tranquility_mod: Modifier = Modifier.new()
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
-	cenarius_tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
-	cenarius_tranquility_bt.set_buff_icon("winged_man.tres")
-	cenarius_tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
+	tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
+	tranquility_bt.set_buff_icon("winged_man.tres")
+	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
-	cenarius_entangle_bt = CbStun.new("cenarius_entangle_bt", 1.5, 0.02, false, self)
-	cenarius_entangle_bt.set_buff_icon("orb_empty.tres")
-	cenarius_entangle_bt.add_periodic_event(cenarius_entangle_bt_periodic, 1.0)
-	cenarius_entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
+	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
+	entangle_bt.set_buff_icon("orb_empty.tres")
+	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
+	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
 	roots_pt = ProjectileType.create_ranged("", 1000, 600, self)
 	roots_pt.enable_collision(roots_pt_on_hit, 175, TargetType.new(TargetType.CREEPS), false)
@@ -112,25 +112,25 @@ func tower_init():
 	# ProjectileType.add_periodic_event() is implemented.
 	# roots_pt.add_periodic_event(roots_pt_periodic, 0.2)
 
-	cenarius_leaf_storm_st = SpellType.new("@@0@@", "blizzard", 4.00, self)
-	cenarius_leaf_storm_st.set_damage_event(cenarius_leaf_storm_st_on_damage)
-	cenarius_leaf_storm_st.data.blizzard.damage = 1.0
-	cenarius_leaf_storm_st.data.blizzard.radius = 200
-	cenarius_leaf_storm_st.data.blizzard.wave_count = 3
+	leaf_storm_st = SpellType.new("@@0@@", "blizzard", 4.00, self)
+	leaf_storm_st.set_damage_event(leaf_storm_st_on_damage)
+	leaf_storm_st.data.blizzard.damage = 1.0
+	leaf_storm_st.data.blizzard.radius = 200
+	leaf_storm_st.data.blizzard.wave_count = 3
 
 	var cenarius_leaf_storm_mod: Modifier = Modifier.new()
-	cenarius_leaf_storm_bt = BuffType.new("cenarius_leaf_storm_bt", 1.0, 0.04, false, self)
+	leaf_storm_bt = BuffType.new("leaf_storm_bt", 1.0, 0.04, false, self)
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
-	cenarius_leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
-	cenarius_leaf_storm_bt.set_buff_icon("orb_swirly.tres")
-	cenarius_leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
+	leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
+	leaf_storm_bt.set_buff_icon("orb_swirly.tres")
+	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
 
-	cenarius_thorned_bt = BuffType.new("cenarius_thorned_bt", 3.0, 0.06, false, self)
+	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
-	cenarius_thorned_bt.set_buff_modifier(cenarius_thorned_mod)
-	cenarius_thorned_bt.set_buff_icon("star.tres")
-	cenarius_thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
+	thorned_bt.set_buff_modifier(cenarius_thorned_mod)
+	thorned_bt.set_buff_icon("star.tres")
+	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Entangling Roots"
@@ -162,7 +162,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = cenarius_tranquility_bt
+	aura.aura_effect = tranquility_bt
 
 	return [aura]
 
@@ -177,12 +177,12 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, target, "Leaf Storm")
 
-	cenarius_leaf_storm_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
+	leaf_storm_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
 func on_unit_in_range(event: Event):
 	var target: Unit = event.get_target()
-	cenarius_thorned_bt.apply(tower, target, tower.get_level())
+	thorned_bt.apply(tower, target, tower.get_level())
 
 
 func on_autocast(event: Event):
@@ -196,10 +196,10 @@ func on_autocast(event: Event):
 
 func roots_pt_on_hit(p: Projectile, target: Unit):
 	var caster: Unit = p.get_caster()
-	cenarius_entangle_bt.apply(caster, target, caster.get_level())
+	entangle_bt.apply(caster, target, caster.get_level())
 
 
-func cenarius_entangle_bt_periodic(event: Event):
+func entangle_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
@@ -208,6 +208,6 @@ func cenarius_entangle_bt_periodic(event: Event):
 	caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 
 
-func cenarius_leaf_storm_st_on_damage(event: Event, _dummy_unit: DummyUnit):
+func leaf_storm_st_on_damage(event: Event, _dummy_unit: DummyUnit):
 	var target: Unit = event.get_target()
-	cenarius_leaf_storm_bt.apply(tower, target, tower.get_level())
+	leaf_storm_bt.apply(tower, target, tower.get_level())

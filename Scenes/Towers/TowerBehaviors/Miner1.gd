@@ -6,8 +6,8 @@ extends TowerBehavior
 # Decided to fix the typo.
 
 
-var drol_goldrush: BuffType
-var drol_excavation_multi: MultiboardValues
+var goldrush_bt: BuffType
+var multiboard: MultiboardValues
 
 
 func get_tier_stats() -> Dictionary:
@@ -69,33 +69,33 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	drol_goldrush = BuffType.new("drol_goldrush", 5, 0.1, true, self)
+	goldrush_bt = BuffType.new("goldrush_bt", 5, 0.1, true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.2, 0.01)
-	drol_goldrush.set_buff_icon("goldbar.tres")
-	drol_goldrush.set_buff_modifier(m)
-	drol_goldrush.set_stacking_group("drol_goldrush")
-	drol_goldrush.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")
+	goldrush_bt.set_buff_icon("goldbar.tres")
+	goldrush_bt.set_buff_modifier(m)
+	goldrush_bt.set_stacking_group("goldrush_bt")
+	goldrush_bt.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")
 
-	drol_excavation_multi = MultiboardValues.new(2)
-	drol_excavation_multi.set_key(0, "Gold gained")
-	drol_excavation_multi.set_key(1, "Goldrush bonus")
+	multiboard = MultiboardValues.new(2)
+	multiboard.set_key(0, "Gold gained")
+	multiboard.set_key(1, "Goldrush bonus")
 
 
 func on_attack(_event: Event):
 	if !tower.calc_chance(0.2):
 		return
 
-	if tower.get_buff_of_type(drol_goldrush) == null:
+	if tower.get_buff_of_type(goldrush_bt) == null:
 		CombatLog.log_ability(tower, null, "Goldrush")
 
 		var gold_amount: float = tower.get_player().get_gold()
-		drol_goldrush.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
+		goldrush_bt.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
 
 
 func on_damage(event: Event):
 	var gold_bonus = _stats.goldrush_gold + tower.get_level() * _stats.goldrush_gold_add
 
-	if event.is_main_target() && tower.get_buff_of_type(drol_goldrush) != null:
+	if event.is_main_target() && tower.get_buff_of_type(goldrush_bt) != null:
 		tower.user_real = tower.user_real + gold_bonus
 		tower.get_player().give_gold(gold_bonus, tower, false, true)
 
@@ -113,10 +113,10 @@ func on_tower_details() -> MultiboardValues:
 	var gold_gained_text: String = Utils.format_float(tower.user_real, 2)
 	var goldrush_bonus_text: String = "%d%%" % excavation_value
 
-	drol_excavation_multi.set_value(0, gold_gained_text)
-	drol_excavation_multi.set_value(1, goldrush_bonus_text)
+	multiboard.set_value(0, gold_gained_text)
+	multiboard.set_value(1, goldrush_bonus_text)
 
-	return drol_excavation_multi
+	return multiboard
 
 
 func periodic(_event: Event):

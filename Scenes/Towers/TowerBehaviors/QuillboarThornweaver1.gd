@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_boar_proj: ProjectileType
-var sir_boar_debuff: BuffType
+var quillspray_pt: ProjectileType
+var thorns_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -88,12 +88,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	sir_boar_debuff = BuffType.new("sir_boar_debuff", 0, 0, false, self)
-	sir_boar_debuff.set_buff_icon("star.tres")
-	sir_boar_debuff.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
+	thorns_bt = BuffType.new("thorns_bt", 0, 0, false, self)
+	thorns_bt.set_buff_icon("star.tres")
+	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
 
-	sir_boar_proj = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)
-	sir_boar_proj.enable_homing(on_projectile_hit, 0)
+	quillspray_pt = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)
+	quillspray_pt.enable_homing(on_projectile_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Quillspray"
@@ -136,7 +136,7 @@ func on_projectile_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var active_buff: Buff = creep.get_buff_of_type(sir_boar_debuff)
+	var active_buff: Buff = creep.get_buff_of_type(thorns_bt)
 	var buff_level: int
 	if active_buff != null:
 		buff_level = min(active_buff.get_level(), QUILLSPRAY_STACKS_MAX)
@@ -147,7 +147,7 @@ func on_projectile_hit(_projectile: Projectile, creep: Unit):
 	var damage: float = damage_ratio * tower.get_current_attack_damage_with_bonus()
 
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
-	sir_boar_debuff.apply_advanced(tower, creep, buff_level + 1, 0, QUILLSPRAY_DEBUFF_DURATION)
+	thorns_bt.apply_advanced(tower, creep, buff_level + 1, 0, QUILLSPRAY_DEBUFF_DURATION)
 
 
 func do_quillspray_series():
@@ -178,6 +178,6 @@ func quillspray(speed: float):
 		if creep == null:
 			break
 
-		var projectile: Projectile = Projectile.create_from_unit_to_unit(sir_boar_proj, tower, 1.0, 1.0, tower, creep, true, false, false)
+		var projectile: Projectile = Projectile.create_from_unit_to_unit(quillspray_pt, tower, 1.0, 1.0, tower, creep, true, false, false)
 		projectile.setScale(0.7)
 		projectile._speed = speed

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var tomy_ElementalWrath: BuffType
+var wrath_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -57,20 +57,20 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
-	tomy_ElementalWrath = BuffType.new("tomy_ElementalWrath", 5, 0, true, self)
-	tomy_ElementalWrath.set_buff_icon("cup_with_wings.tres")
-	tomy_ElementalWrath.set_buff_modifier(modifier)
-	tomy_ElementalWrath.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
+	wrath_bt = BuffType.new("wrath_bt", 5, 0, true, self)
+	wrath_bt.set_buff_icon("cup_with_wings.tres")
+	wrath_bt.set_buff_modifier(modifier)
+	wrath_bt.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
 
 
 func on_attack(_event: Event):
 	if !tower.calc_chance(_stats.elemental_wrath_chance):
 		return
 
-	if tower.get_buff_of_type(tomy_ElementalWrath) == null:
+	if tower.get_buff_of_type(wrath_bt) == null:
 		CombatLog.log_ability(tower, null, "Elemental Wrath")
 
-		tomy_ElementalWrath.apply_custom_timed(tower, tower, 150 + tower.get_level() * _stats.trigger_chance_add, 5.0 + 0.1 * tower.get_level())
+		wrath_bt.apply_custom_timed(tower, tower, 150 + tower.get_level() * _stats.trigger_chance_add, 5.0 + 0.1 * tower.get_level())
 
 
 func on_damage(event: Event):

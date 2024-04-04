@@ -15,8 +15,8 @@ extends TowerBehavior
 # between tower and creep if projectile is interpolated?
 
 
-var cb_stun: BuffType
-var cedi_gryphon_bt: BuffType
+var stun_bt: BuffType
+var hammer_fall_bt: BuffType
 var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
 
@@ -86,14 +86,14 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("gryphon_rider_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("gryphon_rider_stun", 0, 0, false, self)
 	
-	cedi_gryphon_bt = BuffType.new("cedi_gryphon_bt", 6, 0, false, self)
-	var cedi_gryphon_bt_mod: Modifier = Modifier.new()
-	cedi_gryphon_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
-	cedi_gryphon_bt.set_buff_modifier(cedi_gryphon_bt_mod)
-	cedi_gryphon_bt.set_buff_icon("hammer_swing.tres")
-	cedi_gryphon_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
+	hammer_fall_bt = BuffType.new("hammer_fall_bt", 6, 0, false, self)
+	var hammer_fall_bt_mod: Modifier = Modifier.new()
+	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
+	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
+	hammer_fall_bt.set_buff_icon("hammer_swing.tres")
+	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)
 	stormbolt_pt.set_event_on_interpolation_finished(stormbolt_pt_on_hit)
@@ -152,7 +152,7 @@ func on_autocast(event: Event):
 
 		if next.get_element() == Element.enm.STORM:
 			damage_multiplier += damage_multiplier_per_tower
-			cedi_gryphon_bt.apply(tower, next, 0)
+			hammer_fall_bt.apply(tower, next, 0)
 
 		if damage_multiplier >= 2.0:
 			break
@@ -179,7 +179,7 @@ func hammer_pt_on_expiration(p: Projectile):
 			break
 
 		deal_damage(next, hammer_damage)
-		cb_stun.apply_only_timed(tower, next, 1.0)
+		stun_bt.apply_only_timed(tower, next, 1.0)
 
 
 func deal_damage(target: Unit, damage: float):

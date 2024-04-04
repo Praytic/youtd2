@@ -12,7 +12,7 @@ extends ItemBehavior
 # turns blueish later.
 
 
-var daem_frog_pt: ProjectileType
+var frog_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -37,7 +37,7 @@ func daem_frog_attack(tower: Tower, target: Unit, temp: int):
 
 	var angle: float = rad_to_deg(atan2(target.get_y() - y, target.get_x() - x))
 
-	var p: Projectile = Projectile.create(daem_frog_pt, tower, 0, 0, x + Globals.synced_rng.randi_range(-40, 40), y + Globals.synced_rng.randi_range(-40, 40), 5.0, angle + temp)
+	var p: Projectile = Projectile.create(frog_pt, tower, 0, 0, x + Globals.synced_rng.randi_range(-40, 40), y + Globals.synced_rng.randi_range(-40, 40), 5.0, angle + temp)
 	p.set_color(Color8(100, 255, 100, 255))
 	p.user_int = temp
 	p.user_real = tower.get_current_attack_damage_with_bonus()
@@ -45,7 +45,7 @@ func daem_frog_attack(tower: Tower, target: Unit, temp: int):
 
 
 # NOTE: deem_FrogCollision() in original script
-func daem_frog_pt_on_hit(p: Projectile, target: Unit):
+func frog_pt_on_hit(p: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -54,12 +54,12 @@ func daem_frog_pt_on_hit(p: Projectile, target: Unit):
 
 
 func item_init():
-	daem_frog_pt = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
-	daem_frog_pt.enable_collision(daem_frog_pt_on_collision, 190, TargetType.new(TargetType.CREEPS), false)
-	daem_frog_pt.enable_homing(daem_frog_pt_on_hit, 0)
-	daem_frog_pt.enable_periodic(daem_frog_pt_periodic, 0.60)
-	daem_frog_pt.set_acceleration(-36)
-	daem_frog_pt.disable_explode_on_hit()
+	frog_pt = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
+	frog_pt.enable_collision(frog_pt_on_collision, 190, TargetType.new(TargetType.CREEPS), false)
+	frog_pt.enable_homing(frog_pt_on_hit, 0)
+	frog_pt.enable_periodic(frog_pt_periodic, 0.60)
+	frog_pt.set_acceleration(-36)
+	frog_pt.disable_explode_on_hit()
 
 
 func on_attack(event: Event):
@@ -80,7 +80,7 @@ func on_attack(event: Event):
 
 
 # NOTE: deem_FrogHome() in original script
-func daem_frog_pt_on_collision(p: Projectile, target: Unit):
+func frog_pt_on_collision(p: Projectile, target: Unit):
 	if target.get_size() == CreepSize.enm.AIR:
 		return
 
@@ -94,7 +94,7 @@ func daem_frog_pt_on_collision(p: Projectile, target: Unit):
 
 
 # NOTE: deem_FrogPeriodic() in original script
-func daem_frog_pt_periodic(projectile: Projectile):
+func frog_pt_periodic(projectile: Projectile):
 	projectile.user_int *= -1
 	projectile.set_speed(500)
 	projectile.set_direction(projectile.get_direction() + projectile.user_int)

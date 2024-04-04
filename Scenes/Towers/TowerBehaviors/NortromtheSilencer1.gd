@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var cb_silence: BuffType
-var mock_nortrom_aura_bt: BuffType
+var silence_bt: BuffType
+var aura_bt: BuffType
 var glaive_pt: ProjectileType
 
 
@@ -69,12 +69,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cb_silence = CbSilence.new("nortrom_silence", 0, 0, false, self)
+	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
-	mock_nortrom_aura_bt = BuffType.create_aura_effect_type("mock_nortrom_aura_bt", true, self)
-	mock_nortrom_aura_bt.set_buff_icon("bull_horns.tres")
-	mock_nortrom_aura_bt.add_event_on_attack(mock_nortrom_aura_bt_on_attack)
-	mock_nortrom_aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("bull_horns.tres")
+	aura_bt.add_event_on_attack(aura_bt_on_attack)
+	aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 
 	glaive_pt = ProjectileType.create_interpolate("BloodElfSpellThiefMISSILE.mdl", 1000, self)
 	glaive_pt.set_event_on_interpolation_finished(glaive_pt_on_hit)
@@ -89,7 +89,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = mock_nortrom_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -141,7 +141,7 @@ func periodic(_event: Event):
 		if next == null:
 			break
 
-		cb_silence.apply_only_timed(tower, next, duration)
+		silence_bt.apply_only_timed(tower, next, duration)
 
 
 # NOTE: "glaive_hit()" in original script
@@ -161,7 +161,7 @@ func glaive_pt_on_hit(_p: Projectile, target: Unit):
 
 
 # NOTE: "silence()" in original script
-func mock_nortrom_aura_bt_on_attack(event: Event):
+func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
@@ -176,7 +176,7 @@ func mock_nortrom_aura_bt_on_attack(event: Event):
 
 	CombatLog.log_ability(buffed_unit, target, "Global Silence Effect")
 
-	cb_silence.apply_only_timed(tower, target, duration)
+	silence_bt.apply_only_timed(tower, target, duration)
 
 
 func get_silenced_damage_multiplier() -> float:

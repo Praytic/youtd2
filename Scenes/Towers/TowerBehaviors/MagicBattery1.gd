@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var magic_battery_faerie_fire: BuffType
-var pt: ProjectileType
+var faerie_bt: BuffType
+var missile_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -87,12 +87,13 @@ func on_autocast(_event: Event):
 	_battery_overload_is_active = true
 
 
-func hit(_p: Projectile, creep: Unit):
+# NOTE: hit() in original script
+func missile_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	magic_battery_faerie_fire.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	faerie_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
 
 func tower_init():
@@ -100,14 +101,14 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
 
-	magic_battery_faerie_fire = BuffType.new("magic_battery_faerie_fire", 9, 0.3, false, self)
-	magic_battery_faerie_fire.set_buff_icon("letter_h.tres")
-	magic_battery_faerie_fire.set_buff_modifier(modifier)
-	magic_battery_faerie_fire.set_stacking_group("MagicBattery")
-	magic_battery_faerie_fire.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it will take extra damage from spells and has increased debuff duration.")
+	faerie_bt = BuffType.new("faerie_bt", 9, 0.3, false, self)
+	faerie_bt.set_buff_icon("letter_h.tres")
+	faerie_bt.set_buff_modifier(modifier)
+	faerie_bt.set_stacking_group("MagicBattery")
+	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it will take extra damage from spells and has increased debuff duration.")
 
-	pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
+	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -131,7 +132,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	magic_battery_faerie_fire.apply(tower, event.get_target(), tower.get_level())
+	faerie_bt.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
@@ -149,7 +150,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

@@ -2,9 +2,9 @@ extends TowerBehavior
 
 
 var multiboard: MultiboardValues
-var iaman_ymir_blood_bt: BuffType
-var iaman_ymir_flesh_bt: BuffType
-var iaman_ymir_wrath_bt: BuffType
+var blood_bt: BuffType
+var aura_bt: BuffType
+var wrath_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -68,26 +68,26 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	iaman_ymir_blood_bt = BuffType.new("iaman_ymir_blood_bt", 6.0, 0.08, false, self)
+	blood_bt = BuffType.new("blood_bt", 6.0, 0.08, false, self)
 	var iaman_ymir_blood_mod: Modifier = Modifier.new()
 	iaman_ymir_blood_mod.add_modification(Modification.Type.MOD_DMG_FROM_ICE, 0.25, 0.004)
-	iaman_ymir_blood_bt.set_buff_modifier(iaman_ymir_blood_mod)
-	iaman_ymir_blood_bt.set_buff_icon("beard.tres")
-	iaman_ymir_blood_bt.set_buff_tooltip("Blood of Ymir\nIncreases damage taken from Ice towers.")
+	blood_bt.set_buff_modifier(iaman_ymir_blood_mod)
+	blood_bt.set_buff_icon("beard.tres")
+	blood_bt.set_buff_tooltip("Blood of Ymir\nIncreases damage taken from Ice towers.")
 
-	iaman_ymir_flesh_bt = BuffType.create_aura_effect_type("iaman_ymir_flesh_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var iaman_ymir_flesh_mod: Modifier = Modifier.new()
 	iaman_ymir_flesh_mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.25, -0.006)
-	iaman_ymir_flesh_bt.set_buff_modifier(iaman_ymir_flesh_mod)
-	iaman_ymir_flesh_bt.set_buff_icon("meat.tres")
-	iaman_ymir_flesh_bt.set_buff_tooltip("Flesh of Ymir Aura\nReduces debuff duration.")
+	aura_bt.set_buff_modifier(iaman_ymir_flesh_mod)
+	aura_bt.set_buff_icon("meat.tres")
+	aura_bt.set_buff_tooltip("Flesh of Ymir Aura\nReduces debuff duration.")
 
-	iaman_ymir_wrath_bt = BuffType.new("iaman_ymir_wrath_bt", 0, 0, false, self)
+	wrath_bt = BuffType.new("wrath_bt", 0, 0, false, self)
 	var iaman_ymir_wrath_mod: Modifier = Modifier.new()
 	iaman_ymir_wrath_mod.add_modification(Modification.Type.MOD_MOVESPEED, -1.0, 0.001)
-	iaman_ymir_wrath_bt.set_buff_modifier(iaman_ymir_wrath_mod)
-	iaman_ymir_wrath_bt.set_buff_icon("mask_bat.tres")
-	iaman_ymir_wrath_bt.set_buff_tooltip("Wrath of Ymir\nReduces movement speed.")
+	wrath_bt.set_buff_modifier(iaman_ymir_wrath_mod)
+	wrath_bt.set_buff_icon("mask_bat.tres")
+	wrath_bt.set_buff_tooltip("Wrath of Ymir\nReduces movement speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Wrath Spelldamage")
@@ -102,7 +102,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = iaman_ymir_flesh_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -121,7 +121,7 @@ func on_damage(event: Event):
 	var wrath_damage: float = get_wrath_damage()
 
 	tower.do_spell_damage(target, wrath_damage, tower.calc_spell_crit_no_bonus())
-	iaman_ymir_wrath_bt.apply_custom_timed(tower, target, slow_power, 2.0)
+	wrath_bt.apply_custom_timed(tower, target, slow_power, 2.0)
 	SFX.sfx_at_unit("ZigguratFrostMissile.mdl", target)
 
 
@@ -135,7 +135,7 @@ func on_tower_details() -> MultiboardValues:
 
 func on_unit_in_range(event: Event):
 	var target: Unit = event.get_target()
-	iaman_ymir_blood_bt.apply(tower, target, tower.get_level())
+	blood_bt.apply(tower, target, tower.get_level())
 
 
 func get_wrath_damage() -> float:

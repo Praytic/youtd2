@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_shadow_glaive_bt: BuffType
+var glaive_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -78,16 +78,16 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cedi_shadow_glaive_bt = BuffType.new("cedi_shadow_glaive_bt", 99, 0, true, self)
+	glaive_bt = BuffType.new("glaive_bt", 99, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED_ADD)
-	cedi_shadow_glaive_bt.set_buff_modifier(mod)
-	cedi_shadow_glaive_bt.set_buff_icon("letter_h.tres")
-	cedi_shadow_glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
+	glaive_bt.set_buff_modifier(mod)
+	glaive_bt.set_buff_icon("letter_h.tres")
+	glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
 
 
 func on_attack(_event: Event):
-	var buff: Buff = tower.get_buff_of_type(cedi_shadow_glaive_bt)
+	var buff: Buff = tower.get_buff_of_type(glaive_bt)
 	var crit_damage_multiply: float = 1.0 + _stats.shadow_glaive_crit_bonus + _stats.shadow_glaive_crit_bonus_add * tower.get_level()
 	var shadow_glaive_chance: float = SHADOW_GLAIVE_CHANCE + SHADOW_GLAIVE_CHANCE_ADD * tower.get_level()
 
@@ -100,7 +100,7 @@ func on_attack(_event: Event):
 
 	CombatLog.log_ability(tower, null, "Shadow Glaive")
 
-	cedi_shadow_glaive_bt.apply(tower, tower, tower.get_level())
+	glaive_bt.apply(tower, tower, tower.get_level())
 
 
 func on_damage(event: Event):

@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var fisherman_dps_boost_bt: BuffType
-var fisherman_slow_bt: BuffType
+var dps_boost_bt: BuffType
+var slow_bt: BuffType
 var multiboard: MultiboardValues
 
 var current_attack_target: int = -1
@@ -63,21 +63,21 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	fisherman_dps_boost_bt = BuffType.new("fisherman_dps_boost_bt", 0, 0, true, self)
+	dps_boost_bt = BuffType.new("dps_boost_bt", 0, 0, true, self)
 	var fisherman_dps_boost_mod: Modifier = Modifier.new()
 	fisherman_dps_boost_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 0.001)
-	fisherman_dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
-	fisherman_dps_boost_bt.set_buff_icon("meat.tres")
-	fisherman_dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
+	dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
+	dps_boost_bt.set_buff_icon("meat.tres")
+	dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
 
-	fisherman_slow_bt = BuffType.new("fisherman_slow_bt", 3, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 3, 0, false, self)
 	var fisherman_slow_mod: Modifier = Modifier.new()
 	fisherman_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, -0.01)
-	fisherman_slow_bt.set_buff_modifier(fisherman_slow_mod)
-	fisherman_slow_bt.set_buff_icon("letter_s_lying_down.tres")
-	fisherman_slow_bt.add_event_on_create(fisherman_slow_bt_on_create)
-	fisherman_slow_bt.add_event_on_expire(fisherman_slow_bt_on_expire)
-	fisherman_slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")
+	slow_bt.set_buff_modifier(fisherman_slow_mod)
+	slow_bt.set_buff_icon("letter_s_lying_down.tres")
+	slow_bt.add_event_on_create(slow_bt_on_create)
+	slow_bt.add_event_on_expire(slow_bt_on_expire)
+	slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Strangled Units")
@@ -105,7 +105,7 @@ func on_attack(event: Event):
 		if next == null:
 			break
 
-		if next != target && next.get_buff_of_type(fisherman_slow_bt) == null:
+		if next != target && next.get_buff_of_type(slow_bt) == null:
 			CombatLog.log_ability(tower, next, "Impatient")
 			tower.issue_target_order(next)
 
@@ -117,7 +117,7 @@ func on_attack(event: Event):
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	fisherman_slow_bt.apply(tower, target, level)
+	slow_bt.apply(tower, target, level)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -127,13 +127,13 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func fisherman_slow_bt_on_create(event: Event):
+func slow_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var net_start_time: float = Utils.get_time()
 	buff.user_real = net_start_time
 
 
-func fisherman_slow_bt_on_expire(event: Event):
+func slow_bt_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var lvl: int = tower.get_level()
@@ -171,4 +171,4 @@ func fresh_fish():
 		if next == null:
 			break
 
-		fisherman_dps_boost_bt.apply_custom_timed(tower, next, buff_level, duration)
+		dps_boost_bt.apply_custom_timed(tower, next, buff_level, duration)

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_drake_aura: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -74,10 +74,10 @@ func drake_aura_manaburn(event: Event):
 
 
 func tower_init():
-	sir_drake_aura = BuffType.create_aura_effect_type("sir_drake_aura", true, self)
-	sir_drake_aura.set_buff_icon("orb_triple.tres")
-	sir_drake_aura.add_event_on_attack(drake_aura_manaburn)
-	sir_drake_aura.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("orb_triple.tres")
+	aura_bt.add_event_on_attack(drake_aura_manaburn)
+	aura_bt.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -89,7 +89,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = _stats.aura_power
 	aura.power_add = _stats.aura_power_add
-	aura.aura_effect = sir_drake_aura
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

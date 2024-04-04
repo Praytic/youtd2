@@ -11,9 +11,9 @@ extends TowerBehavior
 # target.
 
 
-var sir_soul_vault_acid_skull_bt: BuffType
-var sir_soul_vault_soulsteal_bt: BuffType
-var sir_soul_vault_aura_bt: BuffType
+var acid_skull_bt: BuffType
+var soulsteal_bt: BuffType
+var aura_bt: BuffType
 var acid_skull_pt: ProjectileType
 
 
@@ -69,26 +69,26 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_soul_vault_aura_bt = BuffType.create_aura_effect_type("sir_soul_vault_aura_bt", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var sir_soul_vault_aura_mod: Modifier = Modifier.new()
 	sir_soul_vault_aura_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.25, -0.002)
-	sir_soul_vault_aura_bt.set_buff_modifier(sir_soul_vault_aura_mod)
-	sir_soul_vault_aura_bt.set_buff_icon("letter_h.tres")
-	sir_soul_vault_aura_bt.set_buff_tooltip("Vault's Presence - Aura\nReduces armor.")
+	aura_bt.set_buff_modifier(sir_soul_vault_aura_mod)
+	aura_bt.set_buff_icon("letter_h.tres")
+	aura_bt.set_buff_tooltip("Vault's Presence - Aura\nReduces armor.")
 
-	sir_soul_vault_acid_skull_bt = BuffType.new("sir_soul_vault_acid_skull_bt", 4.5, 0, false, self)
+	acid_skull_bt = BuffType.new("acid_skull_bt", 4.5, 0, false, self)
 	var sir_soul_vault_acid_skull_mod: Modifier = Modifier.new()
 	sir_soul_vault_acid_skull_mod.add_modification(Modification.Type.MOD_ARMOR, 0.50, 0.02)
-	sir_soul_vault_acid_skull_bt.set_buff_modifier(sir_soul_vault_acid_skull_mod)
-	sir_soul_vault_acid_skull_bt.set_buff_icon("skull.tres")
-	sir_soul_vault_acid_skull_bt.set_buff_tooltip("Acid Skull\nReduces armor.")
+	acid_skull_bt.set_buff_modifier(sir_soul_vault_acid_skull_mod)
+	acid_skull_bt.set_buff_icon("skull.tres")
+	acid_skull_bt.set_buff_tooltip("Acid Skull\nReduces armor.")
 
-	sir_soul_vault_soulsteal_bt = BuffType.new("sir_soul_vault_soulsteal_bt", 1000, 0, false, self)
+	soulsteal_bt = BuffType.new("soulsteal_bt", 1000, 0, false, self)
 	var sir_soul_vault_soulsteal_mod: Modifier = Modifier.new()
 	sir_soul_vault_soulsteal_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.50, 0.02)
-	sir_soul_vault_soulsteal_bt.set_buff_modifier(sir_soul_vault_soulsteal_mod)
-	sir_soul_vault_soulsteal_bt.set_buff_icon("ghost.tres")
-	sir_soul_vault_soulsteal_bt.set_buff_tooltip("Soulsteal\nIncreases spell damage taken.")
+	soulsteal_bt.set_buff_modifier(sir_soul_vault_soulsteal_mod)
+	soulsteal_bt.set_buff_icon("ghost.tres")
+	soulsteal_bt.set_buff_tooltip("Soulsteal\nIncreases spell damage taken.")
 
 	acid_skull_pt = ProjectileType.create("Hippogryph.mdl", 20, 700, self)
 	acid_skull_pt.enable_homing(acid_skull_pt_on_hit, 0)
@@ -103,7 +103,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = sir_soul_vault_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -129,7 +129,7 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, target, "Soul Steal")
 
-	sir_soul_vault_soulsteal_bt.apply(tower, target, tower.get_level())
+	soulsteal_bt.apply(tower, target, tower.get_level())
 
 
 func acid_skull_pt_on_hit(_projectile: Projectile, target: Unit):
@@ -153,4 +153,4 @@ func acid_skull_pt_on_hit(_projectile: Projectile, target: Unit):
 			skull_damage = 1440 * (1.0 + 0.05 * tower.get_level())
 
 		tower.do_spell_damage(next, skull_damage, tower.calc_spell_crit_no_bonus())
-		sir_soul_vault_acid_skull_bt.apply(tower, next, tower.get_level())
+		acid_skull_bt.apply(tower, next, tower.get_level())

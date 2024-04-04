@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_focus_freezing_bt: BuffType
-var sir_focus_gust_bt: BuffType
+var freezing_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -52,19 +52,19 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	sir_focus_freezing_bt = BuffType.new("sir_focus_freezing_bt", 5, 0.05, true, self)
+	freezing_bt = BuffType.new("freezing_bt", 5, 0.05, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.1, 0.008)
-	sir_focus_freezing_bt.set_buff_modifier(mod)
-	sir_focus_freezing_bt.set_buff_icon("orb_swirly.tres")
-	sir_focus_freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
+	freezing_bt.set_buff_modifier(mod)
+	freezing_bt.set_buff_icon("orb_swirly.tres")
+	freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
 
-	sir_focus_gust_bt = BuffType.create_aura_effect_type("sir_focus_gust_bt", true, self)
-	sir_focus_gust_bt.set_buff_icon("orb_swirly.tres")
-	sir_focus_gust_bt.add_event_on_create(gust_on_create)
-	sir_focus_gust_bt.add_periodic_event(gust_periodic, 1.0)
-	sir_focus_gust_bt.add_event_on_cleanup(gust_on_cleanup)
-	sir_focus_gust_bt.set_buff_tooltip("Gust Aura\nIncreases damage dealt to Air creeps.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("orb_swirly.tres")
+	aura_bt.add_event_on_create(gust_on_create)
+	aura_bt.add_periodic_event(gust_periodic, 1.0)
+	aura_bt.add_event_on_cleanup(gust_on_cleanup)
+	aura_bt.set_buff_tooltip("Gust Aura\nIncreases damage dealt to Air creeps.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Freezing Gust"
@@ -81,7 +81,7 @@ func tower_init():
 	autocast.mana_cost = 15
 	autocast.target_self = false
 	autocast.is_extended = true
-	autocast.buff_type = sir_focus_freezing_bt
+	autocast.buff_type = freezing_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
 	tower.add_autocast(autocast)
@@ -96,7 +96,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = sir_focus_gust_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -114,7 +114,7 @@ func gust_periodic(event: Event):
 
 	var bonus_damage: float = 1.0 * (dmg_to_air - 1.0) * multiplier
 	
-	var target_has_freezing_gust: bool = target.get_buff_of_type(sir_focus_freezing_bt) != null
+	var target_has_freezing_gust: bool = target.get_buff_of_type(freezing_bt) != null
 	if target_has_freezing_gust:
 		bonus_damage *= 2.0
 

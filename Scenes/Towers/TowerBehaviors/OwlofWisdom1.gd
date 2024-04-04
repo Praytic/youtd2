@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var tomy_owl_pt: ProjectileType
+var missile_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -83,8 +83,8 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	tomy_owl_pt = ProjectileType.create("DarkSummonMissile.mdl", 5.0, 950.0, self)
-	tomy_owl_pt.enable_homing(tomy_owl_pt_on_hit, 0)
+	missile_pt = ProjectileType.create("DarkSummonMissile.mdl", 5.0, 950.0, self)
+	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 
 func on_attack(event: Event):
@@ -119,10 +119,10 @@ func periodic(_event: Event):
 
 
 func tomy_energyball_start(target: Creep):
-	Projectile.create_from_unit_to_unit(tomy_owl_pt, tower, 0, 0, tower, target, true, false, false)
+	Projectile.create_from_unit_to_unit(missile_pt, tower, 0, 0, tower, target, true, false, false)
 
 
-func tomy_owl_pt_on_hit(projectile: Projectile, target: Unit):
+func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	if target == null:
 		return
 

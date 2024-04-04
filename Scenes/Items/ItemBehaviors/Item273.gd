@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_scroll_of_speed_bt: BuffType
+var speed_bt: BuffType
 
 
 func get_autocast_description() -> String:
@@ -20,12 +20,12 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	boekie_scroll_of_speed_bt = BuffType.new("boekie_scroll_of_speed_bt", 0.0, 0.0, true, self)
-	boekie_scroll_of_speed_bt.set_buff_icon("hammer_swing.tres")
-	boekie_scroll_of_speed_bt.set_buff_tooltip("Speed Boost\nIncreases attack speed.")
+	speed_bt = BuffType.new("speed_bt", 0.0, 0.0, true, self)
+	speed_bt.set_buff_icon("hammer_swing.tres")
+	speed_bt.set_buff_tooltip("Speed Boost\nIncreases attack speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
-	boekie_scroll_of_speed_bt.set_buff_modifier(mod)
+	speed_bt.set_buff_modifier(mod)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Speed Boost"
@@ -64,7 +64,7 @@ func on_autocast(_event: Event):
 			if next == null:
 				break
 
-			boekie_scroll_of_speed_bt.apply_custom_timed(tower, next, lvl * 2, 4.0)
+			speed_bt.apply_custom_timed(tower, next, lvl * 2, 4.0)
 
 		item.user_int = item.user_int - 1
 

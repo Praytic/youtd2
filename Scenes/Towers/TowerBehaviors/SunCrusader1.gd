@@ -6,7 +6,7 @@ extends TowerBehavior
 # changes based on tier.
 
 
-var cedi_crusader_buff: BuffType
+var crusader_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -88,13 +88,13 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cedi_crusader_buff = BuffType.new("cedi_crusader_buff", 0, 0, true, self)
+	crusader_bt = BuffType.new("crusader_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
-	cedi_crusader_buff.set_buff_modifier(mod)
-	cedi_crusader_buff.set_buff_icon("winged_man.tres")
-	cedi_crusader_buff.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
+	crusader_bt.set_buff_modifier(mod)
+	crusader_bt.set_buff_icon("winged_man.tres")
+	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "For the God"
@@ -112,7 +112,7 @@ func tower_init():
 	autocast.auto_range = 600
 	autocast.cooldown = 4
 	autocast.mana_cost = 10
-	autocast.buff_type = cedi_crusader_buff
+	autocast.buff_type = crusader_bt
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
 
@@ -137,4 +137,4 @@ func on_autocast(event: Event):
 	var buff_level: int = _stats.for_the_god_level + _stats.for_the_god_level_add * level
 	var buff_duration: float = FOR_THE_GOD_DURATION + FOR_THE_GOD_DURATION_ADD * level
 
-	cedi_crusader_buff.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	crusader_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)

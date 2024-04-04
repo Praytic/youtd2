@@ -9,8 +9,8 @@ extends TowerBehavior
 # out of range.
 
 
-var cedi_flux_aura_bt: BuffType
-var cedi_flux_link_bt: BuffType
+var aura_bt: BuffType
+var link_bt: BuffType
 var flux_pt: ProjectileType
 var multiboard: MultiboardValues
 var linked_tower: Tower = null
@@ -66,16 +66,16 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_flux_aura_bt = BuffType.create_aura_effect_type("cedi_flux_aura_bt", false, self)
-	cedi_flux_aura_bt.add_event_on_damaged(cedi_flux_aura_bt_on_damaged)
-	cedi_flux_aura_bt.set_buff_icon("orb_empty.tres")
-	cedi_flux_aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
+	aura_bt.set_buff_icon("orb_empty.tres")
+	aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
 
-	cedi_flux_link_bt = BuffType.new("cedi_flux_link_bt", -1, 0, true, self)
-	cedi_flux_link_bt.add_event_on_create(cedi_flux_aura_bt_on_create)
-	cedi_flux_link_bt.add_event_on_cleanup(cedi_flux_aura_bt_on_cleanup)
-	cedi_flux_link_bt.set_buff_icon("electricity.tres")
-	cedi_flux_link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
+	link_bt = BuffType.new("link_bt", -1, 0, true, self)
+	link_bt.add_event_on_create(aura_bt_on_create)
+	link_bt.add_event_on_cleanup(aura_bt_on_cleanup)
+	link_bt.set_buff_icon("electricity.tres")
+	link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "DPS")
@@ -113,7 +113,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = cedi_flux_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -121,13 +121,13 @@ func get_aura_types() -> Array[AuraType]:
 func on_destruct():
 #	Remove link on destroy of this tower
 	if linked_tower != null:
-		var buff: Buff = linked_tower.get_buff_of_type(cedi_flux_link_bt)
+		var buff: Buff = linked_tower.get_buff_of_type(link_bt)
 		buff.remove_buff()
 
 
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
-	var buff_on_new_target: Buff = target.get_buff_of_type(cedi_flux_link_bt)
+	var buff_on_new_target: Buff = target.get_buff_of_type(link_bt)
 
 	if buff_on_new_target != null:
 #		Target is linked to another one of these towers.
@@ -138,11 +138,11 @@ func on_autocast(event: Event):
 #	linked tower and the target aren't the same. Else the buff is destroyed before this
 #	-> linked_tower == null (buff cleanup)
 	if linked_tower != null:
-		var buff_on_old_target: Buff = linked_tower.get_buff_of_type(cedi_flux_link_bt)
+		var buff_on_old_target: Buff = linked_tower.get_buff_of_type(link_bt)
 		buff_on_old_target.remove_buff()
 
 	linked_tower = target
-	cedi_flux_link_bt.apply(tower, target, 0)
+	link_bt.apply(tower, target, 0)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -198,7 +198,7 @@ func flux_pt_on_hit(_p: Projectile, target: Unit):
 
 
 # NOTE: "BuffTrigger()" in original script
-func cedi_flux_aura_bt_on_damaged(event: Event):
+func aura_bt_on_damaged(event: Event):
 	var attacker: Unit = event.get_target()
 
 	if event.is_spell_damage() && attacker == linked_tower:
@@ -206,7 +206,7 @@ func cedi_flux_aura_bt_on_damaged(event: Event):
 
 
 # NOTE: "LinkCreate()" in original script
-func cedi_flux_aura_bt_on_create(event: Event):
+func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, Vector3(caster.get_visual_x(), caster.get_visual_y(), 220), linked_tower)
@@ -215,7 +215,7 @@ func cedi_flux_aura_bt_on_create(event: Event):
 
 
 # NOTE: "LinkEnd()" in original script
-func cedi_flux_aura_bt_on_cleanup(_event: Event):
+func aura_bt_on_cleanup(_event: Event):
 	if saved_lightning != null:
 		saved_lightning.queue_free()
 		saved_lightning = null

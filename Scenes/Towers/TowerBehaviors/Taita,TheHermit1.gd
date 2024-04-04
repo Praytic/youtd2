@@ -5,8 +5,8 @@ extends TowerBehavior
 # creep with no Icy Touch stacks. Kind of weird.
 
 
-var dave_taita_blood_bt: BuffType
-var dave_taita_touch_bt: BuffType
+var cold_blood_bt: BuffType
+var icy_touch_bt: BuffType
 var frostbolt_pt: ProjectileType
 
 
@@ -60,19 +60,19 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	dave_taita_blood_bt = BuffType.new("dave_taita_blood_bt", 3, 0, true, self)
+	cold_blood_bt = BuffType.new("cold_blood_bt", 3, 0, true, self)
 	var dave_taita_blood_mod: Modifier = Modifier.new()
 	dave_taita_blood_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.005)
-	dave_taita_blood_bt.set_buff_modifier(dave_taita_blood_mod)
-	dave_taita_blood_bt.set_buff_icon("crystal.tres")
-	dave_taita_blood_bt.set_buff_tooltip("Cold Blood\nIncreases attack speed.")
+	cold_blood_bt.set_buff_modifier(dave_taita_blood_mod)
+	cold_blood_bt.set_buff_icon("crystal.tres")
+	cold_blood_bt.set_buff_tooltip("Cold Blood\nIncreases attack speed.")
 
-	dave_taita_touch_bt = BuffType.new("dave_taita_touch_bt", 5, 0, false, self)
+	icy_touch_bt = BuffType.new("icy_touch_bt", 5, 0, false, self)
 	var dave_taita_touch_mod: Modifier = Modifier.new()
 	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
-	dave_taita_touch_bt.set_buff_modifier(dave_taita_touch_mod)
-	dave_taita_touch_bt.set_buff_icon("cup_with_wings.tres")
-	dave_taita_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
+	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
+	icy_touch_bt.set_buff_icon("cup_with_wings.tres")
+	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
 
 	frostbolt_pt = ProjectileType.create("FreezingBreathMissile.mdl", 4, 900, self)
 	frostbolt_pt.enable_homing(frostbolt_pt_on_hit, 0)
@@ -94,7 +94,7 @@ func on_attack(event: Event):
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
-	var buff: Buff = target.get_buff_of_type(dave_taita_touch_bt)
+	var buff: Buff = target.get_buff_of_type(icy_touch_bt)
 	var buff_level: int = 0
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 	var level: int = tower.get_level()
@@ -104,13 +104,13 @@ func on_damage(event: Event):
 		event.damage = event.damage * (1 + buff_level * (0.1 + 0.02 * level))
 
 	if buff_level < 6:
-		dave_taita_touch_bt.apply(tower, target, buff_level + 1)
+		icy_touch_bt.apply(tower, target, buff_level + 1)
 
 
 func on_kill(_event: Event):
 	var level: int = tower.get_level()
 
-	dave_taita_blood_bt.apply(tower, tower, level)
+	cold_blood_bt.apply(tower, tower, level)
 
 
 func frostbolt_pt_on_hit(_p: Projectile, creep: Unit):
@@ -118,7 +118,7 @@ func frostbolt_pt_on_hit(_p: Projectile, creep: Unit):
 		return
 
 	var level: int = tower.get_level()
-	var buff: Buff = creep.get_buff_of_type(dave_taita_touch_bt)
+	var buff: Buff = creep.get_buff_of_type(icy_touch_bt)
 
 	var buff_level: int
 	if buff != null:

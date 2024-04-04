@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var hs_bloodlust_buff: BuffType
-var hs_bloody_exp_aura: BuffType
+var bloodlust_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -81,18 +81,18 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	hs_bloodlust_buff = BuffType.new("hs_bloodlust_buff", 0, 0, true, self)
+	bloodlust_bt = BuffType.new("bloodlust_bt", 0, 0, true, self)
 	var bloodlust_mod: Modifier = Modifier.new()
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.15, 0.002)
-	hs_bloodlust_buff.set_buff_icon("orb_triple.tres")
-	hs_bloodlust_buff.set_buff_modifier(bloodlust_mod)
-	hs_bloodlust_buff.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
+	bloodlust_bt.set_buff_icon("orb_triple.tres")
+	bloodlust_bt.set_buff_modifier(bloodlust_mod)
+	bloodlust_bt.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
 
-	hs_bloody_exp_aura = BuffType.create_aura_effect_type("hs_bloody_exp_aura", true, self)
-	hs_bloody_exp_aura.add_event_on_damage(bloody_exp_aura_on_damage)
-	hs_bloody_exp_aura.set_buff_icon("goldbar.tres")
-	hs_bloody_exp_aura.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.add_event_on_damage(bloody_exp_aura_on_damage)
+	aura_bt.set_buff_icon("goldbar.tres")
+	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Bloodlust"
@@ -108,7 +108,7 @@ func tower_init():
 	autocast.cooldown = 5
 	autocast.is_extended = false
 	autocast.mana_cost = 15
-	autocast.buff_type = hs_bloodlust_buff
+	autocast.buff_type = bloodlust_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	autocast.handler = on_autocast
@@ -124,7 +124,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = hs_bloody_exp_aura
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -133,7 +133,7 @@ func on_autocast(event: Event):
 	var buff_level: int = _stats.bloodlust_level + _stats.bloodlust_level_add * level
 	var buff_duration: float = BLOODLUST_DURATION + BLOODLUST_DURATION_ADD * level
 
-	hs_bloodlust_buff.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	bloodlust_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
 
 
 func bloody_exp_aura_on_damage(event: Event):

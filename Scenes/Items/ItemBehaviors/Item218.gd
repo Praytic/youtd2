@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var cedi_blaster_staff_pt: ProjectileType
+var staff_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: Collision() in original script
-func cedi_blaster_staff_pt_on_hit(P: Projectile, targ: Unit):
+func staff_pt_on_hit(P: Projectile, targ: Unit):
 	if targ == null:
 		return
 
@@ -27,8 +27,8 @@ func cedi_blaster_staff_pt_on_hit(P: Projectile, targ: Unit):
 
 
 func item_init():
-	cedi_blaster_staff_pt = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00, self)
-	cedi_blaster_staff_pt.enable_homing(cedi_blaster_staff_pt_on_hit, 0.0)
+	staff_pt = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00, self)
+	staff_pt.enable_homing(staff_pt_on_hit, 0.0)
 
 
 func periodic(_event: Event):
@@ -37,4 +37,4 @@ func periodic(_event: Event):
 	var T: Unit = I.next()
 
 	if T != null:
-		Projectile.create_from_unit_to_unit(cedi_blaster_staff_pt, U, 1.00, U.calc_spell_crit_no_bonus(), U, T, true, false, false)
+		Projectile.create_from_unit_to_unit(staff_pt, U, 1.00, U.calc_spell_crit_no_bonus(), U, T, true, false, false)

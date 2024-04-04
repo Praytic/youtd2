@@ -15,10 +15,10 @@ extends TowerBehavior
 # 		red = spell damage
 
 
-var dave_physical_bt: BuffType
-var dave_spell_bt: BuffType
-var dave_red_pt: ProjectileType
-var dave_green_pt: ProjectileType
+var attack_bt: BuffType
+var spell_bt: BuffType
+var red_pt: ProjectileType
+var green_pt: ProjectileType
 
 var red_flame_count: int = 0
 var green_flame_count: int = 0
@@ -88,25 +88,25 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_physical_bt = BuffType.new("dave_physical_bt", 7, 0, true, self)
+	attack_bt = BuffType.new("attack_bt", 7, 0, true, self)
 	var dave_physical_mod: Modifier = Modifier.new()
 	dave_physical_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
-	dave_physical_bt.set_buff_modifier(dave_physical_mod)
-	dave_physical_bt.set_buff_icon("hammer_swing.tres")
-	dave_physical_bt.set_buff_tooltip("Attack Discipline\nIncreases crit chance.")
+	attack_bt.set_buff_modifier(dave_physical_mod)
+	attack_bt.set_buff_icon("hammer_swing.tres")
+	attack_bt.set_buff_tooltip("Attack Discipline\nIncreases crit chance.")
 
-	dave_spell_bt = BuffType.new("dave_spell_bt", 7, 0, true, self)
+	spell_bt = BuffType.new("spell_bt", 7, 0, true, self)
 	var dave_spell_mod: Modifier = Modifier.new()
 	dave_spell_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
-	dave_spell_bt.set_buff_modifier(dave_spell_mod)
-	dave_spell_bt.set_buff_icon("ankh.tres")
-	dave_spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
+	spell_bt.set_buff_modifier(dave_spell_mod)
+	spell_bt.set_buff_icon("ankh.tres")
+	spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
 
-	dave_red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)
-	dave_red_pt.set_event_on_interpolation_finished(dave_red_pt_on_hit)
+	red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)
+	red_pt.set_event_on_interpolation_finished(red_pt_on_hit)
 
-	dave_green_pt = ProjectileType.create_interpolate("GreenDragonMissile.mdl", 1000, self)
-	dave_green_pt.set_event_on_interpolation_finished(dave_green_pt_on_hit)
+	green_pt = ProjectileType.create_interpolate("GreenDragonMissile.mdl", 1000, self)
+	green_pt.set_event_on_interpolation_finished(green_pt_on_hit)
 
 
 
@@ -120,13 +120,13 @@ func on_attack(event: Event):
 	if tower.calc_chance(spell_crit_chance):
 		CombatLog.log_ability(tower, target, "Red Flame")
 
-		Projectile.create_bezier_interpolation_from_unit_to_unit(dave_red_pt, tower, 1, 1, tower, target, 0, 0.3, 0, true)
+		Projectile.create_bezier_interpolation_from_unit_to_unit(red_pt, tower, 1, 1, tower, target, 0, 0.3, 0, true)
 		red_flame_count += 1
 
 	if tower.calc_chance(attack_crit_chance):
 		CombatLog.log_ability(tower, target, "Green Flame")
 		
-		Projectile.create_bezier_interpolation_from_unit_to_unit(dave_green_pt, tower, 1, 1, tower, target, 0, -0.3, 0, true)
+		Projectile.create_bezier_interpolation_from_unit_to_unit(green_pt, tower, 1, 1, tower, target, 0, -0.3, 0, true)
 		green_flame_count += 1
 
 	var do_red_pulse: bool = red_flame_count >= flame_count_for_pulse
@@ -173,8 +173,8 @@ func on_damage(event: Event):
 	if !event.is_attack_damage_critical():
 		return
 
-	var physical_buff: Buff = tower.get_buff_of_type(dave_physical_bt)
-	var spell_buff: Buff = tower.get_buff_of_type(dave_spell_bt)
+	var physical_buff: Buff = tower.get_buff_of_type(attack_bt)
+	var spell_buff: Buff = tower.get_buff_of_type(spell_bt)
 	var attack_crit_chance: float = tower.get_prop_atk_crit_chance()
 	var spell_crit_chance: float = tower.get_spell_crit_chance()
 
@@ -192,19 +192,19 @@ func on_damage(event: Event):
 
 	if attack_crit_chance < spell_crit_chance || spell_buff_level == 10:
 		if physical_buff == null:
-			dave_physical_bt.apply(tower, tower, 1)
+			attack_bt.apply(tower, tower, 1)
 		else:
 			var new_buff_level: int = min(physical_buff_level + 1, 10)
-			dave_physical_bt.apply(tower, tower, new_buff_level)
+			attack_bt.apply(tower, tower, new_buff_level)
 	elif attack_crit_chance > spell_crit_chance || physical_buff_level == 10:
 		if spell_buff == null:
-			dave_spell_bt.apply(tower, tower, 1)
+			spell_bt.apply(tower, tower, 1)
 		else:
 			var new_buff_level: int = min(spell_buff_level + 1, 10)
-			dave_spell_bt.apply(tower, tower, new_buff_level)
+			spell_bt.apply(tower, tower, new_buff_level)
 
 
-func dave_red_pt_on_hit(_projectile: Projectile, creep: Unit):
+func red_pt_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
@@ -212,7 +212,7 @@ func dave_red_pt_on_hit(_projectile: Projectile, creep: Unit):
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
 
 
-func dave_green_pt_on_hit(_projectile: Projectile, creep: Unit):
+func green_pt_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 

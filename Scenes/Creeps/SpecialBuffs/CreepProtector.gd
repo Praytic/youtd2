@@ -9,9 +9,9 @@ class_name CreepProtector extends BuffType
 const PROTECTOR_RANGE: int = 1000
 
 
-var creep_protector_aura_bt: BuffType
-var creep_protector_channel_bt: BuffType
-var creep_protector_curse_bt: BuffType
+var aura_bt: BuffType
+var channel_bt: BuffType
+var curse_bt: BuffType
 
 
 func _init(parent: Node):
@@ -19,23 +19,24 @@ func _init(parent: Node):
 
 	add_event_on_create(on_create)
 	
-	creep_protector_channel_bt = BuffType.new("creep_protector_channel_bt", 0, 0, true, self)
-	creep_protector_channel_bt.set_buff_icon("mask_occult.tres")
-	creep_protector_channel_bt.set_buff_icon_color(Color.DARK_RED)
-	creep_protector_channel_bt.set_buff_tooltip("Protector Channel\nChannels a protector curse.")
+	channel_bt = BuffType.new("channel_bt", 0, 0, true, self)
+	channel_bt.set_buff_icon("mask_occult.tres")
+	channel_bt.set_buff_icon_color(Color.DARK_RED)
+	channel_bt.set_buff_tooltip("Protector Channel\nChannels a protector curse.")
 	
-	creep_protector_curse_bt = BuffType.new("creep_protector_curse_bt", 1.5, 0, false, self
+	curse_bt = BuffType.new("curse_bt", 1.5, 0, false, self
 		)
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -1.3, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, -2, 0.0)
-	creep_protector_curse_bt.set_buff_icon("mask_occult.tres")
-	creep_protector_curse_bt.set_buff_icon_color(Color.DARK_RED)
-	creep_protector_curse_bt.set_buff_tooltip("Protector Curse\nReduces attack damage and multicrit.")
-	creep_protector_curse_bt.set_buff_modifier(modifier)
+	curse_bt.set_buff_icon("mask_occult.tres")
+	curse_bt.set_buff_icon_color(Color.DARK_RED)
+	curse_bt.set_buff_tooltip("Protector Curse\nReduces attack damage and multicrit.")
+	curse_bt.set_buff_modifier(modifier)
 
-	creep_protector_aura_bt = BuffType.create_aura_effect_type("creep_protector_aura_bt", true, self)
-	creep_protector_aura_bt.add_event_on_death(creep_protector_aura_bt_on_death)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.add_event_on_death(aura_bt_on_death)
+	aura_bt.set_hidden()
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = PROTECTOR_RANGE
@@ -45,7 +46,7 @@ func _init(parent: Node):
 	aura.level_add = 0
 	aura.power = 0
 	aura.power_add = 0
-	aura.aura_effect = creep_protector_aura_bt
+	aura.aura_effect = aura_bt
 	add_aura(aura)
 
 
@@ -72,11 +73,11 @@ func on_create(event: Event):
 	protector.add_autocast(autocast)
 
 
-func creep_protector_aura_bt_on_death(event: Event):
+func aura_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var protector: Unit = buff.get_caster()
 
-	var channel_buff: Buff = protector.get_buff_of_type(creep_protector_channel_bt)
+	var channel_buff: Buff = protector.get_buff_of_type(channel_bt)
 
 	var protector_is_channeling: bool = channel_buff != null
 
@@ -89,14 +90,14 @@ func creep_protector_aura_bt_on_death(event: Event):
 			channel_buff.remove_buff()
 	else:
 		var attacker: Unit = event.get_target()
-		var new_channel_buff: Buff = creep_protector_channel_bt.apply_to_unit_permanent(protector, protector, 0)
+		var new_channel_buff: Buff = channel_bt.apply_to_unit_permanent(protector, protector, 0)
 		new_channel_buff.user_int = attacker.get_instance_id()
 
 
 func on_autocast(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
 	var protector: Unit = autocast.get_caster()
-	var channel_buff: Buff = protector.get_buff_of_type(creep_protector_channel_bt)
+	var channel_buff: Buff = protector.get_buff_of_type(channel_bt)
 	var protector_is_channeling: bool = channel_buff != null
 
 	if !protector_is_channeling:
@@ -117,7 +118,7 @@ func on_autocast(event: Event):
 
 		return
 
-	creep_protector_curse_bt.apply(protector, cursed_tower, 0)
+	curse_bt.apply(protector, cursed_tower, 0)
 
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, protector, cursed_tower)
 	lightning.modulate = Color.DARK_OLIVE_GREEN

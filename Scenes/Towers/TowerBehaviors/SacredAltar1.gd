@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var boekie_altar_entangle_bt: BuffType
-var boekie_altar_gift_bt: BuffType
+var entangle_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -28,15 +28,15 @@ func get_ability_description_short() -> String:
 
 
 func tower_init():
-	boekie_altar_entangle_bt = CbStun.new("boekie_altar_entangle_bt", 1.2, 0, false, self)
-	boekie_altar_entangle_bt.set_buff_icon("letter_u_striked.tres")
-	boekie_altar_entangle_bt.add_periodic_event(boekie_altar_entangle_bt_periodic, 1.0)
-	boekie_altar_entangle_bt.set_buff_tooltip("Entangled\nThis creep is entangled; it can't move and will take periodic damage.")
+	entangle_bt = CbStun.new("entangle_bt", 1.2, 0, false, self)
+	entangle_bt.set_buff_icon("letter_u_striked.tres")
+	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
+	entangle_bt.set_buff_tooltip("Entangled\nThis creep is entangled; it can't move and will take periodic damage.")
 
-	boekie_altar_gift_bt = BuffType.create_aura_effect_type("boekie_altar_gift_bt", true, self)
-	boekie_altar_gift_bt.set_buff_icon("cup_with_wings.tres")
-	boekie_altar_gift_bt.add_event_on_attack(boekie_altar_gift_bt_on_attack)
-	boekie_altar_gift_bt.set_buff_tooltip("Gift of Nature\nChance to entangle creeps.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("cup_with_wings.tres")
+	aura_bt.add_event_on_attack(aura_bt_on_attack)
+	aura_bt.set_buff_tooltip("Gift of Nature\nChance to entangle creeps.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -48,12 +48,12 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = boekie_altar_gift_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
 
-func boekie_altar_gift_bt_on_attack(event: Event):
+func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var buffed_tower: Tower = buff.get_buffed_unit()
@@ -70,10 +70,10 @@ func boekie_altar_gift_bt_on_attack(event: Event):
 
 	CombatLog.log_ability(caster, target, "Sacred Altar Entangle")
 
-	boekie_altar_entangle_bt.apply(caster, target, caster.get_level())
+	entangle_bt.apply(caster, target, caster.get_level())
 
 
-func boekie_altar_entangle_bt_periodic(event: Event):
+func entangle_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var creep: Unit = buff.get_buffed_unit()

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var maj_ice_nova_slow: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -48,11 +48,11 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	var m: Modifier = Modifier.new()
 
-	maj_ice_nova_slow = BuffType.new("maj_ice_nova_slow", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	maj_ice_nova_slow.set_buff_modifier(m)
-	maj_ice_nova_slow.set_buff_icon("star.tres")
-	maj_ice_nova_slow.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt.set_buff_modifier(m)
+	slow_bt.set_buff_icon("star.tres")
+	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
 
 func on_damage(event: Event):
@@ -71,7 +71,7 @@ func on_damage(event: Event):
 		if next == null:
 			break
 
-		maj_ice_nova_slow.apply_custom_timed(tower, next, _stats.slow_value, _stats.slow_duration)
+		slow_bt.apply_custom_timed(tower, next, _stats.slow_value, _stats.slow_duration)
 
 	var damage: float = _stats.aoe_damage + _stats.aoe_damage_add * tower.get_level()
 	tower.do_spell_damage_aoe_unit(targ, _stats.aoe_range, damage, tower.calc_spell_crit(0.3, 0.0), 0)

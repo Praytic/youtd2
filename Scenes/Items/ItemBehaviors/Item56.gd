@@ -6,7 +6,7 @@ extends ItemBehavior
 # wasn't added to aura effect type.
 
 # thanks to Gex "ice core" aura
-var poussix_bhaal_bt: BuffType
+var fright_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -27,14 +27,14 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	poussix_bhaal_bt = BuffType.create_aura_effect_type("poussix_bhaal_bt", true, self)
-	poussix_bhaal_bt.set_buff_icon("ghost.tres")
-	poussix_bhaal_bt.set_buff_tooltip("Fright\nReduces movement speed and armor.")
-	poussix_bhaal_bt.set_stacking_group("fright_aura")
+	fright_bt = BuffType.create_aura_effect_type("fright_bt", true, self)
+	fright_bt.set_buff_icon("ghost.tres")
+	fright_bt.set_buff_tooltip("Fright\nReduces movement speed and armor.")
+	fright_bt.set_stacking_group("fright_aura")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.0020)
 	mod.add_modification(Modification.Type.MOD_ARMOR, -4.00, -0.2)
-	poussix_bhaal_bt.set_buff_modifier(mod)
+	fright_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 650
@@ -44,5 +44,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = poussix_bhaal_bt
+	aura.aura_effect = fright_bt
 	item.add_aura(aura)

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_area_rooster: BuffType
+var ignite_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -46,7 +46,8 @@ func load_specials(_modifier: Modifier):
 	tower.set_target_count(4)
 
 
-func sir_area_damage(event: Event):
+# NOTE: sir_area_damage() in original script
+func ignite_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 	var caster: Tower = b.get_caster()
 
@@ -54,18 +55,18 @@ func sir_area_damage(event: Event):
 
 
 func tower_init():
-	var m: Modifier = Modifier.new()
-	sir_area_rooster = BuffType.new("sir_area_rooster", 0, 0, false, self)
-	sir_area_rooster.set_buff_icon("running_man_burning.tres")
-	m.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
-	sir_area_rooster.set_buff_modifier(m)
-	sir_area_rooster.add_periodic_event(sir_area_damage, 0.5)
-	sir_area_rooster.set_stacking_group("sir_area_rooster")
-	sir_area_rooster.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
+	ignite_bt = BuffType.new("ignite_bt", 0, 0, false, self)
+	ignite_bt.set_buff_icon("running_man_burning.tres")
+	ignite_bt.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
+	ignite_bt.set_stacking_group("ignite_bt")
+	ignite_bt.add_periodic_event(ignite_bt_periodic, 0.5)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
+	ignite_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
-	var buffyourno: Buff = event.get_target().get_buff_of_type(sir_area_rooster)
+	var buffyourno: Buff = event.get_target().get_buff_of_type(ignite_bt)
 
 	if buffyourno != null:
 		tower.user_int = buffyourno.get_level() + _stats.buff_level_per_stack
@@ -74,4 +75,4 @@ func on_damage(event: Event):
 		tower.user_int = _stats.buff_level_per_stack
 		tower.user_int2 = _stats.buff_power
 
-	sir_area_rooster.apply_advanced(tower, event.get_target(), tower.user_int, tower.user_int2, 5 + tower.get_level() * 0.05)
+	ignite_bt.apply_advanced(tower, event.get_target(), tower.user_int, tower.user_int2, 5 + tower.get_level() * 0.05)

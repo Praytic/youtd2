@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var cedi_toy_boy_bt: BuffType
+var playtime_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -23,14 +23,14 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	cedi_toy_boy_bt = BuffType.new("cedi_toy_boy_bt", 2.0, 0, false, self)
-	cedi_toy_boy_bt.set_buff_icon("gear_1.tres")
-	cedi_toy_boy_bt.set_buff_tooltip("Playtime\nReduces attack speed.")
+	playtime_bt = BuffType.new("playtime_bt", 2.0, 0, false, self)
+	playtime_bt.set_buff_icon("gear_1.tres")
+	playtime_bt.set_buff_tooltip("Playtime\nReduces attack speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.5, 0.0)
-	cedi_toy_boy_bt.set_buff_modifier(mod)
+	playtime_bt.set_buff_modifier(mod)
 
 
 func periodic(_event: Event):
 	CombatLog.log_item_ability(item, null, "Play with me!")
-	cedi_toy_boy_bt.apply(item.get_carrier(), item.get_carrier(), 1)
+	playtime_bt.apply(item.get_carrier(), item.get_carrier(), 1)

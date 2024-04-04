@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_serpent_buff: BuffType
+var charm_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -51,11 +51,11 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MANA_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0005)
-	sir_serpent_buff = BuffType.new("sir_serpent_buff", 0, 0.0005, true, self)
-	sir_serpent_buff.set_buff_icon("ankh.tres")
-	sir_serpent_buff.set_buff_modifier(m)
-	sir_serpent_buff.set_stacking_group("sir_serpent_buff")
-	sir_serpent_buff.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
+	charm_bt = BuffType.new("charm_bt", 0, 0.0005, true, self)
+	charm_bt.set_buff_icon("ankh.tres")
+	charm_bt.set_buff_modifier(m)
+	charm_bt.set_stacking_group("charm_bt")
+	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Snake Charm"
@@ -80,6 +80,6 @@ func tower_init():
 
 func on_autocast(event: Event):
 	if tower.get_level() < 25:
-		sir_serpent_buff.apply_advanced(tower, event.get_target(), _stats.buff_level + tower.get_level(), _stats.buff_power + tower.get_level() * _stats.buff_power_add, 5)
+		charm_bt.apply_advanced(tower, event.get_target(), _stats.buff_level + tower.get_level(), _stats.buff_power + tower.get_level() * _stats.buff_power_add, 5)
 	else:
-		sir_serpent_buff.apply_advanced(tower, event.get_target(), _stats.buff_level + tower.get_level(), _stats.buff_power + tower.get_level() * _stats.buff_power_add, 10)
+		charm_bt.apply_advanced(tower, event.get_target(), _stats.buff_level + tower.get_level(), _stats.buff_power + tower.get_level() * _stats.buff_power_add, 10)

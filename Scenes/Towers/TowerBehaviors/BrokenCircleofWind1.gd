@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sternbogen_broken_wind: BuffType
+var wind_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -50,11 +50,11 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	sternbogen_broken_wind = CbStun.new("sternbogen_broken_wind", 1.0, 0, false, self)
-	sternbogen_broken_wind.set_buff_icon("orb_sparkly.tres")
-	sternbogen_broken_wind.add_event_on_create(cyclone_creep_up)
-	sternbogen_broken_wind.add_periodic_event(cyclone_creep_turn, 0.1)
-	sternbogen_broken_wind.add_event_on_cleanup(cyclone_creep_down)
+	wind_bt = CbStun.new("wind_bt", 1.0, 0, false, self)
+	wind_bt.set_buff_icon("orb_sparkly.tres")
+	wind_bt.add_event_on_create(wind_bt_on_create)
+	wind_bt.add_periodic_event(wind_bt_periodic, 0.1)
+	wind_bt.add_event_on_cleanup(wind_bt_on_cleanup)
 
 
 func on_attack(event: Event):
@@ -66,18 +66,19 @@ func on_attack(event: Event):
 		if (tower.calc_chance(_stats.catch_chance + (_stats.catch_chance_add * tower.get_level()))):
 			CombatLog.log_ability(tower, target, "Wind of Death")
 
-			b = target.get_buff_of_type(sternbogen_broken_wind)
+			b = target.get_buff_of_type(wind_bt)
 			
 			if b != null:
 				damage = max(b.user_real3, damage)
 
-			b = sternbogen_broken_wind.apply_custom_timed(tower, target, tower.get_level(), _stats.cyclone_duration)
+			b = wind_bt.apply_custom_timed(tower, target, tower.get_level(), _stats.cyclone_duration)
 
 			if b != null:
 				b.user_real3 = damage
 
 
-func cyclone_creep_up(event: Event):
+# NOTE: cyclone_creep_up() in original script
+func wind_bt_on_create(event: Event):
 	var b: Buff = event.get_buff()
 
 	var c: Unit = b.get_buffed_unit()
@@ -88,7 +89,8 @@ func cyclone_creep_up(event: Event):
 	c.adjust_height(300, 1000)
 
 
-func cyclone_creep_turn(event: Event):
+# NOTE: cyclone_creep_turn() in original script
+func wind_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 
 	var real_unit: Unit = b.get_buffed_unit()
@@ -96,7 +98,8 @@ func cyclone_creep_turn(event: Event):
 	real_unit = null
 
 
-func cyclone_creep_down(event: Event):
+# NOTE: cyclone_creep_down() in original script
+func wind_bt_on_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 
 	var t: Unit = b.get_caster()

@@ -6,7 +6,7 @@ extends TowerBehavior
 # so duration never changes. Leaving it as in original.
 
 
-var chasm_entangle: BuffType
+var entangle_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,9 +49,9 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	chasm_entangle = CbStun.new("chasm_entangle", _stats.entangle_duration, 0.75, false, self)
-	chasm_entangle.set_buff_icon("orb_swirly.tres")
-	chasm_entangle.add_periodic_event(chasm_entangle_damage, 1.0)
+	entangle_bt = CbStun.new("entangle_bt", _stats.entangle_duration, 0.75, false, self)
+	entangle_bt.set_buff_icon("orb_swirly.tres")
+	entangle_bt.add_periodic_event(entangle_bt_damage, 1.0)
 
 
 func on_create(_preceding_tower: Tower):
@@ -69,14 +69,14 @@ func on_damage(event: Event):
 	if target.get_size() < CreepSize.enm.BOSS && target.get_size() != CreepSize.enm.AIR:
 		CombatLog.log_ability(tower, target, "Entangle")
 		
-		chasm_entangle.apply(tower, target, 0)
+		entangle_bt.apply(tower, target, 0)
 
 #		NOTE: not sure what reorder() does. Tower script
 #		works correctly without this.
 #		target.reorder()
 
 
-func chasm_entangle_damage(event: Event):
+func entangle_bt_damage(event: Event):
 	var buff: Buff = event.get_buff()
 
 	var t = buff.get_caster()

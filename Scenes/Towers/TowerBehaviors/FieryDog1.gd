@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_helldog: BuffType
+var roar_bt: BuffType
 
 # NOTE: This is basically a magic number. Here's a table
 # from original script demonstrating how it works for tier
@@ -55,11 +55,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.05, 0.0005)
 
-	cedi_helldog = BuffType.new("cedi_helldog", 5.0, 0.0, true, self)
-	cedi_helldog.set_buff_icon("winged_man.tres")
-	cedi_helldog.set_buff_modifier(mod)
+	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
+	roar_bt.set_buff_icon("winged_man.tres")
+	roar_bt.set_buff_modifier(mod)
 
-	cedi_helldog.set_buff_tooltip("Roar\nIncreases attack damage.")
+	roar_bt.set_buff_tooltip("Roar\nIncreases attack damage.")
 
 
 func on_damage(_event: Event):
@@ -80,14 +80,14 @@ func on_damage(_event: Event):
 		if U == null:
 			break
 
-		B = U.get_buff_of_type(cedi_helldog)
+		B = U.get_buff_of_type(roar_bt)
 
 		if B != null:
 			if B.user_int < 100:
-				cedi_helldog.apply(tower, U, B.get_level() + _stats.level_multiplier)
+				roar_bt.apply(tower, U, B.get_level() + _stats.level_multiplier)
 				B.user_int = B.user_int + 1
 			else:
 				B.refresh_duration()
 		else:
-			B = cedi_helldog.apply(tower, U, tower.get_level() * _stats.level_multiplier)
+			B = roar_bt.apply(tower, U, tower.get_level() * _stats.level_multiplier)
 			B.user_int = 0

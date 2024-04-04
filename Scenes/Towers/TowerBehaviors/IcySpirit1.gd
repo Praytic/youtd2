@@ -6,7 +6,7 @@ extends TowerBehavior
 # await instead.
 
 
-var boekie_icy_spirit_buff: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -56,10 +56,10 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 
-	boekie_icy_spirit_buff = BuffType.new("boekie_icy_spirit_buff", 5, 0, false, self)
-	boekie_icy_spirit_buff.set_buff_icon("bug_in_amber.tres")
-	boekie_icy_spirit_buff.set_buff_modifier(m)
-	boekie_icy_spirit_buff.set_buff_tooltip("Frozen\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
+	slow_bt.set_buff_icon("bug_in_amber.tres")
+	slow_bt.set_buff_modifier(m)
+	slow_bt.set_buff_tooltip("Frozen\nReduces movement speed.")
 
 
 func on_attack(_event: Event):
@@ -99,7 +99,7 @@ func on_attack(_event: Event):
 				if target == null:
 					break
 
-				boekie_icy_spirit_buff.apply(tower, target, 125 + level * 5)
+				slow_bt.apply(tower, target, 125 + level * 5)
 
 
 		await Utils.create_timer(0.1).timeout

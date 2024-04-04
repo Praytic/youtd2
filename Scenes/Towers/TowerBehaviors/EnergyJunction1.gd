@@ -8,7 +8,7 @@ extends TowerBehavior
 # removed.
 
 
-var sir_junction_buff: BuffType
+var jolt_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -94,12 +94,12 @@ func junction_on_cleanup(event: Event):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	sir_junction_buff = BuffType.new("sir_junction_buff", 10, 0, true, self)
-	sir_junction_buff.set_buff_icon("electricity.tres")
-	sir_junction_buff.add_event_on_create(junction_on_create)
-	sir_junction_buff.add_event_on_attack(junction_on_damage)
-	sir_junction_buff.add_event_on_cleanup(junction_on_cleanup)
-	sir_junction_buff.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
+	jolt_bt = BuffType.new("jolt_bt", 10, 0, true, self)
+	jolt_bt.set_buff_icon("electricity.tres")
+	jolt_bt.add_event_on_create(junction_on_create)
+	jolt_bt.add_event_on_attack(junction_on_damage)
+	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
+	jolt_bt.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Jolt"
@@ -115,7 +115,7 @@ func tower_init():
 	autocast.cooldown = 8
 	autocast.is_extended = false
 	autocast.mana_cost = 15
-	autocast.buff_type = sir_junction_buff
+	autocast.buff_type = jolt_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	tower.add_autocast(autocast)

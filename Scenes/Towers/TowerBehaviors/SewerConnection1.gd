@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var D1000_Toxic_vapor: BuffType
+var toxic_bt: BuffType
 
 
 # NOTE: vapor damage stat is multiplied by 10 and divided by
@@ -54,10 +54,10 @@ func D1000_Toxic_Damage(event: Event):
 
 
 func tower_init():
-	D1000_Toxic_vapor = BuffType.new("D1000_Toxic_vapor", 10, 0, false, self)
-	D1000_Toxic_vapor.set_buff_icon("ghost.tres")
-	D1000_Toxic_vapor.add_periodic_event(D1000_Toxic_Damage, 1)
-	D1000_Toxic_vapor.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
+	toxic_bt = BuffType.new("toxic_bt", 10, 0, false, self)
+	toxic_bt.set_buff_icon("ghost.tres")
+	toxic_bt.add_periodic_event(D1000_Toxic_Damage, 1)
+	toxic_bt.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
 
 
 func on_attack(event: Event):
@@ -66,4 +66,4 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Toxic Vapor")
 
-	D1000_Toxic_vapor.apply(tower, event.get_target(), int(tower.get_level() * _stats.vapor_damage_add + _stats.vapor_damage))
+	toxic_bt.apply(tower, event.get_target(), int(tower.get_level() * _stats.vapor_damage_add + _stats.vapor_damage))

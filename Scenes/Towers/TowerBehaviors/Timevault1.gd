@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_timevault_aura_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -39,12 +39,12 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_timevault_aura_bt = BuffType.create_aura_effect_type("sir_timevault_aura_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.30, 0.006)
-	sir_timevault_aura_bt.set_buff_modifier(mod)
-	sir_timevault_aura_bt.set_buff_icon("beard.tres")
-	sir_timevault_aura_bt.set_buff_tooltip("Timesurge\nIncreases trigger chances.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("beard.tres")
+	aura_bt.set_buff_tooltip("Timesurge\nIncreases trigger chances.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -56,7 +56,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = sir_timevault_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

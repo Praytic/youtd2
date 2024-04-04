@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -20,14 +20,14 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cb_stun = CbStun.new("item_268_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 
 	if item.user_int > 0:
-		cb_stun.apply_only_timed(item.get_carrier(), target, 1.5)
+		stun_bt.apply_only_timed(item.get_carrier(), target, 1.5)
 		item.user_int = item.user_int - 1
 		item.set_charges(item.user_int)
 

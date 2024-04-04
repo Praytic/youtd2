@@ -29,9 +29,9 @@ const BLUE_I: int = 0
 const GREEN_I: int = 1
 const RED_I: int = 2
 
-var cb_stun: BuffType
-var ely_drake_versatile_bt: BuffType
-var ely_drake_slow_bt: BuffType
+var stun_bt: BuffType
+var versatile_bt: BuffType
+var slow_bt: BuffType
 var blue_drake_pt: ProjectileType
 var green_drake_pt: ProjectileType
 var red_drake_pt: ProjectileType
@@ -102,21 +102,21 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("drake_whisperer_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	ely_drake_versatile_bt = BuffType.new("ely_drake_versatile_bt", 2.5, 0, true, self)
-	var ely_drake_versatile_bt_mod: Modifier = Modifier.new()
-	ely_drake_versatile_bt_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 1.0)
-	ely_drake_versatile_bt.set_buff_modifier(ely_drake_versatile_bt_mod)
-	ely_drake_versatile_bt.set_buff_icon("star.tres")
-	ely_drake_versatile_bt.set_buff_tooltip("Versatile\nIncreases DPS.")
+	versatile_bt = BuffType.new("versatile_bt", 2.5, 0, true, self)
+	var versatile_bt_mod: Modifier = Modifier.new()
+	versatile_bt_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 1.0)
+	versatile_bt.set_buff_modifier(versatile_bt_mod)
+	versatile_bt.set_buff_icon("star.tres")
+	versatile_bt.set_buff_tooltip("Versatile\nIncreases DPS.")
 
-	ely_drake_slow_bt = BuffType.new("ely_drake_slow_bt", 3.0, 0, false, self)
-	var ely_drake_slow_bt_mod: Modifier = Modifier.new()
-	ely_drake_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
-	ely_drake_slow_bt.set_buff_modifier(ely_drake_slow_bt_mod)
-	ely_drake_slow_bt.set_buff_icon("fireball.tres")
-	ely_drake_slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 3.0, 0, false, self)
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
+	slow_bt.set_buff_modifier(slow_bt_mod)
+	slow_bt.set_buff_icon("fireball.tres")
+	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
 
 	blue_drake_pt = ProjectileType.create_interpolate("AzureDragon.mdl", 1000, self)
 	blue_drake_pt.disable_explode_on_hit()
@@ -288,7 +288,7 @@ func feeding():
 
 # NOTE: "refreshBuff()" in original script
 func refresh_buff(damage_dealt: float):
-	var versatile_buff: Buff = tower.get_buff_of_type(ely_drake_versatile_bt)
+	var versatile_buff: Buff = tower.get_buff_of_type(versatile_bt)
 	var max_damage: float = 200 * tower.get_player().get_team().get_level()
 
 	if damage_dealt <= 0:
@@ -308,12 +308,12 @@ func refresh_buff(damage_dealt: float):
 		if powerup > max_damage:
 			powerup = max_damage
 
-		ely_drake_versatile_bt.apply_custom_power(tower, tower, 1, int(powerup))
+		versatile_bt.apply_custom_power(tower, tower, 1, int(powerup))
 
 
 # NOTE: "spreadBuff()" in original script
 func spread_buff():
-	var versatile_buff: Buff = tower.get_buff_of_type(ely_drake_versatile_bt)
+	var versatile_buff: Buff = tower.get_buff_of_type(versatile_bt)
 
 	if versatile_buff == null:
 		return
@@ -327,7 +327,7 @@ func spread_buff():
 			break
 
 		if next != tower:
-			ely_drake_versatile_bt.apply_advanced(tower, next, 1, versatile_buff.get_power(), 2.5 + 0.04 * tower.get_level())
+			versatile_bt.apply_advanced(tower, next, 1, versatile_buff.get_power(), 2.5 + 0.04 * tower.get_level())
 
 
 # NOTE: "blueDrakeHit()" in original script
@@ -350,7 +350,7 @@ func blue_drake_on_hit(p: Projectile, _target: Unit):
 		if next == null:
 			break
 
-		ely_drake_slow_bt.apply(tower, next, 1)
+		slow_bt.apply(tower, next, 1)
 		tower.do_spell_damage(next, drake_damage, tower.calc_spell_crit_no_bonus())
 
 	var damage_after: float = tower.get_overall_damage()
@@ -381,7 +381,7 @@ func red_drake_on_hit(_p: Projectile, target: Unit):
 		return
 
 	var drake_damage: float = tower.get_current_attack_damage_with_bonus() * (2.0 + 0.08 * tower.get_level())
-	cb_stun.apply_only_timed(tower, target, 3)
+	stun_bt.apply_only_timed(tower, target, 3)
 	tower.do_attack_damage(target, drake_damage, tower.calc_attack_crit_no_bonus())
 
 

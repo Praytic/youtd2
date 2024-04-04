@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var solar_emitter_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -47,16 +47,16 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	solar_emitter_bt = BuffType.create_aura_effect_type("solar_emitter_bt", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.1)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_ASTRAL, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, 0.0, 0.001)
-	solar_emitter_bt.set_buff_modifier(mod)
-	solar_emitter_bt.set_buff_icon("winged_man.tres")
-	solar_emitter_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("winged_man.tres")
+	aura_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -71,5 +71,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = solar_emitter_bt
+	aura.aura_effect = aura_bt
 	return [aura]

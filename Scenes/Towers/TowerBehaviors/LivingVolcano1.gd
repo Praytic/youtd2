@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var kricz_volcano_bt: BuffType
+var aura_bt: BuffType
 var lava_pt: ProjectileType
 
 
@@ -57,11 +57,11 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	kricz_volcano_bt = BuffType.create_aura_effect_type("kricz_volcano_bt", false, self)
-	kricz_volcano_bt.set_buff_icon("orb_empty.tres")
-	kricz_volcano_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
-	kricz_volcano_bt.add_periodic_event(kricz_volcano_bt_periodic, 1.0)
-	kricz_volcano_bt.add_event_on_death(kricz_volcano_bt_on_death)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("orb_empty.tres")
+	aura_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
+	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
+	aura_bt.add_event_on_death(aura_bt_on_death)
 
 	lava_pt = ProjectileType.create_interpolate("BallsOfFireMissile.mdl", 650, self)
 	lava_pt.set_event_on_cleanup(lava_pt_on_cleanup)
@@ -76,7 +76,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 1
 	aura.power_add = 1
-	aura.aura_effect = kricz_volcano_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -106,7 +106,7 @@ func lava_pt_on_cleanup(p: Projectile):
 	tower.do_spell_damage_aoe(p.get_x(), p.get_y(), aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.25)
 
 
-func kricz_volcano_bt_periodic(event: Event):
+func aura_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
 	var life: float = creep.get_health()
@@ -121,7 +121,7 @@ func kricz_volcano_bt_periodic(event: Event):
 		creep.set_health(life - dmg)
 
 
-func kricz_volcano_bt_on_death(event: Event):
+func aura_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
 	var heat_stroke_chance: float = 0.40

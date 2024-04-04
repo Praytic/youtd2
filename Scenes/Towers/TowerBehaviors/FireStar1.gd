@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_firestar_burn_bt: BuffType
+var ignite_bt: BuffType
 var firestar_pt: ProjectileType
 
 
@@ -47,14 +47,14 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	cedi_firestar_burn_bt = BuffType.new("cedi_firestar_burn_bt", 2.5, 0, false, self)
-	var cedi_firestar_burn_bt_mod: Modifier = Modifier.new()
-	cedi_firestar_burn_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
-	cedi_firestar_burn_bt.set_buff_modifier(cedi_firestar_burn_bt_mod)
-	cedi_firestar_burn_bt.set_buff_icon("crystal.tres")
-	cedi_firestar_burn_bt.set_buff_tooltip("Ingite\nThis is Ignited; it will take periodic damage and has reduced movement speed.")
-	cedi_firestar_burn_bt.add_event_on_refresh(cedi_firestar_burn_bt_on_refresh)
-	cedi_firestar_burn_bt.add_periodic_event(cedi_firestar_burn_bt_periodic, 2.0)
+	ignite_bt = BuffType.new("ignite_bt", 2.5, 0, false, self)
+	var ignite_bt_mod: Modifier = Modifier.new()
+	ignite_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
+	ignite_bt.set_buff_modifier(ignite_bt_mod)
+	ignite_bt.set_buff_icon("crystal.tres")
+	ignite_bt.set_buff_tooltip("Ignite\nThis is Ignited; it will take periodic damage and has reduced movement speed.")
+	ignite_bt.add_event_on_refresh(ignite_bt_on_refresh)
+	ignite_bt.add_periodic_event(ignite_bt_periodic, 2.0)
 
 	firestar_pt = ProjectileType.create("LordofFlameMissile.mdl", 7.0, 1000, self)
 	firestar_pt.enable_homing(firestar_pt_on_hit, 0)
@@ -63,15 +63,15 @@ func tower_init():
 func on_damage(event: Event):
 	var level: int = tower.get_level()
 	var target: Unit = event.get_target()
-	var buff: Buff = target.get_buff_of_type(cedi_firestar_burn_bt)
+	var buff: Buff = target.get_buff_of_type(ignite_bt)
 	var buff_power: int = 0
 
 	if buff != null:
 		buff_power = buff.get_power() + 1
-		buff = cedi_firestar_burn_bt.apply_custom_power(tower, target, 1, buff_power)
+		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
 	else:
 		buff_power = 0
-		buff = cedi_firestar_burn_bt.apply_custom_power(tower, target, 1, buff_power)
+		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
 		var damage_multiplier: float = 1.0 + 0.04 * level
 		buff.user_real = damage_multiplier
 
@@ -90,22 +90,22 @@ func firestar_pt_on_hit(_p: Projectile, target: Unit):
 		return
 
 	var level: int = tower.get_level()
-	var buff: Buff = target.get_buff_of_type(cedi_firestar_burn_bt)
+	var buff: Buff = target.get_buff_of_type(ignite_bt)
 	var buff_power: int = 0
 
 	if buff != null:
 		buff_power = buff.get_power() + 1
-		buff = cedi_firestar_burn_bt.apply_custom_power(tower, target, 1, buff_power)
+		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
 	else:
 		buff_power = 0
-		buff = cedi_firestar_burn_bt.apply_custom_power(tower, target, 1, buff_power)
+		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
 		var damage_multiplier: float = 1.0 + 0.04 * level
 		buff.user_real = damage_multiplier
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit_no_bonus())
 
 
-func cedi_firestar_burn_bt_on_refresh(event: Event):
+func ignite_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var level: int = caster.get_level()
@@ -114,7 +114,7 @@ func cedi_firestar_burn_bt_on_refresh(event: Event):
 	buff.user_real += damage_multiplier_bonus
 
 
-func cedi_firestar_burn_bt_periodic(event: Event):
+func ignite_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	var damage_multiplier: float = buff.user_real

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_stormdog: BuffType
+var roar_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -55,10 +55,10 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
 
-	cedi_stormdog = BuffType.new("cedi_stormdog", 5.0, 0.0, true, self)
-	cedi_stormdog.set_buff_icon("helmet.tres")
-	cedi_stormdog.set_buff_modifier(mod)
-	cedi_stormdog.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
+	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
+	roar_bt.set_buff_icon("helmet.tres")
+	roar_bt.set_buff_modifier(mod)
+	roar_bt.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
 
 
 func on_damage(_event: Event):
@@ -80,14 +80,14 @@ func on_damage(_event: Event):
 		if U == null:
 			break
 
-		B = U.get_buff_of_type(cedi_stormdog)
+		B = U.get_buff_of_type(roar_bt)
 
 		if B != null:
 			if B.user_int < 100:
-				cedi_stormdog.apply(tower, U, B.get_level() + _stats.buff_scale)
+				roar_bt.apply(tower, U, B.get_level() + _stats.buff_scale)
 				B.user_int = B.user_int + 1
 			else:
 				B.refresh_duration()
 		else:
-			B = cedi_stormdog.apply(tower, U, tower.get_level() * _stats.buff_scale)
+			B = roar_bt.apply(tower, U, tower.get_level() * _stats.buff_scale)
 			B.user_int = 0

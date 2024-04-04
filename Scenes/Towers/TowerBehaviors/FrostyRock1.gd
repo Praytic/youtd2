@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_frost_glacier: BuffType
-var cb_stun: BuffType
+var slow_bt: BuffType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,27 +49,27 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	sir_frost_glacier = BuffType.new("sir_frost_glacier", 0, 0, false, self)
-	sir_frost_glacier.set_buff_icon("foot.tres")
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt.set_buff_icon("foot.tres")
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	sir_frost_glacier.set_buff_modifier(m)
+	slow_bt.set_buff_modifier(m)
 
-	sir_frost_glacier.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
-	cb_stun = CbStun.new("frosty_rock_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 
-	sir_frost_glacier.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
+	slow_bt.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
 	var current_chance_text: String = "%s Chance" % Utils.format_percent(tower.user_real, 0)
 	tower.get_player().display_floating_text_x(current_chance_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
 
 	if tower.calc_chance(tower.user_real) == true && !event.get_target().is_immune():
 		CombatLog.log_ability(tower, creep, "Glacial Wrath Bonus")
 
-		cb_stun.apply_only_timed(tower, event.get_target(), 0.8)
+		stun_bt.apply_only_timed(tower, event.get_target(), 0.8)
 		tower.do_spell_damage(creep, _stats.extra_damage * (1 + tower.get_level() * 0.02), tower.calc_spell_crit_no_bonus())
 		tower.user_real = _stats.damage_and_stun_chance
 	else:

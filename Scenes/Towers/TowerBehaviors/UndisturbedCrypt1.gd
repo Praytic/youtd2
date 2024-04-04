@@ -9,9 +9,9 @@ extends TowerBehavior
 # tower_init().
 
 
-var top_crypt_ball: ProjectileType
+var ball_pt: ProjectileType
 var meat_pt: ProjectileType
-var top_corpse_buff: BuffType
+var corpse_explosion_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -72,7 +72,7 @@ func burst_fire(chance: float, target: Creep):
 	var num_shots: int = 0
 
 	while true:
-		var p: Projectile = Projectile.create_from_unit_to_unit(top_crypt_ball, tower, 1.0, 1.0, tower, target, true, false, false)
+		var p: Projectile = Projectile.create_from_unit_to_unit(ball_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 		p.setScale(0.4)
 		num_shots = num_shots + 1
 
@@ -82,7 +82,7 @@ func burst_fire(chance: float, target: Creep):
 	CombatLog.log_ability(tower, null, "Critical Mass %d" % num_shots)
 
 
-func top_crypt_ball_on_hit(_p: Projectile, creep: Unit):
+func ball_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
@@ -90,8 +90,8 @@ func top_crypt_ball_on_hit(_p: Projectile, creep: Unit):
 
 
 func tower_init():
-	top_crypt_ball = ProjectileType.create("AnnihilationMissile.mdl", 5, 500, self)
-	top_crypt_ball.enable_homing(top_crypt_ball_on_hit, 0)
+	ball_pt = ProjectileType.create("AnnihilationMissile.mdl", 5, 500, self)
+	ball_pt.enable_homing(ball_pt_on_hit, 0)
 
 	meat_pt = ProjectileType.create_interpolate("T_MeatwagonMissile.mdl", 400, self)
 
@@ -99,10 +99,10 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	m.add_modification(Modification.Type.MOD_DMG_FROM_DARKNESS, 0.0, 0.001)
 
-	top_corpse_buff = BuffType.new("top_corpse_buff", 8, 0.25, false, self)
-	top_corpse_buff.set_buff_icon("mask_occult.tres")
-	top_corpse_buff.set_buff_modifier(m)
-	top_corpse_buff.set_buff_tooltip("Corpse Explosion\nIncreases damage taken from Darkness towers and reduces movement speed.")
+	corpse_explosion_bt = BuffType.new("corpse_explosion_bt", 8, 0.25, false, self)
+	corpse_explosion_bt.set_buff_icon("mask_occult.tres")
+	corpse_explosion_bt.set_buff_modifier(m)
+	corpse_explosion_bt.set_buff_tooltip("Corpse Explosion\nIncreases damage taken from Darkness towers and reduces movement speed.")
 
 
 func on_attack(event: Event):
@@ -159,4 +159,4 @@ func periodic(_event: Event):
 		var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(meat_pt, tower, 0, 0, tower, creep, 0, true)
 		projectile.setScale(0.5)
 
-		top_corpse_buff.apply(tower, creep, buff_level)
+		corpse_explosion_bt.apply(tower, creep, buff_level)

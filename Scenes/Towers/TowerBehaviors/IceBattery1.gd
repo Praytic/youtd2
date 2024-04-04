@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var ice_battery_frozen: BuffType
-var pt: ProjectileType
+var frozen_bt: BuffType
+var missile_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -92,21 +92,21 @@ func hit(_p: Projectile, creep: Unit):
 	var buff_power: int = tower.get_level()
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	ice_battery_frozen.apply_custom_power(tower, creep, buff_level, buff_power)
+	frozen_bt.apply_custom_power(tower, creep, buff_level, buff_power)
 
 
 func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
-	ice_battery_frozen = BuffType.new("ice_battery_frozen", 9, 0.3, false, self)
-	ice_battery_frozen.set_buff_icon("crystal.tres")
-	ice_battery_frozen.set_buff_modifier(slow)
-	ice_battery_frozen.set_stacking_group("IceBattery")
-	ice_battery_frozen.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
+	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
+	frozen_bt.set_buff_icon("crystal.tres")
+	frozen_bt.set_buff_modifier(slow)
+	frozen_bt.set_stacking_group("IceBattery")
+	frozen_bt.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
 
-	pt = ProjectileType.create("LichMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	missile_pt = ProjectileType.create("LichMissile.mdl", 10, 1200, self)
+	missile_pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -130,7 +130,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	ice_battery_frozen.apply(tower, event.get_target(), tower.get_level())
+	frozen_bt.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
@@ -148,7 +148,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

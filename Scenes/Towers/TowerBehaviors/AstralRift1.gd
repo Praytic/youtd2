@@ -6,8 +6,8 @@ extends TowerBehavior
 # So it will spend 20 mana and do nothing. Fixed it.
 
 
-var mock_rift_aura_bt: BuffType
-var mock_rift_slow_bt: BuffType
+var aura_bt: BuffType
+var slow_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -51,17 +51,17 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	mock_rift_slow_bt = BuffType.new("mock_rift_slow_bt", 2, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 2, 0, false, self)
+	slow_bt.set_buff_icon("ghost.tres")
+	slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
-	mock_rift_slow_bt.set_buff_modifier(mod)
-	mock_rift_slow_bt.set_buff_icon("ghost.tres")
-	mock_rift_slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
+	slow_bt.set_buff_modifier(mod)
 
-	mock_rift_aura_bt = BuffType.create_aura_effect_type("mock_rift_aura_bt", false, self)
-	mock_rift_aura_bt.set_buff_icon("letter_u_striked.tres")
-	mock_rift_aura_bt.add_periodic_event(mock_rift_aura_bt_periodic, 1.0)
-	mock_rift_aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("letter_u_striked.tres")
+	aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
+	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -73,7 +73,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = mock_rift_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -132,10 +132,11 @@ func on_damage(event: Event):
 		if next == null:
 			break
 
-		mock_rift_slow_bt.apply(tower, next, level)
+		slow_bt.apply(tower, next, level)
 
 
-func mock_rift_aura_bt_periodic(event: Event):
+# NOTE: SPDamage() in original script
+func aura_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
 	var damage: float = creep.get_current_movespeed() * (2.0 + 0.16 * tower.get_level())

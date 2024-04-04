@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_chameleon_pt: ProjectileType
+var chameleon_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -22,7 +22,7 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: hit() in original script
-func boekie_chameleon_pt_on_hit(p: Projectile, creep: Unit):
+func chameleon_pt_on_hit(p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
@@ -31,8 +31,8 @@ func boekie_chameleon_pt_on_hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	boekie_chameleon_pt = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
-	boekie_chameleon_pt.enable_homing(boekie_chameleon_pt_on_hit, 0)
+	chameleon_pt = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
+	chameleon_pt.enable_homing(chameleon_pt_on_hit, 0)
 
 
 func on_attack(event: Event):
@@ -50,5 +50,5 @@ func on_attack(event: Event):
 	if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(creep):
 		return
 
-	p = Projectile.create_from_unit_to_unit(boekie_chameleon_pt, tower, 1, 0, tower, creep, true, false, false)
+	p = Projectile.create_from_unit_to_unit(chameleon_pt, tower, 1, 0, tower, creep, true, false, false)
 	p.setScale(0.75)

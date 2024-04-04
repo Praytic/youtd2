@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_golem_aura_bt: BuffType
-var sir_golem_slow_bt: BuffType
+var aura_bt: BuffType
+var slow_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -50,17 +50,17 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	sir_golem_slow_bt = BuffType.new("sir_golem_slow_bt", 0.5, 0.012, false, self)
+	slow_bt = BuffType.new("slow_bt", 0.5, 0.012, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.60, 0.0)
-	sir_golem_slow_bt.set_buff_modifier(mod)
-	sir_golem_slow_bt.set_buff_icon("hammer_swing.tres")
-	sir_golem_slow_bt.set_buff_tooltip("Smashed\nReduces movement speed.")
+	slow_bt.set_buff_modifier(mod)
+	slow_bt.set_buff_icon("hammer_swing.tres")
+	slow_bt.set_buff_tooltip("Smashed\nReduces movement speed.")
 
-	sir_golem_aura_bt = BuffType.create_aura_effect_type("sir_golem_aura_bt", true, self)
-	sir_golem_aura_bt.set_buff_icon("gear_2.tres")
-	sir_golem_aura_bt.add_event_on_attack(sir_golem_aura_bt_on_attack)
-	sir_golem_aura_bt.set_buff_tooltip("Earthquake Aura\nChance to trigger Ground Smash.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("gear_2.tres")
+	aura_bt.add_event_on_attack(aura_bt_on_attack)
+	aura_bt.set_buff_tooltip("Earthquake Aura\nChance to trigger Ground Smash.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -72,7 +72,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 0
 	aura.power_add = 0
-	aura.aura_effect = sir_golem_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -83,7 +83,7 @@ func on_damage(_event: Event):
 	smash()
 
 
-func sir_golem_aura_bt_on_attack(event: Event):
+func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attackspeed()
@@ -120,5 +120,5 @@ func smash():
 #		NOTE: using do_attack_damage() with args based on
 #		spell damage is not a typo. Written this way in
 #		original script on purpose.
-		sir_golem_slow_bt.apply(tower, next, level)
+		slow_bt.apply(tower, next, level)
 		tower.do_attack_damage(next, smash_damage, tower.calc_spell_crit_no_bonus())

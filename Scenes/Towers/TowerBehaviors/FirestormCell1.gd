@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var ashbringer_firestorm_buff: BuffType
+var firestorm_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -75,12 +75,12 @@ func firestorm(event: Event):
 
 
 func tower_init():
-	ashbringer_firestorm_buff = BuffType.new("ashbringer_firestorm_buff", 1000, 0, false, self)
-	ashbringer_firestorm_buff.set_buff_icon("fireball.tres")
-	ashbringer_firestorm_buff.set_buff_tooltip("Firestorm\nPeriodically deals AoE damage.")
-	ashbringer_firestorm_buff.add_event_on_create(ashbringer_firestorm_setint)
-	ashbringer_firestorm_buff.add_periodic_event(ashbringer_firestorm_periodic, 1)
-	ashbringer_firestorm_buff.add_event_on_death(firestorm)
+	firestorm_bt = BuffType.new("firestorm_bt", 1000, 0, false, self)
+	firestorm_bt.set_buff_icon("fireball.tres")
+	firestorm_bt.set_buff_tooltip("Firestorm\nPeriodically deals AoE damage.")
+	firestorm_bt.add_event_on_create(ashbringer_firestorm_setint)
+	firestorm_bt.add_periodic_event(ashbringer_firestorm_periodic, 1)
+	firestorm_bt.add_event_on_death(firestorm)
 
 
 func on_attack(event: Event):
@@ -90,7 +90,7 @@ func on_attack(event: Event):
 	var creep: Unit = event.get_target()
 	var b: Buff
 	var i: int
-	b = creep.get_buff_of_type(ashbringer_firestorm_buff)
+	b = creep.get_buff_of_type(firestorm_bt)
 
 	CombatLog.log_ability(tower, creep, "Firestorm")
 
@@ -101,5 +101,5 @@ func on_attack(event: Event):
 		b.user_int = i
 	else:
 		i = 3
-		ashbringer_firestorm_buff.apply_custom_power(tower, creep, i, i)
+		firestorm_bt.apply_custom_power(tower, creep, i, i)
 

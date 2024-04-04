@@ -3,11 +3,11 @@ extends ItemBehavior
 
 
 # NOTE: in original script, item is used as caster for
-# cb_stun. Changed to tower itself because in our engine
+# stun_bt. Changed to tower itself because in our engine
 # Item is not a Unit.
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -28,7 +28,7 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	cb_stun = CbStun.new("item_264_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_attack(_event: Event):
@@ -37,4 +37,4 @@ func on_attack(_event: Event):
 	if Utils.rand_chance(Globals.synced_rng, 0.15 / twr.get_prop_trigger_chances()):
 		CombatLog.log_item_ability(item, null, "Tricky Weapon")
 
-		cb_stun.apply_only_timed(twr, twr, 1)
+		stun_bt.apply_only_timed(twr, twr, 1)

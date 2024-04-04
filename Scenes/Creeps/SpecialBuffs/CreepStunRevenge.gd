@@ -1,13 +1,13 @@
 class_name CreepStunRevenge extends BuffType
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func _init(parent: Node):
 	super("creep_stun_revenge", 0, 0, true, parent)
 
-	cb_stun = CbStun.new("creep_stun_revenge_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	add_event_on_attacked(on_attacked)
 
@@ -19,4 +19,4 @@ func on_attacked(event: Event):
 	var stun_success: bool = creep.calc_chance(0.3)
 
 	if stun_success:
-		cb_stun.apply_only_timed(creep, attacker, 3.0)
+		stun_bt.apply_only_timed(creep, attacker, 3.0)

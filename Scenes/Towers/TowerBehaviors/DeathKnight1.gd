@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var dave_knight_will_positive_bt: BuffType
-var dave_knight_will_negative_bt: BuffType
-var dave_knight_withering_bt: BuffType
+var will_positive_bt: BuffType
+var will_negative_bt: BuffType
+var withering_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -70,29 +70,29 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_knight_will_positive_bt = BuffType.new("dave_knight_will_positive_bt", 5, 0, true, self)
-	var dave_knight_will_positive_bt_mod: Modifier = Modifier.new()
-	dave_knight_will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
-	dave_knight_will_positive_bt.set_buff_modifier(dave_knight_will_positive_bt_mod)
-	dave_knight_will_positive_bt.set_buff_icon("mask_occult.tres")
-	dave_knight_will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
+	will_positive_bt = BuffType.new("will_positive_bt", 5, 0, true, self)
+	var will_positive_bt_mod: Modifier = Modifier.new()
+	will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
+	will_positive_bt.set_buff_modifier(will_positive_bt_mod)
+	will_positive_bt.set_buff_icon("mask_occult.tres")
+	will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
-	dave_knight_will_negative_bt = BuffType.new("dave_knight_will_negative_bt", 5, 0, false, self)
-	var dave_knight_will_negative_bt_mod: Modifier = Modifier.new()
-	dave_knight_will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
-	dave_knight_will_negative_bt.set_buff_modifier(dave_knight_will_negative_bt_mod)
-	dave_knight_will_negative_bt.set_buff_icon("letter_h.tres")
-	dave_knight_will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
+	will_negative_bt = BuffType.new("will_negative_bt", 5, 0, false, self)
+	var will_negative_bt_mod: Modifier = Modifier.new()
+	will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
+	will_negative_bt.set_buff_modifier(will_negative_bt_mod)
+	will_negative_bt.set_buff_icon("letter_h.tres")
+	will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
-	dave_knight_withering_bt = BuffType.new("dave_knight_withering_bt", 4, 0, false, self)
-	var dave_knight_withering_bt_mod: Modifier = Modifier.new()
-	dave_knight_withering_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.1)
-	dave_knight_withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
-	dave_knight_withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
-	dave_knight_withering_bt.set_buff_modifier(dave_knight_withering_bt_mod)
-	dave_knight_withering_bt.set_buff_icon("ghost.tres")
-	dave_knight_withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
-	dave_knight_withering_bt.add_periodic_event(dave_knight_withering_bt_periodic, 1.0)
+	withering_bt = BuffType.new("withering_bt", 4, 0, false, self)
+	var withering_bt_mod: Modifier = Modifier.new()
+	withering_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.1)
+	withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
+	withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
+	withering_bt.set_buff_modifier(withering_bt_mod)
+	withering_bt.set_buff_icon("ghost.tres")
+	withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
+	withering_bt.add_periodic_event(withering_bt_periodic, 1.0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Will of the Undying"
@@ -143,7 +143,7 @@ func on_unit_in_range(event: Event):
 
 	CombatLog.log_ability(tower, target, "Withering Presence")
 
-	dave_knight_withering_bt.apply(tower, target, level)
+	withering_bt.apply(tower, target, level)
 
 
 func on_autocast(_event: Event):
@@ -165,16 +165,16 @@ func on_autocast(_event: Event):
 
 		tower_count += 1
 
-		dave_knight_will_negative_bt.apply(tower, next, 50 + level)
+		will_negative_bt.apply(tower, next, 50 + level)
 
 	if tower_count > 0:
-		dave_knight_will_positive_bt.apply(tower, tower, (75 + level) * tower_count)
+		will_positive_bt.apply(tower, tower, (75 + level) * tower_count)
 
 	if tower_count == 0:
 		CombatLog.log_ability(tower, null, "Will of the Undying failed because nearby towers are cheap")
 
 
-func dave_knight_withering_bt_periodic(event: Event):
+func withering_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var hp: float = buffed_unit.get_health()

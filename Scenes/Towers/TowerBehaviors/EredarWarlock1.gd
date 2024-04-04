@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var cb_stun: BuffType
-var sir_eredar_siphon_bt: BuffType
-var sir_eredar_aura_bt: BuffType
+var stun_bt: BuffType
+var siphon_bt: BuffType
+var aura_bt: BuffType
 var wave_shadowbolt_pt: ProjectileType
 var attack_shadowbolt_pt: ProjectileType
 
@@ -75,17 +75,17 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cb_stun = CbStun.new("eredar_warlock_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	sir_eredar_siphon_bt = BuffType.new("sir_eredar_siphon_bt", 5, 0, true, self)
-	sir_eredar_siphon_bt.set_buff_icon("letter_omega.tres")
-	sir_eredar_siphon_bt.add_event_on_attack(sir_eredar_siphon_bt_on_attack)
-	sir_eredar_siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
+	siphon_bt = BuffType.new("siphon_bt", 5, 0, true, self)
+	siphon_bt.set_buff_icon("letter_omega.tres")
+	siphon_bt.add_event_on_attack(siphon_bt_on_attack)
+	siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
 
-	sir_eredar_aura_bt = BuffType.create_aura_effect_type("sir_eredar_aura_bt", false, self)
-	sir_eredar_aura_bt.set_buff_icon("mask_occult.tres")
-	sir_eredar_aura_bt.add_periodic_event(sir_eredar_aura_bt_periodic, 1.0)
-	sir_eredar_aura_bt.set_buff_tooltip("Slow Decay - Aura\nKills creep instantly if it reaches low health.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("mask_occult.tres")
+	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
+	aura_bt.set_buff_tooltip("Slow Decay - Aura\nKills creep instantly if it reaches low health.")
 
 #	NOTE: this tower uses two separate projectile types.
 #	1. The first one is launched from the tower in all
@@ -133,14 +133,14 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 0
 	aura.power_add = 0
-	aura.aura_effect = sir_eredar_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
 
 func on_autocast(event: Event):
 	var target: Tower = event.get_target()
-	sir_eredar_siphon_bt.apply(tower, target, 1)
+	siphon_bt.apply(tower, target, 1)
 	roll_for_shadow_wave()
 
 
@@ -177,7 +177,7 @@ func roll_for_shadow_wave():
 		Projectile.create_from_unit_to_point(wave_shadowbolt_pt, tower, 1.0, 1.0, tower, target_pos, false, false)	
 
 
-func sir_eredar_siphon_bt_on_attack(event: Event):
+func siphon_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var eredar: Tower = buff.get_caster()
 	var attacker: Tower = buff.get_buffed_unit()
@@ -185,11 +185,11 @@ func sir_eredar_siphon_bt_on_attack(event: Event):
 	var dmg: float = 3 * attacker.get_current_attack_damage_with_bonus() / attacker.get_current_attackspeed()
 	var stun_duration: float = 2.5 - 0.02 * eredar.get_level()
 
-	cb_stun.apply_only_timed(eredar, attacker, stun_duration)
+	stun_bt.apply_only_timed(eredar, attacker, stun_duration)
 
 # 	NOTE: need to separately call order_stop() to stop
 # 	current attack of buffed tower. Note that applying
-# 	cb_stun will not stop an attack which is already in
+# 	stun_bt will not stop an attack which is already in
 # 	progress.
 	attacker.order_stop()
 
@@ -208,7 +208,7 @@ func sir_eredar_siphon_bt_on_attack(event: Event):
 	Effect.destroy_effect_after_its_over(target_effect)
 
 
-func sir_eredar_aura_bt_periodic(event: Event):
+func aura_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()

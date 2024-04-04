@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var cedi_bot_grapple_bt: BuffType
-var cedi_bot_stun_bt: BuffType
+var grapple_bt: BuffType
+var shock_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -54,13 +54,13 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	cedi_bot_grapple_bt = CbStun.new("cedi_bot_grapple_bt", 2.5, 0, false, self)
-	cedi_bot_grapple_bt.set_buff_icon("gear_1.tres")
-	cedi_bot_grapple_bt.add_event_on_create(cedi_bot_grapple_bt_on_create)
-	cedi_bot_grapple_bt.add_event_on_cleanup(cedi_bot_grapple_bt_on_cleanup)
+	grapple_bt = CbStun.new("grapple_bt", 2.5, 0, false, self)
+	grapple_bt.set_buff_icon("gear_1.tres")
+	grapple_bt.add_event_on_create(grapple_bt_on_create)
+	grapple_bt.add_event_on_cleanup(grapple_bt_on_cleanup)
 
-	cedi_bot_stun_bt = CbStun.new("cedi_bot_stun_bt", 2.5, 0, false, self)
-	cedi_bot_stun_bt.set_buff_icon("orb_swirly.tres")
+	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
+	shock_bt.set_buff_icon("orb_swirly.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shock"
@@ -98,7 +98,7 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, target, "Grapple")
 
-	cedi_bot_grapple_bt.apply_only_timed(tower, target, grapple_duration)
+	grapple_bt.apply_only_timed(tower, target, grapple_duration)
 
 
 func on_autocast(event: Event):
@@ -118,10 +118,10 @@ func on_autocast(event: Event):
 		if next == null:
 			break
 
-		cedi_bot_stun_bt.apply_only_timed(tower, next, 2.0)
+		shock_bt.apply_only_timed(tower, next, 2.0)
 
 
-func cedi_bot_grapple_bt_on_create(event: Event):
+func grapple_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
@@ -132,7 +132,7 @@ func cedi_bot_grapple_bt_on_create(event: Event):
 	buff.user_int = lightning.get_instance_id()
 
 
-func cedi_bot_grapple_bt_on_cleanup(event: Event):
+func grapple_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var lightning_id: int = buff.user_int
 

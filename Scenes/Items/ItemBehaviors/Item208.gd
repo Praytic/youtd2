@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var cedi_frag_round_pt: ProjectileType
-var cedi_frag_round_bt: BuffType
+var frag_pt: ProjectileType
+var frag_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -20,12 +20,12 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: PT_Hit() in original script
-func cedi_frag_round_pt_on_hit(P: Projectile, U: Unit):
+func frag_pt_on_hit(P: Projectile, U: Unit):
 	if U == null:
 		return
 
 	var T: Tower = P.get_caster()
-	var B: Buff = U.get_buff_of_type(cedi_frag_round_bt)
+	var B: Buff = U.get_buff_of_type(frag_bt)
 
 	if B != null:
 		P.user_real = P.user_real * 1.40
@@ -38,23 +38,23 @@ func cedi_frag_round_pt_on_hit(P: Projectile, U: Unit):
 	
 	T.do_attack_damage(U, P.user_real * 0.45, 1.0)
 
-	cedi_frag_round_bt.apply(T, U, buff_level)
+	frag_bt.apply(T, U, buff_level)
 
 
 # NOTE: BT_DMG() in original script
-func cedi_frag_round_bt_on_damaged(event: Event):
+func frag_bt_on_damaged(event: Event):
 	if event.is_main_target() == false && event.is_spell_damage() == false:
 		event.damage = event.damage * 1.40
 
 
 func item_init():
-	cedi_frag_round_pt = ProjectileType.create("BloodElfSpellThiefMISSILE.mdl", 0.0, 1000.0, self)
-	cedi_frag_round_pt.enable_homing(cedi_frag_round_pt_on_hit, 0.1)
+	frag_pt = ProjectileType.create("BloodElfSpellThiefMISSILE.mdl", 0.0, 1000.0, self)
+	frag_pt.enable_homing(frag_pt_on_hit, 0.1)
 
-	cedi_frag_round_bt = BuffType.new("cedi_frag_round_bt", 5.0, 0.0, false, self)
-	cedi_frag_round_bt.set_buff_icon("gear_2.tres")
-	cedi_frag_round_bt.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
-	cedi_frag_round_bt.add_event_on_damaged(cedi_frag_round_bt_on_damaged)
+	frag_bt = BuffType.new("frag_bt", 5.0, 0.0, false, self)
+	frag_bt.set_buff_icon("gear_2.tres")
+	frag_bt.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
+	frag_bt.add_event_on_damaged(frag_bt_on_damaged)
 
 
 func on_damage(event: Event):
@@ -83,7 +83,7 @@ func on_damage(event: Event):
 				break
 
 			if U != Targ:
-				var projectile: Projectile = Projectile.create_from_unit_to_unit(cedi_frag_round_pt, item.get_carrier(), 1.0, 1.0, Targ, U, true, false, true)
+				var projectile: Projectile = Projectile.create_from_unit_to_unit(frag_pt, item.get_carrier(), 1.0, 1.0, Targ, U, true, false, true)
 				projectile.user_real = event.damage
 				i = i - 1
 

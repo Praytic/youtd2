@@ -9,7 +9,7 @@ extends TowerBehavior
 # effect. Didn't implement that. Can implement using an
 # Effect.
 
-var poussix_dreadlord_bt: BuffType
+var awakening_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -69,13 +69,13 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	poussix_dreadlord_bt = BuffType.new("poussix_dreadlord_bt", 10, 0, true, self)
+	awakening_bt = BuffType.new("awakening_bt", 10, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.02)
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
-	poussix_dreadlord_bt.set_buff_modifier(mod)
-	poussix_dreadlord_bt.set_buff_icon("fireball.tres")
-	poussix_dreadlord_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
+	awakening_bt.set_buff_modifier(mod)
+	awakening_bt.set_buff_icon("fireball.tres")
+	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Attackspeed Bonus")
@@ -133,4 +133,4 @@ func on_tower_details() -> MultiboardValues:
 
 
 func on_autocast(_event: Event):
-	poussix_dreadlord_bt.apply(tower, tower, tower.get_level())
+	awakening_bt.apply(tower, tower, tower.get_level())

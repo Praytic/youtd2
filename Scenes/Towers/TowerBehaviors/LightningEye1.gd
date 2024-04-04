@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var mock_eye_aura_bt: BuffType
-var mock_eye_glare_st: SpellType
+var aura_bt: BuffType
+var forklight_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -46,14 +46,14 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	mock_eye_aura_bt = BuffType.create_aura_effect_type("mock_eye_aura_bt", true, self)
-	mock_eye_aura_bt.set_buff_icon("electricity.tres")
-	mock_eye_aura_bt.add_event_on_damage(mock_eye_aura_bt_on_damage)
-	mock_eye_aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("electricity.tres")
+	aura_bt.add_event_on_damage(aura_bt_on_damage)
+	aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
 
-	mock_eye_glare_st = SpellType.new("@@0@@", "forkedlightning", 1, self)
-	mock_eye_glare_st.data.forked_lightning.damage = 1.0
-	mock_eye_glare_st.data.forked_lightning.target_count = 3
+	forklight_st = SpellType.new("@@0@@", "forkedlightning", 1, self)
+	forklight_st.data.forked_lightning.damage = 1.0
+	forklight_st.data.forked_lightning.target_count = 3
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -65,7 +65,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = mock_eye_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -82,10 +82,10 @@ func on_attack(event: Event):
 
 	tower.subtract_mana(40, false)
 
-	mock_eye_glare_st.target_cast_from_caster(tower, creep, glare_damage, tower.calc_spell_crit_no_bonus())
+	forklight_st.target_cast_from_caster(tower, creep, glare_damage, tower.calc_spell_crit_no_bonus())
 
 
-func mock_eye_aura_bt_on_damage(event: Event):
+func aura_bt_on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var damage_multiplier: float = 1.2 + 0.01 * tower.get_level()
 

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_coals_buff : BuffType
+var coals_bt : BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -51,13 +51,13 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.15, 0.001)
 #	0.0 time since I will apply it custom timed
-	boekie_coals_buff = BuffType.new("boekie_coals_buff ", 0.0, 0.0, true, self)
-	boekie_coals_buff.set_buff_modifier(m)
-	boekie_coals_buff.set_buff_icon("orb_triple.tres")
-	boekie_coals_buff.set_stacking_group("boekie_coals")
-	boekie_coals_buff.set_buff_tooltip("Hot Coals\nIncreases critical chance.")
+	coals_bt = BuffType.new("coals_bt ", 0.0, 0.0, true, self)
+	coals_bt.set_buff_modifier(m)
+	coals_bt.set_buff_icon("orb_triple.tres")
+	coals_bt.set_stacking_group("boekie_coals")
+	coals_bt.set_buff_tooltip("Hot Coals\nIncreases critical chance.")
 
 
 func on_kill(_event: Event):
 	var lvl: int = tower.get_level()
-	boekie_coals_buff.apply_custom_timed(tower, tower, lvl * 3, _stats.duration + 0.05 * lvl)
+	coals_bt.apply_custom_timed(tower, tower, lvl * 3, _stats.duration + 0.05 * lvl)

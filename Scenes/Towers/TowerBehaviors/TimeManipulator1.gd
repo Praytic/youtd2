@@ -5,8 +5,8 @@ extends TowerBehavior
 # buff was unfriendly.
 
 
-var maj_manip_aura_bt: BuffType
-var maj_manip_field_bt: BuffType
+var aura_bt: BuffType
+var time_field_bt: BuffType
 var multiboard: MultiboardValues
 var exp_exchanged: int
 
@@ -68,22 +68,22 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	maj_manip_field_bt = BuffType.new("maj_manip_field_bt", 10, 0, true, self)
+	time_field_bt = BuffType.new("time_field_bt", 10, 0, true, self)
 	# TODO: implement BuffType.set_special_effect_advanced()
-	# maj_manip_field_bt.set_special_effect_advanced("EnergyField.mdl", 0, 0, 0, 3.5, 0, 255, 255, 255, 255, 180)
-	maj_manip_field_bt.add_periodic_event(maj_manip_field_bt_periodic, 1.0)
-	maj_manip_field_bt.set_buff_icon("orb_swirly.tres")
-	maj_manip_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
+	# time_field_bt.set_special_effect_advanced("EnergyField.mdl", 0, 0, 0, 3.5, 0, 255, 255, 255, 255, 180)
+	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
+	time_field_bt.set_buff_icon("orb_swirly.tres")
+	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
 
-	maj_manip_aura_bt = BuffType.create_aura_effect_type("maj_manip_aura_bt", true, self)
-	var maj_manip_aura_bt_mod: Modifier = Modifier.new()
-	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.1, 0.016)
-	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0.01)
-	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
-	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
-	maj_manip_aura_bt.set_buff_modifier(maj_manip_aura_bt_mod)
-	maj_manip_aura_bt.set_buff_icon("bull_horns.tres")
-	maj_manip_aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	var aura_bt_mod: Modifier = Modifier.new()
+	aura_bt_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.1, 0.016)
+	aura_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0.01)
+	aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
+	aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
+	aura_bt.set_buff_modifier(aura_bt_mod)
+	aura_bt.set_buff_icon("bull_horns.tres")
+	aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Exp Exchanged")
@@ -103,7 +103,7 @@ func tower_init():
 	autocast.mana_cost = 500
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = maj_manip_field_bt
+	autocast.buff_type = time_field_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -118,7 +118,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = maj_manip_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -151,11 +151,11 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	maj_manip_field_bt.apply(tower, tower, tower.get_level())
+	time_field_bt.apply(tower, tower, tower.get_level())
 
 
 # NOTE: "MajFieldDamage()" in original script
-func maj_manip_field_bt_periodic(event: Event):
+func time_field_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var damage: float = 1500 + 75 * buff.get_level()

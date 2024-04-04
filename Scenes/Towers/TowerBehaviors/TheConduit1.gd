@@ -5,9 +5,9 @@ extends TowerBehavior
 # Device" ability of "Soulflame Device" tower.
 
 
-var ash_conduit_aura_bt: BuffType
-var ash_conduit_unleash_bt: BuffType
-var unleash_st: SpellType
+var aura_bt: BuffType
+var unleash_bt: BuffType
+var chanlightning_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -84,26 +84,26 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	ash_conduit_aura_bt = BuffType.create_aura_effect_type("ash_conduit_aura_bt", true, self)
-	ash_conduit_aura_bt.set_buff_icon("letter_s_lying_down.tres")
-	ash_conduit_aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("letter_s_lying_down.tres")
+	aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
-	ash_conduit_unleash_bt = BuffType.new("ash_conduit_unleash_bt", 3, 0, false, self)
-	var ash_conduit_unleash_bt_mod: Modifier = Modifier.new()
-	ash_conduit_unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
-	ash_conduit_unleash_bt.set_buff_modifier(ash_conduit_unleash_bt_mod)
-	ash_conduit_unleash_bt.set_buff_icon("mask_bat.tres")
-	ash_conduit_unleash_bt.add_event_on_create(ash_conduit_unleash_bt_on_create)
-	ash_conduit_unleash_bt.add_event_on_cleanup(ash_conduit_unleash_bt_on_cleanup)
-	ash_conduit_unleash_bt.add_periodic_event(ash_conduit_unleash_bt_periodic, 5)
-	ash_conduit_unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
+	unleash_bt = BuffType.new("unleash_bt", 3, 0, false, self)
+	var unleash_bt_mod: Modifier = Modifier.new()
+	unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
+	unleash_bt.set_buff_modifier(unleash_bt_mod)
+	unleash_bt.set_buff_icon("mask_bat.tres")
+	unleash_bt.add_event_on_create(unleash_bt_on_create)
+	unleash_bt.add_event_on_cleanup(unleash_bt_on_cleanup)
+	unleash_bt.add_periodic_event(unleash_bt_periodic, 5)
+	unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
 
-	unleash_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
+	chanlightning_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
 #	TODO: implement SpellType.set_source_height()
-	# unleash_st.set_source_height(220)
-	unleash_st.data.chain_lightning.damage = 1.0
-	unleash_st.data.chain_lightning.damage_reduction = 0.25
-	unleash_st.data.chain_lightning.chain_count = 1
+	# chanlightning_st.set_source_height(220)
+	chanlightning_st.data.chain_lightning.damage = 1.0
+	chanlightning_st.data.chain_lightning.damage_reduction = 0.25
+	chanlightning_st.data.chain_lightning.chain_count = 1
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Unleash"
@@ -135,7 +135,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = ash_conduit_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -172,7 +172,7 @@ func on_autocast(event: Event):
 		if next == null:
 			break
 
-		ash_conduit_unleash_bt.apply(tower, next, tower.get_level())
+		unleash_bt.apply(tower, next, tower.get_level())
 
 #	NOTE: original script does a weird thing where it casts
 #	chain lightning (which deals damage) and also deals
@@ -182,11 +182,11 @@ func on_autocast(event: Event):
 # 
 #	Changed it to deal damage only once, via chain
 #	lightning.
-	unleash_st.target_cast_from_caster(tower, target, cast_damage, tower.calc_spell_crit_no_bonus())
+	chanlightning_st.target_cast_from_caster(tower, target, cast_damage, tower.calc_spell_crit_no_bonus())
 
 
 # NOTE: "ashbringer_conduit_create()" in original script
-func ash_conduit_unleash_bt_on_create(event: Event):
+func unleash_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 
 	buff.user_real = 0
@@ -195,11 +195,11 @@ func ash_conduit_unleash_bt_on_create(event: Event):
 	buff.user_int = 0
 	buff.user_int2 = 0
 
-	ash_conduit_unleash_bt_update(buff)
+	unleash_bt_update(buff)
 
 
 # NOTE: "ashbringer_conduit_cleanup()" in original script
-func ash_conduit_unleash_bt_on_cleanup(event: Event):
+func unleash_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	
@@ -211,13 +211,13 @@ func ash_conduit_unleash_bt_on_cleanup(event: Event):
 
 
 # NOTE: "ashbringer_conduit_update()" in original script
-func ash_conduit_unleash_bt_periodic(event: Event):
+func unleash_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	
-	ash_conduit_unleash_bt_update(buff)
+	unleash_bt_update(buff)
 
 
-func ash_conduit_unleash_bt_update(buff: Buff):
+func unleash_bt_update(buff: Buff):
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var caster: Tower = buff.get_caster()
 	var caster_level: int = caster.get_level()

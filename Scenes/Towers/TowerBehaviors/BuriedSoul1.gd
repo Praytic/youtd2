@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_cripple: BuffType
-var sir_banish: BuffType
+var cripple_bt: BuffType
+var banish_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -60,18 +60,18 @@ func tower_init():
 	var banish: Modifier = Modifier.new()
 	var cripple: Modifier = Modifier.new()
 
-	sir_cripple = BuffType.new("sir_cripple", 0.0, 0, false, self)
-	sir_banish = BuffType.new("sir_banish", 0.0, 0, false, self)
-	sir_cripple.set_buff_icon("skull.tres")
-	sir_cripple.set_special_effect_simple("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl")
-	sir_banish.set_buff_icon("mask_occult.tres")
+	cripple_bt = BuffType.new("cripple_bt", 0.0, 0, false, self)
+	banish_bt = BuffType.new("banish_bt", 0.0, 0, false, self)
+	cripple_bt.set_buff_icon("skull.tres")
+	cripple_bt.set_special_effect_simple("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl")
+	banish_bt.set_buff_icon("mask_occult.tres")
 	banish.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0001)
 	cripple.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.6, 0.01)
-	sir_cripple.set_buff_modifier(cripple)
-	sir_banish.set_buff_modifier(banish)
+	cripple_bt.set_buff_modifier(cripple)
+	banish_bt.set_buff_modifier(banish)
 
-	sir_cripple.set_buff_tooltip("Cripple\nReduces attack speed.")
-	sir_banish.set_buff_tooltip("Banish\nIncreases spell damage taken.")
+	cripple_bt.set_buff_tooltip("Cripple\nReduces attack speed.")
+	banish_bt.set_buff_tooltip("Banish\nIncreases spell damage taken.")
 
 
 func on_attack(event: Event):
@@ -81,8 +81,8 @@ func on_attack(event: Event):
 	if tower.calc_chance(0.1):
 		CombatLog.log_ability(tower, creep, "Soul Scattering")
 
-		sir_banish.apply_custom_timed(tower, creep, int((_stats.banish_lvl + _stats.banish_lvl_add * lvl) * 100), _stats.banish_duration)
-		sir_cripple.apply_custom_timed(tower, tower, lvl, _stats.cripple_duration)
+		banish_bt.apply_custom_timed(tower, creep, int((_stats.banish_lvl + _stats.banish_lvl_add * lvl) * 100), _stats.banish_duration)
+		cripple_bt.apply_custom_timed(tower, tower, lvl, _stats.cripple_duration)
 
 	if tower.calc_chance(0.25 + 0.005 * lvl):
 		CombatLog.log_ability(tower, creep, "Shadowstrike")

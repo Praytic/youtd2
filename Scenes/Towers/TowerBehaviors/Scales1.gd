@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_scales_electrify_bt: BuffType
+var electrify_bt: BuffType
 var lightning_st: SpellType
 var multiboard: MultiboardValues
 var lightmare_is_active: bool = false
@@ -93,10 +93,10 @@ func tower_init():
 	lightning_st.data.forked_lightning.damage = 1.0
 	lightning_st.data.forked_lightning.target_count = 3
 
-	cedi_scales_electrify_bt = BuffType.new("cedi_scales_electrify_bt", 5, 0, false, self)
-	cedi_scales_electrify_bt.set_buff_icon("electricity.tres")
-	cedi_scales_electrify_bt.add_periodic_event(cedi_scales_electrify_bt_periodic, 1.0)
-	cedi_scales_electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
+	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
+	electrify_bt.set_buff_icon("electricity.tres")
+	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
+	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 
 	multiboard = MultiboardValues.new(3)
 	multiboard.set_key(0, "Spell Damage Bonus")
@@ -152,7 +152,7 @@ func on_damage_for_electrify(event: Event):
 		return
 
 	CombatLog.log_ability(tower, target, "Electrify")
-	cedi_scales_electrify_bt.apply(tower, target, level)
+	electrify_bt.apply(tower, target, level)
 
 
 func on_damage_for_overcharge(event: Event):
@@ -236,7 +236,7 @@ func overcharge_damage(target: Unit, level: int):
 
 
 # NOTE: "elec()" in original script
-func cedi_scales_electrify_bt_periodic(event: Event):
+func electrify_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 225)

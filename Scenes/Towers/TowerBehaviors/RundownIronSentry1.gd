@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var glow_alert_bt: BuffType
-var glow_trespasser_bt: BuffType
+var alert_bt: BuffType
+var trespasser_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -68,26 +68,26 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	glow_alert_bt = BuffType.new("glow_alert_bt", 0, 0, true, self)
+	alert_bt = BuffType.new("alert_bt", 0, 0, true, self)
 	var alert_mod: Modifier = Modifier.new()
 	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
-	glow_alert_bt.set_buff_modifier(alert_mod)
-	glow_alert_bt.set_buff_icon("helmet.tres")
-	glow_alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
+	alert_bt.set_buff_modifier(alert_mod)
+	alert_bt.set_buff_icon("helmet.tres")
+	alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
 
-	glow_trespasser_bt = BuffType.new("glow_trespasser_bt", -1, 0, false, self)
+	trespasser_bt = BuffType.new("trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
 	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
-	glow_trespasser_bt.set_buff_modifier(trespasser_mod)
-	glow_trespasser_bt.set_buff_icon("eye.tres")
-	glow_trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
+	trespasser_bt.set_buff_modifier(trespasser_mod)
+	trespasser_bt.set_buff_icon("eye.tres")
+	trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
 
 
 func on_unit_in_range(event: Event):
 	var creep: Unit = event.get_target()
 	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var level: int = tower.get_level()
-	var buff: Buff = creep.get_buff_of_type(glow_trespasser_bt)
+	var buff: Buff = creep.get_buff_of_type(trespasser_bt)
 
 	var buff_level: int = int((_stats.armor_shred_amount + _stats.armor_shred_amount_add * level) * 100)
 	if buff != null:
@@ -117,7 +117,7 @@ func on_unit_in_range(event: Event):
 	var size_is_big_enough_for_alert: bool = alert_sizes.has(creep_size)
 
 	if tower.calc_chance(_stats.armor_shred_chance):
-		glow_trespasser_bt.apply(tower, creep, buff_level)
+		trespasser_bt.apply(tower, creep, buff_level)
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_damage_value)
 
@@ -131,7 +131,7 @@ func on_unit_in_range(event: Event):
 				break
 
 			var alert_duration: float = _stats.alert_duration
-			glow_alert_bt.apply_custom_timed(tower, next, 0, alert_duration)
+			alert_bt.apply_custom_timed(tower, next, 0, alert_duration)
 
 	await Utils.create_timer(_stats.awareness_duration).timeout
 

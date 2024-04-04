@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sir_moonp_buff: BuffType
-var cb_stun: BuffType
+var lunar_energy_bt: BuffType
+var stun_bt: BuffType
 
 # NOTE: I think there's a typo in tier 4 because for all
 # other tiers spell_damage_chance_add is the same as
@@ -69,15 +69,15 @@ func tower_init():
 
 	tower.add_autocast(autocast)
 
-	cb_stun = CbStun.new("lunar_sentinel_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var m: Modifier = Modifier.new()
-	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false, self)
+	lunar_energy_bt = BuffType.new("lunar_energy_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
-	sir_moonp_buff.set_buff_icon("star.tres")
-	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
+	lunar_energy_bt.set_buff_icon("star.tres")
+	lunar_energy_bt.set_stacking_group("lunar_energy_bt")
 
-	sir_moonp_buff.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")
+	lunar_energy_bt.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")
 
 
 func on_autocast(event: Event):
@@ -95,11 +95,11 @@ func on_autocast(event: Event):
 		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
 
 		if level < 25:
-			cb_stun.apply_only_timed(tower, target, 0.3)
+			stun_bt.apply_only_timed(tower, target, 0.3)
 		else:
-			cb_stun.apply_only_timed(tower, target, 0.4)
+			stun_bt.apply_only_timed(tower, target, 0.4)
 
 		if level < 15:
-			sir_moonp_buff.apply_advanced(tower, target, 0, _stats.buff_power, 2.5)
+			lunar_energy_bt.apply_advanced(tower, target, 0, _stats.buff_power, 2.5)
 		else:
-			sir_moonp_buff.apply_advanced(tower, target, 0, _stats.buff_power_15, 2.5)
+			lunar_energy_bt.apply_advanced(tower, target, 0, _stats.buff_power_15, 2.5)

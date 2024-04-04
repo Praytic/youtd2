@@ -2,7 +2,7 @@ extends TowerBehavior
 
 # NOTE: some stats are multiplied by 1000
 
-var soul_chill: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -68,12 +68,12 @@ func tower_init():
 
 	tower.add_autocast(autocast)
 
-	var slow: Modifier = Modifier.new()
-	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	soul_chill = BuffType.new("soul_chill", 0, 0, false, self)
-	soul_chill.set_buff_icon("foot.tres")
-	soul_chill.set_buff_modifier(slow)
-	soul_chill.set_buff_tooltip("Slowed\nReduces movement speed.")
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt.set_buff_icon("foot.tres")
+	slow_bt.set_buff_modifier(slow_bt_mod)
+	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
 
 func on_autocast(event: Event):
@@ -91,7 +91,7 @@ func on_autocast(event: Event):
 		if next == null:
 			break
 
-		soul_chill.apply_custom_timed(tower, next, int(calculated_slow), duration)
+		slow_bt.apply_custom_timed(tower, next, int(calculated_slow), duration)
 		tower.do_spell_damage(next, spelldmg, tower.calc_spell_crit_no_bonus())
 
 	SFX.sfx_at_unit("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", targ)

@@ -7,7 +7,7 @@ extends TowerBehavior
 # switching to apply_custom_timed().
 
 
-var boekie_amp_damage: BuffType
+var curse_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -44,17 +44,17 @@ func get_dark_curse_description_short() -> String:
 func on_autocast(event: Event):
 	var lvl: int = tower.get_level()
 	var buff_duration: float = 5 + 0.1 * lvl
-	boekie_amp_damage.apply_custom_timed(tower, event.get_target(), _stats.buff_level + 6 * lvl, buff_duration)
+	curse_bt.apply_custom_timed(tower, event.get_target(), _stats.buff_level + 6 * lvl, buff_duration)
 
 
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.15, 0.001)
-	boekie_amp_damage = BuffType.new("boekie_amp_damage", 0, 0, false, self)
-	boekie_amp_damage.set_buff_modifier(m)
-	boekie_amp_damage.set_stacking_group("boekie_amp_damage")
-	boekie_amp_damage.set_buff_icon("mask_occult.tres")
-	boekie_amp_damage.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
+	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
+	curse_bt.set_buff_modifier(m)
+	curse_bt.set_stacking_group("curse_bt")
+	curse_bt.set_buff_icon("mask_occult.tres")
+	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Dark Curse"
@@ -70,7 +70,7 @@ func tower_init():
 	autocast.cooldown = 5
 	autocast.is_extended = false
 	autocast.mana_cost = 30
-	autocast.buff_type = boekie_amp_damage
+	autocast.buff_type = curse_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 900
 	autocast.handler = on_autocast

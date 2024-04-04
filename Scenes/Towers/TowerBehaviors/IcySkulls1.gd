@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cassim_slow: BuffType
+var slow_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -45,13 +45,13 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	cassim_slow = BuffType.new("cassim_slow", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	var slow_mod: Modifier = Modifier.new()
 	slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	cassim_slow.set_buff_icon("skull.tres")
-	cassim_slow.set_buff_modifier(slow_mod)
+	slow_bt.set_buff_icon("skull.tres")
+	slow_bt.set_buff_modifier(slow_mod)
 
-	cassim_slow.set_buff_tooltip("Slow\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")
 
 
 func on_damage(event: Event):
@@ -59,4 +59,4 @@ func on_damage(event: Event):
 	var slow: int = int((_stats.slow_base + lvl * _stats.slow_add) * 1000)
 	var dur: int = int(_stats.duration_base + lvl * _stats.duration_add)
 
-	cassim_slow.apply_custom_timed(tower, event.get_target(), slow, dur)
+	slow_bt.apply_custom_timed(tower, event.get_target(), slow, dur)

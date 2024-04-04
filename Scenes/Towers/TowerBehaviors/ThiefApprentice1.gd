@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var m0ck_thief_multiboard: MultiboardValues
-var mOck_steal: ProjectileType
+var multiboard: MultiboardValues
+var steal_pt: ProjectileType
 
 
 # NOTE: gold is multiplied by 10 in stats compared to number
@@ -54,11 +54,11 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000, self)
-	mOck_steal.set_event_on_interpolation_finished(steal)
+	steal_pt = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000, self)
+	steal_pt.set_event_on_interpolation_finished(steal)
 	
-	m0ck_thief_multiboard = MultiboardValues.new(1)
-	m0ck_thief_multiboard.set_key(0, "Gold Stolen")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Gold Stolen")
 
 
 func on_create(_preceding_tower: Tower):
@@ -68,9 +68,9 @@ func on_create(_preceding_tower: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var gold_stolen_text: String = Utils.format_float(tower.user_real, 0)
-	m0ck_thief_multiboard.set_value(0, gold_stolen_text)
+	multiboard.set_value(0, gold_stolen_text)
 	
-	return m0ck_thief_multiboard
+	return multiboard
 
 
 func on_damage(event: Event):
@@ -79,7 +79,7 @@ func on_damage(event: Event):
 	
 	CombatLog.log_ability(tower, event.get_target(), "Steal")
 
-	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
+	Projectile.create_linear_interpolation_from_unit_to_unit(steal_pt, tower, 0, 0, event.get_target(), tower, 0, true)
 
 
 func steal(_p: Projectile, _creep: Unit):

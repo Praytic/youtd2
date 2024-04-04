@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var tomy_phoenix_pt: ProjectileType
-var tomy_phoenix_fire_buff: BuffType
+var phoenix_pt: ProjectileType
+var phoenix_fire_bt: BuffType
 var buff_was_purged: bool = false
 
 
@@ -78,6 +78,7 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.20, 0.01)
 
 
+# NOTE: tomy_PhoenixAttackHit() in original script 
 func tomy_phoenix_attack_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
@@ -87,11 +88,13 @@ func tomy_phoenix_attack_hit(_p: Projectile, target: Unit):
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
 
 
-func phoenix_fire_buff_on_purge(_event: Event):
+# NOTE: tomy_PhoenixFireBuffPurged() in original script 
+func phoenix_fire_bt_on_purge(_event: Event):
 	buff_was_purged = true
 
 
-func phoenix_fire_buff_on_cleanup(event: Event):
+# NOTE: tomy_PhoenixFireBuffExpired() in original script 
+func phoenix_fire_bt_on_cleanup(event: Event):
 	var target: Unit = event.get_target()
 	var buff: Buff = event.get_buff()
 	var power: int = buff.get_power()
@@ -114,15 +117,15 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 
-	tomy_phoenix_fire_buff = BuffType.new("tomy_phoenix_fire_buff", 5, 0, false, self)
-	tomy_phoenix_fire_buff.set_buff_icon("armor_cuirass.tres")
-	tomy_phoenix_fire_buff.set_buff_modifier(mod)
-	tomy_phoenix_fire_buff.add_event_on_cleanup(phoenix_fire_buff_on_cleanup)
-	tomy_phoenix_fire_buff.add_event_on_purge(phoenix_fire_buff_on_purge)
-	tomy_phoenix_fire_buff.set_buff_tooltip("Phoenixfire\nReduces armor and makes the creep explode when the debuff expires.")
+	phoenix_fire_bt = BuffType.new("phoenix_fire_bt", 5, 0, false, self)
+	phoenix_fire_bt.set_buff_icon("armor_cuirass.tres")
+	phoenix_fire_bt.set_buff_modifier(mod)
+	phoenix_fire_bt.add_event_on_cleanup(phoenix_fire_bt_on_cleanup)
+	phoenix_fire_bt.add_event_on_purge(phoenix_fire_bt_on_purge)
+	phoenix_fire_bt.set_buff_tooltip("Phoenixfire\nReduces armor and makes the creep explode when the debuff expires.")
 
-	tomy_phoenix_pt = ProjectileType.create_interpolate("Phoenix_Missile.mdl", 800, self)
-	tomy_phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
+	phoenix_pt = ProjectileType.create_interpolate("Phoenix_Missile.mdl", 800, self)
+	phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Eruption"
@@ -164,7 +167,7 @@ func on_attack(event: Event):
 		else:
 			target = main_target
 
-		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(tomy_phoenix_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true)
+		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(phoenix_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true)
 		projectile.setScale(0.4)
 
 		current_target_count -= 1
@@ -182,7 +185,7 @@ func on_autocast(_event: Event):
 	while it.count() > 0:
 		var creep: Unit = it.next()
 
-		var buff: Buff = creep.get_buff_of_type(tomy_phoenix_fire_buff)
+		var buff: Buff = creep.get_buff_of_type(phoenix_fire_bt)
 
 		if buff != null:
 			buff.remove_buff()
@@ -191,10 +194,10 @@ func on_autocast(_event: Event):
 func _apply_phoenix_fire_buff(target: Unit):
 	var level: int = tower.get_level()
 	var armor_loss: float = _stats.mod_armor + _stats.mod_armor_add * level
-	var buff: Buff = target.get_buff_of_type(tomy_phoenix_fire_buff)
+	var buff: Buff = target.get_buff_of_type(phoenix_fire_bt)
 
 	if buff != null:
-		tomy_phoenix_fire_buff.apply(tower, target, buff.get_power() + int(armor_loss * 100))
+		phoenix_fire_bt.apply(tower, target, buff.get_power() + int(armor_loss * 100))
 	else:
-		tomy_phoenix_fire_buff.apply(tower, target, int(armor_loss * 100))
+		phoenix_fire_bt.apply(tower, target, int(armor_loss * 100))
 

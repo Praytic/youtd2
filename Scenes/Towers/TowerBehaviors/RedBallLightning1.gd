@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var red_ball_lightning_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -67,12 +67,12 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	red_ball_lightning_bt = BuffType.create_aura_effect_type("red_ball_lightning_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0001)
-	red_ball_lightning_bt.set_buff_modifier(mod)
-	red_ball_lightning_bt.set_buff_icon("crystal.tres")
-	red_ball_lightning_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("crystal.tres")
+	aura_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -87,7 +87,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = red_ball_lightning_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

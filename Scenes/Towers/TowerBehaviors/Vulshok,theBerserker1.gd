@@ -4,7 +4,7 @@ extends TowerBehavior
 # NOTE: this is the fizzbuzz tower
 
 
-var boekie_vulshok_slow_bt: BuffType
+var slow_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -70,13 +70,13 @@ func tower_init():
 	multiboard.set_key(2, "Attacks to splash")
 	multiboard.set_key(3, "Attacks to grow")
 
-	boekie_vulshok_slow_bt = BuffType.new("boekie_vulshok_slow_bt", 5, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
-	boekie_vulshok_slow_bt.set_buff_modifier(mod)
-	boekie_vulshok_slow_bt.set_buff_icon("hammer_swing.tres")
-	boekie_vulshok_slow_bt.set_buff_tooltip("Maimed\nReduces movement speed.")
-	boekie_vulshok_slow_bt.add_periodic_event(boekie_vulshok_slow_bt_periodic, 1.0)
+	slow_bt.set_buff_modifier(mod)
+	slow_bt.set_buff_icon("hammer_swing.tres")
+	slow_bt.set_buff_tooltip("Maimed\nReduces movement speed.")
+	slow_bt.add_periodic_event(slow_bt_periodic, 1.0)
 
 
 func on_attack(event: Event):
@@ -161,11 +161,11 @@ func on_damage(event: Event):
 			if creep == null:
 				break
 
-			if creep.get_buff_of_type(boekie_vulshok_slow_bt) == null:
-				boekie_vulshok_slow_bt.apply(tower, creep, level * 5)
+			if creep.get_buff_of_type(slow_bt) == null:
+				slow_bt.apply(tower, creep, level * 5)
 	else:
-		if target.get_buff_of_type(boekie_vulshok_slow_bt) == null:
-			boekie_vulshok_slow_bt.apply(tower, target, level * 5)
+		if target.get_buff_of_type(slow_bt) == null:
+			slow_bt.apply(tower, target, level * 5)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -182,7 +182,7 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func boekie_vulshok_slow_bt_periodic(event: Event):
+func slow_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_power: int = int(buff.get_power() + 50 + 0.20 * buff.get_level())
 	buff.set_power(new_power)

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_tree_rock: ProjectileType
+var rock_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -50,8 +50,8 @@ func rock_hit(p: Projectile, _target: Unit):
 
 
 func tower_init():
-	boekie_tree_rock = ProjectileType.create_interpolate("RockBoltMissle.mdl", 750, self)
-	boekie_tree_rock.set_event_on_interpolation_finished(rock_hit)
+	rock_pt = ProjectileType.create_interpolate("RockBoltMissle.mdl", 750, self)
+	rock_pt.set_event_on_interpolation_finished(rock_hit)
 
 
 func on_attack(event: Event):
@@ -60,4 +60,4 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Rock Thorw")
 
-	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
+	Projectile.create_linear_interpolation_from_unit_to_unit(rock_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)

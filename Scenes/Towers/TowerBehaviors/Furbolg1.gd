@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var gex_rage_buff: BuffType
-var gex_rage_buff_15: BuffType
-var gex_rage_buff_25: BuffType
+var rage_0_bt: BuffType
+var rage_15_bt: BuffType
+var rage_25_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -56,33 +56,33 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.01)
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.25, 0.0)
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
-	gex_rage_buff = BuffType.new("gex_rage_buff", 0, 0, true, self)
-	gex_rage_buff.set_buff_modifier(m)
-	gex_rage_buff.set_buff_icon("winged_man.tres")
-	gex_rage_buff.set_stacking_group("gex_rage")
-	gex_rage_buff.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance and crit damage.")
+	rage_0_bt = BuffType.new("rage_0_bt", 0, 0, true, self)
+	rage_0_bt.set_buff_modifier(m)
+	rage_0_bt.set_buff_icon("winged_man.tres")
+	rage_0_bt.set_stacking_group("gex_rage")
+	rage_0_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance and crit damage.")
 
 	var m_15: Modifier = Modifier.new()
 	m_15.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
 	m_15.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.25, 0.0)
 	m_15.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	m_15.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
-	gex_rage_buff_15 = BuffType.new("gex_rage_buff_15", 0, 0, true, self)
-	gex_rage_buff_15.set_buff_modifier(m_15)
-	gex_rage_buff_15.set_buff_icon("winged_man.tres")
-	gex_rage_buff_15.set_stacking_group("gex_rage")
-	gex_rage_buff_15.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
+	rage_15_bt = BuffType.new("rage_15_bt", 0, 0, true, self)
+	rage_15_bt.set_buff_modifier(m_15)
+	rage_15_bt.set_buff_icon("winged_man.tres")
+	rage_15_bt.set_stacking_group("gex_rage")
+	rage_15_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
 	var m_25: Modifier = Modifier.new()
 	m_25.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
 	m_25.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.25, 0.0)
 	m_25.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	m_25.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
-	gex_rage_buff_25 = BuffType.new("gex_rage_buff_25", 0, 0, true, self)
-	gex_rage_buff_25.set_buff_modifier(m_25)
-	gex_rage_buff_25.set_buff_icon("winged_man.tres")
-	gex_rage_buff_25.set_stacking_group("gex_rage")
-	gex_rage_buff_25.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
+	rage_25_bt = BuffType.new("rage_25_bt", 0, 0, true, self)
+	rage_25_bt.set_buff_modifier(m_25)
+	rage_25_bt.set_buff_icon("winged_man.tres")
+	rage_25_bt.set_stacking_group("gex_rage")
+	rage_25_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
 
 func on_attack(_event: Event):
@@ -92,17 +92,17 @@ func on_attack(_event: Event):
 	var lvl: int = tower.get_level()
 
 #	Do not allow retriggering while the furbolg is enraged
-	var is_enraged: bool = tower.get_buff_of_type(gex_rage_buff) != null || tower.get_buff_of_type(gex_rage_buff_15) != null || tower.get_buff_of_type(gex_rage_buff_25) != null 
+	var is_enraged: bool = tower.get_buff_of_type(rage_0_bt) != null || tower.get_buff_of_type(rage_15_bt) != null || tower.get_buff_of_type(rage_25_bt) != null 
 
 	if !is_enraged:
 		CombatLog.log_ability(tower, null, "Rampage")
 
 		var buff_type: BuffType
 		if lvl < 15:
-			buff_type = gex_rage_buff
+			buff_type = rage_0_bt
 		elif lvl < 25:
-			buff_type = gex_rage_buff_15
+			buff_type = rage_15_bt
 		else:
-			buff_type = gex_rage_buff_25
+			buff_type = rage_25_bt
 		
 		buff_type.apply_custom_timed(tower, tower, _stats.buff_level + lvl * _stats.buff_level_add, _stats.duration + _stats.duration_add * lvl)

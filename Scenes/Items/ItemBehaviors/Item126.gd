@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_forcefield_bt: BuffType
+var forcefield_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -18,12 +18,12 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	drol_forcefield_bt = BuffType.create_aura_effect_type("drol_forcefield_bt", true, self)
-	drol_forcefield_bt.set_buff_icon("orb_empty.tres")
-	drol_forcefield_bt.set_buff_tooltip("Forcefield\nReduces debuff duration.")
+	forcefield_bt = BuffType.create_aura_effect_type("forcefield_bt", true, self)
+	forcefield_bt.set_buff_icon("orb_empty.tres")
+	forcefield_bt.set_buff_tooltip("Forcefield\nReduces debuff duration.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.15, -0.01)
-	drol_forcefield_bt.set_buff_modifier(mod)
+	forcefield_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -33,5 +33,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = drol_forcefield_bt
+	aura.aura_effect = forcefield_bt
 	item.add_aura(aura)

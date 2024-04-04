@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var velex_slow: BuffType
+var slow_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -45,14 +45,14 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	velex_slow = BuffType.new("velex_slow", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	velex_slow.set_buff_icon("skull.tres")
-	velex_slow.set_buff_modifier(slow)
-	velex_slow.set_stacking_group("velex_slow1")
+	slow_bt.set_buff_icon("skull.tres")
+	slow_bt.set_buff_modifier(slow)
+	slow_bt.set_stacking_group("slow_bt1")
 	
-	velex_slow.set_buff_tooltip("Atrophy\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Atrophy\nReduces movement speed.")
 
 
 func on_attack(event: Event):
@@ -68,4 +68,4 @@ func on_attack(event: Event):
 	if calc == true:
 		CombatLog.log_ability(tower, creep, "Atrophy")
 
-		velex_slow.apply_custom_timed(tower, event.get_target(), int(_stats.slow_value * 1000), 5.0)
+		slow_bt.apply_custom_timed(tower, event.get_target(), int(_stats.slow_value * 1000), 5.0)

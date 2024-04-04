@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_mystical_shell_bt: BuffType
+var resonance_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -19,12 +19,12 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	drol_mystical_shell_bt = BuffType.new("drol_mystical_shell_bt", 5, 0, false, self)
-	drol_mystical_shell_bt.set_buff_icon("orb_swirly.tres")
-	drol_mystical_shell_bt.set_buff_tooltip("Resonance\nIncreases spell damage taken.")
+	resonance_bt = BuffType.new("resonance_bt", 5, 0, false, self)
+	resonance_bt.set_buff_icon("orb_swirly.tres")
+	resonance_bt.set_buff_tooltip("Resonance\nIncreases spell damage taken.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)
-	drol_mystical_shell_bt.set_buff_modifier(mod)
+	resonance_bt.set_buff_modifier(mod)
 
 
 func on_attack(event: Event):
@@ -32,4 +32,4 @@ func on_attack(event: Event):
 
 	if tower.calc_chance(0.10 * tower.get_base_attackspeed()):
 		CombatLog.log_item_ability(item, event.get_target(), "Resonance")
-		drol_mystical_shell_bt.apply(tower, event.get_target(), tower.get_level())
+		resonance_bt.apply(tower, event.get_target(), tower.get_level())

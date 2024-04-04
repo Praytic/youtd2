@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var dave_darkness: BuffType
-var dave_bats_st: SpellType
+var darkness_bt: BuffType
+var swarm_st: SpellType
 
 
 func get_tier_stats() -> Dictionary:
@@ -89,17 +89,17 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	dave_darkness = BuffType.new("dave_darkness", 5, 0, true, self)
-	dave_darkness.set_buff_icon("running_man_burning.tres")
-	dave_darkness.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
+	darkness_bt = BuffType.new("darkness_bt", 5, 0, true, self)
+	darkness_bt.set_buff_icon("running_man_burning.tres")
+	darkness_bt.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
 
 #	NOTE: settubg danage to "1.0" here because value for
 #	actual damage is passed when spell is casted as
 #	"damage_ratio"
-	dave_bats_st = SpellType.new("@@0@@", "carrionswarm", 3.0, self)
-	dave_bats_st.data.swarm.damage = 1.0
-	dave_bats_st.data.swarm.start_radius = SWARM_START_RADIUS
-	dave_bats_st.data.swarm.end_radius = SWARM_END_RADIUS
+	swarm_st = SpellType.new("@@0@@", "carrionswarm", 3.0, self)
+	swarm_st.data.swarm.damage = 1.0
+	swarm_st.data.swarm.start_radius = SWARM_START_RADIUS
+	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Engulfing Darkness"
@@ -116,7 +116,7 @@ func tower_init():
 	autocast.mana_cost = 45
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = dave_darkness
+	autocast.buff_type = darkness_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -138,7 +138,7 @@ func on_attack(event: Event):
 	else:
 		damage_ratio = _stats.swarm_damage_day + _stats.swarm_damage_day_add * level
 
-	dave_bats_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
+	swarm_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
 func on_damage(event: Event):
@@ -153,11 +153,11 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	dave_darkness.apply(tower, tower, tower.get_level())
+	darkness_bt.apply(tower, tower, tower.get_level())
 
 
 func time_is_night() -> bool:
 	var time: float = Utils.get_time_of_day()
-	var out: bool = time >= 18.00 || time < 6.00 || tower.get_buff_of_type(dave_darkness) != null
+	var out: bool = time >= 18.00 || time < 6.00 || tower.get_buff_of_type(darkness_bt) != null
 
 	return out

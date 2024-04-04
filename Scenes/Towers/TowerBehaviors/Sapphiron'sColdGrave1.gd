@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_sapphiron_bt: BuffType
+var liquid_ice_bt: BuffType
 var shard_pt: ProjectileType
 
 
@@ -46,9 +46,9 @@ func tower_init():
 	shard_pt.set_event_on_expiration(shard_pt_on_expiration)
 	shard_pt.enable_collision(shard_pt_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
-	cedi_sapphiron_bt = BuffType.new("cedi_sapphiron_bt", -1, 0, false, self)
-	cedi_sapphiron_bt.set_buff_icon("fireball.tres")
-	cedi_sapphiron_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
+	liquid_ice_bt = BuffType.new("liquid_ice_bt", -1, 0, false, self)
+	liquid_ice_bt.set_buff_icon("fireball.tres")
+	liquid_ice_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
 
 
 func on_damage(event: Event):
@@ -74,7 +74,7 @@ func shard_pt_on_expiration(p: Projectile):
 
 func shard_pt_on_collide(p: Projectile, target: Unit):
 	var caster: Unit = p.get_caster()
-	var buff: Buff = target.get_buff_of_type(cedi_sapphiron_bt)
+	var buff: Buff = target.get_buff_of_type(liquid_ice_bt)
 	var dmg_from_ice_add: float = 0.15 + 0.004 * caster.get_level()
 	var damage: float = 2280 + 85 * caster.get_level()
 
@@ -83,7 +83,7 @@ func shard_pt_on_collide(p: Projectile, target: Unit):
 	target.modify_property(Modification.Type.MOD_DMG_FROM_ICE, dmg_from_ice_add)
 
 	if buff == null:
-		buff = cedi_sapphiron_bt.apply(caster, target, 1)
+		buff = liquid_ice_bt.apply(caster, target, 1)
 		buff.user_real = dmg_from_ice_add
 	else:
 		buff.set_level(buff.get_level() + 1)

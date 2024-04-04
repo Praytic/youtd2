@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var drol_phantomBuff: BuffType
-var drol_phantom_st: SpellType
-var drol_phantom_st_2: SpellType
+var wind_shear_bt: BuffType
+var chainlightning_st: SpellType
+var chainlightning_st_2: SpellType
 
 
 func get_tier_stats() -> Dictionary:
@@ -59,43 +59,43 @@ func phantom_attack(event: Event):
 		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Bonus")
 
-			drol_phantom_st.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
+			chainlightning_st.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 	else:
 		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Super Bonus")
 			
-			drol_phantom_st_2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
+			chainlightning_st_2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 
 
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.attackspeed, 0.01)
 	
-	drol_phantomBuff = BuffType.new("drol_phantomBuff", 5.0, 0.1, true, self)
+	wind_shear_bt = BuffType.new("wind_shear_bt", 5.0, 0.1, true, self)
 	
-	drol_phantomBuff.set_buff_modifier(m)
+	wind_shear_bt.set_buff_modifier(m)
 	
-	drol_phantomBuff.set_buff_icon("orb_empty.tres")
+	wind_shear_bt.set_buff_icon("orb_empty.tres")
 	
-	drol_phantomBuff.add_event_on_attack(phantom_attack)
+	wind_shear_bt.add_event_on_attack(phantom_attack)
 	
-	drol_phantom_st = SpellType.new('@@0@@', "chainlightning", 5.0, self)
-	drol_phantom_st.set_source_height(40.0)
+	chainlightning_st = SpellType.new('@@0@@', "chainlightning", 5.0, self)
+	chainlightning_st.set_source_height(40.0)
 	
-	drol_phantom_st_2 = SpellType.new('@@1@@', "chainlightning", 5.0, self)
-	drol_phantom_st_2.set_source_height(40.0)
+	chainlightning_st_2 = SpellType.new('@@1@@', "chainlightning", 5.0, self)
+	chainlightning_st_2.set_source_height(40.0)
 
-	drol_phantomBuff.set_buff_tooltip("Wind Shear\nIncreases attack speed and grants a chance to cast chain of lightning on attack.")
+	wind_shear_bt.set_buff_tooltip("Wind Shear\nIncreases attack speed and grants a chance to cast chain of lightning on attack.")
 
-	drol_phantom_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
-	drol_phantom_st.data.chain_lightning.damage = 100
-	drol_phantom_st.data.chain_lightning.damage_reduction = 0.25
-	drol_phantom_st.data.chain_lightning.chain_count = 3
+	chainlightning_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	chainlightning_st.data.chain_lightning.damage = 100
+	chainlightning_st.data.chain_lightning.damage_reduction = 0.25
+	chainlightning_st.data.chain_lightning.chain_count = 3
 
-	drol_phantom_st_2 = SpellType.new("@@0@@", "chainlightning", 5.00, self)
-	drol_phantom_st_2.data.chain_lightning.damage = 100
-	drol_phantom_st_2.data.chain_lightning.damage_reduction = 0.25
-	drol_phantom_st_2.data.chain_lightning.chain_count = 4
+	chainlightning_st_2 = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	chainlightning_st_2.data.chain_lightning.damage = 100
+	chainlightning_st_2.data.chain_lightning.damage_reduction = 0.25
+	chainlightning_st_2.data.chain_lightning.chain_count = 4
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Wind Shear"
@@ -110,7 +110,7 @@ func tower_init():
 	autocast.cooldown = 3
 	autocast.is_extended = false
 	autocast.mana_cost = 15
-	autocast.buff_type = drol_phantomBuff
+	autocast.buff_type = wind_shear_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.cast_range = 300
 	autocast.auto_range = 300
@@ -120,4 +120,4 @@ func tower_init():
 
 
 func on_autocast(event: Event):
-	drol_phantomBuff.apply_custom_timed(tower, event.get_target(), tower.get_level() + _stats.buff_level, 5.0 + tower.get_level() * 0.1).user_real = tower.get_level() * _stats.user_real_add + _stats.user_real_base
+	wind_shear_bt.apply_custom_timed(tower, event.get_target(), tower.get_level() + _stats.buff_level, 5.0 + tower.get_level() * 0.1).user_real = tower.get_level() * _stats.user_real_add + _stats.user_real_base

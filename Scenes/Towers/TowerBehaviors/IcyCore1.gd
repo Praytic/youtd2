@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var gex_icy_core_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -37,12 +37,12 @@ func get_ability_description_short() -> String:
 
 
 func tower_init():
-	gex_icy_core_bt = BuffType.create_aura_effect_type("gex_icy_core_bt", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	gex_icy_core_bt.set_buff_modifier(mod)
-	gex_icy_core_bt.set_buff_icon("foot.tres")
-	gex_icy_core_bt.set_buff_tooltip("Frost Aura\nThis creep is under the effect of Frost Aura; it has reduced movement speed.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("foot.tres")
+	aura_bt.set_buff_tooltip("Frost Aura\nThis creep is under the effect of Frost Aura; it has reduced movement speed.")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -57,5 +57,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = gex_icy_core_bt
+	aura.aura_effect = aura_bt
 	return [aura]

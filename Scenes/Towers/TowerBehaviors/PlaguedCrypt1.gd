@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var cedi_crypt_plague_bt: BuffType
-var cedi_crypt_army_bt: BuffType
+var plague_bt: BuffType
+var army_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -61,25 +61,25 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_crypt_plague_bt = BuffType.new("cedi_crypt_plague_bt", 5.0, 0.2, false, self)
-	cedi_crypt_plague_bt.set_buff_icon("mask_occult.tres")
-	cedi_crypt_plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
-	cedi_crypt_plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
-	cedi_crypt_plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
+	plague_bt = BuffType.new("plague_bt", 5.0, 0.2, false, self)
+	plague_bt.set_buff_icon("mask_occult.tres")
+	plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
+	plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
+	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
 #	NOTE: The period of periodic event starts out at 0.01
 #	and then gets changed to real period via
 #	enable_advanced(). It starts at 0.01 to change to real
 #	period as quickly as possible.
-	cedi_crypt_plague_bt.add_periodic_event(cedi_crypt_plague_periodic_spread, 0.01)
-	cedi_crypt_plague_bt.set_buff_tooltip("Plague\nThis creep is affected by Plague; it will take damage over time.")
+	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_spread, 0.01)
+	plague_bt.set_buff_tooltip("Plague\nThis creep is affected by Plague; it will take damage over time.")
 
-	cedi_crypt_army_bt = BuffType.new("cedi_crypt_army_bt", -1, 0, true, self)
+	army_bt = BuffType.new("army_bt", -1, 0, true, self)
 	var cedi_crypt_army_mod: Modifier = Modifier.new()
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.05)
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
-	cedi_crypt_army_bt.set_buff_modifier(cedi_crypt_army_mod)
-	cedi_crypt_army_bt.set_buff_icon("ghost.tres")
-	cedi_crypt_army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
+	army_bt.set_buff_modifier(cedi_crypt_army_mod)
+	army_bt.set_buff_icon("ghost.tres")
+	army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Souls Extracted")
@@ -89,11 +89,11 @@ func tower_init():
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	cedi_crypt_plague_bt.apply(tower, target, level)
+	plague_bt.apply(tower, target, level)
 
 
 func on_tower_details():
-	var army_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
+	var army_buff: Buff = tower.get_buff_of_type(army_bt)
 	var army_buff_level: int
 	if army_buff != null:
 		army_buff_level = army_buff.get_level()
@@ -121,14 +121,14 @@ func periodic(_event: Event):
 
 	corpse.remove_from_game()
 
-	var active_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
+	var active_buff: Buff = tower.get_buff_of_type(army_bt)
 	var new_buff_level: int
 	if active_buff != null:
 		new_buff_level = active_buff.get_level() + 1
 	else:
 		new_buff_level = 1
 	
-	var buff: Buff = cedi_crypt_army_bt.apply(tower, tower, new_buff_level)
+	var buff: Buff = army_bt.apply(tower, tower, new_buff_level)
 
 	var stack_duration: float = (20.0 + 0.4 * tower.get_level()) * tower.get_prop_buff_duration()
 	await Utils.create_timer(stack_duration).timeout
@@ -192,7 +192,7 @@ func cedi_crypt_plague_periodic_spread(event: Event):
 				break
 
 			if next != target:
-				cedi_crypt_plague_bt.apply(tower, next, level)
+				plague_bt.apply(tower, next, level)
 				break
 	else:
 		var new_first_periodic_call: int = 1
@@ -205,7 +205,7 @@ func cedi_crypt_plague_periodic_spread(event: Event):
 # NOTE: plague spread time gets smaller as the level of army
 # buff increases
 func get_plague_spread_time():
-	var army_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
+	var army_buff: Buff = tower.get_buff_of_type(army_bt)
 	var army_buff_level: int
 	if army_buff == null:
 		army_buff_level = 0

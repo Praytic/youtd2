@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var boekie_alliance_bt: BuffType
+var motivation_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -18,13 +18,13 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	boekie_alliance_bt = BuffType.create_aura_effect_type("boekie_alliance_bt", true, self) 
-	boekie_alliance_bt.set_buff_icon("crystal.tres")
-	boekie_alliance_bt.set_buff_tooltip("Motivation\nIncreases attack speed.")
-	boekie_alliance_bt.set_stacking_group("boekie_alliance_bt")
+	motivation_bt = BuffType.create_aura_effect_type("motivation_bt", true, self) 
+	motivation_bt.set_buff_icon("crystal.tres")
+	motivation_bt.set_buff_tooltip("Motivation\nIncreases attack speed.")
+	motivation_bt.set_stacking_group("motivation_bt")
 	var mod: Modifier = Modifier.new() 
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.001) 
-	boekie_alliance_bt.set_buff_modifier(mod)
+	motivation_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 1000
@@ -34,5 +34,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = boekie_alliance_bt
+	aura.aura_effect = motivation_bt
 	item.add_aura(aura)

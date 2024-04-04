@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var sir_bone_debuff: BuffType
+var curse_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -41,13 +41,13 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_bone_debuff = BuffType.new("sir_bone_debuff", 0, 0, false, self)
-	sir_bone_debuff.set_buff_icon("mask_bat.tres")
-	sir_bone_debuff.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
+	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
+	curse_bt.set_buff_icon("mask_bat.tres")
+	curse_bt.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
 
 
 func on_attack(event: Event):
-	var existing_buff: Buff = event.get_target().get_buff_of_type(sir_bone_debuff)
+	var existing_buff: Buff = event.get_target().get_buff_of_type(curse_bt)
 	var buff_level: int
 	if existing_buff != null:
 		buff_level = existing_buff.get_level()
@@ -56,4 +56,4 @@ func on_attack(event: Event):
 
 	if buff_level < 10:
 		event.get_target().modify_property(Modification.Type.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
-		sir_bone_debuff.apply_advanced(tower, event.get_target(), buff_level + 1, 0, 1000)
+		curse_bt.apply_advanced(tower, event.get_target(), buff_level + 1, 0, 1000)

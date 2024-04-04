@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var dwarven_forgery_aura_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -30,12 +30,12 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	dwarven_forgery_aura_bt = BuffType.create_aura_effect_type("dwarven_forgery_aura_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.15, 0.004)
-	dwarven_forgery_aura_bt.set_buff_modifier(mod)
-	dwarven_forgery_aura_bt.set_buff_icon("star.tres")
-	dwarven_forgery_aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("star.tres")
+	aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -47,5 +47,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = dwarven_forgery_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]

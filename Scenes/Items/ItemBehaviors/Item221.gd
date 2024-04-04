@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var cedi_true_sight_bt: BuffType
+var true_sight_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -21,8 +21,8 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	cedi_true_sight_bt = MagicalSightBuff.new("cedi_true_sight_bt", 900, self)
-	cedi_true_sight_bt.set_buff_tooltip("Eye of True Sight\nReveals invisible units in range.")
+	true_sight_bt = MagicalSightBuff.new("true_sight_bt", 900, self)
+	true_sight_bt.set_buff_tooltip("Eye of True Sight\nReveals invisible units in range.")
 
 
 func load_triggers(triggers: BuffType):
@@ -36,4 +36,4 @@ func on_damage(event: Event):
 
 func on_pickup():
 	var carrier: Unit = item.get_carrier()
-	cedi_true_sight_bt.apply_to_unit_permanent(carrier, carrier, 0)	
+	true_sight_bt.apply_to_unit_permanent(carrier, carrier, 0)	

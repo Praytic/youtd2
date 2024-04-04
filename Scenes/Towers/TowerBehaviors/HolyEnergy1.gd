@@ -6,8 +6,8 @@ extends TowerBehavior
 # effect value to be 15% + 0.2%. Fixed so it's 15%.
 
 
-var dave_glimmer_bt: BuffType
-var dave_sunlight_bt: BuffType
+var glimmer_bt: BuffType
+var sunlight_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -84,15 +84,15 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_glimmer_bt = BuffType.create_aura_effect_type("dave_glimmer_bt", true, self)
+	glimmer_bt = BuffType.create_aura_effect_type("glimmer_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
-	dave_glimmer_bt.set_buff_modifier(mod)
-	dave_glimmer_bt.set_buff_icon("orb_sparkly.tres")
-	dave_glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
+	glimmer_bt.set_buff_modifier(mod)
+	glimmer_bt.set_buff_icon("orb_sparkly.tres")
+	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
-	dave_sunlight_bt = CbStun.new("dave_sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
-	dave_sunlight_bt.set_buff_icon("letter_omega_shiny.tres")
+	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
+	sunlight_bt.set_buff_icon("letter_omega_shiny.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sunlight Burst"
@@ -124,7 +124,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = dave_glimmer_bt
+	aura.aura_effect = glimmer_bt
 	return [aura]
 
 
@@ -139,7 +139,7 @@ func on_autocast(_event: Event):
 		if target_creep == null:
 			break
 
-		dave_sunlight_bt.apply(tower, target_creep, level)
+		sunlight_bt.apply(tower, target_creep, level)
 
 	while true:
 		var target_tower: Unit = towers.next()
@@ -147,6 +147,6 @@ func on_autocast(_event: Event):
 		if target_tower == null:
 			break
 
-		dave_sunlight_bt.apply(tower, target_tower, level)
+		sunlight_bt.apply(tower, target_tower, level)
 		
 

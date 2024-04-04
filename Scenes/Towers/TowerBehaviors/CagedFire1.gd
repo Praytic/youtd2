@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_melt_bt: BuffType
+var melt_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -55,12 +55,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_melt_bt = BuffType.create_aura_effect_type("cedi_melt_bt", false, self)
-	cedi_melt_bt.add_event_on_create(cedi_melt_bt_on_create)
-	cedi_melt_bt.add_periodic_event(cedi_melt_bt_on_periodic, 1.0)
-	cedi_melt_bt.add_event_on_cleanup(cedi_melt_bt_on_cleanup)
-	cedi_melt_bt.set_buff_icon("bull_horns.tres")
-	cedi_melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
+	melt_bt = BuffType.create_aura_effect_type("melt_bt", false, self)
+	melt_bt.add_event_on_create(melt_bt_on_create)
+	melt_bt.add_periodic_event(melt_bt_on_periodic, 1.0)
+	melt_bt.add_event_on_cleanup(melt_bt_on_cleanup)
+	melt_bt.set_buff_icon("bull_horns.tres")
+	melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -72,12 +72,12 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = cedi_melt_bt
+	aura.aura_effect = melt_bt
 	
 	return [aura]
 
 
-func cedi_melt_bt_on_create(event: Event):
+func melt_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
@@ -89,7 +89,7 @@ func cedi_melt_bt_on_create(event: Event):
 	target.modify_property(Modification.Type.MOD_ARMOR, -current_mod_armor)
 
 
-func cedi_melt_bt_on_periodic(event: Event):
+func melt_bt_on_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
@@ -107,7 +107,7 @@ func cedi_melt_bt_on_periodic(event: Event):
 	target.modify_property(Modification.Type.MOD_ARMOR, -current_mod_armor)
 
 
-func cedi_melt_bt_on_cleanup(event: Event):
+func melt_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var current_mod_armor: float = buff.user_real

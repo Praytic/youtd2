@@ -15,10 +15,10 @@ class Icicle:
 const ICICLE_MAX_BASE: int = 5
 
 
-var cb_stun: BuffType
-var ashbringer_frostburn_bt: BuffType
-var ashbringer_ebonfrost_shatter_bt: BuffType
-var ashbringer_ebonfrost_icicle_bt: BuffType
+var stun_bt: BuffType
+var frostburn_bt: BuffType
+var shatter_bt: BuffType
+var icicle_bt: BuffType
 var bombardment_pt: ProjectileType
 var icicle_prop_pt: ProjectileType
 var icicle_missile_pt: ProjectileType
@@ -98,29 +98,29 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	cb_stun = CbStun.new("ebonfrost_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	ashbringer_frostburn_bt = BuffType.new("ashbringer_frostburn_bt", 5, 0, false, self)
-	ashbringer_frostburn_bt.set_buff_icon("fireball.tres")
-	ashbringer_frostburn_bt.add_periodic_event(ashbringer_frostburn_bt_periodic, 1.0)
-	ashbringer_frostburn_bt.set_buff_tooltip("Frostburn\nDeals damage over time.")
+	frostburn_bt = BuffType.new("frostburn_bt", 5, 0, false, self)
+	frostburn_bt.set_buff_icon("fireball.tres")
+	frostburn_bt.add_periodic_event(frostburn_bt_periodic, 1.0)
+	frostburn_bt.set_buff_tooltip("Frostburn\nDeals damage over time.")
 
-	ashbringer_ebonfrost_shatter_bt = BuffType.new("ashbringer_ebonfrost_shatter_bt", 5, 0, false, self)
-	ashbringer_ebonfrost_shatter_bt.set_buff_icon("star.tres")
+	shatter_bt = BuffType.new("shatter_bt", 5, 0, false, self)
+	shatter_bt.set_buff_icon("star.tres")
 	var ashbringer_ebonfrost_shatter_mod: Modifier = Modifier.new()
 	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 1.0)
 	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 1.0)
-	ashbringer_ebonfrost_shatter_bt.set_buff_modifier(ashbringer_ebonfrost_shatter_mod)
-	ashbringer_ebonfrost_shatter_bt.add_event_on_create(ashbringer_ebonfrost_shatter_bt_on_create)
-	ashbringer_ebonfrost_shatter_bt.set_buff_tooltip("Shatter\nIncreases attack and spell damage taken.")
+	shatter_bt.set_buff_modifier(ashbringer_ebonfrost_shatter_mod)
+	shatter_bt.add_event_on_create(shatter_bt_on_create)
+	shatter_bt.set_buff_tooltip("Shatter\nIncreases attack and spell damage taken.")
 
-	ashbringer_ebonfrost_icicle_bt = BuffType.new("ashbringer_ebonfrost_icicle_bt", -1, 0, true, self)
+	icicle_bt = BuffType.new("icicle_bt", -1, 0, true, self)
 	var ashbringer_ebonfrost_icicle_mod: Modifier = Modifier.new()
 	ashbringer_ebonfrost_icicle_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.05)
 	ashbringer_ebonfrost_icicle_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.5)
-	ashbringer_ebonfrost_icicle_bt.set_buff_modifier(ashbringer_ebonfrost_icicle_mod)
-	ashbringer_ebonfrost_icicle_bt.set_buff_icon("crystal.tres")
-	ashbringer_ebonfrost_icicle_bt.set_buff_tooltip("Icicle\nIncreases attack damage and mana regeration.")
+	icicle_bt.set_buff_modifier(ashbringer_ebonfrost_icicle_mod)
+	icicle_bt.set_buff_icon("crystal.tres")
+	icicle_bt.set_buff_tooltip("Icicle\nIncreases attack damage and mana regeration.")
 
 # 	NOTE: in original script, this ProjectileType.create()
 # 	is called here but this ProjectileType is later used as
@@ -203,7 +203,7 @@ func on_autocast(event: Event):
 		if duration < 2.0:
 			duration = 2.0
 
-	ashbringer_ebonfrost_shatter_bt.apply_custom_timed(tower, target, tower.get_level(), duration)
+	shatter_bt.apply_custom_timed(tower, target, tower.get_level(), duration)
 	tower.subtract_mana(tower_mana, true)
 
 
@@ -253,7 +253,7 @@ func ashbringer_icicle_store():
 	icicle.position = icicle_pos
 	icicle_list.append(icicle)
 
-	ashbringer_ebonfrost_icicle_bt.apply(tower, tower, icicle_list.size())
+	icicle_bt.apply(tower, tower, icicle_list.size())
 
 
 func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
@@ -299,17 +299,17 @@ func ashbringer_frostburn_damage(target: Unit, damage: float):
 
 	tower.do_attack_damage(target, damage * 0.5, tower.calc_attack_multicrit_no_bonus())
 
-	var old_buff: Buff = target.get_buff_of_type(ashbringer_frostburn_bt)
+	var old_buff: Buff = target.get_buff_of_type(frostburn_bt)
 
 	var dot_damage: float = damage * 0.5 * dot_inc
 	if old_buff != null:
 		dot_damage += old_buff.user_real
 
-	var new_buff: Buff = ashbringer_frostburn_bt.apply(tower, target, 0)
+	var new_buff: Buff = frostburn_bt.apply(tower, target, 0)
 	new_buff.user_real = dot_damage
 
 
-func ashbringer_frostburn_bt_periodic(event: Event):
+func frostburn_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Creep = buff.get_buffed_unit()
 	var remaining: float = buff.get_remaining_duration()
@@ -355,7 +355,7 @@ func ashbringer_icicle_fire_all(target: Unit):
 		
 		icicle_list.erase(icicle)
 
-	var buff: Buff = tower.get_buff_of_type(ashbringer_ebonfrost_icicle_bt)
+	var buff: Buff = tower.get_buff_of_type(icicle_bt)
 	if buff != null:
 		buff.remove_buff()
 
@@ -402,12 +402,12 @@ func bombardment_pt_on_hit(p: Projectile):
 			ashbringer_icicle_create(next)
 
 
-func ashbringer_ebonfrost_shatter_bt_on_create(event: Event):
+func shatter_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var target: Creep = buff.get_buffed_unit()
 
-	cb_stun.apply_only_timed(caster, target, buff.get_remaining_duration())
+	stun_bt.apply_only_timed(caster, target, buff.get_remaining_duration())
 	ashbringer_icicle_fire_all(target)
 
 

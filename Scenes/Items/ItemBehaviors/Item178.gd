@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var cedi_trident_positive_bt: BuffType
-var cedi_trident_negative_bt: BuffType
+var boost_bt: BuffType
+var drain_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -23,19 +23,19 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cedi_trident_positive_bt = BuffType.new("cedi_trident_positive_bt", 2.5, 0.0, false, self)
-	cedi_trident_positive_bt.set_buff_icon("crystal.tres")
-	cedi_trident_positive_bt.set_buff_tooltip("Boost Physical Energy\nIncreases attack speed.")
-	var cedi_trident_positive_bt_mod: Modifier = Modifier.new()
-	cedi_trident_positive_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
-	cedi_trident_positive_bt.set_buff_modifier(cedi_trident_positive_bt_mod)
+	boost_bt = BuffType.new("boost_bt", 2.5, 0.0, false, self)
+	boost_bt.set_buff_icon("crystal.tres")
+	boost_bt.set_buff_tooltip("Boost Physical Energy\nIncreases attack speed.")
+	var boost_bt_mod: Modifier = Modifier.new()
+	boost_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
+	boost_bt.set_buff_modifier(boost_bt_mod)
 
-	cedi_trident_negative_bt = BuffType.new("cedi_trident_negative_bt", 2.5, 0.0, true, self)
-	cedi_trident_negative_bt.set_buff_icon("foot.tres")
-	cedi_trident_negative_bt.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
-	var cedi_trident_negative_bt_mod: Modifier = Modifier.new()
-	cedi_trident_negative_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
-	cedi_trident_negative_bt.set_buff_modifier(cedi_trident_negative_bt_mod)
+	drain_bt = BuffType.new("drain_bt", 2.5, 0.0, true, self)
+	drain_bt.set_buff_icon("foot.tres")
+	drain_bt.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
+	var drain_bt_mod: Modifier = Modifier.new()
+	drain_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
+	drain_bt.set_buff_modifier(drain_bt_mod)
 
 
 func on_damage(event: Event):
@@ -47,14 +47,14 @@ func on_damage(event: Event):
 	var level_add: int = int(100.0 * tower.get_current_attackspeed())
 	var duration: float = 5 + 0.1 * tower.get_level()
 
-	var positive_buff: Buff = tower.get_buff_of_type(cedi_trident_positive_bt)
+	var positive_buff: Buff = tower.get_buff_of_type(boost_bt)
 	if positive_buff != null:
-		cedi_trident_positive_bt.apply_custom_timed(tower, tower, min(level_add + positive_buff.get_level(), 2000), duration)
+		boost_bt.apply_custom_timed(tower, tower, min(level_add + positive_buff.get_level(), 2000), duration)
 	else:
-		cedi_trident_positive_bt.apply_custom_timed(tower, tower, level_add, duration)
+		boost_bt.apply_custom_timed(tower, tower, level_add, duration)
 
-	var negative_buff: Buff = creep.get_buff_of_type(cedi_trident_negative_bt)
+	var negative_buff: Buff = creep.get_buff_of_type(drain_bt)
 	if negative_buff != null:
-		cedi_trident_negative_bt.apply_custom_timed(tower, creep, min(level_add + negative_buff.get_level(), 2000), duration)
+		drain_bt.apply_custom_timed(tower, creep, min(level_add + negative_buff.get_level(), 2000), duration)
 	else:
-		cedi_trident_negative_bt.apply_custom_timed(tower, creep, level_add, duration)
+		drain_bt.apply_custom_timed(tower, creep, level_add, duration)

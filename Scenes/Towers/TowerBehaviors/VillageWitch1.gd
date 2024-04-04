@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var cedi_love_potion: BuffType
-var cedi_soul_buff: BuffType
-var cedi_love_missile: ProjectileType
+var love_bt: BuffType
+var soul_split_bt: BuffType
+var missile_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -75,7 +75,7 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(cedi_love_missile, tower, 1.00, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.00, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
 	projectile.user_int = _stats.item_chance + tower.get_level() * 3
 
 
@@ -83,27 +83,27 @@ func cedi_love(p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	cedi_love_potion.apply(tower, target, p.user_int)
+	love_bt.apply(tower, target, p.user_int)
 
 func tower_init():
 	var mod: Modifier = Modifier.new()
 	
-	cedi_love_potion = BuffType.new("cedi_love_potion", 7, 0, false, self)
+	love_bt = BuffType.new("love_bt", 7, 0, false, self)
 	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
-	cedi_love_potion.set_buff_modifier(mod)
-	cedi_love_potion.set_buff_icon("bug_in_amber.tres")
-	cedi_love_potion.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
+	love_bt.set_buff_modifier(mod)
+	love_bt.set_buff_icon("bug_in_amber.tres")
+	love_bt.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
 
 #	NOTE: this buff is needed to display the effect of the
 #	"Soul Split" ability. The actual effect of the ability
 #	is implemented via modify_property().
-	cedi_soul_buff = BuffType.new("cedi_soul_buff", 10, 0, true, self)
-	cedi_soul_buff.set_buff_icon("ghost.tres")
-	cedi_soul_buff.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
+	soul_split_bt = BuffType.new("soul_split_bt", 10, 0, true, self)
+	soul_split_bt.set_buff_icon("ghost.tres")
+	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
-	cedi_love_missile = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
-	cedi_love_missile.enable_homing(cedi_love, 0.0)
+	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
+	missile_pt.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Love Potion"
@@ -119,7 +119,7 @@ func tower_init():
 	autocast.cooldown = 3
 	autocast.is_extended = false
 	autocast.mana_cost = 25
-	autocast.buff_type = cedi_love_potion
+	autocast.buff_type = love_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1100
 	autocast.handler = on_autocast
@@ -131,7 +131,7 @@ func on_damage(event: Event):
 	var UID: int = tower.get_instance_id()
 
 	if tower.calc_chance(tower.user_real / 100.0):
-		if event.get_target().get_buff_of_type(cedi_love_potion) != null:
+		if event.get_target().get_buff_of_type(love_bt) != null:
 			CombatLog.log_ability(tower, event.get_target(), "Soul Split x2")
 			
 			multiplier = 2.0
@@ -141,7 +141,7 @@ func on_damage(event: Event):
 
 		SFX.sfx_at_unit("UndeadDissipate.mdl", tower)
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())
-		cedi_soul_buff.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
+		soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attackspeed * multiplier)
 

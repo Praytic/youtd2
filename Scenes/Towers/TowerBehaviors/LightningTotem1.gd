@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_spell_crit_aura : BuffType
+var aura_bt : BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -42,13 +42,13 @@ func get_ability_description_short() -> String:
 
 
 func tower_init():
-	boekie_spell_crit_aura = BuffType.create_aura_effect_type("boekie_spell_crit_aura", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
-	boekie_spell_crit_aura.set_buff_modifier(mod)
-	boekie_spell_crit_aura.set_buff_icon("star.tres")
-	boekie_spell_crit_aura.set_stacking_group("boekie_spell_crit_aura")
-	boekie_spell_crit_aura.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("star.tres")
+	aura_bt.set_stacking_group("aura_bt")
+	aura_bt.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -60,5 +60,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 2
 	aura.power = _stats.aura_level
 	aura.power_add = 2
-	aura.aura_effect = boekie_spell_crit_aura
+	aura.aura_effect = aura_bt
 	return [aura]

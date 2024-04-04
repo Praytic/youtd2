@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var dark_battery_corruption: BuffType
-var pt: ProjectileType
+var corruption_bt: BuffType
+var missile_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -92,7 +92,7 @@ func hit(_p: Projectile, creep: Unit):
 		return
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	dark_battery_corruption.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	corruption_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
 
 func tower_init():
@@ -100,14 +100,14 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
 	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
-	dark_battery_corruption = BuffType.new("dark_battery_corruption", 9, 0.3, false, self)
-	dark_battery_corruption.set_buff_icon("beard.tres")
-	dark_battery_corruption.set_buff_modifier(modifier)
-	dark_battery_corruption.set_stacking_group("DarkBattery")
-	dark_battery_corruption.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
+	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
+	corruption_bt.set_buff_icon("beard.tres")
+	corruption_bt.set_buff_modifier(modifier)
+	corruption_bt.set_stacking_group("DarkBattery")
+	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
 
-	pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
+	missile_pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -131,7 +131,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	dark_battery_corruption.apply(tower, event.get_target(), tower.get_level())
+	corruption_bt.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
@@ -149,7 +149,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

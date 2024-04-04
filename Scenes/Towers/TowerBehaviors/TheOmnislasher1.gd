@@ -7,7 +7,7 @@ extends TowerBehavior
 # because tower has no animation. Maybe spin or something.
 
 
-var khan_omni_bt: BuffType
+var omnislashed_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -40,10 +40,10 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	khan_omni_bt = BuffType.new("khan_omni_bt", -1, 0, false, self)
-	khan_omni_bt.set_buff_icon("claw.tres")
-	khan_omni_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
-	khan_omni_bt.add_event_on_damaged(khan_omni_bt_on_damaged)
+	omnislashed_bt = BuffType.new("omnislashed_bt", -1, 0, false, self)
+	omnislashed_bt.set_buff_icon("claw.tres")
+	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
+	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 
 
 # NOTE: implemented this slightly differently than original
@@ -102,7 +102,7 @@ func damage(target: Unit):
 
 	var blademaster: int = Effect.create_animated("HeroChaosBladeMaster.mdl", x, y, z, deg_to_rad(angle + 180))
 	var mirrorimage: int = Effect.create_animated("MirrorImageCaster.mdl", x, y, z, angle + deg_to_rad(angle))
-	var buff: Buff = target.get_buff_of_type(khan_omni_bt)
+	var buff: Buff = target.get_buff_of_type(omnislashed_bt)
 
 	Effect.set_lifetime(blademaster, 0.4)
 	# Effect.set_animation(blademaster, "attack")
@@ -114,7 +114,7 @@ func damage(target: Unit):
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus() / 10, tower.calc_attack_multicrit_no_bonus())
 
 	if buff == null:
-		buff = khan_omni_bt.apply(tower, target, tower.get_level())
+		buff = omnislashed_bt.apply(tower, target, tower.get_level())
 		var damage_multiplier: float = 1.0
 		buff.user_real = damage_multiplier
 	else:
@@ -122,7 +122,7 @@ func damage(target: Unit):
 		buff.user_real = damage_multiplier
 
 
-func khan_omni_bt_on_damaged(event: Event):
+func omnislashed_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = event.get_target()
 

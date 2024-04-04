@@ -2,8 +2,8 @@
 extends ItemBehavior
 
 
-var drol_chain_st: SpellType
-var cb_stun: BuffType
+var chain_lightning_st: SpellType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -20,21 +20,21 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: drol_chainStun() in original script
-func drol_chain_st_on_damage(event: Event, d: DummyUnit):
+func chain_lightning_st_on_damage(event: Event, d: DummyUnit):
 	var creep: Unit = event.get_target()
 
 	if creep.get_category() == 0 || creep.get_category() == 3:
-		cb_stun.apply_only_timed(d.get_caster(), event.get_target(), 0.5)
+		stun_bt.apply_only_timed(d.get_caster(), event.get_target(), 0.5)
 
 
 func item_init():
-	cb_stun = CbStun.new("item_120_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
-	drol_chain_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
-	drol_chain_st.set_damage_event(drol_chain_st_on_damage)
-	drol_chain_st.data.chain_lightning.damage = 250
-	drol_chain_st.data.chain_lightning.damage_reduction = 0.25
-	drol_chain_st.data.chain_lightning.chain_count = 3
+	chain_lightning_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
+	chain_lightning_st.set_damage_event(chain_lightning_st_on_damage)
+	chain_lightning_st.data.chain_lightning.damage = 250
+	chain_lightning_st.data.chain_lightning.damage_reduction = 0.25
+	chain_lightning_st.data.chain_lightning.chain_count = 3
 
 
 func on_attack(event: Event):
@@ -43,4 +43,4 @@ func on_attack(event: Event):
 
 	if tower.calc_chance(0.125 * speed):
 		CombatLog.log_item_ability(item, event.get_target(), "Purify")
-		drol_chain_st.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())
+		chain_lightning_st.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())

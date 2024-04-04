@@ -16,9 +16,9 @@ extends TowerBehavior
 # uses await().
 
 
-var cedi_spell_pt: ProjectileType
-var cedi_spell_gathering_bt: BuffType
-var cedi_spell_missile_stacks_bt: BuffType
+var spell_pt: ProjectileType
+var spell_gathering_bt: BuffType
+var missile_stacks_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -80,17 +80,17 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cedi_spell_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 1200, self)
-	cedi_spell_pt.set_event_on_interpolation_finished(cedi_spell_pt_on_hit)
+	spell_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 1200, self)
+	spell_pt.set_event_on_interpolation_finished(spell_pt_on_hit)
 
-	cedi_spell_gathering_bt = BuffType.create_aura_effect_type("cedi_spell_gathering_bt", true, self)
-	cedi_spell_gathering_bt.set_buff_icon("orb_empty.tres")
-	cedi_spell_gathering_bt.add_event_on_spell_casted(cedi_spell_gathering_bt_on_spell_casted)
-	cedi_spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
+	spell_gathering_bt = BuffType.create_aura_effect_type("spell_gathering_bt", true, self)
+	spell_gathering_bt.set_buff_icon("orb_empty.tres")
+	spell_gathering_bt.add_event_on_spell_casted(spell_gathering_bt_on_spell_casted)
+	spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
 
-	cedi_spell_missile_stacks_bt = BuffType.new("cedi_spell_missile_stacks_bt", 20, 0, true, self)
-	cedi_spell_missile_stacks_bt.set_buff_icon("letter_omega_shiny.tres")
-	cedi_spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
+	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
+	missile_stacks_bt.set_buff_icon("letter_omega_shiny.tres")
+	spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spells Harvested")
@@ -105,7 +105,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = cedi_spell_gathering_bt
+	aura.aura_effect = spell_gathering_bt
 	return [aura]
 
 
@@ -115,7 +115,7 @@ func on_attack(event: Event):
 	var missile_crit_chance: float = _stats.missile_crit_chance + _stats.missile_crit_chance_add * tower.get_level()
 	var missile_crit_dmg: float = _stats.missile_crit_dmg + _stats.missile_crit_dmg_add * tower.get_level()
 	var missile_count_max: int = _stats.missile_count_max + _stats.missile_count_max_add * tower.get_level() / 5
-	var stacks_buff: Buff = tower.get_buff_of_type(cedi_spell_missile_stacks_bt)
+	var stacks_buff: Buff = tower.get_buff_of_type(missile_stacks_bt)
 
 	var missile_count: int
 	if stacks_buff != null:
@@ -134,7 +134,7 @@ func on_attack(event: Event):
 		if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(target):
 			return
 
-		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(cedi_spell_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, target, 0.0, 0.0, 0.0, true)
+		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(spell_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, target, 0.0, 0.0, 0.0, true)
 		var missile_number: int = i + 1
 		projectile.user_real = missile_crit_chance * missile_number
 		projectile.user_real2 = missile_crit_dmg * missile_number
@@ -143,7 +143,7 @@ func on_attack(event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var buff: Buff = tower.get_buff_of_type(cedi_spell_missile_stacks_bt)
+	var buff: Buff = tower.get_buff_of_type(missile_stacks_bt)
 	var lvl: int = 0
 
 	if buff != null:
@@ -155,18 +155,18 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func cedi_spell_gathering_bt_on_spell_casted(event: Event):
+func spell_gathering_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 
-	var stacks_buff: Buff = caster.get_buff_of_type(cedi_spell_missile_stacks_bt)
+	var stacks_buff: Buff = caster.get_buff_of_type(missile_stacks_bt)
 	var stacks_count: int
 	if stacks_buff != null:
 		stacks_count = stacks_buff.get_level() + 1
 	else:
 		stacks_count = 1
 
-	stacks_buff = cedi_spell_missile_stacks_bt.apply(caster, caster, stacks_count)
+	stacks_buff = missile_stacks_bt.apply(caster, caster, stacks_count)
 
 	var autocast: Autocast = event.get_autocast_type()
 	var autocast_cooldown: float = autocast.get_cooldown()
@@ -174,7 +174,7 @@ func cedi_spell_gathering_bt_on_spell_casted(event: Event):
 	await Utils.create_timer(autocast_cooldown).timeout
 
 	if Utils.unit_is_valid(caster):
-		stacks_buff = caster.get_buff_of_type(cedi_spell_missile_stacks_bt)
+		stacks_buff = caster.get_buff_of_type(missile_stacks_bt)
 
 		if stacks_buff != null:
 			stacks_buff.set_level(stacks_buff.get_level() - 1)
@@ -182,7 +182,7 @@ func cedi_spell_gathering_bt_on_spell_casted(event: Event):
 				stacks_buff.remove_buff()
 
 
-func cedi_spell_pt_on_hit(p: Projectile, target: Unit):
+func spell_pt_on_hit(p: Projectile, target: Unit):
 	var caster: Tower = p.get_caster()
 	var damage: float = _stats.missile_damage + _stats.missile_damage_add * caster.get_level()
 

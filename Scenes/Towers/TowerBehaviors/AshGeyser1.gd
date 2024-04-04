@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var drol_fireDot: BuffType
+var ignite_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,21 +49,21 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NORMAL, 0.20, 0.004)
 
 
-func drol_fireDot_Damage(event: Event):
+# NOTE: drol_fireDot_Damage() in original script
+func ignite_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 
 	b.get_caster().do_spell_damage(b.get_buffed_unit(), b.user_real, b.get_caster().calc_spell_crit_no_bonus())
 
 
 func tower_init():
-	var drol_fireMod: Modifier = Modifier.new()
-	drol_fireDot = BuffType.new("drol_fireDot", 8, 0, false, self)
-	drol_fireDot.set_buff_icon("fireball.tres")
-	drol_fireMod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.05, -0.001)
-	drol_fireDot.set_buff_modifier(drol_fireMod)
-	drol_fireDot.add_periodic_event(drol_fireDot_Damage, 1)
-
-	drol_fireDot.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
+	ignite_bt = BuffType.new("ignite_bt", 8, 0, false, self)
+	ignite_bt.set_buff_icon("fireball.tres")
+	ignite_bt.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
+	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.05, -0.001)
+	ignite_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
@@ -72,4 +72,4 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Ignite")
 
-	drol_fireDot.apply(tower, event.get_target(), tower.get_level() * _stats.firedot_level_multiply + _stats.firedot_level_add).user_real = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)
+	ignite_bt.apply(tower, event.get_target(), tower.get_level() * _stats.firedot_level_multiply + _stats.firedot_level_add).user_real = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)

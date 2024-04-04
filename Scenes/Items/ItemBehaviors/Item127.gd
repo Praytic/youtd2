@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_crescent_stone_bt: BuffType
+var earth_and_moon_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -22,15 +22,15 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	drol_crescent_stone_bt = BuffType.new("drol_crescent_stone_bt", 5, 0, true, self)
-	drol_crescent_stone_bt.set_buff_icon("star.tres")
-	drol_crescent_stone_bt.set_buff_tooltip("Earth and Moon\nIncreases trigger chances.")
+	earth_and_moon_bt = BuffType.new("earth_and_moon_bt", 5, 0, true, self)
+	earth_and_moon_bt.set_buff_icon("star.tres")
+	earth_and_moon_bt.set_buff_tooltip("Earth and Moon\nIncreases trigger chances.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
-	drol_crescent_stone_bt.set_buff_modifier(mod)
+	earth_and_moon_bt.set_buff_modifier(mod)
 
 
 func periodic(_event: Event):
 	var tower: Tower = item.get_carrier()
 	CombatLog.log_item_ability(item, null, "Earth and Moon")
-	drol_crescent_stone_bt.apply(tower, tower, tower.get_level())
+	earth_and_moon_bt.apply(tower, tower, tower.get_level())

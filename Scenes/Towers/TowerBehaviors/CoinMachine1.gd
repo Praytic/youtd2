@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_coin_machine_bt: BuffType
+var golden_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -59,12 +59,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	boekie_coin_machine_bt = BuffType.new("boekie_coin_machine_bt", 0, 0, true, self)
+	golden_bt = BuffType.new("golden_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
-	boekie_coin_machine_bt.set_buff_modifier(mod)
-	boekie_coin_machine_bt.set_buff_icon("cup_with_wings.tres")
-	boekie_coin_machine_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
+	golden_bt.set_buff_modifier(mod)
+	golden_bt.set_buff_icon("cup_with_wings.tres")
+	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Golden Influence"
@@ -81,7 +81,7 @@ func tower_init():
 	autocast.mana_cost = 20
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = boekie_coin_machine_bt
+	autocast.buff_type = golden_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -91,7 +91,7 @@ func on_autocast(event: Event):
 	var level: int = tower.get_level()
 	var buff_level: int = int((_stats.mod_bounty_gain + MOD_BOUNTY_GAIN_ADD * level) * 1000)
 	var buff_duration: float = _stats.buff_duration + BUFF_DURATION_ADD * level
-	boekie_coin_machine_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	golden_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
 	tower.get_player().give_gold(_stats.gold_per_cast, tower, true, true)
 
 

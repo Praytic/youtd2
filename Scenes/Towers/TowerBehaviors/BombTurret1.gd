@@ -1,12 +1,12 @@
 extends TowerBehavior
 
 
-var cb_silence: BuffType
-var dave_concussive_tower_bt: BuffType
-var dave_concussive_creep_bt: BuffType
-var dave_acid_tower_bt: BuffType
-var dave_acid_creep_bt: BuffType
-var dave_smoke_tower_bt: BuffType
+var silence_bt: BuffType
+var concussive_tower_bt: BuffType
+var concussive_creep_bt: BuffType
+var acid_tower_bt: BuffType
+var acid_creep_bt: BuffType
+var smoke_tower_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -95,33 +95,33 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	cb_silence = CbSilence.new("bomb_turret_silence", 0, 0, false, self)
+	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
-	dave_concussive_creep_bt = BuffType.new("dave_concussive_creep_bt", CONCUSSIVE_DURATION, 0, false, self)
+	concussive_creep_bt = BuffType.new("concussive_creep_bt", CONCUSSIVE_DURATION, 0, false, self)
 	var dave_concussive_creep_mod: Modifier = Modifier.new()
 	dave_concussive_creep_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.concussive_mod_movespeed, -_stats.concussive_mod_movespeed_add)
-	dave_concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
-	dave_concussive_creep_bt.set_buff_icon("star.tres")
-	dave_concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
+	concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
+	concussive_creep_bt.set_buff_icon("star.tres")
+	concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
 
-	dave_acid_creep_bt = BuffType.new("dave_acid_creep_bt", ACID_DURATION, 0, false, self)
+	acid_creep_bt = BuffType.new("acid_creep_bt", ACID_DURATION, 0, false, self)
 	var dave_acid_creep_mod: Modifier = Modifier.new()
 	dave_acid_creep_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -_stats.acid_mod_armor, -_stats.acid_mod_armor_add)
-	dave_acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
-	dave_acid_creep_bt.set_buff_icon("shield.tres")
-	dave_acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
+	acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
+	acid_creep_bt.set_buff_icon("shield.tres")
+	acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
 
-	dave_concussive_tower_bt = BuffType.new("dave_concussive_tower_bt", -1, 0, true, self)
-	dave_concussive_tower_bt.set_buff_icon("orb_sparkly.tres")
-	dave_concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
+	concussive_tower_bt = BuffType.new("concussive_tower_bt", -1, 0, true, self)
+	concussive_tower_bt.set_buff_icon("orb_sparkly.tres")
+	concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
 
-	dave_acid_tower_bt = BuffType.new("dave_acid_tower_bt", -1, 0, true, self)
-	dave_acid_tower_bt.set_buff_icon("orb_empty.tres")
-	dave_acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
+	acid_tower_bt = BuffType.new("acid_tower_bt", -1, 0, true, self)
+	acid_tower_bt.set_buff_icon("orb_empty.tres")
+	acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
 
-	dave_smoke_tower_bt = BuffType.new("dave_smoke_tower_bt", -1, 0, true, self)
-	dave_smoke_tower_bt.set_buff_icon("orb_swirly.tres")
-	dave_smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
+	smoke_tower_bt = BuffType.new("smoke_tower_bt", -1, 0, true, self)
+	smoke_tower_bt.set_buff_icon("orb_swirly.tres")
+	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
 	var autocast_concussive: Autocast = Autocast.make()
 	autocast_concussive.title = "Concussive Bombs"
@@ -138,7 +138,7 @@ func tower_init():
 	autocast_concussive.mana_cost = 0
 	autocast_concussive.target_self = true
 	autocast_concussive.is_extended = false
-	autocast_concussive.buff_type = dave_concussive_tower_bt
+	autocast_concussive.buff_type = concussive_tower_bt
 	autocast_concussive.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_concussive.handler = on_autocast_concussive
 	tower.add_autocast(autocast_concussive)
@@ -158,7 +158,7 @@ func tower_init():
 	autocast_acid.mana_cost = 0
 	autocast_acid.target_self = true
 	autocast_acid.is_extended = false
-	autocast_acid.buff_type = dave_acid_tower_bt
+	autocast_acid.buff_type = acid_tower_bt
 	autocast_acid.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_acid.handler = on_autocast_acid
 	tower.add_autocast(autocast_acid)
@@ -178,7 +178,7 @@ func tower_init():
 	autocast_smoke.mana_cost = 0
 	autocast_smoke.target_self = true
 	autocast_smoke.is_extended = false
-	autocast_smoke.buff_type = dave_smoke_tower_bt
+	autocast_smoke.buff_type = smoke_tower_bt
 	autocast_smoke.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_smoke.handler = on_autocast_smoke
 	tower.add_autocast(autocast_smoke)
@@ -187,9 +187,9 @@ func tower_init():
 func on_damage(event: Event):
 	var level: int = tower.get_level()
 	var main_target: Unit = event.get_target()
-	var is_concussive: bool = tower.get_buff_of_type(dave_concussive_tower_bt) != null
-	var is_acid: bool = tower.get_buff_of_type(dave_acid_tower_bt) != null
-	var is_smoke: bool = tower.get_buff_of_type(dave_smoke_tower_bt) != null
+	var is_concussive: bool = tower.get_buff_of_type(concussive_tower_bt) != null
+	var is_acid: bool = tower.get_buff_of_type(acid_tower_bt) != null
+	var is_smoke: bool = tower.get_buff_of_type(smoke_tower_bt) != null
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), main_target, _stats.bomb_radius)
 
 	if is_concussive:
@@ -197,7 +197,7 @@ func on_damage(event: Event):
 			var creep: Unit = creeps_in_range.next()
 			if creep == null:
 				break
-			dave_concussive_creep_bt.apply(tower, creep, level)
+			concussive_creep_bt.apply(tower, creep, level)
 	
 		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.2)
@@ -206,7 +206,7 @@ func on_damage(event: Event):
 			var creep: Unit = creeps_in_range.next()
 			if creep == null:
 				break
-			dave_acid_creep_bt.apply(tower, creep, level)
+			acid_creep_bt.apply(tower, creep, level)
 
 		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.2)
@@ -217,30 +217,30 @@ func on_damage(event: Event):
 				break
 
 			var buff_duration: float = _stats.smoke_duration + _stats.smoke_duration_add * level
-			cb_silence.apply_only_timed(tower, creep, buff_duration)
+			silence_bt.apply_only_timed(tower, creep, buff_duration)
 
 		var effect: int = Effect.create_scaled("CloudOfFog.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.5)
 
 
 func on_autocast_concussive(_event: Event):
-	switch_bomb_type(dave_concussive_tower_bt)
+	switch_bomb_type(concussive_tower_bt)
 
 
 func on_autocast_acid(_event: Event):
-	switch_bomb_type(dave_acid_tower_bt)
+	switch_bomb_type(acid_tower_bt)
 
 
 func on_autocast_smoke(_event: Event):
-	switch_bomb_type(dave_smoke_tower_bt)
+	switch_bomb_type(smoke_tower_bt)
 
 
 func switch_bomb_type(new_bomb_bt: BuffType):
 # 	Remove current bomb
 	var bomb_bt_list: Array[BuffType] = [
-		dave_concussive_tower_bt,
-		dave_acid_tower_bt,
-		dave_smoke_tower_bt,
+		concussive_tower_bt,
+		acid_tower_bt,
+		smoke_tower_bt,
 	]
 	bomb_bt_list.erase(new_bomb_bt)
 	for bomb_bt in bomb_bt_list:

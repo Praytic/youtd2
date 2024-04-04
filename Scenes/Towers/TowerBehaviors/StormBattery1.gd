@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var tolleder_storm_bat: BuffType
-var pt: ProjectileType
+var electrified_bt: BuffType
+var missile_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -101,18 +101,18 @@ func hit(_p: Projectile, creep: Unit):
 		return
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	tolleder_storm_bat.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	electrified_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
 
 func tower_init():
-	tolleder_storm_bat = BuffType.new("tolleder_storm_bat", 9, 0.3, false, self)
-	tolleder_storm_bat.set_buff_icon("electricity.tres")
-	tolleder_storm_bat.add_event_on_damaged(debuff_on_damaged)
-	tolleder_storm_bat.set_stacking_group("StormBattery")
-	tolleder_storm_bat.set_buff_tooltip("Electrified\nThis creep has been electrified; it will sometimes take extra damage when damaged by attacks or spells.")
+	electrified_bt = BuffType.new("electrified_bt", 9, 0.3, false, self)
+	electrified_bt.set_buff_icon("electricity.tres")
+	electrified_bt.add_event_on_damaged(debuff_on_damaged)
+	electrified_bt.set_stacking_group("StormBattery")
+	electrified_bt.set_buff_tooltip("Electrified\nThis creep has been electrified; it will sometimes take extra damage when damaged by attacks or spells.")
 
-	pt = ProjectileType.create("FarseerMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	missile_pt = ProjectileType.create("FarseerMissile.mdl", 10, 1200, self)
+	missile_pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -137,7 +137,7 @@ func tower_init():
 
 func on_damage(event: Event):
 	var tower_level: int = tower.get_level()
-	tolleder_storm_bat.apply_custom_power(tower, event.get_target(), int(1000 * (_stats.damage_increase + _stats.damage_increase_add * tower_level) * (0.2 + 0.003 * tower_level)), tower_level).user_real = _stats.damage_increase + _stats.damage_increase_add * tower_level + 1
+	electrified_bt.apply_custom_power(tower, event.get_target(), int(1000 * (_stats.damage_increase + _stats.damage_increase_add * tower_level) * (0.2 + 0.003 * tower_level)), tower_level).user_real = _stats.damage_increase + _stats.damage_increase_add * tower_level + 1
 
 
 func on_create(_preceding_tower: Tower):
@@ -155,7 +155,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

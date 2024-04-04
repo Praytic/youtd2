@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_acidarmor: BuffType
+var acid_bt: BuffType
 
 # NOTE: values here are pre-multiplied by 1000, so 600 = 0.6
 # as final value. That's how it is in original script and we
@@ -52,12 +52,12 @@ func load_specials(_modifier: Modifier):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
-	cedi_acidarmor = BuffType.new("cedi_acidarmor", 3.0, 0.12, false, self)
-	cedi_acidarmor.set_buff_icon("armor_chest.tres")
-	cedi_acidarmor.set_buff_modifier(m)
+	acid_bt = BuffType.new("acid_bt", 3.0, 0.12, false, self)
+	acid_bt.set_buff_icon("armor_chest.tres")
+	acid_bt.set_buff_modifier(m)
 
-	cedi_acidarmor.set_buff_tooltip("Acid Corosion\nReduces armor.")
+	acid_bt.set_buff_tooltip("Acid Corosion\nReduces armor.")
 
 
 func on_damage(event: Event):
-	cedi_acidarmor.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())
+	acid_bt.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())

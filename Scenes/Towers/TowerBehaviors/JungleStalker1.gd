@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var boekie_rage_buff: BuffType
-var boekie_jungle_stalker_mb: MultiboardValues
+var rage_bt: BuffType
+var multiboard: MultiboardValues
 
 
 func get_tier_stats() -> Dictionary:
@@ -66,15 +66,15 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	boekie_rage_buff = BuffType.new("boekie_rage_buff", 0, 0, true, self)
+	rage_bt = BuffType.new("rage_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
-	boekie_rage_buff.set_buff_modifier(mod)
-	boekie_rage_buff.set_buff_icon("mask_bat.tres")
-	boekie_rage_buff.set_buff_tooltip("Enraged\nIncreases attack speed.")
+	rage_bt.set_buff_modifier(mod)
+	rage_bt.set_buff_icon("mask_bat.tres")
+	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
-	boekie_jungle_stalker_mb = MultiboardValues.new(1)
-	boekie_jungle_stalker_mb.set_key(0, "Damage Bonus")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Damage Bonus")
 
 
 func on_damage(event: Event):
@@ -88,10 +88,10 @@ func on_kill(_event: Event):
 	var buff_level: int = lvl + _stats.rage_buff_level_base
 	var buff_duration: float = _stats.bloodthirst_duration + BLOODTHIRST_DURATION_ADD * lvl
 
-	if tower.get_buff_of_type(boekie_rage_buff) == null:
+	if tower.get_buff_of_type(rage_bt) == null:
 		CombatLog.log_ability(tower, null, "Bloodthirst")
 
-		boekie_rage_buff.apply_custom_timed(tower, tower, buff_level, buff_duration)
+		rage_bt.apply_custom_timed(tower, tower, buff_level, buff_duration)
 
 
 func on_create(preceding: Tower):
@@ -106,6 +106,6 @@ func on_create(preceding: Tower):
 func on_tower_details() -> MultiboardValues:
 	var damage_bonus: String = Utils.format_percent(tower.user_real, 1)
 
-	boekie_jungle_stalker_mb.set_value(0, damage_bonus)
+	multiboard.set_value(0, damage_bonus)
 
-	return boekie_jungle_stalker_mb
+	return multiboard

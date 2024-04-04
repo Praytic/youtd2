@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var cassim_wyrm_slow_bt: BuffType
-var cassim_wyrm_stun_bt: BuffType
+var slow_bt: BuffType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -38,15 +38,15 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	cassim_wyrm_stun_bt = CbStun.new("cassim_wyrm_stun_bt", 1.5, 0.0, false, self)
-	cassim_wyrm_stun_bt.set_buff_icon("letter_h.tres")
+	stun_bt = CbStun.new("stun_bt", 1.5, 0.0, false, self)
+	stun_bt.set_buff_icon("letter_h.tres")
 
-	cassim_wyrm_slow_bt = BuffType.new("cassim_wyrm_slow_bt", 4.0, 0.24, true, self)
+	slow_bt = BuffType.new("slow_bt", 4.0, 0.24, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.27, -0.002)
-	cassim_wyrm_slow_bt.set_buff_modifier(mod)
-	cassim_wyrm_slow_bt.set_buff_icon("crystal.tres")
-	cassim_wyrm_slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
+	slow_bt.set_buff_modifier(mod)
+	slow_bt.set_buff_icon("crystal.tres")
+	slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
 
 
 func on_damage(event: Event):
@@ -57,9 +57,9 @@ func on_damage(event: Event):
 
 	if tower.calc_chance(slow_chance):
 		CombatLog.log_ability(tower, target, "Freezing Breath slow")
-		cassim_wyrm_slow_bt.apply(tower, target, level)
+		slow_bt.apply(tower, target, level)
 
 	if tower.calc_chance(stun_chance):
 		CombatLog.log_ability(tower, target, "Freezing Breath stun")
-		cassim_wyrm_stun_bt.apply(tower, target, level)
+		stun_bt.apply(tower, target, level)
 

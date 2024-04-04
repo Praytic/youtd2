@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -51,7 +51,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	cb_stun = CbStun.new("wooden_trap_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_periodic(event: Event):
@@ -70,7 +70,7 @@ func trap(event: Event, cooldown: float, base_damage: float, damage_add: float, 
 		if next == null:
 			break
 		num_targets = num_targets + 1
-		cb_stun.apply_only_timed(tower, next, stun_duration)
+		stun_bt.apply_only_timed(tower, next, stun_duration)
 		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus())
 		SFX.sfx_at_unit("Abilities\\Spells\\Orc\\ReinforcedTrollBurrow\\ReinforcedTrollBurrowTarget.mdl", next)
 

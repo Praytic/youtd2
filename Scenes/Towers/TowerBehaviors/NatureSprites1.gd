@@ -22,8 +22,8 @@ const ITEM_CHANCE: float = 0.06
 const ITEM_CHANCE_ADD: float = 0.0014
 
 
-var dave_gift: BuffType
-var dave_sprite: ProjectileType
+var gift_bt: BuffType
+var sprite_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -171,7 +171,7 @@ func sprite_hit(_P: Projectile, target: Unit):
 	if target == null:
 		return
 
-	dave_gift.apply(tower, target, tower.get_level())
+	gift_bt.apply(tower, target, tower.get_level())
 
 
 func get_ability_ranges() -> Array[RangeData]:
@@ -179,14 +179,14 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_gift = BuffType.new("dave_gift", 5, 0, true, self)
-	dave_gift.set_buff_icon("cup_with_wings.tres")
-	dave_gift.add_event_on_create(gift_create)
-	dave_gift.add_event_on_cleanup(effect_clean)
-	dave_gift.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
+	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
+	gift_bt.set_buff_icon("cup_with_wings.tres")
+	gift_bt.add_event_on_create(gift_create)
+	gift_bt.add_event_on_cleanup(effect_clean)
+	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
 
-	dave_sprite = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
-	dave_sprite.enable_homing(sprite_hit, 0)
+	sprite_pt = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
+	sprite_pt.enable_homing(sprite_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Nature's Gift"
@@ -211,7 +211,7 @@ func tower_init():
 
 func on_autocast(event: Event):
 	var p: Projectile
-	p = Projectile.create_from_unit_to_unit(dave_sprite, tower, 0, 0, tower, event.get_target(), true, false, false)
+	p = Projectile.create_from_unit_to_unit(sprite_pt, tower, 0, 0, tower, event.get_target(), true, false, false)
 	p.setScale(_stats.projectile_scale)
 # 	TODO:
 # 	p.color(50, 255, 50, 255)

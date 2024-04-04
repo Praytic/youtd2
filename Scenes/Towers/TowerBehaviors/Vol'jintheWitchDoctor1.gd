@@ -17,7 +17,7 @@ class Ward:
 	var is_active: bool = false
 
 
-var sir_voljin_maledict_bt: BuffType
+var maledict_bt: BuffType
 var voljin_pt: ProjectileType
 var ward_list: Array[Ward]
 var active_ward_count: int = 0
@@ -100,12 +100,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	sir_voljin_maledict_bt = BuffType.new("sir_voljin_maledict_bt", 0, 0, false, self)
-	sir_voljin_maledict_bt.set_buff_icon("letter_omega.tres")
-	sir_voljin_maledict_bt.add_event_on_damaged(sir_voljin_maledict_bt_on_damaged)
-	sir_voljin_maledict_bt.add_event_on_expire(sir_voljin_maledict_bt_on_expire)
-	sir_voljin_maledict_bt.add_event_on_purge(sir_voljin_maledict_bt_on_purge)
-	sir_voljin_maledict_bt.set_buff_tooltip("Maledict\nDeals damage in the future.")
+	maledict_bt = BuffType.new("maledict_bt", 0, 0, false, self)
+	maledict_bt.set_buff_icon("letter_omega.tres")
+	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
+	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
+	maledict_bt.add_event_on_purge(maledict_bt_on_purge)
+	maledict_bt.set_buff_tooltip("Maledict\nDeals damage in the future.")
 
 	voljin_pt = ProjectileType.create("SerpentWardMissile.mdl", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)
@@ -320,24 +320,24 @@ func voljin_pt_on_hit(_p: Projectile, target: Unit):
 
 # NOTE: "ApplyMaledict()" in original script
 func apply_maledict(caster: Tower, target: Unit, B: bool):
-	var buff: Buff = target.get_buff_of_type(sir_voljin_maledict_bt)
+	var buff: Buff = target.get_buff_of_type(maledict_bt)
 	var duration: float = 8.0 / caster.get_prop_buff_duration()
 
 	if B && buff == null:
-		var new_buff: Buff = sir_voljin_maledict_bt.apply_advanced(caster, target, 1, 0, duration)
+		var new_buff: Buff = maledict_bt.apply_advanced(caster, target, 1, 0, duration)
 		new_buff.user_real = 0.0
 	elif (buff != null && !B && caster.calc_chance(0.35)) || (buff != null && B == true):
-		sir_voljin_maledict_bt.apply_advanced(caster, target, buff.get_level() + 1, 0, duration)
+		maledict_bt.apply_advanced(caster, target, buff.get_level() + 1, 0, duration)
 
 
 # NOTE: "damageEvent()" in original script
-func sir_voljin_maledict_bt_on_damaged(event: Event):
+func maledict_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	buff.user_real += event.damage
 
 
 # NOTE: "expireEvent()" in original script
-func sir_voljin_maledict_bt_on_expire(event: Event):
+func maledict_bt_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real
@@ -350,7 +350,7 @@ func sir_voljin_maledict_bt_on_expire(event: Event):
 
 
 # NOTE: "purgeEvent()" in original script
-func sir_voljin_maledict_bt_on_purge(event: Event):
+func maledict_bt_on_purge(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real

@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var drol_slow: BuffType
-var drol_mortal_aura: BuffType
+var slow_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -72,24 +72,24 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	drol_slow = BuffType.new("drol_slow", 0, 0, false, self)
-	var drol_slow_mod: Modifier = Modifier.new()
-	drol_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	drol_slow_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
-	drol_slow.set_buff_modifier(drol_slow_mod)
-	drol_slow.set_buff_icon("mask_occult.tres")
-	drol_slow.set_stacking_group("drol_slow1")
-	drol_slow.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
+	slow_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
+	slow_bt.set_buff_modifier(slow_bt_mod)
+	slow_bt.set_buff_icon("mask_occult.tres")
+	slow_bt.set_stacking_group("slow_bt1")
+	slow_bt.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
 
-	drol_mortal_aura = BuffType.create_aura_effect_type("drol_mortal_aura", true, self)
-	var drol_mortal_aura_mod: Modifier = Modifier.new()
-	drol_mortal_aura_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.1, 0.002)
-	drol_mortal_aura_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.1, 0.002)
-	drol_mortal_aura_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
-	drol_mortal_aura.set_buff_modifier(drol_mortal_aura_mod)
-	drol_mortal_aura.set_buff_icon("letter_s_lying_down.tres")
-	drol_mortal_aura.set_stacking_group("drol_mortal_aura")
-	drol_mortal_aura.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	var aura_bt_mod: Modifier = Modifier.new()
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.1, 0.002)
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.1, 0.002)
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
+	aura_bt.set_buff_modifier(aura_bt_mod)
+	aura_bt.set_buff_icon("letter_s_lying_down.tres")
+	aura_bt.set_stacking_group("aura_bt")
+	aura_bt.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -101,7 +101,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = _stats.aura_level_add
 	aura.power = _stats.aura_level
 	aura.power_add = _stats.aura_level_add
-	aura.aura_effect = drol_mortal_aura
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -118,5 +118,5 @@ func on_damage(event: Event):
 		tower.do_spell_damage(creep, _stats.cursed_attack_damage + _stats.cursed_attack_damage_add * level, tower.calc_spell_crit_no_bonus())
 		var buff_level: int = int(_stats.mod_movespeed * 1000)
 		var buff_duration: float = CURSED_DURATION + CURSED_DURATION_ADD * level
-		drol_slow.apply_custom_timed(tower, creep, buff_level, buff_duration)
+		slow_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
 		SFX.sfx_on_unit("feralspirittarget.mdl", creep, Unit.BodyPart.ORIGIN)

@@ -7,10 +7,9 @@ extends TowerBehavior
 # original game actually attacked 8 creeps or not.
 
 
-var example_bt: BuffType
-var ash_soulflame_aura_bt: BuffType
-var ash_soulflame_soulfire_bt: BuffType
-var ash_soulflame_awaken_bt: BuffType
+var evil_device_bt: BuffType
+var soulfire_bt: BuffType
+var awaken_bt: BuffType
 var soulflame_pt: ProjectileType
 var multiboard: MultiboardValues
 var awaken_count: int = 0
@@ -87,28 +86,28 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	ash_soulflame_aura_bt = BuffType.create_aura_effect_type("ash_soulflame_aura_bt", true, self)
-	ash_soulflame_aura_bt.set_buff_icon("gear_1.tres")
-	ash_soulflame_aura_bt.add_event_on_create(ash_soulflame_aura_bt_on_create)
-	ash_soulflame_aura_bt.add_event_on_cleanup(ash_soulflame_aura_bt_on_cleanup)
-	ash_soulflame_aura_bt.add_periodic_event(ash_soulflame_aura_bt_periodic, 5)
-	ash_soulflame_aura_bt.set_buff_tooltip("Evil Device\nIncreases attack speed, trigger changes, spell damage, spell crit chance and attack damage.")
+	evil_device_bt = BuffType.create_aura_effect_type("evil_device_bt", true, self)
+	evil_device_bt.set_buff_icon("gear_1.tres")
+	evil_device_bt.add_event_on_create(evil_device_bt_on_create)
+	evil_device_bt.add_event_on_cleanup(evil_device_bt_on_cleanup)
+	evil_device_bt.add_periodic_event(evil_device_bt_periodic, 5)
+	evil_device_bt.set_buff_tooltip("Evil Device\nIncreases attack speed, trigger changes, spell damage, spell crit chance and attack damage.")
 
-	ash_soulflame_soulfire_bt = BuffType.new("ash_soulflame_soulfire_bt", 5, 0, false, self)
-	var ash_soulflame_soulfire_bt_mod: Modifier = Modifier.new()
-	ash_soulflame_soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	ash_soulflame_soulfire_bt.set_buff_modifier(ash_soulflame_soulfire_bt_mod)
-	ash_soulflame_soulfire_bt.set_buff_icon("fireball.tres")
-	ash_soulflame_soulfire_bt.add_periodic_event(ash_soulflame_soulfire_bt_periodic, 1)
-	ash_soulflame_soulfire_bt.add_event_on_death(ash_soulflame_soulfire_bt_on_death)
-	ash_soulflame_soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
+	soulfire_bt = BuffType.new("soulfire_bt", 5, 0, false, self)
+	var soulfire_bt_mod: Modifier = Modifier.new()
+	soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
+	soulfire_bt.set_buff_modifier(soulfire_bt_mod)
+	soulfire_bt.set_buff_icon("fireball.tres")
+	soulfire_bt.add_periodic_event(soulfire_bt_periodic, 1)
+	soulfire_bt.add_event_on_death(soulfire_bt_on_death)
+	soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
 
-	ash_soulflame_awaken_bt = BuffType.new("ash_soulflame_awaken_bt", 3, 0, true, self)
-	var ash_soulflame_awaken_bt_mod: Modifier = Modifier.new()
-	ash_soulflame_awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	ash_soulflame_awaken_bt.set_buff_modifier(ash_soulflame_awaken_bt_mod)
-	ash_soulflame_awaken_bt.set_buff_icon("eye.tres")
-	ash_soulflame_awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
+	awaken_bt = BuffType.new("awaken_bt", 3, 0, true, self)
+	var awaken_bt_mod: Modifier = Modifier.new()
+	awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
+	awaken_bt.set_buff_modifier(awaken_bt_mod)
+	awaken_bt.set_buff_icon("eye.tres")
+	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
 	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)
 
@@ -145,7 +144,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 1
 	aura.power_add = 0
-	aura.aura_effect = ash_soulflame_aura_bt
+	aura.aura_effect = evil_device_bt
 
 	return [aura]
 
@@ -169,7 +168,7 @@ func on_autocast(_event: Event):
 		if next == null:
 			break
 
-		ash_soulflame_awaken_bt.apply(tower, next, tower.get_level())
+		awaken_bt.apply(tower, next, tower.get_level())
 
 	awaken_count += 1
 	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.01)
@@ -181,12 +180,12 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func ash_soulflame_aura_bt_on_create(event: Event):
+func evil_device_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	ash_soulflame_aura_bt_update(buff)
+	evil_device_bt_update(buff)
 
 
-func ash_soulflame_aura_bt_on_cleanup(event: Event):
+func evil_device_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 
@@ -197,12 +196,12 @@ func ash_soulflame_aura_bt_on_cleanup(event: Event):
 	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 
-func ash_soulflame_aura_bt_periodic(event: Event):
+func evil_device_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	ash_soulflame_aura_bt_update(buff)
+	evil_device_bt_update(buff)
 
 
-func ash_soulflame_aura_bt_update(buff: Buff):
+func evil_device_bt_update(buff: Buff):
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
 	var caster_level: int = caster.get_level()
@@ -231,7 +230,7 @@ func ash_soulflame_aura_bt_update(buff: Buff):
 	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
 
 
-func ash_soulflame_soulfire_bt_periodic(event: Event):
+func soulfire_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var power: int = buff.get_power()
@@ -240,7 +239,7 @@ func ash_soulflame_soulfire_bt_periodic(event: Event):
 	tower.do_spell_damage(buffed_unit, damage, tower.calc_spell_crit_no_bonus())
 
 
-func ash_soulflame_soulfire_bt_on_death(event: Event):
+func soulfire_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), buffed_unit, 200)
@@ -271,7 +270,7 @@ func ashbringer_consumption_missile(target: Unit):
 
 
 func ashbringer_soulfire_apply(target: Unit, power_gain: int):
-	var b: Buff = target.get_buff_of_type(ash_soulflame_soulfire_bt)
+	var b: Buff = target.get_buff_of_type(soulfire_bt)
 
 	if power_gain < 1:
 		power_gain = 1
@@ -282,4 +281,4 @@ func ashbringer_soulfire_apply(target: Unit, power_gain: int):
 	else:
 		power = power_gain
 
-	ash_soulflame_soulfire_bt.apply_custom_power(tower, target, 1, power)
+	soulfire_bt.apply_custom_power(tower, target, 1, power)

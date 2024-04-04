@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -72,7 +72,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("sollar_collector_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Release Energy"
@@ -109,7 +109,7 @@ func on_autocast(event: Event):
 	else:
 		stun_duration = _stats.stun_duration_for_bosses
 
-	cb_stun.apply_only_timed(tower, creep, stun_duration)
+	stun_bt.apply_only_timed(tower, creep, stun_duration)
 
 
 func on_attack(_event: Event):

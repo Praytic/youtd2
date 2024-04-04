@@ -6,7 +6,7 @@ extends ItemBehavior
 # item
 
 
-var axllow_ball_lightning_pt: ProjectileType
+var lightning_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -27,7 +27,7 @@ func load_modifier(modifier: Modifier):
 
 
 # NOTE: BallLightningJump() in original script
-func axllow_ball_lightning_pt_on_cleanup(ball: Projectile):
+func lightning_pt_on_cleanup(ball: Projectile):
 	var tower: Tower = ball.get_caster()
 	var towers_in_range: Iterate 
 	var ball_item: Item = instance_from_id(ball.user_int) as Item
@@ -62,7 +62,7 @@ func axllow_ball_lightning_pt_on_cleanup(ball: Projectile):
 				break
 
 		if tower_in_range != null:
-			var ball_2 = Projectile.create_bezier_interpolation_from_unit_to_unit(axllow_ball_lightning_pt, tower, 0, 0, target_tower, tower_in_range, 1.2, 0.0, 0.5, false)
+			var ball_2 = Projectile.create_bezier_interpolation_from_unit_to_unit(lightning_pt, tower, 0, 0, target_tower, tower_in_range, 1.2, 0.0, 0.5, false)
 			ball_2.user_int = ball_item.get_instance_id()
 			ball_2.user_int2 = tower_in_range.get_instance_id()
 		else:
@@ -71,8 +71,8 @@ func axllow_ball_lightning_pt_on_cleanup(ball: Projectile):
 
 
 func item_init():
-	axllow_ball_lightning_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 300, self)
-	axllow_ball_lightning_pt.set_event_on_cleanup(axllow_ball_lightning_pt_on_cleanup)
+	lightning_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 300, self)
+	lightning_pt.set_event_on_cleanup(lightning_pt_on_cleanup)
 
 
 func periodic(_event: Event):
@@ -98,7 +98,7 @@ func periodic(_event: Event):
 
 		if tower_in_range != tower && tower_in_range.count_free_slots() > 0:
 			item.set_visible(false)
-			ball = Projectile.create_bezier_interpolation_from_unit_to_unit(axllow_ball_lightning_pt, tower, 0, 0, tower, tower_in_range, 1.2, 0.0, 0.5, false)
+			ball = Projectile.create_bezier_interpolation_from_unit_to_unit(lightning_pt, tower, 0, 0, tower, tower_in_range, 1.2, 0.0, 0.5, false)
 			ball.user_int = item.get_instance_id()
 			ball.user_int2 = tower_in_range.get_instance_id()
 

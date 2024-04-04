@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var poison_battery_poison: BuffType
-var pt: ProjectileType
+var poison_bt: BuffType
+var orb_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -97,22 +97,22 @@ func hit(_p: Projectile, creep: Unit):
 		return
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	poison_battery_poison.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	poison_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
-	poison_battery_poison = BuffType.new("poison_battery_poison", 9, 0.3, false, self)
-	poison_battery_poison.set_buff_icon("beard.tres")
-	poison_battery_poison.add_periodic_event(damage_periodic, 1)
-	poison_battery_poison.set_buff_modifier(modifier)
-	poison_battery_poison.set_stacking_group("PoisonBattery")
-	poison_battery_poison.set_buff_tooltip("Poison\nThis creep is poisoned; it will take damage over time and it has reduced movement speed.")
+	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
+	poison_bt.set_buff_icon("beard.tres")
+	poison_bt.add_periodic_event(damage_periodic, 1)
+	poison_bt.set_buff_modifier(modifier)
+	poison_bt.set_stacking_group("PoisonBattery")
+	poison_bt.set_buff_tooltip("Poison\nThis creep is poisoned; it will take damage over time and it has reduced movement speed.")
 
-	pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	orb_pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200, self)
+	orb_pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -136,7 +136,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	poison_battery_poison.apply(tower, event.get_target(), tower.get_level())
+	poison_bt.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
@@ -154,7 +154,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(orb_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

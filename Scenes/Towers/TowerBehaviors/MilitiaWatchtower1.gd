@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var militia_axe: ProjectileType
+var axe_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -48,7 +48,7 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.20, _stats.dmg_to_nature_add)
 
 
-func militia_axe_hit(_p: Projectile, target: Unit):
+func axe_pt_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -59,8 +59,8 @@ func militia_axe_hit(_p: Projectile, target: Unit):
 
 
 func tower_init():
-	militia_axe = ProjectileType.create_interpolate("AxeMissile.mdl", 800, self)
-	militia_axe.set_event_on_interpolation_finished(militia_axe_hit)
+	axe_pt = ProjectileType.create_interpolate("AxeMissile.mdl", 800, self)
+	axe_pt.set_event_on_interpolation_finished(axe_pt_hit)
 
 
 func on_attack(event: Event):
@@ -98,7 +98,7 @@ func on_attack(event: Event):
 #		(itDestroyed). If there are units then don't shoot
 #		at the maintarget
 		if it_destroyed || target != maintarget:
-			Projectile.create_bezier_interpolation_from_unit_to_unit(militia_axe, tower, 0, 0, tower, target, 0, sidearc, 0, true).setScale(0.40)
+			Projectile.create_bezier_interpolation_from_unit_to_unit(axe_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true).setScale(0.40)
 			attacks = attacks - 1
 			sidearc = -sidearc
 

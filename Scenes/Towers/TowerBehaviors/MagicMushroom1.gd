@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var drol_mushroom_trance_bt: BuffType
-var drol_mushroom_debuff_bt: BuffType
+var trance_bt: BuffType
+var fungus_bt: BuffType
 var multiboard: MultiboardValues
 var growth_count: int = 0
 var spell_damage_from_growth: float = 0.0
@@ -74,17 +74,17 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	drol_mushroom_debuff_bt = BuffType.new("drol_mushroom_debuff_bt", 3600, 0, false, self)
-	drol_mushroom_debuff_bt.set_buff_icon("fireball.tres")
-	drol_mushroom_debuff_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
+	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
+	fungus_bt.set_buff_icon("fireball.tres")
+	fungus_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
 
-	drol_mushroom_trance_bt = BuffType.new("drol_mushroom_trance_bt", 5, 0.2, true, self)
+	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
 	var drol_mushroom_trance_mod: Modifier = Modifier.new()
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
-	drol_mushroom_trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
-	drol_mushroom_trance_bt.set_buff_icon("beard.tres")
-	drol_mushroom_trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
+	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
+	trance_bt.set_buff_icon("beard.tres")
+	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Growths")
@@ -105,7 +105,7 @@ func tower_init():
 	autocast.mana_cost = 50
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = drol_mushroom_trance_bt
+	autocast.buff_type = trance_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -121,7 +121,7 @@ func on_damage(event: Event):
 
 	fungus_strike_activated = false
 
-	drol_mushroom_debuff_bt.apply(tower, target, tower.get_level())
+	fungus_bt.apply(tower, target, tower.get_level())
 	target.modify_property(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.10)
 	var fungus_strike_damage: float = event.damage * (1.0 + 0.01 * tower.get_level())
 	tower.do_spell_damage(target, fungus_strike_damage, tower.calc_spell_crit(0.20 + 0.008 * tower.get_level(), 0))
@@ -170,4 +170,4 @@ func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	fungus_strike_activated = true
 
-	drol_mushroom_trance_bt.apply(tower, target, tower.get_level())
+	trance_bt.apply(tower, target, tower.get_level())

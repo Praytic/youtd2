@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var poussix_acorns_bt: BuffType
+var charitable_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -25,15 +25,15 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	poussix_acorns_bt = BuffType.create_aura_effect_type("poussix_acorns_bt", true, self)
-	poussix_acorns_bt.set_stacking_group("multi_aura")
-	poussix_acorns_bt.set_buff_icon("letter_omega_shiny.tres")
-	poussix_acorns_bt.set_buff_tooltip("Charitable Presence\nIncreases maximum mana, spell damage and trigger chances.")
+	charitable_bt = BuffType.create_aura_effect_type("charitable_bt", true, self)
+	charitable_bt.set_stacking_group("multi_aura")
+	charitable_bt.set_buff_icon("letter_omega_shiny.tres")
+	charitable_bt.set_buff_tooltip("Charitable Presence\nIncreases maximum mana, spell damage and trigger chances.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.02, 0.004)
 	mod.add_modification(Modification.Type.MOD_MANA_PERC, 0.02, 0.004)
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.02, 0.004)
-	poussix_acorns_bt.set_buff_modifier(mod)
+	charitable_bt.set_buff_modifier(mod)
 
 	var aura_type: AuraType = AuraType.new()
 	aura_type.aura_range = 300
@@ -43,5 +43,5 @@ func item_init():
 	aura_type.level_add = 1
 	aura_type.power = 0
 	aura_type.power_add = 1
-	aura_type.aura_effect = poussix_acorns_bt
+	aura_type.aura_effect = charitable_bt
 	item.add_aura(aura_type)

@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var slow_debuff: BuffType
-var cb_stun: BuffType
+var roots_bt: BuffType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -75,13 +75,13 @@ func load_specials(_modifier: Modifier):
 func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
-	slow_debuff = BuffType.new("slow_debuff", 0, 0, false, self)
-	slow_debuff.set_buff_icon("foot.tres")
-	slow_debuff.set_buff_modifier(mod)
-	slow_debuff.set_stacking_group("ForestArcherStacks")
-	slow_debuff.set_buff_tooltip("Forest Roots\nReduces movement speed.")
+	roots_bt = BuffType.new("roots_bt", 0, 0, false, self)
+	roots_bt.set_buff_icon("foot.tres")
+	roots_bt.set_buff_modifier(mod)
+	roots_bt.set_stacking_group("ForestArcherStacks")
+	roots_bt.set_buff_tooltip("Forest Roots\nReduces movement speed.")
 
-	cb_stun = CbStun.new("forest_archer_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_damage(event: Event):
@@ -93,11 +93,11 @@ func on_damage(event: Event):
 	if tower.calc_chance(_stats.stun_chance + STUN_CHANCE_ADD * level):
 		CombatLog.log_ability(tower, creep, "Gift of the Forest Stun")
 
-		cb_stun.apply_only_timed(tower, creep, STUN_DURATION + STUN_DURATION_ADD * level)
+		stun_bt.apply_only_timed(tower, creep, STUN_DURATION + STUN_DURATION_ADD * level)
 	elif tower.calc_chance(_stats.slow_chance + SLOW_CHANCE_ADD * level):
 		CombatLog.log_ability(tower, creep, "Gift of the Forest Slow")
 
-		slow_debuff.apply_custom_timed(tower, creep, slow_level, slow_duration)
+		roots_bt.apply_custom_timed(tower, creep, slow_level, slow_duration)
 
 
 func on_level_up(_event: Event):

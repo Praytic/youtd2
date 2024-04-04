@@ -6,7 +6,7 @@ extends TowerBehavior
 # from both units and positions.
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 var lightning_st: SpellType
 var orb_pt: ProjectileType
 
@@ -38,7 +38,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("ancient_energy_converter_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	lightning_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
 	lightning_st.set_damage_event(lightning_st_on_damage)
@@ -99,4 +99,4 @@ func orb_pt_periodic(p: Projectile):
 
 func lightning_st_on_damage(event: Event, _dummy_unit: DummyUnit):
 	var target: Unit = event.get_target()
-	cb_stun.apply_only_timed(tower, target, 0.8)
+	stun_bt.apply_only_timed(tower, target, 0.8)

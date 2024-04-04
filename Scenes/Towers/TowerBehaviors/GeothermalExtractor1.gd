@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var velex_dmg_aura: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -37,12 +37,12 @@ func get_ability_description_short() -> String:
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	velex_dmg_aura = BuffType.create_aura_effect_type("velex_dmg_aura", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 1.0 / 10000)
-	velex_dmg_aura.set_buff_modifier(m)
-	velex_dmg_aura.set_stacking_group("dmg_aura")
-	velex_dmg_aura.set_buff_icon("angel_wings.tres")
-	velex_dmg_aura.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
+	aura_bt.set_buff_modifier(m)
+	aura_bt.set_stacking_group("dmg_aura")
+	aura_bt.set_buff_icon("angel_wings.tres")
+	aura_bt.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -54,5 +54,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = int(_stats.damage_increase_add * 10000)
 	aura.power = int(_stats.damage_increase * 10000)
 	aura.power_add = int(_stats.damage_increase_add * 10000)
-	aura.aura_effect = velex_dmg_aura
+	aura.aura_effect = aura_bt
 	return [aura]

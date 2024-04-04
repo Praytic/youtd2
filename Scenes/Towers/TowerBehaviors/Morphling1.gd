@@ -6,14 +6,14 @@ extends TowerBehavior
 # if tower has at least 25 stacks of one of the Morph buffs.
 
 
-var dave_morph_damage_bt: BuffType
-var dave_morph_speed_bt: BuffType
-var dave_morph_adapt_bt: BuffType
-var dave_morph_dot_bt: BuffType
-var dave_morph_slow_bt: BuffType
+var might_bt: BuffType
+var swiftness_bt: BuffType
+var adapt_bt: BuffType
+var dot_bt: BuffType
+var swift_strike_bt: BuffType
 var damage_pt: ProjectileType
 var speed_pt: ProjectileType
-var example_multiboard: MultiboardValues
+var multiboard: MultiboardValues
 var evolve_count: int = 0
 
 
@@ -108,38 +108,38 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	dave_morph_damage_bt = BuffType.new("dave_morph_damage_bt", -1, 0, true, self)
-	var dave_morph_damage_bt_mod: Modifier = Modifier.new()
-	dave_morph_damage_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
-	dave_morph_damage_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
-	dave_morph_damage_bt.set_buff_modifier(dave_morph_damage_bt_mod)
-	dave_morph_damage_bt.set_buff_icon("flexing_arm.tres")
-	dave_morph_damage_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
+	might_bt = BuffType.new("might_bt", -1, 0, true, self)
+	var might_bt_mod: Modifier = Modifier.new()
+	might_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
+	might_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
+	might_bt.set_buff_modifier(might_bt_mod)
+	might_bt.set_buff_icon("flexing_arm.tres")
+	might_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
 
-	dave_morph_speed_bt = BuffType.new("dave_morph_speed_bt", -1, 0, true, self)
-	var dave_morph_speed_bt_mod: Modifier = Modifier.new()
-	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
-	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
-	dave_morph_speed_bt.set_buff_modifier(dave_morph_speed_bt_mod)
-	dave_morph_speed_bt.set_buff_icon("running_man.tres")
-	dave_morph_speed_bt.set_buff_tooltip("Morph: Swiftness\nIncreases attack speed and reduces attack damage after each attack.")
+	swiftness_bt = BuffType.new("swiftness_bt", -1, 0, true, self)
+	var swiftness_bt_mod: Modifier = Modifier.new()
+	swiftness_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
+	swiftness_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
+	swiftness_bt.set_buff_modifier(swiftness_bt_mod)
+	swiftness_bt.set_buff_icon("running_man.tres")
+	swiftness_bt.set_buff_tooltip("Morph: Swiftness\nIncreases attack speed and reduces attack damage after each attack.")
 
-	dave_morph_adapt_bt = BuffType.new("dave_morph_adapt_bt", -1, 0, true, self)
-	dave_morph_adapt_bt.set_buff_icon("orb_swirly.tres")
-	dave_morph_adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
+	adapt_bt = BuffType.new("adapt_bt", -1, 0, true, self)
+	adapt_bt.set_buff_icon("orb_swirly.tres")
+	adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
 
-	dave_morph_dot_bt = BuffType.new("dave_morph_dot_bt", 5, 0, false, self)
-	dave_morph_dot_bt.set_buff_icon("claw.tres")
-	dave_morph_dot_bt.add_periodic_event(dave_morph_dot_bt_periodic, 1.0)
-	dave_morph_dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
+	dot_bt = BuffType.new("dot_bt", 5, 0, false, self)
+	dot_bt.set_buff_icon("claw.tres")
+	dot_bt.add_periodic_event(dot_bt_periodic, 1.0)
+	dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
 
-	dave_morph_slow_bt = BuffType.new("dave_morph_slow_bt", 8, 0.1, false, self)
-	var dave_morph_slow_bt_mod: Modifier = Modifier.new()
-	dave_morph_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
-	dave_morph_slow_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
-	dave_morph_slow_bt.set_buff_modifier(dave_morph_slow_bt_mod)
-	dave_morph_slow_bt.set_buff_icon("bug_in_amber.tres")
-	dave_morph_slow_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
+	swift_strike_bt = BuffType.new("swift_strike_bt", 8, 0.1, false, self)
+	var swift_strike_bt_mod: Modifier = Modifier.new()
+	swift_strike_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
+	swift_strike_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
+	swift_strike_bt.set_buff_modifier(swift_strike_bt_mod)
+	swift_strike_bt.set_buff_icon("bug_in_amber.tres")
+	swift_strike_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
 	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)
 	damage_pt.enable_homing(damage_pt_on_hit, 0)
@@ -147,9 +147,9 @@ func tower_init():
 	speed_pt = ProjectileType.create("ChimaeraAcidMissile.mdl", 4, 800, self)
 	speed_pt.enable_homing(speed_pt_on_hit, 0)
 
-	example_multiboard = MultiboardValues.new(2)
-	example_multiboard.set_key(0, "Evolve")
-	example_multiboard.set_key(1, "Morph level")
+	multiboard = MultiboardValues.new(2)
+	multiboard.set_key(0, "Evolve")
+	multiboard.set_key(1, "Morph level")
 
 	var autocast_might: Autocast = Autocast.make()
 	autocast_might.title = "Morph: Might"
@@ -166,7 +166,7 @@ func tower_init():
 	autocast_might.mana_cost = 0
 	autocast_might.target_self = true
 	autocast_might.is_extended = false
-	autocast_might.buff_type = dave_morph_damage_bt
+	autocast_might.buff_type = might_bt
 	autocast_might.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_might.handler = on_autocast_might
 	tower.add_autocast(autocast_might)
@@ -186,7 +186,7 @@ func tower_init():
 	autocast_swiftness.mana_cost = 0
 	autocast_swiftness.target_self = true
 	autocast_swiftness.is_extended = false
-	autocast_swiftness.buff_type = dave_morph_speed_bt
+	autocast_swiftness.buff_type = swiftness_bt
 	autocast_swiftness.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_swiftness.handler = on_autocast_swiftness
 	tower.add_autocast(autocast_swiftness)
@@ -206,22 +206,22 @@ func tower_init():
 	autocast_adapt.mana_cost = 0
 	autocast_adapt.target_self = true
 	autocast_adapt.is_extended = false
-	autocast_adapt.buff_type = dave_morph_adapt_bt
+	autocast_adapt.buff_type = adapt_bt
 	autocast_adapt.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_adapt.handler = on_autocast_adapt
 	tower.add_autocast(autocast_adapt)
 
 
 func on_attack(_event: Event):
-	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
-	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
-	var adapt_buff: Buff = tower.get_buff_of_type(dave_morph_adapt_bt)
+	var damage_buff: Buff = tower.get_buff_of_type(might_bt)
+	var speed_buff: Buff = tower.get_buff_of_type(swiftness_bt)
+	var adapt_buff: Buff = tower.get_buff_of_type(adapt_bt)
 
 	if adapt_buff == null:
 		if damage_buff != null && damage_buff.get_level() < 50:
-			dave_morph_damage_bt.apply(tower, tower, damage_buff.get_level() + 1)
+			might_bt.apply(tower, tower, damage_buff.get_level() + 1)
 		elif speed_buff != null && speed_buff.get_level() < 50:
-			dave_morph_speed_bt.apply(tower, tower, speed_buff.get_level() + 1)
+			swiftness_bt.apply(tower, tower, speed_buff.get_level() + 1)
 
 
 func on_damage(event: Event):
@@ -233,8 +233,8 @@ func on_damage(event: Event):
 	var pt: ProjectileType = null
 	var projectile_scale: float = 1.0
 
-	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
-	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
+	var damage_buff: Buff = tower.get_buff_of_type(might_bt)
+	var speed_buff: Buff = tower.get_buff_of_type(swiftness_bt)
 
 	if damage_buff != null && damage_buff.get_level() >= 25:
 		pt = damage_pt
@@ -275,53 +275,53 @@ func on_damage(event: Event):
 
 
 func on_autocast_might(_event: Event):
-	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
-	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
+	var speed_buff: Buff = tower.get_buff_of_type(swiftness_bt)
+	var damage_buff: Buff = tower.get_buff_of_type(might_bt)
 
 	if damage_buff == null:
 		if speed_buff != null:
 			speed_buff.remove_buff()
 
-		dave_morph_damage_bt.apply(tower, tower, 0)
+		might_bt.apply(tower, tower, 0)
 
 
 func on_autocast_swiftness(_event: Event):
-	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
-	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
+	var speed_buff: Buff = tower.get_buff_of_type(swiftness_bt)
+	var damage_buff: Buff = tower.get_buff_of_type(might_bt)
 
 	if speed_buff == null:
 		if damage_buff != null:
 			damage_buff.remove_buff()
 
-		dave_morph_speed_bt.apply(tower, tower, 0)
+		swiftness_bt.apply(tower, tower, 0)
 
 
 func on_autocast_adapt(_event: Event):
-	var adapt_buff: Buff = tower.get_buff_of_type(dave_morph_adapt_bt)
+	var adapt_buff: Buff = tower.get_buff_of_type(adapt_bt)
 
 	if adapt_buff == null:
-		dave_morph_adapt_bt.apply(tower, tower, 0)
+		adapt_bt.apply(tower, tower, 0)
 	elif adapt_buff != null:
 		adapt_buff.remove_buff()
 
 
 func on_tower_details() -> MultiboardValues:
-	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
-	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
+	var damage_buff: Buff = tower.get_buff_of_type(might_bt)
+	var speed_buff: Buff = tower.get_buff_of_type(swiftness_bt)
 
-	example_multiboard.set_value(0, str(evolve_count))
+	multiboard.set_value(0, str(evolve_count))
 	
 	var damage_buff_level: int = 0
 	if damage_buff != null:
 		damage_buff_level = damage_buff.get_level()
-		example_multiboard.set_value(1, str(damage_buff_level))
+		multiboard.set_value(1, str(damage_buff_level))
 
 	var speed_buff_level: int = 0
 	if speed_buff != null:
 		speed_buff_level = speed_buff.get_level()
-		example_multiboard.set_value(1, str(speed_buff_level))
+		multiboard.set_value(1, str(speed_buff_level))
 
-	return example_multiboard
+	return multiboard
 
 
 # NOTE: "morphSpeedHit()" in original script
@@ -333,7 +333,7 @@ func speed_pt_on_hit(_p: Projectile, target: Unit):
 	var damage: float = 2000 + 60 * level
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-	dave_morph_slow_bt.apply(tower, target, level)
+	swift_strike_bt.apply(tower, target, level)
 
 
 # NOTE: "morphDamageHit()" in original script
@@ -345,11 +345,11 @@ func damage_pt_on_hit(_p: Projectile, target: Unit):
 	var damage: float = 2000 + 60 * level
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-	dave_morph_dot_bt.apply(tower, target, level)
+	dot_bt.apply(tower, target, level)
 
 
 # NOTE: "dot()" in original script
-func dave_morph_dot_bt_periodic(event: Event):
+func dot_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var level: int = tower.get_level()

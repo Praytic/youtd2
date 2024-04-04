@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var drol_tentacleDot: BuffType
+var rend_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -49,11 +49,11 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
-	drol_tentacleDot = BuffType.new("drol_tentacleDot", 6, 0, false, self)
-	drol_tentacleDot.set_buff_icon("claw.tres")
-	drol_tentacleDot.add_periodic_event(drol_tentacleDamage, 1)
-	drol_tentacleDot.set_buff_modifier(m)
-	drol_tentacleDot.set_buff_tooltip("Rend\nDeals damage over time and increases spell damage taken.")
+	rend_bt = BuffType.new("rend_bt", 6, 0, false, self)
+	rend_bt.set_buff_icon("claw.tres")
+	rend_bt.add_periodic_event(drol_tentacleDamage, 1)
+	rend_bt.set_buff_modifier(m)
+	rend_bt.set_buff_tooltip("Rend\nDeals damage over time and increases spell damage taken.")
 
 
 func drol_tentacleDamage(event: Event):
@@ -72,4 +72,4 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, target, "Rend")
 	
-	drol_tentacleDot.apply(tower, target, _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()
+	rend_bt.apply(tower, target, _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()

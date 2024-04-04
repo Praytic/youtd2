@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var Poisoned_heart: BuffType
+var poison_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -56,15 +56,15 @@ func deal_damage(event: Event):
 
 
 func tower_init():
-	Poisoned_heart = BuffType.new("Poisoned_heart", 9, 0.5, false, self)
-	Poisoned_heart.set_buff_icon("orb_triple.tres")
+	poison_bt = BuffType.new("poison_bt", 9, 0.5, false, self)
+	poison_bt.set_buff_icon("orb_triple.tres")
 
-	Poisoned_heart.add_periodic_event(deal_damage, 1)
+	poison_bt.add_periodic_event(deal_damage, 1)
 
-	Poisoned_heart.set_buff_tooltip("Poisoned Heart\nDeals damage over time.")
+	poison_bt.set_buff_tooltip("Poisoned Heart\nDeals damage over time.")
 
 
 func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 
-	Poisoned_heart.apply_custom_timed(tower, creep, tower.get_level(), 6 + tower.get_level() * _stats.poison_duration_add).user_real = _stats.poison_damage + _stats.poison_damage_add * tower.get_level()
+	poison_bt.apply_custom_timed(tower, creep, tower.get_level(), 6 + tower.get_level() * _stats.poison_duration_add).user_real = _stats.poison_damage + _stats.poison_damage_add * tower.get_level()

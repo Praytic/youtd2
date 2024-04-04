@@ -5,8 +5,8 @@ extends TowerBehavior
 # periodic event I added a flag.
 
 
-var fire_battery_incinerate: BuffType
-var pt: ProjectileType
+var incinerate_bt: BuffType
+var fireball_pt: ProjectileType
 
 var _battery_overload_is_active: bool = false
 
@@ -90,27 +90,28 @@ func damage_periodic(event: Event):
 	tower.do_spell_damage(b.get_buffed_unit(), b.get_power() * _stats.periodic_damage_add + _stats.periodic_damage, tower.calc_spell_crit_no_bonus())
 
 
-func hit(_p: Projectile, creep: Unit):
+# NOTE: hit() in original script
+func fireball_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	fire_battery_incinerate.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	incinerate_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0)
 
-	fire_battery_incinerate = BuffType.new("fire_battery_incinerate", 9, 0.3, false, self)
-	fire_battery_incinerate.set_buff_modifier(modifier)
-	fire_battery_incinerate.set_buff_icon("running_man_burning.tres")
-	fire_battery_incinerate.add_periodic_event(damage_periodic, 1)
-	fire_battery_incinerate.set_stacking_group("FireBattery")
-	fire_battery_incinerate.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")
+	incinerate_bt = BuffType.new("incinerate_bt", 9, 0.3, false, self)
+	incinerate_bt.set_buff_modifier(modifier)
+	incinerate_bt.set_buff_icon("running_man_burning.tres")
+	incinerate_bt.add_periodic_event(damage_periodic, 1)
+	incinerate_bt.set_stacking_group("FireBattery")
+	incinerate_bt.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")
 
-	pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200, self)
-	pt.enable_homing(hit, 0)
+	fireball_pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200, self)
+	fireball_pt.enable_homing(fireball_pt_on_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
@@ -134,7 +135,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	fire_battery_incinerate.apply(tower, event.get_target(), tower.get_level())
+	incinerate_bt.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
@@ -152,7 +153,7 @@ func periodic(_event: Event):
 
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
-			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, target, true, false, false)
+			var p: Projectile = Projectile.create_from_unit_to_unit(fireball_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 			p.setScale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful

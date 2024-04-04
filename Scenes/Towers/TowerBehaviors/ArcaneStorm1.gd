@@ -11,8 +11,8 @@ extends TowerBehavior
 # defined number of jumps.
 
 
-var ash_arcanestorm_attraction_bt: BuffType
-var ash_arcanestorm_manastorm_bt: BuffType
+var attraction_bt: BuffType
+var manastorm_bt: BuffType
 var surge_st: SpellType
 var manastorm_st: SpellType
 
@@ -67,17 +67,17 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	ash_arcanestorm_attraction_bt = BuffType.new("ash_arcanestorm_attraction_bt", -1, 0, false, self)
-	ash_arcanestorm_attraction_bt.set_buff_icon("orb_sparkly.tres")
-	ash_arcanestorm_attraction_bt.add_event_on_death(ash_arcanestorm_attraction_bt_on_death)
-	ash_arcanestorm_attraction_bt.set_buff_tooltip("Attraction\nSpreads Attraction and deals damage to nearby units when target dies.")
+	attraction_bt = BuffType.new("attraction_bt", -1, 0, false, self)
+	attraction_bt.set_buff_icon("orb_sparkly.tres")
+	attraction_bt.set_buff_tooltip("Attraction\nSpreads Attraction and deals damage to nearby units when target dies.")
+	attraction_bt.add_event_on_death(attraction_bt_on_death)
 
-	ash_arcanestorm_manastorm_bt = BuffType.new("ash_arcanestorm_manastorm_bt", 2.0, 0, true, self)
-	var ash_arcanestorm_manastorm_bt_mod: Modifier = Modifier.new()
-	ash_arcanestorm_manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
-	ash_arcanestorm_manastorm_bt.set_buff_modifier(ash_arcanestorm_manastorm_bt_mod)
-	ash_arcanestorm_manastorm_bt.set_buff_icon("orb_swirly.tres")
-	ash_arcanestorm_manastorm_bt.set_buff_tooltip("Mana Storm\nIncreases multicrit.")
+	manastorm_bt = BuffType.new("manastorm_bt", 2.0, 0, true, self)
+	manastorm_bt.set_buff_icon("orb_swirly.tres")
+	manastorm_bt.set_buff_tooltip("Mana Storm\nIncreases multicrit.")
+	var manastorm_bt_mod: Modifier = Modifier.new()
+	manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
+	manastorm_bt.set_buff_modifier(manastorm_bt_mod)
 
 	surge_st = SpellType.new("@@0@@", "chainlightning", 1.0, self)
 	surge_st.data.chain_lightning.damage = 0
@@ -112,7 +112,7 @@ func on_damage(event: Event):
 	tower.subtract_mana(mana, true)
 
 	if mana >= 100:
-		ash_arcanestorm_manastorm_bt.apply(tower, tower, 1)
+		manastorm_bt.apply(tower, tower, 1)
 		var effect: int = Effect.create_colored("Lightningbolt.mdl", tower.get_visual_x(), tower.get_visual_y(), 0.0, 270.0, 5, Color8(255, 90, 255, 255))
 		Effect.set_lifetime(effect, 0.3)
 
@@ -154,20 +154,20 @@ func ashbringer_attraction_apply(target: Unit, stacks: int):
 	if stacks < 1:
 		stacks = 1
 
-	var attraction_buff: Buff = target.get_buff_of_type(ash_arcanestorm_attraction_bt)
+	var attraction_buff: Buff = target.get_buff_of_type(attraction_bt)
 
 	if attraction_buff != null:
 		i = stacks + attraction_buff.get_power()
 	else:
 		i = 1
 
-	ash_arcanestorm_attraction_bt.apply_custom_power(tower, target, 1, i)
+	attraction_bt.apply_custom_power(tower, target, 1, i)
 
 	return i
 
 
 # NOTE: "ashbringer_attraction_ondeath()" in original script
-func ash_arcanestorm_attraction_bt_on_death(event: Event):
+func attraction_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var it_range: float = 500 + 10 * tower.get_level()
@@ -227,7 +227,7 @@ func ashbringer_surge_start(target: Unit, mana: float):
 		if next == target:
 			continue
 
-		var attraction_buff: Buff = next.get_buff_of_type(ash_arcanestorm_attraction_bt)
+		var attraction_buff: Buff = next.get_buff_of_type(attraction_bt)
 
 		if attraction_buff == null:
 			continue

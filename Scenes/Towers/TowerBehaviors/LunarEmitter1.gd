@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var lunar_emitter_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -47,16 +47,16 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	lunar_emitter_bt = BuffType.create_aura_effect_type("lunar_emitter_bt", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0015)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_ASTRAL, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_DARKNESS, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_ICE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
-	lunar_emitter_bt.set_buff_modifier(mod)
-	lunar_emitter_bt.set_buff_icon("letter_s_lying_down.tres")
-	lunar_emitter_bt.set_buff_tooltip("Moonlight Aura\nIncreases spell damage taken and damage taken from Astral, Darkness, Ice and Storm towers.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("letter_s_lying_down.tres")
+	aura_bt.set_buff_tooltip("Moonlight Aura\nIncreases spell damage taken and damage taken from Astral, Darkness, Ice and Storm towers.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -71,5 +71,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = lunar_emitter_bt
+	aura.aura_effect = aura_bt
 	return [aura]

@@ -22,7 +22,7 @@ class Glaivesaw:
 
 
 const GLAIVESAW_MAX: int = 3
-var ashbringer_lacerate_bt: BuffType
+var lacerate_bt: BuffType
 var storm_pt: ProjectileType
 var bounder_pt: ProjectileType
 var glaivesaw_list: Array[Glaivesaw] = []
@@ -104,10 +104,10 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	ashbringer_lacerate_bt = BuffType.new("ashbringer_lacerate_bt", 5, 0, false, self)
-	ashbringer_lacerate_bt.set_buff_icon("claw.tres")
-	ashbringer_lacerate_bt.add_periodic_event(ashbringer_lacerate_bt_periodic, 1.0)
-	ashbringer_lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
+	lacerate_bt = BuffType.new("lacerate_bt", 5, 0, false, self)
+	lacerate_bt.set_buff_icon("claw.tres")
+	lacerate_bt.add_periodic_event(lacerate_bt_periodic, 1.0)
+	lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 
 	storm_pt = ProjectileType.create_interpolate("SentinelMissile.mdl", 900, self)
 	storm_pt.set_event_on_interpolation_finished(storm_pt_on_finished)
@@ -210,18 +210,18 @@ func ashbringer_lacerate_damage(target: Unit, damage: float, crit: float):
 
 	tower.do_attack_damage(target, damage * 0.5, crit)
 
-	var buff: Buff = target.get_buff_of_type(ashbringer_lacerate_bt)
+	var buff: Buff = target.get_buff_of_type(lacerate_bt)
 
 	if buff != null:
 		var damage_stack: float = buff.user_real + dot_damage
-		buff = ashbringer_lacerate_bt.apply(tower, target, 0)
+		buff = lacerate_bt.apply(tower, target, 0)
 		buff.user_real = damage_stack
 	else:
-		buff = ashbringer_lacerate_bt.apply(tower, target, 0)
+		buff = lacerate_bt.apply(tower, target, 0)
 		buff.user_real = dot_damage
 
 
-func ashbringer_lacerate_bt_periodic(event: Event):
+func lacerate_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var remaining: float = buff.get_remaining_duration()

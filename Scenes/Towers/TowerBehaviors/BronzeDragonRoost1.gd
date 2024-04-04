@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var bronze_dragon_bt: BuffType
+var bronze_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -37,17 +37,17 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	bronze_dragon_bt = BuffType.new("bronze_dragon_bt", 5, 0.1, false, self)
+	bronze_bt = BuffType.new("bronze_bt", 5, 0.1, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.5, 0.0)
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.01)
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
-	bronze_dragon_bt.set_buff_modifier(mod)
-	bronze_dragon_bt.set_buff_icon("cup_with_wings.tres")
-	bronze_dragon_bt.add_event_on_create(bronze_dragon_bt_on_create)
-	bronze_dragon_bt.add_event_on_cleanup(bronze_dragon_bt_on_cleanup)
-	bronze_dragon_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")
+	bronze_bt.set_buff_modifier(mod)
+	bronze_bt.set_buff_icon("cup_with_wings.tres")
+	bronze_bt.add_event_on_create(bronze_bt_on_create)
+	bronze_bt.add_event_on_cleanup(bronze_bt_on_cleanup)
+	bronze_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")
 
 
 func on_damage(event: Event):
@@ -58,10 +58,10 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Bronzefication")
 
-	bronze_dragon_bt.apply(tower, event.get_target(), tower.get_level())
+	bronze_bt.apply(tower, event.get_target(), tower.get_level())
 
 
-func bronze_dragon_bt_on_create(event: Event):
+func bronze_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(255, 255, 125, 255))
@@ -69,7 +69,7 @@ func bronze_dragon_bt_on_create(event: Event):
 	# SetUnitTimeScale(unit, 0.5)
 
 
-func bronze_dragon_bt_on_cleanup(event: Event):
+func bronze_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(255, 255, 255, 255))

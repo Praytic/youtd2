@@ -11,9 +11,9 @@ extends TowerBehavior
 # 1.0 in original youtd vs youtd2.
 
 
-var spell_flame_damage_bt: BuffType
-var spell_flame_crit_damage_bt: BuffType
-var spell_flame_crit_chance_bt: BuffType
+var damage_bt: BuffType
+var crit_damage_bt: BuffType
+var crit_chance_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -71,20 +71,23 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	spell_flame_damage_bt = BuffType.new("spell_flame_damage_bt", -1, 0, true, self)
+	damage_bt = BuffType.new("damage_bt", -1, 0, true, self)
 	var spell_flame_damage_mod: Modifier = Modifier.new()
 	spell_flame_damage_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.01)
-	spell_flame_damage_bt.set_buff_modifier(spell_flame_damage_mod)
+	damage_bt.set_buff_modifier(spell_flame_damage_mod)
+	damage_bt.set_hidden()
 
-	spell_flame_crit_chance_bt = BuffType.new("spell_flame_crit_chance_bt", -1, 0, true, self)
+	crit_chance_bt = BuffType.new("crit_chance_bt", -1, 0, true, self)
 	var spell_flame_crit_chance_mod: Modifier = Modifier.new()
 	spell_flame_crit_chance_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.01)
-	spell_flame_crit_chance_bt.set_buff_modifier(spell_flame_crit_chance_mod)
+	crit_chance_bt.set_buff_modifier(spell_flame_crit_chance_mod)
+	crit_chance_bt.set_hidden()
 
-	spell_flame_crit_damage_bt = BuffType.new("spell_crit_damage_bt", -1, 0, true, self)
+	crit_damage_bt = BuffType.new("spell_crit_damage_bt", -1, 0, true, self)
 	var spell_crit_damage_mod: Modifier = Modifier.new()
 	spell_crit_damage_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.0, 0.01)
-	spell_flame_crit_damage_bt.set_buff_modifier(spell_crit_damage_mod)
+	crit_damage_bt.set_buff_modifier(spell_crit_damage_mod)
+	crit_damage_bt.set_hidden()
 
 
 func on_attack(_event: Event):
@@ -95,9 +98,9 @@ func on_attack(_event: Event):
 	var spell_crit_damage_level: int = int((tower.get_spell_crit_damage() - 1.0) * buff_level_multiplier)
 	var spell_crit_chance_level: int = int(tower.get_spell_crit_chance() * buff_level_multiplier)
 
-	spell_flame_damage_bt.apply(tower, tower, spell_damage_level)
-	spell_flame_crit_damage_bt.apply(tower, tower, spell_crit_damage_level)
-	spell_flame_crit_chance_bt.apply(tower, tower, spell_crit_chance_level)
+	damage_bt.apply(tower, tower, spell_damage_level)
+	crit_damage_bt.apply(tower, tower, spell_crit_damage_level)
+	crit_chance_bt.apply(tower, tower, spell_crit_chance_level)
 
 #	Spellfire Projectiles
 	var mana: float = tower.get_mana()

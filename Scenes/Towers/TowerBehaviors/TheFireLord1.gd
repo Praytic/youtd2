@@ -11,8 +11,8 @@ extends TowerBehavior
 # bonus is +4 so that total is 5. Not that bonus is +5.
 
 
-var boekie_lord_hellfire_bt: BuffType
-var boekie_lord_liquid_fire_bt: BuffType
+var hellfire_bt: BuffType
+var liquid_fire_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -59,20 +59,20 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	boekie_lord_liquid_fire_bt = BuffType.new("boekie_lord_liquid_fire_bt", 5, 0.1, false, self)
+	liquid_fire_bt = BuffType.new("liquid_fire_bt", 5, 0.1, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.004)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.10, 0.004)
-	boekie_lord_liquid_fire_bt.set_buff_modifier(mod)
-	boekie_lord_liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
-	boekie_lord_liquid_fire_bt.set_buff_icon("running_man_burning.tres")
-	boekie_lord_liquid_fire_bt.set_buff_tooltip("Liquid Fire\nDeals damage over time and increases damage taken from Fire towers.")
+	liquid_fire_bt.set_buff_modifier(mod)
+	liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
+	liquid_fire_bt.set_buff_icon("running_man_burning.tres")
+	liquid_fire_bt.set_buff_tooltip("Liquid Fire\nDeals damage over time and increases damage taken from Fire towers.")
 
-	boekie_lord_hellfire_bt = BuffType.new("boekie_lord_hellfire_bt", 7.5, 0.2, true, self)
-	boekie_lord_hellfire_bt.set_buff_icon("bug_in_amber.tres")
-	boekie_lord_hellfire_bt.add_event_on_create(hellfire_on_create)
-	boekie_lord_hellfire_bt.add_event_on_cleanup(hellfire_on_cleanup)
-	boekie_lord_hellfire_bt.set_buff_tooltip("Hellfire\nAttacks extra targets and increases attack speed.")
+	hellfire_bt = BuffType.new("hellfire_bt", 7.5, 0.2, true, self)
+	hellfire_bt.set_buff_icon("bug_in_amber.tres")
+	hellfire_bt.add_event_on_create(hellfire_on_create)
+	hellfire_bt.add_event_on_cleanup(hellfire_on_cleanup)
+	hellfire_bt.set_buff_tooltip("Hellfire\nAttacks extra targets and increases attack speed.")
 
 
 func on_attack(_event: Event):
@@ -82,21 +82,21 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(hellfire_chance):
 		return
 
-	var tower_already_has_hellfire: bool = tower.get_buff_of_type(boekie_lord_hellfire_bt) != null
+	var tower_already_has_hellfire: bool = tower.get_buff_of_type(hellfire_bt) != null
 
 	if tower_already_has_hellfire:
 		return
 
 	CombatLog.log_ability(tower, null, "Hellfire")
 
-	boekie_lord_hellfire_bt.apply(tower, tower, level)
+	hellfire_bt.apply(tower, tower, level)
 
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 
-	boekie_lord_liquid_fire_bt.apply(tower, target, level)
+	liquid_fire_bt.apply(tower, target, level)
 
 
 func liquid_fire_periodic(event: Event):

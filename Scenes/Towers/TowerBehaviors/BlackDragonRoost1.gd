@@ -11,7 +11,7 @@ extends TowerBehavior
 # when creep takes damage.
 
 
-var cedi_black_dragon_bt: BuffType
+var fear_dark_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -42,18 +42,18 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	cedi_black_dragon_bt = BuffType.new("cedi_black_dragon_bt", 5, 0.1, false, self)
+	fear_dark_bt = BuffType.new("fear_dark_bt", 5, 0.1, false, self)
+	fear_dark_bt.set_buff_icon("ghost.tres")
+	fear_dark_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
+	fear_dark_bt.add_event_on_create(fear_dark_bt_on_create)
+	fear_dark_bt.add_event_on_cleanup(fear_dark_bt_on_cleanup)
+	fear_dark_bt.add_event_on_damaged(fear_dark_bt_on_damage)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.5, 0.0)
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.01)
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
-	cedi_black_dragon_bt.set_buff_modifier(mod)
-	cedi_black_dragon_bt.set_buff_icon("ghost.tres")
-	cedi_black_dragon_bt.add_event_on_create(cedi_black_dragon_bt_on_create)
-	cedi_black_dragon_bt.add_event_on_cleanup(cedi_black_dragon_bt_on_cleanup)
-	cedi_black_dragon_bt.add_event_on_damaged(cedi_black_dragon_bt_on_damage)
-	cedi_black_dragon_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
+	fear_dark_bt.set_buff_modifier(mod)
 
 
 func on_damage(event: Event):
@@ -64,22 +64,25 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Fear the Dark")
 
-	cedi_black_dragon_bt.apply(tower, event.get_target(), tower.get_level())
+	fear_dark_bt.apply(tower, event.get_target(), tower.get_level())
 
 
-func cedi_black_dragon_bt_on_create(event: Event):
+# NOTE: startA() in original script
+func fear_dark_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(125, 125, 125, 255))
 
 
-func cedi_black_dragon_bt_on_cleanup(event: Event):
+# NOTE: clean() in original script
+func fear_dark_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(255, 255, 255, 255))
 
 
-func cedi_black_dragon_bt_on_damage(event: Event):
+# NOTE: dmg() in original script
+func fear_dark_bt_on_damage(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
@@ -94,7 +97,7 @@ func cedi_black_dragon_bt_on_damage(event: Event):
 		if creep == null:
 			break
 
-		if creep.get_buff_of_type(cedi_black_dragon_bt) != null:
+		if creep.get_buff_of_type(fear_dark_bt) != null:
 			damage_increase *= 0.75
 
 	event.damage *= (1.0 + damage_increase)

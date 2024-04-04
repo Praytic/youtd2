@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var sternbogen_holy_buff: BuffType
-var magical_sight: BuffType
+var holy_weak_bt: BuffType
+var magical_sight_bt: BuffType
 
 
 # NOTE: mod_value and mod_value_add are multiplied by 1000,
@@ -55,8 +55,8 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	magical_sight = MagicalSightBuff.new("holy_light_magical_sight", _stats.magical_sight_range, self)
-	magical_sight.apply_to_unit_permanent(tower, tower, 0)
+	magical_sight_bt = MagicalSightBuff.new("magical_sight_bt", _stats.magical_sight_range, self)
+	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
 
 
 func get_ability_ranges() -> Array[RangeData]:
@@ -65,12 +65,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	var light_mod: Modifier = Modifier.new()
-	sternbogen_holy_buff = BuffType.new("sternbogen_holy_buff", 0.0, 0.0, false, self)
+	holy_weak_bt = BuffType.new("holy_weak_bt", 0.0, 0.0, false, self)
 	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
-	sternbogen_holy_buff.set_buff_modifier(light_mod)
-	sternbogen_holy_buff.set_buff_icon("winged_man.tres")
-	sternbogen_holy_buff.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
+	holy_weak_bt.set_buff_modifier(light_mod)
+	holy_weak_bt.set_buff_icon("winged_man.tres")
+	holy_weak_bt.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
 
 
 func on_damage(event: Event):
@@ -78,4 +78,4 @@ func on_damage(event: Event):
 #	0.001 Basic Bonus
 	var bufflevel: int = _stats.mod_value + _stats.mod_value_add * tower.get_level()
 	if (CreepCategory.enm.UNDEAD == creep.get_category()):
-		sternbogen_holy_buff.apply_custom_timed(tower, event.get_target(), bufflevel, _stats.duration + _stats.duration_add * tower.get_level())
+		holy_weak_bt.apply_custom_timed(tower, event.get_target(), bufflevel, _stats.duration + _stats.duration_add * tower.get_level())

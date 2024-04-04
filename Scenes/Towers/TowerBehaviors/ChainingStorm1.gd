@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var stern_chaining_aura_bt: BuffType
+var strong_wind_bt: BuffType
 var multiboard: MultiboardValues
 var storm_power: int = 0
 
@@ -64,12 +64,12 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	stern_chaining_aura_bt = BuffType.create_aura_effect_type("stern_chaining_aura_bt", false, self)
-	stern_chaining_aura_bt.set_buff_icon("electricity.tres")
-	stern_chaining_aura_bt.add_event_on_create(stern_chaining_aura_bt_on_create)
-	stern_chaining_aura_bt.add_periodic_event(stern_chaining_aura_bt_periodic, 1.0)
-	stern_chaining_aura_bt.add_event_on_cleanup(stern_chaining_aura_bt_on_cleanup)
-	stern_chaining_aura_bt.set_buff_tooltip("Strong Wind\nReduces movement speed and deals damage over time.")
+	strong_wind_bt = BuffType.create_aura_effect_type("strong_wind_bt", false, self)
+	strong_wind_bt.set_buff_icon("electricity.tres")
+	strong_wind_bt.add_event_on_create(strong_wind_bt_on_create)
+	strong_wind_bt.add_periodic_event(strong_wind_bt_periodic, 1.0)
+	strong_wind_bt.add_event_on_cleanup(strong_wind_bt_on_cleanup)
+	strong_wind_bt.set_buff_tooltip("Strong Wind\nReduces movement speed and deals damage over time.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Storm Power")
@@ -84,7 +84,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = stern_chaining_aura_bt
+	aura.aura_effect = strong_wind_bt
 
 	return [aura]
 
@@ -154,7 +154,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 # NOTE: "strongWindOnCreate()" in original script
-func stern_chaining_aura_bt_on_create(event: Event):
+func strong_wind_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	buff.user_int = 0 # will be used to store buff level
 	buff.user_int2 = 0 # counts number of stacks
@@ -163,7 +163,7 @@ func stern_chaining_aura_bt_on_create(event: Event):
 
 
 # NOTE: "strongWindPeriodic()" in original script
-func stern_chaining_aura_bt_periodic(event: Event):
+func strong_wind_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var creep: Unit = buff.get_buffed_unit()
@@ -196,7 +196,7 @@ func stern_chaining_aura_bt_periodic(event: Event):
 
 
 # NOTE: "strongWindOnCleanup()" in original script
-func stern_chaining_aura_bt_on_cleanup(event: Event):
+func strong_wind_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var creep: Unit = buff.get_buffed_unit()

@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var speed_aura: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -39,12 +39,12 @@ func get_ability_description_short() -> String:
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	speed_aura = BuffType.create_aura_effect_type("speed_aura", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 1.0 / 10000)
-	speed_aura.set_buff_modifier(m)
-	speed_aura.set_buff_icon("bull_horns.tres")
-	speed_aura.set_stacking_group("wolf_aura")
-	speed_aura.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
+	aura_bt.set_buff_modifier(m)
+	aura_bt.set_buff_icon("bull_horns.tres")
+	aura_bt.set_stacking_group("wolf_aura")
+	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -56,6 +56,6 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = int(_stats.mod_attackspeed_add * 10000)
 	aura.power = int(_stats.mod_attackspeed * 10000)
 	aura.power_add = int(_stats.mod_attackspeed_add * 10000)
-	aura.aura_effect = speed_aura
+	aura.aura_effect = aura_bt
 
 	return [aura]

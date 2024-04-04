@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var mOck_ray_blaster: BuffType
+var phazed_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -47,13 +47,13 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var iron_mod: Modifier = Modifier.new()
-	mOck_ray_blaster = BuffType.new("mOck_ray_blaster", 0, 0, false, self)
+	phazed_bt = BuffType.new("phazed_bt", 0, 0, false, self)
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
-	mOck_ray_blaster.set_buff_modifier(iron_mod)
-	mOck_ray_blaster.set_buff_icon("bug_in_amber.tres")
-	mOck_ray_blaster.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
+	phazed_bt.set_buff_modifier(iron_mod)
+	phazed_bt.set_buff_icon("bug_in_amber.tres")
+	phazed_bt.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
 
 
 func on_damage(event: Event):
-	mOck_ray_blaster.apply_custom_timed(tower, event.get_target(), _stats.value + _stats.value_add * tower.get_level(), _stats.duration + tower.get_level() * 0.1)
+	phazed_bt.apply_custom_timed(tower, event.get_target(), _stats.value + _stats.value_add * tower.get_level(), _stats.duration + tower.get_level() * 0.1)

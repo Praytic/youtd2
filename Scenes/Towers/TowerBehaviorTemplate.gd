@@ -7,7 +7,7 @@ extends TowerBehavior
 
 # var example_bt: BuffType
 # var example_pt: ProjectileType
-# var example_multiboard: MultiboardValues
+# var multiboard: MultiboardValues
 
 
 # func get_tier_stats() -> Dictionary:
@@ -105,9 +105,9 @@ extends TowerBehavior
 #	example_pt = ProjectileType.create("ProjectileModel.mdl", 0, 1000, self)
 #	example_pt.enable_homing(example_pt_on_hit, 0)
 
-#	example_multiboard = MultiboardValues.new(2)
-#	example_multiboard.set_key(0, "Foo")
-#	example_multiboard.set_key(1, "Bar")
+#	multiboard = MultiboardValues.new(2)
+#	multiboard.set_key(0, "Foo")
+#	multiboard.set_key(1, "Bar")
 
 # 	var autocast: Autocast = Autocast.make()
 # 	autocast.title = "Title"
@@ -153,10 +153,10 @@ extends TowerBehavior
 
 
 # func on_tower_details() -> MultiboardValues:
-# 	example_multiboard.set_value(0, "Foo value")
-# 	example_multiboard.set_value(1, "Bar value")
+# 	multiboard.set_value(0, "Foo value")
+# 	multiboard.set_value(1, "Bar value")
 
-# 	return example_multiboard
+# 	return multiboard
 
 
 # func example_pt_on_hit(p: Projectile, target: Unit):

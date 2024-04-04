@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var Troll_blizzardslow: BuffType
-var Troll_blizzard_st: SpellType
-var cb_stun: BuffType
+var slow_bt: BuffType
+var blizzard_st: SpellType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -56,30 +56,30 @@ func load_specials(modifier: Modifier):
 
 func on_autocast(event: Event):
 	var u: Unit = event.get_target()
-	Troll_blizzard_st.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
+	blizzard_st.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
 
 
-
-func on_blizzard(event: Event, U: DummyUnit):
+# NOTE: OnBlizzard() in original script
+func blizzard_st_on_damage(event: Event, U: DummyUnit):
 	if U.get_caster().calc_chance(_stats.slow_chance + int(U.get_caster().get_level()) * 0.01):
-		Troll_blizzardslow.apply_only_timed(U.get_caster(), event.get_target(), _stats.slow_duration)
+		slow_bt.apply_only_timed(U.get_caster(), event.get_target(), _stats.slow_duration)
 	if U.get_caster().calc_chance(_stats.stun_chance + int(U.get_caster().get_level()) * 0.001):
-		cb_stun.apply_only_timed(U.get_caster(), event.get_target(), _stats.stun_duration)
+		stun_bt.apply_only_timed(U.get_caster(), event.get_target(), _stats.stun_duration)
 
 
 func tower_init():
 	var mod2: Modifier = Modifier.new()
-	Troll_blizzardslow = BuffType.new("Troll_blizzardslow", 0.0, 0.0, false, self)
+	slow_bt = BuffType.new("slow_bt", 0.0, 0.0, false, self)
 	mod2.add_modification(Modification.Type.MOD_MOVESPEED, _stats.slow, _stats.slow_add)
-	Troll_blizzardslow.set_buff_modifier(mod2)
-	Troll_blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
-	Troll_blizzard_st.set_damage_event(on_blizzard)
-	Troll_blizzardslow.set_stacking_group("cedi_troll_blizzard")
-	Troll_blizzardslow.set_buff_icon("foot.tres")
+	slow_bt.set_buff_modifier(mod2)
+	blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
+	blizzard_st.set_damage_event(blizzard_st_on_damage)
+	slow_bt.set_stacking_group("cedi_troll_blizzard")
+	slow_bt.set_buff_icon("foot.tres")
 
-	Troll_blizzardslow.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
-	cb_stun = CbStun.new("cold_troll_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Blizzard"
@@ -102,6 +102,6 @@ func tower_init():
 
 	tower.add_autocast(autocast)
 
-	Troll_blizzard_st.data.blizzard.damage = _stats.blizzard_damage
-	Troll_blizzard_st.data.blizzard.radius = _stats.blizzard_radius
-	Troll_blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count
+	blizzard_st.data.blizzard.damage = _stats.blizzard_damage
+	blizzard_st.data.blizzard.radius = _stats.blizzard_radius
+	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count

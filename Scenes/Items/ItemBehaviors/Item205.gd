@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var drol_sword_decay_bt: BuffType
+var rot_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -18,13 +18,13 @@ func get_ability_description() -> String:
 
 
 func item_init():
-	drol_sword_decay_bt = BuffType.create_aura_effect_type("drol_sword_decay_bt", true, self)
-	drol_sword_decay_bt.set_buff_icon("cup_with_wings.tres")
-	drol_sword_decay_bt.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
-	drol_sword_decay_bt.set_stacking_group("drol_sword_decay_bt")
+	rot_bt = BuffType.create_aura_effect_type("rot_bt", true, self)
+	rot_bt.set_buff_icon("cup_with_wings.tres")
+	rot_bt.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
+	rot_bt.set_stacking_group("rot_bt")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.12, 0.0024)
-	drol_sword_decay_bt.set_buff_modifier(mod)
+	rot_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
@@ -34,5 +34,5 @@ func item_init():
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = drol_sword_decay_bt
+	aura.aura_effect = rot_bt
 	item.add_aura(aura)

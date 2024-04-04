@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var cb_stun: BuffType
+var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -22,7 +22,7 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cb_stun = CbStun.new("item_269_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
 func on_damage(event: Event):
@@ -34,8 +34,8 @@ func on_damage(event: Event):
 	if size < CreepSize.enm.BOSS:
 		if tower.calc_chance((0.15 + tower.get_level() * 0.0025) * speed) && event.is_main_target() == true:
 			CombatLog.log_item_ability(item, null, "Stun")
-			cb_stun.apply_only_timed(tower, target, 1)
+			stun_bt.apply_only_timed(tower, target, 1)
 	else:
 		if tower.calc_chance((0.15 + tower.get_level() * 0.0025) / 3 * speed) && event.is_main_target() == true:
 			CombatLog.log_item_ability(item, null, "Stun")
-			cb_stun.apply_only_timed(tower, target, 1)
+			stun_bt.apply_only_timed(tower, target, 1)

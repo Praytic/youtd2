@@ -12,9 +12,9 @@ extends TowerBehavior
 # bug by calling creep.get_size_including_challenge_sizes().
 
 
-var natac_cloudy_temple_aura_bt: BuffType
-var natac_cloudy_temple_storm_bt: BuffType
-var natac_cloudy_temple_pt: ProjectileType
+var aura_bt: BuffType
+var storm_bt: BuffType
+var missile_pt: ProjectileType
 var multiboard: MultiboardValues
 
 var storm_is_enabled: bool = false
@@ -102,17 +102,17 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	natac_cloudy_temple_aura_bt = BuffType.create_aura_effect_type("natac_cloudy_temple_aura_bt", false, self)
-	natac_cloudy_temple_aura_bt.set_buff_icon("eye.tres")
-	natac_cloudy_temple_aura_bt.add_event_on_damaged(natac_cloudy_temple_aura_bt_on_damaged)
-	natac_cloudy_temple_aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("eye.tres")
+	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
+	aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 
-	natac_cloudy_temple_storm_bt = BuffType.new("natac_cloudy_temple_storm_bt", -1.0, 0.0, false, self)
-	natac_cloudy_temple_storm_bt.add_event_on_damaged(natac_cloudy_temple_storm_bt_on_damaged)
-	natac_cloudy_temple_storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nDeals damage over time.")
+	storm_bt = BuffType.new("storm_bt", -1.0, 0.0, false, self)
+	storm_bt.add_event_on_damaged(storm_bt_on_damaged)
+	storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nDeals damage over time.")
 
-	natac_cloudy_temple_pt = ProjectileType.create_ranged("FarserrMissile.mdl", 1000 + 100, 500, self)
-	natac_cloudy_temple_pt.enable_homing(natac_cloudy_temple_pt_on_hit, 0.0)
+	missile_pt = ProjectileType.create_ranged("FarserrMissile.mdl", 1000 + 100, 500, self)
+	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Mana required")
@@ -167,7 +167,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 1
 	aura.power_add = 1
-	aura.aura_effect = natac_cloudy_temple_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -221,7 +221,7 @@ func periodic(_event: Event):
 
 		if target != null:
 			storm_timeout_counter = 0
-			natac_cloudy_temple_storm_bt.apply(tower, target, 1)
+			storm_bt.apply(tower, target, 1)
 			var damage: float = tower.get_mana() * (0.5 + 0.02 * tower.get_level())
 			tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
 			SFX.sfx_at_unit("MonsoonBoltTarget.mdl", target)
@@ -238,7 +238,7 @@ func periodic(_event: Event):
 
 
 # --- Storm Buff Handling ---
-func natac_cloudy_temple_storm_bt_on_damaged(event: Event):
+func storm_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var target: Creep = buff.get_buffed_unit()
@@ -264,7 +264,7 @@ func enable_storm():
 # --- Aura Buff + Projectile Handling ---
 # If a creep with the auras buff is killed, a projectile spawns
 # Reaction of a natac_obsorption_AuraBuffType on Damage
-func natac_cloudy_temple_aura_bt_on_damaged(event: Event):
+func aura_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
@@ -272,15 +272,15 @@ func natac_cloudy_temple_aura_bt_on_damaged(event: Event):
 	var life: float = target.get_health()
 
 	var target_will_die: bool = damage > life
-	var target_is_affected_by_storm: bool = target.get_buff_of_type(natac_cloudy_temple_storm_bt) != null
+	var target_is_affected_by_storm: bool = target.get_buff_of_type(storm_bt) != null
 
 	if target_will_die && !target_is_affected_by_storm:
-		var mana_ball: Projectile = Projectile.create_from_unit_to_unit(natac_cloudy_temple_pt, caster, 0.0, 0.0, target, caster, true, false, false)
+		var mana_ball: Projectile = Projectile.create_from_unit_to_unit(missile_pt, caster, 0.0, 0.0, target, caster, true, false, false)
 		var redundant_damage: float = damage - life
 		mana_ball.user_real = redundant_damage
 
 
-func natac_cloudy_temple_pt_on_hit(projectile: Projectile, target: Unit):
+func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	if target == null || !Utils.unit_is_valid(target):
 		return
 

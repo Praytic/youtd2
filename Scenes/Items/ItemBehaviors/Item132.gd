@@ -7,7 +7,7 @@ extends ItemBehavior
 # because we can't convert references to ints in gdscript.
 
 
-var fright_poison_dagger_bt: BuffType
+var poison_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -24,7 +24,7 @@ func load_triggers(triggers: BuffType):
 
 
 # NOTE: dealDamage() in original script
-func fright_poison_dagger_bt_periodic(event: Event):
+func poison_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 	var tower: Tower = b.get_caster()
 
@@ -36,10 +36,10 @@ func fright_poison_dagger_bt_periodic(event: Event):
 
 func item_init():
 #	+ 0.01 seconds is a dirty hack to make damage tick 4 times with 100% duration
-	fright_poison_dagger_bt = BuffType.new("fright_poison_dagger_bt", 4.01, 0, false, self)
-	fright_poison_dagger_bt.set_buff_icon("letter_u_striked.tres")
-	fright_poison_dagger_bt.set_buff_tooltip("Deadly Poison\nDeals damage over time.")
-	fright_poison_dagger_bt.add_periodic_event(fright_poison_dagger_bt_periodic, 1)
+	poison_bt = BuffType.new("poison_bt", 4.01, 0, false, self)
+	poison_bt.set_buff_icon("letter_u_striked.tres")
+	poison_bt.set_buff_tooltip("Deadly Poison\nDeals damage over time.")
+	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 
 
 func on_damage(event: Event):
@@ -48,9 +48,9 @@ func on_damage(event: Event):
 
 	if event.is_main_target():
 		u = event.get_target()
-		P = u.get_buff_of_type(fright_poison_dagger_bt)
+		P = u.get_buff_of_type(poison_bt)
 
 		if P != null:
-			fright_poison_dagger_bt.apply(item.get_carrier(), event.get_target(), 0)
+			poison_bt.apply(item.get_carrier(), event.get_target(), 0)
 		else:
-			fright_poison_dagger_bt.apply(item.get_carrier(), event.get_target(), 0).user_int = item.get_carrier().get_instance_id()
+			poison_bt.apply(item.get_carrier(), event.get_target(), 0).user_int = item.get_carrier().get_instance_id()

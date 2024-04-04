@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_crit_aura: BuffType
+var fire_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -43,11 +43,11 @@ func get_ability_description_short() -> String:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
-	boekie_crit_aura = BuffType.create_aura_effect_type("boekie_crit_aura", true, self)
-	boekie_crit_aura.set_buff_icon("letter_omega_shiny.tres")
-	boekie_crit_aura.set_buff_modifier(m)
-	boekie_crit_aura.set_stacking_group("crit_aura")
-	boekie_crit_aura.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")
+	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
+	fire_bt.set_buff_icon("letter_omega_shiny.tres")
+	fire_bt.set_buff_modifier(m)
+	fire_bt.set_stacking_group("fire_bt")
+	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -59,5 +59,5 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = int(_stats.mod_crit_add * 10000)
 	aura.power = int(_stats.mod_crit * 10000)
 	aura.power_add = int(_stats.mod_crit_add * 10000)
-	aura.aura_effect = boekie_crit_aura
+	aura.aura_effect = fire_bt
 	return [aura]

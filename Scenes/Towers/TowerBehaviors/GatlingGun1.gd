@@ -7,7 +7,7 @@ extends TowerBehavior
 
 
 var ball_pt: ProjectileType
-var boekie_gatling_bt: BuffType
+var sentry_bt: BuffType
 
 var gatling_fire_enabled: bool = false
 var gatling_fire_target: Unit = null
@@ -71,12 +71,12 @@ func tower_init():
 	ball_pt = ProjectileType.create("BoatMissile.mdl", 4, 1000, self)
 	ball_pt.enable_homing(ball_pt_on_hit, 0)
 
-	boekie_gatling_bt = BuffType.new("boekie_gatling_bt", 0, 0, true, self)
+	sentry_bt = BuffType.new("sentry_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.005)
-	boekie_gatling_bt.set_buff_modifier(mod)
-	boekie_gatling_bt.set_buff_icon("eye.tres")
-	boekie_gatling_bt.set_buff_tooltip("Sentry\nIncreases attack damage.")
+	sentry_bt.set_buff_modifier(mod)
+	sentry_bt.set_buff_icon("eye.tres")
+	sentry_bt.set_buff_tooltip("Sentry\nIncreases attack damage.")
 
 
 func on_attack(event: Event):
@@ -120,14 +120,14 @@ func on_attack(event: Event):
 func on_unit_in_range(_event: Event):
 	var tower_level: int = tower.get_level()
 	var buff_level: int = 1
-	var buff: Buff = tower.get_buff_of_type(boekie_gatling_bt)
+	var buff: Buff = tower.get_buff_of_type(sentry_bt)
 
 	if buff != null:
 		buff_level = min(buff.user_int + 1, 20)
 
 	var buff_duration: float = 3.0 + 0.05 * tower_level
 
-	buff = boekie_gatling_bt.apply_custom_timed(tower, tower, buff_level * (30 + tower_level), buff_duration)
+	buff = sentry_bt.apply_custom_timed(tower, tower, buff_level * (30 + tower_level), buff_duration)
 	buff.user_int = buff_level
 
 

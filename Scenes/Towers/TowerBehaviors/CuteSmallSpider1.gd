@@ -5,7 +5,7 @@ extends TowerBehavior
 # directly to tower.
 
 
-var D1000_Spider_Poison: BuffType
+var poison_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -53,7 +53,8 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(hit)
 
 
-func D1000_Spider_Damage(event: Event):
+# NOTE: D1000_Spider_Damage() in original script
+func poison_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 
 	var caster: Unit = b.get_caster()
@@ -62,13 +63,13 @@ func D1000_Spider_Damage(event: Event):
 
 func hit(event: Event):
 	var target: Unit = event.get_target()
-	var b: Buff = target.get_buff_of_type(D1000_Spider_Poison)
+	var b: Buff = target.get_buff_of_type(poison_bt)
 	var level: int = tower.get_level()
 	var add_dam: float = tower.user_int + tower.user_real * level
 	var max_dam: float = tower.user_int2 + tower.user_real2 * level + add_dam * (int(float(level) / 5))
 
 	if b == null:
-		b = D1000_Spider_Poison.apply(tower, target, level)
+		b = poison_bt.apply(tower, target, level)
 		b.user_real = add_dam
 		b.user_real2 = max_dam
 		b.user_real3 = tower.get_prop_spell_damage_dealt()
@@ -83,7 +84,7 @@ func hit(event: Event):
 
 		if b.user_real3 < tower.get_prop_spell_damage_dealt():
 			b.remove_buff()
-			b = D1000_Spider_Poison.apply(tower, target, level)
+			b = poison_bt.apply(tower, target, level)
 			b.user_real3 = tower.get_prop_spell_damage_dealt()
 		else:
 			b.set_remaining_duration(tower.user_int3 + tower.user_real3 * level)
@@ -93,10 +94,10 @@ func hit(event: Event):
 
 
 func tower_init():
-	D1000_Spider_Poison = BuffType.new("D1000_Spider_Poison", 5, 0.05, false, self)
-	D1000_Spider_Poison.set_buff_icon("beard.tres")
-	D1000_Spider_Poison.add_periodic_event(D1000_Spider_Damage, 1)
-	D1000_Spider_Poison.set_buff_tooltip("Poison\nDeals damage over time.")
+	poison_bt = BuffType.new("poison_bt", 5, 0.05, false, self)
+	poison_bt.set_buff_icon("beard.tres")
+	poison_bt.add_periodic_event(poison_bt_periodic, 1)
+	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 
 
 func on_create(_preceding_tower: Tower):

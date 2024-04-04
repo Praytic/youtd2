@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_dutch_panic_bt: BuffType
+var panic_bt: BuffType
 var dutchman_pt: ProjectileType
 var cannonball_pt: ProjectileType
 var soul_pt: ProjectileType
@@ -97,13 +97,13 @@ func tower_init():
 	# TODO: implement ProjectileType.set_start_rotation()
 	# soulstorm_pt.set_start_rotation(6)
 
-	cedi_dutch_panic_bt = BuffType.new("cedi_dutch_panic_bt", 5, 0, false, self)
-	var cedi_dutch_panic_bt_mod: Modifier = Modifier.new()
-	cedi_dutch_panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
-	cedi_dutch_panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
-	cedi_dutch_panic_bt.set_buff_modifier(cedi_dutch_panic_bt_mod)
-	cedi_dutch_panic_bt.set_buff_icon("skull.tres")
-	cedi_dutch_panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
+	panic_bt = BuffType.new("panic_bt", 5, 0, false, self)
+	var panic_bt_mod: Modifier = Modifier.new()
+	panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
+	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
+	panic_bt.set_buff_modifier(panic_bt_mod)
+	panic_bt.set_buff_icon("skull.tres")
+	panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")
@@ -166,7 +166,7 @@ func on_kill(event: Event):
 		if next == null:
 			return
 
-		cedi_dutch_panic_bt.apply(tower, next, lvl)
+		panic_bt.apply(tower, next, lvl)
 
 
 func on_autocast(_event: Event):

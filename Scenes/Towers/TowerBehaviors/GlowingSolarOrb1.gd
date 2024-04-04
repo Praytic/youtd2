@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cassim_armor: BuffType
+var armor_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -55,12 +55,12 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
-	cassim_armor = BuffType.new("cassim_armor", 0, 0, false, self)
-	cassim_armor.set_buff_icon("eye.tres")
-	cassim_armor.set_buff_modifier(armor)
-	cassim_armor.set_stacking_group("astral_armor")
+	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
+	armor_bt.set_buff_icon("eye.tres")
+	armor_bt.set_buff_modifier(armor)
+	armor_bt.set_stacking_group("astral_armor")
 
-	cassim_armor.set_buff_tooltip("Blinded\nReduces armor.")
+	armor_bt.set_buff_tooltip("Blinded\nReduces armor.")
 
 
 func on_damage(event: Event):
@@ -74,4 +74,4 @@ func on_damage(event: Event):
 	if tower.calc_chance((0.05 + lvl * 0.006) * size_factor):
 		CombatLog.log_ability(tower, creep, "Afterglow")
 		
-		cassim_armor.apply_custom_timed(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25)
+		armor_bt.apply_custom_timed(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25)

@@ -9,8 +9,8 @@ extends TowerBehavior
 # 500dmg per second spent in aura, same as in ability description.
 
 
-var natac_lich_icy_curse_bt: BuffType
-var natac_lich_aura_bt: BuffType
+var curse_bt: BuffType
+var aura_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -50,19 +50,19 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	natac_lich_icy_curse_bt = BuffType.new("natac_lich_icy_curse_bt", 5, 0, false, self)
+	curse_bt = BuffType.new("curse_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.30, 0.008)
-	natac_lich_icy_curse_bt.set_buff_modifier(mod)
-	natac_lich_icy_curse_bt.set_buff_icon("ghost.tres")
-	natac_lich_icy_curse_bt.set_buff_tooltip("Icy Curse\nThis creep was cursed; it has increased debuff duration.")
+	curse_bt.set_buff_modifier(mod)
+	curse_bt.set_buff_icon("ghost.tres")
+	curse_bt.set_buff_tooltip("Icy Curse\nThis creep was cursed; it has increased debuff duration.")
 
-	natac_lich_aura_bt = BuffType.create_aura_effect_type("natac_lich_aura_bt", false, self)
-	natac_lich_aura_bt.set_buff_icon("letter_omega.tres")
-	natac_lich_aura_bt.add_event_on_create(natac_lich_aura_bt_on_create)
-	natac_lich_aura_bt.add_event_on_refresh(natac_lich_aura_bt_on_refresh)
-	natac_lich_aura_bt.add_event_on_cleanup(natac_lich_aura_bt_on_cleanup)
-	natac_lich_aura_bt.set_buff_tooltip("King's Authority Aura\nThis creep is under the effect of the King's Authority Aura; it will take damage once it goes too far from the King.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("letter_omega.tres")
+	aura_bt.add_event_on_create(aura_bt_on_create)
+	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
+	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
+	aura_bt.set_buff_tooltip("King's Authority Aura\nThis creep is under the effect of the King's Authority Aura; it will take damage once it goes too far from the King.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Stored Damage")
@@ -77,14 +77,14 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 20
 	aura.power = 500
 	aura.power_add = 20
-	aura.aura_effect = natac_lich_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	natac_lich_icy_curse_bt.apply(tower, target, level)
+	curse_bt.apply(tower, target, level)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -94,7 +94,7 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func natac_lich_aura_bt_on_create(event: Event):
+func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 
@@ -109,7 +109,7 @@ func natac_lich_aura_bt_on_create(event: Event):
 	buff.user_real = buff_stored_damage
 
 
-func natac_lich_aura_bt_on_refresh(event: Event):
+func aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_dps: int = buff.get_level()
 	var old_king_id: int = buff.user_int3
@@ -132,7 +132,7 @@ func natac_lich_aura_bt_on_refresh(event: Event):
 		buff.user_real = buff.user_real + old_wrath_damage
 
 
-func natac_lich_aura_bt_on_cleanup(event: Event):
+func aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()

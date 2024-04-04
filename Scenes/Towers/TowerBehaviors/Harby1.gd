@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var glow_harby_aura_bt: BuffType
-var glow_harby_awaken_bt: BuffType
-var harby_pt: ProjectileType
+var aura_bt: BuffType
+var awaken_bt: BuffType
+var missile_pt: ProjectileType
 var is_awake: bool = false
 
 
@@ -65,20 +65,20 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	glow_harby_aura_bt = BuffType.create_aura_effect_type("glow_harby_aura_bt", true, self)
-	glow_harby_aura_bt.set_buff_tooltip("Arcane Aura\nChance to replenish mana when casting.")
-	glow_harby_aura_bt.set_buff_icon("letter_omega_shiny.tres")
-	glow_harby_aura_bt.add_event_on_create(glow_harby_aura_bt_on_create)
-	glow_harby_aura_bt.add_event_on_spell_casted(glow_harby_aura_bt_on_spell_casted)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_tooltip("Arcane Aura\nChance to replenish mana when casting.")
+	aura_bt.set_buff_icon("letter_omega_shiny.tres")
+	aura_bt.add_event_on_create(aura_bt_on_create)
+	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 
-	glow_harby_awaken_bt = BuffType.new("glow_harby_awaken_bt", 5, 0, true, self)
-	glow_harby_awaken_bt.set_buff_icon("eye.tres")
-	glow_harby_awaken_bt.set_buff_tooltip("Grotesque Awakening\nTemporarily awakened to attack.")
-	glow_harby_awaken_bt.add_event_on_create(glow_harby_awaken_bt_on_create)
-	glow_harby_awaken_bt.add_event_on_cleanup(glow_harby_awaken_bt_on_cleanup)
+	awaken_bt = BuffType.new("awaken_bt", 5, 0, true, self)
+	awaken_bt.set_buff_icon("eye.tres")
+	awaken_bt.set_buff_tooltip("Grotesque Awakening\nTemporarily awakened to attack.")
+	awaken_bt.add_event_on_create(awaken_bt_on_create)
+	awaken_bt.add_event_on_cleanup(awaken_bt_on_cleanup)
 
-	harby_pt = ProjectileType.create("AvengerMissile.mdl", 10, 1500, self)
-	harby_pt.enable_homing(harby_pt_on_hit, 0.0)
+	missile_pt = ProjectileType.create("AvengerMissile.mdl", 10, 1500, self)
+	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -90,7 +90,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = glow_harby_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -104,7 +104,7 @@ func on_attack(event: Event):
 
 		return
 
-	var p: Projectile = Projectile.create_from_unit_to_unit(harby_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, creep, true, false, false)
+	var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, creep, true, false, false)
 
 	var arcane_aura_chance: float = 0.1 + 0.004 * tower.get_level()
 
@@ -127,7 +127,7 @@ func on_kill(_event: Event):
 
 
 func on_spell_targeted(_event: Event):
-	glow_harby_awaken_bt.apply(tower, tower, 0)
+	awaken_bt.apply(tower, tower, 0)
 
 
 func on_create(preceding_tower: Tower):
@@ -139,13 +139,13 @@ func on_create(preceding_tower: Tower):
 	tower.add_mana(preceding_kills)
 
 
-func glow_harby_aura_bt_on_create(event: Event):
+func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var last_proc_time: int = 0
 	buff.user_int = last_proc_time
 
 
-func glow_harby_aura_bt_on_spell_casted(event: Event):
+func aura_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var last_proc_time: int = buff.user_int
@@ -179,7 +179,7 @@ func arcane_mana_replenish(target: Tower):
 	target.add_mana_perc(mana_gain)
 
 
-func glow_harby_awaken_bt_on_create(_event: Event):
+func awaken_bt_on_create(_event: Event):
 	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
 	SFX.sfx_at_unit("ObsidianStatueCrumble2.mdl", tower)
 	# AddUnitAnimationProperties(u, "stand alternate", true)
@@ -190,7 +190,7 @@ func glow_harby_awaken_bt_on_create(_event: Event):
 	is_awake = true
 
 
-func glow_harby_awaken_bt_on_cleanup(_event: Event):
+func awaken_bt_on_cleanup(_event: Event):
 	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
 	# AddUnitAnimationProperties(u, "stand alternate", false)
 	# SetUnitFlyHeight(u, 40, 2000)
@@ -200,7 +200,7 @@ func glow_harby_awaken_bt_on_cleanup(_event: Event):
 	is_awake = false
 
 
-func harby_pt_on_hit(p: Projectile, target: Unit):
+func missile_pt_on_hit(p: Projectile, target: Unit):
 	if target == null:
 		return
 

@@ -1,10 +1,10 @@
 extends TowerBehavior
 
 
-var limfa_teacherboard: MultiboardValues
-var knowledge_green: ProjectileType
-var knowledge_blue: ProjectileType
-var knowledge_red: ProjectileType
+var multiboard: MultiboardValues
+var green_pt: ProjectileType
+var blue_pt: ProjectileType
+var red_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -74,11 +74,11 @@ func teacher_attack(xp: float):
 			i = Globals.synced_rng.randi_range(1, 3)
 
 			if i == 1:
-				pt = knowledge_green
+				pt = green_pt
 			elif i == 2:
-				pt = knowledge_red
+				pt = red_pt
 			elif i == 3:
-				pt = knowledge_blue
+				pt = blue_pt
 
 			CombatLog.log_ability(tower, result, "Knowledge")
 
@@ -102,18 +102,18 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	limfa_teacherboard = MultiboardValues.new(1)
-	limfa_teacherboard.set_key(0, "Xp Granted")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Xp Granted")
 
-	knowledge_green = ProjectileType.create("Objects\\InventoryItems\\tomeGreen\\tomeGreen.mdl", 20.0, 450.00, self)
-	knowledge_green.disable_explode_on_hit()
-	knowledge_green.enable_homing(hit, 0)
-	knowledge_blue = ProjectileType.create("Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl", 20.0, 450.00, self)
-	knowledge_blue.disable_explode_on_hit()
-	knowledge_blue.enable_homing(hit, 0)
-	knowledge_red = ProjectileType.create("Objects\\InventoryItems\\tomeRed\\tomeRed.mdl", 20.0, 450.00, self)
-	knowledge_red.disable_explode_on_hit()
-	knowledge_red.enable_homing(hit, 0)
+	green_pt = ProjectileType.create("Objects\\InventoryItems\\tomeGreen\\tomeGreen.mdl", 20.0, 450.00, self)
+	green_pt.disable_explode_on_hit()
+	green_pt.enable_homing(hit, 0)
+	blue_pt = ProjectileType.create("Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl", 20.0, 450.00, self)
+	blue_pt.disable_explode_on_hit()
+	blue_pt.enable_homing(hit, 0)
+	red_pt = ProjectileType.create("Objects\\InventoryItems\\tomeRed\\tomeRed.mdl", 20.0, 450.00, self)
+	red_pt.disable_explode_on_hit()
+	red_pt.enable_homing(hit, 0)
 
 
 func on_attack(_event: Event):
@@ -131,5 +131,5 @@ func on_create(preceding_tower: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	limfa_teacherboard.set_value(0, Utils.format_float(tower.user_real2, 1))
-	return limfa_teacherboard
+	multiboard.set_value(0, Utils.format_float(tower.user_real2, 1))
+	return multiboard

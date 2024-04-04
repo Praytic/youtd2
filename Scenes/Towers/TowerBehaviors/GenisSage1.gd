@@ -11,10 +11,10 @@ extends TowerBehavior
 # it more later.
 
 
-var mock_genis_edge_st: SpellType
-var mock_genis_speedcast_bt: BuffType
-var mock_genis_spread_bt: BuffType
-var mock_genis_magic_boost_bt: BuffType
+var swarm_st: SpellType
+var speedcast_bt: BuffType
+var spread_bt: BuffType
+var magic_boost_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -86,30 +86,30 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	mock_genis_speedcast_bt = BuffType.new("mock_genis_speedcast_bt", 3.5, 0.1, true, self)
+	speedcast_bt = BuffType.new("speedcast_bt", 3.5, 0.1, true, self)
 	var mock_genis_speedcast_mod: Modifier = Modifier.new()
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.01)
-	mock_genis_speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
-	mock_genis_speedcast_bt.set_buff_icon("cup_with_wings.tres")
-	mock_genis_speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
+	speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
+	speedcast_bt.set_buff_icon("cup_with_wings.tres")
+	speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
 
-	mock_genis_spread_bt = CbStun.new("mock_genis_spread_bt", 0.8, 0, false, self)
-	mock_genis_spread_bt.add_event_on_create(mock_genis_spread_bt_on_create)
-	mock_genis_spread_bt.add_event_on_cleanup(mock_genis_spread_bt_on_cleanup)
-	mock_genis_spread_bt.set_buff_tooltip("Spread\nStunned.")
+	spread_bt = CbStun.new("spread_bt", 0.8, 0, false, self)
+	spread_bt.add_event_on_create(spread_bt_on_create)
+	spread_bt.add_event_on_cleanup(spread_bt_on_cleanup)
+	spread_bt.set_buff_tooltip("Spread\nStunned.")
 
-	mock_genis_magic_boost_bt = BuffType.new("mock_genis_magic_boost_bt", 3, 0, true, self)
+	magic_boost_bt = BuffType.new("magic_boost_bt", 3, 0, true, self)
 	var mock_genis_magic_boost_mod: Modifier = Modifier.new()
 	mock_genis_magic_boost_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.2, 0.01)
-	mock_genis_magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
-	mock_genis_magic_boost_bt.set_buff_icon("goldbar.tres")
-	mock_genis_magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
+	magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
+	magic_boost_bt.set_buff_icon("goldbar.tres")
+	magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
 
-	mock_genis_edge_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
-	mock_genis_edge_st.data.swarm.damage = 1.0
-	mock_genis_edge_st.data.swarm.start_radius = 100
-	mock_genis_edge_st.data.swarm.end_radius = 300
+	swarm_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
+	swarm_st.data.swarm.damage = 1.0
+	swarm_st.data.swarm.start_radius = 100
+	swarm_st.data.swarm.end_radius = 300
 
 
 func on_attack(event: Event):
@@ -140,7 +140,7 @@ func on_attack(event: Event):
 
 		var edge_angle: float = deg_to_rad(facing + angle)
 
-		mock_genis_edge_st.point_cast_from_caster_on_point(tower, x + 900 * cos(edge_angle), y + 900 * sin(edge_angle), edge_damage, tower.calc_spell_crit_no_bonus())
+		swarm_st.point_cast_from_caster_on_point(tower, x + 900 * cos(edge_angle), y + 900 * sin(edge_angle), edge_damage, tower.calc_spell_crit_no_bonus())
 
 		angle += 20
 
@@ -178,7 +178,7 @@ func on_damage(event: Event):
 			break
 
 		tower.do_spell_damage(next, spread_damage, crit_ratio)
-		mock_genis_spread_bt.apply(tower, next, 0)
+		spread_bt.apply(tower, next, 0)
 
 	speedcast()
 
@@ -205,7 +205,7 @@ func periodic(_event: Event):
 		if next == null:
 			break
 
-		mock_genis_magic_boost_bt.apply(tower, next, level)
+		magic_boost_bt.apply(tower, next, level)
 
 	speedcast()
 
@@ -218,10 +218,10 @@ func speedcast():
 
 	CombatLog.log_ability(tower, null, "Speedcast")
 
-	mock_genis_speedcast_bt.apply(tower, tower, tower.get_level())
+	speedcast_bt.apply(tower, tower, tower.get_level())
 
 
-func mock_genis_spread_bt_on_create(event: Event):
+func spread_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var creep: Creep = buff.get_buffed_unit()
@@ -229,7 +229,7 @@ func mock_genis_spread_bt_on_create(event: Event):
 	creep.adjust_height(300, adjust_speed)
 
 
-func mock_genis_spread_bt_on_cleanup(event: Event):
+func spread_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 	var creep: Creep = buff.get_buffed_unit()

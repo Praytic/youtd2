@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var boekie_dragon_sorcerer_bt: BuffType
+var mark_bt: BuffType
 
 
 func get_autocast_description() -> String:
@@ -35,14 +35,14 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	boekie_dragon_sorcerer_bt = BuffType.new("boekie_dragon_sorcerer_bt", 10.0, 0.4, true, self)
+	mark_bt = BuffType.new("mark_bt", 10.0, 0.4, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.075, 0.002)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.006)
-	boekie_dragon_sorcerer_bt.set_buff_modifier(mod)
-	boekie_dragon_sorcerer_bt.set_buff_icon("flexing_arm.tres")
-	boekie_dragon_sorcerer_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
+	mark_bt.set_buff_modifier(mod)
+	mark_bt.set_buff_icon("flexing_arm.tres")
+	mark_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Burning Mark"
@@ -59,7 +59,7 @@ func tower_init():
 	autocast.mana_cost = 20
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = boekie_dragon_sorcerer_bt
+	autocast.buff_type = mark_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
 	tower.add_autocast(autocast)

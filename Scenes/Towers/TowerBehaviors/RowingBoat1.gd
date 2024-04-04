@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var natac_treasureSeeker_Buff: BuffType
-var natac_pirates_MultiboardValue : MultiboardValues
+var aura_bt: BuffType
+var multiboard : MultiboardValues
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -58,15 +58,15 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	var bounty_mod: Modifier = Modifier.new()
-	natac_treasureSeeker_Buff = BuffType.create_aura_effect_type("natac_treasureSeeker_Buff", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 #	Set by aura
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
-	natac_treasureSeeker_Buff.set_buff_modifier(bounty_mod)
-	natac_treasureSeeker_Buff.set_buff_icon("goldbar.tres")
-	natac_treasureSeeker_Buff.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
+	aura_bt.set_buff_modifier(bounty_mod)
+	aura_bt.set_buff_icon("goldbar.tres")
+	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
 
-	natac_pirates_MultiboardValue = MultiboardValues.new(1)
-	natac_pirates_MultiboardValue.set_key(0, "Gold Plundered")
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Gold Plundered")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -78,7 +78,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = _stats.aura_power_and_lvl
 	aura.power = 100
 	aura.power_add = _stats.aura_power_and_lvl
-	aura.aura_effect = natac_treasureSeeker_Buff
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -102,6 +102,6 @@ func on_create(preceding_tower: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var gold_plundered_text: String = Utils.format_float(tower.user_real, 2)
-	natac_pirates_MultiboardValue.set_value(0, gold_plundered_text)
+	multiboard.set_value(0, gold_plundered_text)
 	
-	return natac_pirates_MultiboardValue
+	return multiboard

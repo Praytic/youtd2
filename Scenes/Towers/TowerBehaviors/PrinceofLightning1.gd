@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var prince_of_lightning_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -67,12 +67,12 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	prince_of_lightning_bt = BuffType.create_aura_effect_type("prince_of_lightning_bt", false, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
-	prince_of_lightning_bt.set_buff_modifier(mod)
-	prince_of_lightning_bt.set_buff_icon("letter_s_lying_down.tres")
-	prince_of_lightning_bt.set_buff_tooltip("Realm of Thunder Aura\nIncreases damage taken from Storm towers.")
+	aura_bt.set_buff_modifier(mod)
+	aura_bt.set_buff_icon("letter_s_lying_down.tres")
+	aura_bt.set_buff_tooltip("Realm of Thunder Aura\nIncreases damage taken from Storm towers.")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -87,7 +87,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = aura_level_add
 	aura.power = aura_level
 	aura.power_add = aura_level_add
-	aura.aura_effect = prince_of_lightning_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 

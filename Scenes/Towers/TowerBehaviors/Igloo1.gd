@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var boekie_igloo_buff: BuffType
-var cb_stun: BuffType
+var extreme_cold_bt: BuffType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -62,19 +62,19 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func boekie_igloo_end(event: Event):
 	var buff: Buff = event.get_buff()
-	cb_stun.apply_only_timed(buff.get_caster(), buff.get_buffed_unit(), _stats.stun_duration)
+	stun_bt.apply_only_timed(buff.get_caster(), buff.get_buffed_unit(), _stats.stun_duration)
 
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.cold_slow, -COLD_SLOW_ADD)
-	boekie_igloo_buff = BuffType.new("boekie_igloo_buff", COLD_SLOW_DURATION, 0, false, self)
-	boekie_igloo_buff.set_buff_icon("letter_u_striked.tres")
-	boekie_igloo_buff.set_buff_modifier(modifier)
-	boekie_igloo_buff.add_event_on_expire(boekie_igloo_end)
-	boekie_igloo_buff.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")
+	extreme_cold_bt = BuffType.new("extreme_cold_bt", COLD_SLOW_DURATION, 0, false, self)
+	extreme_cold_bt.set_buff_icon("letter_u_striked.tres")
+	extreme_cold_bt.set_buff_modifier(modifier)
+	extreme_cold_bt.add_event_on_expire(boekie_igloo_end)
+	extreme_cold_bt.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")
 
-	cb_stun = CbStun.new("igloo_stun", 0, 0, false, self)
+	stun_bt = CbStun.new("igloo_stun", 0, 0, false, self)
 
 
 func on_unit_in_range(event: Event):
@@ -84,7 +84,7 @@ func on_unit_in_range(event: Event):
 	tower.do_spell_damage(creep, _stats.cold_damage + _stats.cold_damage_add * lvl, tower.calc_spell_crit_no_bonus())
 	var buff_power: int = tower.get_level()
 	var buff_level: int = int((_stats.cold_slow + COLD_SLOW_ADD * buff_power) * 1000)
-	boekie_igloo_buff.apply_custom_power(tower, creep, buff_level, buff_power)
+	extreme_cold_bt.apply_custom_power(tower, creep, buff_level, buff_power)
 
 	var effect: int = Effect.create_scaled("FrostArmorDamage.mdl", creep.get_visual_x(), creep.get_visual_y(), 30, 0, 5)
 	Effect.destroy_effect_after_its_over(effect)

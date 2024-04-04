@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-var cedi_sniper_rocket: ProjectileType
+var rocket_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -56,11 +56,11 @@ func rocket_hit(p: Projectile, _t: Unit):
 
 
 func tower_init():
-	cedi_sniper_rocket = ProjectileType.create_interpolate("RocketMissile.mdl", 750, self)
-	cedi_sniper_rocket.set_event_on_interpolation_finished(rocket_hit)
+	rocket_pt = ProjectileType.create_interpolate("RocketMissile.mdl", 750, self)
+	rocket_pt.set_event_on_interpolation_finished(rocket_hit)
 #	NOTE: -70% from tower specials +95% from this = 125%
 #	total damage to mass
-	cedi_sniper_rocket.set_bonus_to_size(CreepSize.enm.MASS, 0.95)
+	rocket_pt.set_bonus_to_size(CreepSize.enm.MASS, 0.95)
 
 
 func on_attack(event: Event):
@@ -69,4 +69,4 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, event.get_target(), "Rocket Strike")
 
-	Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
+	Projectile.create_linear_interpolation_from_unit_to_unit(rocket_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)

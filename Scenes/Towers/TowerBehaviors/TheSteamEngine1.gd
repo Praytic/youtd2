@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var cedi_steam_stun: BuffType
-var cedi_steam_bt: BuffType
+var stun_bt: BuffType
+var steam_bt: BuffType
 var multiboard: MultiboardValues
 var power_level: int = 0
 var powered_tower_count: int = 0
@@ -65,15 +65,15 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cedi_steam_stun = CbStun.new("cedi_steam_stun", 1.0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", 1.0, 0, false, self)
 
-	cedi_steam_bt = BuffType.new("cedi_steam_bt", 5, 0, true, self)
-	cedi_steam_bt.set_buff_icon("gear_1.tres")
-	cedi_steam_bt.add_event_on_create(cedi_steam_bt_on_create)
-	cedi_steam_bt.add_event_on_attack(cedi_steam_bt_on_attack)
-	cedi_steam_bt.add_periodic_event(cedi_steam_bt_periodic, 1.0)
-	cedi_steam_bt.add_event_on_cleanup(cedi_steam_bt_on_cleanup)
-	cedi_steam_bt.set_buff_tooltip("Steam Power\nIncreases attack damage and attack speed.")
+	steam_bt = BuffType.new("steam_bt", 5, 0, true, self)
+	steam_bt.set_buff_icon("gear_1.tres")
+	steam_bt.add_event_on_create(steam_bt_on_create)
+	steam_bt.add_event_on_attack(steam_bt_on_attack)
+	steam_bt.add_periodic_event(steam_bt_periodic, 1.0)
+	steam_bt.add_event_on_cleanup(steam_bt_on_cleanup)
+	steam_bt.set_buff_tooltip("Steam Power\nIncreases attack damage and attack speed.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Power Level")
@@ -129,7 +129,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 1
 	aura.power_add = 1
-	aura.aura_effect = cedi_steam_bt
+	aura.aura_effect = steam_bt
 
 	return [aura]
 
@@ -155,7 +155,7 @@ func periodic(_event: Event):
 	engine_update_mana_use()
 	engine_update_anims()
 	tower.get_player().display_floating_text("Power Level: 0", tower, Color8(50, 150, 100))
-	cedi_steam_stun.apply_only_timed(tower, tower, 120)
+	stun_bt.apply_only_timed(tower, tower, 120)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -188,7 +188,7 @@ func engine_update_mana_use():
 
 
 # NOTE: steam_buff_onCreate() in original script
-func cedi_steam_bt_on_create(event: Event):
+func steam_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 
@@ -202,7 +202,7 @@ func cedi_steam_bt_on_create(event: Event):
 
 
 # NOTE: steam_buff_onAttack() in original script
-func cedi_steam_bt_on_attack(event: Event):
+func steam_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var buffed_tower: Unit = buff.get_buffed_unit()
@@ -220,7 +220,7 @@ func cedi_steam_bt_on_attack(event: Event):
 
 # Update value of property mods based on current power level of Steam Engine
 # NOTE: steam_buff_periodic() in original script
-func cedi_steam_bt_periodic(event: Event):
+func steam_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 
@@ -233,7 +233,7 @@ func cedi_steam_bt_periodic(event: Event):
 
 
 # NOTE: steam_buff_onCleanup() in original script
-func cedi_steam_bt_on_cleanup(event: Event):
+func steam_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	powered_tower_count -= 1

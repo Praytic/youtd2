@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var billy_snowball: ProjectileType
-var cb_stun: BuffType
+var snowball_pt: ProjectileType
+var stun_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -52,7 +52,7 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, -0.20, 0.0)
 
 
-func billy_snowball_hit(p: Projectile, target: Unit):
+func snowball_pt_on_hit(p: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -64,7 +64,7 @@ func billy_snowball_hit(p: Projectile, target: Unit):
 		t.get_player().display_floating_text_x_2("missed", target, Color8(150, 50, 0, 155), 0.07, 1, 2, 0.018, 0)
 	else:
 		t.do_spell_damage(target, p.user_real, t.calc_spell_crit_no_bonus())
-		cb_stun.apply_only_timed(t, target, p.user_real2)
+		stun_bt.apply_only_timed(t, target, p.user_real2)
 		SFX.sfx_at_unit("FrostBoltMissile.mdl", target)
 
 		if p.user_int2 == 1:
@@ -78,10 +78,10 @@ func billy_snowball_hit(p: Projectile, target: Unit):
 
 
 func tower_init():
-	billy_snowball = ProjectileType.create("AIobTarget.mdl", 0.0, 2000, self)
-	billy_snowball.enable_homing(billy_snowball_hit, 0)
+	snowball_pt = ProjectileType.create("AIobTarget.mdl", 0.0, 2000, self)
+	snowball_pt.enable_homing(snowball_pt_on_hit, 0)
 
-	cb_stun = BuffType.new("cb_stun", 0, 0, false, self)
+	stun_bt = BuffType.new("stun_bt", 0, 0, false, self)
 
 
 func on_attack(event: Event):
@@ -102,7 +102,7 @@ func on_attack(event: Event):
 		facing_delta = 360 - facing_delta
 
 	if facing_delta >= 80:
-		p = Projectile.create_from_unit_to_unit(billy_snowball, tower, 100, 0, tower, event.get_target(), true, false, true)
+		p = Projectile.create_from_unit_to_unit(snowball_pt, tower, 100, 0, tower, event.get_target(), true, false, true)
 		p.setScale(0.8)
 
 		if facing_delta <= 100:

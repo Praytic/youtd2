@@ -9,7 +9,7 @@ extends TowerBehavior
 # because I changed the buff to debuff.
 
 
-var dummy_obelisk_debuff: BuffType
+var parasite_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -50,9 +50,9 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	dummy_obelisk_debuff = BuffType.new("dummy_obelisk_debuff", 0, 0, false, self)
-	dummy_obelisk_debuff.set_buff_icon("bug_in_amber.tres")
-	dummy_obelisk_debuff.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
+	parasite_bt = BuffType.new("parasite_bt", 0, 0, false, self)
+	parasite_bt.set_buff_icon("bug_in_amber.tres")
+	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
 
 
 func on_damage(event: Event):
@@ -60,7 +60,7 @@ func on_damage(event: Event):
 	var level: int = tower.get_level()
 
 #	applying the dummy buff to show the effect on the unot
-	dummy_obelisk_debuff.apply_custom_timed(tower, target, 0, 3.0 / target.get_prop_debuff_duration())
+	parasite_bt.apply_custom_timed(tower, target, 0, 3.0 / target.get_prop_debuff_duration())
 	target.modify_property(Modification.Type.MOD_DMG_FROM_NATURE, _stats.vuln_value + level * _stats.vuln_value_add)
 
 	await Utils.create_timer(3.0).timeout

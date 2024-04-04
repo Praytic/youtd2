@@ -12,7 +12,7 @@ extends TowerBehavior
 
 var sparks_bt: BuffType
 var twister_bt: BuffType
-var harpy_missile_pt: ProjectileType
+var missile_pt: ProjectileType
 
 
 func get_tier_stats() -> Dictionary:
@@ -114,8 +114,8 @@ func tower_init():
 	twister_bt.set_buff_icon("letter_s_lying_down.tres")
 	twister_bt.set_buff_tooltip("Twisted\nIncreases damage taken from Storm towers.")
 
-	harpy_missile_pt = ProjectileType.create("TornadoElementalSmall.mdl", 4, 1000, self)
-	harpy_missile_pt.enable_homing(harpy_missile_on_hit, 0)
+	missile_pt = ProjectileType.create("TornadoElementalSmall.mdl", 4, 1000, self)
+	missile_pt.enable_homing(harpy_missile_on_hit, 0)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sparks"
@@ -154,7 +154,7 @@ func on_attack(_event: Event):
 		if target == null:
 			break
 
-		var projectile: Projectile = Projectile.create_from_unit_to_unit(harpy_missile_pt, tower, 1, 0, tower, target, true, false, false)
+		var projectile: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1, 0, tower, target, true, false, false)
 		projectile.setScale(0.7)
 
 		tornado_count -= 1

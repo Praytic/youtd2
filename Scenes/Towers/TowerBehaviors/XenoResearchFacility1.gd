@@ -13,12 +13,12 @@ extends TowerBehavior
 # about maybe fixing this.
 
 
-var palandu_xeno_aura_bt: BuffType
-var palandu_xeno_undead_bt: BuffType
-var palandu_xeno_magic_bt: BuffType
-var palandu_xeno_nature_bt: BuffType
-var palandu_xeno_orc_bt: BuffType
-var palandu_xeno_humanoid_bt: BuffType
+var aura_bt: BuffType
+var undead_bt: BuffType
+var magic_bt: BuffType
+var nature_bt: BuffType
+var orc_bt: BuffType
+var humanoid_bt: BuffType
 
 
 var bonus_levels_in_progress: bool = false
@@ -75,44 +75,44 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	palandu_xeno_undead_bt = BuffType.new("palandu_xeno_undead_bt", 1, 0, true, self)
+	undead_bt = BuffType.new("undead_bt", 1, 0, true, self)
 	var palandu_xeno_undead_mod: Modifier = Modifier.new()
 	palandu_xeno_undead_mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
-	palandu_xeno_undead_bt.set_buff_modifier(palandu_xeno_undead_mod)
-	palandu_xeno_undead_bt.set_buff_icon("bug_in_amber.tres")
-	palandu_xeno_undead_bt.set_buff_tooltip("Xeno Undead Research\nIncreases damage dealt to Undead creeps.")
+	undead_bt.set_buff_modifier(palandu_xeno_undead_mod)
+	undead_bt.set_buff_icon("bug_in_amber.tres")
+	undead_bt.set_buff_tooltip("Xeno Undead Research\nIncreases damage dealt to Undead creeps.")
 
-	palandu_xeno_magic_bt = BuffType.new("palandu_xeno_magic_bt", 1, 0, true, self)
+	magic_bt = BuffType.new("magic_bt", 1, 0, true, self)
 	var palandu_xeno_magic_mod: Modifier = Modifier.new()
 	palandu_xeno_magic_mod.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.0, 0.001)
-	palandu_xeno_magic_bt.set_buff_modifier(palandu_xeno_magic_mod)
-	palandu_xeno_magic_bt.set_buff_icon("bug_in_amber.tres")
-	palandu_xeno_magic_bt.set_buff_tooltip("Xeno Magic Research\nIncreases damage dealt to Magic creeps.")
+	magic_bt.set_buff_modifier(palandu_xeno_magic_mod)
+	magic_bt.set_buff_icon("bug_in_amber.tres")
+	magic_bt.set_buff_tooltip("Xeno Magic Research\nIncreases damage dealt to Magic creeps.")
 
-	palandu_xeno_nature_bt = BuffType.new("palandu_xeno_nature_bt", 1, 0, true, self)
+	nature_bt = BuffType.new("nature_bt", 1, 0, true, self)
 	var palandu_xeno_nature_mod: Modifier = Modifier.new()
 	palandu_xeno_nature_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.0, 0.001)
-	palandu_xeno_nature_bt.set_buff_modifier(palandu_xeno_nature_mod)
-	palandu_xeno_nature_bt.set_buff_icon("bug_in_amber.tres")
-	palandu_xeno_nature_bt.set_buff_tooltip("Xeno Nature Research\nIncreases damage dealt to Nature creeps.")
+	nature_bt.set_buff_modifier(palandu_xeno_nature_mod)
+	nature_bt.set_buff_icon("bug_in_amber.tres")
+	nature_bt.set_buff_tooltip("Xeno Nature Research\nIncreases damage dealt to Nature creeps.")
 
-	palandu_xeno_orc_bt = BuffType.new("palandu_xeno_orc_bt", 1, 0, true, self)
+	orc_bt = BuffType.new("orc_bt", 1, 0, true, self)
 	var palandu_xeno_orc_mod: Modifier = Modifier.new()
 	palandu_xeno_orc_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.0, 0.001)
-	palandu_xeno_orc_bt.set_buff_modifier(palandu_xeno_orc_mod)
-	palandu_xeno_orc_bt.set_buff_icon("bug_in_amber.tres")
-	palandu_xeno_orc_bt.set_buff_tooltip("Xeno Orc Research\nIncreases damage dealt to Orc creeps.")
+	orc_bt.set_buff_modifier(palandu_xeno_orc_mod)
+	orc_bt.set_buff_icon("bug_in_amber.tres")
+	orc_bt.set_buff_tooltip("Xeno Orc Research\nIncreases damage dealt to Orc creeps.")
 
-	palandu_xeno_humanoid_bt = BuffType.new("palandu_xeno_humanoid_bt", 1, 0, true, self)
+	humanoid_bt = BuffType.new("humanoid_bt", 1, 0, true, self)
 	var palandu_xeno_humanoid_mod: Modifier = Modifier.new()
 	palandu_xeno_humanoid_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.0, 0.001)
-	palandu_xeno_humanoid_bt.set_buff_modifier(palandu_xeno_humanoid_mod)
-	palandu_xeno_humanoid_bt.set_buff_icon("bug_in_amber.tres")
-	palandu_xeno_humanoid_bt.set_buff_tooltip("Xeno Humanoid Research\nIncreases damage dealt to Humanoid creeps.")
+	humanoid_bt.set_buff_modifier(palandu_xeno_humanoid_mod)
+	humanoid_bt.set_buff_icon("bug_in_amber.tres")
+	humanoid_bt.set_buff_tooltip("Xeno Humanoid Research\nIncreases damage dealt to Humanoid creeps.")
 
-	palandu_xeno_aura_bt = BuffType.create_aura_effect_type("palandu_xeno_aura_bt", true, self)
-	palandu_xeno_aura_bt.set_buff_icon("egg.tres")
-	palandu_xeno_aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("egg.tres")
+	aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -124,7 +124,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 1
 	aura.power_add = 1
-	aura.aura_effect = palandu_xeno_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -218,12 +218,12 @@ func xeno_buff_towers(is_type_change: bool):
 		force_show_research_message = false
 
 	var category_to_bt: Dictionary = {
-		CreepCategory.enm.UNDEAD: palandu_xeno_undead_bt,
-		CreepCategory.enm.MAGIC: palandu_xeno_magic_bt,
-		CreepCategory.enm.NATURE: palandu_xeno_nature_bt,
-		CreepCategory.enm.ORC: palandu_xeno_orc_bt,
-		CreepCategory.enm.HUMANOID: palandu_xeno_humanoid_bt,
-		CreepCategory.enm.CHALLENGE: palandu_xeno_humanoid_bt,
+		CreepCategory.enm.UNDEAD: undead_bt,
+		CreepCategory.enm.MAGIC: magic_bt,
+		CreepCategory.enm.NATURE: nature_bt,
+		CreepCategory.enm.ORC: orc_bt,
+		CreepCategory.enm.HUMANOID: humanoid_bt,
+		CreepCategory.enm.CHALLENGE: humanoid_bt,
 	}
 	var selected_buff: BuffType = category_to_bt[current_creep_category]
 
@@ -245,7 +245,7 @@ func xeno_buff_towers(is_type_change: bool):
 		if tower_is_self:
 			continue
 
-		var tower_is_in_aura: bool = next_tower.get_buff_of_type(palandu_xeno_aura_bt) != null
+		var tower_is_in_aura: bool = next_tower.get_buff_of_type(aura_bt) != null
 
 		if tower_is_in_aura:
 #			always 8.5 secs (comment from original script, no idea what it means)

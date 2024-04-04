@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-var library_aura_bt: BuffType
-var library_autocast_bt: BuffType
+var aura_bt: BuffType
+var teachings_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -68,19 +68,19 @@ func get_ability_ranges() -> Array[RangeData]:
 
 
 func tower_init():
-	library_aura_bt = BuffType.create_aura_effect_type("library_aura_bt", true, self)
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var library_aura_mod: Modifier = Modifier.new()
 	library_aura_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.30, 0.01)
-	library_aura_bt.set_buff_modifier(library_aura_mod)
-	library_aura_bt.set_buff_icon("goldbar.tres")
-	library_aura_bt.set_buff_tooltip("Divine Research Aura\nIncreases experience granted.")
+	aura_bt.set_buff_modifier(library_aura_mod)
+	aura_bt.set_buff_icon("goldbar.tres")
+	aura_bt.set_buff_tooltip("Divine Research Aura\nIncreases experience granted.")
 
-	library_autocast_bt = BuffType.new("library_autocast_bt", 10, 0.2, true, self)
+	teachings_bt = BuffType.new("teachings_bt", 10, 0.2, true, self)
 	var library_divine_teachings_mod: Modifier = Modifier.new()
 	library_divine_teachings_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 1.0, 0.02)
-	library_autocast_bt.set_buff_modifier(library_divine_teachings_mod)
-	library_autocast_bt.set_buff_icon("goldbar.tres")
-	library_autocast_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
+	teachings_bt.set_buff_modifier(library_divine_teachings_mod)
+	teachings_bt.set_buff_icon("goldbar.tres")
+	teachings_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Divine Teachings"
@@ -97,7 +97,7 @@ func tower_init():
 	autocast.mana_cost = 30
 	autocast.target_self = false
 	autocast.is_extended = false
-	autocast.buff_type = library_autocast_bt
+	autocast.buff_type = teachings_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 	tower.add_autocast(autocast)
@@ -112,7 +112,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
-	aura.aura_effect = library_aura_bt
+	aura.aura_effect = aura_bt
 	return [aura]
 
 
@@ -131,4 +131,4 @@ func periodic(_event: Event):
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	tower.add_exp(2)
-	library_autocast_bt.apply(tower, target, tower.get_level())
+	teachings_bt.apply(tower, target, tower.get_level())

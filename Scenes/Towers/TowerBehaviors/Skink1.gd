@@ -6,8 +6,8 @@ extends TowerBehavior
 # it managed to work correctly.
 
 
-var cedi_skinkA: BuffType
-var cedi_skinkB: BuffType
+var aura_bt: BuffType
+var poison_bt: BuffType
 
 
 func get_tier_stats() -> Dictionary:
@@ -50,7 +50,7 @@ func poisenskin(event: Event):
 	var C: Tower = B.get_caster()
 	var T: Tower = B.get_buffed_unit()
 	var U: Unit = event.get_target()
-	var P: Buff = U.get_buff_of_type(cedi_skinkB)
+	var P: Buff = U.get_buff_of_type(poison_bt)
 	var dmg: float = (C.user_real + C.user_real2 * C.get_level()) * T.get_current_attackspeed() / (T.get_range() / 800.0)
 
 	if P != null:
@@ -60,11 +60,11 @@ func poisenskin(event: Event):
 		else:
 			dmg = P.user_real + dmg
 			P.remove_buff()
-			P = cedi_skinkB.apply(C, U, C.get_level())
+			P = poison_bt.apply(C, U, C.get_level())
 			P.user_int = C.get_instance_id()
 			P.user_real = dmg
 	else:
-		P = cedi_skinkB.apply(C, U, C.get_level())
+		P = poison_bt.apply(C, U, C.get_level())
 		P.user_int = C.get_instance_id()
 		P.user_real = dmg
 
@@ -79,15 +79,15 @@ func dot(event: Event):
 
 
 func tower_init():
-	cedi_skinkA = BuffType.create_aura_effect_type("cedi_skinkA", true, self)
-	cedi_skinkA.set_buff_icon("beard.tres")
-	cedi_skinkA.add_event_on_attack(poisenskin)
-	cedi_skinkA.set_buff_tooltip("Poisonous attack\nApplies poison on attack.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
+	aura_bt.set_buff_icon("beard.tres")
+	aura_bt.add_event_on_attack(poisenskin)
+	aura_bt.set_buff_tooltip("Poisonous attack\nApplies poison on attack.")
 
-	cedi_skinkB = BuffType.new("cedi_skinkB", 5.00, 0.0, false, self)
-	cedi_skinkB.set_buff_icon("beard.tres")
-	cedi_skinkB.add_periodic_event(dot, 1.0)
-	cedi_skinkB.set_buff_tooltip("Poison\nDeals damage over time.")
+	poison_bt = BuffType.new("poison_bt", 5.00, 0.0, false, self)
+	poison_bt.set_buff_icon("beard.tres")
+	poison_bt.add_periodic_event(dot, 1.0)
+	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 
 	
 func get_aura_types() -> Array[AuraType]:
@@ -97,7 +97,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.power = 0
 	aura.power_add = 1
 	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.aura_effect = cedi_skinkA
+	aura.aura_effect = aura_bt
 	aura.target_self = true
 	aura.aura_range = 200
 	return [aura]

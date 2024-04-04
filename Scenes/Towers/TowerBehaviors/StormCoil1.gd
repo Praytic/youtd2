@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-var sir_stormcoil_surge_bt: BuffType
-var sir_stormcoil_slow_bt: BuffType
-var sir_stormcoil_aura_bt: BuffType
+var surge_bt: BuffType
+var slow_bt: BuffType
+var aura_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -60,22 +60,22 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sir_stormcoil_slow_bt = BuffType.new("sir_stormcoil_slow_bt", 0, 0, false, self)
-	var sir_stormcoil_slow_bt_mod: Modifier = Modifier.new()
-	sir_stormcoil_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
-	sir_stormcoil_slow_bt.set_buff_modifier(sir_stormcoil_slow_bt_mod)
-	sir_stormcoil_slow_bt.set_buff_icon("letter_u_striked.tres")
-	sir_stormcoil_slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
+	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
+	slow_bt.set_buff_modifier(slow_bt_mod)
+	slow_bt.set_buff_icon("letter_u_striked.tres")
+	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
-	sir_stormcoil_surge_bt = BuffType.new("sir_stormcoil_surge_bt", 5, 0, true, self)
-	sir_stormcoil_surge_bt.set_buff_icon("letter_omega_shiny.tres")
-	sir_stormcoil_surge_bt.add_periodic_event(sir_stormcoil_surge_bt_periodic, 0.4)
-	sir_stormcoil_surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
+	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
+	surge_bt.set_buff_icon("letter_omega_shiny.tres")
+	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
+	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
 
-	sir_stormcoil_aura_bt = BuffType.create_aura_effect_type("sir_stormcoil_aura_bt", false, self)
-	sir_stormcoil_aura_bt.set_buff_icon("orb_triple.tres")
-	sir_stormcoil_aura_bt.add_event_on_damaged(sir_stormcoil_aura_bt_on_damaged)
-	sir_stormcoil_aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
+	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
+	aura_bt.set_buff_icon("orb_triple.tres")
+	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
+	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Magnetic Surge"
@@ -107,7 +107,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.level_add = 0
 	aura.power = 0
 	aura.power_add = 0
-	aura.aura_effect = sir_stormcoil_aura_bt
+	aura.aura_effect = aura_bt
 
 	return [aura]
 
@@ -121,19 +121,19 @@ func on_damage(event: Event):
 	tower.get_player().display_floating_text_x(str(int(damage)), target, Color8(255, 200, 0, 255), 0.05, 0.0, 2.0)
 
 	var slow_power: int = int(distance_to_target * 3)
-	sir_stormcoil_slow_bt.apply_advanced(tower, target, 0, slow_power, 1.5)
+	slow_bt.apply_advanced(tower, target, 0, slow_power, 1.5)
 
 
 func on_autocast(event: Event):
 	var creep: Unit = event.get_target()
 	var duration: float = 4.0 + 0.1 * tower.get_level()
 
-	var buff: Buff = sir_stormcoil_surge_bt.apply_advanced(tower, creep, 0, 0, duration)
+	var buff: Buff = surge_bt.apply_advanced(tower, creep, 0, 0, duration)
 	buff.user_real = creep.get_x()
 	buff.user_real2 = creep.get_y()
 
 
-func sir_stormcoil_surge_bt_periodic(event: Event):
+func surge_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var surge_pos: Vector2 = Vector2(buff.user_real, buff.user_real2)
@@ -145,7 +145,7 @@ func sir_stormcoil_surge_bt_periodic(event: Event):
 	SFX.sfx_at_unit("AIlbSpecialArt.mdl", target)
 
 
-func sir_stormcoil_aura_bt_on_damaged(event: Event):
+func aura_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var distance_to_target: float = Isometric.vector_distance_to(tower.position, target.position)

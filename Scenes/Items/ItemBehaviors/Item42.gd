@@ -2,7 +2,7 @@
 extends ItemBehavior
 
 
-var sir_sleeve_bt: BuffType
+var enraged_bt: BuffType
 
 
 func get_ability_description() -> String:
@@ -19,20 +19,20 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	sir_sleeve_bt = BuffType.new("sir_sleeve_bt", 5, 0, true, self)
-	sir_sleeve_bt.set_buff_icon("winged_man.tres")
-	sir_sleeve_bt.set_buff_tooltip("Enraged\nIncreases attack speed, spell damage and attack damage.")
-	sir_sleeve_bt.set_stacking_group("sir_sleeve_group")
+	enraged_bt = BuffType.new("enraged_bt", 5, 0, true, self)
+	enraged_bt.set_buff_icon("winged_man.tres")
+	enraged_bt.set_buff_tooltip("Enraged\nIncreases attack speed, spell damage and attack damage.")
+	enraged_bt.set_stacking_group("sir_sleeve_group")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.005)
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0025)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.01)
-	sir_sleeve_bt.set_buff_modifier(mod)
+	enraged_bt.set_buff_modifier(mod)
 
 
 func on_attack(_event: Event):
 	var tower: Tower = item.get_carrier()
-	var b: Buff = tower.get_buff_of_type(sir_sleeve_bt)
+	var b: Buff = tower.get_buff_of_type(enraged_bt)
 
 	var level: int
 	if b != null:
@@ -41,6 +41,6 @@ func on_attack(_event: Event):
 		level = 0
 
 	if level < 120:
-		sir_sleeve_bt.apply_advanced(tower, tower, 1 + level, level, 1.5)
+		enraged_bt.apply_advanced(tower, tower, 1 + level, level, 1.5)
 	else:
 		b.refresh_duration()
