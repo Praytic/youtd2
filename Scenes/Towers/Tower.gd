@@ -189,9 +189,6 @@ func _ready():
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func update(delta: float):
-	if is_queued_for_deletion():
-		return
-
 	var attack_enabled: bool = get_attack_enabled()
 	if !attack_enabled:
 		return

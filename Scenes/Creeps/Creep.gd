@@ -92,9 +92,6 @@ func update(delta: float):
 	if !is_stunned():
 		_move(delta)
 
-	if is_queued_for_deletion():
-		return
-
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 	_selection_outline.play(creep_animation)

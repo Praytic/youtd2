@@ -75,9 +75,6 @@ func _ready():
 
 
 func update(delta: float):
-	if is_queued_for_deletion():
-		return
-
 	match _move_type:
 		MoveType.NORMAL: _process_normal(delta)
 		MoveType.INTERPOLATED: _process_interpolated(delta)

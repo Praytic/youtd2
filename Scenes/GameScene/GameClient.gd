@@ -201,21 +201,45 @@ func _execute_action(action: Dictionary):
 		Action.Type.CHANGE_BUFFGROUP: ActionChangeBuffgroup.execute(action, player)
 
 
+# NOTE: need to check that nodes are inside tree during
+# iteration because they may get removed during iteration.
+# For example, timer_list is obtained once before iteration
+# starts. Then timer A triggers an explosion which kills a
+# creep which carries timer B. Timer B is now outside tree
+# but still inside timer_list!
 func _update_state():
 	_game_time.update(_tick_delta)
 
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
 	for timer in timer_list:
+		if !_should_update(timer):
+			continue
+
 		timer.update(_tick_delta)
 	
 	var creep_list: Array[Creep] = Utils.get_creep_list()
 	for creep in creep_list:
+		if !_should_update(creep):
+			continue
+
 		creep.update(_tick_delta)
 
 	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
 	for projectile in projectile_list:
+		if !_should_update(projectile):
+			continue
+
 		projectile.update(_tick_delta)
 
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
+		if !_should_update(tower):
+			continue
+
 		tower.update(_tick_delta)
+
+
+func _should_update(node: Node) -> bool:
+	var should_update: bool = node.is_inside_tree() && !node.is_queued_for_deletion()
+
+	return should_update

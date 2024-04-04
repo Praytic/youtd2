@@ -80,9 +80,6 @@ func update(delta: float):
 	if _stopped || paused:
 		return
 
-	if is_queued_for_deletion():
-		return
-	
 	time_left -= delta
 
 #	NOTE: need to use is_zero_approx() to handle floats
