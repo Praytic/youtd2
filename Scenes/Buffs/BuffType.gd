@@ -53,16 +53,24 @@ var _is_hidden: bool = false
 ###     Built-in      ###
 #########################
 
-# NOTE: type string determines what happens when a buff is
-# applied while the target already has active buffs. If buff
-# type is empty, then buff will always be applied. If buff
-# type is set to something, then buff will be applied only
-# if the target doesn't already have an active buff with
-# same type. If new buff has higher lever than current
-# active buff, then current active buff is upgraded and
-# refreshed. In general, set type to something unique.
+# NOTE: type argument should be the same as the name of the
+# BuffType variable. Examples: "poison_bt", "curse_bt".
+# 
+# In rare cases, type can be an empty string. This removes
+# the bufftype from the buff stacking system. Needed for
+# triggers buff types.
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
-	parent.add_child(self)
+#	NOTE: need to prepend path of parent script to type
+#	string to ensure uniqueness. Only do this if type is not
+#	empty because if type is not empty then uniqueness is
+#	not needed.
+	if !type.is_empty():
+		parent.add_child(self)
+		var parent_script: Script = parent.get_script()
+		var parent_script_path: String = parent_script.get_path()
+
+		type = "%s-%s" % [parent_script_path, type]
+
 	_type = type
 	_time_base = time_base
 	_time_level_add = time_level_add
