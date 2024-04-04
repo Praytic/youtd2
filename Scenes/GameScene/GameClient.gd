@@ -32,6 +32,7 @@ var _timeslot_tick_queue: Array = [0]
 @export var _hud: HUD
 @export var _map: Map
 @export var _chat_commands: ChatCommands
+@export var _object_container: Node2D
 
 
 #########################
@@ -207,9 +208,33 @@ func _execute_action(action: Dictionary):
 # starts. Then timer A triggers an explosion which kills a
 # creep which carries timer B. Timer B is now outside tree
 # but still inside timer_list!
+# 
+# NOTE: need to manually free objects at the end of update
+# tick to prevent desyncs. A desync is possible if one of
+# the clients has to fast forward. Example:
+# 
+# - Client A is on time and does 1 update tick per physics
+#   tick.
+# - Client B falls behind and has to fast forward. They do
+#   10 update ticks per physics tick.
+# 
+# During update tick 1, some tower X is sold and is queued
+# for deletion (because insta free() is unsafe). When
+# queue_free() is called, Godot frees the object at the end
+# of the process tick.
+# 
+# - For Client A, tower X is freed at the end of physics
+#   tick, so after update tick 1.
+# - For Client B, tower X is freed at the end of physics
+#   tick, which is after update tick 10!
+# 
+# It's possible for tower X to react to some signal during
+# ticks 2-10.
 func _update_state():
 	_game_time.update(_tick_delta)
 
+	var object_list: Array = _object_container.get_children()
+	
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
 	for timer in timer_list:
 		if !_should_update(timer):
@@ -237,6 +262,10 @@ func _update_state():
 			continue
 
 		tower.update(_tick_delta)
+
+	for object in object_list:
+		if object.is_queued_for_deletion():
+			object.free()
 
 
 func _should_update(node: Node) -> bool:
