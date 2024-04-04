@@ -46,6 +46,7 @@ var _buff_icon: String = ""
 var _buff_icon_color: Color = Color.GRAY
 var _defined_custom_buff_icon_color: bool = false
 var _is_hidden: bool = false
+var _stacking_behavior_is_enabled: bool = true
 
 
 #########################
@@ -54,21 +55,15 @@ var _is_hidden: bool = false
 
 # NOTE: type argument should be the same as the name of the
 # BuffType variable. Examples: "poison_bt", "curse_bt".
-# 
-# In rare cases, type can be an empty string. This removes
-# the bufftype from the buff stacking system. Needed for
-# triggers buff types.
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
 #	NOTE: need to prepend path of parent script to type
 #	string to ensure uniqueness. Only do this if type is not
 #	empty because if type is not empty then uniqueness is
 #	not needed.
-	if !type.is_empty():
-		parent.add_child(self)
-		var parent_script: Script = parent.get_script()
-		var parent_script_path: String = parent_script.get_path()
-
-		type = "%s-%s" % [parent_script_path, type]
+	parent.add_child(self)
+	var parent_script: Script = parent.get_script()
+	var parent_script_path: String = parent_script.get_path()
+	type = "%s-%s" % [parent_script_path, type]
 
 	_type = type
 	_time_base = time_base
@@ -90,10 +85,11 @@ func _init(type: String, time_base: float, time_level_add: float, friendly: bool
 # 
 # NOTE: buffType.applyAdvanced() in JASS
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
-	var higher_prio_buff: Buff = _do_stacking_behavior(target, level, power)
+	if _stacking_behavior_is_enabled:
+		var higher_prio_buff: Buff = _do_stacking_behavior(target, level, power)
 
-	if higher_prio_buff != null:
-		return higher_prio_buff
+		if higher_prio_buff != null:
+			return higher_prio_buff
 
 	var buff: Buff = Buff.new()
 	buff._caster = caster
@@ -301,6 +297,12 @@ func add_aura(aura_type: AuraType):
 	_aura_type_list.append(aura_type)
 
 
+# NOTE: this is useful in rare cases like trigger buffs and
+# aura carrier buffs
+func disable_stacking_behavior():
+	_stacking_behavior_is_enabled = false
+
+
 #########################
 ###      Private      ###
 #########################
@@ -314,11 +316,6 @@ func add_aura(aura_type: AuraType):
 # defined here. Changing this logic might break some tower
 # and item scripts.
 func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff:
-	if _type.is_empty():
-#		NOTE: if type is empty string then this buff isn't
-#		affected by stacking behavior
-		return null
-
 	var active_buff: Buff = target.get_buff_of_type(self)
 
 	if active_buff == null:

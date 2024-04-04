@@ -10,10 +10,10 @@ func _get_tower_modifier() -> Modifier:
 
 
 func _get_creep_buff() -> BuffType:
-	var bt: BuffType = BuffType.new("", 0, 0, false, self)
-	bt.add_event_on_create(_creep_bt_on_create)
+	var queen_bt: BuffType = BuffType.new("queen_bt", 0, 0, false, self)
+	queen_bt.add_event_on_create(_creep_bt_on_create)
 
-	return bt
+	return queen_bt
 
 
 func _creep_bt_on_create(event: Event):

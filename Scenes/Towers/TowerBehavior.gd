@@ -33,11 +33,12 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 
 #	NOTE: need to call load_triggers() after loading stats
 #	because stats must be available in load_triggers().
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	triggers_buff_type.set_hidden()
-	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
-	load_triggers(triggers_buff_type)
-	triggers_buff_type.apply_to_unit_permanent(tower, tower, 0)
+	var triggers_bt: BuffType = BuffType.new("triggers_bt", 0, 0, true, self)
+	triggers_bt.set_hidden()
+	triggers_bt.disable_stacking_behavior()
+	triggers_bt.set_buff_tooltip("Triggers buff for tower")
+	load_triggers(triggers_bt)
+	triggers_bt.apply_to_unit_permanent(tower, tower, 0)
 
 	tower_init()
 
@@ -87,7 +88,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 # Override in subclass to attach trigger handlers to
 # triggers buff passed in the argument.
-func load_triggers(_triggers_buff_type: BuffType):
+func load_triggers(_triggers_bt: BuffType):
 	pass
 
 

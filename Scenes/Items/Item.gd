@@ -35,8 +35,8 @@ var _is_oil_and_was_applied_already: bool = false
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
 var _autocast: Autocast = null
-var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
-var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+var _aura_carrier_bt: BuffType
+var _triggers_bt: BuffType
 var _triggers_buff: Buff = null
 var _inherited_periodic_timers: Dictionary = {}
 var _player: Player = null
@@ -65,18 +65,26 @@ func _init(id: int, player: Player):
 
 	var item_name: String = get_display_name()
 
-	_aura_carrier_buff.set_buff_tooltip("Aura carrier buff for item %s" % item_name)
-	_aura_carrier_buff.set_hidden()
+#	NOTE: need to insert item id into bufftype names to make
+#	them unique. The uniqueness mechanism inside
+#	BuffType._init() doesn't work here because script name
+#	is always "Item.gd".
+	_aura_carrier_bt = BuffType.new("item-%d-_aura_carrier_bt" % _id, 0, 0, true, self)
+	_aura_carrier_bt.set_buff_tooltip("Aura carrier buff for item %s" % item_name)
+	_aura_carrier_bt.set_hidden()
+	_aura_carrier_bt.disable_stacking_behavior()
 	
-	_triggers_buff_type.set_buff_tooltip("Triggers buff for item %s" % item_name)
-	_triggers_buff_type.set_hidden()
+	_triggers_bt = BuffType.new("item-%d-_triggers_bt" % _id, 0, 0, true, self)
+	_triggers_bt.set_buff_tooltip("Triggers buff for item %s" % item_name)
+	_triggers_bt.set_hidden()
+	_triggers_bt.disable_stacking_behavior()
 
 
 # NOTE: need to init item behavior inside _ready() because
 # some item scripts access the scene tree inside
 # ItemBehavior.on_create()
 func _ready():
-	_item_behavior.init(self, _modifier, _triggers_buff_type)
+	_item_behavior.init(self, _modifier, _triggers_bt)
 
 
 #########################
@@ -88,7 +96,7 @@ func get_uid() -> int:
 
 
 func add_aura(aura: AuraType):
-	_aura_carrier_buff.add_aura(aura)
+	_aura_carrier_bt.add_aura(aura)
 
 
 # Consume item. Only applicable to items of consumable type.
@@ -279,11 +287,11 @@ func _add_to_tower(tower: Tower):
 	if _autocast != null:
 		_autocast.set_caster(_carrier)
 
-	_triggers_buff = _triggers_buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+	_triggers_buff = _triggers_bt.apply_to_unit_permanent(_carrier, _carrier, 0)
 	for timer in _inherited_periodic_timers.values():
 		timer.set_paused(false)
 	_triggers_buff.inherit_periodic_timers(_inherited_periodic_timers)
-	_aura_carrier_buff.apply_to_unit_permanent(_carrier, _carrier, 0)
+	_aura_carrier_bt.apply_to_unit_permanent(_carrier, _carrier, 0)
 
 
 # NOTE: this f-n only removes the effects. Use Item.drop()
@@ -292,7 +300,7 @@ func _add_to_tower(tower: Tower):
 # 
 # NOTE: buffs applied by Item will be automatically removed
 # via Buff._on_buff_type_tree_exited(). This includes
-# _triggers_buff_type and _aura_carrier_buff.
+# _triggers_bt and _aura_carrier_bt.
 # 
 # NOTE: the code for _inherited_periodic_timers is a hack to
 # preserve item cooldowns when item is removed from tower.

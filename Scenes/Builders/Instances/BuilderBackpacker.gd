@@ -14,7 +14,7 @@ func _get_tower_modifier() -> Modifier:
 
 
 func _get_tower_buff() -> BuffType:
-    var backpacker_bt: BuffType = BuffType.new("", 0, 0, false, self)
+    var backpacker_bt: BuffType = BuffType.new("backpacker_bt", 0, 0, false, self)
     backpacker_bt.add_periodic_event(backpacker_bt_periodic, 1.0)
 
     return backpacker_bt

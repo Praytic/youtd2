@@ -6,9 +6,9 @@ func _init():
 
 
 func _get_tower_buff() -> BuffType:
-	var bt: BuffType = MagicalSightBuff.new("", 700, self)
+	var farseer_bt: BuffType = MagicalSightBuff.new("farseer_bt", 700, self)
 
-	return bt
+	return farseer_bt
 
 
 func _get_tower_modifier() -> Modifier:
