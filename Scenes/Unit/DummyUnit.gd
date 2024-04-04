@@ -87,6 +87,10 @@ func _cleanup():
 	if _cleanup_handler.is_valid():
 		_cleanup_handler.call(self)
 
+	var parent: Node = get_parent()
+	if parent != null && is_inside_tree():
+		parent.remove_child(self)
+
 	queue_free()
 
 
