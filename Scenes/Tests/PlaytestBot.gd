@@ -75,7 +75,7 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map)
 #	tower inventory to test some abilities which
 #	require non-full inventory
 	var free_slots: int = tower.count_free_slots()
-	var item_count: int = randi_range(0, free_slots + 1)
+	var item_count: int = randi_range(0, free_slots)
 
 	for j in range(0, item_count):
 		var random_item_id: int = PlaytestBot.item_id_list.pick_random()
