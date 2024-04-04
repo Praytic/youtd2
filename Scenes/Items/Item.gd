@@ -279,9 +279,10 @@ func _add_to_tower(tower: Tower):
 	if _autocast != null:
 		_autocast.set_caster(_carrier)
 
-	_triggers_buff_type._inherited_periodic_timers = _inherited_periodic_timers.duplicate()
-
 	_triggers_buff = _triggers_buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+	for timer in _inherited_periodic_timers.values():
+		timer.set_paused(false)
+	_triggers_buff.inherit_periodic_timers(_inherited_periodic_timers)
 	_aura_carrier_buff.apply_to_unit_permanent(_carrier, _carrier, 0)
 
 
@@ -318,7 +319,7 @@ func _remove_from_tower():
 	if _autocast != null:
 		_autocast.set_caster(null)
 
-	_inherited_periodic_timers = _triggers_buff._inherited_periodic_timers.duplicate()
+	_inherited_periodic_timers = _triggers_buff.get_periodic_timers()
 	for timer in _inherited_periodic_timers.values():
 		timer.reparent(self)
 		timer.set_paused(true)

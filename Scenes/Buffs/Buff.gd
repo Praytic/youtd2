@@ -31,7 +31,7 @@ var _buff_icon: String
 var _buff_icon_color: Color
 var _purgable: bool
 var _cleanup_done: bool = false
-var _inherited_periodic_timers: Dictionary = {}
+var _periodic_timer_map: Dictionary = {}
 var _is_hidden: bool
 
 
@@ -111,6 +111,31 @@ func purge_buff():
 	remove_buff()
 
 
+func get_periodic_timers() -> Dictionary:
+	return _periodic_timer_map.duplicate()
+
+
+# Inherits periodic timers from a previous instance of this
+# buff. Used by items to preserve timers of items when they
+# are removed from towers.
+func inherit_periodic_timers(inherited_timers: Dictionary):
+	for handler in _periodic_timer_map.keys():
+		if !inherited_timers.has(handler):
+			continue
+		
+#		Remove existing timer
+		var existing_timer: ManualTimer = _periodic_timer_map[handler]
+		remove_child(existing_timer)
+		existing_timer.queue_free()
+		existing_timer.timeout.disconnect(_on_periodic_event_timer_timeout)
+
+#		Replace with inherited timer
+		var inherited_timer: ManualTimer = inherited_timers[handler]
+		_periodic_timer_map[handler] = inherited_timer
+		inherited_timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, inherited_timer))
+		inherited_timer.reparent(self)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -123,24 +148,12 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
-	var timer: ManualTimer
-
-#	NOTE: inheriting periodic timers is a hack to to
-# 	preserve item cooldowns when item is removed from tower
-	if _inherited_periodic_timers.has(handler):
-		timer = _inherited_periodic_timers[handler]
-
-		if timer.get_parent() != null:
-			timer.get_parent().remove_child(timer)
-			timer.set_paused(false)
-	else:
-		timer = ManualTimer.new()
-		timer.wait_time = period
-		timer.one_shot = false
-		timer.autostart = true
-		_inherited_periodic_timers[handler] = timer
-		timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
-
+	var timer: ManualTimer = ManualTimer.new()
+	timer.wait_time = period
+	timer.one_shot = false
+	timer.autostart = true
+	_periodic_timer_map[handler] = timer
+	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
 	add_child(timer)
 
 

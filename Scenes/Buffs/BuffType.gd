@@ -45,7 +45,6 @@ var _tooltip_text: String = ""
 var _buff_icon: String = ""
 var _buff_icon_color: Color = Color.GRAY
 var _defined_custom_buff_icon_color: bool = false
-var _inherited_periodic_timers: Dictionary = {}
 var _is_hidden: bool = false
 
 
@@ -120,12 +119,6 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 		buff._buff_icon_color = element_color
 	else:
 		buff._buff_icon_color = Color.GRAY
-
-
-# 	NOTE: this is part of the hack to preserve item
-# 	cooldowns when item is removed from tower. Must be done
-# 	before calling _add_periodic_event().
-	buff._inherited_periodic_timers = _inherited_periodic_timers.duplicate()
 
 	tree_exited.connect(buff._on_buff_type_tree_exited)
 
