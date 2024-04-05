@@ -47,6 +47,7 @@ var _buff_icon_color: Color = Color.GRAY
 var _defined_custom_buff_icon_color: bool = false
 var _is_hidden: bool = false
 var _stacking_behavior_is_enabled: bool = true
+var _is_aura: bool = false
 
 
 #########################
@@ -57,7 +58,7 @@ var _stacking_behavior_is_enabled: bool = true
 # BuffType variable. Examples: "poison_bt", "curse_bt".
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
 	parent.add_child(self)
-	
+
 #	NOTE: need to prepend path of parent script to type
 #	string to ensure uniqueness.
 	var parent_script: Script = parent.get_script()
@@ -103,6 +104,9 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._is_hidden = _is_hidden
 	buff._buff_icon = _buff_icon
 	buff._buff_icon_color = _buff_icon_color
+
+	if _is_aura:
+		buff.set_is_purgable(false)
 
 	if _defined_custom_buff_icon_color:
 		buff._buff_icon_color = _buff_icon_color
@@ -179,8 +183,8 @@ func apply_only_timed(caster: Unit, target: Unit, time: float) -> Buff:
 # NOTE: buffType.applyToUnitPermanent() in JASS
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	var buff: Buff = apply_custom_timed(caster, target, level, -1.0)
-	buff._purgable = false
-	
+	buff.set_is_purgable(false)
+
 	return buff
 
 
@@ -415,5 +419,6 @@ func set_hidden():
 # NOTE: BuffType.createAuraEffectType() in JASS
 static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
 	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
+	buff_type._is_aura = true
 
 	return buff_type
