@@ -51,7 +51,9 @@ var _default_value_map: Dictionary = {
 	SHOW_TUTORIAL_ON_START: true,
 	CACHED_GAME_DIFFICULTY: "medium",
 	CACHED_GAME_MODE: "random_with_upgrades",
-	CACHED_GAME_LENGTH: Constants.WAVE_COUNT_FULL,
+#	NOTE: need to convert to float because JSON only
+#	supports floats
+	CACHED_GAME_LENGTH: Constants.WAVE_COUNT_FULL as float,
 }
 
 
