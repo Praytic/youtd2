@@ -72,6 +72,17 @@ func do_spell_damage_pb_aoe(radius: float, damage: float, sides_ratio: float):
 	do_spell_damage_aoe(center, radius, damage, sides_ratio)
 
 
+# NOTE: you must call this instead of queue_free(), so that
+# tree_exited() signal is emitted immediately
+func remove_from_game():
+	var parent: Node = get_parent()
+
+	if parent != null && is_inside_tree():
+		parent.remove_child(self)
+
+	queue_free()
+
+
 #########################
 ###      Private      ###
 #########################
@@ -87,11 +98,7 @@ func _cleanup():
 	if _cleanup_handler.is_valid():
 		_cleanup_handler.call(self)
 
-	var parent: Node = get_parent()
-	if parent != null && is_inside_tree():
-		parent.remove_child(self)
-
-	queue_free()
+	remove_from_game()
 
 
 # Returns damage modifier based on custom damage table.

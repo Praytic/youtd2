@@ -136,7 +136,7 @@ func on_create(_preceding: Tower):
 
 
 func on_destruct():
-	dutchman.queue_free()
+	dutchman.remove_from_game()
 
 
 func on_attack(event: Event):

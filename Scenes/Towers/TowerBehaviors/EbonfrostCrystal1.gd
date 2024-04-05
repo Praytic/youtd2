@@ -184,7 +184,7 @@ func on_damage(event: Event):
 func on_destruct():
 	for icicle in icicle_list:
 		var projectile: Projectile = icicle.projectile
-		projectile.queue_free()
+		projectile.remove_from_game()
 
 		var effect: int = icicle.effect
 		Effect.destroy_effect(effect)
@@ -350,7 +350,7 @@ func ashbringer_icicle_fire_all(target: Unit):
 		icicle_missile.set_speed(1400 - 70 * icicle_list.size())
 		fired_icicle_count += 1
 
-		icicle.projectile.queue_free()
+		icicle.projectile.remove_from_game()
 		Effect.destroy_effect(icicle.effect)
 		
 		icicle_list.erase(icicle)
