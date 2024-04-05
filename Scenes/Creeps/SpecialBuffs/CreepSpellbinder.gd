@@ -1,7 +1,6 @@
 class_name CreepSpellbinder extends BuffType
 
 
-var aura_bt: BuffType
 var silence_bt: BuffType
 
 
@@ -11,11 +10,6 @@ func _init(parent: Node):
 	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
 	add_event_on_create(on_create)
-
-	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, -2.0, 0.0)
-	aura_bt.set_buff_modifier(modifier)
 
 
 func on_create(event: Event):
