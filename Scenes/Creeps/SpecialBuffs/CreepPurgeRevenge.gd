@@ -28,4 +28,5 @@ func on_damaged(event: Event):
 
 	for i in range(0, 2):
 		attacker.purge_buff(true)
-		slow_attack.apply(creep, attacker, 1)
+	
+	slow_attack.apply(creep, attacker, 1)
