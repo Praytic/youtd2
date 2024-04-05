@@ -85,8 +85,7 @@ var _bonus_crit_count_for_next_spell: int = 0
 
 var _level: int = 0 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
-var _friendly_buff_list: Array[Buff]
-var _unfriendly_buff_list: Array[Buff]
+var _buff_list: Array[Buff] = []
 var _direct_modifier_list: Array
 var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
@@ -276,21 +275,19 @@ func set_player(player: Player):
 # buff to remove and false otherwise.
 # NOTE: unit.purgeBuff() in JASS
 func purge_buff(friendly: bool) -> bool:
-	var buff_list: Array[Buff] = _get_buff_list(friendly)
+	var target_buff: Buff = null
 
-	var purgable_list: Array[Buff] = []
+	for buff in _buff_list:
+		var friendly_match: bool = buff.is_friendly() == friendly
 
-	for buff in buff_list:
-		if buff.is_purgable():
-			purgable_list.append(buff)
+		if buff.is_purgable() && friendly_match:
+			target_buff = buff
 
-#	NOTE: buff is removed from the list further down the
-#	chain from purge_buff() call.
-	if !purgable_list.is_empty():
-		var buff: Buff = purgable_list.back()
-		buff.purge_buff()
-		
-		buff_list_changed.emit()
+			break
+
+	if target_buff != null:
+		target_buff.purge_buff()
+
 		return true
 	else:
 		return false
@@ -993,8 +990,7 @@ func _add_buff_internal(buff: Buff):
 	var buff_type: String = buff.get_type()
 	_buff_type_map[buff_type] = buff
 
-	var friendly: bool = buff.is_friendly()
-	_get_buff_list(friendly).append(buff)
+	_buff_list.append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)
@@ -1026,8 +1022,7 @@ func _remove_buff_internal(buff: Buff):
 	var buff_type: String = buff.get_type()
 	_buff_type_map.erase(buff_type)
 
-	var friendly: bool = buff.is_friendly()
-	_get_buff_list(friendly).erase(buff)
+	_buff_list.erase(buff)
 	buff_list_changed.emit()
 
 
@@ -1119,11 +1114,8 @@ func _get_experience_for_target(target: Unit) -> float:
 	return experience
 
 
-func _get_buff_list(friendly: bool) -> Array[Buff]:
-	if friendly:
-		return _friendly_buff_list
-	else:
-		return _unfriendly_buff_list
+func get_buff_list() -> Array[Buff]:
+	return _buff_list
 
 
 # Returns a prop value after applying diminishing returns to

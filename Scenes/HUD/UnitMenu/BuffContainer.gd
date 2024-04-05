@@ -25,12 +25,7 @@ func _ready():
 #########################
 
 func load_buffs_for_unit(unit: Unit):
-	var friendly_buff_list: Array[Buff] = unit._get_buff_list(true)
-	var unfriendly_buff_list: Array[Buff] = unit._get_buff_list(false)
-
-	var buff_list: Array[Buff] = []
-	buff_list.append_array(friendly_buff_list)
-	buff_list.append_array(unfriendly_buff_list)
+	var buff_list: Array[Buff] = unit.get_buff_list()
 
 	var hidden_buff_list: Array[Buff] = []
 
