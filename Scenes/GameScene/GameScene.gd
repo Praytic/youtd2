@@ -464,14 +464,16 @@ func _start_tutorial(game_mode: GameMode.enm):
 # signals, then WaveSpawner will react to those signals and
 # access tree nodes while it's in the process of deletion.
 # 
-# TODO: a better solution would be to not use tree_exited.
-# Can emit a custom signal in Unit.remove_from_game() for
-# example. Problem is that BuffType connects to tree_exited
-# at the moment and tree_exited() seems like the best choice
-# for that use case.
+# NOTE: need to remove objects inside while loop because
+# some abilities may add new objects when another object is
+# removed.
 func _cleanup_all_objects():
-	_object_container.get_parent().remove_child(_object_container)
-	_object_container.queue_free()
+	while _object_container.get_child_count() > 0:
+		var child_list: Array[Node] = _object_container.get_children()
+
+		for child in child_list:
+			_object_container.remove_child(child)
+			_object_container.queue_free()
 
 
 #########################
