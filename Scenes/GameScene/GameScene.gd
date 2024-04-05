@@ -472,6 +472,12 @@ func _cleanup_all_objects():
 		var child_list: Array[Node] = _object_container.get_children()
 
 		for child in child_list:
+#			NOTE: need to check if child is inside tree
+#			because when objects are deleted they can delete
+#			other objects.
+			if !child.is_inside_tree():
+				continue
+			
 			_object_container.remove_child(child)
 			_object_container.queue_free()
 
