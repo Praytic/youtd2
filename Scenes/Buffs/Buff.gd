@@ -86,7 +86,7 @@ func refresh_duration():
 
 # NOTE: buff.removeBuff() in JASS
 func remove_buff():
-	if _cleanup_done:
+	if _cleanup_done || !is_inside_tree():
 		return
 
 	var cleanup_event: Event = _make_buff_event(_target)
