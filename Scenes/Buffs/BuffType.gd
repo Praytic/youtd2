@@ -56,11 +56,10 @@ var _stacking_behavior_is_enabled: bool = true
 # NOTE: type argument should be the same as the name of the
 # BuffType variable. Examples: "poison_bt", "curse_bt".
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
-#	NOTE: need to prepend path of parent script to type
-#	string to ensure uniqueness. Only do this if type is not
-#	empty because if type is not empty then uniqueness is
-#	not needed.
 	parent.add_child(self)
+	
+#	NOTE: need to prepend path of parent script to type
+#	string to ensure uniqueness.
 	var parent_script: Script = parent.get_script()
 	var parent_script_path: String = parent_script.get_path()
 	type = "%s-%s" % [parent_script_path, type]
