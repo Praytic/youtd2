@@ -32,7 +32,7 @@ class RangeHandlerData:
 	var target_type: TargetType
 
 
-var _type: String
+var _unique_name: String
 var _time_base: float
 var _time_level_add: float
 var _friendly: bool
@@ -54,18 +54,17 @@ var _is_aura: bool = false
 ###     Built-in      ###
 #########################
 
-# NOTE: type argument should be the same as the name of the
-# BuffType variable. Examples: "poison_bt", "curse_bt".
-func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
+# NOTE: if your script creates multiple BuffType's, then
+# each BuffType should be created with a different
+# "variable_name" arg. Examples: "poison_bt", "curse_bt".
+func _init(variable_name: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
 	parent.add_child(self)
 
-#	NOTE: need to prepend path of parent script to type
-#	string to ensure uniqueness.
+#	NOTE: add path of parent script to ensure uniqueness
 	var parent_script: Script = parent.get_script()
 	var parent_script_path: String = parent_script.get_path()
-	type = "%s-%s" % [parent_script_path, type]
+	_unique_name = "%s-%s" % [parent_script_path, variable_name]
 
-	_type = type
 	_time_base = time_base
 	_time_level_add = time_level_add
 	_friendly = friendly
@@ -99,7 +98,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._modifier = _modifier
 	buff._time = time
 	buff._friendly = _friendly
-	buff._type = _type
+	buff._buff_type_name = _unique_name
 	buff._tooltip_text = _tooltip_text
 	buff._is_hidden = _is_hidden
 	buff._buff_icon = _buff_icon
@@ -347,8 +346,8 @@ func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff
 ### Setters / Getters ###
 #########################
 
-func get_type() -> String:
-	return _type
+func get_unique_name() -> String:
+	return _unique_name
 
 
 # Defines a modifier which will be applied to target unit.

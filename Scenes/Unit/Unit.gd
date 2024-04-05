@@ -84,7 +84,7 @@ var _bonus_crit_ratio_for_next_attack: float = 0.0
 var _bonus_crit_count_for_next_spell: int = 0
 
 var _level: int = 0 : get = get_level, set = set_level
-var _buff_type_map: Dictionary
+var _buff_map: Dictionary
 var _buff_list: Array[Buff] = []
 var _direct_modifier_list: Array
 var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
@@ -987,8 +987,8 @@ func _accept_kill(target: Unit):
 # This is for internal use in Buff.gd only. For external
 # use, call Buff.apply_to_unit().
 func _add_buff_internal(buff: Buff):
-	var buff_type: String = buff.get_type()
-	_buff_type_map[buff_type] = buff
+	var buff_type_name: String = buff.get_buff_type_name()
+	_buff_map[buff_type_name] = buff
 
 	_buff_list.append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
@@ -1019,8 +1019,8 @@ func _remove_buff_internal(buff: Buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), -1)
 
-	var buff_type: String = buff.get_type()
-	_buff_type_map.erase(buff_type)
+	var buff_type_name: String = buff.get_buff_type_name()
+	_buff_map.erase(buff_type_name)
 
 	_buff_list.erase(buff)
 	buff_list_changed.emit()
@@ -1459,8 +1459,8 @@ func is_attacking() -> bool:
 
 # NOTE: unit.getBuffOfType() in JASS
 func get_buff_of_type(buff_type: BuffType) -> Buff:
-	var type: String = buff_type.get_type()
-	var buff = _buff_type_map.get(type, null)
+	var buff_type_name: String = buff_type.get_unique_name()
+	var buff: Buff = _buff_map.get(buff_type_name, null)
 
 	return buff
 

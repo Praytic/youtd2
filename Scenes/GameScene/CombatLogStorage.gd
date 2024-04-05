@@ -111,7 +111,7 @@ class BuffApplyEntry extends Entry:
 
 		_caster_name = caster.get_log_name()
 		_target_name = target.get_log_name()
-		_buff_name = buff.get_type()
+		_buff_name = buff.get_buff_type_name()
 
 		var timestamp_string: String = get_timestamp_string()
 		var type_string: String = get_type_string()

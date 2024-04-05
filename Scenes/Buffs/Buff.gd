@@ -20,7 +20,7 @@ var _level: int
 var _power: int
 var _time: float
 var _friendly: bool
-var _type: String
+var _buff_type_name: String
 var _stacking_group: String
 var _timer: ManualTimer
 # Map of Event.Type -> list of EventHandler's
@@ -395,7 +395,7 @@ func get_tooltip_text() -> String:
 	if !_tooltip_text.is_empty():
 		return _tooltip_text
 	else:
-		return _type
+		return _buff_type_name
 
 
 func get_modifier() -> Modifier:
@@ -431,8 +431,8 @@ func set_power(power: int):
 	_target.change_modifier_power(get_modifier(), old_power, power)
 
 
-func get_type() -> String:
-	return _type
+func get_buff_type_name() -> String:
+	return _buff_type_name
 
 
 func get_stacking_group() -> String:
