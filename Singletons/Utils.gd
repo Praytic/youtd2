@@ -326,21 +326,6 @@ func random_weighted_pick(rng: RandomNumberGenerator, element_to_weight_map: Dic
 	return element_to_weight_map.keys()[0]
 
 
-# NOTE: getUID() in JASS
-# 
-# Used to check if unit references saved before tower script
-# splits are still valid after sleep is over.
-# 
-# NOTE: this f-n can't be a member f-n of Unit like in JASS
-# because in Gdscript you can't call functions on invalid
-# references - causes an error.
-func getUID(unit):
-	if is_instance_valid(unit) && !unit.is_queued_for_deletion():
-		return unit.get_instance_id()
-	else:
-		return 0
-
-
 # Use this in cases where script stores references to units
 # over a long time. Units may become invalid if they are
 # killed or sold or upgraded. Note that calling any methods,

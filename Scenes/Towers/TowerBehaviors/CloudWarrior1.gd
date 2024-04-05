@@ -1,11 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: replaced (creep.getUID() == cid) with
-# is_instance_valid(creep). Both serve the purpose of
-# checking whether creep still exists.
-
-
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {lightning_dmg = 100, lightning_dmg_add = 5},
@@ -57,7 +52,6 @@ func on_damage(event: Event):
 		return
 
 	var creep: Unit = event.get_target()
-	var cid: int = Utils.getUID(creep)
 
 	if event.is_main_target() == true:
 		tower.user_int = 1
@@ -66,7 +60,7 @@ func on_damage(event: Event):
 
 	await Utils.create_timer(0.4).timeout
 
-	if tower.user_int == 1 && Utils.getUID(creep) == cid:
+	if tower.user_int == 1 && Utils.unit_is_valid(creep):
 		CombatLog.log_ability(tower, creep, "Lightning Strike")
 
 		SFX.sfx_at_unit("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", creep)

@@ -190,12 +190,12 @@ func on_damage(event: Event):
 		phase_wound = wound_bt.apply(tower, target, 1)
 #		stack counter
 		phase_wound.user_int = 1
-		phase_wound.user_int2 = Utils.getUID(tower)
+		phase_wound.user_int2 = tower.get_instance_id()
 	else:
 #		multiple zealots + family member check. If another zealot attacks, no armor pierce for him
 #		only the guy who put the first wound gets armor pierce
 #		perfection would need hashtables storing wound level for every tower,creep pair. Not worth it i think.
-		if phase_wound.user_int2 != Utils.getUID(tower):
+		if phase_wound.user_int2 != tower.get_instance_id():
 			return
 
 		phase_wound.user_int = min(5, phase_wound.user_int + 1)
