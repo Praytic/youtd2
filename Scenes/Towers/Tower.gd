@@ -537,6 +537,9 @@ func _update_target_list():
 
 
 func _add_target(target: Creep):
+	if _target_list.has(target):
+		return
+
 	_target_list.append(target)
 	target.death.connect(_on_target_death.bind(target))
 
