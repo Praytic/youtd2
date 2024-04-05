@@ -13,7 +13,17 @@ signal start_button_pressed()
 #########################
 
 func _ready():
-	pass
+	var cached_difficulty_string: String = Settings.get_setting(Settings.CACHED_GAME_DIFFICULTY)
+	var cached_difficulty: Difficulty.enm = Difficulty.from_string(cached_difficulty_string)
+	
+	var cached_game_mode_string: String = Settings.get_setting(Settings.CACHED_GAME_MODE)
+	var cached_game_mode: GameMode.enm = GameMode.from_string(cached_game_mode_string)
+	
+	var cached_game_length: int = Settings.get_setting(Settings.CACHED_GAME_LENGTH)
+
+	_game_mode_ui.set_difficulty(cached_difficulty)
+	_game_mode_ui.set_game_mode(cached_game_mode)
+	_game_mode_ui.set_game_length(cached_game_length)
 
 
 #########################

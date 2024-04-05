@@ -98,6 +98,13 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	var game_length: int = _configure_singleplayer_menu.get_game_length()
 	var game_mode: GameMode.enm = _configure_singleplayer_menu.get_game_mode()
 	var origin_seed: int = randi()
+
+	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
+	var game_mode_string: String = GameMode.convert_to_string(game_mode)
+	Settings.set_setting(Settings.CACHED_GAME_DIFFICULTY, difficulty_string)
+	Settings.set_setting(Settings.CACHED_GAME_MODE, game_mode_string)
+	Settings.set_setting(Settings.CACHED_GAME_LENGTH, game_length)
+	Settings.flush()
 	
 	_start_game(PlayerMode.enm.SINGLE, game_length, game_mode, difficulty, origin_seed)
 

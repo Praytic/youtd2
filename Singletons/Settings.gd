@@ -31,6 +31,9 @@ const INTERFACE_SIZE_DICT: Dictionary = {
 	"Large": 1.25
 }
 const SHOW_TUTORIAL_ON_START: String = "show_tutorial_on_start"
+const CACHED_GAME_DIFFICULTY: String = "CACHED_GAME_DIFFICULTY"
+const CACHED_GAME_MODE: String = "CACHED_GAME_MODE"
+const CACHED_GAME_LENGTH: String = "CACHED_GAME_LENGTH"
 
 
 var _cache: Dictionary = {}
@@ -46,6 +49,9 @@ var _default_value_map: Dictionary = {
 	COMBAT_LOG_Y: 600.0,
 	INTERFACE_SIZE: "Medium",
 	SHOW_TUTORIAL_ON_START: true,
+	CACHED_GAME_DIFFICULTY: "medium",
+	CACHED_GAME_MODE: "random_with_upgrades",
+	CACHED_GAME_LENGTH: Constants.WAVE_COUNT_FULL,
 }
 
 
