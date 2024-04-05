@@ -985,7 +985,7 @@ func _accept_kill(target: Unit):
 
 
 # This is for internal use in Buff.gd only. For external
-# use, call Buff.apply_to_unit().
+# use, call BuffType.apply().
 func _add_buff_internal(buff: Buff):
 	var buff_type_name: String = buff.get_buff_type_name()
 	_buff_map[buff_type_name] = buff
@@ -993,7 +993,6 @@ func _add_buff_internal(buff: Buff):
 	_buff_list.append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
-	add_child(buff)
 	
 	buff_list_changed.emit()
 
