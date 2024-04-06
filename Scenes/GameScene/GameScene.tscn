@@ -136,13 +136,12 @@ script = ExtResource("14_y26vd")
 _game_client = NodePath("../GameClient")
 _hud = NodePath("../../UI/HUD")
 
-[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands", "_object_container") instance=ExtResource("15_a5l86")]
+[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("15_a5l86")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
 _chat_commands = NodePath("../ChatCommands")
-_object_container = NodePath("../../World/ObjectContainer")
 
 [node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
 script = ExtResource("16_amwbk")
