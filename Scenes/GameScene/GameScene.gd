@@ -479,7 +479,7 @@ func _cleanup_all_objects():
 				continue
 			
 			_object_container.remove_child(child)
-			_object_container.queue_free()
+			child.queue_free()
 
 
 #########################
