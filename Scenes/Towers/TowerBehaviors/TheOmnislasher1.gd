@@ -79,7 +79,7 @@ func on_attack(event: Event):
 		tower.get_player().display_floating_text_x(fun_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
 
 	for i in range(0, attack_count):
-		await Utils.create_timer(time_between_attacks).timeout
+		await Utils.create_timer(time_between_attacks, self).timeout
 
 		if !Utils.unit_is_valid(tower):
 			return

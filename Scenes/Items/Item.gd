@@ -264,7 +264,7 @@ func fly_to_stash(_mystery_float: float):
 #	NOTE: fly duration has to be a constant value, doesn't
 #	matter if fly animation will finish earlier. This is to
 #	prevent multiplayer desync.
-	await Utils.create_timer(FLY_DURATION).timeout
+	await Utils.create_timer(FLY_DURATION, self).timeout
 
 #	After item is done flying, we can delete item drop
 	parent_item_drop.remove_child(self)

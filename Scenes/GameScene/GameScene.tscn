@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=32 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameScene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="2_gestc"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="10_tkjjb"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="11_e0bvs"]
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="12_8gb75"]
-[ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="13_128bk"]
 [ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="14_y26vd"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="15_a5l86"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="16_amwbk"]
@@ -131,9 +130,6 @@ script = ExtResource("11_e0bvs")
 
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
 script = ExtResource("12_8gb75")
-
-[node name="TimerPool" type="Node" parent="Gameplay"]
-script = ExtResource("13_128bk")
 
 [node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud")]
 script = ExtResource("14_y26vd")

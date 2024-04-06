@@ -8,7 +8,7 @@ class_name PlaytestBot extends Node
 # Increase config/update_ticks_per_physics_tick to run the
 # playtest at faster speed.
 
-const TIME_PER_SET: float = 10 * 60
+const TIME_PER_SET: float = 5 * 60
 const TOWER_SET_SIZE: int = 20
 # NOTE: (2,2) is the tip of the corner of buildable area
 const POSITIONS_ORIGIN: Vector2 = Vector2(500, 200)
@@ -59,7 +59,7 @@ static func run(map: Map):
 			var tower: Tower = PlaytestBot._build_random_tower(random_tower_id, build_pos, map)
 			built_tower_list.append(tower)
 
-		await Utils.create_timer(TIME_PER_SET).timeout
+		await Utils.create_timer(TIME_PER_SET, map).timeout
 
 
 static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map) -> Tower:

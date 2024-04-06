@@ -45,7 +45,7 @@ func on_attack(event: Event):
 
 	CombatLog.log_item_ability(item, null, "Launch Glaive!")
 
-	await Utils.create_timer(0.1).timeout
+	await Utils.create_timer(0.1, self).timeout
 
 	if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(creep):
 		return

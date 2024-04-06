@@ -142,7 +142,7 @@ func _do_victory_effects():
 			Effect.set_animation_speed(effect, speed)
 			Effect.destroy_effect_after_its_over(effect)
 
-		await Utils.create_timer(1.0).timeout
+		await Utils.create_timer(1.0, self).timeout
 
 
 #########################

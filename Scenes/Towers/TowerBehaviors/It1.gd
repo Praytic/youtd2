@@ -203,7 +203,7 @@ func on_attack(_event: Event):
 #	NOTE: this is how the 1 sec cooldown for teleport is
 #	implemented. Wonky, might cause problems.
 	can_teleport = false
-	await Utils.create_timer(1.0).timeout
+	await Utils.create_timer(1.0, self).timeout
 	can_teleport = true
 
 

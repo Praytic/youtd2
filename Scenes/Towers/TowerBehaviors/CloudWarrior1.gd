@@ -58,7 +58,7 @@ func on_damage(event: Event):
 	else:
 		tower.user_int = 0
 
-	await Utils.create_timer(0.4).timeout
+	await Utils.create_timer(0.4, self).timeout
 
 	if tower.user_int == 1 && Utils.unit_is_valid(creep):
 		CombatLog.log_ability(tower, creep, "Lightning Strike")

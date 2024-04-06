@@ -143,7 +143,7 @@ func on_spell_target(event: Event):
 		buff.user_int += 1
 		buff.set_power(buff.get_power() + buff_level)
 
-	await Utils.create_timer(stack_duration).timeout
+	await Utils.create_timer(stack_duration, self).timeout
 
 	if Utils.unit_is_valid(tower):
 		buff = tower.get_buff_of_type(channel_bt)

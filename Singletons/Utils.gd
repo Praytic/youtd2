@@ -24,9 +24,17 @@ func convert_time_to_string(time_total_seconds: float):
 # of the synchronized multiplayer client. If you
 # create_timer() for one player but not the others, you will
 # mess up the order of updating timers and cause desync.
-func create_timer(duration: float) -> ManualTimer:
-	var timer_pool: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/TimerPool")
-	var timer: ManualTimer = timer_pool.create_timer(duration)
+func create_timer(duration: float, parent: Node) -> ManualTimer:
+	var timer: ManualTimer = ManualTimer.new()
+
+	var parent_is_active: bool = parent.is_inside_tree() && !parent.is_queued_for_deletion()
+	if parent_is_active:
+		add_child(timer)
+		timer.one_shot = true
+		timer.timeout.connect(timer.queue_free)
+		timer.start(duration)
+	else:
+		timer.queue_free()
 
 	return timer
 

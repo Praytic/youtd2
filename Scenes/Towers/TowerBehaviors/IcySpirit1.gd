@@ -102,4 +102,4 @@ func on_attack(_event: Event):
 				slow_bt.apply(tower, target, 125 + level * 5)
 
 
-		await Utils.create_timer(0.1).timeout
+		await Utils.create_timer(0.1, self).timeout

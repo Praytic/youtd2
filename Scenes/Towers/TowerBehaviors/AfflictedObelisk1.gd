@@ -63,7 +63,7 @@ func on_damage(event: Event):
 	parasite_bt.apply_custom_timed(tower, target, 0, 3.0 / target.get_prop_debuff_duration())
 	target.modify_property(Modification.Type.MOD_DMG_FROM_NATURE, _stats.vuln_value + level * _stats.vuln_value_add)
 
-	await Utils.create_timer(3.0).timeout
+	await Utils.create_timer(3.0, self).timeout
 
 	if Utils.unit_is_valid(target):
 		tower.do_custom_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0), AttackType.enm.DECAY)
