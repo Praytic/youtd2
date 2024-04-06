@@ -128,7 +128,6 @@ func tower_init():
 
 func on_damage(event: Event):
 	var multiplier: float = 1.00
-	var UID: int = tower.get_instance_id()
 
 	if tower.calc_chance(tower.user_real / 100.0):
 		if event.get_target().get_buff_of_type(love_bt) != null:
@@ -147,7 +146,7 @@ func on_damage(event: Event):
 
 		await Utils.create_timer(10.0 * multiplier, self).timeout
 
-		if is_instance_valid(tower) && tower.get_instance_id() == UID:
+		if Utils.unit_is_valid(tower):
 			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attackspeed * multiplier)
 			tower.user_real = tower.user_real + _stats.soul_chance_decrease
 
