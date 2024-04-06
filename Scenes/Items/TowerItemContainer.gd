@@ -33,6 +33,7 @@ func add_item(item: Item):
 
 	if is_oil:
 		_oil_list.append(item)
+		add_child(item)
 	else:
 		super.add_item(item)
 
@@ -57,6 +58,7 @@ func remove_item(item: Item):
 
 	if is_oil:
 		_oil_list.erase(item)
+		remove_child(item)
 	else:
 		super.remove_item(item)
 
