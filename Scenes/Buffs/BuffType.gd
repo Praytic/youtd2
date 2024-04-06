@@ -144,6 +144,11 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 		target._add_buff_internal(buff)
 		target.add_child(buff)
 	else:
+#		NOTE: set _cleanup_done to true because no cleanup
+#		is needed. Buff was never added to tree, so _ready()
+#		wasn't called, so buff's CREATE event wasn't
+#		triggered.
+		buff._cleanup_done = true
 		buff.queue_free()
 
 	return buff
