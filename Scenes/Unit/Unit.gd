@@ -871,6 +871,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	if damage_source == DamageSource.Spell && target.is_immune():
 		damage = 0
 
+	var damage_before_damage_event: float = damage
+
 #	NOTE: emit_damage_event arg is true only for tower
 #	attacks, false for all other calls to this function
 	if emit_damage_event:
@@ -910,7 +912,10 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var damage_is_in_bounds: bool = Constants.DAMAGE_MIN <= damage && damage <= Constants.DAMAGE_MAX
 
 	if !damage_is_in_bounds:
-		push_error("Damage out of bounds. Damage base = %f, damage before damaged event = %f, damage final = %f" % [damage_base, damage_before_damaged_event, damage])
+		push_error("Damage out of bounds. Damage base = %f, damage before DAMAGE event = %f, damage before DAMAGED event = %f, damage final = %f" % [damage_base, damage_before_damage_event, damage_before_damaged_event, damage])
+
+		if attacker is Tower:
+			push_error("Tower id = %d" % attacker.get_id())
 
 		damage = clampf(damage, Constants.DAMAGE_MIN, Constants.DAMAGE_MAX)
 	
@@ -1518,6 +1523,9 @@ func get_base_mana_regen_bonus() -> float:
 func get_base_mana_regen_bonus_percent() -> float:
 	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
 
+# NOTE: regen values can be negative - this is on purpose.
+# If regen is negative, then unit will start losing mana.
+# This is how it works in original game.
 func get_overall_mana_regen() -> float:
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
 
@@ -1589,6 +1597,9 @@ func get_base_health_regen_bonus() -> float:
 func get_base_health_regen_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
 
+# NOTE: regen values can be negative - this is on purpose.
+# If regen is negative, then unit will start losing health.
+# This is how it works in original game.
 func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 

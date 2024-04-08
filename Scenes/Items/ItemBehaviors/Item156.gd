@@ -29,7 +29,11 @@ func on_damage(event: Event):
 	if item.user_int >= 5:
 		CombatLog.log_item_ability(item, null, "Infuse with Regeneration")
 		
-		event.damage = event.damage * regen
+#		NOTE: original script multiplied damage directly by
+#		regen. Regen can be negative which caused negative
+#		damage. Fixed issue by limiting multiplier to 0 or
+#		above.
+		event.damage = event.damage * max(0, regen)
 		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		carrier.get_player().display_small_floating_text(damage_text, carrier, Color8(255, 0, 255), 40.0)
