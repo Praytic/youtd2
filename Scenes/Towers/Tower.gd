@@ -513,8 +513,8 @@ func _update_target_list():
 # 	example, if a tower ability temporarily increased target
 # 	count to 3 and then it went back down to 1.
 	while _target_list.size() > get_target_count():
-		_target_list.pop_back()
-
+		var target = _target_list.back()
+		_remove_target(target)
 
 # 	Add new targets that have entered into range
 	var attack_range: float = get_range()
