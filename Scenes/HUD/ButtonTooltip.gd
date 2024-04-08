@@ -33,7 +33,7 @@ func _show_tooltip(button: Button, tooltip: String):
 
 	_current_button = button
 	_current_button.mouse_exited.connect(_clear_current_button)
-	_current_button.tree_exiting.connect(_clear_current_button)
+	_current_button.tree_exited.connect(_clear_current_button)
 	_current_button.hidden.connect(_clear_current_button)
 
 	_label.clear()
@@ -45,7 +45,7 @@ func _show_tooltip(button: Button, tooltip: String):
 func _clear_current_button():
 	if _current_button != null && is_instance_valid(_current_button):
 		_current_button.mouse_exited.disconnect(_clear_current_button)
-		_current_button.tree_exiting.disconnect(_clear_current_button)
+		_current_button.tree_exited.disconnect(_clear_current_button)
 		_current_button.hidden.disconnect(_clear_current_button)
 
 	_current_button = null

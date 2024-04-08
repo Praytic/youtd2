@@ -541,7 +541,7 @@ func _add_target(target: Creep):
 		return
 
 	_target_list.append(target)
-	target.death.connect(_on_target_death.bind(target))
+	target.tree_exited.connect(_on_target_tree_exited.bind(target))
 
 
 # NOTE: arg needs to be untyped because it may be an invalid
@@ -551,7 +551,7 @@ func _remove_target(target):
 		return
 
 	if is_instance_valid(target):
-		target.death.disconnect(_on_target_death)
+		target.tree_exited.disconnect(_on_target_tree_exited)
 
 	_target_list.erase(target)
 
@@ -613,7 +613,7 @@ func _on_unselected():
 	_tower_actions.hide()
 
 
-func _on_target_death(_event: Event, target: Creep):
+func _on_target_tree_exited(target: Creep):
 	_remove_target(target)
 
 

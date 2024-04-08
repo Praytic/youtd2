@@ -419,8 +419,7 @@ func _clear_target():
 		return
 
 	_target_pos = _target_unit.get_visual_position()
-	_target_unit.death.disconnect(_on_target_death)
-	_target_unit.tree_exiting.disconnect(_on_target_tree_exiting)
+	_target_unit.tree_exited.disconnect(_on_target_tree_exited)
 	_target_unit = null
 
 
@@ -436,14 +435,10 @@ func _on_periodic_timer_timeout():
 		_periodic_handler.call(self)
 
 
-func _on_target_death(_event: Event):
-	_clear_target()
-
-
-# NOTE: we need to clear target both on death() and on
-# tree_exiting() signal because creeps get removed from the
+# NOTE: this handleswe need to clear target both on death() and on
+# tree_exited() signal because creeps get removed from the
 # game without dying, when they reach the portal.
-func _on_target_tree_exiting():
+func _on_target_tree_exited():
 	_clear_target()
 
 
@@ -538,23 +533,19 @@ func set_acceleration(new_acceleration: float):
 func set_homing_target(new_target: Unit):
 	var old_target: Unit = _target_unit
 
-	if old_target != null && old_target.death.is_connected(_on_target_death):
-		old_target.death.disconnect(_on_target_death)
+	if Utils.unit_is_valid(old_target) && old_target.tree_exited.is_connected(_on_target_tree_exited):
+		old_target.tree_exited.disconnect(_on_target_tree_exited)
 
 	if new_target != null:
-#		NOTE: need to check that target is not about to be
-#		deleted here because a projectile may be launched
-#		towards a dead target. For example if some other
-#		part of tower script killed the target right before
-#		projectile was created. In such cases, projectile
-#		will move to the position where target was during
-#		death.
-		if !new_target.is_queued_for_deletion():
-			if !new_target.death.is_connected(_on_target_death):
-				new_target.death.connect(_on_target_death)
-
-			if !new_target.tree_exiting.is_connected(_on_target_tree_exiting):
-				new_target.tree_exiting.connect(_on_target_tree_exiting)
+#		NOTE: need to check that target is valid because
+#		projectile may be launched towards a dead target.
+#		For example if some other part of tower script
+#		killed the target right before projectile was
+#		created. In such cases, projectile will move to the
+#		position where target was during death.
+		if Utils.unit_is_valid(new_target):
+			if !new_target.tree_exited.is_connected(_on_target_tree_exited):
+				new_target.tree_exited.connect(_on_target_tree_exited)
 
 			_target_unit = new_target
 		else:
