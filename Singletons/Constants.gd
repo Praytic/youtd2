@@ -27,6 +27,7 @@ const LEVEL_UP_EFFECT_SIZE: float = 32.0
 const SPELL_DAMAGE_RATIO: float = 0.9
 
 const MAX_LEVEL: int = 25
+const PLAYER_MAX_LEVEL: int = 225
 const SIF_ARMOR_CHANCE: float = 0.15
 const MIN_WAVE_FOR_SPECIAL: int = 8
 
