@@ -34,6 +34,7 @@ const SHOW_TUTORIAL_ON_START: String = "show_tutorial_on_start"
 const CACHED_GAME_DIFFICULTY: String = "CACHED_GAME_DIFFICULTY"
 const CACHED_GAME_MODE: String = "CACHED_GAME_MODE"
 const CACHED_GAME_LENGTH: String = "CACHED_GAME_LENGTH"
+const PLAYER_NAME: String = "PLAYER_NAME"
 
 
 var _cache: Dictionary = {}
@@ -54,6 +55,7 @@ var _default_value_map: Dictionary = {
 #	NOTE: need to convert to float because JSON only
 #	supports floats
 	CACHED_GAME_LENGTH: Constants.WAVE_COUNT_FULL as float,
+	PLAYER_NAME: "Player",
 }
 
 

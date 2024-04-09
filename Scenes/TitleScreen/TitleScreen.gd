@@ -8,6 +8,7 @@ enum Tab {
 	CONFIGURE_SINGLEPLAYER,
 	JOIN_OR_HOST,
 	MULTIPLAYER_ROOM,
+	PROFILE,
 	SETTINGS,
 	CREDITS,
 	AUTH,
@@ -144,3 +145,11 @@ func _on_room_menu_start_pressed():
 	var origin_seed: int = randi()
 
 	_start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
+
+
+func _on_profile_button_pressed():
+	_tab_container.current_tab = Tab.PROFILE
+
+
+func _on_profile_menu_close_pressed():
+	_tab_container.current_tab = Tab.MAIN

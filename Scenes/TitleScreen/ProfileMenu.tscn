@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch6cw5m8w8r7j"]
+
+[ext_resource type="Script" path="res://Scenes/TitleScreen/ProfileMenu.gd" id="1_h7bqv"]
+
+[node name="ProfileMenu" type="VBoxContainer" node_paths=PackedStringArray("_name_edit")]
+custom_minimum_size = Vector2(300, 0)
+script = ExtResource("1_h7bqv")
+_name_edit = NodePath("HBoxContainer/NameEdit")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LabelLarge"
+text = "Profile"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Name:"
+
+[node name="NameEdit" type="TextEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Player"
+context_menu_enabled = false
+caret_blink = true
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
+
+[connection signal="text_changed" from="HBoxContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
