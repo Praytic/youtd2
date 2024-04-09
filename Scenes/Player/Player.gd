@@ -40,6 +40,7 @@ var _have_placeholder_builder: bool = true
 var _score: float = 0.0
 var _is_ready: bool = false
 var _focus_target_effect_id: int = 0
+var _wisdom_upgrade_max: int = Constants.WISDOM_UPGRADE_MAX_DEFAULT
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -461,6 +462,14 @@ func get_next_5_waves() -> Array[Wave]:
 
 func disable_rolling():
 	roll_was_disabled.emit()
+
+
+func modify_wisdom_upgrade_max(change: int):
+	_wisdom_upgrade_max += change
+
+
+func get_wisdom_upgrade_max() -> int:
+	return _wisdom_upgrade_max
 
 
 #########################

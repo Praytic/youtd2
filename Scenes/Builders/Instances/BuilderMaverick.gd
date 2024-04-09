@@ -1,10 +1,7 @@
 extends Builder
 
 
-# TODO: the following bonuses are not implemented:
-# 
-# "-3 keeper of wisdom upgrades" - need to implement Keeper of Wisdom first.
-# 
+# TODO: the following bonus is not implemented:
 # "Unable to share build areas with allies" - need to
 # implement multiplier first
 
@@ -15,6 +12,7 @@ func _init():
 
 func apply_to_player(player: Player):
 	player.modify_food_cap(-20)
+	player.modify_wisdom_upgrade_max(-3)
 
 
 func _get_tower_modifier() -> Modifier:

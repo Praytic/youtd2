@@ -132,6 +132,7 @@ func _ready():
 	local_team.game_over.connect(_on_local_team_game_over)
 	
 	_hud.connect_to_local_player(local_player)
+	local_player.selected_builder.connect(_on_local_player_selected_builder)
 	
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
@@ -659,13 +660,6 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	var builder_id: int = builder_menu.get_builder_id()
 	builder_menu.queue_free()
 	_set_builder_for_local_player(builder_id)
-	
-	var wisdom_menu: WisdomUpgradeMenu = preload("res://Scenes/HUD/WisdomUpgradeMenu.tscn").instantiate()
-	wisdom_menu.finished.connect(_on_wisdom_menu_finished.bind(wisdom_menu))
-	
-	_ui_layer.add_child(wisdom_menu)
-	var game_menu_index: int = _game_menu.get_index()
-	_ui_layer.move_child(wisdom_menu, game_menu_index)
 
 
 func _on_wisdom_menu_finished(wisdom_menu: WisdomUpgradeMenu):
@@ -752,3 +746,15 @@ func _on_game_menu_quit_to_title_pressed():
 	_cleanup_all_objects()
 	get_tree().set_pause(false)
 	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
+
+
+# NOTE: need to open wisdom menu here and not directly after
+# builder menu is finished because the action has to go
+# through game host first.
+func _on_local_player_selected_builder():
+	var wisdom_menu: WisdomUpgradeMenu = preload("res://Scenes/HUD/WisdomUpgradeMenu.tscn").instantiate()
+	wisdom_menu.finished.connect(_on_wisdom_menu_finished.bind(wisdom_menu))
+	
+	_ui_layer.add_child(wisdom_menu)
+	var game_menu_index: int = _game_menu.get_index()
+	_ui_layer.move_child(wisdom_menu, game_menu_index)

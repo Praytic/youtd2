@@ -17,6 +17,7 @@ signal max_pressed()
 
 
 var _current_value: int = 0
+var _max_value: int = 0
 
 
 #########################
@@ -25,20 +26,35 @@ var _current_value: int = 0
 
 func _ready():
 	_texture_rect.texture = icon_texture
+	_update_bar()
 
 
 #########################
 ###       Public      ###
 #########################
 
+
+func set_max_value(max_value: int):
+	_max_value = max_value
+	_update_bar()
+
+
 func get_value() -> int:
 	return _current_value
 
 
 func set_value(value: int):
-	_current_value = clampi(value, 0, 8)
-	_progress_bar.value = (_current_value / 8.0) * 100
-	_progress_label.text = "%d/8" % _current_value
+	_current_value = clampi(value, 0, _max_value)
+	_update_bar()
+
+
+#########################
+###      Private      ###
+#########################
+
+func _update_bar():
+	_progress_bar.value = (float(_current_value) / _max_value) * 100
+	_progress_label.text = "%d/%d" % [_current_value, _max_value]
 
 
 #########################

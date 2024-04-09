@@ -1,15 +1,10 @@
 extends Builder
 
 
-# TODO: the following bonus is not implemented: "+2 keeper
-# of wisdom max upgrades" because Keeper of Wisdom is not
-# implemented. Keeper of Wisdom is a feature in youtd where
-# player can buy minor stat perks, based on player level.
-
-
 func apply_to_player(player: Player):
 	player.modify_income_rate(-0.20)
 	player.add_tomes(-45)
+	player.modify_wisdom_upgrade_max(2)
 
 
 func _get_tower_modifier() -> Modifier:

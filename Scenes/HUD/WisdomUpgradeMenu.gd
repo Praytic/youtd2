@@ -11,13 +11,12 @@ signal finished()
 @export var _level_orbs_label: RichTextLabel
 @export var _orbs_label: Label
 
-const VALUE_MAX: int = 8
-
 
 var _bar_map: Dictionary = {}
 
 var _orbs_total: int
 var _orbs_remaining: int
+var _upgrade_max: int
 
 
 #########################
@@ -46,6 +45,12 @@ func _ready():
 	var level_orbs_text: String = "You are level [color=GOLD]%d[/color] and you have [color=GOLD]%d[/color] orbs." % [player_lvl, orb_count]
 	_level_orbs_label.clear()
 	_level_orbs_label.append_text(level_orbs_text)
+
+	var local_player: Player = PlayerManager.get_local_player()
+	_upgrade_max = local_player.get_wisdom_upgrade_max()
+
+	for bar in _bar_map.values():
+		bar.set_max_value(_upgrade_max)
 
 
 #########################
@@ -98,7 +103,7 @@ func _on_plus_pressed(bar: WisdomUpgradeBar):
 	
 	var current_value: int = bar.get_value()
 	
-	if current_value == VALUE_MAX:
+	if current_value == _upgrade_max:
 		return
 	
 	bar.set_value(current_value + 1)
@@ -113,7 +118,7 @@ func _on_max_pressed(bar: WisdomUpgradeBar):
 		
 		return
 	
-	while _orbs_remaining > 0 && bar.get_value() < VALUE_MAX:
+	while _orbs_remaining > 0 && bar.get_value() < _upgrade_max:
 		bar.set_value(bar.get_value() + 1)
 		_orbs_remaining -= 1
 		_update_orbs_label()
