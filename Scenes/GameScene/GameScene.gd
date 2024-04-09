@@ -659,7 +659,19 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	var builder_id: int = builder_menu.get_builder_id()
 	builder_menu.queue_free()
 	_set_builder_for_local_player(builder_id)
+	
+	var wisdom_menu: WisdomUpgradeMenu = preload("res://Scenes/HUD/WisdomUpgradeMenu.tscn").instantiate()
+	wisdom_menu.finished.connect(_on_wisdom_menu_finished.bind(wisdom_menu))
+	
+	_ui_layer.add_child(wisdom_menu)
+	var game_menu_index: int = _game_menu.get_index()
+	_ui_layer.move_child(wisdom_menu, game_menu_index)
 
+
+func _on_wisdom_menu_finished(wisdom_menu: WisdomUpgradeMenu):
+#	TODO: get wisdom config from menu and pass it to game host
+	wisdom_menu.queue_free()
+	
 	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var game_mode: GameMode.enm = Globals.get_game_mode()

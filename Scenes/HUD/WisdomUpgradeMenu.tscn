@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://di1a1qyge5s3a"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeMenu.gd" id="1_s5krx"]
+[ext_resource type="Texture2D" uid="uid://c51sj37ulgdqp" path="res://Resources/Textures/Buffs/hammer_swing.tres" id="2_jt0km"]
+[ext_resource type="PackedScene" uid="uid://cd54mdn8dn4ci" path="res://Scenes/HUD/WisdomUpgradeBar.tscn" id="2_ofok2"]
+[ext_resource type="Texture2D" uid="uid://dyaarp6hgeswd" path="res://Resources/Textures/Buffs/meat.tres" id="4_3882w"]
+
+[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_bar_container", "_level_orbs_label", "_orbs_label")]
+custom_minimum_size = Vector2(600, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CenterPanel"
+script = ExtResource("1_s5krx")
+_bar_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/BarContainer")
+_level_orbs_label = NodePath("VBoxContainer/HBoxContainer/LevelOrbsLabel")
+_orbs_label = NodePath("VBoxContainer/HBoxContainer/OrbsLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LabelLarge"
+text = "Wisdom Upgrades"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelOrbsLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "You are level X and you have Y orbs."
+fit_content = true
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Orbs used:"
+
+[node name="OrbsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0/0"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 1, 1, 1)
+text = "You can earn orbs by playing the game and earning score points."
+autowrap_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="BarContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="WisdomUpgradeBar" parent="VBoxContainer/PanelContainer/MarginContainer/BarContainer" instance=ExtResource("2_ofok2")]
+layout_mode = 2
+icon_texture = ExtResource("2_jt0km")
+
+[node name="WisdomUpgradeBar2" parent="VBoxContainer/PanelContainer/MarginContainer/BarContainer" instance=ExtResource("2_ofok2")]
+layout_mode = 2
+wisdom_upgrade = 1
+icon_texture = ExtResource("4_3882w")
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Confirm"
+
+[connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
