@@ -95,5 +95,8 @@ func _on_import_exp_menu_import_pressed():
 		
 		return
 	
+	Settings.set_setting(Settings.EXP_PASSWORD, exp_password)
+	Settings.flush()
+
 	_import_exp_menu.show_success_label(player_exp)
 	_load_player_exp(player_exp)
