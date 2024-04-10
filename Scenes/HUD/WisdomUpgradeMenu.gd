@@ -10,6 +10,7 @@ signal finished()
 @export var _bar_container: VBoxContainer
 @export var _level_orbs_label: RichTextLabel
 @export var _orbs_label: Label
+@export var _error_label: Label
 
 
 var _bar_map: Dictionary = {}
@@ -140,7 +141,7 @@ func _get_player_level() -> int:
 	var player_exp_is_valid: bool = player_exp != -1
 	
 	if !player_exp_is_valid:
-		# TODO: show error msg
+		_show_error("Experience password is invalid, resetting level to 0.")
 		
 		return 0
 	
@@ -156,11 +157,18 @@ func _update_orbs_label():
 	_orbs_label.text = orbs_text
 
 
+func _show_error(text: String):
+	_error_label.text = text
+	_error_label.show()
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_minus_pressed(bar: WisdomUpgradeBar):
+	_error_label.hide()
+
 	var current_value: int = bar.get_value()
 	
 	if current_value == 0:
@@ -172,9 +180,10 @@ func _on_minus_pressed(bar: WisdomUpgradeBar):
 
 
 func _on_plus_pressed(bar: WisdomUpgradeBar):
+	_error_label.hide()
+	
 	if _orbs_remaining == 0:
-#		Messages.add_error(PlayerManager.get_local_player(), "Not enough orbs.")
-		print("Not enough orbs.")
+		_show_error("Not enough orbs.")
 		
 		return
 	
@@ -189,9 +198,10 @@ func _on_plus_pressed(bar: WisdomUpgradeBar):
 
 
 func _on_max_pressed(bar: WisdomUpgradeBar):
+	_error_label.hide()
+
 	if _orbs_remaining == 0:
-#		Messages.add_error(PlayerManager.get_local_player(), "Not enough orbs.")
-		print("Not enough orbs.")
+		_show_error("Not enough orbs.")
 		
 		return
 	
