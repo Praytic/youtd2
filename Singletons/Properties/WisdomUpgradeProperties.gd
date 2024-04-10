@@ -3,8 +3,8 @@ extends Node
 
 enum CsvProperty {
 	ID,
-	TOOLTIP,
-	ICON,
+	NAME,
+	DESCRIPTION,
 }
 
 enum Id {
@@ -34,16 +34,16 @@ func get_id_list() -> Array:
 	return _properties.keys()
 
 
-func get_tooltip(tower_id: int) -> String:
-	var tooltip: String = _get_property(tower_id, CsvProperty.TOOLTIP)
+func get_upgrade_name(tower_id: int) -> String:
+	var tooltip: String = _get_property(tower_id, CsvProperty.NAME)
 
 	return tooltip
 
 
-func get_icon_path(tower_id: int) -> String:
-	var icon_path: String = _get_property(tower_id, CsvProperty.ICON)
+func get_description(tower_id: int) -> String:
+	var tooltip: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
 
-	return icon_path
+	return tooltip
 
 
 #########################

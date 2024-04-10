@@ -9,7 +9,6 @@ signal plus_pressed()
 signal max_pressed()
 
 @export var _name_label: Label
-@export var _icon: TextureRectWithRichTooltip
 @export var _progress_bar: ProgressBar
 @export var _progress_label: Label
 
@@ -80,21 +79,10 @@ static func make(upgrade_id: int) -> WisdomUpgradeBar:
 
 	bar._upgrade_id = upgrade_id
 	
-	var icon_path: String = WisdomUpgradeProperties.get_icon_path(upgrade_id)
+	var upgrade_name: String = WisdomUpgradeProperties.get_upgrade_name(upgrade_id)
+	var description: String = WisdomUpgradeProperties.get_description(upgrade_id)
+	bar._name_label.text = upgrade_name
+	bar._name_label.tooltip_text = description
 	
-	var icon_texture: Texture
-	if ResourceLoader.exists(icon_path):
-		icon_texture = load(icon_path)
-	else:
-		push_error("Invalid icon for wisdom upgrade: %s" % icon_path)
-		icon_texture = Preloads.fallback_buff_icon
-	
-	bar._icon.texture = icon_texture
-	
-	var tooltip: String = WisdomUpgradeProperties.get_tooltip(upgrade_id)
-	bar._icon.tooltip_text = tooltip
-	
-	bar._name_label.text = tooltip.split("\n")[0]
-
 	return bar
 	

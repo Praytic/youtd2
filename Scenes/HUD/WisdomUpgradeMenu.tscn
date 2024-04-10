@@ -37,6 +37,10 @@ size_flags_horizontal = 3
 text = "You are level X and you have Y orbs."
 fit_content = true
 
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Mouse over upgrade names for more info."
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
