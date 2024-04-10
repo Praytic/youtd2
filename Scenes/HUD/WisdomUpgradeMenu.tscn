@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://di1a1qyge5s3a"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeMenu.gd" id="1_s5krx"]
-[ext_resource type="Texture2D" uid="uid://c51sj37ulgdqp" path="res://Resources/Textures/Buffs/hammer_swing.tres" id="2_jt0km"]
 [ext_resource type="PackedScene" uid="uid://cd54mdn8dn4ci" path="res://Scenes/HUD/WisdomUpgradeBar.tscn" id="2_ofok2"]
-[ext_resource type="Texture2D" uid="uid://dyaarp6hgeswd" path="res://Resources/Textures/Buffs/meat.tres" id="4_3882w"]
+[ext_resource type="Texture2D" uid="uid://c51sj37ulgdqp" path="res://Resources/Textures/Buffs/hammer_swing.tres" id="2_u737o"]
+[ext_resource type="Texture2D" uid="uid://dyaarp6hgeswd" path="res://Resources/Textures/Buffs/meat.tres" id="4_b7frs"]
 
 [node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_bar_container", "_level_orbs_label", "_orbs_label")]
 custom_minimum_size = Vector2(600, 500)
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"CenterPanel"
 script = ExtResource("1_s5krx")
-_bar_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/BarContainer")
+_bar_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/GridContainer")
 _level_orbs_label = NodePath("VBoxContainer/HBoxContainer/LevelOrbsLabel")
 _orbs_label = NodePath("VBoxContainer/HBoxContainer/OrbsLabel")
 
@@ -68,17 +68,26 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="BarContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_u737o")
+expand_mode = 2
+
+[node name="WisdomUpgradeBar" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
 layout_mode = 2
 
-[node name="WisdomUpgradeBar" parent="VBoxContainer/PanelContainer/MarginContainer/BarContainer" instance=ExtResource("2_ofok2")]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
-icon_texture = ExtResource("2_jt0km")
+texture = ExtResource("4_b7frs")
+expand_mode = 2
 
-[node name="WisdomUpgradeBar2" parent="VBoxContainer/PanelContainer/MarginContainer/BarContainer" instance=ExtResource("2_ofok2")]
+[node name="WisdomUpgradeBar2" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
 layout_mode = 2
 wisdom_upgrade = 1
-icon_texture = ExtResource("4_3882w")
 
 [node name="ConfirmButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

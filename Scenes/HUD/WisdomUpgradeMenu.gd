@@ -7,7 +7,7 @@ class_name WisdomUpgradeMenu extends PanelContainer
 signal finished()
 
 
-@export var _bar_container: VBoxContainer
+@export var _bar_container: GridContainer
 @export var _level_orbs_label: RichTextLabel
 @export var _orbs_label: Label
 
@@ -24,10 +24,13 @@ var _upgrade_max: int
 #########################
 
 func _ready():
-	var bar_node_list: Array = _bar_container.get_children()
+	var child_list: Array[Node] = _bar_container.get_children()
 	
-	for bar_node in bar_node_list:
-		var bar: WisdomUpgradeBar = bar_node as WisdomUpgradeBar
+	for child in child_list:
+		if !child is WisdomUpgradeBar:
+			continue
+		
+		var bar: WisdomUpgradeBar = child as WisdomUpgradeBar
 		var upgrade: WisdomUpgrade.enm = bar.wisdom_upgrade
 		
 		bar.minus_pressed.connect(_on_minus_pressed.bind(bar))

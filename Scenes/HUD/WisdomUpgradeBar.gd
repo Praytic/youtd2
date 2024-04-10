@@ -12,8 +12,6 @@ signal max_pressed()
 @export var _progress_label: Label
 
 @export var wisdom_upgrade: WisdomUpgrade.enm
-@export var icon_texture: Texture
-@export var _texture_rect: TextureRectWithRichTooltip
 
 
 var _current_value: int = 0
@@ -25,7 +23,6 @@ var _max_value: int = 0
 #########################
 
 func _ready():
-	_texture_rect.texture = icon_texture
 	_update_bar()
 
 
