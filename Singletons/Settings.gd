@@ -140,12 +140,21 @@ func get_interface_size() -> float:
 #########################
 
 func _validate_cache():
+	var cache_was_fixed: bool = false
+
 	for _cache_key in _default_value_map.keys():
 		if !_cache.has(_cache_key):
 			push_error("Settings file doesn't have value for [%s]. Resetting it to default." % _cache_key)
 			_cache[_cache_key] = _default_value_map[_cache_key]
+			cache_was_fixed = true
 
 #		Cache should have comparable types with the default map
 		if typeof(_default_value_map[_cache_key]) != typeof(_cache[_cache_key]):
 			push_error("Saved setting [%s] has incorrect type. Resetting it to default." % _cache_key)
 			_cache[_cache_key] = _default_value_map[_cache_key]
+			cache_was_fixed = true
+
+#	NOTE: need to flush settings if cache was fixed to save
+#	fixed settings to file
+	if cache_was_fixed:
+		flush()
