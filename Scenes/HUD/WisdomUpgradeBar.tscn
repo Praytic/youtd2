@@ -11,18 +11,27 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="WisdomUpgradeBar" type="HBoxContainer" node_paths=PackedStringArray("_icon", "_progress_bar", "_progress_label")]
+[node name="WisdomUpgradeBar" type="HBoxContainer" node_paths=PackedStringArray("_name_label", "_icon", "_progress_bar", "_progress_label")]
 size_flags_horizontal = 3
 script = ExtResource("1_7mtht")
+_name_label = NodePath("Label")
 _icon = NodePath("TextureRectWithRichTooltip")
 _progress_bar = NodePath("MarginContainer/ProgressBar")
 _progress_label = NodePath("MarginContainer/ProgressLabel")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Upgrade name"
 
 [node name="TextureRectWithRichTooltip" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("2_j53gh")
 expand_mode = 2
 script = ExtResource("3_a8wim")
+
+[node name="Spacer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="MinusButton" type="Button" parent="."]
 layout_mode = 2
@@ -34,6 +43,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -52,6 +62,9 @@ text = "+"
 [node name="MaxButton" type="Button" parent="."]
 layout_mode = 2
 text = "Max"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
 
 [connection signal="pressed" from="MinusButton" to="." method="_on_minus_button_pressed"]
 [connection signal="pressed" from="PlusButton" to="." method="_on_plus_button_pressed"]

@@ -8,6 +8,7 @@ signal minus_pressed()
 signal plus_pressed()
 signal max_pressed()
 
+@export var _name_label: Label
 @export var _icon: TextureRectWithRichTooltip
 @export var _progress_bar: ProgressBar
 @export var _progress_label: Label
@@ -92,6 +93,8 @@ static func make(upgrade_id: int) -> WisdomUpgradeBar:
 	
 	var tooltip: String = WisdomUpgradeProperties.get_tooltip(upgrade_id)
 	bar._icon.tooltip_text = tooltip
+	
+	bar._name_label.text = tooltip.split("\n")[0]
 
 	return bar
 	
