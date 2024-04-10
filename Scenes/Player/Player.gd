@@ -41,6 +41,7 @@ var _score: float = 0.0
 var _is_ready: bool = false
 var _focus_target_effect_id: int = 0
 var _wisdom_upgrade_max: int = Constants.WISDOM_UPGRADE_MAX_DEFAULT
+var _wisdom_modifier: Modifier = Modifier.new()
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -470,6 +471,14 @@ func modify_wisdom_upgrade_max(change: int):
 
 func get_wisdom_upgrade_max() -> int:
 	return _wisdom_upgrade_max
+
+
+func set_wisdom_modifier(value: Modifier):
+	_wisdom_modifier = value
+
+
+func get_wisdom_modifier() -> Modifier:
+	return _wisdom_modifier
 
 
 #########################

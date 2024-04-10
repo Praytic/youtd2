@@ -55,6 +55,24 @@ func _ready():
 
 
 #########################
+###       Public      ###
+#########################
+
+func get_wisdom_upgrades() -> Dictionary:
+	var result: Dictionary = {}
+
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+
+	for upgrade_id in upgrade_id_list:
+		var bar: WisdomUpgradeBar = _bar_map[upgrade_id]
+		var upgrade_value: int = bar.get_value()
+
+		result[upgrade_id] = upgrade_value
+
+	return result
+
+
+#########################
 ###      Private      ###
 #########################
 

@@ -147,6 +147,9 @@ func _ready():
 			var experience_for_level: int = Experience.get_exp_for_level(tower_lvl_bonus)
 			_experience = experience_for_level
 
+	var wisdom_modifier: Modifier = get_player().get_wisdom_modifier()
+	add_modifier(wisdom_modifier)
+
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()
 	innate_modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, Constants.INNATE_MOD_ATK_CRIT_CHANCE_LEVEL_ADD)

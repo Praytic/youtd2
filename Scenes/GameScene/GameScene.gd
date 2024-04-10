@@ -663,8 +663,11 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 
 
 func _on_wisdom_menu_finished(wisdom_menu: WisdomUpgradeMenu):
-#	TODO: get wisdom config from menu and pass it to game host
+	var wisdom_upgrades: Dictionary = wisdom_menu.get_wisdom_upgrades()
 	wisdom_menu.queue_free()
+
+	var action: Action = ActionSelectWisdomUpgrades.make(wisdom_upgrades)
+	_game_client.add_action(action)
 	
 	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
