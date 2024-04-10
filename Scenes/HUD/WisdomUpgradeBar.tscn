@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd54mdn8dn4ci"]
+[gd_scene load_steps=5 format=3 uid="uid://cd54mdn8dn4ci"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeBar.gd" id="1_7mtht"]
+[ext_resource type="Texture2D" uid="uid://cdqtd51r814ka" path="res://Resources/Textures/Buffs/egg.tres" id="2_j53gh"]
+[ext_resource type="Script" path="res://Scenes/HUD/TextureRectWithRichTooltip.gd" id="3_a8wim"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25uh2"]
 bg_color = Color(0.247059, 0.305882, 0.345098, 1)
@@ -9,11 +11,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="WisdomUpgradeBar" type="HBoxContainer" node_paths=PackedStringArray("_progress_bar", "_progress_label")]
+[node name="WisdomUpgradeBar" type="HBoxContainer" node_paths=PackedStringArray("_icon", "_progress_bar", "_progress_label")]
 size_flags_horizontal = 3
 script = ExtResource("1_7mtht")
+_icon = NodePath("TextureRectWithRichTooltip")
 _progress_bar = NodePath("MarginContainer/ProgressBar")
 _progress_label = NodePath("MarginContainer/ProgressLabel")
+
+[node name="TextureRectWithRichTooltip" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_j53gh")
+expand_mode = 2
+script = ExtResource("3_a8wim")
 
 [node name="MinusButton" type="Button" parent="."]
 layout_mode = 2
