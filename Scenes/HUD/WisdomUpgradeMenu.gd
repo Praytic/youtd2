@@ -27,7 +27,7 @@ var _upgrades_cached: Dictionary = {}
 
 func _ready():
 	var player_lvl: int = _get_player_level()
-	var orb_count: int = player_lvl * 1
+	var orb_count: int = player_lvl * Constants.PLAYER_LEVEL_TO_WISDOM_ORBS
 	_orbs_total = orb_count
 	var local_player: Player = PlayerManager.get_local_player()
 	_upgrade_max = local_player.get_wisdom_upgrade_max()

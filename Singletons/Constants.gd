@@ -117,3 +117,6 @@ const WISDOM_UPGRADE_MAX_DEFAULT: int = 8
 # 
 # ratio = 411xp / (10h * 20,000score) ~= 0.002
 const SCORE_TO_EXP: float = 0.002
+# NOTE: picked 4, so that player has max orbs (80) at lvl 20
+# (10h of gameplay)
+const PLAYER_LEVEL_TO_WISDOM_ORBS: int = 4
