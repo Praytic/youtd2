@@ -666,6 +666,12 @@ func _on_wisdom_menu_finished(wisdom_menu: WisdomUpgradeMenu):
 	var wisdom_upgrades: Dictionary = wisdom_menu.get_wisdom_upgrades()
 	wisdom_menu.queue_free()
 
+# 	NOTE: save wisdom upgrades last choice so that they can
+# 	be loaded during next game. For convenience, so player
+# 	doesn't need to reselect them everytime.
+	Settings.set_setting(Settings.WISDOM_UPGRADES_CACHED, wisdom_upgrades)
+	Settings.flush()
+
 	var action: Action = ActionSelectWisdomUpgrades.make(wisdom_upgrades)
 	_game_client.add_action(action)
 	
@@ -756,6 +762,8 @@ func _on_game_menu_quit_to_title_pressed():
 # through game host first.
 func _on_local_player_selected_builder():
 	var wisdom_menu: WisdomUpgradeMenu = preload("res://Scenes/HUD/WisdomUpgradeMenu.tscn").instantiate()
+	var wisdom_upgrades_cached: Dictionary = Settings.get_setting(Settings.WISDOM_UPGRADES_CACHED)
+	wisdom_menu.set_wisdom_upgrades_cached(wisdom_upgrades_cached)
 	wisdom_menu.finished.connect(_on_wisdom_menu_finished.bind(wisdom_menu))
 	
 	_ui_layer.add_child(wisdom_menu)

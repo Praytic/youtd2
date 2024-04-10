@@ -17,6 +17,7 @@ var _bar_map: Dictionary = {}
 var _orbs_total: int
 var _orbs_remaining: int
 var _upgrade_max: int
+var _upgrades_cached: Dictionary = {}
 
 
 #########################
@@ -33,6 +34,12 @@ func _ready():
 		bar.plus_pressed.connect(_on_plus_pressed.bind(bar))
 		bar.max_pressed.connect(_on_max_pressed.bind(bar))
 		
+#		NOTE: need to convert upgrade_id to string because
+#		cache comes from settings JSON which forces dict
+#		keys to be strings.
+		var cached_value: int = _upgrades_cached.get(str(upgrade_id), 0)
+		bar.set_value(cached_value)
+
 		_bar_container.add_child(bar)
 		
 		_bar_map[upgrade_id] = bar
@@ -57,6 +64,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_wisdom_upgrades_cached(upgrades_cached: Dictionary):
+	if is_inside_tree():
+		push_error("This f-n must be called before addding menu to tree.")
+
+	_upgrades_cached = upgrades_cached
+
 
 func get_wisdom_upgrades() -> Dictionary:
 	var result: Dictionary = {}

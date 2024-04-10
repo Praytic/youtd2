@@ -41,7 +41,7 @@ func get_value() -> int:
 
 
 func set_value(value: int):
-	_current_value = clampi(value, 0, _max_value)
+	_current_value = value
 	_update_bar()
 
 
