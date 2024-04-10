@@ -6,6 +6,7 @@ class_name Team extends Node
 # work on it for multiplayer.
 
 signal game_over()
+signal game_win()
 signal level_changed()
 
 
@@ -87,6 +88,14 @@ func modify_lives(amount: float):
 		_is_game_over = true
 		game_over.emit()
 
+#		Delete all creeps for this team
+		var creep_list: Array[Creep] = Utils.get_creep_list()
+		for creep in creep_list:
+			var player_match: bool = _player_list.has(creep.get_player())
+
+			if player_match:
+				creep.remove_from_game()
+
 		_next_wave_timer.stop()
 		_extreme_timer.stop()
 
@@ -128,6 +137,8 @@ func _start_wave():
 
 
 func _do_victory_effects():
+	game_win.emit()
+	
 	for i in range(10):
 		var effect_count: int = 100 + i * 20
 		
