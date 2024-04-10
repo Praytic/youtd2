@@ -20,8 +20,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"CenterPanel"
 script = ExtResource("1_s5krx")
-_bar_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/GridContainer")
-_level_orbs_label = NodePath("VBoxContainer/HBoxContainer/LevelOrbsLabel")
+_bar_container = NodePath("VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer")
+_level_orbs_label = NodePath("VBoxContainer/LevelOrbsLabel")
 _orbs_label = NodePath("VBoxContainer/HBoxContainer/OrbsLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -34,14 +34,15 @@ size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
 text = "Wisdom Upgrades"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="LevelOrbsLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+[node name="LevelOrbsLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "You are level X and you have Y orbs."
 fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -51,41 +52,38 @@ text = "Orbs used:"
 layout_mode = 2
 text = "0/0"
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.607843, 1, 1, 1)
-text = "You can earn orbs by playing the game and earning score points."
-autowrap_mode = 2
-
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 texture = ExtResource("2_u737o")
 expand_mode = 2
 
-[node name="WisdomUpgradeBar" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
+[node name="WisdomUpgradeBar" parent="VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
 layout_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer"]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 texture = ExtResource("4_b7frs")
 expand_mode = 2
 
-[node name="WisdomUpgradeBar2" parent="VBoxContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
+[node name="WisdomUpgradeBar2" parent="VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("2_ofok2")]
 layout_mode = 2
 wisdom_upgrade = 1
 
