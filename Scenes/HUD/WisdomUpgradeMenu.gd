@@ -28,10 +28,6 @@ func _ready():
 	var player_lvl: int = _get_player_level()
 	var orb_count: int = player_lvl * 1
 	_orbs_total = orb_count
-#	TODO: this value is currently incorrect if loaded cached
-#	upgrades.
-	_orbs_remaining = orb_count
-	_update_orbs_label()
 	var local_player: Player = PlayerManager.get_local_player()
 	_upgrade_max = local_player.get_wisdom_upgrade_max()
 
@@ -42,6 +38,10 @@ func _ready():
 	var upgrades_cached_is_valid: bool = _validate_upgrades_cache(_upgrades_cached, _upgrade_max, orb_count)
 	if !upgrades_cached_is_valid:
 		_upgrades_cached = {}
+	
+	var orbs_used_count: int = _get_used_orb_count_for_upgrades_cache(_upgrades_cached)
+	_orbs_remaining = orb_count - orbs_used_count
+	_update_orbs_label()
 	
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 
@@ -102,8 +102,6 @@ func get_wisdom_upgrades() -> Dictionary:
 func _validate_upgrades_cache(cache: Dictionary, upgrades_max: int, orb_count: int) -> bool:
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 
-	var orbs_used: int = 0
-
 	for upgrade_id in upgrade_id_list:
 		var value: int = cache.get(str(upgrade_id), 0)
 
@@ -114,8 +112,7 @@ func _validate_upgrades_cache(cache: Dictionary, upgrades_max: int, orb_count: i
 
 			return false
 
-		orbs_used += value
-
+	var orbs_used: int = _get_used_orb_count_for_upgrades_cache(cache)
 	var used_more_orbs_than_got: bool = orbs_used > orb_count
 
 	if used_more_orbs_than_got:
@@ -124,6 +121,17 @@ func _validate_upgrades_cache(cache: Dictionary, upgrades_max: int, orb_count: i
 		return false
 
 	return true
+
+
+func _get_used_orb_count_for_upgrades_cache(cache: Dictionary) -> int:
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+	var orbs_used: int = 0
+
+	for upgrade_id in upgrade_id_list:
+		var value: int = cache.get(str(upgrade_id), 0)
+		orbs_used += value
+
+	return orbs_used
 
 
 func _get_player_level() -> int:
