@@ -108,3 +108,12 @@ const MAX_UPDATE_TICKS_PER_PHYSICS_TICK: int = 20
 # NOTE: this value is the default, final value can be
 # modified by some builders.
 const WISDOM_UPGRADE_MAX_DEFAULT: int = 8
+# NOTE: this value is not the same as in original game.
+# Chose this value so that player can unlock all builders
+# after playing the game for 10h. Player earns about 20k
+# score points per hour at medium difficulty. Player must
+# earn lvl 20 to unlock all builders. Player reaches lvl 20
+# at 411 exp. Therefore:
+# 
+# ratio = 411xp / (10h * 20,000score) ~= 0.002
+const SCORE_TO_EXP: float = 0.002

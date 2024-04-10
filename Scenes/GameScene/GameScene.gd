@@ -130,6 +130,7 @@ func _ready():
 	var local_player: Player = PlayerManager.get_local_player()
 	var local_team: Team = local_player.get_team()
 	local_team.game_over.connect(_on_local_team_game_over)
+	local_team.game_win.connect(_on_local_team_game_win)
 	
 	_hud.connect_to_local_player(local_player)
 	local_player.selected_builder.connect(_on_local_player_selected_builder)
@@ -483,6 +484,28 @@ func _cleanup_all_objects():
 			child.queue_free()
 
 
+func _convert_local_player_score_to_exp():
+	var old_exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
+	var old_player_exp: int = ExperiencePassword.decode(old_exp_password)
+	var old_player_level: int = PlayerExperience.get_level_at_exp(old_player_exp)
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var score: int = floori(local_player.get_score())
+	var exp_gain: int = floori(score * Constants.SCORE_TO_EXP)
+
+	var new_player_exp: int = old_player_exp + exp_gain
+	var new_exp_password: String = ExperiencePassword.encode(new_player_exp)
+	var new_player_level: int = PlayerExperience.get_level_at_exp(new_player_exp)
+	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
+	Settings.flush()
+
+	if exp_gain > 0:
+		Messages.add_normal(local_player, "You gained [color=GOLD]%d[/color] experience." % exp_gain)
+
+	if new_player_level != old_player_level:
+		Messages.add_normal(local_player, "You leveled up! You are now level [color=GOLD]%d[/color]." % new_player_level)
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -687,6 +710,12 @@ func _on_wisdom_menu_finished(wisdom_menu: WisdomUpgradeMenu):
 func _on_local_team_game_over():
 	Messages.add_normal(PlayerManager.get_local_player(), "[color=RED]The portal has been destroyed! The game is over.[/color]")
 	_hud.show_game_over()
+	_convert_local_player_score_to_exp()
+
+
+func _on_local_team_game_win():
+	Messages.add_normal(PlayerManager.get_local_player(), "[color=GOLD]You are a winner![/color]")
+	_convert_local_player_score_to_exp()
 
 
 func _on_player_voted_ready():
