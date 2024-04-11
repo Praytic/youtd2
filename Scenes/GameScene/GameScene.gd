@@ -487,7 +487,6 @@ func _convert_local_player_score_to_exp():
 	var old_exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
 	var old_player_exp: int = ExperiencePassword.decode(old_exp_password)
 	var old_player_level: int = PlayerExperience.get_level_at_exp(old_player_exp)
-	var old_upgrade_count: int = Utils.get_local_wisdom_upgrade_count()
 
 	var local_player: Player = PlayerManager.get_local_player()
 	var score: int = floori(local_player.get_score())
@@ -499,7 +498,8 @@ func _convert_local_player_score_to_exp():
 	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
 	Settings.flush()
 
-	var new_upgrade_count: int = Utils.get_local_wisdom_upgrade_count()
+	var old_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(old_player_level)
+	var new_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(new_player_level)
 	var gained_new_wisdom_upgrade_slot: bool = new_upgrade_count > old_upgrade_count
 
 	if exp_gain > 0:

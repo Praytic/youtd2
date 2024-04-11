@@ -6,6 +6,7 @@ class_name WisdomUpgradeMenu extends PanelContainer
 
 @export var _button_container: GridContainer
 @export var _available_label: Label
+@export var _next_upgrade_unlock_label: RichTextLabel
 
 
 var _upgrade_available_count: int
@@ -38,7 +39,8 @@ func _ready():
 #########################
 
 func load_wisdom_upgrades_from_settings():
-	_upgrade_available_count = Utils.get_local_wisdom_upgrade_count()
+	var player_level: int = Utils.get_local_player_level()
+	_upgrade_available_count = Utils.get_wisdom_upgrade_count_for_player_level(player_level)
 	_upgrades_cached = _load_wisdom_upgrade_state(_upgrade_available_count)
 
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
@@ -46,6 +48,14 @@ func load_wisdom_upgrades_from_settings():
 		var button: WisdomUpgradeButton = _button_map[upgrade_id]
 		var upgrade_is_enabled: bool = _upgrades_cached[upgrade_id]
 		button.set_upgrade_used_status(upgrade_is_enabled)
+	
+	var next_unlock_level: int = _get_next_upgrade_unlock_level()
+	print("next_unlock_level=", next_unlock_level)
+	var next_unlock_level_exists: bool = next_unlock_level != -1
+	_next_upgrade_unlock_label.visible = next_unlock_level_exists
+	_next_upgrade_unlock_label.clear()
+	if next_unlock_level_exists:
+		_next_upgrade_unlock_label.append_text("Next upgrade slot will unlock at level [color=GOLD]%d[/color]." % next_unlock_level)
 
 	_update_available_label()
 
@@ -53,6 +63,34 @@ func load_wisdom_upgrades_from_settings():
 #########################
 ###      Private      ###
 #########################
+
+# Find next unlock level by finding a level at which the
+# upgrade count doesn't equal to current upgrade count.
+func _get_next_upgrade_unlock_level() -> int:
+	var current_player_level: int = Utils.get_local_player_level()
+
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+	var upgrade_available_count_max: int = upgrade_id_list.size()
+	var unlocked_all_upgrades: bool = _upgrade_available_count == upgrade_available_count_max
+
+	if unlocked_all_upgrades:
+		return -1
+	
+	var current_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(current_player_level)
+
+	var next_unlock_level: int = -1
+
+	for level in range(current_player_level, Constants.PLAYER_MAX_LEVEL):
+		var this_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(level)
+		var new_upgrade_unlocks_at_this_level: bool = this_upgrade_count != current_upgrade_count
+		
+		if new_upgrade_unlocks_at_this_level:
+			next_unlock_level = level
+			
+			break
+
+	return next_unlock_level
+
 
 func _load_wisdom_upgrade_state(upgrade_available_count: int) -> Dictionary:
 	var result: Dictionary = Settings.get_wisdom_upgrades()
