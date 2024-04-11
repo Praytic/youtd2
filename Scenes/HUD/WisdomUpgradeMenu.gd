@@ -15,8 +15,7 @@ signal finished()
 
 var _bar_map: Dictionary = {}
 
-var _orbs_total: int
-var _orbs_remaining: int
+var _orb_count: int
 var _upgrade_max: int
 var _upgrades_cached: Dictionary = {}
 
@@ -27,8 +26,8 @@ var _upgrades_cached: Dictionary = {}
 
 func _ready():
 	var player_lvl: int = _get_player_level()
-	var orb_count: int = player_lvl * Constants.PLAYER_LEVEL_TO_WISDOM_ORBS
-	_orbs_total = orb_count
+	var orb_count_total: int = player_lvl * Constants.PLAYER_LEVEL_TO_WISDOM_ORBS
+	_orb_count = orb_count_total
 	var local_player: Player = PlayerManager.get_local_player()
 	_upgrade_max = local_player.get_wisdom_upgrade_max()
 
@@ -36,13 +35,14 @@ func _ready():
 # 	modifies settings file or if player chooses a builder
 # 	which modifies max upgrades and old cached values don't
 # 	fit.
-	var upgrades_cached_is_valid: bool = _validate_upgrades_cache(_upgrades_cached, _upgrade_max, orb_count)
+	var upgrades_cached_is_valid: bool = _validate_upgrades_cache(_upgrades_cached, _upgrade_max, orb_count_total)
 	if !upgrades_cached_is_valid:
+		push_warning("Wisdom upgrade cache is invalid! Resetting to empty")
+		
 		_upgrades_cached = {}
 	
 	var orbs_used_count: int = _get_used_orb_count_for_upgrades_cache(_upgrades_cached)
-	_orbs_remaining = orb_count - orbs_used_count
-	_update_orbs_label()
+	_set_orb_count(_orb_count - orbs_used_count)
 	
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 
@@ -63,7 +63,7 @@ func _ready():
 		
 		_bar_map[upgrade_id] = bar
 	
-	var level_orbs_text: String = "You are level [color=GOLD]%d[/color] and you have [color=GOLD]%d[/color] orbs." % [player_lvl, orb_count]
+	var level_orbs_text: String = "You are level [color=GOLD]%d[/color] and you have [color=GOLD]%d[/color] orbs." % [player_lvl, orb_count_total]
 	_level_orbs_label.clear()
 	_level_orbs_label.append_text(level_orbs_text)
 
@@ -150,8 +150,10 @@ func _get_player_level() -> int:
 	return player_lvl
 
 
-func _update_orbs_label():
-	var orbs_text: String = "%d" % _orbs_remaining
+func _set_orb_count(value: int):
+	_orb_count = value
+
+	var orbs_text: String = "%d" % _orb_count
 	_orbs_label.text = orbs_text
 
 
@@ -173,14 +175,13 @@ func _on_minus_pressed(bar: WisdomUpgradeBar):
 		return
 	
 	bar.set_value(current_value - 1)
-	_orbs_remaining += 1
-	_update_orbs_label()
+	_set_orb_count(_orb_count + 1)
 
 
 func _on_plus_pressed(bar: WisdomUpgradeBar):
 	_error_label.hide()
 	
-	if _orbs_remaining == 0:
+	if _orb_count == 0:
 		_show_error("Not enough orbs.")
 		
 		return
@@ -191,22 +192,20 @@ func _on_plus_pressed(bar: WisdomUpgradeBar):
 		return
 	
 	bar.set_value(current_value + 1)
-	_orbs_remaining -= 1
-	_update_orbs_label()
+	_set_orb_count(_orb_count - 1)
 
 
 func _on_max_pressed(bar: WisdomUpgradeBar):
 	_error_label.hide()
 
-	if _orbs_remaining == 0:
+	if _orb_count == 0:
 		_show_error("Not enough orbs.")
 		
 		return
 	
-	while _orbs_remaining > 0 && bar.get_value() < _upgrade_max:
+	while _orb_count > 0 && bar.get_value() < _upgrade_max:
 		bar.set_value(bar.get_value() + 1)
-		_orbs_remaining -= 1
-		_update_orbs_label()
+		_set_orb_count(_orb_count - 1)
 
 func _on_confirm_button_pressed():
 	finished.emit()
