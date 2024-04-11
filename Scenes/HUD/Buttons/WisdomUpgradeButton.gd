@@ -8,8 +8,11 @@ class_name WisdomUpgradeButton extends Button
 ###       Public      ###
 #########################
 
-func set_indicator_visible(value: bool):
-	_indicator.visible = value
+func set_upgrade_used_status(value: bool):
+	if value:
+		modulate = Color.WHITE
+	else:
+		modulate = Color(0.3, 0.3, 0.3, 1.0)
 
 
 #########################

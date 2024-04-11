@@ -49,7 +49,7 @@ func load_wisdom_upgrades_from_settings():
 	for upgrade_id in upgrade_id_list:
 		var button: WisdomUpgradeButton = _button_map[upgrade_id]
 		var upgrade_is_enabled: bool = _upgrades_cached[upgrade_id]
-		button.set_indicator_visible(upgrade_is_enabled)
+		button.set_upgrade_used_status(upgrade_is_enabled)
 
 	_update_available_label()
 
@@ -130,7 +130,7 @@ func _on_button_pressed(button: WisdomUpgradeButton, upgrade_id: int):
 		return
 	
 	_upgrades_cached[upgrade_id] = new_state
-	button.set_indicator_visible(new_state)
+	button.set_upgrade_used_status(new_state)
 	
 	_update_available_label()
 
