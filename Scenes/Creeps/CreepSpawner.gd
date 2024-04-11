@@ -33,9 +33,10 @@ func _ready():
 ###       Public      ###
 #########################
 
-
 func set_player(player: Player):
 	_player = player
+
+	_player.get_team().game_over.connect(_on_game_over)
 
 	_ground_path = Utils.find_creep_path(player, false)
 	_air_path = Utils.find_creep_path(player, true)
@@ -131,6 +132,10 @@ func _on_Timer_timeout():
 		print_verbose("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
 		all_creeps_spawned.emit()
+
+
+func _on_game_over():
+	_timer_between_creeps.stop()
 
 
 #########################
