@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeMenu.gd" id="1_s5krx"]
 
-[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_bar_container", "_level_orbs_label", "_orbs_label", "_error_label")]
+[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_level_orbs_label", "_orbs_label", "_error_label")]
 custom_minimum_size = Vector2(800, 500)
 anchors_preset = 8
 anchor_left = 0.5
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"CenterPanel"
 script = ExtResource("1_s5krx")
-_bar_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer")
+_button_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/ButtonContainer")
 _level_orbs_label = NodePath("VBoxContainer/LevelOrbsLabel")
 _orbs_label = NodePath("VBoxContainer/HBoxContainer/OrbsLabel")
 _error_label = NodePath("VBoxContainer/HBoxContainer/ErrorLabel")
@@ -37,10 +37,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "You are level X and you have Y orbs."
 fit_content = true
-
-[node name="Label2" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Mouse over upgrade names for more info."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -70,8 +66,9 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+[node name="ButtonContainer" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+columns = 5
 
 [node name="ConfirmButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
