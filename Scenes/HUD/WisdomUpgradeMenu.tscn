@@ -2,77 +2,48 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeMenu.gd" id="1_s5krx"]
 
-[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_level_orbs_label", "_orbs_label", "_error_label")]
-custom_minimum_size = Vector2(800, 500)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -250.0
-offset_right = 300.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"CenterPanel"
+[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_orbs_label", "_error_label")]
+offset_right = 294.0
+offset_bottom = 126.0
 script = ExtResource("1_s5krx")
-_button_container = NodePath("VBoxContainer/PanelContainer/MarginContainer/ButtonContainer")
-_level_orbs_label = NodePath("VBoxContainer/LevelOrbsLabel")
-_orbs_label = NodePath("VBoxContainer/HBoxContainer/OrbsLabel")
-_error_label = NodePath("VBoxContainer/HBoxContainer/ErrorLabel")
+_button_container = NodePath("MarginContainer/VBoxContainer/ButtonContainer")
+_orbs_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/OrbsLabel")
+_error_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ErrorLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
 text = "Wisdom Upgrades"
 
-[node name="LevelOrbsLabel" type="RichTextLabel" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "You are level X and you have Y orbs."
-fit_content = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ErrorLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.937255, 0, 0, 1)
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Orbs available:"
 
-[node name="OrbsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="OrbsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "123"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="ButtonContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonContainer" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-columns = 5
-
-[node name="ConfirmButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Confirm"
-
-[connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+columns = 2

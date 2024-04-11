@@ -11,6 +11,7 @@ signal close_pressed()
 @export var _exp_label: Label
 @export var _exp_for_next_lvl_left_label: Label
 @export var _exp_for_next_lvl_label: Label
+@export var _wisdom_upgrade_menu: WisdomUpgradeMenu
 
 
 #########################
@@ -100,3 +101,12 @@ func _on_import_exp_menu_import_pressed():
 
 	_import_exp_menu.show_success_label(player_exp)
 	_load_player_exp(player_exp)
+
+#	NOTE: need to update wisdom upgrades because they depend
+#	on player exp
+	_wisdom_upgrade_menu.load_wisdom_upgrades_from_settings()
+
+
+func _on_visibility_changed():
+	if visible:
+		_wisdom_upgrade_menu.load_wisdom_upgrades_from_settings()

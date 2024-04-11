@@ -137,6 +137,25 @@ func get_interface_size() -> float:
 	return interface_size
 
 
+# NOTE: need to convert keys to ints because JSON dicts
+# forces keys to be strings.
+func get_wisdom_upgrades() -> Dictionary:
+	var upgrades_from_file: Dictionary = Settings.get_setting(Settings.WISDOM_UPGRADES_CACHED) as Dictionary
+	
+	var result: Dictionary = {}
+
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+	for upgrade_id in upgrade_id_list:
+		if upgrades_from_file.has(upgrade_id):
+			result[upgrade_id] = upgrades_from_file[upgrade_id]
+		elif upgrades_from_file.has(str(upgrade_id)):
+			result[upgrade_id] = upgrades_from_file[str(upgrade_id)]
+		else:
+			result[upgrade_id] = false
+
+	return result
+
+
 #########################
 ###      Private      ###
 #########################
