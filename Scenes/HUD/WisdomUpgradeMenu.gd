@@ -53,10 +53,7 @@ func _ready():
 		bar.plus_pressed.connect(_on_plus_pressed.bind(bar))
 		bar.max_pressed.connect(_on_max_pressed.bind(bar))
 		
-#		NOTE: need to convert upgrade_id to string because
-#		cache comes from settings JSON which forces dict
-#		keys to be strings.
-		var cached_value: int = _upgrades_cached.get(str(upgrade_id), 0)
+		var cached_value: int = _upgrades_cached.get(upgrade_id, 0)
 		bar.set_value(cached_value)
 
 		_bar_container.add_child(bar)
@@ -75,11 +72,24 @@ func _ready():
 ###       Public      ###
 #########################
 
-func set_wisdom_upgrades_cached(upgrades_cached: Dictionary):
+func set_wisdom_upgrades_cached(cache: Dictionary):
 	if is_inside_tree():
 		push_error("This f-n must be called before addding menu to tree.")
 
-	_upgrades_cached = upgrades_cached
+#	NOTE: need to convert cache keys to ints because cache
+#	dict may contain int keys or string keys.
+#	- If game just started and cache has been loaded from
+#	  settings file, it will contain string keys because
+#	  JSON forces dict keys to be strings.
+#	- When wisdom menu is finished, the game updates the
+#	  cache in memory. In this case, keys will be ints.
+	_upgrades_cached = {}
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+	for upgrade_id in upgrade_id_list:
+		if cache.has(upgrade_id):
+			_upgrades_cached[upgrade_id] = cache[upgrade_id]
+		elif cache.has(str(upgrade_id)):
+			_upgrades_cached[upgrade_id] = cache[str(upgrade_id)]
 
 
 func get_wisdom_upgrades() -> Dictionary:
