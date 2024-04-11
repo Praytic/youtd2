@@ -227,35 +227,55 @@ func get_range(tower_id: int) -> float:
 
 
 func get_required_element_level(tower_id: int) -> int:
-	var element_level_string: String = _get_property(tower_id, CsvProperty.REQUIRED_ELEMENT_LEVEL)
-	var element_level_is_defined: bool = !element_level_string.is_empty()
+	const element_level_to_min_cost_map: Dictionary = {
+		1: 140,
+		2: 215,
+		3: 345,
+		4: 500,
+		5: 680,
+		6: 900,
+		7: 1080,
+		8: 1300,
+		9: 1550,
+		10: 1850,
+		11: 2130,
+		12: 2440,
+		13: 2750,
+		14: 3100,
+		15: 3500,
+	}
 
-	var element_level: int
-	if element_level_is_defined:
-		element_level = element_level_string.to_int()
-	else:
-		element_level = _get_required_element_level_from_formula(tower_id)
+	var tower_cost: int = get_cost(tower_id)
 
-#	NOTE: required element level cannot be 0
-	element_level = max(1, element_level)
+	var element_level: int = 1
+
+	for level in range(15, 0, -1):
+		var min_cost: int = element_level_to_min_cost_map[level]
+
+		if tower_cost >= min_cost:
+			element_level = level
+
+			break
 
 	return element_level
 
 
+# NOTE: this formula is the inverse of the formula for tower cost
+# from TowerDistribution._get_max_cost()
 func get_required_wave_level(tower_id: int) -> int:
-	var required_wave_string: String = _get_property(tower_id, CsvProperty.REQUIRED_WAVE_LEVEL)
-	var required_wave_is_defined: bool = !required_wave_string.is_empty()
+# 	NOTE: prevent value inside sqrt() from going below 0
+# 	because sqrt() expects positive arg
+	var tower_cost: int = get_cost(tower_id)
+	var required_wave: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
 
-	var required_wave: int
-	if required_wave_is_defined:
-		required_wave = required_wave_string.to_int()
-	else:
-		required_wave = _get_required_wave_level_from_formula(tower_id)
-
+	var required_wave_min: int
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-		var min_required_wave: int = _min_required_wave_for_build_mode[rarity]
-		required_wave = max(required_wave, min_required_wave)
+		required_wave_min = _min_required_wave_for_build_mode[rarity]
+	else:
+		required_wave_min = 0
+
+	required_wave = clampi(required_wave, required_wave_min, REQUIRED_WAVE_MAX)
 
 	return required_wave
 
@@ -490,48 +510,6 @@ func _get_property(tower_id: int, csv_property: CsvProperty) -> String:
 	var value: String = properties[csv_property]
 
 	return value
-
-
-# NOTE: this formula is the inverse of the formula for tower cost
-# from TowerDistribution._get_max_cost()
-func _get_required_wave_level_from_formula(tower_id: int) -> int:
-# 	NOTE: prevent value inside sqrt() from going below 0
-	var tower_cost: int = get_cost(tower_id)
-	var wave_level: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
-
-	wave_level = clampi(wave_level, 0, REQUIRED_WAVE_MAX)
-
-	return wave_level
-
-
-func _get_required_element_level_from_formula(tower_id: int) -> int:
-	const element_level_to_min_cost_map: Dictionary = {
-		1: 140,
-		2: 215,
-		3: 345,
-		4: 500,
-		5: 680,
-		6: 900,
-		7: 1080,
-		8: 1300,
-		9: 1550,
-		10: 1850,
-		11: 2130,
-		12: 2440,
-		13: 2750,
-		14: 3100,
-		15: 3500,
-	}
-
-	var tower_cost: int = get_cost(tower_id)
-
-	for element_level in range(15, 0, -1):
-		var min_cost: int = element_level_to_min_cost_map[element_level]
-
-		if tower_cost >= min_cost:
-			return element_level
-
-	return 1
 
 
 # Create range data based on attack ranges and extra ranges
