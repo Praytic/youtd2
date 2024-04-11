@@ -52,11 +52,12 @@ theme_override_colors/font_color = Color(0.937255, 0, 0, 1)
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Orbs used:"
+text = "Orbs available:"
 
 [node name="OrbsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "0/0"
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+text = "123"
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2

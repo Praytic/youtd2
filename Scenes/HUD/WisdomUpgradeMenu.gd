@@ -151,9 +151,7 @@ func _get_player_level() -> int:
 
 
 func _update_orbs_label():
-	var used_orb_count: int = _orbs_total - _orbs_remaining
-	var orbs_text: String = "%d/%d" % [used_orb_count, _orbs_total]
-	
+	var orbs_text: String = "%d" % _orbs_remaining
 	_orbs_label.text = orbs_text
 
 
