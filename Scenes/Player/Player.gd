@@ -40,7 +40,7 @@ var _have_placeholder_builder: bool = true
 var _score: float = 0.0
 var _is_ready: bool = false
 var _focus_target_effect_id: int = 0
-var _wisdom_upgrade_max: int = Constants.WISDOM_UPGRADE_MAX_DEFAULT
+var _wisdom_upgrade_effect_multiplier: float = 1.0
 var _wisdom_modifier: Modifier = Modifier.new()
 
 @export var _item_stash: ItemContainer
@@ -465,12 +465,12 @@ func disable_rolling():
 	roll_was_disabled.emit()
 
 
-func modify_wisdom_upgrade_max(change: int):
-	_wisdom_upgrade_max += change
+func set_wisdom_upgrade_effect_multiplier(value: float):
+	_wisdom_upgrade_effect_multiplier = value
 
 
-func get_wisdom_upgrade_max() -> int:
-	return _wisdom_upgrade_max
+func get_wisdom_upgrade_effect_multiplier() -> float:
+	return _wisdom_upgrade_effect_multiplier
 
 
 func set_wisdom_modifier(value: Modifier):

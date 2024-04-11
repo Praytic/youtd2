@@ -4,7 +4,7 @@ extends Builder
 func apply_to_player(player: Player):
 	player.modify_income_rate(-0.20)
 	player.add_tomes(-45)
-	player.modify_wisdom_upgrade_max(2)
+	player.set_wisdom_upgrade_effect_multiplier(0.25)
 
 
 func _get_tower_modifier() -> Modifier:

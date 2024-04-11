@@ -12,7 +12,7 @@ func _init():
 
 func apply_to_player(player: Player):
 	player.modify_food_cap(-20)
-	player.modify_wisdom_upgrade_max(-3)
+	player.set_wisdom_upgrade_effect_multiplier(-0.375)
 
 
 func _get_tower_modifier() -> Modifier:
