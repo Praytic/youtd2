@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/WisdomUpgradeMenu.gd" id="1_s5krx"]
 
-[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_available_label", "_error_label")]
+[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_available_label")]
 offset_right = 294.0
 offset_bottom = 126.0
 script = ExtResource("1_s5krx")
 _button_container = NodePath("MarginContainer/VBoxContainer/ButtonContainer")
 _available_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableLabel")
-_error_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ErrorLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -27,13 +26,14 @@ size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
 text = "Wisdom Upgrades"
 
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Earn upgrades by leveling up. A new upgrade slot will unlock every 2 levels."
+autowrap_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-
-[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.937255, 0, 0, 1)
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

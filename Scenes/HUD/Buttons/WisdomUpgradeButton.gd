@@ -1,9 +1,6 @@
 class_name WisdomUpgradeButton extends Button
 
 
-@export var _indicator: TextureRect
-
-
 #########################
 ###       Public      ###
 #########################

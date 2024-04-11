@@ -1,6 +1,30 @@
 class_name UtilsStatic extends Node
 
 
+func get_local_wisdom_upgrade_count() -> int:
+	var player_level: int = Utils.get_local_player_level()
+	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
+	var upgrade_count_max: int = upgrade_id_list.size()
+	var upgrade_count: int = min(upgrade_count_max, player_level * Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT)
+
+	return upgrade_count
+
+
+func get_local_player_level() -> int:
+	var exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
+	var player_exp: int = ExperiencePassword.decode(exp_password)
+	var player_exp_is_valid: bool = player_exp != -1
+	
+	if !player_exp_is_valid:
+		push_warning("Experience password is invalid, resetting level to 0.")
+		
+		return 0
+	
+	var player_lvl: int = PlayerExperience.get_level_at_exp(player_exp)
+	
+	return player_lvl
+
+
 # Example: 93 -> "01:33"
 func convert_time_to_string(time_total_seconds: float):
 	var time_hours: int = floori(time_total_seconds / 3600)
