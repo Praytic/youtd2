@@ -89,8 +89,10 @@ func _on_export_exp_button_pressed():
 func _on_import_exp_menu_import_pressed():
 	var exp_password: String = _import_exp_menu.get_exp_password()
 	var player_exp: int = ExperiencePassword.decode(exp_password)
-	
-	var player_level_is_valid: bool = player_exp != -1
+
+#	NOTE: treat empty password as invalid to prevent player
+#	from accidentally resetting exp to 0.
+	var player_level_is_valid: bool = player_exp != -1 && !exp_password.is_empty()
 	if !player_level_is_valid:
 		_import_exp_menu.show_error_label()
 		
