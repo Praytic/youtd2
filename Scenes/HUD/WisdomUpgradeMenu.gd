@@ -50,7 +50,6 @@ func load_wisdom_upgrades_from_settings():
 		button.set_upgrade_used_status(upgrade_is_enabled)
 	
 	var next_unlock_level: int = _get_next_upgrade_unlock_level()
-	print("next_unlock_level=", next_unlock_level)
 	var next_unlock_level_exists: bool = next_unlock_level != -1
 	_next_upgrade_unlock_label.visible = next_unlock_level_exists
 	_next_upgrade_unlock_label.clear()
