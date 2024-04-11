@@ -41,7 +41,7 @@ func _ready():
 	_update_orbs_label()
 	
 	for upgrade_id in upgrade_id_list:
-		var button: WisdomUpgradeButton = WisdomUpgradeButton.make()
+		var button: WisdomUpgradeButton = WisdomUpgradeButton.make(upgrade_id)
 		_button_container.add_child(button)
 		
 		button.pressed.connect(_on_button_pressed.bind(button, upgrade_id))
