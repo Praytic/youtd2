@@ -5,7 +5,7 @@ func get_local_wisdom_upgrade_count() -> int:
 	var player_level: int = Utils.get_local_player_level()
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 	var upgrade_count_max: int = upgrade_id_list.size()
-	var upgrade_count: int = min(upgrade_count_max, player_level * Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT)
+	var upgrade_count: int = min(upgrade_count_max, floori(player_level * Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT))
 
 	return upgrade_count
 

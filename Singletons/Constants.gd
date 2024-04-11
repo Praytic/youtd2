@@ -116,4 +116,6 @@ const WISDOM_UPGRADE_MAX_DEFAULT: int = 8
 # 
 # 411xp / (60,000score * 0.002) ~= 3.5h
 const SCORE_TO_EXP: float = 0.002
-const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: int = 1
+# NOTE: picked 1 upgrade every 4 levels so that it takes 7h
+# to unlock all upgrades.
+const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 4.0
