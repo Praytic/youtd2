@@ -40,6 +40,7 @@ const PROPERTIES_PATH = "res://Data/tower_properties.csv"
 const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
 
+const REQUIRED_WAVE_MAX: int = 80
 
 var _min_required_wave_for_build_mode = {
 	Rarity.enm.COMMON: 0,
@@ -498,33 +499,28 @@ func _get_required_wave_level_from_formula(tower_id: int) -> int:
 	var tower_cost: int = get_cost(tower_id)
 	var wave_level: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
 
-	if wave_level < 0:
-		return 0
+	wave_level = clampi(wave_level, 0, REQUIRED_WAVE_MAX)
 
 	return wave_level
 
 
-# TODO: adjust to be accurate. Some of the min costs in the
-# map may be higher than they should be. This will cause
-# this f-n to return element level which is 1 less than it
-# was in original game.
 func _get_required_element_level_from_formula(tower_id: int) -> int:
-	var element_level_to_min_cost_map: Dictionary = {
+	const element_level_to_min_cost_map: Dictionary = {
 		1: 140,
-		2: 220,
-		3: 350,
+		2: 215,
+		3: 345,
 		4: 500,
 		5: 680,
 		6: 900,
-		7: 1100,
+		7: 1080,
 		8: 1300,
-		9: 1600,
-		10: 2000,
+		9: 1550,
+		10: 1850,
 		11: 2130,
-		12: 2450,
+		12: 2440,
 		13: 2750,
-		14: 3150,
-		15: 4000,
+		14: 3100,
+		15: 3500,
 	}
 
 	var tower_cost: int = get_cost(tower_id)
