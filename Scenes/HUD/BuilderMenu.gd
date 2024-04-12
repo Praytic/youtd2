@@ -28,11 +28,21 @@ func _ready():
 
 		var display_name: String = BuilderProperties.get_display_name(builder)
 		var description: String = BuilderProperties.get_description(builder)
+		var required_level: int = BuilderProperties.get_required_level(builder)
+		var local_player_level: int = Utils.get_local_player_level()
+		var builder_is_unlocked: bool = local_player_level >= required_level
+
+		var builder_tooltip: String
+		if builder_is_unlocked:
+			builder_tooltip = "%s\n \n%s" % [display_name, description]
+		else:
+			builder_tooltip = "[color=GOLD]Required level:[/color] [color=RED]%d[/color]\n \n%s\n \n%s" % [required_level, display_name, description]
 		
 		var button: Button = Preloads.button_with_rich_tooltip_scene.instantiate()
 		button.text = display_name
-		button.tooltip_text = "%s\n \n%s" % [display_name, description]
+		button.tooltip_text = builder_tooltip
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
+		button.disabled = !builder_is_unlocked
 		
 		var container_for_button: VBoxContainer
 		var builder_tier: BuilderTier.enm = BuilderProperties.get_tier(builder)

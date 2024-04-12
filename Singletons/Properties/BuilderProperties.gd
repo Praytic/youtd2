@@ -8,6 +8,7 @@ enum CsvProperty {
 	DISPLAY_NAME,
 	SHORT_NAME,
 	TIER,
+	REQUIRED_LEVEL,
 	SCRIPT_NAME,
 	DESCRIPTION,
 }
@@ -56,6 +57,12 @@ func get_tier(builder: int) -> BuilderTier.enm:
 	var tier: BuilderTier.enm = BuilderTier.from_string(tier_string)
 
 	return tier
+
+
+func get_required_level(builder: int) -> int:
+	var required_level: int = _get_property(builder, CsvProperty.REQUIRED_LEVEL) as int
+
+	return required_level
 
 
 func get_script_name(builder: int) -> String:

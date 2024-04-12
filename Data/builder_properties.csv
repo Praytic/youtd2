@@ -1,6 +1,6 @@
-id,display name,short name,tier,script name,description
-0,None,none,beginner,BuilderNone,none description
-1,Blademaster,blademaster,beginner,BuilderBlademaster,"The blademaster always hits the weakest spot.
+id,display name,short name,tier,req level,script name,description
+0,None,none,beginner,0,BuilderNone,none description
+1,Blademaster,blademaster,beginner,0,BuilderBlademaster,"The blademaster always hits the weakest spot.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -9,7 +9,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+40% critical strike damage[/color]
 [color=GREEN]+1 multicrit chance[/color]
 "
-2,Queen of the Seven Skies,queen,beginner,BuilderQueen,"The sky belongs to Mira, and she will let nobody else take it.
+2,Queen of the Seven Skies,queen,beginner,0,BuilderQueen,"The sky belongs to Mira, and she will let nobody else take it.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -19,7 +19,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+2% damage to flying creeps per tower level[/color]
 [color=GREEN]-60 movement speed for Air creeps[/color]
 "
-3,Adventurer,adventurer,beginner,BuilderAdventurer,"Therodin is always on the hunt for his next artefact, finding precious stuff where others find only trash.
+3,Adventurer,adventurer,beginner,0,BuilderAdventurer,"Therodin is always on the hunt for his next artefact, finding precious stuff where others find only trash.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -27,7 +27,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+15% item find[/color]
 [color=GREEN]+20% item quality[/color]
 "
-4,Iron Maiden,iron_maiden,beginner,BuilderIronMaiden,"Amelia possesses a mysterious healing power that she acquired at the age of three. Her mother is a powerful Arch Sorceress.
+4,Iron Maiden,iron_maiden,beginner,0,BuilderIronMaiden,"Amelia possesses a mysterious healing power that she acquired at the age of three. Her mother is a powerful Arch Sorceress.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -36,7 +36,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+1% lives regenerated per level if below 50% lives[/color]
 [color=GREEN]+2% lives regenerated per level if below 10% lives[/color]
 "
-5,Farseer,farseer,beginner,BuilderFarseer,"Grolk senses hidden creatures and grants this talent to his followers.
+5,Farseer,farseer,beginner,0,BuilderFarseer,"Grolk senses hidden creatures and grants this talent to his followers.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -45,7 +45,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+10% spell damage[/color]
 [color=GREEN]+75 attack and aura range for all towers[/color]
 "
-6,Elementalist,elementalist,advanced,BuilderElementalist,"Though his relationship with some races is better than with others, Duke Slytalker knows very well that the force is always with him.
+6,Elementalist,elementalist,advanced,5,BuilderElementalist,"Though his relationship with some races is better than with others, Duke Slytalker knows very well that the force is always with him.
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -60,7 +60,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=RED]-20% damage against nature creeps[/color]
 [color=RED]-5% damage against humanoid creeps[/color]
 "
-7,Veteran Pilot,veteran_pilot,advanced,BuilderVeteranPilot,"Zip has performed a round trip of Azeroth. Thrice! A well seasoned flier, many ogres have dreamed about eating him.
+7,Veteran Pilot,veteran_pilot,advanced,5,BuilderVeteranPilot,"Zip has performed a round trip of Azeroth. Thrice! A well seasoned flier, many ogres have dreamed about eating him.
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -71,7 +71,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]+50 movement speed to creeps[/color]
 "
-8,Royal Assassin,royal_assasin,advanced,BuilderRoyalAssassin,"Kitty knows how to backstab the mighty ones.
+8,Royal Assassin,royal_assasin,advanced,5,BuilderRoyalAssassin,"Kitty knows how to backstab the mighty ones.
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -85,7 +85,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=RED]-8% damage to normal creeps[/color]
 [color=RED]-12% damage to mass creeps[/color]
 "
-9,Benevolent Witch,benevolent_witch,advanced,BuilderBenevolentWitch,"The mightiest witch of the ages. Unlike her sisters, she detests violence.
+9,Benevolent Witch,benevolent_witch,advanced,5,BuilderBenevolentWitch,"The mightiest witch of the ages. Unlike her sisters, she detests violence.
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -98,7 +98,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]-25% spell damage[/color]
 "
-10,Spirit Warden,spirit_warden,advanced,BuillderSpiritWarden,"The warden protects his clan from evil forces and supports it with his ceremonials.
+10,Spirit Warden,spirit_warden,advanced,5,BuillderSpiritWarden,"The warden protects his clan from evil forces and supports it with his ceremonials.
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -110,7 +110,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]-10% damage to bosses[/color]
 "
-11,Master of Encyclopedic Wisdom,master,advanced,BuilderMasterofEncyclopedicWisdom,"Whatever you have a question, ask Waterknight!
+11,Master of Encyclopedic Wisdom,master,advanced,5,BuilderMasterofEncyclopedicWisdom,"Whatever you have a question, ask Waterknight!
  
 Tier: [color=ORANGE]Advanced[/color]
  
@@ -122,7 +122,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]-15% base damage[/color]
 "
-12,Feeble Fender,fender,specialist,BuilderFeebleFender,"His head holds a battle between senile marasmus and memory. Some say he's only here because his wise twin brother got him the job. He's also really bad with money.
+12,Feeble Fender,fender,specialist,10,BuilderFeebleFender,"His head holds a battle between senile marasmus and memory. Some say he's only here because his wise twin brother got him the job. He's also really bad with money.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -137,7 +137,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-45 starting force points[/color]
 [color=RED]-20% income rate[/color]
 "
-13,Realist,realist,specialist,BuilderRealist,"Take a chance!
+13,Realist,realist,specialist,10,BuilderRealist,"Take a chance!
 - Never!
  
 Tier: [color=RED]Specialist[/color]
@@ -154,7 +154,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-20% critical strike chances[/color]
 [color=RED]-20% spell critical strike chances[/color]
 "
-14,Arch Sorceress,arch_sorceress,specialist,BuilderArchSorceress,"The mistress of spells, however not too dexterous at common warfare.
+14,Arch Sorceress,arch_sorceress,specialist,10,BuilderArchSorceress,"The mistress of spells, however not too dexterous at common warfare.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -169,7 +169,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-10% base damage[/color]
 [color=RED]-1.2% base damage per tower level[/color]
 "
-15,Barbarian Warlord,barbarian,specialist,BuilderBarbarianWarlord,"Magic is for the weak!
+15,Barbarian Warlord,barbarian,specialist,10,BuilderBarbarianWarlord,"Magic is for the weak!
  
 Tier: [color=RED]Specialist[/color]
  
@@ -184,7 +184,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-300% mana regeneration[/color]
 [color=RED]-100% spell damage[/color]
 "
-16,Pandaren Monk,pandaren,specialist,BuilderPandarenMonk,"Brother Pandarius donates his treasures to the poor, in exchange for beer, of course.
+16,Pandaren Monk,pandaren,specialist,10,BuilderPandarenMonk,"Brother Pandarius donates his treasures to the poor, in exchange for beer, of course.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -200,7 +200,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-60% item find[/color]
 [color=RED]-10% item quality[/color]
 "
-17,Naga Time Twister,naga,specialist,BuilderNagaTimeTwister,"Lady Nyshij twists the time itself, granting improved chances and speed to her followers.
+17,Naga Time Twister,naga,specialist,10,BuilderNagaTimeTwister,"Lady Nyshij twists the time itself, granting improved chances and speed to her followers.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -212,7 +212,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-25% base damage[/color]
 [color=RED]-25% spell damage[/color]
 "
-18,Goblin Alchemist,goblin,specialist,BuilderGoblinAlchemist,"The Goblin Alchemist is driven solely by his extreme lust for wealth. Oftentimes this leaves him quite lacking in the combat department.
+18,Goblin Alchemist,goblin,specialist,10,BuilderGoblinAlchemist,"The Goblin Alchemist is driven solely by his extreme lust for wealth. Oftentimes this leaves him quite lacking in the combat department.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -228,7 +228,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-35% debuff duration[/color]
 [color=RED]-15% attack speed[/color]
 "
-19,Backpacker,backpacker,specialist,BuilderBackpacker,"This creature has more pockets than candles! Having picked up all kinds of relics from its many journeys, it keeps them sorted fastidiously.
+19,Backpacker,backpacker,specialist,10,BuilderBackpacker,"This creature has more pockets than candles! Having picked up all kinds of relics from its many journeys, it keeps them sorted fastidiously.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -240,7 +240,7 @@ Tier: [color=RED]Specialist[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]Towers can only wield items that match their rarity or Unique items.[/color]
 "
-20,Maverick,maverick,hardcore,BuilderMaverick,"You want it done right? Do it yourself. Especially when it comes to leaving a trail of flaming footsteps in the air.
+20,Maverick,maverick,hardcore,20,BuilderMaverick,"You want it done right? Do it yourself. Especially when it comes to leaving a trail of flaming footsteps in the air.
  
 Tier: [color=PURPLE]Hardcore[/color]
  
@@ -258,7 +258,7 @@ Tier: [color=PURPLE]Hardcore[/color]
 [color=RED]-37.5% wisdom upgrade strength[/color]
 [color=RED]Towers cannot be built adjacent to other towers[/color]
 "
-21,Antagonizer,antagonizer,hardcore,BuilderAntagonizer,"Butch doesn't learn quickly, but what he lacks in intellect, he makes up for with oversized muscles and steroid abuse.
+21,Antagonizer,antagonizer,hardcore,20,BuilderAntagonizer,"Butch doesn't learn quickly, but what he lacks in intellect, he makes up for with oversized muscles and steroid abuse.
  
 Tier: [color=PURPLE]Hardcore[/color]
  
