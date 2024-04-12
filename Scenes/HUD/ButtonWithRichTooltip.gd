@@ -1,4 +1,4 @@
-extends Button
+class_name ButtonWithRichTooltip extends Button
 
 
 # This button has a RichTextLabel tooltip. Normal Button
