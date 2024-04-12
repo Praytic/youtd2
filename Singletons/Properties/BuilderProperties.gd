@@ -35,7 +35,7 @@ func _ready():
 		var script_path_is_valid: bool = ResourceLoader.exists(script_path)
 
 		if !script_path_is_valid:
-			push_error("Invalid script path for builder %d" % builder_id)
+			push_error("Invalid builder script path: %s" % script_path)
 
 
 #########################

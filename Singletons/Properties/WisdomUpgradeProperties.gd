@@ -33,6 +33,15 @@ var _properties: Dictionary = {}
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
+#	Check paths
+	var id_list: Array = WisdomUpgradeProperties.get_id_list()
+	for id in id_list:
+		var icon_path: String = WisdomUpgradeProperties.get_icon_path(id)
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+
+		if !icon_path_is_valid:
+			push_error("Invalid wisdom upgrade icon path: %s" % icon_path)
+
 
 #########################
 ###       Public      ###

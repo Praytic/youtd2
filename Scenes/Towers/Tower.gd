@@ -12,7 +12,6 @@ enum AttackStyle {
 }
 
 
-const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
 var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
@@ -1071,7 +1070,8 @@ func get_attack_enabled() -> bool:
 # of having to do it by hand in scene editor.
 static func make(id: int, player: Player, preceding_tower: Tower = null) -> Tower:
 	var tower: Tower = Preloads.tower_scene.instantiate()
-	var tower_behavior_script: Script = Tower._get_tower_behavior_script(id)
+	var script_path: String = TowerProperties.get_script_path(id)
+	var tower_behavior_script: Script = load(script_path)
 	var tower_behavior: TowerBehavior = tower_behavior_script.new()
 	tower._tower_behavior = tower_behavior
 	tower.add_child(tower_behavior)
@@ -1093,24 +1093,3 @@ static func make(id: int, player: Player, preceding_tower: Tower = null) -> Towe
 	tower.set_player(player)
 
 	return tower
-
-
-# Get tower script based on tower scene name.
-# Examples:
-# TinyShrub1.tscn -> TinyShrub1.gd
-# TinyShrub2.tscn -> TinyShrub1.gd
-# TinyShrub3.tscn -> TinyShrub1.gd
-# ...
-static func _get_tower_behavior_script(id: int) -> Script:
-	var family_name: String = TowerProperties.get_family_name(id)
-	var script_path: String = "%s/%s1.gd" % [TOWER_BEHAVIORS_DIR, family_name]
-	
-	var script_exists: bool = ResourceLoader.exists(script_path)
-	if !script_exists:
-		push_error("No script found for id:", id, ". Tried at path:", script_path)
-		
-		return null
-
-	var script: Script = load(script_path)
-
-	return script

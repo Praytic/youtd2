@@ -37,10 +37,25 @@ var _properties: Dictionary = {}
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
+#	Check script paths
+	var id_list: Array = get_item_id_list()
+	for id in id_list:
+		var script_path: String = ItemProperties.get_script_path(id)
+		var script_path_is_valid: bool = ResourceLoader.exists(script_path)
+
+		if !script_path_is_valid:
+			push_error("Invalid item script path item: %s" % script_path)
+
 
 #########################
 ###       Public      ###
 #########################
+
+func get_script_path(item_id: int):
+	var path: String = "res://Scenes/Items/ItemBehaviors/Item%d.gd" % item_id
+
+	return path
+
 
 func get_item_id_list() -> Array:
 	return _properties.keys()

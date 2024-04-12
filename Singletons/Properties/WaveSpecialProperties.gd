@@ -40,22 +40,27 @@ func _ready():
 
 	print_verbose("_group_to_special_map = ", _group_to_special_map)
 
+#	Check paths
+	var id_list: Array = WaveSpecialProperties.get_all_specials_list()
+	for id in id_list:
+		var script_path: String = WaveSpecialProperties.get_script_path(id)
+		var script_path_is_valid: bool = ResourceLoader.exists(script_path)
+		if !script_path_is_valid:
+			push_error("Invalid wave special script path: %s" % script_path)
+
+		var icon_path: String = WaveSpecialProperties.get_icon_path(id)
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+		if !icon_path_is_valid:
+			push_error("Invalid wave special icon path: %s" % icon_path)
+
 #	Load buff types
 	var special_list: Array = WaveSpecialProperties.get_all_specials_list()
 
 	for special in special_list:
-		var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-		var script_path: String = "res://Scenes/Creeps/SpecialBuffs/%s.gd" % script_name
-		
-		var special_bt: BuffType
-		var script: Script = load(script_path)
-		if script != null:
-			special_bt = script.new(self)
-		else:
-			push_error("Failed to load buff script for special: %s" % script_path)
-#			NOTE: create dummy buff to avoid errors
-			special_bt = BuffType.new("creep_invalid_special", 0.0, 0, false, self)
+		var script_path: String = WaveSpecialProperties.get_script_path(special)
 
+		var script: Script = load(script_path)
+		var special_bt: BuffType = script.new(self)
 		var special_name: String = WaveSpecialProperties.get_special_name(special)
 		var description: String = WaveSpecialProperties.get_description(special)
 		var tooltip: String = "%s\n%s" % [special_name, description]
@@ -67,12 +72,8 @@ func _ready():
 
 #	Load icons
 	for special in special_list:
-		var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-		var icon_path: String = "res://Scenes/Creeps/SpecialIcons/%sSpecial.tscn" % script_name
+		var icon_path: String = WaveSpecialProperties.get_icon_path(special)
 		var icon_scene: PackedScene = load(icon_path)
-
-		if icon_scene == null:
-			push_error("Failed to load icon scene for special: %s" % icon_path)
 
 		_icon_map[special] = icon_scene
 
@@ -103,6 +104,20 @@ func get_special_script_name(special: int) -> String:
 	var string: String = _get_property(special, CsvProperty.SCRIPT_NAME)
 
 	return string
+
+
+func get_script_path(special: int) -> String:
+	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
+	var script_path: String = "res://Scenes/Creeps/SpecialBuffs/%s.gd" % script_name
+
+	return script_path
+
+
+func get_icon_path(special: int) -> String:
+	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
+	var icon_path: String = "res://Scenes/Creeps/SpecialIcons/%sSpecial.tscn" % script_name
+
+	return icon_path
 
 
 func get_required_wave_level(special: int) -> int:

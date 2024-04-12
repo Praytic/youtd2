@@ -387,15 +387,7 @@ static func make(id: int, player: Player) -> Item:
 
 		return null
 	
-	var item_behavior_script_path: String = get_item_script_path(id)
-	var script_exists: bool = ResourceLoader.exists(item_behavior_script_path)
-	
-	if !script_exists:
-		if PRINT_SCRIPT_NOT_FOUND_ERROR:
-			print_debug("No item behavior script found for id:", id, ". Tried at path:", item_behavior_script_path)
-
-		item_behavior_script_path = FAILLBACK_SCRIPT
-
+	var item_behavior_script_path: String = ItemProperties.get_script_path(id)
 	var item_behavior_script = load(item_behavior_script_path)
 
 	if item_behavior_script == null:
@@ -445,9 +437,3 @@ static func make_item_drop(item: Item, drop_pos: Vector2):
 	item_drop.add_child(item)
 
 	Utils.add_object_to_world(item_drop)
-
-
-static func get_item_script_path(item_id: int):
-	var path: String = "res://Scenes/Items/ItemBehaviors/Item%d.gd" % item_id
-
-	return path

@@ -37,6 +37,8 @@ enum RangeColumn {
 const PROPERTIES_PATH = "res://Data/tower_properties.csv"
 const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
+const TOWER_SPRITES_DIR: String = "res://Scenes/Towers/TowerSprites"
+const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
 
 const REQUIRED_WAVE_MAX: int = 80
 
@@ -80,6 +82,19 @@ func _ready():
 		_element_map[tower_id] = element
 		_attack_type_map[tower_id] = attack_type
 		_rarity_map[tower_id] = rarity
+
+#	Check paths
+	var id_list: Array = TowerProperties.get_tower_id_list()
+	for id in id_list:
+		var sprite_path: String = TowerProperties.get_sprite_path(id)
+		var sprite_path_is_valid: bool = ResourceLoader.exists(sprite_path)
+		if !sprite_path_is_valid:
+			push_error("Invalid tower sprite path: %s" % sprite_path)
+		
+		var script_path: String = TowerProperties.get_script_path(id)
+		var script_path_is_valid: bool = ResourceLoader.exists(script_path)
+		if !script_path_is_valid:
+			push_error("Invalid tower script path: %s" % script_path)
 
 
 #########################
@@ -492,6 +507,27 @@ func get_family_name(tower_id: int) -> String:
 	var family_name: String = first_tier_name.replace(" ", "")
 
 	return family_name
+
+
+func get_sprite_path(tower_id: int) -> String:
+	var family_name: String = TowerProperties.get_family_name(tower_id)
+	var tier: int = TowerProperties.get_tier(tower_id)
+	var sprite_path: String = "%s/%s%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
+	
+	return sprite_path
+
+
+# Get tower script based on tower scene name.
+# Examples:
+# TinyShrub1.tscn -> TinyShrub1.gd
+# TinyShrub2.tscn -> TinyShrub1.gd
+# TinyShrub3.tscn -> TinyShrub1.gd
+# ...
+func get_script_path(id: int) -> String:
+	var family_name: String = TowerProperties.get_family_name(id)
+	var script_path: String = "%s/%s1.gd" % [TOWER_BEHAVIORS_DIR, family_name]
+
+	return script_path
 
 
 #########################
