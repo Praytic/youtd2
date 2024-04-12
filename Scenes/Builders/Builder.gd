@@ -131,8 +131,7 @@ func _get_creep_modifier() -> Modifier:
 
 
 static func create_instance(id: int) -> Builder:
-	var script_name: String = BuilderProperties.get_script_name(id)
-	var script_path: String = "res://Scenes/Builders/Instances/%s.gd" % script_name
+	var script_path: String = BuilderProperties.get_script_path(id)
 	var builder_script = load(script_path)
 	var builder_instance: Builder = builder_script.new()
 	builder_instance._id = id
