@@ -8,10 +8,10 @@ class_name BuilderMenu extends PanelContainer
 signal finished()
 
 
-@export var _beginner_container: VBoxContainer
-@export var _advanced_container: VBoxContainer
-@export var _specialist_container: VBoxContainer
-@export var _hardcore_container: VBoxContainer
+@export var _beginner_container: GridContainer
+@export var _advanced_container: GridContainer
+@export var _specialist_container: GridContainer
+@export var _hardcore_container: GridContainer
 
 
 var _builder_id: int
@@ -38,13 +38,14 @@ func _ready():
 		else:
 			builder_tooltip = "[color=GOLD]Required level:[/color] [color=RED]%d[/color]\n \n%s\n \n%s" % [required_level, display_name, description]
 		
-		var button: Button = Preloads.button_with_rich_tooltip_scene.instantiate()
-		button.text = display_name
+		var button: Button = Preloads.builder_button_scene.instantiate()
+		var icon_path: String = BuilderProperties.get_icon_path(builder)
+		button.icon = load(icon_path)
 		button.tooltip_text = builder_tooltip
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
 		button.disabled = !builder_is_unlocked
 		
-		var container_for_button: VBoxContainer
+		var container_for_button: GridContainer
 		var builder_tier: BuilderTier.enm = BuilderProperties.get_tier(builder)
 		match builder_tier:
 			BuilderTier.enm.BEGINNER: container_for_button = _beginner_container

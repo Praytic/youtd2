@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://Scenes/TitleScreen/ProfileMenu.tscn" id="8_7qboh"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/TitleScreen/AuthMenu.tscn" id="9_v765v"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_tp7y3"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_oj4er"]
 
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_multiplayer_button", "_auth_button", "_spacer_before_quit_button", "_quit_button", "_room_menu")]
 script = ExtResource("1_dx8oa")
@@ -127,7 +127,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_tp7y3")
+_interface_size_button_group = SubResource("ButtonGroup_oj4er")
 
 [node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false

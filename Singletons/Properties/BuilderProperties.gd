@@ -3,6 +3,7 @@ extends Node
 
 const PROPERTIES_PATH: String = "res://Data/builder_properties.csv"
 const BUILDER_SCRIPT_DIR: String = "res://Scenes/Builders/Instances"
+const BUILDER_ICON_DIR: String = "res://Resources/Textures/BuilderIcons"
 
 enum CsvProperty {
 	ID,
@@ -11,6 +12,7 @@ enum CsvProperty {
 	TIER,
 	REQUIRED_LEVEL,
 	SCRIPT_NAME,
+	ICON,
 	DESCRIPTION,
 }
 
@@ -36,6 +38,11 @@ func _ready():
 
 		if !script_path_is_valid:
 			push_error("Invalid builder script path: %s" % script_path)
+
+		var icon_path: String = get_icon_path(builder_id)
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+		if !icon_path_is_valid:
+			push_error("Invalid builder icon path: %s" % icon_path)
 
 
 #########################
@@ -86,6 +93,13 @@ func get_script_path(builder: int) -> String:
 	var script_path: String = "%s/%s.gd" % [BUILDER_SCRIPT_DIR, script_name]
 
 	return script_path
+
+
+func get_icon_path(builder: int) -> String:
+	var icon_name: String = _get_property(builder, CsvProperty.ICON)
+	var icon_path: String = "%s/%s" % [BUILDER_ICON_DIR, icon_name]
+
+	return icon_path
 
 
 func get_description(builder: int) -> String:
