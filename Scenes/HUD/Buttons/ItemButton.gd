@@ -2,8 +2,6 @@ class_name ItemButton
 extends UnitButton
 
 
-const ICON_SIZE_M = 128
-
 var _item: Item
 
 @export var _cooldown_indicator: CooldownIndicator

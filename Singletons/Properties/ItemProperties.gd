@@ -13,14 +13,8 @@ enum CsvProperty {
 	DESCRIPTION,
 	REQUIRED_WAVE_LEVEL,
 	ICON,
-	ICON_ATLAS_FAMILY,
-	ICON_ATLAS_NUM,
 }
 
-const ICON_SIZE_S = 64
-const ICON_SIZE_M = 128
-const ICON_FAMILIES_PER_PAGE = 66
-const MAX_ICONS_PER_FAMILY = 5
 const PROPERTIES_PATH = "res://Data/item_properties.csv"
 # NOTE: this id needs to be updated if it's changed in csv
 const CONSUMABLE_CHICKEN_ID: int = 2003
@@ -134,22 +128,6 @@ func get_icon_path(item_id: int) -> String:
 	var icon_path: String = "%s/%s" % [ITEM_ICON_DIR, icon_name]
 
 	return icon_path
-
-
-func get_icon_atlas_family(item_id: int) -> int:
-	var prop = _get_property(item_id, CsvProperty.ICON_ATLAS_FAMILY)
-	if prop.is_empty():
-		return -1
-	else:
-		return prop.to_int()
-
-
-func get_icon_atlas_num(item_id: int) -> int:
-	var prop = _get_property(item_id, CsvProperty.ICON_ATLAS_NUM)
-	if prop.is_empty():
-		return -1
-	else:
-		return prop.to_int()
 
 
 func get_display_name(item_id: int) -> String:
