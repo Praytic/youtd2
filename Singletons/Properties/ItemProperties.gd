@@ -12,6 +12,7 @@ enum CsvProperty {
 	COST,
 	DESCRIPTION,
 	REQUIRED_WAVE_LEVEL,
+	ICON,
 	ICON_ATLAS_FAMILY,
 	ICON_ATLAS_NUM,
 }
@@ -23,6 +24,8 @@ const MAX_ICONS_PER_FAMILY = 5
 const PROPERTIES_PATH = "res://Data/item_properties.csv"
 # NOTE: this id needs to be updated if it's changed in csv
 const CONSUMABLE_CHICKEN_ID: int = 2003
+const ITEM_ICON_DIR: String = "res://Resources/Textures/ItemIcons"
+const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Textures/ItemIcons/placeholder.tres"
 
 const item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
 const potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")
@@ -45,6 +48,11 @@ func _ready():
 
 		if !script_path_is_valid:
 			push_error("Invalid item script path item: %s" % script_path)
+
+		var icon_path: String = ItemProperties.get_icon_path(id)
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+		if !icon_path_is_valid:
+			push_error("Invalid item icon path: %s" % icon_path)
 
 
 #########################
@@ -77,27 +85,15 @@ func filter_item_id_list(item_list: Array, item_property: CsvProperty, filter_va
 
 
 func get_icon(item_id: int) -> Texture2D:
-	var icon_atlas_num: int = ItemProperties.get_icon_atlas_num(item_id)
-	var icon_atlas_family: int = ItemProperties.get_icon_atlas_family(item_id)
-	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
-	var is_oil_or_consumable: bool = item_type == ItemType.enm.OIL || item_type == ItemType.enm.CONSUMABLE
-	
-	if icon_atlas_num == -1 or icon_atlas_family == -1:
-		push_error("Unknown icon for item ID [%s]" % item_id)
+	var icon_path: String = ItemProperties.get_icon_path(item_id)
+	var icon_path_exists: bool = ResourceLoader.exists(icon_path)
 
-	var item_icon = AtlasTexture.new()
-	var icon_size: int = ICON_SIZE_M
+	if !icon_path_exists:
+		push_error("Icon path doesn't exist, loading placeholder.")
+
+		icon_path = PLACEHOLDER_ITEM_ICON
 	
-	if is_oil_or_consumable:
-		item_icon.set_atlas(potion_icons_m)
-	else:
-		item_icon.set_atlas(item_icons_m)
-	
-	var page_num = floor(float(icon_atlas_family) / ICON_FAMILIES_PER_PAGE)
-	var x = icon_atlas_num * icon_size + page_num * MAX_ICONS_PER_FAMILY * icon_size
-	var y = icon_atlas_family % ICON_FAMILIES_PER_PAGE * icon_size
-	var region: Rect2 = Rect2(x, y, icon_size, icon_size)
-	item_icon.set_region(region)
+	var item_icon: Texture2D = load(icon_path)
 
 	return item_icon
 
@@ -131,6 +127,13 @@ func get_description(item_id: int) -> String:
 
 func get_required_wave_level(item_id: int) -> int:
 	return _get_property(item_id, CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
+
+
+func get_icon_path(item_id: int) -> String:
+	var icon_name: String = _get_property(item_id, CsvProperty.ICON)
+	var icon_path: String = "%s/%s" % [ITEM_ICON_DIR, icon_name]
+
+	return icon_path
 
 
 func get_icon_atlas_family(item_id: int) -> int:
