@@ -4,7 +4,6 @@ extends Node
 enum CsvProperty {
 	ID,
 	NAME,
-	OLD_NAME,
 	SCRIPT_NAME,
 	TYPE,
 	AUTHOR,
@@ -94,10 +93,6 @@ func get_icon(item_id: int) -> Texture2D:
 
 func get_item_name(item_id: int) -> String:
 	return _get_property(item_id, CsvProperty.NAME)
-
-
-func get_old_name(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.OLD_NAME)
 
 
 func get_author(item_id: int) -> String:

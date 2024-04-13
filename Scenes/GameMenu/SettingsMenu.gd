@@ -5,7 +5,6 @@ signal cancel_pressed()
 signal ok_pressed()
 
 
-@export var _old_item_names: CheckBox
 @export var _damage_numbers: CheckBox
 @export var _enable_sfx: CheckBox
 @export var _enable_mouse_scroll: CheckBox
@@ -30,7 +29,6 @@ var _is_dirty: bool = false
 func _ready():
 #	NOTE: need to init this in ready() because this map uses @export vars which are not ready before ready()
 	_setting_to_checkbox_map = {
-		Settings.SHOW_OLD_ITEM_NAMES: _old_item_names,
 		Settings.SHOW_ALL_DAMAGE_NUMBERS: _damage_numbers,
 		Settings.ENABLE_SFX: _enable_sfx,
 		Settings.ENABLE_MOUSE_SCROLL: _enable_mouse_scroll,
