@@ -165,19 +165,43 @@ func _end_move_process():
 	Input.set_custom_mouse_cursor(null)
 
 
-# NOTE: Input.set_custom_mouse_cursor() currently has a bug
-# which causes errors if we use AtlasTexture returned by
-# ItemProperties.get_icon() (it returns base class Texture2D but it's
-# still an atlas texture). Copy image from AtlasTexture to
-# ImageTexture to avoid this bug.
+# NOTE: this function replicates the look of an ItemButton
+# by combining a background image with item icon. Note that
+# item icon needs to be resized to a smaller size and
+# centered on the background - in ItemButton this function
+# is done automatically by the theme.
 func _get_item_cursor_icon(item: Item) -> Texture2D:
-	var item_id: int = item.get_id()
-	var atlas_texture: Texture2D = ItemProperties.get_icon(item_id)
+	const ITEM_BUTTON_SIZE: Vector2 = Vector2(120, 120)
+#	NOTE: this value is an estimate
+	const ITEM_ICON_SCALE: float = 0.85
+#	NOTE: make cursor icon smaller than actual item button
+#	to indicate that item is getting moved
+	const CURSOR_ICON_SCALE: float = 0.80
+
+	var viewport_scale: Vector2 = get_viewport().get_final_transform().get_scale()
+	var cursor_icon_size: Vector2i = Vector2i(ITEM_BUTTON_SIZE * viewport_scale * CURSOR_ICON_SCALE)
+	var item_icon_size: Vector2i = Vector2i(cursor_icon_size * ITEM_ICON_SCALE)
+
+	var rarity: Rarity.enm = item.get_rarity()
+	var background_texture: Texture2D
+	match rarity:
+		Rarity.enm.COMMON: background_texture = load("res://Resources/Textures/UI/common_unit_button_hover.tres")
+		Rarity.enm.UNCOMMON: background_texture = load("res://Resources/Textures/UI/uncommon_unit_button_hover.tres")
+		Rarity.enm.RARE: background_texture = load("res://Resources/Textures/UI/rare_unit_button_hover.tres")
+		Rarity.enm.UNIQUE: background_texture = load("res://Resources/Textures/UI/unique_unit_button_hover.tres")
+		
+	var background_image: Image = background_texture.get_image()
+	background_image.resize(cursor_icon_size.x, cursor_icon_size.y)
+	
+	var atlas_texture: Texture2D = ItemProperties.get_icon(item.get_id())
 	var image: Image = atlas_texture.get_image()
-#	NOTE: make cursor icon slightly smaller so it looks nice
-	var final_size: Vector2 = image.get_size() * 0.75
-	image.resize(int(final_size.x), int(final_size.y))
-	var image_texture: ImageTexture = ImageTexture.create_from_image(image)
+	image.resize(item_icon_size.x, item_icon_size.y)
+	
+	var src_rect: Rect2i = Rect2i(Vector2i(0, 0), item_icon_size)
+	var dst: Vector2i = Vector2i((cursor_icon_size - item_icon_size) / 2)
+	background_image.blend_rect(image, src_rect, dst)
+
+	var image_texture: ImageTexture = ImageTexture.create_from_image(background_image)
 
 	return image_texture
 
