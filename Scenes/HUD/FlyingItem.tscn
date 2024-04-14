@@ -1,16 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfkqoriruwxt8"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/FlyingItem.gd" id="1_5ump5"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_ltogr"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="2_f21m0"]
 
-[node name="FlyingItem" type="Control" node_paths=PackedStringArray("_texture_rect")]
+[node name="FlyingItem" type="Control" node_paths=PackedStringArray("_unit_button")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5ump5")
-_texture_rect = NodePath("TextureRect")
+_unit_button = NodePath("UnitButton")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="UnitButton" parent="." instance=ExtResource("2_f21m0")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_ltogr")
+mouse_filter = 2

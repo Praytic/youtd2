@@ -12,7 +12,7 @@ class_name FlyingItem extends Control
 
 var _item_id: int = 0
 
-@export var _texture_rect: TextureRect
+@export var _unit_button: UnitButton
 
 
 #########################
@@ -22,8 +22,15 @@ var _item_id: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
-	_texture_rect.texture = icon
+	var rarity: Rarity.enm = ItemProperties.get_rarity(_item_id)
+	_unit_button.set_icon(icon)
+	_unit_button.set_rarity(rarity)
 
+# 	NOTE: couldn't figure out why unit button is smaller
+# 	than it should be. Hackfix by manually changing the
+# 	scale.
+	_unit_button.scale = Vector2(1.5, 1.5)
+	
 	var hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
 	var item_stash_button: Button = hud.get_item_stash_button()
 	var target_pos: Vector2 = item_stash_button.global_position + Vector2(45, 45)
