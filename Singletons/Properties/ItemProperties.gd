@@ -20,8 +20,6 @@ const CONSUMABLE_CHICKEN_ID: int = 2003
 const ITEM_ICON_DIR: String = "res://Resources/Textures/ItemIcons"
 const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Textures/ItemIcons/placeholder.tres"
 
-const item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
-const potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")
 
 var _properties: Dictionary = {}
 

@@ -1,21 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://cf3dgj0hegtqq"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/AutocastButton.gd" id="1_eojut"]
-[ext_resource type="Texture2D" uid="uid://blly1o63hjnio" path="res://Assets/Items/item_icons_m.png" id="2_mkry8"]
+[ext_resource type="Texture2D" uid="uid://6r3vtu5yr06v" path="res://Assets/Items/magic.png" id="2_csim3"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/CooldownIndicator.gd" id="3_d6wsi"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3_rtugu"]
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="5_xah78"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2y68o"]
-atlas = ExtResource("2_mkry8")
-region = Rect2(640, 6016, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1ue5"]
+atlas = ExtResource("2_csim3")
+region = Rect2(384, 0, 128, 128)
 
 [node name="AutocastButton" type="Button" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_indicator_container")]
 custom_minimum_size = Vector2(64, 64)
 focus_mode = 0
 theme = ExtResource("3_rtugu")
 theme_type_variation = &"TowerActions"
-icon = SubResource("AtlasTexture_2y68o")
+icon = SubResource("AtlasTexture_j1ue5")
 expand_icon = true
 script = ExtResource("1_eojut")
 _cooldown_indicator = NodePath("IndicatorContainer/CooldownIndicator")
