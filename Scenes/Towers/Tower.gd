@@ -89,7 +89,8 @@ func _ready():
 	_on_mana_changed()
 	_mana_bar.visible = get_base_mana() > 0
 
-	_default_projectile_type = ProjectileType.create("", 0.0, Constants.PROJECTILE_SPEED, self)
+	var missile_speed: int = TowerProperties.get_missile_speed(get_id())
+	_default_projectile_type = ProjectileType.create("", 0.0, missile_speed, self)
 	_default_projectile_type.enable_homing(_on_projectile_target_hit, 0.0)
 
 # 	Carry over some properties and all items from preceding

@@ -20,6 +20,8 @@ enum CsvProperty {
 	MANA,
 	MANA_REGEN,
 	COST,
+	MISSILE_SPEED,
+	MISSILE_ARC,
 	DESCRIPTION,
 	ICON_ATLAS_NUM,
 }
@@ -164,6 +166,18 @@ func get_cost(tower_id: int) -> int:
 	var cost: int = _get_property(tower_id, CsvProperty.COST) as int
 
 	return cost
+
+
+func get_missile_speed(tower_id: int) -> int:
+	var speed: int = _get_property(tower_id, CsvProperty.MISSILE_SPEED) as int
+
+	return speed
+
+
+func get_missile_arc(tower_id: int) -> float:
+	var arc: float = _get_property(tower_id, CsvProperty.MISSILE_SPEED) as float
+
+	return arc
 
 
 func get_sell_price(tower_id: int) -> int:
