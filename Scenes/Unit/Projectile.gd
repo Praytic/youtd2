@@ -95,26 +95,26 @@ func stop_interpolation():
 	_interpolation_distance = 0
 
 
-func start_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float):
+func start_interpolation_to_point(target_pos: Vector2, z_arc: float):
 	var target_unit: Unit = null
 	var targeted: bool = false
-	_start_interpolation_internal(target_unit, target_pos, targeted)
+	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
 
 
-func start_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, targeted: bool):
+func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool):
 	var target_pos: Vector2 = target_unit.position
-	_start_interpolation_internal(target_unit, target_pos, targeted)
+	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
 
 
-func start_bezier_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float, _size_arc: float, _steepness: float):
+func start_bezier_interpolation_to_point(target_pos: Vector2, z_arc: float, _size_arc: float, _steepness: float):
 	var target_unit: Unit = null
 	var targeted: bool = false
-	_start_interpolation_internal(target_unit, target_pos, targeted)
+	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
 
 
-func start_bezier_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, _size_arc: float, _steepness: float, targeted: bool):
+func start_bezier_interpolation_to_unit(target_unit: Unit, z_arc: float, _size_arc: float, _steepness: float, targeted: bool):
 	var target_pos: Vector2 = target_unit.position
-	_start_interpolation_internal(target_unit, target_pos, targeted)
+	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
 
 
 # NOTE: disablePeriodic() in JASS
@@ -363,10 +363,12 @@ static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2
 
 # NOTE: before this f-n is called, projectile must be added
 # to world and have a valid position
-func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targeted: bool):
+func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, z_arc: float, targeted: bool):
 #	NOTE: need to clear previous target (if it exists) to
 #	disconnect from signals
 	set_homing_target(null)
+
+	_z_arc = z_arc
 
 	if target_unit != null:
 		target_pos = target_unit.position
@@ -795,10 +797,8 @@ static func _create_internal_interpolated(type: ProjectileType, caster: Unit, da
 
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
-	projectile._z_arc = z_arc
-
 	Utils.add_object_to_world(projectile)
 
-	projectile._start_interpolation_internal(target_unit, target_pos, targeted)
+	projectile._start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
 
 	return projectile
