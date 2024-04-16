@@ -102,7 +102,7 @@ func start_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float):
 
 
 func start_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, targeted: bool):
-	var target_pos: Vector2 = target_unit.get_visual_position()
+	var target_pos: Vector2 = target_unit.position
 	_start_interpolation_internal(target_unit, target_pos, targeted)
 
 
@@ -113,7 +113,7 @@ func start_bezier_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float,
 
 
 func start_bezier_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, _size_arc: float, _steepness: float, targeted: bool):
-	var target_pos: Vector2 = target_unit.get_visual_position()
+	var target_pos: Vector2 = target_unit.position
 	_start_interpolation_internal(target_unit, target_pos, targeted)
 
 
@@ -369,7 +369,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targe
 	set_homing_target(null)
 
 	if target_unit != null:
-		target_pos = target_unit.get_visual_position()
+		target_pos = target_unit.position
 
 	if target_unit != null:
 #		NOTE: if projectile has a target but is not
@@ -407,7 +407,7 @@ func _do_explosion_visual():
 # will return the last position of target unit.
 func _get_target_position() -> Vector2:
 	if _target_unit != null:
-		var target_unit_pos: Vector2 = _target_unit.get_visual_position()
+		var target_unit_pos: Vector2 = _target_unit.position
 
 		return target_unit_pos
 	else:
@@ -418,7 +418,7 @@ func _clear_target():
 	if _target_unit == null:
 		return
 
-	_target_pos = _target_unit.get_visual_position()
+	_target_pos = _target_unit.position
 	_target_unit.tree_exited.disconnect(_on_target_tree_exited)
 	_target_unit = null
 
@@ -550,7 +550,7 @@ func set_homing_target(new_target: Unit):
 			_target_unit = new_target
 		else:
 			_target_unit = null
-			_target_pos = new_target.get_visual_position()
+			_target_pos = new_target.position
 
 		_is_homing = true
 	else:
@@ -609,7 +609,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 
 # NOTE: Projectile.createFromUnit() in JASS
 static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
-	var pos: Vector2 = from.get_visual_position()
+	var pos: Vector2 = from.position
 	var z: float = 0.0
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos.x, pos.y, z, facing)
 	
@@ -758,10 +758,10 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 
 static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, targeted: bool, expire_when_reached: bool) -> Projectile:
 	if from_unit != null:
-		from_pos = from_unit.get_visual_position()
+		from_pos = from_unit.position
 
 	if target_unit != null:
-		target_pos = target_unit.get_visual_position()
+		target_pos = target_unit.position
 
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
@@ -791,7 +791,7 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 
 static func _create_internal_interpolated(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, z_arc: float, targeted: bool) -> Projectile:
 	if from_unit != null:
-		from_pos = from_unit.get_visual_position()
+		from_pos = from_unit.position
 
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
