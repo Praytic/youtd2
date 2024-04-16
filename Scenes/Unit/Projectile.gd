@@ -75,6 +75,9 @@ func _ready():
 
 
 func update(delta: float):
+	if _target_unit != null:
+		_target_pos = _target_unit.position
+
 	match _move_type:
 		MoveType.NORMAL: _process_normal(delta)
 		MoveType.INTERPOLATED: _process_interpolated(delta)
@@ -164,7 +167,7 @@ func _process_normal(delta: float):
 	set_speed(new_speed)
 
 #	Move forward, based on current direction
-	var target_pos_isometric: Vector2 = _get_target_position()
+	var target_pos_isometric: Vector2 = _target_pos
 	var move_vector_top_down: Vector2 = (Vector2(1, 0) * _speed * delta).rotated(deg_to_rad(_direction))
 	var move_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(move_vector_top_down)
 
@@ -210,12 +213,10 @@ func _process_interpolated(delta: float):
 	if _interpolation_is_stopped:
 		return
 
-	var target_pos: Vector2 = _get_target_position()
-	
 	_interpolation_progress += _speed * delta
 	_interpolation_progress = min(_interpolation_progress, _interpolation_distance)
 	var progress_ratio: float = Utils.divide_safe(_interpolation_progress, _interpolation_distance, 1.0)
-	var current_pos_2d: Vector2 = _interpolation_start.lerp(target_pos, progress_ratio)
+	var current_pos_2d: Vector2 = _interpolation_start.lerp(_target_pos, progress_ratio)
 	var z_max: float = _z_arc * _interpolation_distance
 	var z: float = z_max * sin(progress_ratio * PI)
 	var current_pos_3d: Vector3 = Vector3(current_pos_2d.x, current_pos_2d.y, z)
@@ -302,7 +303,7 @@ func _do_collision_behavior() -> bool:
 # target unit is defined, the projectile will turn to face
 # towards it.
 func _do_homing_behavior(delta: float):
-	var target_pos_isometric: Vector2 = _get_target_position()
+	var target_pos_isometric: Vector2 = _target_pos
 
 	if !_is_homing:
 		return
@@ -402,18 +403,6 @@ func _do_explosion_visual():
 	var explosion = Preloads.explosion_scene.instantiate()
 	explosion.position = position
 	Utils.add_object_to_world(explosion)
-
-
-# Returns target position which is equal to current position
-# of target unit. If target unit dies, then this function
-# will return the last position of target unit.
-func _get_target_position() -> Vector2:
-	if _target_unit != null:
-		var target_unit_pos: Vector2 = _target_unit.position
-
-		return target_unit_pos
-	else:
-		return _target_pos
 
 
 func _clear_target():
