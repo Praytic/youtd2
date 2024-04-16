@@ -37,7 +37,6 @@ var _current_path_index: int = 0
 var _facing_angle: float = 0.0
 var _spawn_level: int
 var _special_list: Array[int] = [] : set = set_special_list, get = get_special_list
-var _current_height: float = 0.0
 var _target_height: float = 0.0
 var _height_change_speed: float = 0.0
 
@@ -69,9 +68,9 @@ func _ready():
 	health_changed.connect(_on_health_changed)
 
 	if _size == CreepSize.enm.AIR:
-		_current_height = 2 * Constants.TILE_SIZE.y
-		_target_height = _current_height
-		_visual.position.y = -_current_height
+		_z = 2 * Constants.TILE_SIZE.y
+		_target_height = _z
+		_visual.position.y = -_z
 	
 	_setup_selection_signals(_selection_area)
 	
@@ -96,15 +95,15 @@ func update(delta: float):
 	_sprite.play(creep_animation)
 	_selection_outline.play(creep_animation)
 
-	if _current_height != _target_height:
+	if _z != _target_height:
 		var height_change: float = _height_change_speed * delta
 
-		if _current_height < _target_height:
-			_current_height = max(_target_height, _current_height + height_change)
+		if _z < _target_height:
+			_z = max(_target_height, _z + height_change)
 		else:
-			_current_height = min(_target_height, _current_height - height_change)
+			_z = min(_target_height, _z - height_change)
 
-		_visual.position.y = -_current_height
+		_visual.position.y = -_z
 
 	z_index = _calculate_current_z_index()
 
@@ -278,15 +277,13 @@ func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
 # it's z index so that the sprite is drawn correctly in
 # front of tiles.
 func _calculate_current_z_index() -> int:
-	var height: float = -_visual.position.y
-
 # 	TODO: "100" is the placeholder. Figure out actual logic
 # 	for how z_index of creep should change as it's height
 # 	increases.
 # 	NOTE: make z_index for air reeps 1 higher because air
 # 	creeps should always be drawn above any ground creep
 # 	which was elevated
-	if height > 100:
+	if _z > 100:
 		if get_size() == CreepSize.enm.AIR:
 			return 11
 		else:

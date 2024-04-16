@@ -69,6 +69,7 @@ func _ready():
 #	nodes may have default values which we don't want to
 #	override
 	_visual.position.y -= Constants.TILE_SIZE.y
+	_z = Constants.TILE_SIZE.y
 	_selection_indicator.position.y -= Constants.TILE_SIZE.y
 
 	var base_mana: int = TowerProperties.get_mana(_id)

@@ -112,6 +112,8 @@ var _buff_groups: Dictionary = {}
 var _player: Player = null
 static var _uid_max: int = 1
 var _uid: int = 0
+# NOTE: up axis is positive z, down axis is negative z.
+var _z: float = 0.0
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -1309,11 +1311,9 @@ func get_y() -> float:
 	return position.y
 
 
-# TODO: implement. Note this should not return z_index,
-# that's a different value.
 # NOTE: unit.getZ() in JASS
 func get_z() -> float:
-	return 0.0
+	return _z
 
 
 func get_visual_x() -> float:
