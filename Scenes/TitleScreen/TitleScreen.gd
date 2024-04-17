@@ -153,3 +153,7 @@ func _on_profile_button_pressed():
 
 func _on_profile_menu_close_pressed():
 	_tab_container.current_tab = Tab.MAIN
+
+
+func _on_auth_menu_finished():
+	_switch_to_main_tab()
