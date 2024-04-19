@@ -163,8 +163,9 @@ func find_creep_path(player: Player, for_air_creeps: bool) -> Path2D:
 	return null
 
 
-# NOTE: point should be isometric
-func is_point_on_creep_path(point: Vector2, player: Player) -> bool:
+func is_point_on_creep_path(point_wc3: Vector2, player: Player) -> bool:
+	var point_wc3_3d: Vector3 = Vector3(point_wc3.x, point_wc3.y, 0)
+	var point: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(point_wc3_3d)
 	var creep_path_ground: Path2D = Utils.find_creep_path(player, false)
 
 	if creep_path_ground == null:
