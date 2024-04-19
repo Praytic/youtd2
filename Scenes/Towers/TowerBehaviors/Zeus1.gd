@@ -150,7 +150,7 @@ func on_autocast(_event: Event):
 	bolt_count = 20 + int(0.2 * tower.get_level())
 
 	if thunder_effect == 0:
-		thunder_effect = Effect.create_animated("PurgeBuffTarget.mdl", tower.get_visual_x() - 16, tower.get_visual_y() - 16, 50, 0)
+		thunder_effect = Effect.create_animated("PurgeBuffTarget.mdl", tower.get_x() - 16, tower.get_y() - 16, 50, 0)
 
 	thunder_is_enabled = true
 

@@ -156,8 +156,9 @@ func on_attack(event: Event):
 
 	var final_x: float = tower.get_x() + (target.get_x() - tower.get_x()) * 6
 	var final_y: float = tower.get_y() + (target.get_y() - tower.get_y()) * 6
+	var final_pos: Vector3 = Vector3(final_x, final_y, tower.get_z())
 
-	var p: Projectile = Projectile.create_from_unit_to_point(bronze_drake_pt, tower, 0, 0, tower, Vector2(final_x, final_y), true, false)
+	var p: Projectile = Projectile.create_from_unit_to_point(bronze_drake_pt, tower, 0, 0, tower, final_pos, true, false)
 	p.setScale(0.6)
 
 
@@ -166,9 +167,9 @@ func on_create(_preceding_tower: Tower):
 	var green_drake: Drake = Drake.new()
 	var red_drake: Drake = Drake.new()
 	
-	blue_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(blue_drake_pt, tower, 0, 0, tower, Vector2(tower.get_visual_x() + 36, tower.get_visual_y() - 30), 0.0)
-	green_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(green_drake_pt, tower, 0, 0, tower, Vector2(tower.get_visual_x() - 50, tower.get_visual_y() - 13), 0.0)
-	red_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(red_drake_pt, tower, 0, 0, tower, Vector2(tower.get_visual_x() + 27, tower.get_visual_y() + 59), 0.0)
+	blue_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(blue_drake_pt, tower, 0, 0, tower, Vector3(tower.get_x() + 36, tower.get_y() - 30, tower.get_z() - 30), 0.0)
+	green_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(green_drake_pt, tower, 0, 0, tower, Vector3(tower.get_x() - 50, tower.get_y() - 13, tower.get_z() - 30), 0.0)
+	red_drake.projectile = Projectile.create_linear_interpolation_from_unit_to_point(red_drake_pt, tower, 0, 0, tower, Vector3(tower.get_x() + 27, tower.get_y() + 59, tower.get_z() - 30), 0.0)
 
 	drake_list.resize(3)
 	drake_list[BLUE_I] = blue_drake
@@ -179,9 +180,9 @@ func on_create(_preceding_tower: Tower):
 	drake_list[GREEN_I].projectile.user_int2 = GREEN_I
 	drake_list[RED_I].projectile.user_int2 = RED_I
 
-	drake_list[BLUE_I].start_pos = Vector3(tower.get_visual_x() + 36, tower.get_visual_y() - 30, tower.get_z() - 30)
-	drake_list[GREEN_I].start_pos = Vector3(tower.get_visual_x() - 50, tower.get_visual_y() - 13, tower.get_z() - 30)
-	drake_list[RED_I].start_pos = Vector3(tower.get_visual_x() + 27, tower.get_visual_y() + 59, tower.get_z() - 30)
+	drake_list[BLUE_I].start_pos = Vector3(tower.get_x() + 36, tower.get_y() - 30, tower.get_z() - 30)
+	drake_list[GREEN_I].start_pos = Vector3(tower.get_x() - 50, tower.get_y() - 13, tower.get_z() - 30)
+	drake_list[RED_I].start_pos = Vector3(tower.get_x() + 27, tower.get_y() + 59, tower.get_z() - 30)
 
 	for drake in drake_list:
 		drake.projectile.disable_periodic()
@@ -253,7 +254,7 @@ func feeding():
 		if corpse != null:
 			corpse.hide()
 
-			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", tower.get_visual_x() + 10, tower.get_visual_y(), tower.get_z() - 120, 0, 5)
+			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", tower.get_x() + 10, tower.get_y(), tower.get_z() - 120, 0, 5)
 			Effect.set_lifetime(effect, 0.8)
 
 			var feed_amount: int
@@ -391,7 +392,7 @@ func send_drakeling_home(p: Projectile):
 
 	var drake: Drake = drake_list[which]
 	drake.projectile.set_speed(600)
-	drake.projectile.start_bezier_interpolation_to_point(Vector2(drake.start_pos.x, drake.start_pos.y), 0.15, 0.15, 0.17)
+	drake.projectile.start_bezier_interpolation_to_point(drake.start_pos, 0.15, 0.15, 0.17)
 	drake.state = DrakeState.COMING_BACK
 
 
@@ -441,9 +442,8 @@ func bronze_drake_pt_periodic(p: Projectile):
 
 #		Test if the target is in a 90 degree cone in front
 #		of the drake
-		var vector_isometric: Vector2 = next.position - p.position
-		var vector_top_down: Vector2 = Isometric.top_down_vector_to_isometric(vector_isometric)
-		var angle_to_creep: float = rad_to_deg(vector_top_down.angle())
+		var position_diff: Vector2 = next.get_position_wc3_2d() - p.get_position_wc3_2d()
+		var angle_to_creep: float = rad_to_deg(position_diff.angle())
 		var angle_diff: float = angle_to_creep - p.get_direction()
 
 		var angle_diff_is_ok: bool = angle_diff <= -310 || angle_diff >= 310 || (angle_diff >= 50 && angle_diff <= 50)
@@ -451,9 +451,8 @@ func bronze_drake_pt_periodic(p: Projectile):
 		if !angle_diff_is_ok:
 			break
 
-		var offset_vector_top_down: Vector2 = Vector2(100, 0).rotated(rad_to_deg(p.get_direction()))
-		var offset_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_vector_top_down)
-		var from_pos: Vector2 = p.position + offset_vector_isometric
+		var offset_vector: Vector2 = Vector2(100, 0).rotated(rad_to_deg(p.get_direction()))
+		var from_pos: Vector3 = p.get_position_wc3() + Vector3(offset_vector.x, offset_vector.y, 0)
 
 		var atk_proj: Projectile = Projectile.create_linear_interpolation_from_point_to_unit(bronze_drake_attack_pt, tower, 0, 0, from_pos, next, 0.30, true)
 		atk_proj.setScale(0.55)
@@ -483,13 +482,14 @@ func generic_drake_pt_periodic(p: Projectile):
 	p.disable_periodic()
 
 # 	TODO: process z component
-	p.position = Vector2(drake.start_pos.x, drake.start_pos.y)
+	var start_pos: Vector2 = Vector2(drake.start_pos.x, drake.start_pos.y)
+	p.set_position_wc3_2d(start_pos)
 	p.set_speed(0)
 	drake.state = DrakeState.IDLE
 
 # 	TODO: implement Projectile.aim_at_point() Should change
 # 	direction of projectile, remember to convert between
 # 	isometric and top down projections.
-#	var final_x: float = p.get_x() + (tower.get_visual_x() - p.get_x()) * 10
-#	var final_y: float = p.get_y() + (tower.get_visual_y() - p.get_y()) * 10
+#	var final_x: float = p.get_x() + (tower.get_x() - p.get_x()) * 10
+#	var final_y: float = p.get_y() + (tower.get_y() - p.get_y()) * 10
 #	p.aim_at_point(final_x, final_y, p.get_z(), false, false)

@@ -45,7 +45,7 @@ func on_damage(event: Event):
 	if event.is_main_target():
 		T = item.get_carrier()
 		C = event.get_target()
-		angle = rad_to_deg(atan2(C.global_position.y - T.global_position.y, C.global_position.x - T.global_position.x))
+		angle = rad_to_deg(atan2(C.get_y() - T.get_y(), C.get_x() - T.get_x()))
 		P = Projectile.create_from_unit(overcharge_pt, T, C, angle, 1.0, 1.0)
 		P.user_int = C.get_instance_id()
 		P.user_real = T.get_current_attack_damage_with_bonus() * (0.35 + 0.006 * T.get_level())

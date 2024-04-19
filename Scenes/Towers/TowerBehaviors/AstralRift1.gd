@@ -96,10 +96,10 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_visual_x(), tower.get_visual_y(), 10, 0, 4)
+	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_x(), tower.get_y(), 10, 0, 4)
 	Effect.set_lifetime(tower_effect, 1.0)
 
-	var target_effect: int = Effect.create_simple("AIilTarget.mdl", target.get_visual_x(), target.get_visual_y())
+	var target_effect: int = Effect.create_simple("AIilTarget.mdl", target.get_x(), target.get_y())
 	Effect.destroy_effect_after_its_over(target_effect)
 
 	var move_aoe: bool = tower.calc_chance(0.15)
@@ -121,7 +121,7 @@ func on_damage(event: Event):
 
 		move_creep_back(target)
 
-	var slow_effect: int = Effect.create_simple("SilenceAreaBirth.mdl", target.get_visual_x(), target.get_visual_y())
+	var slow_effect: int = Effect.create_simple("SilenceAreaBirth.mdl", target.get_x(), target.get_y())
 	Effect.set_lifetime(slow_effect, 1.0)
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
@@ -147,6 +147,7 @@ func aura_bt_periodic(event: Event):
 func move_creep_back(creep: Unit):
 	var facing: float = creep.get_unit_facing()
 	var facing_reversed: float = facing - 180
-	var teleport_offset_top_down: Vector2 = Vector2(175 + tower.get_level(), 0).rotated(deg_to_rad(facing_reversed))
-	var teleport_offset: Vector2 = Isometric.top_down_vector_to_isometric(teleport_offset_top_down)
-	creep.position += teleport_offset
+	var teleport_offset: Vector2 = Vector2(175 + tower.get_level(), 0).rotated(deg_to_rad(facing_reversed))
+	var current_creep_pos: Vector2 = creep.get_position_wc3_2d()
+	var new_creep_pos: Vector2 = current_creep_pos + teleport_offset
+	creep.set_position_wc3_2d(new_creep_pos)

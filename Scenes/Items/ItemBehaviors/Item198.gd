@@ -32,8 +32,8 @@ func load_triggers(triggers: BuffType):
 
 # NOTE: deem_FrogAttack() in original script
 func daem_frog_attack(tower: Tower, target: Unit, temp: int):
-	var x: float = tower.get_visual_x()
-	var y: float = tower.get_visual_y()
+	var x: float = tower.get_x()
+	var y: float = tower.get_y()
 
 	var angle: float = rad_to_deg(atan2(target.get_y() - y, target.get_x() - x))
 

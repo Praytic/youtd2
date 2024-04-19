@@ -136,8 +136,8 @@ func on_damage(event: Event):
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 
-	var hammer_pos: Vector2 = target.position
-	hammer_pos.y -= HAMMER_RANGE / 2.0
+	var hammer_pos: Vector2 = target.get_position_wc3_2d()
+	hammer_pos.y -= HAMMER_RANGE
 	var p: Projectile = Projectile.create(hammer_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), hammer_pos.x, hammer_pos.y, 0.0, 90)
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.PLAYER_TOWERS), 2500.0)
@@ -242,9 +242,8 @@ func line_damage(origin_x: float, origin_y: float, direction: float):
 			break
 
 		var current_distance: float = distance * i
-		var offset_vector_top_down: Vector2 = Vector2.from_angle(deg_to_rad(direction)) * current_distance
-		var offset_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_vector_top_down)
-		var current_pos: Vector2 = origin_pos + offset_vector_isometric
+		var offset: Vector2 = Vector2.from_angle(deg_to_rad(direction)) * current_distance
+		var current_pos: Vector2 = origin_pos + offset
 
 		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), current_pos.x, current_pos.y, 85)
 

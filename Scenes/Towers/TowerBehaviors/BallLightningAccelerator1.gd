@@ -124,7 +124,7 @@ func on_attack(event: Event):
 	var angle: float = atan2(target.get_y() - tower.get_y(), target.get_x() - tower.get_x())
 	var mana: float = tower.get_mana()
 
-	var p: Projectile = Projectile.create(energetic_weapon_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower.get_visual_x() + cos(angle) * 110, tower.get_visual_y() + sin(angle) * 110, 40, rad_to_deg(angle))
+	var p: Projectile = Projectile.create(energetic_weapon_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower.get_x() + cos(angle) * 110, tower.get_y() + sin(angle) * 110, 40, rad_to_deg(angle))
 	var damage_from_mana: float = mana * (3.0 + 0.05 * tower.get_level())
 	var projectile_damage: float = _stats.projectile_damage + _stats.projectile_damage_add * tower.get_level() + damage_from_mana
 	p.user_real = projectile_damage
@@ -156,8 +156,8 @@ func on_autocast(_event: Event):
 func energetic_weapon_pt_on_hit(projectile: Projectile, target: Unit):
 	var caster: Unit = projectile.get_caster()
 	var lightning_start_pos: Vector3 = Vector3(
-		projectile.position.x + 50.0 * cos(deg_to_rad(projectile.get_direction())),
-		projectile.position.y + 50.0 * sin(deg_to_rad(projectile.get_direction())),
+		projectile.get_x() + 50.0 * cos(deg_to_rad(projectile.get_direction())),
+		projectile.get_y() + 50.0 * sin(deg_to_rad(projectile.get_direction())),
 		60.0
 		)
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, lightning_start_pos, target)

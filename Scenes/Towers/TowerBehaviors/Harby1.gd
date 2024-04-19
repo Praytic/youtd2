@@ -173,7 +173,7 @@ func aura_bt_on_spell_casted(event: Event):
 
 
 func arcane_mana_replenish(target: Tower):
-	var effect: int = Effect.create_colored("ReplenishHealthCasterOverhead.mdl", target.get_visual_x(), target.get_visual_y(), 80, 0.0, 5, Color8(100, 100, 255, 255))
+	var effect: int = Effect.create_colored("ReplenishHealthCasterOverhead.mdl", target.get_x(), target.get_y(), 80, 0.0, 5, Color8(100, 100, 255, 255))
 	Effect.destroy_effect_after_its_over(effect)
 	var mana_gain: float = 0.1 + 0.002 * target.get_level()
 	target.add_mana_perc(mana_gain)

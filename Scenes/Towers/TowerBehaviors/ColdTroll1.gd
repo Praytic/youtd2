@@ -56,7 +56,7 @@ func load_specials(modifier: Modifier):
 
 func on_autocast(event: Event):
 	var u: Unit = event.get_target()
-	blizzard_st.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
+	blizzard_st.point_cast_from_caster_on_point(tower, u.get_x(), u.get_y(), 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
 
 
 # NOTE: OnBlizzard() in original script

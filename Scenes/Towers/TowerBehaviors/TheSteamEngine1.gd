@@ -135,7 +135,7 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_create(_preceding_tower: Tower):
-	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", tower.get_visual_x() - 4, tower.get_visual_y() + 41, 75, 0, 0.55)
+	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", tower.get_x() - 4, tower.get_y() + 41, 75, 0, 0.55)
 	engine_update_anims()
 
 
@@ -214,7 +214,7 @@ func steam_bt_on_attack(event: Event):
 
 	CombatLog.log_ability(caster, buffed_tower, "Power Surge")
 	caster.add_exp(1 + 0.04 * lvl)
-	var effect: int = Effect.create_scaled("FragBoomSpawn.mdl", caster.get_visual_x() + 11, caster.get_visual_y() + 56, 40, 0, 5)
+	var effect: int = Effect.create_scaled("FragBoomSpawn.mdl", caster.get_x() + 11, caster.get_y() + 56, 40, 0, 5)
 	Effect.destroy_effect_after_its_over(effect)
 
 

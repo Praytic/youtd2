@@ -166,7 +166,7 @@ func on_attack(_event: Event):
 
 			if b.user_int == max_stacks:
 				if b.user_int2 == 0:
-					b.user_int2 = Effect.create_scaled("ManaShieldCaster.mdl", tower.get_visual_x(), tower.get_visual_y(), 115, 0, 5)
+					b.user_int2 = Effect.create_scaled("ManaShieldCaster.mdl", tower.get_x(), tower.get_y(), 115, 0, 5)
 
 		shield_bt.apply(tower, tower, _stats.shield_power * b.user_int)
 	else:

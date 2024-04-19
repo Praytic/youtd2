@@ -211,7 +211,7 @@ func on_autocast(event: Event):
 # don't need to clean up it's effect or remove it from
 # icicle list because that setup was never performed for it.
 func ashbringer_icicle_fire_single(target: Unit):
-	var start_pos: Vector2 = tower.get_visual_position()
+	var start_pos: Vector3 = tower.get_position_wc3()
 	
 	CombatLog.log_ability(tower, target, "Fire single Icicle")
 	Projectile.create_from_point_to_unit(icicle_missile_pt, tower, 0, 0, start_pos, target, true, false, false)
@@ -237,11 +237,10 @@ func ashbringer_icicle_store():
 	var angle: float = prev_stored_icicle_angle + 360 / icicle_count_max
 	prev_stored_icicle_angle = angle
 
-	var offset_top_down: Vector2 = Vector2(100, 0).rotated(deg_to_rad(angle))
-	var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_top_down)
-	var tower_pos: Vector2 = tower.get_visual_position()
-	var icicle_pos: Vector2 = tower_pos + offset_isometric
-	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(icicle_prop_pt, tower, 1.0, 0.0, tower_pos, icicle_pos, 0.0)
+	var offset: Vector2 = Vector2(100, 0).rotated(deg_to_rad(angle))
+	var start_pos: Vector3 = Vector3(tower.get_x(), tower.get_y(), 200)
+	var icicle_pos: Vector3 = Vector3(tower.get_x() + offset.x, tower.get_y() + offset.y, 200)
+	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(icicle_prop_pt, tower, 1.0, 0.0, start_pos, icicle_pos, 0.0)
 	# TODO:
 	# p.set_scale(0.7)
 	p.user_real = icicle_pos.x
@@ -250,7 +249,7 @@ func ashbringer_icicle_store():
 
 	var icicle: Icicle = Icicle.new()
 	icicle.projectile = p
-	icicle.position = icicle_pos
+	icicle.position = Utils.vector3_to_vector2(icicle_pos)
 	icicle_list.append(icicle)
 
 	icicle_bt.apply(tower, tower, icicle_list.size())
@@ -343,7 +342,7 @@ func ashbringer_icicle_fire_all(target: Unit):
 	while !icicle_list.is_empty():
 		var icicle: Icicle = icicle_list.pop_front()
 
-		var start_pos: Vector2 = icicle.position
+		var start_pos: Vector3 = Vector3(icicle.position.x, icicle.position.y, 200)
 		var icicle_missile: Projectile = Projectile.create_from_point_to_unit(icicle_missile_pt, tower, 0, 0, start_pos, target, true, false, false)
 		# TODO: implement Projectile.set_scale()
 		# icicle_missile.set_scale(0.7)
@@ -365,15 +364,15 @@ func ashbringer_icicle_fire_all(target: Unit):
 func ashbringer_icy_bombardment(target: Unit):
 	var chance: float = 0.3 + 0.004 * tower.get_level()
 	var shot_count: int = 0
-	var target_pos: Vector2 = target.position
+	var target_pos: Vector2 = target.get_position_wc3_2d()
 
 	while true:
 		var random_angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 		var random_distance: float = Globals.synced_rng.randf_range(0, 150)
-		var offset_top_down: Vector2 = Vector2(random_distance, 0).rotated(random_angle)
-		var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_top_down)
-		var launch_pos: Vector2 = target_pos + offset_isometric
-		var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(bombardment_pt, tower, 0, 0, tower.get_visual_position(), launch_pos, 0.2)
+		var offset: Vector2 = Vector2(random_distance, 0).rotated(random_angle)
+		var launch_pos_2d: Vector2 = target_pos + offset
+		var launch_pos: Vector3 = Vector3(launch_pos_2d.x, launch_pos_2d.y, 0)
+		var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(bombardment_pt, tower, 0, 0, Vector3(tower.get_x(), tower.get_y(), 200), launch_pos, 0.2)
 		p.user_real = launch_pos.x
 		p.user_real2 = launch_pos.y
 

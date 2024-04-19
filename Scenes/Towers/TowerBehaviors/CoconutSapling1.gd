@@ -91,14 +91,14 @@ func on_damage(event: Event):
 		else:
 			break
 
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+
 	for i in range(0, cast_count):
 		var radius: float = Globals.synced_rng.randf_range(0, 300)
 		var angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
-		var offset_vector_top_down: Vector2 = Vector2(radius, 0).rotated(angle)
-		var offset_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_vector_top_down)
-		var coconut_pos: Vector2 = target.position + offset_vector_isometric
-#		NOTE: divide by 2 to account for isometric projection
-		coconut_pos.y -= COCONUT_RANGE / 2.0
+		var offset_vector: Vector2 = Vector2(radius, 0).rotated(angle)
+		var coconut_pos: Vector2 = target_pos + offset_vector
+		coconut_pos.y -= COCONUT_RANGE
 		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
 		projectile.setScale(0.30)
 		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
@@ -107,7 +107,7 @@ func on_damage(event: Event):
 
 func coco_pt_on_hit(p: Projectile):
 	var caster: Unit = p.get_caster()
-	var pos: Vector2 = p.position
+	var pos: Vector2 = p.get_position_wc3_2d()
 	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), pos.x, pos.y, 150)
 	var dmg: float = _stats.coconut_damage + _stats.coconut_damage_add * caster.get_level()
 

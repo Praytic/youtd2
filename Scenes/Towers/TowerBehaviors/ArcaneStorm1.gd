@@ -113,7 +113,7 @@ func on_damage(event: Event):
 
 	if mana >= 100:
 		manastorm_bt.apply(tower, tower, 1)
-		var effect: int = Effect.create_colored("Lightningbolt.mdl", tower.get_visual_x(), tower.get_visual_y(), 0.0, 270.0, 5, Color8(255, 90, 255, 255))
+		var effect: int = Effect.create_colored("Lightningbolt.mdl", tower.get_x(), tower.get_y(), 0.0, 270.0, 5, Color8(255, 90, 255, 255))
 		Effect.set_lifetime(effect, 0.3)
 
 	while true:

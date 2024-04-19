@@ -33,7 +33,7 @@ func on_drop():
 			CombatLog.log_item_ability(item, null, "Duplication")
 			
 			tower = item.get_carrier()
-			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_visual_position())
+			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_position_wc3())
 
 			new.user_int2 = item.user_int2 + 6
 			new.user_int = new.user_int2
@@ -60,7 +60,7 @@ func periodic(_event: Event):
 
 		if item.user_int <= 0:
 			tower = item.get_carrier()
-			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_visual_position())
+			var new: Item = Item.create(tower.get_player(), item.get_id(), tower.get_position_wc3())
 
 			new.user_int2 = item.user_int2 + 6
 			new.user_int = new.user_int2

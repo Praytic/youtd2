@@ -126,8 +126,8 @@ func grapple_bt_on_create(event: Event):
 	var target: Unit = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
 
-	var lightning_start: Vector3 = Vector3(caster.get_visual_x(), caster.get_visual_y(), 100)
-	var lightning_end: Vector3 = Vector3(target.get_visual_x(), target.get_visual_y(), 0)
+	var lightning_start: Vector3 = Vector3(caster.get_x(), caster.get_y(), 100)
+	var lightning_end: Vector3 = Vector3(target.get_x(), target.get_y(), 0)
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_point(InterpolatedSprite.LIGHTNING, lightning_start, lightning_end)
 	buff.user_int = lightning.get_instance_id()
 

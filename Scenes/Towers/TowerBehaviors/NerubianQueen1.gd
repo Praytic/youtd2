@@ -89,7 +89,7 @@ func parasite_bt_on_death(event: Event):
 	var creep: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), creep, 500)
 
-	var old_host_effect: int = Effect.create_simple("UndeadBloodCryptFiend.mdl", creep.get_visual_x(), creep.get_visual_y())
+	var old_host_effect: int = Effect.create_simple("UndeadBloodCryptFiend.mdl", creep.get_x(), creep.get_y())
 	Effect.destroy_effect_after_its_over(old_host_effect)
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0075)
@@ -111,7 +111,7 @@ func parasite_bt_on_death(event: Event):
 	if new_host == null:
 		if temp == null:
 #			No one to jump to! parasite dies :(
-			var death_effect: int = Effect.create_scaled("Spider.mdl", creep.get_visual_x(), creep.get_visual_y(), 0, 0, 5)
+			var death_effect: int = Effect.create_scaled("Spider.mdl", creep.get_x(), creep.get_y(), 0, 0, 5)
 			Effect.destroy_effect_after_its_over(death_effect)
 			
 			return

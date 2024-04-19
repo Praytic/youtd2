@@ -213,8 +213,7 @@ func on_create(_preceding: Tower):
 	]
 
 	for offset in ward_offsets:
-		var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset)
-		var ward_pos: Vector2 = tower.get_visual_position() + offset_isometric
+		var ward_pos: Vector2 = tower.get_position_wc3_2d() + offset
 		var ward: Ward = Ward.new()
 		ward.position = ward_pos
 
@@ -269,7 +268,7 @@ func periodic(event: Event):
 				# Shoot prohectile
 				var x: float = ward.position.x
 				var y: float = ward.position.y
-				var p: Projectile = Projectile.create_from_point_to_unit(voljin_pt, tower, 1.0, 1.0, Vector2(x, y), random_target, true, false, false)
+				var p: Projectile = Projectile.create_from_point_to_unit(voljin_pt, tower, 1.0, 1.0, Vector3(x, y, 147), random_target, true, false, false)
 				p.setScale(0.4)
 
 			# Save the remaining duration

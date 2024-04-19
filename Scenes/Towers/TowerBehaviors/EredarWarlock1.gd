@@ -166,14 +166,14 @@ func roll_for_shadow_wave():
 		return
 
 	var angle: float = 0.0
-	var tower_pos: Vector2 = tower.get_visual_position()
+	var tower_pos: Vector2 = tower.get_position_wc3_2d()
 
 #	Create projectiles which radiate around the tower
 	for i in range(0, _stats.bolt_count):
 		angle += 360 / _stats.bolt_count
-		var offset_top_down: Vector2 = Vector2(300, 0).rotated(deg_to_rad(angle))
-		var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_top_down)
-		var target_pos: Vector2 = tower_pos + offset_isometric
+		var offset: Vector2 = Vector2(300, 0).rotated(deg_to_rad(angle))
+		var target_pos_2d: Vector2 = tower_pos + offset
+		var target_pos: Vector3 = Vector3(target_pos_2d.x, target_pos_2d.y, tower.get_z())
 		Projectile.create_from_unit_to_point(wave_shadowbolt_pt, tower, 1.0, 1.0, tower, target_pos, false, false)	
 
 
@@ -198,13 +198,13 @@ func siphon_bt_on_attack(event: Event):
 #	purpose?
 	eredar.do_attack_damage(target, dmg, eredar.calc_spell_crit_no_bonus())
 
-	var attacker_effect: int = Effect.create_simple("ImpaleHitTarget.mdl", attacker.get_visual_x(), attacker.get_visual_y())
+	var attacker_effect: int = Effect.create_simple("ImpaleHitTarget.mdl", attacker.get_x(), attacker.get_y())
 	Effect.destroy_effect_after_its_over(attacker_effect)
 
 	var floating_text: String = Utils.format_float(dmg, 0)
 	eredar.get_player().display_floating_text_x(floating_text, target, Color8(255, 0, 150, 255), 0.05, 0.0, 2.0)
 
-	var target_effect: int = Effect.create_simple("ImpaleHitTarget.mdl", target.get_visual_x(), target.get_visual_y())
+	var target_effect: int = Effect.create_simple("ImpaleHitTarget.mdl", target.get_x(), target.get_y())
 	Effect.destroy_effect_after_its_over(target_effect)
 
 
@@ -226,7 +226,8 @@ func wave_shadowbolt_pt_on_expire(projectile: Projectile):
 
 	if it.count() != 0:
 		var random_creep: Unit = it.next_random()
-		Projectile.create_from_point_to_unit(attack_shadowbolt_pt, tower, 1.0, 1.0, projectile.position, random_creep, true, false, false)
+		var projectile_pos: Vector3 = projectile.get_position_wc3()
+		Projectile.create_from_point_to_unit(attack_shadowbolt_pt, tower, 1.0, 1.0, projectile_pos, random_creep, true, false, false)
 
 
 func attack_shadowbolt_pt_on_hit(_p: Projectile, target: Unit):

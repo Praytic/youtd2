@@ -68,7 +68,7 @@ func on_damage(event: Event):
 	if target_is_boss && !tower.calc_chance(chance_for_boss):
 		return
 
-	var old_position: Vector2 = creep.position
+	var old_position: Vector2 = creep.get_position_wc3_2d()
 	var old_path_index: int = creep._current_path_index
 	var effect: int = Effect.add_special_effect_target("ManaDrainTarget.mdl", creep, Unit.BodyPart.ORIGIN)
 
@@ -81,6 +81,6 @@ func on_damage(event: Event):
 #	but will go in a straight line towards some further path
 #	point.
 	if Utils.unit_is_valid(creep):
-		creep.position = old_position
+		creep.set_position_wc3_2d(old_position)
 		creep._current_path_index = old_path_index
 		SFX.sfx_at_unit("MassTeleportCaster.mdl", creep)

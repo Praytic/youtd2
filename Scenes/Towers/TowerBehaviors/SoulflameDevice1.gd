@@ -264,7 +264,7 @@ func soulfire_bt_on_death(event: Event):
 
 
 func ashbringer_consumption_missile(target: Unit):
-	var destination_pos: Vector2 = tower.get_visual_position()
+	var destination_pos: Vector3 = Vector3(tower.get_x(), tower.get_y(), 215)
 
 	Projectile.create_from_unit_to_point(soulflame_pt, target, 0, 0, target, destination_pos, false, true)
 
