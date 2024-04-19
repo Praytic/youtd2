@@ -187,7 +187,7 @@ func on_unit_in_range(event: Event):
 
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
-	var angle: float = rad_to_deg((target.global_position - tower.global_position).angle())
+	var angle: float = rad_to_deg((target.get_position_wc3_2d() - tower.get_position_wc3_2d()).angle())
 
 	Projectile.create_from_unit(roots_pt, tower, tower, angle, 1.0, tower.calc_spell_crit_no_bonus())
 	Projectile.create_from_unit(roots_pt, tower, tower, angle + 15.0, 1.0, tower.calc_spell_crit_no_bonus())

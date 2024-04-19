@@ -187,9 +187,8 @@ func on_attack(_event: Event):
 
 		it_kill()
 
-		var random_offset_top_down: Vector2 = Vector2(Globals.synced_rng.randf_range(-25, 25), Globals.synced_rng.randf_range(-25, 25))
-		var random_offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(random_offset_top_down)
-		var to_pos: Vector2 = sum.to_pos + random_offset_isometric
+		var random_offset: Vector2 = Vector2(Globals.synced_rng.randf_range(-25, 25), Globals.synced_rng.randf_range(-25, 25))
+		var to_pos: Vector2 = sum.to_pos + random_offset
 
 		creep.move_to_point(to_pos)
 

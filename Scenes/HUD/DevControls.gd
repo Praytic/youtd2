@@ -92,5 +92,7 @@ func _on_PositionalControl_id_pressed(id):
 		var hud_to_world: Transform2D = get_viewport().get_canvas_transform().affine_inverse()
 		var clicked_pos_in_world: Vector2 = hud_to_world * clicked_pos
 		var local_player: Player = PlayerManager.get_local_player()
-		var item: Item = Item.create(local_player, id, clicked_pos_in_world)
+		var item_pos_wc3_2d: Vector2 = Utils.canvas_pos_to_wc3_pos(clicked_pos_in_world)
+		var item_pos_wc3: Vector3 = Vector3(item_pos_wc3_2d.x, item_pos_wc3_2d.y, 0)
+		var item: Item = Item.create(local_player, id, item_pos_wc3)
 		item.fly_to_stash(0.0)

@@ -51,7 +51,7 @@ func _get_hit_list() -> Array[Unit]:
 
 		var hit_unit: Unit = unit_list[0]
 		hit_unit_list.append(hit_unit)
-		current_position = hit_unit.position
+		current_position = hit_unit.get_position_wc3_2d()
 	
 	return hit_unit_list
 

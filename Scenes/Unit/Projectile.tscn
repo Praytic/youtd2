@@ -8,12 +8,15 @@
 [sub_resource type="Gradient" id="Gradient_mbwhr"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer") groups=["projectiles"] instance=ExtResource("1_80b6v")]
+[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer", "_visual_node") groups=["projectiles"] instance=ExtResource("1_80b6v")]
 z_index = 100
 script = ExtResource("2")
 _lifetime_timer = NodePath("LifetimeTimer")
+_visual_node = NodePath("Visual")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+[node name="Visual" type="Node2D" parent="." index="0"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Visual" index="0"]
 lifetime = 0.1
 texture = ExtResource("3_q6yrv")
 gravity = Vector2(0, 0)

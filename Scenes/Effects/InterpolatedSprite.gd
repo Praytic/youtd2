@@ -135,35 +135,34 @@ func set_lifetime(lifetime: float):
 #########################
 
 static func create_from_unit_to_unit(sprite_scene_path: String, start_unit: Unit, end_unit: Unit) -> InterpolatedSprite:
-	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, end_unit, Vector2.ZERO, Vector2.ZERO)
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, end_unit, Vector3.ZERO, Vector3.ZERO)
 	
 	return interpolated_sprite
 
 
-static func create_from_point_to_point(sprite_scene_path: String, start_pos_3d: Vector3, end_pos_3d: Vector3) -> InterpolatedSprite:
-	var start_pos: Vector2 = Isometric.vector3_to_isometric_vector2(start_pos_3d)
-	var end_pos: Vector2 = Isometric.vector3_to_isometric_vector2(end_pos_3d)
+static func create_from_point_to_point(sprite_scene_path: String, start_pos: Vector3, end_pos: Vector3) -> InterpolatedSprite:
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, null, null, start_pos, end_pos)
 	
 	return interpolated_sprite
 
 
-static func create_from_unit_to_point(sprite_scene_path: String, start_unit: Unit, end_pos_3d: Vector3) -> InterpolatedSprite:
-	var end_pos: Vector2 = Isometric.vector3_to_isometric_vector2(end_pos_3d)
-	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, null, Vector2.ZERO, end_pos)
+static func create_from_unit_to_point(sprite_scene_path: String, start_unit: Unit, end_pos: Vector3) -> InterpolatedSprite:
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, null, Vector3.ZERO, end_pos)
 	
 	return interpolated_sprite
 
 
 
-static func create_from_point_to_unit(sprite_scene_path: String, start_pos_3d: Vector3, end_unit: Unit) -> InterpolatedSprite:
-	var start_pos: Vector2 = Isometric.vector3_to_isometric_vector2(start_pos_3d)
-	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, null, end_unit, start_pos, Vector2.ZERO)
+static func create_from_point_to_unit(sprite_scene_path: String, start_pos: Vector3, end_unit: Unit) -> InterpolatedSprite:
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, null, end_unit, start_pos, Vector3.ZERO)
 	
 	return interpolated_sprite
 
 
-static func _create_internal(sprite_scene_path: String, start_unit: Unit, end_unit: Unit, start_pos: Vector2, end_pos: Vector2) -> InterpolatedSprite:
+static func _create_internal(sprite_scene_path: String, start_unit: Unit, end_unit: Unit, start_pos_3d: Vector3, end_pos_3d: Vector3) -> InterpolatedSprite:
+	var start_pos: Vector2 = Utils.wc3_pos_to_canvas_pos(start_pos_3d)
+	var end_pos: Vector2 = Utils.wc3_pos_to_canvas_pos(end_pos_3d)
+
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.new()
 	interpolated_sprite._sprite_scene_path = sprite_scene_path
 	interpolated_sprite._start_unit = start_unit

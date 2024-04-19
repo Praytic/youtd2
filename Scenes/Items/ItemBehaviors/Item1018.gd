@@ -47,7 +47,7 @@ static func seeker_oil_on_pickup(original_oil: Item, oil_id: int):
 		if neighbor == carrier:
 			continue
 
-		var oil_for_neighbor: Item = Item.create(original_oil.get_player(), oil_id, carrier.position)
+		var oil_for_neighbor: Item = Item.create(original_oil.get_player(), oil_id, carrier.get_position_wc3())
 
 #		NOTE: set user_int to 1 to mark this oil to stop recursion
 		oil_for_neighbor.user_int = 1

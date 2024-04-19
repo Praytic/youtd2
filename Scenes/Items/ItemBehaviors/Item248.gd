@@ -35,7 +35,7 @@ func on_autocast(_event: Event):
 		if random_item != 0:
 			item.user_int2 = item.user_int2 - 1
 			p.give_gold(-500, tower, false, true)
-			new = Item.create(tower.get_player(), random_item, tower.get_visual_position())
+			new = Item.create(tower.get_player(), random_item, tower.get_position_wc3())
 			new.fly_to_stash(0.0)
 
 	check_level()

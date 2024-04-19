@@ -60,15 +60,13 @@ func _ready():
 	var outline_thickness: float = 6.0
 	_set_sprite_node(_sprite, outline_thickness)
 
-#	Apply offsets to account for tower being "on the second floor".
-#	Visual nodes get moved up by one tile.
-# 	Also move selection visual because it's placed at ground
-# 	position in Unit.gd but needs to be at visual position
-# 	for towers.
-#	NOTE: important to use "-=" instead of "=" because these
-#	nodes may have default values which we don't want to
-#	override
-	_visual.position.y -= Constants.TILE_SIZE.y
+#	NOTE: set z to this value to position tower on 2nd floor
+	var tower_z: float = Constants.TILE_SIZE_WC3
+	set_z(tower_z)
+#	NOTE: need to adjust y position of selection visual
+# 	because it's placed at ground position in Unit.gd but
+# 	needs to be at visual position for towers (which is 2nd
+# 	floor).
 	_selection_indicator.position.y -= Constants.TILE_SIZE.y
 
 	var base_mana: int = TowerProperties.get_mana(_id)
@@ -320,7 +318,7 @@ func _target_is_valid(target) -> bool:
 		return false
 
 	var attack_range: float = get_range()
-	var in_range = Isometric.vector_in_range(position, target.position, attack_range)
+	var in_range = Utils.vector_in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
 
 	var target_is_invisible: bool = target.is_invisible()
 
@@ -337,7 +335,7 @@ func _target_is_valid(target) -> bool:
 # element. Note that this overrides projectile's natural color so
 # will need to rework this if we decide to make separate
 # projectile sprites for each element.
-func _make_projectile(from_pos: Vector2, target: Unit) -> Projectile:
+func _make_projectile(from_pos: Vector3, target: Unit) -> Projectile:
 	var projectile: Projectile = Projectile.create_from_point_to_unit(_default_projectile_type, self, 0, 0, from_pos, target, true, false, false)
 
 	var element_color: Color
@@ -469,7 +467,7 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	attacked_event._number_of_crits = crit_count
 	target.attacked.emit(attacked_event)
 
-	var tower_pos: Vector2 = get_visual_position()
+	var tower_pos: Vector3 = get_position_wc3()
 	var projectile: Projectile = _make_projectile(tower_pos, target)
 	projectile.set_tower_crit_count(crit_count)
 	projectile.set_tower_crit_ratio(crit_ratio)
@@ -521,12 +519,12 @@ func _update_target_list():
 
 # 	Add new targets that have entered into range
 	var attack_range: float = get_range()
-	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
+	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
 
 	if Config.smart_targeting():
-		Utils.sort_creep_list_for_targeting(creeps_in_range, position)
+		Utils.sort_creep_list_for_targeting(creeps_in_range, get_position_wc3_2d())
 	else:
-		Utils.sort_unit_list_by_distance(creeps_in_range, position)
+		Utils.sort_unit_list_by_distance(creeps_in_range, get_position_wc3_2d())
 
 	for target in _target_list:
 		creeps_in_range.erase(target)
@@ -579,8 +577,9 @@ func _get_bounce_attack_tooltip_text() -> String:
 	return text
 
 
-func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos, Constants.BOUNCE_ATTACK_RANGE)
+func _get_next_bounce_target(bounce_pos: Vector3, visited_list: Array[Unit]) -> Creep:
+	var bounce_pos_2d: Vector2 = Vector2(bounce_pos.x, bounce_pos.y)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos_2d, Constants.BOUNCE_ATTACK_RANGE)
 
 	for visited_creep in visited_list:
 		if !Utils.unit_is_valid(visited_creep):
@@ -588,7 +587,7 @@ func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> 
 
 		creep_list.erase(visited_creep)
 
-	Utils.sort_unit_list_by_distance(creep_list, bounce_pos)
+	Utils.sort_unit_list_by_distance(creep_list, bounce_pos_2d)
 
 	if !creep_list.is_empty():
 		var next_target = creep_list[0]
@@ -660,9 +659,9 @@ func _on_projectile_target_hit_splash(projectile: Projectile, main_target: Unit)
 
 	var splash_pos: Vector2
 	if main_target != null:
-		splash_pos = main_target.position
+		splash_pos = main_target.get_position_wc3_2d()
 	else:
-		splash_pos = projectile.position
+		splash_pos = projectile.get_position_wc3_2d()
 
 #	Process splash ranges from closest to furthers,
 #	so that strongest damage is applied
@@ -684,7 +683,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, main_target: Unit)
 		if !Utils.unit_is_valid(neighbor):
 			continue
 
-		var distance: float = Isometric.vector_distance_to(splash_pos, neighbor.position)
+		var neighbor_pos: Vector2 = neighbor.get_position_wc3_2d()
+		var distance: float = splash_pos.distance_to(neighbor_pos)
 
 		for splash_range in splash_range_list:
 			var creep_is_in_range: bool = distance < splash_range
@@ -708,11 +708,11 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
-	var bounce_pos: Vector2
+	var bounce_pos: Vector3
 	if current_target != null:
-		bounce_pos = current_target.get_visual_position()
+		bounce_pos = current_target.get_position_wc3()
 	else:
-		bounce_pos = projectile.position
+		bounce_pos = projectile.get_position_wc3()
 
 	_do_damage_from_projectile(projectile, current_target, current_damage, is_main_target)
 

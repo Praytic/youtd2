@@ -147,7 +147,7 @@ func on_attack(event: Event):
 
 			tower.do_spell_damage(creep, pulse_damage, tower.calc_spell_crit_no_bonus())
 			SFX.sfx_on_unit("ImmolationDamage.mdl", creep, Unit.BodyPart.CHEST)
-			var effect: int = Effect.create_colored("ZombifyTarget.mdl", tower.get_visual_x() - 48, tower.get_visual_y() + 48, 40, 0.0, 5, Color.RED)
+			var effect: int = Effect.create_colored("ZombifyTarget.mdl", tower.get_x() - 48, tower.get_y() + 48, 40, 0.0, 5, Color.RED)
 			Effect.set_lifetime(effect, 0.5)
 
 	if do_green_pulse:
@@ -165,7 +165,7 @@ func on_attack(event: Event):
 
 			tower.do_attack_damage(creep, pulse_damage, tower.calc_attack_multicrit_no_bonus())
 			SFX.sfx_on_unit("FlameStrikeEmbers.mdl", creep, Unit.BodyPart.CHEST)
-			var effect: int = Effect.create_colored("ZombifyTarget.mdl", tower.get_visual_x() + 48, tower.get_visual_y() + 48, 40, 0.0, 5, Color.GREEN)
+			var effect: int = Effect.create_colored("ZombifyTarget.mdl", tower.get_x() + 48, tower.get_y() + 48, 40, 0.0, 5, Color.GREEN)
 			Effect.set_lifetime(effect, 0.5)
 
 

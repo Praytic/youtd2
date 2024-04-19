@@ -36,14 +36,16 @@ static func execute(action: Dictionary, player: Player, map: Map):
 
 		return
 	
-	var clamped_pos: Vector2 = map.get_pos_on_tilemap_clamped(global_pos)
-	var prev_tower: Tower = Utils.get_tower_at_position(clamped_pos)
+	var pos_isometric: Vector2 = map.get_pos_on_tilemap_clamped(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
+	var pos_wc3: Vector2 = Utils.canvas_pos_to_wc3_pos(pos_isometric)
+	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
 
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
 	var new_tower: Tower = Tower.make(new_tower_id, player, prev_tower)
-	new_tower.position = prev_tower.position
+	var prev_tower_pos: Vector2 = prev_tower.get_position_wc3_2d()
+	new_tower.set_position_wc3_2d(prev_tower_pos)
 	Utils.add_object_to_world(new_tower)
 
 #	Refund build cost for previous tower

@@ -7,6 +7,7 @@ extends Unit
 
 var _item: Item = null
 @export var _selection_area: Area2D
+@export var _visual: Node2D
 
 
 #########################
@@ -20,7 +21,7 @@ func _ready():
 	super()
 
 	_setup_selection_signals(_selection_area)
-	_set_visual_node(self)
+	_set_visual_node(_visual)
 
 	selected.connect(_on_selected)
 	

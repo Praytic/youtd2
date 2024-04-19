@@ -231,7 +231,7 @@ func drop():
 
 # 	NOTE: save drop_pos before removing because _carrier
 # 	will not be available after removal
-	var drop_pos: Vector2 = _carrier.get_visual_position()
+	var drop_pos: Vector3 = _carrier.get_position_wc3()
 
 	var carrier_container: ItemContainer = _carrier.get_item_container()
 	carrier_container.remove_item(self)
@@ -369,7 +369,7 @@ func uses_charges() -> bool:
 # Creates item on the ground. Item is stored inside an
 # ItemDrop object.
 # NOTE: Item.create() in JASS
-static func create(player: Player, item_id: int, position: Vector2) -> Item:
+static func create(player: Player, item_id: int, position: Vector3) -> Item:
 	if player == null:
 		push_error("Player is null")
 
@@ -406,7 +406,7 @@ static func make(id: int, player: Player) -> Item:
 # You will get errors like "Bad address index" when an oil
 # drops or "X could not be resolved".
 # TODO: look into this deeper
-static func make_item_drop(item: Item, drop_pos: Vector2):
+static func make_item_drop(item: Item, drop_pos: Vector3):
 	if item.get_parent() != null:
 		push_error("Item must be unparented before being added to ItemDrop.")
 		
@@ -430,7 +430,7 @@ static func make_item_drop(item: Item, drop_pos: Vector2):
 		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
 	var item_drop_scene: PackedScene = item_drop_scene_map[item_drop_scene_path]
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	item_drop.position = drop_pos
+	item_drop.set_position_wc3(drop_pos)
 	item_drop.visible = item._visible
 	item_drop.set_player(item.get_player())
 	item_drop._item = item

@@ -23,7 +23,7 @@ static func over_units_in_range_of(_caster: Unit, target_type: TargetType, x: fl
 
 # NOTE: Iterate.overUnitsInRangeOfCaster() in JASS
 static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType, radius: float) -> Iterate:
-	var center_pos: Vector2 = caster.position
+	var center_pos: Vector2 = caster.get_position_wc3_2d()
 	var it: Iterate = Iterate.new(center_pos, target_type, radius)
 
 	return it
@@ -31,7 +31,7 @@ static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType,
 
 # NOTE: Iterate.overUnitsInRangeOfUnit() in JASS
 static func over_units_in_range_of_unit(_caster: Unit, target_type: TargetType, center: Unit, radius: float) -> Iterate:
-	var center_pos: Vector2 = center.position
+	var center_pos: Vector2 = center.get_position_wc3_2d()
 	var it: Iterate = Iterate.new(center_pos, target_type, radius)
 
 	return it

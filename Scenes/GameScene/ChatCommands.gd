@@ -74,7 +74,7 @@ func _command_create_item(player: Player, args: Array):
 		return
 
 	var item_id: int = args[0].to_int()
-	var item: Item = Item.create(player, item_id, Vector2(0, 0))
+	var item: Item = Item.create(player, item_id, Vector3(0, 0, 0))
 	item.fly_to_stash(0.0)
 
 	Messages.add_normal(player, "Created item %d" % item_id)

@@ -253,7 +253,7 @@ func ashbringer_bounder_throw():
 	var random_glaivesaw: Glaivesaw = glaivesaw_list[random_glaivesaw_index]
 	var bounces: int = 1
 
-	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(bounder_pt, tower, 0, 0, tower.get_visual_position(), random_glaivesaw.position, 0)
+	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(bounder_pt, tower, 0, 0, Vector3(tower.get_x(), tower.get_y(), 110), Vector3(random_glaivesaw.position.x, random_glaivesaw.position.y, 0), 0)
 	# TODO: ???
 	p.user_int = random_glaivesaw_index
 	p.user_int2 = bounces
@@ -277,7 +277,7 @@ func bounder_pt_on_finished(p: Projectile, _target: Unit):
 	var next_glaivesaw_list: Array = []
 
 	for glaivesaw in glaivesaw_list:
-		var glaivesaw_is_at_projectile: bool = glaivesaw.position == p.position
+		var glaivesaw_is_at_projectile: bool = glaivesaw.position == p.get_position_wc3_2d()
 		
 		if !glaivesaw_is_at_projectile:
 			next_glaivesaw_list.append(glaivesaw)
@@ -288,7 +288,7 @@ func bounder_pt_on_finished(p: Projectile, _target: Unit):
 	var next_glaivesaw: Glaivesaw = Utils.pick_random(Globals.synced_rng, next_glaivesaw_list)
 
 	p.avert_destruction()
-	p.start_bezier_interpolation_to_point(next_glaivesaw.position, 0, 0, 0)
+	p.start_bezier_interpolation_to_point(Vector3(next_glaivesaw.position.x, next_glaivesaw.position.y, 0), 0, 0, 0)
 	bounces = 0
 	p.user_int2 = bounces
 
@@ -303,8 +303,8 @@ func ashbringer_storm_throw(target: Unit):
 	p.user_int = moving_to_target
 	p.user_int2 = hit_count
 	p.user_real = damage
-	p.user_real2 = tower.get_visual_x()
-	p.user_real3 = tower.get_visual_y()
+	p.user_real2 = tower.get_x()
+	p.user_real3 = tower.get_y()
 
 
 func storm_pt_on_finished(p: Projectile, creep: Unit):
@@ -312,7 +312,7 @@ func storm_pt_on_finished(p: Projectile, creep: Unit):
 	var bounce_count: int = p.user_int2
 	var tower_x: float = p.user_real2
 	var tower_y: float = p.user_real3
-	var return_pos: Vector2 = Vector2(tower_x, tower_y)
+	var return_pos: Vector3 = Vector3(tower_x, tower_y, 100)
 
 	if moving_to_target == 1:
 		p.avert_destruction()

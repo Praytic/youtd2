@@ -156,7 +156,7 @@ func on_damage(event: Event):
 	tower.add_mana(mana)
 	target.subtract_mana(mana, true)
 
-	var lightning_end_pos: Vector3 = Vector3(tower.get_visual_x(), tower.get_visual_y(), 180)
+	var lightning_end_pos: Vector3 = Vector3(tower.get_x(), tower.get_y(), 180)
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_point(InterpolatedSprite.LIGHTNING, target, lightning_end_pos)
 	interpolated_sprite.set_lifetime(0.5)
 

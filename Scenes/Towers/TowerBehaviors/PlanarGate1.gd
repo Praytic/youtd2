@@ -137,8 +137,8 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var x: float = tower.get_visual_x()
-	var y: float = tower.get_visual_y()
+	var x: float = tower.get_x()
+	var y: float = tower.get_y()
 
 	eruption_bt.apply(tower, tower, tower.get_level())
 

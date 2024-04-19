@@ -236,7 +236,7 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 
 # NOTE: "Storm()" in original script
 func do_soulstorm():
-	var shoot_pos: Vector2 = dutchman.position
+	var shoot_pos: Vector2 = dutchman.get_position_wc3_2d()
 
 	if soul_count >= 2:
 		soul_count -= 2
@@ -264,7 +264,8 @@ func shoot_cannonball():
 	var next: Unit = it.next_random()
 
 	if next != null:
-		Projectile.create_linear_interpolation_from_point_to_unit(cannonball_pt, tower, 1, 1, dutchman.position, next, 0.4, true)
+		var shoot_pos: Vector3 = dutchman.get_position_wc3()
+		Projectile.create_linear_interpolation_from_point_to_unit(cannonball_pt, tower, 1, 1, shoot_pos, next, 0.4, true)
 
 
 # NOTE: "SAttackFunc()" in original script
@@ -277,6 +278,8 @@ func shoot_soul():
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), dutchman.get_x(), dutchman.get_y(), 1200)
 
+	var shoot_pos: Vector3 = dutchman.get_position_wc3()
+
 	while true:
 		var next: Unit = it.next()
 
@@ -288,4 +291,4 @@ func shoot_soul():
 
 		soul_count -= 1
 
-		Projectile.create_from_point_to_unit(soul_pt, tower, 1.0, 1.0, dutchman.position, next, true, false, false)
+		Projectile.create_from_point_to_unit(soul_pt, tower, 1.0, 1.0, shoot_pos, next, true, false, false)

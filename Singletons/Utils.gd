@@ -1,6 +1,42 @@
 class_name UtilsStatic extends Node
 
 
+func vector3_to_vector2(vec3: Vector3) -> Vector2:
+	return Vector2(vec3.x, vec3.y)
+
+
+func canvas_pos_to_wc3_pos(canvas_pos: Vector2) -> Vector2:
+	var pos_pixels: Vector2 = Isometric.isometric_vector_to_top_down(canvas_pos)
+	var pos_wc3: Vector2 = pos_pixels / Constants.WC3_DISTANCE_TO_PIXELS
+
+	return pos_wc3
+
+
+func wc3_pos_to_canvas_pos(pos_wc3: Vector3) -> Vector2:
+	var pos_pixels: Vector3 = pos_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
+	var canvas_x: float = pos_pixels.x
+	var canvas_y: float = pos_pixels.y * 0.5 - pos_pixels.z * 0.5
+	var pos_canvas: Vector2 = Vector2(canvas_x, canvas_y)
+
+	return pos_canvas
+
+
+func vector_distance_squared(a: Vector2, b: Vector2) -> float:
+	var diff: Vector2 = a - b
+	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
+
+	return distance_squared
+
+
+func vector_in_range(start: Vector2, end: Vector2, radius: float) -> bool:
+	var diff: Vector2 = start - end
+	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
+	var radius_squared: float = radius * radius
+	var in_range: bool = distance_squared <= radius_squared
+
+	return in_range
+
+
 func get_wisdom_upgrade_count_for_player_level(player_level: int) -> int:
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 	var upgrade_count_max: int = upgrade_id_list.size()
@@ -69,15 +105,13 @@ func tower_exists_on_position(position: Vector2) -> bool:
 	return has_tower
 
 
-func get_tower_at_position(visual_position: Vector2) -> Tower:
-	var position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
-
+func get_tower_at_position(position_wc3: Vector2) -> Tower:
 	var tower_node_list: Array = get_tree().get_nodes_in_group("towers")
 
 	for tower_node in tower_node_list:
 		var tower: Tower = tower_node as Tower
-		var this_position: Vector2 = tower.position
-		var position_match: bool = position.is_equal_approx(this_position)
+		var this_position: Vector2 = tower.get_position_wc3_2d()
+		var position_match: bool = position_wc3.is_equal_approx(this_position)
 
 		if position_match:
 			return tower
@@ -428,7 +462,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		if !type_match:
 			continue
 
-		var unit_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
+		var unit_is_in_range = Utils.vector_in_range(center, unit.get_position_wc3_2d(), radius)
 
 		if !unit_is_in_range:
 			continue
@@ -451,8 +485,10 @@ class DistanceSorter:
 	var origin = Vector2.ZERO
 
 	func sort(a: Unit, b: Unit):
-		var distance_a: float = Isometric.vector_distance_squared_PIXELS(a.position, origin)
-		var distance_b: float = Isometric.vector_distance_squared_PIXELS(b.position, origin)
+		var a_pos: Vector2 = a.get_position_wc3_2d()
+		var distance_a: float = Utils.vector_distance_squared(a_pos, origin)
+		var b_pos: Vector2 = b.get_position_wc3_2d()
+		var distance_b: float = Utils.vector_distance_squared(b_pos, origin)
 		var less_than: bool = distance_a < distance_b
 
 		return less_than
@@ -482,8 +518,10 @@ class AttackTargetSorter:
 
 		var less_than: bool
 		if level_a == level_b:
-			var distance_a: float = Isometric.vector_distance_squared_PIXELS(a.position, origin)
-			var distance_b: float = Isometric.vector_distance_squared_PIXELS(b.position, origin)
+			var a_pos: Vector2 = a.get_position_wc3_2d()
+			var distance_a: float = a_pos.distance_to(origin)
+			var b_pos: Vector2 = b.get_position_wc3_2d()
+			var distance_b: float = b_pos.distance_to(origin)
 
 			less_than = distance_a < distance_b
 		else:
@@ -662,7 +700,8 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 # 0.10, then units far away from the center of aoe will
 # receive 10% less damage.
 func get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
-	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+	var distance: float = aoe_center.distance_to(target_pos)
 	var distance_ratio: float = Utils.divide_safe(distance, radius)
 	var target_is_on_the_sides: bool = distance_ratio > 0.5
 

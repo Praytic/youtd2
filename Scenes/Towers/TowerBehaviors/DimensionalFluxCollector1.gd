@@ -209,7 +209,7 @@ func aura_bt_on_damaged(event: Event):
 func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
-	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, Vector3(caster.get_visual_x(), caster.get_visual_y(), 220), linked_tower)
+	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, Vector3(caster.get_x(), caster.get_y(), 220), linked_tower)
 	lightning.modulate = Color.LIGHT_BLUE
 	saved_lightning = lightning
 

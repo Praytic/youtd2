@@ -11,6 +11,7 @@ signal unit_came_in_range(handler: Callable, unit: Unit)
 var _target_type: TargetType
 var _handler: Callable
 var _radius: float
+var _buff: Buff
 var _prev_units_in_range: Array = []
 
 
@@ -19,7 +20,13 @@ var _prev_units_in_range: Array = []
 #########################
 
 func _on_manual_timer_timeout():
-	var all_units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _radius)
+	var buffed_unit: Unit = _buff.get_buffed_unit()
+
+	if buffed_unit == null:
+		return
+
+	var buffed_unit_pos: Vector2 = buffed_unit.get_position_wc3_2d()
+	var all_units_in_range: Array = Utils.get_units_in_range(_target_type, buffed_unit_pos, _radius)
 
 	var matching_units: Array = []
 
@@ -43,10 +50,11 @@ func _on_manual_timer_timeout():
 ###       Static      ###
 #########################
 
-static func make(radius: float, target_type: TargetType, handler: Callable) -> BuffRangeArea:
+static func make(radius: float, target_type: TargetType, handler: Callable, buff: Buff) -> BuffRangeArea:
 	var buff_range_area: BuffRangeArea = Preloads.buff_range_area_scene.instantiate()
 	buff_range_area._radius = radius
 	buff_range_area._target_type = target_type
 	buff_range_area._handler = handler
+	buff_range_area._buff = buff
 
 	return buff_range_area

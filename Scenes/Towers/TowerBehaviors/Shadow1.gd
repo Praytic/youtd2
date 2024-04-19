@@ -106,8 +106,8 @@ func get_aura_types() -> Array[AuraType]:
 func on_attack(_event: Event):
 	var level: int = tower.get_level()
 	var projectile_count: int = 3 + level / 5
-	var x: float = tower.get_visual_x()
-	var y: float = tower.get_visual_y()
+	var x: float = tower.get_x()
+	var y: float = tower.get_y()
 	var damage_ratio: float = tower.get_current_attack_damage_with_bonus() * (0.05 + 0.002 * level)
 
 	var dark_orbs_chance: float = 0.20

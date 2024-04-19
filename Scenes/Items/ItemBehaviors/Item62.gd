@@ -24,7 +24,7 @@ func periodic(_event: Event):
 	var target_effect: int
 	var tower: Unit = item.get_carrier()
 
-	target_effect = Effect.create_scaled("DispelMagicTarget.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 0, 0, 5)
+	target_effect = Effect.create_scaled("DispelMagicTarget.mdl", tower.get_x(), tower.get_y(), 0, 0, 5)
 	Effect.set_lifetime(target_effect, 2.0)
 
 	if night >= 18.00 || night < 6.00:

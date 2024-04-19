@@ -114,7 +114,7 @@ func get_aura_types() -> Array[AuraType]:
 
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
-	var distance_to_target: float = Isometric.vector_distance_to(tower.position, target.position)
+	var distance_to_target: float = tower.get_position_wc3_2d().distance_to(target.get_position_wc3_2d())
 	var damage: float = distance_to_target * 12.0 * tower.get_current_attack_damage_with_bonus() / tower.get_base_damage()
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
@@ -137,7 +137,7 @@ func surge_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var surge_pos: Vector2 = Vector2(buff.user_real, buff.user_real2)
-	var distance_to_target: float = Isometric.vector_distance_to(surge_pos, target.position)
+	var distance_to_target: float = surge_pos.distance_to(target.get_position_wc3_2d())
 	var damage: float = 4 * distance_to_target * (1 + 0.02 * tower.get_level())
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
@@ -148,7 +148,9 @@ func surge_bt_periodic(event: Event):
 func aura_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var distance_to_target: float = Isometric.vector_distance_to(tower.position, target.position)
+	var tower_pos: Vector2 = tower.get_position_wc3_2d()
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+	var distance_to_target: float = tower_pos.distance_to(target_pos)
 	var damage_multiplier: float = 1.0 + distance_to_target * (0.00020 + 0.000006 * tower.get_level())
 	var attacking_tower: Tower = event.get_target()
 	var attacking_element: Element.enm = attacking_tower.get_element()

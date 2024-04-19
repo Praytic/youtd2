@@ -93,7 +93,7 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, target, "Lava Attack")
 
-	var p: Projectile = Projectile.create_linear_interpolation_from_unit_to_point(lava_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, target.position, 0.45)
+	var p: Projectile = Projectile.create_linear_interpolation_from_unit_to_point(lava_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, Vector3(target.get_x(), target.get_y(), 0), 0.45)
 	p.user_real = aoe_radius
 	p.user_real2 = aoe_damage
 

@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" path="res://Scenes/Items/ItemDrop.gd" id="1_id1fy"]
 
-[node name="ItemDrop" type="Node2D" node_paths=PackedStringArray("_selection_area")]
+[node name="ItemDrop" type="Node2D" node_paths=PackedStringArray("_selection_area", "_visual")]
 script = ExtResource("1_id1fy")
-_selection_area = NodePath("SelectionArea")
+_selection_area = NodePath("Visual/SelectionArea")
+_visual = NodePath("Visual")
 
-[node name="SelectionArea" type="Area2D" parent="."]
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="SelectionArea" type="Area2D" parent="Visual"]
 monitoring = false
 monitorable = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SelectionArea"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]

@@ -112,6 +112,8 @@ var _buff_groups: Dictionary = {}
 var _player: Player = null
 static var _uid_max: int = 1
 var _uid: int = 0
+# NOTE: up axis is positive z, down axis is negative z.
+var _position_wc3: Vector3
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -537,7 +539,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 # 
 # NOTE: unit.doAttackDamageAoEUnit() in JASS
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	var aoe_center: Vector2 = Vector2(target.get_x(), target.get_y())
+	var aoe_center: Vector2 = target.get_position_wc3_2d()
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
@@ -563,7 +565,7 @@ func do_spell_damage_aoe(x: float, y: float, radius: float, damage: float, crit_
 # Deals aoe damage from the position of the unit
 # NOTE: unit.doSpellDamagePBAoE() in JASS
 func do_spell_damage_pb_aoe(radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	do_spell_damage_aoe(position.x, position.y, radius, damage, crit_ratio, sides_ratio)
+	do_spell_damage_aoe(get_x(), get_y(), radius, damage, crit_ratio, sides_ratio)
 
 
 # NOTE: unit.killInstantly() in JASS
@@ -1034,6 +1036,7 @@ func _remove_buff_internal(buff: Buff):
 # position of the unit.
 func _set_visual_node(visual_node: Node2D):
 	_visual_node = visual_node
+	_visual_node.position.y = -_position_wc3.z
 
 
 # Save the sprite node. Also create a duplicate outline
@@ -1251,20 +1254,55 @@ func set_level(new_level: int):
 		change_modifier_power(modifier, old_level, new_level)
 
 
-# NOTE: use this instead of regular Node2D.position for
-# anything involving visual effects, so projectiles and
-# spell effects. Do NOT use visual position for game
-# "physics", for example calculating distance between units.
-# Game physics need to be performed in 2D space, so use
-# regular "position".
+# NOTE: Node2D.position and Node2D.get_position() return
+# position of node on the canvas, which is not the same as
+# the 3d position! Use get_position_isometric() instead of
+# get_position() to make the difference explicity.
+func get_position_isometric() -> Vector2:
+	return position
+
+
 func get_visual_position() -> Vector2:
+	return _visual_node.global_position
+
+
+func get_position_wc3_2d() -> Vector2:
+	var position_2d: Vector2 = Vector2(_position_wc3.x, _position_wc3.y)
+
+	return position_2d
+
+
+func get_position_wc3() -> Vector3:
+	return _position_wc3
+
+
+func set_position_wc3(value: Vector3):
+	_position_wc3 = value
+
+	position.x = Utils.to_pixels(_position_wc3.x)
+	position.y = Utils.to_pixels(_position_wc3.y / 2)
+
+#	NOTE: it would be more correct to convert z to pixels
+#	and then multiply by some constant based on isometric
+#	perspective. By luck, it works by using z without
+#	conversion.
 	if _visual_node != null:
-		return _visual_node.global_position
-	else:
-		return global_position
+		_visual_node.position.y = -_position_wc3.z
+
+
+func set_position_wc3_2d(value: Vector2):
+	set_position_wc3(Vector3(value.x, value.y, get_z()))
+
+
+func set_z(z: float):
+	var new_position_wc3: Vector3 = Vector3(_position_wc3.x, _position_wc3.y, z)
+	set_position_wc3(new_position_wc3)
+
 
 # Returns approximate position of the body part of unit in
-# the world.
+# the world. In isometric projectile, in pixels scale.
+# NOTE: this is the position in projected isometric space,
+# not 3d space!
 # NOTE: body parts were used in original API based on
 # coordinates of body parts of 3D models. Approximate this
 # feature for 2d tiles by defining body part positions as:
@@ -1281,7 +1319,7 @@ func get_body_part_position(body_part: Unit.BodyPart) -> Vector2:
 
 		return get_visual_position()
 
-	var sprite_center: Vector2 = _visual_node.global_position
+	var sprite_center: Vector2 = get_visual_position()
 	var body_part_offset: Vector2 = get_body_part_offset(body_part)
 	var body_part_position: Vector2 = sprite_center + body_part_offset
 
@@ -1301,27 +1339,17 @@ func get_body_part_offset(body_part: Unit.BodyPart) -> Vector2:
 
 # NOTE: unit.getX() in JASS
 func get_x() -> float:
-	return position.x
+	return _position_wc3.x
 
 
 # NOTE: unit.getY() in JASS
 func get_y() -> float:
-	return position.y
+	return _position_wc3.y
 
 
-# TODO: implement. Note this should not return z_index,
-# that's a different value.
 # NOTE: unit.getZ() in JASS
 func get_z() -> float:
-	return 0.0
-
-
-func get_visual_x() -> float:
-	return get_visual_position().x
-
-
-func get_visual_y() -> float:
-	return get_visual_position().y
+	return _position_wc3.z
 
 
 func get_visual_node() -> Node2D:

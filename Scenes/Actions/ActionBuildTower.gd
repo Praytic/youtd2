@@ -41,8 +41,10 @@ static func execute(action: Dictionary, player: Player, map: Map):
 
 #	NOTE: need to add tile height to position because towers
 #	are built at ground floor
-	var build_position: Vector2 = map.get_pos_on_tilemap_clamped(mouse_pos)
-	new_tower.position = build_position + Vector2(0, Constants.TILE_SIZE.y)
+	var build_position_isometric: Vector2 = map.get_pos_on_tilemap_clamped(mouse_pos)
+	build_position_isometric.y += Constants.TILE_SIZE.y
+	var build_position: Vector2 = Utils.canvas_pos_to_wc3_pos(build_position_isometric)
+	new_tower.set_position_wc3_2d(build_position)
 	
 	map.add_space_occupied_by_tower(new_tower)
 

@@ -30,7 +30,7 @@ func grenade_pt_on_hit(P: Projectile, U: Unit):
 	var C: Tower = P.get_caster()
 
 	C.do_spell_damage_aoe_unit(U, 400, P.user_real, C.calc_spell_crit_no_bonus(), 0)
-	e = Effect.create_scaled("FaerieDragonMissile.mdl", U.get_visual_position().x, U.get_visual_position().y, 80, 0, 5)
+	e = Effect.create_scaled("FaerieDragonMissile.mdl", U.get_x(), U.get_y(), 80, 0, 5)
 	Effect.set_lifetime(e, 0.01)
 
 
