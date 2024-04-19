@@ -23,7 +23,6 @@ func get_tier_stats() -> Dictionary:
 
 const STUN_DURATION: float = 0.5
 const STUN_CD: float = 1.5
-# NOTE: divide by 2 to account for isometric projection
 const COCONUT_RANGE: float = 1000
 
 

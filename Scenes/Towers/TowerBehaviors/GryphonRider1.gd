@@ -20,7 +20,6 @@ var hammer_fall_bt: BuffType
 var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
 
-# NOTE: divide by 2 to account for isometric projection
 const HAMMER_RANGE: float = 1000
 
 
