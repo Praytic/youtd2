@@ -249,7 +249,7 @@ func ashbringer_icicle_store():
 
 	var icicle: Icicle = Icicle.new()
 	icicle.projectile = p
-	icicle.position = Utils.vector3_to_vector2(icicle_pos)
+	icicle.position = VectorUtils.vector3_to_vector2(icicle_pos)
 	icicle_list.append(icicle)
 
 	icicle_bt.apply(tower, tower, icicle_list.size())

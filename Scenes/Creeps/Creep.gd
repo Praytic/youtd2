@@ -281,7 +281,7 @@ func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
 func _get_path_point_wc3(index: int) -> Vector2:
 	var curve: Curve2D = _path.get_curve()
 	var point_isometric: Vector2 = curve.get_point_position(index)
-	var point_wc3: Vector2 = Utils.canvas_pos_to_wc3_pos(point_isometric)
+	var point_wc3: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(point_isometric)
 
 	return point_wc3
 

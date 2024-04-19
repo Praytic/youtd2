@@ -230,7 +230,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 
 func target_pos_is_in_range(target_pos: Vector2) -> bool:
-	var in_range: float = Utils.vector_in_range(_caster.get_position_wc3_2d(), target_pos, cast_range)
+	var in_range: float = VectorUtils.vector_in_range(_caster.get_position_wc3_2d(), target_pos, cast_range)
 
 	return in_range
 
@@ -304,7 +304,7 @@ func _make_autocast_event(target: Unit) -> Event:
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
-	var target_is_in_range: bool = Utils.vector_in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), auto_range)
+	var target_is_in_range: bool = VectorUtils.vector_in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), auto_range)
 
 	return target_is_in_range
 

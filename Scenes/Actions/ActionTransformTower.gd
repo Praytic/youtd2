@@ -37,7 +37,7 @@ static func execute(action: Dictionary, player: Player, map: Map):
 		return
 	
 	var pos_isometric: Vector2 = map.get_pos_on_tilemap_clamped(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
-	var pos_wc3: Vector2 = Utils.canvas_pos_to_wc3_pos(pos_isometric)
+	var pos_wc3: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(pos_isometric)
 	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
 
 	player.remove_food_for_tower(prev_tower.get_id())

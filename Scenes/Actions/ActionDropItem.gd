@@ -27,7 +27,7 @@ static func execute(action: Dictionary, player: Player):
 
 	src_item_container.remove_item(item)
 
-	var position_wc3_2d: Vector2 = Utils.canvas_pos_to_wc3_pos(position_isometric)
+	var position_wc3_2d: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(position_isometric)
 	var position_wc3: Vector3 = Vector3(position_wc3_2d.x, position_wc3_2d.y, 0)
 	Item.make_item_drop(item, position_wc3)
 	item.fly_to_stash(0.0)

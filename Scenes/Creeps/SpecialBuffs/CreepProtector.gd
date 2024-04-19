@@ -113,7 +113,7 @@ func on_autocast(event: Event):
 
 	var tower_pos: Vector2 = cursed_tower.get_position_wc3_2d()
 	var protector_pos: Vector2 = protector.get_position_wc3_2d()
-	var cursed_tower_is_in_range: bool = Utils.vector_in_range(tower_pos, protector_pos, PROTECTOR_RANGE)
+	var cursed_tower_is_in_range: bool = VectorUtils.vector_in_range(tower_pos, protector_pos, PROTECTOR_RANGE)
 
 	if !cursed_tower_is_in_range:
 		channel_buff.remove_buff()

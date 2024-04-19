@@ -169,7 +169,7 @@ func _process_normal(delta: float):
 		return
 
 	if _range > 0:
-		var travel_vector: Vector2 = get_position_wc3_2d() - Utils.vector3_to_vector2(_initial_pos)
+		var travel_vector: Vector2 = get_position_wc3_2d() - VectorUtils.vector3_to_vector2(_initial_pos)
 		var current_travel_distance: float = travel_vector.length()
 		var travel_complete: bool = current_travel_distance >= _range
 
@@ -212,8 +212,8 @@ func _process_normal(delta: float):
 #		this, or at least a formula which results in a
 #		smaller but still correct contact distance.
 		var contact_distance: float = delta * _speed
-		var target_pos_2d: Vector2 = Utils.vector3_to_vector2(_target_pos)
-		var reached_target = Utils.vector_in_range(target_pos_2d, get_position_wc3_2d(), contact_distance)
+		var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
+		var reached_target = VectorUtils.vector_in_range(target_pos_2d, get_position_wc3_2d(), contact_distance)
 
 		if reached_target:
 #			NOTE: finished handler will get called even if
@@ -336,7 +336,7 @@ func _do_homing_behavior(delta: float):
 		return
 
 	var turn_instantly: float = _homing_control_value == 0
-	var target_pos_2d: Vector2 = Utils.vector3_to_vector2(_target_pos)
+	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
 	var projectile_pos: Vector2 = get_position_wc3_2d()
 	var desired_direction_vector: Vector2 = target_pos_2d - projectile_pos
 	var desired_direction: float = rad_to_deg(desired_direction_vector.angle())
@@ -417,7 +417,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector3, z_arc
 
 	_interpolation_is_stopped = false
 
-	var travel_vector: Vector2 = Utils.vector3_to_vector2(target_pos) - Utils.vector3_to_vector2(from_pos)
+	var travel_vector: Vector2 = VectorUtils.vector3_to_vector2(target_pos) - VectorUtils.vector3_to_vector2(from_pos)
 	var travel_distance: float = travel_vector.length()
 	_interpolation_progress = 0
 	_interpolation_distance = travel_distance
@@ -426,7 +426,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector3, z_arc
 func _do_explosion_visual():
 	var explosion = Preloads.explosion_scene.instantiate()
 	var projectile_pos: Vector3 = get_position_wc3()
-	var projectile_pos_canvas: Vector2 = Utils.wc3_pos_to_canvas_pos(projectile_pos)
+	var projectile_pos_canvas: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(projectile_pos)
 	explosion.position = projectile_pos_canvas
 	Utils.add_object_to_world(explosion)
 
@@ -762,12 +762,12 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 	else:
 		projectile._target_pos = target_pos
 
-	var target_pos_2d: Vector2 = Utils.vector3_to_vector2(target_pos)
+	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(target_pos)
 	var initial_direction: float = _get_direction_to_target(projectile, target_pos_2d)
 	projectile.set_direction(initial_direction)
 
 	if expire_when_reached:
-		var from_pos_2d: Vector2 = Utils.vector3_to_vector2(from_pos)
+		var from_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(from_pos)
 		var travel_vector: Vector2 = target_pos_2d - from_pos_2d
 		var travel_distance: float = travel_vector.length()
 		var time_until_reached: float = Utils.divide_safe(travel_distance, projectile._speed, 1.0)

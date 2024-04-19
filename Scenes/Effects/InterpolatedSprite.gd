@@ -160,8 +160,8 @@ static func create_from_point_to_unit(sprite_scene_path: String, start_pos: Vect
 
 
 static func _create_internal(sprite_scene_path: String, start_unit: Unit, end_unit: Unit, start_pos_3d: Vector3, end_pos_3d: Vector3) -> InterpolatedSprite:
-	var start_pos: Vector2 = Utils.wc3_pos_to_canvas_pos(start_pos_3d)
-	var end_pos: Vector2 = Utils.wc3_pos_to_canvas_pos(end_pos_3d)
+	var start_pos: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(start_pos_3d)
+	var end_pos: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(end_pos_3d)
 
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.new()
 	interpolated_sprite._sprite_scene_path = sprite_scene_path

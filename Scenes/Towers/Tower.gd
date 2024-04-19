@@ -318,7 +318,7 @@ func _target_is_valid(target) -> bool:
 		return false
 
 	var attack_range: float = get_range()
-	var in_range = Utils.vector_in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
+	var in_range = VectorUtils.vector_in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
 
 	var target_is_invisible: bool = target.is_invisible()
 

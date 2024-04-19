@@ -75,7 +75,7 @@ func _draw_circle_arc(center: Vector2, angle_from: float, angle_to: float):
 	for i in range(POINT_COUNT):
 		var current_angle: float = deg_to_rad(angle_from + i * (angle_to - angle_from) / POINT_COUNT)
 		var point_top_down: Vector2 = center + Vector2(radius, 0).rotated(current_angle)
-		var point_isometric: Vector2 = Isometric.top_down_vector_to_isometric(point_top_down) + Vector2(0, y_offset)
+		var point_isometric: Vector2 = VectorUtils.top_down_vector_to_isometric(point_top_down) + Vector2(0, y_offset)
 		
 		var global_point_pos: Vector2 = point_isometric + global_position
 		var pos_is_on_ground: bool = _map.pos_is_on_ground(global_point_pos)

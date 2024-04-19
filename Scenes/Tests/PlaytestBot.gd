@@ -68,7 +68,7 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map)
 	var tower: Tower = Tower.make(tower_id, player)
 	var build_pos_2nd_floor: Vector2 = map.get_pos_on_tilemap_clamped(unclamped_pos)
 	var build_pos_1st_floor_isometric: Vector2 = build_pos_2nd_floor + Vector2(0, Constants.TILE_SIZE.y)
-	var build_pos: Vector2 = Utils.canvas_pos_to_wc3_pos(build_pos_1st_floor_isometric)
+	var build_pos: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(build_pos_1st_floor_isometric)
 	tower.set_position_wc3_2d(build_pos)
 	Utils.add_object_to_world(tower)
 	

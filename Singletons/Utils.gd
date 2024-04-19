@@ -1,42 +1,6 @@
 class_name UtilsStatic extends Node
 
 
-func vector3_to_vector2(vec3: Vector3) -> Vector2:
-	return Vector2(vec3.x, vec3.y)
-
-
-func canvas_pos_to_wc3_pos(canvas_pos: Vector2) -> Vector2:
-	var pos_pixels: Vector2 = Isometric.isometric_vector_to_top_down(canvas_pos)
-	var pos_wc3: Vector2 = pos_pixels / Constants.WC3_DISTANCE_TO_PIXELS
-
-	return pos_wc3
-
-
-func wc3_pos_to_canvas_pos(pos_wc3: Vector3) -> Vector2:
-	var pos_pixels: Vector3 = pos_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
-	var canvas_x: float = pos_pixels.x
-	var canvas_y: float = pos_pixels.y * 0.5 - pos_pixels.z * 0.5
-	var pos_canvas: Vector2 = Vector2(canvas_x, canvas_y)
-
-	return pos_canvas
-
-
-func vector_distance_squared(a: Vector2, b: Vector2) -> float:
-	var diff: Vector2 = a - b
-	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
-
-	return distance_squared
-
-
-func vector_in_range(start: Vector2, end: Vector2, radius: float) -> bool:
-	var diff: Vector2 = start - end
-	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
-	var radius_squared: float = radius * radius
-	var in_range: bool = distance_squared <= radius_squared
-
-	return in_range
-
-
 func get_wisdom_upgrade_count_for_player_level(player_level: int) -> int:
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 	var upgrade_count_max: int = upgrade_id_list.size()
@@ -462,7 +426,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		if !type_match:
 			continue
 
-		var unit_is_in_range = Utils.vector_in_range(center, unit.get_position_wc3_2d(), radius)
+		var unit_is_in_range = VectorUtils.vector_in_range(center, unit.get_position_wc3_2d(), radius)
 
 		if !unit_is_in_range:
 			continue
@@ -486,9 +450,9 @@ class DistanceSorter:
 
 	func sort(a: Unit, b: Unit):
 		var a_pos: Vector2 = a.get_position_wc3_2d()
-		var distance_a: float = Utils.vector_distance_squared(a_pos, origin)
+		var distance_a: float = VectorUtils.vector_distance_squared(a_pos, origin)
 		var b_pos: Vector2 = b.get_position_wc3_2d()
-		var distance_b: float = Utils.vector_distance_squared(b_pos, origin)
+		var distance_b: float = VectorUtils.vector_distance_squared(b_pos, origin)
 		var less_than: bool = distance_a < distance_b
 
 		return less_than
