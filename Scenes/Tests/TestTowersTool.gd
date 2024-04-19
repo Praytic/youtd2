@@ -26,7 +26,7 @@ static func run(gamescene: Node, player: Player):
 
 #		Test building tower
 		var tower: Tower = Tower.make(tower_id, player)
-		tower.position = Vector2(123, 123)
+		tower.set_position_wc3_2d(Vector2(123, 123))
 		Utils.add_object_to_world(tower)
 		await scene_tree.create_timer(0.01).timeout
 		tower.remove_from_game()

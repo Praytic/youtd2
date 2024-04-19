@@ -11,12 +11,13 @@ const DURATION: float = 10
 const RANDOM_OFFSET: float = 15
 
 @export var _sprite: AnimatedSprite2D
+@export var _visual: Node2D
 
 
 func _ready():
 	super()
 
-	_set_visual_node(_sprite)
+	_set_visual_node(_visual)
 
 #	Move corpse to a random small offset during death
 #	animation. Otherwise corpses line up perfectly and it
@@ -43,6 +44,8 @@ func _ready():
 func _setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.sprite_frames = creep_sprite.sprite_frames.duplicate()
 	_sprite.scale = creep_sprite.scale
+#	NOTE: need to copy position of sprite because creep
+#	sprites are centered via position
 	_sprite.position = creep_sprite.position
 	_sprite.sprite_frames.set_animation_loop(death_animation, false)
 #	NOTE: play death animation with random speed to make

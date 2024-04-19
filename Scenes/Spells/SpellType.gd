@@ -78,8 +78,8 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 # NOTE: cast.targetCastFromCaster() in JASS
 func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	var origin: Unit = caster
-	var x: float = target.position.x
-	var y: float = target.position.y
+	var x: float = target.get_x()
+	var y: float = target.get_y()
 	_cast_generic(caster, origin, target, x, y, damage_ratio, crit_ratio)
 
 
@@ -93,8 +93,8 @@ func target_cast_from_point(caster: Unit, target: Unit, x: float, y: float, dama
 # NOTE: cast.pointCastFromCasterOnTarget() in JASS
 func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	var origin: Unit = target
-	var x: float = target.position.x
-	var y: float = target.position.y
+	var x: float = target.get_x()
+	var y: float = target.get_y()
 	_cast_generic(caster, origin, target, x, y, damage_ratio, crit_ratio)
 
 
@@ -118,7 +118,8 @@ func _cast_generic(caster: Unit, origin: Unit, target: Unit, x: float, y: float,
 
 	var scene: PackedScene = load(spell_scene_path)
 	var instance: SpellDummy = scene.instantiate()
-	instance.position = origin.position
+	var origin_pos: Vector2 = origin.get_position_wc3_2d()
+	instance.set_position_wc3_2d(origin_pos)
 	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
 	tree_exited.connect(instance._on_cast_type_tree_exited)
 	Utils.add_object_to_world(instance)

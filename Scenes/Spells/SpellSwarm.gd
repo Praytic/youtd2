@@ -31,12 +31,12 @@ var _end_radius: float
 func _ready():
 	super()
 
-	_current_swarm_pos = position
+	_current_swarm_pos = get_position_wc3_2d()
 
 
 func _on_move_timer_timeout():
 #	Move current position of spell
-	_current_swarm_pos = Isometric.vector_move_toward(_current_swarm_pos, _target_position, _current_move_speed)
+	_current_swarm_pos = _current_swarm_pos.move_toward(_target_position, _current_move_speed)
 	_current_move_speed += MOVE_ACCELERATION
 
 # 	Add visual effect
@@ -67,9 +67,9 @@ func _on_move_timer_timeout():
 
 
 func _get_move_progress() -> float:
-	var start_pos: Vector2 = position
-	var distance_travelled: float = Isometric.vector_distance_to(_current_swarm_pos, start_pos)
-	var total_distance: float = Isometric.vector_distance_to(start_pos, _target_position)
+	var start_pos: Vector2 = get_position_wc3_2d()
+	var distance_travelled: float = _current_swarm_pos.distance_to(start_pos)
+	var total_distance: float = start_pos.distance_to(_target_position)
 	var move_progress: float = Utils.divide_safe(distance_travelled, total_distance, 1.0)
 
 	return move_progress

@@ -624,7 +624,8 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 	var preceding_tower: Tower = tower
 	var upgrade_tower: Tower = Tower.make(upgrade_id, local_player, preceding_tower)
-	upgrade_tower.position = tower.position
+	var preceding_tower_pos: Vector2 = preceding_tower.get_position_wc3_2d()
+	upgrade_tower.set_position_wc3_2d(preceding_tower_pos)
 	Utils.add_object_to_world(upgrade_tower)
 	tower.remove_from_game()
 

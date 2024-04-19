@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepCorpse.gd" id="1_mvyph"]
 
-[node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite")]
+[node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite", "_visual")]
 script = ExtResource("1_mvyph")
-_sprite = NodePath("Sprite2D")
+_sprite = NodePath("Visual/Sprite2D")
+_visual = NodePath("Visual")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Visual" type="Node2D" parent="."]
 
-[connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Visual"]
+
+[connection signal="animation_finished" from="Visual/Sprite2D" to="." method="_on_sprite_2d_animation_finished"]

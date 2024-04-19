@@ -58,7 +58,7 @@ func update_hovered_unit():
 
 #	NOTE: sort list by y position so that if units overlap,
 #	the one in isometric front (higher y) gets picked
-	_units_under_mouse_list.sort_custom(func(a, b): return a.get_visual_position().y > b.get_visual_position().y)
+	_units_under_mouse_list.sort_custom(func(a, b): return a.get_position_isometric().y > b.get_position_isometric().y)
 
 	if _units_under_mouse_list.size() > 0:
 		var new_hovered_unit = _units_under_mouse_list[0]

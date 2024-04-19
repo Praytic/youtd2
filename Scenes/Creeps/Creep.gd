@@ -68,9 +68,9 @@ func _ready():
 	health_changed.connect(_on_health_changed)
 
 	if _size == CreepSize.enm.AIR:
-		_z = 2 * Constants.TILE_SIZE.y
-		_target_height = _z
-		_visual.position.y = -_z
+		var air_creep_z: float = 2 * Constants.TILE_SIZE_WC3
+		set_z(air_creep_z)
+		_target_height = air_creep_z
 	
 	_setup_selection_signals(_selection_area)
 	
@@ -95,15 +95,18 @@ func update(delta: float):
 	_sprite.play(creep_animation)
 	_selection_outline.play(creep_animation)
 
-	if _z != _target_height:
+	var current_z: float = get_z()
+
+	if current_z != _target_height:
 		var height_change: float = _height_change_speed * delta
 
-		if _z < _target_height:
-			_z = max(_target_height, _z + height_change)
+		var new_z: float
+		if current_z < _target_height:
+			new_z = max(_target_height, current_z + height_change)
 		else:
-			_z = min(_target_height, _z - height_change)
+			new_z = min(_target_height, current_z - height_change)
 
-		_visual.position.y = -_z
+		set_z(new_z)
 
 	z_index = _calculate_current_z_index()
 
@@ -196,10 +199,10 @@ func move_to_point(point: Vector2):
 	var min_distance: float = 10000.0
 	var min_index: int = -1
 	var min_position: Vector2 = Vector2.ZERO
-	var prev: Vector2 = curve.get_point_position(0)
+	var prev: Vector2 = _get_path_point_wc3(0)
 
 	for i in range(1, curve.point_count):
-		var curr: Vector2 = curve.get_point_position(i)
+		var curr: Vector2 = _get_path_point_wc3(i)
 		var closest_point: Vector2 = Geometry2D.get_closest_point_to_segment(point, prev, curr)
 		var distance: float = closest_point.distance_to(point)
 
@@ -213,7 +216,7 @@ func move_to_point(point: Vector2):
 	if min_index == -1:
 		return
 	
-	position = min_position
+	set_position_wc3_2d(min_position)
 	_current_path_index = min_index
 
 
@@ -259,7 +262,8 @@ func drop_item(caster: Tower, use_creep_player: bool):
 
 
 func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
-	var item: Item = Item.create(caster.get_player(), item_id, position)
+	var item_position: Vector3 = get_position_wc3()
+	var item: Item = Item.create(caster.get_player(), item_id, item_position)
 	item.fly_to_stash(0.0)
 
 	var item_name: String = ItemProperties.get_item_name(item_id)
@@ -273,6 +277,15 @@ func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
 ###      Private      ###
 #########################
 
+
+func _get_path_point_wc3(index: int) -> Vector2:
+	var curve: Curve2D = _path.get_curve()
+	var point_isometric: Vector2 = curve.get_point_position(index)
+	var point_wc3: Vector2 = Utils.canvas_pos_to_wc3_pos(point_isometric)
+
+	return point_wc3
+
+
 # NOTE: when a creep has non-zero height, we need to adjust
 # it's z index so that the sprite is drawn correctly in
 # front of tiles.
@@ -283,7 +296,7 @@ func _calculate_current_z_index() -> int:
 # 	NOTE: make z_index for air reeps 1 higher because air
 # 	creeps should always be drawn above any ground creep
 # 	which was elevated
-	if _z > 100:
+	if get_z() > 100:
 		if get_size() == CreepSize.enm.AIR:
 			return 11
 		else:
@@ -300,12 +313,15 @@ func _move(delta):
 
 		return
 
-	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index)
+	var path_point_wc3: Vector2 = _get_path_point_wc3(_current_path_index)
 	var move_delta: float = get_current_movespeed() * delta
-	position = Isometric.vector_move_toward(position, path_point, move_delta)
+	var old_position_2d: Vector2 = get_position_wc3_2d()
+	var new_position_2d: Vector2 = old_position_2d.move_toward(path_point_wc3, move_delta)
+	set_position_wc3_2d(new_position_2d)
+
 	moved.emit(delta)
 	
-	var reached_path_point: bool = (position == path_point)
+	var reached_path_point: bool = (new_position_2d == path_point_wc3)
 	
 	if reached_path_point:
 		_current_path_index += 1
@@ -348,13 +364,12 @@ func _get_current_movement_angle() -> float:
 	if _current_path_index >= path_curve.point_count:
 		return _facing_angle
 
-	var next_point: Vector2 = path_curve.get_point_position(_current_path_index)
-	var facing_vector_isometric: Vector2 = next_point - position
-	var facing_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(facing_vector_isometric)
-	var top_down_angle_radians: float = facing_vector_top_down.angle()
-	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
+	var next_point: Vector2 = _get_path_point_wc3(_current_path_index)
+	var facing_vector: Vector2 = next_point - get_position_wc3_2d()
+	var facing_angle_radians: float = facing_vector.angle()
+	var facing_angle_degrees: float = rad_to_deg(facing_angle_radians)
 
-	return top_down_angle_degrees
+	return facing_angle_degrees
 
 
 func _get_creep_animation() -> String:
@@ -445,7 +460,8 @@ func _on_death(_event: Event):
 	if _size != CreepSize.enm.AIR:
 		var death_animation: String = _get_death_animation()
 		var corpse: CreepCorpse = CreepCorpse.make(get_player(), _sprite, death_animation)
-		corpse.position = position
+		var creep_pos: Vector3 = get_position_wc3()
+		corpse.set_position_wc3(creep_pos)
 		Utils.add_object_to_world(corpse)
 
 		var blood_pool: Node2D = Preloads.blood_pool_scene.instantiate()
@@ -551,9 +567,12 @@ func get_display_name() -> String:
 
 
 func set_path(path: Path2D):
+	if path == null:
+		return
+
 	_path = path
-	if path:
-		position = path.get_curve().get_point_position(0)
+	var first_point: Vector2 = _get_path_point_wc3(0)
+	set_position_wc3_2d(first_point)
 
 
 func get_spawn_level() -> int:

@@ -22,7 +22,9 @@ func _ready():
 	_on_wave_timer_timeout()
 
 #	Move particles emitter so that they are above target position
-	_particles.position += _target_position - position
+	var particles_pos_wc3: Vector3 = Vector3(_target_position.x, _target_position.y, Constants.TILE_SIZE_WC3 * 6)
+	var particles_pos_canvas: Vector2 = Utils.wc3_pos_to_canvas_pos(particles_pos_wc3)
+	_particles.global_position = particles_pos_canvas
 
 
 func _on_wave_timer_timeout():

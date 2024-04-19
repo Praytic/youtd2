@@ -111,7 +111,9 @@ func on_autocast(event: Event):
 
 	var cursed_tower: Unit = cursed_tower_object as Unit
 
-	var cursed_tower_is_in_range: bool = Isometric.vector_in_range(cursed_tower.position, protector.position, PROTECTOR_RANGE)
+	var tower_pos: Vector2 = cursed_tower.get_position_wc3_2d()
+	var protector_pos: Vector2 = protector.get_position_wc3_2d()
+	var cursed_tower_is_in_range: bool = Utils.vector_in_range(tower_pos, protector_pos, PROTECTOR_RANGE)
 
 	if !cursed_tower_is_in_range:
 		channel_buff.remove_buff()

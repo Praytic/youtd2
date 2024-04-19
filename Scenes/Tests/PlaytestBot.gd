@@ -66,8 +66,10 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map)
 	var player: Player = PlayerManager.get_local_player()
 	
 	var tower: Tower = Tower.make(tower_id, player)
-	var build_pos: Vector2 = map.get_pos_on_tilemap_clamped(unclamped_pos)
-	tower.position = build_pos + Vector2(0, Constants.TILE_SIZE.y)
+	var build_pos_2nd_floor: Vector2 = map.get_pos_on_tilemap_clamped(unclamped_pos)
+	var build_pos_1st_floor_isometric: Vector2 = build_pos_2nd_floor + Vector2(0, Constants.TILE_SIZE.y)
+	var build_pos: Vector2 = Utils.canvas_pos_to_wc3_pos(build_pos_1st_floor_isometric)
+	tower.set_position_wc3_2d(build_pos)
 	Utils.add_object_to_world(tower)
 	
 #	Add random items and oils to tower
@@ -79,13 +81,13 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map)
 
 	for j in range(0, item_count):
 		var random_item_id: int = PlaytestBot.item_id_list.pick_random()
-		var random_item: Item = Item.create(player, random_item_id, Vector2(0, 0))
+		var random_item: Item = Item.create(player, random_item_id, Vector3.ZERO)
 		random_item.pickup(tower)
 
 	var oil_count: int = randi_range(0, 3)
 	for j in range(0, oil_count):
 		var random_oil_id: int = PlaytestBot.oil_id_list.pick_random()
-		var random_oil: Item = Item.create(player, random_oil_id, Vector2(0, 0))
+		var random_oil: Item = Item.create(player, random_oil_id, Vector3.ZERO)
 		random_oil.pickup(tower)
 
 	return tower
@@ -108,9 +110,9 @@ static func _generate_position_list(map: Map) -> Array[Vector2]:
 					result.append(position)
 	
 	result.sort_custom(func (a, b) -> bool:
-		var dist_a: float = Isometric.vector_distance_to(origin, a)
-		var dist_b: float = Isometric.vector_distance_to(origin, b)
-		
+		var dist_a: float = a.distance_to(origin)
+		var dist_b: float = b.distance_to(origin)
+
 		return dist_a < dist_b
 		)
 	

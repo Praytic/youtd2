@@ -13,6 +13,7 @@ var _kill_event_handler: Callable = Callable()
 var _cleanup_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
 var _cleanup_done: bool = false
+var _position_wc3: Vector3
 
 
 #########################
@@ -26,6 +27,50 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_position_wc3(value: Vector3):
+	_position_wc3 = value
+	position.x = Utils.to_pixels(_position_wc3.x)
+	position.y = Utils.to_pixels(_position_wc3.y / 2)
+
+
+func set_position_wc3_2d(value: Vector2):
+	set_position_wc3(Vector3(value.x, value.y, get_z()))
+
+
+func set_z(z: float):
+	var new_position_wc3: Vector3 = Vector3(_position_wc3.x, _position_wc3.y, z)
+	set_position_wc3(new_position_wc3)
+
+
+func get_position_isometric() -> Vector2:
+	return position
+
+
+func get_position_wc3_2d() -> Vector2:
+	var position_2d: Vector2 = Vector2(_position_wc3.x, _position_wc3.y)
+
+	return position_2d
+
+
+func get_position_wc3() -> Vector3:
+	return _position_wc3
+
+
+# NOTE: unit.getX() in JASS
+func get_x() -> float:
+	return _position_wc3.x
+
+
+# NOTE: unit.getY() in JASS
+func get_y() -> float:
+	return _position_wc3.y
+
+
+# NOTE: unit.getZ() in JASS
+func get_z() -> float:
+	return _position_wc3.z
+
 
 # NOTE: dummyUnit.doSpellDamage() in JASS
 # 
@@ -68,7 +113,7 @@ func do_spell_damage_aoe(center: Vector2, radius: float, damage: float, sides_ra
 # Deals aoe damage from the position of the dummy unit
 # NOTE: dummyUnit.doSpellDamagePBAoE() in JASS
 func do_spell_damage_pb_aoe(radius: float, damage: float, sides_ratio: float):
-	var center: Vector2 = position
+	var center: Vector2 = get_position_wc3_2d()
 	do_spell_damage_aoe(center, radius, damage, sides_ratio)
 
 
