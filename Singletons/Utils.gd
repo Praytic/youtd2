@@ -165,7 +165,7 @@ func find_creep_path(player: Player, for_air_creeps: bool) -> Path2D:
 
 func is_point_on_creep_path(point_wc3: Vector2, player: Player) -> bool:
 	var point_wc3_3d: Vector3 = Vector3(point_wc3.x, point_wc3.y, 0)
-	var point: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(point_wc3_3d)
+	var point: Vector2 = VectorUtils.wc3_to_canvas(point_wc3_3d)
 	var creep_path_ground: Path2D = Utils.find_creep_path(player, false)
 
 	if creep_path_ground == null:
@@ -427,7 +427,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		if !type_match:
 			continue
 
-		var unit_is_in_range = VectorUtils.vector_in_range(center, unit.get_position_wc3_2d(), radius)
+		var unit_is_in_range = VectorUtils.in_range(center, unit.get_position_wc3_2d(), radius)
 
 		if !unit_is_in_range:
 			continue
@@ -451,9 +451,9 @@ class DistanceSorter:
 
 	func sort(a: Unit, b: Unit):
 		var a_pos: Vector2 = a.get_position_wc3_2d()
-		var distance_a: float = VectorUtils.vector_distance_squared(a_pos, origin)
+		var distance_a: float = a_pos.distance_squared_to(origin)
 		var b_pos: Vector2 = b.get_position_wc3_2d()
-		var distance_b: float = VectorUtils.vector_distance_squared(b_pos, origin)
+		var distance_b: float = b_pos.distance_squared_to(origin)
 		var less_than: bool = distance_a < distance_b
 
 		return less_than

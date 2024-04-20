@@ -43,7 +43,7 @@ static func execute(action: Dictionary, player: Player, map: Map):
 #	are built at ground floor
 	var build_position_canvas: Vector2 = map.get_pos_on_tilemap_clamped(mouse_pos)
 	build_position_canvas.y += Constants.TILE_SIZE.y
-	var build_position: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(build_position_canvas)
+	var build_position: Vector2 = VectorUtils.canvas_to_wc3_2d(build_position_canvas)
 	new_tower.set_position_wc3_2d(build_position)
 	
 	map.add_space_occupied_by_tower(new_tower)

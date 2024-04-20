@@ -23,7 +23,7 @@ func _ready():
 
 #	Move particles emitter so that they are above target position
 	var particles_pos_wc3: Vector3 = Vector3(_target_position.x, _target_position.y, Constants.TILE_SIZE_WC3 * 6)
-	var particles_pos_canvas: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(particles_pos_wc3)
+	var particles_pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(particles_pos_wc3)
 	_particles.global_position = particles_pos_canvas
 
 

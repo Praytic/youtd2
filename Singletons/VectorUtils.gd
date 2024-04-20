@@ -17,14 +17,14 @@ func vector3_to_vector2(vec3: Vector3) -> Vector2:
 	return Vector2(vec3.x, vec3.y)
 
 
-func canvas_pos_to_wc3_pos(pos_canvas: Vector2) -> Vector2:
+func canvas_to_wc3_2d(pos_canvas: Vector2) -> Vector2:
 	var pos_top_down_pixels: Vector2 = VectorUtils.canvas_to_top_down(pos_canvas)
 	var pos_wc3: Vector2 = pos_top_down_pixels / Constants.WC3_DISTANCE_TO_PIXELS
 
 	return pos_wc3
 
 
-func wc3_pos_to_canvas_pos(pos_wc3: Vector3) -> Vector2:
+func wc3_to_canvas(pos_wc3: Vector3) -> Vector2:
 	var pos_pixels: Vector3 = pos_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
 	var canvas_x: float = pos_pixels.x
 	var canvas_y: float = pos_pixels.y * 0.5 - pos_pixels.z * 0.5
@@ -33,17 +33,9 @@ func wc3_pos_to_canvas_pos(pos_wc3: Vector3) -> Vector2:
 	return pos_canvas
 
 
-func vector_distance_squared(a: Vector2, b: Vector2) -> float:
-	var diff: Vector2 = a - b
-	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
-
-	return distance_squared
-
-
-func vector_in_range(start: Vector2, end: Vector2, radius: float) -> bool:
-	var diff: Vector2 = start - end
-	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
+func in_range(start: Vector2, end: Vector2, radius: float) -> bool:
+	var distance_squared: float = start.distance_squared_to(end)
 	var radius_squared: float = radius * radius
-	var in_range: bool = distance_squared <= radius_squared
+	var result: bool = distance_squared <= radius_squared
 
-	return in_range
+	return result

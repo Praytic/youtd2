@@ -25,7 +25,7 @@ func _ready():
 	_debug_sprite.visible = Config.visible_spell_dummys_enabled()
 	_debug_sprite_target.visible = Config.visible_spell_dummys_enabled()
 	
-	var debug_sprite_pos_canvas: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(Vector3(_target_position.x, _target_position.y, 0))
+	var debug_sprite_pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(Vector3(_target_position.x, _target_position.y, 0))
 	_debug_sprite_target.global_position = debug_sprite_pos_canvas
 
 	_lifetime_timer.start(_lifetime)

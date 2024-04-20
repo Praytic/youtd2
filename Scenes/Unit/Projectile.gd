@@ -215,7 +215,7 @@ func _process_normal(delta: float):
 #		smaller but still correct contact distance.
 		var contact_distance: float = delta * _speed
 		var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
-		var reached_target = VectorUtils.vector_in_range(target_pos_2d, get_position_wc3_2d(), contact_distance)
+		var reached_target = VectorUtils.in_range(target_pos_2d, get_position_wc3_2d(), contact_distance)
 
 		if reached_target:
 #			NOTE: finished handler will get called even if
@@ -428,7 +428,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector3, z_arc
 func _do_explosion_visual():
 	var explosion = Preloads.explosion_scene.instantiate()
 	var projectile_pos: Vector3 = get_position_wc3()
-	var projectile_pos_canvas: Vector2 = VectorUtils.wc3_pos_to_canvas_pos(projectile_pos)
+	var projectile_pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(projectile_pos)
 	explosion.position = projectile_pos_canvas
 	Utils.add_object_to_world(explosion)
 
