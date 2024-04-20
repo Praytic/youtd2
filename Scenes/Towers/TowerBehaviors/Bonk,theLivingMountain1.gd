@@ -1,6 +1,9 @@
 extends TowerBehavior
 
 
+# NOTE: changed values for growth scale a bit.
+
+
 var stun_bt: BuffType
 var morale_bt: BuffType
 var rock_pt: ProjectileType
@@ -158,8 +161,12 @@ func periodic(_event: Event):
 
 	grow_count += 1
 
-	# TODO: Unit.setScale() is not implemented yet
-	# tower.setScale(0.35 + grow_count * 0.0025)
+#	NOTE: cap scale at 3.0 because scale of sprite in tower
+#	scene starts at 0.5. This way, at max growth sprite will
+#	reach original size times 1.5.
+#	0.5 * 3.0 = 1.5
+	var tower_scale: float = 1.0 + (2.0 / 160) * grow_count
+	tower.set_unit_scale(tower_scale)
 
 
 func rock_pt_on_hit(_projectile: Projectile, creep: Unit):
