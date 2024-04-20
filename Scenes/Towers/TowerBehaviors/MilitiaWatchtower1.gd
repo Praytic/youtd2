@@ -98,7 +98,7 @@ func on_attack(event: Event):
 #		(itDestroyed). If there are units then don't shoot
 #		at the maintarget
 		if it_destroyed || target != maintarget:
-			Projectile.create_bezier_interpolation_from_unit_to_unit(axe_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true).setScale(0.40)
+			Projectile.create_bezier_interpolation_from_unit_to_unit(axe_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true).set_projectile_scale(0.40)
 			attacks = attacks - 1
 			sidearc = -sidearc
 

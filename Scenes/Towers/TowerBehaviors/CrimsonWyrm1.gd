@@ -163,7 +163,7 @@ func release_fireballs(fireball_count: int):
 			break
 
 		var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, next, 0, Globals.synced_rng.randf_range(-0.35, 0.35), Globals.synced_rng.randf_range(0.17, 0.4), true)
-		p.setScale(2.0)
+		p.set_projectile_scale(2.0)
 
 		fireball_count -= 1
 
@@ -177,7 +177,7 @@ func release_fireballs(fireball_count: int):
 # 			Shoot remaining balls at last target
 			for i in range(0, fireball_cd):
 				var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(wyrm_pt, tower, 1, 1, tower, last_target, 0, Globals.synced_rng.randf_range(-0.35, 0.35), Globals.synced_rng.randf_range(0.17, 0.4), true)
-				p.setScale(2.0)
+				p.set_projectile_scale(2.0)
 		else:
 # 			Shoot remaining balls during next attack
 			fireball_cd = 0

@@ -159,7 +159,7 @@ func on_attack(event: Event):
 	var final_pos: Vector3 = Vector3(final_x, final_y, tower.get_z())
 
 	var p: Projectile = Projectile.create_from_unit_to_point(bronze_drake_pt, tower, 0, 0, tower, final_pos, true, false)
-	p.setScale(0.6)
+	p.set_projectile_scale(0.6)
 
 
 func on_create(_preceding_tower: Tower):
@@ -186,7 +186,7 @@ func on_create(_preceding_tower: Tower):
 
 	for drake in drake_list:
 		drake.projectile.disable_periodic()
-		drake.projectile.setScale(0.25)
+		drake.projectile.set_projectile_scale(0.25)
 		drake.state = DrakeState.IDLE
 
 	drake_list[BLUE_I].projectile.set_color(Color.LIGHT_BLUE)
@@ -455,7 +455,7 @@ func bronze_drake_pt_periodic(p: Projectile):
 		var from_pos: Vector3 = p.get_position_wc3() + Vector3(offset_vector.x, offset_vector.y, 0)
 
 		var atk_proj: Projectile = Projectile.create_linear_interpolation_from_point_to_unit(bronze_drake_attack_pt, tower, 0, 0, from_pos, next, 0.30, true)
-		atk_proj.setScale(0.55)
+		atk_proj.set_projectile_scale(0.55)
 
 
 # NOTE: "onBronzeDrakeHit()" in original script

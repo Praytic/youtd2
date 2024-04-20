@@ -132,7 +132,7 @@ func tower_init():
 func on_create(_preceding: Tower):
 	dutchman = Projectile.create_from_unit_to_unit(dutchman_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, tower, true, true, false)
 	dutchman.set_color(Color8(100, 100, 100, 180))
-	dutchman.setScale(1.0)
+	dutchman.set_projectile_scale(1.0)
 
 
 func on_destruct():

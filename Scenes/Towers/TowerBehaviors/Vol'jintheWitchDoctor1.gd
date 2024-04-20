@@ -269,7 +269,7 @@ func periodic(event: Event):
 				var x: float = ward.position.x
 				var y: float = ward.position.y
 				var p: Projectile = Projectile.create_from_point_to_unit(voljin_pt, tower, 1.0, 1.0, Vector3(x, y, 147), random_target, true, false, false)
-				p.setScale(0.4)
+				p.set_projectile_scale(0.4)
 
 			# Save the remaining duration
 			ward.duration = duration

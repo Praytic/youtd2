@@ -215,7 +215,7 @@ func ashbringer_icicle_fire_single(target: Unit):
 	
 	CombatLog.log_ability(tower, target, "Fire single Icicle")
 	var p: Projectile = Projectile.create_from_point_to_unit(icicle_missile_pt, tower, 0, 0, start_pos, target, true, false, false)
-	p.setScale(0.7)
+	p.set_projectile_scale(0.7)
 
 	fired_icicle_count += 1
 
@@ -240,7 +240,7 @@ func ashbringer_icicle_store():
 	var start_pos: Vector3 = Vector3(tower.get_x(), tower.get_y(), 200)
 	var icicle_pos: Vector3 = Vector3(tower.get_x() + offset.x, tower.get_y() + offset.y, 200)
 	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(icicle_prop_pt, tower, 1.0, 0.0, start_pos, icicle_pos, 0.0)
-	p.setScale(0.7)
+	p.set_projectile_scale(0.7)
 	p.user_real = icicle_pos.x
 	p.user_real2 = icicle_pos.y
 	p.user_real3 = angle
@@ -342,7 +342,7 @@ func ashbringer_icicle_fire_all(target: Unit):
 
 		var start_pos: Vector3 = Vector3(icicle.position.x, icicle.position.y, 200)
 		var icicle_missile: Projectile = Projectile.create_from_point_to_unit(icicle_missile_pt, tower, 0, 0, start_pos, target, true, false, false)
-		icicle_missile.setScale(0.7)
+		icicle_missile.set_projectile_scale(0.7)
 		icicle_missile.set_speed(1400 - 70 * icicle_list.size())
 		fired_icicle_count += 1
 

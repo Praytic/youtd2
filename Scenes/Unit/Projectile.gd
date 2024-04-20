@@ -479,7 +479,7 @@ func get_target() -> Unit:
 
 
 # NOTE: projectile.setScale() in JASS
-func setScale(value: float):
+func set_projectile_scale(value: float):
 	_visual_node.scale = Vector2.ONE * value
 
 

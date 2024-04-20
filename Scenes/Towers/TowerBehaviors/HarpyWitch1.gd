@@ -155,7 +155,7 @@ func on_attack(_event: Event):
 			break
 
 		var projectile: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1, 0, tower, target, true, false, false)
-		projectile.setScale(0.7)
+		projectile.set_projectile_scale(0.7)
 
 		tornado_count -= 1
 		if tornado_count == 0:

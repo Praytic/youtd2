@@ -109,7 +109,7 @@ func on_attack(event: Event):
 	CombatLog.log_ability(tower, target, "Spring Tide")
 
 	var projectile: Projectile = Projectile.create_from_unit(water_pt, tower, tower, facing, 1.0, tower.calc_spell_crit_no_bonus())
-	projectile.setScale(0.8)
+	projectile.set_projectile_scale(0.8)
 
 
 func on_damage(event: Event):

@@ -122,7 +122,7 @@ func parasite_bt_on_death(event: Event):
 			new_host = temp
 
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(spider_pt, tower, 0, 0, creep, new_host, 0.5, true)
-	projectile.setScale(0.2)
+	projectile.set_projectile_scale(0.2)
 
 
 func spider_pt_on_cleanup(projectile: Projectile):

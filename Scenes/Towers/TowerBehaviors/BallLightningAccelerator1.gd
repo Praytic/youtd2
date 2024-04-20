@@ -128,7 +128,7 @@ func on_attack(event: Event):
 	var damage_from_mana: float = mana * (3.0 + 0.05 * tower.get_level())
 	var projectile_damage: float = _stats.projectile_damage + _stats.projectile_damage_add * tower.get_level() + damage_from_mana
 	p.user_real = projectile_damage
-	p.setScale(2.0)
+	p.set_projectile_scale(2.0)
 
 	tower.set_mana(mana * 0.8)
 

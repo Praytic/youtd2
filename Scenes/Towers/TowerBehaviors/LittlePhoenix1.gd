@@ -168,7 +168,7 @@ func on_attack(event: Event):
 			target = main_target
 
 		var projectile: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(phoenix_pt, tower, 0, 0, tower, target, 0, sidearc, 0, true)
-		projectile.setScale(0.4)
+		projectile.set_projectile_scale(0.4)
 
 		current_target_count -= 1
 

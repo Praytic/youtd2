@@ -150,7 +150,7 @@ func periodic(_event: Event):
 		if target != null:
 # 			NOTE: original script used createFromPointToUnit and made projectiles from high above the tower
 			var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, true, false, false)
-			p.setScale(0.5)
+			p.set_projectile_scale(0.5)
 
 #		Spend mana, note that mana is used for unsuccessful
 #		attempts as well

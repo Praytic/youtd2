@@ -83,7 +83,7 @@ func teacher_attack(xp: float):
 			CombatLog.log_ability(tower, result, "Knowledge")
 
 			p = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, result, true, false, true)
-			p.setScale(0.7)
+			p.set_projectile_scale(0.7)
 			p.user_real = xp
 			p.user_int = result.get_instance_id()
 			p.user_int2 = tower.get_instance_id()

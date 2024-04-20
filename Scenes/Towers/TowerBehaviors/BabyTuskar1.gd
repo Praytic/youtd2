@@ -103,7 +103,7 @@ func on_attack(event: Event):
 
 	if facing_delta >= 80:
 		p = Projectile.create_from_unit_to_unit(snowball_pt, tower, 100, 0, tower, event.get_target(), true, false, true)
-		p.setScale(0.8)
+		p.set_projectile_scale(0.8)
 
 		if facing_delta <= 100:
 #			Temple shot

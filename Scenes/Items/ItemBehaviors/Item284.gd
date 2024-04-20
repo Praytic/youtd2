@@ -51,4 +51,4 @@ func on_attack(event: Event):
 		return
 
 	p = Projectile.create_from_unit_to_unit(chameleon_pt, tower, 1, 0, tower, creep, true, false, false)
-	p.setScale(0.75)
+	p.set_projectile_scale(0.75)

@@ -65,9 +65,9 @@ func new_attack(num_shots: int, creep: Creep):
 			if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(creep):
 				return
 
-			Projectile.create_from_unit_to_unit(ball, tower, 1, 0, tower, creep, true, false, false).setScale(0.5)
+			Projectile.create_from_unit_to_unit(ball, tower, 1, 0, tower, creep, true, false, false).set_projectile_scale(0.5)
 		else:
-			Projectile.create_from_unit_to_unit(ball, tower, 1, 0, tower, next, true, false, false).setScale(0.5)
+			Projectile.create_from_unit_to_unit(ball, tower, 1, 0, tower, next, true, false, false).set_projectile_scale(0.5)
 			next = it.next_random()
 
 		num_shots = num_shots - 1

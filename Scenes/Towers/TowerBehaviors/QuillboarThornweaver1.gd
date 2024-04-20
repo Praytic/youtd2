@@ -179,5 +179,5 @@ func quillspray(speed: float):
 			break
 
 		var projectile: Projectile = Projectile.create_from_unit_to_unit(quillspray_pt, tower, 1.0, 1.0, tower, creep, true, false, false)
-		projectile.setScale(0.7)
+		projectile.set_projectile_scale(0.7)
 		projectile._speed = speed

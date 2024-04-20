@@ -116,7 +116,7 @@ func on_attack(event: Event):
 			lowest_health_creep = next
 
 	var p: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(glaive_pt, tower, 1, 1, tower, lowest_health_creep, 0, true)
-	p.setScale(0.5)
+	p.set_projectile_scale(0.5)
 
 
 func on_damage(event: Event):

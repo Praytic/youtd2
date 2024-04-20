@@ -73,7 +73,7 @@ func burst_fire(chance: float, target: Creep):
 
 	while true:
 		var p: Projectile = Projectile.create_from_unit_to_unit(ball_pt, tower, 1.0, 1.0, tower, target, true, false, false)
-		p.setScale(0.4)
+		p.set_projectile_scale(0.4)
 		num_shots = num_shots + 1
 
 		if !tower.calc_chance(chance) || num_shots >= 14 || !Utils.unit_is_valid(target):
@@ -155,6 +155,6 @@ func periodic(_event: Event):
 			break
 
 		var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(meat_pt, tower, 0, 0, tower, creep, 0, true)
-		projectile.setScale(0.5)
+		projectile.set_projectile_scale(0.5)
 
 		corpse_explosion_bt.apply(tower, creep, buff_level)

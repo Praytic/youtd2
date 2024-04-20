@@ -81,7 +81,7 @@ func on_autocast(_event: Event):
 
 	for i in range(0, projectile_count):
 		var p: Projectile = Projectile.create(orb_pt, tower, 1.0 + 0.05 * level, tower.calc_spell_crit_no_bonus(), x, y, 80, i * 360 / projectile_count)
-		p.setScale(2.0)
+		p.set_projectile_scale(2.0)
 
 
 func orb_pt_periodic(p: Projectile):

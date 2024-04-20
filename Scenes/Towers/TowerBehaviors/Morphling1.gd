@@ -271,7 +271,7 @@ func on_damage(event: Event):
 				break
 
 			var p: Projectile = Projectile.create_from_unit_to_unit(pt, tower, 1, 1, tower, next, true, false, false)
-			p.setScale(projectile_scale)
+			p.set_projectile_scale(projectile_scale)
 
 
 func on_autocast_might(_event: Event):

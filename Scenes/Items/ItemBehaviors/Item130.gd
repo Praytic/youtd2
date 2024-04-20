@@ -52,4 +52,4 @@ func on_attack(event: Event):
 	if twr.calc_chance((0.15 * twr.get_base_attackspeed())):
 		CombatLog.log_item_ability(item, event.get_target(), "Hippogryph Young")
 		p = Projectile.create_from_unit_to_unit(hippo_pt, twr, 1, twr.calc_spell_crit_no_bonus(), twr, event.get_target(), true, false, false)
-		p.setScale(0.6)
+		p.set_projectile_scale(0.6)

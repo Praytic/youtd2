@@ -100,7 +100,7 @@ func on_attack(event: Event):
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(axe_pt, tower, 1, 1, tower, creep, 0.2, true)
 	var dmg_per_purge: float = _stats.smashing_axe_dmg + _stats.smashing_axe_dmg_add * level
 	projectile.user_real = dmg_per_purge
-	projectile.setScale(1.5)
+	projectile.set_projectile_scale(1.5)
 	fatigue_bt.apply(tower, tower, tower.get_level())
 
 

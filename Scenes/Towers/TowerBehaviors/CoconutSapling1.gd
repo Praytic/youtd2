@@ -99,7 +99,7 @@ func on_damage(event: Event):
 		var coconut_pos: Vector2 = target_pos + offset_vector
 		coconut_pos.y -= COCONUT_RANGE
 		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
-		projectile.setScale(0.30)
+		projectile.set_projectile_scale(0.30)
 		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
 		projectile.set_speed(random_speed)
 
