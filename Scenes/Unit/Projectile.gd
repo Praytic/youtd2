@@ -479,8 +479,8 @@ func get_target() -> Unit:
 
 
 # NOTE: projectile.setScale() in JASS
-func setScale(scale_arg: float):
-	scale = _initial_scale * scale_arg
+func setScale(value: float):
+	_visual_node.scale = Vector2.ONE * value
 
 
 func get_tower_crit_count() -> int:

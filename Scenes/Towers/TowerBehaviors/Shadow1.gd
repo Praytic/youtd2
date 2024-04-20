@@ -119,8 +119,8 @@ func on_attack(_event: Event):
 
 	for i in range(0, projectile_count):
 		var facing: float = i * 360.0 / projectile_count
-		Projectile.create(orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, facing)
-		# p.set_scale(1.75)
+		var p: Projectile = Projectile.create(orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, facing)
+		p.setScale(1.75)
 
 
 func on_kill(event: Event):
@@ -129,8 +129,8 @@ func on_kill(event: Event):
 	var x: float = creep.get_x()
 	var y: float = creep.get_y()
 	var damage_ratio: float = tower.get_current_attack_damage_with_bonus() * (0.03 + 0.0012 * level)
-	Projectile.create(lesser_orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, 0)
-	# p.set_scale(1.25)
+	var p: Projectile = Projectile.create(lesser_orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, 0)
+	p.setScale(1.25)
 
 
 func aura_bt_on_damage(event: Event):
