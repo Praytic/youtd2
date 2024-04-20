@@ -236,14 +236,14 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 
 # NOTE: "Storm()" in original script
 func do_soulstorm():
-	var shoot_pos: Vector2 = dutchman.get_position_wc3_2d()
+	var shoot_pos: Vector3 = dutchman.get_position_wc3()
 
 	if soul_count >= 2:
 		soul_count -= 2
 
-		var p1: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, 0.0, 0.0)
+		var p1: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, shoot_pos.z, 0.0)
 		p1.user_real = 14000.0
-		var p2: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, 0.0, 180.0)
+		var p2: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, shoot_pos.z, 180.0)
 		p2.user_real = 14000.0
 	else:
 		soulstorm_is_active = false
