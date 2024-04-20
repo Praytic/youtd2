@@ -25,6 +25,7 @@ var _interpolation_distance: float
 var _interpolation_progress: float = 0
 var _z_arc: float = 0
 var _is_homing: bool = false
+var _ignore_target_z: bool = false
 var _homing_control_value: float
 var _speed: float = 50
 var _acceleration: float = 0
@@ -195,7 +196,8 @@ func _process_normal(delta: float):
 #	the same time as target x and y.
 	var current_position: Vector3 = get_position_wc3()
 	var target_pos_is_defined: bool = _target_pos != Vector3.INF
-	if target_pos_is_defined:
+	var should_update_z: bool = target_pos_is_defined && !_ignore_target_z
+	if should_update_z:
 		var travel_vector: Vector3 = _target_pos - current_position
 		var travel_vector_flat: Vector3 = Vector3(travel_vector.x, travel_vector.y, 0)
 		var travel_angle_z: float = travel_vector.angle_to(travel_vector_flat)
@@ -617,39 +619,39 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 
 
 # NOTE: Projectile.createFromPointToPoint() in JASS
-static func create_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_pos: Vector3, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+static func create_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_pos: Vector3, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var from_unit: Unit = null
 	var target_unit: Unit = null
 	var targeted: bool = false
-	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, ignore_target_z, expire_when_reached)
 
 	return projectile
 
 
 # NOTE: Projectile.createFromUnitToPoint() in JASS
-static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var from_pos: Vector3 = Vector3.ZERO
 	var target_unit: Unit = null
 	var targeted: bool = false
-	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, ignore_target_z, expire_when_reached)
 
 	return projectile
 
 
 # NOTE: Projectile.createFromPointToUnit() in JASS
-static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_unit: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var from_unit: Unit = null
 	var target_pos: Vector3 = Vector3.ZERO
-	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, ignore_target_z, expire_when_reached)
 
 	return projectile
 
 
 # NOTE: Projectile.createFromUnitToUnit() in JASS
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var from_pos: Vector3 = Vector3.ZERO
 	var target_pos: Vector3 = Vector3.ZERO
-	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, ignore_target_z, expire_when_reached)
 
 	return projectile
 
@@ -744,7 +746,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	return projectile
 
 
-static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector3, target_unit: Unit, target_pos: Vector3, targeted: bool, expire_when_reached: bool) -> Projectile:
+static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector3, target_unit: Unit, target_pos: Vector3, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	if from_unit != null:
 		from_pos = from_unit.get_position_wc3()
 
@@ -752,6 +754,7 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 		target_pos = target_unit.get_position_wc3()
 
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
+	projectile._ignore_target_z = ignore_target_z
 
 #	NOTE: if projectile has a target but is not targeted,
 #	then it will travel towards the position at which the
