@@ -1255,9 +1255,9 @@ func set_level(new_level: int):
 
 # NOTE: Node2D.position and Node2D.get_position() return
 # position of node on the canvas, which is not the same as
-# the 3d position! Use get_position_isometric() instead of
+# the 3d position! Use get_position_canvas() instead of
 # get_position() to make the difference explicity.
-func get_position_isometric() -> Vector2:
+func get_position_canvas() -> Vector2:
 	return position
 
 
@@ -1298,10 +1298,8 @@ func set_z(z: float):
 	set_position_wc3(new_position_wc3)
 
 
-# Returns approximate position of the body part of unit in
-# the world. In isometric projectile, in pixels scale.
-# NOTE: this is the position in projected isometric space,
-# not 3d space!
+# Returns approximate position of the body part of unit on
+# the canvas coordinate space (not 3d wc3).
 # NOTE: body parts were used in original API based on
 # coordinates of body parts of 3D models. Approximate this
 # feature for 2d tiles by defining body part positions as:

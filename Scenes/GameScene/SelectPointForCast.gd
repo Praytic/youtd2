@@ -19,7 +19,7 @@ func finish(map: Map):
 	if !_in_progress():
 		return
 
-	var target_pos_isometric: Vector2 = map.get_local_mouse_position()
+	var target_pos_canvas: Vector2 = map.get_local_mouse_position()
 
 	var can_cast: bool = _autocast.can_cast()
 	if !can_cast:
@@ -27,7 +27,7 @@ func finish(map: Map):
 
 		return
 
-	var target_pos: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(target_pos_isometric)
+	var target_pos: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(target_pos_canvas)
 	var in_range: bool = _autocast.target_pos_is_in_range(target_pos)
 	if !in_range:
 		Messages.add_error(PlayerManager.get_local_player(), "Out of range")

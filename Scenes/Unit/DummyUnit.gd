@@ -43,7 +43,7 @@ func set_z(z: float):
 	set_position_wc3(new_position_wc3)
 
 
-func get_position_isometric() -> Vector2:
+func get_position_canvas() -> Vector2:
 	return position
 
 

@@ -13,7 +13,7 @@ static func make(item_uid_arg: int, position_arg: Vector2, src_item_container_ui
 
 
 static func execute(action: Dictionary, player: Player):
-	var position_isometric: Vector2 = action[Action.Field.POSITION]
+	var position_canvas: Vector2 = action[Action.Field.POSITION]
 	var item_uid: int = action[Action.Field.UID]
 	var src_item_container_uid: int = action[Action.Field.SRC_ITEM_CONTAINER_UID]
 
@@ -27,7 +27,7 @@ static func execute(action: Dictionary, player: Player):
 
 	src_item_container.remove_item(item)
 
-	var position_wc3_2d: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(position_isometric)
+	var position_wc3_2d: Vector2 = VectorUtils.canvas_pos_to_wc3_pos(position_canvas)
 	var position_wc3: Vector3 = Vector3(position_wc3_2d.x, position_wc3_2d.y, 0)
 	Item.make_item_drop(item, position_wc3)
 	item.fly_to_stash(0.0)
