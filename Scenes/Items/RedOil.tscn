@@ -97,7 +97,7 @@ animations = [{
 [node name="RedOil" instance=ExtResource("1_6qsdb")]
 script = ExtResource("2_3v3ie")
 
-[node name="CollisionPolygon2D" parent="SelectionArea" index="0"]
+[node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
 polygon = PackedVector2Array(38, -88, 34, 36, -34, 35, -36, -89)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
