@@ -285,13 +285,10 @@ func _get_path_point_wc3(index: int) -> Vector2:
 # it's z index so that the sprite is drawn correctly in
 # front of tiles.
 func _calculate_current_z_index() -> int:
-# 	TODO: "100" is the placeholder. Figure out actual logic
-# 	for how z_index of creep should change as it's height
-# 	increases.
-# 	NOTE: make z_index for air reeps 1 higher because air
-# 	creeps should always be drawn above any ground creep
-# 	which was elevated
-	if get_z() > 100:
+# 	NOTE: make z_index for air creeps 11 so that air creeps
+# 	are drawn above any ground creep which were temporarily
+# 	elevated.
+	if get_z() > 2 * Constants.TILE_SIZE_WC3:
 		if get_size() == CreepSize.enm.AIR:
 			return 11
 		else:

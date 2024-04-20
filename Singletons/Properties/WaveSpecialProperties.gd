@@ -180,9 +180,6 @@ func get_applicable_sizes(special: int) -> Array[CreepSize.enm]:
 # champion, then special can apply to whole wave but the
 # buff portion will apply only to the champion. Note that
 # health modifiers still apply to whole wave.
-#
-# TODO: double check if health modifiers apply to whole wave
-# if special is only for champions.
 func get_champion_or_boss_wave_only(special: int) -> bool:
 	var champion_or_boss_wave_only: bool = _get_property(special, CsvProperty.CHAMPION_OR_BOSS_WAVE_ONLY) == "TRUE"
 

@@ -254,7 +254,6 @@ func ashbringer_bounder_throw():
 	var bounces: int = 1
 
 	var p: Projectile = Projectile.create_linear_interpolation_from_point_to_point(bounder_pt, tower, 0, 0, Vector3(tower.get_x(), tower.get_y(), 110), Vector3(random_glaivesaw.position.x, random_glaivesaw.position.y, 0), 0)
-	# TODO: ???
 	p.user_int = random_glaivesaw_index
 	p.user_int2 = bounces
 	p.user_real = damage

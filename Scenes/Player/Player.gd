@@ -219,13 +219,6 @@ func add_score(amount: float):
 	_score += amount
 
 
-# TODO: not sure what the point of this f-n is. Leaving as
-# is because it's used in original scripts.
-# NOTE: Item.getThePlayer() in JASS
-func get_the_player() -> Player:
-	return self
-
-
 # NOTE: player.getTeam() in JASS
 func get_team() -> Team:
 	return _team
@@ -287,8 +280,6 @@ func display_small_floating_text(text: String, unit: Unit, color: Color, random_
 	_floating_text_container.add_child(floating_text)
 
 
-# TODO: Move to the "owner" class that is returned by
-# get_player() when owner class is implemented
 # NOTE: player.giveGold() in JASS
 func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	add_gold(amount)

@@ -213,8 +213,7 @@ func on_autocast(event: Event):
 	var p: Projectile
 	p = Projectile.create_from_unit_to_unit(sprite_pt, tower, 0, 0, tower, event.get_target(), true, false, false)
 	p.set_projectile_scale(_stats.projectile_scale)
-# 	TODO:
-# 	p.color(50, 255, 50, 255)
+	p.set_color(Color8(50, 255, 50, 255))
 
 
 func on_create(_preceding_tower: Tower):

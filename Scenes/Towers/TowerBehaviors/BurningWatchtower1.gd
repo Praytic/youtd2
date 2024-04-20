@@ -1,11 +1,6 @@
 extends TowerBehavior
 
 
-# TODO: original script calls display_small_floating_text on
-# attacker.get_player() object but currently owner-specific
-# floating text isn't implemented
-
-
 var burning_bt: BuffType
 
 

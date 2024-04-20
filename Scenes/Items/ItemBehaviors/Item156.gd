@@ -2,11 +2,6 @@
 extends ItemBehavior
 
 
-# TODO: check whether this item assumes that
-# get_base_mana_regen_bonus_percent starts from 0.0 or 1.0.
-# Current implementation is that it starts from 1.0
-
-
 func get_ability_description() -> String:
 	var text: String = ""
 
@@ -29,11 +24,14 @@ func on_damage(event: Event):
 	if item.user_int >= 5:
 		CombatLog.log_item_ability(item, null, "Infuse with Regeneration")
 		
-#		NOTE: original script multiplied damage directly by
-#		regen. Regen can be negative which caused negative
-#		damage. Fixed issue by limiting multiplier to 0 or
-#		above.
-		event.damage = event.damage * max(0, regen)
+#		NOTE: original script multiplies damage by (2.0 +
+#		regen). In original youtd, regen value starts at
+#		0.0. In youtd2 regen starts at 1.0. So in original
+#		game damage was multiplied by 2.0 as baseline?
+#		Changed it to mutiply by 1.0 or above, so that if
+#		regen is decreased below 100%, damage is not
+#		decreased.
+		event.damage *= max(1.0, regen)
 		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		carrier.get_player().display_small_floating_text(damage_text, carrier, Color8(255, 0, 255), 40.0)

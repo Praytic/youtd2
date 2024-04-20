@@ -2,6 +2,11 @@
 extends ItemBehavior
 
 
+# NOTE: original script moves lifted creeps a little by
+# random offset. Removed it because youtd2 creeps are
+# supposed to always be "on rails", on creep path.
+
+
 var ascended_bt: BuffType
 
 
@@ -33,8 +38,6 @@ func ascended_bt_on_create(event: Event):
 func ascended_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
-#	TODO: implement move to point
-# 	c.move_to_point(c.getX() + GetRandomReal(-5, 5), c.getY() + GetRandomReal(-5, 5), true)
 	c.set_unit_facing(c.get_unit_facing() + 125)
 
 

@@ -5,8 +5,6 @@ extends SpellDummy
 # Deals damage in a cone from caster to target. Works as a
 # moving AoE which expands as it gets closer to target.
 
-# TODO: improve visuals
-
 # TODO: make this spell deal damage the same way as in
 # original youtd. Current implementation is a barebones
 # approximation.

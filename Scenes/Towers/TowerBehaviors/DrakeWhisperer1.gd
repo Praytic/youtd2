@@ -481,9 +481,7 @@ func generic_drake_pt_periodic(p: Projectile):
 
 	p.disable_periodic()
 
-# 	TODO: process z component
-	var start_pos: Vector2 = Vector2(drake.start_pos.x, drake.start_pos.y)
-	p.set_position_wc3_2d(start_pos)
+	p.set_position_wc3(drake.start_pos)
 	p.set_speed(0)
 	drake.state = DrakeState.IDLE
 
