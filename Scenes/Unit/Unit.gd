@@ -114,6 +114,7 @@ var _uid: int = 0
 # NOTE: up axis is positive z, down axis is negative z.
 var _position_wc3: Vector3
 var _initial_sprite_scale: Vector2 = Vector2.ONE
+var _initial_sprite_position: Vector2 = Vector2.ZERO
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -258,6 +259,15 @@ func set_unit_scale(value: float):
 	var scale_total: Vector2 = _initial_sprite_scale * value
 	_sprite_node.scale = scale_total
 	_selection_outline.scale = scale_total
+	
+#	NOTE: need to multiply sprite position by scale so that
+#	scale doesn't change the intended position of sprite.
+#	For example, if sprite is positioned at (0, 40) and unit
+#	scale is 2x, then sprite position should change to (0, 80)
+#	to account for scale multiplaying position when drawing.
+	var position_total: Vector2 = _initial_sprite_position * value
+	_sprite_node.position = position_total
+	_selection_outline.position = position_total
 
 
 func get_uid() -> int:
@@ -1061,6 +1071,7 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 	_sprite_node.modulate = _base_sprite_color
 
 	_initial_sprite_scale = sprite_node.scale
+	_initial_sprite_position = sprite_node.position
 
 #	NOTE: create a duplicate sprite to use it as selection
 #	outline. Outline is implemented by using a shader which
