@@ -175,7 +175,7 @@ func get_missile_speed(tower_id: int) -> int:
 
 
 func get_missile_arc(tower_id: int) -> float:
-	var arc: float = _get_property(tower_id, CsvProperty.MISSILE_SPEED) as float
+	var arc: float = _get_property(tower_id, CsvProperty.MISSILE_ARC) as float
 
 	return arc
 
