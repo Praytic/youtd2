@@ -146,6 +146,10 @@ func periodic(event: Event):
 
 		return
 
+	var reached_max_growth: bool = growth_count >= 40
+	if reached_max_growth:
+		return
+
 	CombatLog.log_ability(tower, null, "Growth")
 
 	var spell_damage_bonus: float = 0.03 + 0.0012 * lvl
