@@ -222,7 +222,7 @@ func move_to_point(point: Vector2):
 
 # NOTE: creep.adjustHeight() in JASS
 # NOTE: can't use tween here because it causes desync.
-func adjust_height(height_wc3: float, speed_wc3: float):
+func adjust_height(height: float, speed: float):
 #	NOTE: can't create tween's while node is outside tree.
 #	If creep is outside tree then it's okay to do nothing
 #	because creep is about to get deleted anyway.
@@ -236,13 +236,8 @@ func adjust_height(height_wc3: float, speed_wc3: float):
 	if creep_is_air:
 		return
 	
-# 	NOTE: divide by two because in isometric world vertical
-# 	axis is squished
-	var height_pixels: float = Utils.to_pixels(height_wc3) / 2
-	var speed_pixels: float = Utils.to_pixels(speed_wc3) / 2
-
-	_target_height += height_pixels
-	_height_change_speed = speed_pixels
+	_target_height += height
+	_height_change_speed = speed
 
 
 # NOTE: creep.dropItem() in JASS
