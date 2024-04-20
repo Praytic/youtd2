@@ -604,37 +604,14 @@ func _on_player_requested_to_build_tower(tower_id: int):
 	_build_tower.start(tower_id, local_player)
 
 
-func _on_player_requested_to_upgrade_tower(tower: Tower):
-	var prev_id: int = tower.get_id()
-	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(tower.get_id())
-
-	if upgrade_id == -1:
-		print_debug("Failed to find upgrade id")
-
+func _on_player_requested_to_upgrade_tower(preceding_tower: Tower):
+	var verify_ok: bool = ActionUpgradeTower.verify(preceding_tower)
+	if !verify_ok:
 		return
 
-	var local_player: Player = PlayerManager.get_local_player()
-
-	var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
-
-	if !enough_gold:
-		Messages.add_error(local_player, "Not enough gold.")
-
-		return
-
-	var preceding_tower: Tower = tower
-	var upgrade_tower: Tower = Tower.make(upgrade_id, local_player, preceding_tower)
-	var preceding_tower_pos: Vector2 = preceding_tower.get_position_wc3_2d()
-	upgrade_tower.set_position_wc3_2d(preceding_tower_pos)
-	Utils.add_object_to_world(upgrade_tower)
-	tower.remove_from_game()
-
-	_select_unit.set_selected_unit(upgrade_tower)
-
-	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
-	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
-	local_player.add_gold(refund_for_prev_tier)
-	local_player.spend_gold(upgrade_cost)
+	var preceding_tower_uid: int = preceding_tower.get_uid()
+	var action: Action = ActionUpgradeTower.make(preceding_tower_uid)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_to_sell_tower(tower: Tower):
