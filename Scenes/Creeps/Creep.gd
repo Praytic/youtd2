@@ -460,8 +460,8 @@ func _on_death(_event: Event):
 	if _size != CreepSize.enm.AIR:
 		var death_animation: String = _get_death_animation()
 		var corpse: CreepCorpse = CreepCorpse.make(get_player(), _sprite, death_animation)
-		var creep_pos: Vector3 = get_position_wc3()
-		corpse.set_position_wc3(creep_pos)
+		var corpse_pos: Vector3 = Vector3(get_x(), get_y(), 0)
+		corpse.set_position_wc3(corpse_pos)
 		Utils.add_object_to_world(corpse)
 
 		var blood_pool: Node2D = Preloads.blood_pool_scene.instantiate()
