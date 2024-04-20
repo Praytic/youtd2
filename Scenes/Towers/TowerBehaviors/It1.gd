@@ -264,6 +264,6 @@ func it_kill():
 		sum.size += mod
 
 	if sum.size < 3.7:
-		# TODO: implement when unit scale is implemented
-		# SetUnitScale(tower, sum.size - 2.7, sum.size, sum.size)
-		return
+		var diff_from_initial: float = sum.size - 3.0
+		var tower_scale: float = 1.0 + diff_from_initial
+		tower.set_unit_scale(tower_scale)
