@@ -158,9 +158,11 @@ func periodic(event: Event):
 
 	growth_count += 1
 
-#	TODO: implement Unit.set_unit_scale()
-#	var scale_from_growth: float = 1.25 + 0.015 * growth_count
-#	SetUnitScale(tower, scale_from_growth)
+# 	NOTE: in original script, scale starts from 1.25.
+# 	Changed to start from 1.0 because 1.25 value made scale
+# 	jump from 1.0 to 1.25 after first change.
+	var scale_from_growth: float = 1.0 + 0.015 * growth_count
+	tower.set_unit_scale(scale_from_growth)
 
 	var periodic_time: float = 20 - 0.4 * lvl
 	event.enable_advanced(periodic_time, false)

@@ -131,9 +131,12 @@ func on_attack(event: Event):
 		tower.get_player().display_floating_text(floating_text, tower, Color8(255, 100, 100))
 
 #		Increase model size
-#		TODO: set_unit_scale() is not implemented yet
 		growth_count += 1
-		# tower.set_unit_scale(0.9 + 0.001 * growth_count)
+# 		NOTE: in original script, scale starts from 0.9.
+# 		Changed to start from 1.0 because 0.9 value made
+# 		scale jump from 1.0 to 0.9 after first change.
+		var unit_scale: float = 1.0 + 0.001 * growth_count
+		tower.set_unit_scale(unit_scale)
 
 	if attack_count >= 420:
 		attack_count = 0
