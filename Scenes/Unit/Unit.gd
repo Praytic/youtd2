@@ -113,6 +113,7 @@ static var _uid_max: int = 1
 var _uid: int = 0
 # NOTE: up axis is positive z, down axis is negative z.
 var _position_wc3: Vector3
+var _initial_sprite_scale: Vector2 = Vector2.ONE
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -252,6 +253,12 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_unit_scale(value: float):
+	var scale_total: Vector2 = _initial_sprite_scale * value
+	_sprite_node.scale = scale_total
+	_selection_outline.scale = scale_total
+
 
 func get_uid() -> int:
 	return _uid
@@ -1052,6 +1059,8 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 
 	_sprite_node = sprite_node
 	_sprite_node.modulate = _base_sprite_color
+
+	_initial_sprite_scale = sprite_node.scale
 
 #	NOTE: create a duplicate sprite to use it as selection
 #	outline. Outline is implemented by using a shader which
