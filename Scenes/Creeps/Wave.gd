@@ -409,10 +409,6 @@ static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.e
 
 	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
 		total_unit_count = 1
-	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
-#		TODO: implement real formula for this. 10 is
-#		placeholder value.
-		total_unit_count = 10
 	elif champion_count > 0:
 		total_unit_count = (wave_capacity - champion_count * champion_weight) / unit_weight + champion_count
 		champion_unit_ratio = float(total_unit_count) / champion_count
