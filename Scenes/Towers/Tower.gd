@@ -175,12 +175,6 @@ func _ready():
 #	dimensions here like for creeps.
 	_set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
 
-	selected.connect(_on_selected)
-	unselected.connect(_on_unselected)
-
-#	Hide range indicators at creation
-	_on_unselected()
-
 	_temp_preceding_tower = null
 	
 	# Need to create instance only if Tower has active specials
@@ -602,18 +596,14 @@ func _get_next_bounce_target(bounce_pos: Vector3, visited_list: Array[Unit]) -> 
 ###     Callbacks     ###
 #########################
 
-func _on_selected():
+func _on_selected_changed():
+	var selected_value: bool = is_selected()
+	
 	for indicator in _range_indicator_list:
-		indicator.show()
+		indicator.visible = selected_value
 
-	if belongs_to_local_player():
-		_tower_actions.show()
-
-
-func _on_unselected():
-	for indicator in _range_indicator_list:
-		indicator.hide()
-	_tower_actions.hide()
+	var tower_actions_visible: bool = selected_value && belongs_to_local_player()
+	_tower_actions.visible = tower_actions_visible
 
 
 func _on_target_tree_exited(target: Creep):

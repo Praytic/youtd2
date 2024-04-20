@@ -34,10 +34,8 @@ signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
 signal buff_list_changed()
 signal buff_group_changed()
-
-
-signal selected()
-signal unselected()
+signal selected_changed()
+signal hovered_changed()
 
 
 enum DamageSource {
@@ -94,6 +92,7 @@ var _base_health_regen: float = 0.0
 var _invisible: bool = false
 var _immune: bool = false
 var _selected: bool = false : get = is_selected
+var _hovered: bool = false
 var _experience: float = 0.0
 var _mana: float = 0.0
 var _base_mana: float = 0.0
@@ -1664,11 +1663,21 @@ func set_hovered(hovered: bool):
 	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
 	_selection_indicator.set_visible(hovered)
 	_selection_outline.set_visible(hovered)
+	_hovered = hovered
+	hovered_changed.emit()
 
 
 func is_selected() -> bool:
 	return _selected
 
+
+func is_hovered() -> bool:
+	return _hovered
+
+
+# NOTE: this function only changes the visual state of this
+# unit - it doesn't make it THE selected unit. SelectUnit
+# does that.
 func set_selected(selected_arg: bool):
 	var selection_color: Color
 	if self is Creep:
@@ -1681,11 +1690,8 @@ func set_selected(selected_arg: bool):
 	_selection_outline.material.set_shader_parameter("line_color", selection_color)
 	_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg
+	selected_changed.emit()
 
-	if selected_arg:
-		selected.emit()
-	else:
-		unselected.emit()
 
 # Implemented by Tower and Creep to return tower element or
 # creep category

@@ -636,6 +636,7 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 		range_indicator.set_radius(indicator_radius)
 		var range_color: Color = RangeData.get_color_for_index(i)
 		range_indicator.color = range_color
+		range_indicator.visible = false
 
 #		NOTE: range indicators which affect towers will be
 #		drawn at same height as tower.

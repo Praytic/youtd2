@@ -14,3 +14,5 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
+
+[connection signal="selected_changed" from="." to="." method="_on_selected_changed"]

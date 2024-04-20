@@ -469,6 +469,15 @@ func _on_death(_event: Event):
 		Utils.add_object_to_world(blood_pool)
 
 
+func _on_selected_changed():
+	_specials_icon_container.visible = is_selected()
+
+
+func _on_hovered_changed():
+	var specials_visible: bool = is_hovered() || is_selected()
+	_specials_icon_container.visible = specials_visible
+
+
 #########################
 ### Setters / Getters ###
 #########################
@@ -589,16 +598,3 @@ func get_special_list() -> Array[int]:
 
 func set_special_list(special_list: Array[int]):
 	_special_list = special_list
-
-
-func set_hovered(hovered: bool):
-	super.set_hovered(hovered)
-	if hovered:
-		_specials_icon_container.set_visible(hovered)
-	else:
-		_specials_icon_container.set_visible(is_selected())
-
-
-func set_selected(value: bool):
-	super.set_selected(value)
-	_specials_icon_container.set_visible(value)
