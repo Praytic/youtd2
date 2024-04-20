@@ -51,7 +51,9 @@ const QUARTER_OFFSET_LIST_BIG: Array[Vector2] = [
 	Constants.TILE_SIZE * Vector2(-0.5, -0.25),
 ]
 
-var _occupied_quarter_list: Array[Vector2] = []
+# NOTE: need to use Vector2i to avoid problems with Vector2
+# being slightly not equal because of float components.
+var _occupied_quarter_list: Array[Vector2i] = []
 
 
 #########################
@@ -211,7 +213,8 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 
 
 func quarter_is_occupied(pos: Vector2) -> bool:
-	var occupied: bool = _occupied_quarter_list.has(pos)
+	var pos_int: Vector2i = Vector2i(pos)
+	var occupied: bool = _occupied_quarter_list.has(pos_int)
 
 	return occupied
 
@@ -225,7 +228,8 @@ func add_space_occupied_by_tower(tower: Tower):
 	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
 
 	for pos in occupied_list:
-		_occupied_quarter_list.append(pos)
+		var pos_int: Vector2i = Vector2i(pos)
+		_occupied_quarter_list.append(pos_int)
 
 
 # When tower is sold, clear space which was used to be
@@ -234,7 +238,8 @@ func clear_space_occupied_by_tower(tower: Tower):
 	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
 
 	for pos in occupied_list:
-		_occupied_quarter_list.erase(pos)
+		var pos_int: Vector2i = Vector2i(pos)
+		_occupied_quarter_list.erase(pos_int)
 
 
 #########################
