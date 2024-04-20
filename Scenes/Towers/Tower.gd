@@ -88,8 +88,8 @@ func _ready():
 	_mana_bar.visible = get_base_mana() > 0
 
 	var missile_speed: int = TowerProperties.get_missile_speed(get_id())
-	_default_projectile_type = ProjectileType.create("", 0.0, missile_speed, self)
-	_default_projectile_type.enable_homing(_on_projectile_target_hit, 0.0)
+	_default_projectile_type = ProjectileType.create_interpolate("", missile_speed, self)
+	_default_projectile_type.set_event_on_interpolation_finished(_on_projectile_target_hit)
 
 # 	Carry over some properties and all items from preceding
 # 	tower
@@ -336,7 +336,8 @@ func _target_is_valid(target) -> bool:
 # will need to rework this if we decide to make separate
 # projectile sprites for each element.
 func _make_projectile(from_pos: Vector3, target: Unit) -> Projectile:
-	var projectile: Projectile = Projectile.create_from_point_to_unit(_default_projectile_type, self, 0, 0, from_pos, target, true, false, false)
+	var z_arc: float = TowerProperties.get_missile_arc(get_id())
+	var projectile: Projectile = Projectile.create_linear_interpolation_from_point_to_unit(_default_projectile_type, self, 0, 0, from_pos, target, z_arc, true)
 
 	var element_color: Color
 	var element: Element.enm = get_element()
