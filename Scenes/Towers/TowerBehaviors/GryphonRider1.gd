@@ -137,7 +137,7 @@ func on_autocast(event: Event):
 
 	var hammer_pos: Vector2 = target.get_position_wc3_2d()
 	hammer_pos.y -= HAMMER_RANGE
-	var p: Projectile = Projectile.create(hammer_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), hammer_pos.x, hammer_pos.y, 0.0, 90)
+	var p: Projectile = Projectile.create(hammer_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), Vector3(hammer_pos.x, hammer_pos.y, 0), 90)
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.PLAYER_TOWERS), 2500.0)
 	var damage_multiplier: float = 1.0
@@ -164,11 +164,11 @@ func stormbolt_pt_on_hit(p: Projectile, target: Unit):
 		var stormbolt_damage: float = tower.get_current_attack_damage_with_bonus()
 		deal_damage(target, stormbolt_damage)
 
-	line_damage(p.get_x(), p.get_y(), p.get_direction())
+	line_damage(Vector2(p.get_x(), p.get_y()), p.get_direction())
 
 
 func hammer_pt_on_expiration(p: Projectile):
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 600.0)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 600.0)
 	var hammer_damage: float = p.user_real
 
 	while true:
@@ -229,12 +229,11 @@ func deal_damage(target: Unit, damage: float):
 	tower.do_attack_damage(target, damage * phys, tower.calc_attack_multicrit(crit, 0, 0))
 
 
-func line_damage(origin_x: float, origin_y: float, direction: float):
+func line_damage(origin_pos: Vector2, direction: float):
 	var distance: float = 128.0
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 	var i: int = 0
 	var dmg_multiplier: float = 0.6 + 0.012 * tower.get_level()
-	var origin_pos: Vector2 = Vector2(origin_x, origin_y)
 
 	while true:
 		if i >= 5 || !Utils.unit_is_valid(tower):
@@ -244,7 +243,7 @@ func line_damage(origin_x: float, origin_y: float, direction: float):
 		var offset: Vector2 = Vector2.from_angle(deg_to_rad(direction)) * current_distance
 		var current_pos: Vector2 = origin_pos + offset
 
-		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), current_pos.x, current_pos.y, 85)
+		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(current_pos.x, current_pos.y), 85)
 
 		while true:
 			var next: Unit = it.next()
@@ -254,9 +253,9 @@ func line_damage(origin_x: float, origin_y: float, direction: float):
 
 			deal_damage(next, damage)
 
-		var clap_effect: int = Effect.create_scaled("ThunderClapCaster", current_pos.x, current_pos.y, 0.0, 0.0, 5)
+		var clap_effect: int = Effect.create_scaled("ThunderClapCaster", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 5)
 		Effect.set_lifetime(clap_effect, 1.5)
-		var bolt_effect: int = Effect.create_colored("MonsoonBoltTarget", current_pos.x, current_pos.y, 0.0, 0.0, 5, Color8(0, 0, 0, 255))
+		var bolt_effect: int = Effect.create_colored("MonsoonBoltTarget", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 5, Color8(0, 0, 0, 255))
 		Effect.set_lifetime(bolt_effect, 2.5)
 
 		damage *= dmg_multiplier

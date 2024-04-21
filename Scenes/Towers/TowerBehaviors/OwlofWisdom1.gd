@@ -138,5 +138,5 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	
 	tower.do_spell_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
 
-	var effect: int = Effect.create_colored("WispExplode.mdl", projectile.get_x(), projectile.get_y(), 0.0, 0, 5, Color.BLUE)
+	var effect: int = Effect.create_colored("WispExplode.mdl", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 5, Color.BLUE)
 	Effect.set_lifetime(effect, 1.0)

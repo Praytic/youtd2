@@ -68,14 +68,12 @@ func tower_init():
 func on_autocast(_event: Event):
 	var level: int = tower.get_level()
 	var projectile_count: int = 3 + level / 5
-	var x: float = tower.get_visual_x()
-	var y: float = tower.get_visual_y()
 
 #	TODO: need to implement set_start_roation()
 	# orb_pt.set_start_roation(1.2 * Globals.synced_rng.randi_range(1, 2))
 
 	for i in range(0, projectile_count):
-		var p: Projectile = Projectile.create(orb_pt, tower, 1.0 + 0.05 * level, tower.calc_spell_crit_no_bonus(), x, y, 80, i * 360 / projectile_count)
+		var p: Projectile = Projectile.create(orb_pt, tower, 1.0 + 0.05 * level, tower.calc_spell_crit_no_bonus(), tower.get_position_wc3(), i * 360 / projectile_count)
 		p.set_projectile_scale(2.0)
 
 
@@ -85,11 +83,11 @@ func orb_pt_periodic(p: Projectile):
 	if !tower.calc_chance(lightning_chance):
 		return
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 650.0)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 650.0)
 	var next: Unit = it.next()
 
 	if next != null:
-		lightning_st.target_cast_from_point(tower, next, p.get_x(), p.get_y(), p.get_dmg_ratio(), p.get_crit_ratio())
+		lightning_st.target_cast_from_point(tower, next, Vector2(p.get_x(), p.get_y()), p.get_dmg_ratio(), p.get_crit_ratio())
 
 
 func lightning_st_on_damage(event: Event, _dummy_unit: DummyUnit):

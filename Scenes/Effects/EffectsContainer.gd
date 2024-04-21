@@ -26,11 +26,10 @@ const PRINT_INVALID_PATH_ERROR: bool = false
 #########################
 
 # NOTE: effect must be an AnimatedSprite2D scene
-func create_animated(effect_path: String, x: float, y: float, z: float, _facing: float) -> int:
+func create_animated(effect_path: String, effect_pos: Vector3, _facing: float) -> int:
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
-	var pos_wc3: Vector3 = Vector3(x, y, z)
-	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(pos_wc3)
+	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(effect_pos)
 	effect.position = pos_canvas
 	add_child(effect)
 	effect.play()

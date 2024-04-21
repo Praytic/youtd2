@@ -117,11 +117,11 @@ func on_attack(event: Event):
 	var creep_count: int = it_for_count.count()
 
 #	do effects
-	var effect1: int = Effect.create_simple("ThunderClapCaster.mdl", x, y)
+	var effect1: int = Effect.create_simple("ThunderClapCaster.mdl", Vector2(x, y))
 	Effect.destroy_effect_after_its_over(effect1)
-	var effect2: int = Effect.create_simple("CycloneTarget.mdl", x, y)
+	var effect2: int = Effect.create_simple("CycloneTarget.mdl", Vector2(x, y))
 	Effect.destroy_effect_after_its_over(effect2)
-	var effect3: int = Effect.create_simple("ManaDrainTarget.mdl", x, y)
+	var effect3: int = Effect.create_simple("ManaDrainTarget.mdl", Vector2(x, y))
 	Effect.set_lifetime(effect3, 1.0)
 
 # 	Adjust ratios against air

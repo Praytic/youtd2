@@ -66,9 +66,9 @@ func shard_pt_on_expiration(p: Projectile):
 	if splits_remaining > 0:
 		splits_remaining -= 1
 		p.user_int = splits_remaining
-		p = Projectile.create(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), p.get_x(), p.get_y(), p.get_z(), angle + 15.0)
+		p = Projectile.create(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), p.get_position_wc3(), angle + 15.0)
 		p.user_int = splits_remaining
-		p = Projectile.create(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), p.get_x(), p.get_y(), p.get_z(), angle - 15.0)
+		p = Projectile.create(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), p.get_position_wc3(), angle - 15.0)
 		p.user_int = splits_remaining
 
 

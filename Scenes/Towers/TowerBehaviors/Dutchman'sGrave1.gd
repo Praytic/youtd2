@@ -241,9 +241,9 @@ func do_soulstorm():
 	if soul_count >= 2:
 		soul_count -= 2
 
-		var p1: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, shoot_pos.z, 0.0)
+		var p1: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos, 0.0)
 		p1.user_real = 14000.0
-		var p2: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos.x, shoot_pos.y, shoot_pos.z, 180.0)
+		var p2: Projectile = Projectile.create(soulstorm_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), shoot_pos, 180.0)
 		p2.user_real = 14000.0
 	else:
 		soulstorm_is_active = false
@@ -260,7 +260,7 @@ func soul_pt_on_hit(_p: Projectile, target: Unit):
 
 # NOTE: "NAttackFunc()" in original script
 func shoot_cannonball():
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), dutchman.get_x(), dutchman.get_y(), 800)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(dutchman.get_x(), dutchman.get_y()), 800)
 	var next: Unit = it.next_random()
 
 	if next != null:
@@ -276,7 +276,7 @@ func shoot_soul():
 	if soul_count < 1:
 		return
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), dutchman.get_x(), dutchman.get_y(), 1200)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(dutchman.get_x(), dutchman.get_y()), 1200)
 
 	var shoot_pos: Vector3 = dutchman.get_position_wc3()
 

@@ -103,16 +103,17 @@ func on_autocast(_event: Event):
 		return
 
 	var boom: int
-	boom = Effect.create_animated_scaled("WispExplode.mdl", x, y, 0, 0, 8.0)
+	var effect_pos: Vector3 = Vector3(x, y, 0)
+	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
 	Effect.set_animation_speed(boom, 0.6)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", x, y, 0, 0, 8.0)
+	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
 	Effect.set_animation_speed(boom, 0.7)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", x, y, 0, 0, 8.0)
+	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
 	Effect.set_animation_speed(boom, 0.8)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", x, y, 0, 0, 8.0)
+	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
 	Effect.set_animation_speed(boom, 0.9)
 	Effect.set_lifetime(boom, 2.0)
 

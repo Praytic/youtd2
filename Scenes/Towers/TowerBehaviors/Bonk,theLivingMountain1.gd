@@ -127,7 +127,7 @@ func on_damage(event: Event):
 		return
 
 	tower.do_spell_damage(creep, crush_damage, tower.calc_spell_crit_no_bonus())
-	var effect: int = Effect.create_scaled("ImpaleTargetDust.mdl", creep.get_x(), creep.get_y(), 0.0, 0, 5)
+	var effect: int = Effect.create_scaled("ImpaleTargetDust.mdl", Vector3(creep.get_x(), creep.get_y(), 0.0), 0, 5)
 	Effect.set_lifetime(effect, 3.0)
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 500)
@@ -153,7 +153,7 @@ func periodic(_event: Event):
 	if reached_max_growth:
 		return
 
-	var effect: int = Effect.create_scaled("EntanglingRootsTarget.mdl", tower.get_x(), tower.get_y(), 30.0, 0, 5)
+	var effect: int = Effect.create_scaled("EntanglingRootsTarget.mdl", tower.get_position_wc3(), 0, 5)
 	Effect.set_lifetime(effect, 1.0)
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.03 + 0.001 * level)

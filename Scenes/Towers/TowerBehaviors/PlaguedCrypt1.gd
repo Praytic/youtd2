@@ -110,13 +110,13 @@ func on_tower_details():
 
 
 func periodic(_event: Event):
-	var it: Iterate = Iterate.over_corpses_in_range(tower, tower.get_x(), tower.get_y(), 1150)
+	var it: Iterate = Iterate.over_corpses_in_range(tower, Vector2(tower.get_x(), tower.get_y()), 1150)
 	var corpse: Unit = it.next_corpse()
 
 	if corpse == null:
 		return
 
-	var effect: int = Effect.add_special_effect("RaiseSkeleton.mdl", corpse.get_x(), corpse.get_y())
+	var effect: int = Effect.add_special_effect("RaiseSkeleton.mdl", Vector2(corpse.get_x(), corpse.get_y()))
 	Effect.destroy_effect_after_its_over(effect)
 
 	corpse.remove_from_game()

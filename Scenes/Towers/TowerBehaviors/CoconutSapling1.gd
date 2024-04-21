@@ -98,7 +98,7 @@ func on_damage(event: Event):
 		var offset_vector: Vector2 = Vector2(radius, 0).rotated(angle)
 		var coconut_pos: Vector2 = target_pos + offset_vector
 		coconut_pos.y -= COCONUT_RANGE
-		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
+		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), Vector3(coconut_pos.x, coconut_pos.y, 0), 90)
 		projectile.set_projectile_scale(0.30)
 		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
 		projectile.set_speed(random_speed)
@@ -107,10 +107,10 @@ func on_damage(event: Event):
 func coco_pt_on_hit(p: Projectile):
 	var caster: Unit = p.get_caster()
 	var pos: Vector2 = p.get_position_wc3_2d()
-	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), pos.x, pos.y, 150)
+	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), Vector2(pos.x, pos.y), 150)
 	var dmg: float = _stats.coconut_damage + _stats.coconut_damage_add * caster.get_level()
 
-	var effect: int = Effect.add_special_effect("WarStompCaster.mdl", pos.x, pos.y)
+	var effect: int = Effect.add_special_effect("WarStompCaster.mdl", pos)
 	Effect.destroy_effect_after_its_over(effect)
 
 	while true:

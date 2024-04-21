@@ -9,7 +9,7 @@ extends Node
 
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
-func create_animated(effect_path: String, x: float, y: float, z: float, facing: float) -> int:
+func create_animated(effect_path: String, effect_pos: Vector3, facing: float) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
@@ -17,19 +17,20 @@ func create_animated(effect_path: String, x: float, y: float, z: float, facing: 
 
 		return 0
 
-	var id: int = effects_container.create_animated(effect_path, x, y, z, facing)
+	var id: int = effects_container.create_animated(effect_path, effect_pos, facing)
 
 	return id
 
 
 # NOTE: Effect.createAnimatedScaled() in JASS
-func create_animated_scaled(effect_path: String, x: float, y: float, z: float, mystery1: float, _scale: float) -> int:
-	return create_animated(effect_path, x, y, z, mystery1)
+func create_animated_scaled(effect_path: String, effect_pos: Vector3, mystery1: float, _scale: float) -> int:
+	return create_animated(effect_path, effect_pos, mystery1)
 
 
 # NOTE: Effect.createSimple() in JASS
-func create_simple(effect_path: String, x: float, y: float) -> int:
-	return create_animated(effect_path, x, y, 0.0, 0.0)
+func create_simple(effect_path: String, effect_pos: Vector2) -> int:
+	var effect_pos_3d: Vector3 = Vector3(effect_pos.x, effect_pos.y, 0)
+	return create_animated(effect_path, effect_pos_3d, 0.0)
 
 # NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
@@ -56,21 +57,22 @@ func add_special_effect_target(effect_path: String, unit: Unit, body_part: Unit.
 
 
 # NOTE: AddSpecialEffect() in JASS()
-func add_special_effect(effect_path: String, x: float, y: float) -> int:
-	return create_animated(effect_path, x, y, 0.0, 0.0)
+func add_special_effect(effect_path: String, effect_pos: Vector2) -> int:
+	var effect_pos_3d: Vector3 = Vector3(effect_pos.x, effect_pos.y, 0)
+	return create_animated(effect_path, effect_pos_3d, 0.0)
 
 
 # NOTE: Effect.createScaled() in JASS()
-func create_scaled(effect_path: String, x: float, y: float, z: float, facing: float, scale: float) -> int:
-	var effect: int = create_animated(effect_path, x, y, z, facing)
+func create_scaled(effect_path: String, effect_pos: Vector3, facing: float, scale: float) -> int:
+	var effect: int = create_animated(effect_path, effect_pos, facing)
 	Effect.set_scale(effect, scale)
 
 	return effect
 
 
 # NOTE: Effect.createColored() in JASS()
-func create_colored(effect_path: String, x: float, y: float, z: float, facing: float, scale: float, color: Color):
-	var effect: int = create_animated(effect_path, x, y, z, facing)
+func create_colored(effect_path: String, effect_pos: Vector3, facing: float, scale: float, color: Color):
+	var effect: int = create_animated(effect_path, effect_pos, facing)
 	Effect.set_scale(effect, scale)
 	Effect.set_color(effect, color)
 

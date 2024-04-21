@@ -274,7 +274,7 @@ func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
 	p.avert_destruction()
 
 #	TODO: replace with real effect visual, original name is "FrostBoltMissile"
-	var effect: int = Effect.create_scaled("res://Scenes/Effects/StunVisual.tscn", icicle_x, icicle_y, 200, angle, 5)
+	var effect: int = Effect.create_scaled("res://Scenes/Effects/StunVisual.tscn", Vector3(icicle_x, icicle_y, 200), angle, 5)
 	Effect.no_death_animation(effect)
 	icicle.effect = effect
 
@@ -382,7 +382,7 @@ func ashbringer_icy_bombardment(target: Unit):
 func bombardment_pt_on_hit(p: Projectile):
 	var launch_x: float = p.user_real
 	var launch_y: float = p.user_real2
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), launch_x, launch_y, 200)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(launch_x, launch_y), 200)
 	var damage: float = tower.get_current_attack_damage_with_bonus() * (0.25 + 0.006 * tower.get_level())
 	var icicle_chance: float = 0.05 + 0.001 * tower.get_level()
 

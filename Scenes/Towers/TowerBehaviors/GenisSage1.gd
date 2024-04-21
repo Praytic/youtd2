@@ -140,7 +140,7 @@ func on_attack(event: Event):
 
 		var edge_angle: float = deg_to_rad(facing + angle)
 
-		swarm_st.point_cast_from_caster_on_point(tower, x + 900 * cos(edge_angle), y + 900 * sin(edge_angle), edge_damage, tower.calc_spell_crit_no_bonus())
+		swarm_st.point_cast_from_caster_on_point(tower, Vector2(x + 900 * cos(edge_angle), y + 900 * sin(edge_angle)), edge_damage, tower.calc_spell_crit_no_bonus())
 
 		angle += 20
 

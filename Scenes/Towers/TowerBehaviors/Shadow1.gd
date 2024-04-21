@@ -119,7 +119,7 @@ func on_attack(_event: Event):
 
 	for i in range(0, projectile_count):
 		var facing: float = i * 360.0 / projectile_count
-		var p: Projectile = Projectile.create(orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, facing)
+		var p: Projectile = Projectile.create(orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), Vector3(x, y, 80.0), facing)
 		p.set_projectile_scale(1.75)
 
 
@@ -129,7 +129,7 @@ func on_kill(event: Event):
 	var x: float = creep.get_x()
 	var y: float = creep.get_y()
 	var damage_ratio: float = tower.get_current_attack_damage_with_bonus() * (0.03 + 0.0012 * level)
-	var p: Projectile = Projectile.create(lesser_orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), x, y, 80.0, 0)
+	var p: Projectile = Projectile.create(lesser_orb_pt, tower, damage_ratio, tower.calc_spell_crit_no_bonus(), Vector3(x, y, 80.0), 0)
 	p.set_projectile_scale(1.25)
 
 
@@ -154,7 +154,7 @@ func lesser_orb_pt_periodic(p: Projectile):
 
 func orb_pt_periodic_generic(p: Projectile):
 	var caster: Unit = p.get_caster()
-	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 450)
+	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 450)
 
 	SFX.sfx_at_unit("SomeKindOfZappySound.mdl", caster)
 

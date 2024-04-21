@@ -96,10 +96,10 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_x(), tower.get_y(), 10, 0, 4)
+	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_position_wc3(), 0, 4)
 	Effect.set_lifetime(tower_effect, 1.0)
 
-	var target_effect: int = Effect.create_simple("AIilTarget.mdl", target.get_x(), target.get_y())
+	var target_effect: int = Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))
 	Effect.destroy_effect_after_its_over(target_effect)
 
 	var move_aoe: bool = tower.calc_chance(0.15)
@@ -121,7 +121,7 @@ func on_damage(event: Event):
 
 		move_creep_back(target)
 
-	var slow_effect: int = Effect.create_simple("SilenceAreaBirth.mdl", target.get_x(), target.get_y())
+	var slow_effect: int = Effect.create_simple("SilenceAreaBirth.mdl", Vector2(target.get_x(), target.get_y()))
 	Effect.set_lifetime(slow_effect, 1.0)
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)

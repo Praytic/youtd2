@@ -175,7 +175,7 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var effect: int = Effect.create_scaled("CloudOfFog.mdl", tower.get_x(), tower.get_y(), 300, 0, 5)
+	var effect: int = Effect.create_scaled("CloudOfFog.mdl", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + 150), 0, 5)
 	Effect.set_lifetime(effect, 10.0)
 
 	lightmare_is_active = true

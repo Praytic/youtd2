@@ -122,7 +122,7 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, target, "Splash")
 
-	var effect: int = Effect.create_scaled("NagaDeath.mdl", target.get_x(), target.get_y(), 0, 0, 5)
+	var effect: int = Effect.create_scaled("NagaDeath.mdl", Vector3(target.get_x(), target.get_y(), 0), 0, 5)
 	Effect.set_lifetime(effect, 3.0)
 	var splash_damage: float = 4000 + 160 * lvl
 	tower.do_spell_damage_aoe_unit(target, 175, splash_damage, tower.calc_spell_crit_no_bonus(), 0)
@@ -155,9 +155,9 @@ func water_pt_periodic(p: Projectile):
 	var stone_x: float = p.get_x() + Globals.synced_rng.randf_range(-30, 30)
 	var stone_y: float = p.get_y() + Globals.synced_rng.randf_range(-30, 30)
 	var stone_facing: float = p.get_direction() + Globals.synced_rng.randf_range(-30, 30)
-	var stone_projectile: Projectile = Projectile.create(stone_pt, caster, 1.0, caster.calc_spell_crit_no_bonus(), stone_x, stone_y, 0.0, stone_facing)
+	var stone_projectile: Projectile = Projectile.create(stone_pt, caster, 1.0, caster.calc_spell_crit_no_bonus(), Vector3(stone_x, stone_y, 0), stone_facing)
 
-	var effect: int = Effect.add_special_effect("ImpaleTargetDust.mdl", stone_projectile.get_x(), stone_projectile.get_y())
+	var effect: int = Effect.add_special_effect("ImpaleTargetDust.mdl", Vector2(stone_projectile.get_x(), stone_projectile.get_y()))
 	Effect.destroy_effect_after_its_over(effect)
 
 

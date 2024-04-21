@@ -14,8 +14,7 @@ func _init(center_pos: Vector2, target_type: TargetType, radius: float):
 
 
 # NOTE: Iterate.overUnitsInRangeOf() in JASS
-static func over_units_in_range_of(_caster: Unit, target_type: TargetType, x: float, y: float, radius: float) -> Iterate:
-	var center_pos: Vector2 = Vector2(x, y)
+static func over_units_in_range_of(_caster: Unit, target_type: TargetType, center_pos: Vector2, radius: float) -> Iterate:
 	var it: Iterate = Iterate.new(center_pos, target_type, radius)
 
 	return it
@@ -37,8 +36,7 @@ static func over_units_in_range_of_unit(_caster: Unit, target_type: TargetType, 
 	return it
 
 
-static func over_corpses_in_range(_caster: Unit, x: float, y: float, radius: float) -> Iterate:
-	var center_pos: Vector2 = Vector2(x, y)
+static func over_corpses_in_range(_caster: Unit, center_pos: Vector2, radius: float) -> Iterate:
 	var it: Iterate = Iterate.new(center_pos, TargetType.new(TargetType.CORPSES), radius)
 
 	return it

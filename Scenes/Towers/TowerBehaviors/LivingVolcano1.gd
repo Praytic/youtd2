@@ -101,9 +101,9 @@ func on_attack(event: Event):
 func lava_pt_on_cleanup(p: Projectile):
 	var aoe_radius: float = p.user_real
 	var aoe_damage: float = p.user_real2
-	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion", p.get_x(), p.get_y())
+	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion", Vector2(p.get_x(), p.get_y()))
 	Effect.destroy_effect_after_its_over(effect)
-	tower.do_spell_damage_aoe(p.get_x(), p.get_y(), aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.25)
+	tower.do_spell_damage_aoe(Vector2(p.get_x(), p.get_y()), aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.25)
 
 
 func aura_bt_periodic(event: Event):

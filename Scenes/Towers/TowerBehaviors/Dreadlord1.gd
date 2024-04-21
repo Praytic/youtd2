@@ -110,7 +110,7 @@ func on_damage(event: Event):
 	if mana >= 80:
 		tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
 		tower.subtract_mana(80, 0)
-		var effect: int = Effect.create_scaled("DevourEffectArt.mdl", creep.get_x(), creep.get_y(), 30, 0, 5)
+		var effect: int = Effect.create_scaled("DevourEffectArt.mdl", Vector3(creep.get_x(), creep.get_y(), 30), 0, 5)
 		Effect.destroy_effect_after_its_over(effect)
 
 

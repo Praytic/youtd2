@@ -248,13 +248,13 @@ func feeding():
 	var feed_two_chance: float = 0.15 + 0.004 * tower.get_level()
 
 	if feed_count < FEED_COUNT_MAX:
-		var it_corpse: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CORPSES), tower.get_x(), tower.get_y(), 1000)
+		var it_corpse: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CORPSES), Vector2(tower.get_x(), tower.get_y()), 1000)
 		var corpse: CreepCorpse = it_corpse.next_corpse()
 
 		if corpse != null:
 			corpse.hide()
 
-			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", tower.get_x() + 10, tower.get_y(), tower.get_z() - 120, 0, 5)
+			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", Vector3(tower.get_x() + 10, tower.get_y(), tower.get_z() - 120), 0, 5)
 			Effect.set_lifetime(effect, 0.8)
 
 			var feed_amount: int
@@ -335,12 +335,12 @@ func spread_buff():
 func blue_drake_on_hit(p: Projectile, _target: Unit):
 	var damage_before: float = tower.get_overall_damage()
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 125)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 125)
 
 	if it.count() == 0:
 		return
 
-	var effect: int = Effect.create_scaled("FrostNovaTarget.mdl", p.get_x(), p.get_y(), p.get_z(), 0, 5)
+	var effect: int = Effect.create_scaled("FrostNovaTarget.mdl", p.get_position_wc3(), 0, 5)
 	Effect.set_lifetime(effect, 2.0)
 
 	var drake_damage: float = 6000 + 150 * tower.get_level()
@@ -429,7 +429,7 @@ func bronze_drake_pt_periodic(p: Projectile):
 
 		return
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 600)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 600)
 
 	while true:
 		var next: Unit = it.next_random()

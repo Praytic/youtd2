@@ -165,7 +165,7 @@ func periodic(_event: Event):
 	for glaivesaw in glaivesaw_list:
 		var pos: Vector2 = glaivesaw.position
 
-		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), pos.x, pos.y, 150)
+		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), pos, 150)
 
 		while true:
 			var next: Unit = it.next()
@@ -189,7 +189,7 @@ func on_autocast(event: Event):
 	var target_pos: Vector2 = autocast.get_target_pos()
 	
 	var new_glaive: Glaivesaw = Glaivesaw.new()
-	var new_effect: int = Effect.create_animated_scaled("BloodElfSpellThiefMISSILE.mdl", target_pos.x, target_pos.y, 40.0, 0.0, 1.45)
+	var new_effect: int = Effect.create_animated_scaled("BloodElfSpellThiefMISSILE.mdl", Vector3(target_pos.x, target_pos.y, 40.0), 0.0, 1.45)
 	Effect.set_animation_speed(new_effect, 2.0)
 	Effect.set_scale(new_effect, 5)
 	new_glaive.effect_id = new_effect
@@ -322,7 +322,7 @@ func storm_pt_on_finished(p: Projectile, creep: Unit):
 		moving_to_target = 0
 		p.user_int = moving_to_target
 	elif bounce_count > 0:
-		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), tower_x, tower_y, 1000)
+		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(tower_x, tower_y), 1000)
 		var next: Unit = it.next_random()
 
 		if next != null:

@@ -42,7 +42,7 @@ func periodic(_event: Event):
 	var tower: Tower = item.get_carrier()
 	var target_effect: int
 
-	target_effect = Effect.create_scaled("Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", tower.get_x(), tower.get_y(), 0, 0, 5)
+	target_effect = Effect.create_scaled("Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", tower.get_position_wc3(), 0, 5)
 	Effect.set_lifetime(target_effect, 0.1)
 	
 	if tower.calc_chance(0.40 + tower.get_level() * 0.02):

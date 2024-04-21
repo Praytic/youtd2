@@ -86,5 +86,5 @@ func on_unit_in_range(event: Event):
 	var buff_level: int = int((_stats.cold_slow + COLD_SLOW_ADD * buff_power) * 1000)
 	extreme_cold_bt.apply_custom_power(tower, creep, buff_level, buff_power)
 
-	var effect: int = Effect.create_scaled("FrostArmorDamage.mdl", creep.get_x(), creep.get_y(), 30, 0, 5)
+	var effect: int = Effect.create_scaled("FrostArmorDamage.mdl", Vector3(creep.get_x(), creep.get_y(), 30), 0, 5)
 	Effect.destroy_effect_after_its_over(effect)

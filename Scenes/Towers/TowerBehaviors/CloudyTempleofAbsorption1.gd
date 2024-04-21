@@ -258,7 +258,7 @@ func enable_storm():
 		return
 
 	storm_is_enabled = true
-	storm_effect = Effect.create_animated("CloudOfFog.mdl", tower.get_x(), tower.get_y(), 150.0, 0.0)
+	storm_effect = Effect.create_animated("CloudOfFog.mdl", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + 30), 0.0)
 
 
 # --- Aura Buff + Projectile Handling ---

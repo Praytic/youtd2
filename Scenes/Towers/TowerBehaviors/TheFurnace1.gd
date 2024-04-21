@@ -170,7 +170,7 @@ func on_autocast(_event: Event):
 #	NOTE: increase scale because original one is too small
 	fxscale *= 5
 
-	var effect: int = Effect.create_scaled("SmallFlameSpawn.mdl", tower.get_x(), tower.get_y(), 0, 270, fxscale)
+	var effect: int = Effect.create_scaled("SmallFlameSpawn.mdl", tower.get_position_wc3(), 270, fxscale)
 	Effect.set_lifetime(effect, 6.6)
 
 	while true:

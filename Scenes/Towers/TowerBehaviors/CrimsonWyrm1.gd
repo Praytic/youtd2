@@ -147,7 +147,7 @@ func wyrm_pt_on_hit(p: Projectile, _target: Unit):
 	var radius: float = 250
 	var damage: float = 3750 + 150 * level
 
-	tower.do_spell_damage_aoe(p.get_x(), p.get_y(), radius, damage, tower.calc_spell_crit(crit_mod, 0), 0)
+	tower.do_spell_damage_aoe(Vector2(p.get_x(), p.get_y()), radius, damage, tower.calc_spell_crit(crit_mod, 0), 0)
 
 
 func release_fireballs(fireball_count: int):

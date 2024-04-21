@@ -65,30 +65,30 @@ func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
 
 
-func point_cast_from_unit_on_point(caster: Unit, origin_unit: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
+func point_cast_from_unit_on_point(caster: Unit, origin_unit: Unit, target_pos: Vector2, damage_ratio: float, crit_ratio: float):
 	var target: Unit = null
 	var origin_pos: Vector3 = origin_unit.get_position_wc3()
-	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
+	_cast_generic(caster, origin_pos, target, target_pos, damage_ratio, crit_ratio)
 
 
-func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
+func point_cast_from_caster_on_point(caster: Unit, target_pos: Vector2, damage_ratio: float, crit_ratio: float):
 	var origin_pos: Vector3 = caster.get_position_wc3()
 	var target: Unit = null
-	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
+	_cast_generic(caster, origin_pos, target, target_pos, damage_ratio, crit_ratio)
 
 
 # NOTE: cast.targetCastFromCaster() in JASS
 func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	var origin_pos: Vector3 = caster.get_position_wc3()
-	var x: float = target.get_x()
-	var y: float = target.get_y()
-	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+	_cast_generic(caster, origin_pos, target, target_pos, damage_ratio, crit_ratio)
 
 
 # NOTE: cast.targetCastFromPoint() in JASS
-func target_cast_from_point(caster: Unit, target: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
-	var origin_pos: Vector3 = Vector3(x, y, 0)
-	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
+func target_cast_from_point(caster: Unit, target: Unit, origin_pos_2d: Vector2, damage_ratio: float, crit_ratio: float):
+	var origin_pos: Vector3 = Vector3(origin_pos_2d.x, origin_pos_2d.y, 0)
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+	_cast_generic(caster, origin_pos, target, target_pos, damage_ratio, crit_ratio)
 
 
 # NOTE: point_cast_from_target_on_target() and
@@ -99,9 +99,8 @@ func target_cast_from_point(caster: Unit, target: Unit, x: float, y: float, dama
 # NOTE: cast.pointCastFromCasterOnTarget() in JASS
 func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	var origin_pos: Vector3 = target.get_position_wc3()
-	var x: float = target.get_x()
-	var y: float = target.get_y()
-	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
+	var target_pos: Vector2 = target.get_position_wc3_2d()
+	_cast_generic(caster, origin_pos, target, target_pos, damage_ratio, crit_ratio)
 
 
 # NOTE: cast.setSourceHeight() in JASS
@@ -113,7 +112,7 @@ func set_source_height(value: float):
 ###      Private      ###
 #########################
 
-func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
+func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, target_pos: Vector2, damage_ratio: float, crit_ratio: float):
 	var spell_scene_path: String = _get_spell_scene_path()
 	
 	if spell_scene_path.is_empty():
@@ -123,7 +122,7 @@ func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, x: float, y:
 	var instance: SpellDummy = scene.instantiate()
 	origin_pos.z += _source_height
 	instance.set_position_wc3(origin_pos)
-	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
+	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, target_pos, damage_ratio, crit_ratio)
 	tree_exited.connect(instance._on_cast_type_tree_exited)
 	Utils.add_object_to_world(instance)
 

@@ -100,8 +100,8 @@ func damage(target: Unit):
 	var y: float = target.get_y() + sin(angle) * the_range
 	var z: float = 0.0
 
-	var blademaster: int = Effect.create_animated("HeroChaosBladeMaster.mdl", x, y, z, deg_to_rad(angle + 180))
-	var mirrorimage: int = Effect.create_animated("MirrorImageCaster.mdl", x, y, z, angle + deg_to_rad(angle))
+	var blademaster: int = Effect.create_animated("HeroChaosBladeMaster.mdl", Vector3(x, y, z), deg_to_rad(angle + 180))
+	var mirrorimage: int = Effect.create_animated("MirrorImageCaster.mdl", Vector3(x, y, z), angle + deg_to_rad(angle))
 	var buff: Buff = target.get_buff_of_type(omnislashed_bt)
 
 	Effect.set_lifetime(blademaster, 0.4)

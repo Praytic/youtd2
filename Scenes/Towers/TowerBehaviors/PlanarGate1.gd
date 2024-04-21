@@ -137,22 +137,21 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var x: float = tower.get_x()
-	var y: float = tower.get_y()
+	var effect_pos: Vector3 = tower.get_position_wc3()
 
 	eruption_bt.apply(tower, tower, tower.get_level())
 
-	var effect1: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
+	var effect1: int = Effect.create_colored("VoodooAura.mdl", effect_pos, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect1, 0.5)
 
 	await Utils.create_timer(0.3, self).timeout
 
-	var effect2: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
+	var effect2: int = Effect.create_colored("VoodooAura.mdl", effect_pos, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect2, 0.5)
 	
 	await Utils.create_timer(0.3, self).timeout
 	
-	var effect3: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
+	var effect3: int = Effect.create_colored("VoodooAura.mdl", effect_pos, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect3, 0.5)
 
 

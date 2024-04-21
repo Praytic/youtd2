@@ -115,7 +115,7 @@ func on_attack(event: Event):
 
 # NOTE: this f-n is named "fire()" in JASS script
 func periodic(_event: Event):
-	var corpses_in_range: Iterate = Iterate.over_corpses_in_range(tower, tower.get_x(), tower.get_y(), 1000)
+	var corpses_in_range: Iterate = Iterate.over_corpses_in_range(tower, Vector2(tower.get_x(), tower.get_y()), 1000)
 
 	var target_corpse: Unit = null
 
@@ -125,7 +125,7 @@ func periodic(_event: Event):
 		if corpse == null:
 			break
 
-		var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), corpse.get_x(), corpse.get_y(), 500)
+		var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(corpse.get_x(), corpse.get_y()), 500)
 
 		if creeps_in_range.count() > 0:
 			target_corpse = corpse
@@ -138,13 +138,13 @@ func periodic(_event: Event):
 	var tx: float = target_corpse.get_x()
 	var ty: float = target_corpse.get_y()
 
-	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tx, ty)
+	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", Vector2(tx, ty))
 	Effect.destroy_effect_after_its_over(explode_effect)
 
-	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tx, ty, 0, Globals.synced_rng.randf_range(0, 360), 5)
+	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", Vector3(tx, ty, 0), Globals.synced_rng.randf_range(0, 360), 5)
 	Effect.destroy_effect_after_its_over(missile_effect)
 
-	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), tx, ty, 500)
+	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(tx, ty), 500)
 
 	var buff_level: int = _stats.buff_level + _stats.buff_level_add * tower.get_level()
 

@@ -55,7 +55,7 @@ func on_damage(event: Event):
 	if !event.is_main_target():
 		return
 
-	var target_effect: int = Effect.create_animated_scaled("MortarMissile.mdl", target.get_x(), target.get_y(), 0, 0, 3.0)
+	var target_effect: int = Effect.create_animated_scaled("MortarMissile.mdl", Vector3(target.get_x(), target.get_y(), 0), 0, 3.0)
 	Effect.set_animation_speed(target_effect, 0.5)
 	Effect.set_lifetime(target_effect, 0.05)
 

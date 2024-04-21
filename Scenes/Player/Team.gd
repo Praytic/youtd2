@@ -148,7 +148,7 @@ func _do_victory_effects():
 			var scale: float = Globals.synced_rng.randf_range(5.0, 10.0)
 			var speed: float = Globals.synced_rng.randf_range(0.3, 1.0)
 
-			var effect: int = Effect.create_simple("placeholder path", x, y)
+			var effect: int = Effect.create_simple("placeholder path", Vector2(x, y))
 			Effect.set_scale(effect, scale)
 			Effect.set_animation_speed(effect, speed)
 			Effect.destroy_effect_after_its_over(effect)

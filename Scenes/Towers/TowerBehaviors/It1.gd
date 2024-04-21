@@ -157,12 +157,12 @@ func on_attack(_event: Event):
 	if !can_teleport:
 		return
 
-	tower.do_spell_damage_aoe(sum.from_pos.x, sum.from_pos.y, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
+	tower.do_spell_damage_aoe(sum.from_pos, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
 
-	var dmg1: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.from_pos.x, sum.from_pos.y, 100.0, 270.0, 5, Color8(0, 0, 0, 255))
+	var dmg1: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
 	Effect.set_lifetime(dmg1, 1.0)
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos.x, sum.from_pos.y, 250.0)
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos, 250.0)
 
 	while true:
 		var next: Unit = it.next()
@@ -182,7 +182,7 @@ func on_attack(_event: Event):
 
 		summoner_units[creep] = true
 
-		var tp1: int = Effect.create_animated("DarkSummonTarget.mdl", next.get_x(), next.get_y(), 0.0, 270.0)
+		var tp1: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(next.get_x(), next.get_y(), 0.0), 270.0)
 		Effect.set_lifetime(tp1, 1.0)
 
 		it_kill()
@@ -192,11 +192,11 @@ func on_attack(_event: Event):
 
 		creep.move_to_point(to_pos)
 
-		var tp2: int = Effect.create_animated("DarkSummonTarget.mdl", to_pos.x, to_pos.y, 0.0, 270.0)
+		var tp2: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(to_pos.x, to_pos.y, 0.0), 270.0)
 		Effect.set_lifetime(tp2, 1.0)
 
-	tower.do_spell_damage_aoe(sum.to_pos.x, sum.to_pos.y, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
-	var dmg2: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.to_pos.x, sum.to_pos.y, 100.0, 270.0, 5, Color8(0, 0, 0, 255))
+	tower.do_spell_damage_aoe(sum.to_pos, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
+	var dmg2: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.to_pos.x, sum.to_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
 	Effect.set_lifetime(dmg2, 1.0)
 
 #	NOTE: this is how the 1 sec cooldown for teleport is
@@ -220,7 +220,7 @@ func on_autocast_recreation(event: Event):
 			Effect.set_position(sum.recreation_effect, sum.to_pos)
 		else:
 			recreation_field_exists = true
-			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", sum.to_pos.x, sum.to_pos.y, 0, 270.0, 5, Color8(255, 0, 0, 255))
+			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.to_pos.x, sum.to_pos.y, 0), 270.0, 5, Color8(255, 0, 0, 255))
 			Effect.no_death_animation(sum.recreation_effect)
 	else:
 		sum.to_pos = last_pos
@@ -243,7 +243,7 @@ func on_autocast_corruption(event: Event):
 		Effect.set_position(sum.corruption_effect, sum.from_pos)
 	else:
 		corruption_field_exists = true
-		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", sum.from_pos.x, sum.from_pos.y, 0, 270.0, 5, Color8(0, 0, 255, 255))
+		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 0), 270.0, 5, Color8(0, 0, 255, 255))
 		Effect.no_death_animation(sum.corruption_effect)
 
 

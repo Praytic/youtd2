@@ -35,7 +35,7 @@ func _ready():
 ###       Public      ###
 #########################
 
-func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.SpellData, damage_event_handler: Callable, x: float, y: float, damage_ratio: float, crit_ratio: float):
+func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.SpellData, damage_event_handler: Callable, target_pos: Vector2, damage_ratio: float, crit_ratio: float):
 	_caster = caster
 	_lifetime = lifetime
 	_set_subclass_data(data)
@@ -43,7 +43,7 @@ func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.Spe
 	set_damage_event(damage_event_handler)
 
 	_target = target
-	_target_position = Vector2(x, y)
+	_target_position = target_pos
 	_damage_ratio = damage_ratio
 	_crit_ratio = crit_ratio
 

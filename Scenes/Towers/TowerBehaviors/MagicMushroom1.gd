@@ -157,7 +157,7 @@ func periodic(event: Event):
 	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, spell_damage_bonus)
 	spell_damage_from_growth += spell_damage_bonus
 
-	var target_effect: int = Effect.create_scaled("TargetArtLumber.mdl", tower.get_x(), tower.get_y(), 30, 0, 5)
+	var target_effect: int = Effect.create_scaled("TargetArtLumber.mdl", tower.get_position_wc3(), 0, 5)
 	Effect.set_lifetime(target_effect, 1.0)
 
 	growth_count += 1

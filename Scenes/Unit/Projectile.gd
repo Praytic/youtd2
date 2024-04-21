@@ -592,8 +592,7 @@ func get_age() -> float:
 #########################
 
 # NOTE: Projectile.create() in JASS
-static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, x: float, y: float, z: float, facing: float) -> Projectile:
-	var initial_position: Vector3 = Vector3(x, y, z)
+static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_position: Vector3, facing: float) -> Projectile:
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_position)
 
 	projectile.set_direction(facing)
@@ -611,9 +610,8 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 
 # NOTE: Projectile.createFromUnit() in JASS
 static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
-	var pos: Vector2 = from.get_position_wc3_2d()
-	var z: float = 0.0
-	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos.x, pos.y, z, facing)
+	var pos: Vector3 = from.get_position_wc3()
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos, facing)
 	
 	return projectile
 
