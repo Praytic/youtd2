@@ -79,20 +79,16 @@ func tower_init():
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	
-	chainlightning_st = SpellType.new('@@0@@', "chainlightning", 5.0, self)
-	chainlightning_st.set_source_height(40.0)
-	
-	chainlightning_st_2 = SpellType.new('@@1@@', "chainlightning", 5.0, self)
-	chainlightning_st_2.set_source_height(40.0)
-
 	wind_shear_bt.set_buff_tooltip("Wind Shear\nIncreases attack speed and grants a chance to cast chain of lightning on attack.")
 
 	chainlightning_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	chainlightning_st.set_source_height(40.0)
 	chainlightning_st.data.chain_lightning.damage = 100
 	chainlightning_st.data.chain_lightning.damage_reduction = 0.25
 	chainlightning_st.data.chain_lightning.chain_count = 3
 
 	chainlightning_st_2 = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	chainlightning_st_2.set_source_height(40.0)
 	chainlightning_st_2.data.chain_lightning.damage = 100
 	chainlightning_st_2.data.chain_lightning.damage_reduction = 0.25
 	chainlightning_st_2.data.chain_lightning.chain_count = 4
