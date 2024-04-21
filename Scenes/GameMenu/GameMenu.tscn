@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=7 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/GameMenu/GameMenu.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/GameMenu/SettingsMenu.tscn" id="5_y1l7h"]
 [ext_resource type="PackedScene" uid="uid://vno2fc0bkyjw" path="res://Scenes/GameMenu/QuitMenu.tscn" id="6_mcdyf"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/GameMenu/HelpMenu.tscn" id="6_q6xgl"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_v0h7x"]
 
 [node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
 theme = ExtResource("1_v8b77")
@@ -67,7 +65,6 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_v0h7x")
 
 [node name="QuitMenu" parent="TabContainer" instance=ExtResource("6_mcdyf")]
 visible = false
