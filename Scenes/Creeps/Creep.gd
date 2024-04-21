@@ -288,7 +288,7 @@ func _calculate_current_z_index() -> int:
 # 	NOTE: make z_index for air creeps 11 so that air creeps
 # 	are drawn above any ground creep which were temporarily
 # 	elevated.
-	if get_z() > 2 * Constants.TILE_SIZE_WC3:
+	if get_z() > 1.5 * Constants.TILE_SIZE_WC3:
 		if get_size() == CreepSize.enm.AIR:
 			return 11
 		else:
