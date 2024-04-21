@@ -1,10 +1,5 @@
 extends TowerBehavior
 
-# TODO: the visual for chain lightning is a bit incorrect.
-# It should start from projectile, instead it starts from
-# tower. Need to rework chain lightning code so it can start
-# from both units and positions.
-
 
 var stun_bt: BuffType
 var lightning_st: SpellType
