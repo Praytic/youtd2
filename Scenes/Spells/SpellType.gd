@@ -40,6 +40,7 @@ var data: SpellData = SpellData.new()
 
 var _order: String
 var _lifetime: float
+var _source_height: float = 0.0
 var _damage_event_handler: Callable = Callable()
 
 
@@ -103,11 +104,9 @@ func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: 
 	_cast_generic(caster, origin_pos, target, x, y, damage_ratio, crit_ratio)
 
 
-# TODO: implement. Probably changes the height from which
-# the cast visual originates.
 # NOTE: cast.setSourceHeight() in JASS
-func set_source_height(_height: float):
-	pass
+func set_source_height(value: float):
+	_source_height = value
 
 
 #########################
@@ -122,6 +121,7 @@ func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, x: float, y:
 
 	var scene: PackedScene = load(spell_scene_path)
 	var instance: SpellDummy = scene.instantiate()
+	origin_pos.z += _source_height
 	instance.set_position_wc3(origin_pos)
 	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
 	tree_exited.connect(instance._on_cast_type_tree_exited)

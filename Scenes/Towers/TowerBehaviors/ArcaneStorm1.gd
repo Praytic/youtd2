@@ -83,15 +83,13 @@ func tower_init():
 	surge_st.data.chain_lightning.damage = 0
 	surge_st.data.chain_lightning.damage_reduction = 0
 	surge_st.data.chain_lightning.chain_count = 1
-	# TODO: implement SpellType.set_source_height()
-	# surge_st.set_source_height(90.0)
+	surge_st.set_source_height(90.0)
 
 	manastorm_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
 	manastorm_st.data.chain_lightning.damage = 0
 	manastorm_st.data.chain_lightning.damage_reduction = 0
 	manastorm_st.data.chain_lightning.chain_count = 1
-	# TODO: implement SpellType.set_source_height()
-	# surge_st.set_source_height(90.0)
+	surge_st.set_source_height(90.0)
 
 
 func on_damage(event: Event):

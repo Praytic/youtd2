@@ -87,8 +87,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	lightning_st = SpellType.new("@@0@@", "forkedlightning", 2.0, self)
-	# TODO: implement SpellType.set_source_height()
-	# lightning_st.set_source_height(300.0)
+	lightning_st.set_source_height(300.0)
 	lightning_st.set_damage_event(mock_eye_glare_st_on_damage)
 	lightning_st.data.forked_lightning.damage = 1.0
 	lightning_st.data.forked_lightning.target_count = 3

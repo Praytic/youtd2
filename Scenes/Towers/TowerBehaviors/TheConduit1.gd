@@ -99,8 +99,7 @@ func tower_init():
 	unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
 
 	chanlightning_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
-#	TODO: implement SpellType.set_source_height()
-	# chanlightning_st.set_source_height(220)
+	chanlightning_st.set_source_height(220)
 	chanlightning_st.data.chain_lightning.damage = 1.0
 	chanlightning_st.data.chain_lightning.damage_reduction = 0.25
 	chanlightning_st.data.chain_lightning.chain_count = 1
