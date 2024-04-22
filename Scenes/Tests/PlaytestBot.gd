@@ -42,7 +42,7 @@ static func run(map: Map):
 
 	while true:
 		for tower in built_tower_list:
-			tower.queue_free()
+			tower.remove_from_game()
 		built_tower_list.clear()
 
 		var random_tower_id_list: Array = FORCE_TOWER_LIST.duplicate()
