@@ -15,7 +15,10 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/ItemBehaviors/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.
-static var disabled_item_list: Array[int] = [140, 254]
+
+# NOTE: Nermind's Eye(220) and Eye of True Sight(221) are
+# disabled because invisible waves are disabled.
+static var disabled_item_list: Array[int] = [140, 254, 220, 221]
 
 
 var user_int: int = 0

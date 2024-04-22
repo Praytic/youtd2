@@ -1,6 +1,10 @@
 extends TowerBehavior
 
 
+# NOTE: commented out sections relevant to invisibility
+# because invisible waves are currently disabled.
+
+
 var holy_weak_bt: BuffType
 var magical_sight_bt: BuffType
 
@@ -18,7 +22,7 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_ability_description() -> String:
-	var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
+	# var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 	var mod_value: String = Utils.format_percent(_stats.mod_value * 0.1 * 0.01, 2)
@@ -26,8 +30,8 @@ func get_ability_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Magical Sight[/color]\n"
-	text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
+	# text += "[color=GOLD]Magical Sight[/color]\n"
+	# text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
 	text += "[color=GOLD]Power of Light[/color]\n"
 	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s more damage from physical and spell attacks.\n" % [duration, mod_value]
 	text += " \n"
@@ -41,9 +45,9 @@ func get_ability_description() -> String:
 func get_ability_description_short() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Magical Sight[/color]\n"
-	text += "Can see invisible enemy units.\n"
-	text += " \n"
+	# text += "[color=GOLD]Magical Sight[/color]\n"
+	# text += "Can see invisible enemy units.\n"
+	# text += " \n"
 	text += "[color=GOLD]Power of Light[/color]\n"
 	text += "The mighty holy light weakens enemy undead creeps.\n"
 
@@ -54,13 +58,13 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
 
-func load_specials(_modifier: Modifier):
-	magical_sight_bt = MagicalSightBuff.new("magical_sight_bt", _stats.magical_sight_range, self)
-	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
+# func load_specials(_modifier: Modifier):
+# 	magical_sight_bt = MagicalSightBuff.new("magical_sight_bt", _stats.magical_sight_range, self)
+# 	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
+# func get_ability_ranges() -> Array[RangeData]:
+# 	return [RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():
