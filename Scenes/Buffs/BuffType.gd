@@ -132,15 +132,21 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	for aura_type in _aura_type_list:
 		buff._add_aura(aura_type)
 
-#	NOTE: need to handle cases where scripts attempt to add
-#	buff to a unit which is in the process of getting
-#	deleted. In such cases, still create the buff to be able
-#	to return it and avoid null errors but don't add the
-#	buff to the unit. Adding buff to unit while unit is
-#	getting removed from tree causes Godot "parent is busy"
-#	error.
+#	NOTE: need to handle edge cases where buff should not be
+#	applied:
+# 	1. If buffs are applied to a unit which is in the
+# 	   process of getting deleted. In such cases, still
+# 	   create the buff to be able to return it and avoid
+# 	   null errors but don't add the buff to the unit.
+# 	   Adding buff to unit while unit is getting removed
+# 	   from tree causes Godot "parent is busy" error.
+#	2. If time is 0. Note that time can be "-1" in case of
+#	   permanent buffs.
+#	In such cases, free the buff immediately.
 	var target_is_active: bool = target.is_inside_tree() && !target.is_queued_for_deletion()
-	if target_is_active:
+	var time_is_valid: bool = time == -1 || time > 0
+	var buff_should_be_applied: bool = target_is_active && time_is_valid
+	if buff_should_be_applied:
 		target._add_buff_internal(buff)
 		target.add_child(buff)
 	else:

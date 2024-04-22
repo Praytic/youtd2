@@ -40,11 +40,11 @@ var _is_hidden: bool
 #########################
 
 func _ready():
+	_timer = ManualTimer.new()
+	add_child(_timer)
+	_timer.timeout.connect(_on_timer_timeout)
+	
 	if _time > 0.0:
-		_timer = ManualTimer.new()
-		add_child(_timer)
-		_timer.timeout.connect(_on_timer_timeout)
-
 		var buff_duration_mod: float = _caster.get_prop_buff_duration()
 		var debuff_duration_mod: float = _target.get_prop_debuff_duration()
 
@@ -55,6 +55,8 @@ func _ready():
 
 		_timer.start(total_time)
 		_original_duration = total_time
+	else:
+		_original_duration = 0
 
 	_target.death.connect(_on_target_death)
 	_target.kill.connect(_on_target_kill)
