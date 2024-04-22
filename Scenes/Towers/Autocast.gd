@@ -189,7 +189,6 @@ func do_cast_at_pos(target_pos: Vector2):
 func do_cast(target: Unit):
 	CombatLog.log_autocast(_caster, target, self)
 
-	_caster.subtract_mana(mana_cost, false)
 	_cooldown_timer.start()
 	
 	if !handler.is_null():
@@ -201,6 +200,11 @@ func do_cast(target: Unit):
 		push_error("Incorrect autocast state, handler = %s, buff_type= %s" % [handler, buff_type])
 
 		return
+
+#	NOTE: need to subtract mana after performing autocast
+#	because some autocast handlers need to check mana value
+#	before it is spent.
+	_caster.subtract_mana(mana_cost, false)
 
 	var spell_casted_event: Event = _make_autocast_event(target)
 	_caster.spell_casted.emit(spell_casted_event)
