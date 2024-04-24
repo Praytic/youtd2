@@ -108,9 +108,7 @@ func tower_init():
 
 	roots_pt = ProjectileType.create_ranged("", 1000, 600, self)
 	roots_pt.enable_collision(roots_pt_on_hit, 175, TargetType.new(TargetType.CREEPS), false)
-	# TODO: implement this when
-	# ProjectileType.add_periodic_event() is implemented.
-	# roots_pt.add_periodic_event(roots_pt_periodic, 0.2)
+	roots_pt.enable_periodic(roots_pt_periodic, 0.2)
 
 	leaf_storm_st = SpellType.new("@@0@@", "blizzard", 4.00, self)
 	leaf_storm_st.set_damage_event(leaf_storm_st_on_damage)
@@ -197,6 +195,12 @@ func on_autocast(event: Event):
 func roots_pt_on_hit(p: Projectile, target: Unit):
 	var caster: Unit = p.get_caster()
 	entangle_bt.apply(caster, target, caster.get_level())
+
+
+# NOTE: WWPeriodic() in original script
+func roots_pt_periodic(p: Projectile):
+	var effect: int = Effect.create_scaled("EntanglingRootsTarget.mdl", Vector3(p.get_x(), p.get_y(), 0), 0, 4.0)
+	Effect.set_lifetime(effect, 2.0)
 
 
 func entangle_bt_periodic(event: Event):
