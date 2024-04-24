@@ -127,10 +127,6 @@ func on_attack(event: Event):
 #	Increase counter for birds summoned.
 	falcon_count += 1
 
-# 	Remove crits so a 0! doesn't pop up over the tower.
-	# TODO: implement Tower.resetAttackCrits()
-	# tower.resetAttackCrits()
-
 
 func on_damage(event: Event):
 	event.damage = 0
