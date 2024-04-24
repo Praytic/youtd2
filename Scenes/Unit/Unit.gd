@@ -44,6 +44,7 @@ enum DamageSource {
 }
 
 enum BodyPart {
+	OVERHEAD,
 	HEAD,
 	CHEST,
 	ORIGIN
@@ -1346,6 +1347,7 @@ func get_body_part_offset(body_part: Unit.BodyPart) -> Vector2:
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:
+		BodyPart.OVERHEAD: return Vector2(0, -sprite_height * 0.75)
 		BodyPart.HEAD: return Vector2(0, -sprite_height * 0.5)
 		BodyPart.CHEST: return Vector2(0, -sprite_height * 0.25)
 		BodyPart.ORIGIN: return Vector2.ZERO
