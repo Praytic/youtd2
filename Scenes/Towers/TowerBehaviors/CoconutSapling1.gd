@@ -1,14 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: original script uses ProjectileType.enablePhysics()
-# to implement falling coconuts. This f-n hasn't been
-# implemented in youtd2 because it's complex and is only
-# used by two towers - bad ROI. Instead, I implemented
-# falling coconuts by using ProjectileType.enableRanged()
-# and making projectiles move along the y axis.
-
-
 var cooldown_bt: BuffType
 var stun_bt: BuffType
 var coco_pt: ProjectileType
@@ -23,7 +15,6 @@ func get_tier_stats() -> Dictionary:
 
 const STUN_DURATION: float = 0.5
 const STUN_CD: float = 1.5
-const COCONUT_RANGE: float = 1000
 
 
 func get_ability_description() -> String:
@@ -64,10 +55,8 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	var pt_range: float = COCONUT_RANGE
-	var pt_speed: float = 1000
-	coco_pt = ProjectileType.create_ranged("catapultmissile.mdl", pt_range, pt_speed, self)
-	coco_pt.set_event_on_expiration(coco_pt_on_hit)
+	coco_pt = ProjectileType.create("catapultmissile.mdl", 4, 0, self)
+	coco_pt.enable_physics(coco_pt_on_impact, -15.0)
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
@@ -97,14 +86,14 @@ func on_damage(event: Event):
 		var angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 		var offset_vector: Vector2 = Vector2(radius, 0).rotated(angle)
 		var coconut_pos: Vector2 = target_pos + offset_vector
-		coconut_pos.y -= COCONUT_RANGE
-		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), Vector3(coconut_pos.x, coconut_pos.y, 0), 90)
+		var projectile: Projectile = Projectile.create(coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), Vector3(coconut_pos.x, coconut_pos.y, 1000), 90)
 		projectile.set_projectile_scale(0.30)
-		var random_speed: float = projectile.get_speed() * Globals.synced_rng.randf_range(0.75, 1.25)
-		projectile.set_speed(random_speed)
+		var gravity: float = Globals.synced_rng.randf_range(1.0, 1.5)
+		projectile.set_gravity(gravity)
 
 
-func coco_pt_on_hit(p: Projectile):
+# NOTE: cedi_Coco_Impact() in original script
+func coco_pt_on_impact(p: Projectile):
 	var caster: Unit = p.get_caster()
 	var pos: Vector2 = p.get_position_wc3_2d()
 	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), Vector2(pos.x, pos.y), 150)

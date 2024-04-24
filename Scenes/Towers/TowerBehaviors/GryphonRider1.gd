@@ -1,10 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: implemented falling hammer projectile differently
-# because physics based projectiles are not implemented in
-# youtd2.
-
 # TODO: look into "Storm Bolt" ability more. It creates a
 # line of AoE when projectile hits. The angle of the line is
 # equal to projectile's angle. Currently, that means the
@@ -19,8 +15,6 @@ var stun_bt: BuffType
 var hammer_fall_bt: BuffType
 var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
-
-const HAMMER_RANGE: float = 1000
 
 
 func get_ability_description() -> String:
@@ -97,10 +91,8 @@ func tower_init():
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)
 	stormbolt_pt.set_event_on_interpolation_finished(stormbolt_pt_on_hit)
 
-	var pt_range: float = HAMMER_RANGE
-	var pt_speed: float = 1000
-	hammer_pt = ProjectileType.create_ranged("StormBoltMissile.mdl", pt_range, pt_speed, self)
-	hammer_pt.set_event_on_expiration(hammer_pt_on_expiration)
+	hammer_pt = ProjectileType.create("StormBoltMissile.mdl", 90, 0, self)
+	hammer_pt.enable_physics(hammer_pt_on_impact, -30)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Hammer Fall"
@@ -135,9 +127,8 @@ func on_damage(event: Event):
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 
-	var hammer_pos: Vector2 = target.get_position_wc3_2d()
-	hammer_pos.y -= HAMMER_RANGE
-	var p: Projectile = Projectile.create(hammer_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), Vector3(hammer_pos.x, hammer_pos.y, 0), 90)
+	var p: Projectile = Projectile.create_from_unit(hammer_pt, tower, target, 0, 1.0, 1.0)
+	p.set_z(1000)
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.PLAYER_TOWERS), 2500.0)
 	var damage_multiplier: float = 1.0
@@ -167,7 +158,8 @@ func stormbolt_pt_on_hit(p: Projectile, target: Unit):
 	line_damage(Vector2(p.get_x(), p.get_y()), p.get_direction())
 
 
-func hammer_pt_on_expiration(p: Projectile):
+# NOTE: impact() in original script
+func hammer_pt_on_impact(p: Projectile):
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 600.0)
 	var hammer_damage: float = p.user_real
 

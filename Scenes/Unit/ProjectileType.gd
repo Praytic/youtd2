@@ -3,6 +3,8 @@ class_name ProjectileType extends Node
 var _move_type: Projectile.MoveType
 var _speed: float
 var _acceleration: float = 0.0
+var _gravity: float = 1.0
+var _initial_z_speed: float = 0.0
 var _homing_control_value: float
 var _range: float = 0.0
 var _lifetime: float = 0.0
@@ -13,6 +15,7 @@ var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _periodic_handler: Callable = Callable()
+var _impact_handler: Callable = Callable()
 var _periodic_handler_period: float = 0.0
 var _expiration_handler: Callable = Callable()
 var _collision_radius: float = 0.0
@@ -20,6 +23,7 @@ var _collision_target_type: TargetType = null
 var _destroy_on_collision: bool = false
 var _collision_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
+var _physics_enabled: bool = false
 
 
 #########################
@@ -71,6 +75,16 @@ func enable_homing(target_hit_handler: Callable, homing_control_value: float):
 	_homing_control_value = homing_control_value
 
 
+# NOTE: enablePhysics() in original youtd API also supported
+# "bouncing" but none of the tower scripts use bounce
+# feature so didn't implement it.
+# NOTE: projectileType.enablePhysics() in JASS
+func enable_physics(impact_handler: Callable, initial_z_speed: float):
+	_physics_enabled = true
+	_impact_handler = impact_handler
+	_initial_z_speed = initial_z_speed
+
+
 # Example handler:
 # func periodic_handler(p: Projectile)
 # NOTE: projectileType.enable_periodic() in JASS
@@ -114,6 +128,11 @@ func set_event_on_expiration(handler: Callable):
 # projectileType.setAcceleration() in JASS
 func set_acceleration(value: float):
 	_acceleration = value
+
+
+# projectileType.setGravity() in JASS
+func set_gravity(value: float):
+	_gravity = value
 
 
 # NOTE: DamageTable.setBonusToSize() in JASS

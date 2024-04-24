@@ -28,7 +28,9 @@ var _is_homing: bool = false
 var _ignore_target_z: bool = false
 var _homing_control_value: float
 var _speed: float = 50
+var _physics_z_speed: float = 0
 var _acceleration: float = 0
+var _gravity: float
 var _explode_on_hit: bool = true
 var _explode_on_expiration: bool = true
 var _initial_scale: Vector2
@@ -38,6 +40,7 @@ var _tower_bounce_visited_list: Array[Unit] = []
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _periodic_handler: Callable = Callable()
+var _impact_handler: Callable = Callable()
 var _avert_destruct_requested: bool = false
 var _initial_pos: Vector3
 var _range: float = 0.0
@@ -50,6 +53,7 @@ var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 var _collision_enabled: bool = true
 var _periodic_enabled: bool = true
+var _physics_enabled: bool = true
 var _periodic_timer: ManualTimer = null
 var _spawn_time: float
 var _sprite_path: String
@@ -196,8 +200,20 @@ func _process_normal(delta: float):
 #	the same time as target x and y.
 	var current_position: Vector3 = get_position_wc3()
 	var target_pos_is_defined: bool = _target_pos != Vector3.INF
-	var should_update_z: bool = target_pos_is_defined && !_ignore_target_z
-	if should_update_z:
+	var should_update_z_to_match_target_z: bool = target_pos_is_defined && !_ignore_target_z
+
+	if _physics_enabled:
+		_physics_z_speed = clampf(_physics_z_speed - _gravity, -Constants.PROJECTILE_SPEED_MAX, Constants.PROJECTILE_SPEED_MAX)
+
+		var new_z: float = clampf(get_z() + _physics_z_speed, 0, 10000)
+		set_z(new_z)
+
+		var reached_ground: bool = new_z == 0
+
+		if reached_ground:
+			_impact_handler.call(self)
+			_cleanup()
+	elif should_update_z_to_match_target_z:
 		var travel_vector: Vector3 = _target_pos - current_position
 		var travel_vector_flat: Vector3 = Vector3(travel_vector.x, travel_vector.y, 0)
 		var travel_angle_z: float = travel_vector.angle_to(travel_vector_flat)
@@ -531,6 +547,10 @@ func set_acceleration(new_acceleration: float):
 	_acceleration = new_acceleration
 
 
+func set_gravity(value: float):
+	_gravity = value
+
+
 # NOTE: if new target is null, then homing is disabled
 func set_homing_target(new_target: Unit):
 	var old_target: Unit = _target_unit
@@ -703,6 +723,9 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 
 	projectile.set_speed(type._speed)
 	projectile._acceleration = type._acceleration
+	projectile._gravity = type._gravity
+	projectile._physics_z_speed = type._initial_z_speed
+	projectile._physics_enabled = type._physics_enabled
 	projectile._explode_on_hit = type._explode_on_hit
 	projectile._explode_on_expiration = type._explode_on_expiration
 	projectile._move_type = type._move_type
@@ -713,6 +736,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._target_hit_handler = type._target_hit_handler
 	projectile._collision_handler = type._collision_handler
 	projectile._expiration_handler = type._expiration_handler
+	projectile._impact_handler = type._impact_handler
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
