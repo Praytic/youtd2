@@ -7,10 +7,12 @@ var _item: Item
 @export var _cooldown_indicator: CooldownIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _charges_label: Label
+@export var _lock_texture: TextureRect
 
 var _show_cooldown_indicator: bool = false
 var _show_auto_mode_indicator: bool = false
 var _show_charges: bool = false
+var _horadric_lock_display_is_enabled: bool = false
 
 
 #########################
@@ -36,14 +38,21 @@ func _ready():
 	_item.charges_changed.connect(_on_item_charges_changed)
 	_on_item_charges_changed()
 
+	_item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
+	_on_item_horadric_lock_changed()
+
 
 func _gui_input(event):
 	var pressed_right_click: bool = event.is_action_released("right_click")
 	var pressed_shift: bool = Input.is_action_pressed("shift")
+	var pressed_ctrl: bool = Input.is_action_pressed("ctrl")
 	var shift_right_click: bool = pressed_shift && pressed_right_click
+	var ctrl_right_click: bool = pressed_ctrl && pressed_right_click
 
 	if shift_right_click:
 		EventBus.player_shift_right_clicked_item.emit(_item)
+	elif ctrl_right_click:
+		_item.toggle_horadric_lock()
 	elif pressed_right_click:
 		EventBus.player_right_clicked_item.emit(_item)
 
@@ -51,6 +60,13 @@ func _gui_input(event):
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: need this because ItemButtons should display
+# horadric lock only when they are in item stash. Not in
+# tower inventory or horadric stash.
+func enable_horadric_lock_display():
+	_horadric_lock_display_is_enabled = true
+
 
 func show_cooldown_indicator():
 	_show_cooldown_indicator = true
@@ -84,6 +100,11 @@ func _on_item_charges_changed():
 
 	var charges_should_be_visible: bool = _item.uses_charges() && _show_charges
 	_charges_label.set_visible(charges_should_be_visible)
+
+
+func _on_item_horadric_lock_changed():
+	var horadric_lock_is_enabled: bool = _item.get_horadric_lock_is_enabled()
+	_lock_texture.visible = _horadric_lock_display_is_enabled && horadric_lock_is_enabled
 
 
 #########################

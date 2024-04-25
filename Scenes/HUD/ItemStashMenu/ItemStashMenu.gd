@@ -52,6 +52,9 @@ func set_items(item_list: Array[Item]):
 			removed_button_list.append(button)
 
 	for button in removed_button_list:
+		var item: Item = button.get_item()
+		item.horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
+
 		_item_buttons_container.remove_child(button)
 		button.queue_free()
 		_item_button_list.erase(button)
@@ -64,10 +67,12 @@ func set_items(item_list: Array[Item]):
 
 		if item_was_added:
 			_add_item_button(item, i)
+			item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
 
 	_prev_item_list = item_list.duplicate()
 	
 	_load_current_filter()
+	_update_autofill_buttons()
 
 
 func set_items_for_horadric_cube(item_list: Array[Item]):
@@ -80,6 +85,7 @@ func set_items_for_horadric_cube(item_list: Array[Item]):
 
 func _add_item_button(item: Item, index: int):
 	var item_button: ItemButton = ItemButton.make(item)
+	item_button.enable_horadric_lock_display()
 	_item_button_list.append(item_button)
 	_item_buttons_container.add_child(item_button)
 	_item_buttons_container.move_child(item_button, index)
@@ -93,8 +99,6 @@ func _load_current_filter():
 	var rarity_filter: Array = _rarity_filter_container.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
 
-	var visible_item_list: Array[Item] = []
-
 	for item_button in _item_button_list:
 		var item: Item = item_button.get_item()
 		var rarity: Rarity.enm = item.get_rarity()
@@ -105,16 +109,16 @@ func _load_current_filter():
 		
 		item_button.visible = filter_match
 
-		if filter_match:
-			visible_item_list.append(item)
-
+	var visible_item_list: Array[Item] = _get_visible_item_list()
 	var visible_count: int = visible_item_list.size()
-
 	_item_buttons_container.update_empty_slots(visible_count)
 
-#	Enable/disable recipe buttons based on currently visible
-#	item buttons
+
+# Enable/disable autofill buttons based on which items are
+# currently available for autofill
+func _update_autofill_buttons():
 	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
+	var visible_item_list: Array[Item] = _get_visible_item_list()
 	
 	for node in recipe_buttons:
 		var recipe_button: RecipeButton = node as RecipeButton
@@ -122,6 +126,17 @@ func _load_current_filter():
 		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, visible_item_list)
 		
 		recipe_button.disabled = !autofill_is_possible
+
+
+func _get_visible_item_list() -> Array[Item]:
+	var list: Array[Item] = []
+
+	for item_button in _item_button_list:
+		if item_button.visible:
+			var item: Item = item_button.get_item()
+			list.append(item)
+
+	return list
 
 
 #########################
@@ -159,7 +174,16 @@ func _on_close_button_pressed():
 
 func _on_rarity_filter_container_filter_changed():
 	_load_current_filter()
+	_update_autofill_buttons()
 
 
 func _on_item_type_filter_container_filter_changed():
 	_load_current_filter()
+	_update_autofill_buttons()
+
+
+# NOTE: need to update recipe buttons when an item locked
+# state changes because that changes the item list for
+# autofill
+func _on_item_horadric_lock_changed():
+	_update_autofill_buttons()

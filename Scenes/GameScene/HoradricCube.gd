@@ -87,6 +87,15 @@ static func get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Arr
 			return rarity_match
 	)
 
+# 	Filter out locked items
+	item_list = item_list.filter(
+		func(item: Item) -> bool:
+			var item_is_locked: bool = item.get_horadric_lock_is_enabled()
+			var item_can_be_autofilled: bool = !item_is_locked
+
+			return item_can_be_autofilled
+	)
+
 # 	Sort by level to prioritize lower level items first
 	item_list.sort_custom(func(a, b): return a.get_required_wave_level() < b.get_required_wave_level())
 

@@ -7,6 +7,7 @@ extends Node
 
 signal charges_changed()
 signal consumed()
+signal horadric_lock_changed()
 
 
 const FLY_DURATION: float = 1.0
@@ -34,6 +35,7 @@ var _charge_count: int = -1
 var _visible: bool = true
 var _uses_charges: bool = false
 var _is_oil_and_was_applied_already: bool = false
+var _horadric_lock_is_enabled: bool = false
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -93,6 +95,15 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func toggle_horadric_lock():
+	_horadric_lock_is_enabled = !_horadric_lock_is_enabled
+	horadric_lock_changed.emit()
+
+
+func get_horadric_lock_is_enabled() -> bool:
+	return _horadric_lock_is_enabled
+
 
 func get_uid() -> int:
 	return _uid
