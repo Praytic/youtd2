@@ -68,6 +68,7 @@ var user_real3: float = 0.0
 
 @export var _lifetime_timer: ManualTimer
 @export var _visual_node: Node2D
+@export var _cpu_particles: CPUParticles2D
 
 
 #########################
@@ -86,6 +87,9 @@ func _ready():
 			print_debug("Failed to find sprite for projectile. Tried at path:", _sprite_path)
 
 		_sprite_path = FALLBACK_PROJECTILE_SPRITE
+	else:
+#		NOTE: pause cpu particles if using custom sprite because cpu particles emits texture which matches only with fallback sprite
+		_cpu_particles.emitting = false
 
 	var sprite_scene: PackedScene = load(_sprite_path)
 	var sprite: Node = sprite_scene.instantiate()

@@ -1,13 +1,14 @@
 extends TowerBehavior
 
 
-# TODO: need to implement visual. Currently using
-# placeholder effect. Need to create an animation scene
-# which contains tower's sprite as frames. But single frame?
-# because tower has no animation. Maybe spin or something.
+# NOTE: changed how the "mirror image" VFX is implemented by
+# a lot. Original script uses Effect with models and attack
+# animations. Don't have access to those things so used a
+# moving projectile instead with sprite of tower.
 
 
 var omnislashed_bt: BuffType
+var mirror_image_pt: ProjectileType
 
 
 func get_ability_description() -> String:
@@ -45,6 +46,10 @@ func tower_init():
 	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
 	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 
+	mirror_image_pt = ProjectileType.create_interpolate("res://Assets/Projectiles/OmnislasherMirrorImage.tscn", 1000.0, self)
+	mirror_image_pt.set_event_on_interpolation_finished(mirror_image_pt_on_interpolation_finished)
+	mirror_image_pt.disable_explode_on_hit()
+
 
 # NOTE: implemented this slightly differently than original
 # script. Using "await" instead of timer.
@@ -56,13 +61,7 @@ func on_attack(event: Event):
 
 	SFX.sfx_on_unit("MirrorImageCaster.mdl", tower, Unit.BodyPart.ORIGIN)
 	
-	# NOTE: original script here makes the tower invisible
-	# and pauses it. This is because the tower creates an
-	# effect that looks like the tower is moving around the
-	# game world. In youtd2 there's no such effect model
-	# yet, so will keep the tower visible for now.
-	# tower.set_sprite_color(tower, Color8(255, 255, 255, 0)
-	# PauseUnit(tower, true)
+	tower.set_sprite_color(Color8(255, 255, 255, 100))
 
 	var fun_text: String
 	var fun_value: float = Globals.synced_rng.randf_range(0, 1.0)
@@ -78,6 +77,10 @@ func on_attack(event: Event):
 	if !fun_text.is_empty():
 		tower.get_player().display_floating_text_x(fun_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
 
+	var p: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(mirror_image_pt, tower, 0, 0, tower, target, 0.1, true)
+#	NOTE: set a very high speed for first movement from tower to target so that projectile reaches the target on time
+	p.set_speed(5000)
+
 	for i in range(0, attack_count):
 		await Utils.create_timer(time_between_attacks, self).timeout
 
@@ -90,26 +93,24 @@ func on_attack(event: Event):
 		if target == null:
 			return
 
+		var random_angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
+		var random_offset: Vector2 = Vector2(80, 0).rotated(random_angle)
+		var projectile_pos: Vector3 = Vector3(
+			target.get_x() + random_offset.x,
+			target.get_y() + random_offset.y,
+			target.get_z())
+		p.start_interpolation_to_point(projectile_pos, 0.1)
+#		NOTE: reduce speed to normal value for moves after first one
+		p.set_speed(1000)
+
 		damage(target)
+
+	p.remove_from_game()
+	tower.set_sprite_color(Color8(255, 255, 255, 255))
 
 
 func damage(target: Unit):
-	var the_range: float = 80
-	var angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
-	var x: float = target.get_x() + cos(angle) * the_range
-	var y: float = target.get_y() + sin(angle) * the_range
-	var z: float = 0.0
-
-	var blademaster: int = Effect.create_animated("HeroChaosBladeMaster.mdl", Vector3(x, y, z), deg_to_rad(angle + 180))
-	var mirrorimage: int = Effect.create_animated("MirrorImageCaster.mdl", Vector3(x, y, z), angle + deg_to_rad(angle))
 	var buff: Buff = target.get_buff_of_type(omnislashed_bt)
-
-	Effect.set_lifetime(blademaster, 0.4)
-	# Effect.set_animation(blademaster, "attack")
-	Effect.set_scale(blademaster, 5)
-	Effect.no_death_animation(blademaster)
-	Effect.set_lifetime(mirrorimage, 0.4)
-	Effect.set_scale(mirrorimage, 5)
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus() / 10, tower.calc_attack_multicrit_no_bonus())
 
@@ -134,3 +135,7 @@ func omnislashed_bt_on_damaged(event: Event):
 
 	var damage_multiplier: float = buff.user_real
 	event.damage *= damage_multiplier
+
+
+func mirror_image_pt_on_interpolation_finished(projectile: Projectile, _target: Unit):
+	projectile.avert_destruction()

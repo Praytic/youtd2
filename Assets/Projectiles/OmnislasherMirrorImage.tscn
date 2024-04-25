@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkmfctakea8qe"]
+
+[ext_resource type="Texture2D" uid="uid://qrp4celywjm6" path="res://Assets/Towers/Instances/the_omnislasher_atlas.png" id="1_kfxrf"]
+
+[sub_resource type="Gradient" id="Gradient_4ewt2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="OmnislasherMirrorImage" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -64)
+lifetime = 0.1
+texture = ExtResource("1_kfxrf")
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_4ewt2")
