@@ -170,6 +170,12 @@ func _calculate_game_state_checksum():
 	return checksum
 
 
+# NOTE: need to implement this with a match statement
+# because action is a plain Dictionary passed via RPC. Doing
+# this via dynamic dispatch is not possible because it's not
+# possible to pass custom classes through RPC. Also, some
+# execute()'s require extra args like "map" which is a
+# further obstruction.
 func _execute_action(action: Dictionary):
 	var player_id: int = action[Action.Field.PLAYER_ID]
 	var player: Player = PlayerManager.get_player(player_id)
