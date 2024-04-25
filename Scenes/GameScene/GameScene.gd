@@ -652,7 +652,38 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 	
-	var action: Action = ActionAutofill.make(recipe, rarity_filter)
+	var local_player: Player = PlayerManager.get_local_player()
+	
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+
+#	NOTE: need to also include items which are currently in
+#	horadric cube because ignoring them would be an annoying
+#	behavior for player. Player would need to manually move
+#	all items back to item stash for them to be included in
+#	autofill item pool.
+	var full_item_list: Array[Item] = []
+	var item_stash_item_list: Array[Item] = item_stash.get_item_list()
+	var horadric_stash_item_list: Array[Item] = horadric_stash.get_item_list()
+	full_item_list.append_array(item_stash_item_list)
+	full_item_list.append_array(horadric_stash_item_list)
+
+	var filtered_item_list: Array[Item] = Utils.filter_item_list(full_item_list, rarity_filter)
+	var autofill_list: Array[Item] = HoradricCube.get_item_list_for_autofill(recipe, filtered_item_list)
+
+	var can_autofill: bool = !autofill_list.is_empty()
+	
+	if !can_autofill:
+		Messages.add_error(local_player, "Not enough items for recipe!")
+		
+		return
+
+	var autofill_uid_list: Array[int] = []
+	for item in autofill_list:
+		var item_uid: int = item.get_uid()
+		autofill_uid_list.append(item_uid)
+
+	var action: Action = ActionAutofill.make(autofill_uid_list)
 	_game_client.add_action(action)
 
 
