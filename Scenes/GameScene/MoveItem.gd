@@ -118,6 +118,12 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	if !_can_start_moving():
 		return
 	
+	var clicked_on_moved_item: bool = _moved_item == clicked_item
+	if clicked_on_moved_item:
+		cancel()
+
+		return
+
 #	If an item is currently getting moved, end move process
 #	for old item and start moving new item
 	if _move_in_progress():
