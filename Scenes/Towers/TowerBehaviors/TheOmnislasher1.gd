@@ -85,13 +85,13 @@ func on_attack(event: Event):
 		await Utils.create_timer(time_between_attacks, self).timeout
 
 		if !Utils.unit_is_valid(tower):
-			return
+			break
 
 		if !Utils.unit_is_valid(target):
 			target = it.next()
 			
 		if target == null:
-			return
+			break
 
 		var random_angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 		var random_offset: Vector2 = Vector2(80, 0).rotated(random_angle)
