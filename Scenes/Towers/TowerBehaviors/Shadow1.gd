@@ -5,6 +5,9 @@ extends TowerBehavior
 # to re-implement it here using a periodic event and
 # lightning visual.
 
+# NOTE: added display of DPS for Dark Shroud ability in
+# tower details.
+
 # TODO: this tower's abilities are setup in such a way that
 # it will very often steal kills. Here's how it works:
 # 1. Tower applies Dark Shroud Aura to tower Foo.
@@ -22,9 +25,12 @@ extends TowerBehavior
 # kills that Shadow tower gets.
 
 
+var multiboard: MultiboardValues
 var aura_bt: BuffType
 var orb_pt: ProjectileType
 var lesser_orb_pt: ProjectileType
+var _tower_creation_time: float = 0.0
+var _dark_shroud_damage_dealt: float = 0.0
 
 
 func get_ability_description() -> String:
@@ -88,6 +94,9 @@ func tower_init():
 	lesser_orb_pt = ProjectileType.create("OrbDarkness.mdl", 3, 0, self)
 	lesser_orb_pt.enable_periodic(lesser_orb_pt_periodic, 1.0)
 
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Dark Shroud DPS")
+
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
@@ -101,6 +110,19 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_effect = aura_bt
 
 	return [aura]
+
+
+func on_create(_preceding: Tower):
+	_tower_creation_time = Utils.get_time()
+
+
+func on_tower_details() -> MultiboardValues:
+	var tower_lifetime: float = Utils.get_time() - _tower_creation_time
+	var dark_shroud_dps: float = Utils.divide_safe(_dark_shroud_damage_dealt, tower_lifetime)
+	var dark_shroud_dps_string: String = Utils.format_float(dark_shroud_dps, 0)
+	multiboard.set_value(0, dark_shroud_dps_string)
+
+	return multiboard
 
 
 func on_attack(_event: Event):
@@ -138,6 +160,8 @@ func aura_bt_on_damage(event: Event):
 	var caster: Tower = buff.get_caster()
 	var target: Unit = event.get_target()
 	var damage: float = event.damage * (0.10 + 0.005 * caster.get_level())
+
+	_dark_shroud_damage_dealt += damage
 
 	event.damage *= 0.9
 
