@@ -33,6 +33,7 @@ var _purgable: bool = true
 var _cleanup_done: bool = false
 var _periodic_timer_map: Dictionary = {}
 var _is_hidden: bool
+var _special_effect_id: int = 0
 
 
 #########################
@@ -93,6 +94,9 @@ func remove_buff():
 
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+	if _special_effect_id != 0:
+		Effect.destroy_effect(_special_effect_id)
 
 	_target._remove_buff_internal(self)
 

@@ -69,8 +69,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	time_field_bt = BuffType.new("time_field_bt", 10, 0, true, self)
-	# TODO: implement BuffType.set_special_effect_advanced()
-	# time_field_bt.set_special_effect_advanced("EnergyField.mdl", 0, 0, 0, 3.5, 0, 255, 255, 255, 255, 180)
+	time_field_bt.set_special_effect("EnergyField.mdl", 150, 5.0)
 	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
 	time_field_bt.set_buff_icon("orb_swirly.tres")
 	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")

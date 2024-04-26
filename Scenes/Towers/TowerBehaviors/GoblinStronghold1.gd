@@ -108,8 +108,7 @@ func tower_init():
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
 	robot_bt.set_buff_icon("gear_2.tres")
-	# TODO: BuffType.set_special_effect() is not implemented yet
-	# robot_bt.set_special_effect("HeroTinkerRobot.mdl", 120, 0.7)
+	robot_bt.set_special_effect("HeroTinkerRobot.mdl", 200, 5.0)
 	robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
 
 	emitter_bt = BuffType.new("emitter_bt", 5, 0, true, self)
@@ -117,8 +116,7 @@ func tower_init():
 	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
 	emitter_bt.set_buff_icon("crystal.tres")
-	# TODO: BuffType.set_special_effect() is not implemented yet
-	# emitter_bt.set_special_effect("GoblinLandMine.mdl", 120, 1.0)
+	emitter_bt.set_special_effect("GoblinLandMine.mdl", 200, 5.0)
 	emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
 
 

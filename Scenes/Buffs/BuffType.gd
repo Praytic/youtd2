@@ -18,6 +18,11 @@ extends Node
 # signal for correct "cleanup" event logic.
 
 
+class SpecialEffect:
+	var path: String = ""
+	var z: float = 0.0
+	var scale: float = 1.0
+
 class CommonHandlerData:
 	var handler: Callable
 	var event_type: Event.Type
@@ -48,6 +53,7 @@ var _defined_custom_buff_icon_color: bool = false
 var _is_hidden: bool = false
 var _stacking_behavior_is_enabled: bool = true
 var _is_aura: bool = false
+var _special_effect_data: SpecialEffect = null
 
 
 #########################
@@ -149,6 +155,12 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	if buff_should_be_applied:
 		target._add_buff_internal(buff)
 		target.add_child(buff)
+
+		if _special_effect_data != null:
+			var special_effect_pos: Vector3 = Vector3(target.get_x(), target.get_y(), _special_effect_data.z)
+			var special_effect_id: int = Effect.create_animated(_special_effect_data.path, special_effect_pos, 0.0)
+			Effect.set_scale(special_effect_id, _special_effect_data.scale)
+			buff._special_effect_id = special_effect_id
 	else:
 #		NOTE: set _cleanup_done to true because no cleanup
 #		is needed. Buff was never added to tree, so _ready()
@@ -416,12 +428,14 @@ func set_stacking_group(_stacking_group: String):
 	pass
 
 
-# TODO: implement. Probably need to display this effect on
-# buffed unit while buff is active.
-# 
-# NOTE: buffType.setSpecialEffectSimple() in JASS
-func set_special_effect_simple(_effect: String):
-	pass
+# NOTE: effects created by this functions will not follow a
+# unit. Try to use this only for buffs applied to towers.
+# NOTE: buffType.setSpecialEffect() in JASS
+func set_special_effect(effect_path: String, z: float, scale: float):
+	_special_effect_data = SpecialEffect.new()
+	_special_effect_data.path = effect_path
+	_special_effect_data.z = z
+	_special_effect_data.scale = scale
 
 
 # NOTE: if a buff is hidden, it will not be displayed in the
