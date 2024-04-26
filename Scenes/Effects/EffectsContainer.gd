@@ -7,11 +7,13 @@ extends Node2D
 
 # Map active effects to integer id's
 # 
-# NOTE: this is for compatibility with original tower script
-# API
-var _id_max: int
-var _effect_map: Dictionary
-var _free_id_list: Array
+# NOTE: effect id's start from id 1 (instead of 0) so that
+# when effect id is 0 it is treated as invalid. 0 needs to
+# be invalid because some tower scripts require that by
+# initializing effect id vars to 0.
+var _id_max: int = 1
+var _effect_map: Dictionary = {}
+var _free_id_list: Array = []
 
 
 # NOTE: Enable to check if any effects do not have scenes.
