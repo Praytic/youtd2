@@ -145,12 +145,6 @@ func destroy_effect_after_its_over(effect_id: int):
 	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect_id))
 
 
-# TODO: implement, no idea what this is supposed to do
-# NOTE: effect.noDeathAnimation() in JASS()
-func no_death_animation(_effect_id: int):
-	pass
-
-
 func set_position(effect_id: int, position: Vector2):
 	var effect: Node2D = _get_effect(effect_id)
 	if effect == null:

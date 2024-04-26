@@ -8,7 +8,7 @@ extends TowerBehavior
 # NOTE: added display of DPS for Dark Shroud ability in
 # tower details.
 
-# TODO: this tower's abilities are setup in such a way that
+# NOTE: this tower's abilities are setup in such a way that
 # it will very often steal kills. Here's how it works:
 # 1. Tower applies Dark Shroud Aura to tower Foo.
 # 2. Tower Foo is about to deal damage.

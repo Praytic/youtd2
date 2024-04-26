@@ -221,7 +221,6 @@ func on_autocast_recreation(event: Event):
 		else:
 			recreation_field_exists = true
 			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.to_pos.x, sum.to_pos.y, 0), 270.0, 5, Color8(255, 0, 0, 255))
-			Effect.no_death_animation(sum.recreation_effect)
 	else:
 		sum.to_pos = last_pos
 		tower.get_player().display_small_floating_text("Invalid location!", tower, Color8(255, 150, 0), 30)
@@ -244,7 +243,6 @@ func on_autocast_corruption(event: Event):
 	else:
 		corruption_field_exists = true
 		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 0), 270.0, 5, Color8(0, 0, 255, 255))
-		Effect.no_death_animation(sum.corruption_effect)
 
 
 func on_tower_details() -> MultiboardValues:

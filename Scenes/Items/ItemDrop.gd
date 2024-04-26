@@ -23,8 +23,9 @@ func _ready():
 	_setup_selection_signals(_selection_area)
 	_set_visual_node(_visual)
 
-# 	TODO: calculate correct z index so that item drop is
-# 	drawn behind creeps/towers when it should.
+# 	NOTE: use 100 so that item drops is drawn in front of
+# 	all units. Not important because ItemDrops are almost
+# 	never visible.
 	z_index = 100
 
 

@@ -44,7 +44,6 @@ var _height_change_speed: float = 0.0
 # NOTE: need to use @onready for these variables instead of
 # @export because export vars cause null errors in HTML5
 # build, for some reason.
-# TODO: figure out the reason for errors and fix them if possible.
 @onready var _visual = $Visual
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
@@ -119,9 +118,6 @@ func update(delta: float):
 # Note that this value depends on creep health.
 # NOTE: this function is *mostly* correct. Some multipliers
 # may still be missing.
-# TODO: implement score multiplier which depends team count
-# or "owner gets bounty" setting. Couldn't understand how it
-# works last time I tried.
 func get_score(difficulty: Difficulty.enm, game_length: int, game_mode: GameMode.enm) -> float:
 	const difficulty_multiplier_map: Dictionary = {
 		Difficulty.enm.BEGINNER: 1.0,

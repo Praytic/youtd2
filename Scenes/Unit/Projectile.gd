@@ -230,9 +230,6 @@ func _process_normal(delta: float):
 #		going past the target position during a tick and
 #		rubber-banding.
 # 
-#		TODO: feel like there's a more correct way to do
-#		this, or at least a formula which results in a
-#		smaller but still correct contact distance.
 		var contact_distance: float = delta * _speed
 		var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
 		var reached_target = VectorUtils.in_range(target_pos_2d, get_position_wc3_2d(), contact_distance)

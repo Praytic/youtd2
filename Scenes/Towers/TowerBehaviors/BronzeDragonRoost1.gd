@@ -65,13 +65,9 @@ func bronze_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(255, 255, 125, 255))
-#	TODO: implement
-	# SetUnitTimeScale(unit, 0.5)
 
 
 func bronze_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
 	unit.set_sprite_color(Color8(255, 255, 255, 255))
-#	TODO: implement
-	# SetUnitTimeScale(unit, 1.0)

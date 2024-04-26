@@ -273,9 +273,7 @@ func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
 #	the target point?
 	p.avert_destruction()
 
-#	TODO: replace with real effect visual, original name is "FrostBoltMissile"
 	var effect: int = Effect.create_scaled("res://Scenes/Effects/StunVisual.tscn", Vector3(icicle_x, icicle_y, 200), angle, 5)
-	Effect.no_death_animation(effect)
 	icicle.effect = effect
 
 

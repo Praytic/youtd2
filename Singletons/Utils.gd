@@ -131,7 +131,7 @@ func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 
 
-# TODO: currently, we assure that text fits inside the
+# NOTE: currently, we assure that text fits inside the
 # richtextlabel tooltip by setting the minimum size. If all
 # lines in the text are shorter than the minimum size, there
 # will be extra empty space to the right of the text. It

@@ -446,7 +446,6 @@ static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm)
 
 
 static func get_scene_name_for_creep_type(creep_size: CreepSize.enm, creep_race: CreepCategory.enm) -> String:
-	#	TODO: switch to real challenge scenes when they are ready
 	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
 		return "ChallengeBoss"
 	elif creep_size == CreepSize.enm.CHALLENGE_MASS:

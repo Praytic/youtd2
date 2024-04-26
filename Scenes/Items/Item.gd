@@ -419,7 +419,6 @@ static func make(id: int, player: Player) -> Item:
 # that causes problems, I think due to cyclic references.
 # You will get errors like "Bad address index" when an oil
 # drops or "X could not be resolved".
-# TODO: look into this deeper
 static func make_item_drop(item: Item, drop_pos: Vector3):
 	if item.get_parent() != null:
 		push_error("Item must be unparented before being added to ItemDrop.")

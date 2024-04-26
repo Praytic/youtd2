@@ -136,7 +136,6 @@ func get_aura_types() -> Array[AuraType]:
 
 func on_create(_preceding_tower: Tower):
 	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", Vector3(tower.get_x() - 4, tower.get_y() + 41, tower.get_z()), 0, 0.55)
-	engine_update_anims()
 
 
 func on_destruct():
@@ -153,7 +152,6 @@ func periodic(_event: Event):
 
 	power_level = 0
 	engine_update_mana_use()
-	engine_update_anims()
 	tower.get_player().display_floating_text("Power Level: 0", tower, Color8(50, 150, 100))
 	stun_bt.apply_only_timed(tower, tower, 120)
 
@@ -163,17 +161,6 @@ func on_tower_details() -> MultiboardValues:
 	multiboard.set_value(1, str(powered_tower_count))
 
 	return multiboard
-
-
-# TODO: functions used here are not implemented. Need to
-# implement them and then update this code to use new
-# functions.
-# NOTE: engine_UpdateAnims() in original script
-func engine_update_anims():
-	pass
-	# SetUnitTimeScale(tower, power_level / 10.0)
-	# permanent_effect_id.set_animation_speed(0.5 + power_level / 20.0)
-	# permanent_effect_id.set_scale(power_level / 20.0)
 
 
 # Changes mana regen of tower based on current count of
@@ -249,7 +236,6 @@ func on_autocast_speed_up(_event: Event):
 	
 	power_level += 1
 	engine_update_mana_use()
-	engine_update_anims()
 
 	var floating_text: String = "Power Level: %d" % power_level
 	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))
@@ -261,7 +247,6 @@ func on_autocast_speed_down(_event: Event):
 
 	power_level -= 1
 	engine_update_mana_use()
-	engine_update_anims()
 
 	var floating_text: String = "Power Level: %d" % power_level
 	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))

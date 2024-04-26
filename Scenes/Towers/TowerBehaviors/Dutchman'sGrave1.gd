@@ -94,8 +94,6 @@ func tower_init():
 	soulstorm_pt = ProjectileType.create("PossessionMissile.mdl", 6, 300, self)
 	soulstorm_pt.set_acceleration(10)
 	soulstorm_pt.enable_collision(soulstorm_pt_on_collision, 100, TargetType.new(TargetType.CREEPS), false)
-	# TODO: implement ProjectileType.set_start_rotation()
-	# soulstorm_pt.set_start_rotation(6)
 
 	panic_bt = BuffType.new("panic_bt", 5, 0, false, self)
 	var panic_bt_mod: Modifier = Modifier.new()
