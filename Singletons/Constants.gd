@@ -56,14 +56,13 @@ const MOD_ATTACKSPEED_MAX: float = 5.0
 const ATTACK_COOLDOWN_MIN: float = 0.2
 
 const PROJECTILE_SPEED_MAX: int = 30000
-# NOTE: this range needs to be bigger than distance between
-# normal creeps moving at default speed. Can calculate by
-# multiplying CreepSpawner.NORMAL_SPAWN_DELAY_SEC and
-# Creep.DEFAULT_MOVE_SPEED.
-# Current value = 0.9 * 222 = 200
-# + 25 for error margin from timers
-# = 225
-const BOUNCE_ATTACK_RANGE: int = 225
+# NOTE: couldn't find the exact value so had to calculate it
+# by eye from original youtd. 470 is big enough to always
+# bounce from mass creeps and almost always bounce for
+# normal creeps. In very rare cases, when normal creep
+# random delay is above 2s the bounce will fail - works like
+# that in original game as well.
+const BOUNCE_ATTACK_RANGE: int = 470
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
 # NOTE: DEFAULT_MOVE_SPEED was obtained by measuring speed
