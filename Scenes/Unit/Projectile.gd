@@ -190,10 +190,11 @@ func set_collision_parameters(radius: float, target_type: TargetType):
 #########################
 
 func _update_normal(delta: float):
-	var destroyed_by_collision: bool = _do_collision_behavior()
+	if _collision_enabled:
+		var destroyed_by_collision: bool = _collide_with_units()
 
-	if destroyed_by_collision:
-		return
+		if destroyed_by_collision:
+			return
 
 	if _range > 0:
 		var travel_vector: Vector2 = get_position_wc3_2d() - VectorUtils.vector3_to_vector2(_initial_pos)
@@ -236,7 +237,7 @@ func _update_normal(delta: float):
 		if reached_ground:
 			if _impact_handler.is_valid():
 				_impact_handler.call(self)
-				
+
 			_cleanup()
 	elif should_update_z_to_match_target_z:
 		var travel_vector: Vector3 = _target_pos - current_position
@@ -276,10 +277,11 @@ func _update_normal(delta: float):
 
 
 func _update_interpolated(delta: float):
-	var destroyed_by_collision: bool = _do_collision_behavior()
+	if _collision_enabled:
+		var destroyed_by_collision: bool = _collide_with_units()
 
-	if destroyed_by_collision:
-		return
+		if destroyed_by_collision:
+			return
 
 	if _interpolation_is_stopped:
 		return
@@ -337,10 +339,7 @@ func _update_interpolated(delta: float):
 
 
 # Returns true if projectile expired because of a collision
-func _do_collision_behavior() -> bool:
-	if !_collision_enabled:
-		return false
-
+func _collide_with_units() -> bool:
 	var units_in_range: Array[Unit] = Utils.get_units_in_range(_collision_target_type, get_position_wc3_2d(), _collision_radius)
 
 # 	Remove units that have already collided. This way, we
