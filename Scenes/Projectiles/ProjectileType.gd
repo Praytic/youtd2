@@ -8,7 +8,7 @@ var _initial_z_speed: float = 0.0
 var _homing_control_value: float
 var _range: float = 0.0
 var _lifetime: float = 0.0
-var _sprite_path: String = ""
+var _visual_path: String = ""
 var _explode_on_hit: bool = true
 var _explode_on_expiration: bool = true
 var _cleanup_handler: Callable = Callable()
@@ -150,7 +150,7 @@ static func create(model: String, lifetime: float, speed: float, parent: Node) -
 	pt._move_type = Projectile.MoveType.NORMAL
 	pt._speed = speed
 	pt._lifetime = lifetime
-	pt._sprite_path = model
+	pt._visual_path = model
 	parent.add_child(pt)
 	
 	return pt
@@ -161,7 +161,7 @@ static func create_interpolate(model: String, speed: float, parent: Node) -> Pro
 	var pt: ProjectileType = ProjectileType.new()
 	pt._move_type = Projectile.MoveType.INTERPOLATED
 	pt._speed = speed
-	pt._sprite_path = model
+	pt._visual_path = model
 	parent.add_child(pt)
 
 	return pt
@@ -175,7 +175,7 @@ static func create_ranged(model: String, the_range: float, speed: float, parent:
 	pt._move_type = Projectile.MoveType.NORMAL
 	pt._speed = speed
 	pt._range = the_range
-	pt._sprite_path = model
+	pt._visual_path = model
 	parent.add_child(pt)
 	
 	return pt

@@ -13,7 +13,7 @@ enum MoveType {
 }
 
 
-const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Projectiles/ProjectileVisuals/ProjectileVisual.tscn"
+const FALLBACK_PROJECTILE_VISUAL: String = "res://Scenes/Projectiles/ProjectileVisuals/DefaultProjectile.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
 var _move_type: MoveType
@@ -56,7 +56,7 @@ var _periodic_enabled: bool = true
 var _physics_enabled: bool = true
 var _periodic_timer: ManualTimer = null
 var _spawn_time: float
-var _sprite_path: String
+var _visual_path: String
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -68,7 +68,6 @@ var user_real3: float = 0.0
 
 @export var _lifetime_timer: ManualTimer
 @export var _visual_node: Node2D
-@export var _cpu_particles: CPUParticles2D
 
 
 #########################
@@ -81,19 +80,16 @@ func _ready():
 	_initial_scale = scale
 	_spawn_time = Utils.get_time()
 
-	var sprite_exists: bool = ResourceLoader.exists(_sprite_path)
-	if !sprite_exists:
+	var visual_exists: bool = ResourceLoader.exists(_visual_path)
+	if !visual_exists:
 		if PRINT_SPRITE_NOT_FOUND_ERROR:
-			print_debug("Failed to find sprite for projectile. Tried at path:", _sprite_path)
+			print_debug("Failed to find sprite for projectile. Tried at path:", _visual_path)
 
-		_sprite_path = FALLBACK_PROJECTILE_SPRITE
-	else:
-#		NOTE: pause cpu particles if using custom sprite because cpu particles emits texture which matches only with fallback sprite
-		_cpu_particles.emitting = false
+		_visual_path = FALLBACK_PROJECTILE_VISUAL
 
-	var sprite_scene: PackedScene = load(_sprite_path)
-	var sprite: Node = sprite_scene.instantiate()
-	_visual_node.add_child(sprite)
+	var visual_scene: PackedScene = load(_visual_path)
+	var visual: Node2D = visual_scene.instantiate()
+	_visual_node.add_child(visual)
 
 
 #########################
@@ -733,7 +729,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 	projectile._caster = caster
 	projectile.set_position_wc3(initial_pos)
 	projectile._initial_pos = initial_pos
-	projectile._sprite_path = type._sprite_path
+	projectile._visual_path = type._visual_path
 
 	projectile.set_direction(facing)
 

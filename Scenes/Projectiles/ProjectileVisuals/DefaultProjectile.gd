@@ -1,5 +1,4 @@
-extends Sprite2D
-
+extends Node2D
 
 # Rotate projectile so it looks more dynamic
 func _process(delta):
