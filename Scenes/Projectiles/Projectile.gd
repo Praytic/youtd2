@@ -13,7 +13,7 @@ enum MoveType {
 }
 
 
-const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Effects/ProjectileVisual.tscn"
+const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Projectiles/ProjectileVisuals/ProjectileVisual.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
 var _move_type: MoveType
