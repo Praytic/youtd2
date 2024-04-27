@@ -123,6 +123,10 @@ func get_creep_combination() -> Array[CreepSize.enm]:
 	return _creep_combination
 
 
+func get_creep_count() -> int:
+	return _creep_combination.size()
+
+
 # [MASS, MASS, MASS, CHAMPION]
 # =>
 # "3 Mass, 1 Champion"

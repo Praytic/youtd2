@@ -70,10 +70,7 @@ func start_wave(level: int):
 
 	_current_wave = wave
 
-	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(wave)
-
-	for creep_data in creep_data_list:
-		_creep_spawner.queue_spawn_creep(creep_data)
+	_creep_spawner.start_spawning_wave(wave)
 	
 	_add_message_about_wave(wave)
 	
@@ -175,25 +172,3 @@ func get_wave(level: int) -> Wave:
 		return wave
 	else:
 		return null
-
-
-#########################
-###       Static      ###
-#########################
-
-static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
-	var creep_data_list: Array[CreepData] = []
-	var creep_combination: Array[CreepSize.enm] = wave.get_creep_combination()
-
-	for creep_size in creep_combination:
-		var creep_race: CreepCategory.enm = wave.get_creep_race()
-		var scene_name: String = Wave.get_scene_name_for_creep_type(creep_size, creep_race)
-
-		var creep_data: CreepData = CreepData.new()
-		creep_data.scene_name = scene_name
-		creep_data.size = creep_size
-		creep_data.wave = wave
-
-		creep_data_list.append(creep_data)
-	
-	return creep_data_list

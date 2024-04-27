@@ -5,10 +5,10 @@
 
 [node name="CreepSpawner" type="Node" node_paths=PackedStringArray("_timer_between_creeps")]
 script = ExtResource("1")
-_timer_between_creeps = NodePath("ManualTimer")
+_timer_between_creeps = NodePath("SpawnTimer")
 
-[node name="ManualTimer" type="Node" parent="."]
+[node name="SpawnTimer" type="Node" parent="."]
 script = ExtResource("2_wbil6")
 one_shot = true
 
-[connection signal="timeout" from="ManualTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
