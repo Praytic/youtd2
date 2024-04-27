@@ -195,7 +195,9 @@ func _on_player_wave_finished(level: int):
 	
 	if finished_last_level:
 		_do_victory_effects()
-	else:
+	elif _next_wave_timer.is_stopped():
+#		NOTE: only start next wave timer if it hasn't
+#		already been started automatically by extreme timer.
 		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
 
 
