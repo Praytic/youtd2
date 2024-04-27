@@ -485,8 +485,6 @@ func generic_drake_pt_periodic(p: Projectile):
 	p.set_speed(0)
 	drake.state = DrakeState.IDLE
 
-# 	TODO: implement Projectile.aim_at_point(). Should change
-# 	direction of projectile.
-#	var final_x: float = p.get_x() + (tower.get_x() - p.get_x()) * 10
-#	var final_y: float = p.get_y() + (tower.get_y() - p.get_y()) * 10
-#	p.aim_at_point(final_x, final_y, p.get_z(), false, false)
+	var final_x: float = p.get_x() + (tower.get_x() - p.get_x()) * 10
+	var final_y: float = p.get_y() + (tower.get_y() - p.get_y()) * 10
+	p.aim_at_point(Vector3(final_x, final_y, p.get_z()), false, false)
