@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://bdibpipbjyshb"]
 
-[ext_resource type="PackedScene" uid="uid://by01sg1a1yihc" path="res://Scenes/Unit/DummyUnit.tscn" id="1_80b6v"]
-[ext_resource type="Script" path="res://Scenes/Unit/Projectile.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://cifmqgyviomde" path="res://Assets/Projectiles/projectile.png" id="3_q6yrv"]
-[ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="4_t3w08"]
+[ext_resource type="PackedScene" uid="uid://by01sg1a1yihc" path="res://Scenes/Unit/DummyUnit.tscn" id="1_fkawk"]
+[ext_resource type="Script" path="res://Scenes/Projectiles/Projectile.gd" id="2_xv7xk"]
+[ext_resource type="Texture2D" uid="uid://cifmqgyviomde" path="res://Assets/Projectiles/projectile.png" id="3_0ovah"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="4_o28ps"]
 
 [sub_resource type="Gradient" id="Gradient_mbwhr"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer", "_visual_node", "_cpu_particles") groups=["projectiles"] instance=ExtResource("1_80b6v")]
+[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer", "_visual_node", "_cpu_particles") groups=["projectiles"] instance=ExtResource("1_fkawk")]
 z_index = 100
-script = ExtResource("2")
+script = ExtResource("2_xv7xk")
 _lifetime_timer = NodePath("LifetimeTimer")
 _visual_node = NodePath("Visual")
 _cpu_particles = NodePath("Visual/CPUParticles2D")
@@ -19,11 +19,11 @@ _cpu_particles = NodePath("Visual/CPUParticles2D")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Visual" index="0"]
 lifetime = 0.1
-texture = ExtResource("3_q6yrv")
+texture = ExtResource("3_0ovah")
 gravity = Vector2(0, 0)
 color_ramp = SubResource("Gradient_mbwhr")
 
 [node name="LifetimeTimer" type="Node" parent="." index="1"]
-script = ExtResource("4_t3w08")
+script = ExtResource("4_o28ps")
 
 [connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]
