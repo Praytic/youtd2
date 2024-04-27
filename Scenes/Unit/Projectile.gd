@@ -120,16 +120,19 @@ func avert_destruction():
 
 
 # NOTE: aimAtUnit() in JASS
-func aim_at_unit(target: Unit, targeted: bool, ignore_z: bool, expire_when_reached: bool):
-	var target_pos: Vector3 = Vector3.ZERO
-	_aim_at_internal(target, target_pos, targeted, ignore_z, expire_when_reached)
+func aim_at_unit(target_unit: Unit, targeted: bool, ignore_z: bool, expire_when_reached: bool):
+	if targeted:
+		set_homing_target(target_unit)
+	else:
+		set_homing_target(null)
+
+	var target_pos: Vector3 = target_unit.get_position_wc3()
+	_aim_at_internal(target_pos, ignore_z, expire_when_reached)
 
 
 # NOTE: aimAtPoint() in JASS
 func aim_at_point(target_pos: Vector3, ignore_z: bool, expire_when_reached: bool):
-	var target_unit: Unit = null
-	var targeted: bool = false
-	_aim_at_internal(target_unit, target_pos, targeted, ignore_z, expire_when_reached)
+	_aim_at_internal(target_pos, ignore_z, expire_when_reached)
 
 
 func stop_interpolation():
@@ -140,25 +143,27 @@ func stop_interpolation():
 
 
 func start_interpolation_to_point(target_pos: Vector3, z_arc: float):
-	var target_unit: Unit = null
-	var targeted: bool = false
-	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
+	set_homing_target(null)
+	_start_interpolation_internal(target_pos, z_arc)
 
 
 func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool):
+	if targeted:
+		set_homing_target(target_unit)
+	else:
+		set_homing_target(null)
+
 	var target_pos: Vector3 = target_unit.get_position_wc3()
-	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
+	_start_interpolation_internal(target_pos, z_arc)
 
 
 func start_bezier_interpolation_to_point(target_pos: Vector3, z_arc: float, _size_arc: float, _steepness: float):
-	var target_unit: Unit = null
-	var targeted: bool = false
-	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
+	set_homing_target(null)
+	start_interpolation_to_point(target_pos, z_arc)
 
 
 func start_bezier_interpolation_to_unit(target_unit: Unit, z_arc: float, _size_arc: float, _steepness: float, targeted: bool):
-	var target_pos: Vector3 = target_unit.get_position_wc3()
-	_start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
+	start_interpolation_to_unit(target_unit, z_arc, targeted)
 
 
 # NOTE: disablePeriodic() in JASS
@@ -411,48 +416,20 @@ func _normalize_angle(angle: float) -> float:
 	return normalized_angle
 
 
-static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2) -> float:
-	var projectile_pos: Vector2 = projectile.get_position_wc3_2d()
-	var angle_to_target_pos: float = projectile_pos.angle_to_point(target_pos)
-	var direction: float = rad_to_deg(angle_to_target_pos)
-	
-	return direction
-
-
 # NOTE: before this f-n is called, projectile must be added
 # to world and have a valid position
-func _start_interpolation_internal(target_unit: Unit, target_pos: Vector3, z_arc: float, targeted: bool):
-#	NOTE: need to clear previous target (if it exists) to
-#	disconnect from signals
-	set_homing_target(null)
-
+func _start_interpolation_internal(target_pos: Vector3, z_arc: float):
+	_target_pos = target_pos
 	_z_arc = z_arc
 
-	if target_unit != null:
-		target_pos = target_unit.get_position_wc3()
-
-	if target_unit != null:
-#		NOTE: if projectile has a target but is not
-#		targeted, then it will travel towards the position
-#		at which the target was during projectile's
-#		creation. It will not follow target's movement.
-		if targeted:
-			set_homing_target(target_unit)
-		else:
-			_target_pos = target_pos
-	else:
-		set_homing_target(null)
-		_target_pos = target_pos
-
 	var from_pos: Vector3 = get_position_wc3()
+	var travel_vector: Vector3 = target_pos - from_pos
+	var travel_vector_2d: Vector2 = VectorUtils.vector3_to_vector2(travel_vector)
+	var travel_distance: float = travel_vector_2d.length()
 	_interpolation_start = from_pos
-
-	_interpolation_is_stopped = false
-
-	var travel_vector: Vector2 = VectorUtils.vector3_to_vector2(target_pos) - VectorUtils.vector3_to_vector2(from_pos)
-	var travel_distance: float = travel_vector.length()
 	_interpolation_progress = 0
 	_interpolation_distance = travel_distance
+	_interpolation_is_stopped = false
 
 
 func _do_explosion_visual():
@@ -625,23 +602,6 @@ func get_age() -> float:
 ###       Static      ###
 #########################
 
-# NOTE: Projectile.create() in JASS
-static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_position: Vector3, facing: float) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_position)
-
-	projectile.set_direction(facing)
-
-#	NOTE: have to use map node as parent for projectiles
-#	instead of GameScene. Using GameScene as parent would
-#	cause projectiles to continue moving while the game is
-#	paused because GameScene and it's children ignore pause
-#	mode. Map node is specifically configured to be
-#	pausable.
-	Utils.add_object_to_world(projectile)
-
-	return projectile
-
-
 # NOTE: Projectile.createFromUnit() in JASS
 static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
 	var pos: Vector3 = from.get_position_wc3()
@@ -686,38 +646,34 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 
 # NOTE: Projectile.createLinearInterpolationFromPointToPoint() in JASS
 static func create_linear_interpolation_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_pos: Vector3, z_arc: float) -> Projectile:
-	var from_unit: Unit = null
-	var target_unit: Unit = null
-	var targeted: bool = false
-	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_interpolation_to_point(target_pos, z_arc)
 
 	return projectile
 
 
 # NOTE: Projectile.createLinearInterpolationFromPointToUnit() in JASS
 static func create_linear_interpolation_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector3, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
-	var from_unit: Unit = null
-	var target_pos: Vector3 = Vector3.ZERO
-	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_interpolation_to_unit(target_unit, z_arc, targeted)
 
 	return projectile
 
 
 # NOTE: Projectile.createLinearInterpolationFromUnitToPoint() in JASS
 static func create_linear_interpolation_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, z_arc: float) -> Projectile:
-	var from_pos: Vector3 = Vector3.ZERO
-	var target_unit: Unit = null
-	var targeted: bool = false
-	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_interpolation_to_point(target_pos, z_arc)
 
 	return projectile
 
 
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
 static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
-	var from_pos: Vector3 = Vector3.ZERO
-	var target_pos: Vector3 = Vector3.ZERO
-	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_interpolation_to_unit(target_unit, z_arc, targeted)
 
 	return projectile
 
@@ -728,7 +684,8 @@ static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, 
 	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, z_arc, targeted)
 
 
-static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector3) -> Projectile:
+# NOTE: Projectile.create() in JASS
+static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector3, facing: float) -> Projectile:
 	var projectile: Projectile = Preloads.projectile_scene.instantiate()
 
 	projectile.set_speed(type._speed)
@@ -770,52 +727,30 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = initial_pos
 	projectile._sprite_path = type._sprite_path
 
+	projectile.set_direction(facing)
+
 	if type._lifetime > 0:
 		projectile.set_remaining_lifetime(type._lifetime)
 
 	type.tree_exited.connect(projectile._on_projectile_type_tree_exited)
 
+	Utils.add_object_to_world(projectile)
+
 	return projectile
 
 
-func _aim_at_internal(target_unit: Unit, target_pos: Vector3, targeted: bool, ignore_z: bool, expire_when_reached: bool):
-	if target_unit != null:
-		target_pos = target_unit.get_position_wc3()
-
+func _aim_at_internal(target_pos: Vector3, ignore_z: bool, expire_when_reached: bool):
+	_target_pos = target_pos
 	_ignore_target_z = ignore_z
 
-#	NOTE: if projectile has a target but is not targeted,
-#	then it will travel towards the position at which the
-#	target was during projectile's creation. It will not
-#	follow target's movement.
-	if target_unit != null && targeted:
-		set_homing_target(target_unit)
-	else:
-		_target_pos = target_pos
-
-	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(target_pos)
-	var initial_direction: float = Projectile._get_direction_to_target(self, target_pos_2d)
+	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
+	var from_pos_2d: Vector2 = get_position_wc3_2d()
+	var angle_to_target_pos: float = from_pos_2d.angle_to_point(target_pos_2d)
+	var initial_direction: float = rad_to_deg(angle_to_target_pos)
 	set_direction(initial_direction)
 
 	if expire_when_reached:
-		var from_pos_2d: Vector2 = get_position_wc3_2d()
 		var travel_vector: Vector2 = target_pos_2d - from_pos_2d
 		var travel_distance: float = travel_vector.length()
 		var time_until_reached: float = Utils.divide_safe(travel_distance, get_speed(), 1.0)
 		set_remaining_lifetime(time_until_reached)
-
-
-static func _create_internal_interpolated(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector3, target_unit: Unit, target_pos: Vector3, z_arc: float, targeted: bool) -> Projectile:
-	if from_unit != null:
-		from_pos = from_unit.get_position_wc3()
-
-	if target_unit != null:
-		target_pos = target_unit.get_position_wc3()
-
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
-
-	Utils.add_object_to_world(projectile)
-
-	projectile._start_interpolation_internal(target_unit, target_pos, z_arc, targeted)
-
-	return projectile
