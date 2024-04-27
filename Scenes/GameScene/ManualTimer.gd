@@ -90,12 +90,12 @@ func update(delta: float):
 	var reached_timeout: bool = time_left <= 0 
 	
 	if reached_timeout:
-		timeout.emit()
-		
 		if one_shot:
 			_stopped = true
 		else:
 			time_left = wait_time
+
+		timeout.emit()
 
 
 func is_stopped() -> bool:
