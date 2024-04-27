@@ -160,12 +160,6 @@ func get_creep_combination_string() -> String:
 	return combination_string
 
 
-# Delay in seconds between each creep spawn
-func get_creeps_spawn_delay() -> float:
-	# TODO:
-	return 1.0
-
-
 func is_bonus_wave() -> bool:
 	# TODO:
 	return false

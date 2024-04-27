@@ -8,6 +8,21 @@ signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
 
+# NOTE: the values for champion and boss are unused because
+# waves with champions use delay of the main creep size
+# while bosses are alone in their waves and have no creeps
+# after them. This is intended behavior.
+const _creep_delay_map: Dictionary = {
+	CreepSize.enm.MASS: [0.15, 0.4],
+	CreepSize.enm.NORMAL: [0.4, 2.2],
+	CreepSize.enm.AIR: [1.0, 3.0],
+	CreepSize.enm.CHAMPION: [0.7, 4.4],
+	CreepSize.enm.BOSS: [1.5, 9.0],
+	CreepSize.enm.CHALLENGE_MASS: [0.15, 0.4],
+	CreepSize.enm.CHALLENGE_BOSS: [1.5, 9.0],
+}
+
+
 var _player: Player = null
 var _ground_path: WavePath = null
 var _air_path: WavePath = null
@@ -112,7 +127,12 @@ func _spawn_next_creep():
 
 		_creep_index = 0
 	else:
-		var delay_before_next_creep: float = _current_wave.get_creeps_spawn_delay()
+#		NOTE: need to calculate delay based on the main
+#		creep size of the way, NOT the creep size of the
+#		current creep. This is important for mass+champ or
+#		normal+champ waves having appropriate spacing.
+		var wave_main_creep_size: CreepSize.enm = _current_wave.get_creep_size()
+		var delay_before_next_creep: float = CreepSpawner.get_creep_delay(wave_main_creep_size)
 		_timer_between_creeps.start(delay_before_next_creep)
 		print_verbose("Started creep spawn timer with delay [%f]." % delay_before_next_creep)
 
@@ -145,3 +165,12 @@ static func get_creep_health(wave: Wave, creep_size: CreepSize.enm) -> float:
 	var creep_health: float = wave.get_base_hp() * size_multiplier
 
 	return creep_health
+
+
+static func get_creep_delay(wave_main_creep_size: CreepSize.enm) -> float:
+	var delay_range: Array = _creep_delay_map[wave_main_creep_size]
+	var delay_min: float = delay_range[0]
+	var delay_max: float = delay_range[1]
+	var creep_delay: float = Globals.synced_rng.randf_range(delay_min, delay_max)
+	
+	return creep_delay
