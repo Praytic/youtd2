@@ -96,18 +96,18 @@ func _ready():
 	_visual_node.add_child(sprite)
 
 
+#########################
+###       Public      ###
+#########################
+
 func update(delta: float):
 	if _target_unit != null:
 		_target_pos = _target_unit.get_position_wc3()
 
 	match _move_type:
-		MoveType.NORMAL: _process_normal(delta)
-		MoveType.INTERPOLATED: _process_interpolated(delta)
+		MoveType.NORMAL: _update_normal(delta)
+		MoveType.INTERPOLATED: _update_interpolated(delta)
 
-
-#########################
-###       Public      ###
-#########################
 
 func set_position_wc3(value: Vector3):
 	super(value)
@@ -127,12 +127,12 @@ func aim_at_unit(target_unit: Unit, targeted: bool, ignore_z: bool, expire_when_
 		set_homing_target(null)
 
 	var target_pos: Vector3 = target_unit.get_position_wc3()
-	_aim_at_internal(target_pos, ignore_z, expire_when_reached)
+	_start_movement_normal(target_pos, ignore_z, expire_when_reached)
 
 
 # NOTE: aimAtPoint() in JASS
 func aim_at_point(target_pos: Vector3, ignore_z: bool, expire_when_reached: bool):
-	_aim_at_internal(target_pos, ignore_z, expire_when_reached)
+	_start_movement_normal(target_pos, ignore_z, expire_when_reached)
 
 
 func stop_interpolation():
@@ -144,7 +144,7 @@ func stop_interpolation():
 
 func start_interpolation_to_point(target_pos: Vector3, z_arc: float):
 	set_homing_target(null)
-	_start_interpolation_internal(target_pos, z_arc)
+	_start_movement_interpolated(target_pos, z_arc)
 
 
 func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool):
@@ -154,7 +154,7 @@ func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool
 		set_homing_target(null)
 
 	var target_pos: Vector3 = target_unit.get_position_wc3()
-	_start_interpolation_internal(target_pos, z_arc)
+	_start_movement_interpolated(target_pos, z_arc)
 
 
 func start_bezier_interpolation_to_point(target_pos: Vector3, z_arc: float, _size_arc: float, _steepness: float):
@@ -189,7 +189,7 @@ func set_collision_parameters(radius: float, target_type: TargetType):
 ###      Private      ###
 #########################
 
-func _process_normal(delta: float):
+func _update_normal(delta: float):
 	var destroyed_by_collision: bool = _do_collision_behavior()
 
 	if destroyed_by_collision:
@@ -205,7 +205,8 @@ func _process_normal(delta: float):
 
 			return
 
-	_do_homing_behavior(delta)
+	if _is_homing:
+		_turn_towards_target(delta)
 
 # 	Apply acceleration
 	var new_speed: float = _speed + _acceleration * delta
@@ -272,7 +273,7 @@ func _process_normal(delta: float):
 			_cleanup()
 
 
-func _process_interpolated(delta: float):
+func _update_interpolated(delta: float):
 	var destroyed_by_collision: bool = _do_collision_behavior()
 
 	if destroyed_by_collision:
@@ -368,10 +369,7 @@ func _do_collision_behavior() -> bool:
 # Homing behavior is implemented here. If target pos or
 # target unit is defined, the projectile will turn to face
 # towards it.
-func _do_homing_behavior(delta: float):
-	if !_is_homing:
-		return
-
+func _turn_towards_target(delta: float):
 	var turn_instantly: float = _homing_control_value == 0
 	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
 	var projectile_pos: Vector2 = get_position_wc3_2d()
@@ -416,9 +414,26 @@ func _normalize_angle(angle: float) -> float:
 	return normalized_angle
 
 
+func _start_movement_normal(target_pos: Vector3, ignore_z: bool, expire_when_reached: bool):
+	_target_pos = target_pos
+	_ignore_target_z = ignore_z
+
+	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
+	var from_pos_2d: Vector2 = get_position_wc3_2d()
+	var angle_to_target_pos: float = from_pos_2d.angle_to_point(target_pos_2d)
+	var initial_direction: float = rad_to_deg(angle_to_target_pos)
+	set_direction(initial_direction)
+
+	if expire_when_reached:
+		var travel_vector: Vector2 = target_pos_2d - from_pos_2d
+		var travel_distance: float = travel_vector.length()
+		var time_until_reached: float = Utils.divide_safe(travel_distance, get_speed(), 1.0)
+		set_remaining_lifetime(time_until_reached)
+
+
 # NOTE: before this f-n is called, projectile must be added
 # to world and have a valid position
-func _start_interpolation_internal(target_pos: Vector3, z_arc: float):
+func _start_movement_interpolated(target_pos: Vector3, z_arc: float):
 	_target_pos = target_pos
 	_z_arc = z_arc
 
@@ -440,15 +455,6 @@ func _do_explosion_visual():
 	Utils.add_object_to_world(explosion)
 
 
-func _clear_target():
-	if _target_unit == null:
-		return
-
-	_target_pos = _target_unit.get_position_wc3()
-	_target_unit.tree_exited.disconnect(_on_target_tree_exited)
-	_target_unit = null
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -461,11 +467,13 @@ func _on_periodic_timer_timeout():
 		_periodic_handler.call(self)
 
 
-# NOTE: this handleswe need to clear target both on death() and on
-# tree_exited() signal because creeps get removed from the
-# game without dying, when they reach the portal.
 func _on_target_tree_exited():
-	_clear_target()
+	if _target_unit == null:
+		return
+
+	_target_pos = _target_unit.get_position_wc3()
+	_target_unit.tree_exited.disconnect(_on_target_tree_exited)
+	_target_unit = null
 
 
 func _on_projectile_type_tree_exited():
@@ -737,20 +745,3 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 	Utils.add_object_to_world(projectile)
 
 	return projectile
-
-
-func _aim_at_internal(target_pos: Vector3, ignore_z: bool, expire_when_reached: bool):
-	_target_pos = target_pos
-	_ignore_target_z = ignore_z
-
-	var target_pos_2d: Vector2 = VectorUtils.vector3_to_vector2(_target_pos)
-	var from_pos_2d: Vector2 = get_position_wc3_2d()
-	var angle_to_target_pos: float = from_pos_2d.angle_to_point(target_pos_2d)
-	var initial_direction: float = rad_to_deg(angle_to_target_pos)
-	set_direction(initial_direction)
-
-	if expire_when_reached:
-		var travel_vector: Vector2 = target_pos_2d - from_pos_2d
-		var travel_distance: float = travel_vector.length()
-		var time_until_reached: float = Utils.divide_safe(travel_distance, get_speed(), 1.0)
-		set_remaining_lifetime(time_until_reached)
