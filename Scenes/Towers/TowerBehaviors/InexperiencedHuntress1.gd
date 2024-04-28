@@ -82,7 +82,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED_ADD)
 	glaive_bt.set_buff_modifier(mod)
-	glaive_bt.set_buff_icon("letter_h.tres")
+	glaive_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_h.tres")
 	glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
 
 

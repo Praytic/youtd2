@@ -88,11 +88,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
-	glimmer_bt.set_buff_icon("orb_sparkly.tres")
+	glimmer_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_sparkly.tres")
 	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
-	sunlight_bt.set_buff_icon("letter_omega_shiny.tres")
+	sunlight_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_omega_shiny.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sunlight Burst"

@@ -71,7 +71,7 @@ func tower_init():
 	time_field_bt = BuffType.new("time_field_bt", 10, 0, true, self)
 	time_field_bt.set_special_effect("EnergyField.mdl", 150, 5.0)
 	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
-	time_field_bt.set_buff_icon("orb_swirly.tres")
+	time_field_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_swirly.tres")
 	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
@@ -81,7 +81,7 @@ func tower_init():
 	aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
 	aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
 	aura_bt.set_buff_modifier(aura_bt_mod)
-	aura_bt.set_buff_icon("bull_horns.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/bull_horns.tres")
 	aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
 
 	multiboard = MultiboardValues.new(1)

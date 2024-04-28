@@ -39,13 +39,13 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 1.5, 0.0, false, self)
-	stun_bt.set_buff_icon("letter_h.tres")
+	stun_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_h.tres")
 
 	slow_bt = BuffType.new("slow_bt", 4.0, 0.24, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.27, -0.002)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("crystal.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/Buffs/crystal.tres")
 	slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
 
 

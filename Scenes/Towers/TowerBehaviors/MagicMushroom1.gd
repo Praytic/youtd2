@@ -75,7 +75,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
-	fungus_bt.set_buff_icon("fireball.tres")
+	fungus_bt.set_buff_icon("res://Resources/Textures/Buffs/fireball.tres")
 	fungus_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
 
 	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
@@ -83,7 +83,7 @@ func tower_init():
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
-	trance_bt.set_buff_icon("beard.tres")
+	trance_bt.set_buff_icon("res://Resources/Textures/Buffs/beard.tres")
 	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
 
 	multiboard = MultiboardValues.new(2)

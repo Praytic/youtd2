@@ -74,7 +74,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	lunar_energy_bt = BuffType.new("lunar_energy_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
-	lunar_energy_bt.set_buff_icon("star.tres")
+	lunar_energy_bt.set_buff_icon("res://Resources/Textures/Buffs/star.tres")
 	lunar_energy_bt.set_stacking_group("lunar_energy_bt")
 
 	lunar_energy_bt.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")

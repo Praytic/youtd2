@@ -80,12 +80,12 @@ func dot(event: Event):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("beard.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/beard.tres")
 	aura_bt.add_event_on_attack(poisenskin)
 	aura_bt.set_buff_tooltip("Poisonous attack\nApplies poison on attack.")
 
 	poison_bt = BuffType.new("poison_bt", 5.00, 0.0, false, self)
-	poison_bt.set_buff_icon("beard.tres")
+	poison_bt.set_buff_icon("res://Resources/Textures/Buffs/beard.tres")
 	poison_bt.add_periodic_event(dot, 1.0)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 

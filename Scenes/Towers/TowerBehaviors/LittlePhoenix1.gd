@@ -118,7 +118,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 
 	phoenix_fire_bt = BuffType.new("phoenix_fire_bt", 5, 0, false, self)
-	phoenix_fire_bt.set_buff_icon("armor_cuirass.tres")
+	phoenix_fire_bt.set_buff_icon("res://Resources/Textures/Buffs/armor_cuirass.tres")
 	phoenix_fire_bt.set_buff_modifier(mod)
 	phoenix_fire_bt.add_event_on_cleanup(phoenix_fire_bt_on_cleanup)
 	phoenix_fire_bt.add_event_on_purge(phoenix_fire_bt_on_purge)

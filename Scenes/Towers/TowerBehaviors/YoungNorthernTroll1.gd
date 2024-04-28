@@ -81,7 +81,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
 	fatigue_bt.set_buff_modifier(mod)
-	fatigue_bt.set_buff_icon("skull.tres")
+	fatigue_bt.set_buff_icon("res://Resources/Textures/Buffs/skull.tres")
 	fatigue_bt.set_buff_tooltip("Fatigue\nReduces attack speed.")
 
 	axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)

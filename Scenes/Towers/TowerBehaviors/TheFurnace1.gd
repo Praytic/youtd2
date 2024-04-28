@@ -89,7 +89,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("hammer_swing.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_periodic_event(aura_bt_periodic, 5.0)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
@@ -100,7 +100,7 @@ func tower_init():
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt.set_buff_modifier(intense_heat_bt_mod)
-	intense_heat_bt.set_buff_icon("running_man_burning.tres")
+	intense_heat_bt.set_buff_icon("res://Resources/Textures/Buffs/running_man_burning.tres")
 	intense_heat_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
 
 	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)

@@ -57,11 +57,11 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
-	eruption_bt.set_buff_icon("crystal.tres")
+	eruption_bt.set_buff_icon("res://Resources/Textures/Buffs/crystal.tres")
 	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
 	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
-	planar_shift_bt.set_buff_icon("ghost.tres")
+	planar_shift_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
 	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
 	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 

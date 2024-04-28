@@ -95,7 +95,7 @@ func hit(event: Event):
 
 func tower_init():
 	poison_bt = BuffType.new("poison_bt", 5, 0.05, false, self)
-	poison_bt.set_buff_icon("beard.tres")
+	poison_bt.set_buff_icon("res://Resources/Textures/Buffs/beard.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 

@@ -85,7 +85,7 @@ func tower_init():
 	var hammer_fall_bt_mod: Modifier = Modifier.new()
 	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
-	hammer_fall_bt.set_buff_icon("hammer_swing.tres")
+	hammer_fall_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
 	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)

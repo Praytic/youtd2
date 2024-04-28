@@ -78,7 +78,7 @@ func tower_init():
 	soul_link_bt = BuffType.new("soul_link_bt", SOUL_LINK_DURATION, 0, false, self)
 	soul_link_bt.add_event_on_damaged(soul_link_on_damaged)
 	soul_link_bt.add_event_on_death(soul_link_on_death)
-	soul_link_bt.set_buff_icon("orb_empty.tres")
+	soul_link_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
 	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 	var autocast: Autocast = Autocast.make()

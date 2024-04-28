@@ -43,7 +43,7 @@ func periodic_dmg(event: Event):
 func item_init():
 	roots_bt = CbStun.new("roots_bt", 1.8, 0, false, self)
 	roots_bt.add_periodic_event(periodic_dmg, 1.0)
-	roots_bt.set_buff_icon("orb_empty.tres")
+	roots_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
 
 	cooldown_bt = BuffType.new("cooldown_bt", 4.8, 0.0, false, self)
 	cooldown_bt.set_hidden()

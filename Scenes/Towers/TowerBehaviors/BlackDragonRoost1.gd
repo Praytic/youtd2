@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	fear_dark_bt = BuffType.new("fear_dark_bt", 5, 0.1, false, self)
-	fear_dark_bt.set_buff_icon("ghost.tres")
+	fear_dark_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
 	fear_dark_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
 	fear_dark_bt.add_event_on_create(fear_dark_bt_on_create)
 	fear_dark_bt.add_event_on_cleanup(fear_dark_bt_on_cleanup)

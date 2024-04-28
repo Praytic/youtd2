@@ -50,7 +50,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
 	rend_bt = BuffType.new("rend_bt", 6, 0, false, self)
-	rend_bt.set_buff_icon("claw.tres")
+	rend_bt.set_buff_icon("res://Resources/Textures/Buffs/claw.tres")
 	rend_bt.add_periodic_event(drol_tentacleDamage, 1)
 	rend_bt.set_buff_modifier(m)
 	rend_bt.set_buff_tooltip("Rend\nDeals damage over time and increases spell damage taken.")

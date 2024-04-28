@@ -42,7 +42,7 @@ func followup_bt_on_attack(event: Event):
 
 func item_init():
 	followup_bt = BuffType.new("followup_bt", 30, 0, true, self)
-	followup_bt.set_buff_icon("hammer_swing.tres")
+	followup_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
 	followup_bt.set_buff_tooltip("Follow Up\nNext attack will be faster and will always be critical.")
 	followup_bt.add_event_on_attack(followup_bt_on_attack)
 	var mod: Modifier = Modifier.new()

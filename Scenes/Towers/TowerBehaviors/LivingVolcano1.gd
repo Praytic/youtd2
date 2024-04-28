@@ -58,7 +58,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("orb_empty.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
 	aura_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.add_event_on_death(aura_bt_on_death)

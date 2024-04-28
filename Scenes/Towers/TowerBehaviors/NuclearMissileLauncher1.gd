@@ -28,7 +28,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	targeted_pt = BuffType.new("targeted_pt", -1, 0, false, self)
-	targeted_pt.set_buff_icon("gear_1.tres")
+	targeted_pt.set_buff_icon("res://Resources/Textures/Buffs/gear_1.tres")
 	targeted_pt.add_event_on_create(targeted_pt_on_create)
 	targeted_pt.add_event_on_refresh(targeted_pt_on_refresh)
 	targeted_pt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")

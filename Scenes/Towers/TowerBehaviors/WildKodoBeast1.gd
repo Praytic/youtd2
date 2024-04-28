@@ -57,7 +57,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0010)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.0010)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("egg.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/egg.tres")
 	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
 	aura_bt.set_buff_tooltip("Kodo Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
 

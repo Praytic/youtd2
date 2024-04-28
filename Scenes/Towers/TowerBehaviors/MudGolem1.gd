@@ -54,11 +54,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.60, 0.0)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("hammer_swing.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
 	slow_bt.set_buff_tooltip("Smashed\nReduces movement speed.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("gear_2.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/gear_2.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.set_buff_tooltip("Earthquake Aura\nChance to trigger Ground Smash.")
 

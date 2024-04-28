@@ -72,14 +72,14 @@ func tower_init():
 	var alert_mod: Modifier = Modifier.new()
 	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
 	alert_bt.set_buff_modifier(alert_mod)
-	alert_bt.set_buff_icon("helmet.tres")
+	alert_bt.set_buff_icon("res://Resources/Textures/Buffs/helmet.tres")
 	alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
 
 	trespasser_bt = BuffType.new("trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
 	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 	trespasser_bt.set_buff_modifier(trespasser_mod)
-	trespasser_bt.set_buff_icon("eye.tres")
+	trespasser_bt.set_buff_icon("res://Resources/Textures/Buffs/eye.tres")
 	trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
 
 

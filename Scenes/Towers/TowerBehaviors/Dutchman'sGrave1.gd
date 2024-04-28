@@ -100,7 +100,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
-	panic_bt.set_buff_icon("skull.tres")
+	panic_bt.set_buff_icon("res://Resources/Textures/Buffs/skull.tres")
 	panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
 
 	multiboard = MultiboardValues.new(1)

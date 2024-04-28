@@ -71,7 +71,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("letter_s_lying_down.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_s_lying_down.tres")
 	aura_bt.set_buff_tooltip("Realm of Thunder Aura\nIncreases damage taken from Storm towers.")
 
 	

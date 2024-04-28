@@ -70,7 +70,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	rage_bt.set_buff_modifier(mod)
-	rage_bt.set_buff_icon("mask_bat.tres")
+	rage_bt.set_buff_icon("res://Resources/Textures/Buffs/mask_bat.tres")
 	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
 	multiboard = MultiboardValues.new(1)

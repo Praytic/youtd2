@@ -74,14 +74,14 @@ func tower_init():
 	var will_positive_bt_mod: Modifier = Modifier.new()
 	will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
 	will_positive_bt.set_buff_modifier(will_positive_bt_mod)
-	will_positive_bt.set_buff_icon("mask_occult.tres")
+	will_positive_bt.set_buff_icon("res://Resources/Textures/Buffs/mask_occult.tres")
 	will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
 	will_negative_bt = BuffType.new("will_negative_bt", 5, 0, false, self)
 	var will_negative_bt_mod: Modifier = Modifier.new()
 	will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
 	will_negative_bt.set_buff_modifier(will_negative_bt_mod)
-	will_negative_bt.set_buff_icon("letter_h.tres")
+	will_negative_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_h.tres")
 	will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
 	withering_bt = BuffType.new("withering_bt", 4, 0, false, self)
@@ -90,7 +90,7 @@ func tower_init():
 	withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
 	withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
 	withering_bt.set_buff_modifier(withering_bt_mod)
-	withering_bt.set_buff_icon("ghost.tres")
+	withering_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
 	withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
 	withering_bt.add_periodic_event(withering_bt_periodic, 1.0)
 

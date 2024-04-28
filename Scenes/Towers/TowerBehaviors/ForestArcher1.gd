@@ -76,7 +76,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
 	roots_bt = BuffType.new("roots_bt", 0, 0, false, self)
-	roots_bt.set_buff_icon("foot.tres")
+	roots_bt.set_buff_icon("res://Resources/Textures/Buffs/foot.tres")
 	roots_bt.set_buff_modifier(mod)
 	roots_bt.set_stacking_group("ForestArcherStacks")
 	roots_bt.set_buff_tooltip("Forest Roots\nReduces movement speed.")

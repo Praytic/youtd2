@@ -53,7 +53,7 @@ func tower_init():
 #	0.0 time since I will apply it custom timed
 	coals_bt = BuffType.new("coals_bt ", 0.0, 0.0, true, self)
 	coals_bt.set_buff_modifier(m)
-	coals_bt.set_buff_icon("orb_triple.tres")
+	coals_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_triple.tres")
 	coals_bt.set_stacking_group("boekie_coals")
 	coals_bt.set_buff_tooltip("Hot Coals\nIncreases critical chance.")
 

@@ -64,16 +64,16 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("letter_u_striked.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_u_striked.tres")
 	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
 	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
-	surge_bt.set_buff_icon("letter_omega_shiny.tres")
+	surge_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_omega_shiny.tres")
 	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
 	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("orb_triple.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_triple.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 

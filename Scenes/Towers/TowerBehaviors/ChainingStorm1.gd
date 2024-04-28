@@ -65,7 +65,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	strong_wind_bt = BuffType.create_aura_effect_type("strong_wind_bt", false, self)
-	strong_wind_bt.set_buff_icon("electricity.tres")
+	strong_wind_bt.set_buff_icon("res://Resources/Textures/Buffs/electricity.tres")
 	strong_wind_bt.add_event_on_create(strong_wind_bt_on_create)
 	strong_wind_bt.add_periodic_event(strong_wind_bt_periodic, 1.0)
 	strong_wind_bt.add_event_on_cleanup(strong_wind_bt_on_cleanup)

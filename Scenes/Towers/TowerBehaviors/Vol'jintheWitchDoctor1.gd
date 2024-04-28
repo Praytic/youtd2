@@ -101,7 +101,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	maledict_bt = BuffType.new("maledict_bt", 0, 0, false, self)
-	maledict_bt.set_buff_icon("letter_omega.tres")
+	maledict_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_omega.tres")
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)

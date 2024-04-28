@@ -71,7 +71,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("crystal.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/crystal.tres")
 	aura_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
 
 

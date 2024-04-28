@@ -75,7 +75,7 @@ func tower_init():
 	
 	wind_shear_bt.set_buff_modifier(m)
 	
-	wind_shear_bt.set_buff_icon("orb_empty.tres")
+	wind_shear_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	

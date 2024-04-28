@@ -103,7 +103,7 @@ func tower_init():
 	surge_bt = BuffType.new("surge_bt", 8, 0, true, self)
 	surge_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
 	surge_bt.set_buff_modifier(surge_bt_mod)
-	surge_bt.set_buff_icon("letter_s_lying_down.tres")
+	surge_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_s_lying_down.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 

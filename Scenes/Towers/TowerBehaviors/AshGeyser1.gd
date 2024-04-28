@@ -58,7 +58,7 @@ func ignite_bt_periodic(event: Event):
 
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 8, 0, false, self)
-	ignite_bt.set_buff_icon("fireball.tres")
+	ignite_bt.set_buff_icon("res://Resources/Textures/Buffs/fireball.tres")
 	ignite_bt.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()

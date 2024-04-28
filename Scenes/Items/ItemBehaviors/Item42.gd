@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	enraged_bt = BuffType.new("enraged_bt", 5, 0, true, self)
-	enraged_bt.set_buff_icon("winged_man.tres")
+	enraged_bt.set_buff_icon("res://Resources/Textures/Buffs/winged_man.tres")
 	enraged_bt.set_buff_tooltip("Enraged\nIncreases attack speed, spell damage and attack damage.")
 	enraged_bt.set_stacking_group("sir_sleeve_group")
 	var mod: Modifier = Modifier.new()

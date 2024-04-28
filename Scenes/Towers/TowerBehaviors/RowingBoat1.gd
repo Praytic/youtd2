@@ -62,7 +62,7 @@ func tower_init():
 #	Set by aura
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	aura_bt.set_buff_modifier(bounty_mod)
-	aura_bt.set_buff_icon("goldbar.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/goldbar.tres")
 	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
 
 	multiboard = MultiboardValues.new(1)

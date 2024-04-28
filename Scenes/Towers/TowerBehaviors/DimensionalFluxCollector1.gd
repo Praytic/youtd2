@@ -68,13 +68,13 @@ func get_ability_ranges() -> Array[RangeData]:
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
-	aura_bt.set_buff_icon("orb_empty.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
 	aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
 
 	link_bt = BuffType.new("link_bt", -1, 0, true, self)
 	link_bt.add_event_on_create(aura_bt_on_create)
 	link_bt.add_event_on_cleanup(aura_bt_on_cleanup)
-	link_bt.set_buff_icon("electricity.tres")
+	link_bt.set_buff_icon("res://Resources/Textures/Buffs/electricity.tres")
 	link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)

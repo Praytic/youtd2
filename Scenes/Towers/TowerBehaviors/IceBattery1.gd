@@ -106,7 +106,7 @@ func tower_init():
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
 	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
-	frozen_bt.set_buff_icon("crystal.tres")
+	frozen_bt.set_buff_icon("res://Resources/Textures/Buffs/crystal.tres")
 	frozen_bt.set_buff_modifier(slow)
 	frozen_bt.set_stacking_group("IceBattery")
 	frozen_bt.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")

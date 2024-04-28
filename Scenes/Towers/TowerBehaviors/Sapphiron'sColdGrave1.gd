@@ -47,7 +47,7 @@ func tower_init():
 	shard_pt.enable_collision(shard_pt_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
 	liquid_ice_bt = BuffType.new("liquid_ice_bt", -1, 0, false, self)
-	liquid_ice_bt.set_buff_icon("fireball.tres")
+	liquid_ice_bt.set_buff_icon("res://Resources/Textures/Buffs/fireball.tres")
 	liquid_ice_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
 
 
