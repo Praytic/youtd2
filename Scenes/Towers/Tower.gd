@@ -91,6 +91,10 @@ func _ready():
 	_default_projectile_type = ProjectileType.create_interpolate("", missile_speed, self)
 	_default_projectile_type.set_event_on_interpolation_finished(_on_projectile_target_hit)
 
+	var missile_uses_lightning_visual: bool = TowerProperties.get_missile_use_lightning_visual(get_id())
+	if missile_uses_lightning_visual:
+		_default_projectile_type.switch_to_lightning_visual()
+
 # 	Carry over some properties and all items from preceding
 # 	tower
 	if _temp_preceding_tower != null:

@@ -15,6 +15,7 @@ enum MoveType {
 
 const FALLBACK_PROJECTILE_VISUAL: String = "res://Scenes/Projectiles/ProjectileVisuals/DefaultProjectile.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
+const LIGHTNING_VISUAL_LIFETIME: float = 0.5
 
 var _move_type: MoveType
 var _target_unit: Unit = null
@@ -57,6 +58,7 @@ var _physics_enabled: bool = true
 var _periodic_timer: ManualTimer = null
 var _spawn_time: float
 var _visual_path: String
+var _use_lightning_visual: bool
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -142,6 +144,12 @@ func start_interpolation_to_point(target_pos: Vector3, z_arc: float):
 	set_homing_target(null)
 	_start_movement_interpolated(target_pos, z_arc)
 
+	if _use_lightning_visual:
+		_visual_node.hide()
+		
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_point(InterpolatedSprite.LIGHTNING, get_position_wc3(), target_pos)
+		_setup_lightning_visual(lightning)
+
 
 func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool):
 	if targeted:
@@ -151,6 +159,12 @@ func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool
 
 	var target_pos: Vector3 = target_unit.get_position_wc3()
 	_start_movement_interpolated(target_pos, z_arc)
+
+	if _use_lightning_visual:
+		_visual_node.hide()
+
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, get_position_wc3(), target_unit)
+		_setup_lightning_visual(lightning)
 
 
 func start_bezier_interpolation_to_point(target_pos: Vector3, z_arc: float, _size_arc: float, _steepness: float):
@@ -184,6 +198,13 @@ func set_collision_parameters(radius: float, target_type: TargetType):
 #########################
 ###      Private      ###
 #########################
+
+func _setup_lightning_visual(lightning: InterpolatedSprite):
+	var caster_element: Element.enm = _caster.get_element()
+	var caster_element_color: Color = Element.get_color(caster_element)
+	lightning.modulate = caster_element_color
+	lightning.set_lifetime(LIGHTNING_VISUAL_LIFETIME)
+
 
 func _update_normal(delta: float):
 	if _collision_enabled:
@@ -713,6 +734,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 	projectile._collision_target_type = type._collision_target_type
 	projectile._destroy_on_collision = type._destroy_on_collision
 	projectile._damage_bonus_to_size_map = type._damage_bonus_to_size_map
+	projectile._use_lightning_visual = type._use_lightning_visual
 
 	var periodic_handler_is_defined: bool = type._periodic_handler.is_valid() && type._periodic_handler_period > 0
 	if periodic_handler_is_defined:

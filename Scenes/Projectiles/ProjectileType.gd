@@ -24,6 +24,7 @@ var _destroy_on_collision: bool = false
 var _collision_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
 var _physics_enabled: bool = false
+var _use_lightning_visual: bool = false
 
 
 #########################
@@ -38,6 +39,13 @@ func _init():
 #########################
 ###       Public      ###
 #########################
+
+# Makes projectile use lightning visual instead of the
+# visual scene passed to constructor.
+# NOTE: works only for interpolated projectiles.
+func switch_to_lightning_visual():
+	_use_lightning_visual = true
+
 
 # projectileType.disableExplodeOnHit() in JASS
 func disable_explode_on_hit():

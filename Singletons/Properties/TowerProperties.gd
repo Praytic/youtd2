@@ -22,6 +22,7 @@ enum CsvProperty {
 	COST,
 	MISSILE_SPEED,
 	MISSILE_ARC,
+	MISSILE_USE_LIGHTNING_VISUAL,
 	DESCRIPTION,
 	ICON_ATLAS_NUM,
 }
@@ -178,6 +179,12 @@ func get_missile_arc(tower_id: int) -> float:
 	var arc: float = _get_property(tower_id, CsvProperty.MISSILE_ARC) as float
 
 	return arc
+
+
+func get_missile_use_lightning_visual(tower_id: int) -> bool:
+	var value: bool = _get_property(tower_id, CsvProperty.MISSILE_USE_LIGHTNING_VISUAL) == "TRUE"
+
+	return value
 
 
 func get_sell_price(tower_id: int) -> int:
