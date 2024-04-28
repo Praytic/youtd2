@@ -105,7 +105,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	lacerate_bt = BuffType.new("lacerate_bt", 5, 0, false, self)
-	lacerate_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alligator_clip.tres")
+	lacerate_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
 	lacerate_bt.add_periodic_event(lacerate_bt_periodic, 1.0)
 	lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 

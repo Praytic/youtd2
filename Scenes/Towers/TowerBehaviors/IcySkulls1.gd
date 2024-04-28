@@ -48,7 +48,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	var slow_mod: Modifier = Modifier.new()
 	slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_mod)
 
 	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")

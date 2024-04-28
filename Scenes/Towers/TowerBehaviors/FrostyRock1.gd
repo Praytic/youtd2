@@ -50,7 +50,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_modifier(m)
 

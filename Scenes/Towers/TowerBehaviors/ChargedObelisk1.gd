@@ -66,7 +66,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
 	charge_bt.set_buff_modifier(mod)
-	charge_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
+	charge_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
 	charge_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
 	charge_bt.add_periodic_event(charge_bt_periodic, 1.0)
 

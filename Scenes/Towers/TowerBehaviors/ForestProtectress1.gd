@@ -70,7 +70,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.50, 0.0)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Protectress's Wrath\nReduces movement speed.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)

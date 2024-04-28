@@ -74,7 +74,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/hammer_drop.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Maimed\nReduces movement speed.")
 	slow_bt.add_periodic_event(slow_bt_periodic, 1.0)
 

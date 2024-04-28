@@ -102,7 +102,7 @@ func tower_init():
 	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
-	entangle_bt.set_buff_icon("res://Resources/Textures/GenericIcons/perpendicular_rings.tres")
+	entangle_bt.set_buff_icon("res://Resources/Textures/GenericIcons/root_tip.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
 	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 

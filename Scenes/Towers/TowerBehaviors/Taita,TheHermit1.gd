@@ -71,7 +71,7 @@ func tower_init():
 	var dave_taita_touch_mod: Modifier = Modifier.new()
 	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
 	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
-	icy_touch_bt.set_buff_icon("res://Resources/Textures/GenericIcons/holy_grail.tres")
+	icy_touch_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
 
 	frostbolt_pt = ProjectileType.create("FreezingBreathMissile.mdl", 4, 900, self)

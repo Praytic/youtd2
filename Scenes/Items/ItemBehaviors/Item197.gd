@@ -16,7 +16,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	magnetic_bt = BuffType.create_aura_effect_type("magnetic_bt", true, self)
-	magnetic_bt.set_buff_icon("res://Resources/Textures/GenericIcons/shiny_omega.tres")
+	magnetic_bt.set_buff_icon("res://Resources/Textures/GenericIcons/rss.tres")
 	magnetic_bt.set_buff_tooltip("Magnetic Field\nIncreases buff duration and reduces debuff duration.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.15, 0.0)

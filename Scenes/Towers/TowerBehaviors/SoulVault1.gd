@@ -73,14 +73,14 @@ func tower_init():
 	var sir_soul_vault_aura_mod: Modifier = Modifier.new()
 	sir_soul_vault_aura_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.25, -0.002)
 	aura_bt.set_buff_modifier(sir_soul_vault_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pisces.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
 	aura_bt.set_buff_tooltip("Vault's Presence - Aura\nReduces armor.")
 
 	acid_skull_bt = BuffType.new("acid_skull_bt", 4.5, 0, false, self)
 	var sir_soul_vault_acid_skull_mod: Modifier = Modifier.new()
 	sir_soul_vault_acid_skull_mod.add_modification(Modification.Type.MOD_ARMOR, 0.50, 0.02)
 	acid_skull_bt.set_buff_modifier(sir_soul_vault_acid_skull_mod)
-	acid_skull_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	acid_skull_bt.set_buff_icon("res://Resources/Textures/GenericIcons/poison_gas.tres")
 	acid_skull_bt.set_buff_tooltip("Acid Skull\nReduces armor.")
 
 	soulsteal_bt = BuffType.new("soulsteal_bt", 1000, 0, false, self)

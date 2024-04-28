@@ -62,7 +62,7 @@ func tower_init():
 
 	cripple_bt = BuffType.new("cripple_bt", 0.0, 0, false, self)
 	banish_bt = BuffType.new("banish_bt", 0.0, 0, false, self)
-	cripple_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	cripple_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
 	cripple_bt.set_special_effect("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", 150, 5.0)
 	banish_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
 	banish.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0001)

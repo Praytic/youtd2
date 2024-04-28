@@ -115,7 +115,7 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/energy_breath.tres")
 	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
 
 	blue_drake_pt = ProjectileType.create_interpolate("AzureDragon.mdl", 1000, self)

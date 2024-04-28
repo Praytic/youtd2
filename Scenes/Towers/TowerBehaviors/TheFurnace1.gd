@@ -100,7 +100,7 @@ func tower_init():
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt.set_buff_modifier(intense_heat_bt_mod)
-	intense_heat_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
+	intense_heat_bt.set_buff_icon("res://Resources/Textures/GenericIcons/flame.tres")
 	intense_heat_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
 
 	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)

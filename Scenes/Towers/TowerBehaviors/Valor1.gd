@@ -83,7 +83,7 @@ func tower_init():
 	var cedi_valor_light_mod: Modifier = Modifier.new()
 	cedi_valor_light_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	valor_light_bt.set_buff_modifier(cedi_valor_light_mod)
-	valor_light_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	valor_light_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	valor_light_bt.add_periodic_event(valor_light_bt_periodic, 1.0)
 	valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
 

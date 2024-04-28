@@ -103,7 +103,7 @@ func tower_init():
 	demonic_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_meteor.tres")
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 

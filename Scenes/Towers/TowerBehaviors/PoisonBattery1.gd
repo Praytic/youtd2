@@ -110,7 +110,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
 	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
-	poison_bt.set_buff_icon("res://Resources/Textures/GenericIcons/beard.tres")
+	poison_bt.set_buff_icon("res://Resources/Textures/GenericIcons/poison_gas.tres")
 	poison_bt.add_periodic_event(damage_periodic, 1)
 	poison_bt.set_buff_modifier(modifier)
 	poison_bt.set_stacking_group("PoisonBattery")

@@ -92,7 +92,7 @@ func tower_init():
 	energetic_weapon_pt.enable_collision(energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
 
 	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, false, self)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)

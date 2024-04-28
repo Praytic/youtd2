@@ -52,7 +52,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0005)
 	charm_bt = BuffType.new("charm_bt", 0, 0.0005, true, self)
-	charm_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ankh.tres")
+	charm_bt.set_buff_icon("res://Resources/Textures/GenericIcons/charm.tres")
 	charm_bt.set_buff_modifier(m)
 	charm_bt.set_stacking_group("charm_bt")
 	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")

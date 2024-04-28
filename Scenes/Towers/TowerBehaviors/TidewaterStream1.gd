@@ -65,7 +65,7 @@ func tower_init():
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
 	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
 	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/perpendicular_rings.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/rss.tres")
 	aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
 
 	splash_bt = BuffType.new("splash_bt", 6.0, 0, false, self)

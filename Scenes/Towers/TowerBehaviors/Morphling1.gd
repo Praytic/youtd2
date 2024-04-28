@@ -129,7 +129,7 @@ func tower_init():
 	adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
 
 	dot_bt = BuffType.new("dot_bt", 5, 0, false, self)
-	dot_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alligator_clip.tres")
+	dot_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
 	dot_bt.add_periodic_event(dot_bt_periodic, 1.0)
 	dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
 

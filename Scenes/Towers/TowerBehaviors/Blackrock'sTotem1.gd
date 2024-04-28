@@ -76,18 +76,18 @@ func tower_init():
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.05, 0.002)
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
 	fighter_totem_bt.set_buff_modifier(poussix_blackrock_physique_mod)
-	fighter_totem_bt.set_buff_icon("res://Resources/Textures/GenericIcons/holy_grail.tres")
+	fighter_totem_bt.set_buff_icon("res://Resources/Textures/GenericIcons/mighty_force.tres")
 	fighter_totem_bt.set_buff_tooltip("Fighter Totem\nIncreases attack damage, crit chance and crit damage.")
 
 	shamanic_totem_bt = BuffType.new("shamanic_totem_bt", 5, 0.2, true, self)
 	var poussix_blackrock_spell_mod: Modifier = Modifier.new()
 	poussix_blackrock_spell_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
 	shamanic_totem_bt.set_buff_modifier(poussix_blackrock_spell_mod)
-	shamanic_totem_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	shamanic_totem_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
 	shamanic_totem_bt.set_buff_tooltip("Shamanic Totem\nIncreases spell damage.")
 
 	demonic_fire_bt = BuffType.new("demonic_fire_bt", 5, 0.2, false, self)
-	demonic_fire_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
+	demonic_fire_bt.set_buff_icon("res://Resources/Textures/GenericIcons/flame.tres")
 	demonic_fire_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
 	demonic_fire_bt.add_event_on_damaged(demonic_fire_bt_on_damaged)
 

@@ -17,7 +17,7 @@ func get_ability_description() -> String:
 func item_init():
 	slow_bt = BuffType.create_aura_effect_type("slow_bt", false, self)
 	slow_bt.set_stacking_group("slow_bt")
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Skadi's Influence\nReduces movement speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.14, 0.0)

@@ -56,7 +56,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.1, 0.008)
 	freezing_bt.set_buff_modifier(mod)
-	freezing_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
+	freezing_bt.set_buff_icon("res://Resources/Textures/GenericIcons/energy_breath.tres")
 	freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)

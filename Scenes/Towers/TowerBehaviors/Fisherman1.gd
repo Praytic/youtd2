@@ -74,7 +74,7 @@ func tower_init():
 	var fisherman_slow_mod: Modifier = Modifier.new()
 	fisherman_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, -0.01)
 	slow_bt.set_buff_modifier(fisherman_slow_mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/over_infinity.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.add_event_on_create(slow_bt_on_create)
 	slow_bt.add_event_on_expire(slow_bt_on_expire)
 	slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")

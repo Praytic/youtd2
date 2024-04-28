@@ -29,7 +29,7 @@ func item_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Gem Slow\nReduces movement speed.")
 	slow_bt.set_stacking_group("slow_bt")
 	var slow_bt_mod: Modifier = Modifier.new()
@@ -37,7 +37,7 @@ func item_init():
 	slow_bt.set_buff_modifier(slow_bt_mod)
 
 	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
-	armor_bt.set_buff_icon("res://Resources/Textures/GenericIcons/turtle_shell.tres")
+	armor_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
 	armor_bt.set_buff_tooltip("Gem Armor\nReduces armor.")
 	armor_bt.set_stacking_group("armor_bt")
 	var armor_bt_mod: Modifier = Modifier.new()
