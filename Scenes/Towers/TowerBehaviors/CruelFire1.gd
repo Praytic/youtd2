@@ -44,7 +44,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
 	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
-	fire_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_omega_shiny.tres")
+	fire_bt.set_buff_icon("res://Resources/Textures/GenericIcons/shiny_omega.tres")
 	fire_bt.set_buff_modifier(m)
 	fire_bt.set_stacking_group("fire_bt")
 	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")

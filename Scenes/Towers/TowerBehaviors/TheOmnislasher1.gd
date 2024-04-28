@@ -42,7 +42,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	omnislashed_bt = BuffType.new("omnislashed_bt", -1, 0, false, self)
-	omnislashed_bt.set_buff_icon("res://Resources/Textures/Buffs/claw.tres")
+	omnislashed_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alligator_clip.tres")
 	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
 	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 

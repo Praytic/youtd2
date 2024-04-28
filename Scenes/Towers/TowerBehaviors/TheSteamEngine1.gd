@@ -68,7 +68,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 1.0, 0, false, self)
 
 	steam_bt = BuffType.new("steam_bt", 5, 0, true, self)
-	steam_bt.set_buff_icon("res://Resources/Textures/Buffs/gear_1.tres")
+	steam_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pokecog.tres")
 	steam_bt.add_event_on_create(steam_bt_on_create)
 	steam_bt.add_event_on_attack(steam_bt_on_attack)
 	steam_bt.add_periodic_event(steam_bt_periodic, 1.0)

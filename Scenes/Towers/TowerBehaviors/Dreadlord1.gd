@@ -74,7 +74,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.02)
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
 	awakening_bt.set_buff_modifier(mod)
-	awakening_bt.set_buff_icon("res://Resources/Textures/Buffs/fireball.tres")
+	awakening_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
 	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)

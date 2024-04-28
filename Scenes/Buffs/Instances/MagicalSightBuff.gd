@@ -12,7 +12,7 @@ var magical_sight_debuff: BuffType
 func _init(type: String, radius: float, parent: Node):
 	super(type, 0, 0, true, parent)
 
-	set_buff_icon("res://Resources/Textures/Buffs/eye.tres")
+	set_buff_icon("res://Resources/Textures/GenericIcons/semi_closed_eye.tres")
 	set_buff_tooltip("Magical Sight\nReveals invisible units in range.")
 	
 	magical_sight_debuff = BuffType.create_aura_effect_type("magical_sight_debuff", false, self)

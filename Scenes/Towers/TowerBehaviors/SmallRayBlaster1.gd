@@ -51,7 +51,7 @@ func tower_init():
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	phazed_bt.set_buff_modifier(iron_mod)
-	phazed_bt.set_buff_icon("res://Resources/Textures/Buffs/bug_in_amber.tres")
+	phazed_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
 	phazed_bt.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
 
 

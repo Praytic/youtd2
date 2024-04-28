@@ -51,7 +51,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	parasite_bt = BuffType.new("parasite_bt", 0, 0, false, self)
-	parasite_bt.set_buff_icon("res://Resources/Textures/Buffs/bug_in_amber.tres")
+	parasite_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
 	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
 
 

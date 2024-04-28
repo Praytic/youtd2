@@ -21,7 +21,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	conduction_bt = BuffType.new("conduction_bt", 0.0, 0.0, true, self)
-	conduction_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_swirly.tres")
+	conduction_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
 	conduction_bt.set_buff_tooltip("Magical Conduction\nIncreases attack speed.")
 	conduction_bt.set_stacking_group("boekie_magicConductor")
 	var mod: Modifier = Modifier.new()

@@ -38,7 +38,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/flexing_arm.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
 	aura_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
 
 

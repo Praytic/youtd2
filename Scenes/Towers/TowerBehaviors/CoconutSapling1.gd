@@ -61,7 +61,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	cooldown_bt = BuffType.new("cooldown_bt", STUN_CD, 0, false, self)
-	cooldown_bt.set_buff_icon("res://Resources/Textures/Buffs/shield.tres")
+	cooldown_bt.set_buff_icon("res://Resources/Textures/GenericIcons/turtle_shell.tres")
 	cooldown_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
 
 

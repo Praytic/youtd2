@@ -92,14 +92,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
 	love_bt.set_buff_modifier(mod)
-	love_bt.set_buff_icon("res://Resources/Textures/Buffs/bug_in_amber.tres")
+	love_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
 	love_bt.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
 
 #	NOTE: this buff is needed to display the effect of the
 #	"Soul Split" ability. The actual effect of the ability
 #	is implemented via modify_property().
 	soul_split_bt = BuffType.new("soul_split_bt", 10, 0, true, self)
-	soul_split_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
+	soul_split_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
 	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
 	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)

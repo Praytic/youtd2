@@ -74,11 +74,11 @@ func tower_init():
 	attraction_bt = BuffType.new("attraction_bt", 2.5, 0.05, true, self)
 	attraction_bt.add_event_on_attack(attraction_bt_on_attack)
 	attraction_bt.add_event_on_spell_casted(attraction_bt_on_spell_casted)
-	attraction_bt.set_buff_icon("res://Resources/Textures/Buffs/fireball.tres")
+	attraction_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
 	attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
 	torture_bt = BuffType.new("torture_bt", 2.5, 0.05, false, self)
-	torture_bt.set_buff_icon("res://Resources/Textures/Buffs/skull.tres")
+	torture_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
 	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
 	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 

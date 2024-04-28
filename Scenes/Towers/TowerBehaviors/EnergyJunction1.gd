@@ -95,7 +95,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	jolt_bt = BuffType.new("jolt_bt", 10, 0, true, self)
-	jolt_bt.set_buff_icon("res://Resources/Textures/Buffs/electricity.tres")
+	jolt_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
 	jolt_bt.add_event_on_create(junction_on_create)
 	jolt_bt.add_event_on_attack(junction_on_damage)
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)

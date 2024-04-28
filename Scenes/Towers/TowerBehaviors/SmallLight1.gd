@@ -73,7 +73,7 @@ func tower_init():
 	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
 	holy_weak_bt.set_buff_modifier(light_mod)
-	holy_weak_bt.set_buff_icon("res://Resources/Textures/Buffs/winged_man.tres")
+	holy_weak_bt.set_buff_icon("res://Resources/Textures/GenericIcons/angel_wings.tres")
 	holy_weak_bt.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
 
 

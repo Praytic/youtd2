@@ -57,14 +57,14 @@ func tower_init():
 	cold_feet_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
 	cold_feet_bt.set_buff_modifier(cold_feet_bt_mod)
 	cold_feet_bt.set_stacking_group("cold_feet_bt")
-	cold_feet_bt.set_buff_icon("res://Resources/Textures/Buffs/foot.tres")
+	cold_feet_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
 	cold_feet_bt.add_event_on_cleanup(on_cleanup)
 	cold_feet_bt.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
 
 	cold_arms_bt = BuffType.new("cold_arms_bt", 0, 0, true, self)
 	cold_arms_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
 	cold_arms_bt.set_buff_modifier(cold_arms_bt_mod)
-	cold_arms_bt.set_buff_icon("res://Resources/Textures/Buffs/flexing_arm.tres")
+	cold_arms_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
 	cold_arms_bt.set_buff_tooltip("Cold Arms\nIncreases attack damage.")
 
 

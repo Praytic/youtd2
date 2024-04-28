@@ -56,7 +56,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
 
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
-	roar_bt.set_buff_icon("res://Resources/Textures/Buffs/helmet.tres")
+	roar_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barbute.tres")
 	roar_bt.set_buff_modifier(mod)
 	roar_bt.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
 

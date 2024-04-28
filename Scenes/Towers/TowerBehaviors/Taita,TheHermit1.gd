@@ -64,14 +64,14 @@ func tower_init():
 	var dave_taita_blood_mod: Modifier = Modifier.new()
 	dave_taita_blood_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.005)
 	cold_blood_bt.set_buff_modifier(dave_taita_blood_mod)
-	cold_blood_bt.set_buff_icon("res://Resources/Textures/Buffs/crystal.tres")
+	cold_blood_bt.set_buff_icon("res://Resources/Textures/GenericIcons/azul_flake.tres")
 	cold_blood_bt.set_buff_tooltip("Cold Blood\nIncreases attack speed.")
 
 	icy_touch_bt = BuffType.new("icy_touch_bt", 5, 0, false, self)
 	var dave_taita_touch_mod: Modifier = Modifier.new()
 	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
 	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
-	icy_touch_bt.set_buff_icon("res://Resources/Textures/Buffs/cup_with_wings.tres")
+	icy_touch_bt.set_buff_icon("res://Resources/Textures/GenericIcons/holy_grail.tres")
 	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
 
 	frostbolt_pt = ProjectileType.create("FreezingBreathMissile.mdl", 4, 900, self)

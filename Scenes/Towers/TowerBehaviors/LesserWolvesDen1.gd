@@ -42,7 +42,7 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 1.0 / 10000)
 	aura_bt.set_buff_modifier(m)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/bull_horns.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aries.tres")
 	aura_bt.set_stacking_group("wolf_aura")
 	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
 

@@ -50,7 +50,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	entangle_bt = CbStun.new("entangle_bt", _stats.entangle_duration, 0.75, false, self)
-	entangle_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_swirly.tres")
+	entangle_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
 	entangle_bt.add_periodic_event(entangle_bt_damage, 1.0)
 
 

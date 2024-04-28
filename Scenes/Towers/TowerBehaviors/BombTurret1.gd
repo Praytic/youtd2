@@ -101,26 +101,26 @@ func tower_init():
 	var dave_concussive_creep_mod: Modifier = Modifier.new()
 	dave_concussive_creep_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.concussive_mod_movespeed, -_stats.concussive_mod_movespeed_add)
 	concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
-	concussive_creep_bt.set_buff_icon("res://Resources/Textures/Buffs/star.tres")
+	concussive_creep_bt.set_buff_icon("res://Resources/Textures/GenericIcons/polar_star.tres")
 	concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
 
 	acid_creep_bt = BuffType.new("acid_creep_bt", ACID_DURATION, 0, false, self)
 	var dave_acid_creep_mod: Modifier = Modifier.new()
 	dave_acid_creep_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -_stats.acid_mod_armor, -_stats.acid_mod_armor_add)
 	acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
-	acid_creep_bt.set_buff_icon("res://Resources/Textures/Buffs/shield.tres")
+	acid_creep_bt.set_buff_icon("res://Resources/Textures/GenericIcons/turtle_shell.tres")
 	acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
 
 	concussive_tower_bt = BuffType.new("concussive_tower_bt", -1, 0, true, self)
-	concussive_tower_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_sparkly.tres")
+	concussive_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/star_swirl.tres")
 	concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
 
 	acid_tower_bt = BuffType.new("acid_tower_bt", -1, 0, true, self)
-	acid_tower_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
+	acid_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/perpendicular_rings.tres")
 	acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
 
 	smoke_tower_bt = BuffType.new("smoke_tower_bt", -1, 0, true, self)
-	smoke_tower_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_swirly.tres")
+	smoke_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
 	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
 	var autocast_concussive: Autocast = Autocast.make()

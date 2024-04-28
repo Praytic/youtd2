@@ -21,7 +21,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	strength_bt = BuffType.new("strength_bt", 0.0, 0.0, true, self)
-	strength_bt.set_buff_icon("res://Resources/Textures/Buffs/flexing_arm.tres")
+	strength_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
 	strength_bt.set_buff_tooltip("Strength Boost\nIncreases base attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)

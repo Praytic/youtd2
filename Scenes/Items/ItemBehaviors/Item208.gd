@@ -52,7 +52,7 @@ func item_init():
 	frag_pt.enable_homing(frag_pt_on_hit, 0.1)
 
 	frag_bt = BuffType.new("frag_bt", 5.0, 0.0, false, self)
-	frag_bt.set_buff_icon("res://Resources/Textures/Buffs/gear_2.tres")
+	frag_bt.set_buff_icon("res://Resources/Textures/GenericIcons/cog.tres")
 	frag_bt.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
 	frag_bt.add_event_on_damaged(frag_bt_on_damaged)
 

@@ -67,12 +67,12 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_tooltip("Arcane Aura\nChance to replenish mana when casting.")
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_omega_shiny.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/shiny_omega.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 
 	awaken_bt = BuffType.new("awaken_bt", 5, 0, true, self)
-	awaken_bt.set_buff_icon("res://Resources/Textures/Buffs/eye.tres")
+	awaken_bt.set_buff_icon("res://Resources/Textures/GenericIcons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip("Grotesque Awakening\nTemporarily awakened to attack.")
 	awaken_bt.add_event_on_create(awaken_bt_on_create)
 	awaken_bt.add_event_on_cleanup(awaken_bt_on_cleanup)

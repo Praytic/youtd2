@@ -70,11 +70,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.50, 0.0)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/Buffs/foot.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/barefoot.tres")
 	slow_bt.set_buff_tooltip("Protectress's Wrath\nReduces movement speed.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/hammer_drop.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
 	aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nIncreases crit chance based on target's health.")

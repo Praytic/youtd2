@@ -41,7 +41,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.075, 0.002)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.006)
 	mark_bt.set_buff_modifier(mod)
-	mark_bt.set_buff_icon("res://Resources/Textures/Buffs/flexing_arm.tres")
+	mark_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
 	mark_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
 	var autocast: Autocast = Autocast.make()

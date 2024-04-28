@@ -23,7 +23,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	ensign_bt = BuffType.new("ensign_bt", 5, 0, false, self)
-	ensign_bt.set_buff_icon("res://Resources/Textures/Buffs/claw.tres")
+	ensign_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alligator_clip.tres")
 	ensign_bt.set_buff_tooltip("Ensign's Touch\nReduces armor.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)

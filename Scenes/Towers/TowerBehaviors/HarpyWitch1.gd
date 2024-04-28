@@ -104,14 +104,14 @@ func tower_init():
 	sparks_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
 	sparks_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.15, 0.002)
 	sparks_bt.set_buff_modifier(sparks_mod)
-	sparks_bt.set_buff_icon("res://Resources/Textures/Buffs/electricity.tres")
+	sparks_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
 	sparks_bt.set_buff_tooltip("Sparks\nIncreases spell damage and spell crit chance.")
 
 	twister_bt = BuffType.new("twister_bt", TWISTER_DURATION, 0, false, self)
 	var twister_mod: Modifier = Modifier.new()
 	twister_mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.10, 0.001)
 	twister_bt.set_buff_modifier(twister_mod)
-	twister_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_s_lying_down.tres")
+	twister_bt.set_buff_icon("res://Resources/Textures/GenericIcons/over_infinity.tres")
 	twister_bt.set_buff_tooltip("Twisted\nIncreases damage taken from Storm towers.")
 
 	missile_pt = ProjectileType.create("TornadoElementalSmall.mdl", 4, 1000, self)

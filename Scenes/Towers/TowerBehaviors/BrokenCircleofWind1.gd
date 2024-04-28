@@ -51,7 +51,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	wind_bt = CbStun.new("wind_bt", 1.0, 0, false, self)
-	wind_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_sparkly.tres")
+	wind_bt.set_buff_icon("res://Resources/Textures/GenericIcons/star_swirl.tres")
 	wind_bt.add_event_on_create(wind_bt_on_create)
 	wind_bt.add_periodic_event(wind_bt_periodic, 0.1)
 	wind_bt.add_event_on_cleanup(wind_bt_on_cleanup)

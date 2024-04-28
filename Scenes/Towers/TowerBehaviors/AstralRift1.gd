@@ -52,14 +52,14 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", 2, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
+	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
 	slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
 	slow_bt.set_buff_modifier(mod)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/letter_u_striked.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ophiucus.tres")
 	aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 

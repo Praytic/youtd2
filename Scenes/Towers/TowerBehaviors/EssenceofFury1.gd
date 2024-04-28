@@ -57,7 +57,7 @@ func deal_damage(event: Event):
 
 func tower_init():
 	poison_bt = BuffType.new("poison_bt", 9, 0.5, false, self)
-	poison_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_triple.tres")
+	poison_bt.set_buff_icon("res://Resources/Textures/GenericIcons/moebius_trefoil.tres")
 
 	poison_bt.add_periodic_event(deal_damage, 1)
 

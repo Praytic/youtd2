@@ -97,7 +97,7 @@ func tower_init():
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
 	burning_bt = BuffType.new("burning_bt", 0.0, 0.0, false, self)
-	burning_bt.set_buff_icon("res://Resources/Textures/Buffs/running_man_burning.tres")
+	burning_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
 	burning_bt.add_event_on_create(burning_bt_on_create)
 	burning_bt.add_event_on_damaged(burning_bt_on_damaged)
 	burning_bt.add_event_on_death(burning_bt_on_death)

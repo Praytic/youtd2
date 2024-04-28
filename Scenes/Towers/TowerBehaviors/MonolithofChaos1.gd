@@ -43,7 +43,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
 	chaos_bt.set_buff_modifier(mod)
-	chaos_bt.set_buff_icon("res://Resources/Textures/Buffs/armor_with_shoulderpads.tres")
+	chaos_bt.set_buff_icon("res://Resources/Textures/GenericIcons/abdominal_armor.tres")
 	chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
 
 

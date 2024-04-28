@@ -103,7 +103,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/eye.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/semi_closed_eye.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 

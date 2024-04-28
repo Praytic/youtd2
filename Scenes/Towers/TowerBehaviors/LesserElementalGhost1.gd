@@ -58,7 +58,7 @@ func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	wrath_bt = BuffType.new("wrath_bt", 5, 0, true, self)
-	wrath_bt.set_buff_icon("res://Resources/Textures/Buffs/cup_with_wings.tres")
+	wrath_bt.set_buff_icon("res://Resources/Textures/GenericIcons/holy_grail.tres")
 	wrath_bt.set_buff_modifier(modifier)
 	wrath_bt.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
 

@@ -65,14 +65,14 @@ func tower_init():
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
 	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
 	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_empty.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/perpendicular_rings.tres")
 	aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
 
 	splash_bt = BuffType.new("splash_bt", 6.0, 0, false, self)
 	var cedi_tidewater_splash_mod: Modifier = Modifier.new()
 	cedi_tidewater_splash_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
 	splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
-	splash_bt.set_buff_icon("res://Resources/Textures/Buffs/orb_swirly.tres")
+	splash_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
 	splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
 
 	water_pt = ProjectileType.create_ranged("Waterfall.mdl", 1200, 700, self)

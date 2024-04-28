@@ -55,7 +55,7 @@ func D1000_Toxic_Damage(event: Event):
 
 func tower_init():
 	toxic_bt = BuffType.new("toxic_bt", 10, 0, false, self)
-	toxic_bt.set_buff_icon("res://Resources/Textures/Buffs/ghost.tres")
+	toxic_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
 	toxic_bt.add_periodic_event(D1000_Toxic_Damage, 1)
 	toxic_bt.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
 

@@ -24,7 +24,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	attack_bt = BuffType.new("attack_bt", 4, 0.1, true, self)
-	attack_bt.set_buff_icon("res://Resources/Textures/Buffs/hammer_swing.tres")
+	attack_bt.set_buff_icon("res://Resources/Textures/GenericIcons/hammer_drop.tres")
 	attack_bt.set_buff_tooltip("Attack!\nIncreases attack speed.")
 	attack_bt.set_stacking_group("attack_bt")
 	var mod: Modifier = Modifier.new() 

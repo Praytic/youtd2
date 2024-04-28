@@ -84,7 +84,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/Buffs/mask_occult.tres")
+	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
 	aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 
