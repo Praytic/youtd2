@@ -42,7 +42,7 @@ script = ExtResource("1_jj4ac")
 
 [node name="ItemFilterButton1" parent="." instance=ExtResource("1_q4p2d")]
 layout_mode = 2
-tooltip_text = "Show only regular items"
+tooltip_text = "Filter regular items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_ahejp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ib584")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pexw0")
@@ -52,7 +52,7 @@ filter_value = Array[int]([0])
 
 [node name="ItemFilterButton2" parent="." instance=ExtResource("1_q4p2d")]
 layout_mode = 2
-tooltip_text = "Show only oils and consumables"
+tooltip_text = "Filter oils and consumables"
 theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")

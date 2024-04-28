@@ -74,7 +74,7 @@ script = ExtResource("1_nfudw")
 
 [node name="ItemFilterButton1" parent="." instance=ExtResource("1_jtguh")]
 layout_mode = 2
-tooltip_text = "Show only common items"
+tooltip_text = "Filter common items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_qtpi7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_56vm4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dssae")
@@ -85,7 +85,7 @@ filter_value = 0
 
 [node name="ItemFilterButton2" parent="." instance=ExtResource("1_jtguh")]
 layout_mode = 2
-tooltip_text = "Show only uncommon items"
+tooltip_text = "Filter uncommon items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_o20ob")
 theme_override_styles/hover = SubResource("StyleBoxTexture_l068u")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_aoswy")
@@ -96,7 +96,7 @@ filter_value = 1
 
 [node name="ItemFilterButton3" parent="." instance=ExtResource("1_jtguh")]
 layout_mode = 2
-tooltip_text = "Show only rare items"
+tooltip_text = "Filter rare items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_5piem")
 theme_override_styles/hover = SubResource("StyleBoxTexture_o3slk")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xbgks")
@@ -107,7 +107,7 @@ filter_value = 2
 
 [node name="ItemFilterButton4" parent="." instance=ExtResource("1_jtguh")]
 layout_mode = 2
-tooltip_text = "Show only unique items"
+tooltip_text = "Filter unique items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_twa77")
 theme_override_styles/hover = SubResource("StyleBoxTexture_d2ngo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_olwpn")
