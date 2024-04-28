@@ -102,6 +102,7 @@ var _base_armor: float = 0.0
 var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
+var _banish_count: int = 0
 var _silence_count: int = 0
 var _stun_count: int = 0
 var _stun_effect_id: int = -1
@@ -660,6 +661,14 @@ func remove_stun():
 	if stun_ended:
 		Effect.destroy_effect(_stun_effect_id)
 		_stun_effect_id = -1
+
+
+func add_banish():
+	_banish_count += 1
+
+
+func remove_banish():
+	_banish_count -= 1
 
 
 # Returns the amount of mana that was subtracted.
@@ -1254,12 +1263,6 @@ func is_immune() -> bool:
 	return _immune
 
 
-# TODO: implement
-# NOTE: unit.isBanished() in JASS
-func is_banished() -> bool:
-	return false
-
-
 func set_immune(immune: bool):
 	_immune = immune
 
@@ -1502,6 +1505,10 @@ func is_silenced() -> bool:
 
 func is_stunned() -> bool:
 	return _stun_count > 0
+
+# NOTE: unit.isBanished() in JASS
+func is_banished() -> bool:
+	return _banish_count > 0
 
 # NOTE: overriden in Tower and Creep subclasses
 func is_attacking() -> bool:
