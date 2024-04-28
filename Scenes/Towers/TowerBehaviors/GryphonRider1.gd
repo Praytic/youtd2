@@ -214,7 +214,7 @@ func deal_damage(target: Unit, damage: float):
 
 #	crit bonus?
 	if phys == 1.0 || spell == 1.0:
-		crit = 0.08 + 0.018 * tower.get_level()
+		crit = 0.05 + 0.018 * tower.get_level()
 
 # 	Now we know what we need to know to deal damage
 	tower.do_spell_damage(target, damage * spell, tower.calc_spell_crit(crit, 0.0))
