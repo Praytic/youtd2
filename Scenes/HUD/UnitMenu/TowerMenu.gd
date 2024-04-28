@@ -227,10 +227,6 @@ func _set_selling_for_real(value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_items_container_child_entered_tree(node):
-	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
-
-
 func _on_tower_items_changed(tower: Tower):
 	for unit_button_container in _items_box_container.get_children():
 		unit_button_container.queue_free()
@@ -243,6 +239,7 @@ func _on_tower_items_changed(tower: Tower):
 		item_button.show_auto_mode_indicator()
 		item_button.theme_type_variation = "TinyUnitButton"
 		item_button.show_charges()
+		item_button.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 		_items_box_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 

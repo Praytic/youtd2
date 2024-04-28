@@ -15,7 +15,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 100
 
 func _ready():
 	_items_container.gui_input.connect(_on_items_container_gui_input)
-	_items_container.child_entered_tree.connect(_on_items_container_child_entered_tree)
 	
 	HighlightUI.register_target("horadric_cube", self)
 	self.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_horadric_menu"))
@@ -33,6 +32,7 @@ func set_items(item_list: Array[Item]):
 #	Create buttons for new list
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
+		item_button.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 		_items_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 	
@@ -42,10 +42,6 @@ func set_items(item_list: Array[Item]):
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_items_container_child_entered_tree(node):
-	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
-
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()

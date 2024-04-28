@@ -689,7 +689,6 @@ theme_type_variation = &"CircleButton"
 theme_override_font_sizes/font_size = 32
 text = " x "
 
-[connection signal="child_entered_tree" from="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_child_entered_tree"]
 [connection signal="gui_input" from="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
 [connection signal="mouse_entered" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
 [connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
