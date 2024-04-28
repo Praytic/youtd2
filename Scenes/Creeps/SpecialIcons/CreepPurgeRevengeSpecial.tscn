@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bymobm2m6y5n3"]
 
 [ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_ck8fi"]
-[ext_resource type="Texture2D" uid="uid://bv7gu3v3jconv" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_purge_revenge.tres" id="2_657h3"]
+[ext_resource type="Texture2D" uid="uid://bv7gu3v3jconv" path="res://Resources/Textures/GenericIcons/alligator_clip.tres" id="2_jp5bk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
 resource_local_to_scene = true
@@ -19,5 +19,5 @@ material = SubResource("ShaderMaterial_haw6a")
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-texture = ExtResource("2_657h3")
+texture = ExtResource("2_jp5bk")
 expand_mode = 3

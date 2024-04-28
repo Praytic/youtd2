@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://u8qsr7dpevfr"]
 
 [ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_j5kvo"]
-[ext_resource type="Texture2D" uid="uid://csbk40h1qfx2g" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_fireball.tres" id="2_001bg"]
+[ext_resource type="Texture2D" uid="uid://csbk40h1qfx2g" path="res://Resources/Textures/GenericIcons/burning_dot.tres" id="2_hg65t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
 resource_local_to_scene = true
@@ -19,5 +19,5 @@ material = SubResource("ShaderMaterial_haw6a")
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-texture = ExtResource("2_001bg")
+texture = ExtResource("2_hg65t")
 expand_mode = 3

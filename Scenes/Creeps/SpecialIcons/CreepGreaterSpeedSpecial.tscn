@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfr13kgj7x2wi"]
 
 [ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_a77wb"]
-[ext_resource type="Texture2D" uid="uid://btvgi5m658qtv" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_greater_speed.tres" id="2_yulpg"]
+[ext_resource type="Texture2D" uid="uid://btvgi5m658qtv" path="res://Resources/Textures/GenericIcons/sprint.tres" id="2_lhs0j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
 resource_local_to_scene = true
@@ -19,5 +19,5 @@ material = SubResource("ShaderMaterial_haw6a")
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-texture = ExtResource("2_yulpg")
+texture = ExtResource("2_lhs0j")
 expand_mode = 3

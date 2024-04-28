@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6u8nl8ranvuf"]
 
 [ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_dgh1u"]
-[ext_resource type="Texture2D" uid="uid://dyaarp6hgeswd" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_meaty.tres" id="2_00cut"]
+[ext_resource type="Texture2D" uid="uid://dyaarp6hgeswd" path="res://Resources/Textures/GenericIcons/meat.tres" id="2_wy7id"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
 resource_local_to_scene = true
@@ -19,5 +19,5 @@ material = SubResource("ShaderMaterial_haw6a")
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-texture = ExtResource("2_00cut")
+texture = ExtResource("2_wy7id")
 expand_mode = 3

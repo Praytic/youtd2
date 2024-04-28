@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dj53clib3ccy8"]
 
 [ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_dxw3i"]
-[ext_resource type="Texture2D" uid="uid://xjkqhdkmldw0" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_ultra_wisdom.tres" id="2_qamnv"]
+[ext_resource type="Texture2D" uid="uid://xjkqhdkmldw0" path="res://Resources/Textures/GenericIcons/beard.tres" id="2_7mq6o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
 resource_local_to_scene = true
@@ -19,5 +19,5 @@ material = SubResource("ShaderMaterial_haw6a")
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-texture = ExtResource("2_qamnv")
+texture = ExtResource("2_7mq6o")
 expand_mode = 3
