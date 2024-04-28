@@ -256,6 +256,8 @@ func _update_normal(delta: float):
 				_impact_handler.call(self)
 
 			_cleanup()
+
+			return
 	elif should_update_z_to_match_target_z:
 		var travel_vector: Vector3 = _target_pos - current_position
 		var travel_vector_flat: Vector3 = Vector3(travel_vector.x, travel_vector.y, 0)
