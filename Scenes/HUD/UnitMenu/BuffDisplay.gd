@@ -1,7 +1,7 @@
 class_name BuffDisplay extends PanelContainer
 
 
-const BUFF_ICON_DIR: String = "res://Resources/Textures/Buffs"
+const FALLBACK_BUFF_ICON: String = "res://Resources/Textures/Buffs/egg.tres"
 
 
 @export var _texture_rect: TextureRect
@@ -12,11 +12,10 @@ const BUFF_ICON_DIR: String = "res://Resources/Textures/Buffs"
 #########################
 
 func set_buff(buff: Buff):
-	var buff_icon_filename: String = buff.get_buff_icon()
-	var buff_icon_path: String = "%s/%s" % [BUFF_ICON_DIR, buff_icon_filename]
+	var buff_icon_path: String = buff.get_buff_icon()
 
 	if !ResourceLoader.exists(buff_icon_path):
-		buff_icon_path = "%s/egg.tres" % BUFF_ICON_DIR
+		buff_icon_path = FALLBACK_BUFF_ICON
 	
 	var texture: Texture2D = load(buff_icon_path)
 	_texture_rect.texture = texture

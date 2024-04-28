@@ -6,12 +6,7 @@ extends MainLoop
 # Run the script with godot's command line executable:
 # "C:\Program Files\Godot\Godot_v4.1.4-rc1_win64_console.exe" -s "C:/Users/kvely/youtd2/Tools/CheckBuffIcons.gd"
 
-const BUFF_ICON_DIR: String = "res://Resources/Textures/Buffs"
-
-
 const SET_BUFF_ICON_FUNC: String = ".set_buff_icon("
-
-var _valid_buff_icons: Array[String] = []
 
 
 func _initialize():
@@ -26,12 +21,6 @@ func _process(_delta: float):
 
 
 func run():
-	var file_list: PackedStringArray = DirAccess.get_files_at(BUFF_ICON_DIR)
-	for filename in file_list:
-		_valid_buff_icons.append(filename)
-
-	print("Valid buff icons: ", _valid_buff_icons)
-
 	print(" \n")
 	print("List of files which use invalid buff icons:")
 	print(" \n")
@@ -78,9 +67,9 @@ func process_file(file_path: String):
 		var buff_icon_path: String = content.substr(opening_bracket_index + 1, closing_bracket_index - opening_bracket_index - 1)
 		buff_icon_path = buff_icon_path.replace("\"", "")
 
-		var file_uses_valid_buff_icon: bool = _valid_buff_icons.has(buff_icon_path) 
+		var script_uses_valid_buff_icon: bool = ResourceLoader.exists(buff_icon_path)
 
-		if !file_uses_valid_buff_icon:
+		if !script_uses_valid_buff_icon:
 			print("%s => %s" % [file_path, buff_icon_path])
 
 		find_index = closing_bracket_index
