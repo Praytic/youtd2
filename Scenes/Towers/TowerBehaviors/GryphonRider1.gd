@@ -21,7 +21,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Mystical Storm Hammer[/color]\n"
-	text += "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no physical damage against banished creeps. If this ability deals all the damage in one type, it will have 5% increased critchance.\n"
+	text += "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no physical damage against ethereal creeps. If this ability deals all the damage in one type, it will have 5% increased critchance.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1.8% crit chance\n"
@@ -186,8 +186,8 @@ func deal_damage(target: Unit, damage: float):
 		spell = 0
 
 #	calc physical damage taken
-#	Banished?
-	if target.is_banished():
+#	Ethereal?
+	if target.is_ethereal():
 #		0% physical damage
 		phys = 0
 	else:

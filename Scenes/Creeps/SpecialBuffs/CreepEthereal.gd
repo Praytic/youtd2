@@ -45,11 +45,11 @@ func on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	creep.set_sprite_color(Color.html("aaffaaaa"))
-	creep.add_banish()
+	creep.add_ethereal()
 
 
 func on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	creep.set_sprite_color(Color.WHITE)
-	creep.remove_banish()
+	creep.remove_ethereal()

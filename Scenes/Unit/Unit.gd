@@ -102,7 +102,7 @@ var _base_armor: float = 0.0
 var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
-var _banish_count: int = 0
+var _ethereal_count: int = 0
 var _silence_count: int = 0
 var _stun_count: int = 0
 var _stun_effect_id: int = -1
@@ -663,12 +663,12 @@ func remove_stun():
 		_stun_effect_id = -1
 
 
-func add_banish():
-	_banish_count += 1
+func add_ethereal():
+	_ethereal_count += 1
 
 
-func remove_banish():
-	_banish_count -= 1
+func remove_ethereal():
+	_ethereal_count -= 1
 
 
 # Returns the amount of mana that was subtracted.
@@ -1507,8 +1507,8 @@ func is_stunned() -> bool:
 	return _stun_count > 0
 
 # NOTE: unit.isBanished() in JASS
-func is_banished() -> bool:
-	return _banish_count > 0
+func is_ethereal() -> bool:
+	return _ethereal_count > 0
 
 # NOTE: overriden in Tower and Creep subclasses
 func is_attacking() -> bool:
