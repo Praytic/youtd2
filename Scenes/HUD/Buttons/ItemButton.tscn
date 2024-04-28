@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="5_0m88b"]
 
 [node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
-offset_right = 141.0
-offset_bottom = 142.0
+custom_minimum_size = Vector2(82, 82)
+offset_right = 50.0
+offset_bottom = 50.0
+theme_type_variation = &"TinyUnitButton"
 script = ExtResource("2_0spo4")
 _cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
 _auto_mode_indicator = NodePath("MarginContainer/AutoModeIndicator")
