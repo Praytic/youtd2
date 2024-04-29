@@ -1,7 +1,7 @@
 class_name HoradricMenu extends PanelContainer
 
 
-const ITEMS_CONTAINER_BUTTON_SIZE = 100
+const ITEM_BUTTON_SIZE: Vector2 = Vector2(88, 88)
 
 
 # Menu for the Horadric Cube. Contains items inside it.
@@ -32,7 +32,7 @@ func set_items(item_list: Array[Item]):
 #	Create buttons for new list
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
-		item_button.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
+		item_button.custom_minimum_size = ITEM_BUTTON_SIZE
 		_items_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 	
