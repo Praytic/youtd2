@@ -56,6 +56,17 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
+#	NOTE: fill message containers with blank labels before
+#	first messages arrive, so that initial messages appear
+#	at the bottom
+	for i in range(0, CHAT_MESSAGE_MAX):
+		var blank_label: RichTextLabel = Utils.create_message_label(" ")
+		_chat_message_container.add_child(blank_label)
+
+	for i in range(0, Messages.NORMAL_MESSAGE_MAX):
+		var blank_label: RichTextLabel = Utils.create_message_label(" ")
+		_normal_message_container.add_child(blank_label)
+
 
 #########################
 ###       Public      ###
@@ -102,11 +113,7 @@ func add_chat_message(player: Player, message: String):
 
 	var complete_message: String = "[%s]: %s" % [player_name, message]
 
-	var label: RichTextLabel = RichTextLabel.new()
-	label.append_text(complete_message)
-	label.fit_content = true
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.set_theme_type_variation("RichTextLabelLarge")
+	var label: RichTextLabel = Utils.create_message_label(complete_message)
 
 	label.modulate = Color.WHITE
 	var modulate_tween: Tween = create_tween()
@@ -114,17 +121,12 @@ func add_chat_message(player: Player, message: String):
 		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
 		CHAT_FADE_DURATION).set_delay(CHAT_DELAY_BEFORE_FADE_START)
 
+	var child_list: Array = _chat_message_container.get_children()
+	var last_label: RichTextLabel = child_list.front()
+	_chat_message_container.remove_child(last_label)
+	last_label.queue_free()
+
 	_chat_message_container.add_child(label)
-
-	var label_count: int = _chat_message_container.get_children().size()
-	var reached_max: bool = label_count >= CHAT_MESSAGE_MAX + 1
-
-	if reached_max:
-		var child_list: Array = _chat_message_container.get_children()
-		var last_label: RichTextLabel = child_list.front()
-
-		_chat_message_container.remove_child(last_label)
-		last_label.queue_free()
 
 
 # Set tower or creep which should be displayed in unit menus

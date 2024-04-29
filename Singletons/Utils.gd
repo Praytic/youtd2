@@ -1,6 +1,16 @@
 class_name UtilsStatic extends Node
 
 
+func create_message_label(text: String) -> RichTextLabel:
+	var label: RichTextLabel = RichTextLabel.new()
+	label.append_text(text)
+	label.fit_content = true
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.set_theme_type_variation("RichTextLabelLarge")
+
+	return label
+
+
 func get_wisdom_upgrade_count_for_player_level(player_level: int) -> int:
 	var upgrade_id_list: Array = WisdomUpgradeProperties.get_id_list()
 	var upgrade_count_max: int = upgrade_id_list.size()

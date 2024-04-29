@@ -44,7 +44,7 @@ _creep_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer
 _tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerMenu")
 _host_player_label = NodePath("MarginContainer/All/Top/HBoxContainer/PlayerLabel1")
 _second_player_label = NodePath("MarginContainer/All/Top/HBoxContainer2/PlayerLabel2")
-_chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ChatLineEdit")
+_chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/MarginContainer/ChatLineEdit")
 _desync_label = NodePath("DesyncLabel")
 metadata/_edit_vertical_guides_ = [960.0]
 
@@ -121,10 +121,13 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="CenterLeft" type="VBoxContainer" parent="MarginContainer/All/Center"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
 offset_right = 1000.0
-offset_bottom = 993.0
+grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/separation = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft"]
 layout_mode = 2
@@ -144,6 +147,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 mouse_filter = 2
+theme_override_constants/margin_left = 80
 
 [node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft/MarginContainer"]
 layout_mode = 2
@@ -248,7 +252,11 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer/MarginContainer"]
 visible = false
 layout_mode = 2
 max_length = 200
