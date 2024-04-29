@@ -35,7 +35,7 @@ func get_unit() -> Unit:
 func _update_main_button_icon():
 	var icon_texture: Texture2D
 	if _unit is Tower:
-		icon_texture = UnitIcons.get_tower_icon(_unit.get_id())
+		icon_texture = TowerProperties.get_icon(_unit.get_id())
 	elif _unit is Creep:
 		icon_texture = UnitIcons.get_creep_icon(_unit)
 

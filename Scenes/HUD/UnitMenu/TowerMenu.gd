@@ -111,7 +111,7 @@ func set_tower(tower: Tower):
 	_specials_label.clear()
 	_specials_label.append_text(specials_text)
 
-	var tower_icon: Texture2D = UnitIcons.get_tower_icon(tower.get_id())
+	var tower_icon: Texture2D = TowerProperties.get_icon(tower.get_id())
 	_tower_icon.texture = tower_icon
 	var tier_icon: Texture2D = UnitIcons.get_tower_tier_icon(tower.get_id())
 	_tier_icon.texture = tier_icon

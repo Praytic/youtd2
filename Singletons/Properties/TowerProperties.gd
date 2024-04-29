@@ -24,7 +24,6 @@ enum CsvProperty {
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
 	DESCRIPTION,
-	ICON_ATLAS_NUM,
 }
 
 
@@ -42,6 +41,8 @@ const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://Scenes/Towers/TowerSprites"
 const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
+const TOWER_ICON_DIR: String = "res://Resources/Textures/TowerIcons"
+const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Textures/TowerIcons/AbandonedPit.tres"
 
 const REQUIRED_WAVE_MAX: int = 80
 
@@ -99,6 +100,11 @@ func _ready():
 		if !script_path_is_valid:
 			push_error("Invalid tower script path: %s" % script_path)
 
+		var icon_path: String = TowerProperties.get_icon_path(id)
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+		if !icon_path_is_valid:
+			push_error("Invalid tower icon path: %s" % icon_path)
+
 
 #########################
 ###       Public      ###
@@ -129,15 +135,25 @@ func get_tier(tower_id: int) -> int:
 	return _get_property(tower_id, CsvProperty.TIER).to_int()
 
 
-func get_icon_atlas_num(tower_id: int) -> int:
-	var icon_atlas_num_string: String = _get_property(tower_id, CsvProperty.ICON_ATLAS_NUM)
+func get_icon_path(id: int) -> String:
+	var family_name: String = TowerProperties.get_family_name(id)
+	var icon_path: String = "%s/%s.tres" % [TOWER_ICON_DIR, family_name]
 
-	if !icon_atlas_num_string.is_empty():
-		var icon_atlas_num: int = icon_atlas_num_string.to_int()
+	return icon_path
 
-		return icon_atlas_num
-	else:
-		return -1
+
+func get_icon(item_id: int) -> Texture2D:
+	var icon_path: String = TowerProperties.get_icon_path(item_id)
+	var icon_path_exists: bool = ResourceLoader.exists(icon_path)
+
+	if !icon_path_exists:
+		push_error("Icon path doesn't exist, loading placeholder.")
+
+		icon_path = PLACEHOLDER_ITEM_ICON
+	
+	var item_icon: Texture2D = load(icon_path)
+
+	return item_icon
 
 
 func get_element(tower_id: int) -> Element.enm:
