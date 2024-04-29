@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5c8ayamq02xc"]
+[gd_scene load_steps=3 format=3 uid="uid://b5c8ayamq02xc"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/MovableWindow.gd" id="1_kbggf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_607to"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MovableWindow" type="VBoxContainer" node_paths=PackedStringArray("_title_panel")]
 custom_minimum_size = Vector2(500, 300)
@@ -10,6 +25,7 @@ _title_panel = NodePath("TitlePanel")
 [node name="TitlePanel" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_607to")
 
 [node name="TitleLabel" type="Label" parent="TitlePanel"]
 layout_mode = 2
