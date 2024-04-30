@@ -66,7 +66,7 @@ func set_creep(creep: Creep):
 	var icon: Texture2D = UnitIcons.get_creep_icon(creep)
 	_creep_button.set_icon(icon)
 
-	var level_text: String = str(creep.get_level())
+	var level_text: String = str(creep.get_spawn_level())
 	_level_label.text = level_text
 
 	var special_list: Array[int] = _creep.get_special_list()
