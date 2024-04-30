@@ -100,9 +100,9 @@ func get_tower_info(tower: Tower) -> String:
 	var overall_mana: int = floori(tower.get_overall_mana())
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
 	else:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
@@ -112,7 +112,7 @@ func get_tower_info(tower: Tower) -> String:
 		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
 
 	if overall_mana != 0:
-		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
+		text += "[color=YELLOW]Mana:[/color] [color=GOLD]%d/%d[/color]\n" % [mana, overall_mana]
 
 	return text
 
@@ -473,6 +473,6 @@ func _get_tower_damage_string(tower: Tower) -> String:
 	else:
 		damage_add_string = ""
 
-	var string: String = "%d-%d%s" % [floori(dmg_min), floori(dmg_max), damage_add_string]
+	var string: String = "[color=GOLD]%d-%d[/color]%s" % [floori(dmg_min), floori(dmg_max), damage_add_string]
 
 	return string
