@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnavhmlpsk00o"]
+[gd_scene load_steps=14 format=3 uid="uid://cnavhmlpsk00o"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_11i0e"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/CreepMenu.gd" id="2_xfq0a"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_n1ur4"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_1hx62"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="4_2fa7g"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/UnitMenu/CreepDetails.tscn" id="6_wv2x8"]
 [ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/UnitMenu/SpecialContainer.tscn" id="6_xgkmg"]
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://Scenes/HUD/UnitMenu/BuffContainer.tscn" id="9_c7x85"]
@@ -24,10 +24,6 @@ texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
-atlas = ExtResource("4_1hx62")
-region = Rect2(128, 128, 128, 128)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
@@ -35,7 +31,7 @@ bg_color = Color(0, 0, 0, 1)
 atlas = ExtResource("11_swtuo")
 region = Rect2(256, 256, 128, 128)
 
-[node name="CreepMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_creep_icon", "_title_label", "_level_label", "_info_label", "_details_tab", "_specials_scroll_container", "_special_list", "_buff_container", "_details")]
+[node name="CreepMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_creep_button", "_title_label", "_level_label", "_info_label", "_details_tab", "_specials_scroll_container", "_special_list", "_buff_container", "_details")]
 offset_right = 630.0
 offset_bottom = 890.0
 size_flags_horizontal = 8
@@ -45,10 +41,10 @@ theme = ExtResource("1_11i0e")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
 script = ExtResource("2_xfq0a")
 _tab_container = NodePath("MainContainer/MarginContainer/TabContainer")
-_creep_icon = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer/MarginContainer/IconContainer/CreepIcon")
+_creep_button = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/CreepButton")
 _title_label = NodePath("MainContainer/MarginContainer2/TitleLabel")
 _level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/LevelLabel")
-_info_label = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
+_info_label = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/InfoLabel")
 _details_tab = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab")
 _specials_scroll_container = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/SpecialsScrollContainer")
 _special_list = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/SpecialsScrollContainer/SpecialList")
@@ -94,32 +90,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_bottom = 10
-
-[node name="IconContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-alignment_vertical = 0
-
-[node name="CreepIcon" type="TextureRect" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer/MarginContainer/IconContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_n6ro0")
-
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_top = 30
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/HBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="CreepButton" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer" instance=ExtResource("4_2fa7g")]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0

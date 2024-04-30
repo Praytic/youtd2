@@ -7,7 +7,7 @@ enum Tabs {
 }
 
 @export var _tab_container: TabContainer
-@export var _creep_icon: TextureRect
+@export var _creep_button: UnitButton
 @export var _title_label: Label
 @export var _level_label: Label
 @export var _info_label: RichTextLabel
@@ -64,7 +64,7 @@ func set_creep(creep: Creep):
 	_info_label.set_tooltip_text(tooltip_for_info_label)
 	
 	var icon: Texture2D = UnitIcons.get_creep_icon(creep)
-	_creep_icon.texture = icon
+	_creep_button.set_icon(icon)
 
 	var level_text: String = str(creep.get_level())
 	_level_label.text = level_text
