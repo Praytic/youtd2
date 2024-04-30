@@ -52,7 +52,7 @@ func set_locked(value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_tower_button_mouse_entered():
+func _on_mouse_entered():
 	var local_player: Player = PlayerManager.get_local_player()
 	var tooltip: String = RichTexts.get_tower_text(_tower_id, local_player)
 	ButtonTooltip.show_tooltip(self, tooltip)
@@ -65,7 +65,3 @@ func _on_tower_button_mouse_entered():
 static func make():
 	var tower_button: TowerButton = Preloads.tower_button_scene.instantiate()
 	return tower_button
-
-
-func _on_mouse_entered():
-	pass # Replace with function body.
