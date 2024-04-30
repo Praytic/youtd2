@@ -36,7 +36,7 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 		return
 	
-	var pos_canvas: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
+	var pos_canvas: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
 	var pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(pos_canvas)
 	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
 

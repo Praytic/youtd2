@@ -33,6 +33,6 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 	player.give_gold(sell_price, tower, false, true)
 	player.remove_food_for_tower(tower_id)
 
-	build_space.clear_space_occupied_by_tower(tower)
+	build_space.set_occupied_by_tower(tower, false)
 
 	tower.remove_from_game()

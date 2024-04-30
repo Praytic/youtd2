@@ -41,11 +41,13 @@ func in_range(start: Vector2, end: Vector2, radius: float) -> bool:
 	return result
 
 
+# Snaps canvas position to nearest buildable tile. Note that
+# buildable tile is one quarter of normal tile.
 # NOTE: this f-n needs to rotate the position because canvas
 # coordinates have North pointing to up-right direction
 # while top down map coordinates have North pointing to up
 # direction
-func get_pos_on_tilemap_clamped(pos_canvas: Vector2) -> Vector2:
+func snap_canvas_pos_to_buildable_pos(pos_canvas: Vector2) -> Vector2:
 	var pos_top_down: Vector2 = VectorUtils.canvas_to_top_down(pos_canvas)
 	var pos_top_down_rotated: Vector2 = Vector2(pos_top_down.rotated(deg_to_rad(-45)))
 	var pos_top_down_rotated_snapped: Vector2 = pos_top_down_rotated.snapped(Vector2(Constants.TILE_SIZE_PIXELS_HALF, Constants.TILE_SIZE_PIXELS_HALF))

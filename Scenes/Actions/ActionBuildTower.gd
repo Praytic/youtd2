@@ -41,14 +41,14 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 #	NOTE: need to add tile height to position because towers
 #	are built at ground floor
-	var build_position_canvas: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(mouse_pos)
+	var build_position_canvas: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(mouse_pos)
 	build_position_canvas.y += Constants.TILE_SIZE.y
 	var build_position: Vector2 = VectorUtils.canvas_to_wc3_2d(build_position_canvas)
 	new_tower.set_position_wc3_2d(build_position)
 	
 	Utils.add_object_to_world(new_tower)
 
-	build_space.add_space_occupied_by_tower(new_tower)
+	build_space.set_occupied_by_tower(new_tower, true)
 
 
 static func verify(player: Player, build_space: BuildSpace, tower_id: int, mouse_pos: Vector2) -> bool:

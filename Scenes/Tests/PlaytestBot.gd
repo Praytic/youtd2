@@ -66,7 +66,7 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2) -> Tower:
 	var player: Player = PlayerManager.get_local_player()
 	
 	var tower: Tower = Tower.make(tower_id, player)
-	var build_pos_2nd_floor: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(unclamped_pos)
+	var build_pos_2nd_floor: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(unclamped_pos)
 	var build_pos_1st_floor_canvas: Vector2 = build_pos_2nd_floor + Vector2(0, Constants.TILE_SIZE.y)
 	var build_pos: Vector2 = VectorUtils.canvas_to_wc3_2d(build_pos_1st_floor_canvas)
 	tower.set_position_wc3_2d(build_pos)

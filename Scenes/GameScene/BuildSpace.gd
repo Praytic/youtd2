@@ -53,10 +53,8 @@ const QUARTER_OFFSET_LIST_BIG: Array[Vector2i] = [
 	Vector2i(-2, 1),
 ]
 
-# NOTE: need to use Vector2i to avoid problems with Vector2
-# being slightly not equal because of float components.
-var _occupied_quarter_list: Array[Vector2i] = []
-var _buildable_cells: Array[Vector2i] = []
+var _occupied_map: Dictionary = {}
+var _buildable_cells: Dictionary = {}
 
 
 #########################
@@ -64,25 +62,16 @@ var _buildable_cells: Array[Vector2i] = []
 #########################
 
 func set_buildable_cells(buildable_cells: Array[Vector2i]):
-	_buildable_cells = buildable_cells
+	for cell in buildable_cells:
+		_buildable_cells[cell] = true
 
 
-# When tower is sold, mark space which is occupied by tower.
-# NOTE: must be called after adding tower to scene tree
-func add_space_occupied_by_tower(tower: Tower):
+# NOTE: must be called while tower is in scene tree
+func set_occupied_by_tower(tower: Tower, value: bool):
 	var occupied_list: Array[Vector2i] = _get_positions_occupied_by_tower(tower)
 
 	for pos in occupied_list:
-		_occupied_quarter_list.append(pos)
-
-
-# When tower is sold, clear space which was used to be
-# occupied by tower
-func clear_space_occupied_by_tower(tower: Tower):
-	var occupied_list: Array[Vector2i] = _get_positions_occupied_by_tower(tower)
-
-	for pos in occupied_list:
-		_occupied_quarter_list.erase(pos)
+		_occupied_map[pos] = value
 
 
 # Returns an array of 4 bools, one per quarter tile. True if
@@ -100,7 +89,7 @@ func get_build_info_for_pos(pos_canvas: Vector2) -> Array:
 
 	for i in range(0, 4):
 		var quarter_pos: Vector2i = quarter_list[i]
-		var quarter_pos_is_occupied: bool = _occupied_quarter_list.has(quarter_pos)
+		var quarter_pos_is_occupied: bool = _occupied_map.get(quarter_pos, false)
 		var quarter_is_buildable: bool = _buildable_cells.has(quarter_pos)
 
 		build_info[i] = !quarter_pos_is_occupied && quarter_is_buildable
@@ -119,7 +108,7 @@ func can_transform_at_pos(world_pos: Vector2) -> bool:
 	if !Globals.game_mode_allows_transform():
 		return false
 
-	var pos: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(world_pos)
+	var pos: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(world_pos)
 	var there_is_a_tower_under_mouse: bool = Utils.tower_exists_on_position(pos)
 	var can_transform: bool = there_is_a_tower_under_mouse
 

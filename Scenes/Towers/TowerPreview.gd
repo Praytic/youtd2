@@ -51,7 +51,7 @@ func _process(_delta: float):
 # 	Show tower preview under map normally, but make it stick
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
-	var new_position: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(mouse_pos)
+	var new_position: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(mouse_pos)
 	position = new_position
 
 	var can_transform: bool = _build_space.can_transform_at_pos(mouse_pos)
