@@ -15,31 +15,31 @@ config/description="Discover the standalone sequel to the well-liked WC3 custom 
 run/main_scene="res://Scenes/TitleScreen/TitleScreen.tscn"
 config/features=PackedStringArray("4.1")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-boot_splash/image="res://Assets/icob_ultra_wide.png"
-config/icon="res://Assets/icob_min.png"
-config/windows_native_icon="res://Assets/icob_min.ico"
+boot_splash/image="res://Assets/Misc/icob_ultra_wide.png"
+config/icon="res://Assets/Misc/icob_min.png"
+config/windows_native_icon="res://Assets/Misc/icob_min.ico"
 config/visible_spell_dummys=false
 config/dev_controls=false
 config/preload_all_towers_on_startup=false
-config/test_item_list=[]
+config/test_item_list=[273]
 config/version="v0.1.0-SNAPSHOT"
 config/minimap_enabled=false
-config/starting_gold=70
-config/starting_tomes=90
+config/starting_gold=70000
+config/starting_tomes=90000
 config/starting_research_level=0
 config/always_drop_items=false
-config/ignore_tower_requirements=false
+config/ignore_tower_requirements=true
 config/enable_zoom_by_touchpad=true
 config/enable_zoom_by_mousewheel=true
 config/show_position_info_label=false
 config/autostart_game=false
-config/autostart_game_mode="random_with_upgrades"
+config/autostart_game_mode="build"
 config/autostart_difficulty="medium"
 config/autostart_wave_count=120
 config/autostart_builder="adventurer"
 config/always_show_tutorial=false
 config/smart_targeting=true
-config/override_creep_health=0
+config/override_creep_health=10000
 config/override_creep_size=""
 config/override_creep_armor=""
 config/override_creep_race=""
@@ -56,10 +56,10 @@ config/run_prerender_tool=false
 config/use_prerendered_background=true
 config/run_save_tooltips_tool=false
 config/run_save_ranges_tool=false
-config/unlimited_portal_lives=false
+config/unlimited_portal_lives=true
 config/show_hidden_buffs=false
 config/enable_auth=false
-config/show_multiplayer_button=false
+config/show_multiplayer_button=true
 config/update_ticks_per_physics_tick=1
 
 [autoload]
@@ -103,7 +103,6 @@ VectorUtils="*res://Singletons/VectorUtils.gd"
 [debug]
 
 settings/stdout/print_fps=true
-settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/assert_always_false=0
 gdscript/warnings/integer_division=0
@@ -112,7 +111,8 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=2560
 window/size/viewport_height=1440
-window/size/mode=2
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -123,7 +123,7 @@ enabled=PackedStringArray("res://addons/w4gd/plugin/plugin.cfg")
 [gui]
 
 theme/custom="res://Resources/Theme/wc3_theme.tres"
-theme/custom_font="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf"
+theme/custom_font="res://Assets/Fonts/Friz Quadrata Std Medium.otf"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]

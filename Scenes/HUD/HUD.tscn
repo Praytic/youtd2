@@ -1,6 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
+[ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/HUD/darkness_face.png" id="4_nuyc0"]
+[ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/HUD/tranquility_face.png" id="5_0wwxe"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://bx03slt7u3oce" path="res://Scenes/HUD/TowersStatusCard.tscn" id="8_ts7ak"]
 [ext_resource type="PackedScene" uid="uid://dj7llpr0oenw7" path="res://Scenes/HUD/ItemsStatusCard.tscn" id="9_16kcd"]
@@ -9,10 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://Scenes/HUD/ItemStashMenu/ItemStashMenu.tscn" id="11_5i6a2"]
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
 [ext_resource type="PackedScene" uid="uid://cnavhmlpsk00o" path="res://Scenes/HUD/UnitMenu/CreepMenu.tscn" id="12_32wi7"]
 [ext_resource type="PackedScene" uid="uid://csayw0jxo1omx" path="res://Scenes/HUD/UnitStatusCard.tscn" id="12_rwl1n"]
-[ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
@@ -86,7 +86,7 @@ texture = ExtResource("11_hbwuy")
 texture_filter = 4
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("12_2mxp4")
+texture = ExtResource("4_nuyc0")
 expand_mode = 1
 
 [node name="PlayerLabel1" type="Label" parent="MarginContainer/All/Top/HBoxContainer"]
@@ -112,7 +112,7 @@ texture = ExtResource("11_hbwuy")
 [node name="TextureRect4" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer2/MarginContainer2"]
 texture_filter = 4
 layout_mode = 2
-texture = ExtResource("13_n0pc1")
+texture = ExtResource("5_0wwxe")
 expand_mode = 1
 
 [node name="Center" type="Control" parent="MarginContainer/All"]

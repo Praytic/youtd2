@@ -2,50 +2,50 @@
 
 [ext_resource type="PackedScene" uid="uid://dby8dpgvxybfr" path="res://Scenes/Items/ItemDrop.tscn" id="1_6qsdb"]
 [ext_resource type="Script" path="res://Scenes/Items/RedOil.gd" id="2_3v3ie"]
-[ext_resource type="Texture2D" uid="uid://bt0spbkg50a40" path="res://Assets/Items/potion_drop_animation.png" id="2_ncuuv"]
+[ext_resource type="Texture2D" uid="uid://bt0spbkg50a40" path="res://Assets/Icons/Items/potion_drop_animation.png" id="3_liucg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvc38"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(0, 0, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yclyu"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(128, 0, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0itcq"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(256, 0, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ptpd"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(384, 0, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rihqc"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(0, 256, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqpju"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(128, 256, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ta3hm"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(256, 256, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tijw7"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(384, 256, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eeqk4"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(0, 512, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kqgmq"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(128, 512, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8hfif"]
-atlas = ExtResource("2_ncuuv")
+atlas = ExtResource("3_liucg")
 region = Rect2(128, 512, 128, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pdkro"]
@@ -103,5 +103,5 @@ polygon = PackedVector2Array(38, -88, 34, 36, -34, 35, -36, -89)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
 position = Vector2(4, -76)
 sprite_frames = SubResource("SpriteFrames_pdkro")
-animation = &"still"
+animation = &"drop"
 autoplay = "drop"
