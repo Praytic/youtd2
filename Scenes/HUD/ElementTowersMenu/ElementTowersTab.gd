@@ -27,7 +27,7 @@ var _prev_tower_list: Array = []
 
 func _ready():
 	var element_name: String = Element.convert_to_string(_element)
-	_title_label.text = element_name.to_upper()
+	_title_label.text = element_name.capitalize()
 
 	var element_icon: Texture2D = Preloads.element_icons[_element]
 	_element_icon.texture = element_icon
