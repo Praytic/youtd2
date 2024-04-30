@@ -238,11 +238,23 @@ func _on_tower_items_changed(tower: Tower):
 		item_button.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 		_items_box_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+		item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
+		item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
 
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	EventBus.player_clicked_item_in_tower_inventory.emit(item)
+
+
+func _on_item_button_right_clicked(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	EventBus.player_requested_to_do_autocast.emit(item)
+
+
+func _on_item_button_shift_right_clicked(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	EventBus.player_requested_to_toggle_autocast.emit(item)
 
 
 func _on_upgrade_button_pressed():

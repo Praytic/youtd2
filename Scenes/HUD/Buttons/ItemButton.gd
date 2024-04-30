@@ -2,6 +2,11 @@ class_name ItemButton
 extends UnitButton
 
 
+signal right_clicked()
+signal shift_right_clicked()
+signal ctrl_right_clicked()
+
+
 var _item: Item
 
 @export var _cooldown_indicator: CooldownIndicator
@@ -50,11 +55,11 @@ func _gui_input(event):
 	var ctrl_right_click: bool = pressed_ctrl && pressed_right_click
 
 	if shift_right_click:
-		EventBus.player_shift_right_clicked_item.emit(_item)
+		shift_right_clicked.emit()
 	elif ctrl_right_click:
-		_item.toggle_horadric_lock()
+		ctrl_right_clicked.emit()
 	elif pressed_right_click:
-		EventBus.player_right_clicked_item.emit(_item)
+		right_clicked.emit()
 
 
 #########################
