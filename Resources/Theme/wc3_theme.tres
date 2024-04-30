@@ -1,10 +1,9 @@
-[gd_resource type="Theme" load_steps=85 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=84 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
 [ext_resource type="StyleBox" uid="uid://11b5t8jsfbdk" path="res://Resources/Theme/TowerActions/button_disabled.tres" id="1_vdqn7"]
 [ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
-[ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
 [ext_resource type="StyleBox" uid="uid://cp7fygn5qoudb" path="res://Resources/Theme/TowerActions/button_pressed.tres" id="2_1ucqc"]
 [ext_resource type="StyleBox" uid="uid://crr0tkfd2ggb8" path="res://Resources/Theme/Common/rect_container_center_l.tres" id="2_4l726"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="2_uaxwg"]
@@ -822,7 +821,6 @@ GameMessageRichTextLabel/font_sizes/normal_font_size = 16
 HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
-Icons/icons/DayTime = ExtResource("2")
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_2t7ys")
 InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")

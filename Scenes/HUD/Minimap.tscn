@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://xw7lgy87mn2f"]
+[gd_scene load_steps=4 format=3 uid="uid://xw7lgy87mn2f"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/CameraProjection.gd" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/Minimap.gd" id="2"]
 [ext_resource type="Script" path="res://Scenes/HUD/CreepsProjection.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://cq3nuuah81ohr" path="res://Assets/UI/HUD/minimap.png" id="4"]
 
 [node name="Minimap" type="Control" node_paths=PackedStringArray("minimap_camera", "minimap_texture", "camera_projection", "creeps_projection")]
 custom_minimum_size = Vector2(216, 216)
@@ -47,7 +46,6 @@ offset_top = 193.0
 offset_right = 772.0
 offset_bottom = 965.0
 scale = Vector2(0.28, 0.28)
-texture = ExtResource("4")
 
 [node name="CameraProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("1")
