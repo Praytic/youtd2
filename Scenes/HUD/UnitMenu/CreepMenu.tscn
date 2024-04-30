@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnavhmlpsk00o"]
+[gd_scene load_steps=15 format=3 uid="uid://cnavhmlpsk00o"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_11i0e"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/CreepMenu.gd" id="2_xfq0a"]
@@ -30,6 +30,10 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
 atlas = ExtResource("11_swtuo")
 region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
+atlas = ExtResource("11_swtuo")
+region = Rect2(896, 0, 128, 128)
 
 [node name="CreepMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_creep_button", "_title_label", "_level_label", "_info_label", "_details_tab", "_specials_scroll_container", "_special_list", "_buff_container", "_details")]
 offset_right = 630.0
@@ -261,11 +265,14 @@ size_flags_vertical = 0
 theme_override_constants/margin_top = 15
 
 [node name="CloseButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"CircleButton"
-theme_override_font_sizes/font_size = 32
-text = " x "
+text = " "
+icon = SubResource("AtlasTexture_wh5fy")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

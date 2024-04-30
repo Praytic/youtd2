@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://donslrrviy807"]
+[gd_scene load_steps=6 format=3 uid="uid://donslrrviy807"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.gd" id="1_3360v"]
 [ext_resource type="PackedScene" uid="uid://c4l81jcbkrtkr" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.tscn" id="2_cm41y"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="3_o2dlo"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="5_dygg8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
+atlas = ExtResource("3_o2dlo")
+region = Rect2(896, 0, 128, 128)
 
 [node name="ElementTowersMenu" type="Control" node_paths=PackedStringArray("_tab_container", "_element_container")]
 custom_minimum_size = Vector2(622, 827)
@@ -66,11 +71,13 @@ size_flags_vertical = 0
 theme_override_constants/margin_top = -5
 
 [node name="CloseButton" type="Button" parent="MarginContainer/MarginContainer2"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"CircleButton"
-theme_override_font_sizes/font_size = 32
-text = " x "
+icon = SubResource("AtlasTexture_wh5fy")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 0
