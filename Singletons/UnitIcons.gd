@@ -12,6 +12,7 @@ const _tier_icons_m: Texture2D = preload("res://Assets/Towers/tier_icons_m.png")
 const _tower_icons_m: Texture2D = preload("res://Assets/Towers/tower_icons_m.png")
 const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
 const CREEP_ICON_DIR: String = "res://Resources/Textures/CreepIcons"
+const TIER_ICON_DIR: String = "res://Resources/Textures/TierIcons"
 
 
 #########################
@@ -38,6 +39,17 @@ func _ready():
 			if !icon_path_is_valid:
 				push_error("Invalid creep icon path: %s" % icon_path)
 
+	var rarity_list: Array[Rarity.enm] = Rarity.get_list()
+	var tier_list: Array[int] = [1, 2, 3, 4, 5, 6, 7]
+
+	for rarity in rarity_list:
+		for tier in tier_list:
+			var icon_path: String = _get_tier_icon_path(rarity, tier)
+			var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+
+			if !icon_path_is_valid:
+				push_error("Invalid tier icon path: %s" % icon_path)
+
 
 #########################
 ###       Public      ###
@@ -45,13 +57,16 @@ func _ready():
 
 func get_tower_tier_icon(tower_id: int) -> Texture2D:
 	var tower_rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-	var tower_tier: int = TowerProperties.get_tier(tower_id) - 1
+	var tower_tier: int = TowerProperties.get_tier(tower_id) + 1
+	var icon_path: String = _get_tier_icon_path(tower_rarity, tower_tier)
+	var icon_path_exists: bool = ResourceLoader.exists(icon_path)
 
-	var icon: AtlasTexture = AtlasTexture.new()
-	icon.set_atlas(_tier_icons_m)
+	if !icon_path_exists:
+		push_error("Tier icon path doesn't exist")
 
-	var region: Rect2 = Rect2(tower_tier * TIER_ICON_SIZE, tower_rarity * TIER_ICON_SIZE, TIER_ICON_SIZE, TIER_ICON_SIZE)
-	icon.set_region(region)
+		return Texture2D.new()
+
+	var icon: Texture2D = load(icon_path)
 
 	return icon
 
@@ -70,6 +85,18 @@ func get_creep_icon(creep: Creep) -> Texture2D:
 	var icon: Texture2D = load(icon_path)
 
 	return icon
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_tier_icon_path(rarity: Rarity.enm, tier: int) -> String:
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var tier_string: String = str(tier)
+	var icon_path: String = "%s/%s_%s.tres" % [TIER_ICON_DIR, rarity_string, tier_string]
+
+	return icon_path
 
 
 func _get_creep_icon_path(creep_category: CreepCategory.enm, creep_size: CreepSize.enm) -> String:
