@@ -11,7 +11,7 @@ static func make(tower_id_arg: int, global_pos_arg: Vector2) -> Action:
 	return action
 
 
-static func execute(action: Dictionary, player: Player, map: Map):
+static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var new_tower_id: int = action[Action.Field.TOWER_ID]
 	var global_pos: Vector2 = action[Action.Field.POSITION]
 	
@@ -29,14 +29,14 @@ static func execute(action: Dictionary, player: Player, map: Map):
 
 		return
 
-	var can_transform: bool = map.can_transform_at_pos(global_pos)
+	var can_transform: bool = build_space.can_transform_at_pos(global_pos)
 
 	if !can_transform:
 		Messages.add_error(player, "Can't transform here.")
 
 		return
 	
-	var pos_canvas: Vector2 = map.get_pos_on_tilemap_clamped(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
+	var pos_canvas: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
 	var pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(pos_canvas)
 	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
 

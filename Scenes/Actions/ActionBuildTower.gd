@@ -14,11 +14,11 @@ static func make(tower_id_arg: int, position_arg: Vector2) -> Action:
 # TODO: build tower action looks very bad with the delay.
 # Need to add a temporary animation like a cloud of dust,
 # while the tower "builds".
-static func execute(action: Dictionary, player: Player, map: Map):
+static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var tower_id: int = action[Action.Field.TOWER_ID]
 	var mouse_pos: Vector2 = action[Action.Field.POSITION]
 
-	var verify_ok: bool = ActionBuildTower.verify(player, map,tower_id, mouse_pos)
+	var verify_ok: bool = ActionBuildTower.verify(player, build_space, tower_id, mouse_pos)
 
 	if !verify_ok:
 		return
@@ -41,17 +41,17 @@ static func execute(action: Dictionary, player: Player, map: Map):
 
 #	NOTE: need to add tile height to position because towers
 #	are built at ground floor
-	var build_position_canvas: Vector2 = map.get_pos_on_tilemap_clamped(mouse_pos)
+	var build_position_canvas: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(mouse_pos)
 	build_position_canvas.y += Constants.TILE_SIZE.y
 	var build_position: Vector2 = VectorUtils.canvas_to_wc3_2d(build_position_canvas)
 	new_tower.set_position_wc3_2d(build_position)
 	
 	Utils.add_object_to_world(new_tower)
 
-	map.add_space_occupied_by_tower(new_tower)
+	build_space.add_space_occupied_by_tower(new_tower)
 
 
-static func verify(player: Player, map: Map, tower_id: int, mouse_pos: Vector2) -> bool:
+static func verify(player: Player, build_space: BuildSpace, tower_id: int, mouse_pos: Vector2) -> bool:
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
@@ -66,7 +66,7 @@ static func verify(player: Player, map: Map, tower_id: int, mouse_pos: Vector2) 
 
 		return false
 
-	var can_build: bool = map.can_build_at_pos(mouse_pos)
+	var can_build: bool = build_space.can_build_at_pos(mouse_pos)
 
 	if !can_build:
 		Messages.add_error(player, "Can't build here")

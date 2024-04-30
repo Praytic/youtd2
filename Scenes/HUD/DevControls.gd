@@ -26,7 +26,7 @@ func _process(_delta: float):
 	position_info_label.position = get_global_mouse_position()
 	var accumulated_info = {}
 	accumulated_info["global_mouse_position"] = get_global_mouse_position()
-	accumulated_info["mouse_pos_on_tilemap_clamped"] = _map.get_pos_on_tilemap_clamped(position_info_label.position)
+	accumulated_info["mouse_pos_on_tilemap_clamped"] = VectorUtils.get_pos_on_tilemap_clamped(position_info_label.position)
 	position_info_label.text = _dict_join(accumulated_info)
 
 

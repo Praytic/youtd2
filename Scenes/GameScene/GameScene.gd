@@ -20,6 +20,7 @@ class_name GameScene extends Node
 @export var _game_time: GameTime
 @export var _pause_shadow_rect: ColorRect
 @export var _object_container: Node2D
+@export var _build_space: BuildSpace
 
 
 var _room_code: int = 0
@@ -37,6 +38,9 @@ func _ready():
 	Globals.reset()
 	PlayerManager.reset()
 	GroupManager.reset()
+	
+	var buildable_cells: Array[Vector2i] = _map.get_buildable_cells()
+	_build_space.set_buildable_cells(buildable_cells)
 
 	_hud.set_game_start_timer(_game_start_timer)
 
@@ -216,7 +220,7 @@ func _ready():
 		TestHoradricTool.run(local_player)
 
 	if Config.run_auto_playtest_bot():
-		PlaytestBot.run(_map)
+		PlaytestBot.run(_build_space)
 
 
 func _unhandled_input(event: InputEvent):

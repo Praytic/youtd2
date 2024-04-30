@@ -30,7 +30,7 @@ var _timeslot_tick_queue: Array = [0]
 @export var _game_host: GameHost
 @export var _game_time: GameTime
 @export var _hud: HUD
-@export var _map: Map
+@export var _build_space: BuildSpace
 @export var _chat_commands: ChatCommands
 @export var _select_unit: SelectUnit
 
@@ -190,10 +190,10 @@ func _execute_action(action: Dictionary):
 	match action_type:
 		Action.Type.IDLE: return
 		Action.Type.CHAT: ActionChat.execute(action, player, _hud, _chat_commands)
-		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _map)
+		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _build_space)
 		Action.Type.UPGRADE_TOWER: ActionUpgradeTower.execute(action, player, _select_unit)
-		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player, _map)
-		Action.Type.SELL_TOWER: ActionSellTower.execute(action, player, _map)
+		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player, _build_space)
+		Action.Type.SELL_TOWER: ActionSellTower.execute(action, player, _build_space)
 		Action.Type.SELECT_BUILDER: ActionSelectBuilder.execute(action, player)
 		Action.Type.TOGGLE_AUTOCAST: ActionToggleAutocast.execute(action, player)
 		Action.Type.CONSUME_ITEM: ActionConsumeItem.execute(action, player)

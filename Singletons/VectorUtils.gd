@@ -39,3 +39,17 @@ func in_range(start: Vector2, end: Vector2, radius: float) -> bool:
 	var result: bool = distance_squared <= radius_squared
 
 	return result
+
+
+# NOTE: this f-n needs to rotate the position because canvas
+# coordinates have North pointing to up-right direction
+# while top down map coordinates have North pointing to up
+# direction
+func get_pos_on_tilemap_clamped(pos_canvas: Vector2) -> Vector2:
+	var pos_top_down: Vector2 = VectorUtils.canvas_to_top_down(pos_canvas)
+	var pos_top_down_rotated: Vector2 = Vector2(pos_top_down.rotated(deg_to_rad(-45)))
+	var pos_top_down_rotated_snapped: Vector2 = pos_top_down_rotated.snapped(Vector2(Constants.TILE_SIZE_PIXELS_HALF, Constants.TILE_SIZE_PIXELS_HALF))
+	var pos_top_down_snapped: Vector2 = pos_top_down_rotated_snapped.rotated(deg_to_rad(45))
+	var pos_canvas_snapped: Vector2 = VectorUtils.top_down_to_canvas(pos_top_down_snapped)
+
+	return pos_canvas_snapped

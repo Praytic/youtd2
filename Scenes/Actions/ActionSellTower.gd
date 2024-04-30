@@ -10,7 +10,7 @@ static func make(tower_unit_id_arg: int) -> Action:
 	return action
 
 
-static func execute(action: Dictionary, player: Player, map: Map):
+static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var tower_uid: int = action[Action.Field.UID]
 
 	var tower_node: Node = GroupManager.get_by_uid("towers", tower_uid)
@@ -33,6 +33,6 @@ static func execute(action: Dictionary, player: Player, map: Map):
 	player.give_gold(sell_price, tower, false, true)
 	player.remove_food_for_tower(tower_id)
 
-	map.clear_space_occupied_by_tower(tower)
+	build_space.clear_space_occupied_by_tower(tower)
 
 	tower.remove_from_game()

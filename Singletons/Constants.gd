@@ -7,6 +7,7 @@ const TILE_SIZE: Vector2 = Vector2(256, 128)
 # TILE_SIZE_PIXELS is the size of the a tile in a top-down
 # projection. Derived using the Pythagorean identity.
 const TILE_SIZE_PIXELS: float = sqrt(pow(256, 2) / 2)
+const TILE_SIZE_PIXELS_HALF: float = Constants.TILE_SIZE_PIXELS / 2
 
 # NOTE: can be checked by placing a range checker in
 # original game and setting ranges to different values,

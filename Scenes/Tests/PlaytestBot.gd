@@ -22,7 +22,7 @@ static var item_id_list: Array
 static var oil_id_list: Array
 
 
-static func run(map: Map):
+static func run(build_space: BuildSpace):
 	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 	
 	var regular_type_string: String = ItemType.convert_to_string(ItemType.enm.REGULAR)
@@ -33,7 +33,7 @@ static func run(map: Map):
 
 	var built_tower_list: Array[Tower] = []
 
-	var position_list: Array[Vector2] = PlaytestBot._generate_position_list(map)
+	var position_list: Array[Vector2] = PlaytestBot._generate_position_list(build_space)
 
 	if position_list.size() != TOWER_SET_SIZE:
 		push_error("Not enough build positions, position_list.size() =", position_list.size())
@@ -56,17 +56,17 @@ static func run(map: Map):
 		for i in range(0, TOWER_SET_SIZE):
 			var random_tower_id: int = random_tower_id_list[i]
 			var build_pos: Vector2 = position_list[i]
-			var tower: Tower = PlaytestBot._build_random_tower(random_tower_id, build_pos, map)
+			var tower: Tower = PlaytestBot._build_random_tower(random_tower_id, build_pos)
 			built_tower_list.append(tower)
 
-		await Utils.create_timer(TIME_PER_SET, map).timeout
+		await Utils.create_timer(TIME_PER_SET, build_space).timeout
 
 
-static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map) -> Tower:
+static func _build_random_tower(tower_id: int, unclamped_pos: Vector2) -> Tower:
 	var player: Player = PlayerManager.get_local_player()
 	
 	var tower: Tower = Tower.make(tower_id, player)
-	var build_pos_2nd_floor: Vector2 = map.get_pos_on_tilemap_clamped(unclamped_pos)
+	var build_pos_2nd_floor: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(unclamped_pos)
 	var build_pos_1st_floor_canvas: Vector2 = build_pos_2nd_floor + Vector2(0, Constants.TILE_SIZE.y)
 	var build_pos: Vector2 = VectorUtils.canvas_to_wc3_2d(build_pos_1st_floor_canvas)
 	tower.set_position_wc3_2d(build_pos)
@@ -93,7 +93,7 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2, map: Map)
 	return tower
 
 
-static func _generate_position_list(map: Map) -> Array[Vector2]:
+static func _generate_position_list(build_space: BuildSpace) -> Array[Vector2]:
 	var result: Array[Vector2] = []
 
 	var origin: Vector2 = POSITIONS_ORIGIN
@@ -104,7 +104,7 @@ static func _generate_position_list(map: Map) -> Array[Vector2]:
 		for y in range(POSITIONS_Y_RANGE[0], POSITIONS_Y_RANGE[1]):
 			for offset in offset_list:
 				var position: Vector2 = origin + Constants.TILE_SIZE * (Vector2(x, y) + offset)
-				var can_build: bool = map.can_build_at_pos(position)
+				var can_build: bool = build_space.can_build_at_pos(position)
 
 				if can_build:
 					result.append(position)

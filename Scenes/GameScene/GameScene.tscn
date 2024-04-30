@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameScene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="2_gestc"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="14_y26vd"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="15_a5l86"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="16_amwbk"]
+[ext_resource type="Script" path="res://Scenes/GameScene/BuildSpace.gd" id="16_p1jwo"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="18_m2fcq"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="19_jib72"]
@@ -61,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
@@ -83,6 +84,7 @@ _game_host = NodePath("Gameplay/GameHost")
 _game_time = NodePath("Gameplay/GameTime")
 _pause_shadow_rect = NodePath("UI/PauseShadowRect")
 _object_container = NodePath("World/ObjectContainer")
+_build_space = NodePath("Gameplay/BuildSpace")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -118,10 +120,11 @@ _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
 _game_client = NodePath("../GameClient")
 
-[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_game_client")]
+[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_build_space", "_tower_preview", "_game_client")]
 script = ExtResource("10_tkjjb")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
+_build_space = NodePath("../BuildSpace")
 _tower_preview = NodePath("../../World/TowerPreview")
 _game_client = NodePath("../GameClient")
 
@@ -136,17 +139,20 @@ script = ExtResource("14_y26vd")
 _game_client = NodePath("../GameClient")
 _hud = NodePath("../../UI/HUD")
 
-[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands", "_select_unit") instance=ExtResource("15_a5l86")]
+[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_build_space", "_chat_commands", "_select_unit") instance=ExtResource("15_a5l86")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _hud = NodePath("../../UI/HUD")
-_map = NodePath("../../World/Map")
+_build_space = NodePath("../BuildSpace")
 _chat_commands = NodePath("../ChatCommands")
 _select_unit = NodePath("../SelectUnit")
 
 [node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
 script = ExtResource("16_amwbk")
 _team_container = NodePath("../TeamContainer")
+
+[node name="BuildSpace" type="Node" parent="Gameplay"]
+script = ExtResource("16_p1jwo")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1
@@ -212,9 +218,10 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("21_8op63")
 
-[node name="TowerPreview" parent="World" instance=ExtResource("22_53ta1")]
+[node name="TowerPreview" parent="World" node_paths=PackedStringArray("_build_space") instance=ExtResource("22_53ta1")]
 visible = false
 z_index = 100
+_build_space = NodePath("../../Gameplay/BuildSpace")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

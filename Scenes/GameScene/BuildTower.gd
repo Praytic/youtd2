@@ -5,6 +5,7 @@ class_name BuildTower extends Node
 
 @export var _mouse_state: MouseState
 @export var _map: Map
+@export var _build_space: BuildSpace
 @export var _tower_preview: TowerPreview
 @export var _game_client: GameClient
 
@@ -36,9 +37,9 @@ func start(tower_id: int, player: Player):
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	var clamped_pos: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
-	var can_build: bool = _map.can_build_at_pos(mouse_pos)
-	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
+	var clamped_pos: Vector2 = VectorUtils.get_pos_on_tilemap_clamped(mouse_pos)
+	var can_build: bool = _build_space.can_build_at_pos(mouse_pos)
+	var can_transform: bool = _build_space.can_transform_at_pos(mouse_pos)
 	var tower_under_mouse: Tower = Utils.get_tower_at_position(clamped_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
