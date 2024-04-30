@@ -554,15 +554,9 @@ func get_sprite_path(tower_id: int) -> String:
 	return sprite_path
 
 
-# Get tower script based on tower scene name.
-# Examples:
-# TinyShrub1.tscn -> TinyShrub1.gd
-# TinyShrub2.tscn -> TinyShrub1.gd
-# TinyShrub3.tscn -> TinyShrub1.gd
-# ...
 func get_script_path(id: int) -> String:
 	var family_name: String = TowerProperties.get_family_name(id)
-	var script_path: String = "%s/%s1.gd" % [TOWER_BEHAVIORS_DIR, family_name]
+	var script_path: String = "%s/%s.gd" % [TOWER_BEHAVIORS_DIR, family_name]
 
 	return script_path
 
