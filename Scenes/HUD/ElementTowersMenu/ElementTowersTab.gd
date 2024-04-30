@@ -138,7 +138,7 @@ func _unlock_tower_buttons_if_possible():
 		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, local_player)
 
 		if can_build_tower:
-			button.unlock()
+			button.set_locked(false)
 
 
 func _get_element_info_text() -> String:
@@ -154,17 +154,28 @@ func _get_element_info_text() -> String:
 
 
 func _add_tower_button(tower_id: int, index: int):
-	var tower_button: TowerButton = TowerButton.make(tower_id)
+	var tower_button: TowerButton = TowerButton.make()
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
 	HighlightUI.register_target("tower_button", tower_button)
-	tower_button.pressed.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("press_tower_button"))
+	tower_button.pressed.connect(_on_tower_button_pressed.bind(tower_id))
+
+	tower_button.set_tower_id(tower_id)
+	tower_button.set_locked(true)
+
+	if Globals.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
+		tower_button.set_tier_visible(true)
 
 
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_tower_button_pressed(tower_id: int):
+	EventBus.player_requested_to_build_tower.emit(tower_id)
+	EventBus.player_performed_tutorial_advance_action.emit("press_tower_button")
+
 
 func _on_upgrade_element_button_mouse_entered():
 	var local_player: Player = PlayerManager.get_local_player()

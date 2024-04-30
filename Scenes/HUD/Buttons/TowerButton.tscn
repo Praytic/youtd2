@@ -16,6 +16,7 @@ _tier_icon = NodePath("TierContainer/TierIcon")
 _tower_id = 0
 
 [node name="TierContainer" type="MarginContainer" parent="." index="0"]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 1
@@ -39,3 +40,5 @@ visible = false
 z_index = 1
 layout_mode = 2
 texture = ExtResource("3_tes0f")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
