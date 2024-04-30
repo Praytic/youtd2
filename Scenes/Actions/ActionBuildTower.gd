@@ -46,9 +46,9 @@ static func execute(action: Dictionary, player: Player, map: Map):
 	var build_position: Vector2 = VectorUtils.canvas_to_wc3_2d(build_position_canvas)
 	new_tower.set_position_wc3_2d(build_position)
 	
-	map.add_space_occupied_by_tower(new_tower)
-
 	Utils.add_object_to_world(new_tower)
+
+	map.add_space_occupied_by_tower(new_tower)
 
 
 static func verify(player: Player, map: Map, tower_id: int, mouse_pos: Vector2) -> bool:
