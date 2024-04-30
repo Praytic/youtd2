@@ -10,6 +10,15 @@ enum enm {
 }
 
 
+static var _ordered_list: Array[CreepCategory.enm] = [
+	CreepCategory.enm.UNDEAD,
+	CreepCategory.enm.MAGIC,
+	CreepCategory.enm.NATURE,
+	CreepCategory.enm.ORC,
+	CreepCategory.enm.HUMANOID,
+	CreepCategory.enm.CHALLENGE,
+]
+
 static var _string_map: Dictionary = {
 	CreepCategory.enm.UNDEAD: "undead",
 	CreepCategory.enm.MAGIC: "magic",
@@ -27,6 +36,10 @@ static var _color_map: Dictionary = {
 	CreepCategory.enm.HUMANOID: Color.TAN,
 	CreepCategory.enm.CHALLENGE: Color.GRAY,
 }
+
+
+static func get_list() -> Array[CreepCategory.enm]:
+	return _ordered_list
 
 
 static func from_string(string: String) -> CreepCategory.enm:

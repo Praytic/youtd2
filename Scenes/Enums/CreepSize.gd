@@ -13,6 +13,17 @@ enum enm {
 }
 
 
+static var _ordered_list: Array[CreepSize.enm] = [
+	CreepSize.enm.MASS,
+	CreepSize.enm.CHALLENGE_MASS,
+	CreepSize.enm.NORMAL,
+	CreepSize.enm.AIR,
+	CreepSize.enm.CHAMPION,
+	CreepSize.enm.BOSS,
+	CreepSize.enm.CHALLENGE_BOSS,
+]
+
+
 static var _string_map: Dictionary = {
 	CreepSize.enm.MASS: "mass",
 	CreepSize.enm.NORMAL: "normal",
@@ -113,6 +124,11 @@ static var _base_mana_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_MASS: 100,
 	CreepSize.enm.CHALLENGE_BOSS: 3000,
 }
+
+
+static func get_list() -> Array[CreepSize.enm]:
+	return _ordered_list
+
 
 static func from_string(string: String) -> CreepSize.enm:
 	var key = _string_map.find_key(string)
