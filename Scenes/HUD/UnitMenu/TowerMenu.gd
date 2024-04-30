@@ -11,8 +11,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 
 @export var _tab_container: TabContainer
-@export var _tower_icon: TextureRect
-@export var _tier_icon: TextureRect
+@export var _tower_button: TowerButton
 @export var _title_label: Label
 @export var _level_label: Label
 @export var _info_label: RichTextLabel
@@ -111,10 +110,10 @@ func set_tower(tower: Tower):
 	_specials_label.clear()
 	_specials_label.append_text(specials_text)
 
-	var tower_icon: Texture2D = TowerProperties.get_icon(tower.get_id())
-	_tower_icon.texture = tower_icon
-	var tier_icon: Texture2D = UnitIcons.get_tower_tier_icon(tower.get_id())
-	_tier_icon.texture = tier_icon
+	_tower_button.set_tower_id(tower.get_id())
+	_tower_button.set_tier_icon(tower.get_id())
+	_tower_button.set_icon(TowerProperties.get_icon(tower.get_id()))
+	_tower_button.unlock()
 	
 	_set_selling_for_real(false)
 
