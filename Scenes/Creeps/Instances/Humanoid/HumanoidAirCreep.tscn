@@ -1,14 +1,14 @@
 [gd_scene load_steps=237 format=3 uid="uid://e5ivyfirvsv"]
 
 [ext_resource type="PackedScene" uid="uid://c8fo4a5w0txrx" path="res://Scenes/Creeps/Instances/AirCreep.tscn" id="1_kvaml"]
-[ext_resource type="Texture2D" uid="uid://m74fw3s6vh5h" path="res://Assets/Mobs/orc/air/fly_NW.png" id="2_b5i27"]
-[ext_resource type="Texture2D" uid="uid://b5se2dom7rt6d" path="res://Assets/Mobs/orc/air/fly_E.png" id="3_u2wje"]
-[ext_resource type="Texture2D" uid="uid://dg22ncv2bbgpl" path="res://Assets/Mobs/orc/air/fly_N.png" id="4_pb12l"]
-[ext_resource type="Texture2D" uid="uid://lhbh8ncpikea" path="res://Assets/Mobs/orc/air/fly_NE.png" id="5_5ilmq"]
-[ext_resource type="Texture2D" uid="uid://ctrob5r1weymb" path="res://Assets/Mobs/orc/air/fly_S.png" id="6_61hiy"]
-[ext_resource type="Texture2D" uid="uid://dejolx201xt4l" path="res://Assets/Mobs/orc/air/fly_SE.png" id="7_2s7l2"]
-[ext_resource type="Texture2D" uid="uid://beysr35mknwqu" path="res://Assets/Mobs/orc/air/fly_SW.png" id="8_dqanl"]
-[ext_resource type="Texture2D" uid="uid://ddhb3w0ho041v" path="res://Assets/Mobs/orc/air/fly_W.png" id="9_1sqef"]
+[ext_resource type="Texture2D" uid="uid://m74fw3s6vh5h" path="res://Assets/Creeps/orc/air/fly_NW.png" id="2_b5i27"]
+[ext_resource type="Texture2D" uid="uid://b5se2dom7rt6d" path="res://Assets/Creeps/orc/air/fly_E.png" id="3_u2wje"]
+[ext_resource type="Texture2D" uid="uid://dg22ncv2bbgpl" path="res://Assets/Creeps/orc/air/fly_N.png" id="4_pb12l"]
+[ext_resource type="Texture2D" uid="uid://lhbh8ncpikea" path="res://Assets/Creeps/orc/air/fly_NE.png" id="5_5ilmq"]
+[ext_resource type="Texture2D" uid="uid://ctrob5r1weymb" path="res://Assets/Creeps/orc/air/fly_S.png" id="6_61hiy"]
+[ext_resource type="Texture2D" uid="uid://dejolx201xt4l" path="res://Assets/Creeps/orc/air/fly_SE.png" id="7_2s7l2"]
+[ext_resource type="Texture2D" uid="uid://beysr35mknwqu" path="res://Assets/Creeps/orc/air/fly_SW.png" id="8_dqanl"]
+[ext_resource type="Texture2D" uid="uid://ddhb3w0ho041v" path="res://Assets/Creeps/orc/air/fly_W.png" id="9_1sqef"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x1ups"]
 atlas = ExtResource("2_b5i27")
@@ -1642,7 +1642,7 @@ bg_color = Color(0.176471, 0.960784, 0, 1)
 [node name="Sprite" parent="Visual" index="0"]
 sprite_frames = SubResource("SpriteFrames_ip4aq")
 offset = Vector2(-1.25, 14.375)
-sprite_sheets_dir = "res://Assets/Mobs/orc/air"
+sprite_sheets_dir = "res://Assets/Creeps/orc/air"
 _animation_offset_map = {
 "default": Vector2(-2, 23),
 "fly_E": Vector2(5, 26),
