@@ -14,12 +14,12 @@ region = Rect2(384, 0, 128, 128)
 custom_minimum_size = Vector2(64, 64)
 focus_mode = 0
 theme = ExtResource("3_rtugu")
-theme_type_variation = &"TowerActions"
+theme_type_variation = &"TinyUnitButton"
 icon = SubResource("AtlasTexture_j1ue5")
 expand_icon = true
 script = ExtResource("1_eojut")
 _cooldown_indicator = NodePath("IndicatorContainer/CooldownIndicator")
-_auto_mode_indicator = NodePath("IndicatorContainer/AutoModeIndicator")
+_auto_mode_indicator = NodePath("IndicatorContainer/MarginContainer/AutoModeIndicator")
 _indicator_container = NodePath("IndicatorContainer")
 
 [node name="IndicatorContainer" type="MarginContainer" parent="."]
@@ -36,11 +36,19 @@ theme_override_constants/margin_bottom = 4
 
 [node name="CooldownIndicator" type="Control" parent="IndicatorContainer"]
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource("3_rtugu")
 script = ExtResource("3_d6wsi")
 
-[node name="AutoModeIndicator" parent="IndicatorContainer" instance=ExtResource("5_xah78")]
+[node name="MarginContainer" type="MarginContainer" parent="IndicatorContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="AutoModeIndicator" parent="IndicatorContainer/MarginContainer" instance=ExtResource("5_xah78")]
 layout_mode = 2
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

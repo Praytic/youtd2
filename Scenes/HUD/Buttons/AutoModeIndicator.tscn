@@ -1,23 +1,66 @@
-[gd_scene load_steps=3 format=3 uid="uid://bovo5mbv22jly"]
+[gd_scene load_steps=5 format=3 uid="uid://bovo5mbv22jly"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/AutoModeIndicator.gd" id="1_r4cmb"]
-[ext_resource type="Texture2D" uid="uid://cnlpyw6c164jy" path="res://Resources/UI/AutoModeIndicator.tres" id="1_xsfie"]
+[ext_resource type="Texture2D" uid="uid://ce6k2v2g5l88d" path="res://Assets/Misc/autocast_automode_particle.png" id="2_jh2gc"]
 
-[node name="AutoModeIndicator" type="Control" node_paths=PackedStringArray("_texture_rect")]
+[sub_resource type="Curve" id="Curve_4kjed"]
+_data = [Vector2(0.00240385, 1), 0.0, 0.0, 0, 0, Vector2(0.913462, 0.473684), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pb6mi"]
+colors = PackedColorArray(1, 1, 1, 0.784314, 1, 1, 1, 0.392157)
+
+[node name="AutoModeIndicator" type="Control" node_paths=PackedStringArray("_particles_container", "_particles_1", "_particles_2", "_particles_3", "_particles_4")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 32.0
-offset_bottom = 32.0
-mouse_filter = 1
+offset_right = 80.0
+offset_bottom = 80.0
+mouse_filter = 2
 script = ExtResource("1_r4cmb")
-_texture_rect = NodePath("TextureRect")
+_particles_container = NodePath("ParticlesContainer")
+_particles_1 = NodePath("ParticlesContainer/CPUParticles2D")
+_particles_2 = NodePath("ParticlesContainer/CPUParticles2D2")
+_particles_3 = NodePath("ParticlesContainer/CPUParticles2D3")
+_particles_4 = NodePath("ParticlesContainer/CPUParticles2D4")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_xsfie")
-expand_mode = 2
+[node name="ParticlesContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParticlesContainer"]
+position = Vector2(-1.75933e-06, 35.2362)
+amount = 32
+lifetime = 0.5
+texture = ExtResource("2_jh2gc")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_4kjed")
+color_ramp = SubResource("Gradient_pb6mi")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="ParticlesContainer"]
+position = Vector2(44.7638, -7.43204e-06)
+amount = 32
+lifetime = 0.5
+texture = ExtResource("2_jh2gc")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_4kjed")
+color_ramp = SubResource("Gradient_pb6mi")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="ParticlesContainer"]
+position = Vector2(80, 44.7638)
+amount = 32
+lifetime = 0.5
+texture = ExtResource("2_jh2gc")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_4kjed")
+color_ramp = SubResource("Gradient_pb6mi")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="ParticlesContainer"]
+position = Vector2(35.2362, 80)
+amount = 32
+lifetime = 0.5
+texture = ExtResource("2_jh2gc")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_4kjed")
+color_ramp = SubResource("Gradient_pb6mi")
