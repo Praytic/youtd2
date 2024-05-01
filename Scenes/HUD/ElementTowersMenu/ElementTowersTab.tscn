@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4l81jcbkrtkr"]
+[gd_scene load_steps=14 format=3 uid="uid://c4l81jcbkrtkr"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.gd" id="1_3yo77"]
-[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="1_rfpra"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="3_8uthh"]
 [ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/Icons/misc5.png" id="3_kpmkj"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="4_3ff1t"]
@@ -30,30 +29,13 @@ bg_color = Color(0, 0, 0, 1)
 
 [node name="ElementTowersTab" type="VBoxContainer" node_paths=PackedStringArray("_title_label", "_element_level_label", "_upgrade_button", "_roll_button", "_element_icon", "_tower_buttons_container", "_info_label")]
 script = ExtResource("1_3yo77")
-_title_label = NodePath("MarginContainer/MarginContainer/TitleLabel")
+_title_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer2/TitleLabel")
 _element_level_label = NodePath("MarginContainer2/MarginContainer2/VBoxContainer/ElementLevelLabel")
 _upgrade_button = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
 _roll_button = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton")
 _element_icon = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
 _tower_buttons_container = NodePath("MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
-_info_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/InfoLabel")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_bottom = -34
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = -90
-
-[node name="TitleLabel" type="Label" parent="MarginContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("1_rfpra")
-text = "ICE"
-horizontal_alignment = 1
+_info_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer2/InfoLabel")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -165,7 +147,16 @@ focus_mode = 0
 text = "ROLL"
 script = ExtResource("4_3ff1t")
 
-[node name="InfoLabel" type="RichTextLabel" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Element name"
+
+[node name="InfoLabel" type="RichTextLabel" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0

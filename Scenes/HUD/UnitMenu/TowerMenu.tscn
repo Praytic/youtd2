@@ -13,18 +13,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6gup"]
-content_margin_left = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 5.0
-texture = ExtResource("3_723pa")
-texture_margin_left = 13.9504
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 13.9504
-region_rect = Rect2(1283, 192, 139, 154)
-modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
@@ -62,6 +50,18 @@ margin = Rect2(10, 10, 20, 20)
 atlas = ExtResource("11_bilts")
 region = Rect2(0, 256, 128, 128)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6gup"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 5.0
+texture = ExtResource("3_723pa")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 154)
+modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
 atlas = ExtResource("11_bilts")
 region = Rect2(896, 0, 128, 128)
@@ -75,89 +75,79 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_qr0sm")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
 script = ExtResource("2_cxnnl")
-_tab_container = NodePath("MainContainer/MarginContainer/TabContainer")
-_tower_button = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/TowerButton")
-_title_label = NodePath("MainContainer/MarginContainer2/TitleLabel")
-_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/LevelLabel")
-_info_label = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/InfoLabel")
-_specials_label = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer/SpecialsLabel")
+_tab_container = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer")
+_tower_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/TowerButton")
+_title_label = NodePath("TitleLabel")
+_level_label = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/LevelLabel")
+_info_label = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer/InfoLabel")
+_specials_label = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer/SpecialsLabel")
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
-_upgrade_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton")
-_sell_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellButton")
-_details_tab = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab")
-_specials_scroll_container = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer")
-_inventory_empty_slots = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots")
-_items_box_container = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer")
-_buff_container = NodePath("MainContainer/MarginContainer3/BuffContainer")
-_details = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab/TowerDetails")
-_buff_group_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer")
-_buff_group_button_1 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1")
-_buff_group_button_2 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2")
-_buff_group_button_3 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3")
-_buff_group_button_4 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4")
-_buff_group_button_5 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5")
-_buff_group_button_6 = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6")
+_upgrade_button = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton")
+_sell_button = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellButton")
+_details_tab = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/DetailsTab")
+_specials_scroll_container = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer")
+_inventory_empty_slots = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots")
+_items_box_container = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer")
+_buff_container = NodePath("MarginContainer2/MainContainer/MarginContainer3/BuffContainer")
+_details = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/DetailsTab/TowerDetails")
+_buff_group_container = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer")
+_buff_group_button_1 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1")
+_buff_group_button_2 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2")
+_buff_group_button_3 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3")
+_buff_group_button_4 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4")
+_buff_group_button_5 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5")
+_buff_group_button_6 = NodePath("MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
-show_behind_parent = true
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_bottom = -34
-
-[node name="TitleLabel" type="Label" parent="MainContainer/MarginContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
-text = "Unit"
-
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TabContainer" type="TabContainer" parent="MainContainer/MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer2/MainContainer/MarginContainer"]
 custom_minimum_size = Vector2(630, 810)
 layout_mode = 2
 tabs_visible = false
 
-[node name="MainTab" type="VBoxContainer" parent="MainContainer/MarginContainer/TabContainer"]
+[node name="MainTab" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="InfoContainer" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab"]
+[node name="InfoContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="TowerButton" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer" instance=ExtResource("4_uarln")]
+[node name="TowerButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer" instance=ExtResource("4_uarln")]
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 _tower_id = 1
 
-[node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer"]
+[node name="InfoLabel" type="RichTextLabel" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -170,24 +160,24 @@ text = "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelTitle"
@@ -196,28 +186,28 @@ text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpecialsContainer" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab"]
+[node name="SpecialsContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelTitle"
@@ -226,21 +216,21 @@ text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="TowerSpecialsContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer"]
+[node name="TowerSpecialsContainer" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpecialsLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer"]
+[node name="SpecialsLabel" type="RichTextLabel" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
@@ -248,28 +238,28 @@ text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
 [color=GOLD]+15%[/color] damage to humanoid ([color=GOLD]+1%[/color]/lvl)"
 fit_content = true
 
-[node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab"]
+[node name="Inventory" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab"]
 custom_minimum_size = Vector2(0, 93)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelTitle"
@@ -278,57 +268,57 @@ text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
-[node name="InventoryEmptySlots" type="HBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
+[node name="InventoryEmptySlots" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton2" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton3" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton4" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton5" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
+[node name="EmptyUnitButton6" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="ItemsContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
+[node name="ItemsContainer" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
 layout_mode = 2
 
-[node name="DetailsTab" type="ScrollContainer" parent="MainContainer/MarginContainer/TabContainer"]
+[node name="DetailsTab" type="ScrollContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
-[node name="TowerDetails" parent="MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("7_xja40")]
+[node name="TowerDetails" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("7_xja40")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_force_pass_scroll_events = false
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
@@ -336,12 +326,12 @@ theme_override_constants/margin_left = -20
 theme_override_constants/margin_top = -20
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainContainer/MarginContainer/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="LevelLabel" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
+[node name="LevelLabel" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -355,13 +345,13 @@ text = "25"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="UpgradeButton" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="UpgradeButton" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -374,7 +364,7 @@ shortcut_in_tooltip = false
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
-[node name="DetailsButton" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="DetailsButton" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -385,7 +375,7 @@ theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_yslek")
 expand_icon = true
 
-[node name="SellButton" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="SellButton" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -398,13 +388,13 @@ shortcut_in_tooltip = false
 icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 
-[node name="BuffGroupContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="BuffGroupContainer" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 2
 
-[node name="BuffGroup1" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup1" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -417,7 +407,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 1
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -427,7 +417,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -443,7 +433,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffGroup2" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup2" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -456,7 +446,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -466,7 +456,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -482,7 +472,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffGroup3" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup3" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -495,7 +485,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 3
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -505,7 +495,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -521,7 +511,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffGroup4" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup4" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -534,7 +524,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 4
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -544,7 +534,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -560,7 +550,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffGroup5" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup5" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -573,7 +563,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 5
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -583,7 +573,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -599,7 +589,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffGroup6" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
+[node name="BuffGroup6" type="Button" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -612,7 +602,7 @@ expand_icon = true
 script = ExtResource("12_v3yi6")
 _buff_group_number = 6
 
-[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -622,7 +612,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_jm7a5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -638,13 +628,21 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="MainContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer2/MainContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="BuffContainer" parent="MainContainer/MarginContainer3" instance=ExtResource("13_b0jes")]
+[node name="BuffContainer" parent="MarginContainer2/MainContainer/MarginContainer3" instance=ExtResource("13_b0jes")]
 layout_mode = 2
 columns = 12
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
+text = "Unit"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -661,15 +659,15 @@ icon = SubResource("AtlasTexture_wh5fy")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="gui_input" from="MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
-[connection signal="mouse_entered" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1" method="_on_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2" method="_on_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3" method="_on_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4" method="_on_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5" method="_on_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6" method="_on_pressed"]
+[connection signal="gui_input" from="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
+[connection signal="mouse_entered" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup1" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup2" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup3" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup4" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup5" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6" to="MarginContainer2/MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/BuffGroupContainer/BuffGroup6" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

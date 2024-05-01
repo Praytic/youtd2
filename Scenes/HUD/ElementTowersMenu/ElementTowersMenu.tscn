@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://donslrrviy807"]
+[gd_scene load_steps=7 format=3 uid="uid://donslrrviy807"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.gd" id="1_3360v"]
 [ext_resource type="PackedScene" uid="uid://c4l81jcbkrtkr" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.tscn" id="2_cm41y"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="3_o2dlo"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="4_jlt7a"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="5_dygg8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
@@ -78,6 +79,23 @@ theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_wh5fy")
 icon_alignment = 1
 expand_icon = true
+
+[node name="TitleLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 49.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("4_jlt7a")
+text = "Tower Stash"
+horizontal_alignment = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 0
