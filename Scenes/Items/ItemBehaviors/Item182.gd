@@ -1,4 +1,4 @@
-# Spider Brooch
+# Spider Broach
 extends ItemBehavior
 
 
