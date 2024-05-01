@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ce6k2v2g5l88d" path="res://Assets/Misc/autocast_automode_particle.png" id="2_jh2gc"]
 
 [sub_resource type="Curve" id="Curve_4kjed"]
-_data = [Vector2(0.00240385, 1), 0.0, 0.0, 0, 0, Vector2(0.913462, 0.473684), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.663158), 0.0, 0.0, 0, 0, Vector2(0.911227, 0.294737), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_pb6mi"]
@@ -30,36 +30,44 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="ParticlesContainer"]
-position = Vector2(-1.75933e-06, 35.2362)
+position = Vector2(28.4444, 0)
 amount = 32
-lifetime = 0.5
+lifetime = 0.6
+randomness = 1.0
+lifetime_randomness = 0.2
 texture = ExtResource("2_jh2gc")
 gravity = Vector2(0, 0)
 scale_amount_curve = SubResource("Curve_4kjed")
 color_ramp = SubResource("Gradient_pb6mi")
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="ParticlesContainer"]
-position = Vector2(44.7638, -7.43204e-06)
+position = Vector2(80, 28.4444)
 amount = 32
-lifetime = 0.5
+lifetime = 0.6
+randomness = 1.0
+lifetime_randomness = 0.2
 texture = ExtResource("2_jh2gc")
 gravity = Vector2(0, 0)
 scale_amount_curve = SubResource("Curve_4kjed")
 color_ramp = SubResource("Gradient_pb6mi")
 
 [node name="CPUParticles2D3" type="CPUParticles2D" parent="ParticlesContainer"]
-position = Vector2(80, 44.7638)
+position = Vector2(51.5555, 80)
 amount = 32
-lifetime = 0.5
+lifetime = 0.6
+randomness = 1.0
+lifetime_randomness = 0.2
 texture = ExtResource("2_jh2gc")
 gravity = Vector2(0, 0)
 scale_amount_curve = SubResource("Curve_4kjed")
 color_ramp = SubResource("Gradient_pb6mi")
 
 [node name="CPUParticles2D4" type="CPUParticles2D" parent="ParticlesContainer"]
-position = Vector2(35.2362, 80)
+position = Vector2(-3.89936e-06, 51.5555)
 amount = 32
-lifetime = 0.5
+lifetime = 0.6
+randomness = 1.0
+lifetime_randomness = 0.2
 texture = ExtResource("2_jh2gc")
 gravity = Vector2(0, 0)
 scale_amount_curve = SubResource("Curve_4kjed")
