@@ -72,11 +72,13 @@ func create_timer(duration: float, parent: Node) -> ManualTimer:
 	return timer
 
 
-func tower_exists_on_position(position: Vector2) -> bool:
-	var tower_at_position: Tower = get_tower_at_position(position)
-	var has_tower: bool = tower_at_position != null
+func get_tower_at_canvas_pos(pos_canvas_2nd_floor: Vector2) -> Tower:
+	var pos_canvas_2nd_floor_snapped: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(pos_canvas_2nd_floor)
+	var pos_canvas: Vector2 = pos_canvas_2nd_floor_snapped + Vector2(0, Constants.TILE_SIZE.y)
+	var pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(pos_canvas)
+	var tower: Tower = Utils.get_tower_at_position(pos_wc3)
 
-	return has_tower
+	return tower
 
 
 func get_tower_at_position(position_wc3: Vector2) -> Tower:

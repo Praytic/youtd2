@@ -104,13 +104,11 @@ func can_build_at_pos(global_pos: Vector2) -> bool:
 	return can_build
 
 
-func can_transform_at_pos(world_pos: Vector2) -> bool:
-	if !Globals.game_mode_allows_transform():
-		return false
-
-	var pos: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(world_pos)
-	var there_is_a_tower_under_mouse: bool = Utils.tower_exists_on_position(pos)
-	var can_transform: bool = there_is_a_tower_under_mouse
+func can_transform_at_pos(pos_mouse: Vector2) -> bool:
+	var transform_is_allowed: bool = Globals.game_mode_allows_transform()
+	var tower_under_mouse: Tower = Utils.get_tower_at_canvas_pos(pos_mouse)
+	var attempting_to_transform: bool = tower_under_mouse != null
+	var can_transform: bool = attempting_to_transform && transform_is_allowed
 
 	return can_transform
 

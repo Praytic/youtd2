@@ -37,16 +37,16 @@ func start(tower_id: int, player: Player):
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	var build_pos: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(mouse_pos)
 	var can_build: bool = _build_space.can_build_at_pos(mouse_pos)
-	var can_transform: bool = _build_space.can_transform_at_pos(mouse_pos)
-	var tower_under_mouse: Tower = Utils.get_tower_at_position(build_pos)
+	var tower_under_mouse: Tower = Utils.get_tower_at_canvas_pos(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
+	var transform_is_allowed: bool = Globals.game_mode_allows_transform()
+	var can_transform: bool = attempting_to_transform && transform_is_allowed
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
 	if !can_build && !can_transform:
 		var error: String
-		if attempting_to_transform && !Globals.game_mode_allows_transform():
+		if attempting_to_transform && !transform_is_allowed:
 			error = "Can't transform towers in build mode."
 		else:
 			error = "Can't build here."
