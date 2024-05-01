@@ -184,7 +184,7 @@ func tower_init():
 	autocast_choose.title = "Choose Modification"
 	autocast_choose.description = get_autocast_choose_description()
 	autocast_choose.description_short = get_autocast_choose_description_short()
-	autocast_choose.icon = "res://path/to/icon.png"
+	autocast_choose.icon = "res://Resources/Textures/ItemIcons/troll_charm.tres"
 	autocast_choose.caster_art = ""
 	autocast_choose.target_art = ""
 	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -204,7 +204,7 @@ func tower_init():
 	autocast_add.title = "Add Modification"
 	autocast_add.description = get_autocast_add_description()
 	autocast_add.description_short = get_autocast_add_description_short()
-	autocast_add.icon = "res://path/to/icon.png"
+	autocast_add.icon = "res://Resources/Textures/AutocastIcons/blue_pointy_thing.tres"
 	autocast_add.caster_art = ""
 	autocast_add.target_art = ""
 	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -224,7 +224,7 @@ func tower_init():
 	autocast_remove.title = "Remove Modification"
 	autocast_remove.description = get_autocast_remove_description()
 	autocast_remove.description_short = get_autocast_remove_description_short()
-	autocast_remove.icon = "res://path/to/icon.png"
+	autocast_remove.icon = "res://Resources/Textures/AutocastIcons/red_pointy_thing_down.tres"
 	autocast_remove.caster_art = ""
 	autocast_remove.target_art = ""
 	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

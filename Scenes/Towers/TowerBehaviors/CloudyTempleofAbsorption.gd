@@ -121,7 +121,7 @@ func tower_init():
 	autocast1.title = "Cloudy Thunderstorm"
 	autocast1.description = get_autocast_description_for_cloudy_thunderstorm()
 	autocast1.description_short = get_autocast_description_for_cloudy_thunderstorm_short()
-	autocast1.icon = "res://path/to/icon.png"
+	autocast1.icon = "res://Resources/Textures/AutocastIcons/thunder_swirl.tres"
 	autocast1.caster_art = ""
 	autocast1.target_art = ""
 	autocast1.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -141,7 +141,7 @@ func tower_init():
 	autocast2.title = "Adjust Autocast Threshold"
 	autocast2.description = get_autocast_description_for_adjust_threshold()
 	autocast2.description_short = get_autocast_description_for_adjust_threshold_short()
-	autocast2.icon = "res://path/to/icon.png"
+	autocast2.icon = "res://Resources/Textures/AutocastIcons/compass.tres"
 	autocast2.caster_art = ""
 	autocast2.target_art = ""
 	autocast2.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
