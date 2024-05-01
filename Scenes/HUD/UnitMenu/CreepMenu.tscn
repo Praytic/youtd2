@@ -80,9 +80,6 @@ theme_override_constants/separation = 20
 
 [node name="InfoContainer" type="PanelContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer"]
 layout_mode = 2
@@ -106,12 +103,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 bbcode_enabled = true
-text = "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ff4500ff]30[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]0[/color]
-[color=LIGHT_BLUE]Basic nature tower with a slightly increased chance to critical strike.[/color]
-[color=YELLOW]Author:[/color] gex
-[color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
-[color=YELLOW]Attack:[/color] [color=GOLD]28[/color] dps, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
-"
+text = "[color=YELLOW]Race:[/color] health
+[color=YELLOW]Race:[/color] x
+[color=YELLOW]Size:[/color] x
+[color=YELLOW]Armor type:[/color] x
+[color=YELLOW]Armor:[/color] x"
 fit_content = true
 scroll_active = false
 

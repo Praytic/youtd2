@@ -58,7 +58,7 @@ func _process(_delta: float):
 # 	displays creep's armor stat which changes. Also need to
 # 	update upgrade button because it depends on player's
 # 	gold/tomes which change.
-	_info_label.text = RichTexts.get_tower_info(_tower)
+	_info_label.text = RichTexts.get_tower_info_short(_tower)
 	_update_upgrade_button()
 
 
