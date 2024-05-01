@@ -43,14 +43,13 @@ func get_research_level_label(element: Element.enm, player: Player) -> String:
 func get_creep_info(creep: Creep) -> String:
 	var text: String = ""
 
-	var health: int = floor(creep.get_health())
-	var overall_health: int = floor(creep.get_overall_health())
+	var health_string_colored: String = _get_creep_health_string(creep)
 	var mana: int = floor(creep.get_mana())
 	var overall_mana: int = floor(creep.get_overall_mana())
 
-	text += "[color=YELLOW]Health:[/color] [color=GOLD]%d/%d[/color]\n" % [health, overall_health]
+	text += "[color=YELLOW]Health:[/color] %s\n" % [health_string_colored]
 	if overall_mana > 0:
-		text += "[color=YELLOW]Mana:[/color] [color=GOLD]%d/%d[/color]\n" % [mana, overall_mana]
+		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d/%d[/color]\n" % [mana, overall_mana]
 
 	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
@@ -78,45 +77,6 @@ func get_creep_info(creep: Creep) -> String:
 	return text
 
 
-func get_tower_info(tower: Tower) -> String:
-	var text: String = ""
-	
-	var tower_id: int = tower.get_id()
-
-	var gold_cost: int = TowerProperties.get_cost(tower_id)
-	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
-	var food_cost: int = TowerProperties.get_food_cost(tower_id)
-	var description: String = TowerProperties.get_description(tower_id)
-	var author: String = TowerProperties.get_author(tower_id)
-	var element: Element.enm = TowerProperties.get_element(tower_id)
-	var element_string: String = Element.convert_to_colored_string(element)
-	var dps: int = floori(TowerProperties.get_dps(tower_id))
-	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
-	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
-	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
-	var damage_string: String = _get_tower_damage_string(tower)
-	var mana: int = floori(tower.get_mana())
-	var overall_mana: int = floori(tower.get_overall_mana())
-
-	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
-	else:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
-
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
-	text += "[color=YELLOW]Author:[/color] %s\n" % author
-	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
-	if attack_enabled:
-		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
-		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
-
-	if overall_mana != 0:
-		text += "[color=YELLOW]Mana:[/color] [color=GOLD]%d/%d[/color]\n" % [mana, overall_mana]
-
-	return text
-
-
 func get_tower_info_short(tower: Tower) -> String:
 	var text: String = ""
 	
@@ -140,7 +100,7 @@ func get_tower_info_short(tower: Tower) -> String:
 		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
 
 	if overall_mana != 0:
-		text += "[color=YELLOW]Mana:[/color] [color=GOLD]%d/%d[/color]\n" % [mana, overall_mana]
+		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d/%d[/color]\n" % [mana, overall_mana]
 
 	return text
 
@@ -170,6 +130,8 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var mana: int = floor(TowerProperties.get_mana(tower_id))
+	var mana_regen: int = floor(TowerProperties.get_mana_regen(tower_id))
 
 # 	NOTE: creating a tower instance just to get the tooltip
 # 	text is weird, but the alternatives are worse. Need to
@@ -190,6 +152,9 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	if attack_enabled:
 		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
 
+	if mana > 0:
+		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]
+
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Specials:[/color]\n"
 		text += "%s\n" % specials_text
@@ -202,12 +167,6 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 		text += " \n"
 		text += autocast_text
 
-	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
-	var tower_has_no_icon: bool = icon_atlas_num == -1
-	if tower_has_no_icon:
-		text += " \n"
-		text += "[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]\n"
-	
 	return text
 
 
@@ -504,3 +463,19 @@ func _get_tower_damage_string(tower: Tower) -> String:
 	var string: String = "[color=GOLD]%d-%d[/color]%s" % [floori(dmg_min), floori(dmg_max), damage_add_string]
 
 	return string
+
+
+func _get_creep_health_string(creep: Creep) -> String:
+	var health_color: Color
+	var health_ratio: float = creep.get_health_ratio()
+	if health_ratio > 0.3:
+		health_color = Color.GREEN
+	else:
+		health_color = Color.RED
+
+	var health: int = floor(creep.get_health())
+	var overall_health: int = floor(creep.get_overall_health())
+	var health_string: String = "%d/%d" % [health, overall_health]
+	var health_string_colored: String = Utils.get_colored_string(health_string, health_color)
+
+	return health_string_colored

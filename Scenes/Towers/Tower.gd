@@ -902,9 +902,6 @@ func get_tier() -> int:
 func get_family() -> int:
 	return TowerProperties.get_family(_id)
 
-func get_icon_atlas_num() -> int:
-	return TowerProperties.get_icon_atlas_num(_id)
-
 
 # NOTE: tower.getElement() in JASS
 func get_element() -> Element.enm:
