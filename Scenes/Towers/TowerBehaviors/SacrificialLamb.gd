@@ -139,7 +139,7 @@ func tower_init():
 	autocast.title = "Sacrifice"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://path/to/icon.png"
+	autocast.icon = "res://Resources/Textures/AutocastIcons/artifact_on_pedestal.tres"
 	autocast.caster_art = "CarrionSwarmDamage.mdl"
 	autocast.target_art = "DeathPactCaster.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

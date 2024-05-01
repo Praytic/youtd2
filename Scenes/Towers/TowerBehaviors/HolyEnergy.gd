@@ -98,7 +98,7 @@ func tower_init():
 	autocast.title = "Sunlight Burst"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://path/to/icon.png"
+	autocast.icon = "res://Resources/Textures/AutocastIcons/electricity_yellow.tres"
 	autocast.caster_art = "Awaken.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

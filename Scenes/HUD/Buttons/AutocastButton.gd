@@ -1,6 +1,9 @@
 class_name AutocastButton extends Button
 
 
+const FALLBACK_AUTOCAST_ICON: String = "res://Resources/Textures/AutocastIcons/compass.tres"
+
+
 var _autocast: Autocast = null
 @export var _cooldown_indicator: CooldownIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
@@ -12,6 +15,17 @@ var _autocast: Autocast = null
 #########################
 
 func _ready():
+	var icon_path: String = _autocast.icon
+	var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+
+	if !icon_path_is_valid:
+		push_error("Invalid icon path for autocast: %s" % icon_path)
+
+		icon_path = FALLBACK_AUTOCAST_ICON
+
+	var autocast_icon: Texture2D = load(icon_path)
+	set_button_icon(autocast_icon)
+		
 	_cooldown_indicator.set_autocast(_autocast)
 	_auto_mode_indicator.set_autocast(_autocast)
 

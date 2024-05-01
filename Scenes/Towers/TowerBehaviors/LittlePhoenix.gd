@@ -131,7 +131,7 @@ func tower_init():
 	autocast.title = "Eruption"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://path/to/icon.png"
+	autocast.icon = "res://Resources/Textures/ItemIcons/1_unused_fire_bowl_2.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

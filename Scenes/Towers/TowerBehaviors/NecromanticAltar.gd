@@ -49,7 +49,7 @@ func tower_init():
 	autocast.title = "Soul Revenge"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
+	autocast.icon = "res://Resources/Textures/AutocastIcons/purple_orb.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

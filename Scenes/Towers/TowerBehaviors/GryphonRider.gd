@@ -98,7 +98,7 @@ func tower_init():
 	autocast.title = "Hammer Fall"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://path/to/icon.png"
+	autocast.icon = "res://Resources/Textures/ItemIcons/granite_hammer.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

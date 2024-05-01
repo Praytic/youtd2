@@ -86,7 +86,7 @@ func tower_init():
 	autocast.title = "Divine Teachings"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://path/to/icon.png"
+	autocast.icon = "res://Resources/Textures/ItemIcons/arcane_book_of_power.tres"
 	autocast.caster_art = "AIimTarget.mdl"
 	autocast.target_art = "CharmTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
