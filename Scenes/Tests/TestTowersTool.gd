@@ -12,16 +12,14 @@ static func run(gamescene: Node, player: Player):
 
 	var i: int = 0
 
+	var tower_preview: TowerPreview = gamescene.get_node("World/TowerPreview")
+
 	for tower_id in tower_id_list:
 		var tower_name: String = TowerProperties.get_display_name(tower_id)
 		print("(%d/%d) Testing tower %d %s" % [i + 1, tower_id_list.size(), tower_id, tower_name])
 
 #		Test tower preview
-		var tower_preview: TowerPreview = Preloads.tower_preview_scene.instantiate()
 		tower_preview.set_tower(tower_id)
-		gamescene.add_child(tower_preview)
-		await scene_tree.create_timer(0.01).timeout
-		tower_preview.queue_free()
 		await scene_tree.create_timer(0.01).timeout
 
 #		Test building tower
