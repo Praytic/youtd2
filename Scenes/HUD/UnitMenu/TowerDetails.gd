@@ -407,11 +407,14 @@ func _get_oil_count_map(tower: Tower) -> Dictionary:
 	for oil in oil_list:
 		var oil_id: int = oil.get_id()
 		var oil_name: String = ItemProperties.get_display_name(oil_id)
+		var oil_rarity: Rarity.enm = ItemProperties.get_rarity(oil_id)
+		var rarity_color: Color = Rarity.get_color(oil_rarity)
+		var oil_name_colored: String = Utils.get_colored_string(oil_name, rarity_color)
 
-		if !oil_count_map.has(oil_name):
-			oil_count_map[oil_name] = 0
+		if !oil_count_map.has(oil_name_colored):
+			oil_count_map[oil_name_colored] = 0
 
-		oil_count_map[oil_name] += 1
+		oil_count_map[oil_name_colored] += 1
 
 	return oil_count_map
 
