@@ -300,11 +300,14 @@ func _on_buff_list_changed(unit: Unit):
 func _on_upgrade_button_mouse_entered():
 	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(_tower.get_id())
 
-	if upgrade_id == -1:
-		return
-
 	var local_player: Player = PlayerManager.get_local_player()
-	var tooltip: String = RichTexts.get_tower_text(upgrade_id, local_player)
+
+	var tooltip: String
+	if upgrade_id != -1:
+		tooltip = RichTexts.get_tower_text(upgrade_id, local_player)
+	else:
+		tooltip = "Cannot upgrade any further."
+
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 
