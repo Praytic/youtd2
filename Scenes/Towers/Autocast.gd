@@ -243,15 +243,6 @@ func can_cast() -> bool:
 	if _caster == null:
 		return false
 
-# 	NOTE: if auto mode is off, do not prevent player from
-# 	starting a cast while tower is not attacking. For
-# 	example, player needs to be able to start the cast to
-# 	pick the target before tower starts attacking.
-	var cant_cast_because_not_attacking: bool = auto_mode_is_enabled() && type_is_offensive() && !_caster.is_attacking()
-
-	if cant_cast_because_not_attacking:
-		return false
-
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
@@ -454,6 +445,15 @@ func _get_cast_error() -> String:
 
 func _on_auto_timer_timeout():
 	if !can_cast():
+		return
+	
+# 	NOTE: if auto mode is off, do not prevent player from
+# 	starting a cast while tower is not attacking. For
+# 	example, player needs to be able to start the cast to
+# 	pick the target before tower starts attacking.
+	var cant_cast_because_not_attacking: bool = type_is_offensive() && !_caster.is_attacking()
+
+	if cant_cast_because_not_attacking:
 		return
 
 	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
