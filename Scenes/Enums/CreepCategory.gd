@@ -34,7 +34,7 @@ static var _color_map: Dictionary = {
 	CreepCategory.enm.NATURE: Color.LIME_GREEN,
 	CreepCategory.enm.ORC: Color.DARK_SEA_GREEN,
 	CreepCategory.enm.HUMANOID: Color.TAN,
-	CreepCategory.enm.CHALLENGE: Color.GRAY,
+	CreepCategory.enm.CHALLENGE: Color.GOLD,
 }
 
 
