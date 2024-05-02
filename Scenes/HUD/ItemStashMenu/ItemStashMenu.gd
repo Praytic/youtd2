@@ -1,8 +1,6 @@
 class_name ItemStashMenu extends PanelContainer
 
 
-const ITEM_BUTTON_SIZE: Vector2 = Vector2(88, 88)
-
 
 # This UI element displays items which are currently in the
 # item stash.
@@ -89,7 +87,6 @@ func set_items_for_horadric_cube(item_list: Array[Item]):
 func _add_item_button(item: Item, index: int):
 	var item_button: ItemButton = ItemButton.make(item)
 	item_button.enable_horadric_lock_display()
-	item_button.custom_minimum_size = ITEM_BUTTON_SIZE
 	_item_button_list.append(item_button)
 	_item_buttons_container.add_child(item_button)
 	_item_buttons_container.move_child(item_button, index)

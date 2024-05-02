@@ -8,7 +8,6 @@ enum Tabs {
 }
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
-const ITEMS_CONTAINER_BUTTON_SIZE: Vector2 = Vector2(88, 88)
 
 @export var _tab_container: TabContainer
 @export var _tower_button: TowerButton
@@ -233,9 +232,7 @@ func _on_tower_items_changed(tower: Tower):
 		var item_button: ItemButton = ItemButton.make(item)
 		item_button.show_cooldown_indicator()
 		item_button.show_auto_mode_indicator()
-		item_button.theme_type_variation = "TinyUnitButton"
 		item_button.show_charges()
-		item_button.custom_minimum_size = ITEMS_CONTAINER_BUTTON_SIZE
 		_items_box_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 		item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
