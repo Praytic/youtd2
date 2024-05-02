@@ -398,8 +398,8 @@ static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.e
 
 	var wave_capacity: int = 20 + wave_level / 40
 	var champion_count: int = _generate_champion_count(wave_level, creep_size)
-	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
-	var unit_weight: int = int(CreepSize.get_experience(creep_size))
+	var champion_weight: int = int(CreepSize.get_weight(CreepSize.enm.CHAMPION))
+	var unit_weight: int = int(CreepSize.get_weight(creep_size))
 
 	var total_unit_count: int = -1
 	var champion_unit_ratio: float = -1

@@ -85,6 +85,16 @@ static var _experience_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
+static var _weight_map: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+	CreepSize.enm.CHALLENGE_MASS: 2,
+	CreepSize.enm.CHALLENGE_BOSS: 20,
+}
+
 static var _portal_damage_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
@@ -159,6 +169,10 @@ static func get_item_drop_roll_count(type: CreepSize.enm) -> int:
 
 static func get_score_multiplier(type: CreepSize.enm) -> float:
 	return _score_multiplier[type]
+
+
+static func get_weight(type: CreepSize.enm) -> float:
+	return _weight_map[type]
 
 
 static func get_experience(type: CreepSize.enm) -> float:
