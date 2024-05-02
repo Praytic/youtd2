@@ -55,8 +55,8 @@ func _ready():
 	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 	EventBus.player_right_clicked_autocast.connect(_on_player_right_clicked_autocast)
-	EventBus.player_requested_to_do_autocast.connect(_on_player_requested_to_do_autocast)
-	EventBus.player_requested_to_toggle_autocast.connect(_on_player_requested_to_toggle_autocast)
+	EventBus.player_right_clicked_item_in_tower_inventory.connect(_on_player_right_clicked_item_in_tower_inventory)
+	EventBus.player_shift_right_clicked_item_in_tower_inventory.connect(_on_player_shift_right_clicked_item_in_tower_inventory)
 	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
 	EventBus.player_right_clicked_item_in_item_stash.connect(_on_player_right_clicked_item_in_item_stash)
 
@@ -752,7 +752,7 @@ func _on_player_right_clicked_autocast(autocast: Autocast):
 	_toggle_autocast(autocast)
 
 
-func _on_player_requested_to_do_autocast(item: Item):
+func _on_player_right_clicked_item_in_tower_inventory(item: Item):
 	if !item.belongs_to_local_player():
 		return
 	
@@ -771,7 +771,7 @@ func _on_player_right_clicked_item_in_item_stash(item: Item):
 	_game_client.add_action(action)
 
 
-func _on_player_requested_to_toggle_autocast(item: Item):
+func _on_player_shift_right_clicked_item_in_tower_inventory(item: Item):
 	if !item.belongs_to_local_player():
 		return
 

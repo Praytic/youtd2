@@ -249,12 +249,12 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func _on_item_button_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	EventBus.player_requested_to_do_autocast.emit(item)
+	EventBus.player_right_clicked_item_in_tower_inventory.emit(item)
 
 
 func _on_item_button_shift_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	EventBus.player_requested_to_toggle_autocast.emit(item)
+	EventBus.player_shift_right_clicked_item_in_tower_inventory.emit(item)
 
 
 func _on_upgrade_button_pressed():
