@@ -95,6 +95,7 @@ func _add_item_button(item: Item, index: int):
 	_item_buttons_container.move_child(item_button, index)
 
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+	item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
 	item_button.ctrl_right_clicked.connect(_on_item_button_ctrl_right_clicked.bind(item_button))
 
 
@@ -162,6 +163,11 @@ func _on_transmute_button_pressed():
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	EventBus.player_clicked_item_in_main_stash.emit(item)
+
+
+func _on_item_button_right_clicked(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	EventBus.player_right_clicked_item_in_item_stash.emit(item)
 
 
 func _on_item_button_ctrl_right_clicked(item_button: ItemButton):

@@ -58,6 +58,7 @@ func _ready():
 	EventBus.player_requested_to_do_autocast.connect(_on_player_requested_to_do_autocast)
 	EventBus.player_requested_to_toggle_autocast.connect(_on_player_requested_to_toggle_autocast)
 	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
+	EventBus.player_right_clicked_item_in_item_stash.connect(_on_player_right_clicked_item_in_item_stash)
 
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 
@@ -759,10 +760,15 @@ func _on_player_requested_to_do_autocast(item: Item):
 
 	if autocast != null:
 		_on_player_clicked_autocast(autocast)
-	elif item.is_consumable():
-		var item_uid: int = item.get_uid()
-		var action: Action = ActionConsumeItem.make(item_uid)
-		_game_client.add_action(action)
+
+
+func _on_player_right_clicked_item_in_item_stash(item: Item):
+	if !item.is_consumable():
+		return
+
+	var item_uid: int = item.get_uid()
+	var action: Action = ActionConsumeItem.make(item_uid)
+	_game_client.add_action(action)
 
 
 func _on_player_requested_to_toggle_autocast(item: Item):
