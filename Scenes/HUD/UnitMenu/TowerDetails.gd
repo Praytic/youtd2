@@ -79,6 +79,7 @@ var _tower: Tower = null
 
 func set_tower(tower: Tower):
 	_tower = tower
+	_update_text()
 
 
 #########################
@@ -422,10 +423,6 @@ func _get_oil_count_map(tower: Tower) -> Dictionary:
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_selected_unit_changed(_prev_unit):
-	_update_text()
-
 
 func _on_refresh_timer_timeout():
 	_update_text()
