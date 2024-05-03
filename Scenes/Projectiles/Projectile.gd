@@ -28,6 +28,9 @@ var _interpolation_is_stopped: bool = false
 var _interpolation_start: Vector3
 var _interpolation_progress: float = 0
 var _interpolation_z_arc_height: float = 0
+var _bezier_is_enabled: bool = false
+var _bezier_control_1: Vector3 = Vector3.ZERO
+var _bezier_control_2: Vector3 = Vector3.ZERO
 var _is_homing: bool = false
 var _ignore_target_z: bool = false
 var _homing_control_value: float
@@ -169,13 +172,31 @@ func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool
 		_setup_lightning_visual(lightning)
 
 
-func start_bezier_interpolation_to_point(target_pos: Vector3, z_arc: float, _size_arc: float, _steepness: float):
+func start_bezier_interpolation_to_point(target_pos: Vector3, z_arc: float, side_arc: float, steepness: float):
 	set_homing_target(null)
-	start_interpolation_to_point(target_pos, z_arc)
+	_start_movement_bezier_interpolated(target_pos, z_arc, side_arc, steepness)
+
+	if _use_lightning_visual:
+		_visual_node.hide()
+
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_point(InterpolatedSprite.LIGHTNING, get_position_wc3(), target_pos)
+		_setup_lightning_visual(lightning)
 
 
-func start_bezier_interpolation_to_unit(target_unit: Unit, z_arc: float, _size_arc: float, _steepness: float, targeted: bool):
-	start_interpolation_to_unit(target_unit, z_arc, targeted)
+func start_bezier_interpolation_to_unit(target_unit: Unit, z_arc: float, side_arc: float, steepness: float, targeted: bool):
+	if targeted:
+		set_homing_target(target_unit)
+	else:
+		set_homing_target(null)
+
+	var target_pos: Vector3 = target_unit.get_position_wc3() + UNIT_Z_OFFSET
+	_start_movement_bezier_interpolated(target_pos, z_arc, side_arc, steepness)
+
+	if _use_lightning_visual:
+		_visual_node.hide()
+
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_unit(InterpolatedSprite.LIGHTNING, get_position_wc3(), target_unit)
+		_setup_lightning_visual(lightning)
 
 
 # NOTE: disablePeriodic() in JASS
@@ -308,16 +329,22 @@ func _update_interpolated(delta: float):
 		return
 
 	_interpolation_progress += _speed * delta
+
 	var travel_vector: Vector3 = _target_pos - _interpolation_start
 	var travel_vector_2d: Vector2 = VectorUtils.vector3_to_vector2(travel_vector)
 	var travel_distance: float = travel_vector_2d.length()
 	var progress_ratio: float = Utils.divide_safe(_interpolation_progress, travel_distance, 1.0)
 	progress_ratio = clampf(progress_ratio, 0.0, 1.0)
-
 	var old_position_2d: Vector2 = get_position_wc3_2d()
-	var new_pos: Vector3 = _interpolation_start.lerp(_target_pos, progress_ratio)
-	var z_arc_value: float = _interpolation_z_arc_height * progress_ratio * (1 - progress_ratio) * 4
-	new_pos.z += z_arc_value
+		
+	var new_pos: Vector3
+	if _bezier_is_enabled:
+		new_pos = _interpolation_start.bezier_interpolate(_bezier_control_1, _bezier_control_2, _target_pos, progress_ratio)
+	else:
+		new_pos = _interpolation_start.lerp(_target_pos, progress_ratio)
+		var z_arc_value: float = _interpolation_z_arc_height * progress_ratio * (1 - progress_ratio) * 4
+		new_pos.z += z_arc_value
+
 	set_position_wc3(new_pos)
 
 #	NOTE: save direction so it can be accessed by users of
@@ -469,6 +496,33 @@ func _start_movement_interpolated(target_pos: Vector3, z_arc: float):
 	var travel_vector: Vector3 = _target_pos - from_pos
 	var travel_distance: float = travel_vector.length()
 	_interpolation_z_arc_height = travel_distance * z_arc
+
+
+func _start_movement_bezier_interpolated(target_pos: Vector3, z_arc: float, side_arc: float, steepness: float):
+	_target_pos = target_pos
+
+	var from_pos: Vector3 = get_position_wc3()
+	_interpolation_start = from_pos
+	_interpolation_progress = 0
+	_interpolation_is_stopped = false
+	_bezier_is_enabled = true
+
+	var travel_vector: Vector3 = _target_pos - from_pos
+	var travel_distance: float = travel_vector.length()
+
+	var dx: float = _target_pos.x - from_pos.x
+	var dy: float = _target_pos.y - from_pos.y
+	var dz: float = _target_pos.z - from_pos.z
+
+	var control1_ratio: float = 0.5 - steepness
+	_bezier_control_1.x = from_pos.x + control1_ratio * dx + side_arc * dy 
+	_bezier_control_1.y = from_pos.y + control1_ratio * dy + side_arc * dx 
+	_bezier_control_1.z = from_pos.z + control1_ratio * dz + z_arc * travel_distance 
+
+	var control2_ratio: float = 0.5 + steepness
+	_bezier_control_2.x = from_pos.x + control2_ratio * dx + side_arc * dy 
+	_bezier_control_2.y = from_pos.y + control2_ratio * dy + side_arc * dx 
+	_bezier_control_2.z = from_pos.z + control2_ratio * dz + z_arc * travel_distance 
 
 
 func _do_explosion_visual():
@@ -710,10 +764,13 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 	return projectile
 
 
-# TODO: implement
 # NOTE: Projectile.createBezierInterpolationFromUnitToUnit() in JASS
-static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
-	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, z_arc, targeted)
+static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, side_arc: float, steepness: float, targeted: bool) -> Projectile:
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_bezier_interpolation_to_unit(target_unit, z_arc, side_arc, steepness, targeted)
+
+	return projectile
 
 
 # NOTE: Projectile.create() in JASS
