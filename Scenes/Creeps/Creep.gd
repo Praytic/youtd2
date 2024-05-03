@@ -472,7 +472,7 @@ func _on_hovered_changed():
 
 # NOTE: creep.getBaseBountyValue() in JASS
 func get_base_bounty_value() -> float:
-	var creep_size: CreepSize.enm = get_size()
+	var creep_size: CreepSize.enm = get_size_including_challenge_sizes()
 	var gold_multiplier: float = CreepSize.get_gold_multiplier(creep_size)
 	var spawn_level: int = get_spawn_level()
 	var bounty: float = gold_multiplier * (spawn_level / 8 + 1)
