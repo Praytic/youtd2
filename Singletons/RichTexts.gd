@@ -4,6 +4,11 @@ extends Node
 func get_research_text(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
+	var current_element_level = player.get_element_level(element)
+	var reached_max_level: bool = current_element_level == Constants.MAX_ELEMENT_LEVEL
+	if reached_max_level:
+		return "Can't research any further."
+
 	var element_string: String = Element.convert_to_colored_string(element)
 	var flavor_text: String = Element.get_flavor_text(element)
 	var main_attack_types: String = Element.get_main_attack_types(element)
