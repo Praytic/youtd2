@@ -5,7 +5,7 @@ class_name Item1018 extends ItemBehavior
 # NOTE: this range is a hand-picked value which hits 3x3
 # grid of towers around the main tower or 4+3+4 towers built
 # in honeycomb pattern.
-static var SEEKER_OIL_RANGE: float = 190
+static var SEEKER_OIL_RANGE: float = 110
 const SEEKER_OIL_ID: int = 1018
 
 
