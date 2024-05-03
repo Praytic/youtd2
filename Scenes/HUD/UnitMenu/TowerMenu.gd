@@ -223,8 +223,9 @@ func _set_selling_for_real(value: bool):
 #########################
 
 func _on_tower_items_changed(tower: Tower):
-	for unit_button_container in _items_box_container.get_children():
-		unit_button_container.queue_free()
+	for item_button in _items_box_container.get_children():
+		_items_box_container.remove_child(item_button)
+		item_button.queue_free()
 
 	var items: Array[Item] = tower.get_items()
 
