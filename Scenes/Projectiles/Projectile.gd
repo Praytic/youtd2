@@ -16,6 +16,10 @@ enum MoveType {
 const FALLBACK_PROJECTILE_VISUAL: String = "res://Scenes/Projectiles/ProjectileVisuals/DefaultProjectile.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 const LIGHTNING_VISUAL_LIFETIME: float = 0.5
+# NOTE: same value is used in original game. It roughly
+# results in a position at the vertical center of
+# towers/creeps.
+const UNIT_Z_OFFSET: Vector3 = Vector3(0, 0, 60)
 
 var _move_type: MoveType
 var _target_unit: Unit = null
@@ -100,7 +104,7 @@ func _ready():
 
 func update(delta: float):
 	if _target_unit != null:
-		_target_pos = _target_unit.get_position_wc3()
+		_target_pos = _target_unit.get_position_wc3() + UNIT_Z_OFFSET
 
 	match _move_type:
 		MoveType.NORMAL: _update_normal(delta)
@@ -124,7 +128,7 @@ func aim_at_unit(target_unit: Unit, targeted: bool, ignore_z: bool, expire_when_
 	else:
 		set_homing_target(null)
 
-	var target_pos: Vector3 = target_unit.get_position_wc3()
+	var target_pos: Vector3 = target_unit.get_position_wc3() + UNIT_Z_OFFSET
 	_start_movement_normal(target_pos, ignore_z, expire_when_reached)
 
 
@@ -157,7 +161,7 @@ func start_interpolation_to_unit(target_unit: Unit, z_arc: float, targeted: bool
 	else:
 		set_homing_target(null)
 
-	var target_pos: Vector3 = target_unit.get_position_wc3()
+	var target_pos: Vector3 = target_unit.get_position_wc3() + UNIT_Z_OFFSET
 	_start_movement_interpolated(target_pos, z_arc)
 
 	if _use_lightning_visual:
@@ -490,7 +494,7 @@ func _on_target_tree_exited():
 	if _target_unit == null:
 		return
 
-	_target_pos = _target_unit.get_position_wc3()
+	_target_pos = _target_unit.get_position_wc3() + UNIT_Z_OFFSET
 	_target_unit.tree_exited.disconnect(_on_target_tree_exited)
 	_target_unit = null
 
@@ -590,7 +594,7 @@ func set_homing_target(new_target: Unit):
 			_target_unit = new_target
 		else:
 			_target_unit = null
-			_target_pos = new_target.get_position_wc3()
+			_target_pos = new_target.get_position_wc3() + UNIT_Z_OFFSET
 
 		_is_homing = true
 	else:
@@ -631,7 +635,7 @@ func get_age() -> float:
 
 # NOTE: Projectile.createFromUnit() in JASS
 static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
-	var pos: Vector3 = from.get_position_wc3()
+	var pos: Vector3 = from.get_position_wc3() + UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos, facing)
 	
 	return projectile
@@ -647,7 +651,7 @@ static func create_from_point_to_point(type: ProjectileType, caster: Unit, damag
 
 # NOTE: Projectile.createFromUnitToPoint() in JASS
 static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
 	projectile.aim_at_point(target_pos, ignore_target_z, expire_when_reached)
 
@@ -664,7 +668,7 @@ static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage
 
 # NOTE: Projectile.createFromUnitToUnit() in JASS
 static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
 	projectile.aim_at_unit(target_unit, targeted, ignore_target_z, expire_when_reached)
 
@@ -689,7 +693,7 @@ static func create_linear_interpolation_from_point_to_unit(type: ProjectileType,
 
 # NOTE: Projectile.createLinearInterpolationFromUnitToPoint() in JASS
 static func create_linear_interpolation_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, z_arc: float) -> Projectile:
-	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
 	projectile.start_interpolation_to_point(target_pos, z_arc)
 
@@ -698,7 +702,7 @@ static func create_linear_interpolation_from_unit_to_point(type: ProjectileType,
 
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
 static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
-	var from_pos: Vector3 = from_unit.get_position_wc3()
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
 	projectile.start_interpolation_to_unit(target_unit, z_arc, targeted)
 
