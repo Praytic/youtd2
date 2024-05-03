@@ -51,7 +51,10 @@ func _ready():
 #########################
 
 func get_script_path(item_id: int):
-	var path: String = "res://Scenes/Items/ItemBehaviors/Item%d.gd" % item_id
+	var item_name: String = ItemProperties.get_display_name(item_id)
+	item_name = item_name.replace(" ", "")
+	item_name = item_name.replace("'", "")
+	var path: String = "res://Scenes/Items/ItemBehaviors/%s.gd" % [item_name]
 
 	return path
 

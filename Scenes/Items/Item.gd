@@ -12,7 +12,6 @@ signal horadric_lock_changed()
 
 const FLY_DURATION: float = 1.0
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
-const FAILLBACK_SCRIPT: String = "res://Scenes/Items/ItemBehaviors/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.

@@ -1,4 +1,3 @@
-# Template Item Advanced
 extends ItemBehavior
 
 # NOTE: not a real item script, used as a template for item
