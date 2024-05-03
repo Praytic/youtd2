@@ -523,8 +523,8 @@ func _on_wave_spawner_wave_finished(level: int):
 
 	_builder.apply_wave_finished_effect(self)
 
-	Messages.add_normal(self, "Income: %d upkeep, %d interest." % [upkeep, interest])
-	Messages.add_normal(self, "=== Level [color=GOLD]%d[/color] completed! ===" % level)
+	Messages.add_normal(self, "[color=GOLD]=== Level %d completed! ===[/color]" % level)
+	Messages.add_normal(self, "[color=GOLD]Income: %d upkeep, %d interest.[/color]" % [upkeep, interest])
 
 	var game_mode_is_random: bool = Globals.game_mode_is_random()
 	if game_mode_is_random:

@@ -114,7 +114,7 @@ func _add_message_about_wave(wave: Wave):
 	var creep_armor: ArmorType.enm = wave.get_armor_type()
 	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
 
-	Messages.add_normal(_player, "=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
+	Messages.add_normal(_player, "[color=GOLD]=== LEVEL %s ===[/color]" % wave.get_level())
 	Messages.add_normal(_player, "%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
 
 	var special_list: Array[int] = wave.get_specials()
