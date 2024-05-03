@@ -191,8 +191,23 @@ func get_missile_speed(tower_id: int) -> int:
 	return speed
 
 
+# NOTE: need to use this formula for missile arc because
+# original values for Missilearc were defined to be consumed
+# by projectile code in wc3 engine. In youtd2, we give this
+# value to create_linear_interpolation() f-n which consumes
+# it slightly differently. WC3 engine uses missilearc to
+# determine the launch angle (multiply arc value by 45
+# degrees). Youtd linear interpolation uses angle to
+# determine the max height of the arc (multiply arc value by
+# travel distance). Use a formula to get something close to
+# original WC3 trajectory.
+# 
+# Note that I'm not 100% sure that WC3 engine uses 45
+# degrees and not 60 or something higher but this is close
+# enough.
 func get_missile_arc(tower_id: int) -> float:
-	var arc: float = _get_property(tower_id, CsvProperty.MISSILE_ARC) as float
+	var arc_from_csv: float = _get_property(tower_id, CsvProperty.MISSILE_ARC) as float
+	var arc: float = 0.5 * sin(arc_from_csv * deg_to_rad(45)) 
 
 	return arc
 
