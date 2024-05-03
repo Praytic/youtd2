@@ -10,12 +10,6 @@ signal items_changed()
 
 var _item_list: Array[Item] = []
 @export var _capacity: int = 0
-# NOTE: used by item stash because for item stash it makes
-# more sense to add items to beginning so that player can
-# see new items at the top. For other item containers like
-# horadric cube and tower inventory items are added at the
-# end.
-@export var _add_items_to_beginning: bool = false
 
 static var _uid_max: int = 1
 var _uid: int = 0
@@ -65,10 +59,7 @@ func add_item(item: Item):
 
 		return
 	
-	if _add_items_to_beginning:
-		_item_list.insert(0, item)
-	else:
-		_item_list.append(item)
+	_item_list.append(item)
 
 	item.consumed.connect(_on_item_consumed.bind(item))
 	add_child(item)
