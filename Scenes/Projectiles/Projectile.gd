@@ -26,9 +26,8 @@ var _target_unit: Unit = null
 var _target_pos: Vector3 = Vector3.INF
 var _interpolation_is_stopped: bool = false
 var _interpolation_start: Vector3
-var _interpolation_distance: float
 var _interpolation_progress: float = 0
-var _z_arc: float = 0
+var _interpolation_z_arc_height: float = 0
 var _is_homing: bool = false
 var _ignore_target_z: bool = false
 var _homing_control_value: float
@@ -141,7 +140,6 @@ func stop_interpolation():
 	_interpolation_is_stopped = true
 	set_homing_target(null)
 	_interpolation_progress = 0
-	_interpolation_distance = 0
 
 
 func start_interpolation_to_point(target_pos: Vector3, z_arc: float):
@@ -310,11 +308,15 @@ func _update_interpolated(delta: float):
 		return
 
 	_interpolation_progress += _speed * delta
-	_interpolation_progress = min(_interpolation_progress, _interpolation_distance)
-	var progress_ratio: float = Utils.divide_safe(_interpolation_progress, _interpolation_distance, 1.0)
+	var travel_vector: Vector3 = _target_pos - _interpolation_start
+	var travel_vector_2d: Vector2 = VectorUtils.vector3_to_vector2(travel_vector)
+	var travel_distance: float = travel_vector_2d.length()
+	var progress_ratio: float = Utils.divide_safe(_interpolation_progress, travel_distance, 1.0)
+	progress_ratio = clampf(progress_ratio, 0.0, 1.0)
+
 	var old_position_2d: Vector2 = get_position_wc3_2d()
 	var new_pos: Vector3 = _interpolation_start.lerp(_target_pos, progress_ratio)
-	var z_arc_value: float = _interpolation_distance * _z_arc * sin(progress_ratio * PI)
+	var z_arc_value: float = _interpolation_z_arc_height * progress_ratio * (1 - progress_ratio) * 4
 	new_pos.z += z_arc_value
 	set_position_wc3(new_pos)
 
@@ -458,16 +460,15 @@ func _start_movement_normal(target_pos: Vector3, ignore_z: bool, expire_when_rea
 # to world and have a valid position
 func _start_movement_interpolated(target_pos: Vector3, z_arc: float):
 	_target_pos = target_pos
-	_z_arc = z_arc
 
 	var from_pos: Vector3 = get_position_wc3()
-	var travel_vector: Vector3 = target_pos - from_pos
-	var travel_vector_2d: Vector2 = VectorUtils.vector3_to_vector2(travel_vector)
-	var travel_distance: float = travel_vector_2d.length()
 	_interpolation_start = from_pos
 	_interpolation_progress = 0
-	_interpolation_distance = travel_distance
 	_interpolation_is_stopped = false
+
+	var travel_vector: Vector3 = _target_pos - from_pos
+	var travel_distance: float = travel_vector.length()
+	_interpolation_z_arc_height = travel_distance * z_arc
 
 
 func _do_explosion_visual():
