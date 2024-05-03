@@ -57,7 +57,6 @@ var _wisdom_modifier: Modifier = Modifier.new()
 
 func _ready():
 	_wave_spawner.set_player(self)
-	_wave_spawner.generate_waves()
 	
 	for element in Element.get_list():
 		_element_level_map[element] = 0
