@@ -31,7 +31,7 @@ size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
-_normal_message_container = NodePath("MarginContainer/All/Center/CenterLeft/MarginContainer/NormalMessageContainer")
+_normal_message_container = NodePath("MarginContainer/All/Center/MarginContainer3/NormalMessageContainer")
 _chat_message_container = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ChatMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
 _elements_tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu")
@@ -141,18 +141,6 @@ visible = false
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/CenterLeft"]
-custom_minimum_size = Vector2(1000, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_constants/margin_left = 80
-
-[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
 [node name="MenuCardsContainer" type="Panel" parent="MarginContainer/All/Center"]
 custom_minimum_size = Vector2(80, 2.08165e-12)
 layout_mode = 1
@@ -231,6 +219,25 @@ size_flags_vertical = 0
 [node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
 visible = false
 layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/All/Center"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -894.0
+offset_right = 1000.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 140
+
+[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer3"]
+layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Center"]
 custom_minimum_size = Vector2(1000, 400)
