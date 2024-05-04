@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c41f2x03lnjw6"]
+[gd_scene load_steps=22 format=3 uid="uid://c41f2x03lnjw6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_qr0sm"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/TowerMenu.gd" id="2_cxnnl"]
@@ -12,9 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://Scenes/HUD/UnitMenu/BuffContainer.tscn" id="13_b0jes"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_3p2ki"]
 device = -1
@@ -162,22 +159,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"LabelTitle"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -192,22 +176,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"LabelTitle"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -244,22 +215,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"LabelTitle"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1

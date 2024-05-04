@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=20 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_au6ps"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu/ItemStashMenu.gd" id="2_7jmcp"]
@@ -19,12 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="17_ba6s8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k678"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
 atlas = ExtResource("17_ba6s8")
@@ -78,22 +72,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"InfoContainerLabel"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -228,22 +209,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1k678")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"InfoContainerLabel"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Horadric Cube"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4l81jcbkrtkr"]
+[gd_scene load_steps=12 format=3 uid="uid://c4l81jcbkrtkr"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.gd" id="1_3yo77"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="3_8uthh"]
@@ -8,9 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_dlhb7"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_ctjxb"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="8_dqm1p"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0us4"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aok27"]
 atlas = ExtResource("3_kpmkj")
@@ -23,9 +20,6 @@ unicode = 101
 
 [sub_resource type="Shortcut" id="Shortcut_hvvrm"]
 events = [SubResource("InputEventKey_gugyc")]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka8ya"]
-bg_color = Color(0, 0, 0, 1)
 
 [node name="ElementTowersTab" type="VBoxContainer" node_paths=PackedStringArray("_title_label", "_element_level_label", "_upgrade_button", "_roll_button", "_element_icon", "_tower_buttons_container", "_info_label")]
 script = ExtResource("1_3yo77")
@@ -65,22 +59,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e0us4")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"InfoContainerLabel"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -179,22 +160,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ka8ya")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"InfoContainerLabel"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Towers"
 horizontal_alignment = 1
 vertical_alignment = 1

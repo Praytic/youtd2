@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnavhmlpsk00o"]
+[gd_scene load_steps=14 format=3 uid="uid://cnavhmlpsk00o"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_11i0e"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/CreepMenu.gd" id="2_xfq0a"]
@@ -11,9 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="11_swtuo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
 atlas = ExtResource("11_swtuo")
@@ -118,22 +115,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"LabelTitle"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -148,22 +132,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="Label" type="Label" parent="MarginContainer3/MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"LabelTitle"
-theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_type_variation = &"LabelSectionTitle"
 text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1

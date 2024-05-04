@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=84 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=85 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -162,6 +162,11 @@ texture_margin_left = 20.0
 texture_margin_top = 4.0
 texture_margin_right = 20.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxyqq"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7t6hr"]
 texture = ExtResource("10_r42uk")
@@ -827,6 +832,10 @@ InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 Label/font_sizes/font_size = 24
 LabelLarge/base_type = &"Label"
 LabelLarge/font_sizes/font_size = 36
+LabelSectionTitle/base_type = &"Label"
+LabelSectionTitle/colors/font_color = Color(0.945098, 0.945098, 0, 1)
+LabelSectionTitle/font_sizes/font_size = 26
+LabelSectionTitle/styles/normal = SubResource("StyleBoxFlat_sxyqq")
 LabelSmall/base_type = &"Label"
 LabelSmall/font_sizes/font_size = 18
 LabelTitle/base_type = &"Label"
