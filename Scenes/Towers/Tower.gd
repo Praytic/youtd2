@@ -169,6 +169,10 @@ func _ready():
 	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(get_id())
 	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _visual, get_player())
 
+#	NOTE: hide range indicators until unit is selected
+	for range_indicator in _range_indicator_list:
+		range_indicator.hide()
+
 	_setup_selection_signals(_tower_selection_area)
 
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(_sprite)
