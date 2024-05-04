@@ -32,7 +32,7 @@ func get_ability_description_short() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Torture[/color]\n"
-	text += "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes a long of damage it will take even more extra damage.\n"
+	text += "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes damage it receives additional spell damage.\n"
 
 	return text
 

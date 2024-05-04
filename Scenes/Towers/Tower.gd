@@ -878,7 +878,7 @@ func get_specials_tooltip_text() -> String:
 	if _target_count_from_tower > 1:
 		if !text.is_empty():
 			text += " \n"
-		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_from_tower
+		text += "[b][color=GOLD]Multishot[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_from_tower
 
 	return text
 
