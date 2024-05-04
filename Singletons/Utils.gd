@@ -6,7 +6,7 @@ func create_message_label(text: String) -> RichTextLabel:
 	label.append_text(text)
 	label.fit_content = true
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.set_theme_type_variation("RichTextLabelLarge")
+	label.set_theme_type_variation("MessageLabel")
 
 	return label
 
