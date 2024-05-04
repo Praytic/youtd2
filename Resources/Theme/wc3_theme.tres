@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=85 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=83 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -151,17 +151,6 @@ modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehwjq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
-atlas = ExtResource("8_dlncl")
-region = Rect2(872, 49, 31, 31)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_770c7"]
-texture = SubResource("AtlasTexture_co3qy")
-texture_margin_left = 20.0
-texture_margin_top = 4.0
-texture_margin_right = 20.0
-texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxyqq"]
 content_margin_left = 8.0
@@ -815,20 +804,8 @@ ExpandButton/styles/disabled = SubResource("StyleBoxEmpty_f8clf")
 ExpandButton/styles/hover = SubResource("StyleBoxTexture_c46h0")
 ExpandButton/styles/normal = SubResource("StyleBoxTexture_wifc2")
 ExpandButton/styles/pressed = SubResource("StyleBoxEmpty_ehwjq")
-GameMessageRichTextLabel/base_type = &"RichTextLabel"
-GameMessageRichTextLabel/constants/shadow_offset_x = 2
-GameMessageRichTextLabel/constants/shadow_offset_y = 2
-GameMessageRichTextLabel/font_sizes/bold_font_size = 30
-GameMessageRichTextLabel/font_sizes/bold_italics_font_size = 30
-GameMessageRichTextLabel/font_sizes/italics_font_size = 16
-GameMessageRichTextLabel/font_sizes/mono_font_size = 16
-GameMessageRichTextLabel/font_sizes/normal_font_size = 16
-HudMarginContainer/base_type = &"MarginContainer"
-HudMarginContainer/constants/margin_left = 40
-HudMarginContainer/constants/margin_right = 40
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_2t7ys")
-InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 Label/font_sizes/font_size = 24
 LabelLarge/base_type = &"Label"
 LabelLarge/font_sizes/font_size = 36
@@ -871,12 +848,6 @@ RichTextLabel/font_sizes/bold_italics_font_size = 24
 RichTextLabel/font_sizes/italics_font_size = 24
 RichTextLabel/font_sizes/mono_font_size = 24
 RichTextLabel/font_sizes/normal_font_size = 24
-RichTextLabelLarge/base_type = &"RichTextLabel"
-RichTextLabelLarge/font_sizes/bold_font_size = 32
-RichTextLabelLarge/font_sizes/bold_italics_font_size = 32
-RichTextLabelLarge/font_sizes/italics_font_size = 32
-RichTextLabelLarge/font_sizes/mono_font_size = 32
-RichTextLabelLarge/font_sizes/normal_font_size = 32
 RightSidePanel/base_type = &"PanelContainer"
 SidePanel/base_type = &"PanelContainer"
 SidePanel/styles/panel = ExtResource("5_uofvg")
