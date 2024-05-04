@@ -61,17 +61,29 @@ alignment = 1
 [node name="GoldStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+tooltip_text = "Gold
+ 
+Gold is dropped by creeps and is also given as a reward for
+clearing waves."
 icon_texture = ExtResource("7_bupor")
 default_label_text = "0"
 
 [node name="TomesStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
+tooltip_text = "Knowledge Tomes
+ 
+Knowledge Tomes are given as a reward for clearing waves
+and can also be obtained from some rare items."
 icon_texture = ExtResource("9_diaj5")
 default_label_text = "0"
 
 [node name="FoodStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
+tooltip_text = "Food
+ 
+Food determines how many towers you can build. Some
+rare items can raise the food cap."
 icon_texture = ExtResource("11_2rhur")
 default_label_text = "0/55"
