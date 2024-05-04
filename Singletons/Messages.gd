@@ -32,11 +32,7 @@ func add_error(player: Player, text: String):
 
 	var formatted_text: String = "[center][color=RED]%s[/color][/center]" % text
 
-	var label: RichTextLabel = RichTextLabel.new()
-	label.append_text(formatted_text)
-	label.fit_content = true
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.set_theme_type_variation("RichTextLabelLarge")
+	var label: RichTextLabel = Utils.create_message_label(formatted_text)
 
 	label.modulate = Color.WHITE
 	var modulate_tween: Tween = create_tween()
