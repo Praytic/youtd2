@@ -177,8 +177,11 @@ func _end_move_process():
 # centered on the background - in ItemButton this function
 # is done automatically by the theme.
 func _get_item_cursor_icon(item: Item) -> Texture2D:
-	const ITEM_BUTTON_SIZE: Vector2 = Vector2(120, 120)
-#	NOTE: this value is an estimate
+	print("get_viewport().size.y=", get_viewport().size.y)
+
+	const ITEM_BUTTON_SIZE: Vector2 = Vector2(88, 88)
+#	NOTE: this value is an estimate to account for margins
+#	in item buttons
 	const ITEM_ICON_SCALE: float = 0.85
 #	NOTE: make cursor icon smaller than actual item button
 #	to indicate that item is getting moved
