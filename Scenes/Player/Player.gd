@@ -483,7 +483,7 @@ func _set_tomes(value):
 	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
 
 
-func _add_message_about_rolled_towers(rolled_towers: Array[int]):
+func add_message_about_rolled_towers(rolled_towers: Array[int]):
 	Messages.add_normal(self, "New towers were added to stash:")
 
 #	Sort tower list by element to group messages for same
@@ -529,6 +529,6 @@ func _on_wave_spawner_wave_finished(level: int):
 	if game_mode_is_random:
 		var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
 		_tower_stash.add_towers(rolled_towers)
-		_add_message_about_rolled_towers(rolled_towers)
+		add_message_about_rolled_towers(rolled_towers)
 	
 	wave_finished.emit(level)

@@ -23,6 +23,11 @@ static func execute(_action: Dictionary, player: Player):
 	tower_stash.add_towers(rolled_towers)
 	player.decrement_tower_count_for_starting_roll()
 
+	player.add_message_about_rolled_towers(rolled_towers)
+	
+	var remaining_roll_count: int = player.get_tower_count_for_starting_roll()
+	Messages.add_normal(player, "You have [color=GOLD]%d[/color] rerolls remaining." % remaining_roll_count)
+
 
 static func verify(player: Player) -> bool:
 	var researched_any_elements: bool = false
