@@ -19,7 +19,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Soulfire[/color]\n"
-	text += "Chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n"
+	text += "Attacks hit up to 8 enemies in range and have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks."
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% chance\n"
