@@ -5,8 +5,12 @@ var multiboard: MultiboardValues
 var steal_pt: ProjectileType
 
 
-# NOTE: gold is multiplied by 10 in stats compared to number
-# in description.
+# NOTE: "gold" value is 10 times greater than actual because
+# its divided later by 10 when doing actual calculations.
+# This is NOT a typo
+# TODO: make it not multiplied by 10. I think original
+# script does this because it's saved in user_int, so save
+# it in user_float instead.
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {bounty_add = 0.0050, item_bonus = 0.05, item_bonus_add = 0.0020, gold = 3},
@@ -83,6 +87,6 @@ func on_damage(event: Event):
 
 
 func steal(_p: Projectile, _creep: Unit):
-	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
+	var gold_granted: float = (tower.user_int + (tower.get_level() * tower.user_int * 0.04)) / 10
 	tower.get_player().give_gold(gold_granted, tower, false, true)
 	tower.user_real = tower.user_real + gold_granted
