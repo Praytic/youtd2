@@ -73,7 +73,7 @@ func get_autocast_description_short() -> String:
 # NOTE: this tower's tooltip in original game includes
 # innate stats
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.1375, 0.0)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.0)
 
 
 func get_ability_ranges() -> Array[RangeData]:
