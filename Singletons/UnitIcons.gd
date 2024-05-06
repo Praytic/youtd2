@@ -57,7 +57,7 @@ func _ready():
 
 func get_tower_tier_icon(tower_id: int) -> Texture2D:
 	var tower_rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-	var tower_tier: int = TowerProperties.get_tier(tower_id) + 1
+	var tower_tier: int = TowerProperties.get_tier(tower_id)
 	var icon_path: String = _get_tier_icon_path(tower_rarity, tower_tier)
 	var icon_path_exists: bool = ResourceLoader.exists(icon_path)
 
