@@ -16,7 +16,6 @@ _tier_icon = NodePath("TierContainer/TierIcon")
 _tower_id = 0
 
 [node name="TierContainer" type="MarginContainer" parent="." index="0"]
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 1
@@ -29,6 +28,7 @@ theme_override_constants/margin_top = -15
 theme_override_constants/margin_right = -15
 
 [node name="TierIcon" type="TextureRect" parent="TierContainer" index="0"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = SubResource("AtlasTexture_fyokm")
