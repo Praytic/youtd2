@@ -219,6 +219,17 @@ func _refresh_by_new_buff():
 	_emit_refresh_event()
 
 
+
+# NOTE: aura buffs need to emit EXPIRE event when they are
+# removed from units, according to youtd engine docs. Some
+# tower scripts rely on this behavior.
+func _remove_as_aura():
+	var expire_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
+
+	remove_buff()
+
+
 func _emit_refresh_event():
 	var refresh_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
