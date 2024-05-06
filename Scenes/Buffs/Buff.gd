@@ -57,7 +57,7 @@ func _ready():
 		_timer.start(total_time)
 		_original_duration = total_time
 	else:
-		_original_duration = 0
+		_original_duration = _time
 
 	_target.death.connect(_on_target_death)
 	_target.kill.connect(_on_target_kill)
@@ -82,8 +82,15 @@ func _ready():
 ###       Public      ###
 #########################
 
+# NOTE: do not change remaining duration if original
+# duration is negative because that means that the buff is
+# permanent. Setting the duration would cause the buff to
+# expire.
 # NOTE: buff.refreshDuration() in JASS
 func refresh_duration():
+	if _original_duration < 0:
+		return
+
 	set_remaining_duration(_original_duration)
 
 
@@ -266,6 +273,11 @@ func _on_unit_came_in_range(handler: Callable, unit: Unit):
 
 
 func _on_timer_timeout():
+	if _original_duration < 0:
+		push_error("A permanent buff expired! This should never happen - something must be wrong. Ignoring expiry.")
+
+		return
+
 	var expire_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
 
