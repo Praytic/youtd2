@@ -110,6 +110,7 @@ func set_tower(tower: Tower):
 	_specials_label.append_text(specials_text)
 
 	_tower_button.set_tower_id(tower.get_id())
+	_tower_button.set_tier_visible(true)
 	
 	_set_selling_for_real(false)
 
