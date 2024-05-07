@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rock Throw"
-	ability.icon = "res://Resources/Textures/AbilityIcons/rock_throw.tres"
+	ability.icon = "res://Resources/Textures/AbilityIcons/MossyAcidSprayer_gray.tres"
 	ability.description_short = "Chance to throw a rock towards the target.\n"
 	ability.description_full = "30%% chance to throw a rock towards the attacked unit. On impact it deals %s spell damage in a %s AoE.\n" % [damage, rock_range] \
 	+ " \n" \
