@@ -48,9 +48,6 @@ func on_create(_preceding_tower: Tower):
 	
 
 func on_damage(event: Event):
-	if !tower.calc_chance(0.3):
-		return
-
 	var creep: Unit = event.get_target()
 
 	if event.is_main_target() == true:
