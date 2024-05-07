@@ -66,14 +66,14 @@ func tower_init():
 	var will_positive_bt_mod: Modifier = Modifier.new()
 	will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
 	will_positive_bt.set_buff_modifier(will_positive_bt_mod)
-	will_positive_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
+	will_positive_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
 	will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
 	will_negative_bt = BuffType.new("will_negative_bt", 5, 0, false, self)
 	var will_negative_bt_mod: Modifier = Modifier.new()
 	will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
 	will_negative_bt.set_buff_modifier(will_negative_bt_mod)
-	will_negative_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pisces.tres")
+	will_negative_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pisces.tres")
 	will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
 	withering_bt = BuffType.new("withering_bt", 4, 0, false, self)
@@ -82,7 +82,7 @@ func tower_init():
 	withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
 	withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
 	withering_bt.set_buff_modifier(withering_bt_mod)
-	withering_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
+	withering_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
 	withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
 	withering_bt.add_periodic_event(withering_bt_periodic, 1.0)
 
@@ -90,7 +90,7 @@ func tower_init():
 	autocast.title = "Will of the Undying"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/skull_trophy.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/skull_trophy.tres"
 	autocast.caster_art = "HowlCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

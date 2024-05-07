@@ -38,7 +38,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.27, -0.002)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/energy_breath.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/energy_breath.tres")
 	slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
 
 

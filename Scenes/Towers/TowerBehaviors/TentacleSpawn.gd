@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rend"
-	ability.icon = "res://Resources/Textures/AbilityIcons/rend.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/rend.tres"
 	ability.description_short = "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
 	ability.description_full = "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
 	+ " \n" \
@@ -45,7 +45,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
 	rend_bt = BuffType.new("rend_bt", 6, 0, false, self)
-	rend_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
+	rend_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
 	rend_bt.add_periodic_event(drol_tentacleDamage, 1)
 	rend_bt.set_buff_modifier(m)
 	rend_bt.set_buff_tooltip("Rend\nDeals damage over time and increases spell damage taken.")

@@ -37,7 +37,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.30, 0.006)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	aura_bt.set_buff_tooltip("Timesurge\nIncreases trigger chances.")
 
 

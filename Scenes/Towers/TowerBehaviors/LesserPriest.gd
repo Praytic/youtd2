@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Smite"
-	ability.icon = "res://Resources/Textures/AbilityIcons/release_lightning.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/release_lightning.tres"
 	ability.description_short = "When this tower damages a creep it has a chance to smite it.\n"
 	ability.description_full = "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage \
 	+ " \n" \

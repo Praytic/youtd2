@@ -40,7 +40,7 @@ extends ItemBehavior
 
 # func item_init():
 # 	example_bt = BuffType.new("example_bt", 5, 0, true, self)
-# 	example_bt.set_buff_icon("res://Resources/Textures/GenericIcons/egg.tres")
+# 	example_bt.set_buff_icon("res://Resources/Icons/GenericIcons/egg.tres")
 # 	example_bt.set_buff_tooltip("Title\nDescription.")
 # 	example_bt.set_stacking_group("example_bt")
 # 	var mod: Modifier = Modifier.new()

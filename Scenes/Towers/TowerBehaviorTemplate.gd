@@ -63,7 +63,7 @@ extends TowerBehavior
 # 	var example_bt_mod: Modifier = Modifier.new()
 # 	example_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 # 	example_bt.set_buff_modifier(example_bt_mod)
-# 	example_bt.set_buff_icon("res://Resources/Textures/GenericIcons/egg.tres")
+# 	example_bt.set_buff_icon("res://Resources/Icons/GenericIcons/egg.tres")
 # 	example_bt.set_buff_icon_color(Color.WHITE)
 # 	example_bt.set_buff_tooltip("Title\nDescription.")
 

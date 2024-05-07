@@ -95,7 +95,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	jolt_bt = BuffType.new("jolt_bt", 10, 0, true, self)
-	jolt_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	jolt_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	jolt_bt.add_event_on_create(junction_on_create)
 	jolt_bt.add_event_on_attack(junction_on_damage)
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
@@ -105,7 +105,7 @@ func tower_init():
 	autocast.title = "Jolt"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity_yellow.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity_yellow.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

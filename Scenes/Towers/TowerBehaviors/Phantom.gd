@@ -75,7 +75,7 @@ func tower_init():
 	
 	wind_shear_bt.set_buff_modifier(m)
 	
-	wind_shear_bt.set_buff_icon("res://Resources/Textures/GenericIcons/rss.tres")
+	wind_shear_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	
@@ -97,7 +97,7 @@ func tower_init():
 	autocast.title = "Wind Shear"
 	autocast.description = get_wind_shear_description()
 	autocast.description_short = get_wind_shear_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/leaf_gray.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/leaf_gray.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0

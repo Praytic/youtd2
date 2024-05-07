@@ -13,7 +13,7 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -1.5, 0.0)
 	slow_attack.set_buff_modifier(modifier)
-	slow_attack.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	slow_attack.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	slow_attack.set_buff_icon_color(Color.DARK_RED)
 	slow_attack.set_buff_tooltip("Revenge\nReduces attack speed.")
 

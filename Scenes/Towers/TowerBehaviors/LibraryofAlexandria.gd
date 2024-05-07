@@ -66,21 +66,21 @@ func tower_init():
 	var library_aura_mod: Modifier = Modifier.new()
 	library_aura_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.30, 0.01)
 	aura_bt.set_buff_modifier(library_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/spell_book.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
 	aura_bt.set_buff_tooltip("Divine Research Aura\nIncreases experience granted.")
 
 	teachings_bt = BuffType.new("teachings_bt", 10, 0.2, true, self)
 	var library_divine_teachings_mod: Modifier = Modifier.new()
 	library_divine_teachings_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 1.0, 0.02)
 	teachings_bt.set_buff_modifier(library_divine_teachings_mod)
-	teachings_bt.set_buff_icon("res://Resources/Textures/GenericIcons/spell_book.tres")
+	teachings_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
 	teachings_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Divine Teachings"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/arcane_book_of_power.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/arcane_book_of_power.tres"
 	autocast.caster_art = "AIimTarget.mdl"
 	autocast.target_art = "CharmTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

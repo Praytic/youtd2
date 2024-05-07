@@ -72,14 +72,14 @@ func tower_init():
 	soul_link_bt = BuffType.new("soul_link_bt", SOUL_LINK_DURATION, 0, false, self)
 	soul_link_bt.add_event_on_damaged(soul_link_on_damaged)
 	soul_link_bt.add_event_on_death(soul_link_on_death)
-	soul_link_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
+	soul_link_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
 	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Link"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/distorted_idol.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/distorted_idol.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

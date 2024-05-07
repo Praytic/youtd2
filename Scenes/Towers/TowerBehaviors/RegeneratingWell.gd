@@ -71,14 +71,14 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
 	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Replenish"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/magic_flower.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/magic_flower.tres"
 	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

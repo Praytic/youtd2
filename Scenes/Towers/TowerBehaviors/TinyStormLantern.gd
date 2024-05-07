@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burst Lightning"
-	ability.icon = "res://Resources/Textures/AbilityIcons/burst_lightning.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/burst_lightning.tres"
 	ability.description_short = "Has a chance on attack to fire extra projectiles at random creeps around the main target.\n"
 	ability.description_full = "Has a 20%% chance on attack to fire %s extra projectiles at random creeps in 300 range around the main target. Each extra projectile deals the same amount of damage as a normal attack.\n" % num_shots \
 	+ " \n" \

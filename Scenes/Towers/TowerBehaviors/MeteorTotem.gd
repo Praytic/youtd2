@@ -69,11 +69,11 @@ func tower_init():
 	attraction_bt = BuffType.new("attraction_bt", 2.5, 0.05, true, self)
 	attraction_bt.add_event_on_attack(attraction_bt_on_attack)
 	attraction_bt.add_event_on_spell_casted(attraction_bt_on_spell_casted)
-	attraction_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_meteor.tres")
+	attraction_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
 	attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
 	torture_bt = BuffType.new("torture_bt", 2.5, 0.05, false, self)
-	torture_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	torture_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
 	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 
@@ -84,7 +84,7 @@ func tower_init():
 	autocast.title = "Attraction"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/1_unused_fire_bowl_2.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/1_unused_fire_bowl_2.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

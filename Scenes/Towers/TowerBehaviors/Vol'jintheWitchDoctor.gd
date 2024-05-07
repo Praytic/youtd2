@@ -93,7 +93,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	maledict_bt = BuffType.new("maledict_bt", 0, 0, false, self)
-	maledict_bt.set_buff_icon("res://Resources/Textures/GenericIcons/omega.tres")
+	maledict_bt.set_buff_icon("res://Resources/Icons/GenericIcons/omega.tres")
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)
@@ -106,7 +106,7 @@ func tower_init():
 	autocast.title = "Maledict"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/undead_hand.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/undead_hand.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -83,21 +83,21 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	extract_bt = BuffType.new("extract_bt", EXTRACT_DURATION, 0, false, self)
 	extract_bt.add_event_on_damaged(extract_bt_on_damaged)
-	extract_bt.set_buff_icon("res://Resources/Textures/GenericIcons/gold_bar.tres")
+	extract_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
 	extract_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
 
 	channel_bt = BuffType.new("channel_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	channel_bt.set_buff_modifier(mod)
-	channel_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
+	channel_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
 	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Extract Experience"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/gold_fire_in_cup.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/gold_fire_in_cup.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

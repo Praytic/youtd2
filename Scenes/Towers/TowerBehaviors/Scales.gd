@@ -83,7 +83,7 @@ func tower_init():
 	lightning_st.data.forked_lightning.target_count = 3
 
 	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
-	electrify_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	electrify_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
 	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 
@@ -96,7 +96,7 @@ func tower_init():
 	autocast.title = "Lightmare"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/thunder_swirl.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/thunder_swirl.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

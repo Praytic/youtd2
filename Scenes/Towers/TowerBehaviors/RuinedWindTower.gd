@@ -6,7 +6,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rejection"
-	ability.icon = "res://Resources/Textures/ItemIcons/blunt_club.tres"
+	ability.icon = "res://Resources/Icons/ItemIcons/blunt_club.tres"
 	ability.description_short = "This tower drops all except Common items on attack.\n"
 	ability.description_full = "This tower drops all except Common items on attack.\n"
 	list.append(ability)

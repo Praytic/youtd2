@@ -49,18 +49,18 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	grapple_bt = CbStun.new("grapple_bt", 2.5, 0, false, self)
-	grapple_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pokecog.tres")
+	grapple_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pokecog.tres")
 	grapple_bt.add_event_on_create(grapple_bt_on_create)
 	grapple_bt.add_event_on_cleanup(grapple_bt_on_cleanup)
 
 	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
-	shock_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
+	shock_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shock"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

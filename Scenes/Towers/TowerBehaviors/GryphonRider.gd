@@ -77,7 +77,7 @@ func tower_init():
 	var hammer_fall_bt_mod: Modifier = Modifier.new()
 	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
-	hammer_fall_bt.set_buff_icon("res://Resources/Textures/GenericIcons/hammer_drop.tres")
+	hammer_fall_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
 	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)
@@ -90,7 +90,7 @@ func tower_init():
 	autocast.title = "Hammer Fall"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/granite_hammer.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/granite_hammer.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

@@ -41,14 +41,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.075, 0.002)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.006)
 	mark_bt.set_buff_modifier(mod)
-	mark_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
+	mark_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
 	mark_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Burning Mark"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/TowerIcons/SmallFireSprayer.tres"
+	autocast.icon = "res://Resources/Icons/TowerIcons/SmallFireSprayer.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "DoomDeath.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

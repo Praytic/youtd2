@@ -11,8 +11,8 @@ const _creep_icons: Texture2D = preload("res://Assets/Icons/creep_icons_atlas.pn
 const _tier_icons_m: Texture2D = preload("res://Assets/Icons/tier_icons_m.png")
 const _tower_icons_m: Texture2D = preload("res://Assets/Icons/tower_icons_m.png")
 const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
-const CREEP_ICON_DIR: String = "res://Resources/Textures/CreepIcons"
-const TIER_ICON_DIR: String = "res://Resources/Textures/TierIcons"
+const CREEP_ICON_DIR: String = "res://Resources/Icons/CreepIcons"
+const TIER_ICON_DIR: String = "res://Resources/Icons/TierIcons"
 
 
 #########################

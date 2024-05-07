@@ -33,7 +33,7 @@ func tower_init():
 	parasite_bt.set_buff_modifier(mod)
 	parasite_bt.add_periodic_event(parasite_bt_periodic, 1.0)
 	parasite_bt.add_event_on_death(parasite_bt_on_death)
-	parasite_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
+	parasite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
 	parasite_bt.set_buff_tooltip("Parasite\nDeals damage over time.")
 
 	spider_pt = ProjectileType.create_interpolate("Spider.mdl", 500, self)

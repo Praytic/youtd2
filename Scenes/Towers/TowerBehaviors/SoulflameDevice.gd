@@ -77,7 +77,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	evil_device_bt = BuffType.create_aura_effect_type("evil_device_bt", true, self)
-	evil_device_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pokecog.tres")
+	evil_device_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pokecog.tres")
 	evil_device_bt.add_event_on_create(evil_device_bt_on_create)
 	evil_device_bt.add_event_on_cleanup(evil_device_bt_on_cleanup)
 	evil_device_bt.add_periodic_event(evil_device_bt_periodic, 5)
@@ -87,7 +87,7 @@ func tower_init():
 	var soulfire_bt_mod: Modifier = Modifier.new()
 	soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	soulfire_bt.set_buff_modifier(soulfire_bt_mod)
-	soulfire_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
+	soulfire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_dot.tres")
 	soulfire_bt.add_periodic_event(soulfire_bt_periodic, 1)
 	soulfire_bt.add_event_on_death(soulfire_bt_on_death)
 	soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
@@ -96,7 +96,7 @@ func tower_init():
 	var awaken_bt_mod: Modifier = Modifier.new()
 	awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	awaken_bt.set_buff_modifier(awaken_bt_mod)
-	awaken_bt.set_buff_icon("res://Resources/Textures/GenericIcons/semi_closed_eye.tres")
+	awaken_bt.set_buff_icon("res://Resources/Icons/GenericIcons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
 	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)
@@ -108,7 +108,7 @@ func tower_init():
 	autocast.title = "Awaken"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/burning_magic_thing.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/burning_magic_thing.tres"
 	autocast.caster_art = "UCancelDeath.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

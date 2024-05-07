@@ -51,11 +51,11 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
-	eruption_bt.set_buff_icon("res://Resources/Textures/GenericIcons/azul_flake.tres")
+	eruption_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
 	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
 	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
-	planar_shift_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
+	planar_shift_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
 	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
 	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 
@@ -66,7 +66,7 @@ func tower_init():
 	autocast.title = "Astral Eruption"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/hippogryph_egg.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/hippogryph_egg.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

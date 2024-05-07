@@ -64,7 +64,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	morale_bt = BuffType.new("morale_bt", 10, 0, true, self)
-	morale_bt.set_buff_icon("res://Resources/Textures/GenericIcons/biceps.tres")
+	morale_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
 	morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)

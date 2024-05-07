@@ -79,20 +79,20 @@ func tower_init():
 	var bloodlust_mod: Modifier = Modifier.new()
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.15, 0.002)
-	bloodlust_bt.set_buff_icon("res://Resources/Textures/GenericIcons/moebius_trefoil.tres")
+	bloodlust_bt.set_buff_icon("res://Resources/Icons/GenericIcons/moebius_trefoil.tres")
 	bloodlust_bt.set_buff_modifier(bloodlust_mod)
 	bloodlust_bt.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.add_event_on_damage(bloody_exp_aura_on_damage)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/gold_bar.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Bloodlust"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/voodoo_mask_red.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/voodoo_mask_red.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

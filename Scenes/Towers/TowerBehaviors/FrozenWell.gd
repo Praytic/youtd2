@@ -45,14 +45,14 @@ func tower_init():
 	var boekie_frozen_well_aura_mod: Modifier = Modifier.new()
 	boekie_frozen_well_aura_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.25, 0.004)
 	aura_bt.set_buff_modifier(boekie_frozen_well_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/star_swirl.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/star_swirl.tres")
 	aura_bt.set_buff_tooltip("Flowing Frost Aura\nIncreases buff duration.")
 
 	mist_bt = BuffType.new("mist_bt", 10, 0, false, self)
 	var boekie_freezing_mist_mod: Modifier = Modifier.new()
 	boekie_freezing_mist_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.15, -0.004)
 	mist_bt.set_buff_modifier(boekie_freezing_mist_mod)
-	mist_bt.set_buff_icon("res://Resources/Textures/GenericIcons/azul_flake.tres")
+	mist_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
 	mist_bt.set_buff_tooltip("Freezing Mist\nReduces movement speed.")
 
 

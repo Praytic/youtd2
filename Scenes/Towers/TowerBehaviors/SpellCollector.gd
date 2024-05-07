@@ -78,12 +78,12 @@ func tower_init():
 	spell_pt.set_event_on_interpolation_finished(spell_pt_on_hit)
 
 	spell_gathering_bt = BuffType.create_aura_effect_type("spell_gathering_bt", true, self)
-	spell_gathering_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	spell_gathering_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	spell_gathering_bt.add_event_on_spell_casted(spell_gathering_bt_on_spell_casted)
 	spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
 
 	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
-	missile_stacks_bt.set_buff_icon("res://Resources/Textures/GenericIcons/shiny_omega.tres")
+	missile_stacks_bt.set_buff_icon("res://Resources/Icons/GenericIcons/shiny_omega.tres")
 	spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
 
 	multiboard = MultiboardValues.new(1)

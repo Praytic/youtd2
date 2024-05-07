@@ -43,7 +43,7 @@ func tower_init():
 	var ignite_bt_mod: Modifier = Modifier.new()
 	ignite_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
 	ignite_bt.set_buff_modifier(ignite_bt_mod)
-	ignite_bt.set_buff_icon("res://Resources/Textures/GenericIcons/azul_flake.tres")
+	ignite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
 	ignite_bt.set_buff_tooltip("Ignite\nThis is Ignited; it will take periodic damage and has reduced movement speed.")
 	ignite_bt.add_event_on_refresh(ignite_bt_on_refresh)
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 2.0)

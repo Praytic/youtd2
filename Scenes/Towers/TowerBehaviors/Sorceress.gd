@@ -140,28 +140,28 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.01)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Magic Missile Slow\nReduces movement speed.")
 
 	sunder_bt = BuffType.new("sunder_bt", 5, 0, false, self)
 	var sunder_bt_mod: Modifier = Modifier.new()
 	sunder_bt_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.0, -0.01)
 	sunder_bt.set_buff_modifier(sunder_bt_mod)
-	sunder_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
+	sunder_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
 	sunder_bt.set_buff_tooltip("Magic Missile Sunder\nReduces armor.")
 
 	spell_vuln_bt = BuffType.new("spell_vuln_bt", 5, 0, false, self)
 	var spell_vuln_bt_mod: Modifier = Modifier.new()
 	spell_vuln_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.01)
 	spell_vuln_bt.set_buff_modifier(spell_vuln_bt_mod)
-	spell_vuln_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
+	spell_vuln_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
 	spell_vuln_bt.set_buff_tooltip("Magic Missile Vulnerability\nIncreases spell damage taken.")
 
 	cripple_bt = BuffType.new("cripple_bt", 5, 0, false, self)
 	var cripple_bt_mod: Modifier = Modifier.new()
 	cripple_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.01)
 	cripple_bt.set_buff_modifier(cripple_bt_mod)
-	cripple_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_meteor.tres")
+	cripple_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
 	cripple_bt.set_buff_tooltip("Magic Missile Cripple\nReduces health regeneration.")
 
 	multiboard = MultiboardValues.new(8)
@@ -178,7 +178,7 @@ func tower_init():
 	autocast_choose.title = "Choose Modification"
 	autocast_choose.description = get_autocast_choose_description()
 	autocast_choose.description_short = get_autocast_choose_description_short()
-	autocast_choose.icon = "res://Resources/Textures/ItemIcons/troll_charm.tres"
+	autocast_choose.icon = "res://Resources/Icons/ItemIcons/troll_charm.tres"
 	autocast_choose.caster_art = ""
 	autocast_choose.target_art = ""
 	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -198,7 +198,7 @@ func tower_init():
 	autocast_add.title = "Add Modification"
 	autocast_add.description = get_autocast_add_description()
 	autocast_add.description_short = get_autocast_add_description_short()
-	autocast_add.icon = "res://Resources/Textures/AbilityIcons/blue_pointy_thing.tres"
+	autocast_add.icon = "res://Resources/Icons/AbilityIcons/blue_pointy_thing.tres"
 	autocast_add.caster_art = ""
 	autocast_add.target_art = ""
 	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -218,7 +218,7 @@ func tower_init():
 	autocast_remove.title = "Remove Modification"
 	autocast_remove.description = get_autocast_remove_description()
 	autocast_remove.description_short = get_autocast_remove_description_short()
-	autocast_remove.icon = "res://Resources/Textures/AbilityIcons/red_pointy_thing_down.tres"
+	autocast_remove.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing_down.tres"
 	autocast_remove.caster_art = ""
 	autocast_remove.target_art = ""
 	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

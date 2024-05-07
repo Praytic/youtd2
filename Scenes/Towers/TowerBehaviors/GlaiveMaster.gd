@@ -95,7 +95,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	lacerate_bt = BuffType.new("lacerate_bt", 5, 0, false, self)
-	lacerate_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
+	lacerate_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
 	lacerate_bt.add_periodic_event(lacerate_bt_periodic, 1.0)
 	lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 
@@ -110,7 +110,7 @@ func tower_init():
 	autocast.title = "Glaivesaw"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/unyielding_maul.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/unyielding_maul.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT

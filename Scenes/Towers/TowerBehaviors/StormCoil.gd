@@ -56,16 +56,16 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
 	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
-	surge_bt.set_buff_icon("res://Resources/Textures/GenericIcons/rss.tres")
+	surge_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
 	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
 	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
@@ -73,7 +73,7 @@ func tower_init():
 	autocast.title = "Magnetic Surge"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

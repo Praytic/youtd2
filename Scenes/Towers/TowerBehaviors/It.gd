@@ -99,7 +99,7 @@ func tower_init():
 	autocast_recreation.title = "Recreation Field"
 	autocast_recreation.description = get_autocast_recreation_description()
 	autocast_recreation.description_short = get_autocast_recreation_description_short()
-	autocast_recreation.icon = "res://Resources/Textures/ItemIcons/hippogryph_egg.tres"
+	autocast_recreation.icon = "res://Resources/Icons/ItemIcons/hippogryph_egg.tres"
 	autocast_recreation.caster_art = ""
 	autocast_recreation.target_art = ""
 	autocast_recreation.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -119,7 +119,7 @@ func tower_init():
 	autocast_corruption.title = "Corruption Field"
 	autocast_corruption.description = get_autocast_corruption_description()
 	autocast_corruption.description_short = get_autocast_corruption_description_short()
-	autocast_corruption.icon = "res://Resources/Textures/ItemIcons/essence_of_rot.tres"
+	autocast_corruption.icon = "res://Resources/Icons/ItemIcons/essence_of_rot.tres"
 	autocast_corruption.caster_art = ""
 	autocast_corruption.target_art = ""
 	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT

@@ -49,7 +49,7 @@ func tower_init():
 	autocast.title = "Thunder Shock"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/thunder_gloves.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/thunder_gloves.tres"
 	autocast.caster_art = "PurgeBuffTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

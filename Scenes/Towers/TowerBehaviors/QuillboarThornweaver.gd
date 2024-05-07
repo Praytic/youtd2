@@ -83,7 +83,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	thorns_bt = BuffType.new("thorns_bt", 0, 0, false, self)
-	thorns_bt.set_buff_icon("res://Resources/Textures/GenericIcons/polar_star.tres")
+	thorns_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
 	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
 
 	quillspray_pt = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)
@@ -93,7 +93,7 @@ func tower_init():
 	autocast.title = "Quillspray"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/many_spears.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/many_spears.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	holy_wrath_bt = BuffType.create_aura_effect_type("holy_wrath_bt", true, self)
-	holy_wrath_bt.set_buff_icon("res://Resources/Textures/GenericIcons/mighty_force.tres")
+	holy_wrath_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mighty_force.tres")
 	holy_wrath_bt.set_buff_tooltip("Holy Wrath\nIncreases damage dealt to Undead.")
 	holy_wrath_bt.set_stacking_group("holy_wrath_bt")
 	var mod: Modifier = Modifier.new()

@@ -53,14 +53,14 @@ func tower_init():
 	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
 	curse_bt.set_buff_modifier(m)
 	curse_bt.set_stacking_group("curse_bt")
-	curse_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
+	curse_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
 	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Dark Curse"
 	autocast.description = get_dark_curse_description()
 	autocast.description_short = get_dark_curse_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/purple_flame.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/purple_flame.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

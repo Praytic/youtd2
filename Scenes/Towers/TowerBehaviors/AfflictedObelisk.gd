@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Slumbering Parasite"
-	ability.icon = "res://Resources/Textures/TowerIcons/NerubianQueen.tres"
+	ability.icon = "res://Resources/Icons/TowerIcons/NerubianQueen.tres"
 	ability.description_short = "This tower deals additional Decay damage after a short delay and increases target's vulnerability to Nature.\n"
 	ability.description_full = "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attackdamage as Decay damage to the target. Each parasite increases the creep's vulnerability to Nature towers by %s.\n" % vuln_value \
 	+ " \n" \
@@ -47,7 +47,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	parasite_bt = BuffType.new("parasite_bt", 0, 0, false, self)
-	parasite_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
+	parasite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
 	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
 
 

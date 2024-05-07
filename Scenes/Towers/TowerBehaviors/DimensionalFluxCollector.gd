@@ -62,13 +62,13 @@ func get_ability_ranges() -> Array[RangeData]:
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/perpendicular_rings.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/perpendicular_rings.tres")
 	aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
 
 	link_bt = BuffType.new("link_bt", -1, 0, true, self)
 	link_bt.add_event_on_create(aura_bt_on_create)
 	link_bt.add_event_on_cleanup(aura_bt_on_cleanup)
-	link_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aquarius.tres")
+	link_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
 	link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)
@@ -81,7 +81,7 @@ func tower_init():
 	autocast.title = "Dimensional Link"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/stasis_trap.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/stasis_trap.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER

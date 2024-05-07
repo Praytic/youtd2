@@ -51,7 +51,7 @@ func tower_init():
 	autocast.title = "Soul Chill"
 	autocast.description = get_soul_chill_description()
 	autocast.description_short = get_soul_chill_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/soul_chill.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/soul_chill.tres"
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null
@@ -71,7 +71,7 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 

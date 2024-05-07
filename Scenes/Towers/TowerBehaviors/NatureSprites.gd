@@ -180,7 +180,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
-	gift_bt.set_buff_icon("res://Resources/Textures/GenericIcons/holy_grail.tres")
+	gift_bt.set_buff_icon("res://Resources/Icons/GenericIcons/holy_grail.tres")
 	gift_bt.add_event_on_create(gift_create)
 	gift_bt.add_event_on_cleanup(effect_clean)
 	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
@@ -192,7 +192,7 @@ func tower_init():
 	autocast.title = "Nature's Gift"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/leaf_soft.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/leaf_soft.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

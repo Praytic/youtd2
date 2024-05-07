@@ -97,7 +97,7 @@ func tower_init():
 	surge_bt = BuffType.new("surge_bt", 8, 0, true, self)
 	surge_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
 	surge_bt.set_buff_modifier(surge_bt_mod)
-	surge_bt.set_buff_icon("res://Resources/Textures/GenericIcons/over_infinity.tres")
+	surge_bt.set_buff_icon("res://Resources/Icons/GenericIcons/over_infinity.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
@@ -105,7 +105,7 @@ func tower_init():
 	autocast.title = "Lightning Surge"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/thunder_swirl.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/thunder_swirl.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

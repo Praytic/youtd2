@@ -101,7 +101,7 @@ func tower_init():
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
 	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
-	frozen_bt.set_buff_icon("res://Resources/Textures/GenericIcons/azul_flake.tres")
+	frozen_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
 	frozen_bt.set_buff_modifier(slow)
 	frozen_bt.set_stacking_group("IceBattery")
 	frozen_bt.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
@@ -113,7 +113,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/TowerIcons/IceBattery.tres"
+	autocast.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

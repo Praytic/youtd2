@@ -49,7 +49,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_ICE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Moonlight Aura\nIncreases spell damage taken and damage taken from Astral, Darkness, Ice and Storm towers.")
 
 

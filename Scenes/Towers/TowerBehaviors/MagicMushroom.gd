@@ -67,7 +67,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
-	fungus_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
+	fungus_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_dot.tres")
 	fungus_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
 
 	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
@@ -75,7 +75,7 @@ func tower_init():
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
-	trance_bt.set_buff_icon("res://Resources/Textures/GenericIcons/beard.tres")
+	trance_bt.set_buff_icon("res://Resources/Icons/GenericIcons/beard.tres")
 	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
 
 	multiboard = MultiboardValues.new(2)
@@ -86,7 +86,7 @@ func tower_init():
 	autocast.title = "Mystical Trance"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/1_unused_mask_green.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/1_unused_mask_green.tres"
 	autocast.caster_art = "AIreTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

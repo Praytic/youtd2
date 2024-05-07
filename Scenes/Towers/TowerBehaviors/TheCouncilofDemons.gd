@@ -73,7 +73,7 @@ func tower_init():
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.4, -0.006)
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, -0.95, 0.0)
 	darkness_bt.set_buff_modifier(dave_council_darkness_mod)
-	darkness_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
+	darkness_bt.set_buff_icon("res://Resources/Icons/GenericIcons/fire_dash.tres")
 	darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
 	darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
 	darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
@@ -83,7 +83,7 @@ func tower_init():
 	var dave_council_maledict_mod: Modifier = Modifier.new()
 	dave_council_maledict_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.006)
 	maledict_bt.set_buff_modifier(dave_council_maledict_mod)
-	maledict_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
+	maledict_bt.set_buff_icon("res://Resources/Icons/GenericIcons/fire_dash.tres")
 	maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
 	maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
 
@@ -91,11 +91,11 @@ func tower_init():
 	var dave_council_mana_mod: Modifier = Modifier.new()
 	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
 	demonic_mana_bt.set_buff_modifier(dave_council_mana_mod)
-	demonic_mana_bt.set_buff_icon("res://Resources/Textures/GenericIcons/star_swirl.tres")
+	demonic_mana_bt.set_buff_icon("res://Resources/Icons/GenericIcons/star_swirl.tres")
 	demonic_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_meteor.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 
@@ -106,7 +106,7 @@ func tower_init():
 	autocast.title = "Impenetrable Darkness"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/gray_orb.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/gray_orb.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "AvengerMissile.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frenzy"
-	ability.icon = "res://Resources/Textures/ItemIcons/vampiric_skull.tres"
+	ability.icon = "res://Resources/Icons/ItemIcons/vampiric_skull.tres"
 	ability.description_short = "Gains a permanent bonus to attack speed each time Ice Claw is cast.\n"
 	ability.description_full = "Each time Ice Claw is cast, attackspeed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)
@@ -89,7 +89,7 @@ func tower_init():
 	ice_claw_bt = BuffType.new("ice_claw_bt", 5, 0.2, false, self)
 	ice_claw_bt.set_buff_modifier(m)
 	
-	ice_claw_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
+	ice_claw_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
 	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
@@ -102,7 +102,7 @@ func tower_init():
 	autocast.title = "Ice Claw\n"
 	autocast.description = get_ice_claw_description()
 	autocast.description_short = get_ice_claw_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/blue_pointy_thing.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/blue_pointy_thing.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

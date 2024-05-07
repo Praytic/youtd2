@@ -100,7 +100,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
-	corruption_bt.set_buff_icon("res://Resources/Textures/GenericIcons/poison_gas.tres")
+	corruption_bt.set_buff_icon("res://Resources/Icons/GenericIcons/poison_gas.tres")
 	corruption_bt.set_buff_modifier(modifier)
 	corruption_bt.set_stacking_group("DarkBattery")
 	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
@@ -112,7 +112,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/TowerIcons/DarkBattery.tres"
+	autocast.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

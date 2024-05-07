@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var soul_scattering: AbilityInfo = AbilityInfo.new()
 	soul_scattering.name = "Soul Scattering"
-	soul_scattering.icon = "res://Resources/Textures/AbilityIcons/atrophy.tres"
+	soul_scattering.icon = "res://Resources/Icons/AbilityIcons/atrophy.tres"
 	soul_scattering.description_short = "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
 	soul_scattering.description_full = "10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration] \
 	+ " \n" \
@@ -36,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var shadowstrike: AbilityInfo = AbilityInfo.new()
 	shadowstrike.name = "Shadowstrike"
-	shadowstrike.icon = "res://Resources/Textures/AbilityIcons/shadow_strike.tres"
+	shadowstrike.icon = "res://Resources/Icons/AbilityIcons/shadow_strike.tres"
 	shadowstrike.description_short = "Chance on attack to deal additional spell damage.\n"
 	shadowstrike.description_full = "This tower has a 25%% chance on attack to deal %s spell damage.\n" % damage \
 	+ " \n" \
@@ -58,9 +58,9 @@ func tower_init():
 
 	cripple_bt = BuffType.new("cripple_bt", 0.0, 0, false, self)
 	banish_bt = BuffType.new("banish_bt", 0.0, 0, false, self)
-	cripple_bt.set_buff_icon("res://Resources/Textures/GenericIcons/triple_scratches.tres")
+	cripple_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
 	cripple_bt.set_special_effect("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl", 150, 5.0)
-	banish_bt.set_buff_icon("res://Resources/Textures/GenericIcons/alien_skull.tres")
+	banish_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
 	banish.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0001)
 	cripple.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.6, 0.01)
 	cripple_bt.set_buff_modifier(cripple)

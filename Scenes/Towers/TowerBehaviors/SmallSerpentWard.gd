@@ -52,7 +52,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0005)
 	charm_bt = BuffType.new("charm_bt", 0, 0.0005, true, self)
-	charm_bt.set_buff_icon("res://Resources/Textures/GenericIcons/charm.tres")
+	charm_bt.set_buff_icon("res://Resources/Icons/GenericIcons/charm.tres")
 	charm_bt.set_buff_modifier(m)
 	charm_bt.set_stacking_group("charm_bt")
 	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
@@ -61,7 +61,7 @@ func tower_init():
 	autocast.title = "Snake Charm"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/green_skull_scepter.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/green_skull_scepter.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

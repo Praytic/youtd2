@@ -60,7 +60,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 1.0, 0, false, self)
 
 	steam_bt = BuffType.new("steam_bt", 5, 0, true, self)
-	steam_bt.set_buff_icon("res://Resources/Textures/GenericIcons/pokecog.tres")
+	steam_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pokecog.tres")
 	steam_bt.add_event_on_create(steam_bt_on_create)
 	steam_bt.add_event_on_attack(steam_bt_on_attack)
 	steam_bt.add_periodic_event(steam_bt_periodic, 1.0)
@@ -75,7 +75,7 @@ func tower_init():
 	autocast_speed_up.title = "Speed Up"
 	autocast_speed_up.description = get_autocast_speed_up_description()
 	autocast_speed_up.description_short = get_autocast_speed_up_description_short()
-	autocast_speed_up.icon = "res://Resources/Textures/AbilityIcons/red_pointy_thing.tres"
+	autocast_speed_up.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing.tres"
 	autocast_speed_up.caster_art = ""
 	autocast_speed_up.target_art = ""
 	autocast_speed_up.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -95,7 +95,7 @@ func tower_init():
 	autocast_speed_down.title = "Speed Down"
 	autocast_speed_down.description = get_autocast_speed_down_description()
 	autocast_speed_down.description_short = get_autocast_speed_down_description_short()
-	autocast_speed_down.icon = "res://Resources/Textures/AbilityIcons/red_pointy_thing_down.tres"
+	autocast_speed_down.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing_down.tres"
 	autocast_speed_down.caster_art = ""
 	autocast_speed_down.target_art = ""
 	autocast_speed_down.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

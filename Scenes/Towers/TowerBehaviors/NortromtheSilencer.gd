@@ -60,7 +60,7 @@ func tower_init():
 	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/aries.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aries.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 

@@ -83,17 +83,17 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
-	glimmer_bt.set_buff_icon("res://Resources/Textures/GenericIcons/star_swirl.tres")
+	glimmer_bt.set_buff_icon("res://Resources/Icons/GenericIcons/star_swirl.tres")
 	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
-	sunlight_bt.set_buff_icon("res://Resources/Textures/GenericIcons/shiny_omega.tres")
+	sunlight_bt.set_buff_icon("res://Resources/Icons/GenericIcons/shiny_omega.tres")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sunlight Burst"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity_yellow.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity_yellow.tres"
 	autocast.caster_art = "Awaken.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

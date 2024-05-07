@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Toxic Vapor"
-	ability.name = "res://Resources/Textures/ItemIcons/1_unused_factory_fumes.tres"
+	ability.name = "res://Resources/Icons/ItemIcons/1_unused_factory_fumes.tres"
 	ability.description_short = "Deals damage over time.\n"
 	ability.description_full = "On attack, has a 30%% chance to apply a buff that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage \
 	+ " \n" \
@@ -50,7 +50,7 @@ func D1000_Toxic_Damage(event: Event):
 
 func tower_init():
 	toxic_bt = BuffType.new("toxic_bt", 10, 0, false, self)
-	toxic_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
+	toxic_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
 	toxic_bt.add_periodic_event(D1000_Toxic_Damage, 1)
 	toxic_bt.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
 

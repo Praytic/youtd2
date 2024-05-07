@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burn"
-	ability.icon = "res://Resources/Textures/ItemIcons/cruel_torch.tres"
+	ability.icon = "res://Resources/Icons/ItemIcons/cruel_torch.tres"
 	ability.description_short = "Let's fire towers deal more and more damage to the target, which will explode on death.\n"
 	ability.description_full = "Starts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [bonus_damage, bonus_damage_other, explode_damage] \
 	+ "Lasts 5 seconds after the last attack of a fire tower.\n" \
@@ -93,7 +93,7 @@ func tower_init():
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
 	burning_bt = BuffType.new("burning_bt", 0.0, 0.0, false, self)
-	burning_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
+	burning_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
 	burning_bt.add_event_on_create(burning_bt_on_create)
 	burning_bt.add_event_on_damaged(burning_bt_on_damaged)
 	burning_bt.add_event_on_death(burning_bt_on_death)

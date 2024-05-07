@@ -84,10 +84,10 @@ func tower_init():
 	drain_bt.set_buff_modifier(n)
 	shield_bt.set_buff_modifier(o)
 
-	zeal_bt.set_buff_icon("res://Resources/Textures/GenericIcons/mighty_force.tres")
-	wound_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
-	drain_bt.set_buff_icon("res://Resources/Textures/GenericIcons/energy_breath.tres")
-	shield_bt.set_buff_icon("res://Resources/Textures/GenericIcons/turtle_shell.tres")
+	zeal_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mighty_force.tres")
+	wound_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
+	drain_bt.set_buff_icon("res://Resources/Icons/GenericIcons/energy_breath.tres")
+	shield_bt.set_buff_icon("res://Resources/Icons/GenericIcons/turtle_shell.tres")
 
 	zeal_bt.set_buff_tooltip("Zeal\nIncreases attack speed.")
 	wound_bt.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")

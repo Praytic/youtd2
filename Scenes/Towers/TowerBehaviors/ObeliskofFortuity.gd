@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Warming Up"
-	ability.icon = "res://Resources/Textures/AbilityIcons/warming_up.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/warming_up.tres"
 	ability.description_short = "This tower is a bit old and has lost the accuracy it had in the past.\n"
 	ability.description_full = "Each attack of this tower has a %s chance to miss the target.\n" % miss_chance_base \
 	+ " \n" \

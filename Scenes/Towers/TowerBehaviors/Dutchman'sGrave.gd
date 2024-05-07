@@ -90,7 +90,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
-	panic_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	panic_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
 
 	multiboard = MultiboardValues.new(1)
@@ -100,7 +100,7 @@ func tower_init():
 	autocast.title = "Soul Storm"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/1_unused_flag_purple.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/1_unused_flag_purple.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

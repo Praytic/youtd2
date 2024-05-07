@@ -75,7 +75,7 @@ func tower_init():
 	blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
 	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	slow_bt.set_stacking_group("cedi_troll_blizzard")
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
 
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
@@ -85,7 +85,7 @@ func tower_init():
 	autocast.title = "Blizzard"
 	autocast.description = get_blizzard_description()
 	autocast.description_short = get_blizzard_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/meteor_blue.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/meteor_blue.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

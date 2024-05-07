@@ -81,14 +81,14 @@ func tower_init():
 	boekie_stim_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, STIM_ATTACKSPEED, 0.0)
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	stim_bt.set_buff_modifier(boekie_stim_mod)
-	stim_bt.set_buff_icon("res://Resources/Textures/GenericIcons/meat.tres")
+	stim_bt.set_buff_icon("res://Resources/Icons/GenericIcons/meat.tres")
 	stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
 
 	fragged_bt = BuffType.new("fragged_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	fragged_bt.set_buff_modifier(boekie_grenade_mod)
-	fragged_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ankh.tres")
+	fragged_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ankh.tres")
 	fragged_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
 
 	shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
@@ -99,7 +99,7 @@ func tower_init():
 	autocast.title = "Stim"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/orange_canister.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/orange_canister.tres"
 	autocast.caster_art = "AvatarCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

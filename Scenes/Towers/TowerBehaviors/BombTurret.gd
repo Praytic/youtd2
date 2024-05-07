@@ -101,33 +101,33 @@ func tower_init():
 	var dave_concussive_creep_mod: Modifier = Modifier.new()
 	dave_concussive_creep_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.concussive_mod_movespeed, -_stats.concussive_mod_movespeed_add)
 	concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
-	concussive_creep_bt.set_buff_icon("res://Resources/Textures/GenericIcons/foot_trip.tres")
+	concussive_creep_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
 	concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
 
 	acid_creep_bt = BuffType.new("acid_creep_bt", ACID_DURATION, 0, false, self)
 	var dave_acid_creep_mod: Modifier = Modifier.new()
 	dave_acid_creep_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -_stats.acid_mod_armor, -_stats.acid_mod_armor_add)
 	acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
-	acid_creep_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
+	acid_creep_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
 	acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
 
 	concussive_tower_bt = BuffType.new("concussive_tower_bt", -1, 0, true, self)
-	concussive_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/rss.tres")
+	concussive_tower_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
 	concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
 
 	acid_tower_bt = BuffType.new("acid_tower_bt", -1, 0, true, self)
-	acid_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/poison_gas.tres")
+	acid_tower_bt.set_buff_icon("res://Resources/Icons/GenericIcons/poison_gas.tres")
 	acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
 
 	smoke_tower_bt = BuffType.new("smoke_tower_bt", -1, 0, true, self)
-	smoke_tower_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_meteor.tres")
+	smoke_tower_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
 	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
 	var autocast_concussive: Autocast = Autocast.make()
 	autocast_concussive.title = "Concussive Bombs"
 	autocast_concussive.description = get_autocast_description_concussive()
 	autocast_concussive.description_short = get_autocast_description_concussive_short()
-	autocast_concussive.icon = "res://Resources/Textures/ItemIcons/inscribed_pebble.tres"
+	autocast_concussive.icon = "res://Resources/Icons/ItemIcons/inscribed_pebble.tres"
 	autocast_concussive.caster_art = ""
 	autocast_concussive.target_art = ""
 	autocast_concussive.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -147,7 +147,7 @@ func tower_init():
 	autocast_acid.title = "Acid Bombs"
 	autocast_acid.description = get_autocast_description_acid()
 	autocast_acid.description_short = get_autocast_description_acid_short()
-	autocast_acid.icon = "res://Resources/Textures/ItemIcons/warsong_double_bass.tres"
+	autocast_acid.icon = "res://Resources/Icons/ItemIcons/warsong_double_bass.tres"
 	autocast_acid.caster_art = ""
 	autocast_acid.target_art = ""
 	autocast_acid.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -167,7 +167,7 @@ func tower_init():
 	autocast_smoke.title = "Smoke Bombs"
 	autocast_smoke.description = get_autocast_description_smoke()
 	autocast_smoke.description_short = get_autocast_description_smoke_short()
-	autocast_smoke.icon = "res://Resources/Textures/ItemIcons/bomb_shells.tres"
+	autocast_smoke.icon = "res://Resources/Icons/ItemIcons/bomb_shells.tres"
 	autocast_smoke.caster_art = ""
 	autocast_smoke.target_art = ""
 	autocast_smoke.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Phaze"
-	ability.icon = "res://Resources/Textures/ItemIcons/mining_lamp.tres"
+	ability.icon = "res://Resources/Icons/ItemIcons/mining_lamp.tres"
 	ability.description_short = "Increases target creep's item drop quality and item drop chance.\n"
 	ability.description_full = "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds.\n" % [value, duration] \
 	+ " \n"\
@@ -46,7 +46,7 @@ func tower_init():
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	phazed_bt.set_buff_modifier(iron_mod)
-	phazed_bt.set_buff_icon("res://Resources/Textures/GenericIcons/amber_mosquito.tres")
+	phazed_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
 	phazed_bt.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
 
 

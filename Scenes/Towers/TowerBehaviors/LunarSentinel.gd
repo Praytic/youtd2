@@ -52,7 +52,7 @@ func tower_init():
 	autocast.title = "Lunar Grace"
 	autocast.description = get_lunar_grace_description()
 	autocast.description_short = get_lunar_grace_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/crescent_stone.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/crescent_stone.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -74,7 +74,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	lunar_energy_bt = BuffType.new("lunar_energy_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
-	lunar_energy_bt.set_buff_icon("res://Resources/Textures/GenericIcons/polar_star.tres")
+	lunar_energy_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
 	lunar_energy_bt.set_stacking_group("lunar_energy_bt")
 
 	lunar_energy_bt.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")

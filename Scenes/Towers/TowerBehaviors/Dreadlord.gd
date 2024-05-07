@@ -66,7 +66,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.02)
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
 	awakening_bt.set_buff_modifier(mod)
-	awakening_bt.set_buff_icon("res://Resources/Textures/GenericIcons/burning_dot.tres")
+	awakening_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_dot.tres")
 	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)
@@ -77,7 +77,7 @@ func tower_init():
 	autocast.title = "Dreadlord's Awakening"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/vampiric_skull.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/vampiric_skull.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

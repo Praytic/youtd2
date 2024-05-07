@@ -27,7 +27,7 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
 	fright_bt = BuffType.create_aura_effect_type("fright_bt", true, self)
-	fright_bt.set_buff_icon("res://Resources/Textures/GenericIcons/ghost.tres")
+	fright_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
 	fright_bt.set_buff_tooltip("Fright\nReduces movement speed and armor.")
 	fright_bt.set_stacking_group("fright_aura")
 	var mod: Modifier = Modifier.new()

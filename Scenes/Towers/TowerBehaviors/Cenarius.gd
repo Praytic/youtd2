@@ -88,11 +88,11 @@ func tower_init():
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
-	tranquility_bt.set_buff_icon("res://Resources/Textures/GenericIcons/angel_wings.tres")
+	tranquility_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_wings.tres")
 	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
-	entangle_bt.set_buff_icon("res://Resources/Textures/GenericIcons/root_tip.tres")
+	entangle_bt.set_buff_icon("res://Resources/Icons/GenericIcons/root_tip.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
 	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
@@ -110,21 +110,21 @@ func tower_init():
 	leaf_storm_bt = BuffType.new("leaf_storm_bt", 1.0, 0.04, false, self)
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
-	leaf_storm_bt.set_buff_icon("res://Resources/Textures/GenericIcons/atomic_slashes.tres")
+	leaf_storm_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
 	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	thorned_bt.set_buff_modifier(cenarius_thorned_mod)
-	thorned_bt.set_buff_icon("res://Resources/Textures/GenericIcons/polar_star.tres")
+	thorned_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Entangling Roots"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/tree_branch.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/tree_branch.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

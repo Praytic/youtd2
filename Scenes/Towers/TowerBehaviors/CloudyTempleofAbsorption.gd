@@ -98,7 +98,7 @@ func get_ability_ranges() -> Array[RangeData]:
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Textures/GenericIcons/semi_closed_eye.tres")
+	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/semi_closed_eye.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 
@@ -116,7 +116,7 @@ func tower_init():
 	autocast1.title = "Cloudy Thunderstorm"
 	autocast1.description = get_autocast_description_for_cloudy_thunderstorm()
 	autocast1.description_short = get_autocast_description_for_cloudy_thunderstorm_short()
-	autocast1.icon = "res://Resources/Textures/AbilityIcons/thunder_swirl.tres"
+	autocast1.icon = "res://Resources/Icons/AbilityIcons/thunder_swirl.tres"
 	autocast1.caster_art = ""
 	autocast1.target_art = ""
 	autocast1.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -136,7 +136,7 @@ func tower_init():
 	autocast2.title = "Adjust Autocast Threshold"
 	autocast2.description = get_autocast_description_for_adjust_threshold()
 	autocast2.description_short = get_autocast_description_for_adjust_threshold_short()
-	autocast2.icon = "res://Resources/Textures/AbilityIcons/compass.tres"
+	autocast2.icon = "res://Resources/Icons/AbilityIcons/compass.tres"
 	autocast2.caster_art = ""
 	autocast2.target_art = ""
 	autocast2.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

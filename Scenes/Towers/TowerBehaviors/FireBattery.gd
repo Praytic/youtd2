@@ -104,7 +104,7 @@ func tower_init():
 
 	incinerate_bt = BuffType.new("incinerate_bt", 9, 0.3, false, self)
 	incinerate_bt.set_buff_modifier(modifier)
-	incinerate_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
+	incinerate_bt.set_buff_icon("res://Resources/Icons/GenericIcons/fire_dash.tres")
 	incinerate_bt.add_periodic_event(damage_periodic, 1)
 	incinerate_bt.set_stacking_group("FireBattery")
 	incinerate_bt.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")
@@ -116,7 +116,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/TowerIcons/FireBattery.tres"
+	autocast.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

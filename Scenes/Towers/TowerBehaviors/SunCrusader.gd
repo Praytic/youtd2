@@ -87,14 +87,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
 	crusader_bt.set_buff_modifier(mod)
-	crusader_bt.set_buff_icon("res://Resources/Textures/GenericIcons/angel_wings.tres")
+	crusader_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_wings.tres")
 	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "For the God"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/holy_altar.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/holy_altar.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

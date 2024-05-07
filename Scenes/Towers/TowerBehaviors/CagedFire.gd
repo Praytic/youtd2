@@ -54,7 +54,7 @@ func tower_init():
 	melt_bt.add_event_on_create(melt_bt_on_create)
 	melt_bt.add_periodic_event(melt_bt_on_periodic, 1.0)
 	melt_bt.add_event_on_cleanup(melt_bt_on_cleanup)
-	melt_bt.set_buff_icon("res://Resources/Textures/GenericIcons/open_wound.tres")
+	melt_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
 	melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 

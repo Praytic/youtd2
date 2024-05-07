@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
-	ability.icon = "res://Resources/Textures/AbilityIcons/ignite.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/ignite.tres"
 	ability.description_short = "Damages a target over time and makes decreases target's health regeneration.\n"
 	ability.description_full = "The geyser has a 30%% chance on damaging a creep to ignite the target, dealing 15%% of the tower's attack damage as spell damage per second and reducing the target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
 	+ " \n" \
@@ -54,7 +54,7 @@ func ignite_bt_periodic(event: Event):
 
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 8, 0, false, self)
-	ignite_bt.set_buff_icon("res://Resources/Textures/GenericIcons/flame.tres")
+	ignite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
 	ignite_bt.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()

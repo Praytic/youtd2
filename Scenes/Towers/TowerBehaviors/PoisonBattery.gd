@@ -104,7 +104,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
 	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
-	poison_bt.set_buff_icon("res://Resources/Textures/GenericIcons/poison_gas.tres")
+	poison_bt.set_buff_icon("res://Resources/Icons/GenericIcons/poison_gas.tres")
 	poison_bt.add_periodic_event(damage_periodic, 1)
 	poison_bt.set_buff_modifier(modifier)
 	poison_bt.set_stacking_group("PoisonBattery")
@@ -117,7 +117,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/TowerIcons/PoisonBattery.tres"
+	autocast.icon = "res://Resources/Icons/TowerIcons/PoisonBattery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

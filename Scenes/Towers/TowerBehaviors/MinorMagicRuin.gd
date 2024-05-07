@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Illuminate"
-	ability.icon = "res://Resources/Textures/AbilityIcons/illuminate.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/illuminate.tres"
 	ability.description_short = "Attacks make the target grant more experience once killed.\n"
 	ability.description_full = "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
 	+ " \n" \
@@ -44,7 +44,7 @@ func tower_init():
 	illuminate_bt = BuffType.new("illuminate_bt", 5, 0, false, self)
 	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	illuminate_bt.set_buff_modifier(astral_mod)
-	illuminate_bt.set_buff_icon("res://Resources/Textures/GenericIcons/polar_star.tres")
+	illuminate_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
 	
 	illuminate_bt.set_buff_tooltip("Illuminate\nIncreases experience granted.")
 

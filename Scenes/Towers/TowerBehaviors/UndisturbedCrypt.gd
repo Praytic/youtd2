@@ -94,7 +94,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_DMG_FROM_DARKNESS, 0.0, 0.001)
 
 	corpse_explosion_bt = BuffType.new("corpse_explosion_bt", 8, 0.25, false, self)
-	corpse_explosion_bt.set_buff_icon("res://Resources/Textures/GenericIcons/mine_explosion.tres")
+	corpse_explosion_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mine_explosion.tres")
 	corpse_explosion_bt.set_buff_modifier(m)
 	corpse_explosion_bt.set_buff_tooltip("Corpse Explosion\nIncreases damage taken from Darkness towers and reduces movement speed.")
 

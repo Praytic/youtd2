@@ -41,8 +41,8 @@ const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://Scenes/Towers/TowerSprites"
 const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
-const TOWER_ICON_DIR: String = "res://Resources/Textures/TowerIcons"
-const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Textures/TowerIcons/AbandonedPit.tres"
+const TOWER_ICON_DIR: String = "res://Resources/Icons/TowerIcons"
+const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Icons/TowerIcons/AbandonedPit.tres"
 
 const REQUIRED_WAVE_MAX: int = 80
 

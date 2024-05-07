@@ -112,7 +112,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 
 	phoenix_fire_bt = BuffType.new("phoenix_fire_bt", 5, 0, false, self)
-	phoenix_fire_bt.set_buff_icon("res://Resources/Textures/GenericIcons/flame.tres")
+	phoenix_fire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
 	phoenix_fire_bt.set_buff_modifier(mod)
 	phoenix_fire_bt.add_event_on_cleanup(phoenix_fire_bt_on_cleanup)
 	phoenix_fire_bt.add_event_on_purge(phoenix_fire_bt_on_purge)
@@ -125,7 +125,7 @@ func tower_init():
 	autocast.title = "Eruption"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/ItemIcons/1_unused_fire_bowl_2.tres"
+	autocast.icon = "res://Resources/Icons/ItemIcons/1_unused_fire_bowl_2.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

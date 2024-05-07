@@ -60,7 +60,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
 	charge_bt.set_buff_modifier(mod)
-	charge_bt.set_buff_icon("res://Resources/Textures/GenericIcons/electric.tres")
+	charge_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
 	charge_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
 	charge_bt.add_periodic_event(charge_bt_periodic, 1.0)
 
@@ -68,7 +68,7 @@ func tower_init():
 	autocast.title = "Charge"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity_yellow.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity_yellow.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

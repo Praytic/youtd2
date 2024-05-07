@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Atrophy"
-	ability.icon = "res://Resources/Textures/AbilityIcons/atrophy.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/atrophy.tres"
 	ability.description_short = "Reduces movement speed of target.\n"
 	ability.description_full = "When this tower attacks a creep it has a %s (%s for bosses) chance to slow it by %s for 5 seconds.\n" % [chance, chance_for_bosses, slow_value] \
 	+ " \n" \
@@ -43,7 +43,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	slow_bt.set_buff_icon("res://Resources/Textures/GenericIcons/animal_skull.tres")
+	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
 	slow_bt.set_stacking_group("slow_bt1")
 	

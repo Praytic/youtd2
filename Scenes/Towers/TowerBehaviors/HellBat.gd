@@ -84,7 +84,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	darkness_bt = BuffType.new("darkness_bt", 5, 0, true, self)
-	darkness_bt.set_buff_icon("res://Resources/Textures/GenericIcons/fire_dash.tres")
+	darkness_bt.set_buff_icon("res://Resources/Icons/GenericIcons/fire_dash.tres")
 	darkness_bt.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
 
 #	NOTE: settubg danage to "1.0" here because value for
@@ -99,7 +99,7 @@ func tower_init():
 	autocast.title = "Engulfing Darkness"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AbilityIcons/purple_orb.tres"
+	autocast.icon = "res://Resources/Icons/AbilityIcons/purple_orb.tres"
 	autocast.caster_art = "AnimateDeadTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grace"
-	ability.icon = "res://Resources/Textures/AbilityIcons/afterglow.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/afterglow.tres"
 	ability.description_short = "A percentage of this tower's damage gets revoked after a while.\n"
 	ability.description_full = "%s of the damage done by this tower will be revoked over 3 seconds. Does not affect immune targets.\n" % heal_ratio \
 	+ " \n" \

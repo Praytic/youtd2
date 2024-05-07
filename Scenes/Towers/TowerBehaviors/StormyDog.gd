@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Thunderous Roar"
-	ability.icon = "res://Resources/Textures/AbilityIcons/roar.tres"
+	ability.icon = "res://Resources/Icons/AbilityIcons/roar.tres"
 	ability.description_short = "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
 	ability.description_full = "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attackspeed \
 	+ " \n" \
@@ -51,7 +51,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
 
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
-	roar_bt.set_buff_icon("res://Resources/Textures/GenericIcons/wolf_howl.tres")
+	roar_bt.set_buff_icon("res://Resources/Icons/GenericIcons/wolf_howl.tres")
 	roar_bt.set_buff_modifier(mod)
 	roar_bt.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
 
