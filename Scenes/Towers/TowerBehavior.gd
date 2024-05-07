@@ -51,6 +51,18 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 
 	on_create(preceding_tower)
 
+#	Check that ability icons are valid
+	var ability_info_list: Array[AbilityInfo] = get_ability_info_list()
+	var tower_id: int = tower.get_id()
+	var tower_name: String = TowerProperties.get_display_name(tower_id)
+	for ability_info in ability_info_list:
+		var ability_name: String = ability_info.name
+		var icon_path: String = ability_info.icon
+		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
+
+		if !icon_path_is_valid:
+			push_error("Invalid ability icon for tower %s, ability %s: %s" % [tower_name, ability_name, icon_path])
+
 
 func get_specials_modifier() -> Modifier:
 	return _specials_modifier

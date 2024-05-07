@@ -22,7 +22,6 @@ const flying_item_scene: PackedScene = preload("res://Scenes/HUD/FlyingItem.tscn
 const autocast_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AutocastButton.tscn")
 const autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
 const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
-const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn")
 const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeIndicator.tscn")
 const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
@@ -34,6 +33,7 @@ const tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 const buff_display_scene: PackedScene = preload("res://Scenes/HUD/UnitMenu/BuffDisplay.tscn")
 const fallback_buff_icon: Texture = preload("res://Resources/Textures/GenericIcons/egg.tres")
 const builder_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/BuilderButton.tscn")
+const ability_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AbilityButton.tscn")
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
 	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),

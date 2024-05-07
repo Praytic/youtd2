@@ -11,10 +11,10 @@ atlas = ExtResource("2_csim3")
 region = Rect2(384, 0, 128, 128)
 
 [node name="AutocastButton" type="Button" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_indicator_container")]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(100, 100)
 focus_mode = 0
 theme = ExtResource("3_rtugu")
-theme_type_variation = &"TowerActions"
+theme_type_variation = &"UnitButton"
 icon = SubResource("AtlasTexture_j1ue5")
 expand_icon = true
 script = ExtResource("1_eojut")
@@ -39,6 +39,7 @@ layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("3_rtugu")
 script = ExtResource("3_d6wsi")
+overlay_color = Color(0.0862745, 0.666667, 0.701961, 0.176471)
 
 [node name="MarginContainer" type="MarginContainer" parent="IndicatorContainer"]
 layout_mode = 2

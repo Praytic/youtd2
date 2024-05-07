@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0aesr1u8n1xt"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_qdggn"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/AbilityButton.gd" id="2_kb4ln"]
+
+[node name="AbilityButton" instance=ExtResource("1_qdggn")]
+custom_minimum_size = Vector2(100, 100)
+script = ExtResource("2_kb4ln")

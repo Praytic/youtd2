@@ -14,7 +14,6 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _title_label: Label
 @export var _level_label: Label
 @export var _info_label: RichTextLabel
-@export var _specials_label: RichTextLabel
 @export var _reset_sell_button_timer: Timer
 @export var _upgrade_button: Button
 @export var _sell_button: Button
@@ -31,6 +30,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _buff_group_button_4: BuffGroupButton
 @export var _buff_group_button_5: BuffGroupButton
 @export var _buff_group_button_6: BuffGroupButton
+@export var _ability_container: GridContainer
 
 var _selling_for_real: bool = false
 var _tower: Tower = null
@@ -105,13 +105,13 @@ func set_tower(tower: Tower):
 	var tooltip_for_info_label: String = _get_tooltip_for_info_label()
 	_info_label.set_tooltip_text(tooltip_for_info_label)
 
-	var specials_text: String = _get_specials_text(tower)
-	_specials_label.clear()
-	_specials_label.append_text(specials_text)
+	_setup_ability_buttons()
 
 	_tower_button.set_tower_id(tower.get_id())
 	_tower_button.set_tier_visible(true)
 	
+	_tower_button.set_tower_id(tower.get_id())
+
 	_set_selling_for_real(false)
 
 	var tower_belongs_to_local_player: bool = tower.belongs_to_local_player()
@@ -126,6 +126,23 @@ func set_tower(tower: Tower):
 #########################
 ###      Private      ###
 #########################
+
+func _setup_ability_buttons():
+	var prev_ability_button_list: Array = _ability_container.get_children()
+	for ability_button in prev_ability_button_list:
+		_ability_container.remove_child(ability_button)
+		ability_button.queue_free()
+
+	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list()
+	
+	for ability_info in ability_info_list:
+		var button: AbilityButton = AbilityButton.make(ability_info)
+		_ability_container.add_child(button)
+
+	for autocast in _tower.get_autocast_list():
+		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
+		_ability_container.add_child(autocast_button)
+
 
 func _get_specials_text(tower: Tower) -> String:
 	var text: String = ""

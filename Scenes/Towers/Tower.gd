@@ -45,7 +45,6 @@ var _sprite: Sprite2D = null
 
 @export var _mana_bar: ProgressBar
 @export var _tower_selection_area: Area2D
-@export var _tower_actions: Control
 @export var _visual: Node2D
 
 
@@ -185,9 +184,6 @@ func _ready():
 
 	_temp_preceding_tower = null
 	
-	# Need to create instance only if Tower has active specials
-	_tower_actions.set_tower(self)
-
 
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
@@ -612,9 +608,6 @@ func _on_selected_changed():
 	
 	for indicator in _range_indicator_list:
 		indicator.visible = selected_value
-
-	var tower_actions_visible: bool = selected_value && belongs_to_local_player()
-	_tower_actions.visible = tower_actions_visible
 
 
 func _on_target_tree_exited(target: Creep):

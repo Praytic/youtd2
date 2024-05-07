@@ -24,6 +24,9 @@ var _autocast: Autocast = null
 var _progress_in_editor: float = 1.0
 
 
+@export var overlay_color: Color = Color(0, 0, 0, 0.5)
+
+
 #########################
 ###     Built-in      ###
 #########################
@@ -92,7 +95,7 @@ func _draw():
 	if point_list.is_empty():
 		return
 
-	draw_colored_polygon(point_list, Color(0, 0, 0, 0.5))
+	draw_colored_polygon(point_list, overlay_color)
 
 
 #########################

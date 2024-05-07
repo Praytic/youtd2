@@ -25,7 +25,9 @@ func _ready():
 
 	var autocast_icon: Texture2D = load(icon_path)
 	set_button_icon(autocast_icon)
-		
+
+	mouse_entered.connect(_on_mouse_entered)
+
 	_cooldown_indicator.set_autocast(_autocast)
 	_auto_mode_indicator.set_autocast(_autocast)
 
@@ -51,21 +53,26 @@ func _make_custom_tooltip(for_text: String) -> Object:
 
 	return label
 
-
-#########################
-###       Public      ###
-#########################
-
-func set_autocast(autocast: Autocast):
-	_autocast = autocast
-
-	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
-	set_tooltip_text(tooltip)
-
-
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_pressed():
 	EventBus.player_clicked_autocast.emit(_autocast)
+
+
+#########################
+###       Static      ###
+#########################
+
+func _on_mouse_entered():
+	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
+	ButtonTooltip.show_tooltip(self, tooltip)
+
+
+static func make(autocast: Autocast) -> AutocastButton:
+	var autocast_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AutocastButton.tscn")
+	var button: AutocastButton = autocast_button_scene.instantiate()
+	button._autocast = autocast
+	
+	return button
