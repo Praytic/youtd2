@@ -1,7 +1,7 @@
 class_name AutocastButton extends Button
 
 
-const FALLBACK_AUTOCAST_ICON: String = "res://Resources/Textures/AutocastIcons/compass.tres"
+const FALLBACK_AUTOCAST_ICON: String = "res://Resources/Textures/AbilityIcons/compass.tres"
 
 
 var _autocast: Autocast = null

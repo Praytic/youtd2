@@ -103,7 +103,7 @@ func tower_init():
 	autocast.title = "Love Potion"
 	autocast.description = get_love_potion_description()
 	autocast.description_short = get_love_potion_description_short()
-	autocast.icon = "res://Resources/Textures/AutocastIcons/love_potion.tres"
+	autocast.icon = "res://Resources/Textures/AbilityIcons/love_potion.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

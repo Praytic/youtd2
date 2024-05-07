@@ -64,7 +64,7 @@ func tower_init():
 	autocast.title = "Freezing Gust"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AutocastIcons/blue_flame.tres"
+	autocast.icon = "res://Resources/Textures/AbilityIcons/blue_flame.tres"
 	autocast.caster_art = "PolyMorphDoneGround.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

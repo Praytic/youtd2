@@ -85,7 +85,7 @@ func tower_init():
 	autocast.title = "Blizzard"
 	autocast.description = get_blizzard_description()
 	autocast.description_short = get_blizzard_description_short()
-	autocast.icon = "res://Resources/Textures/AutocastIcons/meteor_blue.tres"
+	autocast.icon = "res://Resources/Textures/AbilityIcons/meteor_blue.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

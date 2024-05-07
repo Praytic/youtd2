@@ -100,7 +100,7 @@ func tower_init():
 	autocast.title = "Unleash"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AutocastIcons/electricity.tres"
+	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

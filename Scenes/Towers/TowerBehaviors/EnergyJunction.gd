@@ -105,7 +105,7 @@ func tower_init():
 	autocast.title = "Jolt"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Textures/AutocastIcons/electricity_yellow.tres"
+	autocast.icon = "res://Resources/Textures/AbilityIcons/electricity_yellow.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
