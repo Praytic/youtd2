@@ -62,6 +62,12 @@ func get_tier_stats() -> Dictionary:
 	return {}
 
 
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
+	return list
+
+
 # Override in subclass to define the description of tower
 # abilities. String can contain rich text format(BBCode).
 # NOTE: by default all numbers in this text will be colored

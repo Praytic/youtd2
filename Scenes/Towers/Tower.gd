@@ -561,8 +561,8 @@ func _remove_target(target):
 	_target_list.erase(target)
 
 
-func _get_splash_attack_tooltip_text() -> String:
-	var text: String = "[color=GREENYELLOW]Splash attack:[/color]\n"
+func _get_splash_attack_description() -> String:
+	var text: String = ""
 
 	var splash_range_list: Array = _splash_map.keys()
 	splash_range_list.sort()
@@ -570,13 +570,15 @@ func _get_splash_attack_tooltip_text() -> String:
 	for splash_range in splash_range_list:
 		var splash_ratio: float = _splash_map[splash_range]
 		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
+		text += "[color=GOLD]%d[/color] AoE: [color=GOLD]%d%%[/color] damage\n" % [splash_range, splash_percentage]
 
 	return text
 
 
-func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "[color=GREENYELLOW]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+func _get_bounce_attack_description() -> String:
+	var bounce_dmg_percent: String = Utils.format_percent(_bounce_damage_multiplier, 0)
+	var text: String = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max \
+	+ "[color=GOLD]-%s[/color] damage per bounce\n" % bounce_dmg_percent
 
 	return text
 
@@ -848,9 +850,9 @@ func get_item_container() -> ItemContainer:
 	return _item_container
 
 
-# This function automatically generates a string for
+# This function automatically generates a description for
 # specials that tower instance defined in load_specials().
-func get_specials_tooltip_text() -> String:
+func _get_specials_description() -> String:
 	var text: String = ""
 
 	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
@@ -859,28 +861,59 @@ func get_specials_tooltip_text() -> String:
 		text += "[color=RED]Attacks GROUND only[/color]\n"
 	elif attacks_air_only:
 		text += "[color=RED]Attacks AIR only[/color]\n"
-
-	match _attack_style:
-		AttackStyle.SPLASH:
-			text += _get_splash_attack_tooltip_text()
-		AttackStyle.BOUNCE:
-			text += _get_bounce_attack_tooltip_text()
-		AttackStyle.NORMAL:
-			text += ""
 	
 	var specials_modifier: Modifier = _tower_behavior.get_specials_modifier()
 	var modifier_text: String = specials_modifier.get_tooltip_text()
-	text += modifier_text
+	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
+
+	if !modifier_text.is_empty():
+		if !text.is_empty():
+			text += " \n"
+		text += modifier_text
+
+	return text
+
+
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
+	var specials_description: String = _get_specials_description()
+	if !specials_description.is_empty():
+		var specials: AbilityInfo = AbilityInfo.new()
+		specials.name = "Specials"
+		specials.description_full = specials_description
+		specials.description_short = specials_description
+		list.append(specials)
+
+	if _attack_style == AttackStyle.SPLASH:
+		var splash_attack: AbilityInfo = AbilityInfo.new()
+		splash_attack.name = "Splash Attack"
+		splash_attack.description_full = _get_splash_attack_description()
+		splash_attack.description_short = splash_attack.description_full
+		list.append(splash_attack)
+
+	if _attack_style == AttackStyle.BOUNCE:
+		var bounce_attack: AbilityInfo = AbilityInfo.new()
+		bounce_attack.name = "Bounce Attack"
+		bounce_attack.description_full = _get_bounce_attack_description()
+		bounce_attack.description_short = bounce_attack.description_full
+		list.append(bounce_attack)
 
 #	NOTE: need to use _target_count_from_tower without
 #	adding _target_count_from_item so that item's bonus is
 #	not displayed in tower info.
 	if _target_count_from_tower > 1:
-		if !text.is_empty():
-			text += " \n"
-		text += "[b][color=GOLD]Multishot[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_from_tower
-
-	return text
+		var multishot: AbilityInfo = AbilityInfo.new()
+		multishot.name = "Multishot"
+		var multishot_tooltip: String = "Attacks up to [color=GOLD]%d[/color] targets at the same time.\n" % _target_count_from_tower
+		multishot.description_short = multishot_tooltip
+		multishot.description_full = multishot_tooltip
+		list.append(multishot)
+	
+	var extra_abilities: Array[AbilityInfo] = _tower_behavior.get_ability_info_list()
+	list.append_array(extra_abilities)
+	
+	return list
 
 
 func get_current_target() -> Unit:

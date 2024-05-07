@@ -130,15 +130,11 @@ func set_tower(tower: Tower):
 func _get_specials_text(tower: Tower) -> String:
 	var text: String = ""
 
-	var specials_text: String = tower.get_specials_tooltip_text()
-	var extra_text: String = tower.get_ability_description()
+	var abilities_text: String = RichTexts.get_abilities_text(tower)
 
-	if !specials_text.is_empty():
-		text += specials_text
-		text += " \n"
+	text += abilities_text
 
-	if !extra_text.is_empty():
-		text += extra_text
+	if !abilities_text.is_empty():
 		text += " \n"
 
 	for autocast in tower.get_autocast_list():
@@ -146,8 +142,6 @@ func _get_specials_text(tower: Tower) -> String:
 		text += autocast_text
 		text += " \n"
 	
-	text = RichTexts.add_color_to_numbers(text)
-
 	return text
 
 

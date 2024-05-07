@@ -18,51 +18,16 @@ extends TowerBehavior
 # 	}
 
 
-# func get_ability_description() -> String:
-# 	var text: String = ""
+# func get_ability_info_list() -> Array[AbilityInfo]:
+# 	var list: Array[AbilityInfo] = []
+	
+# 	var ability: AbilityInfo = AbilityInfo.new()
+# 	ability.name = "Ability Foo"
+# 	ability.description_short = "FOOBAR\n"
+# 	ability.description_full = "FOOBAR\n"
+# 	list.append(ability)
 
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-# 	text += " \n"
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-# 	text += " \n"
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-
-# 	return text
-
-
-# func get_ability_description_short() -> String:
-# 	var text: String = ""
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-
-
-# 	return text
+# 	return list
 
 
 # func get_autocast_description() -> String:

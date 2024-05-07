@@ -146,10 +146,7 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	player.add_child(tower)
 	tower.queue_free()
 
-	var specials_text: String = tower.get_specials_tooltip_text()
-	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = tower.get_ability_description_short()
-	extra_text = add_color_to_numbers(extra_text)
+	var abilities_text: String = RichTexts.get_abilities_text_short(tower)
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
@@ -160,12 +157,9 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	if mana > 0:
 		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]
 
-	if !specials_text.is_empty():
-		text += " \n[color=YELLOW]Specials:[/color]\n"
-		text += "%s\n" % specials_text
-
-	if !extra_text.is_empty():
-		text += " \n%s\n" % extra_text
+	if !abilities_text.is_empty():
+		text += " \n"
+		text += abilities_text
 
 	for autocast in tower.get_autocast_list():
 		var autocast_text: String = get_autocast_text_short(autocast)
@@ -366,6 +360,38 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	return string
 
 
+func get_abilities_text(tower: Tower) -> String:
+	var ability_info_list: Array[AbilityInfo] = tower.get_ability_info_list()
+	var ability_text_list: Array[String] = []
+
+	for ability_info in ability_info_list:
+		var description: String = ability_info.description_full
+		description = RichTexts.add_color_to_numbers(description)
+		var ability_text: String = "[color=GOLD]%s[/color]\n \n%s" % [ability_info.name, description]
+
+		ability_text_list.append(ability_text)
+
+	var abilities_text: String = " \n".join(ability_text_list)
+
+	return abilities_text
+
+
+func get_abilities_text_short(tower: Tower) -> String:
+	var ability_info_list: Array[AbilityInfo] = tower.get_ability_info_list()
+	var ability_text_list: Array[String] = []
+
+	for ability_info in ability_info_list:
+		var description: String = ability_info.description_short
+		description = RichTexts.add_color_to_numbers(description)
+		var ability_text: String = "[color=GOLD]%s[/color]\n%s" % [ability_info.name, description]
+
+		ability_text_list.append(ability_text)
+
+	var abilities_text: String = " \n".join(ability_text_list)
+
+	return abilities_text
+
+
 func get_autocast_text(autocast: Autocast) -> String:
 	var title: String = autocast.title
 	var autocast_description: String = autocast.description
@@ -374,6 +400,7 @@ func get_autocast_text(autocast: Autocast) -> String:
 
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % title
+	text += " \n"
 	text += "%s\n" % autocast_description
 	text += "%s\n" % stats_text
 
