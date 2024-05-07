@@ -35,13 +35,13 @@ const fallback_buff_icon: Texture = preload("res://Resources/Icons/GenericIcons/
 const builder_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/BuilderButton.tscn")
 const ability_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AbilityButton.tscn")
 const element_icons: Dictionary = {
-	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
-	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
-	Element.enm.ASTRAL: preload("res://Resources/Textures/UI/Icons/astral_icon.tres"),
-	Element.enm.DARKNESS: preload("res://Resources/Textures/UI/Icons/darkness_icon.tres"),
-	Element.enm.FIRE: preload("res://Resources/Textures/UI/Icons/fire_icon.tres"),
-	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
-	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
+	Element.enm.ICE: preload("res://Resources/Icons/misc5/ice_icon.tres"),
+	Element.enm.NATURE: preload("res://Resources/Icons/misc5/nature_icon.tres"),
+	Element.enm.ASTRAL: preload("res://Resources/Icons/misc5/astral_icon.tres"),
+	Element.enm.DARKNESS: preload("res://Resources/Icons/misc5/darkness_icon.tres"),
+	Element.enm.FIRE: preload("res://Resources/Icons/misc5/fire_icon.tres"),
+	Element.enm.IRON: preload("res://Resources/Icons/misc5/iron_icon.tres"),
+	Element.enm.STORM: preload("res://Resources/Icons/misc5/storm_icon.tres"),
 }
 
 

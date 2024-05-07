@@ -38,7 +38,7 @@ func tower_init():
 	autocast.title = "Fire Blast"
 	autocast.description = get_fire_blast_description()
 	autocast.description_short = get_fire_blast_description_short()
-	autocast.icon = "res://Resources/Textures/UI/Icons/fire_icon.tres"
+	autocast.icon = "res://Resources/Icons/misc5/fire_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

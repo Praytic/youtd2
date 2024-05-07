@@ -18,7 +18,7 @@ func get_research_text(element: Element.enm, player: Player) -> String:
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
 	text += "Research %s level %s\n" % [element_string, research_level]
-	text += "[img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s\n" % cost_string
+	text += "[img=32x32]res://Resources/Icons/misc5/knowledge_tome_icon.tres[/img] %s\n" % cost_string
 
 	match Globals.get_game_mode():
 		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
@@ -196,9 +196,9 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	text += "[b]%s[/b]\n" % display_name
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+		text += "[img=32x32]res://Resources/Icons/misc5/gold_icon.tres[/img] %s [img=32x32]res://Resources/Icons/misc5/knowledge_tome_icon.tres[/img] %s [img=32x32]res://Resources/Icons/misc5/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
 	else:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
+		text += "[img=32x32]res://Resources/Icons/misc5/gold_icon.tres[/img] %s [img=32x32]res://Resources/Icons/misc5/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 	
 	text += generated_tooltip_text
 	

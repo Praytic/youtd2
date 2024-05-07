@@ -13,7 +13,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Siphon Knowledge"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
+	autocast.icon = "res://Resources/Icons/misc5/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

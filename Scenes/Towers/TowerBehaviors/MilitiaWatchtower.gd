@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Hail of Axes"
-	ability.icon = "res://Resources/Textures/UI/Icons/reassemble_icon.tres"
+	ability.icon = "res://Resources/Icons/misc5/reassemble_icon.tres"
 	ability.description_short = "Attacks multiple enemies at once with a chance to miss.\n"
 	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n" \
 	+ " \n" \
