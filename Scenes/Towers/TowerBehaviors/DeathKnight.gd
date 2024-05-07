@@ -6,38 +6,30 @@ var will_negative_bt: BuffType
 var withering_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var insatiable: AbilityInfo = AbilityInfo.new()
+	insatiable.name = "Insatiable Hunger"
+	insatiable.description_short = "Deals bonus damage based on missing mana and replenishes mana when attacking.\n"
+	insatiable.description_full = "On each attack, the death knight deals 0.25% bonus damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.01% damage per mana point\n"
+	list.append(insatiable)
 
-	text += "[color=GOLD]Insatiable Hunger[/color]\n"
-	text += "On each attack, the death knight deals 0.25% bonus damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.01% damage per mana point\n"
-	text += " \n"
+	var withering: AbilityInfo = AbilityInfo.new()
+	withering.name = "Withering Presence"
+	withering.description_short = "Chance to steal health of nearby creeps.\n"
+	withering.description_full = "Whenever a unit comes in 900 range of the death knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+1% health regen reduction\n" \
+	+ "-1% experience and bounty reduction\n"
+	list.append(withering)
 
-	text += "[color=GOLD]Withering Presence[/color]\n"
-	text += "Whenever a unit comes in 900 range of the death knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+1% health regen reduction\n"
-	text += "-1% experience and bounty reduction\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Insatiable Hunger[/color]\n"
-	text += "Deals bonus damage based on missing mana and replenishes mana when attacking.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Withering Presence[/color]\n"
-	text += "Chance to steal health of nearby creeps.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

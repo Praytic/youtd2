@@ -11,47 +11,37 @@ var aura_bt: BuffType
 var lingering_flames_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var uncontrollable: AbilityInfo = AbilityInfo.new()
+	uncontrollable.name = "Uncontrollable Flames"
+	uncontrollable.description_short = "The tower attacks a random enemy in range with each attack.\n"
+	uncontrollable.description_full = "The tower attacks a random enemy in range with each attack. Enemies hit are inflicted with Lingering Flame, dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2 spell damage\n"
+	list.append(uncontrollable)
 
-	text += "[color=GOLD]Uncontrollable Flames[/color]\n"
-	text += "The tower attacks a random enemy in range with each attack. Enemies hit are inflicted with Lingering Flame, dealing 100 spell damage per second for 10 seconds. This effect stacks.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2 spell damage\n"
-	text += " \n"
+	var flames_aura: AbilityInfo = AbilityInfo.new()
+	flames_aura.name = "Flames of the Forge - Aura"
+	flames_aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby towers.\n"
+	flames_aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Fire towers in 350 range at a rate of 50%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+	list.append(flames_aura)
 
-	text += "[color=GOLD]Flames of the Forge - Aura[/color]\n"
-	text += "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Fire towers in 350 range at a rate of 50%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% stats\n"
-	text += " \n"
+	var feed: AbilityInfo = AbilityInfo.new()
+	feed.name = "Feed the Flames"
+	feed.description_short = "This tower fuels itself in various ways, restoring mana and raising maximum mana.\n"
+	feed.description_full = "This tower fuels itself in various ways. Gains 1% of maximum mana on attack. Whenever Lingering Flame deals damage, there is a 20% chance to gain 0.5% of maximum mana per stack. On kill, gains 4% of total mana and maximum mana is increased by 10.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n"
+	list.append(feed)
 
-	text += "[color=GOLD]Feed the Flames[/color]\n"
-	text += "This tower fuels itself in various ways. Gains 1% of maximum mana on attack. Whenever Lingering Flame deals damage, there is a 20% chance to gain 0.5% of maximum mana per stack. On kill, gains 4% of total mana and maximum mana is increased by 10.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Uncontrollable Flames[/color]\n"
-	text += "The tower attacks a random enemy in range with each attack.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Flames of the Forge - Aura[/color]\n"
-	text += "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby towers.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Feed the Flames[/color]\n"
-	text += "This tower fuels itself in various ways, restoring mana and raising maximum mana.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

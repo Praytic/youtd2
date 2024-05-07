@@ -17,50 +17,39 @@ var aura_bt: BuffType
 var acid_skull_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var acid_skull: AbilityInfo = AbilityInfo.new()
+	acid_skull.name = "Acid Skul"
+	acid_skull.description_short = "Chance to throw an Acid Skull onto the target and nearby units.\n"
+	acid_skull.description_full = "This tower has a 25% chance to throw an Acid Skull onto the target, dealing 1800 damage to the main target and 1440 damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+5% damage\n" \
+	+ "+0.4% chance\n"
+	list.append(acid_skull)
 
-	text += "[color=GOLD]Acid Skull[/color]\n"
-	text += "This tower has a 25% chance to throw an Acid Skull onto the target, dealing 1800 damage to the main target and 1440 damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+5% damage\n"
-	text += "+0.4% chance\n"
-	text += " \n"
+	var soulsteal: AbilityInfo = AbilityInfo.new()
+	soulsteal.name = "Soulsteal"
+	soulsteal.description_short = "Chance to lock target's soul. A unit without a soul will receive more spell damage.\n"
+	soulsteal.description_full = "This tower has a 12.5% chance to lock its target's soul. A unit without a soul will receive 50% more spell damage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.1% chance\n" \
+	+ "+2% more spell damage taken\n"
+	list.append(soulsteal)
 
-	text += "[color=GOLD]Soulsteal[/color]\n"
-	text += "This tower has a 12.5% chance to lock its target's soul. A unit without a soul will receive 50% more spell damage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1% chance\n"
-	text += "+2% more spell damage taken\n"
-	text += " \n"
+	var vaults_presence: AbilityInfo = AbilityInfo.new()
+	vaults_presence.name = "Vault's Presence - Aura"
+	vaults_presence.description_short = "Units in range have their armor reduced.\n"
+	vaults_presence.description_full = "Units in 775 range have their armor reduced by 25%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% armor reduction\n"
+	list.append(vaults_presence)
 
-	text += "[color=GOLD]Vault's Presence - Aura[/color]\n"
-	text += "Units in 775 range have their armor reduced by 25%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% armor reduction\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-
-	text += "[color=GOLD]Acid Skull[/color]\n"
-	text += "Chance to throw an Acid Skull onto the target and nearby units.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Soulsteal[/color]\n"
-	text += "Chance to lock target's soul. A unit without a soul will receive more spell damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Vault's Presence - Aura[/color]\n"
-	text += "Units in range have their armor reduced.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

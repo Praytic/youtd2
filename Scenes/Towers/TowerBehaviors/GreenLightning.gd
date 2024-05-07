@@ -13,42 +13,36 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var spell_crit: String = Utils.format_percent(_stats.spell_crit, 2)
 	var spell_crit_add: String = Utils.format_percent(_stats.spell_crit_add, 2)
 	var damage_from_mana_multiplier: String = Utils.format_float(_stats.damage_from_mana_multiplier, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var mana_feed: AbilityInfo = AbilityInfo.new()
+	mana_feed.name = "Mana Feed"
+	mana_feed.description_short = "Attacks restore mana to the tower and increase spell crit chance.\n"
+	mana_feed.description_full = "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit \
+	+ "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell crit chance\n" % spell_crit_add
+	list.append(mana_feed)
 
-	text += "[color=GOLD]Mana Feed[/color]\n"
-	text += "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit
-	text += "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell crit chance\n" % spell_crit_add
-	text += " \n"
-	text += "[color=GOLD]Lightning Burst[/color]\n"
-	text += "Grants a 12.5%% chance to deal %s times current mana as spell damage on attack.\n" % damage_from_mana_multiplier
-	text += " \n"
-	text += "Resets the bonus spell crit of 'Mana Feed'.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% chance\n"
+	var burst: AbilityInfo = AbilityInfo.new()
+	burst.name = "Lightning Burst"
+	burst.description_short = "Grants a chance to deal extra spell damage on each attack, resets spell crit bonus of Mana Feed.\n"
+	burst.description_full = "Grants a 12.5%% chance to deal %s times current mana as spell damage on attack.\n" % damage_from_mana_multiplier \
+	+ " \n" \
+	+ "Resets the bonus spell crit of 'Mana Feed'.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% chance\n"
+	list.append(burst)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Mana Feed[/color]\n"
-	text += "Attacks restore mana to the tower and increase spell crit chance.\n"
-	text += " \n"
-	text += "[color=GOLD]Lightning Burst[/color]\n"
-	text += "Grants a chance to deal extra spell damage on each attack, resets spell crit bonus of Mana Feed.\n"
-	text += " \n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

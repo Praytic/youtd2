@@ -7,49 +7,39 @@ var aura_bt: BuffType
 var wrath_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var wrath: AbilityInfo = AbilityInfo.new()
+	wrath.name = "Wrath of Ymir"
+	wrath.description_short = "Chance to deal portion of attack damage as spell damage and slow the target.\n"
+	wrath.description_full = "When Ymir damages a creep, there is a 20% chance that he deals an additional 10% of his attack damage as spell damage and slows the target by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.6% damage\n"
+	list.append(wrath)
 
-	text += "[color=GOLD]Wrath of Ymir[/color]\n"
-	text += "When Ymir damages a creep, there is a 20% chance that he deals an additional 10% of his attack damage as spell damage and slows the target by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+0.6% damage\n"
-	text += " \n"
+	var blood: AbilityInfo = AbilityInfo.new()
+	blood.name = "Blood of Ymir"
+	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from Ice towers."
+	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to Ice towers by 25%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08 seconds duration\n" \
+	+ "+0.4% vulnerability\n"
+	list.append(blood)
 
-	text += "[color=GOLD]Blood of Ymir[/color]\n"
-	text += "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to Ice towers by 25%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08 seconds duration\n"
-	text += "+0.4% vulnerability\n"
-	text += " \n"
+	var flesh: AbilityInfo = AbilityInfo.new()
+	flesh.name = "Flesh of Ymir - Aura"
+	flesh.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
+	flesh.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.6% debuff duration\n"
+	list.append(flesh)
 
-	text += "[color=GOLD]Flesh of Ymir - Aura[/color]\n"
-	text += "The ancient Flesh of Ymir grants him -25% debuff duration.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.6% debuff duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Wrath of Ymir[/color]\n"
-	text += "Chance to deal portion of attack damage as spell damage and slow the target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Blood of Ymir[/color]\n"
-	text += "Increasing vulnerability to Ice towers of creeps which come in range.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Flesh of Ymir - Aura[/color]\n"
-	text += "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

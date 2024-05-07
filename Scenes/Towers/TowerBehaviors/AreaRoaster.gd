@@ -12,30 +12,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
 	var dmg_from_fire: String = Utils.format_percent(_stats.buff_power * 0.001, 2)
 	var spell_damage: String = Utils.format_float(35 * _stats.buff_level_per_stack, 2)
 	var spell_damage_add: String = Utils.format_float(1.4 * _stats.buff_level_per_stack, 2)
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Ignite"
+	ability.description_short = "Deals damage over time.\n"
+	ability.description_full = "Units damaged by this tower receive %s more damage from fire towers and take %s spell damage every 0.5 seconds for 5 seconds. The damage over time effect stacks.\n" % [dmg_from_fire, spell_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage \n" % spell_damage_add \
+	+ "+0.05 seconds duration\n"
 
-	var text: String = ""
+	list.append(ability)
 
-	text += "[color=GOLD]Ignite[/color]\n"
-	text += "Units damaged by this tower receive %s more damage from fire towers and take %s spell damage every 0.5 seconds for 5 seconds. The damage over time effect stacks.\n" % [dmg_from_fire, spell_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage \n" % spell_damage_add
-	text += "+0.05 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ignite[/color]\n"
-	text += "Deals damage over time.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

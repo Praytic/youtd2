@@ -13,33 +13,27 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var stun_temple_duration: String = Utils.format_float(_stats.stun_temple_duration, 2)
 	var stun_knockdown_duration: String = Utils.format_float(_stats.stun_knockdown_duration, 2)
 	var hit_chance_add: String = Utils.format_percent(_stats.hit_chance_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Vicious Snow Ball"
+	ability.description_short = "Hurls snowballs at the enemies heads.\n"
+	ability.description_full = "Throws a fast snowball on attack at the target's head when it's not facing this tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n" \
+	+ " \n" \
+	+ "Temple Crusher : If it hits side-on, does 120%% of its attack damage as spell damage and a %s second stun.\n" % stun_temple_duration \
+	+ " \n" \
+	+ "Knockdown : If it hits the back of the head, does 40%% of its attack damage as spell damage and a %s second stun.\n" % stun_knockdown_duration \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance to hit\n" % hit_chance_add
+	list.append(ability)
 
-	text += "[color=GOLD]Vicious Snow Ball[/color]\n"
-	text += "Throws a fast snowball on attack at the target's head when it's not facing this tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n"
-	text += " \n"
-	text += "Temple Crusher : If it hits side-on, does 120%% of its attack damage as spell damage and a %s second stun.\n" % stun_temple_duration
-	text += " \n"
-	text += "Knockdown : If it hits the back of the head, does 40%% of its attack damage as spell damage and a %s second stun.\n" % stun_knockdown_duration
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance to hit\n" % hit_chance_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Vicious Snow Ball[/color]\n"
-	text += "Hurls snowballs at the enemies heads.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -6,33 +6,25 @@ var slow_bt: BuffType
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var overload: AbilityInfo = AbilityInfo.new()
+	overload.name = "Overload"
+	overload.description_short = "On attack this tower deals energy damage and slows. Effect is stronger for creeps far away\n"
+	overload.description_full = "On attack this tower deals [distance to the target x 12] energy damage, modified by its attack damage and slows the target for 1.5 seconds. The further away the target is, the more it will be slowed down. The maximum slow of 30% can only be reached, if the target has the maximum distance to the tower.\n"
+	list.append(overload)
 
-	text += "[color=GOLD]Overload[/color]\n"
-	text += "On attack this tower deals [distance to the target x 12] energy damage, modified by its attack damage and slows the target for 1.5 seconds. The further away the target is, the more it will be slowed down. The maximum slow of 30% can only be reached, if the target has the maximum distance to the tower.\n"
-	text += " \n"
+	var energetic_field: AbilityInfo = AbilityInfo.new()
+	energetic_field.name = "Overload"
+	energetic_field.description_short = "Units in range receive extra damage from Storm towers. Effect is stronger for creeps far away.\n"
+	energetic_field.description_full = "Units in 1000 range around this tower are dealt up to 20% bonus damage by Storm towers. The further away creeps are from tower, the more damage is dealt.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% maximum damage\n"
+	list.append(energetic_field)
 
-	text += "[color=GOLD]Energetic Field - Aura[/color]\n"
-	text += "Units in 1000 range around this tower are dealt up to 20% bonus damage by Storm towers. The further away creeps are from tower, the more damage is dealt.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% maximum damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Overload[/color]\n"
-	text += "On attack this tower deals energy damage and slows. Effect is stronger for creeps far away\n"
-	text += " \n"
-
-	text += "[color=GOLD]Energetic Field - Aura[/color]\n"
-	text += "Units in range receive extra damage from Storm towers. Effect is stronger for creeps far away.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

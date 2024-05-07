@@ -15,42 +15,33 @@ var hellfire_bt: BuffType
 var liquid_fire_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var hellfire: AbilityInfo = AbilityInfo.new()
+	hellfire.name = "Hellfire"
+	hellfire.description_short = "When the Fire Lord attacks there is a chance that it gains a multishot ability.\n"
+	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attackspeed for 7.5 seconds. Cannot retrigger!\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2 seconds duration\n" \
+	+ "+0.4% attackspeed\n" \
+	+ "+0.2% chance\n" \
+	+ "+1 target at level 15 and 25\n"
+	list.append(hellfire)
 
-	text += "[color=GOLD]Hellfire[/color]\n"
-	text += "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attackspeed for 7.5 seconds. Cannot retrigger!\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2 seconds duration\n"
-	text += "+0.4% attackspeed\n"
-	text += "+0.2% chance\n"
-	text += "+1 target at level 15 and 25\n"
-	text += " \n"
+	var liquid_fire: AbilityInfo = AbilityInfo.new()
+	liquid_fire.name = "Liquid Fire"
+	liquid_fire.description_short = "When the Fire Lord damages a creep it will be set on fire.\n"
+	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from fire towers by 10%. The liquid fire lasts 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+50 spelldamage per second " \
+	+ "+0.1 seconds duration\n" \
+	+ "+0.4% bonus damage from fire\n"
+	list.append(liquid_fire)
 
-	text += "[color=GOLD]Liquid Fire[/color]\n"
-	text += "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from fire towers by 10%. The liquid fire lasts 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+50 spelldamage per second "
-	text += "+0.1 seconds duration\n"
-	text += "+0.4% bonus damage from fire\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Hellfire[/color]\n"
-	text += "When the Fire Lord attacks there is a chance that it gains a multishot ability.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Liquid Fire[/color]\n"
-	text += "When the Fire Lord damages a creep it will be set on fire.\n"
-
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

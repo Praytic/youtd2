@@ -55,25 +55,19 @@ var data: Data
 var current_missile_mod: MissileMod
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Magic Missile"
+	ability.description_short = "Whenever this tower attacks it launches a magic missile in the target's direction.\n"
+	ability.description_full = "Whenever this tower attacks it launches a magic missile in the target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% spell damage\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Magic Missile[/color]\n"
-	text += "Whenever this tower attacks it launches a magic missile in the target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% spell damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magic Missile[/color]\n"
-	text += "Whenever this tower attacks it launches a magic missile in the target's direction.\n"
-
-	return text
+	return list
 
 
 func get_autocast_choose_description() -> String:

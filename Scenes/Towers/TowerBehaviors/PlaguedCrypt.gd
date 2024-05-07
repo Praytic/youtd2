@@ -6,40 +6,30 @@ var army_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var plague: AbilityInfo = AbilityInfo.new()
+	plague.name = "Plague"
+	plague.description_short = "When a creep is damaged by this tower it will become infected with a plague.\n"
+	plague.description_full = "When a creep is damaged by this tower it will become infected with a plague. This plague deals 750 damage per second and lasts 5 seconds. Every 1.5 seconds the plague can spread to a creep in 250 range around the infected creep. If an infected creep is infected again by the plague the duration will refresh and the damage is increased by 375.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+30 damage\n" \
+	+ "+0.2 seconds duration\n" \
+	+ "+15 damage per rebuff\n"
+	list.append(plague)
 
-	text += "[color=GOLD]Plague[/color]\n"
-	text += "When a creep is damaged by this tower it will become infected with a plague. This plague deals 750 damage per second and lasts 5 seconds. Every 1.5 seconds the plague can spread to a creep in 250 range around the infected creep. If an infected creep is infected again by the plague the duration will refresh and the damage is increased by 375.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+30 damage\n"
-	text += "+0.2 seconds duration\n"
-	text += "+15 damage per rebuff\n"
-	text += " \n"
+	var army: AbilityInfo = AbilityInfo.new()
+	army.name = "Army of the Damned"
+	army.description_short = "If there is a corpse in range, this tower will extract its soul.\n"
+	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and damage by 5% and Plague's rate of spread by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones." \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4 seconds duration\n"
+	list.append(army)
 
-	text += "[color=GOLD]Army of the Damned[/color]\n"
-	text += "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and damage by 5% and Plague's rate of spread by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones."
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4 seconds duration\n"
-	text += " \n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Plague[/color]\n"
-	text += "When a creep is damaged by this tower it will become infected with a plague.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Army of the Damned[/color]\n"
-	text += "If there is a corpse in range, this tower will extract its soul."
-	text += " \n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

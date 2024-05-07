@@ -5,25 +5,19 @@ var freezing_bt: BuffType
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Gust - Aura"
+	ability.description_short = "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
+	ability.description_full = "Towers in 800 range around the Storm Focus gain additional attackdamage equal to 50% of the bonus damage against air they have.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.8% of bonus damage against air as additional attackdamage\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Gust - Aura[/color]\n"
-	text += "Towers in 800 range around the Storm Focus gain additional attackdamage equal to 50% of the bonus damage against air they have.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.8% of bonus damage against air as additional attackdamage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Gust - Aura[/color]\n"
-	text += "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

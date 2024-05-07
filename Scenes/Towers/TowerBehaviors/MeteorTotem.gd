@@ -15,26 +15,21 @@ var torture_bt: BuffType
 var missile_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
 
-	text += "[color=GOLD]Torture[/color]\n"
-	text += "Targets damaged by this tower are debuffed for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attackdamage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.05 seconds duration\n"
-	text += "+0.1% damage as spell damage\n"
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Torture"
+	ability.description_short = "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes damage it receives additional spell damage.\n"
+	ability.description_full = "Targets damaged by this tower are debuffed for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attackdamage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.05 seconds duration\n" \
+	+ "+0.1% damage as spell damage\n"
+	list.append(ability)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Torture[/color]\n"
-	text += "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes damage it receives additional spell damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

@@ -13,34 +13,28 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var plunder_amount: String = Utils.format_float(_stats.plunder_amount, 2)
 	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var pirates: AbilityInfo = AbilityInfo.new()
+	pirates.name = "Pirates"
+	pirates.description_short = "Grants gold on attack.\n"
+	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
+	list.append(pirates)
 
-	var text: String = ""
+	var treasure: AbilityInfo = AbilityInfo.new()
+	treasure.name = "Treasure Seeker - Aura"
+	treasure.description_short = "Increases the bounty gain of nearby towers.\n"
+	treasure.description_full = "Increases the bounty gain of towers in 300 range by 10%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s bounty\n" % bounty_level_add
+	list.append(treasure)
 
-	text += "[color=GOLD]Pirates[/color]\n"
-	text += "This tower plunders %s gold each attack.\n" % plunder_amount
-	text += " \n"
-	text += "[color=GOLD]Treasure Seeker - Aura[/color]\n"
-	text += "Increases the bounty gain of towers in 300 range by 10%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s bounty\n" % bounty_level_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Pirates[/color]\n"
-	text += "Grants gold on attack.\n"
-	text += " \n"
-	text += "[color=GOLD]Treasure Seeker - Aura[/color]\n"
-	text += "Increases the bounty gain of nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -13,34 +13,25 @@ var thunder_effect: int = 0
 var thunder_is_enabled: bool = false
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var electrified_attack: AbilityInfo = AbilityInfo.new()
+	electrified_attack.name = "Electrified Attack"
+	electrified_attack.description_short = "Zeus's attacks deal additional AoE spell damage.\n"
+	electrified_attack.description_full = "Zeus's attacks deal an additional 500 spelldamage in 175 AoE around their target.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+20 spelldamage\n"
+	list.append(electrified_attack)
 
-	text += "[color=GOLD]Electrified Attack[/color]\n"
-	text += "Zeus's attacks deal an additional 500 spelldamage in 175 AoE around their target. \n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+20 spelldamage\n"
-	text += " \n"
+	var divine_hammer: AbilityInfo = AbilityInfo.new()
+	divine_hammer.name = "Divine Hammer"
+	divine_hammer.description_short = "Whenever Zeus kills a creep he restores mana.\n"
+	divine_hammer.description_full = "Whenever Zeus kills a creep he restores 5% of his maximum mana.\n"
+	list.append(divine_hammer)
 
-	text += "[color=GOLD]Divine Hammer[/color]\n"
-	text += "Whenever Zeus kills a creep he restores 5% of his maximum mana.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Electrified Attack[/color]\n"
-	text += "Zeus's attacks deal an additional AoE spell damage. \n"
-	text += " \n"
-
-	text += "[color=GOLD]Divine Hammer[/color]\n"
-	text += "Whenever Zeus kills a creep he restores some of his mana.\n"
-
-	return text
-
+	return list
 
 
 func get_autocast_description() -> String:

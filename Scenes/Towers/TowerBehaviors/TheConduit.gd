@@ -10,37 +10,29 @@ var unleash_bt: BuffType
 var chanlightning_st: SpellType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var absorb: AbilityInfo = AbilityInfo.new()
+	absorb.name = "Absorb Energy"
+	absorb.description_short = "Attacks do no damage but have a chance to absorb mana from target.\n"
+	absorb.description_full = "Attacks hit up to 10 enemies, but do no damage. There is a 10% chance per hit to gather energy, restoring 50 mana to the tower and the target will lose 50 mana if it has mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1 mana\n" \
+	+ "+0.2% chance\n"
+	list.append(absorb)
 
-	text += "[color=GOLD]Absorb Energy[/color]\n"
-	text += "Attacks hit up to 10 enemies, but do no damage. There is a 10% chance per hit to gather energy, restoring 50 mana to the tower and the target will lose 50 mana if it has mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1 mana\n"
-	text += "+0.2% chance\n"
-	text += " \n"
+	var aura: AbilityInfo = AbilityInfo.new()
+	aura.name = "Conduit - Aura"
+	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon Storm towers.\n"
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Storm towers in 350 range at a rate of 50%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+	list.append(aura)
 
-	text += "[color=GOLD]Conduit - Aura[/color]\n"
-	text += "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Storm towers in 350 range at a rate of 50%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% stats\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Absorb Energy[/color]\n"
-	text += "Attacks do no damage but have a chance to absorb mana from target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Conduit - Aura[/color]\n"
-	text += "Half of attack bonuses on this tower are applied to nearby Common and Uncommon Storm towers.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

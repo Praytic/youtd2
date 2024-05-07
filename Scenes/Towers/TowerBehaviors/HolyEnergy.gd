@@ -24,29 +24,24 @@ const GLIMMER_MOD_DEBUFF_DURATION: float = 0.15
 const GLIMMER_MOD_DEBUFF_DURATION_ADD: float = 0.002
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var glimmer_mod_debuff_duration: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION, 2)
 	var glimmer_mod_debuff_duration_add: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION_ADD, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Glimmer of Hope - Aura"
+	ability.description_short = "Reduces debuff duration of all towers in range.\n"
+	ability.description_full = "Reduces the debuff duration of all towers in %s range by %s.\n" % [aura_range, glimmer_mod_debuff_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s debuff duration reduction\n" % glimmer_mod_debuff_duration_add
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Glimmer of Hope - Aura[/color]\n"
-	text += "Reduces the debuff duration of all towers in %s range by %s.\n" % [aura_range, glimmer_mod_debuff_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s debuff duration reduction\n" % glimmer_mod_debuff_duration_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Glimmer of Hope - Aura[/color]\n"
-	text += "Reduces debuff duration of all towers in range.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

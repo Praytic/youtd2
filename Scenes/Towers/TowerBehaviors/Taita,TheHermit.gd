@@ -10,47 +10,37 @@ var icy_touch_bt: BuffType
 var frostbolt_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var frost_bolt: AbilityInfo = AbilityInfo.new()
+	frost_bolt.name = "Frost Bolt"
+	frost_bolt.description_short = "Chance to launch a frost bolt, dealing AoE damage around the target.\n"
+	frost_bolt.description_full = "On attack, this tower has a chance, equal to the percentage of movement speed the attacked unit is missing, to launch a frost bolt, dealing 20% of the tower's attack damage as elemental damage in 200 AoE around the target for each stack of icy touch the creep has. This spell deals double damage to stunned targets.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% damage per stack\n"
+	list.append(frost_bolt)
 
-	text += "[color=GOLD]Frost Bolt[/color]\n"
-	text += "On attack, this tower has a chance, equal to the percentage of movement speed the attacked unit is missing, to launch a frost bolt, dealing 20% of the tower's attack damage as elemental damage in 200 AoE around the target for each stack of icy touch the creep has. This spell deals double damage to stunned targets.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% damage per stack\n"
-	text += " \n"
+	var icy_touch: AbilityInfo = AbilityInfo.new()
+	icy_touch.name = "Icy Touch"
+	icy_touch.description_short = "Each attack slows the attacked unit.\n"
+	icy_touch.description_full = "Each attack slows the attacked unit by 10% for 5 seconds, stacking up to 6 times. This tower deals additional 10% damage for every stack of icy touch the target has.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% damage per stack\n"
+	list.append(icy_touch)
 
-	text += "[color=GOLD]Icy Touch[/color]\n"
-	text += "Each attack slows the attacked unit by 10% for 5 seconds, stacking up to 6 times. This tower deals additional 10% damage for every stack of icy touch the target has.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% damage per stack\n"
-	text += " \n"
+	var cold_blood: AbilityInfo = AbilityInfo.new()
+	cold_blood.name = "Cold Blood"
+	cold_blood.description_short = "Every time it kills a unit, this tower temporarily gains attack speed.\n"
+	cold_blood.description_full = "Every time it kills a unit, this tower gains 50% attack speed for 3 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% attack speed\n"
+	list.append(cold_blood)
 
-	text += "[color=GOLD]Cold Blood[/color]\n"
-	text += "Every time it kills a unit, this tower gains 50% attack speed for 3 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% attack speed\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frost Bolt[/color]\n"
-	text += "Chance to launch a frost bolt, dealing AoE damage around the target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Icy Touch[/color]\n"
-	text += "Each attack slows the attacked unit..\n"
-	text += " \n"
-
-	text += "[color=GOLD]Cold Blood[/color]\n"
-	text += "Every time it kills a unit, this tower temporarily gains attack speed.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

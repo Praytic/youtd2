@@ -18,7 +18,7 @@ const ALERT_MOD_DMG_ADD: float = 0.005
 const ALERT_RANGE: int = 500
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var alert_duration: String = Utils.format_float(_stats.alert_duration, 2)
 	var alert_range: String = Utils.format_float(ALERT_RANGE, 2)
 	var alert_mod_dmg: String = Utils.format_percent(ALERT_MOD_DMG, 2)
@@ -29,34 +29,28 @@ func get_ability_description() -> String:
 	var awareness_duration: String = Utils.format_float(_stats.awareness_duration, 2)
 	var armor_shred_stacks_max: String = Utils.format_float(ARMOR_SHRED_STACKS_MAX, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var alert: AbilityInfo = AbilityInfo.new()
+	alert.name = "Alert"
+	alert.description_short = "Nearby towers get alerted of trespassers.\n"
+	alert.description_full = "Towers in %s range get alerted whenever a creep of size air, champion or boss enters the sentry's attack range. They have their base damage increased by %s for %s seconds. Does not stack.\n" % [alert_range, alert_mod_dmg, alert_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s base damage bonus\n" % alert_mod_dmg_add
+	list.append(alert)
 
-	text += "[color=GOLD]Alert[/color]\n"
-	text += "Towers in %s range get alerted whenever a creep of size air, champion or boss enters the sentry's attack range. They have their base damage increased by %s for %s seconds. Does not stack.\n" % [alert_range, alert_mod_dmg, alert_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s base damage bonus\n" % alert_mod_dmg_add
-	text += " \n"
-	text += "[color=GOLD]Trespasser Awareness[/color]\n"
-	text += "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus 5%%-40%% base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s armor reduction\n" % [armor_shred_amount_add]
-	text += "+0.1%-0.8% bonus base percent damage\n"
+	var tresspasser: AbilityInfo = AbilityInfo.new()
+	tresspasser.name = "Trespasser Awareness"
+	tresspasser.description_short = "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
+	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus 5%%-40%% base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s armor reduction\n" % [armor_shred_amount_add] \
+	+ "+0.1%-0.8% bonus base percent damage\n"
+	list.append(tresspasser)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Alert[/color]\n"
-	text += "Nearby towers get alerted of trespassers.\n"
-	text += " \n"
-	text += "[color=GOLD]Trespasser Awareness[/color]\n"
-	text += "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

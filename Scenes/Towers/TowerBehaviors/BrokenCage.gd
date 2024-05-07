@@ -11,28 +11,22 @@ func get_tier_stats() -> Dictionary:
 		}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage: String = Utils.format_percent(_stats.damage, 2)
 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Banish"
+	ability.description_short = "Magic, undead and nature creeps suffer spell damage when hit by this tower.\n"
+	ability.description_full = "Magic, undead and nature creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % damage_add
+	list.append(ability)
 
-	text += "[color=GOLD]Banish[/color]\n"
-	text += "Magic, undead and nature creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage" % damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Banish[/color]\n"
-	text += "Magic, undead and nature creeps suffer spell damage when hit by this tower.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

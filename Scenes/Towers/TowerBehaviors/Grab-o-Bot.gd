@@ -5,25 +5,19 @@ var grapple_bt: BuffType
 var shock_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Grapple"
+	ability.description_short = "Chance to grab the target, holding it in place for 2.5 seconds.\n"
+	ability.description_full = "Each time the bot attacks there is an 8% chance it will grab the target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.32% chance\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Grapple[/color]\n"
-	text += "Each time the bot attacks there is an 8% chance it will grab the target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.32% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Grapple[/color]\n"
-	text += "Chance to grab the target, holding it in place for 2.5 seconds.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

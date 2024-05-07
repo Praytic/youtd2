@@ -15,38 +15,30 @@ var gatling_fire_count: int = 0
 var gatling_fire_dmg_ratio: float = 0.0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var rapid_gun: AbilityInfo = AbilityInfo.new()
+	rapid_gun.name = "Rapid Gun Fire"
+	rapid_gun.description_short = "Has a chance on attack to shoot an extra projectile.\n"
+	rapid_gun.description_full = "Has a 65% chance on attack to shoot an extra projectile. Every extra projectile can be followed up by another projectile, but the chance is reduced by 6% each time. Every extra projectile deals the same amount of damage as a normal attack and has a 10% chance to explode, dealing that damage in 200 AoE around the target. Maximum of 10 extra projectiles per attack.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.3% chance to explode\n"
+	list.append(rapid_gun)
 
-	text += "[color=GOLD]Rapid Gun Fire[/color]\n"
-	text += "Has a 65% chance on attack to shoot an extra projectile. Every extra projectile can be followed up by another projectile, but the chance is reduced by 6% each time. Every extra projectile deals the same amount of damage as a normal attack and has a 10% chance to explode, dealing that damage in 200 AoE around the target. Maximum of 10 extra projectiles per attack.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+0.3% chance to explode\n"
-	text += " \n"
+	var sentry: AbilityInfo = AbilityInfo.new()
+	sentry.name = "Sentry"
+	sentry.description_short = "This tower gains attack damage whenever a creep comes within range.\n"
+	sentry.description_full = "This tower gains 15% attackdamage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% damage\n" \
+	+ "+0.05 seconds duration\n"
+	list.append(sentry)
 
-	text += "[color=GOLD]Sentry[/color]\n"
-	text += "This tower gains 15% attackdamage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% damage\n"
-	text += "+0.05 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rapid Gun Fire[/color]\n"
-	text += "Has a chance on attack to shoot an extra projectile.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Sentry[/color]\n"
-	text += "This tower gains attack damage whenever a creep comes within range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

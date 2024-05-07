@@ -14,33 +14,27 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var trigger_chance: String = Utils.format_percent(_stats.trigger_chance, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 	var attackspeed: String = Utils.format_percent(1.5 + 0.01 * _stats.buff_level, 2)
 	var attackspeed_add: String = Utils.format_percent(0.01 * _stats.buff_level_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Rampage"
+	ability.description_short = "Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.\n"
+	ability.description_full = "Has a %s chance on attack to go into a rampage for %s seconds. While in rampage, it has +%s attackspeed, +25%% critical strike chance and +75%% critical strike damage. Cannot retrigger while in rampage!\n" % [trigger_chance, duration, attackspeed] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s sec duration\n" % duration_add \
+	+ "+%s attackspeed\n" % attackspeed_add \
+	+ "+1 multicrit at lvl 15 and 25\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Rampage[/color]\n"
-	text += "Has a %s chance on attack to go into a rampage for %s seconds. While in rampage, it has +%s attackspeed, +25%% critical strike chance and +75%% critical strike damage. Cannot retrigger while in rampage!\n" % [trigger_chance, duration, attackspeed]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s sec duration\n" % duration_add
-	text += "+%s attackspeed\n" % attackspeed_add
-	text += "+1 multicrit at lvl 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rampage[/color]\n"
-	text += "Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

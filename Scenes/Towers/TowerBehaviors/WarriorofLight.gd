@@ -20,7 +20,7 @@ const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
 const AURA_RADIUS: float = 300
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var shockwave_chance: String = Utils.format_percent(_stats.shockwave_chance, 2)
 	var shockwave_chance_add: String = Utils.format_percent(_stats.shockwave_chance_add, 2)
 	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)
@@ -30,34 +30,28 @@ func get_ability_description() -> String:
 	var mod_dmg_to_undead_add: String = Utils.format_percent(_stats.mod_dmg_to_undead_add, 2)
 	var aura_radius: String = Utils.format_float(AURA_RADIUS, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ain_soph_aur: AbilityInfo = AbilityInfo.new()
+	ain_soph_aur.name = "Ain Soph Aur"
+	ain_soph_aur.description_short = "This tower has a chance on every attack to create a shockwave of light.\n"
+	ain_soph_aur.description_full = "This tower has a %s chance on every attack to create a shockwave of light that starts at the targeted creep and travels %s units behind that creep dealing %s spell damage to all creeps in its path.\n" % [shockwave_chance, shockwave_range_from_target, shockwave_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % shockwave_chance_add \
+	+ "+%s damage\n" % shockwave_damage_add
+	list.append(ain_soph_aur)
 
-	text += "[color=GOLD]Ain Soph Aur[/color]\n"
-	text += "This tower has a %s chance on every attack to create a shockwave of light that starts at the targeted creep and travels %s units behind that creep dealing %s spell damage to all creeps in its path.\n" % [shockwave_chance, shockwave_range_from_target, shockwave_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % shockwave_chance_add
-	text += "+%s damage\n" % shockwave_damage_add
-	text += " \n"
-	text += "[color=GOLD]Aura of Light - Aura[/color]\n"
-	text += "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % mod_dmg_to_undead_add
+	var aura: AbilityInfo = AbilityInfo.new()
+	aura.name = "Aura of Light - Aura"
+	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
+	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % mod_dmg_to_undead_add
+	list.append(aura)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ain Soph Aur[/color]\n"
-	text += "This tower has a chance on every attack to create a shockwave of light.\n"
-	text += " \n"
-	text += "[color=GOLD]Aura of Light - Aura[/color]\n"
-	text += "Nearby towers deal more damage to undead creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

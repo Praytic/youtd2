@@ -15,104 +15,73 @@ var stun_bt: BuffType
 var slow_bt: BuffType
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var elemental_fury: AbilityInfo = AbilityInfo.new()
+	elemental_fury.name = "Elemental Fury"
+	elemental_fury.description_short = "Consecutive casts of the same spell will deal more damage.\n"
+	elemental_fury.description_full = "Consecutive casts of the same spell will deal 50% more damage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage\n"
+
+	var elemental_chaos_1: AbilityInfo = AbilityInfo.new()
+	elemental_chaos_1.name = "Elemental Chaos"
+	elemental_chaos_1.description_short = "Elementalist casts a random spell on attack.\n"
+	elemental_chaos_1.description_full = "Elementalist casts one of the following spells on attack:\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Fire Blast:[/color] 66% chance, 200 AoE, 190 damage\n" \
+	+ "[color=ORANGE]Frost Nova:[/color] 33% chance, 250 AoE, 125 damage, 10% slow for 3 seconds\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+7.6 damage (Fire Blast)\n" \
+	+ "+5 damage (Frost Nova)\n"
+
+	var elemental_chaos_2: AbilityInfo = AbilityInfo.new()
+	elemental_chaos_2.name = "Elemental Chaos"
+	elemental_chaos_2.description_short = "Elementalist casts a random spell on attack.\n"
+	elemental_chaos_2.description_full = ""
+
+	var elemental_chaos_3: AbilityInfo = AbilityInfo.new()
+	elemental_chaos_3.name = "Elemental Chaos"
+	elemental_chaos_3.description_short = "Elementalist casts a random spell on attack.\n"
+	elemental_chaos_3.description_full = "Elementalist casts one of the following spells on attack:\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Fire Blast:[/color] 40% chance, 250 AoE, 500 damage\n" \
+	+ "[color=ORANGE]Frost Nova:[/color] 20% chance, 250 AoE, 250 damage, 12% slow for 3 seconds\n" \
+	+ "[color=ORANGE]Aftershock:[/color] 40% chance, 750 damage, 0.5 seconds stun\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+10 damage (Fire Blast)\n" \
+	+ "+8 damage (Frost Nova)\n" \
+	+ "+0.01 seconds stun (Aftershock)\n"
+
+	var elemental_chaos_4: AbilityInfo = AbilityInfo.new()
+	elemental_chaos_4.name = "Elemental Chaos"
+	elemental_chaos_4.description_short = "Elementalist casts a random spell on attack.\n"
+	elemental_chaos_4.description_full = "Elementalist casts one of the following spells on attack:\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Fire Blast:[/color] 30% chance, 300 AoE, 3000 damage\n" \
+	+ "[color=ORANGE]Frost Nova:[/color] 20% chance, 300 AoE, 2000 damage, 15% slow for 4 seconds\n" \
+	+ "[color=ORANGE]Aftershock:[/color] 30% chance, 6000 damage, 0.7 seconds stun\n" \
+	+ "[color=ORANGE]Lightning Burst:[/color] 20% chance, 3000 damage, affects 6 random targets in 900 range\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+60 damage (Fire Blast)\n" \
+	+ "+80 damage (Frost Nova)\n" \
+	+ "+0.02 seconds stun (Aftershock)\n" \
+	+ "+60 damage (Lightning Burst)\n"
+
 	match tower.get_tier():
-		1: return get_ability_description_1()
-		2: return get_ability_description_2()
-		3: return get_ability_description_3()
-		4: return get_ability_description_4()
+		1: list.append(elemental_chaos_1)
+		2: list.append(elemental_chaos_2)
+		3: list.append(elemental_chaos_3)
+		4:
+			list.append(elemental_fury)
+			list.append(elemental_chaos_4)
 
-	return ""
-
-
-# NOTE: short description is the same for all tiers
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elemental Chaos[/color]\n"
-	text += "Elementalist casts a random spell on attack.\n"
-
-	return text
-
-
-func get_ability_description_1() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elemental Chaos[/color]\n"
-	text += "Elementalist casts one of the following spells on attack:\n"
-	text += " \n"
-	text += "[color=ORANGE]Fire Blast:[/color] 66% chance, 200 AoE, 190 damage\n"
-	text += "[color=ORANGE]Frost Nova:[/color] 33% chance, 250 AoE, 125 damage, 10% slow for 3 seconds\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+7.6 damage (Fire Blast)\n"
-	text += "+5 damage (Frost Nova)\n"
-
-	return text
-
-
-func get_ability_description_2() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elemental Chaos[/color]\n"
-	text += "Elementalist casts one of the following spells on attack:\n"
-	text += " \n"
-	text += "[color=ORANGE]Fire Blast:[/color] 40% chance, 250 AoE, 500 damage\n"
-	text += "[color=ORANGE]Frost Nova:[/color] 20% chance, 250 AoE, 250 damage, 12% slow for 3 seconds\n"
-	text += "[color=ORANGE]Aftershock:[/color] 40% chance, 750 damage, 0.5 seconds stun\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+10 damage (Fire Blast)\n"
-	text += "+8 damage (Frost Nova)\n"
-	text += "+0.01 seconds stun (Aftershock)\n"
-
-	return text
-
-
-func get_ability_description_3() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elemental Chaos[/color]\n"
-	text += "Elementalist casts one of the following spells on attack:\n"
-	text += " \n"
-	text += "[color=ORANGE]Fire Blast:[/color] 30% chance, 250 AoE, 16500 damage\n"
-	text += "[color=ORANGE]Frost Nova:[/color] 20% chance, 250 AoE, 800 damage, 14% slow for 4 seconds\n"
-	text += "[color=ORANGE]Aftershock:[/color] 30% chance, 2000 damage, 0.5 seconds stun\n"
-	text += "[color=ORANGE]Lightning Burst:[/color] 20% chance, 1650 damage, affects 5 random targets in 900 range \n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+18 damage (Fire Blast)\n"
-	text += "+10 damage (Frost Nova)\n"
-	text += "+0.01 seconds stun (Aftershock)\n"
-	text += "+30 damage (Lightning Burst)\n"
-
-	return text
-
-
-func get_ability_description_4() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elemental Fury[/color]\n"
-	text += "Consecutive casts of the same spell will deal 50% more damage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage\n"
-	text += " \n"
-	text += "[color=GOLD]Elemental Chaos[/color]\n"
-	text += "Elementalist casts one of the following spells on attack:\n"
-	text += " \n"
-	text += "[color=ORANGE]Fire Blast:[/color] 30% chance, 300 AoE, 3000 damage\n"
-	text += "[color=ORANGE]Frost Nova:[/color] 20% chance, 300 AoE, 2000 damage, 15% slow for 4 seconds\n"
-	text += "[color=ORANGE]Aftershock:[/color] 30% chance, 6000 damage, 0.7 seconds stun\n"
-	text += "[color=ORANGE]Lightning Burst:[/color] 20% chance, 3000 damage, affects 6 random targets in 900 range\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+60 damage (Fire Blast)\n"
-	text += "+80 damage (Frost Nova)\n"
-	text += "+0.02 seconds stun (Aftershock)\n"
-	text += "+60 damage (Lightning Burst)\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

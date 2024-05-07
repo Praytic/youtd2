@@ -12,48 +12,38 @@ var seconds_since_last_attack: int = 0
 var dmg_bonus_from_meld: float = 0.0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var wrath: AbilityInfo = AbilityInfo.new()
+	wrath.name = "Protectress's Wrath"
+	wrath.description_short = "Each attack has a chance to deal an extra damage to all units in range around the target. Slows all damaged units.\n"
+	wrath.description_full = "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attackspeed decreases time needed to gain a charge.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% damage\n" \
+	+ "+0.04 seconds\n"
+	list.append(wrath)
 
-	text += "[color=GOLD]Protectress's Wrath[/color]\n"
-	text += "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attackspeed decreases time needed to gain a charge.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% damage\n"
-	text += "+0.04 seconds\n"
-	text += " \n"
+	var meld: AbilityInfo = AbilityInfo.new()
+	meld.name = "Meld with the Forest"
+	meld.description_short = "The Protectress gains additional attack damage for each second she doesn't attack.\n"
+	meld.description_full = "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attackspeed decreases the time needed to gain a charge.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage per second\n"
+	list.append(meld)
 
-	text += "[color=GOLD]Meld with the Forest[/color]\n"
-	text += "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attackspeed decreases the time needed to gain a charge.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage per second\n"
-	text += " \n"
+	var strike: AbilityInfo = AbilityInfo.new()
+	strike.name = "Strike the Unprepared - Aura"
+	strike.description_short = "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
+	strike.description_full = "Increases the attack critical chance of towers in 175 range by 0.25% for each 1% hp the attacked creep has left.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.01% attack crit chance\n"
+	list.append(strike)
 
-	text += "[color=GOLD]Strike the Unprepared - Aura[/color]\n"
-	text += "Increases the attack critical chance of towers in 175 range by 0.25% for each 1% hp the attacked creep has left.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.01% attack crit chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Protectress's Wrath[/color]\n"
-	text += "Each attack has a chance to deal an extra damage to all units in range around the target. Slows all damaged units.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Meld with the Forest[/color]\n"
-	text += "The Protectress gains additional attack damage for each second she doesn't attack.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Strike the Unprepared - Aura[/color]\n"
-	text += "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

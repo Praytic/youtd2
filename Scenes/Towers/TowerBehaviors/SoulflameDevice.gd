@@ -15,45 +15,35 @@ var multiboard: MultiboardValues
 var awaken_count: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var soulfire: AbilityInfo = AbilityInfo.new()
+	soulfire.name = "Soulfire"
+	soulfire.description_short = "Chance to ignite the enemy's soul.\n"
+	soulfire.description_full = "Attacks hit up to 8 enemies in range and have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+40 spell damage\n"
+	list.append(soulfire)
 
-	text += "[color=GOLD]Soulfire[/color]\n"
-	text += "Attacks hit up to 8 enemies in range and have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks."
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+40 spell damage\n"
-	text += " \n"
+	var soul_consumption: AbilityInfo = AbilityInfo.new()
+	soul_consumption.name = "Soul Consumption"
+	soul_consumption.description_short = "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies.\n"
+	soul_consumption.description_full = "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
+	list.append(soul_consumption)
 
-	text += "[color=GOLD]Soul Consumption[/color]\n"
-	text += "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
-	text += " \n"
+	var evil_device: AbilityInfo = AbilityInfo.new()
+	evil_device.name = "Evil Device - Aura"
+	evil_device.description_short = "Increases attack stats of nearby Common and Uncommon Darkness towers.\n"
+	evil_device.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Darkness towers in 350 range at a rate of 50%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+	list.append(evil_device)
 
-	text += "[color=GOLD]Evil Device - Aura[/color]\n"
-	text += "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Darkness towers in 350 range at a rate of 50%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% stats\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soulfire[/color]\n"
-	text += "Chance to ignite the enemy's soul.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Soul Consumption[/color]\n"
-	text += "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Evil Device - Aura[/color]\n"
-	text += "Increases attack stats of nearby Common and Uncommon Darkness towers.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

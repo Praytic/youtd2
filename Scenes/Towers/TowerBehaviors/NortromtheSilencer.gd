@@ -6,56 +6,44 @@ var aura_bt: BuffType
 var glaive_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var glaive: AbilityInfo = AbilityInfo.new()
+	glaive.name = "Glaives of Wisdom"
+	glaive.description_short = "Every attack an extra glaive is shot out at the cost of mana.\n"
+	glaive.description_full = "Every attack an extra glaive is shot out at the cost of 40 mana. This glaive deals physical damage equal to Nortrom's attack damage and targets the creep with the least health in Nortrom's attack range.\n"
+	list.append(glaive)
 
-	text += "[color=GOLD]Glaives of Wisdom[/color]\n"
-	text += "Every attack an extra glaive is shot out at the cost of 40 mana. This glaive deals physical damage equal to Nortrom's attack damage and targets the creep with the least health in Nortrom's attack range.\n"
-	text += " \n"
+	var last_word: AbilityInfo = AbilityInfo.new()
+	last_word.name = "Last Word"
+	last_word.description_short = "Nortrom deals more damage to silenced creeps.\n"
+	last_word.description_full = "If Nortrom attacks a silenced creep, then he does 20% more damage. This affects Glaives of Wisdom as well.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+3.2% damage\n"
+	list.append(last_word)
 
-	text += "[color=GOLD]Last Word[/color]\n"
-	text += "If Nortrom attacks a silenced creep, then he does 20% more damage. This affects Glaives of Wisdom as well.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+3.2% damage\n"
-	text += " \n"
+	var curse: AbilityInfo = AbilityInfo.new()
+	curse.name = "Curse of the Silent"
+	curse.description_short = "Creeps in range of Nortrom are periodically silenced.\n"
+	curse.description_full = "Every 7 seconds creeps within 800 range of Nortrom are silenced for 2 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.04 silence duration\n"
+	list.append(curse)
 
-	text += "[color=GOLD]Curse of the Silent[/color]\n"
-	text += "Every 7 seconds creeps within 800 range of Nortrom are silenced for 2 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.04 silence duration\n"
-	text += " \n"
+	var global_silence: AbilityInfo = AbilityInfo.new()
+	global_silence.name = "Global Silence - Aura"
+	global_silence.description_short = "Nearby towers have a small chance to silence creeps.\n"
+	global_silence.description_full = "All towers within 350 range of Nortrom have a 3% attackspeed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% chance\n" \
+	+ "+0.04 silence duration\n"
+	list.append(global_silence)
 
-	text += "[color=GOLD]Global Silence - Aura[/color]\n"
-	text += "All towers within 350 range of Nortrom have a 3% attackspeed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08% chance\n"
-	text += "+0.04 silence duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Glaives of Wisdom[/color]\n"
-	text += "Every attack an extra glaive is shot out at the cost of mana.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Last Word[/color]\n"
-	text += "Nortrom deals more damage to silenced creeps.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Curse of the Silent[/color]\n"
-	text += "Creeps in range of Nortrom are periodically silenced.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Global Silence - Aura[/color]\n"
-	text += "Nearby towers have a small chance to silence creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

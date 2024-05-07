@@ -19,7 +19,7 @@ const CURSED_DURATION_ADD: float = 0.1
 const AURA_RANGE: float = 350
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var cursed_attack_chance: String = Utils.format_percent(CURSED_ATTACK_CHANCE, 2)
 	var cursed_attack_chance_add: String = Utils.format_percent(CURSED_ATTACK_CHANCE_ADD, 2)
 	var cursed_attack_damage: String = Utils.format_float(_stats.cursed_attack_damage, 2)
@@ -32,35 +32,29 @@ func get_ability_description() -> String:
 	var aura_effect_value_add: String = Utils.format_percent(_stats.aura_effect_value_add, 2)
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var cursed_attack: AbilityInfo = AbilityInfo.new()
+	cursed_attack.name = "Cursed Attack"
+	cursed_attack.description_short = "This tower has a chance on damage to deal additional spell damage and weaken the target, reducing its movement speed and making it suffer more damage from spells.\n"
+	cursed_attack.description_full = "This tower has a %s chance on damage to deal %s additional spell damage and weaken the target for %s seconds, reducing its movement speed by %s and make it suffer %s more damage from spells.\n" % [cursed_attack_chance, cursed_attack_damage, cursed_duration, mod_movespeed, mod_spell_dmg_received] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % cursed_attack_chance_add \
+	+ "+%s spell damage\n" % cursed_attack_damage_add \
+	+ "+%s sec slow duration\n" % cursed_duration_add
+	list.append(cursed_attack)
 
-	text += "[color=GOLD]Cursed Attack[/color]\n"
-	text += "This tower has a %s chance on damage to deal %s additional spell damage and weaken the target for %s seconds, reducing its movement speed by %s and make it suffer %s more damage from spells.\n" % [cursed_attack_chance, cursed_attack_damage, cursed_duration, mod_movespeed, mod_spell_dmg_received]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % cursed_attack_chance_add
-	text += "+%s spell damage\n" % cursed_attack_damage_add
-	text += "+%s sec slow duration\n" % cursed_duration_add
-	text += " \n"
-	text += "[color=GOLD]Mortal Coil - Aura[/color]\n"
-	text += "Grants %s bonus damage against human, orc and nature creeps to all towers within %s range.\n" % [aura_effect_value, aura_range]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % aura_effect_value_add
+	var mortal_coil: AbilityInfo = AbilityInfo.new()
+	mortal_coil.name = "Mortal Coil - Aura"
+	mortal_coil.description_short = "Grants bonus damage against human, orc and nature creeps to nearby towers.\n"
+	mortal_coil.description_full = "Grants %s bonus damage against human, orc and nature creeps to all towers within %s range.\n" % [aura_effect_value, aura_range] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % aura_effect_value_add
+	list.append(mortal_coil)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cursed Attack[/color]\n"
-	text += "This tower has a chance on damage to deal additional spell damage and weaken the target, reducing its movement speed and making it suffer more damage from spells.\n"
-	text += " \n"
-	text += "[color=GOLD]Mortal Coil - Aura[/color]\n"
-	text += "Grants bonus damage against human, orc and nature creeps to nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

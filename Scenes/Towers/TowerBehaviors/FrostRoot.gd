@@ -12,28 +12,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Frozen Thorn"
+	ability.description_short = "Has a chance to deal additional spell damage each time it deals damage.\n"
+	ability.description_full = "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % damage_add
+	list.append(ability)
 
-	text += "[color=GOLD]Frozen Thorn[/color]\n"
-	text += "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage" % damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frozen Thorn[/color]\n"
-	text += "Has a chance to deal additional spell damage each time it deals damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

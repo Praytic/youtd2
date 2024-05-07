@@ -5,28 +5,22 @@ var slow_bt: BuffType
 var stun_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Freezing Breath"
+	ability.description_short = "Chance to slow or stun damaged creeps.\n"
+	ability.description_full = "Each creep damaged by this tower's attacks has a 25% chance to get slowed by 27% for 4 seconds and a 5% chance to get stunned for 1.5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% chance to slow\n" \
+	+ "+0.2% chance to stun\n" \
+	+ "+0.2% slow\n" \
+	+ "+0.24s slow duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Freezing Breath[/color]\n"
-	text += "Each creep damaged by this tower's attacks has a 25% chance to get slowed by 27% for 4 seconds and a 5% chance to get stunned for 1.5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% chance to slow\n"
-	text += "+0.2% chance to stun\n"
-	text += "+0.2% slow\n"
-	text += "+0.24s slow duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Freezing Breath[/color]\n"
-	text += "Chance to slow or stun damaged creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

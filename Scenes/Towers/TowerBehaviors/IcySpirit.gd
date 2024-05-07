@@ -17,31 +17,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var nova_dmg: String = Utils.format_float(_stats.nova_dmg, 2)
 	var nova_dmg_add: String = Utils.format_float(_stats.nova_dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Nova Storm"
+	ability.description_short = "When this tower attacks there is a chance to blast nearby creeps with ice novas.\n"
+	ability.description_full = "When this tower attacks there is a 25%% chance to hit 3 creeps in 900 range around it with ice novas. A nova hits all creeps in 200 AoE dealing %s spelldamage at the centre, dropping off to 50%% at the sides. Also slows by 12.5%% for 4 seconds.\n" % nova_dmg \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spelldamage\n" % nova_dmg_add \
+	+ "+0.5% chance\n" \
+	+ "+0.5% slow \n" \
+	+ "+1 nova at lvl 15 and 25\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Nova Storm[/color]\n"
-	text += "When this tower attacks there is a 25%% chance to hit 3 creeps in 900 range around it with ice novas. A nova hits all creeps in 200 AoE dealing %s spelldamage at the centre, dropping off to 50%% at the sides. Also slows by 12.5%% for 4 seconds.\n" % nova_dmg
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spelldamage\n" % nova_dmg_add
-	text += "+0.5% chance\n"
-	text += "+0.5% slow \n"
-	text += "+1 nova at lvl 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Nova Storm[/color]\n"
-	text += "When this tower attacks there is a chance to blast nearby creeps with ice novas.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

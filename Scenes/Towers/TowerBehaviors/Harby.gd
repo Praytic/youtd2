@@ -7,45 +7,35 @@ var missile_pt: ProjectileType
 var is_awake: bool = false
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var arcane_orb: AbilityInfo = AbilityInfo.new()
+	arcane_orb.name = "Arcane Orb"
+	arcane_orb.description_short = "Infuses Harby's attacks with arcane energy at the cost of mana.\n"
+	arcane_orb.description_full = "Infuses Harby's attacks with arcane energy at the cost of 100 mana per attack. Deals [color=GOLD][6 x Current Mana][/color] as bonus spelldamage. This ability also passively grants 1 bonus maximum mana for each creep Harby kills.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "[color=GOLD]+[0.1 x Current Mana][/color] as bonus spelldamage\n"
+	list.append(arcane_orb)
+	
+	var awakening: AbilityInfo = AbilityInfo.new()
+	awakening.name = "Grotesque Awakening"
+	awakening.description_short = "Whenever hit by a spell, the statue comes to life.\n"
+	awakening.description_full = "Whenever hit by a spell, the statue comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
+	list.append(awakening)
 
-	text += "[color=GOLD]Arcane Orb[/color]\n"
-	text += "Infuses Harby's attacks with arcane energy at the cost of 100 mana per attack. Deals [color=GOLD][6 x Current Mana][/color] as bonus spelldamage. This ability also passively grants 1 bonus maximum mana for each creep Harby kills.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "[color=GOLD]+[0.1 x Current Mana][/color] as bonus spelldamage\n"
-	text += " \n"
+	var arcane_aura: AbilityInfo = AbilityInfo.new()
+	arcane_aura.name = "Arcane Aura - Aura"
+	arcane_aura.description_short = "Towers in range have a chance to replenish their mana.\n"
+	arcane_aura.description_full = "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's Arcane Orb attacks, without the retrigger restriction.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.2% maximum mana replenished\n"
+	list.append(arcane_aura)
 
-	text += "[color=GOLD]Grotesque Awakening[/color]\n"
-	text += "Whenever hit by a spell, the statue comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Arcane Aura - Aura[/color]\n"
-	text += "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's Arcane Orb attacks, without the retrigger restriction.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+0.2% maximum mana replenished\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Arcane Orb[/color]\n"
-	text += "Infuses Harby's attacks with arcane energy at the cost of mana.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Grotesque Awakening[/color]\n"
-	text += "Whenever hit by a spell, the statue comes to life.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Arcane Aura - Aura[/color]\n"
-	text += "Towers in range have a chance to replenish their mana.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

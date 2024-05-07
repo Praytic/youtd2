@@ -12,28 +12,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var slow_amount: String = Utils.format_percent(_stats.slow_power * 10 * 0.001, 2)
 	var slow_amount_add: String = Utils.format_percent(_stats.slow_power_add * 10 * 0.001, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Absolute Zero"
+	ability.description_short = "Creeps hit by this tower are slowed.\n"
+	ability.description_full = "The Obelisk slows creeps it damages by %s for 4 seconds.\n" % slow_amount \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s slow\n" % slow_amount_add
+	list.append(ability)
 
-	text += "[color=ORANGE]Absolute Zero[/color]\n"
-	text += "The Obelisk slows creeps it damages by %s for 4 seconds.\n" % slow_amount
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s slow\n" % slow_amount_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=ORANGE]Absolute Zero[/color]\n"
-	text += "Creeps hit by this tower are slowed."
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

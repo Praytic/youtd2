@@ -14,29 +14,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var bonus_crit: String = Utils.format_percent((0.15 + _stats.power * 0.001), 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Hot Coals"
+	ability.description_short = "Gains increased crit chance on kill.\n"
+	ability.description_full = "Whenever this tower kills a creep it gains %s bonus crit chance for %s seconds.\n" % [bonus_crit, duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.05 sec duration\n" \
+	+ "+0.3% crit chance\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Hot Coals[/color]\n"
-	text += "Whenever this tower kills a creep it gains %s bonus crit chance for %s seconds.\n" % [bonus_crit, duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.05 sec duration\n"
-	text += "+0.3% crit chance"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Hot Coals[/color]\n"
-	text += "Gains increased crit chance on kill.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -6,43 +6,35 @@ var demonic_fire_bt: BuffType
 var shamanic_totem_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var shamanic_totem: AbilityInfo = AbilityInfo.new()
+	shamanic_totem.name = "Shamanic Totem"
+	shamanic_totem.description_short = "Upon casting Demonic Fire there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
+	shamanic_totem.description_full = "Upon casting Demonic Fire there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% spell damage\n" \
+	+ "+0.3% max mana\n" \
+	+ "+0.2 seconds duration\n" \
+	+ "+0.4% trigger chance\n"
+	list.append(shamanic_totem)
 
-	text += "[color=GOLD]Shamanic Totem[/color]\n"
-	text += "Upon casting Demonic Fire there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% spell damage\n"
-	text += "+0.3% max mana\n"
-	text += "+0.2 seconds duration\n"
-	text += "+0.4% trigger chance\n"
-	text += " \n"
+	var fighter_totem: AbilityInfo = AbilityInfo.new()
+	fighter_totem.name = "Fighter Totem"
+	fighter_totem.description_short = "On attack there is a chance to buff towers in range, increasing their damage dealt, crit chance and crit damage.\n"
+	fighter_totem.description_full = "On attack there is a 15% chance to buff towers in 500 range, increasing their damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% damage\n" \
+	+ "+0.2% crit chance\n" \
+	+ "+2% crit damage\n" \
+	+ "+0.2 seconds duration\n" \
+	+ "+0.2% trigger chance\n"
+	list.append(fighter_totem)
 
-	text += "[color=GOLD]Fighter Totem[/color]\n"
-	text += "On attack there is a 15% chance to buff towers in 500 range, increasing their damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% damage\n"
-	text += "+0.2% crit chance\n"
-	text += "+2% crit damage\n"
-	text += "+0.2 seconds duration\n"
-	text += "+0.2% trigger chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Shamanic Totem[/color]\n"
-	text += "Upon casting Demonic Fire there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Fighter Totem[/color]\n"
-	text += "On attack there is a chance to buff towers in range, increasing their damage dealt, crit chance and crit damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

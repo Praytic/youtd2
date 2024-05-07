@@ -15,29 +15,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var exp_bonus: String = Utils.format_percent(_stats.exp_bonus, 2)
 	var exp_bonus_add: String = Utils.format_percent(_stats.exp_bonus_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Illuminate"
+	ability.description_short = "Attacks make the target grant more experience once killed.\n"
+	ability.description_full = "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s experience\n" % exp_bonus_add \
+	+ "+0.2 seconds\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Illuminate[/color]\n"
-	text += "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s experience\n" % exp_bonus_add
-	text += "+0.2 seconds"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Illuminate[/color]\n"
-	text += "Attacks make the target grant more experience once killed."
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

@@ -6,47 +6,37 @@ var multiboard: MultiboardValues
 var storm_power: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var strong_wind: AbilityInfo = AbilityInfo.new()
+	strong_wind.name = "Strong Wind"
+	strong_wind.description_short = "All creeps in range are affected by Strong Winds. Creeps are slowed and will receive periodic damage.\n"
+	strong_wind.description_full = "All creeps in 900 range are affected by Strong Winds. Every second a creep is under this effect, it loses 3% of its movespeed and it is dealt 10% of towers attack damage for every 1% of movespeed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% slow\n" \
+	+ "+5 damage per 1% slow\n"
+	list.append(strong_wind)
 
-	text += "[color=GOLD]Strong Wind[/color]\n"
-	text += "All creeps in 900 range are affected by Strong Winds. Every second a creep is under this effect, it loses 3% of its movespeed and it is dealt 10% of towers attack damage for every 1% of movespeed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08% slow\n"
-	text += "+5 damage per 1% slow\n"
-	text += " \n"
+	var chaining_storm: AbilityInfo = AbilityInfo.new()
+	chaining_storm.name = "Chaining Storm"
+	chaining_storm.description_short = "Chance to cast a Chaining Storm at the position of the attacked creep. All creeps in range of the Chaining Storm suffer spelldamage.\n"
+	chaining_storm.description_full = "Whenever this tower attacks, it has a 25% chance to cast a Chaining Storm at the position of the attacked creep for the cost of 100 mana. All creeps in 350 range of the Chaining Storm suffer 200 spelldamage multiplied by the number of creeps hit. They are also weakened to receive 2% more damage from Storm, Ice and Astral Towers for each hitted creep. All effects of this chaining_storm are doubled and a 25% higher spell critical chance is applied whenever the main target hit is an air unit.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1.25% trigger chance\n" \
+	+ "+65 damage\n" \
+	+ "+0.12% received damage\n"
+	list.append(chaining_storm)
 
-	text += "[color=GOLD]Chaining Storm[/color]\n"
-	text += "Whenever this tower attacks, it has a 25% chance to cast a Chaining Storm at the position of the attacked creep for the cost of 100 mana. All creeps in 350 range of the Chaining Storm suffer 200 spelldamage multiplied by the number of creeps hit. They are also weakened to receive 2% more damage from Storm, Ice and Astral Towers for each hitted creep. All effects of this ability are doubled and a 25% higher spell critical chance is applied whenever the main target hit is an air unit.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1.25% trigger chance\n"
-	text += "+65 damage\n"
-	text += "+0.12% received damage\n"
-	text += " \n"
+	var storm_power_ability: AbilityInfo = AbilityInfo.new()
+	storm_power_ability.name = "Storm Power - Aura"
+	storm_power_ability.description_short = "If a creep dies while under the effect of Strong Wind its living energy is converted into mana and boosts this tower's abilities.\n"
+	storm_power_ability.description_full = "If a creep dies while under the effect of Strong Wind its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for Chaining Storm by +0.02% (maximum total triggerchance for Chaining Storm is 75%) and also increase the damage dealt with Strong Winds by 0.05 damage per 1% slow.\n"
+	list.append(storm_power_ability)
 
-	text += "[color=GOLD]Storm Power - Aura[/color]\n"
-	text += "If a creep dies while under the effect of Strong Wind its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for Chaining Storm by +0.02% (maximum total triggerchance for Chaining Storm is 75%) and also increase the damage dealt with Strong Winds by 0.05 damage per 1% slow.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Strong Wind[/color]\n"
-	text += "All creeps in range are affected by Strong Winds. Creeps are slowed and will receive periodic damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Chaining Storm[/color]\n"
-	text += "Chance to cast a Chaining Storm at the position of the attacked creep. All creeps in range of the Chaining Storm suffer spelldamage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Storm Power - Aura[/color]\n"
-	text += "If a creep dies while under the effect of Strong Wind its living energy is converted into mana and boosts this tower's abilities.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

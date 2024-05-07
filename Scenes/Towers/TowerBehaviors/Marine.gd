@@ -21,7 +21,7 @@ const GRENADE_MOD_DMG_RECEIVED_ADD: float = 0.001
 const GRENADE_MOD_DMG_RECEIVED_MAX: float = 0.50
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var grenade_chance: String = Utils.format_percent(_stats.grenade_chance, 2)
 	var grenade_chance_add: String = Utils.format_percent(_stats.grenade_chance_add, 2)
 	var grenade_count: String = Utils.format_float(_stats.grenade_count, 2)
@@ -31,26 +31,20 @@ func get_ability_description() -> String:
 	var grenade_mod_dmg_received_add: String = Utils.format_percent(GRENADE_MOD_DMG_RECEIVED_ADD, 2)
 	var grenade_mod_dmg_received_max: String = Utils.format_percent(GRENADE_MOD_DMG_RECEIVED_MAX, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Frag Grenade"
+	ability.description_short = "When this tower damages a creep it has a chance to fire a frag grenade.\n"
+	ability.description_full = "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spelldamage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % grenade_chance_add \
+	+ "+%s damage\n" % grenade_damage_add \
+	+ "+%s damage increase\n" % grenade_mod_dmg_received_add
+	list.append(ability)
 
-	text += "[color=GOLD]Frag Grenade[/color]\n"
-	text += "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spelldamage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % grenade_chance_add
-	text += "+%s damage\n" % grenade_damage_add
-	text += "+%s damage increase\n" % grenade_mod_dmg_received_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frag Grenade[/color]\n"
-	text += "When this tower damages a creep it has a chance to fire a frag grenade.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

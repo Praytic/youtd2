@@ -13,32 +13,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var catch_chance: String = Utils.format_percent(_stats.catch_chance, 2)
 	var cyclone_duration: String = Utils.format_float(_stats.cyclone_duration, 2)
 	var cyclone_damage: String = Utils.format_float(_stats.cyclone_damage, 2)
 	var cyclone_damage_add: String = Utils.format_float(_stats.cyclone_damage_add, 2)
 	var catch_chance_add: String = Utils.format_percent(_stats.catch_chance_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Wind of Death"
+	ability.description_short = "Chance to catch a non-boss creep in a cyclone and cause physical damage to nearby creeps.\n"
+	ability.description_full = "On attack this tower has a %s chance to catch a ground, non-boss unit in a cyclone for %s seconds, dealing %s physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25%% more damage.\n" % [catch_chance, cyclone_duration, cyclone_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % cyclone_damage_add \
+	+ "+%s chance to catch\n" % catch_chance_add
+	list.append(ability)
 
-	text += "[color=GOLD]Wind of Death[/color]\n"
-	text += "On attack this tower has a %s chance to catch a ground, non-boss unit in a cyclone for %s seconds, dealing %s physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25%% more damage.\n" % [catch_chance, cyclone_duration, cyclone_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % cyclone_damage_add
-	text += "+%s chance to catch" % catch_chance_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Wind of Death[/color]\n"
-	text += "Chance to catch a non-boss creep in a cyclone and cause physical damage to nearby creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

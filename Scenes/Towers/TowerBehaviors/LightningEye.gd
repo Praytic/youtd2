@@ -5,36 +5,28 @@ var aura_bt: BuffType
 var forklight_st: SpellType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var glare: AbilityInfo = AbilityInfo.new()
+	glare.name = "Glare"
+	glare.description_short = "The Eye launches a forked lightning on every attack.\n"
+	glare.description_full = "The Eye launches a forked lightning on every attack at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+120 spell damage\n"
+	list.append(glare)
 
-	text += "[color=GOLD]Glare[/color]\n"
-	text += "The Eye launches a forked lightning on every attack at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+120 spell damage\n"
-	text += " \n"
+	var static_field: AbilityInfo = AbilityInfo.new()
+	static_field.name = "Static Field - Aura"
+	static_field.description_short = "Towers in range have their damage increased when attacking immune creeps.\n"
+	static_field.description_full = "Towers within 350 range of this tower have their damage increased by 20% when attacking immune creeps.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage\n"
+	list.append(static_field)
 
-	text += "[color=GOLD]Static Field - Aura[/color]\n"
-	text += "Towers within 350 range of this tower have their damage increased by 20% when attacking immune creeps.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Glare[/color]\n"
-	text += "The Eye launches a forked lightning on every attack.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Static Field - Aura[/color]\n"
-	text += "Towers in range have their damage increased when attacking immune creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

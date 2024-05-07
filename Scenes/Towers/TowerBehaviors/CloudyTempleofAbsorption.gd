@@ -32,25 +32,20 @@ const storm_mana_reduction_values: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 130,
 }
 
-func get_ability_description() -> String:
-	var text: String = ""
 
-	text += "[color=GOLD]Cloud of Absorption - Aura[/color]\n"
-	text += "Creates a lightning ball if a creep in 1000 range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.05 mana per absorbed damage\n"
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Cloud of Absorption - Aura"
+	ability.description_short = "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
+	ability.description_full = "Creates a lightning ball if a creep in 1000 range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.05 mana per absorbed damage\n"
+	list.append(ability)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cloud of Absorption - Aura[/color]\n"
-	text += "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description_for_cloudy_thunderstorm() -> String:

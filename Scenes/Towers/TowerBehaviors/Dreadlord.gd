@@ -13,33 +13,25 @@ var awakening_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var dreadlord_slash: AbilityInfo = AbilityInfo.new()
+	dreadlord_slash.name = "Dreadlord Slash"
+	dreadlord_slash.description_short = "Dreadlord deals extra damage based on current mana.\n"
+	dreadlord_slash.description_full = "Dreadlord deals 100% of his max mana in spell damage on attack. Costs 80 mana on each attack.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+4% spell damage\n"
+	list.append(dreadlord_slash)
 
-	text += "[color=GOLD]Dreadlord Slash[/color]\n"
-	text += "Dreadlord deals 100% of his max mana in spell damage on attack. Costs 80 mana on each attack.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+4% spell damag\n"
-	text += " \n"
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Bloodsucker"
+	ability.description_short = "Dreadlord gains extra power with every kill.\n"
+	ability.description_full = "The Dreadlord is hungry. For every kill he gains 0.5% attack speed and 10 maximum mana. The mana bonus caps at 2000. Both bonuses are permanent.\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Bloodsucker[/color]\n"
-	text += "The Dreadlord is hungry. For every kill he gains 0.5% attack speed and 10 maximum mana. The mana bonus caps at 2000. Both bonuses are permanent.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Dreadlord Slash[/color]\n"
-	text += "Dreadlord deals extra damage based on current mana.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Bloodsucker[/color]\n"
-	text += "Dreadlord gains extra power with every kill.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

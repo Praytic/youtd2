@@ -14,30 +14,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Energetic Weapon"
+	ability.description_short = "The Accelerator attacks with energetic missiles, which deal AoE damage scaled with tower's current mana. Additionally, the missile slows hit creeps.\n"
+	ability.description_full = "The Accelerator attacks with energetic missiles, which deal %s plus 3 times the current mana as spell damage to all units in 250 range of the missile. Additionally, the missile slows all units by 1%% for each 4000 damage it deals to a creep for 1.5 seconds. Cannot slow by more than 20%%. Each attack consumes 20%% of this tower's current mana.\n" % projectile_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % projectile_damage_add \
+	+ "+5% mana converted to damage\n" \
+	+ "+0.04 seconds slow duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Energetic Weapon[/color]\n"
-	text += "The Accelerator attacks with energetic missiles, which deal %s plus 3 times the current mana as spell damage to all units in 250 range of the missile. Additionally, the missile slows all units by 1%% for each 4000 damage it deals to a creep for 1.5 seconds. Cannot slow by more than 20%%. Each attack consumes 20%% of this tower's current mana.\n" % projectile_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % projectile_damage_add
-	text += "+5% mana converted to damage\n"
-	text += "+0.04 seconds slow duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Energetic Weapon[/color]\n"
-	text += "The Accelerator attacks with energetic missiles, which deal AoE damage scaled with tower's current mana. Additionally, the missile slows hit creeps.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

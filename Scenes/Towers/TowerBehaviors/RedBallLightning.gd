@@ -17,7 +17,7 @@ const SHOCK_CRIT_CHANCE: float = 0.10
 const SHOCK_CRIT_DAMAGE: float = 0.60
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var shock_chance: String = Utils.format_percent(SHOCK_CHANCE, 2)
 	var shock_chance_add: String = Utils.format_percent(SHOCK_CHANCE_ADD, 2)
@@ -28,34 +28,28 @@ func get_ability_description() -> String:
 	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var lightning_shock: AbilityInfo = AbilityInfo.new()
+	lightning_shock.name = "Lightning Shock"
+	lightning_shock.description_short = "This tower has a chance to release a lightning shock when attacking.\n"
+	lightning_shock.description_full = "This tower has a %s chance to deal %s spell damage to its target, whenever it deals damage. This ability has a %s bonus chance to crit with %s bonus damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % shock_chance_add \
+	+ "+%s damage\n" % shock_damage_add
+	list.append(lightning_shock)
 
-	text += "[color=GOLD]Lightning Shock[/color]\n"
-	text += "This tower has a %s chance to deal %s spell damage to its target, whenever it deals damage. This ability has a %s bonus chance to crit with %s bonus damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % shock_chance_add
-	text += "+%s damage\n" % shock_damage_add
-	text += " \n"
-	text += "[color=GOLD]Lightning Charge - Aura[/color]\n"
-	text += "Towers in %s range have their spell damage increased by %s.\n" % [aura_range, mod_spell_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % mod_spell_damage_add
+	var lightning_charge: AbilityInfo = AbilityInfo.new()
+	lightning_charge.name = "Lightning Charge - Aura"
+	lightning_charge.description_short = "Increases spell damage of nearby towers.\n"
+	lightning_charge.description_full = "Towers in %s range have their spell damage increased by %s.\n" % [aura_range, mod_spell_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % mod_spell_damage_add
+	list.append(lightning_charge)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Lightning Shock[/color]\n"
-	text += "This tower has a chance to release a lightning shock when attacking.\n"
-	text += " \n"
-	text += "[color=GOLD]Lightning Charge - Aura[/color]\n"
-	text += "Increases spell damage of nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

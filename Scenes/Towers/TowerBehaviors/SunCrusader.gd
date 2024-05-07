@@ -23,32 +23,26 @@ const FOR_THE_GOD_DURATION: float = 8.0
 const FOR_THE_GOD_DURATION_ADD: float = 0.1
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var blessed_weapon_chance: String = Utils.format_percent(BLESSED_WEAPON_CHANCE, 2)
 	var blessed_weapon_mana_gain: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN, 2)
 	var blessed_weapon_mana_gain_add: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN_ADD, 2)
 	var blessed_weapon_damage: String = Utils.format_float(_stats.blessed_weapon_damage, 2)
 	var blessed_weapon_damage_add: String = Utils.format_float(BLESSED_WEAPON_DAMAGE_ADD, 2)
 	
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Blessed Weapon"
+	ability.description_short = "Everytime this tower damages a creep it has a chance to deal spelldamage and gain mana.\n"
+	ability.description_full = "Everytime this tower damages a creep it has a %s chance to deal %s spelldamage and gain %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % blessed_weapon_damage_add \
+	+ "+%s mana regeneration\n" % blessed_weapon_mana_gain_add
+	list.append(ability)
 
-	text += "[color=GOLD]Blessed Weapon[/color]\n"
-	text += "Everytime this tower damages a creep it has a %s chance to deal %s spelldamage and gain %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % blessed_weapon_damage_add
-	text += "+%s mana regeneration\n" % blessed_weapon_mana_gain_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Blessed Weapon[/color]\n"
-	text += "Everytime this tower damages a creep it has a chance to deal spelldamage and gain mana.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

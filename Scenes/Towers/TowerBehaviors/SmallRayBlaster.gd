@@ -14,31 +14,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var value: String = Utils.format_percent(_stats.value * 0.01 * 0.01, 2)
 	var value_add: String = Utils.format_percent(_stats.value_add * 0.01 * 0.01, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Phaze"
+	ability.description_short = "Increases target creep's item drop quality and item drop chance.\n"
+	ability.description_full = "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds.\n" % [value, duration] \
+	+ " \n"\
+	+ "[color=ORANGE]Level Bonus:[/color]\n"\
+	+ "+%s item drop quality\n" % value_add\
+	+ "+%s item drop chance\n" % value_add\
+	+ "+0.1 seconds"
+	list.append(ability)
 
-	text += "[color=GOLD]Phaze[/color]\n"
-	text += "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds. \n" % [value, duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s item drop quality\n" % value_add
-	text += "+%s item drop chance\n" % value_add
-	text += "+0.1 seconds" 
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Phaze[/color]\n"
-	text += "Increases target creep's item drop quality and item drop chance.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

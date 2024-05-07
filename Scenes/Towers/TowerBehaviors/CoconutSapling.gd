@@ -17,7 +17,8 @@ const STUN_DURATION: float = 0.5
 const STUN_CD: float = 1.5
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var coconut_chance_decrease: String = Utils.format_percent(_stats.coconut_chance_decrease, 2)
 	var coconut_damage: String = Utils.format_float(_stats.coconut_damage, 2)
 	var coconut_damage_add: String = Utils.format_float(_stats.coconut_damage_add, 2)
@@ -25,24 +26,18 @@ func get_ability_description() -> String:
 	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)
 	var stun_cd: String = Utils.format_float(STUN_CD, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Coconut Rain"
+	ability.description_short = "Each time this tower attacks there is a chance to drop coconuts which deal AoE damage.\n"
+	ability.description_full = "Each time this tower attacks there is a chance to drop multiple coconuts. The chance to drop a coconut is 100%% for the 1st one and after each coconut the chance is decreased by %s. Each coconut deals %s spelldamage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % coconut_damage_add
+	list.append(ability)
 
-	text += "[color=GOLD]Coconut Rain[/color]\n"
-	text += "Each time this tower attacks there is a chance to drop multiple coconuts. The chance to drop a coconut is 100%% for the 1st one and after each coconut the chance is decreased by %s. Each coconut deals %s spelldamage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % coconut_damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Coconut Rain[/color]\n"
-	text += "Each time this tower attacks there is a chance to drop coconuts which deal AoE damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

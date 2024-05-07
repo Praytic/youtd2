@@ -24,7 +24,7 @@ func get_tier_stats() -> Dictionary:
 const FREEZE_DURATION_ADD: float = 0.05
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var freeze_chance: String = Utils.format_percent(_stats.freeze_chance, 2)
 	var freeze_chance_add: String = Utils.format_percent(_stats.freeze_chance_add, 2)
 	var freeze_duration: String = Utils.format_float(_stats.freeze_duration, 2)
@@ -32,26 +32,20 @@ func get_ability_description() -> String:
 	var mod_regen: String = Utils.format_percent(_stats.mod_regen, 2)
 	var mod_regen_add: String = Utils.format_percent(_stats.mod_regen_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Cold"
+	ability.description_short = "This tower has a chance on attack to freeze the attacked creep and reduce its health regeneration.\n"
+	ability.description_full = "This tower has a %s chance on attack to freeze the attacked creep and reduce its health regeneration by %s. The freeze lasts for %s second and cannot be reapplied on already frozen units. Chance to proc, health regeneration reduction and freeze duration are halved for bosses. Does not affect immune creeps.\n" % [freeze_chance, mod_regen, freeze_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % freeze_chance_add \
+	+ "+%s seconds duration\n" % freeze_duration_add \
+	+ "-%s hp regen\n" % mod_regen_add
+	list.append(ability)
 
-	text += "[color=GOLD]Cold[/color]\n"
-	text += "This tower has a %s chance on attack to freeze the attacked creep and reduce its health regeneration by %s. The freeze lasts for %s second and cannot be reapplied on already frozen units. Chance to proc, health regeneration reduction and freeze duration are halved for bosses. Does not affect immune creeps.\n" % [freeze_chance, mod_regen, freeze_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % freeze_chance_add
-	text += "+%s seconds duration\n" % freeze_duration_add
-	text += "-%s hp regen\n" % mod_regen_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cold[/color]\n"
-	text += "This tower has a chance on attack to freeze the attacked creep and reduce its health regeneration.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

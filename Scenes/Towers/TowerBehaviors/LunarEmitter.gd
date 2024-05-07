@@ -11,32 +11,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_spell_resist: String = Utils.format_percent(_stats.mod_spell_resist, 2)
 	var mod_spell_resist_add: String = Utils.format_percent(_stats.mod_spell_resist_add, 2)
 	var vuln: String = Utils.format_percent(_stats.vuln, 2)
 	var vuln_add: String = Utils.format_percent(_stats.vuln_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Moonlight - Aura"
+	ability.description_short = "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from Astral, Darkness, Ice and Storm towers.\n"
+	ability.description_full = "Reduces the spell resistance of enemies in %s range by %s and increases the vulnerability to damage from Astral, Darkness, Ice and Storm towers by %s.\n" % [aura_range, mod_spell_resist, vuln] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell resistance reduction\n" % mod_spell_resist_add \
+	+ "+%s vulnerability\n" % vuln_add
+	list.append(ability)
 
-	text += "[color=GOLD]Moonlight - Aura[/color]\n"
-	text += "Reduces the spell resistance of enemies in %s range by %s and increases the vulnerability to damage from Astral, Darkness, Ice and Storm towers by %s.\n" % [aura_range, mod_spell_resist, vuln]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell resistance reduction\n" % mod_spell_resist_add
-	text += "+%s vulnerability\n" % vuln_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Moonlight - Aura[/color]\n"
-	text += "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from Astral, Darkness, Ice and Storm towers.\n"
-
-	return text
+	return list
 
 
 func load_specials(_modifier: Modifier):

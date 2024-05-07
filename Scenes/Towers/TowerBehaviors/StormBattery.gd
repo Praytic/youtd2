@@ -24,30 +24,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage_increase: String = Utils.format_percent(_stats.damage_increase, 2)
 	var damage_increase_add: String = Utils.format_percent(_stats.damage_increase_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Electrify"
+	ability.description_short = "The Storm Battery's projectiles electrify their target.\n"
+	ability.description_full = "The Storm Battery's projectiles electrify their target for 9 seconds. Every time an electrified creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.3% chance\n" \
+	+ "+%s damage\n" % damage_increase_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Electrify[/color]\n"
-	text += "The Storm Battery's projectiles electrify their target for 9 seconds. Every time an electrified creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.3% chance\n"
-	text += "+%s damage\n" % damage_increase_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Electrify[/color]\n"
-	text += "The Storm Battery's projectiles electrify their target.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

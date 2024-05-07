@@ -11,32 +11,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var smite_damage: String = Utils.format_float(_stats.smite_damage, 2)
 	var smite_damage_add: String = Utils.format_float(_stats.smite_damage_add, 2)
 	var armor_reduce: String = Utils.format_float(_stats.armor_reduce, 2)
 	var armor_reduce_boss: String = Utils.format_float(_stats.armor_reduce_boss, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Smite"
+	ability.description_short = "When this tower damages a creep it has a chance to smite it.\n"
+	ability.description_full = "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% chance\n" \
+	+ "+%s spelldamage\n" % smite_damage_add \
+	+ "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]
+	list.append(ability)
 
-	text += "[color=GOLD]Smite[/color]\n"
-	text += "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% chance\n"
-	text += "+%s spelldamage\n" % smite_damage_add
-	text += "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Smite[/color]\n"
-	text += "When this tower damages a creep it has a chance to smite it.\n"
-
-	return text
+	return list
 
 
 # NOTE: this tower's tooltip in original game does NOT

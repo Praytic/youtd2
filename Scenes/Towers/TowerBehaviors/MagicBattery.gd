@@ -24,32 +24,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 	var mod_debuff_duration: String = Utils.format_percent(_stats.mod_debuff_duration, 2)
 	var mod_debuff_duration_add: String = Utils.format_percent(_stats.mod_debuff_duration_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Faerie Fire"
+	ability.description_short = "Makes the attacked creep more vulnerable to spells and debuffs.\n"
+	ability.description_full = "A creep hit by one of this tower's shots takes %s extra damage from spells and debuffs last %s longer for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s extra spell damage\n" % mod_spell_damage_add \
+	+ "+%s extra debuff duration\n" % mod_debuff_duration_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Faerie Fire[/color]\n"
-	text += "A creep hit by one of this tower's shots takes %s extra damage from spells and debuffs last %s longer for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s extra spell damage\n" % mod_spell_damage_add
-	text += "+%s extra debuff duration\n" % mod_debuff_duration_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Faerie Fire[/color]\n"
-	text += "Makes the attacked creep more vulnerable to spells and debuffs."
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

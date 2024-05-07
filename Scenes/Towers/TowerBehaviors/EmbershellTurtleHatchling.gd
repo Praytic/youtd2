@@ -11,22 +11,16 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Overheat"
+	ability.description_short = "Attacks cost mana.\n"
+	ability.description_full = "Each attack costs 1 mana, which is regenerated at a rate of 1 mana per second.\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Overheat[/color]\n"
-	text += "Each attack costs 1 mana, which is regenerated at a rate of 1 mana per second.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Overheat[/color]\n"
-	text += "Attacks cost mana.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

@@ -14,28 +14,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var armor_decrease: String = Utils.format_float(_stats.armor_decrease, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Afterglow"
+	ability.description_short = "Has a chance to melt armor of damaged units.\n"
+	ability.description_full = "The Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+0.25 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Afterglow[/color]\n"
-	text += "The Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+0.25 seconds duration"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Afterglow[/color]\n"
-	text += "Has a chance to melt armor of damaged units."
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

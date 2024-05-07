@@ -11,40 +11,32 @@ var multiboard: MultiboardValues
 var exp_exchanged: int
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var future: AbilityInfo = AbilityInfo.new()
+	future.name = "Future Knowledge"
+	future.description_short = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds.\n"
+	future.description_full = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds, increasing his experience by 2. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
+	list.append(future)
 
-	text += "[color=GOLD]Future Knowledge[/color]\n"
-	text += "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds, increasing his experience by 2. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
-	text += " \n"
+	var time_twist: AbilityInfo = AbilityInfo.new()
+	time_twist.name = "Time Twist - Aura"
+	time_twist.description_short = "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
+	time_twist.description_full = "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in 240 range:\n" \
+	+ "+10% experience gain\n" \
+	+ "+10% attack speed\n" \
+	+ "+5% mana regen\n" \
+	+ "+12.5% buff duration \n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1.6% exp gain\n" \
+	+ "+1% attack speed\n" \
+	+ "+2% mana regen\n" \
+	+ "+1.5% buff duration\n"
+	list.append(time_twist)
 
-	text += "[color=GOLD]Time Twist - Aura[/color]\n"
-	text += "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in 240 range:\n"
-	text += "+10% experience gain\n"
-	text += "+10% attack speed\n"
-	text += "+5% mana regen\n"
-	text += "+12.5% buff duration \n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1.6% exp gain\n"
-	text += "+1% attack speed\n"
-	text += "+2% mana regen\n"
-	text += "+1.5% buff duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Future Knowledge[/color]\n"
-	text += "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Time Twist - Aura[/color]\n"
-	text += "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

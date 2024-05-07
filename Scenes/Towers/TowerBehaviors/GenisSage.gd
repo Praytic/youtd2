@@ -17,62 +17,50 @@ var spread_bt: BuffType
 var magic_boost_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var speed_cast: AbilityInfo = AbilityInfo.new()
+	speed_cast.name = "Speed Cast"
+	speed_cast.description_short = "Chance to increase trigger chances and attackspeed.\n"
+	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attackspeed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% trigger chance\n" \
+	+ "+1% attackspeed\n" \
+	+ "+0.1 seconds\n"
+	list.append(speed_cast)
 
-	text += "[color=GOLD]Speed Cast[/color]\n"
-	text += "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attackspeed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% trigger chance\n"
-	text += "+1% attackspeed\n"
-	text += "+0.1 seconds\n"
-	text += " \n"
+	var aqua_edge: AbilityInfo = AbilityInfo.new()
+	aqua_edge.name = "Aqua Edge"
+	aqua_edge.description_short = "Chance to launch 3 blades of water at target.\n"
+	aqua_edge.description_full = "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 damage to each creep it passes through. Costs 15 mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+150 damage\n"
+	list.append(aqua_edge)
 
-	text += "[color=GOLD]Aqua Edge[/color]\n"
-	text += "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 damage to each creep it passes through. Costs 15 mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+150 damage\n"
-	text += " \n"
+	var spread: AbilityInfo = AbilityInfo.new()
+	spread.name = "Spread"
+	spread.description_short = "Chance to lift creeps up for in AoE around the damaged creep.\n"
+	spread.description_full = "Whenever Genis damages a creep, he has a 10% chance to lift creeps up for 0.8 seconds in a 250 AoE around the damaged creep. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance\n" \
+	+ "+200 spell damage\n"
+	list.append(spread)
 
-	text += "[color=GOLD]Spread[/color]\n"
-	text += "Whenever Genis damages a creep, he has a 10% chance to lift creeps up for 0.8 seconds in a 250 AoE around the damaged creep. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% chance\n"
-	text += "+200 spell damage\n"
-	text += " \n"
+	var magic_boost: AbilityInfo = AbilityInfo.new()
+	magic_boost.name = "Magic Boost"
+	magic_boost.description_short = "Chance to increase spell damage of nearby towers.\n"
+	magic_boost.description_full = "Every 7 seconds Genis has a 30% chance to increase the spell damage of all towers within 350 range of him by 20% for 3 seconds. Costs 10 mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% spell damage\n"
+	list.append(magic_boost)
 
-	text += "[color=GOLD]Magic Boost[/color]\n"
-	text += "Every 7 seconds Genis has a 30% chance to increase the spell damage of all towers within 350 range of him by 20% for 3 seconds. Costs 10 mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% spell damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Speed Cast[/color]\n"
-	text += "Chance to increase trigger chances and attackspeed.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Aqua Edge[/color]\n"
-	text += "Chance to launch 3 blades of water at target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Spread[/color]\n"
-	text += "Chance to lift creeps up for in AoE around the damaged creep.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Magic Boost[/color]\n"
-	text += "Chance to increase spell damage of nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

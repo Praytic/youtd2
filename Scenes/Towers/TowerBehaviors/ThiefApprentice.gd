@@ -21,29 +21,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var gold: String = Utils.format_float(_stats.gold / 10.0, 2)
 	var gold_add: String = Utils.format_float(_stats.gold * 0.04 / 10.0, 3)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Steal"
+	ability.description_short = "The Thief has a chance to get gold when he damages a creep.\n"
+	ability.description_full = "Every time the thief damages a creep there is a 10%% chance he steals %s gold.\n" % gold \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s gold\n" % gold_add \
+	+ "+0.4% chance"
+	list.append(ability)
 
-	text += "[color=GOLD]Steal[/color]\n"
-	text += "Every time the thief damages a creep there is a 10%% chance he steals %s gold.\n" % gold
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s gold\n" % gold_add
-	text += "+0.4% chance"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Steal[/color]\n"
-	text += "The Thief has a chance to get gold when he damages a creep.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

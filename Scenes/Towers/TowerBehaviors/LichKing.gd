@@ -14,35 +14,27 @@ var aura_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var icy_curse: AbilityInfo = AbilityInfo.new()
+	icy_curse.name = "Icy Curse"
+	icy_curse.description_short = "Curses creeps it damages, increasing their debuff duration.\n"
+	icy_curse.description_full = "Curses creeps it damages for 5 seconds, increasing their debuff duration by 30%.\n"
+	list.append(icy_curse)
 
-	text += "[color=GOLD]Icy Curse[/color]\n"
-	text += "Curses creeps it damages for 5 seconds, increasing their debuff duration by 30%.\n"
-	text += " \n"
+	var kings_authority: AbilityInfo = AbilityInfo.new()
+	kings_authority.name = "King's Authority - Aura"
+	kings_authority.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
+	kings_authority.description_full = "The Lich King rules over every creep in 900 range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n" \
+	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [stored damage x 0.5] spelldamage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+20 damage per second\n" \
+	+ "+[stored damage x 0.04] spelldamage\n"
+	list.append(kings_authority)
 
-	text += "[color=GOLD]King's Authority - Aura[/color]\n"
-	text += "The Lich King rules over every creep in 900 range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n"
-	text += "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [stored damage x 0.5] spelldamage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+20 damage per second\n"
-	text += "+[stored damage x 0.04] spelldamage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Icy Curse[/color]\n"
-	text += "Curses creeps it damages, increasing their debuff duration.\n"
-	text += " \n"
-
-	text += "[color=GOLD]King's Authority - Aura[/color]\n"
-	text += "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -21,28 +21,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
 	var vuln_value: String = Utils.format_percent(_stats.vuln_value, 2)
 	var vuln_value_add: String = Utils.format_percent(_stats.vuln_value_add, 2)
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Slumbering Parasite"
+	ability.description_short = "This tower deals additional Decay damage after a short delay and increases target's vulnerability to Nature.\n"
+	ability.description_full = "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attackdamage as Decay damage to the target. Each parasite increases the creep's vulnerability to Nature towers by %s.\n" % vuln_value \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s Nature vulnerability\n" % vuln_value_add
 
-	var text: String = ""
+	list.append(ability)
 
-	text += "[color=GOLD]Slumbering Parasite[/color]\n"
-	text += "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attackdamage as Decay damage to the target. Each parasite increases the creep's vulnerability to Nature towers by %s.\n" % vuln_value
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s Nature vulnerability\n" % vuln_value_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Slumbering Parasite[/color]\n"
-	text += "This tower deals additional Decay damage after a short delay and increases target's vulnerability to Nature.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

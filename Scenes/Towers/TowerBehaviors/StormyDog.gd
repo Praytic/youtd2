@@ -14,27 +14,21 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var attackspeed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Thunderous Roar"
+	ability.description_short = "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
+	ability.description_full = "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attackspeed \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s attack speed" % attackspeed
+	list.append(ability)
 
-	text += "[color=GOLD]Thunderous Roar[/color]\n"
-	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attackspeed
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack speed" % attackspeed
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Thunderous Roar[/color]\n"
-	text += "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

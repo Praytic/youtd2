@@ -11,24 +11,18 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var experience: String = Utils.format_float(_stats.exp, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "High Knowledge"
+	ability.description_short = "Grants minor amount of experience on attack.\n"
+	ability.description_full = "Grants %s experience on attack.\n" % experience
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]High Knowledge[/color]\n"
-	text += "Grants %s experience on attack.\n" % experience
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]High Knowledge[/color]\n"
-	text += "Grants minor amount of experience on attack.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

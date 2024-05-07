@@ -11,32 +11,57 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
-	var is_first_tier: bool = tower.get_tier() == 1
-
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var silence_duration: String = Utils.format_float(_stats.silence_duration, 2)
 	var silence_duration_add: String = Utils.format_float(_stats.silence_duration_add, 2)
 	var boss_silence_multiplier: String = Utils.format_percent(_stats.boss_silence_multiplier, 2)
 	var void_exp_loss: String = Utils.format_percent(_stats.void_exp_loss, 2)
 	var void_exp_loss_add: String = Utils.format_percent(_stats.void_exp_loss_add, 2)
 
+	var list: Array[AbilityInfo] = []
+	
+	var silence: AbilityInfo = AbilityInfo.new()
+	silence.name = "Silence"
+	silence.description_short = "Units damaged by this tower are silenced.\n"
+	silence.description_full = "Units damaged by this tower are silenced for %s seconds. Bosses are silenced only for %s of the normal duration.\n" % [silence_duration, boss_silence_multiplier] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % silence_duration_add
+	list.append(silence)
+
+	var void_1: AbilityInfo = AbilityInfo.new()
+	void_1.name = "Void"
+	void_1.description_short = "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
+	void_1.description_full = "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss \
+	+ "When this tower is upgraded or replaced to Void Dragon, it loses experience equal to 50% of its current experience.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s periodical experience lost\n" % void_exp_loss_add \
+	+ "+1% upgrade experience lost\n"
+
+	var void_2: AbilityInfo = AbilityInfo.new()
+	void_2.name = "Void"
+	void_2.description_short = "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
+	void_2.description_full = "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s periodical experience lost\n" % void_exp_loss_add
+	
+	if tower.get_tier() == 1:
+		list.append(void_1)
+	else:
+		list.append(void_2)
+
+	return list
+
+
+func get_ability_description() -> String:
+
 	var text: String = ""
 
-	text += "[color=GOLD]Silence[/color]\n"
-	text += "Units damaged by this tower are silenced for %s seconds. Bosses are silenced only for %s of the normal duration.\n" % [silence_duration, boss_silence_multiplier]
+	text += "[color=GOLD][/color]\n"
 	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % silence_duration_add
-	text += " \n"
-	text += "[color=GOLD]Void[/color]\n"
-	text += "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss
-	if is_first_tier:
-		text += "When this tower is upgraded or replaced to Void Dragon, it loses experience equal to 50% of its current experience.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s periodical experience lost\n" % void_exp_loss_add
-	if is_first_tier:
-		text += "+1% upgrade experience lost\n"
+	text += "[color=GOLD][/color]\n"
 
 	return text
 
@@ -45,10 +70,10 @@ func get_ability_description_short() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Silence[/color]\n"
-	text += "Units damaged by this tower are silenced.\n"
+	text += ""
 	text += " \n"
 	text += "[color=GOLD]Void[/color]\n"
-	text += "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
+	text += ""
 
 	return text
 

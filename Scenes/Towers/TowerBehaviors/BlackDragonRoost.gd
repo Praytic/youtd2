@@ -14,27 +14,21 @@ extends TowerBehavior
 var fear_dark_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Fear the Dark"
+	ability.description_short = "Whenever this tower damages a creep it has a chance to debuff it so that it takes more damage.\n"
+	ability.description_full = "Whenever this tower damages a creep it has a 20% chance to debuff it for 7 seconds. Debuffed creeps take 30% more damage. Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.28 seconds duration\n" \
+	+ "1.2% more damage taken\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Fear the Dark[/color]\n"
-	text += "Whenever this tower damages a creep it has a 20% chance to debuff it for 7 seconds. Debuffed creeps take 30% more damage. Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker."
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+0.28 seconds duration\n"
-	text += "1.2% more damage taken\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fear the Dark[/color]\n"
-	text += "Whenever this tower damages a creep it has a chance to debuff it so that it takes more damage."
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

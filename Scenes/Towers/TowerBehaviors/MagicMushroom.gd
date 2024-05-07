@@ -9,38 +9,30 @@ var spell_damage_from_growth: float = 0.0
 var fungus_strike_activated: bool = false
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var fungus_strike: AbilityInfo = AbilityInfo.new()
+	fungus_strike.name = "Fungus Strike"
+	fungus_strike.description_short = "Casting Mystical Trance empowers the Mushroom and makes creeps weaker.\n"
+	fungus_strike.description_full = "After casting Mystical Trance the Mushroom's next attack will deal 100% of its damage as spell damage with an additional 20% chance to crit. Additionally makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% spell damage\n" \
+	+ "+0.8% spell crit chance\n"
+	list.append(fungus_strike)
 
-	text += "[color=GOLD]Fungus Strike[/color]\n"
-	text += "After casting Mystical Trance the Mushroom's next attack will deal 100% of its damage as spell damage with an additional 20% chance to crit. Additionally makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% spell damage\n"
-	text += "+0.8% spell crit chance\n"
-	text += " \n"
+	var rapid_growth: AbilityInfo = AbilityInfo.new()
+	rapid_growth.name = "Rapid Growth"
+	rapid_growth.description_short = "Chance to grow, permanently gaining bonus spell damage.\n"
+	rapid_growth.description_full = "Every 20 seconds the Mushroom has a 40% chance to grow, permanently gaining 3% bonus spell damage. Maximum of 40 succesful growths.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.4 seconds\n" \
+	+ "+0.12% bonus spell damage\n"
+	list.append(rapid_growth)
 
-	text += "[color=GOLD]Rapid Growth[/color]\n"
-	text += "Every 20 seconds the Mushroom has a 40% chance to grow, permanently gaining 3% bonus spell damage. Maximum of 40 succesful growths.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.4 seconds\n"
-	text += "+0.12% bonus spell damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fungus Strike[/color]\n"
-	text += "Casting Mystical Trance empowers the Mushroom and makes creeps weaker.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Rapid Growth[/color]\n"
-	text += "Chance to grow, permanently gaining bonus spell damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

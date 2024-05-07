@@ -18,43 +18,38 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var attackspeed_bonus: String = Utils.format_percent((_stats.attackspeed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
 	var goldrush_gold_add: String = Utils.format_float(_stats.goldrush_gold_add, 2)
 	var excavation_gold: String = Utils.format_float(_stats.excavation_gold, 2)
 	var excavation_gold_add: String = Utils.format_float(_stats.excavation_gold_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var goldrush: AbilityInfo = AbilityInfo.new()
+	goldrush.name = "Goldrush"
+	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
+	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while in goldrush!\n" % [attackspeed_bonus, goldrush_gold] \
+	+ " \n" \
+	+ "Hint: Check multiboard to view exact attack speed bonus\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s gold gained\n" % goldrush_gold_add \
+	+ "+0.1 seconds duration\n"
+	list.append(goldrush)
 
-	text += "[color=GOLD]Goldrush[/color]\n"
-	text += "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while in goldrush!\n" % [attackspeed_bonus, goldrush_gold]
-	text += " \n"
-	text += "Hint: Check multiboard to view exact attack speed bonus\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s gold gained\n" % goldrush_gold_add
-	text += "+0.1 seconds duration\n"
-	text += " \n"
-	text += "[color=GOLD]Excavation[/color]\n"
-	text += "Every 20 seconds the miner has a 25%% chance to find %s gold.\n" % excavation_gold
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s gold\n" % excavation_gold_add
+	var excavation: AbilityInfo = AbilityInfo.new()
+	excavation.name = "Excavation"
+	excavation.description_short = "Every few seconds the miner has a chance to find gold.\n"
+	excavation.description_full = "Every 20 seconds the miner has a 25%% chance to find %s gold.\n" % excavation_gold \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s gold\n" % excavation_gold_add
+	list.append(excavation)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Goldrush[/color]\n"
-	text += "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
-	text += " \n"
-	text += "[color=GOLD]Excavation[/color]\n"
-	text += "Every few seconds the miner has a chance to find gold.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

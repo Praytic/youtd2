@@ -13,31 +13,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var slow_base: String = Utils.format_percent(_stats.slow_base, 2)
 	var slow_add: String = Utils.format_percent(_stats.slow_add, 2)
 	var duration_base: String = Utils.format_float(_stats.duration_base, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Icy Touch[/color]\n"
-	text += "Slows attacked units by %s for %s seconds.\n" % [slow_base, duration_base]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % duration_add
-	text += "+%s slow" % slow_add
+	var list: Array[AbilityInfo] = []
 	
-	return text
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Icy Touch"
+	ability.description_short = "Slows attacked units.\n"
+	ability.description_full = "Slows attacked units by %s for %s seconds.\n" % [slow_base, duration_base] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % duration_add \
+	+ "+%s slow" % slow_add
+	list.append(ability)
 
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Icy Touch[/color]\n"
-	text += "Slows attacked units.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

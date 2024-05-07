@@ -7,48 +7,38 @@ var lastline_real_bt: BuffType
 var lastline_dummy_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var valors_light: AbilityInfo = AbilityInfo.new()
+	valors_light.name = "Valor's Light"
+	valors_light.description_short = "Damages and slows creeps coming in range of this tower.\n"
+	valors_light.description_full = "Whenever a creep comes within 800 range of this tower it takes an initial 2000 spell damage per second and its movement speed is decreased by 30%. The damage and slow of this ability decay by 50% every second. Lasts 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+80 spell damage\n" \
+	+ "+1.2% slow\n"
+	list.append(valors_light)
+	
+	var last_line: AbilityInfo = AbilityInfo.new()
+	last_line.name = "Last Line of Defense"
+	last_line.description_short = "Any creep passing this tower twice will take more spell and attack damage.\n"
+	last_line.description_full = "Any creep passing this tower twice will take 1% more spell and attack damage for each tower within 400 range of this tower. This effect is goldcost adjusted, towers with a goldcost of 2500 provide the full bonus.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% spell and attack damage taken per tower\n"
+	list.append(last_line)
 
-	text += "[color=GOLD]Valor's Light[/color]\n"
-	text += "Whenever a creep comes within 800 range of this tower it takes an initial 2000 spell damage per second and its movement speed is decreased by 30%. The damage and slow of this ability decay by 50% every second. Lasts 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+80 spell damage\n"
-	text += "+1.2% slow\n"
-	text += " \n"
+	var we_will_not_fall: AbilityInfo = AbilityInfo.new()
+	we_will_not_fall.name = "We Will Not Fall! - Aura"
+	we_will_not_fall.description_short = "Increases the attack and spell damage of all towers in range.\n"
+	we_will_not_fall.description_full = "Increases the attack and spell damage of all towers in 400 range by 0.5% for each percent of lost lives. If the team has more than 100% lives, towers will deal less damage!\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.02% more spell and attack damage\n"
+	list.append(we_will_not_fall)
 
-	text += "[color=GOLD]Last Line of Defense[/color]\n"
-	text += "Any creep passing this tower twice will take 1% more spell and attack damage for each tower within 400 range of this tower. This effect is goldcost adjusted, towers with a goldcost of 2500 provide the full bonus.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08% spell and attack damage taken per tower\n"
-	text += " \n"
-
-	text += "[color=GOLD]We Will Not Fall! - Aura[/color]\n"
-	text += "Increases the attack and spell damage of all towers in 400 range by 0.5% for each percent of lost lives. If the team has more than 100% lives, towers will deal less damage!\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.02% more spell and attack damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Valor's Light[/color]\n"
-	text += "Damages and slows creeps coming in range of this tower.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Last Line of Defense[/color]\n"
-	text += "Any creep passing this tower twice will take more spell and attack damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]We Will Not Fall! - Aura[/color]\n"
-	text += "Increases the attack and spell damage of all towers in range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

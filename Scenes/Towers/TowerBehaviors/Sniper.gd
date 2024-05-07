@@ -13,28 +13,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
 	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
-	var text: String = ""
 
-	text += "[color=GOLD]Rocket Strike[/color]\n"
-	text += "30%% chance to fire a rocket towards the attacked unit. On impact it deals %s damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+%s damage\n" % rocket_damage_add
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Rocket Strike"
+	ability.description_short = "Has a chance to deal splash damage when attacking.\n"
+	ability.description_full = "30%% chance to fire a rocket towards the attacked unit. On impact it deals %s damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+%s damage\n" % rocket_damage_add
+	list.append(ability)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rocket Strike[/color]\n"
-	text += "Has a chance to deal splash damage when attacking.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

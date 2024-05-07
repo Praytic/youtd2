@@ -27,46 +27,38 @@ var first_periodic_event: bool = false
 var periodic_interval: float
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var serpent_ward: AbilityInfo = AbilityInfo.new()
+	serpent_ward.name = "Serpent Ward"
+	serpent_ward.description_short = "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
+	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack 'Maledict' on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% attackdamage\n" \
+	+ "+0.1 seconds duration\n" \
+	+ "+0.28% chance to summon a ward\n" \
+	+ "+1 maximum ward at level 15 and 25\n"
+	list.append(serpent_ward)
 
-	text += "[color=GOLD]Serpent Ward[/color]\n"
-	text += "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack 'Maledict' on attack. Wards can not be resummoned and their duration cannot be refreshed.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% attackdamage\n"
-	text += "+0.1 seconds duration\n"
-	text += "+0.28% chance to summon a ward\n"
-	text += "+1 maximum ward at level 15 and 25\n"
-	text += " \n"
+	var purify: AbilityInfo = AbilityInfo.new()
+	purify.name = "Purify"
+	purify.description_short = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt. This ability has a 4 second cooldown\n"
+	purify.description_full = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt on that attack by 12% for each purged effect. This ability has a 4 second cooldown.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.04 seconds cooldown\n" \
+	+ "+0.16% damage per purged effect\n"
+	list.append(purify)
 
-	text += "[color=GOLD]Purify[/color]\n"
-	text += "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt on that attack by 12% for each purged effect. This ability has a 4 second cooldown.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.04 seconds cooldown\n"
-	text += "+0.16% damage per purged effect\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Serpent Ward[/color]\n"
-	text += "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Purify[/color]\n"
-	text += "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt. This ability has a 4 second cooldown\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. Maledict stacks, with each stack adding 3.5% additional damage. If Maledict is purged it deals double damage. This ability is unaffected by Buff Duration. \n"
+	text += "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. Maledict stacks, with each stack adding 3.5% additional damage. If Maledict is purged it deals double damage. This ability is unaffected by Buff Duration.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.14% damage per stack\n"

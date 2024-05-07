@@ -11,37 +11,29 @@ var multiboard: MultiboardValues
 var fireball_cd: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var flaming_inferno: AbilityInfo = AbilityInfo.new()
+	flaming_inferno.name = "Flaming Inferno"
+	flaming_inferno.description_short = "Occasionally releases fireballs that deal AoE damage.\n"
+	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spelldamage in 250 AoE around the target on impact.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+150 spelldamage\n" \
+	+ "-1 minimum and maximum attack needed at levels 15 and 25\n" \
+	+ "+1 fireball at level 10\n" \
+	+ "+5% bonus crit chance at levels 5 and 20\n"
+	list.append(flaming_inferno)
 
-	text += "[color=GOLD]Flaming Inferno[/color]\n"
-	text += "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spelldamage in 250 AoE around the target on impact.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+150 spelldamage\n"
-	text += "-1 minimum and maximum attack needed at levels 15 and 25\n"
-	text += "+1 fireball at level 10\n"
-	text += "+5% bonus crit chance at levels 5 and 20\n"
-	text += " \n"
+	var dragons_hoard: AbilityInfo = AbilityInfo.new()
+	dragons_hoard.name = "Dragon's Hoard"
+	dragons_hoard.description_short = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n"
+	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spelldamage and base attackdamage.\n" \
+	+ "[color=GOLD]Hint:[/color] This dragons_hoard is modified by both the creep's and this tower's bounty ratios.\n"
+	list.append(dragons_hoard)
 
-	text += "[color=GOLD]Dragon's Hoard[/color]\n"
-	text += "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spelldamage and base attackdamage.\n" 
-	text += "[color=GOLD]Hint:[/color] This ability is modified by both the creep's and this tower's bounty ratios.\n" 
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Flaming Inferno[/color]\n"
-	text += "Occasionally releases fireballs that deal AoE damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Dragon's Hoard[/color]\n"
-	text += "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n" 
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

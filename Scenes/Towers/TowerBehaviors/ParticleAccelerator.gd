@@ -17,34 +17,28 @@ const MOD_VALUE_ADD: float = 0.001
 const STUN_DURATION: float = 2
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_value: String = Utils.format_percent(_stats.mod_value, 2)
 	var mod_value_add: String = Utils.format_percent(MOD_VALUE_ADD, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var energy_accel: AbilityInfo = AbilityInfo.new()
+	energy_accel.name = "Energy Acceleration"
+	energy_accel.description_short = "Every attack increases attack speed and damage.\n"
+	energy_accel.description_full = "Every attack increases attack speed and damage by %s.\n" % mod_value \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s attack speed and damage\n" % mod_value_add
+	list.append(energy_accel)
 
-	text += "[color=GOLD]Energy Acceleration[/color]\n"
-	text += "Every attack increases attack speed and damage by %s.\n" % mod_value
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack speed and damage\n" % mod_value_add
-	text += " \n"
-	text += "[color=GOLD]Errant Tachyons[/color]\n"
-	text += "On kill, this tower is stunned for %s seconds and the bonus from Energy Acceleration is lost.\n" % STUN_DURATION
+	var errant: AbilityInfo = AbilityInfo.new()
+	errant.name = "Errant Tachyons"
+	errant.description_short = "On kill, this tower is stunned and the bonus from Energy Acceleration is lost.\n"
+	errant.description_full = "On kill, this tower is stunned for %s seconds and the bonus from Energy Acceleration is lost.\n" % STUN_DURATION
+	list.append(errant)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Energy Acceleration[/color]\n"
-	text += "Every attack increases attack speed and damage.\n"
-	text += " \n"
-	text += "[color=GOLD]Errant Tachyons[/color]\n"
-	text += "On kill, this tower is stunned and the bonus from Energy Acceleration is lost.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

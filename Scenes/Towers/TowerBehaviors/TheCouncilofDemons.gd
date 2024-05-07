@@ -17,37 +17,29 @@ var darkness_bt: BuffType
 var missile_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Maledict[/color]\n"
-	text += "Whenever this tower damages a unit, it has a 20% chance to increase the damage that unit receives from spells by 20% for 5 seconds. Every time the buffed unit is targeted by a spell this tower deals additional spell damage equal to 3 times the caster goldcost to it.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+0.6% spell damage received\n"
-	text += " \n"
-
-	text += "[color=GOLD]Demonic Edict - Aura[/color]\n"
-	text += "Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [2 x caster goldcost x spell cd] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% mana regeneration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
 	
-	text += "[color=GOLD]Maledict[/color]\n"
-	text += "Chance to increase spell vulnerability of damaged units.\n"
-	text += " \n"
+	var maledict: AbilityInfo = AbilityInfo.new()
+	maledict.name = "Maledict"
+	maledict.description_short = "Chance to increase spell vulnerability of damaged units.\n"
+	maledict.description_full = "Whenever this tower damages a unit, it has a 20% chance to increase the damage that unit receives from spells by 20% for 5 seconds. Every time the buffed unit is targeted by a spell this tower deals additional spell damage equal to 3 times the caster goldcost to it.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.6% spell damage received\n"
+	list.append(maledict)
 
-	text += "[color=GOLD]Demonic Edict - Aura[/color]\n"
-	text += "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
+	var demonic_edict: AbilityInfo = AbilityInfo.new()
+	demonic_edict.name = "Demonic Edict - Aura"
+	demonic_edict.description_short = "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
+	demonic_edict.description_full = "Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [2 x caster goldcost x spell cd] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% mana regeneration\n"
+	list.append(demonic_edict)
 
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

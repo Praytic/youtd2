@@ -21,7 +21,7 @@ const FATIGUE_DURATION: float = 3
 const PURGE_COUNT_FOR_STUN: float = 5
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
 	var smashing_axe_dmg: String = Utils.format_percent(_stats.smashing_axe_dmg, 2)
 	var smashing_axe_dmg_add: String = Utils.format_percent(_stats.smashing_axe_dmg_add, 2)
@@ -34,34 +34,28 @@ func get_ability_description() -> String:
 	var coated_axes_dmg: String = Utils.format_percent(_stats.coated_axes_dmg, 2)
 	var coated_axes_dmg_add: String = Utils.format_percent(_stats.coated_axes_dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ice_smashing_axe: AbilityInfo = AbilityInfo.new()
+	ice_smashing_axe.name = "Ice Smashing Axe"
+	ice_smashing_axe.description_short = "On attack this tower has a chance to throw a giant axe\n"
+	ice_smashing_axe.description_full = "On attack this tower has a %s chance to throw a giant axe. The axe shatters all the buffs from its target and deals %s of the tower's attack damage as elemental damage for each buff purged. If more than %s buffs are removed the enemy is also stunned for %s seconds (%s on bosses). The axe is so heavy that its wielder's attack speed is slowed by %s for %s seconds after throwing it.\n" % [on_attack_chance, smashing_axe_dmg, purge_count_for_stun, stun_duration, stun_duration_for_bosses, mod_attackspeed, fatigue_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage per buff\n" % smashing_axe_dmg_add \
+	+ "-%s attack speed reduction\n" % mod_attackspeed_add
+	list.append(ice_smashing_axe)
 
-	text += "[color=GOLD]Ice Smashing Axe[/color]\n"
-	text += "On attack this tower has a %s chance to throw a giant axe. The axe shatters all the buffs from its target and deals %s of the tower's attack damage as elemental damage for each buff purged. If more than %s buffs are removed the enemy is also stunned for %s seconds (%s on bosses). The axe is so heavy that its wielder's attack speed is slowed by %s for %s seconds after throwing it.\n" % [on_attack_chance, smashing_axe_dmg, purge_count_for_stun, stun_duration, stun_duration_for_bosses, mod_attackspeed, fatigue_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage per buff\n" % smashing_axe_dmg_add
-	text += "-%s attack speed reduction\n" % mod_attackspeed_add
-	text += " \n"
-	text += "[color=GOLD]Ice Coated Axes[/color]\n"
-	text += "This tower deals %s bonus damage for every 1%% movement speed the target is missing.\n" % coated_axes_dmg
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % coated_axes_dmg_add
+	var ice_coated_axes: AbilityInfo = AbilityInfo.new()
+	ice_coated_axes.name = "Ice Coated Axes"
+	ice_coated_axes.description_short = "This tower deals bonus damage to slowed creeps.\n"
+	ice_coated_axes.description_full = "This tower deals %s bonus damage for every 1%% movement speed the target is missing.\n" % coated_axes_dmg \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % coated_axes_dmg_add
+	list.append(ice_coated_axes)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ice Smashing Axe[/color]\n"
-	text += "On attack this tower has a chance to throw a giant axe\n"
-	text += " \n"
-	text += "[color=GOLD]Ice Coated Axes[/color]\n"
-	text += "This tower deals bonus damage to slowed creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

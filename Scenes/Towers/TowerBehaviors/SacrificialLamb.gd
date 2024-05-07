@@ -40,7 +40,7 @@ const SACRIFICE_DMG_LOSS: float = 1.0
 const BUFF_DURATION: float = 6
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
 	var bloodspill_mod_attackspeed: String = Utils.format_percent(_stats.bloodspill_mod_attackspeed, 2)
 	var bloodspill_mod_attackspeed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
@@ -50,25 +50,19 @@ func get_ability_description() -> String:
 	var bloodspill_exp: String = Utils.format_float(_stats.bloodspill_exp, 2)
 	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Blood Spill"
+	ability.description_short = "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
+	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts Blood Spill, the tower gains %s experience for every other tower affected. Cannot retrigger when the buff is already active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attackspeed, buff_duration, bloodspill_exp] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s attack speed\n" % bloodspill_mod_attackspeed_add \
+	+ "+%s chance\n" % bloodspill_chance_add
+	list.append(ability)
 
-	text += "[color=GOLD]Blood Spill[/color]\n"
-	text += "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts Blood Spill, the tower gains %s experience for every other tower affected. Cannot retrigger when the buff is already active. \n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attackspeed, buff_duration, bloodspill_exp]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack speed\n" % bloodspill_mod_attackspeed_add
-	text += "+%s chance\n" % bloodspill_chance_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Blood Spill[/color]\n"
-	text += "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

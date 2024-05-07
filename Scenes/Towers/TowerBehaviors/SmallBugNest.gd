@@ -10,27 +10,21 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var bug_dmg: String = Utils.format_float(_stats.bug_dmg, 2)
 	var production_for_decrease: String = Utils.format_float(_stats.production_for_decrease, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Swarm of Bugs"
+	ability.description_short = "On kill, produces bugs that increase the damage of this tower.\n"
+	ability.description_full = "On kill, produces bugs that increase the base damage of this tower by %s. The damage gain decreases by 1 for every %s productions, down to a minimum of 1.\n" % [bug_dmg, production_for_decrease] \
+	+ " \n" \
+	+ "Number of produced bugs is retained through upgrade and applied with the upgrade's values. Replacing a tower from a different family will produce bugs from 60% of its total kills.\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Swarm of Bugs[/color]\n"
-	text += "On kill, produces bugs that increase the base damage of this tower by %s. The damage gain decreases by 1 for every %s productions, down to a minimum of 1.\n" % [bug_dmg, production_for_decrease]
-	text += " \n"
-	text += "Number of produced bugs is retained through upgrade and applied with the upgrade's values. Replacing a tower from a different family will produce bugs from 60% of its total kills.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Swarm of Bugs[/color]\n"
-	text += "On kill, produces bugs that increase the damage of this tower.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

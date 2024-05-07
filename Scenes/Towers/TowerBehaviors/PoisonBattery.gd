@@ -24,32 +24,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var poison_damage: String = Utils.format_float(_stats.poison_damage, 2)
 	var poison_damage_add: String = Utils.format_float(_stats.poison_damage_add, 2)
 	var mod_movespeed: String = Utils.format_percent(-_stats.mod_movespeed, 2)
 	var mod_movespeed_add: String = Utils.format_percent(-_stats.mod_movespeed_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Poison"
+	ability.description_short = "An infected creep takes damage every second and is slowed.\n"
+	ability.description_full = "An infected creep takes %s spelldamage every second for 9 seconds and is slowed by %s.\n" % [poison_damage, mod_movespeed] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s poison damage\n" % poison_damage_add \
+	+ "+%s slow\n" % mod_movespeed_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Poison[/color]\n"
-	text += "An infected creep takes %s spelldamage every second for 9 seconds and is slowed by %s.\n" % [poison_damage, mod_movespeed]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s poison damage\n" % poison_damage_add
-	text += "+%s slow\n" % mod_movespeed_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Poison[/color]\n"
-	text += "An infected creep takes damage every second and is slowed.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

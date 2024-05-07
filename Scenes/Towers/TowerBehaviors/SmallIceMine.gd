@@ -12,33 +12,27 @@ func get_tier_stats() -> Dictionary:
 		4: {slow_value = 140, slow_duration = 5.0, aoe_range = 400, aoe_damage = 2500, aoe_damage_add = 125},
 	}
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
 	var aoe_range: String = Utils.format_float(_stats.aoe_range, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value / 1000.0, 2)
 	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
 	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
 
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Ice Nova"
+	ability.description_short = "Has a chance to deal AoE damage and slow creeps around the target.\n"
+	ability.description_full = "Damaged targets have a 20%% chance to get blasted by an ice nova, dealing %s damage and slowing units in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+%s damage\n" % [aoe_damage_add]
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Ice Nova[/color]\n"
-	text += "Damaged targets have a 20%% chance to get blasted by an ice nova, dealing %s damage and slowing units in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+%s damage\n" % [aoe_damage_add]
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ice Nova[/color]\n"
-	text += "Has a chance to deal AoE damage and slow creeps around the target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

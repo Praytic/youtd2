@@ -4,26 +4,20 @@ extends TowerBehavior
 var chaos_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Chaos"
+	ability.description_short = "All creeps that come in range have a chance to lose their armor.\n"
+	ability.description_full = "All creeps that come in 750 range around this tower have a 45% chance to lose 100% of their armor for 3 seconds. The armor reduction is halved for Bosses and Challenges.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.1 seconds\n" \
+	+ "+0.4% chance\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Chaos[/color]\n"
-	text += "All creeps that come in 750 range around this tower have a 45% chance to lose 100% of their armor for 3 seconds. The armor reduction is halved for Bosses and Challenges.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1 seconds\n"
-	text += "+0.4% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Chaos[/color]\n"
-	text += "All creeps that come in range have a chance to lose their armor.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

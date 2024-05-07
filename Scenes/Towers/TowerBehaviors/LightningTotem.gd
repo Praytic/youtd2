@@ -16,29 +16,24 @@ const AURA_RANGE: float = 500.0
 const MOD_SPELL_CRIT_ADD: float = 0.002
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_spell_crit: String = Utils.format_percent(_stats.mod_spell_crit, 2)
 	var mod_spell_crit_add: String = Utils.format_percent(MOD_SPELL_CRIT_ADD, 2)
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Ancient Magic - Aura"
+	ability.description_short = "Increases spell crit chance of nearby towers.\n"
+	ability.description_full = "Increases spell crit chance of towers in %s range by %s.\n" % [aura_range, mod_spell_crit] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell crit chance\n" % mod_spell_crit_add
+	list.append(ability)
 
-	text += "[color=GOLD]Ancient Magic - Aura[/color]\n"
-	text += "Increases spell crit chance of towers in %s range by %s. \n" % [aura_range, mod_spell_crit]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell crit chance\n" % mod_spell_crit_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ancient Magic - Aura[/color]\n"
-	text += "Increases spell crit chance of nearby towers.\n"
-
-	return text
+	return list
 
 
 func tower_init():

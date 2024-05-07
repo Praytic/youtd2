@@ -21,7 +21,7 @@ const SLOW_CHANCE_ADD: float = 0.001
 const SLOW_DURATION_ADD: float = 0.2
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
 	var stun_chance_add: String = Utils.format_percent(STUN_CHANCE_ADD, 2)
 	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)
@@ -32,35 +32,27 @@ func get_ability_description() -> String:
 	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
 	var slow_duration_add: String = Utils.format_float(SLOW_DURATION_ADD, 2)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Advanced Multishot[/color]\n"
-	text += "Multishot count increases by 1 at level 15.\n"
-	text += " \n"
+	var list: Array[AbilityInfo] = []
 	
-	text += "[color=GOLD]Gift of the Forest[/color]\n"
-	text += "The magical powers of the forest grant this archer enchanted arrows. These arrows have a %s chance to stun for %s seconds. If they don't stun there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance to stun\n" % stun_chance_add
-	text += "+%s seconds stun duration\n" % stun_duration_add
-	text += "+%s chance to slow\n" % slow_chance_add
-	text += "+%s seconds slow duration\n" % slow_duration_add
+	var advanced_multishot: AbilityInfo = AbilityInfo.new()
+	advanced_multishot.name = "Advanced Multishot"
+	advanced_multishot.description_short = "Multishot count increases by 1 at level 15.\n"
+	advanced_multishot.description_full = "Multishot count increases by 1 at level 15.\n"
+	list.append(advanced_multishot)
 
-	return text
+	var gift: AbilityInfo = AbilityInfo.new()
+	gift.name = "Gift of the Forest"
+	gift.description_short = "The magical powers of the forest grant this archer enchanted arrows.\n"
+	gift.description_full = "The magical powers of the forest grant this archer enchanted arrows. These arrows have a %s chance to stun for %s seconds. If they don't stun there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance to stun\n" % stun_chance_add \
+	+ "+%s seconds stun duration\n" % stun_duration_add \
+	+ "+%s chance to slow\n" % slow_chance_add \
+	+ "+%s seconds slow duration\n" % slow_duration_add
+	list.append(gift)
 
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Advanced Multishot[/color]\n"
-	text += "Multishot count increases by 1 at level 15.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Gift of the Forest[/color]\n"
-	text += "The magical powers of the forest grant this archer enchanted arrows.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

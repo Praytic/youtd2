@@ -28,49 +28,39 @@ var bounder_pt: ProjectileType
 var glaivesaw_list: Array[Glaivesaw] = []
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var glaive_storm: AbilityInfo = AbilityInfo.new()
+	glaive_storm.name = "Glaive Storm"
+	glaive_storm.description_short = "Chance to throw an additional bouncing glaive at the target.\n"
+	glaive_storm.description_full = "Hits have a 5% chance to throw an additional glaive at the target, dealing 50% of attack damage as Lacerate damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance\n" \
+	+ "+2% damage\n"
+	list.append(glaive_storm)
 
-	text += "[color=GOLD]Glaive Storm[/color]\n"
-	text += "Hits have a 5% chance to throw an additional glaive at the target, dealing 50% of attack damage as Lacerate damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% chance\n"
-	text += "+2% damage\n"
-	text += " \n"
+	var bounder: AbilityInfo = AbilityInfo.new()
+	bounder.name = "Bounder"
+	bounder.description_short = "Chance to throw a glaive at one of your Glaivesaws.\n"
+	bounder.description_full = "Attacks have a 15% chance to throw a glaive at one of your Glaivesaws. The glaive will bounce to another Glaivesaw, dealing 250% of attack damage as Lacerate damage to enemies it passes through.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+6% damage\n"
+	list.append(bounder)
 
-	text += "[color=GOLD]Bounder[/color]\n"
-	text += "Attacks have a 15% chance to throw a glaive at one of your Glaivesaws. The glaive will bounce to another Glaivesaw, dealing 250% of attack damage as Lacerate damage to enemies it passes through.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+6% damage\n"
-	text += " \n"
+	var lacerate: AbilityInfo = AbilityInfo.new()
+	lacerate.name = "Lacerate"
+	lacerate.description_short = "This tower's attacks and abilities deal Lacerate damage.\n"
+	lacerate.description_full = "This tower's attacks and abilities deal Lacerate damage. 50% of Lacerate damage is dealt immediately as Physical damage. 100% of the remaining damage is dealt as Decay damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage over time\n"
+	list.append(lacerate)
 
-	text += "[color=GOLD]Lacerate[/color]\n"
-	text += "This tower's attacks and abilities deal Lacerate damage. 50% of Lacerate damage is dealt immediately as Physical damage. 100% of the remaining damage is dealt as Decay damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage over time\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Glaive Storm[/color]\n"
-	text += "Chance to throw an additional bouncing glaive at the target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Bounder[/color]\n"
-	text += "Chance to throw a glaive at one of your Glaivesaws.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Lacerate[/color]\n"
-	text += "This tower's attacks and abilities deal Lacerate damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

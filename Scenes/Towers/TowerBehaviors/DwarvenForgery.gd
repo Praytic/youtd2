@@ -4,25 +4,19 @@ extends TowerBehavior
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Dwarven Polish - Aura"
+	ability.description_short = "Increases item quality of towers in range.\n"
+	ability.description_full = "Increases the item quality ratio of friendly towers in 550 range including itself by 15%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% quality ratio\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Dwarven Polish - Aura[/color]\n"
-	text += "Increases the item quality ratio of friendly towers in 550 range including itself by 15%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% quality ratio\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Dwarven Polish - Aura[/color]\n"
-	text += "Increases item quality of towers in range.\n"
-
-	return text
+	return list
 
 
 func load_specials(modifier: Modifier):

@@ -13,31 +13,25 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var chance: String = Utils.format_percent(_stats.chance, 2)
 	var chance_for_bosses: String = Utils.format_percent(_stats.chance * 2 / 3, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)
 	var chance_add: String = Utils.format_percent(_stats.chance_add, 2)
 	var chance_add_for_bosses: String = Utils.format_percent(_stats.chance_add * 2 / 3, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Atrophy"
+	ability.description_short = "Reduces movement speed of target.\n"
+	ability.description_full = "When this tower attacks a creep it has a %s (%s for bosses) chance to slow it by %s for 5 seconds.\n" % [chance, chance_for_bosses, slow_value] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]
+	list.append(ability)
 
-	text += "[color=GOLD]Atrophy[/color]\n"
-	text += "When this tower attacks a creep it has a %s (%s for bosses) chance to slow it by %s for 5 seconds.\n" % [chance, chance_for_bosses, slow_value]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Atrophy[/color]\n"
-	text += "Reduces movement speed of target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

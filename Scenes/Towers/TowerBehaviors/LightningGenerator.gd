@@ -13,40 +13,34 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var chain_damage: String = Utils.format_float(_stats.chain_damage, 2)
 	var chain_dmg_add: String = Utils.format_float(_stats.chain_damage * 0.02, 2)
 	var on_attack_damage: String = Utils.format_float(_stats.on_attack_damage, 2)
 	var on_attack_damage_add: String = Utils.format_float(_stats.on_attack_damage * 0.02, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var chain: AbilityInfo = AbilityInfo.new()
+	chain.name = "Chain Lightning"
+	chain.description_short = "This tower has a chance on attack to release chainlightning.\n"
+	chain.description_full = "This tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n" % chain_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % chain_dmg_add \
+	+ "+0.25% chance\n"
+	list.append(chain)
 
-	text += "[color=GOLD]Chainlightning[/color]\n"
-	text += "This tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n" % chain_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % chain_dmg_add
-	text += "+0.25% chance\n"
-	text += " \n"
-	text += "[color=GOLD]Force Attack[/color]\n"
-	text += "This tower deals %s spell damage on attack.\n" % on_attack_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage" % on_attack_damage_add
+	var force_attack: AbilityInfo = AbilityInfo.new()
+	force_attack.name = "Force Attack"
+	force_attack.description_short = "This tower's attacks deal spell damage instead of attack damage.\n"
+	force_attack.description_full = "This tower deals %s spell damage on attack.\n" % on_attack_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage" % on_attack_damage_add
+	list.append(force_attack)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Chainlightning[/color]\n"
-	text += "This tower has a chance on attack to release chainlightning.\n"
-	text += " \n"
-	text += "[color=GOLD]Force Attack[/color]\n"
-	text += "This tower's attacks deal spell damage instead of attack damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

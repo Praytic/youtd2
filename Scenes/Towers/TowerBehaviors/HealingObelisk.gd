@@ -10,29 +10,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var heal_ratio: String = Utils.format_percent(_stats.heal_ratio, 2)
 	var heal_ratio_add: String = Utils.format_percent(_stats.heal_ratio_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Grace"
+	ability.description_short = "A percentage of this tower's damage gets revoked after a while.\n"
+	ability.description_full = "%s of the damage done by this tower will be revoked over 3 seconds. Does not affect immune targets.\n" % heal_ratio \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-%s of the damage healed\n" % heal_ratio_add \
+	+ "+1 second needed to heal at level 15 and 25\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Grace[/color]\n"
-	text += "%s of the damage done by this tower will be revoked over 3 seconds. Does not affect immune targets.\n" % heal_ratio
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-%s of the damage healed\n" % heal_ratio_add
-	text += "+1 second needed to heal at level 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Grace[/color]\n"
-	text += "A percentage of this tower's damage gets revoked after a while.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

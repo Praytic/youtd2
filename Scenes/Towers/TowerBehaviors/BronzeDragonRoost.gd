@@ -4,28 +4,22 @@ extends TowerBehavior
 var bronze_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Bronzefication"
+	ability.description_short = "Each time this tower damages a unit it has a chance to turn the target's flesh into bronze. The unit is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
+	ability.description_full = "Each time this tower damages a unit it has a 10% chance to turn the target's flesh into bronze for 5 seconds. The unit is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1% hp regen\n" \
+	+ "-0.8% armor\n" \
+	+ "+1% item quality\n" \
+	+ "+0.4% chance\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Bronzefication[/color]\n"
-	text += "Each time this tower damages a unit it has a 10% chance to turn the target's flesh into bronze for 5 seconds. The unit is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1% hp regen\n"
-	text += "-0.8% armor\n"
-	text += "+1% item quality\n"
-	text += "+0.4% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Bronzefication[/color]\n"
-	text += "Each time this tower damages a unit it has a chance to turn the target's flesh into bronze. The unit is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

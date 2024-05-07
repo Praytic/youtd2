@@ -4,34 +4,28 @@ extends TowerBehavior
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var time_travel: AbilityInfo = AbilityInfo.new()
+	time_travel.name = "Time Travel"
+	time_travel.description_short = "Damaged targets will be teleported back in time after a delay.\n"
+	time_travel.description_full = "Damaged targets will be teleported 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, all others will be always teleported.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% chance for bosses\n"
+	list.append(time_travel)
 
-	text += "[color=GOLD]Time Travel[/color]\n"
-	text += "Damaged targets will be teleported 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, all others will be always teleported.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% chance for bosses\n"
-	text += " \n"
-	text += "[color=GOLD]Timesurge - Aura[/color]\n"
-	text += "Increases triggerchance of towers in 600 range by 30%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
+	var timesurge: AbilityInfo = AbilityInfo.new()
+	timesurge.name = "Timesurge - Aura"
+	timesurge.description_short = "Increases triggerchance of nearby towers.\n"
+	timesurge.description_full = "Increases triggerchance of towers in 600 range by 30%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n"
+	list.append(timesurge)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Time Travel[/color]\n"
-	text += "Damaged targets will be teleported back in time after a delay.\n"
-	text += " \n"
-	text += "[color=GOLD]Timesurge - Aura[/color]\n"
-	text += "Increases triggerchance of nearby towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

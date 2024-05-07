@@ -14,7 +14,7 @@ const STRIKE_CHANCE_ADD: float = 0.004
 const AURA_RANGE: float = 1300
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var strike_chance: String = Utils.format_percent(_stats.strike_chance, 2)
 	var strike_chance_add: String = Utils.format_percent(STRIKE_CHANCE_ADD, 2)
@@ -23,34 +23,28 @@ func get_ability_description() -> String:
 	var mod_dmg_from_storm: String = Utils.format_percent(_stats.mod_dmg_from_storm, 2)
 	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var lightning: AbilityInfo = AbilityInfo.new()
+	lightning.name = "Lightning Strike"
+	lightning.description_short = "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
+	lightning.description_full = "When this tower damages a target there is a %s chance that a lightning bolt strikes the target for %s damage.\n" % [strike_chance, strike_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % strike_damage_add \
+	+ "+%s chance\n" % strike_chance_add
+	list.append(lightning)
 
-	text += "[color=GOLD]Lightning Strike[/color]\n"
-	text += "When this tower damages a target there is a %s chance that a lightning bolt strikes the target for %s damage. \n" % [strike_chance, strike_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % strike_damage_add
-	text += "+%s chance\n" % strike_chance_add
-	text += " \n"
-	text += "[color=GOLD]Realm of Thunder - Aura[/color]\n"
-	text += "Increases the vulnerability of enemies in %s range to damage from Storm towers by %s. \n" % [aura_range, mod_dmg_from_storm]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s vulnerability\n" % mod_dmg_from_storm_add
+	var realm: AbilityInfo = AbilityInfo.new()
+	realm.name = "Realm of Thunder - Aura"
+	realm.description_short = "Makes nearby creeps more vulnerable to Storm towers.\n"
+	realm.description_full = "Increases the vulnerability of enemies in %s range to damage from Storm towers by %s.\n" % [aura_range, mod_dmg_from_storm] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s vulnerability\n" % mod_dmg_from_storm_add
+	list.append(realm)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Lightning Strike[/color]\n"
-	text += "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
-	text += " \n"
-	text += "[color=GOLD]Realm of Thunder - Aura[/color]\n"
-	text += "Makes nearby creeps more vulnerable to Storm towers.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -10,25 +10,19 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Magic Split"
+	ability.description_short = "On damage this tower deals 100% of its attack damage as spell damage to the target.\n"
+	ability.description_full = "This tower deals an additional amount of spell damage to its target equal to 100% of its attack damage. If the creep is immune this damage is dealt as energy damage equal to 80% of its attack damage not affected by level bonus.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Magic Split[/color]\n"
-	text += "This tower deals an additional amount of spell damage to its target equal to 100% of its attack damage. If the creep is immune this damage is dealt as energy damage equal to 80% of its attack damage not affected by level bonus.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magic Split[/color]\n"
-	text += "On damage this tower deals 100% of its attack damage as spell damage to the target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

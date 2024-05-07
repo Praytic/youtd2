@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var buffed_tower_mana_burned: String = Utils.format_float(_stats.aura_level / 100.0, 2)
 	var damage_mana_multiplier: String = Utils.format_float(_stats.damage_mana_multiplier, 2)
 	var aura_mana_cost: String = Utils.format_float(_stats.aura_mana_cost, 2)
@@ -21,34 +21,28 @@ func get_ability_description() -> String:
 	var damage_per_mana_point_add: String = Utils.format_float(_stats.aura_power_add, 2)
 	var elemental_attack_type_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var unstable_energies: AbilityInfo = AbilityInfo.new()
+	unstable_energies.name = "Unstable Energies"
+	unstable_energies.description_short = "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
+	unstable_energies.description_full = "This tower has a 28%% chance on damage to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.48% chance\n" \
+	+ "-1% current mana consumed\n"
+	list.append(unstable_energies)
 
-	text += "[color=GOLD]Unstable Energies[/color]\n"
-	text += "This tower has a 28%% chance on damage to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.48% chance\n"
-	text += "-1% current mana consumed\n"
-	text += " \n"
-	text += "[color=GOLD]Mana Distortion Field - Aura[/color]\n"
-	text += "Towers in 200 range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attackspeed and range adjusted and the tower deals %s spelldamage per mana point burned.\n" % [buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spelldamage per mana point burned\n" % damage_per_mana_point_add
+	var mana_distortion: AbilityInfo = AbilityInfo.new()
+	mana_distortion.name = "Mana Distortion Field - Aura"
+	mana_distortion.description_short = "Nearby towers burn creep mana when attacking.\n"
+	mana_distortion.description_full = "Towers in 200 range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attackspeed and range adjusted and the tower deals %s spelldamage per mana point burned.\n" % [buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spelldamage per mana point burned\n" % damage_per_mana_point_add
+	list.append(mana_distortion)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Unstable Energies[/color]\n"
-	text += "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Mana Distortion Field - Aura[/color]\n"
-	text += "Nearby towers burn creep mana when attacking.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

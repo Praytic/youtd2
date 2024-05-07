@@ -4,22 +4,16 @@ extends TowerBehavior
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Green Dragon Force - Aura"
+	ability.description_short = "Increases multicrit of towers in range.\n"
+	ability.description_full = "Increases the multicrit of towers in 200 range by 2.\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Green Dragon Force - Aura[/color]\n"
-	text += "Increases the multicrit of towers in 200 range by 2.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Green Dragon Force - Aura[/color]\n"
-	text += "Increases multicrit of towers in range.\n"
-
-	return text
+	return list
 
 
 # NOTE: tooltip in original game includes innate stats in some cases

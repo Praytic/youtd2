@@ -21,37 +21,32 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	# var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 	var mod_value: String = Utils.format_percent(_stats.mod_value * 0.1 * 0.01, 2)
 	var mod_value_add: String = Utils.format_percent(_stats.mod_value_add * 0.1 * 0.01, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var power_of_light: AbilityInfo = AbilityInfo.new()
+	power_of_light.name = "Power of Light"
+	power_of_light.description_short = "The mighty holy light weakens enemy undead creeps.\n"
+	power_of_light.description_full = "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s more damage from physical and spell attacks.\n" % [duration, mod_value] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds\n" % duration_add \
+	+ "+%s damage" % mod_value_add
+	list.append(power_of_light)
 
-	# text += "[color=GOLD]Magical Sight[/color]\n"
-	# text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
-	text += "[color=GOLD]Power of Light[/color]\n"
-	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s more damage from physical and spell attacks.\n" % [duration, mod_value]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds\n" % duration_add
-	text += "+%s damage" % mod_value_add
+	# var magical_sight: AbilityInfo = AbilityInfo.new()
+	# magical_sight.name = "Magical Sight"
+	# magical_sight.description_short = "Can see invisible enemy units.\n"
+	# magical_sight.description_full = "Can see invisible enemy units in %s range.\n" % magical_sight_range
+	# list.append(magical_sight)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	# text += "[color=GOLD]Magical Sight[/color]\n"
-	# text += "Can see invisible enemy units.\n"
-	# text += " \n"
-	text += "[color=GOLD]Power of Light[/color]\n"
-	text += "The mighty holy light weakens enemy undead creeps.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

@@ -10,47 +10,37 @@ var current_attack_count: int = -1
 var strangle_count: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var fresh_fish_ability: AbilityInfo = AbilityInfo.new()
+	fresh_fish_ability.name = "Fresh Fish!"
+	fresh_fish_ability.description_short = "Each time Fisherman's Net strangles a creep, it increases the dps of nearby towers.\n"
+	fresh_fish_ability.description_full = "Each time Fisherman's Net strangles a creep, the dps of towers in 500 range is increased by 15% of this tower's dps for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.1 second duration\n" \
+	+ "+0.004 damage per second multipler\n"
+	list.append(fresh_fish_ability)
 
-	text += "[color=GOLD]Fresh Fish![/color]\n"
-	text += "Each time Fisherman's Net strangles a creep, the dps of towers in 500 range is increased by 15% of this tower's dps for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1 second duration\n"
-	text += "+0.004 damage per second multipler\n"
-	text += " \n"
+	var impatient: AbilityInfo = AbilityInfo.new()
+	impatient.name = "Impatient"
+	impatient.description_short = "After 4 attacks on the same target the fisherman will attack a different unit.\n"
+	impatient.description_full = "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of 'Fisherman's Net'.\n"
+	list.append(impatient)
 
-	text += "[color=GOLD]Impatient[/color]\n"
-	text += "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of 'Fisherman's Net'.\n"
-	text += " \n"
+	var fishermans_net: AbilityInfo = AbilityInfo.new()
+	fishermans_net.name = "Fisherman's Net"
+	fishermans_net.description_short = "Creeps damaged by this tower get caught in its net.\n"
+	fishermans_net.description_full = "Creeps damaged by this tower get caught in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% slow\n" \
+	+ "+2.4 movement speed required\n" \
+	+ "+0.2% chance\n"
+	list.append(fishermans_net)
 
-	text += "[color=GOLD]Fisherman's Net[/color]\n"
-	text += "Creeps damaged by this tower get caught in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% slow\n"
-	text += "+2.4 movement speed required\n"
-	text += "+0.2% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fresh Fish![/color]\n"
-	text += "Each time Fisherman's Net strangles a creep, it increases the dps of nearby towers.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Impatient[/color]\n"
-	text += "After 4 attacks on the same target the fisherman will attack a different unit.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Fisherman's Net[/color]\n"
-	text += "Creeps damaged by this tower get caught in its net.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

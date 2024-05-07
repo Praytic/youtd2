@@ -13,28 +13,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var miss_chance_add: String = Utils.format_percent(_stats.miss_chance_add, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Hail of Axes"
+	ability.description_short = "Attacks multiple enemies at once with a chance to miss.\n"
+	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-%s chance to miss\n" % miss_chance_add \
+	+ "+1 target at levels 15 and 25\n"
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Hail of Axes[/color]\n"
-	text += "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-%s chance to miss\n" % miss_chance_add
-	text += "+1 target at levels 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Hail of Axes[/color]\n"
-	text += "Attacks multiple enemies at once with a chance to miss.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

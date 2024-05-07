@@ -18,31 +18,25 @@ const DEBUFF_DURATION: float = 5.0
 const ERUPT_RANGE: float = 200
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var target_count: String = Utils.format_float(_stats.target_count, 2)
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 3)
 	var debuff_duration: String = Utils.format_float(DEBUFF_DURATION, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Phoenixfire"
+	ability.description_short = "The Phoenix attacks up multiple targets at once and melts their armor.\n"
+	ability.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. The armor of attacked creeps melts, reducing it by %s for %s seconds. This buff is stackable.\n" % [target_count, mod_armor, debuff_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s armor reduction\n" % mod_armor_add \
+	+ "+1 target at level 15\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Phoenixfire[/color]\n"
-	text += "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. The armor of attacked creeps melts, reducing it by %s for %s seconds. This buff is stackable.\n" % [target_count, mod_armor, debuff_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s armor reduction\n" % mod_armor_add
-	text += "+1 target at level 15\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Phoenixfire[/color]\n"
-	text += "The Phoenix attacks up multiple targets at once and melts their armor.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

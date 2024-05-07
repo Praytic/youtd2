@@ -17,30 +17,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Poisonous Spittle"
+	ability.description_short = "Deals damage over time, increases with every attack.\n"
+	ability.description_full = "Units damaged by the spider become infected and receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n" % damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage per second\n" % damage_add \
+	+ "+0.05 second duration\n" \
+	+ "+1 stack every 5 levels\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Poisonous Spittle[/color]\n"
-	text += "Units damaged by the spider become infected and receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n" % damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage per second\n" % damage_add
-	text += "+0.05 second duration\n"
-	text += "+1 stack every 5 levels"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Poisonous Spittle[/color]\n"
-	text += "Deals damage over time, increases with every attack.\n"
-
-	return text
+	return list
 
 
 func load_specials(modifier: Modifier):

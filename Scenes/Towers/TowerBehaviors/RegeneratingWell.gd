@@ -15,29 +15,24 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
 	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Cleansing Water - Aura"
+	ability.description_short = "Increases spell damage dealt by nearby towers.\n"
+	ability.description_full = "Increases the spell damage dealt by all towers in %s range by %s.\n" % [aura_range, mod_spell_dmg] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % mod_spell_dmg_add
+	list.append(ability)
 
-	text += "[color=GOLD]Cleansing Water - Aura[/color]\n"
-	text += "Increases the spell damage dealt by all towers in %s range by %s.\n" % [aura_range, mod_spell_dmg]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % mod_spell_dmg_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cleansing Water - Aura[/color]\n"
-	text += "Increases spell damage dealt by nearby towers.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

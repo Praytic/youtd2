@@ -15,30 +15,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var increased_spell_damage: String = Utils.format_percent((0.02 + 0.01 * _stats.apply_level), 2)
 	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Rend"
+	ability.description_short = "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
+	ability.description_full = "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% chance\n" \
+	+ "+%s spell damage per second" % periodic_damage_add
+	list.append(ability)
 
-	text += "[color=GOLD]Rend[/color]\n"
-	text += "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% chance\n"
-	text += "+%s spell damage per second" % periodic_damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rend[/color]\n"
-	text += "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

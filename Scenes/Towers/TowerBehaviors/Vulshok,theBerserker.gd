@@ -13,41 +13,34 @@ var do_splash_next: bool = false
 var growth_count: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ultimate Fighter[/color]\n"
-	text += "Vulshok uses his great power to specialize his attacks:\n"
-	text += "- Every 3rd attack adds a critical hit\n"
-	text += "- Every 7th attack deals 3000 bonus attackdamage\n"
-	text += "- Every 12th attack splashes all damage over 200 AoE\n"
-	text += "- Every 15th attack adds 0.5% attack damage permanently\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+200 attackdamage on 7th attack\n"
-	text += " \n"
-
-	text += "[color=GOLD]Ultimate Fighter[/color]\n"
-	text += "When Vulshok damages a creep it gets maimed. The creep is slowed by 10% for 5 seconds and every second it gets slowed by an extra 5%. This buff lasts for 5 seconds and cannot be refreshed.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% slow \n"
-	text += "+0.1% extra slow per second\n"
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
 	
-	return text
+	var ultimate_fighter: AbilityInfo = AbilityInfo.new()
+	ultimate_fighter.name = "Ultimate Fighter"
+	ultimate_fighter.description_short = "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus damage, AoE damage or empower Vulshok.\n"
+	ultimate_fighter.description_full = "Vulshok uses his great power to specialize his attacks:\n" \
+	+ "- Every 3rd attack adds a critical hit\n" \
+	+ "- Every 7th attack deals 3000 bonus attackdamage\n" \
+	+ "- Every 12th attack splashes all damage over 200 AoE\n" \
+	+ "- Every 15th attack adds 0.5% attack damage permanently\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+200 attackdamage on 7th attack\n"
+	list.append(ultimate_fighter)
 
+	var maim: AbilityInfo = AbilityInfo.new()
+	maim.name = "Maim"
+	maim.description_short = "When Vulshok damages a creep it gets maimed.\n"
+	maim.description_full = "When Vulshok damages a creep it gets maimed. The creep is slowed by 10% for 5 seconds and every second it gets slowed by an extra 5%. This buff lasts for 5 seconds and cannot be refreshed.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% slow \n" \
+	+ "+0.1% extra slow per second\n"
+	list.append(maim)
 
-func get_ability_description_short() -> String:
-	var text: String = ""
+	return list
 
-	text += "[color=GOLD]Ultimate Fighter[/color]\n"
-	text += "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus damage, AoE damage or empower Vulshok.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Ultimate Fighter[/color]\n"
-	text += "When Vulshok damages a creep it gets maimed.\n"
-	
-	return text
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)

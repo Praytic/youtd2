@@ -1,22 +1,16 @@
 extends TowerBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Rejection"
+	ability.description_short = "This tower drops all except Common items on attack.\n"
+	ability.description_full = "This tower drops all except Common items on attack.\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Rejection[/color]\n"
-	text += "This tower drops all except Common items on attack.\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rejection[/color]\n"
-	text += "This tower drops all except Common items on attack.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -14,32 +14,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var cooldown: String = Utils.format_float(_stats.cooldown, 2)
 	var max_targets: String = Utils.format_float(_stats.max_targets, 2)
 	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Activate Trap"
+	ability.description_short = "Traps random creeps in range.\n"
+	ability.description_full = "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spelldamage\n" % damage_add \
+	+ "-0.2 seconds cooldown"
+	list.append(ability)
 
-	text += "[color=GOLD]Activate Trap[/color]\n"
-	text += "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spelldamage\n" % damage_add
-	text += "-0.2 seconds cooldown"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Activate Trap[/color]\n"
-	text += "Traps random creeps in range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

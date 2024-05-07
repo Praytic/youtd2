@@ -25,29 +25,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var slow_amount: String = Utils.format_percent(_stats.slow_amount, 2)
 	var slow_amount_add: String = Utils.format_percent(_stats.slow_amount_add, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Frost"
+	ability.description_short = "Slows the attacked creep.\n"
+	ability.description_full = "A creep hit by one of this tower's shots is slowed by %s for 9 seconds.\n" % slow_amount \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s slow\n" % slow_amount_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Frost[/color]\n"
-	text += "A creep hit by one of this tower's shots is slowed by %s for 9 seconds.\n" % slow_amount
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s slow\n" % slow_amount_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frost[/color]\n"
-	text += "Slows the attacked creep.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

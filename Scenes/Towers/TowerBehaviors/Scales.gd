@@ -9,46 +9,36 @@ var i_scale_level: int = 0
 var i_scale_value: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var i_scale: AbilityInfo = AbilityInfo.new()
+	i_scale.name = "I Scale"
+	i_scale.description_short = "This tower gains spell damage, spell crit damage and spell crit chance for each level the player survives.\n"
+	i_scale.description_full = "This tower gains 1.66% spell damage, spell crit damage and 0.125% spell crit chance for each level the player survives.\n"
+	list.append(i_scale)
 
-	text += "[color=GOLD]I Scale[/color]\n"
-	text += "This tower gains 1.66% spell damage, spell crit damage and 0.125% spell crit chance for each level the player survives.\n"
-	text += " \n"
+	var electrify: AbilityInfo = AbilityInfo.new()
+	electrify.name = "Electrify"
+	electrify.description_short = "Chance to electrify creeps. Creeps in range of the electrified unit will take damage.\n"
+	electrify.description_full = "Whenever this tower damages a creep, it has a 20% chance to electrify it for 5 seconds. Each second, all creeps in 225 range of the electrified unit take 900 spell damage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.8% chance\n" \
+	+ "+36 spell damage per second\n"
+	list.append(electrify)
 
-	text += "[color=GOLD]Electrify[/color]\n"
-	text += "Whenever this tower damages a creep, it has a 20% chance to electrify it for 5 seconds. Each second, all creeps in 225 range of the electrified unit take 900 spell damage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.8% chance\n"
-	text += "+36 spell damage per second\n"
-	text += " \n"
+	var overcharge: AbilityInfo = AbilityInfo.new()
+	overcharge.name = "I Overcharge"
+	overcharge.description_short = "Chance to deal extra spell damage to the damaged unit.\n"
+	overcharge.description_full = "Whenever this tower deals damage with its attacks or its other innate abilities it has a 25% chance to deal 900 spell damage to the damaged unit. Overcharge can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+36 spell damage\n" \
+	+ "+1% chance\n"
+	list.append(overcharge)
 
-	text += "[color=GOLD]Overcharge[/color]\n"
-	text += "Whenever this tower deals damage with its attacks or its other innate abilities it has a 25% chance to deal 900 spell damage to the damaged unit. Overcharge can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+36 spell damage\n"
-	text += "+1% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]I Scale[/color]\n"
-	text += "This tower gains spell damage, spell crit damage and spell crit chance for each level the player survives.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Electrify[/color]\n"
-	text += "Chance to electrify creeps. Creeps in range of the electrified unit will take damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Overcharge[/color]\n"
-	text += "Chance to deal extra spell damage to the damaged unit.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

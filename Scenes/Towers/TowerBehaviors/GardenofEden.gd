@@ -6,25 +6,19 @@ var current_spawn_level: int = 0
 var lifeforce_stored: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Essence of the Mortals"
+	ability.description_short = "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain.\n"
+	ability.description_full = "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain. For each lifeforce stored in the fountain, the garden deals an additional [current spawn level x 2] spell damage on attack. Maximum of 5 stored lifeforce.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1 maximum lifeforce\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Essence of the Mortals[/color]\n"
-	text += "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain. For each lifeforce stored in the fountain, the garden deals an additional [current spawn level x 2] spell damage on attack. Maximum of 5 stored lifeforce.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1 maximum lifeforce\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Essence of the Mortals[/color]\n"
-	text += "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

@@ -14,42 +14,36 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var banish_lvl: String = Utils.format_percent(_stats.banish_lvl * 0.01, 2)
 	var banish_duration: String = Utils.format_float(_stats.banish_duration, 2)
 	var banish_lvl_add: String = Utils.format_percent(_stats.banish_lvl_add * 0.01, 2)
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var soul_scattering: AbilityInfo = AbilityInfo.new()
+	soul_scattering.name = "Soul Scattering"
+	soul_scattering.description_short = "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
+	soul_scattering.description_full = "10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% attackspeed\n" \
+	+ "+%s spell damage received\n" % banish_lvl_add
+	list.append(soul_scattering)
 
-	text += "[color=GOLD]Soul Scattering[/color]\n"
-	text += "10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% attackspeed\n"
-	text += "+%s spell damage received\n" % banish_lvl_add
-	text += " \n"
-	text += "[color=GOLD]Shadowstrike[/color]\n"
-	text += "This tower has a 25%% chance on attack to deal %s spell damage.\n" % damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % damage_add
-	text += "+0.5% chance"
+	var shadowstrike: AbilityInfo = AbilityInfo.new()
+	shadowstrike.name = "Shadowstrike"
+	shadowstrike.description_short = "Chance on attack to deal additional spell damage.\n"
+	shadowstrike.description_full = "This tower has a 25%% chance on attack to deal %s spell damage.\n" % damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % damage_add \
+	+ "+0.5% chance\n"
+	list.append(shadowstrike)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Scattering[/color]\n"
-	text += "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
-	text += " \n"
-	text += "[color=GOLD]Shadowstrike[/color]\n"
-	text += "Chance on attack to deal additional spell damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

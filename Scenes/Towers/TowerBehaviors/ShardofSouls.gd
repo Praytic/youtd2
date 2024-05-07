@@ -25,24 +25,18 @@ const SOUL_LINK_COUNT: int = 3
 const SOUL_CONSUMPTION_EXP_GAIN: int = 1
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var soul_consumption_exp_gain: String = Utils.format_float(SOUL_CONSUMPTION_EXP_GAIN, 2)
+
+	var list: Array[AbilityInfo] = []
 	
-	var text: String = ""
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Soul Consumption"
+	ability.description_short = "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
+	ability.description_full = "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
+	list.append(ability)
 
-	text += "[color=GOLD]Soul Consumption[/color]\n"
-	text += "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Consumption[/color]\n"
-	text += "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

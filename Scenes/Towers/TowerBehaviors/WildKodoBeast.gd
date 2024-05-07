@@ -5,44 +5,36 @@ var aura_bt: BuffType
 var devour_count: int = 1
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Devour[/color]\n"
-	text += "On attack the Kodo has a 6% chance to take a bite out of its target dealing 5000 spell damage and increasing the multiplier for bonuses granted by 'Kodo Dung' by 1 for 6 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1% chance\n"
-	text += "+400 spell damage\n"
-	text += " \n"
-
-	text += "[color=GOLD]Kodo Dung - Aura[/color]\n"
-	text += "The dung of this kodo grants towers in 400 range:\n"
-	text += "  +10% damage\n"
-	text += "  +10% attackspeed\n"
-	text += "  +3% critical strike chance\n"
-	text += "  +15% critical strike damage\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% damage\n"
-	text += "+0.2% attackspeed\n"
-	text += "+0.06% critical strike chance\n"
-	text += "+0.3% critical strike damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Devour[/color]\n"
-	text += "On attack the Kodo has a chance to take a bite out of its target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Kodo Dung - Aura[/color]\n"
-	text += "The dung of this kodo empowers nearby towers.\n"
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
 	
-	return text
+	var devour: AbilityInfo = AbilityInfo.new()
+	devour.name = "Devour"
+	devour.description_short = "On attack the Kodo has a chance to take a bite out of its target.\n"
+	devour.description_full = "On attack the Kodo has a 6% chance to take a bite out of its target dealing 5000 spell damage and increasing the multiplier for bonuses granted by 'Kodo Dung' by 1 for 6 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.1% chance\n" \
+	+ "+400 spell damage\n"
+	list.append(devour)
+
+	var kodo_dung: AbilityInfo = AbilityInfo.new()
+	kodo_dung.name = "Kodo Dung - Aura"
+	kodo_dung.description_short = "The dung of this kodo empowers nearby towers.\n"
+	kodo_dung.description_full = "The dung of this kodo grants towers in 400 range:\n" \
+	+ "  +10% damage\n" \
+	+ "  +10% attackspeed\n" \
+	+ "  +3% critical strike chance\n" \
+	+ "  +15% critical strike damage\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% damage\n" \
+	+ "+0.2% attackspeed\n" \
+	+ "+0.06% critical strike chance\n" \
+	+ "+0.3% critical strike damage\n"
+	list.append(kodo_dung)
+
+	return list
 
 
 func load_triggers(triggers: BuffType):

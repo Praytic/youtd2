@@ -14,30 +14,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var poison_damage: String = Utils.format_float(_stats.poison_damage, 2)
 	var poison_damage_add: String = Utils.format_float(_stats.poison_damage_add, 2)
 	var poison_duration_add: String = Utils.format_float(_stats.poison_duration_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Poisoned Heart"
+	ability.description_short = "Deals damage over time.\n"
+	ability.description_full = "This tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n" % poison_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s poison damage\n" % poison_damage_add \
+	+ "+%s seconds poison duration\n" % poison_duration_add
+	list.append(ability)
 
-	text += "[color=GOLD]Poisoned Heart[/color]\n"
-	text += "This tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n" % poison_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s poison damage\n" % poison_damage_add
-	text += "+%s seconds poison duration" % poison_duration_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Poisoned Heart[/color]\n"
-	text += "Deals damage over time.\n"
-
-	return text
+	return list
 
 
 func load_specials(_modifier: Modifier):

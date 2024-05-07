@@ -21,30 +21,24 @@ const QUILLSPRAY_DEBUFF_DURATION: float = 1.5
 const QUILLSPRAY_RANGE: float = 800
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var occasional_quillspray_chance: String = Utils.format_percent(_stats.occasional_quillspray_chance, 2)
 	var occasional_quillspray_chance_add: String = Utils.format_percent(_stats.occasional_quillspray_chance_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Occasional Quillspray"
+	ability.description_short = "On attack this tower has a chance to trigger a Quillspray.\n"
+	ability.description_full = "On attack this tower has a %s chance to trigger a Quillspray.\n" % occasional_quillspray_chance \
+	+ " \n" \
+	+ "Hint: This Quillspray costs no mana.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % occasional_quillspray_chance_add
+	list.append(ability)
 
-	text += "[color=GOLD]Occasional Quillspray[/color]\n"
-	text += "On attack this tower has a %s chance to trigger a Quillspray.\n" % occasional_quillspray_chance
-	text += " \n"
-	text += "Hint: This Quillspray costs no mana.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % occasional_quillspray_chance_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Occasional Quillspray[/color]\n"
-	text += "On attack this tower has a chance to trigger a Quillspray.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

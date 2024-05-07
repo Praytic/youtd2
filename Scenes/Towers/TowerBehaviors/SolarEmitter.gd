@@ -11,32 +11,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 2)
 	var vuln: String = Utils.format_percent(_stats.vuln, 2)
 	var vuln_add: String = Utils.format_percent(_stats.vuln_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Sunshine - Aura"
+	ability.description_short = "Reduces the armor of creeps in range and makes them more vulnerable to damage from Astral, Fire, Iron and Nature towers.\n"
+	ability.description_full = "Reduces the armor of enemies in %s range by %s and increases the vulnerability to damage from Astral, Fire, Iron and Nature towers by %s.\n" % [aura_range, mod_armor, vuln] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s armor reduction\n" % mod_armor_add \
+	+ "+%s vulnerability\n" % vuln_add
+	list.append(ability)
 
-	text += "[color=GOLD]Sunshine - Aura[/color]\n"
-	text += "Reduces the armor of enemies in %s range by %s and increases the vulnerability to damage from Astral, Fire, Iron and Nature towers by %s.\n" % [aura_range, mod_armor, vuln]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s armor reduction\n" % mod_armor_add
-	text += "+%s vulnerability\n" % vuln_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Sunshine - Aura[/color]\n"
-	text += "Reduces the armor of creeps in range and makes them more vulnerable to damage from Astral, Fire, Iron and Nature towers.\n"
-
-	return text
+	return list
 
 
 func load_specials(_modifier: Modifier):

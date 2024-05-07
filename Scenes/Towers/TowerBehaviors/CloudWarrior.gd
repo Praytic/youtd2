@@ -11,28 +11,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning_dmg: String = Utils.format_float(_stats.lightning_dmg, 2)
 	var lightning_dmg_add: String = Utils.format_float(_stats.lightning_dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Lightning Strike"
+	ability.description_short = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target.\n"
+	ability.description_full = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n" % lightning_dmg \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage" % lightning_dmg_add
+	list.append(ability)
 
-	text += "[color=GOLD]Lightning Strike[/color]\n"
-	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n" % lightning_dmg
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage" % lightning_dmg_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Lightning Strike[/color]\n"
-	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

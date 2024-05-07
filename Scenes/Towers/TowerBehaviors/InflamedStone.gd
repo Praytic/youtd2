@@ -27,39 +27,34 @@ func get_tier_stats() -> Dictionary:
 const MANA_THRESHOLD_BASE: float = 20
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var spellfire_ratio: String = Utils.format_percent(_stats.spellfire_ratio, 2)
 	var spellfire_ratio_add: String = Utils.format_percent(_stats.spellfire_ratio_add, 2)
 	var mana_threshold_base: String = Utils.format_float(MANA_THRESHOLD_BASE, 2)
 	var mana_threshold_add: String = Utils.format_float(_stats.mana_threshold_add, 2)
 	var extra_crit_dmg_per_mana: String = Utils.format_percent(_stats.extra_crit_dmg_per_mana, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
 
-	text += "[color=GOLD]Spellfire[/color]\n"
-	text += "This tower treats all spell modifiers as attack bonuses, with an %s bonus gain of stated effect. This is recalculated before every attack.\n" % spellfire_ratio
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s bonus gain\n" % spellfire_ratio_add
-	text += " \n"
-	text += "[color=GOLD]Spellfire Projectiles[/color]\n"
-	text += "If this tower has at least %s mana when it attacks, it will pay all its mana to proc a critical strike. %s Mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-%s Mana needed\n" % mana_threshold_add
-	return text
+	var spellfire: AbilityInfo = AbilityInfo.new()
+	spellfire.name = "Spellfire"
+	spellfire.description_short = "This tower treats all spell modifiers as attack bonuses.\n"
+	spellfire.description_full = "This tower treats all spell modifiers as attack bonuses, with an %s bonus gain of stated effect. This is recalculated before every attack.\n" % spellfire_ratio \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s bonus gain\n" % spellfire_ratio_add
+	list.append(spellfire)
+	
+	var spellfire_projectiles: AbilityInfo = AbilityInfo.new()
+	spellfire_projectiles.name = "Spellfire Projectiles"
+	spellfire_projectiles.description_short = "On attack this towers uses all of its mana to make the next attack critical.\n"
+	spellfire_projectiles.description_full = "If this tower has at least %s mana when it attacks, it will pay all its mana to proc a critical strike. %s Mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-%s Mana needed\n" % mana_threshold_add
+	list.append(spellfire_projectiles)
 
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Spellfire[/color]\n"
-	text += "This tower treats all spell modifiers as attack bonuses.\n"
-	text += " \n"
-	text += "[color=GOLD]Spellfire Projectiles[/color]\n"
-	text += "On attack this towers uses all of its mana to make the next attack critical.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

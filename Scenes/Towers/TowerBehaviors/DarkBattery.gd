@@ -24,32 +24,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 	var mod_attack_damage: String = Utils.format_percent(_stats.mod_attack_damage, 2)
 	var mod_attack_damage_add: String = Utils.format_percent(_stats.mod_attack_damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Corruption"
+	ability.description_short = "A corrupted creep takes extra damage from attacks and spells.\n"
+	ability.description_full = "A corrupted creep takes %s extra damage from attacks and %s extra damage from spells for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage from attacks\n" % mod_attack_damage_add \
+	+ "+%s damage from spells\n" % mod_spell_damage_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Corruption[/color]\n"
-	text += "A corrupted creep takes %s extra damage from attacks and %s extra damage from spells for 9 seconds\n" % [mod_attack_damage, mod_spell_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage from attacks\n" % mod_attack_damage_add
-	text += "+%s damage from spells\n" % mod_spell_damage_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Corruption[/color]\n"
-	text += "A corrupted creep takes extra damage from attacks and spells.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

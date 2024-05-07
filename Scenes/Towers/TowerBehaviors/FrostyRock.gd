@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.001, 2)
 	var slow_add: String = Utils.format_percent(_stats.slow_value / 20.0 * 0.001, 2)
 	var extra_damage: String = Utils.format_float(_stats.extra_damage, 2)
@@ -22,25 +22,19 @@ func get_ability_description() -> String:
 	var damage_and_stun_chance: String = Utils.format_percent(_stats.damage_and_stun_chance, 2)
 	var extra_damage_add: String = Utils.format_float(_stats.extra_damage * 0.02, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Glacial Wrath"
+	ability.description_short = "Attacked creeps are slowed and each attack increases the chance to stun the target.\n"
+	ability.description_full = "Attacks of this tower slow the attacked creep by %s for 3 seconds. Each attack has a %s change to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spelldamage\n" % extra_damage_add \
+	+ "+%s slow\n" % slow_add
+	list.append(ability)
 
-	text += "[color=GOLD]Glacial Wrath[/color]\n"
-	text += "Attacks of this tower slow the attacked creep by %s for 3 seconds. Each attack has a %s change to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spelldamage\n" % extra_damage_add
-	text += "+%s slow" % slow_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Glacial Wrath[/color]\n"
-	text += "Attacked creeps are slowed and each attack increases the chance to stun the target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -17,42 +17,34 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var bolt_count: String = Utils.format_float(_stats.bolt_count, 2)
 	var bolt_damage: String = Utils.format_float(_stats.bolt_damage, 2)
 	var bolt_damage_add: String = Utils.format_float(_stats.bolt_damage_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var shadowbolt: AbilityInfo = AbilityInfo.new()
+	shadowbolt.name = "Shadowbolt Wave"
+	shadowbolt.description_short = "Has a chance to release a wave of shadowbolts.\n"
+	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This Spell has a 40%% chance to trigger if the last autocast released a shadowboltwave.\n" % [bolt_count, bolt_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % bolt_damage_add
+	list.append(shadowbolt)
 
-	text += "[color=GOLD]Shadowbolt Wave[/color]\n"
-	text += "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This Spell has a 40%% chance to trigger if the last autocast released a shadowboltwave.\n" % [bolt_count, bolt_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % bolt_damage_add
-
+	var slow_decay: AbilityInfo = AbilityInfo.new()
+	slow_decay.name = "Slow Decay - Aura"
+	slow_decay.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
+	slow_decay.description_full = "Non Boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.06% healthpoints needed for instantkill\n"
+	
 	if tower.get_tier() == 2:
-		text += " \n"
-		text += "[color=GOLD]Slow Decay - Aura[/color]\n"
-		text += "Non Boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n"
-		text += " \n"
-		text += "[color=ORANGE]Level Bonus:[/color]\n"
-		text += "+0.06% healthpoints needed for instantkill\n"
+		list.append(slow_decay)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Shadowbolt Wave[/color]\n"
-	text += "Has a chance to release a wave of shadowbolts.\n"
-
-	if tower.get_tier() == 2:
-		text += " \n"
-		text += "[color=GOLD]Slow Decay - Aura[/color]\n"
-		text += "Eredar Diabolist will instantly kill all low health creeps in range.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

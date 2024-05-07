@@ -11,24 +11,18 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var attack_mana_cost: String = Utils.format_float(_stats.attack_mana_cost, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Energetic Attack"
+	ability.description_short = "Each attack costs mana. Without mana the tower can't attack.\n"
+	ability.description_full = "Each attack costs %s mana. Without mana the tower can't attack.\n" % attack_mana_cost
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Energetic Attack[/color]\n"
-	text += "Each attack costs %s mana. Without mana the tower can't attack.\n" % attack_mana_cost
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Energetic Attack[/color]\n"
-	text += "Each attack costs mana. Without mana the tower can't attack.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

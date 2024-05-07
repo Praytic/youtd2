@@ -12,29 +12,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 2)
 	var mod_attackspeed_add: String = Utils.format_percent(_stats.mod_attackspeed_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Wolven Tenacity - Aura"
+	ability.description_short = "The strong physical presence of the wolves increases attack speed of nearby towers.\n"
+	ability.description_full = "The strong physical presence of the wolves encourages nearby towers within a %s radius, to increase their attack speed by %s.\n" % [aura_range, mod_attackspeed] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s attack speed\n" % mod_attackspeed_add
+	list.append(ability)
 
-	text += "[color=GOLD]Wolven Tenacity - Aura[/color]\n"
-	text += "The strong physical presence of the wolves encourages nearby towers within a %s radius, to increase their attack speed by %s.\n" % [aura_range, mod_attackspeed]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack speed\n" % mod_attackspeed_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Wolven Tenacity - Aura[/color]\n"
-	text += "The strong physical presence of the wolves increases attack speed of nearby towers.\n"
-
-	return text
+	return list
 
 
 func tower_init():

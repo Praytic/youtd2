@@ -18,7 +18,7 @@ const COLD_SLOW_DURATION: float = 4
 const COLD_RANGE: float = 900
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var cold_range: String = Utils.format_float(COLD_RANGE, 2)
 	var cold_damage: String = Utils.format_float(_stats.cold_damage, 2)
 	var cold_damage_add: String = Utils.format_float(_stats.cold_damage_add, 2)
@@ -27,25 +27,19 @@ func get_ability_description() -> String:
 	var cold_slow_duration: String = Utils.format_float(COLD_SLOW_DURATION, 2)
 	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Extreme Cold"
+	ability.description_short = "Damages and slows every unit that comes in range.\n"
+	ability.description_full = "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spelldamage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage \n" % cold_damage_add \
+	+ "+%s slow\n" % cold_slow_add
+	list.append(ability)
 
-	text += "[color=GOLD]Extreme Cold[/color]\n"
-	text += "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spelldamage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage \n" % cold_damage_add
-	text += "+%s slow\n" % cold_slow_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Extreme Cold[/color]\n"
-	text += "Damages and slows every unit that comes in range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

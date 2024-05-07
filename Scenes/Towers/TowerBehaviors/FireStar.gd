@@ -5,37 +5,29 @@ var ignite_bt: BuffType
 var firestar_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var burn: AbilityInfo = AbilityInfo.new()
+	burn.name = "Burn!"
+	burn.description_short = "When this tower damages a creep it will ignite it.\n"
+	burn.description_full = "When this tower damages a creep it will ignite and take the towers damage as attack damage every 2 seconds. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+4% initial damage\n" \
+	+ "+0.2% damage per stack\n"
+	list.append(burn)
 
-	text += "[color=GOLD]Burn![/color]\n"
-	text += "When this tower damages a creep it will ignite and take the towers damage as attack damage every 2 seconds. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+4% initial damage\n"
-	text += "+0.2% damage per stack\n"
-	text += " \n"
+	var double_the_trouble: AbilityInfo = AbilityInfo.new()
+	double_the_trouble.name = "Double the Trouble"
+	double_the_trouble.description_short = "Chance to launch an additional projectile.\n"
+	double_the_trouble.description_full = "When this tower damages a creep it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% chance\n"
+	list.append(double_the_trouble)
 
-	text += "[color=GOLD]Double the Trouble[/color]\n"
-	text += "When this tower damages a creep it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Burn![/color]\n"
-	text += "When this tower damages a creep it will ignite it.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Double the Trouble[/color]\n"
-	text += "Chance to launch an additional projectile.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

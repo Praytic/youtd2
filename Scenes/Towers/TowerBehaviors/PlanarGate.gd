@@ -7,28 +7,22 @@ var bouncing_pt: ProjectileType
 var falcon_count: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Planeshift"
+	ability.description_short = "On attack the Gate releases a magical falcon to hunt down its enemies.\n"
+	ability.description_full = "On attack the Gate releases a magical falcon to hunt down its enemies.\n" \
+	+ "The falcon deals energy damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5% less damage.\n" \
+	+ "There is a maximum of 1 falcon summoned at a time and a 20% chance to ignore the maximum.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.1% damage loss per bounce\n" \
+	+ "+1 falcon every 8 levels\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Planeshift[/color]\n"
-	text += "On attack the Gate releases a magical falcon to hunt down its enemies.\n"
-	text += "The falcon deals energy damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5% less damage.\n"
-	text += "There is a maximum of 1 falcon summoned at a time and a 20% chance to ignore the maximum.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.1% damage loss per bounce\n"
-	text += "+1 falcon every 8 levels\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Planeshift[/color]\n"
-	text += "On attack the Gate releases a magical falcon to hunt down its enemies.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

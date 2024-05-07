@@ -13,27 +13,21 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase * 0.001, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Cold Feet"
+	ability.description_short = "On attack this tower decreases its attack speed while increasing its damage.\n"
+	ability.description_full = "On attack this tower cools down decreasing its attackspeed by 5%% and increasing the damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1% attackspeed reduction at level 15 and 25\n"
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Cold Feet[/color]\n"
-	text += "On attack this tower cools down decreasing its attackspeed by 5%% and increasing the damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1% attackspeed reduction at level 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cold Feet[/color]\n"
-	text += "On attack this tower decreases its attack speed while increasing its damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -18,28 +18,21 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var exp_teach: String = Utils.format_float(_stats.exp_teach, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Knowledge"
+	ability.description_short = "When the teacher attacks there's a chance that a random nearby tower will gain experience.\n"
+	ability.description_full = "When the teacher attacks there's a 10%% chance a random tower in 600 range will learn from her, gaining %s experience.\n" % exp_teach \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance"
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Knowledge[/color]\n"
-	text += "When the teacher attacks there's a 10%% chance a random tower in 600 range will learn from her, gaining %s experience. \n" % exp_teach
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Knowledge[/color]\n"
-	text += "When the teacher attacks there's a chance that a random nearby tower will gain experience.\n"
-
-	return text
-
+	return list
 
 
 func hit(p: Projectile, result: Unit):

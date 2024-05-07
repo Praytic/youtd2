@@ -15,6 +15,27 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
+	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
+	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
+	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
+	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.01, 0)
+
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Soul Split"
+	ability.description_short = "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
+	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % soul_damage_add
+	list.append(ability)
+
+	return list
+
+
 func get_love_potion_description() -> String:
 	var potion_slow: String = Utils.format_percent(_stats.item_chance * 0.00125, 0)
 	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
@@ -34,33 +55,6 @@ func get_love_potion_description_short() -> String:
 	var text: String = ""
 
 	text += "The witch throws a bottle of love potion on the target, applying a slow and increase target's item drop chance.\n"
-
-	return text
-
-
-func get_ability_description() -> String:
-	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
-	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
-	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
-	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
-	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.01, 0)
-
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Split[/color]\n"
-	text += "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % soul_damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Split[/color]\n"
-	text += "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
 
 	return text
 

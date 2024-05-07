@@ -28,7 +28,7 @@ const SPARKS_DURATION_ADD: float = 0.3
 const TWISTER_DURATION: float = 5.0
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var twister_chance: String = Utils.format_percent(_stats.twister_chance, 2)
 	var twister_chance_add: String = Utils.format_percent(_stats.twister_chance_add, 2)
 	var twister_tornado_count: String = Utils.format_float(_stats.twister_tornado_count, 2)
@@ -36,25 +36,19 @@ func get_ability_description() -> String:
 	var twister_mod_storm_dmg_add: String = Utils.format_percent(_stats.twister_mod_storm_dmg_add, 2)
 	var twister_duration: String = Utils.format_float(TWISTER_DURATION, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Twister"
+	ability.description_short = "Attacks have a chance to summon tornados towards two random creeps.\n"
+	ability.description_full = "Attacks have a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from Storm towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, twister_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % twister_chance_add \
+	+ "+%s additional damage taken\n" % twister_mod_storm_dmg_add
+	list.append(ability)
 
-	text += "[color=GOLD]Twister[/color]\n"
-	text += "Attacks have a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from Storm towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, twister_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % twister_chance_add
-	text += "+%s additional damage taken\n" % twister_mod_storm_dmg_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Twister[/color]\n"
-	text += "Attacks have a chance to summon tornados towards two random creeps.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

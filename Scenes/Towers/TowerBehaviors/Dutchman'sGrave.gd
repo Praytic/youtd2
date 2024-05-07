@@ -17,45 +17,35 @@ var dutchman: Projectile
 var current_target: Unit = null
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var cannon: AbilityInfo = AbilityInfo.new()
+	cannon.name = "Cannon"
+	cannon.description_short = "The Dutchman attacks a random creep in range, dealing AoE damage.\n"
+	cannon.description_full = "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attackspeed.\n"
+	list.append(cannon)
 
-	text += "[color=GOLD]Cannon[/color]\n"
-	text += "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attackspeed.\n"
-	text += " \n"
+	var soul_attack: AbilityInfo = AbilityInfo.new()
+	soul_attack.name = "Soul Attack"
+	soul_attack.description_short = "Every 5 seconds the Dutchman attacks a random creep in range with a collected soul.\n"
+	soul_attack.description_full = "Every 5 seconds the Dutchman attacks a random creep in 1200 range with a collected soul. Deals 14000 spell damage to the target.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1400 spell damage\n"
+	list.append(soul_attack)
 
-	text += "[color=GOLD]Soul Attack[/color]\n"
-	text += "Every 5 seconds the Dutchman attacks a random creep in 1200 range with a collected soul. Deals 14000 spell damage to the target.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1400 spell damage\n"
-	text += " \n"
+	var panic: AbilityInfo = AbilityInfo.new()
+	panic.name = "Panic"
+	panic.description_short = "Whenever the Dutchman kills a creep, it collects its soul.\n"
+	panic.description_full = "Whenever the Dutchman kills a creep, it collects its soul. All creeps in a range of 300 around the killed creep start to panic. They have only one thing in mind: RUN!. They don ' t care about their defense and their armor is reduced by 25, but they run 20% faster. This effect lasts 10 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1 armor\n" \
+	+ "-0.2% movement speed\n"
+	list.append(panic)
 
-	text += "[color=GOLD]Panic[/color]\n"
-	text += "Whenever the Dutchman kills a creep, it collects its soul. All creeps in a range of 300 around the killed creep start to panic. They have only one thing in mind: RUN!. They don ' t care about their defense and their armor is reduced by 25, but they run 20% faster. This effect lasts 10 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1 armor\n"
-	text += "-0.2% movement speed\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cannon[/color]\n"
-	text += "The Dutchman attacks a random creep in range, dealing AoE damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Soul Attack[/color]\n"
-	text += "Every 5 seconds the Dutchman attacks a random creep in range with a collected soul.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Panic[/color]\n"
-	text += "Whenever the Dutchman kills a creep, it collects its soul..\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

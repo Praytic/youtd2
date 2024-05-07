@@ -41,55 +41,45 @@ var drake_list: Array[Drake] = []
 var feed_count: int = 0
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var versatile: AbilityInfo = AbilityInfo.new()
+	versatile.name = "Versatile"
+	versatile.description_short = "Every time this tower deals spell damage through its abilities, it increases its dps.\n"
+	versatile.description_full = "Every time this tower deals spell damage through its abilities, it increases its dps by 1.5% of the spell damage dealt. Lasts 2.5 seconds and stacks. Maximum bonus of [color=GOLD][200 x (current wave)][/color].\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.04% damage\n"
+	list.append(versatile)
 
-	text += "[color=GOLD]Versatile[/color]\n"
-	text += "Every time this tower deals spell damage through its abilities, it increases its dps by 1.5% of the spell damage dealt. Lasts 2.5 seconds and stacks. Maximum bonus of [color=GOLD][200 x (current wave)][/color].\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.04% damage\n"
-	text += " \n"
+	var unleash: AbilityInfo = AbilityInfo.new()
+	unleash.name = "Unleash"
+	unleash.description_short = "Chance to unleash a bronze drake towards its target.\n"
+	unleash.description_full = "On attack, the Drake Whisperer has a 12.5% chance to unleash a bronze drake towards its target, dealing 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+40 spell damage\n" \
+	+ "+0.3% chance\n"
+	list.append(unleash)
 
-	text += "[color=GOLD]Unleash[/color]\n"
-	text += "On attack, the Drake Whisperer has a 12.5% chance to unleash a bronze drake towards its target, dealing 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+40 spell damage\n"
-	text += "+0.3% chance\n"
-	text += " \n"
+	var feed: AbilityInfo = AbilityInfo.new()
+	feed.name = "Feed the Drakes"
+	feed.description_short = "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target.\n"
+	feed.description_full = "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n" \
+	+ " \n" \
+	+ "The [color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n" \
+	+ "The [color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n" \
+	+ "The [color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads Versatile's current dps bonus to towers in 175 range for 2.5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% double feed chance\n" \
+	+ "[color=BLUE]Blue[/color] Drake : +150 spell damage\n" \
+	+ "[color=RED]Red[/color] Drake : +8% damage\n" \
+	+ "[color=GREEN]Green[/color] Drake : +0.04 seconds duration\n"
+	list.append(feed)
 
-	text += "[color=GOLD]Feed the Drakes[/color]\n"
-	text += "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n"
-	text += " \n"
-	text += "The [color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n"
-	text += "The [color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n"
-	text += "The [color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads Versatile's current dps bonus to towers in 175 range for 2.5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% double feed chance\n"
-	text += "[color=BLUE]Blue[/color] Drake : +150 spell damage\n"
-	text += "[color=RED]Red[/color] Drake : +8% damage\n"
-	text += "[color=GREEN]Green[/color] Drake : +0.04 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Versatile[/color]\n"
-	text += "Every time this tower deals spell damage through its abilities, it increases its dps.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Unleash[/color]\n"
-	text += "Chance to unleash a bronze drake towards its target.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Feed the Drakes[/color]\n"
-	text += "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

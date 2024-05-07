@@ -5,45 +5,36 @@ var aura_bt: BuffType
 var lava_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
 
-	text += "[color=GOLD]Heat Stroke[/color]\n"
-	text += "Whenever a creep dies while under the effect of Heat Aura, there is a 40% chance that it will explode, dealing 4500 damage in 300 AoE.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+100 damage\n"
-	text += " \n"
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var heat_stroke: AbilityInfo = AbilityInfo.new()
+	heat_stroke.name = "Heat Stroke"
+	heat_stroke.description_short = "Whenever a creep dies while under the effect of Heat Aura, there is a chance that it will explode.\n"
+	heat_stroke.description_full = "Whenever a creep dies while under the effect of Heat Aura, there is a 40% chance that it will explode, dealing 4500 damage in 300 AoE.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+100 damage\n"
+	list.append(heat_stroke)
 
-	text += "[color=GOLD]Lava Attack[/color]\n"
-	text += "Has a 25% chance on attack to throw a burning lava ball towards the target's location, dealing 3500 damage to creeps in 300 AoE.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+5 AoE\n"
-	text += "+100 damage\n"
-	text += " \n"
+	var lava_attack: AbilityInfo = AbilityInfo.new()
+	lava_attack.name = "Lava Attack"
+	lava_attack.description_short = "Chance to throw a burning lava ball towards the target, dealing AoE damage.\n"
+	lava_attack.description_full = "Has a 25% chance on attack to throw a burning lava ball towards the target's location, dealing 3500 damage to creeps in 300 AoE.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+5 AoE\n" \
+	+ "+100 damage\n"
+	list.append(lava_attack)
 
-	text += "[color=GOLD]Heat Aura - Aura[/color]\n"
-	text += "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
+	var heat_aura: AbilityInfo = AbilityInfo.new()
+	heat_aura.name = "Heat Aura - Aura"
+	heat_aura.description_short = "Burns every enemy in range.\n"
+	heat_aura.description_full = "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
+	list.append(heat_aura)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Heat Stroke[/color]\n"
-	text += "Whenever a creep dies while under the effect of Heat Aura, there is a chance that it will explode.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Lava Attack[/color]\n"
-	text += "Chance to throw a burning lava ball towards the target, dealing AoE damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Heat Aura - Aura[/color]\n"
-	text += "Burns every enemy in range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

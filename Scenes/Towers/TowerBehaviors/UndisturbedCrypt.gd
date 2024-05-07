@@ -23,40 +23,34 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var debuff_effect: String = Utils.format_percent(_stats.buff_level * 0.001, 2)
 	var debuff_effect_add: String = Utils.format_percent(_stats.buff_level_add * 0.001, 2)
 	var critical_mass_chance: String = Utils.format_percent(_stats.critical_mass_chance, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var corpse_explosion: AbilityInfo = AbilityInfo.new()
+	corpse_explosion.name = "Corpse Explosion"
+	corpse_explosion.description_short = "Occasionally explodes nearby corpses and deals AoE damage.\n"
+	corpse_explosion.description_full = "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from darkness towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, debuff_effect] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s slow and damage taken\n" % debuff_effect_add \
+	+ "+0.25 seconds duration\n"
+	list.append(corpse_explosion)
 
-	text += "[color=GOLD]Corpse Explosion[/color]\n"
-	text += "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from darkness towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, debuff_effect]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s slow and damage taken\n" % debuff_effect_add
-	text += "+0.25 seconds duration\n"
-	text += " \n"
-	text += "[color=GOLD]Critical Mass[/color]\n"
-	text += "Has a 30%% chance on attack to shoot an extra projectile. For each projectile after the initial one, there is a %s chance to shoot an extra projectile. There is a maximum of 14 projectiles fired per attack.\n" % critical_mass_chance
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.3% initial chance\n"
-	text += "+0.6% extra chance\n"
+	var critical_mass: AbilityInfo = AbilityInfo.new()
+	critical_mass.name = "Critical Mass"
+	critical_mass.description_short = "Has a chance on attack to shoot multiple projectiles.\n"
+	critical_mass.description_full = "Has a 30%% chance on attack to shoot an extra projectile. For each projectile after the initial one, there is a %s chance to shoot an extra projectile. There is a maximum of 14 projectiles fired per attack.\n" % critical_mass_chance \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.3% initial chance\n" \
+	+ "+0.6% extra chance\n"
+	list.append(critical_mass)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Corpse Explosion[/color]\n"
-	text += "Occasionally explodes nearby corpses and deals AoE damage.\n"
-	text += " \n"
-	text += "[color=GOLD]Critical Mass[/color]\n"
-	text += "Has a chance on attack to shoot multiple projectiles.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

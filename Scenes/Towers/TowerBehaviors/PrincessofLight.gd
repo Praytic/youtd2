@@ -22,7 +22,7 @@ const CHANNEL_STACK_COUNT: int = 15
 
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var channel_exp: String = Utils.format_float(_stats.channel_exp, 2)
 	var channel_mod_dmg: String = Utils.format_percent(_stats.channel_mod_dmg, 2)
 	var channel_mod_dmg_add: String = Utils.format_percent(CHANNEL_MOD_DMG_ADD, 2)
@@ -30,25 +30,19 @@ func get_ability_description() -> String:
 	var channel_buff_duration_add: String = Utils.format_float(CHANNEL_BUFF_DURATION_ADD, 2)
 	var channel_stack_count: String = Utils.format_float(CHANNEL_STACK_COUNT, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Channel Energy"
+	ability.description_short = "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus damage.\n"
+	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % channel_mod_dmg_add \
+	+ "+%s seconds duration\n" % channel_buff_duration_add
+	list.append(ability)
 
-	text += "[color=GOLD]Channel Energy[/color]\n"
-	text += "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % channel_mod_dmg_add
-	text += "+%s seconds duration\n" % channel_buff_duration_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Channel Energy[/color]\n"
-	text += "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

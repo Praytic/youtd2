@@ -11,41 +11,35 @@ func get_tier_stats() -> Dictionary:
 const MANA_LOSS_PER_SEC: float = 0.0175
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mana_per_attack: String = Utils.format_float(_stats.mana_per_attack, 2)
 	var mana_per_attack_add: String = Utils.format_float(_stats.mana_per_attack_add, 2)
 	var mana_loss_per_sec: String = Utils.format_percent(MANA_LOSS_PER_SEC, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var splash: AbilityInfo = AbilityInfo.new()
+	splash.name = "Splash"
+	splash.description_short = "Every attack the turtle restores some mana.\n"
+	splash.description_full = "Every attack the turtle restores %s mana. Mana regeneration will increase mana restored. Mana degeneration will not decrease mana restored below %s.\n" % [mana_per_attack, mana_per_attack] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s mana restored\n" % mana_per_attack_add
+	list.append(splash)
 
-	text += "[color=GOLD]Splash[/color]\n"
-	text += "Every attack the turtle restores %s mana. Mana regeneration will increase mana restored. Mana degeneration will not decrease mana restored below %s.\n" % [mana_per_attack, mana_per_attack]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s mana restored\n" % mana_per_attack_add
-	text += " \n"
-	text += "[color=GOLD]Aqua Breath[/color]\n"
-	text += "This tower deals Energy damage equal to its mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Cold Blooded[/color]\n"
-	text += "Every second this tower loses %s of its max mana.\n" % mana_loss_per_sec
+	var aqua_breath: AbilityInfo = AbilityInfo.new()
+	aqua_breath.name = "Aqua Breath"
+	aqua_breath.description_short = "This tower deals Energy damage equal to its mana.\n"
+	aqua_breath.description_full = "This tower deals Energy damage equal to its mana.\n"
+	list.append(aqua_breath)
 
-	return text
+	var cold_blooded: AbilityInfo = AbilityInfo.new()
+	cold_blooded.name = "Cold Blooded"
+	cold_blooded.description_short = "Every second this tower loses some of its mana.\n"
+	cold_blooded.description_full = "Every second this tower loses %s of its max mana.\n" % mana_loss_per_sec
+	list.append(cold_blooded)
 
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Splash[/color]\n"
-	text += "Every attack the turtle restores some mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Aqua Breath[/color]\n"
-	text += "This tower deals Energy damage equal to its mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Cold Blooded[/color]\n"
-	text += "Every second this tower loses some of its mana.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var dmg_ratio_for_immune: String = Utils.format_percent(_stats.dmg_ratio_for_immune, 2)
 	var dmg_ratio_for_immune_add: String = Utils.format_percent(_stats.dmg_ratio_for_immune_add, 2)
 	var periodic_event_period: String = Utils.format_float(_stats.periodic_event_period, 2)
@@ -20,48 +20,37 @@ func get_ability_description() -> String:
 	var energyball_dmg_base: String = Utils.format_float(_stats.energyball_dmg_base, 2)
 	var energyball_dmg_exp_scale: String = Utils.format_float(_stats.energyball_dmg_exp_scale, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var weak_spots: AbilityInfo = AbilityInfo.new()
+	weak_spots.name = "Weak Spots"
+	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
+	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's Energyball deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % dmg_ratio_for_immune_add
+	list.append(weak_spots)
 
-	text += "[color=GOLD]Weak Spots[/color]\n"
-	text += "The Owl of Wisdom is able to find weak spots even on magic immune units. It's Energyball deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % dmg_ratio_for_immune_add
-	text += " \n"
+	var energyball: AbilityInfo = AbilityInfo.new()
+	energyball.name = "Energyball"
+	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast Energyball on the attacked creep. Energyball damage's scales with tower's experience.\b"
+	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast Energyball on the attacked creep. The Energyball deals %s + [%sx Towerexp] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [150x current wave] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s AoE range\n" % energyball_radius_add \
+	+ "+0.4% chance\n"
+	list.append(energyball)
 
-	text += "[color=GOLD]Energyball[/color]\n"
-	text += "The Owl of Wisdom has a %s chance on attack to cast Energyball on the attacked creep. The Energyball deals %s + [%sx Towerexp] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [150x current wave] damage.\b" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s AoE range\n" % energyball_radius_add
-	text += "+0.4% chance\n"
-	text += " \n"
+	var energy_detection: AbilityInfo = AbilityInfo.new()
+	energy_detection.name = "Energy Detection"
+	energy_detection.description_short = "The Owl of Wisdom sometimes randomly casts Energyball.\n"
+	energy_detection.description_full = "Every %s seconds, for each creep in 900 range the Owl of Wisdom has a 10%% chance to cast Energyball on it.\n" % periodic_event_period \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance\n"
+	list.append(energy_detection)
 
-	text += "[color=GOLD]Energy Detection[/color]\n"
-	text += "Every %s seconds, for each creep in 900 range the Owl of Wisdom has a 10%% chance to cast Energyball on it.\n" % periodic_event_period
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Weak Spots[/color]\n"
-	text += "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Energyball[/color]\n"
-	text += "The Owl of Wisdom has a chance on attack to cast Energyball on the attacked creep. Energyball damage's scales with tower's experience.\b"
-	text += " \n"
-
-	text += "[color=GOLD]Energy Detection[/color]\n"
-	text += "The Owl of Wisdom sometimes randomly casts Energyball.\n"
-	text += " \n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

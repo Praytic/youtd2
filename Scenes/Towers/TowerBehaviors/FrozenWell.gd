@@ -5,34 +5,28 @@ var aura_bt: BuffType
 var mist_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var freezing_mist: AbilityInfo = AbilityInfo.new()
+	freezing_mist.name = "Freezing Mist"
+	freezing_mist.description_short = "When this tower damages a creep it will be slowed.\n"
+	freezing_mist.description_full = "When this tower damages a creep it will be slowed by 15% for 10 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% slow\n"
+	list.append(freezing_mist)
 
-	text += "[color=GOLD]Freezing Mist[/color]\n"
-	text += "When this tower damages a creep it will be slowed by 15% for 10 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% slow\n"
-	text += " \n"
-	text += "[color=GOLD]Flowing Frost - Aura[/color]\n"
-	text += "Increases the buff duration of towers in 500 range by 25%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% buff duration\n"
+	var flowing_frost: AbilityInfo = AbilityInfo.new()
+	flowing_frost.name = "Flowing Frost - Aura"
+	flowing_frost.description_short = "Increases buff duration of towers in range.\n"
+	flowing_frost.description_full = "Increases the buff duration of towers in 500 range by 25%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% buff duration\n"
+	list.append(flowing_frost)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Freezing Mist[/color]\n"
-	text += "When this tower damages a creep it will be slowed.\n"
-	text += " \n"
-	text += "[color=GOLD]Flowing Frost - Aura[/color]\n"
-	text += "Increases buff duration of towers in range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

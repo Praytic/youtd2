@@ -13,30 +13,25 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 	var rock_range: String = Utils.format_float(_stats.rock_range, 2)
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Rock Throw"
+	ability.description_short = "Chance to throw a rock towards the target.\n"
+	ability.description_full = "30%% chance to throw a rock towards the attacked unit. On impact it deals %s spell damage in a %s AoE.\n" % [damage, rock_range] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+%s damage\n" % damage_add
 
-	var text: String = ""
+	list.append(ability)
 
-	text += "[color=GOLD]Rock Throw[/color]\n"
-	text += "30%% chance to throw a rock towards the attacked unit. On impact it deals %s spell damage in a %s AoE. \n" % [damage, rock_range]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+%s damage\n" % damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rock Throw[/color]\n"
-	text += "Chance to throw a rock towards the target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

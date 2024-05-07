@@ -17,7 +17,7 @@ const BLOODTHIRST_ATTACKSPEED_ADD: float = 0.01
 const BLOODTHIRST_DURATION_ADD: float = 0.05
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var feral_dmg_gain: String = Utils.format_percent(_stats.feral_dmg_gain, 2)
 	var feral_dmg_max: String = Utils.format_percent(_stats.feral_dmg_max, 2)
 	var bloodthirst_attackspeed: String = Utils.format_percent(_stats.bloodthirst_attackspeed, 2)
@@ -25,31 +25,25 @@ func get_ability_description() -> String:
 	var bloodthirst_duration: String = Utils.format_float(_stats.bloodthirst_duration, 2)
 	var bloodthirst_duration_add: String = Utils.format_float(BLOODTHIRST_DURATION_ADD, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var feral_aggression: AbilityInfo = AbilityInfo.new()
+	feral_aggression.name = "Feral Aggression"
+	feral_aggression.description_short = "On every critical hit this tower gains permanent bonus damage.\n"
+	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus damage. This bonus is permanent and has a maximum of %s bonus damage.\n" % [feral_dmg_gain, feral_dmg_max]
+	list.append(feral_aggression)
 
-	text += "[color=GOLD]Feral Aggression[/color]\n"
-	text += "On every critical hit this tower gains +%s bonus damage. This bonus is permanent and has a maximum of %s bonus damage.\n" % [feral_dmg_gain, feral_dmg_max]
-	text += " \n"
-	text += "[color=GOLD]Bloodthirst[/color]\n"
-	text += "Whenever this tower kills a unit it becomes enraged, gaining +%s attackspeed for %s seconds. Cannot retrigger while active!\n" % [bloodthirst_attackspeed, bloodthirst_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s sec duration\n" % bloodthirst_duration_add
-	text += "+%s attackspeed\n" % bloodthirst_attackspeed_add
+	var bloodthirst: AbilityInfo = AbilityInfo.new()
+	bloodthirst.name = "Bloodthirst"
+	bloodthirst.description_short = "Whenever this tower kills a unit it becomes enraged.\n"
+	bloodthirst.description_full = "Whenever this tower kills a unit it becomes enraged, gaining +%s attackspeed for %s seconds. Cannot retrigger while active!\n" % [bloodthirst_attackspeed, bloodthirst_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s sec duration\n" % bloodthirst_duration_add \
+	+ "+%s attackspeed\n" % bloodthirst_attackspeed_add
+	list.append(bloodthirst)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Feral Aggression[/color]\n"
-	text += "On every critical hit this tower gains permanent bonus damage.\n"
-	text += " \n"
-	text += "[color=GOLD]Bloodthirst[/color]\n"
-	text += "Whenever this tower kills a unit it becomes enraged.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

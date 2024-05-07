@@ -24,30 +24,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
 	var mod_dmg_from_fire: String = Utils.format_percent(_stats.mod_dmg_from_fire, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Incinerate"
+	ability.description_short = "This tower's attacks set the target on fire.\n"
+	ability.description_full = "This tower's attacks set the target on fire. A burning creep takes %s more damage from Fire towers and receives %s spelldamage every second for 9 seconds.\n" % [mod_dmg_from_fire, periodic_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % periodic_damage_add \
+	+ "+0.3 seconds duration\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Incinerate[/color]\n"
-	text += "This tower's attacks set the target on fire. A burning creep takes %s more damage from Fire towers and receives %s spelldamage every second for 9 seconds.\n" % [mod_dmg_from_fire, periodic_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % periodic_damage_add
-	text += "+0.3 seconds duration\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Incinerate[/color]\n"
-	text += "This tower's attacks set the target on fire.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

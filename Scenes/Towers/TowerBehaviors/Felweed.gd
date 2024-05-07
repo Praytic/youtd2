@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var bonus_7: String = Utils.format_percent(_stats.bonus_7 - 1.0, 2)
 	var bonus_8: String = Utils.format_percent(_stats.bonus_8 - 1.0, 2)
 	var bonus_9: String = Utils.format_percent(_stats.bonus_9 - 1.0, 2)
@@ -23,30 +23,24 @@ func get_ability_description() -> String:
 	var bonus_9_add: String = Utils.format_percent(_stats.bonus_9_add, 2)
 	var bonus_10_add: String = Utils.format_percent(_stats.bonus_10_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Fireblossom"
+	ability.description_short = "Every few attacks this tower deals some bonus damage.\n"
+	ability.description_full = "Every 7th attack deals %s bonus damage.\n" % bonus_7 \
+	+ "Every 8th attack deals %s bonus damage.\n" % bonus_8 \
+	+ "Every 9th attack deals %s bonus damage.\n" % bonus_9 \
+	+ "Every 10th attack deals %s bonus damage.\n" % bonus_10 \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s bonus damage every 7th attack.\n" % bonus_7_add \
+	+ "+%s bonus damage every 8th attack.\n" % bonus_8_add \
+	+ "+%s bonus damage every 9th attack.\n" % bonus_9_add \
+	+ "+%s bonus damage every 10th attack.\n" % bonus_10_add
+	list.append(ability)
 
-	text += "[color=GOLD]Fireblossom[/color]\n"
-	text += "Every 7th attack deals %s bonus damage.\n" % bonus_7
-	text += "Every 8th attack deals %s bonus damage.\n" % bonus_8
-	text += "Every 9th attack deals %s bonus damage.\n" % bonus_9
-	text += "Every 10th attack deals %s bonus damage.\n" % bonus_10
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s bonus damage every 7th attack.\n" % bonus_7_add
-	text += "+%s bonus damage every 8th attack.\n" % bonus_8_add
-	text += "+%s bonus damage every 9th attack.\n" % bonus_9_add
-	text += "+%s bonus damage every 10th attack.\n" % bonus_10_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fireblossom[/color]\n"
-	text += "Every few attacks this tower deals some bonus damage.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

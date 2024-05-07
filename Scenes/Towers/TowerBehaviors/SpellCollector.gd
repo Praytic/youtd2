@@ -34,7 +34,7 @@ var BARRAGE_CHANCE: float = 0.20
 var BARRAGE_CHANCE_ADD: float = 0.008
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var barrage_chance: String = Utils.format_percent(BARRAGE_CHANCE, 2)
 	var barrage_chance_add: String = Utils.format_percent(BARRAGE_CHANCE_ADD, 2)
@@ -47,28 +47,22 @@ func get_ability_description() -> String:
 	var missile_crit_dmg: String = Utils.format_percent(_stats.missile_crit_dmg, 2)
 	var missile_crit_dmg_add: String = Utils.format_percent(_stats.missile_crit_dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Magical Barrage"
+	ability.description_short = "Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.\n"
+	ability.description_full = "Whenever this tower attacks it has a %s chance to launch a magical missile. Whenever a tower in %s range casts a spell, the amount of missiles on attack is increased by 1 for a duration equal to the casting tower's ability's cooldown. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, aura_range, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % barrage_chance_add \
+	+ "+%s spell damage\n" % missile_damage_add \
+	+ "+%s spell crit chance\n" % missile_crit_chance_add \
+	+ "+%s spell crit damage\n" % missile_crit_dmg_add \
+	+ "+%s max missiles every 5 levels\n" % missile_count_max_add
+	list.append(ability)
 
-	text += "[color=GOLD]Magical Barrage[/color]\n"
-	text += "Whenever this tower attacks it has a %s chance to launch a magical missile. Whenever a tower in %s range casts a spell, the amount of missiles on attack is increased by 1 for a duration equal to the casting tower's ability's cooldown. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, aura_range, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % barrage_chance_add
-	text += "+%s spell damage\n" % missile_damage_add
-	text += "+%s spell crit chance\n" % missile_crit_chance_add
-	text += "+%s spell crit damage\n" % missile_crit_dmg_add
-	text += "+%s max missiles every 5 levels\n" % missile_count_max_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magical Barrage[/color]\n"
-	text += "Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

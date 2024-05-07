@@ -13,36 +13,30 @@ func get_tier_stats() -> Dictionary:
 const TRANSMUTE_CHANCE_ADD: float = 0.0004
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var transmute_chance: String = Utils.format_percent(_stats.transmute_chance, 2)
 	var transmute_chance_add: String = Utils.format_percent(TRANSMUTE_CHANCE_ADD, 2)
 	var transmute_gold: String = Utils.format_float(_stats.transmute_gold, 2)
 	var gold_greed_value: String = Utils.format_float(_stats.gold_greed_value, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var transmute: AbilityInfo = AbilityInfo.new()
+	transmute.name = "Transmute"
+	transmute.description_short = "This tower has a chance on attack to turn a lesser creep into gold.\n"
+	transmute.description_full = "This tower has a %s chance on attack to turn a non boss, non champion target into %s additional gold immediately.\n" % [transmute_chance, transmute_gold] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % transmute_chance_add
+	list.append(transmute)
 
-	text += "[color=GOLD]Transmute[/color]\n"
-	text += "This tower has a %s chance on attack to turn a non boss, non champion target into %s additional gold immediately.\n" % [transmute_chance, transmute_gold]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % transmute_chance_add
-	text += " \n"
-	text += "[color=GOLD]Gold Gree[/color]\n"
-	text += "On attack this tower deals [%s x squareroot (current gold)] spell damage to its target.\n" % gold_greed_value
+	var gold_gree: AbilityInfo = AbilityInfo.new()
+	gold_gree.name = "Gold Gree"
+	gold_gree.description_short = "On attack this tower deals spell damage which scales with current player gold.\n"
+	gold_gree.description_full = "On attack this tower deals [%s x squareroot (current gold)] spell damage to its target.\n" % gold_greed_value
+	list.append(gold_gree)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Transmute[/color]\n"
-	text += "This tower has a chance on attack to turn a lesser creep into gold.\n"
-	text += " \n"
-	text += "[color=GOLD]Gold Gree[/color]\n"
-	text += "On attack this tower deals spell damage which scales with current player gold.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

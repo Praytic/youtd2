@@ -17,36 +17,28 @@ var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var storm_hammer: AbilityInfo = AbilityInfo.new()
+	storm_hammer.name = "Mystical Storm Hammer"
+	storm_hammer.description_short = "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage.\n"
+	storm_hammer.description_full = "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no physical damage against ethereal creeps. If this storm_hammer deals all the damage in one type, it will have 5% increased critchance.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1.8% crit chance\n"
+	list.append(storm_hammer)
 
-	text += "[color=GOLD]Mystical Storm Hammer[/color]\n"
-	text += "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no physical damage against ethereal creeps. If this ability deals all the damage in one type, it will have 5% increased critchance.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1.8% crit chance\n"
-	text += " \n"
+	var storm_bolt: AbilityInfo = AbilityInfo.new()
+	storm_bolt.name = "Storm Bolt"
+	storm_bolt.description_short = "When this tower attacks it launches a storm bolt towards the target unit. The storm bolt deals AoE damage.\n"
+	storm_bolt.description_full = "When this tower attacks it launches a storm bolt towards the target unit. Upon collision, the bolt deals the towers attack damage to the target and creates a trail of 5 storm explosions. The explosions deal the tower's attack damage to every unit in 85 AOE. Each explosion deals 40% less damage than the previous one.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1.2% damage reduction\n"
+	list.append(storm_bolt)
 
-	text += "[color=GOLD]Storm Bolt[/color]\n"
-	text += "When this tower attacks it launches a storm bolt towards the target unit. Upon collision, the bolt deals the towers attack damage to the target and creates a trail of 5 storm explosions. The explosions deal the tower's attack damage to every unit in 85 AOE. Each explosion deals 40% less damage than the previous one.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1.2% damage reduction\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Mystical Storm Hammer[/color]\n"
-	text += "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Storm Bolt[/color]\n"
-	text += "When this tower attacks it launches a storm bolt towards the target unit. The storm bolt deals AoE damage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

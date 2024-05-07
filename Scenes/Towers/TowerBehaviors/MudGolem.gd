@@ -5,40 +5,32 @@ var aura_bt: BuffType
 var slow_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ground_smash: AbilityInfo = AbilityInfo.new()
+	ground_smash.name = "Ground Smash"
+	ground_smash.description_short = "Damages all creeps in range and slows them.\n"
+	ground_smash.description_full = "On damage this tower deals 4300 decay damage to all creeps in 750 range around it, slowing them by 60% for 0.5 seconds.\n" \
+	+ " \n" \
+	+ "[color=GOLD]Hint:[/color] The damage of this ability is improved by spell damage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+230 damage\n" \
+	+ "+0.012 seconds slow duration\n" \
+	+ "+50 range at level 25.\n"
+	list.append(ground_smash)
 
-	text += "[color=GOLD]Ground Smash[/color]\n"
-	text += "On damage this tower deals 4300 decay damage to all creeps in 750 range around it, slowing them by 60% for 0.5 seconds.\n"
-	text += " \n"
-	text += "[color=GOLD]Hint:[/color] The damage of this ability is improved by spell damage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+230 damage\n"
-	text += "+0.012 seconds slow duration\n"
-	text += "+50 range at level 25.\n"
-	text += " \n"
+	var earthquake_aura: AbilityInfo = AbilityInfo.new()
+	earthquake_aura.name = "Earthquake Aura - Aura"
+	earthquake_aura.description_short = "Towers in range have a chance to trigger Ground Smash.\n"
+	earthquake_aura.description_full = "Towers in 150 range around the Mud Golem have a 3% attackspeed adjusted chance on attack to trigger Ground Smash.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.04% chance\n"
+	list.append(earthquake_aura)
 
-	text += "[color=GOLD]Earthquake Aura - Aura[/color]\n"
-	text += "Towers in 150 range around the Mud Golem have a 3% attackspeed adjusted chance on attack to trigger Ground Smash.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.04% chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ground Smash[/color]\n"
-	text += "Damages all creeps in range and slows them.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Earthquake Aura - Aura[/color]\n"
-	text += "Towers in range have a chance to trigger Ground Smash.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

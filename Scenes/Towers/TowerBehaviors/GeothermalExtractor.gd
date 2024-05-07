@@ -11,28 +11,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage_increase: String = Utils.format_percent(_stats.damage_increase, 2)
 	var damage_increase_add: String = Utils.format_percent(_stats.damage_increase_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Thermal Boost - Aura"
+	ability.description_short = "Increases damage of nearby towers.\n"
+	ability.description_full = "Increases damage of towers in 200 range by %s.\n" % damage_increase \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % damage_increase_add
+	list.append(ability)
 
-	text += "[color=GOLD]Thermal Boost - Aura[/color]\n"
-	text += "Increases damage of towers in 200 range by %s.\n" % damage_increase
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % damage_increase_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Thermal Boost - Aura[/color]\n"
-	text += "Increases damage of nearby towers.\n"
-
-	return text
+	return list
 
 
 func tower_init():

@@ -20,28 +20,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var dmg: String = Utils.format_float(_stats.dmg, 2)
 	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Poisonous Skin - Aura"
+	ability.description_short = "This and nearby towers gain a poisonous attack.\n"
+	ability.description_full = "This and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % dmg \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage per second" % dmg_add
+	list.append(ability)
 
-	text += "[color=GOLD]Poisonous Skin - Aura[/color]\n"
-	text += "This and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % dmg
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage per second" % dmg_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Poisonous Skin - Aura[/color]\n"
-	text += "This and nearby towers gain a poisonous attack.\n"
-
-	return text
+	return list
 
 
 func poisenskin(event: Event):

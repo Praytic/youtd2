@@ -12,27 +12,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var miss_chance_add: String = Utils.format_percent(_stats.miss_chance_add, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Spray and Pray"
+	ability.description_short = "Due to its high rate of fire, this tower often misses its target.\n"
+	ability.description_full = "Each attack of this tower has a 33% chance to miss the target.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-%s miss chance" % miss_chance_add
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Spray and Pray[/color]\n"
-	text += "Each attack of this tower has a 33% chance to miss the target.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-%s miss chance" % miss_chance_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Spray and Pray[/color]\n"
-	text += "Due to its high rate of fire, this tower often misses its target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

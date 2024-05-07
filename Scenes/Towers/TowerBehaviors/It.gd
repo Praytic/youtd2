@@ -20,38 +20,30 @@ var can_teleport: bool = false
 var summoner_units: Dictionary = {}
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var hunger: AbilityInfo = AbilityInfo.new()
+	hunger.name = "It Hunger"
+	hunger.description_short = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains spelldamage.\n"
+	hunger.description_full = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.01% spelldamage\n"
+	list.append(hunger)
 
-	text += "[color=GOLD]It Hunger[/color]\n"
-	text += "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.01% spelldamage\n"
-	text += " \n"
+	var dark_ritual: AbilityInfo = AbilityInfo.new()
+	dark_ritual.name = "Dark Ritual"
+	dark_ritual.description_short = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields.\n"
+	dark_ritual.description_full = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields, dealing 3000 spelldamage to all creeps unfortunate enough to be standing in those areas. If a non-boss enemy in Corruption Field is affected by Dark Ritual for the first time, it will be immediately transported to Recreation Field.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+100 spelldamage\n" \
+	+ " \n" \
+	+ "NOTE: has a 1 sec cooldown\n"
+	list.append(dark_ritual)
 
-	text += "[color=GOLD]Dark Ritual[/color]\n"
-	text += "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields, dealing 3000 spelldamage to all creeps unfortunate enough to be standing in those areas. If a non-boss enemy in Corruption Field is affected by Dark Ritual for the first time, it will be immediately transported to Recreation Field.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+100 spelldamage\n"
-	text += " \n"
-	text += "NOTE: has a 1 sec cooldown\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]It Hunger[/color]\n"
-	text += "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains spelldamage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Dark Ritual[/color]\n"
-	text += "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields. \n"
-
-	return text
+	return list
 
 
 func get_autocast_recreation_description() -> String:

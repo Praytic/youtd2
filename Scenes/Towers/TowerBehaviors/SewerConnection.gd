@@ -15,28 +15,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var vapor_damage: String = Utils.format_float(_stats.vapor_damage / 10, 2)
 	var vapor_damage_add: String = Utils.format_float(_stats.vapor_damage_add / 10, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Toxic Vapor"
+	ability.description_short = "Deals damage over time.\n"
+	ability.description_full = "On attack, has a 30%% chance to apply a buff that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage per second\n" % vapor_damage_add
+	list.append(ability)
 
-	text += "[color=GOLD]Toxic Vapor[/color]\n"
-	text += "On attack, has a 30%% chance to apply a buff that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage per second\n" % vapor_damage_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Toxic Vapor[/color]\n"
-	text += "Deals damage over time.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

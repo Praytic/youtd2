@@ -16,15 +16,18 @@ const BUFF_DURATION_ADD: float = 0.4
 const MOD_BOUNTY_GAIN_ADD: float = 0.006
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_income: String = Utils.format_percent(_stats.mod_income, 2)
+	
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Multiply Gold"
+	ability.description_short = "This tower increases the gold income of the player.\n"
+	ability.description_full = "This tower increases the gold income of the player by %s.\n" % mod_income
+	list.append(ability)
 
-	var text: String = ""
-
-	text += "[color=GOLD]Multiply Gold[/color]\n"
-	text += "This tower increases the gold income of the player by %s.\n" % mod_income
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

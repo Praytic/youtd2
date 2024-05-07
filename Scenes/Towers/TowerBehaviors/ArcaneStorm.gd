@@ -17,49 +17,39 @@ var surge_st: SpellType
 var manastorm_st: SpellType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
 
-	text += "[color=GOLD]Surge[/color]\n"
-	text += "The tower's main attacks have a 1% chance per Attraction stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's Attraction stacks. Can only hit each target once and benefits from Mana Storm's damage bonus.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.02% chance per stack\n"
-	text += "+4% attack damage\n"
-	text += " \n"
+	var surge: AbilityInfo = AbilityInfo.new()
+	surge.name = "Surge"
+	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
+	surge.description_full = "The tower's main attacks have a 1% chance per Attraction stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's Attraction stacks. Can only hit each target once and benefits from Mana Storm's damage bonus.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.02% chance per stack\n" \
+	+ "+4% attack damage\n"
+	list.append(surge)
 
-	text += "[color=GOLD]Arcane Attraction[/color]\n"
-	text += "Attacks apply a stack of Attraction on hit and generate 1 mana per stack on each target. Can only gain mana once per target hit on each attack. When an enemy dies, all stacks of Attraction on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. Attraction lasts indefinitely.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+10 range\n"
-	text += "+0.4% attack damage per stack\n"
-	text += " \n"
+	var arcane_attraction: AbilityInfo = AbilityInfo.new()
+	arcane_attraction.name = "Arcane Attraction"
+	arcane_attraction.description_short = "Attacks apply a stack of Attraction on hit and generate mana.\n"
+	arcane_attraction.description_full = "Attacks apply a stack of Attraction on hit and generate 1 mana per stack on each target. Can only gain mana once per target hit on each attack. When an enemy dies, all stacks of Attraction on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. Attraction lasts indefinitely.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+10 range\n" \
+	+ "+0.4% attack damage per stack\n"
+	list.append(arcane_attraction)
 
-	text += "[color=GOLD]Mana Storm[/color]\n"
-	text += "Attacks hit up to 2 additional enemies within attack range and consume all mana to deal [mana consumed]% increased damage. Mana Storm gains an additional attack for every 75 mana consumed. If at least 100 mana is consumed, the tower's multicrit is increased by 3 for 2 seconds. If there are less creeps than attacks, the remaining attacks will hit the main target.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1 mana per extra attack\n"
+	var mana_storm: AbilityInfo = AbilityInfo.new()
+	mana_storm.name = "Mana Storm"
+	mana_storm.description_full = "Attacks hit up to 2 additional enemies within attack range and consume all mana to deal [mana consumed]% increased damage. Mana Storm gains an additional attack for every 75 mana consumed. If at least 100 mana is consumed, the tower's multicrit is increased by 3 for 2 seconds. If there are less creeps than attacks, the remaining attacks will hit the main target.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1 mana per extra attack\n"
+	mana_storm.description_short = "Attacks hit up to 2 additional enemies within attack range.\n"
+	list.append(mana_storm)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Surge[/color]\n"
-	text += "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Arcane Attraction[/color]\n"
-	text += "Attacks apply a stack of Attraction on hit and generate mana.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Mana Storm[/color]\n"
-	text += "Attacks hit up to 2 additional enemies within attack range.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

@@ -19,52 +19,42 @@ var leaf_storm_bt: BuffType
 var leaf_storm_st: SpellType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var leaf_storm: AbilityInfo = AbilityInfo.new()
+	leaf_storm.name = "Leaf Storm"
+	leaf_storm.description_short = "Chance to summon a leaf storm at the target's position, slowing enemy units inside and dealing damage over time.\n"
+	leaf_storm.description_full = "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing enemy units inside by 30% for 1 second and dealing 2100 spell damage over time.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+90 spell damage\n" \
+	+ "+0.6% slow\n" \
+	+ "+0.04 seconds slow duration\n"
+	list.append(leaf_storm)
 
-	text += "[color=GOLD]Leaf Storm[/color]\n"
-	text += "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing enemy units inside by 30% for 1 second and dealing 2100 spell damage over time.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+90 spell damage\n"
-	text += "+0.6% slow\n"
-	text += "+0.04 seconds slow duration\n"
-	text += " \n"
+	var thorned: AbilityInfo = AbilityInfo.new()
+	thorned.name = "Thorned!"
+	thorned.description_short = "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
+	thorned.description_full = "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.06 seconds duration\n" \
+	+ "+0.6% damage taken\n"
+	list.append(thorned)
 
-	text += "[color=GOLD]Thorned![/color]\n"
-	text += "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.06 seconds duration\n"
-	text += "+0.6% damage taken\n"
-	text += " \n"
+	var tranq_aura: AbilityInfo = AbilityInfo.new()
+	tranq_aura.name = "Tranquility - Aura"
+	tranq_aura.description_short = "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
+	tranq_aura.description_full = "Decreases the attackspeed of all towers in a 450 AoE by 20% and increases their attackdamage by 40%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% attack damage\n" \
+	+ "+0.4% attackspeed\n"
+	list.append(tranq_aura)
 
-	text += "[color=GOLD]Tranquility - Aura[/color]\n"
-	text += "Decreases the attackspeed of all towers in a 450 AoE by 20% and increases their attackdamage by 40%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% attack damage\n"
-	text += "+0.4% attackspeed\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Leaf Storm[/color]\n"
-	text += "Chance to summon a leaf storm at the target's position, slowing enemy units inside and dealing damage over time.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Thorned![/color]\n"
-	text += "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Tranquility - Aura[/color]\n"
-	text += "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

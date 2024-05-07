@@ -20,61 +20,47 @@ var robot_bt: BuffType
 var emitter_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var reimbursement: AbilityInfo = AbilityInfo.new()
+	reimbursement.name = "Reimbursement"
+	reimbursement.description_short = "Reimburses gold when no ability is used.\n"
+	reimbursement.description_full = "Whenever this tower attacks and doesn't trigger any of it's abilities, the player is reimbursed 5 gold.\n"
+	list.append(reimbursement)
 
-	text += "[color=GOLD]Reimbursement[/color]\n"
-	text += "Whenever this tower attacks and doesn't trigger any of it's abilities, the player is reimbursed 5 gold.\n"
-	text += " \n"
+	var field: AbilityInfo = AbilityInfo.new()
+	field.name = "Probability Field Emitter"
+	field.description_short = "Chance to launch a probability field emitter at a random tower, increasing trigger chances.\n"
+	field.description_full = "Whenever this tower attacks it has a 20% chance to launch a probability field emitter at a random tower within 500 range, increasing trigger chances by 30% - 60% for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+0.6% trigger chances\n"
+	list.append(field)
 
-	text += "[color=GOLD]Probability Field Emitter[/color]\n"
-	text += "Whenever this tower attacks it has a 20% chance to launch a probability field emitter at a random tower within 500 range, increasing trigger chances by 30% - 60% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+0.6% trigger chances\n"
-	text += " \n"
+	var clockwork: AbilityInfo = AbilityInfo.new()
+	clockwork.name = "Clockwork Engineer"
+	clockwork.description_short = "Chance to launch a clockwork engineer at a random tower, increasing attack speed and damage.\n"
+	clockwork.description_full = "Whenever this tower attacks it has a 20% chance to launch a clockwork engineer at a random tower within 500 range, increasing attack speed and damage by 10% - 40% for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n" \
+	+ "+0.6% attack speed and damage\n"
+	list.append(clockwork)
 
-	text += "[color=GOLD]Clockwork Engineer[/color]\n"
-	text += "Whenever this tower attacks it has a 20% chance to launch a clockwork engineer at a random tower within 500 range, increasing attack speed and damage by 10% - 40% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% chance\n"
-	text += "+0.6% attack speed and damage\n"
-	text += " \n"
+	var sapper: AbilityInfo = AbilityInfo.new()
+	sapper.name = "Goblin Sapper"
+	sapper.description_short = "Chance to launch a sapper team at the attacked creep.\n"
+	sapper.description_full = "Whenever this tower attacks it has a 20% chance to launch a sapper team at the attacked creep. On contact the sappers deal 1350 - 7650 spell damage to the target and all creeps within 250 range. Also slows all affected creeps by 25% - 45% for 3 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+180 spell damage\n" \
+	+ "+0.6% slow\n"
+	list.append(sapper)
 
-	text += "[color=GOLD]Goblin Sapper[/color]\n"
-	text += "Whenever this tower attacks it has a 20% chance to launch a sapper team at the attacked creep. On contact the sappers deal 1350 - 7650 spell damage to the target and all creeps within 250 range. Also slows all affected creeps by 25% - 45% for 3 seconds."
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+180 spell damage\n"
-	text += "+0.6% slow\n"
-	text += " \n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Reimbursement[/color]\n"
-	text += "Reimburses gold when no ability is used.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Probability Field Emitter[/color]\n"
-	text += "Chance to launch a probability field emitter at a random tower, increasing trigger chances.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Clockwork Engineer[/color]\n"
-	text += "Chance to launch a clockwork engineer at a random tower, increasing attack speed and damage.\n"
-	text += " \n"
-
-	text += "[color=GOLD]Goblin Sapper[/color]\n"
-	text += "Chance to launch a sapper team at the attacked creep."
-	text += " \n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

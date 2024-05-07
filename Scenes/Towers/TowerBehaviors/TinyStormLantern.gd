@@ -16,28 +16,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var num_shots: String = Utils.format_float(_stats.num_shots, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Burst Lightning"
+	ability.description_short = "Has a chance on attack to fire extra projectiles at random creeps around the main target.\n"
+	ability.description_full = "Has a 20%% chance on attack to fire %s extra projectiles at random creeps in 300 range around the main target. Each extra projectile deals the same amount of damage as a normal attack.\n" % num_shots \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% chance\n" \
+	+ "+1 extra projectile at levels 15 and 25\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Burst Lightning[/color]\n"
-	text += "Has a 20%% chance on attack to fire %s extra projectiles at random creeps in 300 range around the main target. Each extra projectile deals the same amount of damage as a normal attack.\n" % num_shots
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% chance\n"
-	text += "+1 extra projectile at levels 15 and 25\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Burst Lightning[/color]\n"
-	text += "Has a chance on attack to fire extra projectiles at random creeps around the main target.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

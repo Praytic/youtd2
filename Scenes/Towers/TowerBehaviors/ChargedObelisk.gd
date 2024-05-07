@@ -5,26 +5,20 @@ var stun_bt: BuffType
 var charge_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Electric Field"
+	ability.description_short = "On every attack this tower shocks a creep in range. This shock deals spelldamage and stuns the creep.\n"
+	ability.description_full = "On every attack this tower shocks a creep in 1000 range. This shock deals 1000 spelldamage and stuns for 0.2 seconds, the spelldamage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+40 spelldamage\n" \
+	+ "+0.4% bonus crit chance\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Electric Field[/color]\n"
-	text += "On every attack this tower shocks a creep in 1000 range. This shock deals 1000 spelldamage and stuns for 0.2 seconds, the spelldamage has 20% bonus chance to crit. The stun does not work on bosses! \n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+40 spelldamage\n"
-	text += "+0.4% bonus crit chance\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Electric Field[/color]\n"
-	text += "On every attack this tower shocks a creep in range. This shock deals spelldamage and stuns the creep.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

@@ -5,26 +5,20 @@ var entangle_bt: BuffType
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Gift of Nature - Aura"
+	ability.description_short = "All nearby towers have a chance to entangle creeps.\n"
+	ability.description_full = "All towers in 175 range will receive a gift of nature. When a gifted tower attacks a creep there is a 10% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance \n" \
+	+ "+35 additional damage\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Gift of Nature - Aura[/color]\n"
-	text += "All towers in 175 range will receive a gift of nature. When a gifted tower attacks a creep there is a 10% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% chance \n"
-	text += "+35 additional damage\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Gift of Nature - Aura[/color]\n"
-	text += "All nearby towers have a chance to entangle creeps.\n"
-
-	return text
+	return list
 
 
 func tower_init():

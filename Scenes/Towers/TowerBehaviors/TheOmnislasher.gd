@@ -11,25 +11,19 @@ var omnislashed_bt: BuffType
 var mirror_image_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Omnislash"
+	ability.description_short = "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
+	ability.description_full = "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10% of this tower's normal attack damage and permanently increases the damage its target takes from Physical type attacks by 4%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2 slashes every 5 levels\n"
+	list.append(ability)
 
-	text += "[color=GOLD]Omnislash[/color]\n"
-	text += "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10% of this tower's normal attack damage and permanently increases the damage its target takes from Physical type attacks by 4%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2 slashes every 5 levels\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Omnislash[/color]\n"
-	text += "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers: BuffType):

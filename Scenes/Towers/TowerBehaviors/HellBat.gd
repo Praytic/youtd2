@@ -21,7 +21,7 @@ const SWARM_START_RADIUS: float = 100
 const SWARM_END_RADIUS: float = 300
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
 	var on_attack_chance_add: String = Utils.format_percent(ON_ATTACK_CHANCE_ADD, 2)
 	var swarm_damage_night: String = Utils.format_float(_stats.swarm_damage_night, 2)
@@ -33,36 +33,30 @@ func get_ability_description() -> String:
 	var attack_damage_day: String = Utils.format_percent(ATTACK_DAMAGE_DAY, 2)
 	var attack_damage_day_add: String = Utils.format_percent(_stats.attack_damage_day_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var bat_swarm: AbilityInfo = AbilityInfo.new()
+	bat_swarm.name = "Bat Swarm"
+	bat_swarm.description_short = "This tower has a chance on attack to release a swarm of bats.\n"
+	bat_swarm.description_full = "This tower has a %s chance on attack to release a swarm of bats, dealing %s spell damage at nighttime or %s spell damage at daytime to all enemies in a cone. The cone grows from a %s AoE radius at the start to a %s AoE radius at the end.\n" % [on_attack_chance, swarm_damage_night, swarm_damage_day, SWARM_START_RADIUS, SWARM_END_RADIUS] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % on_attack_chance_add \
+	+ "+%s damage during night\n" % swarm_damage_night_add \
+	+ "+%s damage during day\n" % swarm_damage_day_add
+	list.append(bat_swarm)
 
-	text += "[color=GOLD]Bat Swarm[/color]\n"
-	text += "This tower has a %s chance on attack to release a swarm of bats, dealing %s spell damage at nighttime or %s spell damage at daytime to all enemies in a cone. The cone grows from a %s AoE radius at the start to a %s AoE radius at the end.\n" % [on_attack_chance, swarm_damage_night, swarm_damage_day, SWARM_START_RADIUS, SWARM_END_RADIUS]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s chance\n" % on_attack_chance_add
-	text += "+%s damage during night\n" % swarm_damage_night_add
-	text += "+%s damage during day\n" % swarm_damage_day_add
-	text += " \n"
-	text += "[color=GOLD]Creature of the Night[/color]\n"
-	text += "This tower deals %s damage during nighttime and %s damage during daytime.\n" % [attack_damage_night, attack_damage_day]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage during night\n" % attack_damage_night_add
-	text += "+%s damage during day\n" % attack_damage_day_add
+	var creature: AbilityInfo = AbilityInfo.new()
+	creature.name = "Creature of the Night"
+	creature.description_short = "This tower deals more damage during nighttime.\n"
+	creature.description_full = "This tower deals %s damage during nighttime and %s damage during daytime.\n" % [attack_damage_night, attack_damage_day] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage during night\n" % attack_damage_night_add \
+	+ "+%s damage during day\n" % attack_damage_day_add
+	list.append(creature)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Bat Swarm[/color]\n"
-	text += "This tower has a chance on attack to release a swarm of bats.\n"
-	text += " \n"
-	text += "[color=GOLD]Creature of the Night[/color]\n"
-	text += "This tower deals more damage during nighttime.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

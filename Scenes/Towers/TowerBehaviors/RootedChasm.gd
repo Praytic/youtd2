@@ -18,30 +18,24 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var entangle_duration: String = Utils.format_float(_stats.entangle_duration, 2)
 	var base_entangle_dps: String = Utils.format_float(_stats.base_entangle_dps, 2)
 	var base_entangle_dps_add: String = Utils.format_float(_stats.base_entangle_dps / 20.0, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Entangle"
+	ability.description_short = "This tower has a small chance to entangle units it damages.\n"
+	ability.description_full = "Has a chance of 12.5%% to entangle the attacked target for %s seconds. Entangled targets are immobile and suffer %s damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance to entangle\n" \
+	+ "+%s damage per second" % base_entangle_dps_add
+	list.append(ability)
 
-	text += "[color=GOLD]Entangle[/color]\n"
-	text += "Has a chance of 12.5%% to entangle the attacked target for %s seconds. Entangled targets are immobile and suffer %s damage per second. Cannot entangle air or boss units. \n" % [entangle_duration, base_entangle_dps]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% chance to entangle\n"
-	text += "+%s damage per second" % base_entangle_dps_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Entangle[/color]\n"
-	text += "This tower has a small chance to entangle units it damages.\n"
-
-	return text
+	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):

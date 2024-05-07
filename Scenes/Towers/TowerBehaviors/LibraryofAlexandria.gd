@@ -5,34 +5,28 @@ var aura_bt: BuffType
 var teachings_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+	
+	var divine_knowledge: AbilityInfo = AbilityInfo.new()
+	divine_knowledge.name = "Divine Knowledge"
+	divine_knowledge.description_short = "This tower periodically grants experience to a random tower in range.\n"
+	divine_knowledge.description_full = "Every 5 seconds this tower grants 2 experience to a random tower in 500 range.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2 experience\n"
+	list.append(divine_knowledge)
 
-	text += "[color=GOLD]Divine Knowledge[/color]\n"
-	text += "Every 5 seconds this tower grants 2 experience to a random tower in 500 range.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2 experience\n"
-	text += " \n"
-	text += "[color=GOLD]Divine Research - Aura[/color]\n"
-	text += "Increases the experience gain from creeps in 900 range by 30%. \n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% experience\n"
+	var divine_research: AbilityInfo = AbilityInfo.new()
+	divine_research.name = "Divine Research - Aura"
+	divine_research.description_short = "Increases experience gain from creeps in range.\n"
+	divine_research.description_full = "Increases the experience gain from creeps in 900 range by 30%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% experience\n"
+	list.append(divine_research)
 
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Divine Knowledge[/color]\n"
-	text += "This tower periodically grants experience to a random tower in range.\n"
-	text += " \n"
-	text += "[color=GOLD]Divine Research - Aura[/color]\n"
-	text += "Increases experience gain from creeps in range.\n"
-
-	return text
+	return list
 
 
 func get_autocast_description() -> String:

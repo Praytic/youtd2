@@ -11,29 +11,23 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_description() -> String:
+func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
 	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
 
-	var text: String = ""
+	var list: Array[AbilityInfo] = []
+	
+	var ability: AbilityInfo = AbilityInfo.new()
+	ability.name = "Frost Aura"
+	ability.description_short = "Slows nearby creeps.\n"
+	ability.description_full = "Slows movementspeed of enemies in %s range by %s.\n" % [aura_range, mod_movespeed] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s slow\n" % mod_movespeed_add
+	list.append(ability)
 
-	text += "[color=GOLD]Frost Aura[/color]\n"
-	text += "Slows movementspeed of enemies in %s range by %s.\n" % [aura_range, mod_movespeed]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s slow\n" % mod_movespeed_add
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frost Aura[/color]\n"
-	text += "Slows nearby creeps.\n"
-
-	return text
+	return list
 
 
 func tower_init():
