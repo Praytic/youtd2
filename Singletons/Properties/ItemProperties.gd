@@ -120,8 +120,7 @@ func get_required_wave_level(item_id: int) -> int:
 
 
 func get_icon_path(item_id: int) -> String:
-	var icon_name: String = _get_property(item_id, CsvProperty.ICON)
-	var icon_path: String = "%s/%s" % [ITEM_ICON_DIR, icon_name]
+	var icon_path: String = _get_property(item_id, CsvProperty.ICON)
 
 	return icon_path
 
