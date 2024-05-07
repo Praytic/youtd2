@@ -1051,6 +1051,7 @@ func get_inventory_capacity() -> int:
 	var builder: Builder = get_player().get_builder()
 	var builder_item_slots_bonus: int = builder.get_item_slots_bonus()
 	var total_capacity: int = original_capacity + builder_item_slots_bonus
+	total_capacity = clampi(total_capacity, 1, Constants.INVENTORY_CAPACITY_MAX)
 
 	return total_capacity
 
