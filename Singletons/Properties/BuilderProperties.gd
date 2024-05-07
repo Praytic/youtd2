@@ -96,8 +96,7 @@ func get_script_path(builder: int) -> String:
 
 
 func get_icon_path(builder: int) -> String:
-	var icon_name: String = _get_property(builder, CsvProperty.ICON)
-	var icon_path: String = "%s/%s" % [BUILDER_ICON_DIR, icon_name]
+	var icon_path: String = _get_property(builder, CsvProperty.ICON)
 
 	return icon_path
 
