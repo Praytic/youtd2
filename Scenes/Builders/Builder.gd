@@ -87,7 +87,7 @@ func apply_effects(unit: Unit):
 		modifier = null
 
 	if buff != null:
-		buff.apply(unit, unit, unit.get_level())
+		buff.apply_to_unit_permanent(unit, unit, unit.get_level())
 
 	if modifier != null:
 		unit.add_modifier(modifier)
