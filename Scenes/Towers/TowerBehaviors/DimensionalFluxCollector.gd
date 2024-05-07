@@ -81,7 +81,7 @@ func tower_init():
 	autocast.title = "Dimensional Link"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/stasis_trap.tres"
+	autocast.icon = "res://Resources/Icons/mechanical/circuit_board.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER

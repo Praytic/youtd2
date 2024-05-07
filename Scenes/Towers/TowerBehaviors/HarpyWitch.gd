@@ -115,7 +115,7 @@ func tower_init():
 	autocast.title = "Sparks"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/electricity.tres"
+	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "MonsoonBoltTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

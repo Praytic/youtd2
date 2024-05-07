@@ -96,7 +96,7 @@ func tower_init():
 	autocast.title = "Lightmare"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/thunder_swirl.tres"
+	autocast.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frozen Thorn"
-	ability.icon = "res://Resources/Icons/AbilityIcons/frozen_thorn.tres"
+	ability.icon = "res://Resources/Icons/amulets/claw_blue_glowing.tres"
 	ability.description_short = "Has a chance to deal additional spell damage each time it deals damage.\n"
 	ability.description_full = "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage \
 	+ " \n" \

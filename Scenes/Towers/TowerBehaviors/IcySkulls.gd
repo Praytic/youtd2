@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Icy Touch"
-	ability.icon = "res://Resources/Icons/AbilityIcons/AshGeyser_blue.tres"
+	ability.icon = "res://Resources/Icons/tower_variations/AshGeyser_blue.tres"
 	ability.description_short = "Slows attacked units.\n"
 	ability.description_full = "Slows attacked units by %s for %s seconds.\n" % [slow_base, duration_base] \
 	+ " \n" \

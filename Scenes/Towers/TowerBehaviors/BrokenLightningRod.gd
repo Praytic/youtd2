@@ -38,7 +38,7 @@ func tower_init():
 	autocast.title = "Release Lightning"
 	autocast.description = get_release_lightning_description()
 	autocast.description_short = get_release_lightning_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/release_lightning.tres"
+	autocast.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

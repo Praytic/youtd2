@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Tomb's Curse"
-	ability.icon = "res://Resources/Icons/AbilityIcons/AshGeyser_purple.tres"
+	ability.icon = "res://Resources/Icons/tower_variations/AshGeyser_purple.tres"
 	ability.description_short = "Small chance to instantly kill a lesser creep on attack.\n"
 	ability.description_full = "This tower has a %s chance on attack to kill a non boss, non champion target immediately.\n" % chance_base \
 	+ " \n" \
