@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poisoned Heart"
+	ability.icon = "res://Resources/Textures/ItemIcons/toxic_chemicals.tres"
 	ability.description_short = "Deals damage over time.\n"
 	ability.description_full = "This tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n" % poison_damage \
 	+ " \n" \

@@ -20,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Absolute Zero"
+	ability.icon = "res://Resources/Textures/TowerIcons/EbonfrostCrystal.tres"
 	ability.description_short = "Creeps hit by this tower are slowed.\n"
 	ability.description_full = "The Obelisk slows creeps it damages by %s for 4 seconds.\n" % slow_amount \
 	+ " \n" \

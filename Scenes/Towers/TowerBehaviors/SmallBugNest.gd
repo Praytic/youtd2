@@ -18,6 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Swarm of Bugs"
+	ability.icon = "res://Resources/Textures/ItemIcons/spider_broach.tres"
 	ability.description_short = "On kill, produces bugs that increase the damage of this tower.\n"
 	ability.description_full = "On kill, produces bugs that increase the base damage of this tower by %s. The damage gain decreases by 1 for every %s productions, down to a minimum of 1.\n" % [bug_dmg, production_for_decrease] \
 	+ " \n" \

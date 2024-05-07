@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var chain: AbilityInfo = AbilityInfo.new()
 	chain.name = "Chain Lightning"
+	ability.icon = "res://Resources/Textures/AbilityIcons/burst_lightning.tres"
 	chain.description_short = "This tower has a chance on attack to release chainlightning.\n"
 	chain.description_full = "This tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n" % chain_damage \
 	+ " \n" \

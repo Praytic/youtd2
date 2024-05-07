@@ -21,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Thunderous Roar"
+	ability.icon = "res://Resources/Textures/AbilityIcons/roar.tres"
 	ability.description_short = "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
 	ability.description_full = "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attackspeed \
 	+ " \n" \

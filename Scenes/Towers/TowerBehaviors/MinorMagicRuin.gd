@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Illuminate"
+	ability.icon = "res://Resources/Textures/AbilityIcons/illuminate.tres"
 	ability.description_short = "Attacks make the target grant more experience once killed.\n"
 	ability.description_full = "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
 	+ " \n" \

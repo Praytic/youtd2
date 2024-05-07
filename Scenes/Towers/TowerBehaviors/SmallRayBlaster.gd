@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Phaze"
+	ability.icon = "res://Resources/Textures/ItemIcons/mining_lamp.tres"
 	ability.description_short = "Increases target creep's item drop quality and item drop chance.\n"
 	ability.description_full = "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds.\n" % [value, duration] \
 	+ " \n"\

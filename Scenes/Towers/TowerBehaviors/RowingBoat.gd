@@ -21,12 +21,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var pirates: AbilityInfo = AbilityInfo.new()
 	pirates.name = "Pirates"
+	pirates.icon = "res://Resources/Textures/TowerIcons/Dutchman'sGrave.tres"
 	pirates.description_short = "Grants gold on attack.\n"
 	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
 	list.append(pirates)
 
 	var treasure: AbilityInfo = AbilityInfo.new()
 	treasure.name = "Treasure Seeker - Aura"
+	treasure.icon = "res://Resources/Textures/ItemIcons/golden_decoration.tres"
 	treasure.description_short = "Increases the bounty gain of nearby towers.\n"
 	treasure.description_full = "Increases the bounty gain of towers in 300 range by 10%.\n" \
 	+ " \n" \

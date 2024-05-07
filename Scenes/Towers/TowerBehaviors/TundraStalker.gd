@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frenzy"
+	ability.icon = "res://Resources/Textures/ItemIcons/vampiric_skull.tres"
 	ability.description_short = "Gains a permanent bonus to attack speed each time Ice Claw is cast.\n"
 	ability.description_full = "Each time Ice Claw is cast, attackspeed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)

@@ -26,6 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Soul Split"
+	ability.icon = "res://Resources/Textures/ItemIcons/distorted_idol.tres"
 	ability.description_short = "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
 	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease] \
 	+ " \n" \

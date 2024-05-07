@@ -32,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var power_of_light: AbilityInfo = AbilityInfo.new()
 	power_of_light.name = "Power of Light"
+	power_of_light.icon = "res://Resources/Textures/AbilityIcons/electricity_yellow.tres"
 	power_of_light.description_short = "The mighty holy light weakens enemy undead creeps.\n"
 	power_of_light.description_full = "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s more damage from physical and spell attacks.\n" % [duration, mod_value] \
 	+ " \n" \

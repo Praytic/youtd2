@@ -19,6 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Lightning Strike"
+	ability.name = "res://Resources/Textures/AbilityIcons/release_lightning.tres"
 	ability.description_short = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target.\n"
 	ability.description_full = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n" % lightning_dmg \
 	+ " \n" \

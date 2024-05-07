@@ -21,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
+	ability.icon = "res://Resources/Textures/AbilityIcons/fire_orb.tres"
 	ability.description_short = "Deals damage over time.\n"
 	ability.description_full = "Units damaged by this tower receive %s more damage from fire towers and take %s spell damage every 0.5 seconds for 5 seconds. The damage over time effect stacks.\n" % [dmg_from_fire, spell_damage] \
 	+ " \n" \
