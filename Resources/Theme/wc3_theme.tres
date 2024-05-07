@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=83 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=84 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
+[ext_resource type="StyleBox" uid="uid://d1kpcknbt4bgj" path="res://Resources/Theme/UnitButton/ability_button.tres" id="1_t0l40"]
 [ext_resource type="StyleBox" uid="uid://11b5t8jsfbdk" path="res://Resources/Theme/TowerActions/button_disabled.tres" id="1_vdqn7"]
 [ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
 [ext_resource type="StyleBox" uid="uid://cp7fygn5qoudb" path="res://Resources/Theme/TowerActions/button_pressed.tres" id="2_1ucqc"]
@@ -758,6 +759,12 @@ cache/0/35/0/kerning_overrides/35/0 = Vector2(0, 0)
 [resource]
 default_font = SubResource("1")
 default_font_size = 24
+AbilityButton/base_type = &"Button"
+AbilityButton/styles/disabled = ExtResource("1_t0l40")
+AbilityButton/styles/focus = ExtResource("1_t0l40")
+AbilityButton/styles/hover = ExtResource("1_t0l40")
+AbilityButton/styles/normal = ExtResource("1_t0l40")
+AbilityButton/styles/pressed = ExtResource("1_t0l40")
 BigCircleButton/base_type = &"Button"
 BigCircleButton/styles/disabled = SubResource("StyleBoxTexture_q5aqc")
 BigCircleButton/styles/hover = SubResource("StyleBoxTexture_o1y8y")
