@@ -60,9 +60,12 @@ const PROJECTILE_SPEED_MAX: int = 30000
 # NOTE: couldn't find the exact value so had to calculate it
 # by eye from original youtd. This value is big enough to
 # always bounce from mass creeps and almost always bounce
-# for normal creeps. In very rare cases, when normal creep
-# random delay is above 2s the bounce will fail - works like
-# that in original game as well.
+# for normal creeps - works like that in original game as
+# well. The calculation is like this:
+# Delay between normal creeps is [0.4s-2.2s].
+# Default speed is 222.
+# delay = 0.4-1.5 = bounce works
+# delay = 1.5-2.2 = bounce fails
 const BOUNCE_ATTACK_RANGE: int = 340
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
