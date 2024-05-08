@@ -416,7 +416,7 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float, includ
 #	the default distance to unit position is used.
 	var target_is_tower: bool = type.get_unit_type() == TargetType.UnitType.TOWERS
 	if target_is_tower:
-		radius += Constants.TILE_SIZE_PIXELS / 2
+		radius += Constants.TILE_SIZE_WC3 / 2
 
 #	NOTE: not using Array.filter() here because it takes
 #	more time than for loop
