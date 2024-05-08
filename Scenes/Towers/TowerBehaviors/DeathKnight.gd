@@ -90,7 +90,7 @@ func tower_init():
 	autocast.title = "Will of the Undying"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/skull_trophy.tres"
+	autocast.icon = "res://Resources/Icons/undead/skull_01.tres"
 	autocast.caster_art = "HowlCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

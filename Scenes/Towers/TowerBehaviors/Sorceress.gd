@@ -198,7 +198,7 @@ func tower_init():
 	autocast_add.title = "Add Modification"
 	autocast_add.description = get_autocast_add_description()
 	autocast_add.description_short = get_autocast_add_description_short()
-	autocast_add.icon = "res://Resources/Icons/AbilityIcons/blue_pointy_thing.tres"
+	autocast_add.icon = "res://Resources/Icons/magic/claw_02.tres"
 	autocast_add.caster_art = ""
 	autocast_add.target_art = ""
 	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -218,7 +218,7 @@ func tower_init():
 	autocast_remove.title = "Remove Modification"
 	autocast_remove.description = get_autocast_remove_description()
 	autocast_remove.description_short = get_autocast_remove_description_short()
-	autocast_remove.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing_down.tres"
+	autocast_remove.icon = "res://Resources/Icons/magic/claw_04.tres"
 	autocast_remove.caster_art = ""
 	autocast_remove.target_art = ""
 	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

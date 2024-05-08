@@ -108,7 +108,7 @@ func tower_init():
 	autocast.title = "Awaken"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/burning_magic_thing.tres"
+	autocast.icon = "res://Resources/Icons/magic/fire.tres"
 	autocast.caster_art = "UCancelDeath.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

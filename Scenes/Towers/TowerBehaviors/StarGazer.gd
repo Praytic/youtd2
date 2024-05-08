@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magic Split"
-	ability.icon = "res://Resources/Icons/ItemIcons/magic_link.tres"
+	ability.icon = "res://Resources/Icons/magic/claw_01.tres"
 	ability.description_short = "On damage this tower deals 100% of its attack damage as spell damage to the target.\n"
 	ability.description_full = "This tower deals an additional amount of spell damage to its target equal to 100% of its attack damage. If the creep is immune this damage is dealt as energy damage equal to 80% of its attack damage not affected by level bonus.\n" \
 	+ " \n" \

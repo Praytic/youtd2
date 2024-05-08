@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var elemental_wrath: AbilityInfo = AbilityInfo.new()
 	elemental_wrath.name = "Elemental Wrath"
-	elemental_wrath.icon = "res://Resources/Icons/ItemIcons/scroll_of_myths.tres"
+	elemental_wrath.icon = "res://Resources/Icons/scrolls/scroll_04.tres"
 	elemental_wrath.description_short = "The Ghost has a chance on attack to increase its trigger chance temporarily.\n"
 	elemental_wrath.description_full = "The Elemental Ghost has a %s chance to unleash it's wrath on attack, increasing its trigger chance by 15%% for 5 seconds. Cannot retrigger during Elemental Wrath.\n" % elemental_wrath_chance \
 	+ " \n" \

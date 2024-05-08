@@ -79,7 +79,7 @@ func tower_init():
 	autocast.title = "Soul Link"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/distorted_idol.tres"
+	autocast.icon = "res://Resources/Icons/undead/skull_phazing.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

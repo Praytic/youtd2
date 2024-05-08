@@ -60,7 +60,7 @@ func tower_init():
 	autocast.title = "Dark Curse"
 	autocast.description = get_dark_curse_description()
 	autocast.description_short = get_dark_curse_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/purple_flame.tres"
+	autocast.icon = "res://Resources/Icons/fire/flame_purple.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

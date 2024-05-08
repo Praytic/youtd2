@@ -19,7 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Banish"
-	ability.icon = "res://Resources/Icons/AbilityIcons/banish.tres"
+	ability.icon = "res://Resources/Icons/magic/magic_stone_green.tres"
 	ability.description_short = "Magic, undead and nature creeps suffer spell damage when hit by this tower.\n"
 	ability.description_full = "Magic, undead and nature creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % damage \
 	+ " \n" \

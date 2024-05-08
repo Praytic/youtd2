@@ -147,7 +147,7 @@ func tower_init():
 	autocast_acid.title = "Acid Bombs"
 	autocast_acid.description = get_autocast_description_acid()
 	autocast_acid.description_short = get_autocast_description_acid_short()
-	autocast_acid.icon = "res://Resources/Icons/ItemIcons/warsong_double_bass.tres"
+	autocast_acid.icon = "res://Resources/Icons/fire/fire_bowl_03.tres"
 	autocast_acid.caster_art = ""
 	autocast_acid.target_art = ""
 	autocast_acid.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

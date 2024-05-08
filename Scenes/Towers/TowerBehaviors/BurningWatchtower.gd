@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burn"
-	ability.icon = "res://Resources/Icons/ItemIcons/cruel_torch.tres"
+	ability.icon = "res://Resources/Icons/fire/torch.tres"
 	ability.description_short = "Let's fire towers deal more and more damage to the target, which will explode on death.\n"
 	ability.description_full = "Starts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [bonus_damage, bonus_damage_other, explode_damage] \
 	+ "Lasts 5 seconds after the last attack of a fire tower.\n" \

@@ -84,7 +84,7 @@ func tower_init():
 	autocast.title = "Attraction"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/1_unused_fire_bowl_2.tres"
+	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

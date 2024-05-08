@@ -192,7 +192,7 @@ func tower_init():
 	autocast.title = "Nature's Gift"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/leaf_soft.tres"
+	autocast.icon = "res://Resources/Icons/plants/leaf_03.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

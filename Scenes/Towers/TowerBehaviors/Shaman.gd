@@ -92,7 +92,7 @@ func tower_init():
 	autocast.title = "Bloodlust"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/voodoo_mask_red.tres"
+	autocast.icon = "res://Resources/Icons/masks/mask_07.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

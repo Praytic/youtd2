@@ -99,7 +99,7 @@ func tower_init():
 	autocast_recreation.title = "Recreation Field"
 	autocast_recreation.description = get_autocast_recreation_description()
 	autocast_recreation.description_short = get_autocast_recreation_description_short()
-	autocast_recreation.icon = "res://Resources/Icons/ItemIcons/hippogryph_egg.tres"
+	autocast_recreation.icon = "res://Resources/Icons/magic/magic_stone.tres"
 	autocast_recreation.caster_art = ""
 	autocast_recreation.target_art = ""
 	autocast_recreation.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT

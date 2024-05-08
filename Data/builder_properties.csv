@@ -1,6 +1,6 @@
 id,display name,short name,tier,req level,script name,icon,description
-0,None,none,beginner,0,BuilderNone,res://Resources/Icons/BuilderIcons/blademaster.tres,none description
-1,Blademaster,blademaster,beginner,0,BuilderBlademaster,res://Resources/Icons/BuilderIcons/blademaster.tres,"The blademaster always hits the weakest spot.
+0,None,none,beginner,0,BuilderNone,res://Resources/Icons/animals/piglet_warrior.tres,none description
+1,Blademaster,blademaster,beginner,0,BuilderBlademaster,res://Resources/Icons/animals/piglet_warrior.tres,"The blademaster always hits the weakest spot.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -9,7 +9,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+40% critical strike damage[/color]
 [color=GREEN]+1 multicrit chance[/color]
 "
-2,Queen of the Seven Skies,queen,beginner,0,BuilderQueen,res://Resources/Icons/BuilderIcons/queen_of_skies.tres,"The sky belongs to Mira, and she will let nobody else take it.
+2,Queen of the Seven Skies,queen,beginner,0,BuilderQueen,res://Resources/Icons/TowerIcons/HarpyWitch.tres,"The sky belongs to Mira, and she will let nobody else take it.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -19,7 +19,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+2% damage to flying creeps per tower level[/color]
 [color=GREEN]-60 movement speed for Air creeps[/color]
 "
-3,Adventurer,adventurer,beginner,0,BuilderAdventurer,res://Resources/Icons/BuilderIcons/adventurer.tres,"Therodin is always on the hunt for his next artefact, finding precious stuff where others find only trash.
+3,Adventurer,adventurer,beginner,0,BuilderAdventurer,res://Resources/Icons/TowerIcons/ForestArcher.tres,"Therodin is always on the hunt for his next artefact, finding precious stuff where others find only trash.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -36,7 +36,7 @@ Tier: [color=GREEN]Beginner[/color]
 [color=GREEN]+1% lives regenerated per level if below 50% lives[/color]
 [color=GREEN]+2% lives regenerated per level if below 10% lives[/color]
 "
-5,Farseer,farseer,beginner,0,BuilderFarseer,res://Resources/Icons/BuilderIcons/farseer.tres,"Grolk can see far and grants this talent to his followers.
+5,Farseer,farseer,beginner,0,BuilderFarseer,res://Resources/Icons/TowerIcons/Scales.tres,"Grolk can see far and grants this talent to his followers.
  
 Tier: [color=GREEN]Beginner[/color]
  
@@ -121,7 +121,7 @@ Tier: [color=ORANGE]Advanced[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]-15% base damage[/color]
 "
-12,Feeble Fender,fender,specialist,10,BuilderFeebleFender,res://Resources/Icons/BuilderIcons/feeble_fender.tres,"His head holds a battle between senile marasmus and memory. Some say he's only here because his wise twin brother got him the job. He's also really bad with money.
+12,Feeble Fender,fender,specialist,10,BuilderFeebleFender,res://Resources/Icons/TowerIcons/Phantom.tres,"His head holds a battle between senile marasmus and memory. Some say he's only here because his wise twin brother got him the job. He's also really bad with money.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -153,7 +153,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-20% critical strike chances[/color]
 [color=RED]-20% spell critical strike chances[/color]
 "
-14,Arch Sorceress,arch_sorceress,specialist,10,BuilderArchSorceress,res://Resources/Icons/BuilderIcons/arch_sorceress.tres,"The mistress of spells, however not too dexterous at common warfare.
+14,Arch Sorceress,arch_sorceress,specialist,10,BuilderArchSorceress,res://Resources/Icons/TowerIcons/Sorceress.tres,"The mistress of spells, however not too dexterous at common warfare.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -183,7 +183,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-300% mana regeneration[/color]
 [color=RED]-100% spell damage[/color]
 "
-16,Pandaren Monk,pandaren,specialist,10,BuilderPandarenMonk,res://Resources/Icons/BuilderIcons/pandaren_monk.tres,"Brother Pandarius donates his treasures to the poor, in exchange for beer, of course.
+16,Pandaren Monk,pandaren,specialist,10,BuilderPandarenMonk,res://Resources/Icons/TowerIcons/PolarBearCub.tres,"Brother Pandarius donates his treasures to the poor, in exchange for beer, of course.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -199,7 +199,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-60% item find[/color]
 [color=RED]-10% item quality[/color]
 "
-17,Naga Time Twister,naga,specialist,10,BuilderNagaTimeTwister,res://Resources/Icons/BuilderIcons/naga_time_twister.tres,"Lady Nyshij twists the time itself, granting improved chances and speed to her followers.
+17,Naga Time Twister,naga,specialist,10,BuilderNagaTimeTwister,res://Resources/Icons/TowerIcons/ForestProtectress.tres,"Lady Nyshij twists the time itself, granting improved chances and speed to her followers.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -211,7 +211,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-25% base damage[/color]
 [color=RED]-25% spell damage[/color]
 "
-18,Goblin Alchemist,goblin,specialist,10,BuilderGoblinAlchemist,res://Resources/Icons/BuilderIcons/goblin_alchemist.tres,"The Goblin Alchemist is driven solely by his extreme lust for wealth. Oftentimes this leaves him quite lacking in the combat department.
+18,Goblin Alchemist,goblin,specialist,10,BuilderGoblinAlchemist,res://Resources/Icons/TowerIcons/ThiefApprentice.tres,"The Goblin Alchemist is driven solely by his extreme lust for wealth. Oftentimes this leaves him quite lacking in the combat department.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -227,7 +227,7 @@ Tier: [color=RED]Specialist[/color]
 [color=RED]-35% debuff duration[/color]
 [color=RED]-15% attack speed[/color]
 "
-19,Backpacker,backpacker,specialist,10,BuilderBackpacker,res://Resources/Icons/BuilderIcons/backpacker.tres,"This creature has more pockets than candles! Having picked up all kinds of relics from its many journeys, it keeps them sorted fastidiously.
+19,Backpacker,backpacker,specialist,10,BuilderBackpacker,res://Resources/Icons/TowerIcons/YoungNorthernTroll.tres,"This creature has more pockets than candles! Having picked up all kinds of relics from its many journeys, it keeps them sorted fastidiously.
  
 Tier: [color=RED]Specialist[/color]
  
@@ -239,7 +239,7 @@ Tier: [color=RED]Specialist[/color]
 [color=GOLD]CONS:[/color]
 [color=RED]Towers can only wield items that match their rarity or Unique items.[/color]
 "
-20,Maverick,maverick,hardcore,20,BuilderMaverick,res://Resources/Icons/BuilderIcons/maverick.tres,"You want it done right? Do it yourself. Especially when it comes to leaving a trail of flaming footsteps in the air.
+20,Maverick,maverick,hardcore,20,BuilderMaverick,res://Resources/Icons/TowerIcons/TheCouncilofDemons.tres,"You want it done right? Do it yourself. Especially when it comes to leaving a trail of flaming footsteps in the air.
  
 Tier: [color=PURPLE]Hardcore[/color]
  
@@ -257,7 +257,7 @@ Tier: [color=PURPLE]Hardcore[/color]
 [color=RED]-37.5% wisdom upgrade strength[/color]
 [color=RED]Towers cannot be built adjacent to other towers[/color]
 "
-21,Antagonizer,antagonizer,hardcore,20,BuilderAntagonizer,res://Resources/Icons/BuilderIcons/antagonizer.tres,"Butch doesn't learn quickly, but what he lacks in intellect, he makes up for with oversized muscles and steroid abuse.
+21,Antagonizer,antagonizer,hardcore,20,BuilderAntagonizer,res://Resources/Icons/TowerIcons/WildKodoBeast.tres,"Butch doesn't learn quickly, but what he lacks in intellect, he makes up for with oversized muscles and steroid abuse.
  
 Tier: [color=PURPLE]Hardcore[/color]
  

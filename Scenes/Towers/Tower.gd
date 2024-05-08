@@ -901,7 +901,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if _target_count_from_tower > 1:
 		var multishot: AbilityInfo = AbilityInfo.new()
 		multishot.name = "Multishot"
-		multishot.icon = "res://Resources/Icons/AbilityIcons/multishot.tres"
+		multishot.icon = "res://Resources/Icons/bows/spears_01.tres"
 		var multishot_tooltip: String = "Attacks up to [color=GOLD]%d[/color] targets at the same time.\n" % _target_count_from_tower
 		multishot.description_short = multishot_tooltip
 		multishot.description_full = multishot_tooltip

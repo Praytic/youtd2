@@ -75,7 +75,7 @@ func tower_init():
 	autocast_speed_up.title = "Speed Up"
 	autocast_speed_up.description = get_autocast_speed_up_description()
 	autocast_speed_up.description_short = get_autocast_speed_up_description_short()
-	autocast_speed_up.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing.tres"
+	autocast_speed_up.icon = "res://Resources/Icons/magic/claw_03.tres"
 	autocast_speed_up.caster_art = ""
 	autocast_speed_up.target_art = ""
 	autocast_speed_up.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -95,7 +95,7 @@ func tower_init():
 	autocast_speed_down.title = "Speed Down"
 	autocast_speed_down.description = get_autocast_speed_down_description()
 	autocast_speed_down.description_short = get_autocast_speed_down_description_short()
-	autocast_speed_down.icon = "res://Resources/Icons/AbilityIcons/red_pointy_thing_down.tres"
+	autocast_speed_down.icon = "res://Resources/Icons/magic/claw_04.tres"
 	autocast_speed_down.caster_art = ""
 	autocast_speed_down.target_art = ""
 	autocast_speed_down.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

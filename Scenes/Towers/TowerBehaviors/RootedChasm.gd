@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Entangle"
-	ability.icon = "res://Resources/Icons/ItemIcons/tree_branch.tres"
+	ability.icon = "res://Resources/Icons/plants/branch_01.tres"
 	ability.description_short = "This tower has a small chance to entangle units it damages.\n"
 	ability.description_full = "Has a chance of 12.5%% to entangle the attacked target for %s seconds. Entangled targets are immobile and suffer %s damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
 	+ " \n" \

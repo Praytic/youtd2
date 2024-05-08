@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frenzy"
-	ability.icon = "res://Resources/Icons/ItemIcons/vampiric_skull.tres"
+	ability.icon = "res://Resources/Icons/undead/skull_03.tres"
 	ability.description_short = "Gains a permanent bonus to attack speed each time Ice Claw is cast.\n"
 	ability.description_full = "Each time Ice Claw is cast, attackspeed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)
@@ -102,7 +102,7 @@ func tower_init():
 	autocast.title = "Ice Claw\n"
 	autocast.description = get_ice_claw_description()
 	autocast.description_short = get_ice_claw_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/blue_pointy_thing.tres"
+	autocast.icon = "res://Resources/Icons/magic/claw_02.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
