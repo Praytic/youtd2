@@ -556,7 +556,12 @@ func get_family_name(tower_id: int) -> String:
 
 	var first_tier_id: int = towers_in_family.front()
 	var first_tier_name: String = TowerProperties.get_display_name(first_tier_id)
+
+#	NOTE: remove weird chars because family name is used for
+#	filenames
 	var family_name: String = first_tier_name.replace(" ", "")
+	family_name = family_name.replace(",", "")
+	family_name = family_name.replace("'", "")
 
 	return family_name
 
