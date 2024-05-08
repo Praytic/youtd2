@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var mimic: AbilityInfo = AbilityInfo.new()
 	mimic.name = "Mimic"
-	mimic.icon = "res://Resources/Icons/ItemIcons/mystical_shell.tres"
+	mimic.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
 	mimic.description_short = "The Ghost is able to deal different damage types.\n"
 	mimic.description_full = "The Ghost's attacks are varied, and its damage type will either be good or bad against its target. Trigger chance adjusts the good/bad attacks to be better.\n"
 	list.append(mimic)

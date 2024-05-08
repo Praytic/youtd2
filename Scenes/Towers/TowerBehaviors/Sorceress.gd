@@ -178,7 +178,7 @@ func tower_init():
 	autocast_choose.title = "Choose Modification"
 	autocast_choose.description = get_autocast_choose_description()
 	autocast_choose.description_short = get_autocast_choose_description_short()
-	autocast_choose.icon = "res://Resources/Icons/amulets/swirly_01.tres"
+	autocast_choose.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
 	autocast_choose.caster_art = ""
 	autocast_choose.target_art = ""
 	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

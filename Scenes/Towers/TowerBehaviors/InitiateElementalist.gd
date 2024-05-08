@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var elemental_fury: AbilityInfo = AbilityInfo.new()
 	elemental_fury.name = "Elemental Fury"
-	elemental_fury.icon = "res://Resources/Icons/WisdomUpgradeIcons/element_mastery.tres"
+	elemental_fury.icon = "res://Resources/Icons/hud/research_elements.tres"
 	elemental_fury.description_short = "Consecutive casts of the same spell will deal more damage.\n"
 	elemental_fury.description_full = "Consecutive casts of the same spell will deal 50% more damage.\n" \
 	+ " \n" \

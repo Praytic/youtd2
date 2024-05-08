@@ -2,70 +2,70 @@
 
 [ext_resource type="PackedScene" uid="uid://dan6pqpxexgbi" path="res://Scenes/HUD/Buttons/ItemFilterButton.tscn" id="1_jtguh"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu/ItemFilterContainer.gd" id="1_nfudw"]
-[ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Icons/misc5/common_icon.tres" id="2_61hhn"]
+[ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Icons/hud/gem_common.tres" id="3_1wh6r"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemRarityFilterButton.gd" id="4_lvpfk"]
-[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Icons/misc5/uncommon_icon.tres" id="5_a2vcv"]
-[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Icons/misc5/rare_icon.tres" id="6_ardgu"]
-[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Icons/misc5/unique_icon.tres" id="7_5sxje"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Icons/hud/gem_uncommon.tres" id="5_268ki"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Icons/hud/gem_rare.tres" id="6_pih0s"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Icons/hud/gem_unique.tres" id="7_lfisl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtpi7"]
-texture = ExtResource("2_61hhn")
+texture = ExtResource("3_1wh6r")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56vm4"]
-texture = ExtResource("2_61hhn")
+texture = ExtResource("3_1wh6r")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dssae"]
-texture = ExtResource("2_61hhn")
+texture = ExtResource("3_1wh6r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oii3d"]
-texture = ExtResource("2_61hhn")
+texture = ExtResource("3_1wh6r")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o20ob"]
-texture = ExtResource("5_a2vcv")
+texture = ExtResource("5_268ki")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l068u"]
-texture = ExtResource("5_a2vcv")
+texture = ExtResource("5_268ki")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aoswy"]
-texture = ExtResource("5_a2vcv")
+texture = ExtResource("5_268ki")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lu628"]
-texture = ExtResource("5_a2vcv")
+texture = ExtResource("5_268ki")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5piem"]
-texture = ExtResource("6_ardgu")
+texture = ExtResource("6_pih0s")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3slk"]
-texture = ExtResource("6_ardgu")
+texture = ExtResource("6_pih0s")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xbgks"]
-texture = ExtResource("6_ardgu")
+texture = ExtResource("6_pih0s")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4p5to"]
-texture = ExtResource("6_ardgu")
+texture = ExtResource("6_pih0s")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_twa77"]
-texture = ExtResource("7_5sxje")
+texture = ExtResource("7_lfisl")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2ngo"]
-texture = ExtResource("7_5sxje")
+texture = ExtResource("7_lfisl")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_olwpn"]
-texture = ExtResource("7_5sxje")
+texture = ExtResource("7_lfisl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmsb3"]
-texture = ExtResource("7_5sxje")
+texture = ExtResource("7_lfisl")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [node name="RarityFilterContainer" type="VBoxContainer"]

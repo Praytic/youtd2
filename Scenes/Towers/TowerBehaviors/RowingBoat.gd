@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var treasure: AbilityInfo = AbilityInfo.new()
 	treasure.name = "Treasure Seeker - Aura"
-	treasure.icon = "res://Resources/Icons/amulets/gold_totem.tres"
+	treasure.icon = "res://Resources/Icons/trinkets/trinket_05.tres"
 	treasure.description_short = "Increases the bounty gain of nearby towers.\n"
 	treasure.description_full = "Increases the bounty gain of towers in 300 range by 10%.\n" \
 	+ " \n" \

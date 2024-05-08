@@ -7,13 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="5_mldwo"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu/HoradricMenu.gd" id="6_inc2u"]
 [ext_resource type="PackedScene" uid="uid://c1ccsqvpyqd4i" path="res://Scenes/HUD/Buttons/RecipeButton.tscn" id="7_4dttm"]
-[ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Icons/misc5/rebrew_icon.tres" id="8_aeibv"]
-[ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Icons/misc5/distill_icon.tres" id="9_nqpec"]
-[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Icons/misc5/reassemble_icon.tres" id="10_yki42"]
-[ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Icons/misc5/perfect_icon.tres" id="11_vtu31"]
-[ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Icons/misc5/roll_towers_icon.tres" id="12_64uaw"]
-[ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://Resources/Icons/misc5/upgrade_element_icon.tres" id="13_vajrr"]
-[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Icons/misc5/rare_icon.tres" id="14_l1min"]
+[ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Icons/hud/recipe_rebrew.tres" id="8_aeibv"]
+[ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Icons/hud/recipe_distill.tres" id="9_nqpec"]
+[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Icons/hud/recipe_reassemble.tres" id="10_yki42"]
+[ext_resource type="Texture2D" uid="uid://bqsnuywmbb5c1" path="res://Resources/Icons/mechanical/alchemy_kit_03.tres" id="11_vmis2"]
+[ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Icons/hud/recipe_perfect.tres" id="11_vtu31"]
+[ext_resource type="Texture2D" uid="uid://b30yt0bkbmhsj" path="res://Resources/Icons/mechanical/alchemy_kit_01.tres" id="12_b1vp8"]
+[ext_resource type="Texture2D" uid="uid://bkmyw11w5jqjw" path="res://Resources/Icons/magic/magic_stone.tres" id="13_hyx2e"]
 [ext_resource type="PackedScene" uid="uid://d0snws11d0wjs" path="res://Scenes/HUD/ItemStashMenu/RarityFilterContainer.tscn" id="15_id2sv"]
 [ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://Scenes/HUD/ItemStashMenu/ItemTypeFilterContainer.tscn" id="16_k0q2d"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="17_ba6s8"]
@@ -307,7 +307,7 @@ alignment_vertical = 0
 
 [node name="LiquefyButton" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1" instance=ExtResource("7_4dttm")]
 layout_mode = 2
-icon = ExtResource("12_64uaw")
+icon = ExtResource("11_vmis2")
 recipe = 5
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
@@ -319,7 +319,7 @@ alignment_vertical = 0
 
 [node name="PrecipitateButton" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
 layout_mode = 2
-icon = ExtResource("13_vajrr")
+icon = ExtResource("12_b1vp8")
 recipe = 6
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
@@ -331,7 +331,7 @@ alignment_vertical = 0
 
 [node name="ImbueButton" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
 layout_mode = 2
-icon = ExtResource("14_l1min")
+icon = ExtResource("13_hyx2e")
 recipe = 7
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer"]

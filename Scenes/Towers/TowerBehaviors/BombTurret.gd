@@ -127,7 +127,7 @@ func tower_init():
 	autocast_concussive.title = "Concussive Bombs"
 	autocast_concussive.description = get_autocast_description_concussive()
 	autocast_concussive.description_short = get_autocast_description_concussive_short()
-	autocast_concussive.icon = "res://Resources/Icons/ItemIcons/inscribed_pebble.tres"
+	autocast_concussive.icon = "res://Resources/Icons/orbs/orb_molten_dull.tres"
 	autocast_concussive.caster_art = ""
 	autocast_concussive.target_art = ""
 	autocast_concussive.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -167,7 +167,7 @@ func tower_init():
 	autocast_smoke.title = "Smoke Bombs"
 	autocast_smoke.description = get_autocast_description_smoke()
 	autocast_smoke.description_short = get_autocast_description_smoke_short()
-	autocast_smoke.icon = "res://Resources/Icons/ItemIcons/bomb_shells.tres"
+	autocast_smoke.icon = "res://Resources/Icons/misc/balls_02.tres"
 	autocast_smoke.caster_art = ""
 	autocast_smoke.target_art = ""
 	autocast_smoke.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

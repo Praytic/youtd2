@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.gd" id="2_m57on"]
 [ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="3_i5jws"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="4_ajusi"]
-[ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Icons/misc5/gold_icon.tres" id="7_bupor"]
-[ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://Resources/Icons/misc5/food_icon.tres" id="7_tvqck"]
-[ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://Resources/Icons/misc5/knowledge_tome_icon.tres" id="9_diaj5"]
+[ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Icons/hud/gold.tres" id="5_uvsoy"]
+[ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://Resources/Icons/hud/knowledge_tome.tres" id="6_6qkfi"]
+[ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://Resources/Icons/hud/tower_food.tres" id="7_rye6p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrkv0"]
 
@@ -65,7 +65,7 @@ tooltip_text = "Gold
  
 Gold is dropped by creeps and is also given as a reward for
 clearing waves."
-icon_texture = ExtResource("7_bupor")
+icon_texture = ExtResource("5_uvsoy")
 default_label_text = "0"
 
 [node name="TomesStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
@@ -75,7 +75,7 @@ tooltip_text = "Knowledge Tomes
  
 Knowledge Tomes are given as a reward for clearing waves
 and can also be obtained from some rare items."
-icon_texture = ExtResource("9_diaj5")
+icon_texture = ExtResource("6_6qkfi")
 default_label_text = "0"
 
 [node name="FoodStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
@@ -85,5 +85,5 @@ tooltip_text = "Food
  
 Food determines how many towers you can build. Some
 rare items can raise the food cap."
-icon_texture = ExtResource("7_tvqck")
+icon_texture = ExtResource("7_rye6p")
 default_label_text = "0/55"

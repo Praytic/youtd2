@@ -52,7 +52,7 @@ func tower_init():
 	autocast.title = "Lunar Grace"
 	autocast.description = get_lunar_grace_description()
 	autocast.description_short = get_lunar_grace_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/crescent_stone.tres"
+	autocast.icon = "res://Resources/Icons/orbs/moon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

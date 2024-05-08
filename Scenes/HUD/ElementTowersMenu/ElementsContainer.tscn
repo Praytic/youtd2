@@ -7,101 +7,101 @@
 [ext_resource type="StyleBox" uid="uid://behifdalodejt" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_pressed.tres" id="4_d1mbg"]
 [ext_resource type="StyleBox" uid="uid://d0qdny6k5khyq" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_disabled.tres" id="5_y1rw8"]
 [ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="7_7lcyv"]
-[ext_resource type="Texture2D" uid="uid://om2iw3jtshn6" path="res://Resources/Icons/misc5/nature_icon.tres" id="7_jiwxt"]
-[ext_resource type="Texture2D" uid="uid://dt7vupry6p4y1" path="res://Resources/Icons/misc5/fire_icon.tres" id="8_nb61j"]
-[ext_resource type="Texture2D" uid="uid://bw81x17f8trjj" path="res://Resources/Icons/misc5/astral_icon.tres" id="9_uh2ua"]
-[ext_resource type="Texture2D" uid="uid://cmnfe6fi0wgsb" path="res://Resources/Icons/misc5/darkness_icon.tres" id="10_wgtcx"]
-[ext_resource type="Texture2D" uid="uid://ty26wea46uux" path="res://Resources/Icons/misc5/iron_icon.tres" id="11_camk4"]
-[ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Icons/misc5/storm_icon.tres" id="12_78p03"]
+[ext_resource type="Texture2D" uid="uid://c14cl1op1y5wk" path="res://Resources/Icons/elements/nature.tres" id="10_ovq8i"]
+[ext_resource type="Texture2D" uid="uid://bvhrjk28kmjxg" path="res://Resources/Icons/elements/fire.tres" id="10_viyfp"]
+[ext_resource type="Texture2D" uid="uid://b58m66c4f8n2n" path="res://Resources/Icons/elements/astral.tres" id="11_2p2c2"]
+[ext_resource type="Texture2D" uid="uid://b7c8ugpn34iib" path="res://Resources/Icons/elements/darkness.tres" id="12_8mild"]
+[ext_resource type="Texture2D" uid="uid://3aghxlv6b4hb" path="res://Resources/Icons/elements/iron.tres" id="13_74xn2"]
+[ext_resource type="Texture2D" uid="uid://ofrvficsj8ih" path="res://Resources/Icons/elements/storm.tres" id="14_qp4qc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sutn3"]
-texture = ExtResource("7_jiwxt")
+texture = ExtResource("10_ovq8i")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_li745"]
-texture = ExtResource("7_jiwxt")
+texture = ExtResource("10_ovq8i")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eh63f"]
-texture = ExtResource("7_jiwxt")
+texture = ExtResource("10_ovq8i")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ea07t"]
-texture = ExtResource("7_jiwxt")
+texture = ExtResource("10_ovq8i")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8wa8"]
-texture = ExtResource("8_nb61j")
+texture = ExtResource("10_viyfp")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y4lma"]
-texture = ExtResource("8_nb61j")
+texture = ExtResource("10_viyfp")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kw7yc"]
-texture = ExtResource("8_nb61j")
+texture = ExtResource("10_viyfp")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egfcl"]
-texture = ExtResource("8_nb61j")
+texture = ExtResource("10_viyfp")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvu85"]
-texture = ExtResource("9_uh2ua")
+texture = ExtResource("11_2p2c2")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ex0ly"]
-texture = ExtResource("9_uh2ua")
+texture = ExtResource("11_2p2c2")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4cav"]
-texture = ExtResource("9_uh2ua")
+texture = ExtResource("11_2p2c2")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ot5h"]
-texture = ExtResource("9_uh2ua")
+texture = ExtResource("11_2p2c2")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a750c"]
-texture = ExtResource("10_wgtcx")
+texture = ExtResource("12_8mild")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwsf8"]
-texture = ExtResource("10_wgtcx")
+texture = ExtResource("12_8mild")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yuchi"]
-texture = ExtResource("10_wgtcx")
+texture = ExtResource("12_8mild")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wjusv"]
-texture = ExtResource("10_wgtcx")
+texture = ExtResource("12_8mild")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pbakr"]
-texture = ExtResource("11_camk4")
+texture = ExtResource("13_74xn2")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfnlr"]
-texture = ExtResource("11_camk4")
+texture = ExtResource("13_74xn2")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w3wvg"]
-texture = ExtResource("11_camk4")
+texture = ExtResource("13_74xn2")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udj2c"]
-texture = ExtResource("11_camk4")
+texture = ExtResource("13_74xn2")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hvg8s"]
-texture = ExtResource("12_78p03")
+texture = ExtResource("14_qp4qc")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hok0h"]
-texture = ExtResource("12_78p03")
+texture = ExtResource("14_qp4qc")
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evrf4"]
-texture = ExtResource("12_78p03")
+texture = ExtResource("14_qp4qc")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toos0"]
-texture = ExtResource("12_78p03")
+texture = ExtResource("14_qp4qc")
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [node name="HBoxContainer" type="VBoxContainer"]

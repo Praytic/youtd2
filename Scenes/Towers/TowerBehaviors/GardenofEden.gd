@@ -52,7 +52,7 @@ func tower_init():
 	autocast.title = "Eden's Wrath"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/amulets/metalic_swirly.tres"
+	autocast.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -1,10 +1,6 @@
-[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://behifdalodejt"]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://behifdalodejt"]
 
-[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/Icons/misc5.png" id="1_3xx8h"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_68fqu"]
-atlas = ExtResource("1_3xx8h")
-region = Rect2(0, 256, 128, 128)
+[ext_resource type="Texture2D" uid="uid://63uq7vjycais" path="res://Resources/Icons/elements/ice.tres" id="1_h316a"]
 
 [resource]
-texture = SubResource("AtlasTexture_68fqu")
+texture = ExtResource("1_h316a")

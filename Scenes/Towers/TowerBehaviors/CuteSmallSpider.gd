@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poisonous Spittle"
-	ability.icon = "res://Resources/Icons/ItemIcons/toxic_chemicals.tres"
+	ability.icon = "res://Resources/Icons/misc/poison_01.tres"
 	ability.description_short = "Deals damage over time, increases with every attack.\n"
 	ability.description_full = "Units damaged by the spider become infected and receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n" % damage \
 	+ " \n" \

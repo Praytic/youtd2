@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Wind of Death"
-	ability.icon = "res://Resources/Icons/misc5/storm_icon.tres"
+	ability.icon = "res://Resources/Icons/elements/storm.tres"
 	ability.description_short = "Chance to catch a non-boss creep in a cyclone and cause physical damage to nearby creeps.\n"
 	ability.description_full = "On attack this tower has a %s chance to catch a ground, non-boss unit in a cyclone for %s seconds, dealing %s physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25%% more damage.\n" % [catch_chance, cyclone_duration, cyclone_damage] \
 	+ " \n" \

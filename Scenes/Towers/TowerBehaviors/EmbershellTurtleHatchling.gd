@@ -16,7 +16,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Overheat"
-	ability.icon = "res://Resources/Icons/ItemIcons/demonic_orb.tres"
+	ability.icon = "res://Resources/Icons/orbs/orb_molten.tres"
 	ability.description_short = "Attacks cost mana.\n"
 	ability.description_full = "Each attack costs 1 mana, which is regenerated at a rate of 1 mana per second.\n"
 	list.append(ability)

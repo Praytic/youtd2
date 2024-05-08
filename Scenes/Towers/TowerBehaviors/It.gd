@@ -119,7 +119,7 @@ func tower_init():
 	autocast_corruption.title = "Corruption Field"
 	autocast_corruption.description = get_autocast_corruption_description()
 	autocast_corruption.description_short = get_autocast_corruption_description_short()
-	autocast_corruption.icon = "res://Resources/Icons/ItemIcons/essence_of_rot.tres"
+	autocast_corruption.icon = "res://Resources/Icons/misc/poison_02.tres"
 	autocast_corruption.caster_art = ""
 	autocast_corruption.target_art = ""
 	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT

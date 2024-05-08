@@ -1,17 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4l81jcbkrtkr"]
+[gd_scene load_steps=11 format=3 uid="uid://c4l81jcbkrtkr"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.gd" id="1_3yo77"]
+[ext_resource type="Texture2D" uid="uid://63uq7vjycais" path="res://Resources/Icons/elements/ice.tres" id="2_yrcbk"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="3_8uthh"]
-[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/Icons/misc5.png" id="3_kpmkj"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="4_3ff1t"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="5_hfrnb"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_dlhb7"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_ctjxb"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="8_dqm1p"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aok27"]
-atlas = ExtResource("3_kpmkj")
-region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="InputEventKey" id="InputEventKey_gugyc"]
 device = -1
@@ -93,7 +89,7 @@ alignment_vertical = 0
 [node name="ElementIcon" type="TextureRect" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer/MarginContainer/IconContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = SubResource("AtlasTexture_aok27")
+texture = ExtResource("2_yrcbk")
 expand_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer2/VBoxContainer/VBoxContainer"]

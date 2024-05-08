@@ -101,7 +101,7 @@ func tower_init():
 	autocast.title = "Intense Heat"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/fire_orb.tres"
+	autocast.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

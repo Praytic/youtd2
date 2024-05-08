@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Acid Coating"
-	ability.icon = "res://Resources/Icons/AbilityIcons/acid_coating.tres"
+	ability.icon = "res://Resources/Icons/potions/potion_green_03.tres"
 	ability.description_short = "Decreases the armor of damaged units.\n"
 	ability.description_full = "Decreases the armor of damaged units by %s for 3 seconds.\n" % armor_base \
 	+ " \n" \

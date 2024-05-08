@@ -147,7 +147,7 @@ func tower_init():
 	autocast_might.title = "Morph: Might"
 	autocast_might.description = get_autocast_might_description()
 	autocast_might.description_short = get_autocast_might_description_short()
-	autocast_might.icon = "res://Resources/Icons/amulets/shell_01.tres"
+	autocast_might.icon = "res://Resources/Icons/trinkets/trinket_07.tres"
 	autocast_might.caster_art = ""
 	autocast_might.target_art = ""
 	autocast_might.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -167,7 +167,7 @@ func tower_init():
 	autocast_swiftness.title = "Morph: Swiftness"
 	autocast_swiftness.description = get_autocast_swiftness_description()
 	autocast_swiftness.description_short = get_autocast_swiftness_description_short()
-	autocast_swiftness.icon = "res://Resources/Icons/amulets/shell_02.tres"
+	autocast_swiftness.icon = "res://Resources/Icons/trinkets/trinket_08.tres"
 	autocast_swiftness.caster_art = ""
 	autocast_swiftness.target_art = ""
 	autocast_swiftness.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -187,7 +187,7 @@ func tower_init():
 	autocast_adapt.title = "Adapt"
 	autocast_adapt.description = get_autocast_adapt_description()
 	autocast_adapt.description_short = get_autocast_adapt_description_short()
-	autocast_adapt.icon = "res://Resources/Icons/amulets/swirly_01.tres"
+	autocast_adapt.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
 	autocast_adapt.caster_art = ""
 	autocast_adapt.target_art = ""
 	autocast_adapt.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

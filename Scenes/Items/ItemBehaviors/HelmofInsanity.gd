@@ -39,7 +39,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Insane Strength"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://Resources/Icons/misc5/gold_icon.tres"
+	autocast.icon = "res://Resources/Icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

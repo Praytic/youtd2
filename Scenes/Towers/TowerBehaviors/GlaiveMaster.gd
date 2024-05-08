@@ -110,7 +110,7 @@ func tower_init():
 	autocast.title = "Glaivesaw"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/ItemIcons/unyielding_maul.tres"
+	autocast.icon = "res://Resources/Icons/clubs/club_02.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT

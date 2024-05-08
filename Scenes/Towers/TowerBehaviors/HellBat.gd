@@ -99,7 +99,7 @@ func tower_init():
 	autocast.title = "Engulfing Darkness"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/AbilityIcons/purple_orb.tres"
+	autocast.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
 	autocast.caster_art = "AnimateDeadTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

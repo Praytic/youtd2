@@ -32,7 +32,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shamanistic Ritual"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://Resources/Icons/misc5/gold_icon.tres"
+	autocast.icon = "res://Resources/Icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "HealingWaveTarget.mdl"
 	autocast.num_buffs_before_idle = 1

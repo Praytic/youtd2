@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rend"
-	ability.icon = "res://Resources/Icons/AbilityIcons/rend.tres"
+	ability.icon = "res://Resources/Icons/clubs/club_glowing.tres"
 	ability.description_short = "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
 	ability.description_full = "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
 	+ " \n" \
