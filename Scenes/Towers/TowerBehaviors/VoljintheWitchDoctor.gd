@@ -152,8 +152,9 @@ func on_attack(event: Event):
 		if !ward.is_active:
 			var x: float = ward.position.x
 			var y: float = ward.position.y
-			ward.effect = Effect.create_animated("SerpentWard.mdl", Vector3(x, y, tower.get_z() - 20), -(45.0 + 90.0 * counter / 4))
-			Effect.set_scale(ward.effect, 5)
+			ward.effect = Effect.create_animated("res://Scenes/Effects/WitchDoctorWard.tscn", Vector3(x, y, tower.get_z() - 70), -(45.0 + 90.0 * counter / 4))
+			Effect.set_scale(ward.effect, 0.3)
+			Effect.set_color(ward.effect, Color8(255, 255, 255, 200))
 
 			ward.duration = (6.0 + 0.1 * tower.get_level()) * tower.get_prop_buff_duration()
 
