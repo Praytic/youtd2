@@ -156,6 +156,7 @@ func on_attack(event: Event):
 			Effect.set_scale(ward.effect, 0.3)
 			Effect.set_color(ward.effect, Color8(255, 255, 255, 200))
 
+			ward.is_active = true
 			ward.duration = (6.0 + 0.1 * tower.get_level()) * tower.get_prop_buff_duration()
 
 			active_ward_count += 1 # Save the amount of wards
@@ -163,6 +164,10 @@ func on_attack(event: Event):
 			if active_ward_count == 1:
 				periodic_is_enabled = true
 				periodic_interval = tower.get_current_attackspeed()
+
+#			NOTE: break after successfully creating one wand
+#			so that only one wand is created at a time
+			break
 
 		counter += 1
 		if counter > (max_wards - 1):
@@ -235,6 +240,9 @@ func periodic(event: Event):
 
 		return
 
+	if !periodic_is_enabled:
+		return
+
 #	NOTE: original script calls enable_advanced()
 #	selectively in some spots. Call it always here to ensure
 #	that periodic interval always equals to attackspeed.
@@ -245,33 +253,33 @@ func periodic(event: Event):
 	var counter: int = 0
 
 	while true:
-		var random_target: Unit = it.next_random()
-
-		if random_target == null:
-			break
-		
 		var ward: Ward = ward_list[counter]
-		var duration: float = ward.duration - periodic_interval # Set duration to duration - periodic interval
 
-		if duration > 0: # Is there duration remaining?
-			if random_target != null: # Is there are unit which can be attacked ?
-				# NOTE: here, original script makes the ward
-				# model face the creep. This can be skipped
-				# because youtd2 no ward model which can
-				# rotate.
+		if ward.is_active:
+			var random_target: Unit = it.next_random()
 
-				# Shoot prohectile
-				var x: float = ward.position.x
-				var y: float = ward.position.y
-				var p: Projectile = Projectile.create_from_point_to_unit(voljin_pt, tower, 1.0, 1.0, Vector3(x, y, 147), random_target, true, false, false)
-				p.set_projectile_scale(0.4)
+			var duration: float = ward.duration - periodic_interval # Set duration to duration - periodic interval
 
-			# Save the remaining duration
-			ward.duration = duration
-		else: # No more duration
-			ward.is_active = false
-			Effect.destroy_effect(ward.effect)
-			active_ward_count -= 1
+			if duration > 0: # Is there duration remaining?
+				if random_target != null: # Is there are unit which can be attacked ?
+					# NOTE: here, original script makes the ward
+					# model face the creep. This can be skipped
+					# because youtd2 no ward model which can
+					# rotate.
+
+					# Shoot prohectile
+					var x: float = ward.position.x
+					var y: float = ward.position.y
+					var p: Projectile = Projectile.create_from_point_to_unit(voljin_pt, tower, 1.0, 1.0, Vector3(x, y, 147), random_target, true, false, false)
+					p.set_projectile_scale(0.4)
+
+				# Save the remaining duration
+				ward.duration = duration
+			else: # No more duration
+				CombatLog.log_ability(tower, null, "Destroy Serpent Ward")
+				ward.is_active = false
+				Effect.destroy_effect(ward.effect)
+				active_ward_count -= 1
 
 		counter += 1
 #		Up to 4 wards with each taking 1 index in the list starting at 0
