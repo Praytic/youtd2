@@ -22,12 +22,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var evolve: AbilityInfo = AbilityInfo.new()
 	evolve.name = "Evolve"
+	evolve.icon = "res://Resources/Icons/plants/tree.tres"
 	evolve.description_short = "Every time it casts Morphling Strike, this tower permanently gains power, depending on current Morph stacks.\n"
 	evolve.description_full = "Every time it casts Morphling Strike, this tower permanently gains 0.2% base damage and 0.1% attack speed if \"Morph: Might\" has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if \"Morph: Swiftness\" has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
 	list.append(evolve)
 
 	var morphling_strike: AbilityInfo = AbilityInfo.new()
 	morphling_strike.name = "Morphling Strike"
+	morphling_strike.icon = "res://Resources/Icons/misc/poison_01.tres"
 	morphling_strike.description_short = "Every time this tower damages a unit, it has a chance to launch 3 projectiles to random creeps.\n"
 	morphling_strike.description_full = "Every time this tower damages a unit, if it has at least 25 stacks of \"Morph: Might\" or \"Morph: Swiftness\", there is a 20% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if \"Morph: Might\" has at least 25 stacks, the projectiles deal additional spell damage equal to 25% of the tower's damage per second for 5 seconds; if \"Morph: Swiftness\" has at least 25 stacks, they slow the targets by 20% and increase the damage they receive from nature by 15% for 8 seconds.\n" \
 	+ " \n" \

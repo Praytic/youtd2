@@ -32,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var serpent_ward: AbilityInfo = AbilityInfo.new()
 	serpent_ward.name = "Serpent Ward"
+	serpent_ward.icon = "res://Resources/Icons/TowerIcons/SmallSerpentWard.tres"
 	serpent_ward.description_short = "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
 	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack 'Maledict' on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
@@ -44,6 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var purify: AbilityInfo = AbilityInfo.new()
 	purify.name = "Purify"
+	purify.icon = "res://Resources/Icons/holy/white_trinket.tres"
 	purify.description_short = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt. This ability has a 4 second cooldown\n"
 	purify.description_full = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt on that attack by 12% for each purged effect. This ability has a 4 second cooldown.\n" \
 	+ " \n" \

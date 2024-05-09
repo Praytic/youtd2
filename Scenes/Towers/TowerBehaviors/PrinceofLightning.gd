@@ -27,6 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var lightning: AbilityInfo = AbilityInfo.new()
 	lightning.name = "Lightning Strike"
+	lightning.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
 	lightning.description_short = "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
 	lightning.description_full = "When this tower damages a target there is a %s chance that a lightning bolt strikes the target for %s damage.\n" % [strike_chance, strike_damage] \
 	+ " \n" \
@@ -37,6 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var realm: AbilityInfo = AbilityInfo.new()
 	realm.name = "Realm of Thunder - Aura"
+	realm.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
 	realm.description_short = "Makes nearby creeps more vulnerable to Storm towers.\n"
 	realm.description_full = "Increases the vulnerability of enemies in %s range to damage from Storm towers by %s.\n" % [aura_range, mod_dmg_from_storm] \
 	+ " \n" \

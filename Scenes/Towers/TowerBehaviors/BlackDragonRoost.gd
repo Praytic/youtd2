@@ -19,6 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Fear the Dark"
+	ability.icon = "res://Resources/Icons/undead/skull_06.tres"
 	ability.description_short = "Whenever this tower damages a creep it has a chance to debuff it so that it takes more damage.\n"
 	ability.description_full = "Whenever this tower damages a creep it has a 20% chance to debuff it for 7 seconds. Debuffed creeps take 30% more damage. Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
 	+ " \n" \

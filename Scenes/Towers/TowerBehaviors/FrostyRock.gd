@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Glacial Wrath"
-	ability.icon = "res://Resources/Icons/ItemIcons/wand_of_mana_zap.tres"
+	ability.icon = "res://Resources/Icons/TowerIcons/GenisSage.tres"
 	ability.description_short = "Attacked creeps are slowed and each attack increases the chance to stun the target.\n"
 	ability.description_full = "Attacks of this tower slow the attacked creep by %s for 3 seconds. Each attack has a %s change to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
 	+ " \n" \

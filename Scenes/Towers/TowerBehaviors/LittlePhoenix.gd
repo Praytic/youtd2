@@ -28,6 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Phoenixfire"
+	ability.icon = "res://Resources/Icons/orbs/orb_molten.tres"
 	ability.description_short = "The Phoenix attacks up multiple targets at once and melts their armor.\n"
 	ability.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. The armor of attacked creeps melts, reducing it by %s for %s seconds. This buff is stackable.\n" % [target_count, mod_armor, debuff_duration] \
 	+ " \n" \

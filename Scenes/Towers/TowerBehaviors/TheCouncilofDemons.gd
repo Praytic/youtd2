@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var maledict: AbilityInfo = AbilityInfo.new()
 	maledict.name = "Maledict"
+	maledict.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
 	maledict.description_short = "Chance to increase spell vulnerability of damaged units.\n"
 	maledict.description_full = "Whenever this tower damages a unit, it has a 20% chance to increase the damage that unit receives from spells by 20% for 5 seconds. Every time the buffed unit is targeted by a spell this tower deals additional spell damage equal to 3 times the caster goldcost to it.\n" \
 	+ " \n" \
@@ -32,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var demonic_edict: AbilityInfo = AbilityInfo.new()
 	demonic_edict.name = "Demonic Edict - Aura"
+	demonic_edict.icon = "res://Resources/Icons/misc/flag_02.tres"
 	demonic_edict.description_short = "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
 	demonic_edict.description_full = "Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [2 x caster goldcost x spell cd] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds.\n" \
 	+ " \n" \

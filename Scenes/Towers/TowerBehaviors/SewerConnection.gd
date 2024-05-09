@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Toxic Vapor"
-	ability.name = "res://Resources/Icons/mechanical/factory_fumes.tres"
+	ability.icon = "res://Resources/Icons/mechanical/factory_fumes.tres"
 	ability.description_short = "Deals damage over time.\n"
 	ability.description_full = "On attack, has a 30%% chance to apply a buff that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage \
 	+ " \n" \

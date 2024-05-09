@@ -15,6 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var power_surge: AbilityInfo = AbilityInfo.new()
 	power_surge.name = "Power Surge"
+	power_surge.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	power_surge.description_short = "Towers under the effect of Steam Power have a chance to cause a surge in the Steam Engine.\n"
 	power_surge.description_full = "Towers under the effect of Steam Power have a 1% base attackspeed adjusted chance to cause a surge in the Steam Engine, granting it 1 exp.\n" \
 	+ " \n" \
@@ -24,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var aura: AbilityInfo = AbilityInfo.new()
 	aura.name = "Steam Power - Aura"
+	aura.icon = "res://Resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
 	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
 	aura.description_full = "Increases attack damage of towers in 450 AOE by [color=GOLD][6 x power level]%[/color] and attackspeed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n"
 	list.append(aura)

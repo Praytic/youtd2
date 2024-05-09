@@ -9,6 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Dwarven Polish - Aura"
+	ability.icon = "res://Resources/Icons/swords/greatsword_04.tres"
 	ability.description_short = "Increases item quality of towers in range.\n"
 	ability.description_full = "Increases the item quality ratio of friendly towers in 550 range including itself by 15%.\n" \
 	+ " \n" \

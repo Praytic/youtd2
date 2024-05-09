@@ -33,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Incinerate"
+	ability.icon = "res://Resources/Icons/TowerIcons/AshGeyser.tres"
 	ability.description_short = "This tower's attacks set the target on fire.\n"
 	ability.description_full = "This tower's attacks set the target on fire. A burning creep takes %s more damage from Fire towers and receives %s spelldamage every second for 9 seconds.\n" % [mod_dmg_from_fire, periodic_damage] \
 	+ " \n" \
@@ -104,7 +105,7 @@ func tower_init():
 
 	incinerate_bt = BuffType.new("incinerate_bt", 9, 0.3, false, self)
 	incinerate_bt.set_buff_modifier(modifier)
-	incinerate_bt.set_buff_icon("res://Resources/Icons/GenericIcons/fire_dash.tres")
+	incinerate_bt.set_buff_icon("res://Resources/Icons/mechanical/battery.tres")
 	incinerate_bt.add_periodic_event(damage_periodic, 1)
 	incinerate_bt.set_stacking_group("FireBattery")
 	incinerate_bt.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")

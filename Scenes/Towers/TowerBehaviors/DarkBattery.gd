@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Corruption"
+	ability.icon = "res://Resources/Icons/tower_variations/MeteorTotem_purple.tres"
 	ability.description_short = "A corrupted creep takes extra damage from attacks and spells.\n"
 	ability.description_full = "A corrupted creep takes %s extra damage from attacks and %s extra damage from spells for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
 	+ " \n" \
@@ -112,7 +113,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
+	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

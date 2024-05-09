@@ -32,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var lightning_shock: AbilityInfo = AbilityInfo.new()
 	lightning_shock.name = "Lightning Shock"
+	lightning_shock.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
 	lightning_shock.description_short = "This tower has a chance to release a lightning shock when attacking.\n"
 	lightning_shock.description_full = "This tower has a %s chance to deal %s spell damage to its target, whenever it deals damage. This ability has a %s bonus chance to crit with %s bonus damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
 	+ " \n" \
@@ -42,6 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var lightning_charge: AbilityInfo = AbilityInfo.new()
 	lightning_charge.name = "Lightning Charge - Aura"
+	lightning_charge.icon = "res://Resources/Icons/TowerIcons/BallLightningAccelerator.tres"
 	lightning_charge.description_short = "Increases spell damage of nearby towers.\n"
 	lightning_charge.description_full = "Towers in %s range have their spell damage increased by %s.\n" % [aura_range, mod_spell_damage] \
 	+ " \n" \

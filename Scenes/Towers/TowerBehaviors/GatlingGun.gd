@@ -20,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var rapid_gun: AbilityInfo = AbilityInfo.new()
 	rapid_gun.name = "Rapid Gun Fire"
+	rapid_gun.icon = "res://Resources/Icons/cannons/cannon_05.tres"
 	rapid_gun.description_short = "Has a chance on attack to shoot an extra projectile.\n"
 	rapid_gun.description_full = "Has a 65% chance on attack to shoot an extra projectile. Every extra projectile can be followed up by another projectile, but the chance is reduced by 6% each time. Every extra projectile deals the same amount of damage as a normal attack and has a 10% chance to explode, dealing that damage in 200 AoE around the target. Maximum of 10 extra projectiles per attack.\n" \
 	+ " \n" \
@@ -30,6 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var sentry: AbilityInfo = AbilityInfo.new()
 	sentry.name = "Sentry"
+	sentry.icon = "res://Resources/Icons/magic/eye.tres"
 	sentry.description_short = "This tower gains attack damage whenever a creep comes within range.\n"
 	sentry.description_full = "This tower gains 15% attackdamage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n" \
 	+ " \n" \

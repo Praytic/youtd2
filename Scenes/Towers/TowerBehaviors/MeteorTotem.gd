@@ -21,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Torture"
+	ability.icon = "res://Resources/Icons/TowerIcons/AshGeyser.tres"
 	ability.description_short = "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes damage it receives additional spell damage.\n"
 	ability.description_full = "Targets damaged by this tower are debuffed for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attackdamage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
 	+ " \n" \

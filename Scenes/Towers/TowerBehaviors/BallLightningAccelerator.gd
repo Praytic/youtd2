@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Energetic Weapon"
+	ability.icon = "res://Resources/Icons/rockets/rocket_03.tres"
 	ability.description_short = "The Accelerator attacks with energetic missiles, which deal AoE damage scaled with tower's current mana. Additionally, the missile slows hit creeps.\n"
 	ability.description_full = "The Accelerator attacks with energetic missiles, which deal %s plus 3 times the current mana as spell damage to all units in 250 range of the missile. Additionally, the missile slows all units by 1%% for each 4000 damage it deals to a creep for 1.5 seconds. Cannot slow by more than 20%%. Each attack consumes 20%% of this tower's current mana.\n" % projectile_damage \
 	+ " \n" \

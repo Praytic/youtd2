@@ -25,12 +25,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var reimbursement: AbilityInfo = AbilityInfo.new()
 	reimbursement.name = "Reimbursement"
+	reimbursement.icon = "res://Resources/Icons/mechanical/gold_machine.tres"
 	reimbursement.description_short = "Reimburses gold when no ability is used.\n"
 	reimbursement.description_full = "Whenever this tower attacks and doesn't trigger any of it's abilities, the player is reimbursed 5 gold.\n"
 	list.append(reimbursement)
 
 	var field: AbilityInfo = AbilityInfo.new()
 	field.name = "Probability Field Emitter"
+	field.icon = "res://Resources/Icons/dioramas/fountain.tres"
 	field.description_short = "Chance to launch a probability field emitter at a random tower, increasing trigger chances.\n"
 	field.description_full = "Whenever this tower attacks it has a 20% chance to launch a probability field emitter at a random tower within 500 range, increasing trigger chances by 30% - 60% for 5 seconds.\n" \
 	+ " \n" \
@@ -41,6 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var clockwork: AbilityInfo = AbilityInfo.new()
 	clockwork.name = "Clockwork Engineer"
+	clockwork.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
 	clockwork.description_short = "Chance to launch a clockwork engineer at a random tower, increasing attack speed and damage.\n"
 	clockwork.description_full = "Whenever this tower attacks it has a 20% chance to launch a clockwork engineer at a random tower within 500 range, increasing attack speed and damage by 10% - 40% for 5 seconds.\n" \
 	+ " \n" \
@@ -51,6 +54,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var sapper: AbilityInfo = AbilityInfo.new()
 	sapper.name = "Goblin Sapper"
+	sapper.icon = "res://Resources/Icons/faces/mech_zombie.tres"
 	sapper.description_short = "Chance to launch a sapper team at the attacked creep.\n"
 	sapper.description_full = "Whenever this tower attacks it has a 20% chance to launch a sapper team at the attacked creep. On contact the sappers deal 1350 - 7650 spell damage to the target and all creeps within 250 range. Also slows all affected creeps by 25% - 45% for 3 seconds.\n" \
 	+ " \n" \

@@ -30,6 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var goldrush: AbilityInfo = AbilityInfo.new()
 	goldrush.name = "Goldrush"
+	goldrush.icon = "res://Resources/Icons/gems/gem_01.tres"
 	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
 	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while in goldrush!\n" % [attackspeed_bonus, goldrush_gold] \
 	+ " \n" \
@@ -42,6 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var excavation: AbilityInfo = AbilityInfo.new()
 	excavation.name = "Excavation"
+	excavation.icon = "res://Resources/Icons/misc/gold_cart.tres"
 	excavation.description_short = "Every few seconds the miner has a chance to find gold.\n"
 	excavation.description_full = "Every 20 seconds the miner has a 25%% chance to find %s gold.\n" % excavation_gold \
 	+ " \n" \

@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var mana_feed: AbilityInfo = AbilityInfo.new()
 	mana_feed.name = "Mana Feed"
+	mana_feed.icon = "res://Resources/Icons/magic/magic_stone.tres"
 	mana_feed.description_short = "Attacks restore mana to the tower and increase spell crit chance.\n"
 	mana_feed.description_full = "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit \
 	+ "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n" \
@@ -33,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var burst: AbilityInfo = AbilityInfo.new()
 	burst.name = "Lightning Burst"
+	burst.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
 	burst.description_short = "Grants a chance to deal extra spell damage on each attack, resets spell crit bonus of Mana Feed.\n"
 	burst.description_full = "Grants a 12.5%% chance to deal %s times current mana as spell damage on attack.\n" % damage_from_mana_multiplier \
 	+ " \n" \

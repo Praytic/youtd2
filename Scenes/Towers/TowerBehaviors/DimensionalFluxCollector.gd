@@ -25,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Dimensional Distortion Field"
+	ability.icon = "res://Resources/Icons/dioramas/fountain.tres"
 	ability.description_short = "Each second this tower attacks a creep in range, dealing damage based on linked tower's spell damage per second.\n"
 	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25% of the linked tower's spell damage per second as energy damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attackspeed bonuses.\n" \
 	+ " \n" \

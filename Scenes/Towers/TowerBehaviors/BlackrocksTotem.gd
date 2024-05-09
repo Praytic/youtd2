@@ -11,6 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shamanic_totem: AbilityInfo = AbilityInfo.new()
 	shamanic_totem.name = "Shamanic Totem"
+	shamanic_totem.icon = "res://Resources/Icons/undead/skull_doll.tres"
 	shamanic_totem.description_short = "Upon casting Demonic Fire there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
 	shamanic_totem.description_full = "Upon casting Demonic Fire there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n" \
 	+ " \n" \
@@ -23,6 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var fighter_totem: AbilityInfo = AbilityInfo.new()
 	fighter_totem.name = "Fighter Totem"
+	fighter_totem.icon = "res://Resources/Icons/misc/spiky_totem_01.tres"
 	fighter_totem.description_short = "On attack there is a chance to buff towers in range, increasing their damage dealt, crit chance and crit damage.\n"
 	fighter_totem.description_full = "On attack there is a 15% chance to buff towers in 500 range, increasing their damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n" \
 	+ " \n" \

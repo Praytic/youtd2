@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Gift of Nature - Aura"
+	ability.icon = "res://Resources/Icons/plants/leaf_03.tres"
 	ability.description_short = "All nearby towers have a chance to entangle creeps.\n"
 	ability.description_full = "All towers in 175 range will receive a gift of nature. When a gifted tower attacks a creep there is a 10% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" \
 	+ " \n" \

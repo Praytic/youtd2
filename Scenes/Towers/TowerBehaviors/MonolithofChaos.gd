@@ -9,6 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Chaos"
+	ability.icon = "res://Resources/Icons/books/note_02.tres"
 	ability.description_short = "All creeps that come in range have a chance to lose their armor.\n"
 	ability.description_full = "All creeps that come in 750 range around this tower have a 45% chance to lose 100% of their armor for 3 seconds. The armor reduction is halved for Bosses and Challenges.\n" \
 	+ " \n" \

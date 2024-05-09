@@ -25,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var unstable_energies: AbilityInfo = AbilityInfo.new()
 	unstable_energies.name = "Unstable Energies"
+	unstable_energies.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	unstable_energies.description_short = "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
 	unstable_energies.description_full = "This tower has a 28%% chance on damage to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
 	+ " \n" \
@@ -35,6 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var mana_distortion: AbilityInfo = AbilityInfo.new()
 	mana_distortion.name = "Mana Distortion Field - Aura"
+	mana_distortion.icon = "res://Resources/Icons/magic/magic_stone.tres"
 	mana_distortion.description_short = "Nearby towers burn creep mana when attacking.\n"
 	mana_distortion.description_full = "Towers in 200 range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attackspeed and range adjusted and the tower deals %s spelldamage per mana point burned.\n" % [buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
 	+ " \n" \

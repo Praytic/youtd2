@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var storm_hammer: AbilityInfo = AbilityInfo.new()
 	storm_hammer.name = "Mystical Storm Hammer"
+	storm_hammer.icon = "res://Resources/Icons/blunt_weapons/hammer_04.tres"
 	storm_hammer.description_short = "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage.\n"
 	storm_hammer.description_full = "Whenever this tower damages a creep, part of the damage is dealt as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no physical damage against ethereal creeps. If this storm_hammer deals all the damage in one type, it will have 5% increased critchance.\n" \
 	+ " \n" \
@@ -31,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var storm_bolt: AbilityInfo = AbilityInfo.new()
 	storm_bolt.name = "Storm Bolt"
+	storm_bolt.icon = "res://Resources/Icons/rockets/rocket_07.tres"
 	storm_bolt.description_short = "When this tower attacks it launches a storm bolt towards the target unit. The storm bolt deals AoE damage.\n"
 	storm_bolt.description_full = "When this tower attacks it launches a storm bolt towards the target unit. Upon collision, the bolt deals the towers attack damage to the target and creates a trail of 5 storm explosions. The explosions deal the tower's attack damage to every unit in 85 AOE. Each explosion deals 40% less damage than the previous one.\n" \
 	+ " \n" \

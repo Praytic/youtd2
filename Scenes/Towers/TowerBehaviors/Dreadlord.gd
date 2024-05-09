@@ -18,6 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var dreadlord_slash: AbilityInfo = AbilityInfo.new()
 	dreadlord_slash.name = "Dreadlord Slash"
+	dreadlord_slash.icon = "res://Resources/Icons/daggers/dagger_07.tres"
 	dreadlord_slash.description_short = "Dreadlord deals extra damage based on current mana.\n"
 	dreadlord_slash.description_full = "Dreadlord deals 100% of his max mana in spell damage on attack. Costs 80 mana on each attack.\n" \
 	+ " \n" \
@@ -25,11 +26,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+4% spell damage\n"
 	list.append(dreadlord_slash)
 
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Bloodsucker"
-	ability.description_short = "Dreadlord gains extra power with every kill.\n"
-	ability.description_full = "The Dreadlord is hungry. For every kill he gains 0.5% attack speed and 10 maximum mana. The mana bonus caps at 2000. Both bonuses are permanent.\n"
-	list.append(ability)
+	var bloodsucker: AbilityInfo = AbilityInfo.new()
+	bloodsucker.name = "Bloodsucker"
+	bloodsucker.icon = "res://Resources/Icons/gems/gem_07.tres"
+	bloodsucker.description_short = "Dreadlord gains extra power with every kill.\n"
+	bloodsucker.description_full = "The Dreadlord is hungry. For every kill he gains 0.5% attack speed and 10 maximum mana. The mana bonus caps at 2000. Both bonuses are permanent.\n"
+	list.append(bloodsucker)
 
 	return list
 

@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grapple"
+	ability.icon = "res://Resources/Icons/gloves/gloves_08.tres"
 	ability.description_short = "Chance to grab the target, holding it in place for 2.5 seconds.\n"
 	ability.description_full = "Each time the bot attacks there is an 8% chance it will grab the target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
 	+ " \n" \

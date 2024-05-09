@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Glimmer of Hope - Aura"
+	ability.icon = "res://Resources/Icons/holy/orb.tres"
 	ability.description_short = "Reduces debuff duration of all towers in range.\n"
 	ability.description_full = "Reduces the debuff duration of all towers in %s range by %s.\n" % [aura_range, glimmer_mod_debuff_duration] \
 	+ " \n" \

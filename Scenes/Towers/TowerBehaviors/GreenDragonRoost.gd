@@ -9,6 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Green Dragon Force - Aura"
+	ability.icon = "res://Resources/Icons/animals/dragon_02.tres"
 	ability.description_short = "Increases multicrit of towers in range.\n"
 	ability.description_full = "Increases the multicrit of towers in 200 range by 2.\n"
 	list.append(ability)

@@ -13,6 +13,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var spring: AbilityInfo = AbilityInfo.new()
 	spring.name = "Spring Tide"
+	spring.icon = "res://Resources/Icons/food/lard.tres"
 	spring.description_short = "Chance to launch a wave which deals spell damage to each creep it hits.\n"
 	spring.description_full = "Whenever this tower attacks it has a 15% chance to launch a wave. The wave travels 1200 units and has a 200 AoE. It deals 2200 spell damage to each creep it hits. Every 0.4 seconds the wave has a 35% chance to drag a stone with it. The stone travels 500 units, deals 2200 spell damage on collision and stuns for 0.65 seconds.\n" \
 	+ " \n" \
@@ -23,6 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var splash: AbilityInfo = AbilityInfo.new()
 	splash.name = "Splash"
+	splash.icon = "res://Resources/Icons/trinkets/trinket_02.tres"
 	splash.description_short = "Chance to deal spell damage in AoE around the attacked unit.\n"
 	splash.description_full = "Whenever this tower deals damage through attacks it has a 20% chance to deal 4000 spell damage in 175 AoE around the attacked unit. Also increases the spell damage the hit units take by 12.5% for 6 seconds.\n" \
 	+ " \n" \
@@ -33,6 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var calming: AbilityInfo = AbilityInfo.new()
 	calming.name = "Calming Noises - Aura"
+	calming.icon = "res://Resources/Icons/dioramas/church.tres"
 	calming.description_short = "Increases the spell crit chance of nearby towers.\n"
 	calming.description_full = "Increases the spell crit chance of towers in 250 range by 10%.\n" \
 	+ " \n" \

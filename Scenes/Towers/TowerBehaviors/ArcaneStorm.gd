@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var surge: AbilityInfo = AbilityInfo.new()
 	surge.name = "Surge"
+	surge.icon = "res://Resources/Icons/scrolls/scroll_08.tres"
 	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
 	surge.description_full = "The tower's main attacks have a 1% chance per Attraction stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's Attraction stacks. Can only hit each target once and benefits from Mana Storm's damage bonus.\n" \
 	+ " \n" \
@@ -32,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var arcane_attraction: AbilityInfo = AbilityInfo.new()
 	arcane_attraction.name = "Arcane Attraction"
+	arcane_attraction.icon = "res://Resources/Icons/trinkets/trinket_10.tres"
 	arcane_attraction.description_short = "Attacks apply a stack of Attraction on hit and generate mana.\n"
 	arcane_attraction.description_full = "Attacks apply a stack of Attraction on hit and generate 1 mana per stack on each target. Can only gain mana once per target hit on each attack. When an enemy dies, all stacks of Attraction on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. Attraction lasts indefinitely.\n" \
 	+ " \n" \
@@ -42,6 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var mana_storm: AbilityInfo = AbilityInfo.new()
 	mana_storm.name = "Mana Storm"
+	mana_storm.icon = "res://Resources/Icons/electricity/thunderstorm.tres"
 	mana_storm.description_full = "Attacks hit up to 2 additional enemies within attack range and consume all mana to deal [mana consumed]% increased damage. Mana Storm gains an additional attack for every 75 mana consumed. If at least 100 mana is consumed, the tower's multicrit is increased by 3 for 2 seconds. If there are less creeps than attacks, the remaining attacks will hit the main target.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

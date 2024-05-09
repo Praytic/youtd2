@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ain_soph_aur: AbilityInfo = AbilityInfo.new()
 	ain_soph_aur.name = "Ain Soph Aur"
+	ain_soph_aur.icon = "res://Resources/Icons/shields/shield_with_gold_helmet.tres"
 	ain_soph_aur.description_short = "This tower has a chance on every attack to create a shockwave of light.\n"
 	ain_soph_aur.description_full = "This tower has a %s chance on every attack to create a shockwave of light that starts at the targeted creep and travels %s units behind that creep dealing %s spell damage to all creeps in its path.\n" % [shockwave_chance, shockwave_range_from_target, shockwave_damage] \
 	+ " \n" \
@@ -44,6 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var aura: AbilityInfo = AbilityInfo.new()
 	aura.name = "Aura of Light - Aura"
+	aura.icon = "res://Resources/Icons/gloves/heal.tres"
 	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
 	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
 	+ " \n" \

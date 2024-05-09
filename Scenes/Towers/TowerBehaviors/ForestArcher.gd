@@ -36,12 +36,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var advanced_multishot: AbilityInfo = AbilityInfo.new()
 	advanced_multishot.name = "Advanced Multishot"
+	advanced_multishot.icon = "res://Resources/Icons/bows/bow_01.tres"
 	advanced_multishot.description_short = "Multishot count increases by 1 at level 15.\n"
 	advanced_multishot.description_full = "Multishot count increases by 1 at level 15.\n"
 	list.append(advanced_multishot)
 
 	var gift: AbilityInfo = AbilityInfo.new()
 	gift.name = "Gift of the Forest"
+	gift.icon = "res://Resources/Icons/plants/plant_in_pot.tres"
 	gift.description_short = "The magical powers of the forest grant this archer enchanted arrows.\n"
 	gift.description_full = "The magical powers of the forest grant this archer enchanted arrows. These arrows have a %s chance to stun for %s seconds. If they don't stun there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration] \
 	+ " \n" \

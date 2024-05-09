@@ -20,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var hellfire: AbilityInfo = AbilityInfo.new()
 	hellfire.name = "Hellfire"
+	hellfire.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	hellfire.description_short = "When the Fire Lord attacks there is a chance that it gains a multishot ability.\n"
 	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attackspeed for 7.5 seconds. Cannot retrigger!\n" \
 	+ " \n" \
@@ -32,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var liquid_fire: AbilityInfo = AbilityInfo.new()
 	liquid_fire.name = "Liquid Fire"
+	liquid_fire.icon = "res://Resources/Icons/potions/potion_orange_03.tres"
 	liquid_fire.description_short = "When the Fire Lord damages a creep it will be set on fire.\n"
 	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from fire towers by 10%. The liquid fire lasts 5 seconds.\n" \
 	+ " \n" \

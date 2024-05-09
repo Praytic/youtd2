@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var devour: AbilityInfo = AbilityInfo.new()
 	devour.name = "Devour"
+	devour.icon = "res://Resources/Icons/animals/dragon_04.tres"
 	devour.description_short = "On attack the Kodo has a chance to take a bite out of its target.\n"
 	devour.description_full = "On attack the Kodo has a 6% chance to take a bite out of its target dealing 5000 spell damage and increasing the multiplier for bonuses granted by 'Kodo Dung' by 1 for 6 seconds.\n" \
 	+ " \n" \
@@ -20,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var kodo_dung: AbilityInfo = AbilityInfo.new()
 	kodo_dung.name = "Kodo Dung - Aura"
+	kodo_dung.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
 	kodo_dung.description_short = "The dung of this kodo empowers nearby towers.\n"
 	kodo_dung.description_full = "The dung of this kodo grants towers in 400 range:\n" \
 	+ "  +10% damage\n" \

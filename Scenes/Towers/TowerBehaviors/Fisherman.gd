@@ -15,6 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var fresh_fish_ability: AbilityInfo = AbilityInfo.new()
 	fresh_fish_ability.name = "Fresh Fish!"
+	fresh_fish_ability.icon = "res://Resources/Icons/animals/fish_01.tres"
 	fresh_fish_ability.description_short = "Each time Fisherman's Net strangles a creep, it increases the dps of nearby towers.\n"
 	fresh_fish_ability.description_full = "Each time Fisherman's Net strangles a creep, the dps of towers in 500 range is increased by 15% of this tower's dps for 5 seconds.\n" \
 	+ " \n" \
@@ -25,12 +26,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var impatient: AbilityInfo = AbilityInfo.new()
 	impatient.name = "Impatient"
+	impatient.icon = "res://Resources/Icons/daggers/dagger_06.tres"
 	impatient.description_short = "After 4 attacks on the same target the fisherman will attack a different unit.\n"
 	impatient.description_full = "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of 'Fisherman's Net'.\n"
 	list.append(impatient)
 
 	var fishermans_net: AbilityInfo = AbilityInfo.new()
 	fishermans_net.name = "Fisherman's Net"
+	fishermans_net.icon = "res://Resources/Icons/food/lard.tres"
 	fishermans_net.description_short = "Creeps damaged by this tower get caught in its net.\n"
 	fishermans_net.description_full = "Creeps damaged by this tower get caught in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
 	+ " \n" \

@@ -18,6 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Energetic Attack"
+	ability.icon = "res://Resources/Icons/swords/sword_swing_01.tres"
 	ability.description_short = "Each attack costs mana. Without mana the tower can't attack.\n"
 	ability.description_full = "Each attack costs %s mana. Without mana the tower can't attack.\n" % attack_mana_cost
 	list.append(ability)

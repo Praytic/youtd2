@@ -51,6 +51,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magical Barrage"
+	ability.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
 	ability.description_short = "Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.\n"
 	ability.description_full = "Whenever this tower attacks it has a %s chance to launch a magical missile. Whenever a tower in %s range casts a spell, the amount of missiles on attack is increased by 1 for a duration equal to the casting tower's ability's cooldown. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, aura_range, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg] \
 	+ " \n" \

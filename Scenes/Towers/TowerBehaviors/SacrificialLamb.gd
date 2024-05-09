@@ -54,6 +54,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Blood Spill"
+	ability.icon = "res://Resources/Icons/helmets/helmet_06.tres"
 	ability.description_short = "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
 	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts Blood Spill, the tower gains %s experience for every other tower affected. Cannot retrigger when the buff is already active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attackspeed, buff_duration, bloodspill_exp] \
 	+ " \n" \

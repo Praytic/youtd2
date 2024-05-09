@@ -32,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var corpse_explosion: AbilityInfo = AbilityInfo.new()
 	corpse_explosion.name = "Corpse Explosion"
+	corpse_explosion.icon = "res://Resources/Icons/undead/skull_doll.tres"
 	corpse_explosion.description_short = "Occasionally explodes nearby corpses and deals AoE damage.\n"
 	corpse_explosion.description_full = "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from darkness towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, debuff_effect] \
 	+ " \n" \
@@ -42,6 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var critical_mass: AbilityInfo = AbilityInfo.new()
 	critical_mass.name = "Critical Mass"
+	critical_mass.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	critical_mass.description_short = "Has a chance on attack to shoot multiple projectiles.\n"
 	critical_mass.description_full = "Has a 30%% chance on attack to shoot an extra projectile. For each projectile after the initial one, there is a %s chance to shoot an extra projectile. There is a maximum of 14 projectiles fired per attack.\n" % critical_mass_chance \
 	+ " \n" \

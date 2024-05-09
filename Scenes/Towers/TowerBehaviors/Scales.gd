@@ -14,12 +14,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var i_scale: AbilityInfo = AbilityInfo.new()
 	i_scale.name = "I Scale"
+	i_scale.icon = "res://Resources/Icons/magic/claw_01.tres"
 	i_scale.description_short = "This tower gains spell damage, spell crit damage and spell crit chance for each level the player survives.\n"
 	i_scale.description_full = "This tower gains 1.66% spell damage, spell crit damage and 0.125% spell crit chance for each level the player survives.\n"
 	list.append(i_scale)
 
 	var electrify: AbilityInfo = AbilityInfo.new()
 	electrify.name = "Electrify"
+	electrify.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	electrify.description_short = "Chance to electrify creeps. Creeps in range of the electrified unit will take damage.\n"
 	electrify.description_full = "Whenever this tower damages a creep, it has a 20% chance to electrify it for 5 seconds. Each second, all creeps in 225 range of the electrified unit take 900 spell damage.\n" \
 	+ " \n" \
@@ -30,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var overcharge: AbilityInfo = AbilityInfo.new()
 	overcharge.name = "I Overcharge"
+	overcharge.icon = "res://Resources/Icons/mechanical/battery.tres"
 	overcharge.description_short = "Chance to deal extra spell damage to the damaged unit.\n"
 	overcharge.description_full = "Whenever this tower deals damage with its attacks or its other innate abilities it has a 25% chance to deal 900 spell damage to the damaged unit. Overcharge can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
 	+ " \n" \

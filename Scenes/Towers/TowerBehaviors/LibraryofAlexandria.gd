@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var divine_knowledge: AbilityInfo = AbilityInfo.new()
 	divine_knowledge.name = "Divine Knowledge"
+	divine_knowledge.icon = "res://Resources/Icons/holy/white_trinket.tres"
 	divine_knowledge.description_short = "This tower periodically grants experience to a random tower in range.\n"
 	divine_knowledge.description_full = "Every 5 seconds this tower grants 2 experience to a random tower in 500 range.\n" \
 	+ " \n" \
@@ -19,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var divine_research: AbilityInfo = AbilityInfo.new()
 	divine_research.name = "Divine Research - Aura"
+	divine_research.icon = "res://Resources/Icons/books/book_08.tres"
 	divine_research.description_short = "Increases experience gain from creeps in range.\n"
 	divine_research.description_full = "Increases the experience gain from creeps in 900 range by 30%.\n" \
 	+ " \n" \

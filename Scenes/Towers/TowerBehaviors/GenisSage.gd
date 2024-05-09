@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var speed_cast: AbilityInfo = AbilityInfo.new()
 	speed_cast.name = "Speed Cast"
+	speed_cast.icon = "res://Resources/Icons/magic/claw_02.tres"
 	speed_cast.description_short = "Chance to increase trigger chances and attackspeed.\n"
 	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attackspeed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
 	+ " \n" \
@@ -33,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var aqua_edge: AbilityInfo = AbilityInfo.new()
 	aqua_edge.name = "Aqua Edge"
+	aqua_edge.icon = "res://Resources/Icons/animals/fish_02.tres"
 	aqua_edge.description_short = "Chance to launch 3 blades of water at target.\n"
 	aqua_edge.description_full = "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 damage to each creep it passes through. Costs 15 mana.\n" \
 	+ " \n" \
@@ -43,6 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var spread: AbilityInfo = AbilityInfo.new()
 	spread.name = "Spread"
+	spread.icon = "res://Resources/Icons/magic/claw_02.tres"
 	spread.description_short = "Chance to lift creeps up for in AoE around the damaged creep.\n"
 	spread.description_full = "Whenever Genis damages a creep, he has a 10% chance to lift creeps up for 0.8 seconds in a 250 AoE around the damaged creep. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n" \
 	+ " \n" \
@@ -53,6 +56,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var magic_boost: AbilityInfo = AbilityInfo.new()
 	magic_boost.name = "Magic Boost"
+	magic_boost.icon = "res://Resources/Icons/TowerIcons/StormBattery.tres"
 	magic_boost.description_short = "Chance to increase spell damage of nearby towers.\n"
 	magic_boost.description_full = "Every 7 seconds Genis has a 30% chance to increase the spell damage of all towers within 350 range of him by 20% for 3 seconds. Costs 10 mana.\n" \
 	+ " \n" \

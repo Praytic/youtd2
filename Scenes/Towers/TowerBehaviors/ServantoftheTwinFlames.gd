@@ -42,6 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var twin_flames: AbilityInfo = AbilityInfo.new()
 	twin_flames.name = "Twin Flames"
+	twin_flames.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	twin_flames.description_short = "On each attack, this tower has a chance equal to launch a green flame or a red flame.\n"
 	twin_flames.description_full = "On each attack, this tower has a chance equal to its crit chance to launch a green flame, dealing %s of tower's attack damage as spell damage, and a chance equal to its spell crit chance to launch a red flame, dealing %s of tower's attack damage as physical damage.\n" % [flame_dmg_ratio, flame_dmg_ratio] \
 	+ " \n" \
@@ -51,6 +52,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var twin_pulses: AbilityInfo = AbilityInfo.new()
 	twin_pulses.name = "Twin Pulses"
+	twin_pulses.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
 	twin_pulses.description_short = "Every time this tower has launched a lot of flames, it releases a pulse, dealing damage to creeps in range.\n"
 	twin_pulses.description_full = "Every time this tower has launched 8 red flames, it releases a green pulse, dealing %s of its attack damage as spell damage in 900 AoE and every time it has launched 8 green flames, it releases a red pulse, dealing %s of its attack damage as physical damage in 900 AoE.\n" % [pulse_dmg_ratio, pulse_dmg_ratio] \
 	+ " \n" \
@@ -61,6 +63,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var twin_disciplines: AbilityInfo = AbilityInfo.new()
 	twin_disciplines.name = "Twin Disciplines"
+	twin_disciplines.icon = "res://Resources/Icons/swords/greatsword_03.tres"
 	twin_disciplines.description_short = "Each time it scores a critical hit with an attack, this tower gains bonus crit chance or spell crit chance.\n"
 	twin_disciplines.description_full = "Each time it scores a critical hit with an attack, this tower gains %s bonus critical chance or spell critical chance, both stacking up to 10 times, for 7 seconds. The lower chance will always be prioritized." % twin_disciplines_crit
 	list.append(twin_disciplines)

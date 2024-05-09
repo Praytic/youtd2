@@ -24,6 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var leaf_storm: AbilityInfo = AbilityInfo.new()
 	leaf_storm.name = "Leaf Storm"
+	leaf_storm.icon = "res://Resources/Icons/plants/leaf_01.tres"
 	leaf_storm.description_short = "Chance to summon a leaf storm at the target's position, slowing enemy units inside and dealing damage over time.\n"
 	leaf_storm.description_full = "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing enemy units inside by 30% for 1 second and dealing 2100 spell damage over time.\n" \
 	+ " \n" \
@@ -36,6 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var thorned: AbilityInfo = AbilityInfo.new()
 	thorned.name = "Thorned!"
+	thorned.icon = "res://Resources/Icons/TowerIcons/QuillboarThornweaver.tres"
 	thorned.description_short = "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
 	thorned.description_full = "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n" \
 	+ " \n" \
@@ -46,6 +48,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var tranq_aura: AbilityInfo = AbilityInfo.new()
 	tranq_aura.name = "Tranquility - Aura"
+	tranq_aura.icon = "res://Resources/Icons/misc/flag_03.tres"
 	tranq_aura.description_short = "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
 	tranq_aura.description_full = "Decreases the attackspeed of all towers in a 450 AoE by 20% and increases their attackdamage by 40%.\n" \
 	+ " \n" \

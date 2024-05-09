@@ -35,6 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frag Grenade"
+	ability.icon = "res://Resources/Icons/misc/balls_02.tres"
 	ability.description_short = "When this tower damages a creep it has a chance to fire a frag grenade.\n"
 	ability.description_full = "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spelldamage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
 	+ " \n" \

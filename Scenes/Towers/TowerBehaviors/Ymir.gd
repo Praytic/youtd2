@@ -12,6 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var wrath: AbilityInfo = AbilityInfo.new()
 	wrath.name = "Wrath of Ymir"
+	wrath.icon = "res://Resources/Icons/animals/dragon_05.tres"
 	wrath.description_short = "Chance to deal portion of attack damage as spell damage and slow the target.\n"
 	wrath.description_full = "When Ymir damages a creep, there is a 20% chance that he deals an additional 10% of his attack damage as spell damage and slows the target by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
 	+ " \n" \
@@ -22,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var blood: AbilityInfo = AbilityInfo.new()
 	blood.name = "Blood of Ymir"
+	blood.icon = "res://Resources/Icons/gems/gem_07.tres"
 	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from Ice towers."
 	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to Ice towers by 25%.\n" \
 	+ " \n" \
@@ -32,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var flesh: AbilityInfo = AbilityInfo.new()
 	flesh.name = "Flesh of Ymir - Aura"
+	flesh.icon = "res://Resources/Icons/scrolls/scroll_01.tres"
 	flesh.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
 	flesh.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
 	+ " \n" \

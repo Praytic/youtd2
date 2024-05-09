@@ -37,6 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var bat_swarm: AbilityInfo = AbilityInfo.new()
 	bat_swarm.name = "Bat Swarm"
+	bat_swarm.icon = "res://Resources/Icons/animals/bat_03.tres"
 	bat_swarm.description_short = "This tower has a chance on attack to release a swarm of bats.\n"
 	bat_swarm.description_full = "This tower has a %s chance on attack to release a swarm of bats, dealing %s spell damage at nighttime or %s spell damage at daytime to all enemies in a cone. The cone grows from a %s AoE radius at the start to a %s AoE radius at the end.\n" % [on_attack_chance, swarm_damage_night, swarm_damage_day, SWARM_START_RADIUS, SWARM_END_RADIUS] \
 	+ " \n" \
@@ -48,6 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var creature: AbilityInfo = AbilityInfo.new()
 	creature.name = "Creature of the Night"
+	creature.icon = "res://Resources/Icons/animals/spider_03.tres"
 	creature.description_short = "This tower deals more damage during nighttime.\n"
 	creature.description_full = "This tower deals %s damage during nighttime and %s damage during daytime.\n" % [attack_damage_night, attack_damage_day] \
 	+ " \n" \

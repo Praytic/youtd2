@@ -16,12 +16,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var future: AbilityInfo = AbilityInfo.new()
 	future.name = "Future Knowledge"
+	future.icon = "res://Resources/Icons/books/book_10.tres"
 	future.description_short = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds.\n"
 	future.description_full = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds, increasing his experience by 2. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
 	list.append(future)
 
 	var time_twist: AbilityInfo = AbilityInfo.new()
 	time_twist.name = "Time Twist - Aura"
+	time_twist.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
 	time_twist.description_short = "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
 	time_twist.description_full = "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in 240 range:\n" \
 	+ "+10% experience gain\n" \

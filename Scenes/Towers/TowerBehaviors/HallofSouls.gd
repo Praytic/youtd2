@@ -30,6 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Revenge of Souls"
+	ability.icon = "res://Resources/Icons/masks/mask_06.tres"
 	ability.description_short = "This tower gains permanent bonus damage and experience every time a creep dies near the tower.\n"
 	ability.description_full = "This tower gains %s permanent bonus damage and %s experience every time a creep in %s range dies.\n" % [soul_damage, soul_experience, aura_range] \
 	+ " \n" \

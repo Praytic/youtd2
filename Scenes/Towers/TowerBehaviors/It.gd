@@ -25,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var hunger: AbilityInfo = AbilityInfo.new()
 	hunger.name = "It Hunger"
+	hunger.icon = "res://Resources/Icons/furniture/wooden_stand_with_nail.tres"
 	hunger.description_short = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains spelldamage.\n"
 	hunger.description_full = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n" \
 	+ " \n" \
@@ -34,6 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var dark_ritual: AbilityInfo = AbilityInfo.new()
 	dark_ritual.name = "Dark Ritual"
+	dark_ritual.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
 	dark_ritual.description_short = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields.\n"
 	dark_ritual.description_full = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields, dealing 3000 spelldamage to all creeps unfortunate enough to be standing in those areas. If a non-boss enemy in Corruption Field is affected by Dark Ritual for the first time, it will be immediately transported to Recreation Field.\n" \
 	+ " \n" \

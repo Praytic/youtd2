@@ -16,6 +16,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Omnislash"
+	ability.icon = "res://Resources/Icons/daggers/dagger_07.tres"
 	ability.description_short = "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
 	ability.description_full = "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10% of this tower's normal attack damage and permanently increases the damage its target takes from Physical type attacks by 4%.\n" \
 	+ " \n" \

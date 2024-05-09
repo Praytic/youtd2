@@ -24,6 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var weak_spots: AbilityInfo = AbilityInfo.new()
 	weak_spots.name = "Weak Spots"
+	weak_spots.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
 	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
 	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's Energyball deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune \
 	+ " \n" \
@@ -33,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var energyball: AbilityInfo = AbilityInfo.new()
 	energyball.name = "Energyball"
+	energyball.icon = "res://Resources/Icons/TowerIcons/StormBattery.tres"
 	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast Energyball on the attacked creep. Energyball damage's scales with tower's experience.\b"
 	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast Energyball on the attacked creep. The Energyball deals %s + [%sx Towerexp] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [150x current wave] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
 	+ " \n" \
@@ -43,6 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var energy_detection: AbilityInfo = AbilityInfo.new()
 	energy_detection.name = "Energy Detection"
+	energy_detection.icon = "res://Resources/Icons/trinkets/trinket_10.tres"
 	energy_detection.description_short = "The Owl of Wisdom sometimes randomly casts Energyball.\n"
 	energy_detection.description_full = "Every %s seconds, for each creep in 900 range the Owl of Wisdom has a 10%% chance to cast Energyball on it.\n" % periodic_event_period \
 	+ " \n" \

@@ -9,6 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var time_travel: AbilityInfo = AbilityInfo.new()
 	time_travel.name = "Time Travel"
+	time_travel.icon = "res://Resources/Icons/mechanical/compass.tres"
 	time_travel.description_short = "Damaged targets will be teleported back in time after a delay.\n"
 	time_travel.description_full = "Damaged targets will be teleported 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, all others will be always teleported.\n" \
 	+ " \n" \
@@ -18,6 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var timesurge: AbilityInfo = AbilityInfo.new()
 	timesurge.name = "Timesurge - Aura"
+	timesurge.icon = "res://Resources/Icons/mechanical/lamp.tres"
 	timesurge.description_short = "Increases triggerchance of nearby towers.\n"
 	timesurge.description_full = "Increases triggerchance of towers in 600 range by 30%.\n" \
 	+ " \n" \

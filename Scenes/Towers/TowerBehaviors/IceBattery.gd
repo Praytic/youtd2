@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frost"
+	ability.icon = "res://Resources/Icons/orbs/orb_ice.tres"
 	ability.description_short = "Slows the attacked creep.\n"
 	ability.description_full = "A creep hit by one of this tower's shots is slowed by %s for 9 seconds.\n" % slow_amount \
 	+ " \n" \
@@ -113,7 +114,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
+	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

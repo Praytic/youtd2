@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frozen Spears"
-	ability.icon = "res://Resources/Icons/AbilityIcons/frozen_spears.tres"
+	ability.icon = "res://Resources/Icons/spears/many_spears_02.tres"
 	ability.description_short = "Has a small chance to deal bonus damage and stun the target.\n"
 	ability.description_full = "Has a %s chance to deal 50%% more damage and stun the target for 0.5 seconds.\n" % on_damage_chance \
 	+ " \n" \

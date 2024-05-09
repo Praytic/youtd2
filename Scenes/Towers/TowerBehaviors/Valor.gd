@@ -12,6 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var valors_light: AbilityInfo = AbilityInfo.new()
 	valors_light.name = "Valor's Light"
+	valors_light.icon = "res://Resources/Icons/TowerIcons/SmallLight.tres"
 	valors_light.description_short = "Damages and slows creeps coming in range of this tower.\n"
 	valors_light.description_full = "Whenever a creep comes within 800 range of this tower it takes an initial 2000 spell damage per second and its movement speed is decreased by 30%. The damage and slow of this ability decay by 50% every second. Lasts 5 seconds.\n" \
 	+ " \n" \
@@ -22,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var last_line: AbilityInfo = AbilityInfo.new()
 	last_line.name = "Last Line of Defense"
+	last_line.icon = "res://Resources/Icons/shields/shield_castle.tres"
 	last_line.description_short = "Any creep passing this tower twice will take more spell and attack damage.\n"
 	last_line.description_full = "Any creep passing this tower twice will take 1% more spell and attack damage for each tower within 400 range of this tower. This effect is goldcost adjusted, towers with a goldcost of 2500 provide the full bonus.\n" \
 	+ " \n" \
@@ -31,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var we_will_not_fall: AbilityInfo = AbilityInfo.new()
 	we_will_not_fall.name = "We Will Not Fall! - Aura"
+	we_will_not_fall.icon = "res://Resources/Icons/animals/rooster_warrior.tres"
 	we_will_not_fall.description_short = "Increases the attack and spell damage of all towers in range.\n"
 	we_will_not_fall.description_full = "Increases the attack and spell damage of all towers in 400 range by 0.5% for each percent of lost lives. If the team has more than 100% lives, towers will deal less damage!\n" \
 	+ " \n" \

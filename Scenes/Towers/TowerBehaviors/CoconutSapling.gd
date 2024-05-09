@@ -30,6 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Coconut Rain"
+	ability.icon = "res://Resources/Icons/orbs/orb_green.tres"
 	ability.description_short = "Each time this tower attacks there is a chance to drop coconuts which deal AoE damage.\n"
 	ability.description_full = "Each time this tower attacks there is a chance to drop multiple coconuts. The chance to drop a coconut is 100%% for the 1st one and after each coconut the chance is decreased by %s. Each coconut deals %s spelldamage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd] \
 	+ " \n" \

@@ -12,6 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Planeshift"
+	ability.icon = "res://Resources/Icons/TowerIcons/HarpyWitch.tres"
 	ability.description_short = "On attack the Gate releases a magical falcon to hunt down its enemies.\n"
 	ability.description_full = "On attack the Gate releases a magical falcon to hunt down its enemies.\n" \
 	+ "The falcon deals energy damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5% less damage.\n" \

@@ -26,6 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ancient Magic - Aura"
+	ability.icon = "res://Resources/Icons/TowerIcons/LightningEye.tres"
 	ability.description_short = "Increases spell crit chance of nearby towers.\n"
 	ability.description_full = "Increases spell crit chance of towers in %s range by %s.\n" % [aura_range, mod_spell_crit] \
 	+ " \n" \

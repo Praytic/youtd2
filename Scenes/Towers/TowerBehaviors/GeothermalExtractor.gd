@@ -19,6 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Thermal Boost - Aura"
+	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
 	ability.description_short = "Increases damage of nearby towers.\n"
 	ability.description_full = "Increases damage of towers in 200 range by %s.\n" % damage_increase \
 	+ " \n" \

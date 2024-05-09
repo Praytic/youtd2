@@ -11,12 +11,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var overload: AbilityInfo = AbilityInfo.new()
 	overload.name = "Overload"
+	overload.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
 	overload.description_short = "On attack this tower deals energy damage and slows. Effect is stronger for creeps far away\n"
 	overload.description_full = "On attack this tower deals [distance to the target x 12] energy damage, modified by its attack damage and slows the target for 1.5 seconds. The further away the target is, the more it will be slowed down. The maximum slow of 30% can only be reached, if the target has the maximum distance to the tower.\n"
 	list.append(overload)
 
 	var energetic_field: AbilityInfo = AbilityInfo.new()
-	energetic_field.name = "Overload"
+	energetic_field.name = "Energetic Field"
+	energetic_field.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
 	energetic_field.description_short = "Units in range receive extra damage from Storm towers. Effect is stronger for creeps far away.\n"
 	energetic_field.description_full = "Units in 1000 range around this tower are dealt up to 20% bonus damage by Storm towers. The further away creeps are from tower, the more damage is dealt.\n" \
 	+ " \n" \

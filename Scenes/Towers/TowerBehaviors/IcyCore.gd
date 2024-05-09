@@ -20,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frost Aura"
+	ability.icon = "res://Resources/Icons/orbs/orb_ice.tres"
 	ability.description_short = "Slows nearby creeps.\n"
 	ability.description_full = "Slows movementspeed of enemies in %s range by %s.\n" % [aura_range, mod_movespeed] \
 	+ " \n" \

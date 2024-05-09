@@ -16,6 +16,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var flaming_inferno: AbilityInfo = AbilityInfo.new()
 	flaming_inferno.name = "Flaming Inferno"
+	flaming_inferno.icon = "res://Resources/Icons/TowerIcons/GeothermalExtractor.tres"
 	flaming_inferno.description_short = "Occasionally releases fireballs that deal AoE damage.\n"
 	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spelldamage in 250 AoE around the target on impact.\n" \
 	+ " \n" \
@@ -28,6 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var dragons_hoard: AbilityInfo = AbilityInfo.new()
 	dragons_hoard.name = "Dragon's Hoard"
+	dragons_hoard.icon = "res://Resources/Icons/misc/gold_cart.tres"
 	dragons_hoard.description_short = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n"
 	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spelldamage and base attackdamage.\n" \
 	+ "[color=GOLD]Hint:[/color] This dragons_hoard is modified by both the creep's and this tower's bounty ratios.\n"

@@ -33,6 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var alert: AbilityInfo = AbilityInfo.new()
 	alert.name = "Alert"
+	alert.icon = "res://Resources/Icons/misc/red_knight.tres"
 	alert.description_short = "Nearby towers get alerted of trespassers.\n"
 	alert.description_full = "Towers in %s range get alerted whenever a creep of size air, champion or boss enters the sentry's attack range. They have their base damage increased by %s for %s seconds. Does not stack.\n" % [alert_range, alert_mod_dmg, alert_duration] \
 	+ " \n" \
@@ -42,6 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var tresspasser: AbilityInfo = AbilityInfo.new()
 	tresspasser.name = "Trespasser Awareness"
+	tresspasser.icon = "res://Resources/Icons/magic/eye.tres"
 	tresspasser.description_short = "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
 	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus 5%%-40%% base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
 	+ " \n" \

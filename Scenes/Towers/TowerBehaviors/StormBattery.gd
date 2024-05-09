@@ -32,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electrify"
+	ability.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	ability.description_short = "The Storm Battery's projectiles electrify their target.\n"
 	ability.description_full = "The Storm Battery's projectiles electrify their target for 9 seconds. Every time an electrified creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
 	+ " \n" \
@@ -117,7 +118,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/TowerIcons/StormBattery.tres"
+	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -27,6 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Bloody Experience - Aura"
+	ability.icon = "res://Resources/Icons/gems/gem_07.tres"
 	ability.description_short = "Nearby towers receive experience every time they crit.\n"
 	ability.description_full = "Every tower below %s level in %s range receives %s experience every time it crits. The amount of experience gained is base attackspeed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, bloody_experience_range, bloody_experience_gain] \
 	+ " \n" \

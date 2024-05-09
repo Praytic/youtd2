@@ -36,6 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Cold"
+	ability.icon = "res://Resources/Icons/magic/eye_blue.tres"
 	ability.description_short = "This tower has a chance on attack to freeze the attacked creep and reduce its health regeneration.\n"
 	ability.description_full = "This tower has a %s chance on attack to freeze the attacked creep and reduce its health regeneration by %s. The freeze lasts for %s second and cannot be reapplied on already frozen units. Chance to proc, health regeneration reduction and freeze duration are halved for bosses. Does not affect immune creeps.\n" % [freeze_chance, mod_regen, freeze_duration] \
 	+ " \n" \

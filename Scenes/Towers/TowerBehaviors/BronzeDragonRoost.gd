@@ -9,6 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Bronzefication"
+	ability.icon = "res://Resources/Icons/potions/potion_07.tres"
 	ability.description_short = "Each time this tower damages a unit it has a chance to turn the target's flesh into bronze. The unit is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
 	ability.description_full = "Each time this tower damages a unit it has a 10% chance to turn the target's flesh into bronze for 5 seconds. The unit is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
 	+ " \n" \

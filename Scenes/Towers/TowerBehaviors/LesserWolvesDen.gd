@@ -21,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Wolven Tenacity - Aura"
+	ability.icon = "res://Resources/Icons/faces/orc_01.tres"
 	ability.description_short = "The strong physical presence of the wolves increases attack speed of nearby towers.\n"
 	ability.description_full = "The strong physical presence of the wolves encourages nearby towers within a %s radius, to increase their attack speed by %s.\n" % [aura_range, mod_attackspeed] \
 	+ " \n" \

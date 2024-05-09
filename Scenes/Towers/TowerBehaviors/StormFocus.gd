@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Gust - Aura"
+	ability.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
 	ability.description_short = "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
 	ability.description_full = "Towers in 800 range around the Storm Focus gain additional attackdamage equal to 50% of the bonus damage against air they have.\n" \
 	+ " \n" \

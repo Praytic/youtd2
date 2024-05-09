@@ -22,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Sunshine - Aura"
+	ability.icon = "res://Resources/Icons/staves/wand_glowing.tres"
 	ability.description_short = "Reduces the armor of creeps in range and makes them more vulnerable to damage from Astral, Fire, Iron and Nature towers.\n"
 	ability.description_full = "Reduces the armor of enemies in %s range by %s and increases the vulnerability to damage from Astral, Fire, Iron and Nature towers by %s.\n" % [aura_range, mod_armor, vuln] \
 	+ " \n" \

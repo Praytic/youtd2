@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var force_attack: AbilityInfo = AbilityInfo.new()
 	force_attack.name = "Force Attack"
+	force_attack.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
 	force_attack.description_short = "This tower's attacks deal spell damage instead of attack damage.\n"
 	force_attack.description_full = "This tower deals %s spell damage on attack.\n" % on_attack_damage \
 	+ " \n" \

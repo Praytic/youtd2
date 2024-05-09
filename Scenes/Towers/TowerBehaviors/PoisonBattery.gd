@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poison"
+	ability.icon = "res://Resources/Icons/potions/potion_green_02.tres"
 	ability.description_short = "An infected creep takes damage every second and is slowed.\n"
 	ability.description_full = "An infected creep takes %s spelldamage every second for 9 seconds and is slowed by %s.\n" % [poison_damage, mod_movespeed] \
 	+ " \n" \
@@ -104,7 +105,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
 	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
-	poison_bt.set_buff_icon("res://Resources/Icons/GenericIcons/poison_gas.tres")
+	poison_bt.set_buff_icon("res://Resources/Icons/mechanical/battery.tres")
 	poison_bt.add_periodic_event(damage_periodic, 1)
 	poison_bt.set_buff_modifier(modifier)
 	poison_bt.set_stacking_group("PoisonBattery")

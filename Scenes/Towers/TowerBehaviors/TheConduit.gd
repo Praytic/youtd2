@@ -15,6 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var absorb: AbilityInfo = AbilityInfo.new()
 	absorb.name = "Absorb Energy"
+	absorb.icon = "res://Resources/Icons/undead/skull_phazing.tres"
 	absorb.description_short = "Attacks do no damage but have a chance to absorb mana from target.\n"
 	absorb.description_full = "Attacks hit up to 10 enemies, but do no damage. There is a 10% chance per hit to gather energy, restoring 50 mana to the tower and the target will lose 50 mana if it has mana.\n" \
 	+ " \n" \
@@ -25,6 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var aura: AbilityInfo = AbilityInfo.new()
 	aura.name = "Conduit - Aura"
+	aura.icon = "res://Resources/Icons/trinkets/trinket_06.tres"
 	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon Storm towers.\n"
 	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Storm towers in 350 range at a rate of 50%.\n" \
 	+ " \n" \

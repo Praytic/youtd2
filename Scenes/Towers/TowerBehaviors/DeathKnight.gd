@@ -11,6 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var insatiable: AbilityInfo = AbilityInfo.new()
 	insatiable.name = "Insatiable Hunger"
+	insatiable.icon = "res://Resources/Icons/helmets/helmet_07.tres"
 	insatiable.description_short = "Deals bonus damage based on missing mana and replenishes mana when attacking.\n"
 	insatiable.description_full = "On each attack, the death knight deals 0.25% bonus damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
 	+ " \n" \
@@ -20,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var withering: AbilityInfo = AbilityInfo.new()
 	withering.name = "Withering Presence"
+	withering.icon = "res://Resources/Icons/TowerIcons/LesserSkeletalMage.tres"
 	withering.description_short = "Chance to steal health of nearby creeps.\n"
 	withering.description_full = "Whenever a unit comes in 900 range of the death knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
 	+ " \n" \

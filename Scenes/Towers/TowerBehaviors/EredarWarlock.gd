@@ -26,6 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shadowbolt: AbilityInfo = AbilityInfo.new()
 	shadowbolt.name = "Shadowbolt Wave"
+	shadowbolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_purple.tres"
 	shadowbolt.description_short = "Has a chance to release a wave of shadowbolts.\n"
 	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This Spell has a 40%% chance to trigger if the last autocast released a shadowboltwave.\n" % [bolt_count, bolt_damage] \
 	+ " \n" \
@@ -35,6 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var slow_decay: AbilityInfo = AbilityInfo.new()
 	slow_decay.name = "Slow Decay - Aura"
+	slow_decay.icon = "res://Resources/Icons/faces/green_demon.tres"
 	slow_decay.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
 	slow_decay.description_full = "Non Boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n" \
 	+ " \n" \

@@ -24,6 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Fire of Fury - Aura"
+	ability.icon = "res://Resources/Icons/TowerIcons/BurningWatchtower.tres"
 	ability.description_short = "Increases crit chance of nearby towers.\n"
 	ability.description_full = "Increases crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
 	+ " \n" \

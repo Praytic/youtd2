@@ -11,6 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var strong_wind: AbilityInfo = AbilityInfo.new()
 	strong_wind.name = "Strong Wind"
+	strong_wind.icon = "res://Resources/Icons/electricity/lightning_circle_cyan.tres"
 	strong_wind.description_short = "All creeps in range are affected by Strong Winds. Creeps are slowed and will receive periodic damage.\n"
 	strong_wind.description_full = "All creeps in 900 range are affected by Strong Winds. Every second a creep is under this effect, it loses 3% of its movespeed and it is dealt 10% of towers attack damage for every 1% of movespeed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n" \
 	+ " \n" \
@@ -21,6 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var chaining_storm: AbilityInfo = AbilityInfo.new()
 	chaining_storm.name = "Chaining Storm"
+	chaining_storm.icon = "res://Resources/Icons/electricity/thunderstorm.tres"
 	chaining_storm.description_short = "Chance to cast a Chaining Storm at the position of the attacked creep. All creeps in range of the Chaining Storm suffer spelldamage.\n"
 	chaining_storm.description_full = "Whenever this tower attacks, it has a 25% chance to cast a Chaining Storm at the position of the attacked creep for the cost of 100 mana. All creeps in 350 range of the Chaining Storm suffer 200 spelldamage multiplied by the number of creeps hit. They are also weakened to receive 2% more damage from Storm, Ice and Astral Towers for each hitted creep. All effects of this chaining_storm are doubled and a 25% higher spell critical chance is applied whenever the main target hit is an air unit.\n" \
 	+ " \n" \
@@ -32,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var storm_power_ability: AbilityInfo = AbilityInfo.new()
 	storm_power_ability.name = "Storm Power - Aura"
+	storm_power_ability.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
 	storm_power_ability.description_short = "If a creep dies while under the effect of Strong Wind its living energy is converted into mana and boosts this tower's abilities.\n"
 	storm_power_ability.description_full = "If a creep dies while under the effect of Strong Wind its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for Chaining Storm by +0.02% (maximum total triggerchance for Chaining Storm is 75%) and also increase the damage dealt with Strong Winds by 0.05 damage per 1% slow.\n"
 	list.append(storm_power_ability)

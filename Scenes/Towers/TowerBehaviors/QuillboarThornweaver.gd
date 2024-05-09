@@ -29,6 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Occasional Quillspray"
+	ability.icon = "res://Resources/Icons/trinkets/claw_01.tres"
 	ability.description_short = "On attack this tower has a chance to trigger a Quillspray.\n"
 	ability.description_full = "On attack this tower has a %s chance to trigger a Quillspray.\n" % occasional_quillspray_chance \
 	+ " \n" \

@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var freezing_mist: AbilityInfo = AbilityInfo.new()
 	freezing_mist.name = "Freezing Mist"
+	freezing_mist.icon = "res://Resources/Icons/gems/crystal.tres"
 	freezing_mist.description_short = "When this tower damages a creep it will be slowed.\n"
 	freezing_mist.description_full = "When this tower damages a creep it will be slowed by 15% for 10 seconds.\n" \
 	+ " \n" \
@@ -19,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var flowing_frost: AbilityInfo = AbilityInfo.new()
 	flowing_frost.name = "Flowing Frost - Aura"
+	flowing_frost.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
 	flowing_frost.description_short = "Increases buff duration of towers in range.\n"
 	flowing_frost.description_full = "Increases the buff duration of towers in 500 range by 25%.\n" \
 	+ " \n" \

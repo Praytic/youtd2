@@ -38,6 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ice_smashing_axe: AbilityInfo = AbilityInfo.new()
 	ice_smashing_axe.name = "Ice Smashing Axe"
+	ice_smashing_axe.icon = "res://Resources/Icons/weapons_misc/axe_01.tres"
 	ice_smashing_axe.description_short = "On attack this tower has a chance to throw a giant axe\n"
 	ice_smashing_axe.description_full = "On attack this tower has a %s chance to throw a giant axe. The axe shatters all the buffs from its target and deals %s of the tower's attack damage as elemental damage for each buff purged. If more than %s buffs are removed the enemy is also stunned for %s seconds (%s on bosses). The axe is so heavy that its wielder's attack speed is slowed by %s for %s seconds after throwing it.\n" % [on_attack_chance, smashing_axe_dmg, purge_count_for_stun, stun_duration, stun_duration_for_bosses, mod_attackspeed, fatigue_duration] \
 	+ " \n" \
@@ -48,6 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var ice_coated_axes: AbilityInfo = AbilityInfo.new()
 	ice_coated_axes.name = "Ice Coated Axes"
+	ice_coated_axes.icon = "res://Resources/Icons/weapons_misc/glaive_01.tres"
 	ice_coated_axes.description_short = "This tower deals bonus damage to slowed creeps.\n"
 	ice_coated_axes.description_full = "This tower deals %s bonus damage for every 1%% movement speed the target is missing.\n" % coated_axes_dmg \
 	+ " \n" \

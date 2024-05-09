@@ -46,6 +46,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var versatile: AbilityInfo = AbilityInfo.new()
 	versatile.name = "Versatile"
+	versatile.icon = "res://Resources/Icons/weapons_misc/barbed_spike.tres"
 	versatile.description_short = "Every time this tower deals spell damage through its abilities, it increases its dps.\n"
 	versatile.description_full = "Every time this tower deals spell damage through its abilities, it increases its dps by 1.5% of the spell damage dealt. Lasts 2.5 seconds and stacks. Maximum bonus of [color=GOLD][200 x (current wave)][/color].\n" \
 	+ " \n" \
@@ -55,6 +56,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var unleash: AbilityInfo = AbilityInfo.new()
 	unleash.name = "Unleash"
+	unleash.icon = "res://Resources/Icons/TowerIcons/BronzeDragonRoost.tres"
 	unleash.description_short = "Chance to unleash a bronze drake towards its target.\n"
 	unleash.description_full = "On attack, the Drake Whisperer has a 12.5% chance to unleash a bronze drake towards its target, dealing 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n" \
 	+ " \n" \
@@ -65,6 +67,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var feed: AbilityInfo = AbilityInfo.new()
 	feed.name = "Feed the Drakes"
+	feed.icon = "res://Resources/Icons/undead/skull_04.tres"
 	feed.description_short = "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target.\n"
 	feed.description_full = "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it to a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n" \
 	+ " \n" \

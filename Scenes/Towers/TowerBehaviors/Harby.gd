@@ -12,6 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var arcane_orb: AbilityInfo = AbilityInfo.new()
 	arcane_orb.name = "Arcane Orb"
+	arcane_orb.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
 	arcane_orb.description_short = "Infuses Harby's attacks with arcane energy at the cost of mana.\n"
 	arcane_orb.description_full = "Infuses Harby's attacks with arcane energy at the cost of 100 mana per attack. Deals [color=GOLD][6 x Current Mana][/color] as bonus spelldamage. This ability also passively grants 1 bonus maximum mana for each creep Harby kills.\n" \
 	+ " \n" \
@@ -21,12 +22,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var awakening: AbilityInfo = AbilityInfo.new()
 	awakening.name = "Grotesque Awakening"
+	awakening.icon = "res://Resources/Icons/animals/bat_03.tres"
 	awakening.description_short = "Whenever hit by a spell, the statue comes to life.\n"
 	awakening.description_full = "Whenever hit by a spell, the statue comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
 	list.append(awakening)
 
 	var arcane_aura: AbilityInfo = AbilityInfo.new()
 	arcane_aura.name = "Arcane Aura - Aura"
+	arcane_aura.icon = "res://Resources/Icons/TowerIcons/AstralRift.tres"
 	arcane_aura.description_short = "Towers in range have a chance to replenish their mana.\n"
 	arcane_aura.description_full = "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's Arcane Orb attacks, without the retrigger restriction.\n" \
 	+ " \n" \

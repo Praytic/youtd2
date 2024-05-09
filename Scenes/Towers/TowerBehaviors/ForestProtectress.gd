@@ -17,6 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var wrath: AbilityInfo = AbilityInfo.new()
 	wrath.name = "Protectress's Wrath"
+	wrath.icon = "res://Resources/Icons/plants/leaf_01.tres"
 	wrath.description_short = "Each attack has a chance to deal an extra damage to all units in range around the target. Slows all damaged units.\n"
 	wrath.description_full = "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attackspeed decreases time needed to gain a charge.\n" \
 	+ " \n" \
@@ -27,6 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var meld: AbilityInfo = AbilityInfo.new()
 	meld.name = "Meld with the Forest"
+	meld.icon = "res://Resources/Icons/faces/sleeping_leaf_spirit.tres"
 	meld.description_short = "The Protectress gains additional attack damage for each second she doesn't attack.\n"
 	meld.description_full = "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attackspeed decreases the time needed to gain a charge.\n" \
 	+ " \n" \
@@ -36,6 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var strike: AbilityInfo = AbilityInfo.new()
 	strike.name = "Strike the Unprepared - Aura"
+	strike.icon = "res://Resources/Icons/daggers/dagger_07.tres"
 	strike.description_short = "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
 	strike.description_full = "Increases the attack critical chance of towers in 175 range by 0.25% for each 1% hp the attacked creep has left.\n" \
 	+ " \n" \

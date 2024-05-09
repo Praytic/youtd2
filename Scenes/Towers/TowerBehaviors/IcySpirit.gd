@@ -25,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Nova Storm"
+	ability.icon = "res://Resources/Icons/magic/claw_02.tres"
 	ability.description_short = "When this tower attacks there is a chance to blast nearby creeps with ice novas.\n"
 	ability.description_full = "When this tower attacks there is a 25%% chance to hit 3 creeps in 900 range around it with ice novas. A nova hits all creeps in 200 AoE dealing %s spelldamage at the centre, dropping off to 50%% at the sides. Also slows by 12.5%% for 4 seconds.\n" % nova_dmg \
 	+ " \n" \

@@ -34,6 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Faerie Fire"
+	ability.icon = "res://Resources/Icons/plants/flower_06.tres"
 	ability.description_short = "Makes the attacked creep more vulnerable to spells and debuffs.\n"
 	ability.description_full = "A creep hit by one of this tower's shots takes %s extra damage from spells and debuffs last %s longer for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
 	+ " \n" \
@@ -113,7 +114,7 @@ func tower_init():
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
 	autocast.description_short = get_autocast_description_short()
-	autocast.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
+	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

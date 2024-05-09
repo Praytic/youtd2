@@ -11,6 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
+	heat_stroke.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
 	heat_stroke.description_short = "Whenever a creep dies while under the effect of Heat Aura, there is a chance that it will explode.\n"
 	heat_stroke.description_full = "Whenever a creep dies while under the effect of Heat Aura, there is a 40% chance that it will explode, dealing 4500 damage in 300 AoE.\n" \
 	+ " \n" \
@@ -20,6 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var lava_attack: AbilityInfo = AbilityInfo.new()
 	lava_attack.name = "Lava Attack"
+	lava_attack.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	lava_attack.description_short = "Chance to throw a burning lava ball towards the target, dealing AoE damage.\n"
 	lava_attack.description_full = "Has a 25% chance on attack to throw a burning lava ball towards the target's location, dealing 3500 damage to creeps in 300 AoE.\n" \
 	+ " \n" \
@@ -30,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var heat_aura: AbilityInfo = AbilityInfo.new()
 	heat_aura.name = "Heat Aura - Aura"
+	heat_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
 	heat_aura.description_short = "Burns every enemy in range.\n"
 	heat_aura.description_full = "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
 	list.append(heat_aura)

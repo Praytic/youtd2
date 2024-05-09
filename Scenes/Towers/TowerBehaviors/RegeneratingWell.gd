@@ -25,6 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Cleansing Water - Aura"
+	ability.icon = "res://Resources/Icons/orbs/orb_ice.tres"
 	ability.description_short = "Increases spell damage dealt by nearby towers.\n"
 	ability.description_full = "Increases the spell damage dealt by all towers in %s range by %s.\n" % [aura_range, mod_spell_dmg] \
 	+ " \n" \

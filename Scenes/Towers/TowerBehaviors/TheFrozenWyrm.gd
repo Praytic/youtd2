@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Freezing Breath"
+	ability.icon = "res://Resources/Icons/elements/ice.tres"
 	ability.description_short = "Chance to slow or stun damaged creeps.\n"
 	ability.description_full = "Each creep damaged by this tower's attacks has a 25% chance to get slowed by 27% for 4 seconds and a 5% chance to get stunned for 1.5 seconds.\n" \
 	+ " \n" \

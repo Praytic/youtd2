@@ -11,6 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var plague: AbilityInfo = AbilityInfo.new()
 	plague.name = "Plague"
+	plague.icon = "res://Resources/Icons/undead/skull_04.tres"
 	plague.description_short = "When a creep is damaged by this tower it will become infected with a plague.\n"
 	plague.description_full = "When a creep is damaged by this tower it will become infected with a plague. This plague deals 750 damage per second and lasts 5 seconds. Every 1.5 seconds the plague can spread to a creep in 250 range around the infected creep. If an infected creep is infected again by the plague the duration will refresh and the damage is increased by 375.\n" \
 	+ " \n" \
@@ -22,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var army: AbilityInfo = AbilityInfo.new()
 	army.name = "Army of the Damned"
+	army.icon = "res://Resources/Icons/shields/shield_skull.tres"
 	army.description_short = "If there is a corpse in range, this tower will extract its soul.\n"
 	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and damage by 5% and Plague's rate of spread by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones." \
 	+ " \n" \

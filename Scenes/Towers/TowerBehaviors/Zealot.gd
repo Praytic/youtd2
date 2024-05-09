@@ -28,12 +28,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var lightning_shield: AbilityInfo = AbilityInfo.new()
 	lightning_shield.name = "Lightning Shield"
+	lightning_shield.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
 	lightning_shield.description_short = "As the zealot gets pumped up debuff durations are reduced.\n"
 	lightning_shield.description_full = "As the zealot gets pumped up debuff durations are reduced by %s with each stack of Zeal.\n" % shield_power
 	list.append(lightning_shield)
 
 	var zeal: AbilityInfo = AbilityInfo.new()
 	zeal.name = "Zeal"
+	zeal.icon = "res://Resources/Icons/holy/cross_01.tres"
 	zeal.description_short = "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
 	zeal.description_full = "Each attack works the Zealot into a greater frenzy, increasing his attack speed by %s from each tower in 175 range. These towers have their attack speed slowed by %s. Both effects stack up to 5 times and last 2.5 seconds. The attack speed amount reduces slightly with more towers.\nOnly towers that cost %s gold or more are affected by this.\n" % [leech_power_base, leech_power_base, affected_gold_cost] \
 	+ " \n" \
@@ -43,6 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var phase_blade: AbilityInfo = AbilityInfo.new()
 	phase_blade.name = "Phase Blade"
+	phase_blade.icon = "res://Resources/Icons/swords/sword_swing_02.tres"
 	phase_blade.description_short = "Each attack on the same creep penetrates deeper through its armor.\n"
 	phase_blade.description_full = "Each attack on the same creep penetrates deeper through its armor. Per attack %s of this tower's attack damage won't be reduced by armor resistances. This effect stacks up to 5 times.\n" % wound_power \
 	+ " \n" \

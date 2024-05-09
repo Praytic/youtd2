@@ -23,6 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Multiply Gold"
+	ability.icon = "res://Resources/Icons/mechanical/gold_machine.tres"
 	ability.description_short = "This tower increases the gold income of the player.\n"
 	ability.description_full = "This tower increases the gold income of the player by %s.\n" % mod_income
 	list.append(ability)

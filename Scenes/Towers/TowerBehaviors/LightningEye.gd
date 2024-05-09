@@ -10,6 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var glare: AbilityInfo = AbilityInfo.new()
 	glare.name = "Glare"
+	glare.icon = "res://Resources/Icons/magic/eye_blue.tres"
 	glare.description_short = "The Eye launches a forked lightning on every attack.\n"
 	glare.description_full = "The Eye launches a forked lightning on every attack at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n" \
 	+ " \n" \
@@ -19,6 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var static_field: AbilityInfo = AbilityInfo.new()
 	static_field.name = "Static Field - Aura"
+	static_field.icon = "res://Resources/Icons/dioramas/book_display.tres"
 	static_field.description_short = "Towers in range have their damage increased when attacking immune creeps.\n"
 	static_field.description_full = "Towers within 350 range of this tower have their damage increased by 20% when attacking immune creeps.\n" \
 	+ " \n" \

@@ -18,6 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ultimate_fighter: AbilityInfo = AbilityInfo.new()
 	ultimate_fighter.name = "Ultimate Fighter"
+	ultimate_fighter.icon = "res://Resources/Icons/weapons_misc/glaive_02.tres"
 	ultimate_fighter.description_short = "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus damage, AoE damage or empower Vulshok.\n"
 	ultimate_fighter.description_full = "Vulshok uses his great power to specialize his attacks:\n" \
 	+ "- Every 3rd attack adds a critical hit\n" \
@@ -31,6 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var maim: AbilityInfo = AbilityInfo.new()
 	maim.name = "Maim"
+	maim.icon = "res://Resources/Icons/clubs/club_glowing.tres"
 	maim.description_short = "When Vulshok damages a creep it gets maimed.\n"
 	maim.description_full = "When Vulshok damages a creep it gets maimed. The creep is slowed by 10% for 5 seconds and every second it gets slowed by an extra 5%. This buff lasts for 5 seconds and cannot be refreshed.\n" \
 	+ " \n" \
