@@ -24,7 +24,7 @@ var _autocast: Autocast = null
 var _progress_in_editor: float = 1.0
 
 
-@export var overlay_color: Color = Color(0, 0, 0, 0.5)
+@export var overlay_color: Color = Color8(0, 0, 0, 180)
 
 
 #########################
