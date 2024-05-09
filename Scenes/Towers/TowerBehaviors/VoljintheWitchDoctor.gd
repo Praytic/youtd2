@@ -188,13 +188,17 @@ func on_damage(event: Event):
 #	Remove buffs (positive and negative buffs) and count them
 	while true:
 		var purge_friendly: bool = target.purge_buff(true)
+		if purge_friendly:
+			purged_count += 1
+
 		var purge_unfriendly: bool = target.purge_buff(false)
+		if purge_unfriendly:
+			purged_count += 1
+
 		var purge_success: bool = purge_friendly || purge_unfriendly
 
 		if !purge_success:
 			break
-
-		purged_count += 1
 
 	var damage_multiplier: float = 1.0 + purged_count * (0.12 + 0.0016 * tower.get_level())
 	event.damage *= damage_multiplier
