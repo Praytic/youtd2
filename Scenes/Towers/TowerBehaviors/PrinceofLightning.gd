@@ -23,6 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_dmg_from_storm: String = Utils.format_percent(_stats.mod_dmg_from_storm, 2)
 	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
 
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
 	var list: Array[AbilityInfo] = []
 	
 	var lightning: AbilityInfo = AbilityInfo.new()
@@ -39,8 +41,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var realm: AbilityInfo = AbilityInfo.new()
 	realm.name = "Realm of Thunder - Aura"
 	realm.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
-	realm.description_short = "Makes nearby creeps more vulnerable to Storm towers.\n"
-	realm.description_full = "Increases the vulnerability of enemies in %s range to damage from Storm towers by %s.\n" % [aura_range, mod_dmg_from_storm] \
+	realm.description_short = "Makes nearby creeps more vulnerable to %s towers.\n" % storm_string
+	realm.description_full = "Increases the vulnerability of enemies in %s range to damage from %s towers by %s.\n" % [aura_range, storm_string, mod_dmg_from_storm] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s vulnerability\n" % mod_dmg_from_storm_add

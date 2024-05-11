@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	dragons_hoard.icon = "res://Resources/Icons/misc/gold_cart.tres"
 	dragons_hoard.description_short = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n"
 	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spelldamage and base attackdamage.\n" \
-	+ "[color=GOLD]Hint:[/color] This dragons_hoard is modified by both the creep's and this tower's bounty ratios.\n"
+	+ "[color=GOLD]Hint:[/color] [color=GOLD]Dragon's Hoard[/color] is modified by both the creep's and this tower's bounty ratios.\n"
 	list.append(dragons_hoard)
 
 	return list

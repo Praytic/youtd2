@@ -31,6 +31,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura_effect_value: String = Utils.format_percent(_stats.aura_effect_value, 2)
 	var aura_effect_value_add: String = Utils.format_percent(_stats.aura_effect_value_add, 2)
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
+	var human_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.HUMANOID)
+	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
+	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -49,8 +52,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var mortal_coil: AbilityInfo = AbilityInfo.new()
 	mortal_coil.name = "Mortal Coil - Aura"
 	mortal_coil.icon = "res://Resources/Icons/undead/demon_emblem.tres"
-	mortal_coil.description_short = "Grants bonus damage against human, orc and nature creeps to nearby towers.\n"
-	mortal_coil.description_full = "Grants %s bonus damage against human, orc and nature creeps to all towers within %s range.\n" % [aura_effect_value, aura_range] \
+	mortal_coil.description_short = "Grants bonus damage against %s, %s and %s creeps to nearby towers.\n" % [human_string, orc_string, nature_string]
+	mortal_coil.description_full = "Grants %s bonus damage against %s, %s and %s creeps to all towers within %s range.\n" % [aura_effect_value, human_string, orc_string, nature_string, aura_range] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % aura_effect_value_add

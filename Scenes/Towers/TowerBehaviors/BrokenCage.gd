@@ -14,14 +14,17 @@ func get_tier_stats() -> Dictionary:
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var damage: String = Utils.format_percent(_stats.damage, 2)
 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
+	var magic_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.MAGIC)
+	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
+	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
 
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Banish"
 	ability.icon = "res://Resources/Icons/magic/magic_stone_green.tres"
-	ability.description_short = "Magic, undead and nature creeps suffer spell damage when hit by this tower.\n"
-	ability.description_full = "Magic, undead and nature creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % damage \
+	ability.description_short = "%s, %s and %s creeps suffer spell damage when hit by this tower.\n" % [magic_string, undead_string, nature_string]
+	ability.description_full = "%s, %s and %s creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % [magic_string, undead_string, nature_string, damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % damage_add

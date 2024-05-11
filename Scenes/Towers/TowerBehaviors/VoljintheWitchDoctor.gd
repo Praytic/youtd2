@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	serpent_ward.name = "Serpent Ward"
 	serpent_ward.icon = "res://Resources/Icons/TowerIcons/SmallSerpentWard.tres"
 	serpent_ward.description_short = "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
-	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack 'Maledict' on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
+	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% attackdamage\n" \
@@ -60,7 +60,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. Maledict stacks, with each stack adding 3.5% additional damage. If Maledict is purged it deals double damage. This ability is unaffected by Buff Duration.\n"
+	text += "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.14% damage per stack\n"

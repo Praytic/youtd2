@@ -18,28 +18,30 @@ var evolve_count: int = 0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
+
 	var list: Array[AbilityInfo] = []
 	
-	var evolve: AbilityInfo = AbilityInfo.new()
-	evolve.name = "Evolve"
-	evolve.icon = "res://Resources/Icons/plants/tree.tres"
-	evolve.description_short = "Every time it casts Morphling Strike, this tower permanently gains power, depending on current Morph stacks.\n"
-	evolve.description_full = "Every time it casts Morphling Strike, this tower permanently gains 0.2% base damage and 0.1% attack speed if \"Morph: Might\" has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if \"Morph: Swiftness\" has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
-	list.append(evolve)
-
 	var morphling_strike: AbilityInfo = AbilityInfo.new()
 	morphling_strike.name = "Morphling Strike"
 	morphling_strike.icon = "res://Resources/Icons/misc/poison_01.tres"
 	morphling_strike.description_short = "Every time this tower damages a unit, it has a chance to launch 3 projectiles to random creeps.\n"
-	morphling_strike.description_full = "Every time this tower damages a unit, if it has at least 25 stacks of \"Morph: Might\" or \"Morph: Swiftness\", there is a 20% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if \"Morph: Might\" has at least 25 stacks, the projectiles deal additional spell damage equal to 25% of the tower's damage per second for 5 seconds; if \"Morph: Swiftness\" has at least 25 stacks, they slow the targets by 20% and increase the damage they receive from nature by 15% for 8 seconds.\n" \
+	morphling_strike.description_full = "Every time this tower damages a unit, if it has at least 25 stacks of [color=GOLD]Morph: Might[/color] or [color=GOLD]Morph: Swiftness[/color], there is a 20%% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if [color=GOLD]Morph: Might[/color] has at least 25 stacks, the projectiles deal additional spell damage equal to 25%% of the tower's damage per second for 5 seconds; if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks, they slow the targets by 20%% and increase the damage they receive from %s by 15%% for 8 seconds.\n" % nature_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+60 damage\n" \
 	+ "+0.8% damage per second\n" \
 	+ "+0.4% slow\n" \
-	+ "+0.2% damage from nature\n" \
+	+ "+0.2%% damage from %s\n" % nature_string \
 	+ "+0.6% chance\n"
 	list.append(morphling_strike)
+
+	var evolve: AbilityInfo = AbilityInfo.new()
+	evolve.name = "Evolve"
+	evolve.icon = "res://Resources/Icons/plants/tree.tres"
+	evolve.description_short = "Every time it casts [color=GOLD]Morphling Strike[/color], this tower permanently gains power, depending on current Morph stacks.\n"
+	evolve.description_full = "Every time it casts Morphling Strike, this tower permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
+	list.append(evolve)
 
 	return list
 
@@ -47,7 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_might_description() -> String:
 	var text: String = ""
 
-	text += "Activates \"Morph: Might\". As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes \"Morph: Swiftness\" and resets its bonus when activated.\n"
+	text += "Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.\n"
 
 	return text
 
@@ -55,7 +57,7 @@ func get_autocast_might_description() -> String:
 func get_autocast_might_description_short() -> String:
 	var text: String = ""
 
-	text += "Activates \"Morph: Might\".\n"
+	text += "Activates [color=GOLD]Morph: Might[/color].\n"
 
 	return text
 
@@ -63,7 +65,7 @@ func get_autocast_might_description_short() -> String:
 func get_autocast_swiftness_description() -> String:
 	var text: String = ""
 
-	text += "Activates \"Morph: Swiftness\". As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes \"Morph: Might\" and resets its bonus when activated."
+	text += "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated."
 
 	return text
 
@@ -71,7 +73,7 @@ func get_autocast_swiftness_description() -> String:
 func get_autocast_swiftness_description_short() -> String:
 	var text: String = ""
 
-	text += "Activates \"Morph: Swiftness\".\n"
+	text += "Activates [color=GOLD]Morph: Swiftness[/color].\n"
 
 	return text
 
@@ -79,7 +81,7 @@ func get_autocast_swiftness_description_short() -> String:
 func get_autocast_adapt_description() -> String:
 	var text: String = ""
 
-	text += "Stops the effect of morphs, leaving the current buff on the tower. Using the spell again removes Adapt.\n"
+	text += "Stops the effect of morphs, leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
 
 	return text
 

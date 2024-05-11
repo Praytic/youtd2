@@ -12,6 +12,8 @@ var lingering_flames_bt: BuffType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+	
 	var list: Array[AbilityInfo] = []
 	
 	var uncontrollable: AbilityInfo = AbilityInfo.new()
@@ -25,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	lingering.name = "Lingering Flame"
 	lingering.icon = "res://Resources/Icons/fire/fire_bowl_01.tres"
 	lingering.description_short = "The tower attacks a random enemy in range with each attack.\n"
-	lingering.description_full = "Enemies hit are inflicted with Lingering Flame, dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
+	lingering.description_full = "Enemies hit are inflicted with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 spell damage\n"
@@ -34,8 +36,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var flames_aura: AbilityInfo = AbilityInfo.new()
 	flames_aura.name = "Flames of the Forge - Aura"
 	flames_aura.icon = "res://Resources/Icons/TowerIcons/CruelFire.tres"
-	flames_aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby towers.\n"
-	flames_aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Fire towers in 350 range at a rate of 50%.\n" \
+	flames_aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon %s towers.\n" % fire_string
+	flames_aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% stats\n"
@@ -45,7 +47,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	feed.name = "Feed the Flames"
 	feed.icon = "res://Resources/Icons/elements/fire.tres"
 	feed.description_short = "This tower fuels itself in various ways, restoring mana and raising maximum mana.\n"
-	feed.description_full = "This tower fuels itself in various ways. Gains 1% of maximum mana on attack. Whenever Lingering Flame deals damage, there is a 20% chance to gain 0.5% of maximum mana per stack. On kill, gains 4% of total mana and maximum mana is increased by 10.\n" \
+	feed.description_full = "This tower fuels itself in various ways. Gains 1% of maximum mana on attack. Whenever [color=GOLD]Lingering Flame[/color] deals damage, there is a 20% chance to gain 0.5% of maximum mana per stack. On kill, gains 4% of total mana and maximum mana is increased by 10.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n"
@@ -57,7 +59,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Expends all mana to unleash a wave of heat, dealing [Mana x 7] spell damage and applying Lingering Flame to all enemies in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [Mana / 300]% for 4 seconds.\n"
+	text += "Expends all mana to unleash a wave of heat, dealing [color=GOLD][mana x 7][/color] spell damage and applying [color=GOLD]Lingering Flame[/color] to all enemies in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [color=GOLD][mana / 300]%[/color] for 4 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.2 spell damage per mana\n"

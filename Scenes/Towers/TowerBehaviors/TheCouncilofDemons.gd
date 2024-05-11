@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	demonic_edict.name = "Demonic Edict - Aura"
 	demonic_edict.icon = "res://Resources/Icons/misc/flag_02.tres"
 	demonic_edict.description_short = "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
-	demonic_edict.description_full = "Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [2 x caster goldcost x spell cd] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds.\n" \
+	demonic_edict.description_full = "Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% mana regeneration\n"

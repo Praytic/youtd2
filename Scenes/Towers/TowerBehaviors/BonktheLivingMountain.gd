@@ -30,7 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	landslide.description_short = "Bonk has a chance to throw rocks at creeps around the main target. These rocks deal spelldamage and stun.\n"
 	landslide.description_full = "This ability works only after Bonk has grown 20 times.\n" \
 	+ " \n" \
-	+ "Bonk has a 25% chance on attack to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spelldamage and stun for 0.5 seconds. Landslide deals 15 bonus spelldamage per grow.\n" \
+	+ "Bonk has a 25% chance on attack to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spelldamage and stun for 0.5 seconds. [color=GOLD]Landslide[/color] deals 15 bonus spelldamage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+50 spelldamage\n"
@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	crush.description_short = "Whenever Bonk damages a stunned creep it gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \
-	+ "Whenever Bonk damages a stunned creep it deals 5000 spelldamage to it. When this happens, towers in 500 range will gain 10% attackspeed and damage for 10 seconds. Crush deals 50 bonus spelldamage per grow.\n" \
+	+ "Whenever Bonk damages a stunned creep it deals 5000 spelldamage to it. When this happens, towers in 500 range will gain 10% attackspeed and damage for 10 seconds. [color=GOLD]Crush[/color] deals 50 bonus spelldamage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+250 spelldamage\n" \

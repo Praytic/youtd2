@@ -7,13 +7,17 @@ var lifeforce_stored: int = 0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
+	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
+	var human_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.HUMANOID)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Essence of the Mortals"
 	ability.icon = "res://Resources/Icons/dioramas/mountain.tres"
-	ability.description_short = "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain.\n"
-	ability.description_full = "When the garden kills a nature, orc or human unit, its lifeforce is captured in the fountain. For each lifeforce stored in the fountain, the garden deals an additional [current spawn level x 2] spell damage on attack. Maximum of 5 stored lifeforce.\n" \
+	ability.description_short = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain.\n" % [nature_string, orc_string, human_string]
+	ability.description_full = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain. For each lifeforce stored in the fountain, the garden deals an additional [color=GOLD][current spawn level x 2][/color] spell damage on attack. Maximum of 5 stored lifeforce.\n" % [nature_string, orc_string, human_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 maximum lifeforce\n"
@@ -25,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "The garden uses half of the stored lifeforce to create a huge explosion, dealing [current spawn level x 15] spell damage in 1600 AoE for each lifeforce stored.\n"
+	text += "The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.\n"
 
 	return text
 

@@ -16,13 +16,15 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var mana_per_attack_add: String = Utils.format_float(_stats.mana_per_attack_add, 2)
 	var mana_loss_per_sec: String = Utils.format_percent(MANA_LOSS_PER_SEC, 2)
 
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var aqua_breath: AbilityInfo = AbilityInfo.new()
 	aqua_breath.name = "Aqua Breath"
 	aqua_breath.icon = "res://Resources/Icons/magic/lock_04.tres"
-	aqua_breath.description_short = "This tower deals Energy damage equal to its current mana.\n"
-	aqua_breath.description_full = "This tower deals Energy damage equal to its current mana.\n"
+	aqua_breath.description_short = "This tower deals %s damage equal to its current mana.\n" % energy_string
+	aqua_breath.description_full = "This tower deals %s damage equal to its current mana.\n" % energy_string
 	list.append(aqua_breath)
 
 	var cold_blooded: AbilityInfo = AbilityInfo.new()

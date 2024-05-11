@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	overcharge.name = "I Overcharge"
 	overcharge.icon = "res://Resources/Icons/mechanical/battery.tres"
 	overcharge.description_short = "Chance to deal extra spell damage to the damaged unit.\n"
-	overcharge.description_full = "Whenever this tower deals damage with its attacks or its other innate abilities it has a 25% chance to deal 900 spell damage to the damaged unit. Overcharge can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
+	overcharge.description_full = "Whenever this tower deals damage with its attacks or its other innate abilities it has a 25% chance to deal 900 spell damage to the damaged unit. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+36 spell damage\n" \
@@ -47,7 +47,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. Lightmare lasts 10 seconds and does not benefit from buff duration.\n"
+	text += "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+52 spell damage\n"

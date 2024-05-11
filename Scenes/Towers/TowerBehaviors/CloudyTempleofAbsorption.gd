@@ -52,7 +52,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description_for_cloudy_thunderstorm() -> String:
 	var text: String = ""
 
-	text += "Summons a cloudy thunderstorm, which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [Current Mana x 0.5] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds. This ability will activate automatically when this tower's mana reaches a set threshold, as determined by the 'Adjust Autocast Threshold' ability. The autocast cannot be disabled.\n"
+	text += "Summons a cloudy thunderstorm, which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds. This ability will activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. The autocast cannot be disabled.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.02 damage per current mana\n"

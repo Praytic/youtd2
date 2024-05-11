@@ -11,6 +11,8 @@ var chanlightning_st: SpellType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
 	var list: Array[AbilityInfo] = []
 	
 	var absorb: AbilityInfo = AbilityInfo.new()
@@ -27,8 +29,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura: AbilityInfo = AbilityInfo.new()
 	aura.name = "Conduit - Aura"
 	aura.icon = "res://Resources/Icons/trinkets/trinket_06.tres"
-	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon Storm towers.\n"
-	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Storm towers in 350 range at a rate of 50%.\n" \
+	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon %s towers.\n" % storm_string
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % storm_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% stats\n"
@@ -40,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Unleashes built up energy, dealing [400 x wave] spell damage to a single enemy and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n"
+	text += "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single enemy and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+8 spell damage per wave\n"

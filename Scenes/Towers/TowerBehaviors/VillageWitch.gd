@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Soul Split"
 	ability.icon = "res://Resources/Icons/undead/skull_phazing.tres"
 	ability.description_short = "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
-	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease] \
+	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % soul_damage_add

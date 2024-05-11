@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	shadowbolt.name = "Shadowbolt Wave"
 	shadowbolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_purple.tres"
 	shadowbolt.description_short = "Has a chance to release a wave of shadowbolts.\n"
-	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This Spell has a 40%% chance to trigger if the last autocast released a shadowboltwave.\n" % [bolt_count, bolt_damage] \
+	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This spell has a 40%% chance to trigger if the last autocast released a shadowbolt wave.\n" % [bolt_count, bolt_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % bolt_damage_add
@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	slow_decay.name = "Slow Decay - Aura"
 	slow_decay.icon = "res://Resources/Icons/faces/green_demon.tres"
 	slow_decay.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
-	slow_decay.description_full = "Non Boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n" \
+	slow_decay.description_full = "Non-boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.06% healthpoints needed for instantkill\n"
@@ -51,8 +51,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func get_autocast_description() -> String:
 	var text: String = ""
+	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
 
-	text += "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [stunned tower's DPS x 3] as essence damage to the target of the buffed tower.\n"
+	text += "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as %s damage to the target of the buffed tower.\n" % essence_string
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-0.02 seconds stun duration\n"

@@ -28,8 +28,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var fresh_fish_ability: AbilityInfo = AbilityInfo.new()
 	fresh_fish_ability.name = "Fresh Fish!"
 	fresh_fish_ability.icon = "res://Resources/Icons/animals/fish_01.tres"
-	fresh_fish_ability.description_short = "Each time Fisherman's Net strangles a creep, it increases the DPS of nearby towers.\n"
-	fresh_fish_ability.description_full = "Each time Fisherman's Net strangles a creep, the DPS of towers in 500 range is increased by 15% of this tower's DPS for 5 seconds.\n" \
+	fresh_fish_ability.description_short = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, it increases the DPS of nearby towers.\n"
+	fresh_fish_ability.description_full = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, the DPS of towers in 500 range is increased by 15% of this tower's DPS for 5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.1 second duration\n" \
@@ -40,7 +40,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	impatient.name = "Impatient"
 	impatient.icon = "res://Resources/Icons/daggers/dagger_06.tres"
 	impatient.description_short = "After 4 attacks on the same target the fisherman will attack a different unit.\n"
-	impatient.description_full = "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of 'Fisherman's Net'.\n"
+	impatient.description_full = "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of [color=GOLD]Fisherman's Net[/color].\n"
 	list.append(impatient)
 
 	return list

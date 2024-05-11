@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Casts a buff on a tower in 800 range, doubling the effect of 'Gust' and increasing that tower's damage against air units by 10% for 5 seconds.\n"
+	text += "Casts a buff on a tower in 800 range, doubling the effect of [color=GOLD]Gust Aura[/color] and increasing that tower's damage against air units by 10% for 5 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.05 seconds duration\n"
@@ -34,7 +34,7 @@ func get_autocast_description() -> String:
 
 
 func get_autocast_description_short() -> String:
-	return "Casts a buff on a tower in range, doubling the effect of 'Gust'."
+	return "Casts a buff on a tower in range, doubling the effect of [color=GOLD]Gust Aura[/color]."
 
 
 func load_specials(modifier: Modifier):

@@ -8,6 +8,8 @@ var wrath_bt: BuffType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
+
 	var list: Array[AbilityInfo] = []
 	
 	var wrath: AbilityInfo = AbilityInfo.new()
@@ -24,8 +26,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var blood: AbilityInfo = AbilityInfo.new()
 	blood.name = "Blood of Ymir"
 	blood.icon = "res://Resources/Icons/gems/gem_07.tres"
-	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from Ice towers."
-	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to Ice towers by 25%.\n" \
+	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from %s towers." % ice_string
+	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to %s towers by 25%%.\n" % ice_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08 seconds duration\n" \

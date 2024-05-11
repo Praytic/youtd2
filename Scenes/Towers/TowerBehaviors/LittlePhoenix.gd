@@ -29,6 +29,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var armor_regain: String = Utils.format_percent(_stats.armor_regain, 2)
 	var armor_regain_add: String = Utils.format_percent(_stats.armor_regain_add, 2)
 
+	var element_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
+
 	var list: Array[AbilityInfo] = []
 	
 	var twin_attack: AbilityInfo = AbilityInfo.new()
@@ -54,8 +56,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var phoenix_explosion: AbilityInfo = AbilityInfo.new()
 	phoenix_explosion.name = "Phoenix Explosion"
 	phoenix_explosion.icon = "res://Resources/Icons/elements/fire.tres"
-	phoenix_explosion.description_short = "When Phoenixfire expires, it erupts and deals AoE damage."
-	phoenix_explosion.description_full = "When Phoenixfire expires, it erupts and deals %s elemental damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, erupt_range, armor_regain] \
+	phoenix_explosion.description_short = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals AoE damage."
+	phoenix_explosion.description_full = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals %s %s damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, element_string, erupt_range, armor_regain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-%s armor regain\n" % armor_regain_add
@@ -67,7 +69,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Explodes all creeps affected by Phoenixfire, triggering the Phoenix Explosion ability. Phoenixfire debuff expires after explosion.\n"
+	text += "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.\n"
 
 	return text
 
@@ -75,7 +77,7 @@ func get_autocast_description() -> String:
 func get_autocast_description_short() -> String:
 	var text: String = ""
 
-	text += "Explodes all creeps affected by Phoenixfire.\n"
+	text += "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].\n"
 
 	return text
 

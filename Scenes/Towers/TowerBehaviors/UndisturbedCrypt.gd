@@ -27,6 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var debuff_effect: String = Utils.format_percent(_stats.buff_level * 0.001, 2)
 	var debuff_effect_add: String = Utils.format_percent(_stats.buff_level_add * 0.001, 2)
 	var critical_mass_chance: String = Utils.format_percent(_stats.critical_mass_chance, 2)
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -34,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	corpse_explosion.name = "Corpse Explosion"
 	corpse_explosion.icon = "res://Resources/Icons/undead/skull_doll.tres"
 	corpse_explosion.description_short = "Occasionally explodes nearby corpses and deals AoE damage.\n"
-	corpse_explosion.description_full = "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from darkness towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, debuff_effect] \
+	corpse_explosion.description_full = "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from %s towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, darkness_string, debuff_effect] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow and damage taken\n" % debuff_effect_add \

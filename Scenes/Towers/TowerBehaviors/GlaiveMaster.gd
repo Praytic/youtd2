@@ -29,13 +29,15 @@ var glaivesaw_list: Array[Glaivesaw] = []
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var lacerate: AbilityInfo = AbilityInfo.new()
 	lacerate.name = "Lacerate"
 	lacerate.icon = "res://Resources/Icons/daggers/dagger_07.tres"
 	lacerate.description_short = "This tower's attacks and abilities deal Lacerate damage.\n"
-	lacerate.description_full = "This tower's attacks and abilities deal Lacerate damage. 50% of Lacerate damage is dealt immediately as Physical damage. 100% of the remaining damage is dealt as Decay damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" \
+	lacerate.description_full = "This tower's attacks and abilities deal [color=GOLD]Lacerate[/color] damage. 50%% of [color=GOLD]Lacerate[/color] damage is dealt immediately as Physical damage. 100%% of the remaining damage is dealt as %s damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" % decay_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage over time\n"
@@ -45,7 +47,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	glaive_storm.name = "Glaive Storm"
 	glaive_storm.icon = "res://Resources/Icons/daggers/dagger_02.tres"
 	glaive_storm.description_short = "Chance to throw an additional bouncing glaive at the target.\n"
-	glaive_storm.description_full = "Hits have a 5% chance to throw an additional glaive at the target, dealing 50% of attack damage as Lacerate damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n" \
+	glaive_storm.description_full = "Hits have a 5% chance to throw an additional glaive at the target, dealing 50% of attack damage as [color=GOLD]Lacerate[/color] damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance\n" \
@@ -55,8 +57,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var bounder: AbilityInfo = AbilityInfo.new()
 	bounder.name = "Bounder"
 	bounder.icon = "res://Resources/Icons/daggers/dagger_04.tres"
-	bounder.description_short = "Chance to throw a glaive at one of your Glaivesaws.\n"
-	bounder.description_full = "Attacks have a 15% chance to throw a glaive at one of your Glaivesaws. The glaive will bounce to another Glaivesaw, dealing 250% of attack damage as Lacerate damage to enemies it passes through.\n" \
+	bounder.description_short = "Chance to throw a glaive at one of your [color=GOLD]Glaivesaws[/color].\n"
+	bounder.description_full = "Attacks have a 15% chance to throw a glaive at one of your [color=GOLD]Glaivesaws[/color]. The glaive will bounce to another [color=GOLD]Glaivesaw[/color], dealing 250% of attack damage as [color=GOLD]Lacerate[/color] damage to enemies it passes through.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
@@ -69,7 +71,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Create a Glaivesaw at the target location. Glaivesaws deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n"
+	text += "Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% damage\n"
@@ -79,7 +81,7 @@ func get_autocast_description() -> String:
 
 
 func get_autocast_description_short() -> String:
-	return "Create a Glaivesaw at the target location.\n"
+	return "Create a [color=GOLD]Glaivesaw[/color] at the target location.\n"
 
 
 func load_triggers(triggers: BuffType):

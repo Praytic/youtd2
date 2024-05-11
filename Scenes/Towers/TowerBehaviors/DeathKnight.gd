@@ -13,7 +13,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	insatiable.name = "Insatiable Hunger"
 	insatiable.icon = "res://Resources/Icons/helmets/helmet_07.tres"
 	insatiable.description_short = "Deals bonus damage based on missing mana and replenishes mana when attacking.\n"
-	insatiable.description_full = "On each attack, the death knight deals 0.25% bonus damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
+	insatiable.description_full = "On each attack, the Death Knight deals 0.25% bonus damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.01% damage per mana point\n"
@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	withering.name = "Withering Presence"
 	withering.icon = "res://Resources/Icons/TowerIcons/LesserSkeletalMage.tres"
 	withering.description_short = "Chance to steal health of nearby creeps.\n"
-	withering.description_full = "Whenever a unit comes in 900 range of the death knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
+	withering.description_full = "Whenever a unit comes in 900 range of the Death Knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
@@ -37,7 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "The death knight decreases the base attack damage of all towers in 200 range by 10% and loses 50% of his remaining mana to increase his base damage by 15% for each tower affected for 5 seconds. Only towers that cost at least 1300 gold are affected by this spell.\n"
+	text += "The Death Knight decreases the base attack damage of all towers in 200 range by 10% and loses 50% of his remaining mana to increase his base damage by 15% for each tower affected for 5 seconds. Only towers that cost at least 1300 gold are affected by this spell.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.2% damage absorbed\n"

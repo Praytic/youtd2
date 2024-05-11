@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Soul Consumption"
 	ability.icon = "res://Resources/Icons/gloves/curse.tres"
-	ability.description_short = "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
-	ability.description_full = "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
+	ability.description_short = "Whenever a unit under the effect of [color=GOLD]Soul Link[/color] dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
+	ability.description_full = "Whenever a unit under the effect of [color=GOLD]Soul Link[/color] dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
 	list.append(ability)
 
 	return list

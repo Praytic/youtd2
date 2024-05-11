@@ -53,7 +53,7 @@ func get_autocast_description() -> String:
 
 	var text: String = ""
 
-	text += "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies Corruption.\n" % [projectile_damage]
+	text += "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % projectile_damage_add

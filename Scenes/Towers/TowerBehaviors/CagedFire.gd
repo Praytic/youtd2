@@ -29,8 +29,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Melt"
 	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
-	ability.description_short = "The enormous heat of the caged fire damages nearby creeps and decreases their armor.\n"
-	ability.description_full = "The enormous heat of the caged fire decreases the armor of all creeps in %s range by %s and damages them by %s. Each second creeps in %s range around the caged fire lose %s extra armor and the fire damage will increase by %s.\n" % [aura_range, mod_armor, melt_damage, aura_range, periodic_mod_armor, periodic_melt_damage_increase] \
+	ability.description_short = "The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.\n"
+	ability.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %s range by %s and damages them by %s. Each second creeps in %s range around the caged fire lose %s extra armor and the fire damage will increase by %s.\n" % [aura_range, mod_armor, melt_damage, aura_range, periodic_mod_armor, periodic_melt_damage_increase] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s start armor reduction\n" % mod_armor_add \

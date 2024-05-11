@@ -15,8 +15,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var fungus_strike: AbilityInfo = AbilityInfo.new()
 	fungus_strike.name = "Fungus Strike"
 	fungus_strike.icon = "res://Resources/Icons/TowerIcons/QuillboarThornweaver.tres"
-	fungus_strike.description_short = "Casting Mystical Trance empowers the Mushroom and makes creeps weaker.\n"
-	fungus_strike.description_full = "After casting Mystical Trance the Mushroom's next attack will deal 100% of its damage as spell damage with an additional 20% chance to crit. Additionally makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
+	fungus_strike.description_short = "Casting [color=GOLD]Mystical Trance[/color] empowers the Mushroom and makes creeps weaker.\n"
+	fungus_strike.description_full = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will deal 100% of its damage as spell damage with an additional 20% chance to crit. Additionally makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% spell damage\n" \

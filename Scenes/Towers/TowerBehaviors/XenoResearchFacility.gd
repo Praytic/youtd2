@@ -44,7 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	sample.name = "Sample Collection"
 	sample.icon = "res://Resources/Icons/mechanical/alchemy_kit_01.tres"
 	sample.description_short = "Has a chance to collect a tissue sample from a damaged creep. Once researched, it will provide a bonus vs the race of that creep to nearby towers.\n"
-	sample.description_full = "Has a 25% chance to collect a tissue sample from a damaged creep. Once researched, it will provide a 5% bonus vs the race of that creep, through the Xeno Vulnerability Research aura. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
+	sample.description_full = "Has a 25% chance to collect a tissue sample from a damaged creep. Once researched, it will provide a 5% bonus vs the race of that creep, through the [color=GOLD]Xeno Vulnerability Research Aura[/color]. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% chance to collect sample\n" \
@@ -54,8 +54,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var aura: AbilityInfo = AbilityInfo.new()
 	aura.name = "Xeno Vulnerability Research - Aura"
 	aura.icon = "res://Resources/Icons/orbs/orb_green.tres"
-	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the Sample Collection. Stops working in the Bonus Level.\n"
-	aura.description_full = "Improves damage vs various creep races for all towers in 280 range. Improvement amount depends on the Sample Collection. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" \
+	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.\n"
+	aura.description_full = "Improves damage vs various creep races for all towers in 280 range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" \
 	+ " \n" \
 	+ "[color=GOLD]Note:[/color] For this tower, research overrides any and all other race modifications. So the race bonuses of this tower reflect the bonuses given by this aura.\n"
 	list.append(aura)

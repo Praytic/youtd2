@@ -8,6 +8,8 @@ var falcon_count: int = 0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
@@ -15,7 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.icon = "res://Resources/Icons/TowerIcons/HarpyWitch.tres"
 	ability.description_short = "On attack the Gate releases a magical falcon to hunt down its enemies.\n"
 	ability.description_full = "On attack the Gate releases a magical falcon to hunt down its enemies.\n" \
-	+ "The falcon deals energy damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5% less damage.\n" \
+	+ "The falcon deals %s damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5%% less damage.\n" % energy_string \
 	+ "There is a maximum of 1 falcon summoned at a time and a 20% chance to ignore the maximum.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -27,9 +29,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 
 func get_autocast_description() -> String:
+	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
+	
 	var text: String = ""
 
-	text += "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from astral towers by 1% of the falcon's current damage ratio.\n"
+	text += "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from %s towers by 1%% of the falcon's current damage ratio.\n" % astral_string
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.18 seconds\n"

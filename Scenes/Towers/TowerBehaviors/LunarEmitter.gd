@@ -18,13 +18,18 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var vuln: String = Utils.format_percent(_stats.vuln, 2)
 	var vuln_add: String = Utils.format_percent(_stats.vuln_add, 2)
 
+	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
+	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Moonlight - Aura"
 	ability.icon = "res://Resources/Icons/orbs/moon.tres"
-	ability.description_short = "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from Astral, Darkness, Ice and Storm towers.\n"
-	ability.description_full = "Reduces the spell resistance of enemies in %s range by %s and increases the vulnerability to damage from Astral, Darkness, Ice and Storm towers by %s.\n" % [aura_range, mod_spell_resist, vuln] \
+	ability.description_short = "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from %s, %s, %s and %s towers.\n" % [astral_string, darkness_string, ice_string, storm_string]
+	ability.description_full = "Reduces the spell resistance of enemies in %s range by %s and increases the vulnerability to damage from %s, %s, %s and %s towers by %s.\n" % [aura_range, mod_spell_resist, astral_string, darkness_string, ice_string, storm_string, vuln] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell resistance reduction\n" % mod_spell_resist_add \

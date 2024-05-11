@@ -34,6 +34,8 @@ var _dark_shroud_damage_dealt: float = 0.0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var dark_orbs: AbilityInfo = AbilityInfo.new()
@@ -61,7 +63,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	dark_shroud.name = "Dark Shroud - Aura"
 	dark_shroud.icon = "res://Resources/Icons/TowerIcons/Shadow.tres"
 	dark_shroud.description_short = "Towers in range have 10% of their damage output stolen by Shadow.\n"
-	dark_shroud.description_full = "Towers within 300 range have 10% of their damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of Decay damage. This damage cannot crit.\n" \
+	dark_shroud.description_full = "Towers within 300 range have 10%% of their damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of %s damage. This damage cannot crit.\n" % decay_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% damage dealt\n"

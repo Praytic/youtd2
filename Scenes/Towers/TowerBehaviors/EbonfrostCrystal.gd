@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var icicles: AbilityInfo = AbilityInfo.new()
 	icicles.name = "Icicles"
 	icicles.icon = "res://Resources/Icons/gems/gem_03.tres"
-	icicles.description_short = "Chance to create icicles which empower the tower and then fire at the target.\n"
-	icicles.description_full = "Attacks have a 15% chance and Icy Bombardments have a 5% chance to create an icicle on hit, which is stored and waits to be fired. Stored icicles passively increase attack damage by 5% and mana regen by 0.5 mana per second each. Maximum of 5 icicles. At maximum icicles, any more icicles created are instantly fired at the target. Each icicle deals 3000 Frostburn damage on hit and permanently increases the damage dealt by future icicles by this tower by 2%.\n" \
+	icicles.description_short = "Chance to create Icicles which empower the tower and then fire at the target.\n"
+	icicles.description_full = "Attacks have a 15% chance and [color=GOLD]Icy Bombardments[/color] have a 5% chance to create an Icicle on hit, which is stored and waits to be fired. Stored icicles passively increase attack damage by 5% and mana regen by 0.5 mana per second each. Maximum of 5 icicles. At maximum icicles, any more icicles created are instantly fired at the target. Each icicle deals 3000 [color=GOLD]Frostburn[/color] damage on hit and permanently increases the damage dealt by future Icicles by this tower by 2%.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance on attack\n" \
@@ -49,7 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	icy_bobmardment.name = "Icy Bombardment"
 	icy_bobmardment.icon = "res://Resources/Icons/trinkets/claw_03.tres"
 	icy_bobmardment.description_short = "Chance to fire a projectile at a random point which deals AoE damage.\n"
-	icy_bobmardment.description_full = "Attacks have a 15% chance to fire a projectile at a random point within 150 range of the attacked creep that deals 25% of current attack damage as Frostburn damage in 200 AoE splash. Each additional projectile has a 30% chance to fire another, up to a maximum of 4 per attack.\n" \
+	icy_bobmardment.description_full = "Attacks have a 15% chance to fire a projectile at a random point within 150 range of the attacked creep that deals 25% of current attack damage as [color=GOLD]Frostburn[/color] damage in 200 AoE splash. Each additional projectile has a 30% chance to fire another, up to a maximum of 4 per attack.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% initial chance\n" \
@@ -60,8 +60,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var frostburn: AbilityInfo = AbilityInfo.new()
 	frostburn.name = "Frostburn"
 	frostburn.icon = "res://Resources/Icons/fire/flame_blue_glowing.tres"
-	frostburn.description_short = "This tower's attacks and abilities deal Frostburn damage.\n"
-	frostburn.description_full = "This tower's attacks and abilities deal Frostburn damage. 50% of the damage is dealt immediately as attack damage. 100% of the remaining damage is dealt as spell damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration.\n" \
+	frostburn.description_short = "This tower's attacks and abilities deal [color=GOLD]Frostburn[/color] damage.\n"
+	frostburn.description_full = "This tower's attacks and abilities deal [color=GOLD]Frostburn[/color] damage. 50% of the damage is dealt immediately as attack damage. 100% of the remaining damage is dealt as spell damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage over time\n"

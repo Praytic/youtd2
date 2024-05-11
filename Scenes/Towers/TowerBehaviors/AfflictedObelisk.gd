@@ -26,15 +26,18 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var vuln_value: String = Utils.format_percent(_stats.vuln_value, 2)
 	var vuln_value_add: String = Utils.format_percent(_stats.vuln_value_add, 2)
+
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Slumbering Parasite"
 	ability.icon = "res://Resources/Icons/TowerIcons/NerubianQueen.tres"
-	ability.description_short = "This tower deals additional Decay damage after a short delay and increases target's vulnerability to Nature.\n"
-	ability.description_full = "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attackdamage as Decay damage to the target. Each parasite increases the creep's vulnerability to Nature towers by %s.\n" % vuln_value \
+	ability.description_short = "This tower deals additional %s damage after a short delay and increases target's vulnerability to %s.\n" % [decay_string, nature_string]
+	ability.description_full = "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attackdamage as %s damage to the target. Each parasite increases the creep's vulnerability to %s towers by %s.\n" % [decay_string, nature_string, vuln_value] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s Nature vulnerability\n" % vuln_value_add
+	+ "+%s %s vulnerability\n" % [vuln_value_add, nature_string]
 
 	list.append(ability)
 

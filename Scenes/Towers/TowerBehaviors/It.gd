@@ -26,22 +26,22 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var dark_ritual: AbilityInfo = AbilityInfo.new()
 	dark_ritual.name = "Dark Ritual"
 	dark_ritual.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
-	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in Recreation and Corruption Fields.\n"
-	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in Recreation and Corruption Fields. Creeps standing in the Corruption Field will be instantly teleported to the Recreation Field. This ability works only once per creep and doesn't affect bosses.\n"
+	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color].\n"
+	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color]. Creeps standing in the [color=GOLD]Corruption Field[/color] will be instantly teleported to the [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
 	+ " \n" \
-	+ "The Fields will also deal 3000 spell damage to all unfortunate enough to be standing in those areas\n" \
+	+ "The Fields will also deal 3000 spell damage to all unfortunate enough to be standing in those areas.\n" \
+	+ " \n" \
+	+ "1 sec cooldown.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+100 spelldamage\n" \
-	+ " \n" \
-	+ "NOTE: has a 1 sec cooldown\n"
+	+ "+100 spelldamage\n"
 	list.append(dark_ritual)
 
 	var hunger: AbilityInfo = AbilityInfo.new()
 	hunger.name = "It Hunger"
 	hunger.icon = "res://Resources/Icons/furniture/wooden_stand_with_nail.tres"
-	hunger.description_short = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains spelldamage.\n"
-	hunger.description_full = "Every time an enemy creep is transported by Dark Ritual or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n" \
+	hunger.description_short = "Every time an enemy creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains spelldamage.\n"
+	hunger.description_full = "Every time an enemy creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.01% spelldamage\n"
@@ -53,7 +53,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_recreation_description() -> String:
 	var text: String = ""
 
-	text += "Set up Recreation Field at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
+	text += "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 
 	return text
 
@@ -61,7 +61,7 @@ func get_autocast_recreation_description() -> String:
 func get_autocast_recreation_description_short() -> String:
 	var text: String = ""
 
-	text += "Set up Recreation Field at a chosen location.\n"
+	text += "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
 
 	return text
 
@@ -69,7 +69,7 @@ func get_autocast_recreation_description_short() -> String:
 func get_autocast_corruption_description() -> String:
 	var text: String = ""
 
-	text += "Set up Corruption Field at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
+	text += "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 
 	return text
 
@@ -77,7 +77,7 @@ func get_autocast_corruption_description() -> String:
 func get_autocast_corruption_description_short() -> String:
 	var text: String = ""
 
-	text += "Set up Corruption Field at a chosen location.\n"
+	text += "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
 
 	return text
 

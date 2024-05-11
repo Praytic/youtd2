@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Firestorm"
 	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
 	ability.description_short = "Attacks have a chance to cause repeating AoE spell damage.\n"
-	ability.description_full = "Attacks have a %s chance to apply 3 charges of Firestorm to the target. Each second, a charge will be spent, dealing %s spell damage to enemies in 300 range. If the target already has charges, the charges will accumulate and a charge will be consumed instantly. On death all remaining firestorm charges get consumed at once.\n" % [firestorm_chance, firestorm_damage] \
+	ability.description_full = "Attacks have a %s chance to apply 3 charges of [color=GOLD]Firestorm[/color] to the target. Each second, a charge will be spent, dealing %s spell damage to enemies in 300 range. If the target already has charges, the charges will accumulate and a charge will be consumed instantly. On death all remaining [color=GOLD]Firestorm[/color] charges get consumed at once.\n" % [firestorm_chance, firestorm_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % firestorm_chance_add \
@@ -32,15 +32,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	list.append(ability)
 
 	return list
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Firestorm[/color]\n"
-	text += ""
-
-	return text
 
 
 func load_triggers(triggers: BuffType):

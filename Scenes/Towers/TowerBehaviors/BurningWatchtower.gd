@@ -20,19 +20,20 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var explode_damage: String = Utils.format_float(_stats.explode_damage, 2)
 	var bonus_damage_add: String = Utils.format_float(_stats.bonus_damage_add, 2)
 	var bonus_damage_add_other: String = Utils.format_float(_stats.bonus_damage_add * 0.3, 2)
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
 
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burn"
 	ability.icon = "res://Resources/Icons/fire/torch.tres"
-	ability.description_short = "Let's fire towers deal more and more damage to the target, which will explode on death.\n"
-	ability.description_full = "Starts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [bonus_damage, bonus_damage_other, explode_damage] \
-	+ "Lasts 5 seconds after the last attack of a fire tower.\n" \
+	ability.description_short = "Let's %s towers deal more and more damage to the target, which will explode on death.\n" % [fire_string]
+	ability.description_full = "Starts to burn a target. On every further hit of a %s tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other %s towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [fire_string, bonus_damage, fire_string, bonus_damage_other, explode_damage] \
+	+ "Lasts 5 seconds after the last attack of a %s tower.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage gain (Burning Structrues)\n" % bonus_damage_add \
-	+ "+%s damage gain (Other fire towers)\n" % bonus_damage_add_other \
+	+ "+%s damage gain (Other %s towers)\n" % [bonus_damage_add_other, fire_string] \
 	+ "+0.12 seconds burn duration\n"
 	list.append(ability)
 

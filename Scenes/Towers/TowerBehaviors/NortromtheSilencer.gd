@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	last_word.name = "Last Word"
 	last_word.icon = "res://Resources/Icons/shields/shield_skull.tres"
 	last_word.description_short = "Nortrom deals more damage to silenced creeps.\n"
-	last_word.description_full = "If Nortrom attacks a silenced creep, then he does 20% more damage. This affects Glaives of Wisdom as well.\n" \
+	last_word.description_full = "If Nortrom attacks a silenced creep, then he does 20% more damage. This affects [color=GOLD]Glaives of Wisdom[/color] as well.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+3.2% damage\n"

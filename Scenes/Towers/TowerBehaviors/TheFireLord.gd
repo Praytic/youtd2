@@ -16,6 +16,8 @@ var liquid_fire_bt: BuffType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+
 	var list: Array[AbilityInfo] = []
 	
 	var hellfire: AbilityInfo = AbilityInfo.new()
@@ -35,12 +37,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	liquid_fire.name = "Liquid Fire"
 	liquid_fire.icon = "res://Resources/Icons/potions/potion_orange_03.tres"
 	liquid_fire.description_short = "When the Fire Lord damages a creep it will be set on fire.\n"
-	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from fire towers by 10%. The liquid fire lasts 5 seconds.\n" \
+	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from %s towers by 10%%. [color=GOLD]Liquid Fire[/color] lasts 5 seconds.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+50 spelldamage per second " \
 	+ "+0.1 seconds duration\n" \
-	+ "+0.4% bonus damage from fire\n"
+	+ "+0.4%% bonus damage from %s towers\n" % fire_string
 	list.append(liquid_fire)
 
 	return list

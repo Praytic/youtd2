@@ -44,7 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "The Manipulator creates a field of time that inflicts future injuries upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of Time Twist."
+	text += "The Manipulator creates a field of time that inflicts future injuries upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
 
 	return text
 

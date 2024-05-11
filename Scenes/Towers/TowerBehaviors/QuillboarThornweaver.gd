@@ -30,10 +30,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Occasional Quillspray"
 	ability.icon = "res://Resources/Icons/trinkets/claw_01.tres"
-	ability.description_short = "On attack this tower has a chance to trigger a Quillspray.\n"
-	ability.description_full = "On attack this tower has a %s chance to trigger a Quillspray.\n" % occasional_quillspray_chance \
+	ability.description_short = "On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].\n"
+	ability.description_full = "On attack this tower has a %s chance to trigger a [color=GOLD]Quillspray[/color].\n" % occasional_quillspray_chance \
 	+ " \n" \
-	+ "Hint: This Quillspray costs no mana.\n" \
+	+ "Hint: This [color=GOLD]Quillspray[/color] costs no mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % occasional_quillspray_chance_add
@@ -54,14 +54,14 @@ func get_autocast_description() -> String:
 
 	var text: String = ""
 
-	text += "This tower deals %s of its attack damage as physical damage to every unit in %s range around it. A creep hit by a Quillspray receives %s more damage than it did from the previous Quillspray, if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max]
+	text += "This tower deals %s of its attack damage as physical damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max]
 	text += " \n"
 	text += "Hint: Save mana to amplify the effect of this ability.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s base damage\n" % quillspray_damage_ratio_add
-	text += "%s chance to doublecast Quillsprays at level 15\n" % double_chance
-	text += "%s chance to triplecast Quillsprays at level 25\n" % triple_chance
+	text += "%s chance to doublecast [color=GOLD]Quillsprays[/color] at level 15\n" % double_chance
+	text += "%s chance to triplecast [color=GOLD]Quillsprays[/color] at level 25\n" % triple_chance
 
 	return text
 

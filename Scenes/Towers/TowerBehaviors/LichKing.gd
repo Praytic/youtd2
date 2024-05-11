@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	kings_authority.icon = "res://Resources/Icons/helmets/helmet_07.tres"
 	kings_authority.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
 	kings_authority.description_full = "The Lich King rules over every creep in 900 range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n" \
-	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [stored damage x 0.5] spelldamage.\n" \
+	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spelldamage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+20 damage per second\n" \

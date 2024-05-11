@@ -20,6 +20,8 @@ var leaf_storm_st: SpellType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
+	
 	var list: Array[AbilityInfo] = []
 	
 	var leaf_storm: AbilityInfo = AbilityInfo.new()
@@ -39,7 +41,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	thorned.name = "Thorned!"
 	thorned.icon = "res://Resources/Icons/TowerIcons/QuillboarThornweaver.tres"
 	thorned.description_short = "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
-	thorned.description_full = "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n" \
+	thorned.description_full = "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from %s towers by 30%%.\n" % nature_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.06 seconds duration\n" \

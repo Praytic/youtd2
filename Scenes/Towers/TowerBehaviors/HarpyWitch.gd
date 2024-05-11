@@ -35,6 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var twister_mod_storm_dmg: String = Utils.format_percent(_stats.twister_mod_storm_dmg, 2)
 	var twister_mod_storm_dmg_add: String = Utils.format_percent(_stats.twister_mod_storm_dmg_add, 2)
 	var twister_duration: String = Utils.format_float(TWISTER_DURATION, 2)
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -42,7 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Twister"
 	ability.icon = "res://Resources/Icons/TowerIcons/BrokenCircleofWind.tres"
 	ability.description_short = "Attacks have a chance to summon tornados towards two random creeps.\n"
-	ability.description_full = "Attacks have a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from Storm towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, twister_duration] \
+	ability.description_full = "Attacks have a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from %s towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, storm_string, twister_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % twister_chance_add \

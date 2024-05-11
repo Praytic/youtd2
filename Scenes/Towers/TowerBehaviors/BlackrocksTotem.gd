@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var shamanic_totem: AbilityInfo = AbilityInfo.new()
 	shamanic_totem.name = "Shamanic Totem"
 	shamanic_totem.icon = "res://Resources/Icons/undead/skull_doll.tres"
-	shamanic_totem.description_short = "Upon casting Demonic Fire there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
-	shamanic_totem.description_full = "Upon casting Demonic Fire there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n" \
+	shamanic_totem.description_short = "Upon casting [color=GOLD]Demonic Fire[/color] there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
+	shamanic_totem.description_full = "Upon casting [color=GOLD]Demonic Fire[/color] there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% spell damage\n" \

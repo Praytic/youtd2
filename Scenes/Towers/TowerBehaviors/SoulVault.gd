@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var acid_skull: AbilityInfo = AbilityInfo.new()
-	acid_skull.name = "Acid Skul"
+	acid_skull.name = "Acid Skull"
 	acid_skull.icon = "res://Resources/Icons/tower_variations/AshGeyser_green.tres"
 	acid_skull.description_short = "Chance to throw an Acid Skull onto the target and nearby units.\n"
 	acid_skull.description_full = "This tower has a 25% chance to throw an Acid Skull onto the target, dealing 1800 damage to the main target and 1440 damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \

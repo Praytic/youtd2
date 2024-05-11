@@ -16,6 +16,8 @@ var awaken_count: int = 0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
+
 	var list: Array[AbilityInfo] = []
 	
 	var soulfire: AbilityInfo = AbilityInfo.new()
@@ -32,15 +34,15 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var soul_consumption: AbilityInfo = AbilityInfo.new()
 	soul_consumption.name = "Soul Consumption"
 	soul_consumption.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
-	soul_consumption.description_short = "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies.\n"
-	soul_consumption.description_full = "When an enemy dies under the effect of Soulfire, Soulfire spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
+	soul_consumption.description_short = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies.\n"
+	soul_consumption.description_full = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
 	list.append(soul_consumption)
 
 	var evil_device: AbilityInfo = AbilityInfo.new()
 	evil_device.name = "Evil Device - Aura"
 	evil_device.icon = "res://Resources/Icons/mechanical/battery.tres"
-	evil_device.description_short = "Increases attack stats of nearby Common and Uncommon Darkness towers.\n"
-	evil_device.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Darkness towers in 350 range at a rate of 50%.\n" \
+	evil_device.description_short = "Increases attack stats of nearby Common and Uncommon %s towers.\n" % darkness_string
+	evil_device.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % darkness_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% stats\n"

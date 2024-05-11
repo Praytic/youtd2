@@ -50,16 +50,24 @@ func get_autocast_description() -> String:
 	var item_chance: String = Utils.format_percent(ITEM_CHANCE, 2)
 	var item_chance_add: String = Utils.format_percent(ITEM_CHANCE_ADD, 2)
 
+	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
+	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+	var iron_string: String = Element.convert_to_colored_string(Element.enm.IRON)
+
 	var text: String = ""
 
 	text += "One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:\n"
-	text += "+%s experience for Astral\n" % exp_received
-	text += "+%s spell damage for Darkness\n" % spell_damage
-	text += "+%s crit chance for Nature\n" % crit_chance
-	text += "+%s damage for Fire\n" % damage_add_perc
-	text += "+%s buff duration for Ice\n" % buff_duration
-	text += "+%s attack speed for Storm\n" % attackspeed
-	text += "+%s item chance for Iron\n" % item_chance
+	text += "+%s experience for %s\n" % [exp_received, astral_string]
+	text += "+%s spell damage for %s\n" % [spell_damage, darkness_string]
+	text += "+%s crit chance for %s\n" % [crit_chance, nature_string]
+	text += "+%s damage for %s\n" % [damage_add_perc, fire_string]
+	text += "+%s buff duration for %s\n" % [buff_duration, ice_string]
+	text += "+%s attack speed for %s\n" % [attackspeed, storm_string]
+	text += "+%s item chance for %s\n" % [item_chance, iron_string]
 	text += "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"

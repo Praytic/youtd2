@@ -28,6 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
 	var mod_dmg_from_fire: String = Utils.format_percent(_stats.mod_dmg_from_fire, 2)
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -35,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Incinerate"
 	ability.icon = "res://Resources/Icons/TowerIcons/AshGeyser.tres"
 	ability.description_short = "This tower's attacks set the target on fire.\n"
-	ability.description_full = "This tower's attacks set the target on fire. A burning creep takes %s more damage from Fire towers and receives %s spelldamage every second for 9 seconds.\n" % [mod_dmg_from_fire, periodic_damage] \
+	ability.description_full = "This tower's attacks set the target on fire. A burning creep takes %s more damage from %s towers and receives %s spelldamage every second for 9 seconds.\n" % [mod_dmg_from_fire, fire_string, periodic_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % periodic_damage_add \

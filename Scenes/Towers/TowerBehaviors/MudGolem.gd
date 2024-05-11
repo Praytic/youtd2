@@ -6,13 +6,15 @@ var slow_bt: BuffType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ground_smash: AbilityInfo = AbilityInfo.new()
 	ground_smash.name = "Ground Smash"
 	ground_smash.icon = "res://Resources/Icons/swords/greatsword_02.tres"
 	ground_smash.description_short = "Damages all creeps in range and slows them.\n"
-	ground_smash.description_full = "On damage this tower deals 4300 decay damage to all creeps in 750 range around it, slowing them by 60% for 0.5 seconds.\n" \
+	ground_smash.description_full = "On damage this tower deals 4300 %s damage to all creeps in 750 range around it, slowing them by 60%% for 0.5 seconds.\n" % decay_string\
 	+ " \n" \
 	+ "[color=GOLD]Hint:[/color] The damage of this ability is improved by spell damage.\n" \
 	+ " \n" \
@@ -25,8 +27,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var earthquake_aura: AbilityInfo = AbilityInfo.new()
 	earthquake_aura.name = "Earthquake Aura - Aura"
 	earthquake_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
-	earthquake_aura.description_short = "Towers in range have a chance to trigger Ground Smash.\n"
-	earthquake_aura.description_full = "Towers in 150 range around the Mud Golem have a 3% attackspeed adjusted chance on attack to trigger Ground Smash.\n" \
+	earthquake_aura.description_short = "Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].\n"
+	earthquake_aura.description_full = "Towers in 150 range around the Mud Golem have a 3% attackspeed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.04% chance\n"

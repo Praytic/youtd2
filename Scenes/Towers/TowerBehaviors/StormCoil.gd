@@ -7,6 +7,8 @@ var aura_bt: BuffType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
 	var list: Array[AbilityInfo] = []
 	
 	var overload: AbilityInfo = AbilityInfo.new()
@@ -19,8 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var energetic_field: AbilityInfo = AbilityInfo.new()
 	energetic_field.name = "Energetic Field"
 	energetic_field.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
-	energetic_field.description_short = "Units in range receive extra damage from Storm towers. Effect is stronger for creeps far away.\n"
-	energetic_field.description_full = "Units in 1000 range around this tower are dealt up to 20% bonus damage by Storm towers. The further away creeps are from tower, the more damage is dealt.\n" \
+	energetic_field.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
+	energetic_field.description_full = "Units in 1000 range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % storm_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% maximum damage\n"

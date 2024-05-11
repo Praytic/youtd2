@@ -73,7 +73,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "The [color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n" \
 	+ "The [color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n" \
-	+ "The [color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads Versatile's current dps bonus to towers in 175 range for 2.5 seconds.\n" \
+	+ "The [color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads [color=GOLD]Versatile's[/color] current dps bonus to towers in 175 range for 2.5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% double feed chance\n" \

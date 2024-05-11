@@ -31,7 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	arcane_aura.name = "Arcane Aura - Aura"
 	arcane_aura.icon = "res://Resources/Icons/TowerIcons/AstralRift.tres"
 	arcane_aura.description_short = "Towers in range have a chance to replenish their mana.\n"
-	arcane_aura.description_full = "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's Arcane Orb attacks, without the retrigger restriction.\n" \
+	arcane_aura.description_full = "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's [color=GOLD]Arcane Orb[/color] attacks, without the retrigger restriction.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \

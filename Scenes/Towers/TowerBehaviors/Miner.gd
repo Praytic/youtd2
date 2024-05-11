@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	goldrush.name = "Goldrush"
 	goldrush.icon = "res://Resources/Icons/gems/gem_01.tres"
 	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
-	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while in goldrush!\n" % [attackspeed_bonus, goldrush_gold] \
+	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attackspeed_bonus, goldrush_gold] \
 	+ " \n" \
 	+ "Hint: Check multiboard to view exact attack speed bonus\n" \
 	+ " \n" \

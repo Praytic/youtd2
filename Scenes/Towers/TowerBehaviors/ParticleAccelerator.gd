@@ -36,8 +36,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var errant: AbilityInfo = AbilityInfo.new()
 	errant.name = "Errant Tachyons"
 	errant.icon = "res://Resources/Icons/magic/fire.tres"
-	errant.description_short = "On kill, this tower is stunned and the bonus from Energy Acceleration is lost.\n"
-	errant.description_full = "On kill, this tower is stunned for %s seconds and the bonus from Energy Acceleration is lost.\n" % STUN_DURATION
+	errant.description_short = "On kill, this tower is stunned and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n"
+	errant.description_full = "On kill, this tower is stunned for %s seconds and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n" % STUN_DURATION
 	list.append(errant)
 
 	return list

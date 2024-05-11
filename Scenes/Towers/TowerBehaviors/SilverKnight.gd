@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	gold_gree.name = "Gold Gree"
 	gold_gree.icon = "res://Resources/Icons/misc/gold_cart.tres"
 	gold_gree.description_short = "On attack this tower deals spell damage which scales with current player gold.\n"
-	gold_gree.description_full = "On attack this tower deals [%s x squareroot (current gold)] spell damage to its target.\n" % gold_greed_value
+	gold_gree.description_full = "On attack this tower deals [color=GOLD][%s x squareroot (current gold)][/color] spell damage to its target.\n" % gold_greed_value
 	list.append(gold_gree)
 
 	return list
