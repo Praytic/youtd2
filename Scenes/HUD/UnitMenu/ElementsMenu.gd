@@ -84,3 +84,7 @@ func _on_button_pressed(element: Element.enm):
 
 func _on_roll_towers_button_pressed():
 	EventBus.player_requested_to_roll_towers.emit()
+
+
+func _on_close_button_pressed():
+	hide()
