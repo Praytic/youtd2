@@ -897,7 +897,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if _attack_style == AttackStyle.BOUNCE:
 		var bounce_attack: AbilityInfo = AbilityInfo.new()
 		bounce_attack.name = "Bounce Attack"
-		bounce_attack.icon = "res://Resources/Icons/rockets/rocket_06.tres"
+		bounce_attack.icon = "res://Resources/Icons/daggers/dagger_09.tres"
 		bounce_attack.description_full = _get_bounce_attack_description()
 		bounce_attack.description_short = bounce_attack.description_full
 		list.append(bounce_attack)
