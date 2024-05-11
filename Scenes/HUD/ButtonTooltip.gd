@@ -28,6 +28,15 @@ static func show_tooltip(button: Button, tooltip: String):
 	_tooltip_instance._show_tooltip(button, tooltip)
 
 
+static func get_current_target() -> Button:
+	if _tooltip_instance == null:
+		push_error("No tooltip instance")
+
+		return null
+		
+	return _tooltip_instance._current_button
+
+
 func _show_tooltip(button: Button, tooltip: String):
 	_clear_current_button()
 

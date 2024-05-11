@@ -8,11 +8,13 @@ signal stop_wave()
 @export var _error_message_container: VBoxContainer
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
+@export var _elements_menu: ElementsMenu
 @export var _elements_tower_menu: ElementTowersMenu
 @export var _item_stash_menu: ItemStashMenu
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard
+@export var _elements_menu_card: ButtonStatusCard
 @export var _top_left_menu: TopLeftMenu
 @export var _creep_menu: CreepMenu
 @export var _tower_menu: TowerMenu
@@ -132,6 +134,7 @@ func set_menu_unit(unit: Unit):
 
 func hide_roll_towers_button():
 	_elements_tower_menu.hide_roll_towers_button()
+	_elements_menu.hide_roll_towers_button()
 
 
 func connect_to_local_player(local_player: Player):
@@ -220,6 +223,7 @@ func _on_local_player_element_level_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var new_element_levels: Dictionary = local_player.get_element_level_map()
 	_elements_tower_menu.update_element_level(new_element_levels)
+	_elements_menu.update_element_level(new_element_levels)
 
 
 func _on_local_player_selected_builder():
@@ -306,3 +310,11 @@ func _on_unit_status_card_main_button_toggled(toggled_on: bool):
 	else:
 		_tower_menu.hide()
 		_creep_menu.hide()
+
+
+func _on_element_status_card_main_button_toggled(toggled_on):
+	_elements_menu.visible = toggled_on
+
+
+func _on_elements_menu_hidden():
+	_elements_menu_card.collapse()
