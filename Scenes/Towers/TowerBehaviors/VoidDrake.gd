@@ -7,7 +7,7 @@ var silence_bt: BuffType
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {mod_exp_gain = 0.50, mod_exp_gain_add = 0.06, mod_damage_add = 0.12, silence_duration = 1.25, silence_duration_add = 0.07, boss_silence_multiplier = 0.33, void_exp_loss = 0.010, void_exp_loss_add = 0.0002},
-		2: {mod_exp_gain = 0.80, mod_exp_gain_add = 0.10, mod_damage_add = 0.20, silence_duration = 1.25, silence_duration_add = 0.13, boss_silence_multiplier = 0.25, void_exp_loss = 0.015, void_exp_loss_add = 0.0003},
+		2: {mod_exp_gain = 0.80, mod_exp_gain_add = 0.10, mod_damage_add = 0.20, silence_duration = 1.75, silence_duration_add = 0.13, boss_silence_multiplier = 0.25, void_exp_loss = 0.015, void_exp_loss_add = 0.0003},
 	}
 
 
