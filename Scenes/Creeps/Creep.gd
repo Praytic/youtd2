@@ -323,20 +323,22 @@ func _deal_damage_to_portal():
 	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
 	var damage_done: float = get_damage_done()
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
-	var creep_size: CreepSize.enm = get_size()
+	var creep_size: CreepSize.enm = get_size_including_challenge_sizes()
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
 	var creep_score: float = get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
 	var player: Player = get_player()
 	
 	if creep_size == CreepSize.enm.BOSS:
-		Messages.add_normal(player, "[color=ORANGE_RED]Dealt %s damage to BOSS[/color]" % damage_done_string)
+		Messages.add_normal(player, "[color=ORANGE_RED]Dealt %s damage to a BOSS creep.[/color]" % damage_done_string)
 	else:
-		Messages.add_normal(player, "[color=ORANGE_RED]Failed to kill a %s[/color]" % creep_size_string.to_upper())		
+		Messages.add_normal(player, "[color=ORANGE_RED]Failed to kill a %s creep.[/color]" % creep_size_string.to_upper())
 
 	if damage_to_portal > 0:
 		Messages.add_normal(player, "[color=ORANGE_RED]You lose %s of your lives![/color]" % damage_to_portal_string)
 
+#	NOTE: creeps still give partial score if they are not
+#	killed. Ratio depends on creep health.
 	if creep_score > 0:
 		player.add_score(creep_score)
 
