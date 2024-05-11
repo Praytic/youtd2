@@ -78,7 +78,7 @@ func _get_player_stats_text() -> String:
 		var total_damage_string: String = TowerDetails.int_format(total_damage)
 
 		var gold: float = player.get_gold()
-		var gold_string: String = Utils.format_float(gold, 2)
+		var gold_string: String = Utils.format_float(gold, 0)
 		
 		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
 
