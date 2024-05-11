@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Rich[/color]\n"
-	text += "Whilst carried by a tower, this item increases the interest rate of the player by [0.4 x carrier's goldcost / 2500]%.\n"
+	text += "Whilst carried by a tower, this item increases the interest rate of the player by [color=GOLD][0.4 x carrier's goldcost / 2500]%[/color].\n"
 
 	return text
 

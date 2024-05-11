@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var hel_string: String = ArmorType.convert_to_colored_string(ArmorType.enm.HEL)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Unstable Current[/color]\n"
-	text += "Deals an additional 25% damage as spell damage against creeps with Hel armor.\n"
+	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % hel_string
 
 	return text
 

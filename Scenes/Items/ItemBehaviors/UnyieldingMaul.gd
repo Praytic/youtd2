@@ -15,7 +15,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Miss[/color]\n"
-	text += "The wielder has a 10% chance to miss an attack.\n"
+	text += "Makes the carrier miss 10% of attacks.\n"
 
 	return text
 

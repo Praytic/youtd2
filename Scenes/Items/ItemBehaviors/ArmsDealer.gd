@@ -9,7 +9,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]The Customer Is Boss[/color]\n"
-	text += "Bosses coming within 600 range of the carrier have a 25% chance to grant [25 + current wave] gold. Cannot trigger on the same boss twice.\n"
+	text += "Bosses coming within 600 range of the carrier have a 25% chance to grant [color=GOLD][25 + wave level][/color] gold. Cannot trigger on the same boss twice.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1 gold\n"

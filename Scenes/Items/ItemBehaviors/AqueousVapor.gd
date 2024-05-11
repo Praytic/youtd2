@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var myt_string: String = ArmorType.convert_to_colored_string(ArmorType.enm.MYT)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Piercing Magic[/color]\n"
-	text += "Deals an additional 25% damage as spell damage against creeps with Myt armor.\n"
+	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % myt_string
 
 	return text
 

@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Breath of Decay[/color]\n"
-	text += "On attack, this item can change the carrier's attacktype to Decay at the cost of 100 charges. Regenerates 50 charges per attack. This effect is not visible on the tower itself.\n"
+	text += "On attack, this item can change the carrier's attacktype to %s at the cost of 100 charges. Regenerates 50 charges per attack. This effect is not visible on the tower itself.\n" % decay_string
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1 charge regenerated\n"

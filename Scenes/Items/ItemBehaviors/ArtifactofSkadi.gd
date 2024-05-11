@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Skadi's Influence - Aura[/color]\n"
-	text += "Slows movementspeed of creeps in 800 range by 14%.\n"
+	text += "Slows movement speed of creeps in 800 range by 14%.\n"
 
 	return text
 

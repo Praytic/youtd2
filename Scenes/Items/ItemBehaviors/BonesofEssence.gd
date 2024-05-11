@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var sif_string: String = ArmorType.convert_to_colored_string(ArmorType.enm.SIF)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Bones of Essence[/color]\n"
-	text += "Increases the damage against creeps with the armor type sif by 25%.\n"
+	text += "Increases the damage against creeps with the armor type %s by 25%%.\n" % sif_string
 
 	return text
 

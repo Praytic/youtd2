@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var sol_string: String = ArmorType.convert_to_colored_string(ArmorType.enm.SOL)
+	
 	var text: String = ""
 
 	text += "[color=GOLD]Deep Shadows[/color]\n"
-	text += "Deals an additional 25% damage as spell damage against creeps with Sol armor.\n"
+	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % sol_string
 
 	return text
 

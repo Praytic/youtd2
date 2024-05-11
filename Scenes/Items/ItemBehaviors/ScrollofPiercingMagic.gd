@@ -2,10 +2,12 @@ extends ItemBehavior
 
 
 func get_ability_description() -> String:
+	var sif_string: String = ArmorType.convert_to_colored_string(ArmorType.enm.SIF)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Piercing Magic[/color]\n"
-	text += "Deals an additional 25% damage as spell damage against creeps with Sif armor.\n"
+	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % sif_string
 
 	return text
 

@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Drunk![/color]\n"
-	text += "On each attack this tower has a 10% chance to miss.\n"
+	text += "Makes the carrier miss 10% of attacks.\n"
 
 	return text
 

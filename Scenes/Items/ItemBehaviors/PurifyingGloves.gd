@@ -6,10 +6,13 @@ var stun_bt: BuffType
 
 
 func get_ability_description() -> String:
+	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
+	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Purify[/color]\n"
-	text += "Grants the carrier a 12.5% attackspeed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spelldamage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%. Undead and Orc creeps also get stunned for 0.5 seconds when hit by this beam.\n"
+	text += "Grants the carrier a 12.5%% attackspeed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spelldamage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
 
 	return text
 

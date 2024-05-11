@@ -5,7 +5,7 @@ func get_ability_description() -> String:
     var text: String = ""
 
     text += "[color=GOLD]Blindingly Polished Armor[/color]\n"
-    text += "This item shines so searingly that it grants [carrier's goldcost / 100]% bonus attack damage.\n"
+    text += "This item shines so searingly that it grants [color=GOLD][carrier's goldcost / 100]%[/color] bonus attack damage.\n"
 
     return text
 
