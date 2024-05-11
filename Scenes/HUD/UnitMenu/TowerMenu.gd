@@ -30,7 +30,8 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _buff_group_button_4: BuffGroupButton
 @export var _buff_group_button_5: BuffGroupButton
 @export var _buff_group_button_6: BuffGroupButton
-@export var _ability_container: GridContainer
+@export var _passive_ability_container: GridContainer
+@export var _active_ability_container: GridContainer
 
 var _selling_for_real: bool = false
 var _tower: Tower = null
@@ -128,20 +129,25 @@ func set_tower(tower: Tower):
 #########################
 
 func _setup_ability_buttons():
-	var prev_ability_button_list: Array = _ability_container.get_children()
-	for ability_button in prev_ability_button_list:
-		_ability_container.remove_child(ability_button)
-		ability_button.queue_free()
+	var prev_passive_button_list: Array = _passive_ability_container.get_children()
+	for button in prev_passive_button_list:
+		_passive_ability_container.remove_child(button)
+		button.queue_free()
+	
+	var prev_active_button_list: Array = _active_ability_container.get_children()
+	for button in prev_active_button_list:
+		_active_ability_container.remove_child(button)
+		button.queue_free()
 
 	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list()
 	
 	for ability_info in ability_info_list:
 		var button: AbilityButton = AbilityButton.make(ability_info)
-		_ability_container.add_child(button)
+		_passive_ability_container.add_child(button)
 
 	for autocast in _tower.get_autocast_list():
 		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
-		_ability_container.add_child(autocast_button)
+		_active_ability_container.add_child(autocast_button)
 
 
 func _get_specials_text(tower: Tower) -> String:
