@@ -121,3 +121,6 @@ const SCORE_TO_EXP: float = 0.002
 # NOTE: picked 1 upgrade every 4 levels so that it takes 7h
 # to unlock all upgrades.
 const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 4.0
+
+const TOMES_WARNING_THRESHOLD: int = 50
+const WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP: int = 100

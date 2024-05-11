@@ -530,5 +530,17 @@ func _on_wave_spawner_wave_finished(level: int):
 		var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
 		_tower_stash.add_towers(rolled_towers)
 		add_message_about_rolled_towers(rolled_towers)
-	
+
+#	Warn players if they have too many unspent knowledge
+#	tomes.
+#	NOTE: stop these warnings are a certain wave level is
+#	reached because after a certain point player would have
+#	research 2 elements to the max and these warnings would
+#	become annoying.
+	var current_tomes: int = get_tomes()
+	var too_many_tomes: bool = current_tomes >= Constants.TOMES_WARNING_THRESHOLD
+	var tome_warnings_are_stopped: bool = level >= Constants.WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP
+	if too_many_tomes && !tome_warnings_are_stopped:
+		Messages.add_normal(self, "[color=CORNFLOWER_BLUE]You have[/color] [color=GOLD]%d[/color] [color=CORNFLOWER_BLUE]unspent knowledge tomes. Make sure to spend them on researching elements![/color]" % current_tomes)
+
 	wave_finished.emit(level)
