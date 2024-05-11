@@ -52,7 +52,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func get_autocast_description_for_cloudy_thunderstorm() -> String:
 	var text: String = ""
 
-	text += "Summons a cloudy thunderstorm, which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds. This ability will activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. The autocast cannot be disabled.\n"
+	text += "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n"
+	text += " \n"
+	text += "This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.02 damage per current mana\n"
@@ -63,7 +65,7 @@ func get_autocast_description_for_cloudy_thunderstorm() -> String:
 func get_autocast_description_for_cloudy_thunderstorm_short() -> String:
 	var text: String = ""
 
-	text += "Summons a cloudy thunderstorm, which strikes random creeps in range.\n"
+	text += "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range.\n"
 
 	return text
 
@@ -71,7 +73,9 @@ func get_autocast_description_for_cloudy_thunderstorm_short() -> String:
 func get_autocast_description_for_adjust_threshold() -> String:
 	var text: String = ""
 
-	text += "Use this ability to adjust the percentual mana required for Cloudy Thunderstorm's autocast.\n"
+	text += "Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
+	text += " \n"
+	text += "You can check current threshold in Tower Details.\n"
 
 	return text
 
@@ -79,7 +83,7 @@ func get_autocast_description_for_adjust_threshold() -> String:
 func get_autocast_description_for_adjust_threshold_short() -> String:
 	var text: String = ""
 
-	text += "Use this ability to adjust the percentual mana required for Cloudy Thunderstorm's autocast.\n"
+	text += "Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
 
 	return text
 
@@ -134,7 +138,7 @@ func tower_init():
 	tower.add_autocast(autocast1)
 
 	var autocast2: Autocast = Autocast.make()
-	autocast2.title = "Adjust Autocast Threshold"
+	autocast2.title = "Adjust Thunderstorm Threshold"
 	autocast2.description = get_autocast_description_for_adjust_threshold()
 	autocast2.description_short = get_autocast_description_for_adjust_threshold_short()
 	autocast2.icon = "res://Resources/Icons/mechanical/compass.tres"
