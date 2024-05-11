@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+20 damage per second\n" \
-	+ "+[stored damage x 0.04] spelldamage\n"
+	+ "[color=GOLD]+[stored damage x 0.04][/color] spelldamage\n"
 	list.append(kings_authority)
 
 	return list
