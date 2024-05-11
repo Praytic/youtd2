@@ -1,4 +1,4 @@
-class_name ElementTowersMenu extends Control
+class_name ElementTowersMenu extends PanelContainer
 
 
 enum FilterType {

@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=3 uid="uid://bg77tobjy7jgy"]
+[gd_scene load_steps=17 format=3 uid="uid://bg77tobjy7jgy"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_615wr"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/ElementsMenu.gd" id="2_ge6sb"]
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="3_88yng"]
 [ext_resource type="Texture2D" uid="uid://63uq7vjycais" path="res://Resources/Icons/elements/ice.tres" id="4_4o70r"]
@@ -15,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Icons/hud/dice.tres" id="10_qe6ob"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="10_wf4k3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touq2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6gup"]
 content_margin_left = 20.0
@@ -34,145 +33,128 @@ atlas = ExtResource("7_yfjau")
 region = Rect2(896, 0, 128, 128)
 
 [node name="ElementsMenu" type="PanelContainer" node_paths=PackedStringArray("_ice_button", "_fire_button", "_nature_button", "_darkness_button", "_iron_button", "_astral_button", "_storm_button", "_roll_towers_button", "_empty_unit_button_to_replace_roll_towers")]
+custom_minimum_size = Vector2(630, 850)
 offset_right = 630.0
-offset_bottom = 890.0
-size_flags_horizontal = 8
-size_flags_vertical = 4
-mouse_force_pass_scroll_events = false
-theme = ExtResource("1_615wr")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
+offset_bottom = 850.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_touq2")
 script = ExtResource("2_ge6sb")
-_ice_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/IceButton")
-_fire_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/FireButton")
-_nature_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/NatureButton")
-_darkness_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/DarknessButton")
-_iron_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/IronButton")
-_astral_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/AstralButton")
-_storm_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/StormButton")
-_roll_towers_button = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/RollTowersButton")
-_empty_unit_button_to_replace_roll_towers = NodePath("MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/EmptyButtonToReplaceRollTowers")
+_ice_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/IceButton")
+_fire_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/FireButton")
+_nature_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/NatureButton")
+_darkness_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/DarknessButton")
+_iron_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/IronButton")
+_astral_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/AstralButton")
+_storm_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/StormButton")
+_roll_towers_button = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/RollTowersButton")
+_empty_unit_button_to_replace_roll_towers = NodePath("TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/EmptyButtonToReplaceRollTowers")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-
-[node name="MainContainer" type="VBoxContainer" parent="MarginContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MainContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TabContainer" type="TabContainer" parent="MarginContainer2/MainContainer/MarginContainer"]
-custom_minimum_size = Vector2(622, 812)
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 tabs_visible = false
 
-[node name="MainTab" type="VBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer"]
+[node name="MainTab" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="InfoContainer2" type="PanelContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab"]
-custom_minimum_size = Vector2(0, 170)
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/MainTab/MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MainTab/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 columns = 4
 
-[node name="DarknessButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="DarknessButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("4_6xdvu")
 
-[node name="FireButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="FireButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("5_7kvqd")
 
-[node name="EmptyUnitButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("4_lmqy2")]
+[node name="EmptyUnitButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("4_lmqy2")]
 layout_mode = 2
 theme_type_variation = &"UnitButton"
 
-[node name="EmptyUnitButton3" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("4_lmqy2")]
+[node name="EmptyUnitButton3" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("4_lmqy2")]
 layout_mode = 2
 theme_type_variation = &"UnitButton"
 
-[node name="NatureButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="NatureButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("7_ogjdt")
 
-[node name="StormButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="StormButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("8_7t7v5")
 
-[node name="IronButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="IronButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("9_kb0cq")
 
-[node name="EmptyButtonToReplaceRollTowers" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("4_lmqy2")]
+[node name="EmptyButtonToReplaceRollTowers" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("4_lmqy2")]
 visible = false
 layout_mode = 2
 theme_type_variation = &"UnitButton"
 
-[node name="RollTowersButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="RollTowersButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 tooltip_text = "Roll a random set of starting towers. You can reroll if you don't like the initial towers but each time you will get less towers."
 icon = ExtResource("10_qe6ob")
 
-[node name="AstralButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="AstralButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("10_41iut")
 
-[node name="IceButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("3_88yng")]
+[node name="IceButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
 icon = ExtResource("4_4o70r")
 
-[node name="EmptyUnitButton2" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("4_lmqy2")]
+[node name="EmptyUnitButton2" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("4_lmqy2")]
 layout_mode = 2
 theme_type_variation = &"UnitButton"
 
-[node name="EmptyUnitButton4" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer" instance=ExtResource("4_lmqy2")]
+[node name="EmptyUnitButton4" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("4_lmqy2")]
 layout_mode = 2
 theme_type_variation = &"UnitButton"
-
-[node name="TitleLabel" type="Label" parent="."]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
-text = "Elements"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = -15
 
-[node name="CloseButton" type="Button" parent="MarginContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
+text = "Elements"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="."]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 focus_mode = 0
 theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_wh5fy")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/InfoContainer2/MarginContainer2/HBoxContainer/GridContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
-[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
