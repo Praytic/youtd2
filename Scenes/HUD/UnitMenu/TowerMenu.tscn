@@ -580,8 +580,12 @@ vertical_alignment = 1
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = -50
 
 [node name="BuffContainer" parent="MarginContainer3" instance=ExtResource("13_b0jes")]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 columns = 12
 
