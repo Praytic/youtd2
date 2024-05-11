@@ -574,9 +574,14 @@ func _get_splash_attack_description() -> String:
 
 
 func _get_bounce_attack_description() -> String:
-	var bounce_dmg_percent: String = Utils.format_percent(_bounce_damage_multiplier, 0)
-	var text: String = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max \
-	+ "[color=GOLD]-%s[/color] damage per bounce\n" % bounce_dmg_percent
+	var text: String
+
+	if _bounce_damage_multiplier != 0:
+		var bounce_dmg_percent: String = Utils.format_percent(_bounce_damage_multiplier, 0)
+		text = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max \
+		+ "[color=GOLD]-%s[/color] damage per bounce\n" % bounce_dmg_percent
+	else:
+		text = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max
 
 	return text
 
