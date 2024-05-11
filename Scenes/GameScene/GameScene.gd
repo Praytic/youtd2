@@ -171,11 +171,11 @@ func _ready():
 #	In random modes, it's better to filter by rarity because
 #	a small amount of towers is randomly distributed after
 #	each wave.
-	var tower_stash_filter_type: ElementTowersMenu.FilterType
+	var tower_stash_filter_type: TowerStashMenu.FilterType
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
-		tower_stash_filter_type = ElementTowersMenu.FilterType.ELEMENT
+		tower_stash_filter_type = TowerStashMenu.FilterType.ELEMENT
 	else:
-		tower_stash_filter_type = ElementTowersMenu.FilterType.RARITY
+		tower_stash_filter_type = TowerStashMenu.FilterType.RARITY
 	_hud.set_tower_stash_filter_type(tower_stash_filter_type)
 
 	var test_item_list: Array = Config.test_item_list()

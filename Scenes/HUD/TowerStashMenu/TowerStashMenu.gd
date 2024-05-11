@@ -1,4 +1,4 @@
-class_name ElementTowersMenu extends PanelContainer
+class_name TowerStashMenu extends PanelContainer
 
 
 enum FilterType {
@@ -20,7 +20,7 @@ var _filter_type: FilterType = FilterType.RARITY
 ###       Public      ###
 #########################
 
-func set_filter_type(filter_type: ElementTowersMenu.FilterType):
+func set_filter_type(filter_type: TowerStashMenu.FilterType):
 	_filter_type = filter_type
 	
 	_rarity_filter.visible = filter_type == FilterType.RARITY

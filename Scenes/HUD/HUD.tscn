@@ -15,13 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://cnavhmlpsk00o" path="res://Scenes/HUD/UnitMenu/CreepMenu.tscn" id="12_32wi7"]
 [ext_resource type="PackedScene" uid="uid://csayw0jxo1omx" path="res://Scenes/HUD/UnitStatusCard.tscn" id="12_rwl1n"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
-[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.tscn" id="15_eivr8"]
+[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://Scenes/HUD/TowerStashMenu/TowerStashMenu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
 [ext_resource type="PackedScene" uid="uid://c41f2x03lnjw6" path="res://Scenes/HUD/UnitMenu/TowerMenu.tscn" id="16_1o1mr"]
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://Scenes/HUD/UnitMenu/ElementsMenu.tscn" id="17_bxii1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_elements_tower_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_elements_menu_card", "_top_left_menu", "_creep_menu", "_tower_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_elements_menu_card", "_top_left_menu", "_creep_menu", "_tower_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxContainer/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
 _elements_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu")
-_elements_tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu")
+_tower_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu")
 _item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu")
 _towers_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard")
 _items_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard")
@@ -261,7 +261,7 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
+[node name="TowerStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
@@ -383,5 +383,5 @@ text = "placeholder"
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerMenu" to="." method="_on_tower_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/CreepMenu" to="." method="_on_creep_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
-[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_element_towers_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu" to="." method="_on_tower_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu" to="." method="_on_elements_menu_hidden"]

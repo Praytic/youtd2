@@ -9,7 +9,7 @@ signal stop_wave()
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
 @export var _elements_menu: ElementsMenu
-@export var _elements_tower_menu: ElementTowersMenu
+@export var _tower_stash_menu: TowerStashMenu
 @export var _item_stash_menu: ItemStashMenu
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
@@ -23,7 +23,7 @@ signal stop_wave()
 @export var _chat_line_edit: LineEdit
 @export var _desync_label: Label
 
-@onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _tower_menu, _creep_menu]
+@onready var _window_list: Array = [_tower_stash_menu, _item_stash_menu, _tower_menu, _creep_menu]
 
 
 #########################
@@ -65,8 +65,8 @@ func _ready():
 ###       Public      ###
 #########################
 
-func set_tower_stash_filter_type(filter_type: ElementTowersMenu.FilterType):
-	_elements_tower_menu.set_filter_type(filter_type)
+func set_tower_stash_filter_type(filter_type: TowerStashMenu.FilterType):
+	_tower_stash_menu.set_filter_type(filter_type)
 
 
 func show_desync_message(message: String):
@@ -209,7 +209,7 @@ func _on_local_player_tower_stash_changed():
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	var towers: Dictionary = tower_stash.get_towers()
 	
-	_elements_tower_menu.set_towers(towers)
+	_tower_stash_menu.set_towers(towers)
 	_towers_menu_card.set_towers(towers)
 
 
@@ -219,13 +219,13 @@ func _on_local_team_level_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var local_team: Team = local_player.get_team()
 	var level: int = local_team.get_level()
-	_elements_tower_menu.update_level(level)
+	_tower_stash_menu.update_level(level)
 
 
 func _on_local_player_element_level_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var new_element_levels: Dictionary = local_player.get_element_level_map()
-	_elements_tower_menu.update_element_level(new_element_levels)
+	_tower_stash_menu.update_element_level(new_element_levels)
 	_elements_menu.update_element_level(new_element_levels)
 
 
@@ -253,7 +253,7 @@ func _on_tower_menu_hidden():
 	_unit_status_menu_card.collapse()
 
 
-func _on_element_towers_menu_hidden():
+func _on_tower_stash_menu_hidden():
 	_towers_menu_card.collapse()
 
 
@@ -295,7 +295,7 @@ func any_window_is_open() -> bool:
 
 
 func _on_towers_status_card_main_button_toggled(toggled_on: bool):
-	_elements_tower_menu.visible = toggled_on
+	_tower_stash_menu.visible = toggled_on
 
 
 func _on_items_status_card_main_button_toggled(toggled_on: bool):
