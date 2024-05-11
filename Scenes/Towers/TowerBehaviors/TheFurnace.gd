@@ -16,13 +16,20 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var uncontrollable: AbilityInfo = AbilityInfo.new()
 	uncontrollable.name = "Uncontrollable Flames"
-	uncontrollable.icon = "res://Resources/Icons/elements/fire.tres"
+	uncontrollable.icon = "res://Resources/Icons/hud/dice.tres"
 	uncontrollable.description_short = "The tower attacks a random enemy in range with each attack.\n"
-	uncontrollable.description_full = "The tower attacks a random enemy in range with each attack. Enemies hit are inflicted with Lingering Flame, dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
+	uncontrollable.description_full = "The tower attacks a random enemy in range with each attack.\n"
+	list.append(uncontrollable)
+
+	var lingering: AbilityInfo = AbilityInfo.new()
+	lingering.name = "Lingering Flame"
+	lingering.icon = "res://Resources/Icons/fire/fire_bowl_01.tres"
+	lingering.description_short = "The tower attacks a random enemy in range with each attack.\n"
+	lingering.description_full = "Enemies hit are inflicted with Lingering Flame, dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 spell damage\n"
-	list.append(uncontrollable)
+	list.append(lingering)
 
 	var flames_aura: AbilityInfo = AbilityInfo.new()
 	flames_aura.name = "Flames of the Forge - Aura"
@@ -36,7 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var feed: AbilityInfo = AbilityInfo.new()
 	feed.name = "Feed the Flames"
-	feed.icon = "res://Resources/Icons/hud/dice.tres"
+	feed.icon = "res://Resources/Icons/elements/fire.tres"
 	feed.description_short = "This tower fuels itself in various ways, restoring mana and raising maximum mana.\n"
 	feed.description_full = "This tower fuels itself in various ways. Gains 1% of maximum mana on attack. Whenever Lingering Flame deals damage, there is a 20% chance to gain 0.5% of maximum mana per stack. On kill, gains 4% of total mana and maximum mana is increased by 10.\n" \
 	+ " \n" \

@@ -23,6 +23,20 @@ var summoner_units: Dictionary = {}
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
+	var dark_ritual: AbilityInfo = AbilityInfo.new()
+	dark_ritual.name = "Dark Ritual"
+	dark_ritual.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
+	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in Recreation and Corruption Fields.\n"
+	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in Recreation and Corruption Fields. Creeps standing in the Corruption Field will be instantly teleported to the Recreation Field. This ability works only once per creep and doesn't affect bosses.\n"
+	+ " \n" \
+	+ "The Fields will also deal 3000 spell damage to all unfortunate enough to be standing in those areas\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+100 spelldamage\n" \
+	+ " \n" \
+	+ "NOTE: has a 1 sec cooldown\n"
+	list.append(dark_ritual)
+
 	var hunger: AbilityInfo = AbilityInfo.new()
 	hunger.name = "It Hunger"
 	hunger.icon = "res://Resources/Icons/furniture/wooden_stand_with_nail.tres"
@@ -32,18 +46,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.01% spelldamage\n"
 	list.append(hunger)
-
-	var dark_ritual: AbilityInfo = AbilityInfo.new()
-	dark_ritual.name = "Dark Ritual"
-	dark_ritual.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
-	dark_ritual.description_short = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields.\n"
-	dark_ritual.description_full = "When this tower attacks, it awakens the powerful dark magic in Recreation and Corruption Fields, dealing 3000 spelldamage to all creeps unfortunate enough to be standing in those areas. If a non-boss enemy in Corruption Field is affected by Dark Ritual for the first time, it will be immediately transported to Recreation Field.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+100 spelldamage\n" \
-	+ " \n" \
-	+ "NOTE: has a 1 sec cooldown\n"
-	list.append(dark_ritual)
 
 	return list
 

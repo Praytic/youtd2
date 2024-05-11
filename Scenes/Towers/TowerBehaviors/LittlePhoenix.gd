@@ -24,34 +24,50 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 3)
 	var debuff_duration: String = Utils.format_float(DEBUFF_DURATION, 2)
 
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Phoenixfire"
-	ability.icon = "res://Resources/Icons/orbs/orb_molten.tres"
-	ability.description_short = "The Phoenix attacks up multiple targets at once and melts their armor.\n"
-	ability.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. The armor of attacked creeps melts, reducing it by %s for %s seconds. This buff is stackable.\n" % [target_count, mod_armor, debuff_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s armor reduction\n" % mod_armor_add \
-	+ "+1 target at level 15\n"
-	list.append(ability)
-
-	return list
-
-
-func get_autocast_description() -> String:
 	var erupt_damage: String = Utils.format_float(_stats.erupt_damage, 2)
 	var erupt_range: String = Utils.format_float(ERUPT_RANGE, 2)
 	var armor_regain: String = Utils.format_percent(_stats.armor_regain, 2)
 	var armor_regain_add: String = Utils.format_percent(_stats.armor_regain_add, 2)
 
+	var list: Array[AbilityInfo] = []
+	
+	var twin_attack: AbilityInfo = AbilityInfo.new()
+	twin_attack.name = "Twin Attack"
+	twin_attack.icon = "res://Resources/Icons/bows/arrow_02.tres"
+	twin_attack.description_short = "The Phoenix attacks up multiple targets at once.\n"
+	twin_attack.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target.\n" % [target_count] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1 target at level 15\n"
+	list.append(twin_attack)
+
+	var phoenixfire: AbilityInfo = AbilityInfo.new()
+	phoenixfire.name = "Phoenixfire"
+	phoenixfire.icon = "res://Resources/Icons/orbs/orb_molten.tres"
+	phoenixfire.description_short = "The Phoenix melts their armor.\n"
+	phoenixfire.description_full = "The Phoenix melts the armor of attacked creeps, reducing it by %s for %s seconds. This buff is stackable.\n" % [mod_armor, debuff_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s armor reduction\n" % mod_armor_add
+	list.append(phoenixfire)
+
+	var phoenix_explosion: AbilityInfo = AbilityInfo.new()
+	phoenix_explosion.name = "Phoenix Explosion"
+	phoenix_explosion.icon = "res://Resources/Icons/elements/fire.tres"
+	phoenix_explosion.description_short = "When Phoenixfire expires, it erupts and deals AoE damage."
+	phoenix_explosion.description_full = "When Phoenixfire expires, it erupts and deals %s elemental damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, erupt_range, armor_regain] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-%s armor regain\n" % armor_regain_add
+	list.append(phoenix_explosion)
+
+	return list
+
+
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "When Phoenixfire expires, it erupts and deals %s elemental damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage. This ability can be cast to make Phoenixfire expire immediately.\n" % [erupt_damage, erupt_range, armor_regain]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-%s armor regain\n" % armor_regain_add
+	text += "Explodes all creeps affected by Phoenixfire, triggering the Phoenix Explosion ability. Phoenixfire debuff expires after explosion.\n"
 
 	return text
 
@@ -59,7 +75,7 @@ func get_autocast_description() -> String:
 func get_autocast_description_short() -> String:
 	var text: String = ""
 
-	text += "When Phoenixfire expires, it erupts and deals AoE damage.\n"
+	text += "Explodes all creeps affected by Phoenixfire.\n"
 
 	return text
 

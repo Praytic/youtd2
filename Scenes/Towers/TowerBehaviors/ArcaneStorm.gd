@@ -20,17 +20,6 @@ var manastorm_st: SpellType
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
-	var surge: AbilityInfo = AbilityInfo.new()
-	surge.name = "Surge"
-	surge.icon = "res://Resources/Icons/scrolls/scroll_08.tres"
-	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
-	surge.description_full = "The tower's main attacks have a 1% chance per Attraction stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's Attraction stacks. Can only hit each target once and benefits from Mana Storm's damage bonus.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.02% chance per stack\n" \
-	+ "+4% attack damage\n"
-	list.append(surge)
-
 	var arcane_attraction: AbilityInfo = AbilityInfo.new()
 	arcane_attraction.name = "Arcane Attraction"
 	arcane_attraction.icon = "res://Resources/Icons/trinkets/trinket_10.tres"
@@ -41,6 +30,17 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+10 range\n" \
 	+ "+0.4% attack damage per stack\n"
 	list.append(arcane_attraction)
+	
+	var surge: AbilityInfo = AbilityInfo.new()
+	surge.name = "Surge"
+	surge.icon = "res://Resources/Icons/scrolls/scroll_08.tres"
+	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
+	surge.description_full = "The tower's main attacks have a 1% chance per Attraction stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's Attraction stacks. Can only hit each target once and benefits from Mana Storm's damage bonus.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.02% chance per stack\n" \
+	+ "+4% attack damage\n"
+	list.append(surge)
 
 	var mana_storm: AbilityInfo = AbilityInfo.new()
 	mana_storm.name = "Mana Storm"

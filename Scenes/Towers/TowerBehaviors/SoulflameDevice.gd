@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	soulfire.name = "Soulfire"
 	soulfire.icon = "res://Resources/Icons/fire/flame_purple.tres"
 	soulfire.description_short = "Chance to ignite the enemy's soul.\n"
-	soulfire.description_full = "Attacks hit up to 8 enemies in range and have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
+	soulfire.description_full = "Attacks have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
@@ -40,7 +40,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	evil_device.name = "Evil Device - Aura"
 	evil_device.icon = "res://Resources/Icons/mechanical/battery.tres"
 	evil_device.description_short = "Increases attack stats of nearby Common and Uncommon Darkness towers.\n"
-
 	evil_device.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon Darkness towers in 350 range at a rate of 50%.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

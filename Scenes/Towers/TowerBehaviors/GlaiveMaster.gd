@@ -31,6 +31,16 @@ var glaivesaw_list: Array[Glaivesaw] = []
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
+	var lacerate: AbilityInfo = AbilityInfo.new()
+	lacerate.name = "Lacerate"
+	lacerate.icon = "res://Resources/Icons/daggers/dagger_07.tres"
+	lacerate.description_short = "This tower's attacks and abilities deal Lacerate damage.\n"
+	lacerate.description_full = "This tower's attacks and abilities deal Lacerate damage. 50% of Lacerate damage is dealt immediately as Physical damage. 100% of the remaining damage is dealt as Decay damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage over time\n"
+	list.append(lacerate)
+
 	var glaive_storm: AbilityInfo = AbilityInfo.new()
 	glaive_storm.name = "Glaive Storm"
 	glaive_storm.icon = "res://Resources/Icons/daggers/dagger_02.tres"
@@ -52,16 +62,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.6% chance\n" \
 	+ "+6% damage\n"
 	list.append(bounder)
-
-	var lacerate: AbilityInfo = AbilityInfo.new()
-	lacerate.name = "Lacerate"
-	lacerate.icon = "res://Resources/Icons/daggers/dagger_07.tres"
-	lacerate.description_short = "This tower's attacks and abilities deal Lacerate damage.\n"
-	lacerate.description_full = "This tower's attacks and abilities deal Lacerate damage. 50% of Lacerate damage is dealt immediately as Physical damage. 100% of the remaining damage is dealt as Decay damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% damage over time\n"
-	list.append(lacerate)
 
 	return list
 

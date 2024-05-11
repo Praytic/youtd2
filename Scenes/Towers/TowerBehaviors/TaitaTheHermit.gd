@@ -13,16 +13,6 @@ var frostbolt_pt: ProjectileType
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
-	var frost_bolt: AbilityInfo = AbilityInfo.new()
-	frost_bolt.name = "Frost Bolt"
-	frost_bolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
-	frost_bolt.description_short = "Chance to launch a frost bolt, dealing AoE damage around the target.\n"
-	frost_bolt.description_full = "On attack, this tower has a chance, equal to the percentage of movement speed the attacked unit is missing, to launch a frost bolt, dealing 20% of the tower's attack damage as elemental damage in 200 AoE around the target for each stack of icy touch the creep has. This spell deals double damage to stunned targets.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% damage per stack\n"
-	list.append(frost_bolt)
-
 	var icy_touch: AbilityInfo = AbilityInfo.new()
 	icy_touch.name = "Icy Touch"
 	icy_touch.icon = "res://Resources/Icons/gloves/gloves_07.tres"
@@ -32,6 +22,16 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% damage per stack\n"
 	list.append(icy_touch)
+	
+	var frost_bolt: AbilityInfo = AbilityInfo.new()
+	frost_bolt.name = "Frost Bolt"
+	frost_bolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
+	frost_bolt.description_short = "Chance to launch a frost bolt, dealing AoE damage around the target.\n"
+	frost_bolt.description_full = "On attack, this tower has a chance, equal to the percentage of movement speed the attacked unit is missing, to launch a frost bolt, dealing 20% of the tower's attack damage as elemental damage in 200 AoE around the target for each stack of icy touch the creep has. This spell deals double damage to stunned targets.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% damage per stack\n"
+	list.append(frost_bolt)
 
 	var cold_blood: AbilityInfo = AbilityInfo.new()
 	cold_blood.name = "Cold Blood"

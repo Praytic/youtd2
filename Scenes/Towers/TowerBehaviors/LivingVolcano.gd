@@ -9,6 +9,13 @@ var lava_pt: ProjectileType
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
+	var heat_aura: AbilityInfo = AbilityInfo.new()
+	heat_aura.name = "Heat Aura"
+	heat_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
+	heat_aura.description_short = "Burns every enemy in range.\n"
+	heat_aura.description_full = "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
+	list.append(heat_aura)
+
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
 	heat_stroke.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
@@ -29,13 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+5 AoE\n" \
 	+ "+100 damage\n"
 	list.append(lava_attack)
-
-	var heat_aura: AbilityInfo = AbilityInfo.new()
-	heat_aura.name = "Heat Aura - Aura"
-	heat_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
-	heat_aura.description_short = "Burns every enemy in range.\n"
-	heat_aura.description_full = "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
-	list.append(heat_aura)
 
 	return list
 

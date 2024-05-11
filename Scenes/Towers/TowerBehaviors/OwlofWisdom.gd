@@ -21,16 +21,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var energyball_dmg_exp_scale: String = Utils.format_float(_stats.energyball_dmg_exp_scale, 2)
 
 	var list: Array[AbilityInfo] = []
-	
-	var weak_spots: AbilityInfo = AbilityInfo.new()
-	weak_spots.name = "Weak Spots"
-	weak_spots.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
-	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
-	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's Energyball deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % dmg_ratio_for_immune_add
-	list.append(weak_spots)
 
 	var energyball: AbilityInfo = AbilityInfo.new()
 	energyball.name = "Energyball"
@@ -42,6 +32,16 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+%s AoE range\n" % energyball_radius_add \
 	+ "+0.4% chance\n"
 	list.append(energyball)
+
+	var weak_spots: AbilityInfo = AbilityInfo.new()
+	weak_spots.name = "Weak Spots"
+	weak_spots.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
+	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
+	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's Energyball deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % dmg_ratio_for_immune_add
+	list.append(weak_spots)
 
 	var energy_detection: AbilityInfo = AbilityInfo.new()
 	energy_detection.name = "Energy Detection"
