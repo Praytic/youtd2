@@ -28,6 +28,8 @@ static func execute(_action: Dictionary, player: Player):
 	var remaining_roll_count: int = player.get_tower_count_for_starting_roll()
 	Messages.add_normal(player, "You have [color=GOLD]%d[/color] rerolls remaining." % remaining_roll_count)
 
+	EventBus.local_player_rolled_towers.emit()
+
 
 static func verify(player: Player) -> bool:
 	var researched_any_elements: bool = false

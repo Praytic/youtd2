@@ -50,6 +50,8 @@ func _ready():
 	HighlightUI.register_target("unit_status_menu_button", unit_status_menu_button)
 	unit_status_menu_button.pressed.connect(func(): 	EventBus.player_performed_tutorial_advance_action.emit("press_unit_status_button"))
 	
+	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
+
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
@@ -321,3 +323,10 @@ func _on_element_status_card_main_button_toggled(toggled_on):
 
 func _on_elements_menu_hidden():
 	_elements_menu_card.collapse()
+
+
+# Manually press status button for tower stash menu to
+# switch to tower stash menu after rolling towers.
+func _on_local_player_rolled_towers():
+	var tower_status_button: Button = _towers_menu_card.get_main_button()
+	tower_status_button.set_pressed(true)
