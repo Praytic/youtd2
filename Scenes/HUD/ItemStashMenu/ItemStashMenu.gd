@@ -121,12 +121,20 @@ func _load_current_filter():
 # currently available for autofill
 func _update_autofill_buttons():
 	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
-	var visible_item_list: Array[Item] = _get_visible_item_list()
+	var visible_items_in_item_stash: Array[Item] = _get_visible_item_list()
 	
+	var local_player: Player = PlayerManager.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var items_in_horadric_stash: Array[Item] = horadric_stash.get_item_list()
+
+	var available_items: Array[Item] = []
+	available_items.append_array(visible_items_in_item_stash)
+	available_items.append_array(items_in_horadric_stash)
+
 	for node in recipe_buttons:
 		var recipe_button: RecipeButton = node as RecipeButton
 		var recipe: HoradricCube.Recipe = recipe_button.recipe
-		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, visible_item_list)
+		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, available_items)
 		
 		recipe_button.disabled = !autofill_is_possible
 
