@@ -31,11 +31,11 @@ tabs_visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="TabContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
