@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=83 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=84 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -26,6 +26,7 @@
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="14_02q6i"]
+[ext_resource type="StyleBox" uid="uid://d1kpcknbt4bgj" path="res://Resources/Theme/UnitButton/passive_ability_button.tres" id="14_bh3ro"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5aqc"]
 texture = ExtResource("10_r42uk")
@@ -839,6 +840,12 @@ MessageLabel/font_sizes/mono_font_size = 32
 MessageLabel/font_sizes/normal_font_size = 32
 Panel/styles/panel = ExtResource("4_enpnq")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_vfmo2")
+PassiveAbilityButton/base_type = &"Button"
+PassiveAbilityButton/styles/disabled = ExtResource("14_bh3ro")
+PassiveAbilityButton/styles/focus = ExtResource("14_bh3ro")
+PassiveAbilityButton/styles/hover = ExtResource("14_bh3ro")
+PassiveAbilityButton/styles/normal = ExtResource("14_bh3ro")
+PassiveAbilityButton/styles/pressed = ExtResource("14_bh3ro")
 RareRarityPanelContainer/base_type = &"PanelContainer"
 RareRarityPanelContainer/styles/panel = ExtResource("6_unpbn")
 ResourceTab/base_type = &"Panel"
