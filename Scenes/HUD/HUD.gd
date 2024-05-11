@@ -65,6 +65,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func set_tower_stash_filter_type(filter_type: ElementTowersMenu.FilterType):
+	_elements_tower_menu.set_filter_type(filter_type)
+
+
 func show_desync_message(message: String):
 	_desync_label.show()
 	_desync_label.text = message
@@ -133,7 +137,6 @@ func set_menu_unit(unit: Unit):
 
 
 func hide_roll_towers_button():
-	_elements_tower_menu.hide_roll_towers_button()
 	_elements_menu.hide_roll_towers_button()
 
 

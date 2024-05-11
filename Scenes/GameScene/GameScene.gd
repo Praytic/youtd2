@@ -163,6 +163,20 @@ func _ready():
 
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		_hud.hide_roll_towers_button()
+	
+#	NOTE: in Build mode, use element filter for tower stash
+#	because in Build mode all towers are visible from the
+#	start and filtering by rarity would show too many
+#	towers.
+#	In random modes, it's better to filter by rarity because
+#	a small amount of towers is randomly distributed after
+#	each wave.
+	var tower_stash_filter_type: ElementTowersMenu.FilterType
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
+		tower_stash_filter_type = ElementTowersMenu.FilterType.ELEMENT
+	else:
+		tower_stash_filter_type = ElementTowersMenu.FilterType.RARITY
+	_hud.set_tower_stash_filter_type(tower_stash_filter_type)
 
 	var test_item_list: Array = Config.test_item_list()
 	for player in player_list:

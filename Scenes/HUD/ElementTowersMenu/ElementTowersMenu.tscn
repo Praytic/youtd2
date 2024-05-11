@@ -1,16 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://donslrrviy807"]
+[gd_scene load_steps=9 format=3 uid="uid://donslrrviy807"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.gd" id="1_3360v"]
-[ext_resource type="PackedScene" uid="uid://c4l81jcbkrtkr" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.tscn" id="2_cm41y"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="2_0yvey"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="3_egows"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="3_o2dlo"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="4_jlt7a"]
-[ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="5_dygg8"]
+[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://Scenes/HUD/ItemStashMenu/TowerRarityFilter.tscn" id="6_nndc4"]
+[ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="7_s88kh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
 atlas = ExtResource("3_o2dlo")
 region = Rect2(896, 0, 128, 128)
 
-[node name="ElementTowersMenu" type="Control" node_paths=PackedStringArray("_tab_container", "_element_container")]
+[node name="ElementTowersMenu" type="Control" node_paths=PackedStringArray("_tower_buttons_container", "_rarity_filter", "_element_filter")]
 custom_minimum_size = Vector2(622, 827)
 layout_mode = 3
 anchors_preset = 0
@@ -18,8 +20,9 @@ offset_right = 622.0
 offset_bottom = 827.0
 mouse_force_pass_scroll_events = false
 script = ExtResource("1_3360v")
-_tab_container = NodePath("MarginContainer/TabContainer")
-_element_container = NodePath("MarginContainer3/ElementsContainer")
+_tower_buttons_container = NodePath("MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
+_rarity_filter = NodePath("MarginContainer3/RarityFilter")
+_element_filter = NodePath("MarginContainer3/ElementFilter")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -32,38 +35,109 @@ custom_minimum_size = Vector2(622, 812)
 layout_mode = 2
 tabs_visible = false
 
-[node name="IceTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Inventory" type="PanelContainer" parent="MarginContainer/TabContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="NatureTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory"]
 layout_mode = 2
-_element = 1
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="FireTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2"]
 layout_mode = 2
-_element = 2
 
-[node name="AstralTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-_element = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -1
 
-[node name="DarknessTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 640)
 layout_mode = 2
-_element = 4
+horizontal_scroll_mode = 0
 
-[node name="IronTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
-_element = 5
+theme_override_constants/margin_bottom = 10
 
-[node name="StormTab" parent="MarginContainer/TabContainer" instance=ExtResource("2_cm41y")]
-visible = false
+[node name="TowerButtonsContainer2" type="GridContainer" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-_element = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+script = ExtResource("2_0yvey")
+
+[node name="EmptyUnitButton1" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton12" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton11" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton7" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton8" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton9" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton10" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton13" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton14" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton15" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton16" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton17" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton18" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton19" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
+
+[node name="EmptyUnitButton20" parent="MarginContainer/TabContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("3_egows")]
+layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -105,9 +179,13 @@ theme_override_constants/margin_left = -20
 theme_override_constants/margin_top = 70
 theme_override_constants/margin_bottom = 40
 
-[node name="ElementsContainer" parent="MarginContainer3" instance=ExtResource("5_dygg8")]
+[node name="RarityFilter" parent="MarginContainer3" instance=ExtResource("6_nndc4")]
 layout_mode = 2
-size_flags_horizontal = 0
+
+[node name="ElementFilter" parent="MarginContainer3" instance=ExtResource("7_s88kh")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer2/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="element_changed" from="MarginContainer3/ElementsContainer" to="." method="_on_elements_container_element_changed"]
+[connection signal="filter_changed" from="MarginContainer3/RarityFilter" to="." method="_on_rarity_filter_container_filter_changed"]
+[connection signal="element_changed" from="MarginContainer3/ElementFilter" to="." method="_on_element_filter_element_changed"]
