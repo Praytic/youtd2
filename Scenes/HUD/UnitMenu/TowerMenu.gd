@@ -19,8 +19,8 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _sell_button: Button
 @export var _details_tab: ScrollContainer
 @export var _specials_scroll_container: ScrollContainer
-@export var _inventory_empty_slots: HBoxContainer
-@export var _items_box_container: HBoxContainer
+@export var _inventory_empty_slots: GridContainer
+@export var _items_box_container: GridContainer
 @export var _buff_container: BuffContainer
 @export var _details: TowerDetails
 @export var _buff_group_container: VBoxContainer

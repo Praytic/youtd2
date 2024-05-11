@@ -239,13 +239,13 @@ vertical_alignment = 1
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 20
 
-[node name="InventoryEmptySlots" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
+[node name="InventoryEmptySlots" type="GridContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
 layout_mode = 2
-mouse_filter = 2
+columns = 3
 
 [node name="EmptyUnitButton" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_75y5s")]
 custom_minimum_size = Vector2(88, 88)
@@ -271,8 +271,9 @@ layout_mode = 2
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="ItemsContainer" type="HBoxContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
+[node name="ItemsContainer" type="GridContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2"]
 layout_mode = 2
+columns = 3
 
 [node name="DetailsTab" type="ScrollContainer" parent="MarginContainer2/MainContainer/MarginContainer/TabContainer"]
 visible = false
