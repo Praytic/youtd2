@@ -376,7 +376,7 @@ func random_weighted_pick(rng: RandomNumberGenerator, element_to_weight_map: Dic
 # on purpose because argument can be an invalid instance
 # without type.
 func unit_is_valid(unit) -> bool:
-	var is_valid: bool = is_instance_valid(unit) && unit.is_inside_tree() && !unit.is_queued_for_deletion()
+	var is_valid: bool = unit != null && is_instance_valid(unit) && unit.is_inside_tree() && !unit.is_queued_for_deletion()
 
 	return is_valid
 

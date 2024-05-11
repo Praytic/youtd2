@@ -279,7 +279,7 @@ func order_stop():
 # called during ATTACK event callback.
 # NOTE: tower.issueTargetOrder() in JASS
 func issue_target_order(target: Unit):
-	if target == null:
+	if !Utils.unit_is_valid(target):
 		return
 
 	_was_ordered_to_change_target = true
@@ -291,7 +291,7 @@ func issue_target_order(target: Unit):
 #########################
 
 func _do_damage_from_projectile(projectile: Projectile, target: Unit, damage: float, is_main_target: bool):
-	if target == null:
+	if !Utils.unit_is_valid(target):
 		return
 
 	var crit_count: int = projectile.get_tower_crit_count()
@@ -385,7 +385,7 @@ func _try_to_attack() -> bool:
 
 				break
 
-		if target == null:
+		if !Utils.unit_is_valid(target):
 			break
 
 		var original_target: Unit = target
@@ -399,8 +399,11 @@ func _try_to_attack() -> bool:
 		var was_ordered_to_change_target: bool = original_target != target
 
 		if was_ordered_to_change_target:
-			_remove_target(original_target)
-			_add_target(target)
+			var new_target_is_valid: bool = Utils.unit_is_valid(target)
+
+			if new_target_is_valid:
+				_remove_target(original_target)
+				_add_target(target)
 
 		attack_count += 1
 
@@ -458,10 +461,9 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	if _was_ordered_to_change_target:
 		_was_ordered_to_change_target = false
 
-		target = _new_target_from_order
-
-	if target == null:
-		return target
+		var new_target_is_valid: bool = Utils.unit_is_valid(_new_target_from_order)
+		if new_target_is_valid:
+			target = _new_target_from_order
 
 	var attacked_event: Event = Event.new(self)
 	attacked_event._number_of_crits = crit_count
@@ -721,7 +723,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var next_target: Creep = _get_next_bounce_target(bounce_pos, bounce_visited_list)
 
-	if next_target == null:
+	if !Utils.unit_is_valid(next_target):
 		return
 
 	var next_projectile: Projectile = _make_projectile(bounce_pos, next_target)
