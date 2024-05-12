@@ -8,7 +8,7 @@ enum FilterType {
 
 
 @export var _tower_buttons_container: UnitButtonsContainer
-@export var _rarity_filter: TowerRarityFilter
+@export var _rarity_filter: RarityFilter
 @export var _element_filter: ElementsContainer
 
 var _button_list: Array[TowerButton] = []
@@ -122,7 +122,7 @@ func _unlock_tower_buttons_if_possible():
 
 
 func _update_button_visibility():
-	var selected_rarity_list: Array[Rarity.enm] = _rarity_filter.get_rarity_list()
+	var selected_rarity_list: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var selected_element: Element.enm = _element_filter.get_element()
 	
 	for button in _button_list:

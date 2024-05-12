@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="3_egows"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="3_o2dlo"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="4_jlt7a"]
-[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://Scenes/HUD/ItemStashMenu/TowerRarityFilter.tscn" id="6_nndc4"]
+[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://Scenes/HUD/ItemStashMenu/RarityFilter.tscn" id="6_x6hx1"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/TowerStashMenu/ElementsContainer.tscn" id="7_s88kh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h654a"]
@@ -157,7 +157,7 @@ mouse_filter = 2
 theme_override_constants/margin_left = -30
 theme_override_constants/margin_top = 40
 
-[node name="RarityFilter" parent="MarginContainer3" instance=ExtResource("6_nndc4")]
+[node name="RarityFilter" parent="MarginContainer3" instance=ExtResource("6_x6hx1")]
 layout_mode = 2
 
 [node name="ElementFilter" parent="MarginContainer3" instance=ExtResource("7_s88kh")]

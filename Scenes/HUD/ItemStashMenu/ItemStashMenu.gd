@@ -4,7 +4,7 @@ class_name ItemStashMenu extends PanelContainer
 
 # This UI element displays items which are currently in the
 # item stash.
-@export var _rarity_filter_container: VBoxContainer
+@export var _rarity_filter: RarityFilter
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
 
@@ -99,7 +99,7 @@ func _add_item_button(item: Item, index: int):
 func _load_current_filter():
 #	Show/hide item buttons depending on whether they match
 #	current filter
-	var rarity_filter: Array = _rarity_filter_container.get_filter()
+	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
 
 	for item_button in _item_button_list:
@@ -181,7 +181,7 @@ func _on_item_button_ctrl_right_clicked(item_button: ItemButton):
 
 
 func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):
-	var rarity_filter: Array = _rarity_filter_container.get_filter()
+	var rarity_filter: Array = _rarity_filter.get_filter()
 	EventBus.player_requested_autofill.emit(recipe, rarity_filter)
 
 
@@ -193,7 +193,7 @@ func _on_close_button_pressed():
 	hide()
 
 
-func _on_rarity_filter_container_filter_changed():
+func _on_rarity_filter_filter_changed():
 	_load_current_filter()
 	_update_autofill_buttons()
 
