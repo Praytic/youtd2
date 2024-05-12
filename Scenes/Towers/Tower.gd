@@ -623,7 +623,6 @@ func _on_target_tree_exited(target: Creep):
 
 func _on_item_container_items_changed():
 	items_changed.emit()
-	EventBus.player_performed_tutorial_advance_action.emit("place_item_in_tower")
 
 
 func _on_mana_changed():

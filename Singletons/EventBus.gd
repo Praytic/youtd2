@@ -37,7 +37,6 @@ signal player_requested_start_game()
 signal player_requested_next_wave()
 signal mouse_entered_unit(unit: Unit)
 signal mouse_exited_unit(unit: Unit)
-signal player_performed_tutorial_advance_action(action_name: String)
 signal local_player_rolled_towers()
 
 # NOTE: signals for triggering tutorials

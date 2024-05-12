@@ -8,15 +8,6 @@ var _current_element: Element.enm = Element.enm.ICE : get = get_element
 
 
 #########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	HighlightUI.register_target("elements_container", self)
-	self.element_changed.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("change_tower_stash_tab"))
-
-
-#########################
 ###       Public      ###
 #########################
 

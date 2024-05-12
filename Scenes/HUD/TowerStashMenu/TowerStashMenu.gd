@@ -98,7 +98,6 @@ func _add_tower_button(tower_id: int, index: int):
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
-	HighlightUI.register_target("tower_button", tower_button)
 	tower_button.pressed.connect(_on_tower_button_pressed.bind(tower_id))
 
 	tower_button.set_tower_id(tower_id)
@@ -155,7 +154,6 @@ func _on_close_button_pressed():
 
 func _on_tower_button_pressed(tower_id: int):
 	EventBus.player_requested_to_build_tower.emit(tower_id)
-	EventBus.player_performed_tutorial_advance_action.emit("press_tower_button")
 
 
 func _on_rarity_filter_container_filter_changed():

@@ -102,8 +102,6 @@ func _build_tower(tower_id: int):
 	
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", mouse_pos)
 	
-	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
-	
 	var action: Action = ActionBuildTower.make(tower_id, mouse_pos)
 	_game_client.add_action(action)
 
