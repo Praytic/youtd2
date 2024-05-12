@@ -1,6 +1,11 @@
 extends TowerBehavior
 
 
+# NOTE: changed missile speed in csv for this tower.
+# 5000->9001. This tower uses "lightning" projectile visual
+# so slow speed looks weird because it makes the damage
+# delayed compared to the lightning visual.
+
 var surge_bt: BuffType
 
 

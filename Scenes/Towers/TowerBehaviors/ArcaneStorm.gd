@@ -10,6 +10,11 @@ extends TowerBehavior
 # because chain lightning cast always jumps up to the
 # defined number of jumps.
 
+# NOTE: changed missile speed in csv for this tower.
+# 5000->9001. This tower uses "lightning" projectile visual
+# so slow speed looks weird because it makes the damage
+# delayed compared to the lightning visual.
+
 
 var attraction_bt: BuffType
 var manastorm_bt: BuffType

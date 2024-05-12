@@ -3,6 +3,11 @@ extends TowerBehavior
 # NOTE: modified this script because the original did a
 # bunch of unnecessary things.
 
+# NOTE: changed missile speed in csv for this tower.
+# 3000->9001. This tower uses "lightning" projectile visual
+# so slow speed looks weird because it makes the damage
+# delayed compared to the lightning visual.
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
