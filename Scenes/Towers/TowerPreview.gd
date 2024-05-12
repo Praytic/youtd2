@@ -17,6 +17,7 @@ var _tower_sprite: Node2D = null
 @export var _pedestal_down: Polygon2D
 @export var _pedestal_left: Polygon2D
 @export var _range_indicator_container: Node2D
+@export var _transform_label: RichTextLabel
 
 
 func set_tower(tower_id: int):
@@ -60,6 +61,8 @@ func _process(_delta: float):
 		_tower_sprite.modulate = opaque_blue
 	else:
 		_tower_sprite.modulate = Color.WHITE
+	
+	_transform_label.visible = can_transform
 
 	var build_info: Array = _build_space.get_build_info_for_pos(mouse_pos)
 	var polygon_list: Array = [
