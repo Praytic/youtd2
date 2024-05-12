@@ -1,4 +1,4 @@
-extends PanelContainer
+extends TabContainer
 
 
 # Displays hints for the game. Loads the list of hints from
@@ -10,60 +10,25 @@ extends PanelContainer
 signal closed()
 
 
-const HINTS_CSV_PATH: String = "res://Data/hints.csv"
-
-var _text_list: Array[String] = []
-
-@export var _tree: Tree
-@export var _hints_text_label: RichTextLabel
-
-
 #########################
 ###     Built-in      ###
 #########################
 
 func _ready():
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(HINTS_CSV_PATH)
+	var tab_node_list: Array[Node] = get_children()
 	
-	var root: TreeItem = _tree.create_item()
-
-	var index: int = 0
-	
-	for csv_line in csv:
-		var title: String = "%d. %s" % [index, csv_line[0]]
-		var text: String = csv_line[1]
-	
-		var child: TreeItem = _tree.create_item(root)
-		child.set_text(0, title)
+	for tab_node in tab_node_list:
+		var tab: HintsMenuTab = tab_node as HintsMenuTab
 		
-		_text_list.append(text)
-
-		index += 1
-	
-	var first_item: TreeItem = root.get_child(0)
-	_tree.set_selected(first_item, 0)
+		if tab == null:
+			continue
+		
+		tab.closed.connect(_on_tab_closed)
 
 
 #########################
 ###     Callbacks     ###
 #########################
 
-func _on_close_button_pressed():
+func _on_tab_closed():
 	closed.emit()
-
-
-func _on_tree_item_selected():
-	var selected_item: TreeItem = _tree.get_selected()
-	var index: int = selected_item.get_index()
-	var text: String = _text_list[index]
-
-	_hints_text_label.clear()
-
-# 	NOTE: newlines don't work if you append the whole text.
-# 	Have to append newlines separately to make it work.
-	var lines: Array = text.split("\\n")
-
-	for line in lines:
-		_hints_text_label.append_text(line)
-		_hints_text_label.append_text("\n")
-	
