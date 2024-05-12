@@ -12,7 +12,7 @@ signal roll_was_disabled()
 
 
 const STARTING_ELEMENT_COST = 20
-const MAX_FOOD_CAP: int = 99
+const MAX_FOOD_CAP: int = 300
 const INITIAL_FOOD_CAP: int = 55
 const MAX_GOLD = 999999
 # NOTE: the interest gain max value comes from the JASS code
