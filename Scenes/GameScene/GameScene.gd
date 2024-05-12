@@ -276,10 +276,12 @@ func _unhandled_input(event: InputEvent):
 			_hud.hide_all_windows()
 		elif selected_unit != null:
 			_select_unit.set_selected_unit(null)
-		elif _tutorial_menu.visible:
-			_tutorial_menu.hide()
-			_set_game_paused(false)
-		else:
+		elif !_tutorial_menu.visible:
+#			NOTE: if tutorial menu is open, the game is
+#			already paused so game menu should not be
+#			opened. Also note that pressing Escape doesn't
+#			close tutorial menu on purpose - to prevent
+#			player accidentally cancelling the tutorial.
 			_toggle_game_menu()
 	elif left_click:
 		match _mouse_state.get_state():
