@@ -1,47 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch6cw5m8w8r7j"]
+[gd_scene load_steps=6 format=3 uid="uid://ch6cw5m8w8r7j"]
 
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_6uqqm"]
 [ext_resource type="Script" path="res://Scenes/TitleScreen/ProfileMenu.gd" id="1_h7bqv"]
 [ext_resource type="PackedScene" uid="uid://di1a1qyge5s3a" path="res://Scenes/HUD/WisdomUpgradeMenu.tscn" id="2_gias8"]
 [ext_resource type="PackedScene" uid="uid://b3gh33xi2di32" path="res://Scenes/GameMenu/ExportExpMenu.tscn" id="2_son4h"]
 [ext_resource type="PackedScene" uid="uid://b3kgwa2iuucrh" path="res://Scenes/GameMenu/ImportExpMenu.tscn" id="3_8rg10"]
 
-[node name="ProfileMenu" type="VBoxContainer" node_paths=PackedStringArray("_name_edit", "_export_exp_menu", "_import_exp_menu", "_level_label", "_exp_label", "_exp_for_next_lvl_left_label", "_exp_for_next_lvl_label", "_wisdom_upgrade_menu")]
+[node name="ProfileMenu" type="PanelContainer" node_paths=PackedStringArray("_name_edit", "_export_exp_menu", "_import_exp_menu", "_level_label", "_exp_label", "_exp_for_next_lvl_left_label", "_exp_for_next_lvl_label", "_wisdom_upgrade_menu")]
 custom_minimum_size = Vector2(600, 0)
+theme = ExtResource("1_6uqqm")
+theme_type_variation = &"MainPanelContainer"
 script = ExtResource("1_h7bqv")
-_name_edit = NodePath("HBoxContainer3/VBoxContainer/GridContainer/NameEdit")
-_export_exp_menu = NodePath("ExportExpMenu")
-_import_exp_menu = NodePath("ImportExpMenu")
-_level_label = NodePath("HBoxContainer3/VBoxContainer/GridContainer/LevelLabel")
-_exp_label = NodePath("HBoxContainer3/VBoxContainer/GridContainer/ExperienceLabel")
-_exp_for_next_lvl_left_label = NodePath("HBoxContainer3/VBoxContainer/GridContainer/ExpForNextLvlLeftLabel")
-_exp_for_next_lvl_label = NodePath("HBoxContainer3/VBoxContainer/GridContainer/ExpForNextLvlLabel")
-_wisdom_upgrade_menu = NodePath("HBoxContainer3/WisdomUpgradeMenu")
+_name_edit = NodePath("VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/NameEdit")
+_export_exp_menu = NodePath("VBoxContainer/ExportExpMenu")
+_import_exp_menu = NodePath("VBoxContainer/ImportExpMenu")
+_level_label = NodePath("VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/LevelLabel")
+_exp_label = NodePath("VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/ExperienceLabel")
+_exp_for_next_lvl_left_label = NodePath("VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/ExpForNextLvlLeftLabel")
+_exp_for_next_lvl_label = NodePath("VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/ExpForNextLvlLabel")
+_wisdom_upgrade_menu = NodePath("VBoxContainer/HBoxContainer3/WisdomUpgradeMenu")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
 text = "Profile"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer3/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="Label" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Name:"
 
-[node name="NameEdit" type="TextEdit" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="NameEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -50,77 +56,77 @@ text = "Player"
 context_menu_enabled = false
 caret_blink = true
 
-[node name="Label2" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Level:"
 
-[node name="LevelLabel" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="LevelLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "0"
 
-[node name="Label4" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Experience:"
 
-[node name="ExperienceLabel" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="ExperienceLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "0"
 
-[node name="ExpForNextLvlLeftLabel" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="ExpForNextLvlLeftLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "For next level:"
 
-[node name="ExpForNextLvlLabel" type="Label" parent="HBoxContainer3/VBoxContainer/GridContainer"]
+[node name="ExpForNextLvlLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "12"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ExportExpButton" type="Button" parent="HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="ExportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Export experience"
 
-[node name="ImportExpButton" type="Button" parent="HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="ImportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Import experience"
 
-[node name="Spacer" type="VBoxContainer" parent="HBoxContainer3/VBoxContainer"]
+[node name="Spacer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="WisdomUpgradeMenu" parent="HBoxContainer3" instance=ExtResource("2_gias8")]
+[node name="WisdomUpgradeMenu" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_gias8")]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Close"
 
-[node name="ExportExpMenu" parent="." instance=ExtResource("2_son4h")]
+[node name="ExportExpMenu" parent="VBoxContainer" instance=ExtResource("2_son4h")]
 size = Vector2i(600, 285)
 visible = false
 
-[node name="ImportExpMenu" parent="." instance=ExtResource("3_8rg10")]
+[node name="ImportExpMenu" parent="VBoxContainer" instance=ExtResource("3_8rg10")]
 visible = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="text_changed" from="HBoxContainer3/VBoxContainer/GridContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
-[connection signal="pressed" from="HBoxContainer3/VBoxContainer/HBoxContainer2/ExportExpButton" to="." method="_on_export_exp_button_pressed"]
-[connection signal="pressed" from="HBoxContainer3/VBoxContainer/HBoxContainer2/ImportExpButton" to="." method="_on_import_exp_button_pressed"]
-[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="import_pressed" from="ImportExpMenu" to="." method="_on_import_exp_menu_import_pressed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ExportExpButton" to="." method="_on_export_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ImportExpButton" to="." method="_on_import_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="import_pressed" from="VBoxContainer/ImportExpMenu" to="." method="_on_import_exp_menu_import_pressed"]

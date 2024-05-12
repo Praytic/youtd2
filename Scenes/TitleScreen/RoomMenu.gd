@@ -1,4 +1,4 @@
-class_name RoomMenu extends VBoxContainer
+class_name RoomMenu extends PanelContainer
 
 
 signal back_pressed()

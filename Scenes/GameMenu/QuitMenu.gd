@@ -1,4 +1,4 @@
-class_name QuitMenu extends VBoxContainer
+class_name QuitMenu extends PanelContainer
 
 signal go_to_title_pressed()
 signal quit_game_pressed()

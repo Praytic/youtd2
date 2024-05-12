@@ -1,4 +1,4 @@
-class_name ConfigureSinglePlayerMenu extends VBoxContainer
+class_name ConfigureSinglePlayerMenu extends PanelContainer
 
 
 signal cancel_pressed()

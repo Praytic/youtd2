@@ -1,35 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://eies0lnegrf6"]
+[gd_scene load_steps=4 format=3 uid="uid://eies0lnegrf6"]
 
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_70pqg"]
 [ext_resource type="Script" path="res://Scenes/TitleScreen/ConfigureSingleplayerMenu.gd" id="1_dgq16"]
 [ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://Scenes/TitleScreen/GameModeUI.tscn" id="2_7m6il"]
 
-[node name="ConfigureSingleplayerMenu" type="VBoxContainer" node_paths=PackedStringArray("_game_mode_ui")]
+[node name="ConfigureSingleplayerMenu" type="PanelContainer" node_paths=PackedStringArray("_game_mode_ui")]
+theme = ExtResource("1_70pqg")
+theme_type_variation = &"MainPanelContainer"
 script = ExtResource("1_dgq16")
-_game_mode_ui = NodePath("GameModeUI")
+_game_mode_ui = NodePath("VBoxContainer/GameModeUI")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Choose game settings:"
 
-[node name="GameModeUI" parent="." instance=ExtResource("2_7m6il")]
+[node name="GameModeUI" parent="VBoxContainer" instance=ExtResource("2_7m6il")]
 layout_mode = 2
 
-[node name="Spacer" type="VBoxContainer" parent="."]
+[node name="Spacer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="CancelButton" type="Button" parent="HBoxContainer"]
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Cancel"
 
-[node name="StartButton" type="Button" parent="HBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Start"
 
-[connection signal="pressed" from="HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -1,4 +1,4 @@
-class_name JoinOrHostMenu extends VBoxContainer
+class_name JoinOrHostMenu extends PanelContainer
 
 
 signal join_pressed()

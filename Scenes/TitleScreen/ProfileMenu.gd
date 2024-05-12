@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends PanelContainer
 
 
 signal close_pressed()

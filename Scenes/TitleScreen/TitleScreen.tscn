@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=13 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/TitleScreen.gd" id="1_dx8oa"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_ec3wj"]
@@ -12,14 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://Scenes/TitleScreen/ProfileMenu.tscn" id="8_7qboh"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/TitleScreen/AuthMenu.tscn" id="9_v765v"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
+
 [node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_multiplayer_button", "_auth_button", "_spacer_before_quit_button", "_quit_button", "_room_menu")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
-_multiplayer_button = NodePath("UI/TabContainer/MainTab/MultiplayerButton")
-_auth_button = NodePath("UI/TabContainer/MainTab/AuthButton")
-_spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/Spacer")
-_quit_button = NodePath("UI/TabContainer/MainTab/QuitButton")
+_multiplayer_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton")
+_auth_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/AuthButton")
+_spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
+_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
 _room_menu = NodePath("UI/TabContainer/RoomMenu")
 
 [node name="JoinOrHostController" type="Node" parent="." node_paths=PackedStringArray("_join_or_host_menu", "_room_menu")]
@@ -59,49 +61,55 @@ offset_right = 202.0
 offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vbfm6")
 tabs_visible = false
 
-[node name="MainTab" type="VBoxContainer" parent="UI/TabContainer"]
+[node name="MainTab" type="PanelContainer" parent="UI/TabContainer"]
+layout_mode = 2
+theme = ExtResource("2_ec3wj")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabContainer/MainTab"]
 layout_mode = 2
 
-[node name="SingleplayerButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="SingleplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Singleplayer"
 
-[node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
 
-[node name="AuthButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="AuthButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Auth"
 
-[node name="ProfileButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="ProfileButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Profile"
 
-[node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Settings"
 
-[node name="CreditsButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="CreditsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Credits"
 
-[node name="Spacer" type="VBoxContainer" parent="UI/TabContainer/MainTab"]
+[node name="Spacer" type="VBoxContainer" parent="UI/TabContainer/MainTab/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="QuitButton" type="Button" parent="UI/TabContainer/MainTab"]
+[node name="QuitButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonLarge"
 text = "Quit"
@@ -135,13 +143,13 @@ visible = false
 layout_mode = 2
 
 [connection signal="completed" from="JoinOrHostController" to="." method="_on_join_or_host_controller_completed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/AuthButton" to="." method="_on_auth_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/ProfileButton" to="." method="_on_profile_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/AuthButton" to="." method="_on_auth_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="start_button_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_configure_singleplayer_menu_start_button_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/JoinOrHostMenu" to="." method="_on_generic_tab_cancel_pressed"]

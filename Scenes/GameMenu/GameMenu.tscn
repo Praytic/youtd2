@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=8 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/GameMenu/GameMenu.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://vno2fc0bkyjw" path="res://Scenes/GameMenu/QuitMenu.tscn" id="6_mcdyf"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/GameMenu/HelpMenu.tscn" id="6_q6xgl"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6c4dp"]
+
 [node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
 theme = ExtResource("1_v8b77")
 script = ExtResource("1_8lyul")
@@ -14,14 +16,13 @@ _tab_container = NodePath("TabContainer")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6c4dp")
 tabs_visible = false
 
-[node name="MainTab" type="MarginContainer" parent="TabContainer"]
+[node name="MainTab" type="PanelContainer" parent="TabContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme = ExtResource("1_v8b77")
+theme_type_variation = &"MainPanelContainer"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
@@ -57,6 +58,7 @@ text = "Close"
 [node name="HelpMenu" parent="TabContainer" instance=ExtResource("6_q6xgl")]
 visible = false
 layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
 
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false

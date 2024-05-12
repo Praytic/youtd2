@@ -1,4 +1,4 @@
-class_name AuthMenu extends VBoxContainer
+class_name AuthMenu extends PanelContainer
 
 
 signal finished()
