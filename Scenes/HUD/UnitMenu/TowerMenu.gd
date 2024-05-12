@@ -212,11 +212,11 @@ func _update_sell_tooltip(tower: Tower):
 
 func _get_tooltip_for_info_label() -> String:
 	var attack_type: AttackType.enm = _tower.get_attack_type()
-	var attack_type_name: String = AttackType.convert_to_string(attack_type).capitalize()
-	var text_for_damage_against: String = AttackType.get_text_for_damage_dealt(attack_type)
+	var attack_type_name: String = AttackType.convert_to_colored_string(attack_type)
+	var text_for_damage_against: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
 
 	var tooltip: String = ""
-	tooltip += "%s attacks deal this much damage\nagainst armor types:\n" % attack_type_name
+	tooltip += "%s attacks deal this much damage against armor types:\n" % attack_type_name
 	tooltip += text_for_damage_against
 
 	return tooltip

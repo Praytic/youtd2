@@ -46,6 +46,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_id() -> int:
+	return _id
+
+
 func get_display_name() -> String:
 	var display_name: String = BuilderProperties.get_display_name(_id)
 

@@ -25,5 +25,5 @@ func show_wave_details(wave_list: Array[Wave]):
 	_wave_status.show_wave_details(wave_list)
 
 
-func set_local_builder_name(builder_name: String):
-	_game_stats.set_local_builder_name(builder_name)
+func set_local_builder(builder_id: int):
+	_game_stats.set_local_builder(builder_id)

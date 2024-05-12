@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://c41f2x03lnjw6"]
+[gd_scene load_steps=22 format=3 uid="uid://c41f2x03lnjw6"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/TowerMenu.gd" id="2_cxnnl"]
+[ext_resource type="Script" path="res://Scenes/HUD/RichTextLabelWithRichTooltip.gd" id="3_6ljlw"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_723pa"]
 [ext_resource type="PackedScene" uid="uid://22mf4myucw0w" path="res://Scenes/HUD/Buttons/TowerButton.tscn" id="4_uarln"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_75y5s"]
@@ -142,6 +143,7 @@ text = "[color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
 [color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]10/20[/color]"
 fit_content = true
 scroll_active = false
+script = ExtResource("3_6ljlw")
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/MainTab/VBoxContainer/InfoContainer"]
 layout_mode = 2

@@ -152,6 +152,8 @@ func _get_specials_string_short(wave: Wave) -> String:
 	return specials_string
 
 
+# NOTE: not using rich text versions of these texts because
+# it doesn't work with RichTextLabel's "hint" system
 func _generate_armor_hints() -> Dictionary:
 	var out: Dictionary = {}
 

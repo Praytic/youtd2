@@ -79,3 +79,20 @@ static func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 		text += "%s:\t %s\n" % [attack_type_name, damage_taken_string]
 
 	return text
+
+
+static func get_rich_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
+	var text: String = ""
+
+	var attack_type_list: Array[AttackType.enm] = AttackType.get_list()
+
+	for attack_type in attack_type_list:
+		var attack_type_name: String = AttackType.convert_to_colored_string(attack_type)
+		var damage_taken: float = AttackType.get_damage_against(attack_type, armor_type)
+		var damage_taken_string: String = Utils.format_percent(damage_taken, 2)
+
+		text += "%s:\t %s\n" % [attack_type_name, damage_taken_string]
+
+	text = RichTexts.add_color_to_numbers(text)
+
+	return text

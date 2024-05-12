@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://4tcjyre0hoji"]
+[gd_scene load_steps=6 format=3 uid="uid://4tcjyre0hoji"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
+[ext_resource type="Script" path="res://Scenes/HUD/RichTextLabelWithRichTooltip.gd" id="3_crgv5"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_srlh2"]
 device = -1
@@ -78,6 +79,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 hint_underlined = false
+script = ExtResource("3_crgv5")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2

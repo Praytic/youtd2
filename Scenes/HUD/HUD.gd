@@ -234,9 +234,9 @@ func _on_local_player_element_level_changed():
 func _on_local_player_selected_builder():
 	var local_player: Player = PlayerManager.get_local_player()
 	var builder: Builder = local_player.get_builder()
-	var builder_name: String = builder.get_display_name()
+	var builder_id: int = builder.get_id()
 
-	_top_left_menu.set_local_builder_name(builder_name)
+	_top_left_menu.set_local_builder(builder_id)
 
 	var builder_adds_extra_recipes: bool = builder.get_adds_extra_recipes()
 	if builder_adds_extra_recipes:

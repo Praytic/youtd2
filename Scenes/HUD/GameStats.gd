@@ -43,8 +43,12 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	_settings_label.text = settings_string
 
 
-func set_local_builder_name(builder_name: String):
+func set_local_builder(builder_id: int):
+	var builder_name: String = BuilderProperties.get_display_name(builder_id)
+	var builder_description: String = BuilderProperties.get_description(builder_id)
+	
 	_builder_label.text = builder_name
+	_builder_label.tooltip_text = builder_description
 
 
 func _get_player_stats_text() -> String:

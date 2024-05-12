@@ -88,11 +88,11 @@ func set_creep(creep: Creep):
 
 func _get_tooltip_for_info_label() -> String:
 	var armor_type: ArmorType.enm = _creep.get_armor_type()
-	var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
-	var text_for_damage_taken: String = ArmorType.get_text_for_damage_taken(armor_type)
+	var armor_type_name: String = ArmorType.convert_to_colored_string(armor_type)
+	var text_for_damage_taken: String = ArmorType.get_rich_text_for_damage_taken(armor_type)
 
 	var tooltip: String = ""
-	tooltip += "%s armor takes this much damage\nfrom attack types:\n" % armor_type_name
+	tooltip += "%s armor takes this much damage from attacks:\n" % armor_type_name
 	tooltip += text_for_damage_taken
 
 	return tooltip

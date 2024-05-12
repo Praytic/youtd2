@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://jm3vhrboca8b"]
+[gd_scene load_steps=4 format=3 uid="uid://jm3vhrboca8b"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_fcvcc"]
 [ext_resource type="Script" path="res://Scenes/HUD/GameStats.gd" id="2_yyjiq"]
+[ext_resource type="Script" path="res://Scenes/HUD/LabelWithRichTooltip.gd" id="3_r8spy"]
 
 [node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_stats_label")]
 offset_right = 621.0
@@ -36,7 +37,9 @@ text = "Builder:"
 
 [node name="BuilderLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
+mouse_filter = 0
 text = "Farseer"
+script = ExtResource("3_r8spy")
 
 [node name="StatsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2

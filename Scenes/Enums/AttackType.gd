@@ -137,16 +137,19 @@ static func get_list() -> Array[AttackType.enm]:
 
 # Returns text which says how much damage this attack type
 # deals against each armor type.
-static func get_text_for_damage_dealt(attack_type: AttackType.enm) -> String:
+# NOTE: this is rich text
+static func get_rich_text_for_damage_dealt(attack_type: AttackType.enm) -> String:
 	var text: String = ""
 
 	var armor_type_list: Array[ArmorType.enm] = ArmorType.get_list()
 
 	for armor_type in armor_type_list:
-		var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
+		var armor_type_name: String = ArmorType.convert_to_colored_string(armor_type)
 		var damage_dealt: float = AttackType.get_damage_against(attack_type, armor_type)
 		var damage_dealt_string: String = Utils.format_percent(damage_dealt, 2)
 
 		text += "%s:\t %s\n" % [armor_type_name, damage_dealt_string]
+
+	text = RichTexts.add_color_to_numbers(text)
 
 	return text
