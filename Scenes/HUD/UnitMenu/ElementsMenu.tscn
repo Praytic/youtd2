@@ -112,7 +112,6 @@ theme_type_variation = &"UnitButton"
 
 [node name="RollTowersButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
 layout_mode = 2
-tooltip_text = "Roll a random set of starting towers. You can reroll if you don't like the initial towers but each time you will get less towers."
 icon = ExtResource("10_qe6ob")
 
 [node name="AstralButton" parent="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_88yng")]
@@ -156,5 +155,6 @@ icon = SubResource("AtlasTexture_wh5fy")
 icon_alignment = 1
 expand_icon = true
 
+[connection signal="mouse_entered" from="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/RollTowersButton" to="." method="_on_roll_towers_button_mouse_entered"]
 [connection signal="pressed" from="TabContainer/MainTab/MarginContainer/PanelContainer/MarginContainer/GridContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

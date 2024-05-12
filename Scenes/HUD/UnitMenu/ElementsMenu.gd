@@ -88,3 +88,8 @@ func _on_roll_towers_button_pressed():
 
 func _on_close_button_pressed():
 	hide()
+
+
+func _on_roll_towers_button_mouse_entered():
+	var tooltip: String = "[color=GOLD]Roll Towers[/color]\n \nRoll a random set of starting towers. You can reroll if you don't like the initial towers but each time you will get less towers."
+	ButtonTooltip.show_tooltip(_roll_towers_button, tooltip)
