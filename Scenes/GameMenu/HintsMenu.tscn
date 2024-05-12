@@ -16,7 +16,22 @@ script = ExtResource("2_jpay6")
 layout_mode = 2
 csv_path = "res://Data/Hints/tutorial.csv"
 
-[node name="Basic" parent="." instance=ExtResource("3_iygdm")]
+[node name="Basics" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
-csv_path = "res://Data/Hints/basic.csv"
+csv_path = "res://Data/Hints/basics.csv"
+
+[node name="Towers" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://Data/Hints/towers.csv"
+
+[node name="Items" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://Data/Hints/items.csv"
+
+[node name="Creeps" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://Data/Hints/creeps.csv"

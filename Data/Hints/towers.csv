@@ -1,0 +1,100 @@
+"id","Title","Text"
+1,"Tower Stats","Towers in YouTD have some uncommon stats. Their mechanics will be explained here:
+ 
+[color=GOLD]Buff duration:[/color] Modifies the duration of buffs cast by this tower. For example, if a tower has 200% buff duration and uses an ability which buffs another tower for 6 seconds, the buff will last 12 sec.
+ 
+[color=GOLD]Debuff duration:[/color] Same as Buff duration but affects the duration of debuffs.
+ 
+[color=GOLD]Trigger chances:[/color] Modifies the chances of chanced abilities. Example: Tower ability grants 10% chance to deal extra damage and the tower has +20% trigger chances. The actual chance of ability will be [color=GOLD]10% * 1.2[/color] = 12%.
+ 
+[color=GOLD]Item drop ratio:[/color] Creeps killed by this tower have a modified chance to drop an item. Example: Creep killed by a tower with 50% item drop ratio => creep is 50% more likely to drop an item.
+ 
+[color=GOLD]Item quality ratio:[/color] Creeps killed by this tower have a modified chance to drop items with higher rarity.
+ 
+[color=GOLD]Bounty ratio:[/color] Modifies the amount of bounty received for kills done by this tower.
+"
+2,"Upgrading","You can [color=GOLD]upgrade[/color] a tower to make it stronger. Select a tower and you will see the [color=GOLD]Upgrade[/color] button in the top left corner.
+
+Note that you cannot [color=GOLD]upgrade[/color] in [color=GOLD]Totally random[/color] game mode.
+"
+3,"Transforming","You can [color=GOLD]transform[/color] a tower into a different one by building a tower on top of another tower. Experience, items and oils will carry over.
+ 
+Transforming refunds the cost of the previous tower. 100% if towers are in the same family and 75% if they are from different families.
+ 
+Note that you cannot [color=GOLD]transform[/color] in [color=GOLD]Build[/color] game mode.
+"
+4,"Tower Positioning","Many towers have aura's which provide benefits to other towers nearby. You should try to build towers [color=GOLD]next to each other[/color] to maximize the benefits of aura's.
+"
+5,"Attack damage vs Spell damage","Towers can deal different types of damage.
+ 
+Normal tower attacks and some abilities will deal [color=GOLD]attack damage[/color]. Attack damage is dealt as the [color=GOLD]attack type[/color] of the tower ([color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], etc). Attack damage is reduced by creep armor and deals different ratios of damage depending on the [color=GOLD]armor type[/color] of the creep.
+ 
+Some tower abilities will deal [color=GOLD]spell damage[/color]. Spell damage ignores creep armor and always deals 90% to all armor types! But some creeps are 100% immune to spell damage.
+ 
+Make sure to equip your towers appropriately based on their main damage source. For example, towers which deal primarily [color=GOLD]attack damage[/color] will not get any benefit from oils which increase [color=GOLD]spell damage[/color].
+"
+6,"Critical hit","When towers make a critical hit, the attack will deal more damage than unusual. The base bonus is 50% more damage. Note that both normal attacks and spell damage can be critical.
+"
+7,"Multicrit","Towers can crit multiple times in the same attack which will cause the attack to deal extra damage. The maximum number of multicrits is determined by the tower's [color=GOLD]Multicrit[/color] stat.
+ 
+Example: A tower has 10% critical chance, 50% critical damage bonus and multicrit of 3. It has 10% chance to crit once and deal x1.5 normal damage. It then has [color=GOLD]10%*10%=1%[/color] to crit a second time and deal x2 normal damage. And so up to a maximum of 3 crits.
+ 
+Note that only [color=GOLD]attack damage[/color] can multicrit, [color=GOLD]spell damage[/color] can only crit once.
+"
+8,"Diminishing Returns","Some tower stats are affected by [color=GOLD]diminishing returns[/color]. These stats will get less effect from items, auras and other modifications once the stat goes above 170% or below 60%. This means that you should avoid stacking all of the bonuses for these stats on a single tower and try to spread the power around evenly to all of your towers.
+ 
+All of the stats in the [color=GOLD]Misc[/color] section in [color=GOLD]Tower Details[/color] are affected by [color=GOLD]diminishing returns[/color]:
+- Bounty ratio
+- Exp ratio
+- Item drop ratio
+- Item quality ratio
+- Trigger chances
+- Buff duration
+- Debuff duration"
+"9","Tower Level","Towers gain experience when they kill creeps and once they get enough experience, their level increases. Leveling up increases the power of tower abilities and some items.
+ 
+In addition, all towers gain bonuses to the following stats when they level up:
+ 
++0.15% crit chance
++2% crit damage
++0.15% spell crit chance
++2% spell crit damage
++4% base damage
++1% attack speed"
+10,"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
+ 
+[color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], [color=DODGER_BLUE]Energy[/color], [color=AQUAMARINE]Essence[/color], [color=CORNFLOWER_BLUE]Elemental[/color] and [color=DEEP_SKY_BLUE]Magic[/color].
+ 
+Each [color=GOLD]attack type[/color] deals different amounts of damage to [color=GOLD]armor types[/color]. Most [color=GOLD]attack types[/color] deal extra damage to some armor while dealing less to others. The exceptions are [color=AQUAMARINE]Essence[/color] and [color=DEEP_SKY_BLUE]Magic[/color] [color=GOLD]attack types[/color]. In general, it is a good idea to build towers with diverse [color=GOLD]attack types[/color].
+ 
+You can check the stats of a tower's [color=GOLD]attack type[/color] by selecting the tower and then mousing over the [color=GOLD]attack type[/color] in the tower menu.
+"
+11,"Carry towers","Usually, a single tower will tend to become more powerful than others and will get the majority of kills as a result. More kills means more experience and levels which will make that tower get even more powerful and get more kills. Such towers are called [color=GOLD]Carry[/color] towers.
+ 
+You can check your best tower in [color=GOLD]Game Stats[/color], which shows towers with [color=GOLD]most kills[/color].
+ 
+It is a good idea to prioritize your [color=GOLD]Carry[/color] tower for oils, items and upgrades. For example, f you have a level 15 tower and a level 2 tower then the adding oils to level 2 tower is generally a bad idea.
+"
+12,"Item drop and item quality","Put items that increase item drop and item quality only on towers that secure many kills. Only the killer's ratio will be used for calculations!
+"
+13,"Support towers","[color=GOLD]Support[/color] towers are towers which do not provide as much firepower as [color=GOLD]Carry[/color] towers but have valuable abilities which empower other towers.
+ 
+Such towers should be built strategically next to [color=GOLD]Carry[/color] towers to make them even more powerful.
+ 
+[color=GOLD]Support[/color] towers can be useful even at low levels. If you can build a tower with a useful support ability and got food to spare, build it!
+"
+14,"Distribute experience","Towers continue to get experience from kills even after reaching the max level. There are items which transfer experience from one tower to another. Try to use such items on max level towers to distribute the extra experience."
+15,"Buff groups","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on the left side of the menu.
+ 
+Mouse over the [color=GOLD]buff group[/color] buttons to read more details.
+ 
+[color=GOLD]Buff groups[/color] can be used to create powerful setups between buffing towers and [color=GOLD]Carry[/color] towers. An example setup could be:
+- Buffing tower is assigned to CASTER [color=GOLD]buff group[/color] 1
+- [color=GOLD]Carry[/color] tower is assigned to RECEIVER [color=GOLD]buff group[/color] 1
+As a result, the buffing tower will only cast buffs on the [color=GOLD]Carry[/color] tower. Normally, buffing towers will choose targets randomly but with this setup you will maximize the gain from the buffs.
+"
+16,"Stacking buffs","In general, buffs coming two copies of the same tower will not stack. For example, if you got two copies of the same tower which slows creeps by 10%, then total effect will be 10%, not 20%! Buffs from towers at different upgrade levels but in same family will also not stack.
+ 
+There are exceptions, in which case the ability tooltip will mention that it stacks.
+ 
+Note that this also applies to items with abilities."

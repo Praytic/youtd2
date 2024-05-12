@@ -9,6 +9,7 @@ enum CsvProperty {
 	TEXT,
 }
 
+var _title_list: Array[String] = []
 var _text_list: Array[String] = []
 
 @export var csv_path: String
@@ -39,6 +40,7 @@ func _ready():
 		var child: TreeItem = _tree.create_item(root)
 		child.set_text(0, tree_item_text)
 		
+		_title_list.append(title)
 		_text_list.append(text)
 	
 	var first_item: TreeItem = root.get_child(0)
@@ -52,17 +54,14 @@ func _ready():
 func _on_tree_item_selected():
 	var selected_item: TreeItem = _tree.get_selected()
 	var index: int = selected_item.get_index()
+	var title: String = _title_list[index]
 	var text: String = _text_list[index]
+	text = RichTexts.add_color_to_numbers(text)
+	
+	var combined_text: String = "[center][color=GOLD]%s[/color][/center]\n \n%s" % [title, text]
 
 	_hints_text_label.clear()
-
-# 	NOTE: newlines don't work if you append the whole text.
-# 	Have to append newlines separately to make it work.
-	var lines: Array = text.split("\\n")
-
-	for line in lines:
-		_hints_text_label.append_text(line)
-		_hints_text_label.append_text("\n")
+	_hints_text_label.append_text(combined_text)
 
 
 func _on_close_button_pressed():
