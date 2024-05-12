@@ -1,132 +1,135 @@
 class_name TutorialController extends Node
 
 
-# Controls logic flow while tutorial is running and tells
-# TutorialMenu what to show. Tutorial text is loaded from a
-# CSV file. Some tutorial sections highlight UI elements.
-# Tutorial is opened after the pregame settings if the
-# player decides that they want it.
-
-# NOTE: UI targets for highlighting are mapped using
-# HighlightUI.register_target() in scenes which contain
-# those targets.
+# Controls the flow of tutorials. Collects triggers and converts them into tutorials. Note that multiple tutorials can be queued at a time.
 
 
-signal finished()
+signal tutorial_triggered(tutorial_id: TutorialProperties.TutorialId)
 
-enum TutorialColumn {
-	TITLE = 0,
-	HIGHLIGHT_TARGET,
-	ADVANCE_ACTION,
-	TEXT,
+
+enum Trigger {
+	PLAYER_STARTED_BUILD_MODE_GAME,
+	PLAYER_STARTED_RANDOM_MODE_GAME,
+	RESEARCH_ELEMENT,
+	ROLLED_TOWERS,
+	BUILT_A_TOWER,
+	FIRST_ITEM_DROP,
+	PORTAL_DAMAGE,
+	WAVE_FINISHED,
+	
+	COUNT,
 }
 
-class Section:
-	var title: String
-	var highlight_target: String
-	var advance_action: String
-	var text: String
+var _trigger_to_tutorial_list_map: Dictionary = {
+	Trigger.PLAYER_STARTED_BUILD_MODE_GAME: [TutorialProperties.TutorialId.INTRO_FOR_BUILD_MODE],
+	Trigger.PLAYER_STARTED_RANDOM_MODE_GAME: [TutorialProperties.TutorialId.INTRO_FOR_RANDOM_MODE, TutorialProperties.TutorialId.RESEARCH_ELEMENTS],
+	Trigger.RESEARCH_ELEMENT: [TutorialProperties.TutorialId.ROLL_TOWERS],
+	Trigger.ROLLED_TOWERS: [TutorialProperties.TutorialId.TOWER_STASH, TutorialProperties.TutorialId.BUILD_TOWER],
+	Trigger.BUILT_A_TOWER: [TutorialProperties.TutorialId.RESOURCES, TutorialProperties.TutorialId.TOWER_INFO],
+	Trigger.FIRST_ITEM_DROP: [TutorialProperties.TutorialId.ITEMS],
+	Trigger.PORTAL_DAMAGE: [TutorialProperties.TutorialId.PORTAL_DAMAGE],
+	Trigger.WAVE_FINISHED: [TutorialProperties.TutorialId.WAVE_FINISHED],
+}
+
+var _trigger_processed_map: Dictionary = {}
+var _tutorial_queue: Array = []
+var _tutorial_is_in_progress: bool = false
 
 
-const TUTORIAL_BUILD_PATH: String = "res://Data/tutorial_build.csv"
-const TUTORIAL_RANDOM_PATH: String = "res://Data/tutorial_random.csv"
+#########################
+###     Built-in      ###
+#########################
 
-var _section_list: Array[Section]
-var _current_section: int
-var _tutorial_menu: TutorialMenu = null
+func _ready():
+	EventBus.finished_tutorial_section.connect(_on_finished_tutorial_section)
+	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
+	EventBus.item_dropped.connect(_on_item_dropped)
+	EventBus.portal_received_damage.connect(_on_portal_received_damage)
+	EventBus.built_a_tower.connect(_on_built_a_tower)
+	
+	for trigger in range(0, Trigger.COUNT):
+		var trigger_is_mapped: bool = _trigger_to_tutorial_list_map.has(trigger)
+		
+		if !trigger_is_mapped:
+			push_error("Tutorial trigger is unmapped: %d" % trigger)
 
 
 #########################
 ###       Public      ###
 #########################
 
-func start(tutorial_menu: TutorialMenu, game_mode: GameMode.enm):
-	_tutorial_menu = tutorial_menu
-	_tutorial_menu.player_pressed_next.connect(_on_player_pressed_next)
-	_tutorial_menu.player_pressed_back.connect(_on_player_pressed_back)
-	_tutorial_menu.player_pressed_close.connect(_on_player_pressed_close)
-	EventBus.player_performed_tutorial_advance_action.connect(_on_player_performed_tutorial_advance_action)
-	
-	var tutorial_path: String
-	if game_mode == GameMode.enm.BUILD:
-		tutorial_path = TUTORIAL_BUILD_PATH
-	else:
-		tutorial_path = TUTORIAL_RANDOM_PATH
-
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(tutorial_path)
-	
-	_section_list = []
-	
-	for csv_line in csv:
-		var section: Section = Section.new()
-		section.title = csv_line[TutorialColumn.TITLE]
-		section.highlight_target = csv_line[TutorialColumn.HIGHLIGHT_TARGET]
-		section.advance_action = csv_line[TutorialColumn.ADVANCE_ACTION]
-		section.text = csv_line[TutorialColumn.TEXT]
-
-		_section_list.append(section)
-	
-	_current_section = 0
-	_change_section(0)
+func connect_to_local_player(local_player: Player):
+	local_player.selected_builder.connect(_on_local_player_selected_builder)
+	local_player.element_level_changed.connect(_on_local_player_element_level_changed)
+	local_player.wave_finished.connect(_on_local_player_wave_finished)
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _change_section(change_amount: int):
-	var prev_section: Section = _section_list[_current_section]
+# NOTE: triggers are processed only once and ignored after
+# that
+func _process_trigger(trigger: Trigger):
+	var trigger_already_processed: bool = _trigger_processed_map.has(trigger)
 
-	_current_section += change_amount
+	if !trigger_already_processed:
+		_trigger_processed_map[trigger] = true
+		
+		var triggered_tutorial_list: Array = _trigger_to_tutorial_list_map[trigger]
+		_tutorial_queue.append_array(triggered_tutorial_list)
+		_process_tutorial_queue()
+
+
+func _process_tutorial_queue():
+	if _tutorial_queue.is_empty() || _tutorial_is_in_progress:
+		return
 	
-	var section: Section = _section_list[_current_section]
-	
-	var text: String = ""
-	text += "[color=GOLD]%s[/color]\n" % section.title
-	text += " \n"
-	text += section.text
-
-	_tutorial_menu.set_text(text)
-
-	var can_go_back: bool = _current_section > 0
-	_tutorial_menu.set_back_disabled(!can_go_back)
-	var can_go_next: bool = _current_section < _section_list.size() - 1
-	_tutorial_menu.set_next_disabled(!can_go_next)
-
-	var prev_highlight_target: String = prev_section.highlight_target
-	if !prev_highlight_target.is_empty():
-		HighlightUI.stop_highlight(prev_highlight_target)
-	
-	var new_highlight_target: String = section.highlight_target
-	if !new_highlight_target.is_empty():
-		HighlightUI.start_highlight(new_highlight_target)
+	var tutorial: int = _tutorial_queue.pop_front()
+	_tutorial_is_in_progress = true
+	tutorial_triggered.emit(tutorial)
 
 
 #########################
 ###     Callbacks     ###
 #########################
 
-func _on_player_pressed_next():
-	_change_section(1)
+# NOTE: some tutorials are followed up by other tutorials so process queue after tutorial is closed
+func _on_finished_tutorial_section():
+	_tutorial_is_in_progress = false
+	_process_tutorial_queue()
 
 
-func _on_player_pressed_back():
-	_change_section(-1)
+# NOTE: this is the first trigger, where the tutorial starts
+func _on_local_player_selected_builder():
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	
+	if game_mode == GameMode.enm.BUILD:
+		_process_trigger(Trigger.PLAYER_STARTED_BUILD_MODE_GAME)
+	else:
+		_process_trigger(Trigger.PLAYER_STARTED_RANDOM_MODE_GAME)
 
 
-func _on_player_pressed_close():
-	var section: Section = _section_list[_current_section]
-	var highlight_target: String = section.highlight_target
-	if !highlight_target.is_empty():
-		HighlightUI.stop_highlight(highlight_target)
 
-	finished.emit()
+func _on_local_player_element_level_changed():
+	_process_trigger(Trigger.RESEARCH_ELEMENT)
 
 
-func _on_player_performed_tutorial_advance_action(action_name: String):
-	var current_section: Section = _section_list[_current_section]
-	var advance_action_for_current_section: String = current_section.advance_action
-	var action_match: bool = action_name == advance_action_for_current_section
+func _on_local_player_rolled_towers():
+	_process_trigger(Trigger.ROLLED_TOWERS)
 
-	if action_match:
-		_change_section(1)
+
+func _on_item_dropped():
+	_process_trigger(Trigger.FIRST_ITEM_DROP)
+
+
+func _on_portal_received_damage():
+	_process_trigger(Trigger.PORTAL_DAMAGE)
+
+
+func _on_local_player_wave_finished(_level: int):
+	_process_trigger(Trigger.WAVE_FINISHED)
+
+
+func _on_built_a_tower():
+	_process_trigger(Trigger.BUILT_A_TOWER)

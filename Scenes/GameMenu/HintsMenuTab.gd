@@ -3,6 +3,11 @@ class_name HintsMenuTab extends VBoxContainer
 
 signal closed()
 
+enum CsvProperty {
+	ID = 0,
+	TITLE,
+	TEXT,
+}
 
 var _text_list: Array[String] = []
 
@@ -10,29 +15,31 @@ var _text_list: Array[String] = []
 @export var _tree: Tree
 @export var _hints_text_label: RichTextLabel
 
+var _properties: Dictionary = {}
+
 
 #########################
 ###     Built-in      ###
 #########################
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(csv_path)
+	UtilsStatic.load_csv_properties(csv_path, _properties, CsvProperty.ID)
 	
 	var root: TreeItem = _tree.create_item()
 
-	var index: int = 0
+	var id_list: Array = _properties.keys()
+	id_list.sort()
 	
-	for csv_line in csv:
-		var title: String = "%d. %s" % [index, csv_line[0]]
-		var text: String = csv_line[1]
-	
+	for id in id_list:
+		var entry: Dictionary = _properties[id]
+		var title: String = entry[CsvProperty.TITLE]
+		var text: String = entry[CsvProperty.TEXT]
+		
+		var tree_item_text: String = "%d. %s" % [id, title]
 		var child: TreeItem = _tree.create_item(root)
-		child.set_text(0, title)
+		child.set_text(0, tree_item_text)
 		
 		_text_list.append(text)
-
-		index += 1
 	
 	var first_item: TreeItem = root.get_child(0)
 	_tree.set_selected(first_item, 0)

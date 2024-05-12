@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/GameMenu/HintsMenuTab.gd" id="1_q2uv5"]
 
 [node name="HintsMenuTab" type="VBoxContainer" node_paths=PackedStringArray("_tree", "_hints_text_label")]
-custom_minimum_size = Vector2(1000, 700)
+custom_minimum_size = Vector2(1000, 900)
 theme_override_constants/separation = 10
 script = ExtResource("1_q2uv5")
 _tree = NodePath("HBoxContainer/Tree")
@@ -34,8 +34,10 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HintsTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 bbcode_enabled = true
 text = "Hint text goes here."
+fit_content = true
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 2

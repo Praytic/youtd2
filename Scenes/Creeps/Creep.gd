@@ -251,6 +251,8 @@ func drop_item(caster: Tower, use_creep_player: bool):
 
 	drop_item_by_id(caster, use_creep_player, random_item)
 
+	EventBus.item_dropped.emit()
+
 
 func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
 	var item_position: Vector3 = get_position_wc3()
@@ -345,6 +347,8 @@ func _deal_damage_to_portal():
 	player.get_team().modify_lives(-damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
+
+	EventBus.portal_received_damage.emit()
 
 
 # Returns current movement angle, top down and in degrees

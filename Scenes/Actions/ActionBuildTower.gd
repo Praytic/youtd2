@@ -50,6 +50,8 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 	build_space.set_occupied_by_tower(new_tower, true)
 
+	EventBus.built_a_tower.emit()
+
 
 static func verify(player: Player, build_space: BuildSpace, tower_id: int, mouse_pos: Vector2) -> bool:
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)

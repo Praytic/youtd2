@@ -39,3 +39,9 @@ signal mouse_entered_unit(unit: Unit)
 signal mouse_exited_unit(unit: Unit)
 signal player_performed_tutorial_advance_action(action_name: String)
 signal local_player_rolled_towers()
+
+# NOTE: signals for triggering tutorials
+signal finished_tutorial_section(tutorial_id: int)
+signal item_dropped()
+signal portal_received_damage()
+signal built_a_tower()

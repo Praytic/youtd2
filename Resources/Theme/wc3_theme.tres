@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=84 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=93 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -14,6 +14,7 @@
 [ext_resource type="StyleBox" uid="uid://de41wrip7to2f" path="res://Resources/Theme/UnitButtonContainer/counter_label_normal.tres" id="5_rng1l"]
 [ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://Resources/Theme/BottomMenuBar/stash_panel_background.tres" id="5_uofvg"]
 [ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="6_unpbn"]
+[ext_resource type="Texture2D" uid="uid://bxfq60uwqny4m" path="res://Assets/HUD/checkbox.png" id="7_0ykvr"]
 [ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://Resources/Textures/UI/rect_container_s.tres" id="7_7y0mp"]
 [ext_resource type="StyleBox" uid="uid://rhsusiehbqjb" path="res://Resources/Theme/UnitButton/small_button_disabled.tres" id="7_mn43h"]
 [ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="8_332gl"]
@@ -71,6 +72,26 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 texture = ExtResource("7_7y0mp")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2ior"]
+atlas = ExtResource("7_0ykvr")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tbsw"]
+atlas = ExtResource("7_0ykvr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axp0f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3ojd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n2dwr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvhuf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yd317"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b7i3v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
 atlas = ExtResource("8_dlncl")
@@ -778,6 +799,15 @@ ButtonLarge/base_type = &"Button"
 ButtonLarge/font_sizes/font_size = 50
 CenterPanel/base_type = &"PanelContainer"
 CenterPanel/styles/panel = ExtResource("2_4l726")
+CheckBox/constants/h_separation = 10
+CheckBox/icons/checked = SubResource("AtlasTexture_r2ior")
+CheckBox/icons/unchecked = SubResource("AtlasTexture_1tbsw")
+CheckBox/styles/disabled = SubResource("StyleBoxEmpty_axp0f")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_v3ojd")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_n2dwr")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_rvhuf")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_yd317")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_b7i3v")
 CircleButton/base_type = &"Button"
 CircleButton/styles/disabled = SubResource("StyleBoxTexture_03gih")
 CircleButton/styles/hover = SubResource("StyleBoxTexture_ts633")

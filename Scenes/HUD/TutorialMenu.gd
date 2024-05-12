@@ -1,47 +1,38 @@
 class_name TutorialMenu extends PanelContainer
 
 
-# Tutorial menu displays a tutorial. Controlled by TutorialController.
-
-
-signal player_pressed_next()
-signal player_pressed_back()
-signal player_pressed_close()
-
-
 @export var _text_label: RichTextLabel
-@export var _back_button: Button
-@export var _next_button: Button
+@export var _display_tutorial_check_box: CheckBox
+
+
+var _tutorial_id: int = -1
 
 
 #########################
 ###       Public      ###
 #########################
 
-func set_text(text: String):
+func set_tutorial_id(tutorial_id: int):
+	_tutorial_id = tutorial_id
+
+	var tutorial_title: String = TutorialProperties.get_title(tutorial_id)
+	var tutorial_text: String = TutorialProperties.get_text(tutorial_id)
+	var text: String = "[color=GOLD]%s[/color]\n \n%s" % [tutorial_title, tutorial_text]
+	
 	_text_label.clear()
 	_text_label.append_text(text)
-
-
-func set_next_disabled(value: bool):
-	_next_button.disabled = value
-
-
-func set_back_disabled(value: bool):
-	_back_button.disabled = value
 
 
 #########################
 ###     Callbacks     ###
 #########################
 
-func _on_close_button_pressed():
-	player_pressed_close.emit()
+func _on_okay_button_pressed():
+	var display_tutorial_checkbox_is_checked: bool = _display_tutorial_check_box.is_pressed()
+	if !display_tutorial_checkbox_is_checked:
+		Settings.set_setting(Settings.SHOW_TUTORIAL_ON_START, false)
+		Settings.flush()
 
+	hide()
 
-func _on_next_button_pressed():
-	player_pressed_next.emit()
-
-
-func _on_back_button_pressed():
-	player_pressed_back.emit()
+	EventBus.finished_tutorial_section.emit()

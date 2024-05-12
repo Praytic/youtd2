@@ -1,69 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://u1yl8rbswhtp"]
+[gd_scene load_steps=3 format=3 uid="uid://u1yl8rbswhtp"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_hsqnm"]
 [ext_resource type="Script" path="res://Scenes/HUD/TutorialMenu.gd" id="2_a3117"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekw2u"]
-
-[node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_back_button", "_next_button")]
+[node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_display_tutorial_check_box")]
 process_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+custom_minimum_size = Vector2(650, 200)
+offset_right = 650.0
+offset_bottom = 502.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 theme = ExtResource("1_hsqnm")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ekw2u")
-script = ExtResource("2_a3117")
-_text_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/TextLabel")
-_back_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton")
-_next_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(600, 500)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_a3117")
+_text_label = NodePath("MarginContainer/VBoxContainer/TextLabel")
+_display_tutorial_check_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/DisplayTutorialCheckBox")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="TextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center][img]res://Assets/tutorial_pictures/research_element.png[/img][/center]
+ 
+Before you can start building towers, you need to research elements. You can research elements in the Elements menu.\""
 fit_content = true
+scroll_active = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DisplayTutorialCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Close"
+theme = ExtResource("1_hsqnm")
+button_pressed = true
+text = "Display Tutorial"
 
-[node name="Spacer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OkayButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Back"
+text = "Okay"
 
-[node name="NextButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Next"
-
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/OkayButton" to="." method="_on_okay_button_pressed"]

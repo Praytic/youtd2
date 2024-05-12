@@ -21,11 +21,11 @@ class_name GameScene extends Node
 @export var _pause_shadow_rect: ColorRect
 @export var _object_container: Node2D
 @export var _build_space: BuildSpace
+@export var _tutorial_menu: TutorialMenu
+@export var _tutorial_controller: TutorialController
 
 
 var _room_code: int = 0
-var _tutorial_controller: TutorialController = null
-var _tutorial_menu: TutorialMenu = null
 
 
 #########################
@@ -59,7 +59,7 @@ func _ready():
 	EventBus.player_shift_right_clicked_item_in_tower_inventory.connect(_on_player_shift_right_clicked_item_in_tower_inventory)
 	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
 	EventBus.player_right_clicked_item_in_item_stash.connect(_on_player_right_clicked_item_in_item_stash)
-
+	
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 
 	if Config.run_prerender_tool():
@@ -136,6 +136,8 @@ func _ready():
 	var local_team: Team = local_player.get_team()
 	local_team.game_over.connect(_on_local_team_game_over)
 	local_team.game_win.connect(_on_local_team_game_win)
+	
+	_tutorial_controller.connect_to_local_player(local_player)
 	
 	_hud.connect_to_local_player(local_player)
 	
@@ -274,6 +276,9 @@ func _unhandled_input(event: InputEvent):
 			_hud.hide_all_windows()
 		elif selected_unit != null:
 			_select_unit.set_selected_unit(null)
+		elif _tutorial_menu.visible:
+			_tutorial_menu.hide()
+			_set_game_paused(false)
 		else:
 			_toggle_game_menu()
 	elif left_click:
@@ -421,10 +426,26 @@ func _toggle_game_menu():
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	if player_mode == PlayerMode.enm.SINGLE:
-		var tree: SceneTree = get_tree()
-		tree.paused = !tree.paused
+		var toggled_paused_value: bool = !get_tree().paused
+		_set_game_paused(toggled_paused_value)
+
+
+func _set_game_paused(value: bool):
+	var tree: SceneTree = get_tree()
+	tree.paused = value
+	_pause_shadow_rect.visible = value
+
+
+func _show_tutorial(tutorial_id: TutorialProperties.TutorialId):
+	var game_is_paused: bool = get_tree().paused
+	if game_is_paused:
+		push_error("A tutorial was triggered while game is paused. This should not happen")
 		
-		_pause_shadow_rect.visible = !_pause_shadow_rect.visible
+		return
+	
+	_set_game_paused(true)
+	_tutorial_menu.set_tutorial_id(tutorial_id)
+	_tutorial_menu.show()
 
 
 func _get_cmdline_value(key: String):
@@ -446,37 +467,6 @@ func _get_cmdline_value(key: String):
 			cmdline_value = arguments.get(key)
 	
 	return cmdline_value
-
-
-func _start_tutorial(game_mode: GameMode.enm):
-#	Add items for tutorial, to allow player to practice moving them.
-	var local_player: Player = PlayerManager.get_local_player()
-	var tutorial_item: Item = Item.make(80, local_player)
-	var tutorial_oil: Item = Item.make(1001, local_player)
-	var item_stash: ItemContainer = local_player.get_item_stash()
-	item_stash.add_item(tutorial_item)
-	item_stash.add_item(tutorial_oil)
-		
-	var tutorial_menu_scene: PackedScene = preload("res://Scenes/HUD/TutorialMenu.tscn")
-	_tutorial_menu = tutorial_menu_scene.instantiate()
-
-#	NOTE: need to reduce z_index of tutorial menu so that it
-#	doesn't obstruct tooltips
-	_tutorial_menu.z_index = -1
-	
-#	NOTE: add tutorial below game menu so that game can show the game menu on top of tutorial
-	_ui_layer.add_child(_tutorial_menu)
-	var game_menu_index: int = _game_menu.get_index()
-	_ui_layer.move_child(_tutorial_menu, game_menu_index)
-
-#	NOTE: pause "game start" timer during tutorial so that
-#	player doesn't feel rushed while doing the tutorial
-	_game_start_timer.set_paused(true)
-	
-	_tutorial_controller = TutorialController.new()
-	_tutorial_controller.finished.connect(_on_tutorial_controller_finished)
-	add_child(_tutorial_controller)
-	_tutorial_controller.start(_tutorial_menu, game_mode)
 
 
 # NOTE: need to remove objects from tree before quitting or
@@ -537,19 +527,6 @@ func _convert_local_player_score_to_exp():
 
 func _on_game_menu_close_pressed():
 	_toggle_game_menu()
-
-
-func _on_tutorial_controller_finished():
-#	NOTE: after player finishes the tutorial, we stop
-#	showing it on next game starts. Player can turn it back
-#	on in settings.
-	Settings.set_setting(Settings.SHOW_TUTORIAL_ON_START, false)
-	Settings.flush()
-
-	_game_start_timer.set_paused(false)
-
-	_tutorial_controller.queue_free()
-	_tutorial_menu.queue_free()
 
 
 func _on_settings_changed():
@@ -724,14 +701,6 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	var wisdom_upgrades: Dictionary = Settings.get_wisdom_upgrades()
 	var action: Action = ActionSelectWisdomUpgrades.make(wisdom_upgrades)
 	_game_client.add_action(action)
-	
-	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var always_show_tutorial: bool = Config.always_show_tutorial()
-	
-	if (show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE) || always_show_tutorial:
-		_start_tutorial(game_mode)
 
 
 func _on_local_team_game_over():
@@ -816,3 +785,28 @@ func _on_game_menu_quit_to_title_pressed():
 	_cleanup_all_objects()
 	get_tree().set_pause(false)
 	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
+
+
+func _on_tutorial_controller_tutorial_triggered(tutorial_id):
+#	NOTE: ignore tutorial triggers in build mode because
+#	tutorial is written for random mode and shouldn't show
+#	up in build mode.
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var game_mode_is_build: bool = game_mode == GameMode.enm.BUILD
+	if game_mode_is_build:
+		return
+	
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var player_mode_is_single: bool = player_mode == PlayerMode.enm.SINGLE
+	if !player_mode_is_single:
+		return
+
+	var tutorial_is_enabled_in_settings: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
+	if !tutorial_is_enabled_in_settings && !Config.always_show_tutorial():
+		return
+	
+	_show_tutorial(tutorial_id)
+
+
+func _on_tutorial_menu_hidden():
+	_set_game_paused(false)

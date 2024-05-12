@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameScene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ManualTimer.gd" id="2_gestc"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/GameClient.tscn" id="15_a5l86"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="16_amwbk"]
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildSpace.gd" id="16_p1jwo"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TutorialController.gd" id="17_5cvlj"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="18_m2fcq"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="19_jib72"]
@@ -26,6 +27,7 @@
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="24_omg4c"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="25_m068l"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/GameMenu/GameMenu.tscn" id="26_xukvx"]
+[ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="27_vroom"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -62,7 +64,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
@@ -85,6 +87,8 @@ _game_time = NodePath("Gameplay/GameTime")
 _pause_shadow_rect = NodePath("UI/PauseShadowRect")
 _object_container = NodePath("World/ObjectContainer")
 _build_space = NodePath("Gameplay/BuildSpace")
+_tutorial_menu = NodePath("UI/VBoxContainer/TutorialMenu")
+_tutorial_controller = NodePath("Gameplay/TutorialController")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -153,6 +157,9 @@ _team_container = NodePath("../TeamContainer")
 
 [node name="BuildSpace" type="Node" parent="Gameplay"]
 script = ExtResource("16_p1jwo")
+
+[node name="TutorialController" type="Node" parent="Gameplay"]
+script = ExtResource("17_5cvlj")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1
@@ -272,7 +279,27 @@ offset_bottom = 192.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TutorialMenu" parent="UI/VBoxContainer" instance=ExtResource("27_vroom")]
+process_mode = 3
+visible = false
+layout_mode = 2
+
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
+[connection signal="tutorial_triggered" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_tutorial_triggered"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
 [connection signal="quit_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_pressed"]
 [connection signal="quit_to_title_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_to_title_pressed"]
+[connection signal="hidden" from="UI/VBoxContainer/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
