@@ -151,8 +151,8 @@ func _ready():
 			var tower_stash: TowerStash = player.get_tower_stash()
 			tower_stash.add_all_towers()
 	
-	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
-	var game_mode_string: String = GameMode.convert_to_string(game_mode)
+	var difficulty_string: String = Difficulty.convert_to_colored_string(Globals.get_difficulty())
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
 
 	Messages.add_normal(local_player, "Welcome to You TD 2!")
 	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
