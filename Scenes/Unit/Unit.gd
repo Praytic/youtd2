@@ -516,8 +516,9 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage * dealt_mod * received_mod
 	var is_main_target: bool = false
+	var emit_damage_event: bool = false
 
-	var killed_unit: bool = _do_damage(target, damage_total, crit_ratio,  DamageSource.Spell, is_main_target)
+	var killed_unit: bool = _do_damage(target, damage_total, crit_ratio, DamageSource.Spell, is_main_target, emit_damage_event)
 
 	return killed_unit
 
@@ -546,7 +547,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
-	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, attack_type, crit_count, emit_damage_event)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, emit_damage_event, attack_type, crit_count)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -874,7 +875,7 @@ func _calc_attack_multicrit_from_crit_count(crit_count: int, bonus_damage: float
 	return total_crit_damage
 
 
-func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1, emit_damage_event: bool = false) -> bool:
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, emit_damage_event: bool = false, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1) -> bool:
 #	NOTE: if crit_count is -1, then _do_damage() was called
 #	from f-n like do_attack_damage(), where we only have
 #	access to crit_ratio. In that case derive crit count
