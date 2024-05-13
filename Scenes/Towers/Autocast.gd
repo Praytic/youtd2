@@ -228,7 +228,8 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 	var target_is_in_range: bool = _get_target_is_in_range(target)
 	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
-	var target_is_ok: bool = target_is_in_range && target_type_is_valid
+	var target_is_immune: bool = target.is_immune()
+	var target_is_ok: bool = target_is_in_range && target_type_is_valid && !target_is_immune
 
 	return target_is_ok
 
@@ -371,6 +372,10 @@ func _get_target_for_buff_autocast() -> Unit:
 	for unit in unit_list:
 		if buff_type == null:
 			return unit
+
+		var unit_is_immune: bool = unit.is_immune()
+		if unit_is_immune:
+			continue
 
 		var buff: Buff = unit.get_buff_of_type(buff_type)
 		var unit_has_buff: bool = buff != null
@@ -523,12 +528,16 @@ func get_target_error_message(target: Unit) -> String:
 
 	var target_is_in_range: bool = _get_target_is_in_range(target)
 	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_is_immune: bool = target.is_immune()
 
 	if !target_is_in_range:
 		return "Target is out of range"
 
 	if !target_type_is_valid:
 		return "Not a valid target for this ability"
+
+	if target_is_immune:
+		return "Target is immune"
 
 	return "Target is valid"
 
