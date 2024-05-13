@@ -749,6 +749,7 @@ func _change_experience(amount: float) -> float:
 	if level_has_changed:
 		set_level(new_level)
 		level_up.emit(level_increased)
+		EventBus.unit_leveled_up.emit()
 
 	var sign_string: String
 	if amount >= 0:

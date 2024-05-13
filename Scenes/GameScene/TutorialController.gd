@@ -15,7 +15,11 @@ enum Trigger {
 	BUILT_A_TOWER,
 	FIRST_ITEM_DROP,
 	PORTAL_DAMAGE,
-	WAVE_FINISHED,
+	WAVE_1_FINISHED,
+	WAVE_7_FINISHED,
+	WAVE_10_FINISHED,
+	WAVE_15_FINISHED,
+	UNIT_LEVELED_UP,
 	
 	COUNT,
 }
@@ -28,7 +32,11 @@ var _trigger_to_tutorial_list_map: Dictionary = {
 	Trigger.BUILT_A_TOWER: [TutorialProperties.TutorialId.RESOURCES, TutorialProperties.TutorialId.TOWER_INFO],
 	Trigger.FIRST_ITEM_DROP: [TutorialProperties.TutorialId.ITEMS],
 	Trigger.PORTAL_DAMAGE: [TutorialProperties.TutorialId.PORTAL_DAMAGE],
-	Trigger.WAVE_FINISHED: [TutorialProperties.TutorialId.WAVE_FINISHED],
+	Trigger.WAVE_1_FINISHED: [TutorialProperties.TutorialId.WAVE_1_FINISHED],
+	Trigger.WAVE_7_FINISHED: [TutorialProperties.TutorialId.CHALLENGE_WAVE],
+	Trigger.WAVE_10_FINISHED: [TutorialProperties.TutorialId.UPGRADING],
+	Trigger.WAVE_15_FINISHED: [TutorialProperties.TutorialId.TRANSFORMING],
+	Trigger.UNIT_LEVELED_UP: [TutorialProperties.TutorialId.TOWER_LEVELS],
 }
 
 var _trigger_processed_map: Dictionary = {}
@@ -46,6 +54,7 @@ func _ready():
 	EventBus.item_dropped.connect(_on_item_dropped)
 	EventBus.portal_received_damage.connect(_on_portal_received_damage)
 	EventBus.built_a_tower.connect(_on_built_a_tower)
+	EventBus.unit_leveled_up.connect(_on_unit_leveled_up)
 	
 	for trigger in range(0, Trigger.COUNT):
 		var trigger_is_mapped: bool = _trigger_to_tutorial_list_map.has(trigger)
@@ -127,9 +136,17 @@ func _on_portal_received_damage():
 	_process_trigger(Trigger.PORTAL_DAMAGE)
 
 
-func _on_local_player_wave_finished(_level: int):
-	_process_trigger(Trigger.WAVE_FINISHED)
+func _on_local_player_wave_finished(level: int):
+	match level:
+		1: _process_trigger(Trigger.WAVE_1_FINISHED)
+		7: _process_trigger(Trigger.WAVE_7_FINISHED)
+		10: _process_trigger(Trigger.WAVE_10_FINISHED)
+		15: _process_trigger(Trigger.WAVE_15_FINISHED)
 
 
 func _on_built_a_tower():
 	_process_trigger(Trigger.BUILT_A_TOWER)
+
+
+func _on_unit_leveled_up():
+	_process_trigger(Trigger.UNIT_LEVELED_UP)
