@@ -26,7 +26,18 @@ static func verify(player: Player) -> bool:
 		Messages.add_error(player, "Can't start next wave because the game is over.")
 
 		return false
-	
+
+#	TODO: handle special case of neverending mode, when it's
+#	implemented. In neverending, the wave count is
+#	infinite.
+	var current_level: int = player.get_team().get_level()
+	var wave_count: int = Globals.get_wave_count()
+	var reached_last_wave: bool = current_level == wave_count
+	if reached_last_wave:
+		Messages.add_error(player, "There are no more waves.")
+
+		return false
+
 	var wave_is_in_progress: bool = player.wave_is_in_progress()
 	if wave_is_in_progress:
 		Messages.add_error(player, "Can't start next wave because a wave is in progress.")

@@ -174,30 +174,33 @@ func _on_player_wave_finished(level: int):
 
 #	NOTE: need to check that *current* level was finished
 #	because waves can be finished out of order if they are
-#	force spawned by player.
+#	force spawned by player. If player finished not-current
+#	level, then we don't need to do any reactions.
 	var current_level: int = get_level()
 	var finished_current_level: bool = level == current_level
 	
 	if !finished_current_level:
 		return
-	
+
 	var all_players_finished: bool = true
 	for player in _player_list:
 		if !player.current_wave_is_finished():
 			all_players_finished = false
-	
-	if !all_players_finished:
-		return
-	
+		
 	_extreme_timer.stop()
-	
-	var finished_last_level: bool = level == Utils.get_max_level()
-	
-	if finished_last_level:
+
+	var player_finished_last_level: bool = level == Utils.get_max_level()
+	var team_achieved_victory: bool = player_finished_last_level && all_players_finished 
+
+	if team_achieved_victory:
 		_do_victory_effects()
-	elif _next_wave_timer.is_stopped():
-#		NOTE: only start next wave timer if it hasn't
-#		already been started automatically by extreme timer.
+
+#	NOTE: need to check that next wave timer is stopped
+#	because it could've already been started by extreme
+#	timer. In that case, we don't want to start next wave
+#	timer again because that would reset the duration.
+	var need_to_start_next_wave_timer: bool = _next_wave_timer.is_stopped() && !player_finished_last_level
+	if need_to_start_next_wave_timer:
 		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
 
 
