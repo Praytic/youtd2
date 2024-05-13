@@ -89,6 +89,12 @@ func index_of_item(item: Item) -> int:
 	return index
 
 
+func has(item: Item) -> bool:
+	var has_item: bool = _item_list.has(item)
+
+	return has_item
+
+
 func get_item_list(rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
 	var filtered_list: Array[Item] = Utils.filter_item_list(_item_list, rarity_filter, type_filter)
 

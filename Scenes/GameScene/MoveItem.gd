@@ -49,10 +49,17 @@ func cancel():
 func process_click_on_nothing():
 	if !_move_in_progress():
 		return
-
+	
+	var local_player: Player = PlayerManager.get_local_player()
 	var item_uid: int = _moved_item.get_uid()
 	var drop_pos: Vector2 = _map.get_global_mouse_position()
 	var src_container_uid: int = _source_container.get_uid()
+
+	var verify_ok: bool = ActionDropItem.verify(local_player, _moved_item, _source_container)
+	if !verify_ok:
+		_end_move_process()
+		
+		return false
 
 	_end_move_process()
 
@@ -73,7 +80,7 @@ func process_click_on_tower(tower: Tower):
 func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer) -> bool:
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	var verify_ok: bool = ActionMoveItem.verify(local_player, item, dest_item_container)
+	var verify_ok: bool = ActionMoveItem.verify(local_player, item, src_item_container, dest_item_container)
 	if !verify_ok:
 		return false
 

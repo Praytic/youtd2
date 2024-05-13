@@ -21,13 +21,10 @@ static func execute(action: Dictionary, player: Player):
 	var src_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", src_item_container_uid)
 	var dest_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", dest_item_container_uid)
 
-	if item == null || src_item_container == null || dest_item_container == null:
-		Messages.add_error(player, "Failed to drop item.")
-
-		return
-
-	var verify_ok: bool = ActionMoveItem.verify(player, item, dest_item_container)
+	var verify_ok: bool = ActionMoveItem.verify(player, item, src_item_container, dest_item_container)
 	if !verify_ok:
+		Messages.add_error(player, "Failed to move item.")
+
 		return
 
 	src_item_container.remove_item(item)
@@ -38,9 +35,17 @@ static func execute(action: Dictionary, player: Player):
 # container because container belongs to tower and item is
 # consumable. Also adds an error messages if needed.
 # Returns true if can move.
-static func verify(player: Player, item: Item, dest_container: ItemContainer) -> bool:
-	if item == null:
-		return true
+static func verify(player: Player, item: Item, src_container: ItemContainer, dest_container: ItemContainer) -> bool:
+	if item == null || src_container == null || dest_container == null:
+		Messages.add_error(player, "Failed to move item")
+		
+		return false
+
+	var item_exists_in_src_container: bool = src_container.has(item)
+	if !item_exists_in_src_container:
+		Messages.add_error(player, "Failed to move item")
+		
+		return false
 
 #	NOTE: need to call can_add_item() instead of
 #	have_item_space() to handle case of adding oil to tower

@@ -24,13 +24,10 @@ static func execute(action: Dictionary, player: Player):
 	var src_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", src_item_container_uid)
 	var dest_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", dest_item_container_uid)
 
-	if item_src == null || item_dest == null || src_item_container == null || dest_item_container == null:
-		Messages.add_error(player, "Failed to swap items.")
-
-		return
-
 	var verify_ok: bool = ActionSwapItems.verify(player, item_src, item_dest, src_item_container, dest_item_container)
 	if !verify_ok:
+		Messages.add_error(player, "Failed to swap items.")
+		
 		return
 
 	var swapping_items_in_same_container: bool = src_item_container == dest_item_container
@@ -66,7 +63,16 @@ static func execute(action: Dictionary, player: Player):
 # NOTE: don't need to check for capacity because swapping
 # items doesn't change the amount of items in each container
 static func verify(player: Player, item_src: Item, item_dest: Item, src_container: ItemContainer, dest_container: ItemContainer) -> bool:
-	if item_src == null || item_dest == null:
+	if item_src == null || item_dest == null || src_container == null || dest_container == null:
+		Messages.add_error(player, "Failed to swap items")
+		
+		return false
+
+	var item_exists_in_src_container: bool = src_container.has(item_src)
+	var item_exists_in_dest_container: bool = dest_container.has(item_dest)
+	if !item_exists_in_src_container || !item_exists_in_dest_container:
+		Messages.add_error(player, "Failed to swap items")
+
 		return false
 
 	var src_trying_to_move_consumable_to_tower: bool = item_src.is_consumable() && dest_container is TowerItemContainer
