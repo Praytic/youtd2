@@ -199,6 +199,7 @@ func _execute_action(action: Dictionary):
 		Action.Type.CONSUME_ITEM: ActionConsumeItem.execute(action, player)
 		Action.Type.DROP_ITEM: ActionDropItem.execute(action, player)
 		Action.Type.MOVE_ITEM: ActionMoveItem.execute(action, player)
+		Action.Type.SWAP_ITEMS: ActionSwapItems.execute(action, player)
 		Action.Type.AUTOFILL: ActionAutofill.execute(action, player)
 		Action.Type.TRANSMUTE: ActionTransmute.execute(action, player)
 		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player)

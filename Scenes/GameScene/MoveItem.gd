@@ -89,6 +89,26 @@ func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_c
 	return true
 
 
+func _add_swap_action(item_src: Item, item_dest: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer) -> bool:
+	var local_player: Player = PlayerManager.get_local_player()
+	
+	var verify_ok: bool = ActionSwapItems.verify(local_player, item_src, item_dest, src_item_container, dest_item_container)
+	if !verify_ok:
+		return false
+
+	var item_uid_src: int = item_src.get_uid()
+	var item_uid_dest: int = item_dest.get_uid()
+	var src_container_uid: int = src_item_container.get_uid()
+	var dest_container_uid: int = dest_item_container.get_uid()
+
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+
+	var action: Action = ActionSwapItems.make(item_uid_src, item_uid_dest, src_container_uid, dest_container_uid)
+	_game_client.add_action(action)
+
+	return true
+
+
 func _get_local_item_stash() -> ItemContainer:
 	var local_player: Player = PlayerManager.get_local_player()
 	var local_item_stash: ItemContainer = local_player.get_item_stash()
@@ -124,10 +144,15 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 
 		return
 
-#	If an item is currently getting moved, end move process
-#	for old item and start moving new item
+#	If an item is currently getting moved, swap the items
 	if _move_in_progress():
-		_end_move_process()
+		var success: bool = _add_swap_action(_moved_item, clicked_item, _source_container, container)
+
+		if success:
+			_end_move_process()
+			get_viewport().set_input_as_handled()
+
+		return
 
 	_moved_item = clicked_item
 	_moved_item.tree_exited.connect(_on_moved_item_tree_exited)

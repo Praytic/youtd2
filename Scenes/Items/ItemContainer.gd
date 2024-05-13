@@ -53,13 +53,16 @@ func can_add_item(_item: Item) -> bool:
 	return have_item_space()
 
 
-func add_item(item: Item):
+func add_item(item: Item, insert_index: int = -1):
 	if !have_item_space():
 		push_error("Tried to put items over capacity. Use have_item_space() before adding items.")
 
 		return
-	
-	_item_list.append(item)
+
+	if insert_index != -1:
+		_item_list.insert(insert_index, item)
+	else:
+		_item_list.append(item)
 
 	item.consumed.connect(_on_item_consumed.bind(item))
 	add_child(item)
@@ -78,6 +81,12 @@ func remove_item(item: Item):
 	if item.is_inside_tree():
 		remove_child(item)
 	items_changed.emit()
+
+
+func index_of_item(item: Item) -> int:
+	var index: int = _item_list.find(item)
+
+	return index
 
 
 func get_item_list(rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:

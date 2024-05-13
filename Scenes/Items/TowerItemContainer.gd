@@ -26,7 +26,7 @@ func _init(capacity: int, tower: Tower):
 ###       Public      ###
 #########################
 
-func add_item(item: Item):
+func add_item(item: Item, insert_index: int = -1):
 	item._add_to_tower(_tower)
 	
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
@@ -35,7 +35,7 @@ func add_item(item: Item):
 		_oil_list.append(item)
 		add_child(item)
 	else:
-		super.add_item(item)
+		super.add_item(item, insert_index)
 
 # 	NOTE: hackfix alert! The _is_oil_and_was_applied_already
 # 	flag is used to know when we are transferring oils from
