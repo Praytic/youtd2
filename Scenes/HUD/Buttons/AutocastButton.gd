@@ -53,6 +53,15 @@ func _make_custom_tooltip(for_text: String) -> Object:
 
 	return label
 
+
+#########################
+###       Public      ###
+#########################
+
+func get_autocast() -> Autocast:
+	return _autocast
+
+
 #########################
 ###     Callbacks     ###
 #########################

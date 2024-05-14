@@ -46,6 +46,7 @@ var _sprite: Sprite2D = null
 @export var _mana_bar: ProgressBar
 @export var _tower_selection_area: Area2D
 @export var _visual: Node2D
+@export var _range_indicator_parent: Node2D
 
 
 #########################
@@ -166,11 +167,12 @@ func _ready():
 #	NOTE: add aura range indicators to "visual" for correct
 #	positioning on y axis.
 	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(get_id())
-	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _visual, get_player())
+	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _range_indicator_parent, get_player())
 
-#	NOTE: hide range indicators until unit is selected
+#	Hide all range indicators except attack by default
 	for range_indicator in _range_indicator_list:
-		range_indicator.hide()
+		var is_attack: bool = range_indicator.ability_name == "Attack Range"
+		range_indicator.visible = is_attack
 
 	_setup_selection_signals(_tower_selection_area)
 
@@ -225,6 +227,14 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func set_range_indicator_visible(ability_name: String, value: bool):
+	for range_indicator in _range_indicator_list:
+		var name_match: bool = range_indicator.ability_name == ability_name
+		
+		if name_match:
+			range_indicator.visible = value
+
 
 func get_aura_types() -> Array[AuraType]:
 	return _tower_behavior.get_aura_types()
@@ -599,10 +609,7 @@ func _get_next_bounce_target(bounce_pos: Vector3, visited_list: Array[Unit]) -> 
 #########################
 
 func _on_selected_changed():
-	var selected_value: bool = is_selected()
-	
-	for indicator in _range_indicator_list:
-		indicator.visible = selected_value
+	_range_indicator_parent.visible = is_selected()
 
 
 func _on_target_tree_exited(target: Creep):

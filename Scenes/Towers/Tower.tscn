@@ -8,11 +8,12 @@ bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfdtb"]
 bg_color = Color(0.278431, 0.388235, 1, 1)
 
-[node name="Tower" type="Node2D" node_paths=PackedStringArray("_mana_bar", "_tower_selection_area", "_visual")]
+[node name="Tower" type="Node2D" node_paths=PackedStringArray("_mana_bar", "_tower_selection_area", "_visual", "_range_indicator_parent")]
 script = ExtResource("2")
 _mana_bar = NodePath("Visual/ManaBar")
 _tower_selection_area = NodePath("Visual/TowerSelectionArea")
 _visual = NodePath("Visual")
+_range_indicator_parent = NodePath("Visual/RangeIndicatorParent")
 
 [node name="Visual" type="Node2D" parent="."]
 z_index = 1
@@ -35,5 +36,8 @@ theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
 show_percentage = false
 metadata/_edit_use_anchors_ = true
+
+[node name="RangeIndicatorParent" type="Node2D" parent="Visual"]
+visible = false
 
 [connection signal="selected_changed" from="." to="." method="_on_selected_changed"]

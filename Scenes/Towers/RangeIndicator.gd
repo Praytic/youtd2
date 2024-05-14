@@ -16,6 +16,7 @@ const POINT_COUNT: int = 100
 # tower sprite.
 var y_offset: float = 0.0
 var _prev_pos: Vector2 = Vector2.INF
+var ability_name: String = ""
 
 
 #########################

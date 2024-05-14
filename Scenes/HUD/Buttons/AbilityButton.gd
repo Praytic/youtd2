@@ -9,6 +9,7 @@ const FALLBACK_ICON: String = "res://Resources/Icons/mechanical/compass.tres"
 
 var _icon_path: String = ""
 var _tooltip_text: String = ""
+var _ability_name: String = ""
 
 
 #########################
@@ -28,6 +29,18 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 
 
+#########################
+###       Public      ###
+#########################
+
+func get_ability_name() -> String:
+	return _ability_name
+
+
+#########################
+###       Static      ###
+#########################
+
 static func make(ability_info: AbilityInfo) -> AbilityButton:
 	var button: AbilityButton = Preloads.ability_button_scene.instantiate()
 	button._icon_path = ability_info.icon
@@ -35,7 +48,9 @@ static func make(ability_info: AbilityInfo) -> AbilityButton:
 	var description: String = ability_info.description_full
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
 	button._tooltip_text = "[color=GOLD]%s[/color]\n \n%s" % [ability_info.name, description_colored]
-	
+
+	button._ability_name = ability_info.name
+
 	return button
 
 
@@ -47,6 +62,8 @@ static func make_from_aura_type(aura_type: AuraType) -> AbilityButton:
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
 	button._tooltip_text = "[color=GOLD]%s - Aura[/color]\n \n%s" % [aura_type.name, description_colored]
 	
+	button._ability_name = aura_type.name
+
 	return button
 
 

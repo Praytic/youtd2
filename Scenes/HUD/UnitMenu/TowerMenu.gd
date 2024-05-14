@@ -128,6 +128,22 @@ func set_tower(tower: Tower):
 ###      Private      ###
 #########################
 
+func _connect_to_ability_button(button: AbilityButton):
+	button.mouse_entered.connect(_on_ability_button_mouse_entered.bind(button))
+	
+	button.mouse_exited.connect(_on_ability_button_mouse_exited.bind(button))
+	button.tree_exited.connect(_on_ability_button_mouse_exited.bind(button))
+	button.hidden.connect(_on_ability_button_mouse_exited.bind(button))
+
+
+func _connect_to_autocast_button(button: AutocastButton):
+	button.mouse_entered.connect(_on_autocast_button_mouse_entered.bind(button))
+
+	button.mouse_exited.connect(_on_autocast_button_mouse_exited.bind(button))
+	button.tree_exited.connect(_on_autocast_button_mouse_exited.bind(button))
+	button.hidden.connect(_on_autocast_button_mouse_exited.bind(button))
+
+
 func _setup_ability_buttons():
 	var prev_passive_button_list: Array = _passive_ability_container.get_children()
 	for button in prev_passive_button_list:
@@ -144,6 +160,7 @@ func _setup_ability_buttons():
 	for ability_info in ability_info_list:
 		var button: AbilityButton = AbilityButton.make(ability_info)
 		_passive_ability_container.add_child(button)
+		_connect_to_ability_button(button)
 
 	var aura_type_list: Array[AuraType] = _tower.get_aura_types()
 	for aura_type in aura_type_list:
@@ -152,10 +169,12 @@ func _setup_ability_buttons():
 
 		var button: AbilityButton = AbilityButton.make_from_aura_type(aura_type)
 		_passive_ability_container.add_child(button)
+		_connect_to_ability_button(button)
 
 	for autocast in _tower.get_autocast_list():
 		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
 		_active_ability_container.add_child(autocast_button)
+		_connect_to_autocast_button(autocast_button)
 
 
 func _get_specials_text(tower: Tower) -> String:
@@ -242,6 +261,23 @@ func _set_selling_for_real(value: bool):
 		_reset_sell_button_timer.start(SELL_BUTTON_RESET_TIME)
 	else:
 		_reset_sell_button_timer.stop()
+
+
+func _set_autocast_range_visible(button: AutocastButton, value: bool):
+	if _tower == null:
+		return
+
+	var autocast: Autocast = button.get_autocast()
+	var autocast_name: String = autocast.title
+	_tower.set_range_indicator_visible(autocast_name, value)
+
+
+func _set_ability_range_visible(button: AbilityButton, value: bool):
+	if _tower == null:
+		return
+
+	var ability_name: String = button.get_ability_name()
+	_tower.set_range_indicator_visible(ability_name, value)
 
 
 #########################
@@ -350,3 +386,19 @@ func _on_close_button_pressed():
 
 func _on_tower_level_up(_level_increased: bool):
 	_update_level_label()
+
+
+func _on_autocast_button_mouse_entered(button: AutocastButton):
+	_set_autocast_range_visible(button, true)
+
+
+func _on_autocast_button_mouse_exited(button: AutocastButton):
+	_set_autocast_range_visible(button, false)
+
+
+func _on_ability_button_mouse_entered(button: AbilityButton):
+	_set_ability_range_visible(button, true)
+
+
+func _on_ability_button_mouse_exited(button: AbilityButton):
+	_set_ability_range_visible(button, false)
