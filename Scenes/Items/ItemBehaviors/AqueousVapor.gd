@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Piercing Magic[/color]\n"
-	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % myt_string
+	text += "Increases attack damage against creeps with %s armor by 25%%.\n" % myt_string
 
 	return text
 

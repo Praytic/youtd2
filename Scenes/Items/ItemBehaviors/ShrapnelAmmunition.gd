@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Shrapnel Munition[/color]\n"
-	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % lua_string
+	text += "Increases attack damage against creeps with %s armor by 25%%." % lua_string
 
 	return text
 

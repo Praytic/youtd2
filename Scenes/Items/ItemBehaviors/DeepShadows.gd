@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Deep Shadows[/color]\n"
-	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % sol_string
+	text += "Increases attack damage against creeps with %s armor by 25%%." % sol_string
 
 	return text
 

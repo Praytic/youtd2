@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Unstable Current[/color]\n"
-	text += "Deals an additional 25%% damage as spell damage against creeps with %s armor.\n" % hel_string
+	text += "Increases attack damage against creeps with %s armor by 25%%." % hel_string
 
 	return text
 
