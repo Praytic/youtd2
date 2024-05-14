@@ -50,6 +50,14 @@ var _tower: Tower = null
 ###     Built-in      ###
 #########################
 
+func _ready():
+	_info_label.mouse_entered.connect(_on_info_label_mouse_entered)
+
+	_info_label.mouse_exited.connect(_on_info_label_mouse_exited)
+	_info_label.tree_exited.connect(_on_info_label_mouse_exited)
+	_info_label.hidden.connect(_on_info_label_mouse_exited)
+
+
 func _process(_delta: float):
 	if _tower == null:
 		return
@@ -402,3 +410,17 @@ func _on_ability_button_mouse_entered(button: AbilityButton):
 
 func _on_ability_button_mouse_exited(button: AbilityButton):
 	_set_ability_range_visible(button, false)
+
+
+func _on_info_label_mouse_entered():
+	if _tower == null:
+		return
+
+	_tower.set_range_indicator_visible("Attack Range", true)
+
+
+func _on_info_label_mouse_exited():
+	if _tower == null:
+		return
+
+	_tower.set_range_indicator_visible("Attack Range", false)

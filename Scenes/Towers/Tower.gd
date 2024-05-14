@@ -169,10 +169,10 @@ func _ready():
 	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(get_id())
 	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _range_indicator_parent, get_player())
 
-#	Hide all range indicators except attack by default
+#	Hide all range indicators by default, they get shown
+#	when mousing over ability
 	for range_indicator in _range_indicator_list:
-		var is_attack: bool = range_indicator.ability_name == "Attack Range"
-		range_indicator.visible = is_attack
+		range_indicator.visible = false
 
 	_setup_selection_signals(_tower_selection_area)
 
