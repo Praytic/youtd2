@@ -226,10 +226,6 @@ func update(delta: float):
 ###       Public      ###
 #########################
 
-func get_ability_ranges() -> Array[RangeData]:
-	return _tower_behavior.get_ability_ranges()
-
-
 func get_aura_types() -> Array[AuraType]:
 	return _tower_behavior.get_aura_types()
 

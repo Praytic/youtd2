@@ -18,6 +18,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2 experience\n"
+	divine_knowledge.radius = 500
+	divine_knowledge.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(divine_knowledge)
 
 	return list
@@ -29,10 +31,6 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Divine Teachings", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Divine Knowledge", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

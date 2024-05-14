@@ -17,13 +17,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+40 spelldamage\n" \
 	+ "+0.4% bonus crit chance\n"
+	ability.radius = 1000
+	ability.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ability)
 
 	return list
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Electric Field", 1000, TargetType.new(TargetType.CREEPS))]
 
 
 func load_triggers(triggers: BuffType):

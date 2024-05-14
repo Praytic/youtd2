@@ -46,10 +46,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.16)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Mystical Trance", 900, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
 	fungus_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_dot.tres")

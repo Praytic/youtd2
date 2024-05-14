@@ -56,10 +56,6 @@ func load_specials(_modifier: Modifier):
 	tower.set_attack_style_splash({300: 1.0})
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Intense Heat Buff", 350, TargetType.new(TargetType.TOWERS)), RangeData.new("Unleash Buff", 350, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
@@ -95,8 +91,8 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 750
-	autocast.auto_range = 750
+	autocast.cast_range = 1000
+	autocast.auto_range = 1000
 	autocast.cooldown = 5
 	autocast.mana_cost = 100
 	autocast.target_self = false

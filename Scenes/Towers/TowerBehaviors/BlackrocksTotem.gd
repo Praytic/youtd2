@@ -20,6 +20,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.3% max mana\n" \
 	+ "+0.2 seconds duration\n" \
 	+ "+0.4% trigger chance\n"
+	shamanic_totem.radius = 500
+	shamanic_totem.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(shamanic_totem)
 
 	var fighter_totem: AbilityInfo = AbilityInfo.new()
@@ -34,6 +36,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+2% crit damage\n" \
 	+ "+0.2 seconds duration\n" \
 	+ "+0.2% trigger chance\n"
+	fighter_totem.radius = 500
+	fighter_totem.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(fighter_totem)
 
 	return list
@@ -41,10 +45,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Shamanic Totem", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Fighter Totem", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

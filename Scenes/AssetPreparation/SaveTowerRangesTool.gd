@@ -79,16 +79,30 @@ static func _get_range_data_from_tower(tower: Tower) -> Array[RangeData]:
 
 	var aura_list: Array[AuraType] = tower.get_aura_types()
 
-	for i in aura_list.size():
-		var aura: AuraType = aura_list[i]
-		var aura_name: String = "Aura %d" % (i + 1)
-		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(tower.get_player()), aura.target_type)
+	for aura in aura_list:
+		var aura_range: RangeData = RangeData.new(aura.name, aura.get_range(tower.get_player()), aura.target_type)
+#		NOTE: only auras are affected by builders
 		aura_range.affected_by_builder = true
 		list.append(aura_range)
 
-	var ability_list: Array[RangeData] = tower.get_ability_ranges()
+	var ability_info_list: Array[AbilityInfo] = tower.get_ability_info_list()
+	for ability_info in ability_info_list:
+		var ability_has_range: bool = ability_info.radius != 0
+		if !ability_has_range:
+			continue
 
-	for ability_range in ability_list:
-		list.append(ability_range)
+		var range_data: RangeData = RangeData.new(ability_info.name, ability_info.radius, ability_info.target_type)
+		range_data.affected_by_builder = false
+		list.append(range_data)
+
+	var autocast_list: Array[Autocast] = tower.get_autocast_list()
+	for autocast in autocast_list:
+		var autocast_has_range: bool = autocast.cast_range != 0
+		if !autocast_has_range:
+			continue
+
+		var range_data: RangeData = RangeData.new(autocast.title, autocast.cast_range, autocast.target_type)
+		range_data.affected_by_builder = false
+		list.append(range_data)
 
 	return list

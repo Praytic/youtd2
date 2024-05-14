@@ -34,10 +34,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Ice Claw", 850, TargetType.new(TargetType.TOWERS))]
-
-
 func on_autocast(event: Event):
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005
@@ -82,7 +78,7 @@ func create_autocasts() -> Array[Autocast]:
 	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
 	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
 
-	autocast.title = "Ice Claw\n"
+	autocast.title = "Ice Claw"
 	autocast.icon = "res://Resources/Icons/magic/claw_02.tres"
 	autocast.description_short = "Causes the target creep to be slowed and suffer damage over time.\n"
 	autocast.description = "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount] \

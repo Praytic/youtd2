@@ -33,6 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s attack damage\n" % stack_bonus
+	ability.radius = 420
+	ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(ability)
 
 	return list
@@ -40,10 +42,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Roar", 420, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

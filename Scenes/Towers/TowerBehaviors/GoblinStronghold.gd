@@ -39,6 +39,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
 	+ "+0.6% trigger chances\n"
+	field.radius = 500
+	field.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(field)
 
 	var clockwork: AbilityInfo = AbilityInfo.new()
@@ -50,6 +52,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
 	+ "+0.6% attack speed and damage\n"
+	clockwork.radius = 500
+	clockwork.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(clockwork)
 
 	var sapper: AbilityInfo = AbilityInfo.new()
@@ -69,10 +73,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Probability Field Emitter", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Clockwork Engineer", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

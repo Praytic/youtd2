@@ -14,10 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Soul Revenge", 875, TargetType.new(TargetType.CREEPS))]
-
-
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 

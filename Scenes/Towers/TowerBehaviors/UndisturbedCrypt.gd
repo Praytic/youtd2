@@ -40,6 +40,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow and damage taken\n" % debuff_effect_add \
 	+ "+0.25 seconds duration\n"
+	corpse_explosion.radius = 500
+	corpse_explosion.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(corpse_explosion)
 
 	var critical_mass: AbilityInfo = AbilityInfo.new()
@@ -59,10 +61,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 5)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Corpse Explosion", 1000, TargetType.new(TargetType.CREEPS))]
 
 
 func burst_fire(chance: float, target: Creep):

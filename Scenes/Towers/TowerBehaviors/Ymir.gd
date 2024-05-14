@@ -32,6 +32,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08 seconds duration\n" \
 	+ "+0.4% vulnerability\n"
+	blood.radius = 900
+	blood.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(blood)
 
 	return list
@@ -46,10 +48,6 @@ func load_specials(modifier: Modifier):
 	tower.set_attack_style_splash({400: 0.25})
 	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Blood of Ymir", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

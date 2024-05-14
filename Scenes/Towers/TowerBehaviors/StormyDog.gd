@@ -27,6 +27,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s attack speed" % attackspeed
+	ability.radius = 420
+	ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(ability)
 
 	return list
@@ -40,10 +42,6 @@ func load_triggers(triggers_buff_type: BuffType):
 # include innate stats
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, _stats.self_attackspeed_add)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Thunderous Roar", 420, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

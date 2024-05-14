@@ -40,10 +40,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Dimensional Link", 800, TargetType.new(TargetType.TOWERS)), RangeData.new("Dimensional Monitor", 2000, TargetType.new(TargetType.CREEPS))]
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)

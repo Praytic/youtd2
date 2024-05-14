@@ -126,10 +126,6 @@ func sprite_hit(_P: Projectile, target: Unit):
 	gift_bt.apply(tower, target, tower.get_level())
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Nature's Gift", 500, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
 	gift_bt.set_buff_icon("res://Resources/Icons/GenericIcons/holy_grail.tres")

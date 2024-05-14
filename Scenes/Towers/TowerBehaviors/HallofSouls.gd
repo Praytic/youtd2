@@ -20,10 +20,6 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 1000
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Revenge of Souls", 1000, TargetType.new(TargetType.CREEPS))]
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")

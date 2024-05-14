@@ -67,6 +67,16 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 		if !icon_path_is_valid:
 			push_error("Invalid ability icon for tower %s, ability %s: %s" % [tower_name, ability_name, icon_path])
 
+# 	Check ranges
+	for ability_info in ability_info_list:
+		var range_is_defined: bool = ability_info.radius != 0
+		var target_type_is_defined: bool = ability_info.target_type != null
+
+		if range_is_defined != target_type_is_defined:
+			push_error("Invalid ability config for tower %s. Both range radius and target_type must be defined." % [tower_name])
+
+
+
 #	Check aura types
 	for aura_type in aura_type_list:
 		var name_defined: bool = !aura_type.name.is_empty()
@@ -93,16 +103,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	return list
-
-
-# Override in subclass to define ranges for abilities which
-# are not an aura or autocast. Ranges for auras and autocast
-# are displayed automatically and should not be included in
-# this list.
-# NOTE: this function is called to generate data into csv
-# file. Not used during normal gameplay.
-func get_ability_ranges() -> Array[RangeData]:
-	return []
 
 
 # Override in subclass to attach trigger handlers to

@@ -34,13 +34,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % bolt_damage_add
+	shadowbolt.radius = 1000
+	shadowbolt.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(shadowbolt)
 
 	return list
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Shadowbolt Wave", 1000, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

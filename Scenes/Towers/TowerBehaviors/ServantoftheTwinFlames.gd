@@ -59,6 +59,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % pulse_dmg_ratio_add \
 	+ "-1 flame needed at level 15 and 25\n"
+	twin_pulses.radius = 900
+	twin_pulses.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(twin_pulses)
 
 	var twin_disciplines: AbilityInfo = AbilityInfo.new()
@@ -74,10 +76,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Twin Pulses", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

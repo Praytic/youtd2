@@ -31,10 +31,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	golden_bt = BuffType.new("golden_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()

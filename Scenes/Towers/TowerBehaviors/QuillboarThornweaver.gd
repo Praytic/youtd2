@@ -46,10 +46,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Quillspray", 800, TargetType.new(TargetType.CREEPS))]
-
-
 func tower_init():
 	thorns_bt = BuffType.new("thorns_bt", 0, 0, false, self)
 	thorns_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")

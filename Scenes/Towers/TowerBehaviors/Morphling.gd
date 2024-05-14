@@ -34,6 +34,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.4% slow\n" \
 	+ "+0.2%% damage from %s\n" % nature_string \
 	+ "+0.6% chance\n"
+	morphling_strike.radius = 900
+	morphling_strike.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(morphling_strike)
 
 	var evolve: AbilityInfo = AbilityInfo.new()
@@ -49,10 +51,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Morphling Strike", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

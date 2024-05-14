@@ -51,6 +51,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance\n"
+	energy_detection.radius = 900
+	energy_detection.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(energy_detection)
 
 	return list
@@ -68,10 +70,6 @@ func load_triggers(triggers: BuffType):
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.0015)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.01)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Energy Aura", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

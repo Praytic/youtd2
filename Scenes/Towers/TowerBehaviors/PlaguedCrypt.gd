@@ -29,6 +29,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4 seconds duration\n"
+	army.radius = 1150
+	army.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(army)
 
 	return list
@@ -46,10 +48,6 @@ func load_specials(_modifier: Modifier):
 		50: 0.40,
 		150: 0.25,
 		})
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Army of the Damned", 1150, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

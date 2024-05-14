@@ -56,10 +56,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Battery Overload", 1200, TargetType.new(TargetType.CREEPS))]
-
-
 func on_autocast(_event: Event):
 	tower.set_mana(tower.get_mana() + 100)
 	_battery_overload_is_active = true

@@ -34,6 +34,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.5% chance\n" \
 	+ "+0.5% slow \n" \
 	+ "+1 nova at lvl 15 and 25\n"
+	ability.radius = 900
+	ability.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ability)
 
 	return list
@@ -41,10 +43,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Nova Storm", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

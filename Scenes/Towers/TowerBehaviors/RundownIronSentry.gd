@@ -39,6 +39,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s base damage bonus\n" % alert_mod_dmg_add
+	alert.radius = ALERT_RANGE
+	alert.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(alert)
 
 	var tresspasser: AbilityInfo = AbilityInfo.new()
@@ -57,10 +59,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 925, TargetType.new(TargetType.CREEPS))
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Alert", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

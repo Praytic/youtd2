@@ -36,6 +36,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.04 silence duration\n"
+	curse.radius = 800
+	curse.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(curse)
 
 	return list
@@ -45,10 +47,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 7.0)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Curse of the Silent", 800, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

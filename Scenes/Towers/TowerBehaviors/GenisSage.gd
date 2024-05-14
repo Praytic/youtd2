@@ -62,6 +62,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% spell damage\n"
+	magic_boost.radius = 350
+	magic_boost.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(magic_boost)
 
 	return list
@@ -71,10 +73,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 7.0)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Magic Boost", 350, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

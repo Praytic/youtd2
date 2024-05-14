@@ -47,6 +47,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+250 spelldamage\n" \
 	+ "+0.4% attackspeed and damage\n"
+	crush.radius = 500
+	crush.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(crush)
 
 	return list
@@ -61,10 +63,6 @@ func load_triggers(triggers: BuffType):
 func load_specials(modifier: Modifier):
 	tower.set_attack_style_splash({100: 1.0})
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.005)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Crush!", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

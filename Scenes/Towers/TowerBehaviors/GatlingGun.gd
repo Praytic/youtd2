@@ -38,6 +38,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% damage\n" \
 	+ "+0.05 seconds duration\n"
+	sentry.radius = 800
+	sentry.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(sentry)
 
 	return list
@@ -55,10 +57,6 @@ func load_triggers(triggers: BuffType):
 # spell crit chance add = no
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Sentry", 800, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

@@ -21,6 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+80 spell damage\n" \
 	+ "+1.2% slow\n"
+	valors_light.radius = 800
+	valors_light.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(valors_light)
 	
 	var last_line: AbilityInfo = AbilityInfo.new()
@@ -31,6 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08% spell and attack damage taken per tower\n"
+	last_line.radius = 400
+	last_line.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(last_line)
 
 	return list
@@ -38,10 +42,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 800, TargetType.new(TargetType.CREEPS))
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Valor's Light", 800, TargetType.new(TargetType.CREEPS)), RangeData.new("Valor's Light", 400, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

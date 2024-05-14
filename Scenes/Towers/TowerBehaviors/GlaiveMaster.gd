@@ -78,10 +78,6 @@ func load_specials(_modifier: Modifier):
 	tower.set_attack_style_bounce(2, 0.0)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Glaivesaw", 1000, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	lacerate_bt = BuffType.new("lacerate_bt", 5, 0, false, self)
 	lacerate_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")

@@ -13,10 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Snake Charm", 200, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MANA_PERC, 0.0, 0.001)

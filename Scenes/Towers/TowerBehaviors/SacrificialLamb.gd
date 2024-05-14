@@ -61,6 +61,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s attack speed\n" % bloodspill_mod_attackspeed_add \
 	+ "+%s chance\n" % bloodspill_chance_add
+	ability.radius = BLOODSPILL_RANGE
+	ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(ability)
 
 	return list
@@ -72,10 +74,6 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, _stats.mod_mana_regen_add)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Sacrifice", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Blood Spill", 200, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

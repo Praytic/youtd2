@@ -25,6 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "-1 minimum and maximum attack needed at levels 15 and 25\n" \
 	+ "+1 fireball at level 10\n" \
 	+ "+5% bonus crit chance at levels 5 and 20\n"
+	flaming_inferno.radius = 950
+	flaming_inferno.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(flaming_inferno)
 
 	var dragons_hoard: AbilityInfo = AbilityInfo.new()
@@ -41,10 +43,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Flaming Inferno", 950, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

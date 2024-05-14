@@ -19,10 +19,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.20, 0.008)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Replenish", 500, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()

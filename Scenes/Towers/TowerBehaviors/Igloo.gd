@@ -38,6 +38,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage \n" % cold_damage_add \
 	+ "+%s slow\n" % cold_slow_add
+	ability.radius = COLD_RANGE
+	ability.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ability)
 
 	return list
@@ -49,10 +51,6 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, -0.50, 0.0)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Extreme Cold", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func boekie_igloo_end(event: Event):

@@ -29,6 +29,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.4% chance\n" \
 	+ "+1% health regen reduction\n" \
 	+ "-1% experience and bounty reduction\n"
+	withering.radius = 900
+	withering.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(withering)
 
 	return list
@@ -42,10 +44,6 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 2.0)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Will of the Undying", 200, TargetType.new(TargetType.TOWERS)), RangeData.new("Withering Presence", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

@@ -31,6 +31,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance"
+	ability.radius = 600
+	ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(ability)
 
 	return list
@@ -89,10 +91,6 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_received, 0)
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Knowledge", 600, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

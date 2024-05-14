@@ -9,10 +9,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Burning Mark", 500, TargetType.new(TargetType.TOWERS))]
-
-
 func tower_init():
 	mark_bt = BuffType.new("mark_bt", 10.0, 0.4, true, self)
 	var mod: Modifier = Modifier.new()

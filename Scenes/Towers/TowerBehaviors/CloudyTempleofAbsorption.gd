@@ -44,10 +44,6 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 500.0)
 
 
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Cloudy Thunderstorm", 1000, TargetType.new(TargetType.CREEPS))]
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/semi_closed_eye.tres")
@@ -82,14 +78,14 @@ func create_autocasts() -> Array[Autocast]:
 	autocast1.target_art = ""
 	autocast1.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
 	autocast1.num_buffs_before_idle = 0
-	autocast1.cast_range = 0
+	autocast1.cast_range = 1000
 	autocast1.auto_range = 0
 	autocast1.cooldown = 0.01
 	autocast1.mana_cost = 1000
 	autocast1.target_self = false
 	autocast1.is_extended = false
 	autocast1.buff_type = null
-	autocast1.target_type = TargetType.new(TargetType.TOWERS)
+	autocast1.target_type = TargetType.new(TargetType.CREEPS)
 	autocast1.handler = on_autocast_cloud_thunderstorm
 	list.append(autocast1)
 
