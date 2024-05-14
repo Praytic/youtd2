@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Stunning Souls[/color]\n"
-	text += "Gains 2 charges on kill. Spends 1 charge on damage to stun for 1.5 seconds.\n"
+	text += "Gains 2 charges on kill. Spends 1 charge on attack damage to stun for 1.5 seconds.\n"
 
 	return text
 

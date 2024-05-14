@@ -10,7 +10,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magical Greed[/color]\n"
-	text += "When the carrier of this item casts a spell it has a 20% chance to replenish 15% of it's mana. This ability has 10 seconds cooldown.\n"
+	text += "When the carrier of this item casts a spell it has a 20% chance to replenish 15% of maximum mana. This ability has 10 seconds cooldown.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% mana replenish\n"

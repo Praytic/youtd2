@@ -8,7 +8,7 @@ func get_ability_description() -> String:
     var text: String = ""
 
     text += "[color=GOLD]Power of the Sword[/color]\n"
-    text += "Has an equal chance to decrease the armor of the damaged creep by 5 or 10 for 5 seconds.\n"
+    text += "Has an equal chance to decrease the armor of the attacked creep by 5 or 10 for 5 seconds.\n"
     text += " \n"
     text += "[color=ORANGE]Level Bonus:[/color]\n"
     text += "+0.2 armor reduction.\n"

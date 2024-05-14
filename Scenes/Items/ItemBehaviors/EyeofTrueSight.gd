@@ -11,7 +11,7 @@ func get_ability_description() -> String:
 	text += "Reveals invisible enemies in 900 range.\n"
 	text += " \n"
 	text += "[color=GOLD]True Sight[/color]\n"
-	text += "The carrier of this item deals 20% more damage against invisible creeps.\n"
+	text += "Increases damage of attacks against invisible creeps by 20%.\n"
 	text += " \n"
 	text += "Level Bonus:\n"
 	text += "+0.8% damage\n"

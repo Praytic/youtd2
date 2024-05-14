@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Essence Attack[/color]\n"
-	text += "The carrier of this item deals 100% damage against all armor types.\n"
+	text += "The carrier of this item deals 100% attack damage against all armor types.\n"
 
 	return text
 
@@ -20,5 +20,7 @@ func on_damage(event: Event):
 	var C: Creep = event.get_target()
 	var r: float = AttackType.get_damage_against(AT, C.get_armor_type())
 
+#	NOTE: this check is actually not needed because DAMAGE
+#	event is not called for spell damage
 	if event.is_spell_damage() == false:
 		event.damage = event.damage / r

@@ -16,7 +16,7 @@ func get_ability_description() -> String:
 	text += "+100%% experience for %s\n" % astral_string
 	text += "+45%% spell damage for %s\n" % darkness_string
 	text += "+10%% crit chance for %s\n" % nature_string
-	text += "+40%% damage for %s\n" % fire_string
+	text += "+40%% attack damage for %s\n" % fire_string
 	text += "+50%% buff duration for %s\n" % ice_string
 	text += "+25%% attack speed for %s\n" % storm_string
 	text += "+30%% item chance for %s\n" % iron_string

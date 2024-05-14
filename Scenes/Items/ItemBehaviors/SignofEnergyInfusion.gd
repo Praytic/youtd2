@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Infuse with Regeneration[/color]\n"
-	text += "Every 5th time the carrier of this item deals damage, the damage is increased by its percentual mana regeneration.\n"
+	text += "Every 5th time the carrier of this item deals damage with an attack, the damage is increased by its percentual mana regeneration.\n"
 
 	return text
 

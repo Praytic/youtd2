@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Soul Power[/color]\n"
-	text += "Each time the user of this cloak kills a unit, its dps is increased by 10. There is a maximum of 4000 bonus dps. The extra damage is bound to the item.\n"
+	text += "Each time the user of this cloak kills a unit, its DPS is increased by 10. There is a maximum of 4000 bonus DPS. The extra damage is bound to the item.\n"
 
 	return text
 

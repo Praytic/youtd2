@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Bones of Essence[/color]\n"
-	text += "Increases the damage against creeps with the armor type %s by 25%%.\n" % sif_string
+	text += "Increases attack damage against creeps with %s armor by 25%%.\n" % sif_string
 
 	return text
 

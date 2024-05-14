@@ -12,7 +12,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ball Lightning[/color]\n"
-	text += "Every 3 seconds this item jumps to another tower. If no other tower in  1500 range has an empty slot, this item will fly to stash.\n"
+	text += "Every 3 seconds this item jumps to another tower in 1500 range. If there's no tower with an empty slot, this item will fly to stash.\n"
 
 	return text
 
