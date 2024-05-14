@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Extreme Cold"
 	ability.icon = "res://Resources/Icons/furniture/furniture.tres"
 	ability.description_short = "Damages and slows every unit that comes in range.\n"
-	ability.description_full = "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spelldamage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration] \
+	ability.description_full = "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spell damage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage \n" % cold_damage_add \

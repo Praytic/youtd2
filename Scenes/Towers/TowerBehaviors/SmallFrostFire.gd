@@ -31,7 +31,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Soul Chill"
 	autocast.icon = "res://Resources/Icons/fire/flame_blue_glowing.tres"
 	autocast.description_short = "Deals spell damage and slows units in a small area.\n"
-	autocast.description = "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value] \
+	autocast.description = "Chills the souls of all creeps in 250 AoE of the target, dealing %s spell damage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % aoe_damage_add \

@@ -76,11 +76,11 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Energy Absorb"
 	autocast.icon = "res://Resources/Icons/rings/ring_06.tres"
-	autocast.description_short = "Decreases attackspeed of all towers in range. Increases mana regeneration of the Accelerator.\n"
-	autocast.description = "Decreases the attackspeed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n" \
+	autocast.description_short = "Decreases attack speed of all towers in range. Increases mana regeneration of the Accelerator.\n"
+	autocast.description = "Decreases the attack speed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.1% attackspeed weakening\n" \
+	+ "-0.1% attack speed weakening\n" \
 	+ "+0.04 mana per second\n"
 
 	autocast.caster_art = ""

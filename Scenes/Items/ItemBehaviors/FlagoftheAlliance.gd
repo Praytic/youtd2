@@ -8,10 +8,10 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Motivation - Aura[/color]\n"
-	text += "Increases attackspeed of towers in 1000 range by 5%.\n"
+	text += "Increases attack speed of towers in 1000 range by 5%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1% attackspeed\n"
+	text += "+0.1% attack speed\n"
 
 	return text
 

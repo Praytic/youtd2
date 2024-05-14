@@ -25,7 +25,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Gift of Nature"
 	aura.icon = "res://Resources/Icons/plants/leaf_03.tres"
 	aura.description_short = "All nearby towers have a chance to entangle creeps.\n"
-	aura.description_full = "All towers in %d range will receive a gift of nature. When a gifted tower attacks a creep there is a 10%% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" % AURA_RANGE \
+	aura.description_full = "All towers in %d range will receive a gift of nature. When a gifted tower attacks a creep there is a 10%% attack speed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance \n" \
@@ -48,7 +48,7 @@ func aura_bt_on_attack(event: Event):
 	var caster: Tower = buff.get_caster()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
-	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * buffed_tower.get_base_attackspeed()
+	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * buffed_tower.get_base_attack_speed()
 	var target_is_boss: bool = target.get_size() >= CreepSize.enm.BOSS
 	var target_is_air: bool = target.get_size() == CreepSize.enm.AIR
 

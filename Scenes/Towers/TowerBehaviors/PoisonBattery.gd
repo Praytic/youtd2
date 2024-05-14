@@ -36,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Poison"
 	ability.icon = "res://Resources/Icons/potions/potion_green_02.tres"
 	ability.description_short = "An infected creep takes damage every second and is slowed.\n"
-	ability.description_full = "An infected creep takes %s spelldamage every second for 9 seconds and is slowed by %s.\n" % [poison_damage, mod_movespeed] \
+	ability.description_full = "An infected creep takes %s spell damage every second for 9 seconds and is slowed by %s.\n" % [poison_damage, mod_movespeed] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s poison damage\n" % poison_damage_add \

@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	cannon.name = "Cannon"
 	cannon.icon = "res://Resources/Icons/cannons/cannon_07.tres"
 	cannon.description_short = "The Dutchman attacks a random creep in range, dealing AoE damage.\n"
-	cannon.description_full = "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attackspeed.\n"
+	cannon.description_full = "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attack speed.\n"
 	list.append(cannon)
 
 	var soul_attack: AbilityInfo = AbilityInfo.new()
@@ -78,7 +78,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
 	panic_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
-	panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
+	panic_bt.set_buff_tooltip("Panic\nReduces armor and movement speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")
@@ -166,7 +166,7 @@ func dutchman_pt_periodic(_p: Projectile):
 
 	timer_cannonball -= 0.1
 	if timer_cannonball <= 0.0:
-		timer_cannonball += tower.get_current_attackspeed()
+		timer_cannonball += tower.get_current_attack_speed()
 		shoot_cannonball()
 
 	timer_soul -= 0.1

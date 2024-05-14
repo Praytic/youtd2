@@ -497,8 +497,8 @@ func _get_tower_damage_string(tower: Tower) -> String:
 	var damage_add_percent: float = tower.get_damage_add_percent()
 
 	var dps_bonus: float = tower.get_dps_bonus()
-	var attackspeed: float = tower.get_current_attackspeed()
-	var dps_mod: float = dps_bonus * attackspeed
+	var attack_speed: float = tower.get_current_attack_speed()
+	var dps_mod: float = dps_bonus * attack_speed
 
 	var damage_total: float = (dmg_base + damage_add_absolute) * damage_add_percent + dps_mod
 

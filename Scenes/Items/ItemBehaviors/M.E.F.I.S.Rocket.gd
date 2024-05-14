@@ -72,7 +72,7 @@ func periodic(event: Event):
 	var dmg: float
 	var P: Projectile
 
-	event.enable_advanced(T.get_current_attackspeed(), false)
+	event.enable_advanced(T.get_current_attack_speed(), false)
 
 	while true:
 		U = I.next()

@@ -13,7 +13,7 @@ class_name TowerDetails extends GridContainer
 @export var _damage_add_perc: Label
 @export var _overall_damage: Label
 @export var _base_cooldown: Label
-@export var _attackspeed: Label
+@export var _attack_speed: Label
 @export var _overall_cooldown: Label
 @export var _overall_dps: Label
 @export var _crit_chance: Label
@@ -116,13 +116,13 @@ func _update_text():
 	var overall_damage: float = _tower.get_overall_damage()
 	_overall_damage.text = TowerDetails.int_format(overall_damage)
 
-	var base_cooldown: float = _tower.get_base_attackspeed()
+	var base_cooldown: float = _tower.get_base_attack_speed()
 	_base_cooldown.text = Utils.format_float(base_cooldown, 2)
 
-	var attackspeed: float = _tower.get_attackspeed_modifier()
-	_attackspeed.text = Utils.format_percent(attackspeed, 0)
+	var attack_speed: float = _tower.get_attack_speed_modifier()
+	_attack_speed.text = Utils.format_percent(attack_speed, 0)
 
-	var overall_cooldown: float = _tower.get_current_attackspeed()
+	var overall_cooldown: float = _tower.get_current_attack_speed()
 	_overall_cooldown.text = Utils.format_float(overall_cooldown, 2)
 
 	var overall_dps: float = _tower.get_overall_dps()

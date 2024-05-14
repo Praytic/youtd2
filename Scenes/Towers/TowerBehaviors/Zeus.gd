@@ -20,10 +20,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	electrified_attack.name = "Electrified Attack"
 	electrified_attack.icon = "res://Resources/Icons/trinkets/claw_03.tres"
 	electrified_attack.description_short = "Zeus's attacks deal additional AoE spell damage.\n"
-	electrified_attack.description_full = "Zeus's attacks deal an additional 500 spelldamage in 175 AoE around their target.\n" \
+	electrified_attack.description_full = "Zeus's attacks deal an additional 500 spell damage in 175 AoE around their target.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+20 spelldamage\n"
+	+ "+20 spell damage\n"
 	list.append(electrified_attack)
 
 	var divine_hammer: AbilityInfo = AbilityInfo.new()
@@ -56,7 +56,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Thunderstorm"
 	autocast.icon = "res://Resources/Icons/TowerIcons/RuinedMonolith.tres"
 	autocast.description_short = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.\n"
-	autocast.description = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spelldamage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n" \
+	autocast.description = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spell damage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+125 damage\n" \

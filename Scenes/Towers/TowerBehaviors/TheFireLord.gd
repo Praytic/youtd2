@@ -24,11 +24,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	hellfire.name = "Hellfire"
 	hellfire.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	hellfire.description_short = "When the Fire Lord attacks there is a chance that it gains a multishot ability.\n"
-	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attackspeed for 7.5 seconds. Cannot retrigger!\n" \
+	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attack speed for 7.5 seconds. Cannot retrigger!\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2 seconds duration\n" \
-	+ "+0.4% attackspeed\n" \
+	+ "+0.4% attack speed\n" \
 	+ "+0.2% chance\n" \
 	+ "+1 target at level 15 and 25\n"
 	list.append(hellfire)
@@ -37,10 +37,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	liquid_fire.name = "Liquid Fire"
 	liquid_fire.icon = "res://Resources/Icons/potions/potion_orange_03.tres"
 	liquid_fire.description_short = "When the Fire Lord damages a creep it will be set on fire.\n"
-	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spelldamage per second and increasing the damage it takes from %s towers by 10%%. [color=GOLD]Liquid Fire[/color] lasts 5 seconds.\n" % fire_string \
+	liquid_fire.description_full = "When the Fire Lord damages a creep it will be set on fire, dealing 500 spell damage per second and increasing the damage it takes from %s towers by 10%%. [color=GOLD]Liquid Fire[/color] lasts 5 seconds.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+50 spelldamage per second " \
+	+ "+50 spell damage per second " \
 	+ "+0.1 seconds duration\n" \
 	+ "+0.4%% bonus damage from %s towers\n" % fire_string
 	list.append(liquid_fire)

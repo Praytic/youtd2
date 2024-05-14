@@ -32,7 +32,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Frost"
 	aura.icon = "res://Resources/Icons/orbs/orb_ice.tres"
 	aura.description_short = "Slows nearby creeps.\n"
-	aura.description_full = "Slows movementspeed of enemies in %d range by %s.\n" % [_stats.aura_range, mod_movespeed] \
+	aura.description_full = "Slows creeps in %d range by %s.\n" % [_stats.aura_range, mod_movespeed] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow\n" % mod_movespeed_add

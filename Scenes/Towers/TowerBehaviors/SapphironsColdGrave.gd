@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ice_shard: AbilityInfo = AbilityInfo.new()
 	ice_shard.name = "Ice Shard"
 	ice_shard.icon = "res://Resources/Icons/gems/gem_03.tres"
-	ice_shard.description_short = "Fires an ice shard towards an enemy which splits into multiple shards.\n"
-	ice_shard.description_full = "This tower fires an ice shard towards an enemy. After a distance of 300 the ice shard splits into 2 new shards which will split again. If a shard collides with an enemy it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
+	ice_shard.description_short = "Fires an ice shard towards a creep which splits into multiple shards.\n"
+	ice_shard.description_full = "This tower fires an ice shard towards a creep. After a distance of 300 the ice shard splits into 2 new shards which will split again. If a shard collides with a creep it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+85 damage\n"
@@ -21,8 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var liquid_ice: AbilityInfo = AbilityInfo.new()
 	liquid_ice.name = "Liquide Ice"
 	liquid_ice.icon = "res://Resources/Icons/potions/potion_10.tres"
-	liquid_ice.description_short = "Each time an ice shard damages an enemy, it decreases the target's defense against ice towers.\n"
-	liquid_ice.description_full = "Each time an ice shard damages an enemy, it decreases the target's defense against ice towers. The target takes 15% more damage from attacks of ice towers. The effect lasts until the creep's death and stacks.\n" \
+	liquid_ice.description_short = "Each time an ice shard deals damage, it decreases the target's defense against ice towers.\n"
+	liquid_ice.description_full = "Each time an ice shard deals damage, it decreases the target's defense against ice towers. The target takes 15% more damage from attacks of ice towers. The effect lasts until the creep's death and stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% damage increase\n"

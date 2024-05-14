@@ -53,7 +53,7 @@ func tower_init():
 func on_attack(event: Event):
 	var target: Unit = event.get_target()
 	var attack_count: int = 10 + 2 / 5 * tower.get_level()
-	var time_between_attacks: float = tower.get_current_attackspeed() / attack_count
+	var time_between_attacks: float = tower.get_current_attack_speed() / attack_count
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 1200)
 
 	SFX.sfx_on_unit("MirrorImageCaster.mdl", tower, Unit.BodyPart.ORIGIN)

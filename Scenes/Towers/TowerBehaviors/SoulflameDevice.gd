@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var soulfire: AbilityInfo = AbilityInfo.new()
 	soulfire.name = "Soulfire"
 	soulfire.icon = "res://Resources/Icons/fire/flame_purple.tres"
-	soulfire.description_short = "Chance to ignite the enemy's soul.\n"
-	soulfire.description_full = "Attacks have a 20% chance to ignite the enemy's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
+	soulfire.description_short = "Chance to ignite the creep's soul.\n"
+	soulfire.description_full = "Attacks have a 20% chance to ignite the creep's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
@@ -34,8 +34,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var soul_consumption: AbilityInfo = AbilityInfo.new()
 	soul_consumption.name = "Soul Consumption"
 	soul_consumption.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
-	soul_consumption.description_short = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies.\n"
-	soul_consumption.description_full = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
+	soul_consumption.description_short = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps.\n"
+	soul_consumption.description_full = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps within 200 range. The creep is consumed by the tower, restoring 5 mana.\n"
 	list.append(soul_consumption)
 
 	return list
@@ -199,12 +199,12 @@ func evil_device_bt_update(buff: Buff):
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
-	var attackspeed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
+	var attack_speed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
 
 	buff.user_real = (caster.get_prop_spell_damage_dealt() - 1.0) * caster_level_factor
 	buff.user_real2 = (caster.get_spell_crit_chance() - spell_crit_chance_innate) * caster_level_factor
 	buff.user_real3 = (caster.get_spell_crit_damage() - spell_crit_dmg_innate) * caster_level_factor
-	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000.0)
+	buff.user_int = int((caster.get_base_attack_speed() - attack_speed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
 	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)

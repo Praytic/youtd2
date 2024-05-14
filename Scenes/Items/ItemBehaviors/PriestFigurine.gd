@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Enlighten[/color]\n"
-	text += "Whenever the carrier of this item damages a creep there is a 20% attackspeed adjusted chance that the damaged creep grants 5% more experience. This modification is permanent and it stacks.\n"
+	text += "Whenever the carrier of this item damages a creep there is a 20% attack speed adjusted chance that the damaged creep grants 5% more experience. This modification is permanent and it stacks.\n"
 
 	return text
 
@@ -16,7 +16,7 @@ func load_triggers(triggers: BuffType):
 
 func on_damage(event: Event):
 	var tower: Tower = item.get_carrier() 
-	var speed: float = tower.get_base_attackspeed()  
+	var speed: float = tower.get_base_attack_speed()  
 
 	if event.is_main_target() && tower.calc_chance(0.2 * speed) == true:
 		CombatLog.log_item_ability(item, event.get_target(), "Enlighten")

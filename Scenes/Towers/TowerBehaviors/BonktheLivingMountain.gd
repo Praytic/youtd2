@@ -17,23 +17,23 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var grow: AbilityInfo = AbilityInfo.new()
 	grow.name = "Grow!"
 	grow.icon = "res://Resources/Icons/trinkets/trinket_09.tres"
-	grow.description_short = "Bonk will periodically grow, gaining experience and bonus attackdamage.\n"
-	grow.description_full = "Every 25 seconds Bonk grows, gaining 4 experience and 3% bonus attackdamage. Bonk can grow 160 times.\n" \
+	grow.description_short = "Bonk will periodically grow, gaining experience and bonus attack damage.\n"
+	grow.description_full = "Every 25 seconds Bonk grows, gaining 4 experience and 3% bonus attack damage. Bonk can grow 160 times.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.1% bonus attackdamage\n"
+	+ "+0.1% bonus attack damage\n"
 	list.append(grow)
 
 	var landslide: AbilityInfo = AbilityInfo.new()
 	landslide.name = "Landslide!"
 	landslide.icon = "res://Resources/Icons/food/lard.tres"
-	landslide.description_short = "Bonk has a chance to throw rocks at creeps around the main target. These rocks deal spelldamage and stun.\n"
+	landslide.description_short = "Bonk has a chance to throw rocks at creeps around the main target. These rocks deal spell damage and stun.\n"
 	landslide.description_full = "This ability works only after Bonk has grown 20 times.\n" \
 	+ " \n" \
-	+ "Bonk has a 25% chance on attack to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spelldamage and stun for 0.5 seconds. [color=GOLD]Landslide[/color] deals 15 bonus spelldamage per grow.\n" \
+	+ "Bonk has a 25% chance on attack to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spell damage and stun for 0.5 seconds. [color=GOLD]Landslide[/color] deals 15 bonus spell damage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+50 spelldamage\n"
+	+ "+50 spell damage\n"
 	list.append(landslide)
 
 	var crush: AbilityInfo = AbilityInfo.new()
@@ -42,11 +42,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	crush.description_short = "Whenever Bonk damages a stunned creep it gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \
-	+ "Whenever Bonk damages a stunned creep it deals 5000 spelldamage to it. When this happens, towers in 500 range will gain 10% attackspeed and damage for 10 seconds. [color=GOLD]Crush[/color] deals 50 bonus spelldamage per grow.\n" \
+	+ "Whenever Bonk damages a stunned creep it deals 5000 spell damage to it. When this happens, towers in 500 range will gain 10% attack speed and damage for 10 seconds. [color=GOLD]Crush[/color] deals 50 bonus spell damage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+250 spelldamage\n" \
-	+ "+0.4% attackspeed and damage\n"
+	+ "+250 spell damage\n" \
+	+ "+0.4% attack speed and damage\n"
 	crush.radius = 500
 	crush.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(crush)

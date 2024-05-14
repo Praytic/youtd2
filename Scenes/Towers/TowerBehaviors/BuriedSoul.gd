@@ -27,10 +27,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	soul_scattering.name = "Soul Scattering"
 	soul_scattering.icon = "res://Resources/Icons/gloves/curse.tres"
 	soul_scattering.description_short = "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
-	soul_scattering.description_full = "10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration] \
+	soul_scattering.description_full = "10%% chance on attack to reduce its own attack speed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% attackspeed\n" \
+	+ "+1% attack speed\n" \
 	+ "+%s spell damage received\n" % banish_lvl_add
 	list.append(soul_scattering)
 

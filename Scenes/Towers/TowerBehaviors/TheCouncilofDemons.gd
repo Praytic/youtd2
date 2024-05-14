@@ -81,8 +81,8 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Impenetrable Darkness"
 	autocast.icon = "res://Resources/Icons/orbs/orb_molten_dull.tres"
-	autocast.description_short = "Shrouds an enemy in darkness, slowing it and converting attack damage it takes into spell damage.\n"
-	autocast.description = "Shrouds an enemy in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n" \
+	autocast.description_short = "Shrouds a creep in darkness, slowing it and converting attack damage it takes into spell damage.\n"
+	autocast.description = "Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+40 damage per second\n" \

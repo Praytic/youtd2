@@ -18,10 +18,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	flaming_inferno.name = "Flaming Inferno"
 	flaming_inferno.icon = "res://Resources/Icons/TowerIcons/GeothermalExtractor.tres"
 	flaming_inferno.description_short = "Occasionally releases fireballs that deal AoE damage.\n"
-	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spelldamage in 250 AoE around the target on impact.\n" \
+	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spell damage in 250 AoE around the target on impact.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+150 spelldamage\n" \
+	+ "+150 spell damage\n" \
 	+ "-1 minimum and maximum attack needed at levels 15 and 25\n" \
 	+ "+1 fireball at level 10\n" \
 	+ "+5% bonus crit chance at levels 5 and 20\n"
@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	dragons_hoard.name = "Dragon's Hoard"
 	dragons_hoard.icon = "res://Resources/Icons/misc/gold_cart.tres"
 	dragons_hoard.description_short = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n"
-	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spelldamage and base attackdamage.\n" \
+	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spell damage and base attack damage.\n" \
 	+ "[color=GOLD]Hint:[/color] [color=GOLD]Dragon's Hoard[/color] is modified by both the creep's and this tower's bounty ratios.\n"
 	list.append(dragons_hoard)
 

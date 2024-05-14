@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	wrath.name = "Protectress's Wrath"
 	wrath.icon = "res://Resources/Icons/plants/leaf_01.tres"
 	wrath.description_short = "Each attack has a chance to deal an extra damage to all units in range around the target. Slows all damaged units.\n"
-	wrath.description_full = "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attackspeed decreases time needed to gain a charge.\n" \
+	wrath.description_full = "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attack speed decreases time needed to gain a charge.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% damage\n" \
@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	meld.name = "Meld with the Forest"
 	meld.icon = "res://Resources/Icons/faces/sleeping_leaf_spirit.tres"
 	meld.description_short = "The Protectress gains additional attack damage for each second she doesn't attack.\n"
-	meld.description_full = "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attackspeed decreases the time needed to gain a charge.\n" \
+	meld.description_full = "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attack speed decreases the time needed to gain a charge.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage per second\n"
@@ -118,7 +118,7 @@ func on_damage(event: Event):
 
 func periodic(event: Event):
 	var bonus_add: float = 0.18 + 0.01 * tower.get_level()
-	var updated_period: float = tower.get_current_attackspeed() / 2.2
+	var updated_period: float = tower.get_current_attack_speed() / 2.2
 
 	if seconds_since_last_attack < 12:
 		seconds_since_last_attack += 1

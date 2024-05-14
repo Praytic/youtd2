@@ -8,11 +8,11 @@ var chainlightning_st_2: SpellType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {attackspeed = 0.10, buff_level = 0, user_real_base = 0, user_real_add = 1},
-		2: {attackspeed = 0.15, buff_level = 5, user_real_base = 50, user_real_add = 3},
-		3: {attackspeed = 0.20, buff_level = 10, user_real_base = 125, user_real_add = 6},
-		4: {attackspeed = 0.25, buff_level = 15, user_real_base = 225, user_real_add = 10},
-		5: {attackspeed = 0.30, buff_level = 20, user_real_base = 425, user_real_add = 18},
+		1: {attack_speed = 0.10, buff_level = 0, user_real_base = 0, user_real_add = 1},
+		2: {attack_speed = 0.15, buff_level = 5, user_real_base = 50, user_real_add = 3},
+		3: {attack_speed = 0.20, buff_level = 10, user_real_base = 125, user_real_add = 6},
+		4: {attack_speed = 0.25, buff_level = 15, user_real_base = 225, user_real_add = 10},
+		5: {attack_speed = 0.30, buff_level = 20, user_real_base = 425, user_real_add = 18},
 	}
 
 
@@ -26,12 +26,12 @@ func phantom_attack(event: Event):
 	var twr: Tower = b.get_buffed_unit()
 
 	if b.get_caster().get_level() < 20:
-		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
+		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Bonus")
 
 			chainlightning_st.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 	else:
-		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
+		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Super Bonus")
 			
 			chainlightning_st_2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
@@ -39,7 +39,7 @@ func phantom_attack(event: Event):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.attackspeed, 0.01)
+	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.attack_speed, 0.01)
 	
 	wind_shear_bt = BuffType.new("wind_shear_bt", 5.0, 0.1, true, self)
 	
@@ -67,18 +67,18 @@ func tower_init():
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
-	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
+	var attack_speed: String = Utils.format_percent(_stats.attack_speed, 2)
 	var chain_damage: String = Utils.format_float(100 * (1.0 + _stats.user_real_base * 0.04), 2)
 	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
 
 	autocast.title = "Wind Shear"
 	autocast.icon = "res://Resources/Icons/plants/leaf_02.tres"
-	autocast.description_short = "Increases the attackspeed of a tower and gives it a chance to cast chainlightning.\n"
-	autocast.description = "Increases the attackspeed of a tower in 300 range by %s and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage] \
+	autocast.description_short = "Increases the attack speed of a tower and gives it a chance to cast chainlightning.\n"
+	autocast.description = "Increases the attack speed of a tower in 300 range by %s and gives it a 25%% attack speed adjusted chance to cast a chain of lightning which deals %s initial spell damage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attack_speed, chain_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% attackspeed\n" \
-	+ "+%s spelldamage\n" % chain_damage_add \
+	+ "+1% attack speed\n" \
+	+ "+%s spell damage\n" % chain_damage_add \
 	+ "+1 target at level 20\n" \
 	+ "+0.1 sec duration\n"
 	autocast.caster_art = ""

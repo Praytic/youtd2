@@ -34,10 +34,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	serpent_ward.name = "Serpent Ward"
 	serpent_ward.icon = "res://Resources/Icons/TowerIcons/SmallSerpentWard.tres"
 	serpent_ward.description_short = "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
-	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attackspeed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
+	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% attackdamage\n" \
+	+ "+0.2% attack damage\n" \
 	+ "+0.1 seconds duration\n" \
 	+ "+0.28% chance to summon a ward\n" \
 	+ "+1 maximum ward at level 15 and 25\n"
@@ -147,7 +147,7 @@ func on_attack(event: Event):
 #			The first ward has been created => Start the Periodic Event
 			if active_ward_count == 1:
 				periodic_is_enabled = true
-				periodic_interval = tower.get_current_attackspeed()
+				periodic_interval = tower.get_current_attack_speed()
 
 #			NOTE: break after successfully creating one wand
 #			so that only one wand is created at a time
@@ -233,8 +233,8 @@ func periodic(event: Event):
 
 #	NOTE: original script calls enable_advanced()
 #	selectively in some spots. Call it always here to ensure
-#	that periodic interval always equals to attackspeed.
-	event.enable_advanced(tower.get_current_attackspeed(), false)
+#	that periodic interval always equals to attack speed.
+	event.enable_advanced(tower.get_current_attack_speed(), false)
 	
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 800)
 
@@ -282,7 +282,7 @@ func periodic(event: Event):
 	if active_ward_count > 0:
 # 		Activate the event
 		periodic_is_enabled = true
-		periodic_interval = tower.get_current_attackspeed()
+		periodic_interval = tower.get_current_attack_speed()
 
 
 func on_autocast(_event: Event):

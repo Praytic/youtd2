@@ -12,15 +12,15 @@ var multiboard: MultiboardValues
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {attackspeed_base = 0, attackspeed_divisor = 5, goldrush_gold = 1.0, goldrush_gold_add = 0.04, excavation_gold = 7.5, excavation_gold_add = 0.3},
-		2: {attackspeed_base = 20, attackspeed_divisor = 3, goldrush_gold = 2.8, goldrush_gold_add = 0.1, excavation_gold = 21, excavation_gold_add = 0.8},
-		3: {attackspeed_base = 40, attackspeed_divisor = 2, goldrush_gold = 5.4, goldrush_gold_add = 0.22, excavation_gold = 40, excavation_gold_add = 1.6},
+		1: {attack_speed_base = 0, attack_speed_divisor = 5, goldrush_gold = 1.0, goldrush_gold_add = 0.04, excavation_gold = 7.5, excavation_gold_add = 0.3},
+		2: {attack_speed_base = 20, attack_speed_divisor = 3, goldrush_gold = 2.8, goldrush_gold_add = 0.1, excavation_gold = 21, excavation_gold_add = 0.8},
+		3: {attack_speed_base = 40, attack_speed_divisor = 2, goldrush_gold = 5.4, goldrush_gold_add = 0.22, excavation_gold = 40, excavation_gold_add = 1.6},
 	}
 
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var attackspeed_bonus: String = Utils.format_percent((_stats.attackspeed_base + 20) / 100.0, 2)
+	var attack_speed_bonus: String = Utils.format_percent((_stats.attack_speed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
 	var goldrush_gold_add: String = Utils.format_float(_stats.goldrush_gold_add, 2)
 	var excavation_gold: String = Utils.format_float(_stats.excavation_gold, 2)
@@ -31,8 +31,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var goldrush: AbilityInfo = AbilityInfo.new()
 	goldrush.name = "Goldrush"
 	goldrush.icon = "res://Resources/Icons/gems/gem_01.tres"
-	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
-	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attackspeed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attackspeed_bonus, goldrush_gold] \
+	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attack speed and making each hit gain gold.\n"
+	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attack speed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attack_speed_bonus, goldrush_gold] \
 	+ " \n" \
 	+ "Hint: Check multiboard to view exact attack speed bonus\n" \
 	+ " \n" \
@@ -86,7 +86,7 @@ func on_attack(_event: Event):
 		CombatLog.log_ability(tower, null, "Goldrush")
 
 		var gold_amount: float = tower.get_player().get_gold()
-		goldrush_bt.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
+		goldrush_bt.apply_custom_timed(tower, tower, int(_stats.attack_speed_base + pow(gold_amount,0.5) / _stats.attack_speed_divisor), 5 + tower.get_level() * 0.1)
 
 
 func on_damage(event: Event):

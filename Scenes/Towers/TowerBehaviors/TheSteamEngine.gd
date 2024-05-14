@@ -19,7 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	power_surge.name = "Power Surge"
 	power_surge.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	power_surge.description_short = "Towers under the effect of Steam Power have a chance to cause a surge in the Steam Engine.\n"
-	power_surge.description_full = "Towers under the effect of Steam Power have a 1% base attackspeed adjusted chance to cause a surge in the Steam Engine, granting it 1 exp.\n" \
+	power_surge.description_full = "Towers under the effect of Steam Power have a 1% base attack speed adjusted chance to cause a surge in the Steam Engine, granting it 1 exp.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.04 exp\n"
@@ -105,7 +105,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Steam Power"
 	aura.icon = "res://Resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
 	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
-	aura.description_full = "Increases attack damage of towers in %d AOE by [color=GOLD][6 x power level]%%[/color] and attackspeed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
+	aura.description_full = "Increases attack damage of towers in %d AOE by [color=GOLD][6 x power level]%%[/color] and attack speed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
 	
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -179,7 +179,7 @@ func steam_bt_on_attack(event: Event):
 	var caster: Tower = buff.get_caster()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	var lvl: int = caster.get_level()
-	var power_surge_chance: float = 0.01 * caster.get_base_attackspeed()
+	var power_surge_chance: float = 0.01 * caster.get_base_attack_speed()
 
 	if !caster.calc_chance(power_surge_chance):
 		return

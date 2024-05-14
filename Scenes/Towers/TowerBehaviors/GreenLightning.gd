@@ -90,15 +90,15 @@ func tower_init():
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
-	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
+	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
 	
 	autocast.title = "Lightning Surge"
 	autocast.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
-	autocast.description_short = "Increases the attackspeed of this tower for next few attacks.\n"
-	autocast.description = "Increases the attackspeed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attackspeed \
+	autocast.description_short = "Increases the attack speed of this tower for next few attacks.\n"
+	autocast.description = "Increases the attack speed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attack_speed \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% attackspeed\n" \
+	+ "+2% attack speed\n" \
 	+ "+1 attack per 5 levels\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

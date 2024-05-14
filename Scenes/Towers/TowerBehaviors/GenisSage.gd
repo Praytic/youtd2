@@ -23,12 +23,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var speed_cast: AbilityInfo = AbilityInfo.new()
 	speed_cast.name = "Speed Cast"
 	speed_cast.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
-	speed_cast.description_short = "Chance to increase trigger chances and attackspeed.\n"
-	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attackspeed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
+	speed_cast.description_short = "Chance to increase trigger chances and attack speed.\n"
+	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attack speed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% trigger chance\n" \
-	+ "+1% attackspeed\n" \
+	+ "+1% attack speed\n" \
 	+ "+0.1 seconds\n"
 	list.append(speed_cast)
 

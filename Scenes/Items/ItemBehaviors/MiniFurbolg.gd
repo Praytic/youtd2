@@ -35,6 +35,6 @@ func item_init():
 func on_attack(_event: Event):
 	var tower: Tower = item.get_carrier()
 
-	if !(tower.get_buff_of_type(rampage_bt) != null) && tower.calc_chance(0.14 * tower.get_base_attackspeed()):
+	if !(tower.get_buff_of_type(rampage_bt) != null) && tower.calc_chance(0.14 * tower.get_base_attack_speed()):
 		CombatLog.log_item_ability(item, null, "Rampage")
 		rampage_bt.apply(tower, tower, tower.get_level())

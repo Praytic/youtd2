@@ -10,7 +10,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Luck![/color]\n"
-	text += "The carrier of this item has a 20% attackspeed adjusted chance to get a random effect on damage:\n"
+	text += "The carrier of this item has a 20% attack speed adjusted chance to get a random effect on damage:\n"
 	text += " Gain 1 experience\n"
 	text += " Gain 10 gold\n"
 	text += " Stun for 0.5 seconds\n"
@@ -48,7 +48,7 @@ func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var a: int = Globals.synced_rng.randi_range(0, 4)
 	var tower: Tower = item.get_carrier()
-	var speed: float = tower.get_base_attackspeed()
+	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.20 * speed) && event.is_main_target() == true:
 		

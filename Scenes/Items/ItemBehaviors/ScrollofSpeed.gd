@@ -7,7 +7,7 @@ var speed_bt: BuffType
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Upon activation, towers in 350 range receive 10% bonus attackspeed for 4 seconds. Costs 1 charge.\n"
+	text += "Upon activation, towers in 350 range receive 10% bonus attack speed for 4 seconds. Costs 1 charge.\n"
 	text += " \n"
 	text += "Regenerates 3 charges every 40 seconds up to a maximum of 10 charges.\n"
 

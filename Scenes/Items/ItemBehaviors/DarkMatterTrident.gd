@@ -9,7 +9,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Drain Physical Energy[/color]\n"
-	text += "Whenever the carrier of this item hits a creep, the carrier gains 2% attackspeed and the creep is slowed by 2%. Both effects are attackspeed adjusted, last 5 seconds and stack up to 20 times.\n"
+	text += "Whenever the carrier of this item hits a creep, the carrier gains 2% attack speed and the creep is slowed by 2%. Both effects are attack speed adjusted, last 5 seconds and stack up to 20 times.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1 second duration\n"
@@ -43,7 +43,7 @@ func on_damage(event: Event):
 
 	var tower: Tower = item.get_carrier()
 	var creep: Creep = event.get_target()
-	var level_add: int = int(100.0 * tower.get_current_attackspeed())
+	var level_add: int = int(100.0 * tower.get_current_attack_speed())
 	var duration: float = 5 + 0.1 * tower.get_level()
 
 	var positive_buff: Buff = tower.get_buff_of_type(boost_bt)

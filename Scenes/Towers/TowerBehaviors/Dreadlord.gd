@@ -56,7 +56,7 @@ func tower_init():
 	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Attackspeed Bonus")
+	multiboard.set_key(0, "Attack speed Bonus")
 	multiboard.set_key(1, "Mana Bonus")
 
 func create_autocasts() -> Array[Autocast]:
@@ -109,9 +109,9 @@ func on_kill(_event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var attackspeed_bonus: String = Utils.format_percent(tower.user_real2, 1)
+	var attack_speed_bonus: String = Utils.format_percent(tower.user_real2, 1)
 	var mana_bonus: String = str(int(tower.user_real * 1000))
-	multiboard.set_value(0, attackspeed_bonus)
+	multiboard.set_value(0, attack_speed_bonus)
 	multiboard.set_value(1, mana_bonus)
 	
 	return multiboard

@@ -9,10 +9,10 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Hangover[/color]\n"
-	text += "Each attack has a 10% attackspeed adjusted chance to give the user a hangover, slowing its attackspeed by 30% for 8 seconds and stunning it for 3 seconds when it expires.\n"
+	text += "Each attack has a 10% attack speed adjusted chance to give the user a hangover, slowing its attack speed by 30% for 8 seconds and stunning it for 3 seconds when it expires.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% attackspeed\n"
+	text += "+1% attack speed\n"
 	text += "-0.1 second stun duration\n"
 
 	return text
@@ -47,7 +47,7 @@ func item_init():
 
 func on_attack(_event: Event):
 	var tower: Tower = item.get_carrier()
-	var speed: float = tower.get_base_attackspeed()
+	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_bad_chance(0.1 * speed):
 		CombatLog.log_item_ability(item, null, "Hangover")

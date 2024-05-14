@@ -13,7 +13,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ascension[/color]\n"
-	text += "Each attack has an 8% base attackspeed adjusted chance to ascend the target creep, lifting it up for 2 seconds and making it grant 20% more experience when killed in the air. Only works on normal and mass creeps.\n"
+	text += "Each attack has an 8% base attack speed adjusted chance to ascend the target creep, lifting it up for 2 seconds and making it grant 20% more experience when killed in the air. Only works on normal and mass creeps.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.8% experience\n"
@@ -66,6 +66,6 @@ func on_damage(event: Event):
 	var tower: Tower = item.get_carrier()
 	var size: CreepSize.enm = event.get_target().get_size()
 
-	if event.is_main_target() && tower.calc_chance(0.08 * tower.get_base_attackspeed()) && (size == CreepSize.enm.MASS || size == CreepSize.enm.CHALLENGE_MASS || size == CreepSize.enm.NORMAL):
+	if event.is_main_target() && tower.calc_chance(0.08 * tower.get_base_attack_speed()) && (size == CreepSize.enm.MASS || size == CreepSize.enm.CHALLENGE_MASS || size == CreepSize.enm.NORMAL):
 		CombatLog.log_item_ability(item, null, "Ascension")
 		ascended_bt.apply(tower, event.get_target(), tower.get_level())

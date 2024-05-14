@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Dimensional Distortion Field"
 	ability.icon = "res://Resources/Icons/dioramas/fountain.tres"
 	ability.description_short = "Each second this tower attacks a creep in range, dealing damage based on linked tower's spell damage per second.\n"
-	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25% of the linked tower's spell damage per second as energy damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attackspeed bonuses.\n" \
+	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25% of the linked tower's spell damage per second as energy damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attack speed bonuses.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% of spell dps as damage\n"
@@ -147,9 +147,9 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(event: Event):
-	var attackspeed: float = tower.get_current_attackspeed()
+	var attack_speed: float = tower.get_current_attack_speed()
 
-	event.enable_advanced(attackspeed, false)
+	event.enable_advanced(attack_speed, false)
 
 	if linked_tower == null:
 #		NOT LINKED! Do nothing!
@@ -162,7 +162,7 @@ func periodic(event: Event):
 #		No dmg to deal! Do nothing!
 		return
 
-	link_time += attackspeed
+	link_time += attack_speed
 
 	var linked_for_10_sec: bool = link_time >= 10.0
 

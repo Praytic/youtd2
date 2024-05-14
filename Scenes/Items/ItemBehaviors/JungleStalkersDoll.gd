@@ -8,10 +8,10 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Bloodthirst[/color]\n"
-	text += "When the carrier kills a unit it becomes enraged for 3 seconds. While enraged, it has 20% bonus attackspeed. Cannot retrigger while active!"
+	text += "When the carrier kills a unit it becomes enraged for 3 seconds. While enraged, it has 20% bonus attack speed. Cannot retrigger while active!"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% attackspeed\n"
+	text += "+0.4% attack speed\n"
 
 	return text
 

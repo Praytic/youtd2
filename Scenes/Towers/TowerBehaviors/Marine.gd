@@ -37,7 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Frag Grenade"
 	ability.icon = "res://Resources/Icons/misc/balls_02.tres"
 	ability.description_short = "When this tower damages a creep it has a chance to fire a frag grenade.\n"
-	ability.description_full = "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spelldamage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
+	ability.description_full = "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spell damage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % grenade_chance_add \
@@ -76,15 +76,15 @@ func tower_init():
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
-	var stim_attackspeed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
+	var stim_attack_speed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
 	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
 	var stim_duration: String = Utils.format_float(STIM_DURATION, 2)
 	var stim_duration_add: String = Utils.format_float(STIM_DURATION_ADD, 2)
 
 	autocast.title = "Stim"
 	autocast.icon = "res://Resources/Icons/rockets/rocket_06.tres"
-	autocast.description_short = "This marine uses a stimpack, increasing its attackspeed and decreasing its attackdamage.\n"
-	autocast.description = "This marine uses a stimpack, increasing its attackspeed by %s and decreasing its attackdamage by %s. This buff lasts %s seconds.\n" % [stim_attackspeed, stim_attack_dmg, stim_duration] \
+	autocast.description_short = "This marine uses a stimpack, increasing its attack speed and decreasing its attack damage.\n"
+	autocast.description = "This marine uses a stimpack, increasing its attack speed by %s and decreasing its attack damage by %s. This buff lasts %s seconds.\n" % [stim_attack_speed, stim_attack_dmg, stim_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % stim_duration_add

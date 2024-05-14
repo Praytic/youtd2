@@ -11,11 +11,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electric Field"
 	ability.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
-	ability.description_short = "On every attack this tower shocks a creep in range. This shock deals spelldamage and stuns the creep.\n"
-	ability.description_full = "On every attack this tower shocks a creep in 1000 range. This shock deals 1000 spelldamage and stuns for 0.2 seconds, the spelldamage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
+	ability.description_short = "On every attack this tower shocks a creep in range. This shock deals spell damage and stuns the creep.\n"
+	ability.description_full = "On every attack this tower shocks a creep in 1000 range. This shock deals 1000 spell damage and stuns for 0.2 seconds, the spell damage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+40 spelldamage\n" \
+	+ "+40 spell damage\n" \
 	+ "+0.4% bonus crit chance\n"
 	ability.radius = 1000
 	ability.target_type = TargetType.new(TargetType.CREEPS)
@@ -50,11 +50,11 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Charge"
 	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
 	autocast.description_short = "Applies a buff to target tower which increases attack speed.\n"
-	autocast.description = "Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attackspeed.\n" \
+	autocast.description = "Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attack speed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% base attackspeed\n" \
-	+ "+0.1% bonus attackspeed\n"
+	+ "+0.6% base attack speed\n" \
+	+ "+0.1% bonus attack speed\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

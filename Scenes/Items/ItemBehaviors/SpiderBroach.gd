@@ -33,6 +33,6 @@ func item_init():
 func on_damage(event: Event):
 	var tower: Tower = item.get_carrier()
 
-	if tower.calc_chance(0.15 * tower.get_base_attackspeed()):
+	if tower.calc_chance(0.15 * tower.get_base_attack_speed()):
 		CombatLog.log_item_ability(item, null, "Silver Threads")
 		threads_bt.apply(tower, event.get_target(), tower.get_level())

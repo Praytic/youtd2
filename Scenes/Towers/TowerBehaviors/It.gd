@@ -34,17 +34,17 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "1 sec cooldown.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+100 spelldamage\n"
+	+ "+100 spell damage\n"
 	list.append(dark_ritual)
 
 	var hunger: AbilityInfo = AbilityInfo.new()
 	hunger.name = "It Hunger"
 	hunger.icon = "res://Resources/Icons/furniture/wooden_stand_with_nail.tres"
-	hunger.description_short = "Every time an enemy creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains spelldamage.\n"
-	hunger.description_full = "Every time an enemy creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains 0.1% spelldamage. There is a maximum of 700% bonus spelldamage.\n" \
+	hunger.description_short = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains spell damage.\n"
+	hunger.description_full = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains 0.1% spell damage. There is a maximum of 700% bonus spell damage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.01% spelldamage\n"
+	+ "+0.01% spell damage\n"
 	list.append(hunger)
 
 	return list

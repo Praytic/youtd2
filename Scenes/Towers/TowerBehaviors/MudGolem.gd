@@ -57,7 +57,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Earthquake Aura"
 	aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
 	aura.description_short = "Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].\n"
-	aura.description_full = "Towers in %d range around the Mud Golem have a 3%% attackspeed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" % AURA_RANGE \
+	aura.description_full = "Towers in %d range around the Mud Golem have a 3%% attack speed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.04% chance\n"
@@ -83,7 +83,7 @@ func on_damage(_event: Event):
 func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
-	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attackspeed()
+	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attack_speed()
 
 	if !buffed_tower.calc_chance(ground_smash_chance):
 		return

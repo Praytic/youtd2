@@ -67,7 +67,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Global Silence"
 	aura.icon = "res://Resources/Icons/TowerIcons/TinyStormLantern.tres"
 	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
-	aura.description_full = "All towers within %d range of Nortrom have a 3%% attackspeed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
+	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08% chance\n" \
@@ -156,7 +156,7 @@ func aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
-	var silence_chance: float = (0.03 + 0.0008 * tower.get_level()) * buffed_unit.get_base_attackspeed()
+	var silence_chance: float = (0.03 + 0.0008 * tower.get_level()) * buffed_unit.get_base_attack_speed()
 
 	if !tower.calc_chance(silence_chance):
 		return

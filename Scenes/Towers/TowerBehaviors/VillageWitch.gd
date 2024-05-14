@@ -8,10 +8,10 @@ var missile_pt: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {item_chance = 200, soul_chance = 30, soul_damage = 50, soul_damage_add = 2, soul_duration = 10, soul_chance_decrease = 10, mod_attackspeed = 0.10},
-		2: {item_chance = 256, soul_chance = 36, soul_damage = 400, soul_damage_add = 16, soul_duration = 12, soul_chance_decrease = 9, mod_attackspeed = 0.15},
-		3: {item_chance = 288, soul_chance = 39, soul_damage = 800, soul_damage_add = 32, soul_duration = 13, soul_chance_decrease = 8.5, mod_attackspeed = 0.20},
-		4: {item_chance = 336, soul_chance = 42, soul_damage = 2000, soul_damage_add = 80, soul_duration = 15, soul_chance_decrease = 8, mod_attackspeed = 0.25},
+		1: {item_chance = 200, soul_chance = 30, soul_damage = 50, soul_damage_add = 2, soul_duration = 10, soul_chance_decrease = 10, mod_attack_speed = 0.10},
+		2: {item_chance = 256, soul_chance = 36, soul_damage = 400, soul_damage_add = 16, soul_duration = 12, soul_chance_decrease = 9, mod_attack_speed = 0.15},
+		3: {item_chance = 288, soul_chance = 39, soul_damage = 800, soul_damage_add = 32, soul_duration = 13, soul_chance_decrease = 8.5, mod_attack_speed = 0.20},
+		4: {item_chance = 336, soul_chance = 42, soul_damage = 2000, soul_damage_add = 80, soul_duration = 15, soul_chance_decrease = 8, mod_attack_speed = 0.25},
 	}
 
 
@@ -19,7 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
 	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
-	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
+	var mod_attack_speed: String = Utils.format_percent(_stats.mod_attack_speed, 0)
 	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.01, 0)
 
 	var list: Array[AbilityInfo] = []
@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Soul Split"
 	ability.icon = "res://Resources/Icons/undead/skull_phazing.tres"
 	ability.description_short = "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
-	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease] \
+	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attack speed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attack speed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attack_speed, soul_chance_decrease] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % soul_damage_add
@@ -125,12 +125,12 @@ func on_damage(event: Event):
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())
 		soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease
-		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attackspeed * multiplier)
+		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed * multiplier)
 
 		await Utils.create_timer(10.0 * multiplier, self).timeout
 
 		if Utils.unit_is_valid(tower):
-			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attackspeed * multiplier)
+			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attack_speed * multiplier)
 			tower.user_real = tower.user_real + _stats.soul_chance_decrease
 
 

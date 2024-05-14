@@ -34,8 +34,8 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.description = "Deals [%s + (%s x amount of player towers)] spell damage to a target creep. This ability has a %s chance to recast itself when cast. Maximum of 1 extra cast.\n" % [base_damage, damage_per_tower, recast_chance] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s base spelldamage\n" % base_damage_add \
-	+ "+%s spelldamage per player tower\n" % damage_per_tower_add \
+	+ "+%s base spell damage\n" % base_damage_add \
+	+ "+%s spell damage per player tower\n" % damage_per_tower_add \
 	+ "+1 extra cast at levels 15 and 25\n"
 	autocast.caster_art = "PurgeBuffTarget.mdl"
 	autocast.target_art = ""

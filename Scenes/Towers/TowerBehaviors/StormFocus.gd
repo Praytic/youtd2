@@ -61,11 +61,11 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Gust"
 	aura.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
-	aura.description_short = "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
-	aura.description_full = "Towers in %d range around the Storm Focus gain additional attackdamage equal to 50%% of the bonus damage against air they have.\n" % AURA_RANGE \
+	aura.description_short = "Towers in range around the Storm Focus gain additional attack damage scaled by their bonus damage against air.\n"
+	aura.description_full = "Towers in %d range around the Storm Focus gain additional attack damage equal to 50%% of the bonus damage against air they have.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.8% of bonus damage against air as additional attackdamage\n"
+	+ "+0.8% of bonus damage against air as additional attack damage\n"
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)

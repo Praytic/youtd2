@@ -10,7 +10,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Entangling Roots[/color]\n"
-	text += "On attack the carrier has an 6% attackspeed adjusted chance to create a field of overgrowth in 200 AoE around the target. Creeps entering the overgrowth will become entangled for 1.8 seconds, taking 4500 spell damage per second. Cannot entangle the same creep for 3 seconds afterwards. Bosses can only be hit once.\n"
+	text += "On attack the carrier has an 6% attack speed adjusted chance to create a field of overgrowth in 200 AoE around the target. Creeps entering the overgrowth will become entangled for 1.8 seconds, taking 4500 spell damage per second. Cannot entangle the same creep for 3 seconds afterwards. Bosses can only be hit once.\n"
 
 	return text
 
@@ -55,7 +55,7 @@ func on_damage(event: Event):
 	var target: Creep = event.get_target()
 	var tower: Tower = item.get_carrier()
 
-	if event.is_main_target() && tower.calc_chance(tower.get_base_attackspeed() * 0.06):
+	if event.is_main_target() && tower.calc_chance(tower.get_base_attack_speed() * 0.06):
 		CombatLog.log_item_ability(item, null, "Entangling Roots")
 	
 		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)

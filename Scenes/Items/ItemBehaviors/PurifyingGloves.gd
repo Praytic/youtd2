@@ -12,7 +12,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Purify[/color]\n"
-	text += "Grants the carrier a 12.5%% attackspeed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spelldamage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
+	text += "Grants the carrier a 12.5%% attack speed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spell damage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
 
 	return text
 
@@ -41,7 +41,7 @@ func item_init():
 
 func on_attack(event: Event):
 	var tower: Tower = item.get_carrier()
-	var speed: float = tower.get_base_attackspeed()
+	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.125 * speed):
 		CombatLog.log_item_ability(item, event.get_target(), "Purify")

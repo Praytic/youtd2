@@ -26,8 +26,8 @@ var bloodspill_fatigue_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_mana_regen_add = 0.1, bloodspill_chance_add = 0.002, bloodspill_mod_attackspeed = 0.50, bloodspill_exp = 0.25, sacrifice_dmg_ratio = 0.30},
-		2: {mod_mana_regen_add = 0.2, bloodspill_chance_add = 0.004, bloodspill_mod_attackspeed = 0.75, bloodspill_exp = 0.50, sacrifice_dmg_ratio = 0.45},
+		1: {mod_mana_regen_add = 0.1, bloodspill_chance_add = 0.002, bloodspill_mod_attack_speed = 0.50, bloodspill_exp = 0.25, sacrifice_dmg_ratio = 0.30},
+		2: {mod_mana_regen_add = 0.2, bloodspill_chance_add = 0.004, bloodspill_mod_attack_speed = 0.75, bloodspill_exp = 0.50, sacrifice_dmg_ratio = 0.45},
 	}
 
 const BLOODSPILL_DMG_LOSS: float = 1.0
@@ -42,8 +42,8 @@ const BUFF_DURATION: float = 6
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
-	var bloodspill_mod_attackspeed: String = Utils.format_percent(_stats.bloodspill_mod_attackspeed, 2)
-	var bloodspill_mod_attackspeed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
+	var bloodspill_mod_attack_speed: String = Utils.format_percent(_stats.bloodspill_mod_attack_speed, 2)
+	var bloodspill_mod_attack_speed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
 	var bloodspill_chance: String = Utils.format_percent(BLOODSPILL_CHANCE, 2)
 	var bloodspill_chance_add: String = Utils.format_percent(_stats.bloodspill_chance_add, 2)
 	var bloodspill_range: String = Utils.format_float(BLOODSPILL_RANGE, 2)
@@ -56,10 +56,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Blood Spill"
 	ability.icon = "res://Resources/Icons/helmets/helmet_06.tres"
 	ability.description_short = "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
-	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts [color=GOLD]Blood Spill[/color], the tower gains %s experience for every other tower affected. Cannot retrigger while active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attackspeed, buff_duration, bloodspill_exp] \
+	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts [color=GOLD]Blood Spill[/color], the tower gains %s experience for every other tower affected. Cannot retrigger while active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attack_speed, buff_duration, bloodspill_exp] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack speed\n" % bloodspill_mod_attackspeed_add \
+	+ "+%s attack speed\n" % bloodspill_mod_attack_speed_add \
 	+ "+%s chance\n" % bloodspill_chance_add
 	ability.radius = BLOODSPILL_RANGE
 	ability.target_type = TargetType.new(TargetType.TOWERS)
@@ -164,7 +164,7 @@ func on_attack(_event: Event):
 			break
 
 		if target != tower:
-			var buff_level: int = int((_stats.bloodspill_mod_attackspeed * 100 + level) / num_towers)
+			var buff_level: int = int((_stats.bloodspill_mod_attack_speed * 100 + level) / num_towers)
 			bloodspill_boost_bt.apply(tower, target, buff_level)
 
 	bloodspill_fatigue_bt.apply(tower, tower, level)

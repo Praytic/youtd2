@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	arcane_attraction.name = "Arcane Attraction"
 	arcane_attraction.icon = "res://Resources/Icons/trinkets/trinket_10.tres"
 	arcane_attraction.description_short = "Attacks apply a stack of [color=GOLD]Attraction[/color] on hit and generate mana.\n"
-	arcane_attraction.description_full = "Attacks apply a stack of [color=GOLD]Attraction[/color] on hit and generate 1 mana per stack on each target. Can only gain mana once per target hit on each attack. When an enemy dies, all stacks of [color=GOLD]Attraction[/color] on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. [color=GOLD]Attraction[/color] lasts indefinitely.\n" \
+	arcane_attraction.description_full = "Attacks apply a stack of [color=GOLD]Attraction[/color] on hit and generate 1 mana per stack on each target. Can only gain mana once per target hit on each attack. When a creep dies, all stacks of [color=GOLD]Attraction[/color] on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. [color=GOLD]Attraction[/color] lasts indefinitely.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+10 range\n" \
@@ -39,8 +39,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var surge: AbilityInfo = AbilityInfo.new()
 	surge.name = "Surge"
 	surge.icon = "res://Resources/Icons/scrolls/scroll_08.tres"
-	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another enemy.\n"
-	surge.description_full = "The tower's main attacks have a 1% chance per [color=GOLD]Attraction[/color] stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from enemy to enemy within 750 range of the original target. At each enemy, the chance to jump is calculated based on the next target's [color=GOLD]Attraction[/color] stacks. Can only hit each target once and benefits from [color=GOLD]Mana Storm's[/color] damage bonus.\n" \
+	surge.description_short = "Chance to send a surge of energy that deals damage to the target and then attempts to jump to another creep.\n"
+	surge.description_full = "The tower's main attacks have a 1% chance per [color=GOLD]Attraction[/color] stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from creep to creep within 750 range of the original target. At each creep, the chance to jump is calculated based on the next target's [color=GOLD]Attraction[/color] stacks. Can only hit each target once and benefits from [color=GOLD]Mana Storm's[/color] damage bonus.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.02% chance per stack\n" \

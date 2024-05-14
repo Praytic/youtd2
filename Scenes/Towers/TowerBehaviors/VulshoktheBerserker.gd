@@ -22,12 +22,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ultimate_fighter.description_short = "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus damage, AoE damage or empower Vulshok.\n"
 	ultimate_fighter.description_full = "Vulshok uses his great power to specialize his attacks:\n" \
 	+ "- Every 3rd attack adds a critical hit\n" \
-	+ "- Every 7th attack deals 3000 bonus attackdamage\n" \
+	+ "- Every 7th attack deals 3000 bonus attack damage\n" \
 	+ "- Every 12th attack splashes all damage over 200 AoE\n" \
 	+ "- Every 15th attack adds 0.5% attack damage permanently\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+200 attackdamage on 7th attack\n"
+	+ "+200 attack damage on 7th attack\n"
 	list.append(ultimate_fighter)
 
 	var maim: AbilityInfo = AbilityInfo.new()
@@ -52,7 +52,7 @@ func load_triggers(triggers: BuffType):
 # NOTE: this tower's tooltip in original game includes
 # innate stats in some cases
 # crit dmg = yes
-# attackspeed add = no
+# attack speed add = no
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
@@ -85,7 +85,7 @@ func on_attack(event: Event):
 	if attack_count % 3 == 0:
 		CombatLog.log_ability(tower, null, "Crit")
 		tower.add_attack_crit()
-#		So the triggered attackdamage can crit too!
+#		So the triggered attack damage can crit too!
 		crit = 1
 
 #	Bonus damage (every 7th)

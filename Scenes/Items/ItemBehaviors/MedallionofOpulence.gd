@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Greed Is Good[/color]\n"
-	text += "On attack there is a 20% attackspeed adjusted chance to deal 10% of your current gold as spelldamage to the target.\n"
+	text += "On attack there is a 20% attack speed adjusted chance to deal 10% of your current gold as spell damage to the target.\n"
 
 	return text
 
@@ -16,7 +16,7 @@ func load_triggers(triggers: BuffType):
 
 func on_attack(event: Event):
 	var tower: Tower = item.get_carrier() 
-	var speed: float = tower.get_base_attackspeed()
+	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.2 * speed) == true:
 		CombatLog.log_item_ability(item, event.get_target(), "Greed Is Good")

@@ -7,9 +7,9 @@ var aura_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {bloodlust_crit_damage = 0.45, bloodlust_crit_damage_add = 0.004, bloodlust_attackspeed = 0.15, bloodlust_attackspeed_add = 0.002, bloody_experience_range = 250, bloody_experience_level_cap = 10, bloodlust_level = 150, bloodlust_level_add = 2},
-		2: {bloodlust_crit_damage = 0.55, bloodlust_crit_damage_add = 0.006, bloodlust_attackspeed = 0.20, bloodlust_attackspeed_add = 0.003, bloody_experience_range = 300, bloody_experience_level_cap = 15, bloodlust_level = 200, bloodlust_level_add = 3},
-		3: {bloodlust_crit_damage = 0.65, bloodlust_crit_damage_add = 0.008, bloodlust_attackspeed = 0.25, bloodlust_attackspeed_add = 0.004, bloody_experience_range = 350, bloody_experience_level_cap = 20, bloodlust_level = 250, bloodlust_level_add = 4},
+		1: {bloodlust_crit_damage = 0.45, bloodlust_crit_damage_add = 0.004, bloodlust_attack_speed = 0.15, bloodlust_attack_speed_add = 0.002, bloody_experience_range = 250, bloody_experience_level_cap = 10, bloodlust_level = 150, bloodlust_level_add = 2},
+		2: {bloodlust_crit_damage = 0.55, bloodlust_crit_damage_add = 0.006, bloodlust_attack_speed = 0.20, bloodlust_attack_speed_add = 0.003, bloody_experience_range = 300, bloody_experience_level_cap = 15, bloodlust_level = 200, bloodlust_level_add = 3},
+		3: {bloodlust_crit_damage = 0.65, bloodlust_crit_damage_add = 0.008, bloodlust_attack_speed = 0.25, bloodlust_attack_speed_add = 0.004, bloody_experience_range = 350, bloody_experience_level_cap = 20, bloodlust_level = 250, bloodlust_level_add = 4},
 	}
 
 const BLOODLUST_DURATION: float = 5.0
@@ -44,17 +44,17 @@ func create_autocasts() -> Array[Autocast]:
 
 	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
 	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
-	var bloodlust_attackspeed: String = Utils.format_percent(_stats.bloodlust_attackspeed, 2)
-	var bloodlust_attackspeed_add: String = Utils.format_percent(_stats.bloodlust_attackspeed_add, 2)
+	var bloodlust_attack_speed: String = Utils.format_percent(_stats.bloodlust_attack_speed, 2)
+	var bloodlust_attack_speed_add: String = Utils.format_percent(_stats.bloodlust_attack_speed_add, 2)
 
 	autocast.title = "Bloodlust"
 	autocast.icon = "res://Resources/Icons/masks/mask_07.tres"
-	autocast.description_short = "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attackspeed.\n"
-	autocast.description = "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attackspeed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attackspeed, BLOODLUST_DURATION] \
+	autocast.description_short = "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.\n"
+	autocast.description = "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attack speed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attack_speed, BLOODLUST_DURATION] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+x%s crit damage\n" % bloodlust_crit_damage_add \
-	+ "+%s attackspeed\n" % bloodlust_attackspeed_add \
+	+ "+%s attack speed\n" % bloodlust_attack_speed_add \
 	+ "+%s seconds duration\n" % BLOODLUST_DURATION_ADD
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
@@ -82,7 +82,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Bloody Experience"
 	aura.icon = "res://Resources/Icons/gems/gem_07.tres"
 	aura.description_short = "Nearby towers receive experience every time they crit.\n"
-	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits. The amount of experience gained is base attackspeed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
+	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 level cap every 5 levels\n"
@@ -113,6 +113,6 @@ func bloody_exp_aura_on_damage(event: Event):
 	var max_level_for_gain: int = _stats.bloody_experience_level_cap + caster.get_level() / 5
 
 	if event.get_number_of_crits() > 0 && (buffed_tower.get_level() < max_level_for_gain || buffed_tower == caster):
-		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * buffed_tower.get_base_attackspeed() * (800.0 / buffed_tower.get_range())
+		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * buffed_tower.get_base_attack_speed() * (800.0 / buffed_tower.get_range())
 		buffed_tower.add_exp(exp_gained)
 

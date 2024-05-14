@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Resonance[/color]\n"
-	text += "Grants the carrier a 10% attackspeed adjusted chance to debuff the attacked target, increasing all spelldamage dealt to it by 15% for 5 seconds\n"
+	text += "Grants the carrier a 10% attack speed adjusted chance to debuff the attacked target, increasing all spell damage dealt to it by 15% for 5 seconds\n"
 
 	return text
 
@@ -29,6 +29,6 @@ func item_init():
 func on_attack(event: Event):
 	var tower: Tower = item.get_carrier()
 
-	if tower.calc_chance(0.10 * tower.get_base_attackspeed()):
+	if tower.calc_chance(0.10 * tower.get_base_attack_speed()):
 		CombatLog.log_item_ability(item, event.get_target(), "Resonance")
 		resonance_bt.apply(tower, event.get_target(), tower.get_level())

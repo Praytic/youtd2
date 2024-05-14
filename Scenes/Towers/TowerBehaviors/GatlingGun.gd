@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	sentry.name = "Sentry"
 	sentry.icon = "res://Resources/Icons/magic/eye.tres"
 	sentry.description_short = "This tower gains attack damage whenever a creep comes within range.\n"
-	sentry.description_full = "This tower gains 15% attackdamage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n" \
+	sentry.description_full = "This tower gains 15% attack damage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% damage\n" \
@@ -73,7 +73,7 @@ func tower_init():
 
 func on_attack(event: Event):
 	var target: Unit = event.get_target()
-	var projectile_count_max: int = int(tower.get_current_attackspeed() / 0.1)
+	var projectile_count_max: int = int(tower.get_current_attack_speed() / 0.1)
 	var dmg_ratio: float = 1.0
 
 	var rapid_gun_fire_chance: float = 0.65 + 0.004 * tower.get_level()

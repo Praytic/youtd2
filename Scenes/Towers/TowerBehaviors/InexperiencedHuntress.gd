@@ -14,8 +14,8 @@ func get_tier_stats() -> Dictionary:
 
 const SHADOW_GLAIVE_CHANCE: float = 0.20
 const SHADOW_GLAIVE_CHANCE_ADD: float = 0.008
-const SHADOW_GLAIVE_ATTACKSPEED: float = 2.0
-const SHADOW_GLAIVE_ATTACKSPEED_ADD: float = 0.08
+const SHADOW_GLAIVE_ATTACK_SPEED: float = 2.0
+const SHADOW_GLAIVE_ATTACK_SPEED_ADD: float = 0.08
 const STAR_GLAIVE_CHANCE: float = 0.25
 const STAR_GLAIVE_CHANCE_ADD: float = 0.004
 const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
@@ -24,8 +24,8 @@ const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var shadow_glaive_chance: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE, 2)
 	var shadow_glaive_chance_add: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE_ADD, 2)
-	var shadow_glaive_attackspeed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACKSPEED, 2)
-	var shadow_glaive_attackspeed_add: String = Utils.format_percent(SHADOW_GLAIVE_ATTACKSPEED_ADD, 2)
+	var shadow_glaive_attack_speed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACK_SPEED, 2)
+	var shadow_glaive_attack_speed_add: String = Utils.format_percent(SHADOW_GLAIVE_ATTACK_SPEED_ADD, 2)
 	var shadow_glaive_crit_bonus: String = Utils.format_percent(_stats.shadow_glaive_crit_bonus, 2)
 	var shadow_glaive_crit_bonus_add: String = Utils.format_percent(_stats.shadow_glaive_crit_bonus_add, 2)
 	var star_glaive_chance: String = Utils.format_percent(STAR_GLAIVE_CHANCE, 2)
@@ -39,11 +39,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	shadow_glaive.name = "Shadow Glaive"
 	shadow_glaive.icon = "res://Resources/Icons/daggers/dagger_07.tres"
 	shadow_glaive.description_short = "This tower has a chance to do a fast follow-up attack which is guaranteed to be critical.\n"
-	shadow_glaive.description_full = "Whenever this tower attacks it has a %s chance to gain %s attackspeed until the next attack. The next attack will also crit for sure and deal %s more crit damage.\n" % [shadow_glaive_chance, shadow_glaive_attackspeed, shadow_glaive_crit_bonus] \
+	shadow_glaive.description_full = "Whenever this tower attacks it has a %s chance to gain %s attack speed until the next attack. The next attack will also crit for sure and deal %s more crit damage.\n" % [shadow_glaive_chance, shadow_glaive_attack_speed, shadow_glaive_crit_bonus] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s crit damage\n" % shadow_glaive_crit_bonus_add \
-	+ "+%s attack speed\n" % shadow_glaive_attackspeed_add \
+	+ "+%s attack speed\n" % shadow_glaive_attack_speed_add \
 	+ "+%s chance\n" % shadow_glaive_chance_add
 	list.append(shadow_glaive)
 
@@ -76,7 +76,7 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	glaive_bt = BuffType.new("glaive_bt", 99, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED_ADD)
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACK_SPEED, SHADOW_GLAIVE_ATTACK_SPEED_ADD)
 	glaive_bt.set_buff_modifier(mod)
 	glaive_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pisces.tres")
 	glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")

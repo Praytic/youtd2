@@ -30,7 +30,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4 seconds duration\n" \
-	+ "+0.6% attackspeed\n" \
+	+ "+0.6% attack speed\n" \
 	+ "+0.2% crit chance\n"
 	autocast.caster_art = ""
 	autocast.target_art = "DoomDeath.mdl"

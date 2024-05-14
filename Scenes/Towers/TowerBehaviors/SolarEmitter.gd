@@ -50,7 +50,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Sunshine"
 	aura.icon = "res://Resources/Icons/staves/wand_glowing.tres"
 	aura.description_short = "Reduces the armor of creeps in range and makes them more vulnerable to damage from %s, %s, %s and %s towers.\n" % [astral_string, fire_string, iron_string, nature_string]
-	aura.description_full = "Reduces the armor of enemies in %d range by %s and increases the vulnerability to damage from %s, %s, %s and %s towers by %s.\n" % [_stats.aura_range, mod_armor, astral_string, fire_string, iron_string, nature_string, vuln] \
+	aura.description_full = "Reduces the armor of creeps in %d range by %s and increases the vulnerability to damage from %s, %s, %s and %s towers by %s.\n" % [_stats.aura_range, mod_armor, astral_string, fire_string, iron_string, nature_string, vuln] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % mod_armor_add \

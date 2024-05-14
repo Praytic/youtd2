@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Fervor[/color]\n"
-	text += "Each subsequent attack on the same target increases the carrier's attackspeed by 2% up to a maximum of 100%. Whenever the carrier acquires a new target, the bonus is reduced by 50%. The bonus is bound to the item.\n"
+	text += "Each subsequent attack on the same target increases the carrier's attack speed by 2% up to a maximum of 100%. Whenever the carrier acquires a new target, the bonus is reduced by 50%. The bonus is bound to the item.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-1% bonus reduction\n"
@@ -22,12 +22,12 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Attackspeed Increase")
+	multiboard.set_key(0, "Attack speed Increase")
 
 
 func on_attack(event: Event):
 	if item.user_int == event.get_target().get_instance_id():
-# 		100% attackspeed limit
+# 		100% attack speed limit
 		if item.user_real != 1.00 && item.user_real + 0.02 > 1.00:
 #			Add the remaining bonus (99% -> 101%; limit -> 100%; add 100% - 99% = 1%)
 			item.get_carrier().modify_property(Modification.Type.MOD_ATTACKSPEED, 1.00 - item.user_real)
@@ -63,7 +63,7 @@ func on_pickup():
 
 
 func on_tower_details() -> MultiboardValues:
-	var attackspeed_bonus_text: String = Utils.format_percent(item.user_real, 0)
-	multiboard.set_value(0, attackspeed_bonus_text)
+	var attack_speed_bonus_text: String = Utils.format_percent(item.user_real, 0)
+	multiboard.set_value(0, attack_speed_bonus_text)
 
 	return multiboard

@@ -27,10 +27,10 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Soul Revenge"
 	autocast.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
 	autocast.description_short = "Hits 3 random creeps with dark powers.\n"
-	autocast.description = "Hits 3 random creeps in 875 range, the first one suffers %s spelldamage, the second one suffers %s spelldamage and the third one suffers %s spelldamage.\n" % [damage_1, damage_2, damage_3] \
+	autocast.description = "Hits 3 random creeps in 875 range, the first one suffers %s spell damage, the second one suffers %s spell damage and the third one suffers %s spell damage.\n" % [damage_1, damage_2, damage_3] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s/%s/%s spelldamage\n" % [damage_add_1, damage_add_2, damage_add_3]
+	+ "+%s/%s/%s spell damage\n" % [damage_add_1, damage_add_2, damage_add_3]
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

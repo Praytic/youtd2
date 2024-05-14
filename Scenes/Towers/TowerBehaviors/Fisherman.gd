@@ -154,7 +154,7 @@ func slow_bt_on_expire(event: Event):
 
 
 func fresh_fish():
-	var buff_level: int = int(1000 * tower.get_current_attack_damage_with_bonus() / tower.get_current_attackspeed() * (0.15 + 0.004 * tower.get_level()))
+	var buff_level: int = int(1000 * tower.get_current_attack_damage_with_bonus() / tower.get_current_attack_speed() * (0.15 + 0.004 * tower.get_level()))
 	var duration: float = 5.0 + 0.1 * tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 

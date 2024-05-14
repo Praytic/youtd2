@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Crush[/color]\n"
-	text += "Whenever the carrier damages a stunned creep it deals 20% of its current attack damage as spelldamage in 250 AoE around its target.\n"
+	text += "Whenever the carrier damages a stunned creep it deals 20% of its current attack damage as spell damage in 250 AoE around its target.\n"
 
 	return text
 

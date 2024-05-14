@@ -58,12 +58,12 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "King's Authority"
 	aura.icon = "res://Resources/Icons/helmets/helmet_07.tres"
 	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
-	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n" % AURA_RANGE \
-	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spelldamage.\n" \
+	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spell damage for every second it was under this aura's effect.\n" % AURA_RANGE \
+	+ "If a creep dies in this area of authority, the spell damage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spell damage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+20 damage per second\n" \
-	+ "[color=GOLD]+[stored damage x 0.04][/color] spelldamage\n"
+	+ "[color=GOLD]+[stored damage x 0.04][/color] spell damage\n"
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)

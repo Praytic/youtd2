@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Blessed Weapon"
 	ability.icon = "res://Resources/Icons/holy/cross_01.tres"
-	ability.description_short = "Everytime this tower damages a creep it has a chance to deal spelldamage and gain mana.\n"
-	ability.description_full = "Everytime this tower damages a creep it has a %s chance to deal %s spelldamage and gain %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
+	ability.description_short = "Everytime this tower damages a creep it has a chance to deal spell damage and gain mana.\n"
+	ability.description_full = "Everytime this tower damages a creep it has a %s chance to deal %s spell damage and gain %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % blessed_weapon_damage_add \
@@ -78,7 +78,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "For the God"
 	autocast.icon = "res://Resources/Icons/holy/altar.tres"
 	autocast.description_short = "This tower casts a buff on a tower that increases attack damage and experience gain.\n"
-	autocast.description = "This tower casts a buff on a friendly tower that increases attackdamage and experience gain by %s. The buff lasts %s seconds.\n" % [for_the_god_effect, duration] \
+	autocast.description = "This tower casts a buff on a friendly tower that increases attack damage and experience gain by %s. The buff lasts %s seconds.\n" % [for_the_god_effect, duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % duration_add \

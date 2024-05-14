@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Spiderling Poison[/color]\n"
-	text += "When the carrier of this item attacks there is a 25% attackspeed adjusted chance that the attacked creep is slowed by 5% for 4 seconds.\n"
+	text += "When the carrier of this item attacks there is a 25% attack speed adjusted chance that the attacked creep is slowed by 5% for 4 seconds.\n"
 
 	return text
 
@@ -29,7 +29,7 @@ func item_init():
 
 func on_attack(event: Event):
 	var tower: Tower = item.get_carrier() 
-	var speed: float = tower.get_base_attackspeed()  
+	var speed: float = tower.get_base_attack_speed()  
 
 	if tower.calc_chance(0.25 * speed) == true:
 		CombatLog.log_item_ability(item, event.get_target(), "Spiderling Poison")

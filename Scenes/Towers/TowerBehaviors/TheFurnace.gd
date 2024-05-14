@@ -19,14 +19,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var uncontrollable: AbilityInfo = AbilityInfo.new()
 	uncontrollable.name = "Uncontrollable Flames"
 	uncontrollable.icon = "res://Resources/Icons/hud/dice.tres"
-	uncontrollable.description_short = "The tower attacks a random enemy in range with each attack.\n"
-	uncontrollable.description_full = "The tower attacks a random enemy in range with each attack.\n"
+	uncontrollable.description_short = "The tower attacks a random creep in range with each attack.\n"
+	uncontrollable.description_full = "The tower attacks a random creep in range with each attack.\n"
 	list.append(uncontrollable)
 
 	var lingering: AbilityInfo = AbilityInfo.new()
 	lingering.name = "Lingering Flame"
 	lingering.icon = "res://Resources/Icons/fire/fire_bowl_01.tres"
-	lingering.description_short = "The tower attacks a random enemy in range with each attack.\n"
+	lingering.description_short = "Enemies hit are inflicted with [color=GOLD]Lingering Flame[/color], which deals periodic spell damage.\n"
 	lingering.description_full = "Enemies hit are inflicted with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -83,7 +83,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Intense Heat"
 	autocast.icon = "res://Resources/Icons/orbs/orb_fire.tres"
 	autocast.description_short = "Expends all mana to unleash a wave of heat.\n"
-	autocast.description = "Expends all mana to unleash a wave of heat, dealing [color=GOLD][mana x 7][/color] spell damage and applying [color=GOLD]Lingering Flame[/color] to all enemies in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [color=GOLD][mana / 300]%[/color] for 4 seconds.\n" \
+	autocast.description = "Expends all mana to unleash a wave of heat, dealing [color=GOLD][mana x 7][/color] spell damage and applying [color=GOLD]Lingering Flame[/color] to all creeps in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [color=GOLD][mana / 300]%[/color] for 4 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2 spell damage per mana\n"
@@ -232,11 +232,11 @@ func ashbringer_heart_update(buff: Buff):
 
 	var spell_crit_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
-	var attackspeed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
+	var attack_speed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
 	buff.user_real = (caster.get_prop_spell_damage_dealt() - 1.0) * caster_level_factor
 	buff.user_real = (caster.get_spell_crit_chance() - spell_crit_innate) * caster_level_factor
 	buff.user_real = (caster.get_spell_crit_chance() - spell_dmg_innate) * caster_level_factor
-	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000)
+	buff.user_int = int((caster.get_base_attack_speed() - attack_speed_innate) * caster_level_factor * 1000)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000)
 
 	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)

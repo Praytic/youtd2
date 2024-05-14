@@ -30,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var leaf_storm: AbilityInfo = AbilityInfo.new()
 	leaf_storm.name = "Leaf Storm"
 	leaf_storm.icon = "res://Resources/Icons/plants/leaf_01.tres"
-	leaf_storm.description_short = "Chance to summon a leaf storm at the target's position, slowing enemy units inside and dealing damage over time.\n"
-	leaf_storm.description_full = "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing enemy units inside by 30% for 1 second and dealing 2100 spell damage over time.\n" \
+	leaf_storm.description_short = "Chance to summon a leaf storm at the target's position, slowing creeps inside and dealing damage over time.\n"
+	leaf_storm.description_full = "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing creeps inside by 30% for 1 second and dealing 2100 spell damage over time.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
@@ -132,12 +132,12 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Tranquility"
 	aura.icon = "res://Resources/Icons/misc/flag_03.tres"
-	aura.description_short = "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
-	aura.description_full = "Decreases the attackspeed of all towers in a %d AoE by 20%% and increases their attackdamage by 40%%.\n" % AURA_RANGE\
+	aura.description_short = "Decreases the attack speed of all nearby towers and increases their attack damage.\n"
+	aura.description_full = "Decreases the attack speed of all towers in a %d AoE by 20%% and increases their attack damage by 40%%.\n" % AURA_RANGE\
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% attack damage\n" \
-	+ "+0.4% attackspeed\n"
+	+ "+0.4% attack speed\n"
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)

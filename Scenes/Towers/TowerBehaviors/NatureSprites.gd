@@ -150,8 +150,8 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_add_perc_add: String = Utils.format_percent(DAMAGE_ADD_PERC_ADD, 2)
 	var buff_duration: String = Utils.format_percent(BUFF_DURATION, 2)
 	var buff_duration_add: String = Utils.format_percent(BUFF_DURATION_ADD, 2)
-	var attackspeed: String = Utils.format_percent(ATTACKSPEED, 2)
-	var attackspeed_add: String = Utils.format_percent(ATTACKSPEED_ADD, 2)
+	var attack_speed: String = Utils.format_percent(ATTACKSPEED, 2)
+	var attack_speed_add: String = Utils.format_percent(ATTACKSPEED_ADD, 2)
 	var item_chance: String = Utils.format_percent(ITEM_CHANCE, 2)
 	var item_chance_add: String = Utils.format_percent(ITEM_CHANCE_ADD, 2)
 
@@ -172,7 +172,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s crit chance for %s\n" % [crit_chance, nature_string] \
 	+ "+%s damage for %s\n" % [damage_add_perc, fire_string] \
 	+ "+%s buff duration for %s\n" % [buff_duration, ice_string] \
-	+ "+%s attack speed for %s\n" % [attackspeed, storm_string] \
+	+ "+%s attack speed for %s\n" % [attack_speed, storm_string] \
 	+ "+%s item chance for %s\n" % [item_chance, iron_string] \
 	+ "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n" \
 	+ " \n" \
@@ -182,7 +182,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s crit chance\n" % crit_chance_add \
 	+ "+%s damage\n" % damage_add_perc_add \
 	+ "+%s buff duration\n" % buff_duration_add \
-	+ "+%s attack speed\n" % attackspeed_add \
+	+ "+%s attack speed\n" % attack_speed_add \
 	+ "+%s item chance\n" % item_chance_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5

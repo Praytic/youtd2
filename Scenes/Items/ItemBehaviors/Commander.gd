@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Attack![/color]\n"
-	text += "Every attack there is a 2% attackspeed adjusted chance to issue an attack order. When this happens, all towers in 350 range gain +50% attack speed for 4 seconds.\n"
+	text += "Every attack there is a 2% attack speed adjusted chance to issue an attack order. When this happens, all towers in 350 range gain +50% attack speed for 4 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.01% chance\n"
@@ -36,7 +36,7 @@ func on_attack(_event: Event):
 	var in_range: Iterate
 	var nxt: Tower
 	var spieler: Player = tower.get_player()
-	var speed: float = tower.get_base_attackspeed()
+	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(speed * (0.02 + 0.001 * tower.get_level())):
 		CombatLog.log_item_ability(item, null, "Attack!")

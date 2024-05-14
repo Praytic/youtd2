@@ -7,9 +7,9 @@ var multiboard: MultiboardValues
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {crit_chance = 0.1375, feral_dmg_gain = 0.002, feral_dmg_max = 2.00, bloodthirst_attackspeed = 1.00, bloodthirst_duration = 3, rage_buff_level_base = 0},
-		2: {crit_chance = 0.1625, feral_dmg_gain = 0.003, feral_dmg_max = 2.25, bloodthirst_attackspeed = 1.25, bloodthirst_duration = 4, rage_buff_level_base = 25},
-		3: {crit_chance = 0.1875, feral_dmg_gain = 0.004, feral_dmg_max = 2.50, bloodthirst_attackspeed = 1.50, bloodthirst_duration = 5, rage_buff_level_base = 50},
+		1: {crit_chance = 0.1375, feral_dmg_gain = 0.002, feral_dmg_max = 2.00, bloodthirst_attack_speed = 1.00, bloodthirst_duration = 3, rage_buff_level_base = 0},
+		2: {crit_chance = 0.1625, feral_dmg_gain = 0.003, feral_dmg_max = 2.25, bloodthirst_attack_speed = 1.25, bloodthirst_duration = 4, rage_buff_level_base = 25},
+		3: {crit_chance = 0.1875, feral_dmg_gain = 0.004, feral_dmg_max = 2.50, bloodthirst_attack_speed = 1.50, bloodthirst_duration = 5, rage_buff_level_base = 50},
 	}
 
 
@@ -20,8 +20,8 @@ const BLOODTHIRST_DURATION_ADD: float = 0.05
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var feral_dmg_gain: String = Utils.format_percent(_stats.feral_dmg_gain, 2)
 	var feral_dmg_max: String = Utils.format_percent(_stats.feral_dmg_max, 2)
-	var bloodthirst_attackspeed: String = Utils.format_percent(_stats.bloodthirst_attackspeed, 2)
-	var bloodthirst_attackspeed_add: String = Utils.format_percent(BLOODTHIRST_ATTACKSPEED_ADD, 2)
+	var bloodthirst_attack_speed: String = Utils.format_percent(_stats.bloodthirst_attack_speed, 2)
+	var bloodthirst_attack_speed_add: String = Utils.format_percent(BLOODTHIRST_ATTACKSPEED_ADD, 2)
 	var bloodthirst_duration: String = Utils.format_float(_stats.bloodthirst_duration, 2)
 	var bloodthirst_duration_add: String = Utils.format_float(BLOODTHIRST_DURATION_ADD, 2)
 
@@ -38,11 +38,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	bloodthirst.name = "Bloodthirst"
 	bloodthirst.icon = "res://Resources/Icons/potions/potion_red_03.tres"
 	bloodthirst.description_short = "Whenever this tower kills a unit it becomes enraged.\n"
-	bloodthirst.description_full = "Whenever this tower kills a unit it becomes enraged, gaining +%s attackspeed for %s seconds. Cannot retrigger while active!\n" % [bloodthirst_attackspeed, bloodthirst_duration] \
+	bloodthirst.description_full = "Whenever this tower kills a unit it becomes enraged, gaining +%s attack speed for %s seconds. Cannot retrigger while active!\n" % [bloodthirst_attack_speed, bloodthirst_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s sec duration\n" % bloodthirst_duration_add \
-	+ "+%s attackspeed\n" % bloodthirst_attackspeed_add
+	+ "+%s attack speed\n" % bloodthirst_attack_speed_add
 	list.append(bloodthirst)
 
 	return list

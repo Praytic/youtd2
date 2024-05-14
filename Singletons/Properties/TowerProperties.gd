@@ -257,15 +257,15 @@ func get_base_damage(tower_id: int) -> int:
 	return base_damage
 
 
-func get_base_attackspeed(tower_id: int) -> float:
-	var attackspeed: float = _get_property(tower_id,  CsvProperty.ATTACK_CD).to_float()
+func get_base_attack_speed(tower_id: int) -> float:
+	var attack_speed: float = _get_property(tower_id,  CsvProperty.ATTACK_CD).to_float()
 
-	if attackspeed == 0.0:
-		push_error("Base attackspeed for tower %d is equal to 0.0. Attackspeed must greater than 0.0, even if the tower doesn't attack. Returning 1.0 instead.")
+	if attack_speed == 0.0:
+		push_error("Base attack speed for tower %d is equal to 0.0. Attack speed must greater than 0.0, even if the tower doesn't attack. Returning 1.0 instead.")
 
 		return 1.0
 
-	return attackspeed
+	return attack_speed
 
 
 func get_attack_enabled(tower_id: int) -> bool:
@@ -501,8 +501,8 @@ func get_generated_tooltip(tower_id: int) -> String:
 
 func get_dps(tower_id: int) -> float:
 	var damage: int = TowerProperties.get_base_damage(tower_id)
-	var attackspeed: float = TowerProperties.get_base_attackspeed(tower_id)
-	var dps: float = Utils.divide_safe(damage, attackspeed)
+	var attack_speed: float = TowerProperties.get_base_attack_speed(tower_id)
+	var dps: float = Utils.divide_safe(damage, attack_speed)
 
 	return dps
 

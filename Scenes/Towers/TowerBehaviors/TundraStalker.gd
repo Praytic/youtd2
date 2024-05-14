@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Frenzy"
 	ability.icon = "res://Resources/Icons/undead/skull_03.tres"
 	ability.description_short = "Gains a permanent bonus to attack speed each time [color=GOLD]Ice Claw[/color] is cast.\n"
-	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attackspeed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
+	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)
 
 	return list

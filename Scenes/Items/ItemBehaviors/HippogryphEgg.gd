@@ -12,7 +12,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Hippogryph Young[/color]\n"
-	text += "Grants a 15% attackspeed adjusted chance on attack to release a hippogryph that attacks the target, dealing 1250 spell damage in 200 range of the target.\n"
+	text += "Grants a 15% attack speed adjusted chance on attack to release a hippogryph that attacks the target, dealing 1250 spell damage in 200 range of the target.\n"
 	text += " \n"
 	text += "Level Bonus:\n"
 	text += "+50 spell damage\n"
@@ -48,7 +48,7 @@ func on_attack(event: Event):
 	var twr: Tower = item.get_carrier()
 	var p: Projectile
 
-	if twr.calc_chance((0.15 * twr.get_base_attackspeed())):
+	if twr.calc_chance((0.15 * twr.get_base_attack_speed())):
 		CombatLog.log_item_ability(item, event.get_target(), "Hippogryph Young")
 		p = Projectile.create_from_unit_to_unit(hippo_pt, twr, 1, twr.calc_spell_crit_no_bonus(), twr, event.get_target(), true, false, false)
 		p.set_projectile_scale(0.6)

@@ -72,8 +72,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Unleash"
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
-	autocast.description_short = "Unleashes built up energy, dealing spell damage to a single enemy and increasing the spell crit damage of nearby towers.\n"
-	autocast.description = "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single enemy and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n" \
+	autocast.description_short = "Unleashes built up energy, dealing spell damage to a single creep and increasing the spell crit damage of nearby towers.\n"
+	autocast.description = "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single creep and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+8 spell damage per wave\n" \
@@ -211,12 +211,12 @@ func unleash_bt_update(buff: Buff):
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
-	var attackspeed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
+	var attack_speed_innate: float = 0.0 + caster_level * Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD
 
 	buff.user_real = (caster.get_prop_spell_damage_dealt() - 1.0) * caster_level_factor
 	buff.user_real2 = (caster.get_spell_crit_chance() - spell_crit_chance_innate) * caster_level_factor
 	buff.user_real3 = (caster.get_spell_crit_damage() - spell_crit_dmg_innate) * caster_level_factor
-	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000.0)
+	buff.user_int = int((caster.get_base_attack_speed() - attack_speed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
 	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)

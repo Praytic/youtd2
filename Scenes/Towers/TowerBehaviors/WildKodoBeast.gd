@@ -49,13 +49,13 @@ func get_aura_types() -> Array[AuraType]:
 	aura.description_short = "The dung of this kodo empowers nearby towers.\n"
 	aura.description_full = "The dung of this kodo grants towers in %d range:\n" % AURA_RANGE \
 	+ "  +10% damage\n" \
-	+ "  +10% attackspeed\n" \
+	+ "  +10% attack speed\n" \
 	+ "  +3% critical strike chance\n" \
 	+ "  +15% critical strike damage\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% damage\n" \
-	+ "+0.2% attackspeed\n" \
+	+ "+0.2% attack speed\n" \
 	+ "+0.06% critical strike chance\n" \
 	+ "+0.3% critical strike damage\n"
 
