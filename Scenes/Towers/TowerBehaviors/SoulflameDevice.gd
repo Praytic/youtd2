@@ -14,10 +14,10 @@ var soulflame_pt: ProjectileType
 var multiboard: MultiboardValues
 var awaken_count: int = 0
 
+const AURA_RANGE: int = 350
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
-
 	var list: Array[AbilityInfo] = []
 	
 	var soulfire: AbilityInfo = AbilityInfo.new()
@@ -37,16 +37,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	soul_consumption.description_short = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies.\n"
 	soul_consumption.description_full = "When an enemy dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby enemies within 200 range. The enemy is consumed by the tower, restoring 5 mana.\n"
 	list.append(soul_consumption)
-
-	var evil_device: AbilityInfo = AbilityInfo.new()
-	evil_device.name = "Evil Device - Aura"
-	evil_device.icon = "res://Resources/Icons/mechanical/battery.tres"
-	evil_device.description_short = "Increases attack stats of nearby Common and Uncommon %s towers.\n" % darkness_string
-	evil_device.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % darkness_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% stats\n"
-	list.append(evil_device)
 
 	return list
 
@@ -132,7 +122,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
+
+	aura.name = "Evil Device"
+	aura.icon = "res://Resources/Icons/mechanical/battery.tres"
+	aura.description_short = "Increases attack stats of nearby Common and Uncommon %s towers.\n" % darkness_string
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [darkness_string, AURA_RANGE] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_DARKNESS + TargetType.RARITY_UNCOMMON + TargetType.RARITY_COMMON)
 	aura.target_self = false
 	aura.level = 1

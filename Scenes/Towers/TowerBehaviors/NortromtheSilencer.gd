@@ -5,6 +5,8 @@ var silence_bt: BuffType
 var aura_bt: BuffType
 var glaive_pt: ProjectileType
 
+const AURA_RANGE: int = 350
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -36,17 +38,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.04 silence duration\n"
 	list.append(curse)
 
-	var global_silence: AbilityInfo = AbilityInfo.new()
-	global_silence.name = "Global Silence - Aura"
-	global_silence.icon = "res://Resources/Icons/TowerIcons/TinyStormLantern.tres"
-	global_silence.description_short = "Nearby towers have a small chance to silence creeps.\n"
-	global_silence.description_full = "All towers within 350 range of Nortrom have a 3% attackspeed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08% chance\n" \
-	+ "+0.04 silence duration\n"
-	list.append(global_silence)
-
 	return list
 
 
@@ -74,7 +65,17 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	aura.name = "Global Silence"
+	aura.icon = "res://Resources/Icons/TowerIcons/TinyStormLantern.tres"
+	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
+	aura.description_full = "All towers within %d range of Nortrom have a 3%% attackspeed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% chance\n" \
+	+ "+0.04 silence duration\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

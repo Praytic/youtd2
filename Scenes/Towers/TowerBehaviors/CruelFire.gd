@@ -15,26 +15,6 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
-	var mod_crit: String = Utils.format_percent(_stats.mod_crit, 2)
-	var mod_crit_add: String = Utils.format_percent(_stats.mod_crit_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Fire of Fury - Aura"
-	ability.icon = "res://Resources/Icons/TowerIcons/BurningWatchtower.tres"
-	ability.description_short = "Increases crit chance of nearby towers.\n"
-	ability.description_full = "Increases crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % mod_crit_add
-	list.append(ability)
-
-	return list
-
-
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
@@ -47,6 +27,19 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
+	var mod_crit: String = Utils.format_percent(_stats.mod_crit, 2)
+	var mod_crit_add: String = Utils.format_percent(_stats.mod_crit_add, 2)
+
+	aura.name = "Fire of Fury"
+	aura.icon = "res://Resources/Icons/TowerIcons/BurningWatchtower.tres"
+	aura.description_short = "Increases crit chance of nearby towers.\n"
+	aura.description_full = "Increases crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s chance\n" % mod_crit_add
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true

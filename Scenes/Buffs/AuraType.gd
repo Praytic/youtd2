@@ -6,6 +6,16 @@ class_name AuraType
 # BuffType.add_aura().
 
 
+var name: String = ""
+var icon: String = ""
+var description_short: String = ""
+var description_full: String = ""
+
+# NOTE: if this value is set to true, the aura won't be
+# shown as an ability icon in tower menu and won't be
+# included in tower tooltip.
+var is_hidden: bool = false
+
 var aura_range: float = 10.0
 var target_type: TargetType = null
 var target_self: bool = false

@@ -10,6 +10,8 @@ var time_field_bt: BuffType
 var multiboard: MultiboardValues
 var exp_exchanged: int
 
+const AURA_RANGE: int = 240
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -20,23 +22,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	future.description_short = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds.\n"
 	future.description_full = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds, increasing his experience by 2. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
 	list.append(future)
-
-	var time_twist: AbilityInfo = AbilityInfo.new()
-	time_twist.name = "Time Twist - Aura"
-	time_twist.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
-	time_twist.description_short = "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
-	time_twist.description_full = "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in 240 range:\n" \
-	+ "+10% experience gain\n" \
-	+ "+10% attack speed\n" \
-	+ "+5% mana regen\n" \
-	+ "+12.5% buff duration \n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1.6% exp gain\n" \
-	+ "+1% attack speed\n" \
-	+ "+2% mana regen\n" \
-	+ "+1.5% buff duration\n"
-	list.append(time_twist)
 
 	return list
 
@@ -104,7 +89,23 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 240
+
+	aura.name = "Time Twist"
+	aura.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
+	aura.description_short = "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
+	aura.description_full = "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in %d range:\n" % AURA_RANGE \
+	+ "+10% experience gain\n" \
+	+ "+10% attack speed\n" \
+	+ "+5% mana regen\n" \
+	+ "+12.5% buff duration \n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1.6% exp gain\n" \
+	+ "+1% attack speed\n" \
+	+ "+2% mana regen\n" \
+	+ "+1.5% buff duration\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

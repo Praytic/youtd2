@@ -19,6 +19,9 @@ var leaf_storm_bt: BuffType
 var leaf_storm_st: SpellType
 
 
+const AURA_RANGE: int = 450
+
+
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
 	
@@ -47,17 +50,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.06 seconds duration\n" \
 	+ "+0.6% damage taken\n"
 	list.append(thorned)
-
-	var tranq_aura: AbilityInfo = AbilityInfo.new()
-	tranq_aura.name = "Tranquility - Aura"
-	tranq_aura.icon = "res://Resources/Icons/misc/flag_03.tres"
-	tranq_aura.description_short = "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
-	tranq_aura.description_full = "Decreases the attackspeed of all towers in a 450 AoE by 20% and increases their attackdamage by 40%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% attack damage\n" \
-	+ "+0.4% attackspeed\n"
-	list.append(tranq_aura)
 
 	return list
 
@@ -148,7 +140,17 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 450
+
+	aura.name = "Tranquility"
+	aura.icon = "res://Resources/Icons/misc/flag_03.tres"
+	aura.description_short = "Decreases the attackspeed of all nearby towers and increases their attackdamage.\n"
+	aura.description_full = "Decreases the attackspeed of all towers in a %d AoE by 20%% and increases their attackdamage by 40%%.\n" % AURA_RANGE\
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% attack damage\n" \
+	+ "+0.4% attackspeed\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

@@ -7,6 +7,8 @@ var splash_bt: BuffType
 var water_pt: ProjectileType
 var stone_pt: ProjectileType
 
+const AURA_RANGE: int = 250
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -32,16 +34,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+160 spell damage\n" \
 	+ "+0.5% more spell damage taken\n"
 	list.append(splash)
-
-	var calming: AbilityInfo = AbilityInfo.new()
-	calming.name = "Calming Noises - Aura"
-	calming.icon = "res://Resources/Icons/dioramas/church.tres"
-	calming.description_short = "Increases the spell crit chance of nearby towers.\n"
-	calming.description_full = "Increases the spell crit chance of towers in 250 range by 10%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% spell crit chance\n"
-	list.append(calming)
 
 	return list
 
@@ -79,7 +71,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 250
+
+	aura.name = "Calming Noises"
+	aura.icon = "res://Resources/Icons/dioramas/church.tres"
+	aura.description_short = "Increases the spell crit chance of nearby towers.\n"
+	aura.description_full = "Increases the spell crit chance of towers in %d range by 10%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% spell crit chance\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 1

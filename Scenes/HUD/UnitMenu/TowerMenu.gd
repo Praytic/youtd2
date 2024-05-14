@@ -145,6 +145,14 @@ func _setup_ability_buttons():
 		var button: AbilityButton = AbilityButton.make(ability_info)
 		_passive_ability_container.add_child(button)
 
+	var aura_type_list: Array[AuraType] = _tower.get_aura_types()
+	for aura_type in aura_type_list:
+		if aura_type.is_hidden:
+			continue
+
+		var button: AbilityButton = AbilityButton.make_from_aura_type(aura_type)
+		_passive_ability_container.add_child(button)
+
 	for autocast in _tower.get_autocast_list():
 		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
 		_active_ability_container.add_child(autocast_button)

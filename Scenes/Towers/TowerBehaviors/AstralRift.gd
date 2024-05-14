@@ -10,6 +10,9 @@ var aura_bt: BuffType
 var slow_bt: BuffType
 
 
+const AURA_RANGE: int = 750
+
+
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
@@ -26,16 +29,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+1 slow and unit move AoE\n" \
 	+ "+1% slow\n"
 	list.append(spacial_rift)
-
-	var presence: AbilityInfo = AbilityInfo.new()
-	presence.name = "Presence of the Rift - Aura"
-	presence.icon = "res://Resources/Icons/clubs/club_glowing.tres"
-	presence.description_full = "The Astral Rift's presence is so powerful that it damages creeps equal to 200% of their movement speed every second in an area of 750.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+16% damage increase\n"
-	presence.description_short = "Deals periodic damage to creeps in range, scaled by their movement speed.\n"
-	list.append(presence)
 
 	return list
 
@@ -60,7 +53,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 750
+
+	aura.name = "Presence of the Rift"
+	aura.icon = "res://Resources/Icons/clubs/club_glowing.tres"
+	aura.description_full = "The Astral Rift's presence is so powerful that it damages creeps equal to 200%% of their movement speed every second in an area of %d.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+16% damage increase\n"
+	aura.description_short = "Deals periodic damage to creeps in range, scaled by their movement speed.\n"
+	
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

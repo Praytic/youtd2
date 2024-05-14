@@ -3,6 +3,8 @@ extends TowerBehavior
 
 var aura_bt: BuffType
 
+const AURA_RANGE: int = 200
+
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -14,11 +16,7 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var buffed_tower_mana_burned: String = Utils.format_float(_stats.aura_level / 100.0, 2)
 	var damage_mana_multiplier: String = Utils.format_float(_stats.damage_mana_multiplier, 2)
-	var aura_mana_cost: String = Utils.format_float(_stats.aura_mana_cost, 2)
-	var damage_per_mana_point: String = Utils.format_float(_stats.aura_power, 2)
-	var damage_per_mana_point_add: String = Utils.format_float(_stats.aura_power_add, 2)
 	var elemental_attack_type_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
 
 	var list: Array[AbilityInfo] = []
@@ -33,16 +31,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.48% chance\n" \
 	+ "-1% current mana consumed\n"
 	list.append(unstable_energies)
-
-	var mana_distortion: AbilityInfo = AbilityInfo.new()
-	mana_distortion.name = "Mana Distortion Field - Aura"
-	mana_distortion.icon = "res://Resources/Icons/magic/magic_stone.tres"
-	mana_distortion.description_short = "Nearby towers burn creep mana when attacking.\n"
-	mana_distortion.description_full = "Towers in 200 range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attackspeed and range adjusted and the tower deals %s spelldamage per mana point burned.\n" % [buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spelldamage per mana point burned\n" % damage_per_mana_point_add
-	list.append(mana_distortion)
 
 	return list
 
@@ -78,7 +66,21 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 200
+
+	var buffed_tower_mana_burned: String = Utils.format_float(_stats.aura_level / 100.0, 2)
+	var aura_mana_cost: String = Utils.format_float(_stats.aura_mana_cost, 2)
+	var damage_per_mana_point: String = Utils.format_float(_stats.aura_power, 2)
+	var damage_per_mana_point_add: String = Utils.format_float(_stats.aura_power_add, 2)
+
+	aura.name = "Mana Distortion Field"
+	aura.icon = "res://Resources/Icons/magic/magic_stone.tres"
+	aura.description_short = "Nearby towers burn creep mana when attacking.\n"
+	aura.description_full = "Towers in %d range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attackspeed and range adjusted and the tower deals %s spelldamage per mana point burned.\n" % [AURA_RANGE, buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spelldamage per mana point burned\n" % damage_per_mana_point_add
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = false
 	aura.level = _stats.aura_level

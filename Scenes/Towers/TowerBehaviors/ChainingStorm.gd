@@ -6,6 +6,9 @@ var multiboard: MultiboardValues
 var storm_power: int = 0
 
 
+const AURA_RANGE: int = 900
+
+
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
@@ -13,16 +16,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var list: Array[AbilityInfo] = []
 	
-	var strong_wind: AbilityInfo = AbilityInfo.new()
-	strong_wind.name = "Strong Wind"
-	strong_wind.icon = "res://Resources/Icons/electricity/lightning_circle_cyan.tres"
-	strong_wind.description_short = "All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.\n"
-	strong_wind.description_full = "All creeps in 900 range are affected by [color=GOLD]Strong Winds[/color]. Every second a creep is under this effect, it loses 3% of its movespeed and it is dealt 10% of towers attack damage for every 1% of movespeed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08% slow\n" \
-	+ "+5 damage per 1% slow\n"
-	list.append(strong_wind)
+	var storm_power_ability: AbilityInfo = AbilityInfo.new()
+	storm_power_ability.name = "Storm Power"
+	storm_power_ability.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
+	storm_power_ability.description_short = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.\n"
+	storm_power_ability.description_full = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for this [color=GOLD]Chaining Storm[/color] tower by 0.02% (75% max) and also increase the damage dealt with [color=GOLD]Strong Winds[/color] by 0.05 damage per 1% slow.\n"
+	list.append(storm_power_ability)
 
 	var chaining_storm: AbilityInfo = AbilityInfo.new()
 	chaining_storm.name = "Chaining Storm"
@@ -35,13 +34,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+65 damage\n" \
 	+ "+0.12% received damage\n"
 	list.append(chaining_storm)
-
-	var storm_power_ability: AbilityInfo = AbilityInfo.new()
-	storm_power_ability.name = "Storm Power - Aura"
-	storm_power_ability.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
-	storm_power_ability.description_short = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.\n"
-	storm_power_ability.description_full = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for this [color=GOLD]Chaining Storm[/color] tower by 0.02% (75% max) and also increase the damage dealt with [color=GOLD]Strong Winds[/color] by 0.05 damage per 1% slow.\n"
-	list.append(storm_power_ability)
 
 	return list
 
@@ -74,7 +66,17 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 900
+
+	aura.name = "Strong Wind"
+	aura.icon = "res://Resources/Icons/electricity/lightning_circle_cyan.tres"
+	aura.description_short = "All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.\n"
+	aura.description_full = "All creeps in %d range are affected by [color=GOLD]Strong Winds[/color]. Every second a creep is under this effect, it loses 3%% of its movespeed and it is dealt 10%% of towers attack damage for every 1%% of movespeed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% slow\n" \
+	+ "+5 damage per 1% slow\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

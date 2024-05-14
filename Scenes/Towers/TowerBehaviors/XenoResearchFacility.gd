@@ -20,6 +20,8 @@ var nature_bt: BuffType
 var orc_bt: BuffType
 var humanoid_bt: BuffType
 
+const AURA_RANGE: float = 280
+
 
 var bonus_levels_in_progress: bool = false
 var force_show_research_message: bool = false
@@ -50,15 +52,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+1% chance to collect sample\n" \
 	+ "+1% maximum bonus per race\n"
 	list.append(sample)
-
-	var aura: AbilityInfo = AbilityInfo.new()
-	aura.name = "Xeno Vulnerability Research - Aura"
-	aura.icon = "res://Resources/Icons/orbs/orb_green.tres"
-	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.\n"
-	aura.description_full = "Improves damage vs various creep races for all towers in 280 range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] For this tower, research overrides any and all other race modifications. So the race bonuses of this tower reflect the bonuses given by this aura.\n"
-	list.append(aura)
 
 	return list
 
@@ -112,7 +105,15 @@ func tower_init():
 	
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 280
+
+	aura.name = "Xeno Vulnerability Research"
+	aura.icon = "res://Resources/Icons/orbs/orb_green.tres"
+	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.\n"
+	aura.description_full = "Improves damage vs various creep races for all towers in %d range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=GOLD]Note:[/color] For this tower, research overrides any and all other race modifications. So the race bonuses of this tower reflect the bonuses given by this aura.\n"
+	
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 1

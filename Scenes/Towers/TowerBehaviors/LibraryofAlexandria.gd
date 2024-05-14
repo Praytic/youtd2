@@ -4,6 +4,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var teachings_bt: BuffType
 
+const AURA_RANGE: int = 900
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -17,16 +19,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2 experience\n"
 	list.append(divine_knowledge)
-
-	var divine_research: AbilityInfo = AbilityInfo.new()
-	divine_research.name = "Divine Research - Aura"
-	divine_research.icon = "res://Resources/Icons/books/book_08.tres"
-	divine_research.description_short = "Increases experience gain from creeps in range.\n"
-	divine_research.description_full = "Increases the experience gain from creeps in 900 range by 30%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% experience\n"
-	list.append(divine_research)
 
 	return list
 
@@ -101,7 +93,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 900
+
+	aura.name = "Divine Research"
+	aura.icon = "res://Resources/Icons/books/book_08.tres"
+	aura.description_short = "Increases experience gain from creeps in range.\n"
+	aura.description_full = "Increases the experience gain from creeps in %d range by 30%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% experience\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

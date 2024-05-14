@@ -63,8 +63,7 @@ func get_ability_ranges() -> Array[RangeData]:
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/perpendicular_rings.tres")
-	aura_bt.set_buff_tooltip("Dimensional Distortion Field\nThis creep is inside the field of the Flux Collector.")
+	aura_bt.set_hidden()
 
 	link_bt = BuffType.new("link_bt", -1, 0, true, self)
 	link_bt.add_event_on_create(aura_bt_on_create)
@@ -99,8 +98,20 @@ func tower_init():
 	tower.add_autocast(autocast)
 
 
+# NOTE: this aura is hidden because it's used internaly to
+# keep track of spell damage dealt by tower linked via
+# Dimensional Link. Wouldn't make sense to show it to the
+# player.
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	aura.is_hidden = true
+
+	aura.name = "Distortion Flux Collector hidden aura"
+	aura.icon = "hidden"
+	aura.description_short = "hidden"
+	aura.description_full = "hidden"
+
 	aura.aura_range = 2150
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false

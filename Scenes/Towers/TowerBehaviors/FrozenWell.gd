@@ -4,6 +4,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var mist_bt: BuffType
 
+const AURA_RANGE: int = 500
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -17,16 +19,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% slow\n"
 	list.append(freezing_mist)
-
-	var flowing_frost: AbilityInfo = AbilityInfo.new()
-	flowing_frost.name = "Flowing Frost - Aura"
-	flowing_frost.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
-	flowing_frost.description_short = "Increases buff duration of towers in range.\n"
-	flowing_frost.description_full = "Increases the buff duration of towers in 500 range by 25%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% buff duration\n"
-	list.append(flowing_frost)
 
 	return list
 
@@ -60,7 +52,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 500
+
+	aura.name = "Flowing Frost"
+	aura.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
+	aura.description_short = "Increases buff duration of towers in range.\n"
+	aura.description_full = "Increases the buff duration of towers in %d range by 25%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% buff duration\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

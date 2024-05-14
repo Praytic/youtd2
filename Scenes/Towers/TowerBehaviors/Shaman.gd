@@ -18,26 +18,6 @@ const BLOODY_EXPERIENCE_RANGE: float = 250
 const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var bloody_experience_level_cap: String = Utils.format_float(_stats.bloody_experience_level_cap, 2)
-	var bloody_experience_range: String = Utils.format_float(_stats.bloody_experience_range, 2)
-	var bloody_experience_gain: String = Utils.format_float(BLOODY_EXPERIENCE_EXP_GAIN, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Bloody Experience - Aura"
-	ability.icon = "res://Resources/Icons/gems/gem_07.tres"
-	ability.description_short = "Nearby towers receive experience every time they crit.\n"
-	ability.description_full = "Every tower below %s level in %s range receives %s experience every time it crits. The amount of experience gained is base attackspeed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, bloody_experience_range, bloody_experience_gain] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 level cap every 5 levels\n"
-	list.append(ability)
-
-	return list
-
-
 func get_autocast_description() -> String:
 	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
 	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
@@ -112,6 +92,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	var bloody_experience_level_cap: String = Utils.format_float(_stats.bloody_experience_level_cap, 2)
+	var bloody_experience_gain: String = Utils.format_float(BLOODY_EXPERIENCE_EXP_GAIN, 2)
+
+	aura.name = "Bloody Experience"
+	aura.icon = "res://Resources/Icons/gems/gem_07.tres"
+	aura.description_short = "Nearby towers receive experience every time they crit.\n"
+	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits. The amount of experience gained is base attackspeed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1 level cap every 5 levels\n"
+
 	aura.aura_range = _stats.bloody_experience_range
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true

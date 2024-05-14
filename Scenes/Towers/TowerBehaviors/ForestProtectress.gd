@@ -11,6 +11,8 @@ var aura_bt: BuffType
 var seconds_since_last_attack: int = 0
 var dmg_bonus_from_meld: float = 0.0
 
+const AURA_RANGE: int = 175
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -35,16 +37,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage per second\n"
 	list.append(meld)
-
-	var strike: AbilityInfo = AbilityInfo.new()
-	strike.name = "Strike the Unprepared - Aura"
-	strike.icon = "res://Resources/Icons/daggers/dagger_07.tres"
-	strike.description_short = "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
-	strike.description_full = "Increases the attack critical chance of towers in 175 range by 0.25% for each 1% hp the attacked creep has left.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.01% attack crit chance\n"
-	list.append(strike)
 
 	return list
 
@@ -75,7 +67,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 175
+
+	aura.name = "Strike the Unprepared"
+	aura.icon = "res://Resources/Icons/daggers/dagger_07.tres"
+	aura.description_short = "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
+	aura.description_full = "Increases the attack critical chance of towers in %d range by 0.25%% for each 1%% hp the attacked creep has left.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.01% attack crit chance\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

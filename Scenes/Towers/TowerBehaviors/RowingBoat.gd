@@ -4,6 +4,9 @@ extends TowerBehavior
 var aura_bt: BuffType
 var multiboard : MultiboardValues
 
+const AURA_RANGE: int = 300
+
+
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {plunder_amount = 0.3, aura_power_and_lvl = 5},
@@ -15,7 +18,6 @@ func get_tier_stats() -> Dictionary:
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var plunder_amount: String = Utils.format_float(_stats.plunder_amount, 2)
-	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
 	
 	var list: Array[AbilityInfo] = []
 	
@@ -25,16 +27,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	pirates.description_short = "Grants gold on attack.\n"
 	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
 	list.append(pirates)
-
-	var treasure: AbilityInfo = AbilityInfo.new()
-	treasure.name = "Treasure Seeker - Aura"
-	treasure.icon = "res://Resources/Icons/trinkets/trinket_05.tres"
-	treasure.description_short = "Increases the bounty gain of nearby towers.\n"
-	treasure.description_full = "Increases the bounty gain of towers in 300 range by 10%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bounty\n" % bounty_level_add
-	list.append(treasure)
 
 	return list
 
@@ -67,7 +59,18 @@ func tower_init():
 	
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 300
+
+	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
+
+	aura.name = "Treasure Seeker"
+	aura.icon = "res://Resources/Icons/trinkets/trinket_05.tres"
+	aura.description_short = "Increases the bounty gain of nearby towers.\n"
+	aura.description_full = "Increases the bounty gain of towers in %d range by 10%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s bounty\n" % bounty_level_add
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 100

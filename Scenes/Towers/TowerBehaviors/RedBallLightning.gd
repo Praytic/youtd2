@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 		2: {bounce_count = 3, shock_damage = 3500, shock_damage_add = 140, mod_spell_damage = 0.35, mod_spell_damage_add = 0.006},
 	}
 
-const AURA_RANGE: float = 250
+const AURA_RANGE: int = 250
 const SHOCK_CHANCE: float = 0.30
 const SHOCK_CHANCE_ADD: float = 0.005
 const SHOCK_CRIT_CHANCE: float = 0.10
@@ -18,15 +18,12 @@ const SHOCK_CRIT_DAMAGE: float = 0.60
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var shock_chance: String = Utils.format_percent(SHOCK_CHANCE, 2)
 	var shock_chance_add: String = Utils.format_percent(SHOCK_CHANCE_ADD, 2)
 	var shock_damage: String = Utils.format_float(_stats.shock_damage, 2)
 	var shock_damage_add: String = Utils.format_float(_stats.shock_damage_add, 2)
 	var shock_crit_chance: String = Utils.format_percent(SHOCK_CRIT_CHANCE, 2)
 	var shock_crit_damage: String = Utils.format_percent(SHOCK_CRIT_DAMAGE, 2)
-	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
-	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -40,16 +37,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+%s chance\n" % shock_chance_add \
 	+ "+%s damage\n" % shock_damage_add
 	list.append(lightning_shock)
-
-	var lightning_charge: AbilityInfo = AbilityInfo.new()
-	lightning_charge.name = "Lightning Charge - Aura"
-	lightning_charge.icon = "res://Resources/Icons/TowerIcons/BallLightningAccelerator.tres"
-	lightning_charge.description_short = "Increases spell damage of nearby towers.\n"
-	lightning_charge.description_full = "Towers in %s range have their spell damage increased by %s.\n" % [aura_range, mod_spell_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % mod_spell_damage_add
-	list.append(lightning_charge)
 
 	return list
 
@@ -76,6 +63,18 @@ func get_aura_types() -> Array[AuraType]:
 	var aura_level_add: int = int(_stats.mod_spell_damage_add * 10000)
 
 	var aura: AuraType = AuraType.new()
+
+	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
+	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
+	
+	aura.name = "Lightning Charge"
+	aura.icon = "res://Resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	aura.description_short = "Increases spell damage of nearby towers.\n"
+	aura.description_full = "Towers in %d range have their spell damage increased by %s.\n" % [AURA_RANGE, mod_spell_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % mod_spell_damage_add
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true

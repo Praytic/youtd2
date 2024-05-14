@@ -4,6 +4,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var forklight_st: SpellType
 
+const AURA_RANGE: int = 350
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -17,16 +19,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+120 spell damage\n"
 	list.append(glare)
-
-	var static_field: AbilityInfo = AbilityInfo.new()
-	static_field.name = "Static Field - Aura"
-	static_field.icon = "res://Resources/Icons/dioramas/book_display.tres"
-	static_field.description_short = "Towers in range have their damage increased when attacking immune creeps.\n"
-	static_field.description_full = "Towers within 350 range of this tower have their damage increased by 20% when attacking immune creeps.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% damage\n"
-	list.append(static_field)
 
 	return list
 
@@ -52,7 +44,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	aura.name = "Static Field"
+	aura.icon = "res://Resources/Icons/dioramas/book_display.tres"
+	aura.description_short = "Towers in range have their damage increased when attacking immune creeps.\n"
+	aura.description_full = "Towers within %d range of this tower have their damage increased by 20%% when attacking immune creeps.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

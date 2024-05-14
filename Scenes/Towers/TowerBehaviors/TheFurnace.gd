@@ -10,10 +10,10 @@ var intense_heat_bt: BuffType
 var aura_bt: BuffType
 var lingering_flames_bt: BuffType
 
+const AURA_RANGE: int = 350
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-	
+
+func get_ability_info_list() -> Array[AbilityInfo]:	
 	var list: Array[AbilityInfo] = []
 	
 	var uncontrollable: AbilityInfo = AbilityInfo.new()
@@ -32,16 +32,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 spell damage\n"
 	list.append(lingering)
-
-	var flames_aura: AbilityInfo = AbilityInfo.new()
-	flames_aura.name = "Flames of the Forge - Aura"
-	flames_aura.icon = "res://Resources/Icons/TowerIcons/CruelFire.tres"
-	flames_aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon %s towers.\n" % fire_string
-	flames_aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % fire_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% stats\n"
-	list.append(flames_aura)
 
 	var feed: AbilityInfo = AbilityInfo.new()
 	feed.name = "Feed the Flames"
@@ -132,7 +122,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+	
+	aura.name = "Flames of the Forge"
+	aura.icon = "res://Resources/Icons/TowerIcons/CruelFire.tres"
+	aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon %s towers.\n" % fire_string
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [fire_string, AURA_RANGE] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_FIRE + TargetType.RARITY_COMMON + TargetType.RARITY_UNCOMMON)
 	aura.target_self = true
 	aura.level = 1

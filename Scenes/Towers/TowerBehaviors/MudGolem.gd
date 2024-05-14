@@ -4,6 +4,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var slow_bt: BuffType
 
+const AURA_RANGE: int = 150
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
@@ -23,16 +25,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.012 seconds slow duration\n" \
 	+ "+50 range at level 25.\n"
 	list.append(ground_smash)
-
-	var earthquake_aura: AbilityInfo = AbilityInfo.new()
-	earthquake_aura.name = "Earthquake Aura - Aura"
-	earthquake_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
-	earthquake_aura.description_short = "Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].\n"
-	earthquake_aura.description_full = "Towers in 150 range around the Mud Golem have a 3% attackspeed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.04% chance\n"
-	list.append(earthquake_aura)
 
 	return list
 
@@ -61,7 +53,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 150
+
+	aura.name = "Earthquake Aura"
+	aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
+	aura.description_short = "Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].\n"
+	aura.description_full = "Towers in %d range around the Mud Golem have a 3%% attackspeed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.04% chance\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

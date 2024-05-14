@@ -4,21 +4,7 @@ extends TowerBehavior
 var freezing_bt: BuffType
 var aura_bt: BuffType
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Gust - Aura"
-	ability.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
-	ability.description_short = "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
-	ability.description_full = "Towers in 800 range around the Storm Focus gain additional attackdamage equal to 50% of the bonus damage against air they have.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.8% of bonus damage against air as additional attackdamage\n"
-	list.append(ability)
-
-	return list
+const AURA_RANGE: int = 800
 
 
 func get_autocast_description() -> String:
@@ -84,7 +70,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 800
+
+	aura.name = "Gust"
+	aura.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
+	aura.description_short = "Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.\n"
+	aura.description_full = "Towers in %d range around the Storm Focus gain additional attackdamage equal to 50%% of the bonus damage against air they have.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.8% of bonus damage against air as additional attackdamage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

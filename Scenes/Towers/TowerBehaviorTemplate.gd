@@ -97,6 +97,12 @@ extends TowerBehavior
 
 # func get_aura_types() -> Array[AuraType]:
 # 	var aura: AuraType = AuraType.new()
+
+# 	aura.name = ""
+# 	aura.icon = ""
+# 	aura.description_short = ""
+# 	aura.description_full = ""
+
 # 	aura.aura_range = 200
 # 	aura.target_type = TargetType.new(TargetType.TOWERS)
 # 	aura.target_self = true

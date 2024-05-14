@@ -9,6 +9,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var poison_bt: BuffType
 
+const AURA_RANGE: int = 200
+
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -18,25 +20,6 @@ func get_tier_stats() -> Dictionary:
 		4: {dmg = 76.5, dmg_add = 3.06},
 		5: {dmg = 127.5, dmg_add = 5.1},
 	}
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var dmg: String = Utils.format_float(_stats.dmg, 2)
-	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Poisonous Skin - Aura"
-	ability.icon = "res://Resources/Icons/TowerIcons/PoisonBattery.tres"
-	ability.description_short = "This and nearby towers gain a poisonous attack.\n"
-	ability.description_full = "This and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % dmg \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage per second" % dmg_add
-	list.append(ability)
-
-	return list
 
 
 func poisenskin(event: Event):
@@ -87,6 +70,18 @@ func tower_init():
 	
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	var dmg: String = Utils.format_float(_stats.dmg, 2)
+	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
+
+	aura.name = "Poisonous Skin"
+	aura.icon = "res://Resources/Icons/TowerIcons/PoisonBattery.tres"
+	aura.description_short = "This and nearby towers gain a poisonous attack.\n"
+	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % [AURA_RANGE, dmg] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage per second" % dmg_add
+
 	aura.level = _stats.dmg * 1000
 	aura.level_add = _stats.dmg_add * 1000
 	aura.power = 0
@@ -94,7 +89,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.aura_effect = aura_bt
 	aura.target_self = true
-	aura.aura_range = 200
+	aura.aura_range = AURA_RANGE
 	return [aura]
 
 

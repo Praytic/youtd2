@@ -5,10 +5,10 @@ var surge_bt: BuffType
 var slow_bt: BuffType
 var aura_bt: BuffType
 
+const AURA_RANGE: int = 1000
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-
 	var list: Array[AbilityInfo] = []
 	
 	var overload: AbilityInfo = AbilityInfo.new()
@@ -17,16 +17,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	overload.description_short = "On attack this tower deals energy damage and slows. Effect is stronger for creeps far away\n"
 	overload.description_full = "On attack this tower deals [distance to the target x 12] energy damage, modified by its attack damage and slows the target for 1.5 seconds. The further away the target is, the more it will be slowed down. The maximum slow of 30% can only be reached, if the target has the maximum distance to the tower.\n"
 	list.append(overload)
-
-	var energetic_field: AbilityInfo = AbilityInfo.new()
-	energetic_field.name = "Energetic Field"
-	energetic_field.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
-	energetic_field.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
-	energetic_field.description_full = "Units in 1000 range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % storm_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% maximum damage\n"
-	list.append(energetic_field)
 
 	return list
 
@@ -96,7 +86,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 1000
+
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
+	aura.name = "Energetic Field"
+	aura.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
+	aura.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
+	aura.description_full = "Units in %d range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % [AURA_RANGE, storm_string] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% maximum damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = true
 	aura.level = 0

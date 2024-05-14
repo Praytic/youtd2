@@ -10,35 +10,7 @@ func get_tier_stats() -> Dictionary:
 		2: {mod_armor = 2, mod_armor_add = 0.08, periodic_mod_armor = 1.0, periodic_mod_armor_add = 0.04, melt_damage = 40, melt_damage_add = 1.6, periodic_melt_damage_increase = 40},
 	}
 
-const AURA_RANGE: float = 900
-
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
-	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
-	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 2)
-	var periodic_mod_armor: String = Utils.format_float(_stats.periodic_mod_armor, 2)
-	var periodic_mod_armor_add: String = Utils.format_float(_stats.periodic_mod_armor_add, 2)
-	var melt_damage: String = Utils.format_float(_stats.melt_damage, 2)
-	var melt_damage_add: String = Utils.format_float(_stats.melt_damage_add, 2)
-	var periodic_melt_damage_increase: String = Utils.format_float(_stats.periodic_melt_damage_increase, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Melt"
-	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
-	ability.description_short = "The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.\n"
-	ability.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %s range by %s and damages them by %s. Each second creeps in %s range around the caged fire lose %s extra armor and the fire damage will increase by %s.\n" % [aura_range, mod_armor, melt_damage, aura_range, periodic_mod_armor, periodic_melt_damage_increase] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s start armor reduction\n" % mod_armor_add \
-	+ "+%s armor reduction\n" % periodic_mod_armor_add \
-	+ "+%s damage\n" % melt_damage_add
-	list.append(ability)
-
-	return list
+const AURA_RANGE: int = 900
 
 
 func load_specials(modifier: Modifier):
@@ -61,6 +33,25 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
+	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 2)
+	var periodic_mod_armor: String = Utils.format_float(_stats.periodic_mod_armor, 2)
+	var periodic_mod_armor_add: String = Utils.format_float(_stats.periodic_mod_armor_add, 2)
+	var melt_damage: String = Utils.format_float(_stats.melt_damage, 2)
+	var melt_damage_add: String = Utils.format_float(_stats.melt_damage_add, 2)
+	var periodic_melt_damage_increase: String = Utils.format_float(_stats.periodic_melt_damage_increase, 2)
+
+	aura.name = "Melt"
+	aura.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
+	aura.description_short = "The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.\n"
+	aura.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %d range by %s and damages them by %s. Each second creeps in %d range around the caged fire lose %s extra armor and the fire damage will increase by %s.\n" % [AURA_RANGE, mod_armor, melt_damage, AURA_RANGE, periodic_mod_armor, periodic_melt_damage_increase] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s start armor reduction\n" % mod_armor_add \
+	+ "+%s armor reduction\n" % periodic_mod_armor_add \
+	+ "+%s damage\n" % melt_damage_add
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false

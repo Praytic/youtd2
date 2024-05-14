@@ -3,21 +3,7 @@ extends TowerBehavior
 
 var aura_bt: BuffType
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Dwarven Polish - Aura"
-	ability.icon = "res://Resources/Icons/swords/greatsword_04.tres"
-	ability.description_short = "Increases item quality of towers in range.\n"
-	ability.description_full = "Increases the item quality ratio of friendly towers in 550 range including itself by 15%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% quality ratio\n"
-	list.append(ability)
-
-	return list
+const AURA_RANGE: int = 550
 
 
 func load_specials(modifier: Modifier):
@@ -35,7 +21,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 550
+
+	aura.name = "Dwarven Polish"
+	aura.icon = "res://Resources/Icons/swords/greatsword_04.tres"
+	aura.description_short = "Increases item quality of towers in range.\n"
+	aura.description_full = "Increases the item quality ratio of friendly towers in %d range including itself by 15%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% quality ratio\n"
+	
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

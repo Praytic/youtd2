@@ -4,22 +4,7 @@ extends TowerBehavior
 var entangle_bt: BuffType
 var aura_bt: BuffType
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Gift of Nature - Aura"
-	ability.icon = "res://Resources/Icons/plants/leaf_03.tres"
-	ability.description_short = "All nearby towers have a chance to entangle creeps.\n"
-	ability.description_full = "All towers in 175 range will receive a gift of nature. When a gifted tower attacks a creep there is a 10% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% chance \n" \
-	+ "+35 additional damage\n"
-	list.append(ability)
-
-	return list
+var AURA_RANGE: int = 175
 
 
 func tower_init():
@@ -36,7 +21,17 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 175
+
+	aura.name = "Gift of Nature"
+	aura.icon = "res://Resources/Icons/plants/leaf_03.tres"
+	aura.description_short = "All nearby towers have a chance to entangle creeps.\n"
+	aura.description_full = "All towers in %d range will receive a gift of nature. When a gifted tower attacks a creep there is a 10%% attackspeed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% chance \n" \
+	+ "+35 additional damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

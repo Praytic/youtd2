@@ -39,6 +39,17 @@ static func make(ability_info: AbilityInfo) -> AbilityButton:
 	return button
 
 
+static func make_from_aura_type(aura_type: AuraType) -> AbilityButton:
+	var button: AbilityButton = Preloads.ability_button_scene.instantiate()
+	button._icon_path = aura_type.icon
+	
+	var description: String = aura_type.description_full
+	var description_colored: String = RichTexts.add_color_to_numbers(description)
+	button._tooltip_text = "[color=GOLD]%s - Aura[/color]\n \n%s" % [aura_type.name, description_colored]
+	
+	return button
+
+
 #########################
 ###     Callbacks     ###
 #########################

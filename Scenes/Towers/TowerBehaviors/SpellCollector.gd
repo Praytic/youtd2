@@ -29,13 +29,12 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-var AURA_RANGE: float = 650
+var AURA_RANGE: int = 650
 var BARRAGE_CHANCE: float = 0.20
 var BARRAGE_CHANCE_ADD: float = 0.008
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var barrage_chance: String = Utils.format_percent(BARRAGE_CHANCE, 2)
 	var barrage_chance_add: String = Utils.format_percent(BARRAGE_CHANCE_ADD, 2)
 	var missile_count_max: String = Utils.format_float(_stats.missile_count_max, 2)
@@ -52,8 +51,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magical Barrage"
 	ability.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
-	ability.description_short = "Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.\n"
-	ability.description_full = "Whenever this tower attacks it has a %s chance to launch a magical missile. Whenever a tower in %s range casts a spell, the amount of missiles on attack is increased by 1 for a duration equal to the casting tower's ability's cooldown. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, aura_range, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg] \
+	ability.description_short = "Whenever this tower attacks it has a chance to launch magical missiles.\n"
+	ability.description_full = "Whenever this tower attacks it has a %s chance to launch magical missiles. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg] \
+	+ " \n" \
+	+ "The amount of magical missiles is affected by [color=GOLD]Spell Absorb[/color].\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % barrage_chance_add \
@@ -93,6 +94,12 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	aura.name = "Spell Absorb"
+	aura.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
+	aura.description_short = "Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by 1.\n"
+	aura.description_full = "Whenever a tower in %d range casts a spell, the amount of missiles for [color=GOLD]Magical Barrage[/color] is increased by 1. The missile is stored for a duration equal to the spell cooldown.\n" % AURA_RANGE
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true

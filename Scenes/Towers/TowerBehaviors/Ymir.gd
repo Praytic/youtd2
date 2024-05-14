@@ -34,16 +34,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.4% vulnerability\n"
 	list.append(blood)
 
-	var flesh: AbilityInfo = AbilityInfo.new()
-	flesh.name = "Flesh of Ymir - Aura"
-	flesh.icon = "res://Resources/Icons/scrolls/scroll_01.tres"
-	flesh.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
-	flesh.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.6% debuff duration\n"
-	list.append(flesh)
-
 	return list
 
 
@@ -90,6 +80,15 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
+
+	aura.name = "Flesh of Ymir"
+	aura.icon = "res://Resources/Icons/scrolls/scroll_01.tres"
+	aura.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
+	aura.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.6% debuff duration\n"
+
 	aura.aura_range = 0
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true

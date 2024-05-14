@@ -6,6 +6,8 @@ var awaken_bt: BuffType
 var missile_pt: ProjectileType
 var is_awake: bool = false
 
+const AURA_RANGE: int = 350
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -26,17 +28,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	awakening.description_short = "Whenever hit by a spell, the statue comes to life.\n"
 	awakening.description_full = "Whenever hit by a spell, the statue comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
 	list.append(awakening)
-
-	var arcane_aura: AbilityInfo = AbilityInfo.new()
-	arcane_aura.name = "Arcane Aura - Aura"
-	arcane_aura.icon = "res://Resources/Icons/TowerIcons/AstralRift.tres"
-	arcane_aura.description_short = "Towers in range have a chance to replenish their mana.\n"
-	arcane_aura.description_full = "Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's [color=GOLD]Arcane Orb[/color] attacks, without the retrigger restriction.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+0.2% maximum mana replenished\n"
-	list.append(arcane_aura)
 
 	return list
 
@@ -76,7 +67,17 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	aura.name = "Arcane Aura"
+	aura.icon = "res://Resources/Icons/TowerIcons/AstralRift.tres"
+	aura.description_short = "Towers in range have a chance to replenish their mana.\n"
+	aura.description_full = "Towers in %d range have a 10%% chance to replenish 10%% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's [color=GOLD]Arcane Orb[/color] attacks, without the retrigger restriction.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4% chance\n" \
+	+ "+0.2% maximum mana replenished\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

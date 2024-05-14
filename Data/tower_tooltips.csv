@@ -1378,7 +1378,10 @@ Mana cost: [color=GOLD]30[/color], [color=GOLD]800[/color] range, [color=GOLD]5s
 [color=YELLOW]Attack:[/color] [color=GOLD]540[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]950[/color] range
  
 [color=GOLD]Magical Barrage[/color]
-Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.
+Whenever this tower attacks it has a chance to launch magical missiles.
+ 
+[color=GOLD]Spell Absorb - Aura[/color]
+Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by [color=GOLD]1[/color].
 "
 116,"[color=LIGHT_BLUE]A field which is able to gather energy from spells. [/color]
 [color=YELLOW]Author:[/color] cedi
@@ -1386,7 +1389,10 @@ Whenever this tower attacks it has a chance to launch magical missiles. The amou
 [color=YELLOW]Attack:[/color] [color=GOLD]1080[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]950[/color] range
  
 [color=GOLD]Magical Barrage[/color]
-Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.
+Whenever this tower attacks it has a chance to launch magical missiles.
+ 
+[color=GOLD]Spell Absorb - Aura[/color]
+Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by [color=GOLD]1[/color].
 "
 117,"[color=LIGHT_BLUE]Minor astral tower.[/color]
 [color=YELLOW]Author:[/color] Velex
@@ -2571,7 +2577,7 @@ Mana cost: [color=GOLD]1200[/color], [color=GOLD]12s[/color] cooldown
 [color=GOLD]-50%[/color] damage to magic
 [color=GOLD]+50%[/color] damage to nature ([color=GOLD]+1%[/color]/lvl)
  
-[color=GOLD]Melt[/color]
+[color=GOLD]Melt - Aura[/color]
 The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.
 "
 204,"[color=LIGHT_BLUE]The fire of the demon Nerz'ragul destroyed half of the world. After years the mighty spellcaster Theradom caged it in a magical circle. [/color]
@@ -2583,7 +2589,7 @@ The enormous heat of the Caged Fire damages nearby creeps and decreases their ar
 [color=GOLD]-50%[/color] damage to magic
 [color=GOLD]+50%[/color] damage to nature ([color=GOLD]+1%[/color]/lvl)
  
-[color=GOLD]Melt[/color]
+[color=GOLD]Melt - Aura[/color]
 The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.
 "
 205,"[color=LIGHT_BLUE]An ancient Obelisk. Some powers are hidden here, but something seems wrong. Maybe it just has to warm up a bit.[/color]
@@ -3797,14 +3803,14 @@ On attack this towers uses all of its mana to make the next attack critical.
 [color=GOLD]+15[/color] mana
 [color=GOLD]+0.1[/color] mana regen/lvl
  
-[color=GOLD]Strong Wind[/color]
-All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.
+[color=GOLD]Storm Power[/color]
+If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.
  
 [color=GOLD]Chaining Storm[/color]
 Chance to cast a [color=GOLD]Chaining Storm[/color] at the position of the attacked creep. All creeps in range of the [color=GOLD]Chaining Storm[/color] suffer spelldamage.
  
-[color=GOLD]Storm Power - Aura[/color]
-If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.
+[color=GOLD]Strong Wind - Aura[/color]
+All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.
 "
 304,"[color=LIGHT_BLUE]Advanced frost tower that will freeze attacked creeps, stunning them and reducing their health regeneration.[/color]
 [color=YELLOW]Author:[/color] SirCoqalot.
@@ -5032,11 +5038,11 @@ Has a chance to melt armor of damaged units.
 [color=GOLD]+10[/color] mana/lvl
 [color=GOLD]+5%[/color] mana regen/lvl
  
-[color=GOLD]Steam Power - Aura[/color]
-Increases attack damage and attack speed of towers in range. Consumes mana.
- 
 [color=GOLD]Power Surge[/color]
 Towers under the effect of Steam Power have a chance to cause a surge in the Steam Engine.
+ 
+[color=GOLD]Steam Power - Aura[/color]
+Increases attack damage and attack speed of towers in range. Consumes mana.
  
 [color=GOLD]Speed Up[/color]
 Increases the power level of the engine.
@@ -5553,11 +5559,11 @@ The tower attacks a random enemy in range with each attack.
 [color=GOLD]Lingering Flame[/color]
 The tower attacks a random enemy in range with each attack.
  
-[color=GOLD]Flames of the Forge - Aura[/color]
-Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon [color=ff4500ff]Fire[/color] towers.
- 
 [color=GOLD]Feed the Flames[/color]
 This tower fuels itself in various ways, restoring mana and raising maximum mana.
+ 
+[color=GOLD]Flames of the Forge - Aura[/color]
+Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon [color=ff4500ff]Fire[/color] towers.
  
 [color=GOLD]Intense Heat[/color]
 Expends all mana to unleash a wave of heat.
@@ -5927,14 +5933,14 @@ Increases crit chance of nearby towers.
 [color=GOLD]+7.5%[/color] base damage/lvl
 [color=GOLD]+1.5%[/color] spell damage dealt/lvl
  
-[color=GOLD]Heat Aura[/color]
-Burns every enemy in range.
- 
 [color=GOLD]Heat Stroke[/color]
 Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode.
  
 [color=GOLD]Lava Attack[/color]
 Chance to throw a burning lava ball towards the target, dealing AoE damage.
+ 
+[color=GOLD]Heat Aura - Aura[/color]
+Burns every enemy in range.
 "
 469,"[color=LIGHT_BLUE]Hidden in the mountains, the dwarven master smiths polish found items to release their true power.[/color]
 [color=YELLOW]Author:[/color] geX
@@ -6563,7 +6569,7 @@ Creeps hit by this tower are slowed.
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]2348[/color] dps, [color=6495edff]Elemental[/color], [color=GOLD]1000[/color] range
  
-[color=GOLD]Frost Aura[/color]
+[color=GOLD]Frost - Aura[/color]
 Slows nearby creeps.
 "
 544,"[color=LIGHT_BLUE]This tower attacks with rockets that deal splash damage and deal extra damage to mass.[/color]
@@ -6784,7 +6790,7 @@ Mana cost: [color=GOLD]20[/color], [color=GOLD]1000[/color] range, [color=GOLD]5
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]704[/color] dps, [color=6495edff]Elemental[/color], [color=GOLD]1000[/color] range
  
-[color=GOLD]Frost Aura[/color]
+[color=GOLD]Frost - Aura[/color]
 Slows nearby creeps.
 "
 563,"[color=LIGHT_BLUE]Ripped open by a savage curse, this rock formation sprays spells on people not careful enough to stay away. [/color]
@@ -6959,7 +6965,7 @@ This tower buffs [color=GOLD]4[/color] towers in range and gives them a chance t
 [color=GOLD]Overload[/color]
 On attack this tower deals energy damage and slows. Effect is stronger for creeps far away
  
-[color=GOLD]Energetic Field[/color]
+[color=GOLD]Energetic Field - Aura[/color]
 Units in range receive extra damage from [color=ffffe0ff]Storm[/color] towers. Effect is stronger for creeps far away.
  
 [color=GOLD]Magnetic Surge[/color]
@@ -7547,7 +7553,7 @@ A percentage of this tower's damage gets revoked after a while.
 [color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]1412[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]800[/color] range
  
-[color=GOLD]Revenge of Souls[/color]
+[color=GOLD]Revenge of Souls - Aura[/color]
 This tower gains permanent bonus damage and experience every time a creep dies near the tower.
 "
 632,"[color=LIGHT_BLUE]The last place of all already fallen souls, seeking for their last revenge. [/color]
@@ -7555,7 +7561,7 @@ This tower gains permanent bonus damage and experience every time a creep dies n
 [color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]941[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]800[/color] range
  
-[color=GOLD]Revenge of Souls[/color]
+[color=GOLD]Revenge of Souls - Aura[/color]
 This tower gains permanent bonus damage and experience every time a creep dies near the tower.
 "
 633,"[color=LIGHT_BLUE]The last place of all already fallen souls, seeking for their last revenge. [/color]
@@ -7563,7 +7569,7 @@ This tower gains permanent bonus damage and experience every time a creep dies n
 [color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]470[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]800[/color] range
  
-[color=GOLD]Revenge of Souls[/color]
+[color=GOLD]Revenge of Souls - Aura[/color]
 This tower gains permanent bonus damage and experience every time a creep dies near the tower.
 "
 634,"[color=LIGHT_BLUE]Common nature tower with the ability to attack multiple targets.[/color]

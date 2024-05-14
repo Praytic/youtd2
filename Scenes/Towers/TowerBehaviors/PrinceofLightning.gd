@@ -15,16 +15,10 @@ const AURA_RANGE: float = 1300
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var strike_chance: String = Utils.format_percent(_stats.strike_chance, 2)
 	var strike_chance_add: String = Utils.format_percent(STRIKE_CHANCE_ADD, 2)
 	var strike_damage: String = Utils.format_float(_stats.strike_damage, 2)
 	var strike_damage_add: String = Utils.format_float(_stats.strike_damage_add, 2)
-	var mod_dmg_from_storm: String = Utils.format_percent(_stats.mod_dmg_from_storm, 2)
-	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
-
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-
 	var list: Array[AbilityInfo] = []
 	
 	var lightning: AbilityInfo = AbilityInfo.new()
@@ -37,16 +31,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+%s damage\n" % strike_damage_add \
 	+ "+%s chance\n" % strike_chance_add
 	list.append(lightning)
-
-	var realm: AbilityInfo = AbilityInfo.new()
-	realm.name = "Realm of Thunder - Aura"
-	realm.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
-	realm.description_short = "Makes nearby creeps more vulnerable to %s towers.\n" % storm_string
-	realm.description_full = "Increases the vulnerability of enemies in %s range to damage from %s towers by %s.\n" % [aura_range, storm_string, mod_dmg_from_storm] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s vulnerability\n" % mod_dmg_from_storm_add
-	list.append(realm)
 
 	return list
 
@@ -78,6 +62,19 @@ func get_aura_types() -> Array[AuraType]:
 	var aura_level_add: int = int(_stats.mod_dmg_from_storm_add * 1000)
 
 	var aura: AuraType = AuraType.new()
+
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+	var mod_dmg_from_storm: String = Utils.format_percent(_stats.mod_dmg_from_storm, 2)
+	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
+
+	aura.name = "Realm of Thunder"
+	aura.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
+	aura.description_short = "Makes nearby creeps more vulnerable to %s towers.\n" % storm_string
+	aura.description_full = "Increases the vulnerability of enemies in %d range to damage from %s towers by %s.\n" % [AURA_RANGE, storm_string, mod_dmg_from_storm] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s vulnerability\n" % mod_dmg_from_storm_add
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = true

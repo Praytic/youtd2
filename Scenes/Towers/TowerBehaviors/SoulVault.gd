@@ -16,6 +16,8 @@ var soulsteal_bt: BuffType
 var aura_bt: BuffType
 var acid_skull_pt: ProjectileType
 
+const AURA_RANGE: int = 775
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -41,16 +43,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.1% chance\n" \
 	+ "+2% more spell damage taken\n"
 	list.append(soulsteal)
-
-	var vaults_presence: AbilityInfo = AbilityInfo.new()
-	vaults_presence.name = "Vault's Presence - Aura"
-	vaults_presence.icon = "res://Resources/Icons/TowerIcons/SmallFrostFire.tres"
-	vaults_presence.description_short = "Units in range have their armor reduced.\n"
-	vaults_presence.description_full = "Units in 775 range have their armor reduced by 25%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% armor reduction\n"
-	list.append(vaults_presence)
 
 	return list
 
@@ -88,7 +80,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 775
+
+	aura.name = "Vault's Presence"
+	aura.icon = "res://Resources/Icons/TowerIcons/SmallFrostFire.tres"
+	aura.description_short = "Units in range have their armor reduced.\n"
+	aura.description_full = "Units in %d range have their armor reduced by 25%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% armor reduction\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

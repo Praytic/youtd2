@@ -32,10 +32,10 @@ var lesser_orb_pt: ProjectileType
 var _tower_creation_time: float = 0.0
 var _dark_shroud_damage_dealt: float = 0.0
 
+const AURA_RANGE: int = 300
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
-
 	var list: Array[AbilityInfo] = []
 	
 	var dark_orbs: AbilityInfo = AbilityInfo.new()
@@ -58,16 +58,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.36% damage per second\n"
 	list.append(soul_conversion)
-
-	var dark_shroud: AbilityInfo = AbilityInfo.new()
-	dark_shroud.name = "Dark Shroud - Aura"
-	dark_shroud.icon = "res://Resources/Icons/TowerIcons/Shadow.tres"
-	dark_shroud.description_short = "Towers in range have 10% of their damage output stolen by Shadow.\n"
-	dark_shroud.description_full = "Towers within 300 range have 10%% of their damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of %s damage. This damage cannot crit.\n" % decay_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.5% damage dealt\n"
-	list.append(dark_shroud)
 
 	return list
 
@@ -95,7 +85,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 300
+
+	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
+
+	aura.name = "Dark Shroud"
+	aura.icon = "res://Resources/Icons/TowerIcons/Shadow.tres"
+	aura.description_short = "Towers in range have 10% of their damage output stolen by Shadow.\n"
+	aura.description_full = "Towers within %d range have 10%% of their damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of %s damage. This damage cannot crit.\n" % [AURA_RANGE, decay_string] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.5% damage dealt\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

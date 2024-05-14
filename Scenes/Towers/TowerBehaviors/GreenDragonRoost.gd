@@ -3,18 +3,7 @@ extends TowerBehavior
 
 var aura_bt: BuffType
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Green Dragon Force - Aura"
-	ability.icon = "res://Resources/Icons/animals/dragon_02.tres"
-	ability.description_short = "Increases multicrit of towers in range.\n"
-	ability.description_full = "Increases the multicrit of towers in 200 range by 2.\n"
-	list.append(ability)
-
-	return list
+const AURA_RANGE: int = 200
 
 
 # NOTE: tooltip in original game includes innate stats in some cases
@@ -39,7 +28,13 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 200
+
+	aura.name = "Green Dragon Force"
+	aura.icon = "res://Resources/Icons/animals/dragon_02.tres"
+	aura.description_short = "Increases multicrit of towers in range.\n"
+	aura.description_full = "Increases the multicrit of towers in %d range by 2.\n" % AURA_RANGE
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

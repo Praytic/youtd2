@@ -22,6 +22,8 @@ var threshold_for_cloudy_thunderstorm_autocast: float = 1.0
 var storm_effect: int = 0
 var storm_timeout_counter: int = 0
 
+const AURA_RANGE: int = 1000
+
 const storm_mana_reduction_values: Dictionary = {
 	CreepSize.enm.MASS: 5,
 	CreepSize.enm.NORMAL: 10,
@@ -31,22 +33,6 @@ const storm_mana_reduction_values: Dictionary = {
 	CreepSize.enm.BOSS: 20,
 	CreepSize.enm.CHALLENGE_BOSS: 130,
 }
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Cloud of Absorption - Aura"
-	ability.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
-	ability.description_short = "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
-	ability.description_full = "Creates a lightning ball if a creep in 1000 range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.05 mana per absorbed damage\n"
-	list.append(ability)
-
-	return list
 
 
 func get_autocast_description_for_cloudy_thunderstorm() -> String:
@@ -160,7 +146,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 1000
+
+	aura.name = "Cloud of Absorption"
+	aura.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	aura.description_short = "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
+	aura.description_full = "Creates a lightning ball if a creep in %d range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.05 mana per absorbed damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 1

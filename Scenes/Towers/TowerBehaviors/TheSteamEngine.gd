@@ -9,16 +9,11 @@ var powered_tower_count: int = 0
 var permanent_effect_id: int = 0
 var current_mana_degen: float = 0.0
 
+const AURA_RANGE: int = 450
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
-	
-	var aura: AbilityInfo = AbilityInfo.new()
-	aura.name = "Steam Power - Aura"
-	aura.icon = "res://Resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
-	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
-	aura.description_full = "Increases attack damage of towers in 450 AOE by [color=GOLD][6 x power level]%[/color] and attackspeed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n"
-	list.append(aura)
 	
 	var power_surge: AbilityInfo = AbilityInfo.new()
 	power_surge.name = "Power Surge"
@@ -116,7 +111,13 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 450
+
+	aura.name = "Steam Power"
+	aura.icon = "res://Resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
+	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
+	aura.description_full = "Increases attack damage of towers in %d AOE by [color=GOLD][6 x power level]%%[/color] and attackspeed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
+	
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 1

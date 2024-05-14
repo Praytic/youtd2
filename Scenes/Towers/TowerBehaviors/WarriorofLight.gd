@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 const SHOCKWAVE_START_RADIUS: float = 100
 const SHOCKWAVE_END_RADIUS: float = 300
 const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
-const AURA_RADIUS: float = 300
+const AURA_RANGE: float = 300
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
@@ -26,9 +26,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)
 	var shockwave_damage: String = Utils.format_float(_stats.shockwave_damage, 2)
 	var shockwave_damage_add: String = Utils.format_float(_stats.shockwave_damage_add, 2)
-	var mod_dmg_to_undead: String = Utils.format_percent(_stats.mod_dmg_to_undead, 2)
-	var mod_dmg_to_undead_add: String = Utils.format_percent(_stats.mod_dmg_to_undead_add, 2)
-	var aura_radius: String = Utils.format_float(AURA_RADIUS, 2)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -42,16 +39,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+%s chance\n" % shockwave_chance_add \
 	+ "+%s damage\n" % shockwave_damage_add
 	list.append(ain_soph_aur)
-
-	var aura: AbilityInfo = AbilityInfo.new()
-	aura.name = "Aura of Light - Aura"
-	aura.icon = "res://Resources/Icons/gloves/heal.tres"
-	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
-	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % mod_dmg_to_undead_add
-	list.append(aura)
 
 	return list
 
@@ -82,7 +69,20 @@ func get_aura_types() -> Array[AuraType]:
 	var aura_level_add: int = int(_stats.mod_dmg_to_undead_add * 1000)
 
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = AURA_RADIUS
+
+	var mod_dmg_to_undead: String = Utils.format_percent(_stats.mod_dmg_to_undead, 2)
+	var mod_dmg_to_undead_add: String = Utils.format_percent(_stats.mod_dmg_to_undead_add, 2)
+	var aura_radius: String = Utils.format_float(AURA_RANGE, 2)
+
+	aura.name = "Aura of Light"
+	aura.icon = "res://Resources/Icons/gloves/heal.tres"
+	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
+	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % mod_dmg_to_undead_add
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = aura_level

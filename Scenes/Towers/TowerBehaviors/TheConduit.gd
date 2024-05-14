@@ -9,10 +9,10 @@ var aura_bt: BuffType
 var unleash_bt: BuffType
 var chanlightning_st: SpellType
 
+const AURA_RANGE: int = 350
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-
 	var list: Array[AbilityInfo] = []
 	
 	var absorb: AbilityInfo = AbilityInfo.new()
@@ -25,16 +25,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+1 mana\n" \
 	+ "+0.2% chance\n"
 	list.append(absorb)
-
-	var aura: AbilityInfo = AbilityInfo.new()
-	aura.name = "Conduit - Aura"
-	aura.icon = "res://Resources/Icons/trinkets/trinket_06.tres"
-	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon %s towers.\n" % storm_string
-	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in 350 range at a rate of 50%%.\n" % storm_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% stats\n"
-	list.append(aura)
 
 	return list
 
@@ -123,7 +113,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 350
+
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+
+	aura.name = "Conduit"
+	aura.icon = "res://Resources/Icons/trinkets/trinket_06.tres"
+	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon %s towers.\n" % storm_string
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [storm_string, AURA_RANGE] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% stats\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_STORM + TargetType.RARITY_UNCOMMON + TargetType.RARITY_COMMON)
 	aura.target_self = false
 	aura.level = 1

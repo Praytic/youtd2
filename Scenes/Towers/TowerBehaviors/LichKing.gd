@@ -13,6 +13,8 @@ var curse_bt: BuffType
 var aura_bt: BuffType
 var multiboard: MultiboardValues
 
+const AURA_RANGE: int = 900
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -23,18 +25,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	icy_curse.description_short = "Curses creeps it damages, increasing their debuff duration.\n"
 	icy_curse.description_full = "Curses creeps it damages for 5 seconds, increasing their debuff duration by 30%.\n"
 	list.append(icy_curse)
-
-	var kings_authority: AbilityInfo = AbilityInfo.new()
-	kings_authority.name = "King's Authority - Aura"
-	kings_authority.icon = "res://Resources/Icons/helmets/helmet_07.tres"
-	kings_authority.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
-	kings_authority.description_full = "The Lich King rules over every creep in 900 range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n" \
-	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spelldamage.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+20 damage per second\n" \
-	+ "[color=GOLD]+[stored damage x 0.04][/color] spelldamage\n"
-	list.append(kings_authority)
 
 	return list
 
@@ -64,7 +54,18 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 900
+
+	aura.name = "King's Authority"
+	aura.icon = "res://Resources/Icons/helmets/helmet_07.tres"
+	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
+	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spelldamage for every second it was under this aura's effect.\n" % AURA_RANGE \
+	+ "If a creep dies in this area of authority, the spelldamage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spelldamage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+20 damage per second\n" \
+	+ "[color=GOLD]+[stored damage x 0.04][/color] spelldamage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 500

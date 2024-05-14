@@ -9,6 +9,8 @@ var attack_shadowbolt_pt: ProjectileType
 
 var last_autocast_triggered_bolt_wave: bool = false
 
+const AURA_RANGE: int = 750
+
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -33,18 +35,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % bolt_damage_add
 	list.append(shadowbolt)
-
-	var slow_decay: AbilityInfo = AbilityInfo.new()
-	slow_decay.name = "Slow Decay - Aura"
-	slow_decay.icon = "res://Resources/Icons/faces/green_demon.tres"
-	slow_decay.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
-	slow_decay.description_full = "Non-boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.06% healthpoints needed for instantkill\n"
-	
-	if tower.get_tier() == 2:
-		list.append(slow_decay)
 
 	return list
 
@@ -121,7 +111,16 @@ func get_aura_types() -> Array[AuraType]:
 		return []
 
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 750
+
+	aura.name = "Slow Decay"
+	aura.icon = "res://Resources/Icons/faces/green_demon.tres"
+	aura.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
+	aura.description_full = "Non-boss units in %d range around the Eredar Diabolist with less then 5.5%% of their healthpoints will be killed.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.06% healthpoints needed for instantkill\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

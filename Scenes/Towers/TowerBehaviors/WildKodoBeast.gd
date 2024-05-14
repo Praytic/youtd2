@@ -4,6 +4,8 @@ extends TowerBehavior
 var aura_bt: BuffType
 var devour_count: int = 1
 
+const AURA_RANGE: int = 400
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -18,23 +20,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.1% chance\n" \
 	+ "+400 spell damage\n"
 	list.append(devour)
-
-	var kodo_dung: AbilityInfo = AbilityInfo.new()
-	kodo_dung.name = "Kodo Dung - Aura"
-	kodo_dung.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
-	kodo_dung.description_short = "The dung of this kodo empowers nearby towers.\n"
-	kodo_dung.description_full = "The dung of this kodo grants towers in 400 range:\n" \
-	+ "  +10% damage\n" \
-	+ "  +10% attackspeed\n" \
-	+ "  +3% critical strike chance\n" \
-	+ "  +15% critical strike damage\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% damage\n" \
-	+ "+0.2% attackspeed\n" \
-	+ "+0.06% critical strike chance\n" \
-	+ "+0.3% critical strike damage\n"
-	list.append(kodo_dung)
 
 	return list
 
@@ -58,7 +43,23 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 400
+
+	aura.name = "Kodo Dung"
+	aura.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
+	aura.description_short = "The dung of this kodo empowers nearby towers.\n"
+	aura.description_full = "The dung of this kodo grants towers in %d range:\n" % AURA_RANGE \
+	+ "  +10% damage\n" \
+	+ "  +10% attackspeed\n" \
+	+ "  +3% critical strike chance\n" \
+	+ "  +15% critical strike damage\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% damage\n" \
+	+ "+0.2% attackspeed\n" \
+	+ "+0.06% critical strike chance\n" \
+	+ "+0.3% critical strike damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0

@@ -63,6 +63,17 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 		if !icon_path_is_valid:
 			push_error("Invalid ability icon for tower %s, ability %s: %s" % [tower_name, ability_name, icon_path])
 
+#	Check aura types
+	for aura_type in aura_type_list:
+		var name_defined: bool = !aura_type.name.is_empty()
+		var icon_defined: bool = !aura_type.icon.is_empty()
+		var description_short_defined: bool = !aura_type.description_short.is_empty()
+		var description_full_defined: bool = !aura_type.description_full.is_empty()
+		var aura_type_is_valid: bool = name_defined && icon_defined && description_short_defined && description_full_defined
+
+		if !aura_type_is_valid:
+			push_error("Not all properties are defined for aura type for tower %s" % [tower_name])
+
 
 func get_specials_modifier() -> Modifier:
 	return _specials_modifier

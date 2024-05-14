@@ -4,17 +4,11 @@ extends TowerBehavior
 var aura_bt: BuffType
 var lava_pt: ProjectileType
 
+const AURA_RANGE: int = 700
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
-	
-	var heat_aura: AbilityInfo = AbilityInfo.new()
-	heat_aura.name = "Heat Aura"
-	heat_aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
-	heat_aura.description_short = "Burns every enemy in range.\n"
-	heat_aura.description_full = "Burns every enemy in 700 range, making them lose 3% of their current life every second.\n"
-	list.append(heat_aura)
 
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
@@ -63,7 +57,13 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 700
+
+	aura.name = "Heat Aura"
+	aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
+	aura.description_short = "Burns every enemy in range.\n"
+	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
 	aura.level = 0

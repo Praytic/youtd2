@@ -161,6 +161,14 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 		text += " \n"
 		text += abilities_text
 
+	for aura in tower.get_aura_types():
+		if aura.is_hidden:
+			continue
+
+		var aura_text: String = get_aura_text_short(aura)
+		text += " \n"
+		text += aura_text
+
 	for autocast in tower.get_autocast_list():
 		var autocast_text: String = get_autocast_text_short(autocast)
 		text += " \n"
@@ -390,6 +398,18 @@ func get_abilities_text_short(tower: Tower) -> String:
 	var abilities_text: String = " \n".join(ability_text_list)
 
 	return abilities_text
+
+
+func get_aura_text_short(aura_type: AuraType) -> String:
+	var aura_name: String = aura_type.name
+	var description: String = aura_type.description_short
+	description = add_color_to_numbers(description)
+
+	var text: String = ""
+	text += "[color=GOLD]%s - Aura[/color]\n" % aura_name
+	text += "%s" % description
+
+	return text
 
 
 func get_autocast_text(autocast: Autocast) -> String:

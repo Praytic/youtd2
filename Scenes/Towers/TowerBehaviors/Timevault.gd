@@ -3,6 +3,8 @@ extends TowerBehavior
 
 var aura_bt: BuffType
 
+const AURA_RANGE: int = 600
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -16,16 +18,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% chance for bosses\n"
 	list.append(time_travel)
-
-	var timesurge: AbilityInfo = AbilityInfo.new()
-	timesurge.name = "Timesurge - Aura"
-	timesurge.icon = "res://Resources/Icons/mechanical/lamp.tres"
-	timesurge.description_short = "Increases triggerchance of nearby towers.\n"
-	timesurge.description_full = "Increases triggerchance of towers in 600 range by 30%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n"
-	list.append(timesurge)
 
 	return list
 
@@ -45,7 +37,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 600
+
+	aura.name = "Timesurge"
+	aura.icon = "res://Resources/Icons/mechanical/lamp.tres"
+	aura.description_short = "Increases triggerchance of nearby towers.\n"
+	aura.description_full = "Increases triggerchance of towers in %d range by 30%%.\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% chance\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = false
 	aura.level = 0

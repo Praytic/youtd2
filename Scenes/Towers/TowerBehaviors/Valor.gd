@@ -6,6 +6,8 @@ var valor_light_bt: BuffType
 var lastline_real_bt: BuffType
 var lastline_dummy_bt: BuffType
 
+const AURA_RANGE: int = 400
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
@@ -30,16 +32,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08% spell and attack damage taken per tower\n"
 	list.append(last_line)
-
-	var we_will_not_fall: AbilityInfo = AbilityInfo.new()
-	we_will_not_fall.name = "We Will Not Fall! - Aura"
-	we_will_not_fall.icon = "res://Resources/Icons/animals/rooster_warrior.tres"
-	we_will_not_fall.description_short = "Increases the attack and spell damage of all towers in range.\n"
-	we_will_not_fall.description_full = "Increases the attack and spell damage of all towers in 400 range by 0.5% for each percent of lost lives. If the team has more than 100% lives, towers will deal less damage!\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.02% more spell and attack damage\n"
-	list.append(we_will_not_fall)
 
 	return list
 
@@ -82,7 +74,16 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = 400
+
+	aura.name = "We Will Not Fall!"
+	aura.icon = "res://Resources/Icons/animals/rooster_warrior.tres"
+	aura.description_short = "Increases the attack and spell damage of all towers in range.\n"
+	aura.description_full = "Increases the attack and spell damage of all towers in %d range by 0.5%% for each percent of lost lives. If the team has more than 100%% lives, towers will deal less damage!\n" % AURA_RANGE \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.02% more spell and attack damage\n"
+
+	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = false
 	aura.level = 0

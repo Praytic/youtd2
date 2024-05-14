@@ -15,27 +15,6 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
-	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
-	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Cleansing Water - Aura"
-	ability.icon = "res://Resources/Icons/orbs/orb_ice.tres"
-	ability.description_short = "Increases spell damage dealt by nearby towers.\n"
-	ability.description_full = "Increases the spell damage dealt by all towers in %s range by %s.\n" % [aura_range, mod_spell_dmg] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % mod_spell_dmg_add
-	list.append(ability)
-
-	return list
-
-
 func get_autocast_description() -> String:
 	var replenish_range: String = Utils.format_float(REPLENISH_RANGE, 2)
 	var replenish_mana: String = Utils.format_percent(_stats.replenish_mana, 2)
@@ -101,6 +80,18 @@ func get_aura_types() -> Array[AuraType]:
 	var aura_level_add: int = int(_stats.mod_spell_dmg_add * 1000)
 
 	var aura: AuraType = AuraType.new()
+
+	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
+	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)
+
+	aura.name = "Cleansing Water"
+	aura.icon = "res://Resources/Icons/orbs/orb_ice.tres"
+	aura.description_short = "Increases spell damage dealt by nearby towers.\n"
+	aura.description_full = "Increases the spell damage dealt by all towers in %d range by %s.\n" % [AURA_RANGE, mod_spell_dmg] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % mod_spell_dmg_add
+
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
