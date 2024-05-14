@@ -53,35 +53,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var sparks_range: String = Utils.format_float(SPARKS_RANGE, 2)
-	var sparks_spell_damage: String = Utils.format_percent(_stats.sparks_spell_damage, 2)
-	var sparks_spell_damage_add: String = Utils.format_percent(_stats.sparks_spell_damage_add, 2)
-	var sparks_spell_crit_chance: String = Utils.format_percent(_stats.sparks_spell_crit_chance, 2)
-	var sparks_spell_crit_chance_add: String = Utils.format_percent(_stats.sparks_spell_crit_chance_add, 2)
-	var sparks_duration: String = Utils.format_float(SPARKS_DURATION, 2)
-	var sparks_duration_add: String = Utils.format_float(SPARKS_DURATION_ADD, 2)
-
-	var text: String = ""
-
-	text += "Increases the spell damage for a tower in %s range by %s and it's spell critical strike chance by %s. Lasts %s seconds.\n" % [sparks_range, sparks_spell_damage, sparks_spell_crit_chance, sparks_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage\n" % sparks_spell_damage_add
-	text += "+%s spell critical strike chance\n" % sparks_spell_crit_chance_add
-	text += "+%s seconds duration\n" % sparks_duration_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Increases spell damage and spell crit chance of a nearby tower.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -113,11 +84,27 @@ func tower_init():
 	missile_pt = ProjectileType.create("TornadoElementalSmall.mdl", 4, 1000, self)
 	missile_pt.enable_homing(harpy_missile_on_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var sparks_range: String = Utils.format_float(SPARKS_RANGE, 2)
+	var sparks_spell_damage: String = Utils.format_percent(_stats.sparks_spell_damage, 2)
+	var sparks_spell_damage_add: String = Utils.format_percent(_stats.sparks_spell_damage_add, 2)
+	var sparks_spell_crit_chance: String = Utils.format_percent(_stats.sparks_spell_crit_chance, 2)
+	var sparks_spell_crit_chance_add: String = Utils.format_percent(_stats.sparks_spell_crit_chance_add, 2)
+	var sparks_duration: String = Utils.format_float(SPARKS_DURATION, 2)
+	var sparks_duration_add: String = Utils.format_float(SPARKS_DURATION_ADD, 2)
+
 	autocast.title = "Sparks"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
+	autocast.description_short = "Increases spell damage and spell crit chance of a nearby tower.\n"
+	autocast.description = "Increases the spell damage for a tower in %s range by %s and it's spell critical strike chance by %s. Lasts %s seconds.\n" % [sparks_range, sparks_spell_damage, sparks_spell_crit_chance, sparks_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage\n" % sparks_spell_damage_add \
+	+ "+%s spell critical strike chance\n" % sparks_spell_crit_chance_add \
+	+ "+%s seconds duration\n" % sparks_duration_add
 	autocast.caster_art = ""
 	autocast.target_art = "MonsoonBoltTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -131,7 +118,8 @@ func tower_init():
 	autocast.buff_type = twister_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

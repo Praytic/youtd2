@@ -52,28 +52,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
-
-	var text: String = ""
-
-	text += "Increases the attackspeed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attackspeed
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% attackspeed\n"
-	text += "+1 attack per 5 levels\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Increases the attackspeed of this tower for next few attacks.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_attack(on_attack)
@@ -108,11 +86,20 @@ func tower_init():
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
+	
 	autocast.title = "Lightning Surge"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	autocast.description_short = "Increases the attackspeed of this tower for next few attacks.\n"
+	autocast.description = "Increases the attackspeed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attackspeed \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% attackspeed\n" \
+	+ "+1 attack per 5 levels\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -126,7 +113,8 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

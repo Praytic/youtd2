@@ -33,27 +33,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "This tower buffs 4 towers in 500 range and gives them a 35% attackspeed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1 tower buffed every 5 levels\n"
-	text += "+8 spell damage on attack\n"
-	text += "+20 spell damage on cast\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower buffs 4 towers in range and gives them a chance to release a meteor when attacking or casting spells.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -81,11 +60,19 @@ func tower_init():
 	missile_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
 	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Attraction"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
+	autocast.description_short = "This tower buffs 4 towers in range and gives them a chance to release a meteor when attacking or casting spells.\n"
+	autocast.description = "This tower buffs 4 towers in 500 range and gives them a 35% attackspeed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1 tower buffed every 5 levels\n" \
+	+ "+8 spell damage on attack\n" \
+	+ "+20 spell damage on cast\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -99,7 +86,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

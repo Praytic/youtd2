@@ -15,43 +15,28 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_soul_chill_description() -> String:
+func load_specials(modifier: Modifier):
+	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
+
+
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
 	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.1 * 0.01, 2)
 	var slow_value_add: String = Utils.format_percent(_stats.slow_value_add * 0.1 * 0.01, 2)
 	var slow_duration_add: String = Utils.format_float(_stats.slow_duration_add, 2)
 
-	var text: String = ""
-
-	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % aoe_damage_add
-	text += "+%s slow\n" % slow_value_add
-	text += "+%s seconds duration\n" % slow_duration_add
-
-	return text
-
-
-func get_soul_chill_description_short() -> String:
-	var text: String = ""
-
-	text += "Deals spell damage and slows units in a small area.\n"
-
-	return text
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
-
-
-func tower_init():
-	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Chill"
-	autocast.description = get_soul_chill_description()
-	autocast.description_short = get_soul_chill_description_short()
 	autocast.icon = "res://Resources/Icons/fire/flame_blue_glowing.tres"
+	autocast.description_short = "Deals spell damage and slows units in a small area.\n"
+	autocast.description = "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % aoe_damage_add \
+	+ "+%s slow\n" % slow_value_add \
+	+ "+%s seconds duration\n" % slow_duration_add
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null
@@ -66,8 +51,10 @@ func tower_init():
 	autocast.target_self = false
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
+	return [autocast]
 
+	
+func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)

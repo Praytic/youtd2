@@ -11,34 +11,20 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_fire_blast_description() -> String:
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
-	var text: String = ""
-
-	text += "Releases a blast of fire that strikes all targets in 200 AoE around the main target for %s damage.\n" % damage
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % damage_add
-
-	return text
-
-
-func get_fire_blast_description_short() -> String:
-	var text: String = ""
-
-	text += "Deals spell damage in a small area with magical flames.\n"
-
-	return text
-
-
-func tower_init():
-	var autocast: Autocast = Autocast.make()
 	autocast.title = "Fire Blast"
-	autocast.description = get_fire_blast_description()
-	autocast.description_short = get_fire_blast_description_short()
 	autocast.icon = "res://Resources/Icons/elements/fire.tres"
+	autocast.description_short = "Deals spell damage in a small area with magical flames.\n"
+	autocast.description = "Releases a blast of fire that strikes all targets in 200 AoE around the main target for %s damage.\n" % damage \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % damage_add
+
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -53,7 +39,7 @@ func tower_init():
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
+	return [autocast]
 
 
 func on_autocast(event: Event):

@@ -46,54 +46,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_might_description() -> String:
-	var text: String = ""
-
-	text += "Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.\n"
-
-	return text
-
-
-func get_autocast_might_description_short() -> String:
-	var text: String = ""
-
-	text += "Activates [color=GOLD]Morph: Might[/color].\n"
-
-	return text
-
-
-func get_autocast_swiftness_description() -> String:
-	var text: String = ""
-
-	text += "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated."
-
-	return text
-
-
-func get_autocast_swiftness_description_short() -> String:
-	var text: String = ""
-
-	text += "Activates [color=GOLD]Morph: Swiftness[/color].\n"
-
-	return text
-
-
-func get_autocast_adapt_description() -> String:
-	var text: String = ""
-
-	text += "Stops the effect of morphs, leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
-
-	return text
-
-
-func get_autocast_adapt_description_short() -> String:
-	var text: String = ""
-
-	text += "Stops the effect of morphs.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -147,11 +99,15 @@ func tower_init():
 	multiboard.set_key(0, "Evolve")
 	multiboard.set_key(1, "Morph level")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
 	var autocast_might: Autocast = Autocast.make()
 	autocast_might.title = "Morph: Might"
-	autocast_might.description = get_autocast_might_description()
-	autocast_might.description_short = get_autocast_might_description_short()
 	autocast_might.icon = "res://Resources/Icons/trinkets/trinket_07.tres"
+	autocast_might.description_short = "Activates [color=GOLD]Morph: Might[/color].\n"
+	autocast_might.description = "Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.\n"
 	autocast_might.caster_art = ""
 	autocast_might.target_art = ""
 	autocast_might.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -165,13 +121,13 @@ func tower_init():
 	autocast_might.buff_type = might_bt
 	autocast_might.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_might.handler = on_autocast_might
-	tower.add_autocast(autocast_might)
+	list.append(autocast_might)
 
 	var autocast_swiftness: Autocast = Autocast.make()
 	autocast_swiftness.title = "Morph: Swiftness"
-	autocast_swiftness.description = get_autocast_swiftness_description()
-	autocast_swiftness.description_short = get_autocast_swiftness_description_short()
 	autocast_swiftness.icon = "res://Resources/Icons/trinkets/trinket_08.tres"
+	autocast_swiftness.description_short = "Activates [color=GOLD]Morph: Swiftness[/color].\n"
+	autocast_swiftness.description = "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated."
 	autocast_swiftness.caster_art = ""
 	autocast_swiftness.target_art = ""
 	autocast_swiftness.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -185,13 +141,13 @@ func tower_init():
 	autocast_swiftness.buff_type = swiftness_bt
 	autocast_swiftness.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_swiftness.handler = on_autocast_swiftness
-	tower.add_autocast(autocast_swiftness)
+	list.append(autocast_swiftness)
 
 	var autocast_adapt: Autocast = Autocast.make()
 	autocast_adapt.title = "Adapt"
-	autocast_adapt.description = get_autocast_adapt_description()
-	autocast_adapt.description_short = get_autocast_adapt_description_short()
 	autocast_adapt.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	autocast_adapt.description_short = "Stops the effect of morphs.\n"
+	autocast_adapt.description = "Stops the effect of morphs, leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
 	autocast_adapt.caster_art = ""
 	autocast_adapt.target_art = ""
 	autocast_adapt.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -205,7 +161,9 @@ func tower_init():
 	autocast_adapt.buff_type = adapt_bt
 	autocast_adapt.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_adapt.handler = on_autocast_adapt
-	tower.add_autocast(autocast_adapt)
+	list.append(autocast_adapt)
+
+	return list
 
 
 func on_attack(_event: Event):

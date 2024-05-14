@@ -40,31 +40,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var soul_link_count: String = Utils.format_float(SOUL_LINK_COUNT, 2)
-	var soul_link_duration: String = Utils.format_float(SOUL_LINK_DURATION, 2)
-	var link_damage_ratio: String = Utils.format_percent(_stats.link_damage_ratio, 2)
-	var link_damage_ratio_add: String = Utils.format_percent(_stats.link_damage_ratio_add, 2)
-
-	var text: String = ""
-
-	text += "Links %s enemies' souls together for %s seconds. If a linked unit takes damage all other linked units will take %s of this damage. This tower does not benefit from damage increasing items or oils.\n" % [soul_link_count, soul_link_duration, link_damage_ratio]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % link_damage_ratio_add
-	text += "+1 target at level 15 and 25\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.02)
 
@@ -76,11 +51,23 @@ func tower_init():
 	soul_link_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
 	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var soul_link_count: String = Utils.format_float(SOUL_LINK_COUNT, 2)
+	var soul_link_duration: String = Utils.format_float(SOUL_LINK_DURATION, 2)
+	var link_damage_ratio: String = Utils.format_percent(_stats.link_damage_ratio, 2)
+	var link_damage_ratio_add: String = Utils.format_percent(_stats.link_damage_ratio_add, 2)
+
 	autocast.title = "Soul Link"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/undead/skull_phazing.tres"
+	autocast.description_short = "Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.\n"
+	autocast.description = "Links %s enemies' souls together for %s seconds. If a linked unit takes damage all other linked units will take %s of this damage. This tower does not benefit from damage increasing items or oils.\n" % [soul_link_count, soul_link_duration, link_damage_ratio] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % link_damage_ratio_add \
+	+ "+1 target at level 15 and 25\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -94,7 +81,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1000
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

@@ -36,22 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spelldamage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+125 damage\n"
-	text += "+1 lightning strike per 5 levels\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_kill(on_kill)
@@ -69,11 +53,18 @@ func get_ability_ranges() -> Array[RangeData]:
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Thunderstorm"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/TowerIcons/RuinedMonolith.tres"
+	autocast.description_short = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.\n"
+	autocast.description = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spelldamage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+125 damage\n" \
+	+ "+1 lightning strike per 5 levels\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -87,7 +78,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

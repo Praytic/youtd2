@@ -24,29 +24,6 @@ const GLIMMER_MOD_DEBUFF_DURATION: float = 0.15
 const GLIMMER_MOD_DEBUFF_DURATION_ADD: float = 0.002
 
 
-func get_autocast_description() -> String:
-	var sunlight_range: String = Utils.format_float(SUNLIGHT_RANGE, 2)
-	var sunlight_duration: String = Utils.format_float(SUNLIGHT_DURATION, 2)
-	var sunlight_duration_add: String = Utils.format_float(SUNLIGHT_DURATION_ADD, 2)
-
-	var text: String = ""
-
-	text += "Stuns all towers and all enemies in %s range for %s seconds.\n" % [sunlight_range, sunlight_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds\n" % sunlight_duration_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Stuns all towers and creeps in range.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	tower.set_target_count(3)
 
@@ -69,11 +46,21 @@ func tower_init():
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
 	sunlight_bt.set_buff_icon("res://Resources/Icons/GenericIcons/shiny_omega.tres")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var sunlight_range: String = Utils.format_float(SUNLIGHT_RANGE, 2)
+	var sunlight_duration: String = Utils.format_float(SUNLIGHT_DURATION, 2)
+	var sunlight_duration_add: String = Utils.format_float(SUNLIGHT_DURATION_ADD, 2)
+
 	autocast.title = "Sunlight Burst"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.description_short = "Stuns all towers and creeps in range.\n"
+	autocast.description = "Stuns all towers and all enemies in %s range for %s seconds.\n" % [sunlight_range, sunlight_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds\n" % sunlight_duration_add
 	autocast.caster_art = "Awaken.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -87,7 +74,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

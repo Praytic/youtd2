@@ -43,25 +43,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Summons a hammer which falls from the sky. The hammer deals 10000 spell damage to all units in 600 AoE and stuns them for 1 second. Each of the player's storm tower in 2500 range loses 10% attack damage for 6 seconds but increases the spell damage of the hammer by 5%. Can gain a maximum of 100% bonus damage.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% damage from towers\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Summons a hammer which falls from the sky and deals AoE damage.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -88,11 +69,17 @@ func tower_init():
 	hammer_pt = ProjectileType.create("StormBoltMissile.mdl", 90, 0, self)
 	hammer_pt.enable_physics(hammer_pt_on_impact, -30)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Hammer Fall"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/blunt_weapons/hammer_02.tres"
+	autocast.description_short = "Summons a hammer which falls from the sky and deals AoE damage.\n"
+	autocast.description = "Summons a hammer which falls from the sky. The hammer deals 10000 spell damage to all units in 600 AoE and stuns them for 1 second. Each of the player's storm tower in 2500 range loses 10% attack damage for 6 seconds but increases the spell damage of the hammer by 5%. Can gain a maximum of 100% bonus damage.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2% damage from towers\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -106,7 +93,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

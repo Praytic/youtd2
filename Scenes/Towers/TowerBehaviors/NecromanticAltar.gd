@@ -14,7 +14,13 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_autocast_description() -> String:
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Soul Revenge", 875, TargetType.new(TargetType.CREEPS))]
+
+
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var damage_1: String = Utils.format_float(_stats.damage, 2)
 	var damage_2: String = Utils.format_float(_stats.damage * 2, 2)
 	var damage_3: String = Utils.format_float(_stats.damage * 3, 2)
@@ -22,34 +28,13 @@ func get_autocast_description() -> String:
 	var damage_add_2: String = Utils.format_float(_stats.damage_add * 2, 2)
 	var damage_add_3: String = Utils.format_float(_stats.damage_add * 3, 2)
 
-	var text: String = ""
-
-	text += "Hits 3 random creeps in 875 range, the first one suffers %s spelldamage, the second one suffers %s spelldamage and the third one suffers %s spelldamage.\n" % [damage_1, damage_2, damage_3]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s/%s/%s spelldamage\n" % [damage_add_1, damage_add_2, damage_add_3]
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Hits 3 random creeps with dark powers.\n"
-
-	return text
-
-
-func get_ability_ranges() -> Array[RangeData]:
-	return [RangeData.new("Soul Revenge", 875, TargetType.new(TargetType.CREEPS))]
-
-
-func tower_init():
-	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Revenge"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
+	autocast.description_short = "Hits 3 random creeps with dark powers.\n"
+	autocast.description = "Hits 3 random creeps in 875 range, the first one suffers %s spelldamage, the second one suffers %s spelldamage and the third one suffers %s spelldamage.\n" % [damage_1, damage_2, damage_3] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s/%s/%s spelldamage\n" % [damage_add_1, damage_add_2, damage_add_3]
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -63,7 +48,8 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 875
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(_event: Event):

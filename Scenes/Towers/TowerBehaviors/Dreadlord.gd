@@ -36,22 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "When activated, Dreadlord empowers himself with darkness for 10 seconds, increasing own attack speed by 50% and mana regeneration by 20 per second.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% attack speed\n"
-	text += "+0.8 mana per second\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "When activated, Dreadlord empowers himself with darkness.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_kill(on_kill)
@@ -75,11 +59,17 @@ func tower_init():
 	multiboard.set_key(0, "Attackspeed Bonus")
 	multiboard.set_key(1, "Mana Bonus")
 
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Dreadlord's Awakening"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/undead/skull_03.tres"
+	autocast.description_short = "When activated, Dreadlord empowers himself with darkness.\n"
+	autocast.description = "When activated, Dreadlord empowers himself with darkness for 10 seconds, increasing own attack speed by 50% and mana regeneration by 20 per second.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% attack speed\n" \
+	+ "+0.8 mana per second\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -93,7 +83,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

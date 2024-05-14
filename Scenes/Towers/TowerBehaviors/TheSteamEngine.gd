@@ -28,22 +28,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_speed_up_description() -> String:
-	return "Increases the power level of the engine by 1. Maximum power level is 50.\n"
-
-
-func get_autocast_speed_up_description_short() -> String:
-	return "Increases the power level of the engine.\n"
-
-
-func get_autocast_speed_down_description() -> String:
-	return "Decreases the power level of the engine by 1.\n"
-
-
-func get_autocast_speed_down_description_short() -> String:
-	return "Decreases the power level of the engine.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
@@ -68,11 +52,15 @@ func tower_init():
 	multiboard.set_key(0, "Power Level")
 	multiboard.set_key(1, "Towers Powered")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
 	var autocast_speed_up: Autocast = Autocast.make()
 	autocast_speed_up.title = "Speed Up"
-	autocast_speed_up.description = get_autocast_speed_up_description()
-	autocast_speed_up.description_short = get_autocast_speed_up_description_short()
 	autocast_speed_up.icon = "res://Resources/Icons/magic/claw_03.tres"
+	autocast_speed_up.description_short = "Increases the power level of the engine.\n"
+	autocast_speed_up.description = "Increases the power level of the engine by 1. Maximum power level is 50.\n"
 	autocast_speed_up.caster_art = ""
 	autocast_speed_up.target_art = ""
 	autocast_speed_up.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -86,13 +74,13 @@ func tower_init():
 	autocast_speed_up.buff_type = null
 	autocast_speed_up.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_speed_up.handler = on_autocast_speed_up
-	tower.add_autocast(autocast_speed_up)
+	list.append(autocast_speed_up)
 
 	var autocast_speed_down: Autocast = Autocast.make()
 	autocast_speed_down.title = "Speed Down"
-	autocast_speed_down.description = get_autocast_speed_down_description()
-	autocast_speed_down.description_short = get_autocast_speed_down_description_short()
 	autocast_speed_down.icon = "res://Resources/Icons/magic/claw_04.tres"
+	autocast_speed_down.description_short = "Decreases the power level of the engine.\n"
+	autocast_speed_down.description = "Decreases the power level of the engine by 1.\n"
 	autocast_speed_down.caster_art = ""
 	autocast_speed_down.target_art = ""
 	autocast_speed_down.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -106,7 +94,9 @@ func tower_init():
 	autocast_speed_down.buff_type = null
 	autocast_speed_down.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_speed_down.handler = on_autocast_speed_down
-	tower.add_autocast(autocast_speed_down)
+	list.append(autocast_speed_down)
+
+	return list
 
 
 func get_aura_types() -> Array[AuraType]:

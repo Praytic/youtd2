@@ -21,26 +21,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "This tower creates a magnetic surge at its target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% spell damage\n"
-	text += "+0.1 seconds duration\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower creates a magnetic surge at its target's current location. Target will take periodic damage.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -63,11 +43,18 @@ func tower_init():
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Magnetic Surge"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
+	autocast.description_short = "This tower creates a magnetic surge at its target's current location. Target will take periodic damage.\n"
+	autocast.description = "This tower creates a magnetic surge at its target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% spell damage\n" \
+	+ "+0.1 seconds duration\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -81,7 +68,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

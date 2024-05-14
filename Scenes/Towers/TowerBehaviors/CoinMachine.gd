@@ -31,33 +31,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var autocast_range: String = Utils.format_float(AUTOCAST_RANGE, 2)
-	var buff_duration: String = Utils.format_float(_stats.buff_duration, 2)
-	var buff_duration_add: String = Utils.format_float(BUFF_DURATION_ADD, 2)
-	var mod_bounty_gain: String = Utils.format_percent(_stats.mod_bounty_gain, 2)
-	var mod_bounty_gain_add: String = Utils.format_percent(MOD_BOUNTY_GAIN_ADD, 2)
-	var gold_per_cast: String = Utils.format_float(_stats.gold_per_cast, 2)
-
-	var text: String = ""
-
-	text += "This tower adds a buff to a tower in %s range that lasts %s seconds. The buff increases bounty gain by %s. Everytime this spell is cast you gain %s gold.\n" % [autocast_range, buff_duration, mod_bounty_gain, gold_per_cast]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % buff_duration_add
-	text += "+%s bounty gain\n" % mod_bounty_gain_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Increases bounty gain of a nearby tower and gives gold to player.\n"
-
-	return text
-
-
 func get_ability_ranges() -> Array[RangeData]:
 	return [RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
 
@@ -70,11 +43,25 @@ func tower_init():
 	golden_bt.set_buff_icon("res://Resources/Icons/GenericIcons/holy_grail.tres")
 	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var autocast_range: String = Utils.format_float(AUTOCAST_RANGE, 2)
+	var buff_duration: String = Utils.format_float(_stats.buff_duration, 2)
+	var buff_duration_add: String = Utils.format_float(BUFF_DURATION_ADD, 2)
+	var mod_bounty_gain: String = Utils.format_percent(_stats.mod_bounty_gain, 2)
+	var mod_bounty_gain_add: String = Utils.format_percent(MOD_BOUNTY_GAIN_ADD, 2)
+	var gold_per_cast: String = Utils.format_float(_stats.gold_per_cast, 2)
+	
 	autocast.title = "Golden Influence"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/hud/gold.tres"
+	autocast.description_short = "Increases bounty gain of a nearby tower and gives gold to player.\n"
+	autocast.description = "This tower adds a buff to a tower in %s range that lasts %s seconds. The buff increases bounty gain by %s. Everytime this spell is cast you gain %s gold.\n" % [autocast_range, buff_duration, mod_bounty_gain, gold_per_cast] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % buff_duration_add \
+	+ "+%s bounty gain\n" % mod_bounty_gain_add
 	autocast.caster_art = ""
 	autocast.target_art = "ResourceEffectTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -88,7 +75,8 @@ func tower_init():
 	autocast.buff_type = golden_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

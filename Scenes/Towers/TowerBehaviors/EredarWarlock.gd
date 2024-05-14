@@ -39,22 +39,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
-
-	text += "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as %s damage to the target of the buffed tower.\n" % essence_string
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.02 seconds stun duration\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Stuns nearby towers and steals their damage.\n"
-
-
 func get_ability_ranges() -> Array[RangeData]:
 	return [RangeData.new("Shadowbolt Wave", 1000, TargetType.new(TargetType.CREEPS))]
 
@@ -84,11 +68,19 @@ func tower_init():
 	attack_shadowbolt_pt = ProjectileType.create("BlackArrowMissile.mdl", 4, 1000, self)
 	attack_shadowbolt_pt.enable_homing(attack_shadowbolt_pt_on_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
+	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
+
 	autocast.title = "Siphon Essence"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/flame_purple.tres"
+	autocast.description_short = "Stuns nearby towers and steals their damage.\n"
+	autocast.description = "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as %s damage to the target of the buffed tower.\n" % essence_string \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.02 seconds stun duration\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -102,7 +94,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

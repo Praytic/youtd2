@@ -41,25 +41,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Increases the attack speed of towers within 350 range by 50% for 3 seconds and permanently increases the attack speed of this tower by 1%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2% attack speed\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Increases the attack speed of nearby towers and permanently increases the attack speed of this tower.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -99,11 +80,17 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Awaken Cast")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Awaken"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/magic/fire.tres"
+	autocast.description_short = "Increases the attack speed of nearby towers and permanently increases the attack speed of this tower.\n"
+	autocast.description = "Increases the attack speed of towers within 350 range by 50% for 3 seconds and permanently increases the attack speed of this tower by 1%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+2% attack speed\n"
 	autocast.caster_art = "UCancelDeath.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -117,7 +104,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

@@ -226,14 +226,6 @@ func update(delta: float):
 ###       Public      ###
 #########################
 
-func get_ability_description() -> String:
-	return _tower_behavior.get_ability_description()
-
-
-func get_ability_description_short() -> String:
-	return _tower_behavior.get_ability_description_short()
-
-
 func get_ability_ranges() -> Array[RangeData]:
 	return _tower_behavior.get_ability_ranges()
 

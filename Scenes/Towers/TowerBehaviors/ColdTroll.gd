@@ -15,39 +15,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_blizzard_description() -> String:
-	var blizzard_wave_count: String = Utils.format_float(_stats.blizzard_wave_count, 2)
-	var blizzard_damage: String = Utils.format_float(_stats.blizzard_damage, 2)
-	var blizzard_radius: String = Utils.format_float(_stats.blizzard_radius, 2)
-	var slow_chance: String = Utils.format_percent(_stats.slow_chance, 2)
-	var slow: String = Utils.format_percent(-_stats.slow, 2)
-	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
-	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-	var blizzard_damage_add: String = Utils.format_float(round(_stats.blizzard_damage * _stats.damage_ratio_add), 2)
-	var slow_add: String = Utils.format_percent(-_stats.slow_add, 2)
-
-	var text: String = ""
-
-	text += "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s to slow the unit by %s for %s seconds and a chance of %s to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % blizzard_damage_add
-	text += "+%s slow\n" % slow_add
-	text += "+1% chance for slow\n"
-	text += "+0.1% chance for stun\n"
-
-	return text
-
-
-func get_blizzard_description_short() -> String:
-	var text: String = ""
-
-	text += "Summons a mighty blizzard. Each wave has a chance to slow and stun all enemy units in the target area.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)
@@ -81,11 +48,35 @@ func tower_init():
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
+	blizzard_st.data.blizzard.damage = _stats.blizzard_damage
+	blizzard_st.data.blizzard.radius = _stats.blizzard_radius
+	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count
+
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var blizzard_wave_count: String = Utils.format_float(_stats.blizzard_wave_count, 2)
+	var blizzard_damage: String = Utils.format_float(_stats.blizzard_damage, 2)
+	var blizzard_radius: String = Utils.format_float(_stats.blizzard_radius, 2)
+	var slow_chance: String = Utils.format_percent(_stats.slow_chance, 2)
+	var slow: String = Utils.format_percent(-_stats.slow, 2)
+	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
+	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
+	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
+	var blizzard_damage_add: String = Utils.format_float(round(_stats.blizzard_damage * _stats.damage_ratio_add), 2)
+	var slow_add: String = Utils.format_percent(-_stats.slow_add, 2)
+	
 	autocast.title = "Blizzard"
-	autocast.description = get_blizzard_description()
-	autocast.description_short = get_blizzard_description_short()
 	autocast.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
+	autocast.description_short = "Summons a mighty blizzard. Each wave has a chance to slow and stun all enemy units in the target area.\n"
+	autocast.description = "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s to slow the unit by %s for %s seconds and a chance of %s to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % blizzard_damage_add \
+	+ "+%s slow\n" % slow_add \
+	+ "+1% chance for slow\n" \
+	+ "+0.1% chance for stun\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -100,8 +91,4 @@ func tower_init():
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
-
-	blizzard_st.data.blizzard.damage = _stats.blizzard_damage
-	blizzard_st.data.blizzard.radius = _stats.blizzard_radius
-	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count
+	return [autocast]

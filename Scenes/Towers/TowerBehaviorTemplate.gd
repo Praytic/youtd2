@@ -30,26 +30,6 @@ extends TowerBehavior
 # 	return list
 
 
-# func get_autocast_description() -> String:
-# 	var text: String = ""
-
-# 	text += "Description\n"
-#	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-
-# 	return text
-
-
-# func get_autocast_description_short() -> String:
-# 	var text: String = ""
-
-# 	text += "Description\n"
-
-# 	return text
-
-
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
 
@@ -74,11 +54,14 @@ extends TowerBehavior
 #	multiboard.set_key(0, "Foo")
 #	multiboard.set_key(1, "Bar")
 
+
+# func create_autocasts() -> Array[Autocast]:
 # 	var autocast: Autocast = Autocast.make()
+
 # 	autocast.title = "Title"
-# 	autocast.description = get_autocast_description()
-# 	autocast.description_short = get_autocast_description_short()
 # 	autocast.icon = "res://path/to/icon.png"
+# 	autocast.description_short = ""
+# 	autocast.description = ""
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""
 # 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -92,7 +75,8 @@ extends TowerBehavior
 # 	autocast.buff_type = null
 # 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 # 	autocast.handler = on_autocast
-# 	tower.add_autocast(autocast)
+
+#	return [autocast]
 
 
 # func get_aura_types() -> Array[AuraType]:

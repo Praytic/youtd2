@@ -11,34 +11,19 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_release_lightning_description() -> String:
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
-	var text: String = ""
-
-	text += "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage
-	text += " \n"
-	text +="[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % damage_add
-
-	return text
-
-
-func get_release_lightning_description_short() -> String:
-	var text: String = ""
-
-	text += "Releases a lightning bolt."
-
-	return text
-
-
-func tower_init():
-	var autocast: Autocast = Autocast.make()
 	autocast.title = "Release Lightning"
-	autocast.description = get_release_lightning_description()
-	autocast.description_short = get_release_lightning_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
+	autocast.description_short = "Releases a lightning bolt."
+	autocast.description = "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage \
+	+ " \n" \
+	+"[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -53,7 +38,7 @@ func tower_init():
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
+	return [autocast]
 
 
 func on_autocast(event: Event):

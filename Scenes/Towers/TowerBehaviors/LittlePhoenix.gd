@@ -66,22 +66,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -140,11 +124,14 @@ func tower_init():
 	phoenix_pt = ProjectileType.create_interpolate("Phoenix_Missile.mdl", 800, self)
 	phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Eruption"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
+	autocast.description_short = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].\n"
+	autocast.description = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -158,7 +145,8 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

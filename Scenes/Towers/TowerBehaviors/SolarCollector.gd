@@ -26,30 +26,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var release_energy_dmg: String = Utils.format_float(_stats.release_energy_dmg, 2)
-	var release_energy_dmg_add: String = Utils.format_float(_stats.release_energy_dmg_add, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-	var stun_duration_for_bosses: String = Utils.format_float(_stats.stun_duration_for_bosses, 2)
-
-	var text: String = ""
-
-	text += "Deals %s damage to the attacked creep and stuns it for %s seconds (%s seconds on bosses).\n" % [release_energy_dmg, stun_duration, stun_duration_for_bosses]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % release_energy_dmg_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Deals damage to the target and stuns it.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -69,11 +45,22 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
+	var release_energy_dmg: String = Utils.format_float(_stats.release_energy_dmg, 2)
+	var release_energy_dmg_add: String = Utils.format_float(_stats.release_energy_dmg_add, 2)
+	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
+	var stun_duration_for_bosses: String = Utils.format_float(_stats.stun_duration_for_bosses, 2)
+
 	autocast.title = "Release Energy"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.description_short = "Deals damage to the target and stuns it.\n"
+	autocast.description = "Deals %s damage to the attacked creep and stuns it for %s seconds (%s seconds on bosses).\n" % [release_energy_dmg, stun_duration, stun_duration_for_bosses] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % release_energy_dmg_add
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -87,7 +74,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

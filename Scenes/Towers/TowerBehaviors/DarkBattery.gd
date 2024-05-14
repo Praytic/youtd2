@@ -47,28 +47,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
-	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
-
-	var text: String = ""
-
-	text += "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s damage\n" % projectile_damage_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Attacks very fast while consuming mana.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 0.2)
@@ -109,11 +87,20 @@ func tower_init():
 	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
+	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
+
 	autocast.title = "Battery Overload"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
+	autocast.description_short = "Attacks very fast while consuming mana.\n"
+	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s damage\n" % projectile_damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -127,7 +114,8 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 800
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

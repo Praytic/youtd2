@@ -71,60 +71,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_choose_description() -> String:
-	var text: String = ""
-
-	text += "Cycle through the modifications:\n"
-	text += "Slow: 8% for 5 seconds, -20% dmg\n"
-	text += "Silence: 5 seconds, 50% chance, -40% dmg\n"
-	text += "Health Regeneration: -10% for 5 seconds, -25% dmg\n"
-	text += "Armor: -6% for 5 seconds, -25% dmg\n"
-	text += "Spell Vulnerability: 12% for 5 seconds, -25% dmg\n"
-	text += "AoE: 50, -15% dmg\n"
-
-	return text
-
-
-func get_autocast_choose_description_short() -> String:
-	var text: String = ""
-
-	text += "Cycle through the modifications.\n"
-
-	return text
-
-
-func get_autocast_add_description() -> String:
-	var text: String = ""
-
-	text += "Adds the bonus to the missile if the tower has enough damage left.\n"
-
-	return text
-
-
-func get_autocast_add_description_short() -> String:
-	var text: String = ""
-
-	text += "Adds the bonus to the missile if the tower has enough damage left.\n"
-
-	return text
-
-
-func get_autocast_remove_description() -> String:
-	var text: String = ""
-
-	text += "Removes the bonus to the missile and returns the damage used.\n"
-
-	return text
-
-
-func get_autocast_remove_description_short() -> String:
-	var text: String = ""
-
-	text += "Removes the bonus to the missile and returns the damage used.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -175,11 +121,21 @@ func tower_init():
 	multiboard.set_key(6, "Spell Vuln")
 	multiboard.set_key(7, "AoE")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
 	var autocast_choose: Autocast = Autocast.make()
 	autocast_choose.title = "Choose Modification"
-	autocast_choose.description = get_autocast_choose_description()
-	autocast_choose.description_short = get_autocast_choose_description_short()
 	autocast_choose.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	autocast_choose.description_short = "Cycle through the modifications.\n"
+	autocast_choose.description = "Cycle through the modifications:\n" \
+	+ "Slow: 8% for 5 seconds, -20% dmg\n" \
+	+ "Silence: 5 seconds, 50% chance, -40% dmg\n" \
+	+ "Health Regeneration: -10% for 5 seconds, -25% dmg\n" \
+	+ "Armor: -6% for 5 seconds, -25% dmg\n" \
+	+ "Spell Vulnerability: 12% for 5 seconds, -25% dmg\n" \
+	+ "AoE: 50, -15% dmg\n"
 	autocast_choose.caster_art = ""
 	autocast_choose.target_art = ""
 	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -193,13 +149,13 @@ func tower_init():
 	autocast_choose.buff_type = null
 	autocast_choose.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_choose.handler = on_autocast_choose
-	tower.add_autocast(autocast_choose)
+	list.append(autocast_choose)
 
 	var autocast_add: Autocast = Autocast.make()
 	autocast_add.title = "Add Modification"
-	autocast_add.description = get_autocast_add_description()
-	autocast_add.description_short = get_autocast_add_description_short()
 	autocast_add.icon = "res://Resources/Icons/magic/claw_02.tres"
+	autocast_add.description_short = "Adds the bonus to the missile if the tower has enough damage left.\n"
+	autocast_add.description = "Adds the bonus to the missile if the tower has enough damage left.\n"
 	autocast_add.caster_art = ""
 	autocast_add.target_art = ""
 	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -213,13 +169,13 @@ func tower_init():
 	autocast_add.buff_type = null
 	autocast_add.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_add.handler = on_autocast_add
-	tower.add_autocast(autocast_add)
+	list.append(autocast_add)
 
 	var autocast_remove: Autocast = Autocast.make()
 	autocast_remove.title = "Remove Modification"
-	autocast_remove.description = get_autocast_remove_description()
-	autocast_remove.description_short = get_autocast_remove_description_short()
 	autocast_remove.icon = "res://Resources/Icons/magic/claw_04.tres"
+	autocast_remove.description_short = "Removes the bonus to the missile and returns the damage used.\n"
+	autocast_remove.description = "Removes the bonus to the missile and returns the damage used.\n"
 	autocast_remove.caster_art = ""
 	autocast_remove.target_art = ""
 	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -233,7 +189,9 @@ func tower_init():
 	autocast_remove.buff_type = null
 	autocast_remove.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_remove.handler = on_autocast_remove
-	tower.add_autocast(autocast_remove)
+	list.append(autocast_remove)
+
+	return list
 
 
 func on_attack(event: Event):

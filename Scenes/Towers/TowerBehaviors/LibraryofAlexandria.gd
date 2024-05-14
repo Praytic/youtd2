@@ -23,26 +23,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Adds a buff to the targeted tower which lasts 10 seconds. The buff increases the amount of experience the tower gains by 100%. This tower gains 2 experience every time it casts this buff.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2 seconds duration \n"
-	text += "+2% experience gain.\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Adds a buff to the target tower which increases the amount of experience the tower gains.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 5.0)
 
@@ -70,11 +50,18 @@ func tower_init():
 	teachings_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
 	teachings_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Divine Teachings"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/books/book_02.tres"
+	autocast.description_short = "Adds a buff to the target tower which increases the amount of experience the tower gains.\n"
+	autocast.description = "Adds a buff to the targeted tower which lasts 10 seconds. The buff increases the amount of experience the tower gains by 100%. This tower gains 2 experience every time it casts this buff.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2 seconds duration \n" \
+	+ "+2% experience gain.\n"
 	autocast.caster_art = "AIimTarget.mdl"
 	autocast.target_art = "CharmTarget.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -88,7 +75,8 @@ func tower_init():
 	autocast.buff_type = teachings_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

@@ -29,26 +29,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single enemy and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+8 spell damage per wave\n"
-	text += "+x0.03 spell crit damage\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Unleashes built up energy, dealing spell damage to a single enemy and increasing the spell crit damage of nearby towers.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -90,11 +70,18 @@ func tower_init():
 	chanlightning_st.data.chain_lightning.damage_reduction = 0.25
 	chanlightning_st.data.chain_lightning.chain_count = 1
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Unleash"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
+	autocast.description_short = "Unleashes built up energy, dealing spell damage to a single enemy and increasing the spell crit damage of nearby towers.\n"
+	autocast.description = "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single enemy and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+8 spell damage per wave\n" \
+	+ "+x0.03 spell crit damage\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -108,7 +95,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

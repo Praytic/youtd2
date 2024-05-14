@@ -21,21 +21,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+185 damage\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Slams all creeps in around the target, dealing damage and stunning them.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -57,11 +42,17 @@ func tower_init():
 	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
 	shock_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Shock"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
+	autocast.description_short = "Slams all creeps in around the target, dealing damage and stunning them.\n"
+	autocast.description = "Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+185 damage\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -75,7 +66,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

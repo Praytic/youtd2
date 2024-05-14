@@ -36,22 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Creates a link between this tower and the target tower. This tower will now monitor any spell damage dealt by the linked tower to creeps within 2000 range of this tower. If the linked tower is sold, replaced or upgraded the link will dissolve.\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Creates a link between this tower and the target tower.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
@@ -77,11 +61,14 @@ func tower_init():
 	flux_pt = ProjectileType.create_interpolate("OrbOfDeathMissile.mdl", 1000, self)
 	flux_pt.set_event_on_interpolation_finished(flux_pt_on_hit)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Dimensional Link"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/mechanical/circuit_board.tres"
+	autocast.description_short = "Creates a link between this tower and the target tower.\n"
+	autocast.description = "Creates a link between this tower and the target tower. This tower will now monitor any spell damage dealt by the linked tower to creeps within 2000 range of this tower. If the linked tower is sold, replaced or upgraded the link will dissolve.\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER
@@ -95,7 +82,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.PLAYER_TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 # NOTE: this aura is hidden because it's used internaly to

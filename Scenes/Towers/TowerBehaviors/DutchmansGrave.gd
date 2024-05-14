@@ -51,22 +51,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "When this spell is activated 2 souls will be released every 0.3 seconds. When a soul collides with a creep it deals 14000 spell damage. When a soul damages a creep, its damage is reduced by 50%.\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "When this spell is activated 2 souls will be periodically released.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -99,11 +83,14 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Soul Storm"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/misc/flag_02.tres"
+	autocast.description_short = "When this spell is activated 2 souls will be periodically released.\n"
+	autocast.description = "When this spell is activated 2 souls will be released every 0.3 seconds. When a soul collides with a creep it deals 14000 spell damage. When a soul damages a creep, its damage is reduced by 50%.\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -117,7 +104,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_create(_preceding: Tower):

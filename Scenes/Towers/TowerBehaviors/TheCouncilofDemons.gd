@@ -36,23 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Shrouds an enemy in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+40 damage per second\n"
-	text += "+1% damage on expire \n"
-	text += "+0.8% slow\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Shrouds an enemy in darkness, slowing it and converting attack damage it takes into spell damage.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -96,11 +79,19 @@ func tower_init():
 	missile_pt = ProjectileType.create("DemonHunterMissile.mdl", 4, 1300, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Impenetrable Darkness"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/orbs/orb_molten_dull.tres"
+	autocast.description_short = "Shrouds an enemy in darkness, slowing it and converting attack damage it takes into spell damage.\n"
+	autocast.description = "Shrouds an enemy in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+40 damage per second\n" \
+	+ "+1% damage on expire \n" \
+	+ "+0.8% slow\n"
 	autocast.caster_art = ""
 	autocast.target_art = "AvengerMissile.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -114,7 +105,8 @@ func tower_init():
 	autocast.buff_type = darkness_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

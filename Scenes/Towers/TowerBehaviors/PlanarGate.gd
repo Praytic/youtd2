@@ -28,27 +28,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
-	
-	var text: String = ""
-
-	text += "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from %s towers by 1%% of the falcon's current damage ratio.\n" % astral_string
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.18 seconds\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Releases a huge wave of astral power through the gate. This empowers falcons.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -67,11 +46,19 @@ func tower_init():
 	bouncing_pt = ProjectileType.create_interpolate("MurgulMagicMissile.mdl", 1250, self)
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
+	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
+
 	autocast.title = "Astral Eruption"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/magic/magic_stone.tres"
+	autocast.description_short = "Releases a huge wave of astral power through the gate. This empowers falcons.\n"
+	autocast.description = "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from %s towers by 1%% of the falcon's current damage ratio.\n" % astral_string \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.18 seconds\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -85,7 +72,8 @@ func tower_init():
 	autocast.buff_type = eruption_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

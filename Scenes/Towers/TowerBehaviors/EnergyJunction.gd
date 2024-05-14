@@ -19,31 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_autocast_description() -> String:
-	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
-	var attackspeed_add: String = Utils.format_percent(_stats.attackspeed_add, 2)
-	var damage_on_attack: String = Utils.format_float(_stats.damage_on_attack, 2)
-	var damage_on_attack_add: String = Utils.format_float(_stats.damage_on_attack / 25.0, 2)
-
-	var text: String = ""
-
-	text += "Buffs a tower in 500 range for 10 seconds increasing its attackspeed by %s. The buffed tower deals %s attack damage and %s spell damage on attack multiplied with its base attackspeed.\n" % [attackspeed, damage_on_attack, damage_on_attack]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack and spell damage\n" % damage_on_attack_add
-	text += "+%s attackspeed\n" % attackspeed_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Buffs a tower in range increasing its attackspeed. The buffed tower deals extra attack damage and spell damage.\n"
-
-	return text
-
-
 func load_specials(_modifier: Modifier):
 	tower.set_attack_air_only()
 
@@ -101,11 +76,23 @@ func tower_init():
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
 	jolt_bt.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
 
+	
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
+	var attackspeed_add: String = Utils.format_percent(_stats.attackspeed_add, 2)
+	var damage_on_attack: String = Utils.format_float(_stats.damage_on_attack, 2)
+	var damage_on_attack_add: String = Utils.format_float(_stats.damage_on_attack / 25.0, 2)
+	
 	autocast.title = "Jolt"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.description_short = "Buffs a tower in range increasing its attackspeed. The buffed tower deals extra attack damage and spell damage.\n"
+	autocast.description = "Buffs a tower in 500 range for 10 seconds increasing its attackspeed by %s. The buffed tower deals %s attack damage and %s spell damage on attack multiplied with its base attackspeed.\n" % [attackspeed, damage_on_attack, damage_on_attack] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s attack and spell damage\n" % damage_on_attack_add \
+	+ "+%s attackspeed\n" % attackspeed_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -118,7 +105,8 @@ func tower_init():
 	autocast.buff_type = jolt_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_create(_preceding_tower: Tower):

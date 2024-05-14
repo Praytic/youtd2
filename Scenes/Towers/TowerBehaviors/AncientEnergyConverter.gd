@@ -6,27 +6,6 @@ var lightning_st: SpellType
 var orb_pt: ProjectileType
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Spawns 3 orbs that last 12 seconds flying around the Converter. Each orb deals 1500 damage per second to random units in 650 range. Additionally, the orbs have a 25% chance every second to cast a chainlightining that deals 1500 initial damage and hits up to 4 targets dealing 25% less damage with each bounce.\n"
-	text += "Units hit by the chainlightning are stunned for 0.8 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+75 orb damage\n"
-	text += "+1 orb spawned per 5 levels\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Spawns 3 chain lightning orbs that fly around the Converter. Orbs deal damage and stun nearby units.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	tower.set_attack_style_bounce(3, 0.70)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 25)
@@ -44,11 +23,20 @@ func tower_init():
 	orb_pt = ProjectileType.create("ManaFlareTarget.mdl", 12, 250, self)
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Energy Conversion"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
+	autocast.description_short = "Spawns 3 chain lightning orbs that fly around the Converter. Orbs deal damage and stun nearby units.\n"
+	autocast.description = "Spawns 3 orbs that last 12 seconds flying around the Converter. Each orb deals 1500 damage per second to random units in 650 range. Additionally, the orbs have a 25% chance every second to cast a chainlightining that deals 1500 initial damage and hits up to 4 targets dealing 25% less damage with each bounce.\n" \
+	+ "Units hit by the chainlightning are stunned for 0.8 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+75 orb damage\n" \
+	+ "+1 orb spawned per 5 levels\n"
+
 	autocast.caster_art = "MassTeleportCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -62,7 +50,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+	
+	return [autocast]
 
 
 func on_autocast(_event: Event):

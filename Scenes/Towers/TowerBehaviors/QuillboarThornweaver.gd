@@ -42,38 +42,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var quillspray_stacks_max: String = Utils.format_float(QUILLSPRAY_STACKS_MAX, 2)
-	var quillspray_stack_bonus: String = Utils.format_percent(QUILLSPRAY_STACK_BONUS, 2)
-	var quillspray_damage_ratio: String = Utils.format_percent(QUILLSPRAY_DAMAGE_RATIO, 2)
-	var quillspray_damage_ratio_add: String = Utils.format_percent(QUILLSPRAY_DAMAGE_RATIO_ADD, 2)
-	var quillspray_debuff_duration: String = Utils.format_float(QUILLSPRAY_DEBUFF_DURATION, 2)
-	var quillspray_range: String = Utils.format_float(QUILLSPRAY_RANGE, 2)
-	var double_chance: String = Utils.format_percent(_stats.double_chance, 2)
-	var triple_chance: String = Utils.format_percent(_stats.triple_chance, 2)
-
-	var text: String = ""
-
-	text += "This tower deals %s of its attack damage as physical damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max]
-	text += " \n"
-	text += "Hint: Save mana to amplify the effect of this ability.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s base damage\n" % quillspray_damage_ratio_add
-	text += "%s chance to doublecast [color=GOLD]Quillsprays[/color] at level 15\n" % double_chance
-	text += "%s chance to triplecast [color=GOLD]Quillsprays[/color] at level 25\n" % triple_chance
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower releases thorns from its back, damaging every unit in range.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -90,11 +58,30 @@ func tower_init():
 	quillspray_pt = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)
 	quillspray_pt.enable_homing(on_projectile_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var quillspray_stacks_max: String = Utils.format_float(QUILLSPRAY_STACKS_MAX, 2)
+	var quillspray_stack_bonus: String = Utils.format_percent(QUILLSPRAY_STACK_BONUS, 2)
+	var quillspray_damage_ratio: String = Utils.format_percent(QUILLSPRAY_DAMAGE_RATIO, 2)
+	var quillspray_damage_ratio_add: String = Utils.format_percent(QUILLSPRAY_DAMAGE_RATIO_ADD, 2)
+	var quillspray_debuff_duration: String = Utils.format_float(QUILLSPRAY_DEBUFF_DURATION, 2)
+	var quillspray_range: String = Utils.format_float(QUILLSPRAY_RANGE, 2)
+	var double_chance: String = Utils.format_percent(_stats.double_chance, 2)
+	var triple_chance: String = Utils.format_percent(_stats.triple_chance, 2)
+
 	autocast.title = "Quillspray"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/spears/many_spears_01.tres"
+	autocast.description_short = "This tower releases thorns from its back, damaging every unit in range.\n"
+	autocast.description = "This tower deals %s of its attack damage as physical damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max] \
+	+ " \n" \
+	+ "Hint: Save mana to amplify the effect of this ability.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s base damage\n" % quillspray_damage_ratio_add \
+	+ "%s chance to doublecast [color=GOLD]Quillsprays[/color] at level 15\n" % double_chance \
+	+ "%s chance to triplecast [color=GOLD]Quillsprays[/color] at level 25\n" % triple_chance
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -108,7 +95,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

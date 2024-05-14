@@ -70,21 +70,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Spends all mana to encase the target in ice, stunning it and increasing damage taken by 100% for up to [mana / 150] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-1 mana divisor\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Spends all mana to encase the target in ice.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -129,11 +114,17 @@ func tower_init():
 	icicle_missile_pt = ProjectileType.create("FrostBoltMissile.mdl", 5, 1400, self)
 	icicle_missile_pt.enable_homing(icicle_missile_pt_on_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Shattering Barrage"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
+	autocast.description_short = "Spends all mana to encase the target in ice.\n"
+	autocast.description = "Spends all mana to encase the target in ice, stunning it and increasing damage taken by 100% for up to [mana / 150] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-1 mana divisor\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -147,7 +138,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

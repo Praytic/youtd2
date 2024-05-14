@@ -30,30 +30,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_ice_claw_description() -> String:
-	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
-	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
-	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
-
-	var text: String = ""
-
-	text += "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s spell damage per second\n" % spell_damage_add
-	text += "+0.2 second duration\n"
-
-	return text
-
-
-func get_ice_claw_description_short() -> String:
-	var text: String = ""
-
-	text += "Causes the target creep to be slowed and suffer damage over time.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
@@ -98,11 +74,22 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Speed Bonus")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
+	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
+	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
+
 	autocast.title = "Ice Claw\n"
-	autocast.description = get_ice_claw_description()
-	autocast.description_short = get_ice_claw_description_short()
 	autocast.icon = "res://Resources/Icons/magic/claw_02.tres"
+	autocast.description_short = "Causes the target creep to be slowed and suffer damage over time.\n"
+	autocast.description = "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s spell damage per second\n" % spell_damage_add \
+	+ "+0.2 second duration\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -116,7 +103,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 850
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_create(preceding: Tower):

@@ -58,29 +58,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_ability_description() -> String:
-
-	var text: String = ""
-
-	text += "[color=GOLD][/color]\n"
-	text += " \n"
-	text += "[color=GOLD][/color]\n"
-
-	return text
-
-
-func get_ability_description_short() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Silence[/color]\n"
-	text += ""
-	text += " \n"
-	text += "[color=GOLD]Void[/color]\n"
-	text += ""
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 1.0)

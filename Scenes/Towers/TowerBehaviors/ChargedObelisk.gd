@@ -22,26 +22,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attackspeed.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% base attackspeed\n"
-	text += "+0.1% bonus attackspeed\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Applies a buff to target tower which increases attack speed.\n"
-
-	return text
-
-
 func get_ability_ranges() -> Array[RangeData]:
 	return [RangeData.new("Electric Field", 1000, TargetType.new(TargetType.CREEPS))]
 
@@ -65,11 +45,18 @@ func tower_init():
 	charge_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
 	charge_bt.add_periodic_event(charge_bt_periodic, 1.0)
 
+	
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Charge"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.description_short = "Applies a buff to target tower which increases attack speed.\n"
+	autocast.description = "Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attackspeed.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% base attackspeed\n" \
+	+ "+0.1% bonus attackspeed\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -83,7 +70,8 @@ func tower_init():
 	autocast.buff_type = charge_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

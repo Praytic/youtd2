@@ -50,38 +50,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_recreation_description() -> String:
-	var text: String = ""
-
-	text += "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
-
-	return text
-
-
-func get_autocast_recreation_description_short() -> String:
-	var text: String = ""
-
-	text += "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
-
-	return text
-
-
-func get_autocast_corruption_description() -> String:
-	var text: String = ""
-
-	text += "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
-
-	return text
-
-
-func get_autocast_corruption_description_short() -> String:
-	var text: String = ""
-
-	text += "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
@@ -99,11 +67,15 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spelldamage Bonus")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
 	var autocast_recreation: Autocast = Autocast.make()
 	autocast_recreation.title = "Recreation Field"
-	autocast_recreation.description = get_autocast_recreation_description()
-	autocast_recreation.description_short = get_autocast_recreation_description_short()
 	autocast_recreation.icon = "res://Resources/Icons/magic/magic_stone.tres"
+	autocast_recreation.description_short = "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
+	autocast_recreation.description = "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 	autocast_recreation.caster_art = ""
 	autocast_recreation.target_art = ""
 	autocast_recreation.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -117,13 +89,13 @@ func tower_init():
 	autocast_recreation.buff_type = null
 	autocast_recreation.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_recreation.handler = on_autocast_recreation
-	tower.add_autocast(autocast_recreation)
+	list.append(autocast_recreation)
 
 	var autocast_corruption: Autocast = Autocast.make()
 	autocast_corruption.title = "Corruption Field"
-	autocast_corruption.description = get_autocast_corruption_description()
-	autocast_corruption.description_short = get_autocast_corruption_description_short()
 	autocast_corruption.icon = "res://Resources/Icons/misc/poison_02.tres"
+	autocast_corruption.description_short = "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
+	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 	autocast_corruption.caster_art = ""
 	autocast_corruption.target_art = ""
 	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -137,7 +109,9 @@ func tower_init():
 	autocast_corruption.buff_type = null
 	autocast_corruption.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_corruption.handler = on_autocast_corruption
-	tower.add_autocast(autocast_corruption)
+	list.append(autocast_corruption)
+
+	return list
 
 
 func on_destruct():

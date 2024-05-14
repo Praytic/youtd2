@@ -26,18 +26,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Create a huge explosion.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
@@ -53,11 +41,14 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Lifeforce Stored")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Eden's Wrath"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
+	autocast.description_short = "Create a huge explosion.\n"
+	autocast.description = "The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -71,7 +62,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

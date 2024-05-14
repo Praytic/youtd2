@@ -35,45 +35,6 @@ const storm_mana_reduction_values: Dictionary = {
 }
 
 
-func get_autocast_description_for_cloudy_thunderstorm() -> String:
-	var text: String = ""
-
-	text += "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n"
-	text += " \n"
-	text += "This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.02 damage per current mana\n"
-
-	return text
-
-
-func get_autocast_description_for_cloudy_thunderstorm_short() -> String:
-	var text: String = ""
-
-	text += "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range.\n"
-
-	return text
-
-
-func get_autocast_description_for_adjust_threshold() -> String:
-	var text: String = ""
-
-	text += "Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
-	text += " \n"
-	text += "You can check current threshold in Tower Details.\n"
-
-	return text
-
-
-func get_autocast_description_for_adjust_threshold_short() -> String:
-	var text: String = ""
-
-	text += "Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 1000, TargetType.new(TargetType.CREEPS))
 	triggers.add_periodic_event(periodic, 0.4)
@@ -103,11 +64,20 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Mana required")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
 	var autocast1: Autocast = Autocast.make()
 	autocast1.title = "Cloudy Thunderstorm"
-	autocast1.description = get_autocast_description_for_cloudy_thunderstorm()
-	autocast1.description_short = get_autocast_description_for_cloudy_thunderstorm_short()
 	autocast1.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	autocast1.description_short = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range.\n"
+	autocast1.description = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n" \
+	+ " \n" \
+	+ "This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.02 damage per current mana\n"
 	autocast1.caster_art = ""
 	autocast1.target_art = ""
 	autocast1.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -121,13 +91,15 @@ func tower_init():
 	autocast1.buff_type = null
 	autocast1.target_type = TargetType.new(TargetType.TOWERS)
 	autocast1.handler = on_autocast_cloud_thunderstorm
-	tower.add_autocast(autocast1)
+	list.append(autocast1)
 
 	var autocast2: Autocast = Autocast.make()
 	autocast2.title = "Adjust Thunderstorm Threshold"
-	autocast2.description = get_autocast_description_for_adjust_threshold()
-	autocast2.description_short = get_autocast_description_for_adjust_threshold_short()
 	autocast2.icon = "res://Resources/Icons/mechanical/compass.tres"
+	autocast2.description_short = "Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
+	autocast2.description = "Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n" \
+	+ " \n" \
+	+ "You can check current threshold in Tower Details.\n"
 	autocast2.caster_art = ""
 	autocast2.target_art = ""
 	autocast2.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -141,7 +113,9 @@ func tower_init():
 	autocast2.buff_type = null
 	autocast2.target_type = TargetType.new(TargetType.TOWERS)
 	autocast2.handler = on_autocast_adjust_threshold
-	tower.add_autocast(autocast2)
+	list.append(autocast2)
+
+	return list
 
 
 func get_aura_types() -> Array[AuraType]:

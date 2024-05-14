@@ -46,31 +46,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var for_the_god_effect: String = Utils.format_percent(_stats.for_the_god_effect, 2)
-	var for_the_god_effect_add: String = Utils.format_percent(_stats.for_the_god_effect_add, 2)
-	var duration: String = Utils.format_float(FOR_THE_GOD_DURATION, 2)
-	var duration_add: String = Utils.format_float(FOR_THE_GOD_DURATION_ADD, 2)
-
-	var text: String = ""
-
-	text += "This tower casts a buff on a friendly tower that increases attackdamage and experience gain by %s. The buff lasts %s seconds.\n" % [for_the_god_effect, duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % duration_add
-	text += "+%s attack damage and experience gain\n" % for_the_god_effect_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower casts a buff on a tower that increases attack damage and experience gain.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -91,11 +66,23 @@ func tower_init():
 	crusader_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_wings.tres")
 	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var for_the_god_effect: String = Utils.format_percent(_stats.for_the_god_effect, 2)
+	var for_the_god_effect_add: String = Utils.format_percent(_stats.for_the_god_effect_add, 2)
+	var duration: String = Utils.format_float(FOR_THE_GOD_DURATION, 2)
+	var duration_add: String = Utils.format_float(FOR_THE_GOD_DURATION_ADD, 2)
+
 	autocast.title = "For the God"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/holy/altar.tres"
+	autocast.description_short = "This tower casts a buff on a tower that increases attack damage and experience gain.\n"
+	autocast.description = "This tower casts a buff on a friendly tower that increases attackdamage and experience gain by %s. The buff lasts %s seconds.\n" % [for_the_god_effect, duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % duration_add \
+	+ "+%s attack damage and experience gain\n" % for_the_god_effect_add
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -109,7 +96,8 @@ func tower_init():
 	autocast.mana_cost = 10
 	autocast.buff_type = crusader_bt
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

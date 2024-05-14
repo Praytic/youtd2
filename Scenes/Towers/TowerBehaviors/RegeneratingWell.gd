@@ -15,29 +15,6 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-func get_autocast_description() -> String:
-	var replenish_range: String = Utils.format_float(REPLENISH_RANGE, 2)
-	var replenish_mana: String = Utils.format_percent(_stats.replenish_mana, 2)
-	var replenish_mana_add: String = Utils.format_percent(_stats.replenish_mana_add, 2)
-
-	var text: String = ""
-
-	text += "Restores %s (only half on towers of this family) of each towers maximum mana for towers in %s range.\n" % [replenish_mana, replenish_range]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s maximum mana\n" % replenish_mana_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Restores mana of nearby towers.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.20, 0.008)
 
@@ -54,11 +31,21 @@ func tower_init():
 	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
 	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var replenish_range: String = Utils.format_float(REPLENISH_RANGE, 2)
+	var replenish_mana: String = Utils.format_percent(_stats.replenish_mana, 2)
+	var replenish_mana_add: String = Utils.format_percent(_stats.replenish_mana_add, 2)
+
 	autocast.title = "Replenish"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/plants/flower_01.tres"
+	autocast.description_short = "Restores mana of nearby towers.\n"
+	autocast.description = "Restores %s (only half on towers of this family) of each towers maximum mana for towers in %s range.\n" % [replenish_mana, replenish_range] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s maximum mana\n" % replenish_mana_add
 	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -72,7 +59,8 @@ func tower_init():
 	autocast.buff_type = aura_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

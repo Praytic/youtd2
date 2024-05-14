@@ -19,28 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_dark_curse_description() -> String:
-	var damage_increase: String = Utils.format_percent(0.15 + _stats.buff_level * 0.001, 0)
-
-	var text: String = ""
-
-	text += "Increases the attack damage target creep receives by %s, the curse lasts 5 seconds.\n" % [damage_increase]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% bonusdamage\n"
-	text += "+0.1 second duration\n"
-
-	return text
-
-
-func get_dark_curse_description_short() -> String:
-	var text: String = ""
-
-	text += "Causes the target creep to receive more attack damage.\n"
-
-	return text
-
-
 func on_autocast(event: Event):
 	var lvl: int = tower.get_level()
 	var buff_duration: float = 5 + 0.1 * lvl
@@ -56,11 +34,20 @@ func tower_init():
 	curse_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
 	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var damage_increase: String = Utils.format_percent(0.15 + _stats.buff_level * 0.001, 0)
+
 	autocast.title = "Dark Curse"
-	autocast.description = get_dark_curse_description()
-	autocast.description_short = get_dark_curse_description_short()
 	autocast.icon = "res://Resources/Icons/fire/flame_purple.tres"
+	autocast.description_short = "Causes the target creep to receive more attack damage.\n"
+	autocast.description = "Increases the attack damage target creep receives by %s, the curse lasts 5 seconds.\n" % [damage_increase] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.6% bonusdamage\n" \
+	+ "+0.1 second duration\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -74,4 +61,5 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]

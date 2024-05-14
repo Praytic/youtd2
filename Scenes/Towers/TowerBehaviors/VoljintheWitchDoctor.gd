@@ -57,25 +57,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.14% damage per stack\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Vol'jin jinxes all units in range. \n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -104,11 +85,17 @@ func tower_init():
 	voljin_pt = ProjectileType.create("SerpentWardMissile.mdl", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)
 
+	
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Maledict"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/undead/monster_hand.tres"
+	autocast.description_short = "Vol'jin jinxes all units in range. \n"
+	autocast.description = "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.14% damage per stack\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -122,7 +109,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

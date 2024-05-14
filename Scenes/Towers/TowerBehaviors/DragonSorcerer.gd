@@ -4,27 +4,6 @@ extends TowerBehavior
 var mark_bt: BuffType
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases the multicrit count by 1,  the crit chance by 7.5% and the attack speed by 25%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4 seconds duration\n"
-	text += "+0.6% attackspeed\n"
-	text += "+0.2% crit chance\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower adds a buff to a tower in range. The buff increases multicrit, crit chance and attack speed.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 5.0)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
@@ -44,11 +23,19 @@ func tower_init():
 	mark_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
 	mark_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Burning Mark"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/TowerIcons/SmallFireSprayer.tres"
+	autocast.description_short = "This tower adds a buff to a tower in range. The buff increases multicrit, crit chance and attack speed.\n"
+	autocast.description = "This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases the multicrit count by 1,  the crit chance by 7.5% and the attack speed by 25%.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.4 seconds duration\n" \
+	+ "+0.6% attackspeed\n" \
+	+ "+0.2% crit chance\n"
 	autocast.caster_art = ""
 	autocast.target_art = "DoomDeath.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -62,4 +49,5 @@ func tower_init():
 	autocast.buff_type = mark_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
-	tower.add_autocast(autocast)
+
+	return [autocast]

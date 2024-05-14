@@ -7,22 +7,6 @@ var aura_bt: BuffType
 const AURA_RANGE: int = 800
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Casts a buff on a tower in 800 range, doubling the effect of [color=GOLD]Gust Aura[/color] and increasing that tower's damage against air units by 10% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.05 seconds duration\n"
-	text += "+0.8% damage against air\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Casts a buff on a tower in range, doubling the effect of [color=GOLD]Gust Aura[/color]."
-
-
 func load_specials(modifier: Modifier):
 	tower.set_attack_air_only()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.0)
@@ -47,11 +31,18 @@ func tower_init():
 	aura_bt.add_event_on_cleanup(gust_on_cleanup)
 	aura_bt.set_buff_tooltip("Gust Aura\nIncreases damage dealt to Air creeps.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Freezing Gust"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/flame_blue.tres"
+	autocast.description_short = "Casts a buff on a tower in range, doubling the effect of [color=GOLD]Gust Aura[/color]."
+	autocast.description = "Casts a buff on a tower in 800 range, doubling the effect of [color=GOLD]Gust Aura[/color] and increasing that tower's damage against air units by 10% for 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.05 seconds duration\n" \
+	+ "+0.8% damage against air\n"
 	autocast.caster_art = "PolyMorphDoneGround.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -65,7 +56,8 @@ func tower_init():
 	autocast.buff_type = freezing_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

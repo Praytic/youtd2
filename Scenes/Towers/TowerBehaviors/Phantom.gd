@@ -16,32 +16,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_wind_shear_description() -> String:
-	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
-	var chain_damage: String = Utils.format_float(100 * (1.0 + _stats.user_real_base * 0.04), 2)
-	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
-
-	var text: String = ""
-
-	text += "Increases the attackspeed of a tower in 300 range by %s and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% attackspeed\n"
-	text += "+%s spelldamage\n" % chain_damage_add
-	text += "+1 target at level 20\n"
-	text += "+0.1 sec duration\n"
-
-	return text
-
-
-func get_wind_shear_description_short() -> String:
-	var text: String = ""
-
-	text += "Increases the attackspeed of a tower and gives it a chance to cast chainlightning.\n"
-
-	return text
-
-
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
 
@@ -93,11 +67,24 @@ func tower_init():
 	chainlightning_st_2.data.chain_lightning.damage_reduction = 0.25
 	chainlightning_st_2.data.chain_lightning.chain_count = 4
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
+	var chain_damage: String = Utils.format_float(100 * (1.0 + _stats.user_real_base * 0.04), 2)
+	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
+
 	autocast.title = "Wind Shear"
-	autocast.description = get_wind_shear_description()
-	autocast.description_short = get_wind_shear_description_short()
 	autocast.icon = "res://Resources/Icons/plants/leaf_02.tres"
+	autocast.description_short = "Increases the attackspeed of a tower and gives it a chance to cast chainlightning.\n"
+	autocast.description = "Increases the attackspeed of a tower in 300 range by %s and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% attackspeed\n" \
+	+ "+%s spelldamage\n" % chain_damage_add \
+	+ "+1 target at level 20\n" \
+	+ "+0.1 sec duration\n"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0
@@ -112,7 +99,7 @@ func tower_init():
 	autocast.auto_range = 300
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
+	return [autocast]
 
 
 func on_autocast(event: Event):

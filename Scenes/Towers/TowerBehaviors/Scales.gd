@@ -44,25 +44,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+52 spell damage\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Summons a storm cloud which attacks units in range.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage_for_electrify)
@@ -95,11 +76,17 @@ func tower_init():
 	multiboard.set_key(1, "Spell Crit Damage Bonus")
 	multiboard.set_key(2, "Spell Crit Chance Bonus")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Lightmare"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	autocast.description_short = "Summons a storm cloud which attacks units in range.\n"
+	autocast.description = "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+52 spell damage\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -113,7 +100,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_create(_preceding: Tower):

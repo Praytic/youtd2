@@ -42,12 +42,16 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 
 	tower_init()
 
-#	NOTE: must setup aura's after calling tower_init()
-#	because auras use buff types which are initialized
-#	inside tower_init().
+#	NOTE: must setup auras and autocasts after calling
+#	tower_init() because some auras and autocasts use buff
+#	types which are initialized inside tower_init().
 	var aura_type_list: Array[AuraType] = get_aura_types()
 	for aura_type in aura_type_list:
 		tower.add_aura(aura_type)
+
+	var autocast_list: Array[Autocast] = create_autocasts()
+	for autocast in autocast_list:
+		tower.add_autocast(autocast)
 
 	on_create(preceding_tower)
 
@@ -91,20 +95,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-# Override in subclass to define the description of tower
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
-func get_ability_description() -> String:
-	return ""
-
-
-# Same as get_ability_description() but shorter. Should not
-# contain any numbers.
-func get_ability_description_short() -> String:
-	return ""
-
-
 # Override in subclass to define ranges for abilities which
 # are not an aura or autocast. Ranges for auras and autocast
 # are displayed automatically and should not be included in
@@ -138,12 +128,20 @@ func tower_init():
 
 
 # Override in subclass to define auras.
-# NOTE: must be called after _stats is initialized.
+# NOTE: must be called after tower_init()
 func get_aura_types() -> Array[AuraType]:
 	var empty_list: Array[AuraType] = []
 
 	return empty_list
 
+
+# Override in subclass to define auras.
+# NOTE: must be called after tower_init()
+func create_autocasts() -> Array[Autocast]:
+	var empty_list: Array[Autocast] = []
+
+	return empty_list
+	
 
 # NOTE: tower.onCreate() in JASS
 func on_create(_preceding_tower: Tower):

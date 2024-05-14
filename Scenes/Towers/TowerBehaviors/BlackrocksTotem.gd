@@ -39,22 +39,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20% chance to permanently increase the damage it takes from fire towers by 3% (1% for bosses).\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08% damage from fire (on non boss)\n"
-	text += "+0.04% damage from fire (on bosses)\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from fire towers.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -85,11 +69,19 @@ func tower_init():
 	demonic_fire_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
 	demonic_fire_bt.add_event_on_damaged(demonic_fire_bt_on_damaged)
 
+	
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Demonic Fire"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
+	autocast.description_short = "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from fire towers.\n"
+	autocast.description = "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20% chance to permanently increase the damage it takes from fire towers by 3% (1% for bosses).\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.08% damage from fire (on non boss)\n" \
+	+ "+0.04% damage from fire (on bosses)\n"
+
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -103,7 +95,8 @@ func tower_init():
 	autocast.buff_type = demonic_fire_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+	
+	return [autocast]
 
 
 func on_attack(_event: Event):

@@ -66,31 +66,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var sacrifice_dmg_loss: String = Utils.format_percent(SACRIFICE_DMG_LOSS, 2)
-	var sacrifice_range: String = Utils.format_float(SACRIFICE_RANGE, 2)
-	var sacrifice_dmg_ratio: String = Utils.format_percent(_stats.sacrifice_dmg_ratio, 2)
-	var sacrifice_dmg_ratio_add: String = Utils.format_percent(SACRIFICE_DMG_RATIO_ADD, 2)
-	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
-
-	var text: String = ""
-
-	text += "This tower loses %s of its damage to boost the dps of a tower in %s range by %s of its total damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s bonus damage\n" % sacrifice_dmg_ratio_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower loses a portion of its damage to boost the dps of a nearby tower.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -130,11 +105,22 @@ func tower_init():
 	sacrifice_fatigue_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var sacrifice_dmg_loss: String = Utils.format_percent(SACRIFICE_DMG_LOSS, 2)
+	var sacrifice_range: String = Utils.format_float(SACRIFICE_RANGE, 2)
+	var sacrifice_dmg_ratio: String = Utils.format_percent(_stats.sacrifice_dmg_ratio, 2)
+	var sacrifice_dmg_ratio_add: String = Utils.format_percent(SACRIFICE_DMG_RATIO_ADD, 2)
+	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
+
 	autocast.title = "Sacrifice"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
+	autocast.description_short = "This tower loses a portion of its damage to boost the dps of a nearby tower.\n"
+	autocast.description = "This tower loses %s of its damage to boost the dps of a tower in %s range by %s of its total damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s bonus damage\n" % sacrifice_dmg_ratio_add
 	autocast.caster_art = "CarrionSwarmDamage.mdl"
 	autocast.target_art = "DeathPactCaster.mdl"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -148,7 +134,8 @@ func tower_init():
 	autocast.buff_type = sacrifice_boost_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

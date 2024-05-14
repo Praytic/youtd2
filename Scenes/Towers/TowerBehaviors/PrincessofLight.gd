@@ -46,33 +46,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var extract_chance: String = Utils.format_percent(EXTRACT_CHANCE, 2)
-	var extract_exp: String = Utils.format_float(_stats.extract_exp, 2)
-	var extract_exp_add: String = Utils.format_float(_stats.extract_exp_add, 2)
-	var extract_duration: String = Utils.format_float(EXTRACT_DURATION, 2)
-	var extract_count: String = Utils.format_float(EXTRACT_COUNT, 2)
-	var extract_count_add: String = Utils.format_float(EXTRACT_COUNT_ADD, 2)
-
-	var text: String = ""
-
-	text += "Casts a buff on a creep. Towers that damage this creep have a %s chance to extract %s experience. Buff lasts %s seconds or until %s extractions occur.\n" % [extract_chance, extract_exp, extract_duration, extract_count]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s experience\n" % extract_exp_add
-	text += "+%s extraction\n" % extract_count_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_targeted(on_spell_target)
 
@@ -94,11 +67,25 @@ func tower_init():
 	channel_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
 	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var extract_chance: String = Utils.format_percent(EXTRACT_CHANCE, 2)
+	var extract_exp: String = Utils.format_float(_stats.extract_exp, 2)
+	var extract_exp_add: String = Utils.format_float(_stats.extract_exp_add, 2)
+	var extract_duration: String = Utils.format_float(EXTRACT_DURATION, 2)
+	var extract_count: String = Utils.format_float(EXTRACT_COUNT, 2)
+	var extract_count_add: String = Utils.format_float(EXTRACT_COUNT_ADD, 2)
+
 	autocast.title = "Extract Experience"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/fire/fire_in_cup.tres"
+	autocast.description_short = "Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
+	autocast.description = "Casts a buff on a creep. Towers that damage this creep have a %s chance to extract %s experience. Buff lasts %s seconds or until %s extractions occur.\n" % [extract_chance, extract_exp, extract_duration, extract_count] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s experience\n" % extract_exp_add \
+	+ "+%s extraction\n" % extract_count_add
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -112,7 +99,8 @@ func tower_init():
 	autocast.buff_type = extract_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_spell_target(event: Event):

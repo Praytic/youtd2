@@ -18,41 +18,26 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_lunar_grace_description() -> String:
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
 	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
 	var damage_from_spells: String = Utils.format_percent(_stats.buff_power * 0.1 * 0.01, 2)
 	var damage_at_15: String = Utils.format_float(_stats.spell_damage_15 - _stats.spell_damage, 2)
 	var damage_from_spells_at_15: String = Utils.format_percent((_stats.buff_power_15 - _stats.buff_power)  * 0.1 * 0.01, 2)
 
-	var text: String = ""
-
-	text += "Smites a target creep dealing %s spelldamage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s inital and chanced spell damage\n" % spell_damage_add
-	text += "+0.5% chance\n"
-	text += "+%s initial damage at level 15\n" % damage_at_15
-	text += "+%s spell damage received at level 15\n" % damage_from_spells_at_15
-	text += "+0.1 seconds stun at level 25"
-
-	return text
-
-
-func get_lunar_grace_description_short() -> String:
-	var text: String = ""
-
-	text += "Smites a target creep with a chance to stun the creep and make it more vulnerable to spells.\n"
-
-	return text
-
-
-func tower_init():
-	var autocast: Autocast = Autocast.make()
 	autocast.title = "Lunar Grace"
-	autocast.description = get_lunar_grace_description()
-	autocast.description_short = get_lunar_grace_description_short()
 	autocast.icon = "res://Resources/Icons/orbs/moon.tres"
+	autocast.description_short = "Smites a target creep with a chance to stun the creep and make it more vulnerable to spells.\n"
+	autocast.description = "Smites a target creep dealing %s spelldamage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s inital and chanced spell damage\n" % spell_damage_add \
+	+ "+0.5% chance\n" \
+	+ "+%s initial damage at level 15\n" % damage_at_15 \
+	+ "+%s spell damage received at level 15\n" % damage_from_spells_at_15 \
+	+ "+0.1 seconds stun at level 25"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -67,8 +52,10 @@ func tower_init():
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
 
-	tower.add_autocast(autocast)
+	return [autocast]
 
+
+func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	var m: Modifier = Modifier.new()

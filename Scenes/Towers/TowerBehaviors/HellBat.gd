@@ -61,24 +61,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)
-
-	var text: String = ""
-
-	text += "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This tower engulfs itself in darkness, gaining power as if it's night.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -97,11 +79,16 @@ func tower_init():
 	swarm_st.data.swarm.start_radius = SWARM_START_RADIUS
 	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)
+
 	autocast.title = "Engulfing Darkness"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
+	autocast.description_short = "This tower engulfs itself in darkness, gaining power as if it's night.\n"
+	autocast.description = "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
 	autocast.caster_art = "AnimateDeadTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -115,7 +102,8 @@ func tower_init():
 	autocast.buff_type = darkness_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

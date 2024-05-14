@@ -26,22 +26,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "The Manipulator creates a field of time that inflicts future injuries upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "The Manipulator creates a field of time that inflicts future injuries upon creatures around him."
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 10)
 
@@ -66,11 +50,14 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Exp Exchanged")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Time Field"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/mechanical/compass.tres"
+	autocast.description_short = "The Manipulator creates a field of time that inflicts future injuries upon creatures around him."
+	autocast.description = "The Manipulator creates a field of time that inflicts future injuries upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
 	autocast.caster_art = "DrainCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -84,7 +71,8 @@ func tower_init():
 	autocast.buff_type = time_field_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

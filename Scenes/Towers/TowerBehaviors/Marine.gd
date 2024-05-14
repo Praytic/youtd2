@@ -48,30 +48,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var stim_attackspeed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
-	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
-	var stim_duration: String = Utils.format_float(STIM_DURATION, 2)
-	var stim_duration_add: String = Utils.format_float(STIM_DURATION_ADD, 2)
-
-	var text: String = ""
-
-	text += "This marine uses a stimpack, increasing its attackspeed by %s and decreasing its attackdamage by %s. This buff lasts %s seconds.\n" % [stim_attackspeed, stim_attack_dmg, stim_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % stim_duration_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This marine uses a stimpack, increasing its attackspeed and decreasing its attackdamage.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -96,11 +72,22 @@ func tower_init():
 	shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
 	shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var stim_attackspeed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
+	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
+	var stim_duration: String = Utils.format_float(STIM_DURATION, 2)
+	var stim_duration_add: String = Utils.format_float(STIM_DURATION_ADD, 2)
+
 	autocast.title = "Stim"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/rockets/rocket_06.tres"
+	autocast.description_short = "This marine uses a stimpack, increasing its attackspeed and decreasing its attackdamage.\n"
+	autocast.description = "This marine uses a stimpack, increasing its attackspeed by %s and decreasing its attackdamage by %s. This buff lasts %s seconds.\n" % [stim_attackspeed, stim_attack_dmg, stim_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % stim_duration_add
 	autocast.caster_art = "AvatarCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -114,7 +101,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

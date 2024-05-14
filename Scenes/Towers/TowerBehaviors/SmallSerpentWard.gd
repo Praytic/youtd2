@@ -13,35 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_autocast_description() -> String:
-	var mod_mana_max: String = Utils.format_percent(_stats.buff_power * 0.001, 2)
-	var mod_mana_max_add: String = Utils.format_percent(_stats.buff_power_add * 0.001, 2)
-	var mod_mana_regen: String = mod_mana_max
-	var mod_mana_regen_add: String = mod_mana_max_add
-	var mod_spell_damage: String = Utils.format_percent(_stats.buff_power * 0.0005, 2)
-	var mod_spell_damage_add: String = Utils.format_percent(_stats.buff_power_add * 0.0005, 2)
-
-	var text: String = ""
-
-	text += "Increases the target's maximum mana by %s, its mana regeneration by %s and its spell damage by %s. The buff lasts 5 seconds.\n" % [mod_mana_max, mod_mana_regen, mod_spell_damage]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s mana regeneration\n" % mod_mana_regen_add
-	text += "+%s mana \n" % mod_mana_max_add
-	text += "+%s spell damage\n" % mod_spell_damage_add
-	text += "+5 seconds duration at level 25\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "This unit will increase nearby towers' mana, mana regeneration and spell damage.\n"
-
-	return text
-
-
 func get_ability_ranges() -> Array[RangeData]:
 	return [RangeData.new("Snake Charm", 200, TargetType.new(TargetType.TOWERS))]
 
@@ -57,11 +28,27 @@ func tower_init():
 	charm_bt.set_stacking_group("charm_bt")
 	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var mod_mana_max: String = Utils.format_percent(_stats.buff_power * 0.001, 2)
+	var mod_mana_max_add: String = Utils.format_percent(_stats.buff_power_add * 0.001, 2)
+	var mod_mana_regen: String = mod_mana_max
+	var mod_mana_regen_add: String = mod_mana_max_add
+	var mod_spell_damage: String = Utils.format_percent(_stats.buff_power * 0.0005, 2)
+	var mod_spell_damage_add: String = Utils.format_percent(_stats.buff_power_add * 0.0005, 2)
+
 	autocast.title = "Snake Charm"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/undead/skull_wand_03.tres"
+	autocast.description_short = "This unit will increase nearby towers' mana, mana regeneration and spell damage.\n"
+	autocast.description = "Increases the target's maximum mana by %s, its mana regeneration by %s and its spell damage by %s. The buff lasts 5 seconds.\n" % [mod_mana_max, mod_mana_regen, mod_spell_damage] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s mana regeneration\n" % mod_mana_regen_add \
+	+ "+%s mana \n" % mod_mana_max_add \
+	+ "+%s spell damage\n" % mod_spell_damage_add \
+	+ "+5 seconds duration at level 25\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
@@ -75,7 +62,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 200
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

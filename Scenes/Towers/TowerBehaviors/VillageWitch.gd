@@ -37,29 +37,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_love_potion_description() -> String:
-	var potion_slow: String = Utils.format_percent(_stats.item_chance * 0.00125, 0)
-	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
-
-	var text: String = ""
-
-	text += "The witch throws a bottle of love potion on the target, slowing it by %s and increasing its item drop chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.375% slow\n"
-	text += "+0.3% Item drop chance\n"
-
-	return text
-
-
-func get_love_potion_description_short() -> String:
-	var text: String = ""
-
-	text += "The witch throws a bottle of love potion on the target, applying a slow and increase target's item drop chance.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -100,11 +77,21 @@ func tower_init():
 	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
 	missile_pt.enable_homing(cedi_love, 0.0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var potion_slow: String = Utils.format_percent(_stats.item_chance * 0.00125, 0)
+	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
+	
 	autocast.title = "Love Potion"
-	autocast.description = get_love_potion_description()
-	autocast.description_short = get_love_potion_description_short()
 	autocast.icon = "res://Resources/Icons/potions/potion_heart_02.tres"
+	autocast.description_short = "The witch throws a bottle of love potion on the target, applying a slow and increase target's item drop chance.\n"
+	autocast.description = "The witch throws a bottle of love potion on the target, slowing it by %s and increasing its item drop chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.375% slow\n" \
+	+ "+0.3% Item drop chance\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -118,7 +105,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1100
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

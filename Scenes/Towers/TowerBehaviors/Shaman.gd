@@ -18,33 +18,6 @@ const BLOODY_EXPERIENCE_RANGE: float = 250
 const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
 
 
-func get_autocast_description() -> String:
-	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
-	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
-	var bloodlust_attackspeed: String = Utils.format_percent(_stats.bloodlust_attackspeed, 2)
-	var bloodlust_attackspeed_add: String = Utils.format_percent(_stats.bloodlust_attackspeed_add, 2)
-
-	var text: String = ""
-
-	text += "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attackspeed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attackspeed, BLOODLUST_DURATION]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+x%s crit damage\n" % bloodlust_crit_damage_add
-	text += "+%s attackspeed\n" % bloodlust_attackspeed_add
-	text += "+%s seconds duration\n" % BLOODLUST_DURATION_ADD
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attackspeed.\n"
-
-	return text
-
-
-
 # NOTE: this tower's tooltip in original game includes
 # innate stats
 func load_specials(modifier: Modifier):
@@ -69,11 +42,24 @@ func tower_init():
 	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
+	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
+	var bloodlust_attackspeed: String = Utils.format_percent(_stats.bloodlust_attackspeed, 2)
+	var bloodlust_attackspeed_add: String = Utils.format_percent(_stats.bloodlust_attackspeed_add, 2)
+
 	autocast.title = "Bloodlust"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/masks/mask_07.tres"
+	autocast.description_short = "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attackspeed.\n"
+	autocast.description = "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attackspeed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attackspeed, BLOODLUST_DURATION] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+x%s crit damage\n" % bloodlust_crit_damage_add \
+	+ "+%s attackspeed\n" % bloodlust_attackspeed_add \
+	+ "+%s seconds duration\n" % BLOODLUST_DURATION_ADD
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -87,7 +73,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:

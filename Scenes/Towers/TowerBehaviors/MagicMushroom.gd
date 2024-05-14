@@ -37,23 +37,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Buffs a tower in 500 range, increasing its spell damage and trigger chances by 25%. Lasts 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2 sec duration\n"
-	text += "+1% spell damage\n"
-	text += "+1% trigger chances\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Buffs a tower in range, increasing its spell damage and trigger chances.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 20.0)
@@ -84,11 +67,19 @@ func tower_init():
 	multiboard.set_key(0, "Growths")
 	multiboard.set_key(1, "Spell Damage")
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Mystical Trance"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/masks/mask_05.tres"
+	autocast.description_short = "Buffs a tower in range, increasing its spell damage and trigger chances.\n"
+	autocast.description = "Buffs a tower in 500 range, increasing its spell damage and trigger chances by 25%. Lasts 5 seconds.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+0.2 sec duration\n" \
+	+ "+1% spell damage\n" \
+	+ "+1% trigger chances\n"
 	autocast.caster_art = "AIreTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -102,7 +93,8 @@ func tower_init():
 	autocast.buff_type = trance_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_damage(event: Event):

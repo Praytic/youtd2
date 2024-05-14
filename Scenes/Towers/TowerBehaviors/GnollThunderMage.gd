@@ -14,42 +14,29 @@ func get_tier_stats() -> Dictionary:
 const RECAST_CHANCE: float = 0.25
 
 
-func get_autocast_description() -> String:
+func tower_init():
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Thunder Shock Dmg")
+
+
+func create_autocasts() -> Array[Autocast]:
+	var autocast: Autocast = Autocast.make()
+
 	var recast_chance: String = Utils.format_percent(RECAST_CHANCE, 2)
 	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
 	var base_damage_add: String = Utils.format_float(_stats.base_damage_add, 2)
 	var damage_per_tower: String = Utils.format_float(_stats.damage_per_tower, 2)
 	var damage_per_tower_add: String = Utils.format_float(_stats.damage_per_tower_add, 2)
-
-	var text: String = ""
-
-	text += "Deals [%s + (%s x amount of player towers)] spell damage to a target creep. This ability has a %s chance to recast itself when cast. Maximum of 1 extra cast.\n" % [base_damage, damage_per_tower, recast_chance]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s base spelldamage\n" % base_damage_add
-	text += "+%s spelldamage per player tower\n" % damage_per_tower_add
-	text += "+1 extra cast at levels 15 and 25\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Releases a strong lightning on the target."
-
-	return text
-
-
-func tower_init():
-	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Thunder Shock Dmg")
-
-	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Thunder Shock"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
+	autocast.description_short = "Releases a strong lightning on the target."
+	autocast.description = "Deals [%s + (%s x amount of player towers)] spell damage to a target creep. This ability has a %s chance to recast itself when cast. Maximum of 1 extra cast.\n" % [base_damage, damage_per_tower, recast_chance] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s base spelldamage\n" % base_damage_add \
+	+ "+%s spelldamage per player tower\n" % damage_per_tower_add \
+	+ "+1 extra cast at levels 15 and 25\n"
 	autocast.caster_art = "PurgeBuffTarget.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -63,7 +50,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

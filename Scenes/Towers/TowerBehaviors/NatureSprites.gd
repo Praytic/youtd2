@@ -34,62 +34,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_autocast_description() -> String:
-	var exp_received: String = Utils.format_percent(EXP_RECEIVED, 2)
-	var exp_received_add: String = Utils.format_percent(EXP_RECEIVED_ADD, 2)
-	var spell_damage: String = Utils.format_percent(SPELL_DAMAGE_DEALT, 2)
-	var spell_damage_add: String = Utils.format_percent(SPELL_DAMAGE_DEALT_ADD, 2)
-	var crit_chance: String = Utils.format_percent(ATK_CRIT_CHANCE, 2)
-	var crit_chance_add: String = Utils.format_percent(ATK_CRIT_CHANCE_ADD, 2)
-	var damage_add_perc: String = Utils.format_percent(DAMAGE_ADD_PERC, 2)
-	var damage_add_perc_add: String = Utils.format_percent(DAMAGE_ADD_PERC_ADD, 2)
-	var buff_duration: String = Utils.format_percent(BUFF_DURATION, 2)
-	var buff_duration_add: String = Utils.format_percent(BUFF_DURATION_ADD, 2)
-	var attackspeed: String = Utils.format_percent(ATTACKSPEED, 2)
-	var attackspeed_add: String = Utils.format_percent(ATTACKSPEED_ADD, 2)
-	var item_chance: String = Utils.format_percent(ITEM_CHANCE, 2)
-	var item_chance_add: String = Utils.format_percent(ITEM_CHANCE_ADD, 2)
-
-	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
-	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
-	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-	var iron_string: String = Element.convert_to_colored_string(Element.enm.IRON)
-
-	var text: String = ""
-
-	text += "One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:\n"
-	text += "+%s experience for %s\n" % [exp_received, astral_string]
-	text += "+%s spell damage for %s\n" % [spell_damage, darkness_string]
-	text += "+%s crit chance for %s\n" % [crit_chance, nature_string]
-	text += "+%s damage for %s\n" % [damage_add_perc, fire_string]
-	text += "+%s buff duration for %s\n" % [buff_duration, ice_string]
-	text += "+%s attack speed for %s\n" % [attackspeed, storm_string]
-	text += "+%s item chance for %s\n" % [item_chance, iron_string]
-	text += "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s experience\n" % exp_received_add
-	text += "+%s spell damage\n" % spell_damage_add
-	text += "+%s crit chance\n" % crit_chance_add
-	text += "+%s damage\n" % damage_add_perc_add
-	text += "+%s buff duration\n" % buff_duration_add
-	text += "+%s attack speed\n" % attackspeed_add
-	text += "+%s item chance\n" % item_chance_add
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Buffs a tower, increasing stats depending on tower's element.\n"
-
-	return text
-
-
 func gift_create(event: Event):
 	var B: Buff = event.get_buff()
 	var target: Tower = B.get_buffed_unit()
@@ -196,11 +140,54 @@ func tower_init():
 	sprite_pt = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
 	sprite_pt.enable_homing(sprite_hit, 0)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var exp_received: String = Utils.format_percent(EXP_RECEIVED, 2)
+	var exp_received_add: String = Utils.format_percent(EXP_RECEIVED_ADD, 2)
+	var spell_damage: String = Utils.format_percent(SPELL_DAMAGE_DEALT, 2)
+	var spell_damage_add: String = Utils.format_percent(SPELL_DAMAGE_DEALT_ADD, 2)
+	var crit_chance: String = Utils.format_percent(ATK_CRIT_CHANCE, 2)
+	var crit_chance_add: String = Utils.format_percent(ATK_CRIT_CHANCE_ADD, 2)
+	var damage_add_perc: String = Utils.format_percent(DAMAGE_ADD_PERC, 2)
+	var damage_add_perc_add: String = Utils.format_percent(DAMAGE_ADD_PERC_ADD, 2)
+	var buff_duration: String = Utils.format_percent(BUFF_DURATION, 2)
+	var buff_duration_add: String = Utils.format_percent(BUFF_DURATION_ADD, 2)
+	var attackspeed: String = Utils.format_percent(ATTACKSPEED, 2)
+	var attackspeed_add: String = Utils.format_percent(ATTACKSPEED_ADD, 2)
+	var item_chance: String = Utils.format_percent(ITEM_CHANCE, 2)
+	var item_chance_add: String = Utils.format_percent(ITEM_CHANCE_ADD, 2)
+
+	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
+	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
+	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
+	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
+	var iron_string: String = Element.convert_to_colored_string(Element.enm.IRON)
+
 	autocast.title = "Nature's Gift"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/plants/leaf_03.tres"
+	autocast.description_short = "Buffs a tower, increasing stats depending on tower's element.\n"
+	autocast.description = "One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:\n" \
+	+ "+%s experience for %s\n" % [exp_received, astral_string] \
+	+ "+%s spell damage for %s\n" % [spell_damage, darkness_string] \
+	+ "+%s crit chance for %s\n" % [crit_chance, nature_string] \
+	+ "+%s damage for %s\n" % [damage_add_perc, fire_string] \
+	+ "+%s buff duration for %s\n" % [buff_duration, ice_string] \
+	+ "+%s attack speed for %s\n" % [attackspeed, storm_string] \
+	+ "+%s item chance for %s\n" % [item_chance, iron_string] \
+	+ "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s experience\n" % exp_received_add \
+	+ "+%s spell damage\n" % spell_damage_add \
+	+ "+%s crit chance\n" % crit_chance_add \
+	+ "+%s damage\n" % damage_add_perc_add \
+	+ "+%s buff duration\n" % buff_duration_add \
+	+ "+%s attack speed\n" % attackspeed_add \
+	+ "+%s item chance\n" % item_chance_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
@@ -214,7 +201,8 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_autocast(event: Event):

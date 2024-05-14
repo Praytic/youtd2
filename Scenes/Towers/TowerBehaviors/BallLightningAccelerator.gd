@@ -36,26 +36,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Decreases the attackspeed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "-0.1% attackspeed weakening\n"
-	text += "+0.04 mana per second\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	var text: String = ""
-
-	text += "Decreases attackspeed of all towers in range. Increases mana regeneration of the Accelerator.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -94,11 +74,19 @@ func tower_init():
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Energy Absorb"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/rings/ring_06.tres"
+	autocast.description_short = "Decreases attackspeed of all towers in range. Increases mana regeneration of the Accelerator.\n"
+	autocast.description = "Decreases the attackspeed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "-0.1% attackspeed weakening\n" \
+	+ "+0.04 mana per second\n"
+
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -112,7 +100,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(event: Event):

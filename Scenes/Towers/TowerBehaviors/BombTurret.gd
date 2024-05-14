@@ -19,77 +19,6 @@ const CONCUSSIVE_DURATION: float = 4.0
 const ACID_DURATION: float = 4.0
 
 
-func get_autocast_description_concussive() -> String:
-	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
-	var concussive_mod_movespeed: String = Utils.format_percent(_stats.concussive_mod_movespeed, 2)
-	var concussive_mod_movespeed_add: String = Utils.format_percent(_stats.concussive_mod_movespeed_add, 2)
-	var concussive_duration: String = Utils.format_float(CONCUSSIVE_DURATION, 2)
-
-	var text: String = ""
-
-	text += "Equips the tower with concussive bombs. Each attack slows all the creeps in a %s area around the target by %s for %s seconds.\n" % [bomb_radius, concussive_mod_movespeed, concussive_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s slow\n" % concussive_mod_movespeed_add
-
-	return text
-
-
-func get_autocast_description_concussive_short() -> String:
-	var text: String = ""
-
-	text += "Equips the tower with concussive bombs.\n"
-
-	return text
-
-
-func get_autocast_description_acid() -> String:
-	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
-	var acid_mod_armor: String = Utils.format_percent(_stats.acid_mod_armor, 2)
-	var acid_mod_armor_add: String = Utils.format_percent(_stats.acid_mod_armor_add, 2)
-	var acid_duration: String = Utils.format_float(ACID_DURATION, 2)
-
-	var text: String = ""
-
-	text += "Equips the tower with acid bombs. Each attack reduces the armor of all the creeps in a %s area around the target by %s for %s seconds.\n" % [bomb_radius, acid_mod_armor, acid_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s armor reduction\n" % acid_mod_armor_add
-
-	return text
-
-
-func get_autocast_description_acid_short() -> String:
-	var text: String = ""
-
-	text += "Equips the tower with acid bombs.\n"
-
-	return text
-
-
-func get_autocast_description_smoke() -> String:
-	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
-	var smoke_duration: String = Utils.format_float(_stats.smoke_duration, 2)
-	var smoke_duration_add: String = Utils.format_float(_stats.smoke_duration_add, 2)
-
-	var text: String = ""
-
-	text += "Equips the tower with smoke bombs. Each attack silences all the creeps in a %s area around the target for %s second.\n" % [bomb_radius, smoke_duration]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s seconds duration\n" % smoke_duration_add
-
-	return text
-
-
-func get_autocast_description_smoke_short() -> String:
-	var text: String = ""
-
-	text += "Equips the tower with smoke bombs.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -123,11 +52,31 @@ func tower_init():
 	smoke_tower_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
 	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
+
+func create_autocasts() -> Array[Autocast]:
+	var list: Array[Autocast] = []
+
+	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
+
+	var concussive_mod_movespeed: String = Utils.format_percent(_stats.concussive_mod_movespeed, 2)
+	var concussive_mod_movespeed_add: String = Utils.format_percent(_stats.concussive_mod_movespeed_add, 2)
+	var concussive_duration: String = Utils.format_float(CONCUSSIVE_DURATION, 2)
+
+	var acid_mod_armor: String = Utils.format_percent(_stats.acid_mod_armor, 2)
+	var acid_mod_armor_add: String = Utils.format_percent(_stats.acid_mod_armor_add, 2)
+	var acid_duration: String = Utils.format_float(ACID_DURATION, 2)
+
+	var smoke_duration: String = Utils.format_float(_stats.smoke_duration, 2)
+	var smoke_duration_add: String = Utils.format_float(_stats.smoke_duration_add, 2)
+
 	var autocast_concussive: Autocast = Autocast.make()
 	autocast_concussive.title = "Concussive Bombs"
-	autocast_concussive.description = get_autocast_description_concussive()
-	autocast_concussive.description_short = get_autocast_description_concussive_short()
 	autocast_concussive.icon = "res://Resources/Icons/orbs/orb_molten_dull.tres"
+	autocast_concussive.description_short = "Equips the tower with concussive bombs.\n"
+	autocast_concussive.description = "Equips the tower with concussive bombs. Each attack slows all the creeps in a %s area around the target by %s for %s seconds.\n" % [bomb_radius, concussive_mod_movespeed, concussive_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s slow\n" % concussive_mod_movespeed_add
 	autocast_concussive.caster_art = ""
 	autocast_concussive.target_art = ""
 	autocast_concussive.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -141,13 +90,16 @@ func tower_init():
 	autocast_concussive.buff_type = concussive_tower_bt
 	autocast_concussive.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_concussive.handler = on_autocast_concussive
-	tower.add_autocast(autocast_concussive)
+	list.append(autocast_concussive)
 
 	var autocast_acid: Autocast = Autocast.make()
 	autocast_acid.title = "Acid Bombs"
-	autocast_acid.description = get_autocast_description_acid()
-	autocast_acid.description_short = get_autocast_description_acid_short()
 	autocast_acid.icon = "res://Resources/Icons/fire/fire_bowl_03.tres"
+	autocast_acid.description_short = "Equips the tower with acid bombs.\n"
+	autocast_acid.description = "Equips the tower with acid bombs. Each attack reduces the armor of all the creeps in a %s area around the target by %s for %s seconds.\n" % [bomb_radius, acid_mod_armor, acid_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s armor reduction\n" % acid_mod_armor_add
 	autocast_acid.caster_art = ""
 	autocast_acid.target_art = ""
 	autocast_acid.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -161,13 +113,16 @@ func tower_init():
 	autocast_acid.buff_type = acid_tower_bt
 	autocast_acid.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_acid.handler = on_autocast_acid
-	tower.add_autocast(autocast_acid)
+	list.append(autocast_acid)
 
 	var autocast_smoke: Autocast = Autocast.make()
 	autocast_smoke.title = "Smoke Bombs"
-	autocast_smoke.description = get_autocast_description_smoke()
-	autocast_smoke.description_short = get_autocast_description_smoke_short()
 	autocast_smoke.icon = "res://Resources/Icons/misc/balls_02.tres"
+	autocast_smoke.description_short = "Equips the tower with smoke bombs.\n"
+	autocast_smoke.description = "Equips the tower with smoke bombs. Each attack silences all the creeps in a %s area around the target for %s second.\n" % [bomb_radius, smoke_duration] \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+%s seconds duration\n" % smoke_duration_add
 	autocast_smoke.caster_art = ""
 	autocast_smoke.target_art = ""
 	autocast_smoke.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -181,7 +136,9 @@ func tower_init():
 	autocast_smoke.buff_type = smoke_tower_bt
 	autocast_smoke.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_smoke.handler = on_autocast_smoke
-	tower.add_autocast(autocast_smoke)
+	list.append(autocast_smoke)
+
+	return list
 
 
 func on_damage(event: Event):

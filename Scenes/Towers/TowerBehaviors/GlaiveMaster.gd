@@ -68,22 +68,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage\n"
-	text += " \n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Create a [color=GOLD]Glaivesaw[/color] at the target location.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -111,11 +95,17 @@ func tower_init():
 	bounder_pt.enable_collision(bounder_pt_on_collision, 100, TargetType.new(TargetType.CREEPS), false)
 	bounder_pt.set_event_on_interpolation_finished(bounder_pt_on_finished)
 
+
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+	
 	autocast.title = "Glaivesaw"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/clubs/club_02.tres"
+	autocast.description_short = "Create a [color=GOLD]Glaivesaw[/color] at the target location.\n"
+	autocast.description = "Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+1% damage\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -129,7 +119,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func on_attack(_event: Event):

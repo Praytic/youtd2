@@ -54,22 +54,6 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+44 spell damage\n"
-	text += "+0.02 seconds\n"
-
-	return text
-
-
-func get_autocast_description_short() -> String:
-	return "Launches roots towards the target which will entangle creeps.\n"
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 950, TargetType.new(TargetType.CREEPS))
@@ -117,11 +101,17 @@ func tower_init():
 	thorned_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
+func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
 	autocast.title = "Entangling Roots"
-	autocast.description = get_autocast_description()
-	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Icons/plants/branch_01.tres"
+	autocast.description_short = "Launches roots towards the target which will entangle creeps.\n"
+	autocast.description = "Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.\n" \
+	+ " \n" \
+	+ "[color=ORANGE]Level Bonus:[/color]\n" \
+	+ "+44 spell damage\n" \
+	+ "+0.02 seconds\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -135,7 +125,8 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	tower.add_autocast(autocast)
+
+	return [autocast]
 
 
 func get_aura_types() -> Array[AuraType]:
