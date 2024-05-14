@@ -31,6 +31,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% of spell dps as damage\n"
+	ability.radius = 800
+	ability.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ability)
 
 	return list
