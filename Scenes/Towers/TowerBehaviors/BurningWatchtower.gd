@@ -103,7 +103,7 @@ func tower_init():
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(on_damage)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func on_damage(event: Event):
