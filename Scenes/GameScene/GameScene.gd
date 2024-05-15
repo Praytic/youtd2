@@ -53,6 +53,7 @@ func _ready():
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
 	EventBus.player_clicked_autocast.connect(_on_player_clicked_autocast)
 	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
+	EventBus.player_requested_return_from_horadric_cube.connect(_on_player_requested_return_from_horadric_cube)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 	EventBus.player_right_clicked_autocast.connect(_on_player_right_clicked_autocast)
 	EventBus.player_right_clicked_item_in_tower_inventory.connect(_on_player_right_clicked_item_in_tower_inventory)
@@ -690,6 +691,22 @@ func _on_player_requested_transmute():
 	
 	var action: Action = ActionTransmute.make()
 	_game_client.add_action(action)
+
+
+func _on_player_requested_return_from_horadric_cube():
+	var local_player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var items_in_horadric_stash: Array[Item] = horadric_stash.get_item_list()
+
+	var src_container_uid: int = horadric_stash.get_uid()
+	var dest_container_uid: int = item_stash.get_uid()
+
+	for item in items_in_horadric_stash:
+		var item_uid: int = item.get_uid()
+		var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid)
+		
+		_game_client.add_action(action)
 
 
 func _on_builder_menu_finished(builder_menu: BuilderMenu):

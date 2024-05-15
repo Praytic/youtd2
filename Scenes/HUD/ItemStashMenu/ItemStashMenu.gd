@@ -204,3 +204,7 @@ func _on_item_type_filter_container_filter_changed():
 # autofill
 func _on_item_horadric_lock_changed():
 	_update_autofill_buttons()
+
+
+func _on_return_button_pressed():
+	EventBus.player_requested_return_from_horadric_cube.emit()
