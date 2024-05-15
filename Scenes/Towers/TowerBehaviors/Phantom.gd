@@ -73,8 +73,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Wind Shear"
 	autocast.icon = "res://Resources/Icons/plants/leaf_02.tres"
-	autocast.description_short = "Increases the attack speed of a tower and gives it a chance to cast chainlightning.\n"
-	autocast.description = "Increases the attack speed of a tower in 300 range by %s and gives it a 25%% attack speed adjusted chance to cast a chain of lightning which deals %s initial spell damage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attack_speed, chain_damage] \
+	autocast.description_short = "Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.\n"
+	autocast.description = "Increases the attack speed of a tower in 300 range by %s and gives it a 25%% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals %s initial spell damage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attack_speed, chain_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% attack speed\n" \

@@ -24,11 +24,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning: AbilityInfo = AbilityInfo.new()
 	lightning.name = "Lightning Strike"
 	lightning.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
-	lightning.description_short = "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
-	lightning.description_full = "When this tower damages a target there is a %s chance that a lightning bolt strikes the target for %s damage.\n" % [strike_chance, strike_damage] \
+	lightning.description_short = "Whenever this tower hits a creep, there is a chance that a lightning bolt strikes the target, dealing spell damage.\n"
+	lightning.description_full = "Whenever this tower hits a creep, there is a %s chance that a lightning bolt strikes the target for %s spell damage.\n" % [strike_chance, strike_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % strike_damage_add \
+	+ "+%s spell damage\n" % strike_damage_add \
 	+ "+%s chance\n" % strike_chance_add
 	list.append(lightning)
 
@@ -69,7 +69,7 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Realm of Thunder"
 	aura.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
-	aura.description_short = "Makes nearby creeps more vulnerable to %s towers.\n" % storm_string
+	aura.description_short = "Increases the vulnerability of enemies in range to damage from %s towers.\n" % storm_string
 	aura.description_full = "Increases the vulnerability of enemies in %d range to damage from %s towers by %s.\n" % [AURA_RANGE, storm_string, mod_dmg_from_storm] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

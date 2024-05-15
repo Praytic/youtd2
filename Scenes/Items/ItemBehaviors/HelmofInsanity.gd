@@ -1,14 +1,6 @@
 extends ItemBehavior
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% damage on the next 16 attacks.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -38,7 +30,7 @@ func on_damage(event: Event):
 func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Insane Strength"
-	autocast.description = get_autocast_description()
+	autocast.description = "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% attack damage on the next 16 attacks.\n"
 	autocast.icon = "res://Resources/Icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""

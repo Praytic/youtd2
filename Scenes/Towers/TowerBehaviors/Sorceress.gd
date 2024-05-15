@@ -61,8 +61,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magic Missile"
 	ability.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
-	ability.description_short = "Whenever this tower attacks it launches a magic missile in the target's direction.\n"
-	ability.description_full = "Whenever this tower attacks it launches a magic missile in the target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n" \
+	ability.description_short = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction.\n"
+	ability.description_full = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% spell damage\n"

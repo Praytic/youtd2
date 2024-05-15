@@ -170,7 +170,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s experience for %s\n" % [exp_received, astral_string] \
 	+ "+%s spell damage for %s\n" % [spell_damage, darkness_string] \
 	+ "+%s crit chance for %s\n" % [crit_chance, nature_string] \
-	+ "+%s damage for %s\n" % [damage_add_perc, fire_string] \
+	+ "+%s attack damage for %s\n" % [damage_add_perc, fire_string] \
 	+ "+%s buff duration for %s\n" % [buff_duration, ice_string] \
 	+ "+%s attack speed for %s\n" % [attack_speed, storm_string] \
 	+ "+%s item chance for %s\n" % [item_chance, iron_string] \
@@ -180,7 +180,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s experience\n" % exp_received_add \
 	+ "+%s spell damage\n" % spell_damage_add \
 	+ "+%s crit chance\n" % crit_chance_add \
-	+ "+%s damage\n" % damage_add_perc_add \
+	+ "+%s attack damage\n" % damage_add_perc_add \
 	+ "+%s buff duration\n" % buff_duration_add \
 	+ "+%s attack speed\n" % attack_speed_add \
 	+ "+%s item chance\n" % item_chance_add

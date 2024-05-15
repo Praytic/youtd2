@@ -9,7 +9,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Drain Physical Energy[/color]\n"
-	text += "Whenever the carrier of this item hits a creep, the carrier gains 2% attack speed and the creep is slowed by 2%. Both effects are attack speed adjusted, last 5 seconds and stack up to 20 times.\n"
+	text += "Whenever the carrier hits the main target, the carrier gains 2% attack speed and the target is slowed by 2%. Both effects are attack speed adjusted, last 5 seconds and stack up to 20 times.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1 second duration\n"

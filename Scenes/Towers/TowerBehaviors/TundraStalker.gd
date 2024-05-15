@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frenzy"
 	ability.icon = "res://Resources/Icons/undead/skull_03.tres"
-	ability.description_short = "Gains a permanent bonus to attack speed each time [color=GOLD]Ice Claw[/color] is cast.\n"
+	ability.description_short = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased permanently.\n"
 	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)
 
@@ -65,7 +65,7 @@ func tower_init():
 	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
-	ice_claw_bt.set_buff_tooltip("Ice Claw\nDeals damage over time and reduces movement speed.")
+	ice_claw_bt.set_buff_tooltip("Ice Claw\nDeals spell damage over time and reduces movement speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Speed Bonus")
@@ -80,8 +80,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Ice Claw"
 	autocast.icon = "res://Resources/Icons/magic/claw_02.tres"
-	autocast.description_short = "Causes the target creep to be slowed and suffer damage over time.\n"
-	autocast.description = "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount] \
+	autocast.description_short = "Causes the target creep to be slowed and suffer spell damage over time.\n"
+	autocast.description = "Ravages a target creep in 850 range, causing it to be slowed by %s and suffer %s spell damage per second. Effect lasts 5 seconds.\n" % [slow_amount, spell_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage per second\n" % spell_damage_add \

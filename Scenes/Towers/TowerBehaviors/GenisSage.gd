@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var speed_cast: AbilityInfo = AbilityInfo.new()
 	speed_cast.name = "Speed Cast"
 	speed_cast.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
-	speed_cast.description_short = "Chance to increase trigger chances and attack speed.\n"
+	speed_cast.description_short = "Whenever Genis uses one of his abilities, he has a chance to increase trigger chances and attack speed.\n"
 	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attack speed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -35,19 +35,19 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var aqua_edge: AbilityInfo = AbilityInfo.new()
 	aqua_edge.name = "Aqua Edge"
 	aqua_edge.icon = "res://Resources/Icons/animals/fish_02.tres"
-	aqua_edge.description_short = "Chance to launch 3 blades of water at target.\n"
-	aqua_edge.description_full = "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 damage to each creep it passes through. Costs 15 mana.\n" \
+	aqua_edge.description_short = "Each attack has a chance to launch 3 blades of water at target, which deal spell damage.\n"
+	aqua_edge.description_full = "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 spell damage to each creep it passes through. Costs 15 mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
-	+ "+150 damage\n"
+	+ "+150 spell damage\n"
 	list.append(aqua_edge)
 
 	var spread: AbilityInfo = AbilityInfo.new()
 	spread.name = "Spread"
 	spread.icon = "res://Resources/Icons/magic/claw_02.tres"
-	spread.description_short = "Chance to lift creeps up for in AoE around the damaged creep.\n"
-	spread.description_full = "Whenever Genis damages a creep, he has a 10% chance to lift creeps up for 0.8 seconds in a 250 AoE around the damaged creep. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n" \
+	spread.description_short = "Whenever this tower hits a creep, it has a chance to lift up creeps near the main target and deal spell damage to affected creeps.\n"
+	spread.description_full = "Whenever this tower hits a creep, it has a 10% chance to lift up creeps in 250 AoE around the main target for 0.8 seconds. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance\n" \

@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Warsong Double Bass - Aura[/color]\n"
-	text += "The catchy Bass Line of the drums increases the attack speed of towers in 200 range, by 7.5%.\n"
+	text += "The catchy Bass Line of the drums increases attack speed of towers in 200 range by 7.5%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1% attack speed\n"

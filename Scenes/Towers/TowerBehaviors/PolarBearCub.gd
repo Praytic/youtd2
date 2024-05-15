@@ -21,8 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Cold Feet"
 	ability.icon = "res://Resources/Icons/furniture/furniture.tres"
-	ability.description_short = "On attack this tower decreases its attack speed while increasing its damage.\n"
-	ability.description_full = "On attack this tower cools down decreasing its attack speed by 5%% and increasing the damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase \
+	ability.description_short = "On attack this tower decreases its attack speed while increasing its attack damage.\n"
+	ability.description_full = "On attack this tower cools down decreasing its attack speed by 5%% while increasing attack damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-1% attack speed reduction at level 15 and 25\n"

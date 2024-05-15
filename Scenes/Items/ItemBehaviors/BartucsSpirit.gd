@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Bartuc's Spirit[/color]\n"
-	text += "Every 10th attack will release a burst of magic doing 2000 spell damage to units in a range of 300 around the target.\n"
+	text += "Every 10th attack will release a burst of magic dealing 2000 spell damage in 300 AoE around the attack target.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+80 spell damage\n"

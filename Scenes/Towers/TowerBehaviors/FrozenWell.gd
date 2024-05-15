@@ -13,8 +13,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var freezing_mist: AbilityInfo = AbilityInfo.new()
 	freezing_mist.name = "Freezing Mist"
 	freezing_mist.icon = "res://Resources/Icons/gems/crystal.tres"
-	freezing_mist.description_short = "When this tower damages a creep it will be slowed.\n"
-	freezing_mist.description_full = "When this tower damages a creep it will be slowed by 15% for 10 seconds.\n" \
+	freezing_mist.description_short = "Whenever this tower hits a creep, it will be slowed.\n"
+	freezing_mist.description_full = "Whenever this tower hits a creep, it will be slowed by 15% for 10 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% slow\n"

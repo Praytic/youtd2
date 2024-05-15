@@ -9,20 +9,22 @@ const AURA_RANGE: int = 350
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
+
 	var list: Array[AbilityInfo] = []
 	
 	var glaive: AbilityInfo = AbilityInfo.new()
 	glaive.name = "Glaives of Wisdom"
 	glaive.icon = "res://Resources/Icons/hud/recipe_reassemble.tres"
-	glaive.description_short = "Every attack an extra glaive is shot out at the cost of mana.\n"
-	glaive.description_full = "Every attack an extra glaive is shot out at the cost of 40 mana. This glaive deals physical damage equal to Nortrom's attack damage and targets the creep with the least health in Nortrom's attack range.\n"
+	glaive.description_short = "Every attack an extra glaive is shot out at the cost of mana. The glaive deals %s damage.\n" % physical_string
+	glaive.description_full = "Every attack an extra glaive is shot out at the cost of 40 mana. This glaive deals %s damage equal to Nortrom's attack damage and targets the creep with the least health in Nortrom's attack range.\n" % physical_string
 	list.append(glaive)
 
 	var last_word: AbilityInfo = AbilityInfo.new()
 	last_word.name = "Last Word"
 	last_word.icon = "res://Resources/Icons/shields/shield_skull.tres"
-	last_word.description_short = "Nortrom deals more damage to silenced creeps.\n"
-	last_word.description_full = "If Nortrom attacks a silenced creep, then he does 20% more damage. This affects [color=GOLD]Glaives of Wisdom[/color] as well.\n" \
+	last_word.description_short = "Whenever Nortrom hits a creep, he deals more damage if the creep is silenced.\n"
+	last_word.description_full = "Whenever Nortrom hits a creep, he deals 20% more damage if the creep is silenced. This affects [color=GOLD]Glaives of Wisdom[/color] as well.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+3.2% damage\n"
@@ -67,7 +69,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Global Silence"
 	aura.icon = "res://Resources/Icons/TowerIcons/TinyStormLantern.tres"
 	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
-	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence targeted creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
+	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence attacked creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08% chance\n" \

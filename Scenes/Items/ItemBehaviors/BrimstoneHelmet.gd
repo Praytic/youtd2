@@ -7,7 +7,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Breath of Fire[/color]\n"
-	text += "On attack, this item can change the carrier's attacktype to %s at the cost of 100 charges. Regenerates 50 charges per attack. This effect is not visible on the tower itself.\n" % elemental_string
+	text += "On attack, this item can change the carrier's attack type to %s at the cost of 100 charges. Regenerates 50 charges per attack. This effect is not visible on the tower itself.\n" % elemental_string
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1 charge regenerated\n"

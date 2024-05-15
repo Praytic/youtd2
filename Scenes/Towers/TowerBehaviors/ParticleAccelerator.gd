@@ -26,11 +26,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var energy_accel: AbilityInfo = AbilityInfo.new()
 	energy_accel.name = "Energy Acceleration"
 	energy_accel.icon = "res://Resources/Icons/trinkets/trinket_10.tres"
-	energy_accel.description_short = "Every attack increases attack speed and damage.\n"
-	energy_accel.description_full = "Every attack increases attack speed and damage by %s.\n" % mod_value \
+	energy_accel.description_short = "Every attack increases attack speed and attack damage.\n"
+	energy_accel.description_full = "Every attack increases attack speed and attack damage by %s.\n" % mod_value \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack speed and damage\n" % mod_value_add
+	+ "+%s attack speed and attack damage\n" % mod_value_add
 	list.append(energy_accel)
 
 	var errant: AbilityInfo = AbilityInfo.new()

@@ -76,8 +76,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Poisonous Skin"
 	aura.icon = "res://Resources/Icons/TowerIcons/PoisonBattery.tres"
-	aura.description_short = "This and nearby towers gain a poisonous attack.\n"
-	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % [AURA_RANGE, dmg] \
+	aura.description_short = "This and nearby towers gain a poisonous attack, which deals spell damage.\n"
+	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.\n" % [AURA_RANGE, dmg] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage per second" % dmg_add

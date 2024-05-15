@@ -24,12 +24,12 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Gift of Nature"
 	aura.icon = "res://Resources/Icons/plants/leaf_03.tres"
-	aura.description_short = "All nearby towers have a chance to entangle creeps.\n"
-	aura.description_full = "All towers in %d range will receive a gift of nature. When a gifted tower attacks a creep there is a 10%% attack speed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 damage per second. Does not work on air units or bosses!\n" % AURA_RANGE \
+	aura.description_short = "All nearby towers have a chance to entangle creeps. Entangled creeps are immobile and suffer spell damage over time.\n"
+	aura.description_full = "All towers in %d range will receive a [color=GOLD]Gift of Nature[/color]. When a gifted tower attacks a creep there is a 10%% attack speed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 spell damage per second. Does not work on air units or bosses!\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance \n" \
-	+ "+35 additional damage\n"
+	+ "+35 additional spell damage\n"
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)

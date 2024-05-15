@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Wrath of the Storm"
 	ability.icon = "res://Resources/Icons/electricity/lightning_circle_cyan.tres"
-	ability.description_short = "This tower attacks random targets.\n"
+	ability.description_short = "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack.\n"
 	ability.description_full = "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack.\n"
 	list.append(ability)
 

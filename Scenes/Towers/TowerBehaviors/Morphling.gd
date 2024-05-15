@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var morphling_strike: AbilityInfo = AbilityInfo.new()
 	morphling_strike.name = "Morphling Strike"
 	morphling_strike.icon = "res://Resources/Icons/misc/poison_01.tres"
-	morphling_strike.description_short = "Every time this tower damages a unit, it has a chance to launch 3 projectiles to random creeps.\n"
-	morphling_strike.description_full = "Every time this tower damages a unit, if it has at least 25 stacks of [color=GOLD]Morph: Might[/color] or [color=GOLD]Morph: Swiftness[/color], there is a 20%% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if [color=GOLD]Morph: Might[/color] has at least 25 stacks, the projectiles deal additional spell damage equal to 25%% of the tower's damage per second for 5 seconds; if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks, they slow the targets by 20%% and increase the damage they receive from %s by 15%% for 8 seconds.\n" % nature_string \
+	morphling_strike.description_short = "Every time this tower hits a creep, it has a chance to launch 3 projectiles to random creeps, dealing spell damage.\n"
+	morphling_strike.description_full = "Every time this tower hits a creep, if it has at least 25 stacks of [color=GOLD]Morph: Might[/color] or [color=GOLD]Morph: Swiftness[/color], there is a 20%% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if [color=GOLD]Morph: Might[/color] has at least 25 stacks, the projectiles deal additional spell damage equal to 25%% of the tower's damage per second for 5 seconds; if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks, they slow the targets by 20%% and increase the damage they receive from %s by 15%% for 8 seconds.\n" % nature_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+60 damage\n" \
@@ -41,8 +41,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var evolve: AbilityInfo = AbilityInfo.new()
 	evolve.name = "Evolve"
 	evolve.icon = "res://Resources/Icons/plants/tree.tres"
-	evolve.description_short = "Every time it casts [color=GOLD]Morphling Strike[/color], this tower permanently gains power, depending on current Morph stacks.\n"
-	evolve.description_full = "Every time it casts Morphling Strike, this tower permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
+	evolve.description_short = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains power, depending on current [color=GOLD]Morph/color] stacks.\n"
+	evolve.description_full = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
 	list.append(evolve)
 
 	return list
@@ -145,7 +145,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_adapt.title = "Adapt"
 	autocast_adapt.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
 	autocast_adapt.description_short = "Stops the effect of morphs.\n"
-	autocast_adapt.description = "Stops the effect of morphs, leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
+	autocast_adapt.description = "Stops the effect of [color=GOLD]Morphs[/color], leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
 	autocast_adapt.caster_art = ""
 	autocast_adapt.target_art = ""
 	autocast_adapt.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -171,10 +171,7 @@ func on_attack(_event: Event):
 
 	if adapt_buff == null:
 		if damage_buff != null && damage_buff.get_level() < 50:
-			print("apply might!")
-			print("tower.get_buff_of_type(might_bt)=", tower.get_buff_of_type(might_bt))
 			might_bt.apply(tower, tower, damage_buff.get_level() + 1)
-			print("tower.get_buff_of_type(might_bt)=", tower.get_buff_of_type(might_bt))
 		elif speed_buff != null && speed_buff.get_level() < 50:
 			swiftness_bt.apply(tower, tower, speed_buff.get_level() + 1)
 

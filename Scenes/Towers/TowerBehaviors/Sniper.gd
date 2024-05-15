@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rocket Strike"
 	ability.icon = "res://Resources/Icons/rockets/rocket_01.tres"
-	ability.description_short = "Has a chance to deal splash damage when attacking.\n"
-	ability.description_full = "30%% chance to fire a rocket towards the attacked unit. On impact it deals %s damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage \
+	ability.description_short = "Whenever this tower attacks, it has a chance to deal AoE spell damage around the main target.\n"
+	ability.description_full = "Whenever this tower attacks, it has a 30%% chance to fire a rocket towards the main target. On impact it deals %s spell damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \

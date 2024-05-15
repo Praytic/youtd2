@@ -20,10 +20,10 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Release Lightning"
 	autocast.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
 	autocast.description_short = "Releases a lightning bolt."
-	autocast.description = "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage \
+	autocast.description = "This tower releases a lightning bolt that strikes the target for %s spell damage.\n" % damage \
 	+ " \n" \
 	+"[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % damage_add
+	+ "+%s spell damage\n" % damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

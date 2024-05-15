@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Earth and Moon[/color]\n"
-	text += "Every 15 seconds the carrier has its trigger chances increased by 25% for 5 seconds.\n"
+	text += "Every 15 seconds, the carrier has its trigger chances increased by 25% for 5 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% trigger chance\n"

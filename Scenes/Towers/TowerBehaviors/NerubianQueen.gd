@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Inject Parasite"
 	ability.icon = "res://Resources/Icons/animals/spider_03.tres"
-	ability.description_short = "When the Queen damages a creep she has a chance to inject a parasite. Each second the creep will suffer spell damage and will permanently lose a portion of its armor.\n"
-	ability.description_full = "When the Queen damages a creep she has a 30% chance to inject a parasite that lives for 10 seconds. Each second the creep will suffer 500 spell damage and will permanently lose 2% armor. When an infected creep dies, the Nerubian Queen will gain 0.75% permanent bonus attack damage and the parasite will attempt to jump to another host in 500 range.\n" \
+	ability.description_short = "Whenever the Queen hits a creep, she has a chance to inject it with a parasite. Each second the creep will suffer spell damage and will permanently lose a portion of its armor.\n"
+	ability.description_full = "Whenever the Queen hits a creep, she has a 30% chance to inject it with a parasite that lives for 10 seconds. Each second the creep will suffer 500 spell damage and will permanently lose 2% armor. When an infected creep dies, the Nerubian Queen will gain 0.75% permanent bonus attack damage and the parasite will attempt to jump to another host in 500 range.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance \n" \

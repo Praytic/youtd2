@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Illuminate"
 	ability.icon = "res://Resources/Icons/staves/wand_glowing.tres"
-	ability.description_short = "Attacks make the target grant more experience once killed.\n"
-	ability.description_full = "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
+	ability.description_short = "Whenever this tower hits a creep, it makes the creep grant more experience once killed.\n"
+	ability.description_full = "Whenever this tower hits a creep, it debuffs the creep, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s experience\n" % exp_bonus_add \

@@ -37,8 +37,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Revenge of Souls"
 	aura.icon = "res://Resources/Icons/masks/mask_06.tres"
-	aura.description_short = "This tower gains permanent bonus damage and experience every time a creep dies near the tower.\n"
-	aura.description_full = "This tower gains %s permanent bonus damage and %s experience every time a creep in %d range dies.\n" % [soul_damage, soul_experience, AURA_RANGE] \
+	aura.description_short = "This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.\n"
+	aura.description_full = "This tower gains %s permanent bonus attack damage and %s experience every time a creep in %d range dies.\n" % [soul_damage, soul_experience, AURA_RANGE] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage per kill\n" % soul_damage_add

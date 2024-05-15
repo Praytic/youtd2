@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Slumbering Parasite"
 	ability.icon = "res://Resources/Icons/TowerIcons/NerubianQueen.tres"
-	ability.description_short = "This tower deals additional %s damage after a short delay and increases target's vulnerability to %s.\n" % [decay_string, nature_string]
-	ability.description_full = "On attack this tower injects an ancient parasite into its target, which surfaces after 3 seconds dealing this tower's attack damage as %s damage to the target. Each parasite increases the creep's vulnerability to %s towers by %s.\n" % [decay_string, nature_string, vuln_value] \
+	ability.description_short = "Whenever this tower hits a creep, it injects a [color=GOLD]Slumbering Parasite[/color]. [color=GOLD]Slumbering Parasite[/color] deals %s damage to the target and increases creep's vulnerability to %s towers.\n" % [decay_string, nature_string]
+	ability.description_full = "Whenever this tower hits a creep, it injects a [color=GOLD]Slumbering Parasite[/color]. [color=GOLD]Slumbering Parasite[/color] surfaces after 3 seconds dealing this tower's attack damage as %s damage to the target. Each additional [color=GOLD]Slumbering Parasite[/color] increases creep's vulnerability to %s towers by %s.\n" % [decay_string, nature_string, vuln_value] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s %s vulnerability\n" % [vuln_value_add, nature_string]
@@ -51,7 +51,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	parasite_bt = BuffType.new("parasite_bt", 0, 0, false, self)
 	parasite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
-	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
+	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals Decay damage when the parasite surfaces.")
 
 
 func on_damage(event: Event):

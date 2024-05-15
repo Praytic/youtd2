@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Essence Attack[/color]\n"
-	text += "The carrier of this item deals 100% attack damage against all armor types.\n"
+	text += "Carrier's attacks deal 100% attack damage against all armor types.\n"
 
 	return text
 

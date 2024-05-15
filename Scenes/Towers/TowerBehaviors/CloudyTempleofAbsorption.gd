@@ -67,7 +67,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast1: Autocast = Autocast.make()
 	autocast1.title = "Cloudy Thunderstorm"
 	autocast1.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
-	autocast1.description_short = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range.\n"
+	autocast1.description_short = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range, dealing spell damage.\n"
 	autocast1.description = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n" \
 	+ " \n" \
 	+ "This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.\n" \

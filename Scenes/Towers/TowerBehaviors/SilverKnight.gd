@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var transmute: AbilityInfo = AbilityInfo.new()
 	transmute.name = "Transmute"
 	transmute.icon = "res://Resources/Icons/mechanical/gold_machine.tres"
-	transmute.description_short = "This tower has a chance on attack to turn a lesser creep into gold.\n"
-	transmute.description_full = "This tower has a %s chance on attack to turn a non boss, non champion target into %s additional gold immediately.\n" % [transmute_chance, transmute_gold] \
+	transmute.description_short = "Whenever this tower hits a creep, it has a chance to turn a lesser creep into gold.\n"
+	transmute.description_full = "Whenever this tower hits a creep, it has a %s chance to turn the creep into %s additional gold immediately. Doesn't work on bosses and champions.\n" % [transmute_chance, transmute_gold] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % transmute_chance_add
@@ -34,8 +34,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var gold_gree: AbilityInfo = AbilityInfo.new()
 	gold_gree.name = "Gold Gree"
 	gold_gree.icon = "res://Resources/Icons/misc/gold_cart.tres"
-	gold_gree.description_short = "On attack this tower deals spell damage which scales with current player gold.\n"
-	gold_gree.description_full = "On attack this tower deals [color=GOLD][%s x squareroot (current gold)][/color] spell damage to its target.\n" % gold_greed_value
+	gold_gree.description_short = "Whenever this tower hits a creep, it deals extra spell damage which scales with current player gold.\n"
+	gold_gree.description_full = "Whenever this tower hits a creep, it deals extra [color=GOLD][%s x squareroot (current gold)][/color] spell damage to its target.\n" % gold_greed_value
 	list.append(gold_gree)
 
 	return list

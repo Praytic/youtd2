@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Reward the Faithful[/color]\n"
-	text += "Whenever the carrier of this item casts a spell on a friendly tower both towers gain 1 experience.\n"
+	text += "Whenever the carrier casts a spell on a friendly tower, both towers gain 1 experience.\n"
 
 	return text
 

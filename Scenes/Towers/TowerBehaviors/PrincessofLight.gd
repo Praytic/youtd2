@@ -35,11 +35,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Channel Energy"
 	ability.icon = "res://Resources/Icons/gems/earring_05.tres"
-	ability.description_short = "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus damage.\n"
-	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
+	ability.description_short = "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus attack damage.\n"
+	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus attack damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % channel_mod_dmg_add \
+	+ "+%s attack damage\n" % channel_mod_dmg_add \
 	+ "+%s seconds duration\n" % channel_buff_duration_add
 	list.append(ability)
 

@@ -30,12 +30,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning_shock: AbilityInfo = AbilityInfo.new()
 	lightning_shock.name = "Lightning Shock"
 	lightning_shock.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
-	lightning_shock.description_short = "This tower has a chance to release a lightning shock when attacking.\n"
-	lightning_shock.description_full = "This tower has a %s chance to deal %s spell damage to its target, whenever it deals damage. This ability has a %s bonus chance to crit with %s bonus damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
+	lightning_shock.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps, dealing spell damage.\n"
+	lightning_shock.description_full = "Whenever this tower hits a creep, it has a %s chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps. [color=GOLD]Lightning Shock[/color] deals %s spell damage and has a %s bonus chance to crit with %s bonus spell damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % shock_chance_add \
-	+ "+%s damage\n" % shock_damage_add
+	+ "+%s spell damage\n" % shock_damage_add
 	list.append(lightning_shock)
 
 	return list
@@ -69,7 +69,7 @@ func get_aura_types() -> Array[AuraType]:
 	
 	aura.name = "Lightning Charge"
 	aura.icon = "res://Resources/Icons/TowerIcons/BallLightningAccelerator.tres"
-	aura.description_short = "Increases spell damage of nearby towers.\n"
+	aura.description_short = "Towers in range have their spell damage increased.\n"
 	aura.description_full = "Towers in %d range have their spell damage increased by %s.\n" % [AURA_RANGE, mod_spell_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

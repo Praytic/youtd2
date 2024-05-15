@@ -27,14 +27,15 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 	var mod_value: String = Utils.format_percent(_stats.mod_value * 0.1 * 0.01, 2)
 	var mod_value_add: String = Utils.format_percent(_stats.mod_value_add * 0.1 * 0.01, 2)
+	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
 
 	var list: Array[AbilityInfo] = []
 	
 	var power_of_light: AbilityInfo = AbilityInfo.new()
 	power_of_light.name = "Power of Light"
 	power_of_light.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
-	power_of_light.description_short = "The mighty holy light weakens undead creeps.\n"
-	power_of_light.description_full = "The mighty holy light weakens undead creeps for %s seconds, so they will receive %s more attack and spell damage.\n" % [duration, mod_value] \
+	power_of_light.description_short = "On hit, the mighty holy light weakens %s creeps.\n" % undead_string
+	power_of_light.description_full = "On hit, the mighty holy light weakens %s creeps for %s seconds, so they will receive %s more attack and spell damage.\n" % [undead_string, duration, mod_value] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds\n" % duration_add \

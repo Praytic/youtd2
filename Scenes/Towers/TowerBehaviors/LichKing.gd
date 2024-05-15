@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var icy_curse: AbilityInfo = AbilityInfo.new()
 	icy_curse.name = "Icy Curse"
 	icy_curse.icon = "res://Resources/Icons/furniture/furniture.tres"
-	icy_curse.description_short = "Curses creeps it damages, increasing their debuff duration.\n"
-	icy_curse.description_full = "Curses creeps it damages for 5 seconds, increasing their debuff duration by 30%.\n"
+	icy_curse.description_short = "Whenever this tower hits a creep, it increases creep's debuff duration.\n"
+	icy_curse.description_full = "Whenever this tower hits a creep, it increases creep's debuff duration by 30% for 5 seconds.\n"
 	list.append(icy_curse)
 
 	return list
@@ -57,7 +57,7 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "King's Authority"
 	aura.icon = "res://Resources/Icons/helmets/helmet_07.tres"
-	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished.\n"
+	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished and suffer spell damage.\n"
 	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spell damage for every second it was under this aura's effect.\n" % AURA_RANGE \
 	+ "If a creep dies in this area of authority, the spell damage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spell damage.\n" \
 	+ " \n" \

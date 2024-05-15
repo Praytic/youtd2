@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Exchange[/color]\n"
-	text += "Every 15 seconds the wielder converts a flat 2 experience into 7 gold.\n"
+	text += "Every 15 seconds, the wielder converts a flat 2 experience into 7 gold.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-0.3 seconds cooldown.\n"

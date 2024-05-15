@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Frog Piper[/color]\n"
-	text += "Has a 20% chance on attack to summon 4 frogs that deal 100% attack damage when they hit an enemy.\n"
+	text += "Gives carrier attacks a 20% chance to summon 4 frogs that deal 100% attack damage when they hit an enemy.\n"
 	text += " \n"
 	text += "Frogs cannot hit air.\n"
 

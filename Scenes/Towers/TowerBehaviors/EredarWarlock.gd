@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var shadowbolt: AbilityInfo = AbilityInfo.new()
 	shadowbolt.name = "Shadowbolt Wave"
 	shadowbolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_purple.tres"
-	shadowbolt.description_short = "Has a chance to release a wave of shadowbolts.\n"
+	shadowbolt.description_short = "Every autocast has a chance to release a wave of shadowbolts. Shadowbolts deal spell damage.\n"
 	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This spell has a 40%% chance to trigger if the last autocast released a shadowbolt wave.\n" % [bolt_count, bolt_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -105,8 +105,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Slow Decay"
 	aura.icon = "res://Resources/Icons/faces/green_demon.tres"
-	aura.description_short = "Eredar Diabolist will instantly kill all low health creeps in range.\n"
-	aura.description_full = "Non-boss units in %d range around the Eredar Diabolist with less then 5.5%% of their healthpoints will be killed.\n" % AURA_RANGE \
+	aura.description_short = "Eredar Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.\n"
+	aura.description_full = "Creeps in %d range around the Eredar Diabolist with less then 5.5%% of their healthpoints will be killed. Doesn't work on bosses.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.06% healthpoints needed for instantkill\n"

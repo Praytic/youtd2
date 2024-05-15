@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var valors_light: AbilityInfo = AbilityInfo.new()
 	valors_light.name = "Valor's Light"
 	valors_light.icon = "res://Resources/Icons/TowerIcons/SmallLight.tres"
-	valors_light.description_short = "Damages and slows creeps coming in range of this tower.\n"
+	valors_light.description_short = "Deals spell damage and slows creeps coming in range of this tower.\n"
 	valors_light.description_full = "Whenever a creep comes within 800 range of this tower it takes an initial 2000 spell damage per second and its movement speed is decreased by 30%. The damage and slow of this ability decay by 50% every second. Lasts 5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -77,8 +77,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "We Will Not Fall!"
 	aura.icon = "res://Resources/Icons/animals/rooster_warrior.tres"
-	aura.description_short = "Increases the attack and spell damage of all towers in range.\n"
-	aura.description_full = "Increases the attack and spell damage of all towers in %d range by 0.5%% for each percent of lost lives. If the team has more than 100%% lives, towers will deal less damage!\n" % AURA_RANGE \
+	aura.description_short = "Increases the attack damage and spell damage of all towers in range.\n"
+	aura.description_full = "Increases the attack damage and spell damage of all towers in %d range by 0.5%% for each percent of lost lives. If the team has more than 100%% lives, towers will deal less damage!\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.02% more spell and attack damage\n"

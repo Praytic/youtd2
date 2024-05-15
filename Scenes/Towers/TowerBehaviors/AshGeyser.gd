@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
 	ability.icon = "res://Resources/Icons/misc/teapot_04.tres"
-	ability.description_short = "Damages a target over time and makes decreases target's health regeneration.\n"
-	ability.description_full = "The geyser has a 30%% chance on damaging a creep to ignite the target, dealing 15%% of the tower's attack damage as spell damage per second and reducing the target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals a portion of tower's attack damage as spell damage per second and reduces target's health regeneration.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a 30%% chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals 15%% of tower's attack damage as spell damage per second and reduces target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% attack damage\n" \
@@ -55,7 +55,7 @@ func ignite_bt_periodic(event: Event):
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 8, 0, false, self)
 	ignite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
-	ignite_bt.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
+	ignite_bt.set_buff_tooltip("On Fire\nDeals spell damage over time and reduces health regeneration.")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.05, -0.001)

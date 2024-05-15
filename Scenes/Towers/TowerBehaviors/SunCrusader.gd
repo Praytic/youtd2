@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Blessed Weapon"
 	ability.icon = "res://Resources/Icons/holy/cross_01.tres"
-	ability.description_short = "Everytime this tower damages a creep it has a chance to deal spell damage and gain mana.\n"
-	ability.description_full = "Everytime this tower damages a creep it has a %s chance to deal %s spell damage and gain %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance a chance to deal spell damage and restore mana.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a chance a %s chance to deal %s spell damage and restore %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % blessed_weapon_damage_add \

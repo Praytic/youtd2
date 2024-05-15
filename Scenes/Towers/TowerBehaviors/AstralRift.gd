@@ -19,8 +19,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var spacial_rift: AbilityInfo = AbilityInfo.new()
 	spacial_rift.name = "Spacial Rift"
 	spacial_rift.icon = "res://Resources/Icons/furniture/exploding_mirror.tres"
-	spacial_rift.description_short = "This tower has chance to move damaged creeps back by 175 units.\n"
-	spacial_rift.description_full = "Whenever this tower damages a creep it has a 10% chance to move that creep back by 175 units. Upon triggering there is a further 15% chance that all creeps in 175 AoE of the target will also be moved back 175 units. Costs 30 mana. Chance is halved for bosses.  The original target and creeps around it will get startled and become slowed by 30% for 2 seconds in a 250 AoE.\n" \
+	spacial_rift.description_short = "Whenever this tower hits a creep, it has a chance to move it back by 175 units.\n"
+	spacial_rift.description_full = "Whenever this tower hits a creep, it has a 10% chance to move it back by 175 units. Upon triggering there is a further 15% chance that all creeps in 175 AoE of the target will also be moved back 175 units. Costs 30 mana. Chance is halved for bosses.  The original target and creeps around it will get startled and become slowed by 30% for 2 seconds in a 250 AoE.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance to move creep\n" \
@@ -56,11 +56,11 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Presence of the Rift"
 	aura.icon = "res://Resources/Icons/clubs/club_glowing.tres"
-	aura.description_full = "The Astral Rift's presence is so powerful that it damages creeps equal to 200%% of their movement speed every second in an area of %d.\n" % AURA_RANGE \
+	aura.description_full = "The Astral Rift's presence is so powerful that it deals spell damage to creeps equal to 200%% of their movement speed every second in an area of %d.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+16% damage increase\n"
-	aura.description_short = "Deals periodic damage to creeps in range, scaled by their movement speed.\n"
+	aura.description_short = "Deals periodic spell damage to creeps in range, scaled by their movement speed.\n"
 	
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)

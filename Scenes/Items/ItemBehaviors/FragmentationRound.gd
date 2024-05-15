@@ -9,7 +9,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Fragmentation Round[/color]\n"
-	text += "When attacking, the carrier of this item has a 40% chance to hit up to 2 other creeps within 500 range of the main target with fragments that deal 45% of the damage and cause hit creeps to take 40% more damage from further fragments and splash damage for the next 5 seconds.\n"
+	text += "Whenever the carrier hits the main target, it has a 40% chance to hit up to 2 other creeps within 500 range of the main target with fragments. Fragments deal 45% of the attack damage and cause creeps to take 40% more damage from further fragments for the next 5 seconds. Fragments also cause creeps to take 40% extra damage from splash attacks for the next 5 seconds.\n"
 
 	return text
 

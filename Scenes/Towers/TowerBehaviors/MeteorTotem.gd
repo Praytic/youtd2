@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Torture"
 	ability.icon = "res://Resources/Icons/TowerIcons/AshGeyser.tres"
-	ability.description_short = "Targets damaged by this tower are debuffed. Whenever a debuffed creep takes damage it receives additional spell damage.\n"
-	ability.description_full = "Targets damaged by this tower are debuffed for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attack damage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
+	ability.description_short = "Whenever this tower hits a creep, it debufs it. Whenever a debuffed creep takes attack damage it receives additional spell damage.\n"
+	ability.description_full = "Whenever this tower hits a creep, it debufs it for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attack damage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.05 seconds duration\n" \
@@ -63,7 +63,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Attraction"
 	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
 	autocast.description_short = "This tower buffs 4 towers in range and gives them a chance to release a meteor when attacking or casting spells.\n"
-	autocast.description = "This tower buffs 4 towers in 500 range and gives them a 35% attack speed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released.\n" \
+	autocast.description = "This tower buffs 4 towers in 500 range and gives them a 35% attack speed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released. Meteor damage is dealt by the buffed tower.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 tower buffed every 5 levels\n" \

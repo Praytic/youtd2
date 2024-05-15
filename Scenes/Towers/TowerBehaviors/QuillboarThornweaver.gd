@@ -66,11 +66,12 @@ func create_autocasts() -> Array[Autocast]:
 	var quillspray_range: String = Utils.format_float(QUILLSPRAY_RANGE, 2)
 	var double_chance: String = Utils.format_percent(_stats.double_chance, 2)
 	var triple_chance: String = Utils.format_percent(_stats.triple_chance, 2)
+	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 
 	autocast.title = "Quillspray"
 	autocast.icon = "res://Resources/Icons/spears/many_spears_01.tres"
-	autocast.description_short = "This tower releases thorns from its back, damaging every unit in range.\n"
-	autocast.description = "This tower deals %s of its attack damage as physical damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max] \
+	autocast.description_short = "This tower releases thorns from its back, dealing %s damage to every unit in range.\n" % physical_string
+	autocast.description = "This tower deals %s of its attack damage as %s damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, physical_string, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max] \
 	+ " \n" \
 	+ "Hint: Save mana to amplify the effect of this ability.\n" \
 	+ " \n" \

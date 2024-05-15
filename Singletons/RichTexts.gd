@@ -101,7 +101,7 @@ func get_tower_info_short(tower: Tower) -> String:
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
 	if attack_enabled:
 		text += "[color=YELLOW]Attack type:[/color] %s\n" % [attack_type_string]
-		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, [color=GOLD]%d[/color] range\n" % [dps, attack_range]
+		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] DPS, [color=GOLD]%d[/color] range\n" % [dps, attack_range]
 		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
 
 	if overall_mana != 0:
@@ -152,7 +152,7 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
 	if attack_enabled:
-		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] DPS, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
 
 	if mana > 0:
 		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]

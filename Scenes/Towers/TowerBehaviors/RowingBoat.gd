@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var pirates: AbilityInfo = AbilityInfo.new()
 	pirates.name = "Pirates"
 	pirates.icon = "res://Resources/Icons/TowerIcons/DutchmansGrave.tres"
-	pirates.description_short = "Grants gold on attack.\n"
+	pirates.description_short = "This tower plunders gold each attack.\n"
 	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
 	list.append(pirates)
 

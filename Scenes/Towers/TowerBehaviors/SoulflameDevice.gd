@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var soulfire: AbilityInfo = AbilityInfo.new()
 	soulfire.name = "Soulfire"
 	soulfire.icon = "res://Resources/Icons/fire/flame_purple.tres"
-	soulfire.description_short = "Chance to ignite the creep's soul.\n"
-	soulfire.description_full = "Attacks have a 20% chance to ignite the creep's soul, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
+	soulfire.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Soulfire[/color] which deals spell damage.\n"
+	soulfire.description_full = "Whenever this tower hits a creep, it has a 20% chance to apply [color=GOLD]Soulfire[/color] which deals 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \

@@ -30,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var feral_aggression: AbilityInfo = AbilityInfo.new()
 	feral_aggression.name = "Feral Aggression"
 	feral_aggression.icon = "res://Resources/Icons/animals/rooster_warrior.tres"
-	feral_aggression.description_short = "On every critical hit this tower gains permanent bonus damage.\n"
-	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus damage. This bonus is permanent and has a maximum of %s bonus damage.\n" % [feral_dmg_gain, feral_dmg_max]
+	feral_aggression.description_short = "On every critical hit this tower gains permanent bonus attack damage.\n"
+	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus attack damage. This bonus is permanent and has a maximum of %s bonus attack damage.\n" % [feral_dmg_gain, feral_dmg_max]
 	list.append(feral_aggression)
 
 	var bloodthirst: AbilityInfo = AbilityInfo.new()

@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Warming Up"
 	ability.icon = "res://Resources/Icons/magic/fire.tres"
 	ability.description_short = "This tower is a bit old and has lost the accuracy it had in the past.\n"
-	ability.description_full = "Each attack of this tower has a %s chance to miss the target.\n" % miss_chance_base \
+	ability.description_full = "Whenever this tower hits a creep, it has a %s chance to miss.\n" % miss_chance_base \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-0.6% miss chance\n"

@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frost"
 	ability.icon = "res://Resources/Icons/orbs/orb_ice.tres"
-	ability.description_short = "Slows the attacked creep.\n"
-	ability.description_full = "A creep hit by one of this tower's shots is slowed by %s for 9 seconds.\n" % slow_amount \
+	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Frost[/color]. [color=GOLD]Frost[/color] slows the creep.\n"
+	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Frost[/color]. [color=GOLD]Frost[/color] slows the creep by %s for 9 seconds.\n" % slow_amount \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow\n" % slow_amount_add \
@@ -93,11 +93,11 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Battery Overload"
 	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
-	autocast.description_short = "Starts attacking very fast until out of mana.\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies [color=GOLD]Frost[/color].\n" % [projectile_damage] \
+	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Frost[/color].\n"
+	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Frost[/color].\n" % [projectile_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % projectile_damage_add
+	+ "+%s spell damage\n" % projectile_damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

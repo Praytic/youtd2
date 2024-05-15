@@ -30,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Steal"
 	ability.icon = "res://Resources/Icons/gloves/steal.tres"
-	ability.description_short = "The Thief has a chance to get gold when he damages a creep.\n"
-	ability.description_full = "Every time the thief damages a creep there is a 10%% chance he steals %s gold.\n" % gold \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to steal gold.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a 10%% chance to steal %s gold.\n" % gold \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s gold\n" % gold_add \

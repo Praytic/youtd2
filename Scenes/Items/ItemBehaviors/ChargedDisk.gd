@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Power Supply[/color]\n"
-	text += "The carrier deals 8% of its goldcost as spell damage per attack. This amount is attack speed adjusted.\n"
+	text += "Whenever the carrier hits the main target, it deals 8% of its goldcost as spell damage. This amount is attack speed adjusted.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1% goldcost as spell damage\n"

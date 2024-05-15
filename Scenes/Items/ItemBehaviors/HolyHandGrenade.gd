@@ -5,10 +5,12 @@ var grenade_pt: ProjectileType
 
 
 func get_ability_description() -> String:
+	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
+
 	var text: String = ""
 
 	text += "[color=GOLD]Big Badaboom[/color]\n"
-	text += "Whenever the owner of this item attacks it has a 15% chance to launch a holy missile which deals 75% of the damage the last attack dealt as spell damage in 400 AoE around the target unit. Deals 50% more damage against undead.\n"
+	text += "Whenever the carrier hits the main target, it has a 15%% chance to launch a holy missile which deals 75%% of the damage the last attack dealt as spell damage in 400 AoE around the main target. Deals 50%% more damage against %s.\n" % undead_string
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% damage\n"
@@ -47,9 +49,9 @@ func on_damage(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
-	CombatLog.log_item_ability(item, null, "Big Badaboom")
-
 	if event.is_main_target():
+		CombatLog.log_item_ability(item, null, "Big Badaboom")
+		
 		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:
 			r = r * 1.5
 

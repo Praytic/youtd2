@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var unstable_energies: AbilityInfo = AbilityInfo.new()
 	unstable_energies.name = "Unstable Energies"
 	unstable_energies.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
-	unstable_energies.description_short = "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
-	unstable_energies.description_full = "This tower has a 28%% chance on damage to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
+	unstable_energies.description_short = "Whenever this tower hits a creep, it has a chance to release a powerful energy blast at the cost of some mana, dealing %s damage.\n" % elemental_attack_type_string
+	unstable_energies.description_full = "Whenever this tower hits a creep, it has a 28%% chance to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.48% chance\n" \
@@ -74,8 +74,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Mana Distortion Field"
 	aura.icon = "res://Resources/Icons/magic/magic_stone.tres"
-	aura.description_short = "Nearby towers burn creep mana when attacking.\n"
-	aura.description_full = "Towers in %d range burn %s mana on attack, costing the drake %s mana. The mana burned and spent is attack speed and range adjusted and the tower deals %s spell damage per mana point burned.\n" % [AURA_RANGE, buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
+	aura.description_short = "Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.\n"
+	aura.description_full = "Whenever a tower in %d range attacks, it burn %s mana from the main target. The mana burn costs the Drake %s mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals %s spell damage per mana point burned.\n" % [AURA_RANGE, buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage per mana point burned\n" % damage_per_mana_point_add

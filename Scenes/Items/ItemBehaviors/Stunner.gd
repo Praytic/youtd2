@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Stun[/color]\n"
-	text += "When the carrier of this item attacks a creep there is a 15% attack speed adjusted chance to stun the target for 1 second. Has only a [color=GOLD]1/3[/color] of the normal chance to trigger on bosses!\n"
+	text += "Whenever the carrier hits the main target, it has a 15% attack speed adjusted chance to stun the target for 1 second. Has only a [color=GOLD]1/3[/color] of the normal chance to trigger on bosses!\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.25% chance\n"

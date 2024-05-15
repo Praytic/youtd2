@@ -25,10 +25,10 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Dwarven Polish"
 	aura.icon = "res://Resources/Icons/swords/greatsword_04.tres"
 	aura.description_short = "Increases item quality of towers in range.\n"
-	aura.description_full = "Increases the item quality ratio of friendly towers in %d range including itself by 15%%.\n" % AURA_RANGE \
+	aura.description_full = "Increases the item quality of friendly towers in %d range including itself by 15%%.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% quality ratio\n"
+	+ "+0.4% item quality\n"
 	
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)

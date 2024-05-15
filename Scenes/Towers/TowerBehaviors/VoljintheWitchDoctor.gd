@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var serpent_ward: AbilityInfo = AbilityInfo.new()
 	serpent_ward.name = "Serpent Ward"
 	serpent_ward.icon = "res://Resources/Icons/TowerIcons/SmallSerpentWard.tres"
-	serpent_ward.description_short = "Chance to summon 1 of 2 Serpent Wards to assist him. Each Ward attacks a random target in range.\n"
-	serpent_ward.description_full = "Vol'jin has an 18% chance on attack to summon 1 of 2 Serpent Wards to assist him. Each ward lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each Ward attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack. Wards can not be resummoned and their duration cannot be refreshed.\n" \
+	serpent_ward.description_short = "Whenever Vol'jin attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
+	serpent_ward.description_full = "Whenever Vol'jin attacks, he has a 18% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% attack damage\n" \
@@ -46,8 +46,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var purify: AbilityInfo = AbilityInfo.new()
 	purify.name = "Purify"
 	purify.icon = "res://Resources/Icons/holy/white_trinket.tres"
-	purify.description_short = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt. This ability has a 4 second cooldown\n"
-	purify.description_full = "Whenever Vol'jin deals damage he purges all buffs and debuffs from his target, increasing his damage dealt on that attack by 12% for each purged effect. This ability has a 4 second cooldown.\n" \
+	purify.description_short = "Whenever Vol'jin hits a creep, it purges all buffs and debuffs and deals bonus attack damage based on the purge count. This ability has a 4 second cooldown\n"
+	purify.description_full = "Whenever Vol'jin hits a creep, it purges all buffs and debuffs and deals bonus 12% attack damage for each purged effect. This ability has a 4 second cooldown.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-0.04 seconds cooldown\n" \
@@ -76,7 +76,7 @@ func tower_init():
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)
-	maledict_bt.set_buff_tooltip("Maledict\nDeals damage in the future.")
+	maledict_bt.set_buff_tooltip("Maledict\nDeals spell damage on expiry.")
 
 	voljin_pt = ProjectileType.create("SerpentWardMissile.mdl", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)
@@ -87,8 +87,8 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Maledict"
 	autocast.icon = "res://Resources/Icons/undead/monster_hand.tres"
-	autocast.description_short = "Vol'jin jinxes all units in range. \n"
-	autocast.description = "Vol'jin jinxes all units in 800 range around him. Targets caught by the jinx are dealt 15% of the damage they received as spell damage after 8 seconds. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n" \
+	autocast.description_short = "Vol'jin jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.\n"
+	autocast.description = "Vol'jin jinxes all units in 800 range with [color=GOLD]Maledict[/color] which will deal spell damage to the target after 8 seconds. The damage is equal to 15% of the total damage received by the target while [color=GOLD]Maledict[/color] was active. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.14% damage per stack\n"

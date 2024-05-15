@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Curse of the Grave[/color]\n"
-	text += "This item has a 0.25% attack speed adjusted chance on attack to instantly kill the target. Doesn't work on bosses and champions.\n"
+	text += "Whenever the carrier attacks, it has a 0.25% attack speed adjusted chance to instantly kill the main target. Doesn't work on bosses and champions.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.01% chance\n"

@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rend"
 	ability.icon = "res://Resources/Icons/clubs/club_glowing.tres"
-	ability.description_short = "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
-	ability.description_full = "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Rend[/color]. [color=GOLD]Rend[/color] deals spell damage over time and makes the creep vulnerable to spell damage.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a 25%% chance to apply [color=GOLD]Rend[/color]. [color=GOLD]Rend[/color] makes the creep suffer %s increased spell damage and deals %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% chance\n" \
@@ -48,7 +48,7 @@ func tower_init():
 	rend_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
 	rend_bt.add_periodic_event(drol_tentacleDamage, 1)
 	rend_bt.set_buff_modifier(m)
-	rend_bt.set_buff_tooltip("Rend\nDeals damage over time and increases spell damage taken.")
+	rend_bt.set_buff_tooltip("Rend\nDeals spell damage over time and increases spell damage taken.")
 
 
 func drol_tentacleDamage(event: Event):

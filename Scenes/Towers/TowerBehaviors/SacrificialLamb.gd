@@ -103,6 +103,7 @@ func tower_init():
 	sacrifice_fatigue_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
 	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
+
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
@@ -114,8 +115,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Sacrifice"
 	autocast.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
-	autocast.description_short = "This tower loses a portion of its damage to boost the dps of a nearby tower.\n"
-	autocast.description = "This tower loses %s of its damage to boost the dps of a tower in %s range by %s of its total damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration] \
+	autocast.description_short = "This tower loses a portion of its attack damage to boost the DPS of a nearby tower.\n"
+	autocast.description = "This tower loses %s of its attack damage to boost the DPS of a tower in %s range by %s of its total attack damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s bonus damage\n" % sacrifice_dmg_ratio_add

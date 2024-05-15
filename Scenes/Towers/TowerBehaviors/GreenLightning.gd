@@ -40,8 +40,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var burst: AbilityInfo = AbilityInfo.new()
 	burst.name = "Lightning Burst"
 	burst.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
-	burst.description_short = "Grants a chance to deal extra spell damage on each attack, resets spell crit bonus of Mana Feed.\n"
-	burst.description_full = "Grants a 12.5%% chance to deal %s times current mana as spell damage on attack.\n" % damage_from_mana_multiplier \
+	burst.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n"
+	burst.description_full = "Whenever this tower hits a creep, it has a 12.5%% chance to deal %s times current mana as spell damage. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n" % damage_from_mana_multiplier \
 	+ " \n" \
 	+ "Resets the bonus spell crit of 'Mana Feed'.\n" \
 	+ " \n" \

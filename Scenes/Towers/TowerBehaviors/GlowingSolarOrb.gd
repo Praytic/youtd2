@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Afterglow"
 	ability.icon = "res://Resources/Icons/gloves/heal.tres"
-	ability.description_short = "Has a chance to melt armor of damaged units.\n"
-	ability.description_full = "The Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease \
+	ability.description_short = "Has a chance to melt armor of attacked units.\n"
+	ability.description_full = "The Orb has a 5%% chance to reduce armor of attacked units by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \

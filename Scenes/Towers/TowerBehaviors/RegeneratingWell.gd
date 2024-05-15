@@ -38,7 +38,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Replenish"
 	autocast.icon = "res://Resources/Icons/plants/flower_01.tres"
 	autocast.description_short = "Restores mana of nearby towers.\n"
-	autocast.description = "Restores %s (only half on towers of this family) of each towers maximum mana for towers in %s range.\n" % [replenish_mana, replenish_range] \
+	autocast.description = "Restores %s of each towers maximum mana for towers in %s range. Restores only half the amount for towers of the same family.\n" % [replenish_mana, replenish_range] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s maximum mana\n" % replenish_mana_add

@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var plague: AbilityInfo = AbilityInfo.new()
 	plague.name = "Plague"
 	plague.icon = "res://Resources/Icons/undead/skull_04.tres"
-	plague.description_short = "When a creep is damaged by this tower it will become infected with [color=GOLD]Plague[/color].\n"
-	plague.description_full = "When a creep is damaged by this tower it will become infected with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
+	plague.description_short = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color] which deals spell damage over time.\n"
+	plague.description_full = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 spell damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+30 damage\n" \
@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var army: AbilityInfo = AbilityInfo.new()
 	army.name = "Army of the Damned"
 	army.icon = "res://Resources/Icons/shields/shield_skull.tres"
-	army.description_short = "If there is a corpse in range, this tower will extract its soul.\n"
-	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and damage by 5% and [color=GOLD]Plague's[/color] rate of spread by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones.\n" \
+	army.description_short = "If there is a corpse in range, this tower will extract its soul increasing its attack speed and attack damage. This will also increase the rate of spread of [color=GOLD]Plague[/color].\n"
+	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and attack damage by 5%. This will also increase the rate of spread of [color=GOLD]Plague[/color] by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4 seconds duration\n"

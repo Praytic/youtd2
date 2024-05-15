@@ -19,8 +19,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var electrified_attack: AbilityInfo = AbilityInfo.new()
 	electrified_attack.name = "Electrified Attack"
 	electrified_attack.icon = "res://Resources/Icons/trinkets/claw_03.tres"
-	electrified_attack.description_short = "Zeus's attacks deal additional AoE spell damage.\n"
-	electrified_attack.description_full = "Zeus's attacks deal an additional 500 spell damage in 175 AoE around their target.\n" \
+	electrified_attack.description_short = "Whenever Zeus hits the main target, he deals additional AoE spell damage.\n"
+	electrified_attack.description_full = "Whenever Zeus hits the main target, he deals an additional 500 spell damage in 175 AoE around their target.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+20 spell damage\n"

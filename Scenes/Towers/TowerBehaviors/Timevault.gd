@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var time_travel: AbilityInfo = AbilityInfo.new()
 	time_travel.name = "Time Travel"
 	time_travel.icon = "res://Resources/Icons/mechanical/compass.tres"
-	time_travel.description_short = "Damaged targets will be teleported back in time after a delay.\n"
-	time_travel.description_full = "Damaged targets will be teleported 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, all others will be always teleported.\n" \
+	time_travel.description_short = "Whenever this tower hits a creep, it teleports the creep back in time after a delay. Has a lower chance for bosses.\n"
+	time_travel.description_full = "Whenever this tower hits a creep, it teleports the creep 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, other creeps will be always teleported.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% chance for bosses\n"

@@ -17,7 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var flaming_inferno: AbilityInfo = AbilityInfo.new()
 	flaming_inferno.name = "Flaming Inferno"
 	flaming_inferno.icon = "res://Resources/Icons/TowerIcons/GeothermalExtractor.tres"
-	flaming_inferno.description_short = "Occasionally releases fireballs that deal AoE damage.\n"
+	flaming_inferno.description_short = "This tower occasionally releases 3 fireballs random creeps in range. Fireballs deal AoE spell damage.\n"
 	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spell damage in 250 AoE around the target on impact.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

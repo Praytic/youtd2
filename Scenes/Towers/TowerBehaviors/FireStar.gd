@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var burn: AbilityInfo = AbilityInfo.new()
 	burn.name = "Burn!"
 	burn.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
-	burn.description_short = "When this tower damages a creep it will ignite it.\n"
-	burn.description_full = "When this tower damages a creep it will ignite and take the towers damage as attack damage every 2 seconds. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
+	burn.description_short = "Whenever this tower hits a creep, it will ignite it, dealing attack damage over time and slowing it.\n"
+	burn.description_full = "Whenever this tower hits a creep, it will ignite it and make it receive attack damage every 2 seconds. Ignite damage is equal to this tower's current attack damage. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+4% initial damage\n" \
@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var double_the_trouble: AbilityInfo = AbilityInfo.new()
 	double_the_trouble.name = "Double the Trouble"
 	double_the_trouble.icon = "res://Resources/Icons/cannons/cannon_05.tres"
-	double_the_trouble.description_short = "Chance to launch an additional projectile.\n"
-	double_the_trouble.description_full = "When this tower damages a creep it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n" \
+	double_the_trouble.description_short = "Whenever this tower hits a creep, it has a chance to launch an additional projectile which deals the same damage as a normal attack.\n"
+	double_the_trouble.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% chance\n"

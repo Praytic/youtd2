@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Mana Zap[/color]\n"
-	text += "The carrier's attacks zap away 8 mana from their target. Amount zapped is adjusted by attack speed and range.\n"
+	text += "Whenever the carrier hits the main target, it zaps away 8 mana from the target. Amount zapped is adjusted by attack speed and range.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6 mana\n"

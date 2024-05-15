@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Vicious Snow Ball"
 	ability.icon = "res://Resources/Icons/elements/storm.tres"
-	ability.description_short = "Hurls snowballs at the enemies heads.\n"
-	ability.description_full = "Throws a fast snowball on attack at the target's head when it's not facing this tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n" \
+	ability.description_short = "Whenever this tower attacks, it hurls a snowball at the target if the target is not facing the tower. Snowball deals spell damage.\n"
+	ability.description_full = "Whenever this tower attacks, it hurls a snowball at the target if the target is not facing the tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n" \
 	+ " \n" \
 	+ "Temple Crusher : If it hits side-on, does 120%% of its attack damage as spell damage and a %s second stun.\n" % stun_temple_duration \
 	+ " \n" \

@@ -12,7 +12,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Hippogryph Young[/color]\n"
-	text += "Grants a 15% attack speed adjusted chance on attack to release a hippogryph that attacks the target, dealing 1250 spell damage in 200 range of the target.\n"
+	text += "Whenever the carrier attacks, it has a 15% attack speed adjusted chance to release a hippogryph that attacks the target, dealing 1250 spell damage in 200 range of the target.\n"
 	text += " \n"
 	text += "Level Bonus:\n"
 	text += "+50 spell damage\n"

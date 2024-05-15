@@ -18,7 +18,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var attack_speed_bonus: String = Utils.format_percent((_stats.attack_speed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
@@ -31,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var goldrush: AbilityInfo = AbilityInfo.new()
 	goldrush.name = "Goldrush"
 	goldrush.icon = "res://Resources/Icons/gems/gem_01.tres"
-	goldrush.description_short = "The miner has a chance on attack to go into a goldrush, increasing attack speed and making each hit gain gold.\n"
-	goldrush.description_full = "The miner has a 20%% chance on attack to go into a goldrush, increasing attack speed by more than %s depending on the player's gold and making each hit gain %s gold. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attack_speed_bonus, goldrush_gold] \
+	goldrush.description_short = "The miner has a chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed and grants gold whenever this tower hits a creep.\n"
+	goldrush.description_full = "The miner has a 20%% chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed by more than %s depending on the player's gold and grants %s gold whenever this tower hits a creep. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attack_speed_bonus, goldrush_gold] \
 	+ " \n" \
 	+ "Hint: Check multiboard to view exact attack speed bonus\n" \
 	+ " \n" \

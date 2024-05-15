@@ -19,8 +19,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var dreadlord_slash: AbilityInfo = AbilityInfo.new()
 	dreadlord_slash.name = "Dreadlord Slash"
 	dreadlord_slash.icon = "res://Resources/Icons/daggers/dagger_07.tres"
-	dreadlord_slash.description_short = "Dreadlord deals extra damage based on current mana.\n"
-	dreadlord_slash.description_full = "Dreadlord deals 100% of his max mana in spell damage on attack. Costs 80 mana on each attack.\n" \
+	dreadlord_slash.description_short = "Whenever this tower hits a creep, it deals extra spell damage based on current mana.\n"
+	dreadlord_slash.description_full = "Whenever this tower hits a creep, it deals 100% of his max mana in spell damage. Costs 80 mana on each attack.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+4% spell damage\n"

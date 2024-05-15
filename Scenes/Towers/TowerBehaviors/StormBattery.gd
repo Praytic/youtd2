@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electrify"
 	ability.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
-	ability.description_short = "The Storm Battery's projectiles electrify their target.\n"
-	ability.description_full = "The Storm Battery's projectiles electrify their target for 9 seconds. Every time an electrified creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
+	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color]. [color=GOLD]Electrify[/color] makes the creep occasionally take extra damage\n"
+	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color] for 9 seconds. Everytime the [color=GOLD]Electrified[/color] creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.3% chance\n" \
@@ -97,11 +97,11 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Battery Overload"
 	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
-	autocast.description_short = "Starts attacking very fast until out of mana.\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s damage and applies [color=GOLD]Electrify[/color].\n" % [projectile_damage] \
+	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Electrify[/color].\n"
+	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Electrify[/color].\n" % [projectile_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % projectile_damage_add
+	+ "+%s spell damage\n" % projectile_damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

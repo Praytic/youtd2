@@ -27,12 +27,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burn"
 	ability.icon = "res://Resources/Icons/fire/torch.tres"
-	ability.description_short = "Let's %s towers deal more and more damage to the target, which will explode on death.\n" % [fire_string]
-	ability.description_full = "Starts to burn a target. On every further hit of a %s tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other %s towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [fire_string, bonus_damage, fire_string, bonus_damage_other, explode_damage] \
+	ability.description_short = "Whenever this tower hits a creep, it starts to burn it. Burned creep will receive extra damage from %s towers and explode after death, dealing AoE spell damage.\n" % [fire_string]
+	ability.description_full = "Whenever this tower hits a creep, it starts to burn it. Burned creep will receive extra damage from %s towers. On every further hit of a %s tower, the target will receive more bonus damage then before. Towers from the same family as this tower will increase the bonus damage by %s, any other %s towers by %s. If the unit dies, it explodes and deals %s spell damage to nearby units in a range of 200.\n" % [fire_string, fire_string, bonus_damage, fire_string, bonus_damage_other, explode_damage] \
 	+ "Lasts 5 seconds after the last attack of a %s tower.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage gain (Burning Structrues)\n" % bonus_damage_add \
+	+ "+%s damage gain (Same family towers)\n" % bonus_damage_add \
 	+ "+%s damage gain (Other %s towers)\n" % [bonus_damage_add_other, fire_string] \
 	+ "+0.12 seconds burn duration\n"
 	list.append(ability)

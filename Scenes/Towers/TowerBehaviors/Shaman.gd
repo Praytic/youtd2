@@ -81,8 +81,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Bloody Experience"
 	aura.icon = "res://Resources/Icons/gems/gem_07.tres"
-	aura.description_short = "Nearby towers receive experience every time they crit.\n"
-	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
+	aura.description_short = "Nearby towers receive experience every time they crit with an attack.\n"
+	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 level cap every 5 levels\n"

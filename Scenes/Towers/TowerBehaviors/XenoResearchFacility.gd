@@ -45,8 +45,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var sample: AbilityInfo = AbilityInfo.new()
 	sample.name = "Sample Collection"
 	sample.icon = "res://Resources/Icons/mechanical/alchemy_kit_01.tres"
-	sample.description_short = "Has a chance to collect a tissue sample from a damaged creep. Once researched, it will provide a bonus vs the race of that creep to nearby towers.\n"
-	sample.description_full = "Has a 25% chance to collect a tissue sample from a damaged creep. Once researched, it will provide a 5% bonus vs the race of that creep, through the [color=GOLD]Xeno Vulnerability Research Aura[/color]. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
+	sample.description_short = "Has a chance to collect a tissue sample from attacked creeps. Once researched, it will provide a bonus vs the race of that creep to nearby towers.\n"
+	sample.description_full = "Has a 25% chance to collect a tissue sample from attacked creeps. Once researched, it will provide a 5% bonus vs the race of that creep, through the [color=GOLD]Xeno Vulnerability Research Aura[/color]. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% chance to collect sample\n" \

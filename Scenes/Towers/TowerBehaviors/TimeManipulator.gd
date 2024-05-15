@@ -19,8 +19,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var future: AbilityInfo = AbilityInfo.new()
 	future.name = "Future Knowledge"
 	future.icon = "res://Resources/Icons/books/book_10.tres"
-	future.description_short = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds.\n"
-	future.description_full = "The Manipulator travels into the future to learn more and returns to where he left every 10 seconds, increasing his experience by 2. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
+	future.description_short = "Every 10 seconds, the Manipulator travels into the future to learn more and gain experience, then returns to where he left.\n"
+	future.description_full = "Every 10 seconds, the Manipulator travels into the future to learn more and gains 2 experience, then returns to where he left. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
 	list.append(future)
 
 	return list
@@ -56,8 +56,8 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Time Field"
 	autocast.icon = "res://Resources/Icons/mechanical/compass.tres"
-	autocast.description_short = "The Manipulator creates a field of time that inflicts future injuries upon creatures around him."
-	autocast.description = "The Manipulator creates a field of time that inflicts future injuries upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
+	autocast.description_short = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him."
+	autocast.description = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
 	autocast.caster_art = "DrainCaster.mdl"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

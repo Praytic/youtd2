@@ -25,19 +25,19 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var acid_skull: AbilityInfo = AbilityInfo.new()
 	acid_skull.name = "Acid Skull"
 	acid_skull.icon = "res://Resources/Icons/tower_variations/AshGeyser_green.tres"
-	acid_skull.description_short = "Chance to throw an Acid Skull onto the target and nearby units.\n"
-	acid_skull.description_full = "This tower has a 25% chance to throw an Acid Skull onto the target, dealing 1800 damage to the main target and 1440 damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \
+	acid_skull.description_short = "Whenever this tower attacks, it has a chance to throw an [color=GOLD]Acid Skull[/color] onto the main target and nearby units, dealing spell damage.\n"
+	acid_skull.description_full = "Whenever this tower attacks, it has a 25% chance to throw an [color=GOLD]Acid Skull[/color] onto the main target, dealing 1800 spell damage to the main target and 1440 spell damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+5% damage\n" \
+	+ "+5% spell damage\n" \
 	+ "+0.4% chance\n"
 	list.append(acid_skull)
 
 	var soulsteal: AbilityInfo = AbilityInfo.new()
 	soulsteal.name = "Soulsteal"
 	soulsteal.icon = "res://Resources/Icons/undead/skull_phazing.tres"
-	soulsteal.description_short = "Chance to lock target's soul. A unit without a soul will receive more spell damage.\n"
-	soulsteal.description_full = "This tower has a 12.5% chance to lock its target's soul. A unit without a soul will receive 50% more spell damage.\n" \
+	soulsteal.description_short = "Whenever this tower hits a creep, it has a chance to lock the target's soul. A unit without a soul will receive more spell damage.\n"
+	soulsteal.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to lock the target's soul. A unit without a soul will receive 50% more spell damage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.1% chance\n" \

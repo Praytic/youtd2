@@ -29,6 +29,7 @@ var glaivesaw_list: Array[Glaivesaw] = []
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
 
 	var list: Array[AbilityInfo] = []
@@ -36,8 +37,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lacerate: AbilityInfo = AbilityInfo.new()
 	lacerate.name = "Lacerate"
 	lacerate.icon = "res://Resources/Icons/daggers/dagger_07.tres"
-	lacerate.description_short = "This tower's attacks and abilities deal Lacerate damage.\n"
-	lacerate.description_full = "This tower's attacks and abilities deal [color=GOLD]Lacerate[/color] damage. 50%% of [color=GOLD]Lacerate[/color] damage is dealt immediately as Physical damage. 100%% of the remaining damage is dealt as %s damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" % decay_string \
+	lacerate.description_short = "This tower's attacks and abilities deal [color=GOLD]Lacerate[/color] damage. [color=GOLD]Lacerate[/color] splits normal damage into %s and %s damage over time.\n" % [physical_string, decay_string]
+	lacerate.description_full = "This tower's attacks and abilities deal [color=GOLD]Lacerate[/color] damage. 50%% of [color=GOLD]Lacerate[/color] damage is dealt immediately as %s damage. 100%% of the remaining damage is dealt as %s damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration. Damage over time is based on the target's movement speed, with faster movement increasing the damage dealt.\n" % [physical_string, decay_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage over time\n"
@@ -46,8 +47,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var glaive_storm: AbilityInfo = AbilityInfo.new()
 	glaive_storm.name = "Glaive Storm"
 	glaive_storm.icon = "res://Resources/Icons/daggers/dagger_02.tres"
-	glaive_storm.description_short = "Chance to throw an additional bouncing glaive at the target.\n"
-	glaive_storm.description_full = "Hits have a 5% chance to throw an additional glaive at the target, dealing 50% of attack damage as [color=GOLD]Lacerate[/color] damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n" \
+	glaive_storm.description_short = "Whenever this tower hits a creep, it has a chance to throw an additional bouncing glaive at the target.\n"
+	glaive_storm.description_full = "Whenever this tower hits a creep, it has a 5% chance to throw an additional bouncing glaive at the target, dealing 50% of attack damage as [color=GOLD]Lacerate[/color] damage before returning to the tower. When the glaive returns, it bounces to a new random target within attack range. Maximum of 20 hits.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance\n" \
@@ -57,8 +58,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var bounder: AbilityInfo = AbilityInfo.new()
 	bounder.name = "Bounder"
 	bounder.icon = "res://Resources/Icons/daggers/dagger_04.tres"
-	bounder.description_short = "Chance to throw a glaive at one of your [color=GOLD]Glaivesaws[/color].\n"
-	bounder.description_full = "Attacks have a 15% chance to throw a glaive at one of your [color=GOLD]Glaivesaws[/color]. The glaive will bounce to another [color=GOLD]Glaivesaw[/color], dealing 250% of attack damage as [color=GOLD]Lacerate[/color] damage to enemies it passes through.\n" \
+	bounder.description_short = "Attacks have a chance to throw a glaive at one of the [color=GOLD]Glaivesaws[/color].\n"
+	bounder.description_full = "Attacks have a 15% chance to throw a glaive towards one of the [color=GOLD]Glaivesaws[/color]. The glaive will bounce to another [color=GOLD]Glaivesaw[/color], dealing 250% of attack damage as [color=GOLD]Lacerate[/color] damage to enemies it passes through.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
@@ -98,7 +99,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Glaivesaw"
 	autocast.icon = "res://Resources/Icons/clubs/club_02.tres"
 	autocast.description_short = "Create a [color=GOLD]Glaivesaw[/color] at the target location.\n"
-	autocast.description = "Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n" \
+	autocast.description = "Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as [color=GOLD]Lacerate[/color] damage per second to enemies within 150 range. Limited to 3 [color=GOLD]Glaivesaws[/color].\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage\n"

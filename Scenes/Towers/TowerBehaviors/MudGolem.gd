@@ -15,10 +15,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ground_smash: AbilityInfo = AbilityInfo.new()
 	ground_smash.name = "Ground Smash"
 	ground_smash.icon = "res://Resources/Icons/swords/greatsword_02.tres"
-	ground_smash.description_short = "Damages all creeps in range and slows them.\n"
-	ground_smash.description_full = "On damage this tower deals 4300 %s damage to all creeps in 750 range around it, slowing them by 60%% for 0.5 seconds.\n" % decay_string\
+	ground_smash.description_short = "Whenever this tower hits a creep, it deals AoE %s damage and slows affected. This damage is improved by the spell damage dealt stat.\n" % decay_string
+	ground_smash.description_full = "Whenever this tower hits a creep, it deals 4300 %s damage to all creeps in 750 range and slows them by 60%% for 0.5 seconds.\n" % decay_string \
 	+ " \n" \
-	+ "[color=GOLD]Hint:[/color] The damage of this ability is improved by spell damage.\n" \
+	+ "[color=GOLD]Hint:[/color] The damage of this ability is improved by the spell damage dealt stat.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+230 damage\n" \

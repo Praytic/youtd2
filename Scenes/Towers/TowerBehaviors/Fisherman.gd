@@ -16,8 +16,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var fishermans_net: AbilityInfo = AbilityInfo.new()
 	fishermans_net.name = "Fisherman's Net"
 	fishermans_net.icon = "res://Resources/Icons/food/lard.tres"
-	fishermans_net.description_short = "Creeps damaged by this tower get caught in its net.\n"
-	fishermans_net.description_full = "Creeps damaged by this tower get caught in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
+	fishermans_net.description_short = "Whenever this tower hits a creep, it catches the creep in its net, slowing them.\n"
+	fishermans_net.description_full = "Whenever this tower hits a creep, it catches the creep in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% slow\n" \

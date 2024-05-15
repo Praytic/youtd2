@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Firestorm"
 	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
-	ability.description_short = "Attacks have a chance to cause repeating AoE spell damage.\n"
+	ability.description_short = "Attacks have a chance to cause repeating AoE spell damage around the main target.\n"
 	ability.description_full = "Attacks have a %s chance to apply 3 charges of [color=GOLD]Firestorm[/color] to the target. Each second, a charge will be spent, dealing %s spell damage to enemies in 300 range. If the target already has charges, the charges will accumulate and a charge will be consumed instantly. On death all remaining [color=GOLD]Firestorm[/color] charges get consumed at once.\n" % [firestorm_chance, firestorm_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

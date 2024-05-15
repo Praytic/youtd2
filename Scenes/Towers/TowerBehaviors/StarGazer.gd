@@ -11,13 +11,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magic Split"
 	ability.icon = "res://Resources/Icons/magic/claw_01.tres"
-	ability.description_short = "On damage this tower deals 100% of its attack damage as spell damage to the target.\n"
-	ability.description_full = "This tower deals an additional amount of spell damage to its target equal to 100% of its attack damage. If the creep is immune this damage is dealt as energy damage equal to 80% of its attack damage not affected by level bonus.\n" \
+	ability.description_short = "Whenever this tower hits a creep, it deals extra spell damage equal to 100% of this tower's attack damage.\n"
+	ability.description_full = "Whenever this tower hits a creep, it deals extra spell damage equal to 100%% of this tower's attack damage. If the creep is immune the damage is dealt as %s damage equal to 80%% of tower's attack damage, not affected by level bonus.\n" % energy_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% damage\n"

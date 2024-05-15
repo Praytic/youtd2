@@ -9,13 +9,15 @@ const AURA_RANGE: int = 1000
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var overload: AbilityInfo = AbilityInfo.new()
 	overload.name = "Overload"
 	overload.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
-	overload.description_short = "On attack this tower deals energy damage and slows. Effect is stronger for creeps far away\n"
-	overload.description_full = "On attack this tower deals [distance to the target x 12] energy damage, modified by its attack damage and slows the target for 1.5 seconds. The further away the target is, the more it will be slowed down. The maximum slow of 30% can only be reached, if the target has the maximum distance to the tower.\n"
+	overload.description_short = "Whenever this tower hits a creep, it deals %s damage and slow the target. Effect is stronger for creeps far away.\n" % energy_string
+	overload.description_full = "Whenever this tower hits a creep, it deals [color=GOLD][distance to the target x 12][/color] %s damage, modified by tower's attack damage and slow the target for 1.5 seconds. The further away the target is, the more it will be slowed. The maximum slow value is 30%%.\n" % energy_string
 	list.append(overload)
 
 	return list
@@ -49,8 +51,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Magnetic Surge"
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
-	autocast.description_short = "This tower creates a magnetic surge at its target's current location. Target will take periodic damage.\n"
-	autocast.description = "This tower creates a magnetic surge at its target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.\n" \
+	autocast.description_short = "This tower creates a [color=GOLD]Magnetic Surge[/color] at its target's current location. Target will take periodic damage.\n"
+	autocast.description = "This tower creates a [color=GOLD]Magnetic Surge[/color] at the target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% spell damage\n" \

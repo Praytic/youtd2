@@ -31,8 +31,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Thermal Boost"
 	aura.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
-	aura.description_short = "Increases damage of nearby towers.\n"
-	aura.description_full = "Increases damage of towers in %d range by %s.\n" % [AURA_RANGE, damage_increase] \
+	aura.description_short = "Increases attack damage of nearby towers.\n"
+	aura.description_full = "Increases attack damage of towers in %d range by %s.\n" % [AURA_RANGE, damage_increase] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % damage_increase_add

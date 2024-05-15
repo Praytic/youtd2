@@ -17,18 +17,6 @@ extends ItemBehavior
 # 	return text
 
 
-# func get_autocast_description() -> String:
-# 	var text: String = ""
-
-# 	text += "Description\n"
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-
-# 	return text
-
-
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
 # 	triggers.add_periodic_event(periodic, 5)
@@ -49,7 +37,7 @@ extends ItemBehavior
 
 # 	var autocast: Autocast = Autocast.make()
 #	autocast.title = "Title"
-#	autocast.description = get_autocast_description()
+#	autocast.description = "description"
 #	autocast.icon = "res://Resources/Icons/hud/gold.tres"
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""

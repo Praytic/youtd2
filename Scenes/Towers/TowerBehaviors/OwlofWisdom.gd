@@ -19,14 +19,15 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var energyball_radius_add: String = Utils.format_float(_stats.energyball_radius_add, 2)
 	var energyball_dmg_base: String = Utils.format_float(_stats.energyball_dmg_base, 2)
 	var energyball_dmg_exp_scale: String = Utils.format_float(_stats.energyball_dmg_exp_scale, 2)
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
 
 	var list: Array[AbilityInfo] = []
 
 	var energyball: AbilityInfo = AbilityInfo.new()
 	energyball.name = "Energyball"
 	energyball.icon = "res://Resources/Icons/TowerIcons/StormBattery.tres"
-	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast [color=GOLD]Energyball[/color] on the attacked creep. [color=GOLD]Energyball[/color] damage's scales with tower's experience.\b"
-	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast [color=GOLD]Energyball[/color] on the attacked creep. The [color=GOLD]Energyball[/color] deals [color=GOLD][%s + (%s x  tower exp)][/color] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [color=GOLD][150x current wave][/color] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
+	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast [color=GOLD]Energyball[/color] on the main target. [color=GOLD]Energyball[/color] deals AoE spell damage scales with tower's experience.\b"
+	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast [color=GOLD]Energyball[/color] on the main target. The [color=GOLD]Energyball[/color] deals [color=GOLD][%s + (%s x  tower exp)][/color] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [color=GOLD][150x current wave][/color] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s AoE range\n" % energyball_radius_add \
@@ -37,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	weak_spots.name = "Weak Spots"
 	weak_spots.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
 	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
-	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's [color=GOLD]Energyball[/color] deals %s of its spell damage as energy damage to immune units.\n" % dmg_ratio_for_immune \
+	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's [color=GOLD]Energyball[/color] deals %s of its spell damage as %s damage to immune units.\n" % [dmg_ratio_for_immune, energy_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % dmg_ratio_for_immune_add

@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Script Reading[/color]\n"
-	text += "Whenever the carrier casts its own active ability it gains [color=GOLD][0.2 x ability cooldown][/color] experience and grants [color=GOLD][0.5 x ability cooldown][/color] gold.\n"
+	text += "Whenever the carrier casts its own active ability, it gains [color=GOLD][0.2 x ability cooldown][/color] experience and grants [color=GOLD][0.5 x ability cooldown][/color] gold.\n"
 
 	return text
 

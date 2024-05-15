@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Activate Trap"
 	ability.icon = "res://Resources/Icons/furniture/chest.tres"
-	ability.description_short = "Traps random creeps in range.\n"
+	ability.description_short = "Periodically traps random creeps in range, dealing spell damage and stunning them.\n"
 	ability.description_full = "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spell damage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

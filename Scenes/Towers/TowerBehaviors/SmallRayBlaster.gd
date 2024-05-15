@@ -24,12 +24,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Phaze"
 	ability.icon = "res://Resources/Icons/mechanical/lamp.tres"
-	ability.description_short = "Increases target creep's item drop quality and item drop chance.\n"
-	ability.description_full = "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds.\n" % [value, duration] \
+	ability.description_short = "Whenever this tower hits a creep, it increases creep's item chance and item quality.\n"
+	ability.description_full = "Whenever this tower hits a creep, it increases creep's item chance and item quality by %s for %s seconds.\n" % [value, duration] \
 	+ " \n"\
 	+ "[color=ORANGE]Level Bonus:[/color]\n"\
-	+ "+%s item drop quality\n" % value_add\
-	+ "+%s item drop chance\n" % value_add\
+	+ "+%s item chance\n" % value_add\
+	+ "+%s item quality\n" % value_add\
 	+ "+0.1 seconds"
 	list.append(ability)
 

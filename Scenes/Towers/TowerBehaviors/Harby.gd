@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var arcane_orb: AbilityInfo = AbilityInfo.new()
 	arcane_orb.name = "Arcane Orb"
 	arcane_orb.icon = "res://Resources/Icons/TowerIcons/DarkBattery.tres"
-	arcane_orb.description_short = "Infuses Harby's attacks with arcane energy at the cost of mana.\n"
+	arcane_orb.description_short = "Infuses Harby's attacks with arcane energy at the cost of mana, dealing bonus spell damage.\n"
 	arcane_orb.description_full = "Infuses Harby's attacks with arcane energy at the cost of 100 mana per attack. Deals [color=GOLD][6 x Current Mana][/color] as bonus spell damage. This ability also passively grants 1 bonus maximum mana for each creep Harby kills.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var awakening: AbilityInfo = AbilityInfo.new()
 	awakening.name = "Grotesque Awakening"
 	awakening.icon = "res://Resources/Icons/animals/bat_03.tres"
-	awakening.description_short = "Whenever hit by a spell, the statue comes to life.\n"
-	awakening.description_full = "Whenever hit by a spell, the statue comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
+	awakening.description_short = "Whenever this tower is hit by a spell, it comes to life.\n"
+	awakening.description_full = "Whenever this tower is hit by a spell, it comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
 	list.append(awakening)
 
 	return list

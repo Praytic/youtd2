@@ -27,11 +27,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var fighter_totem: AbilityInfo = AbilityInfo.new()
 	fighter_totem.name = "Fighter Totem"
 	fighter_totem.icon = "res://Resources/Icons/misc/spiky_totem_01.tres"
-	fighter_totem.description_short = "On attack there is a chance to buff towers in range, increasing their damage dealt, crit chance and crit damage.\n"
-	fighter_totem.description_full = "On attack there is a 15% chance to buff towers in 500 range, increasing their damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n" \
+	fighter_totem.description_short = "Whenever this tower attacks, it has a chance to buff towers in range, increasing their attack damage dealt, crit chance and crit damage.\n"
+	fighter_totem.description_full = "Whenever this tower attacks, it has a 15% chance to buff towers in 500 range, increasing their attack damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% damage\n" \
+	+ "+0.4% attack damage\n" \
 	+ "+0.2% crit chance\n" \
 	+ "+2% crit damage\n" \
 	+ "+0.2 seconds duration\n" \
@@ -71,16 +71,18 @@ func tower_init():
 
 	
 func create_autocasts() -> Array[Autocast]:
+	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
+
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Demonic Fire"
 	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
-	autocast.description_short = "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from fire towers.\n"
-	autocast.description = "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20% chance to permanently increase the damage it takes from fire towers by 3% (1% for bosses).\n" \
+	autocast.description_short = "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from %s towers.\n" % fire_string
+	autocast.description = "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20%% chance to permanently increase the damage it takes from %s towers by 3%% (1%% for bosses).\n" % fire_string\
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08% damage from fire (on non boss)\n" \
-	+ "+0.04% damage from fire (on bosses)\n"
+	+ "+0.08% damage (on non boss)\n" \
+	+ "+0.04% damage (on bosses)\n"
 
 	autocast.caster_art = ""
 	autocast.target_art = ""

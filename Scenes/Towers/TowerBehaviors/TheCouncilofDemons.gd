@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var maledict: AbilityInfo = AbilityInfo.new()
 	maledict.name = "Maledict"
 	maledict.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
-	maledict.description_short = "Chance to increase spell vulnerability of damaged units.\n"
-	maledict.description_full = "Whenever this tower damages a unit, it has a 20% chance to increase the damage that unit receives from spells by 20% for 5 seconds. Every time the buffed unit is targeted by a spell this tower deals additional spell damage equal to 3 times the caster goldcost to it.\n" \
+	maledict.description_short = "Whenever this tower hits a creep, it has a chance to increase spell vulnerability of the creep. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster."
+	maledict.description_full = "Whenever this tower hits a creep, it has a 20% chance to increase spell vulnerability of the creep by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
@@ -110,8 +110,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Demonic Edict"
 	aura.icon = "res://Resources/Icons/misc/flag_02.tres"
-	aura.description_short = "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
-	aura.description_full = "Whenever a tower in %d range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100%% for 3 seconds.\n" % AURA_RANGE \
+	aura.description_short = "Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower. Doesn't include AoE spells\n"
+	aura.description_full = "Whenever a tower in %d range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100%% for 3 seconds. Doesn't include AoE spells.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% mana regeneration\n"

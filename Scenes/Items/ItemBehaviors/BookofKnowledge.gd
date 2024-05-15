@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]High Knowledge[/color]\n"
-	text += "The carrier gains 0.2 experience every time its attack hits its main target. The amount of experience gained is range and base attack speed adjusted.\n"
+	text += "Whenever the carrier hits the main target, it gains 0.2 experience. The amount of experience gained is range and base attack speed adjusted.\n"
 
 	return text
 

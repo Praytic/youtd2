@@ -11,13 +11,15 @@ var frostbolt_pt: ProjectileType
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
+
 	var list: Array[AbilityInfo] = []
 	
 	var icy_touch: AbilityInfo = AbilityInfo.new()
 	icy_touch.name = "Icy Touch"
 	icy_touch.icon = "res://Resources/Icons/gloves/gloves_07.tres"
-	icy_touch.description_short = "Each attack slows the attacked unit.\n"
-	icy_touch.description_full = "Each attack slows the attacked unit by 10% for 5 seconds, stacking up to 6 times. This tower deals additional 10% damage for every stack of icy touch the target has.\n" \
+	icy_touch.description_short = "Whenever this tower hits a creep, it slows it.\n"
+	icy_touch.description_full = "Whenever this tower hits a creep, it slows it by 10% for 5 seconds, stacking up to 6 times. This tower deals additional 10% attack damage for every stack of [color=GOLD]Icy Touch[/color] the target has.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% damage per stack\n"
@@ -26,8 +28,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var frost_bolt: AbilityInfo = AbilityInfo.new()
 	frost_bolt.name = "Frost Bolt"
 	frost_bolt.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
-	frost_bolt.description_short = "Chance to launch a frost bolt, dealing AoE damage around the target.\n"
-	frost_bolt.description_full = "On attack, this tower has a chance, equal to the percentage of movement speed the attacked unit is missing, to launch a frost bolt, dealing 20% of the tower's attack damage as elemental damage in 200 AoE around the target for each stack of icy touch the creep has. This spell deals double damage to stunned targets.\n" \
+	frost_bolt.description_short = "Attacks have a chance to launch a [color=GOLD]Frost Bolt[/color] at the main target, dealing AoE attack damage.\n"
+	frost_bolt.description_full = "Attacks have a chance to launch to launch a [color=GOLD]Frost Bolt[/color] at the main target. The chance is equal to the percentage of movement speed the main target is missing. [color=GOLD]Frost Bolt[/color] deals 20%% of the tower's attack damage as %s damage in 200 AoE around the creep for each stack of [color=GOLD]Icy Touch[/color] the creep has. This spell deals double damage to stunned targets.\n" % elemental_string\
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% damage per stack\n"
@@ -123,6 +125,6 @@ func frostbolt_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep.is_stunned():
 		damage *= 2
 
-	CombatLog.log_ability(tower, creep, "Frost Bolt Hit AOE")
+	CombatLog.log_ability(tower, creep, "Frost Bolt Hit AoE")
 
 	tower.do_attack_damage_aoe_unit(creep, 200, damage, tower.calc_attack_multicrit_no_bonus(), 0.0)

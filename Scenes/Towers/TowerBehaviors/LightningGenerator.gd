@@ -24,11 +24,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var chain: AbilityInfo = AbilityInfo.new()
 	chain.name = "Chain Lightning"
 	chain.icon = "res://Resources/Icons/electricity/thunderstorm.tres"
-	chain.description_short = "This tower has a chance on attack to release chainlightning.\n"
-	chain.description_full = "This tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n" % chain_damage \
+	chain.description_short = "On attack, this tower has a chance to release [color=GOLD]Chain Lightning[/color], dealing spell damage.\n"
+	chain.description_full = "On attack, this tower has a 19.5%% chance to release a [color=GOLD]Chain Lightning[/color] that does %s spell damage and hits up to 3 units.\n" % chain_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % chain_dmg_add \
+	+ "+%s spell damage\n" % chain_dmg_add \
 	+ "+0.25% chance\n"
 	list.append(chain)
 
@@ -36,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	force_attack.name = "Force Attack"
 	force_attack.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
 	force_attack.description_short = "This tower's attacks deal spell damage instead of attack damage.\n"
-	force_attack.description_full = "This tower deals %s spell damage on attack.\n" % on_attack_damage \
+	force_attack.description_full = "This tower's attacks deal %s spell damage instead of attack damage.\n" % on_attack_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage" % on_attack_damage_add

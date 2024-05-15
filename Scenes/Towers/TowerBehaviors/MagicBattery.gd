@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Faerie Fire"
 	ability.icon = "res://Resources/Icons/plants/flower_06.tres"
-	ability.description_short = "Makes the attacked creep more vulnerable to spells and debuffs.\n"
-	ability.description_full = "A creep hit by one of this tower's shots takes %s extra damage from spells and debuffs last %s longer for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
+	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] makes the attacked creep more vulnerable to spells and debuffs.\n"
+	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] increases the spell damage taken by %s and debuff duration by %s for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s extra spell damage\n" % mod_spell_damage_add \
@@ -79,7 +79,7 @@ func tower_init():
 	faerie_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pisces.tres")
 	faerie_bt.set_buff_modifier(modifier)
 	faerie_bt.set_stacking_group("MagicBattery")
-	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it will take extra damage from spells and has increased debuff duration.")
+	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it is more vulnerable to spell damage and has increased debuff duration.")
 
 	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
@@ -93,11 +93,11 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Battery Overload"
 	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
-	autocast.description_short = "Starts attacking very fast until out of mana.\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals %s damage and applies Faerie Fire.\n" % [projectile_damage] \
+	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Faerie Fire[/color].\n"
+	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals %s spell damage and applies [color=GOLD]Faerie Fire[/color].\n" % [projectile_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % projectile_damage_add
+	+ "+%s spell damage\n" % projectile_damage_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE

@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Spiderling Poison[/color]\n"
-	text += "When the carrier of this item attacks there is a 25% attack speed adjusted chance that the attacked creep is slowed by 5% for 4 seconds.\n"
+	text += "Whenever the carrier attacks, there is a 25% attack speed adjusted chance to slow the main target by 5% for 4 seconds.\n"
 
 	return text
 

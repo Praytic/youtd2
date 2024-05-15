@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Smite"
 	ability.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
-	ability.description_short = "When this tower damages a creep it has a chance to smite it.\n"
-	ability.description_full = "When this tower damages a creep it has 5%% chance to smite it, dealing %s spell damage.\n" % smite_damage \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to smite it, dealing spell damage.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has 5%% chance to smite it, dealing %s spell damage.\n" % smite_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% chance\n" \

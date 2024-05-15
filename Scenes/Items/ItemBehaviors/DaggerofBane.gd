@@ -13,7 +13,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Deadly Poison[/color]\n"
-	text += "Applies a deadly poison to main attack target. Each second the poison deals 15% of the tower's base damage as spell damage to the target. The spell damage is always critical. Lasts 4 seconds.\n"
+	text += "Whenever the carrier hits the main target, it applies a deadly poison. Each second the poison deals 15% of the tower's base damage as spell damage to the target. The spell damage is always critical. Lasts 4 seconds.\n"
 
 	return text
 

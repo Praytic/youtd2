@@ -25,12 +25,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ice Nova"
 	ability.icon = "res://Resources/Icons/elements/ice.tres"
-	ability.description_short = "Has a chance to deal AoE damage and slow creeps around the target.\n"
-	ability.description_full = "Damaged targets have a 20%% chance to get blasted by an ice nova, dealing %s damage and slowing units in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration] \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to blast the target with an [color=GOLD]Ice Nova[/color]. [color=GOLD]Ice Nova[/color] deals AoE spell damage and slows affected creeps.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a 20%% chance to blast the target with an [color=GOLD]Ice Nova[/color]. [color=GOLD]Ice Nova[/color] deals %s spell damage and slows creeps in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
-	+ "+%s damage\n" % [aoe_damage_add]
+	+ "+%s spell damage\n" % [aoe_damage_add]
 	list.append(ability)
 
 	return list

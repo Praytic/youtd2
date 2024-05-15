@@ -15,8 +15,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var wrath: AbilityInfo = AbilityInfo.new()
 	wrath.name = "Wrath of Ymir"
 	wrath.icon = "res://Resources/Icons/animals/dragon_05.tres"
-	wrath.description_short = "Chance to deal portion of attack damage as spell damage and slow the target.\n"
-	wrath.description_full = "When Ymir damages a creep, there is a 20% chance that he deals an additional 10% of his attack damage as spell damage and slows the target by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
+	wrath.description_short = "Whenever this tower hits a creep, it has a chance to deal portion of attack damage as spell damage and slow the creep.\n"
+	wrath.description_full = "Whenever this tower hits a creep, it has a 20% chance to deal additional 10% of tower's attack damage as spell damage and slow the creep by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \

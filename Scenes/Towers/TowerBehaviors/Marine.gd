@@ -36,12 +36,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frag Grenade"
 	ability.icon = "res://Resources/Icons/misc/balls_02.tres"
-	ability.description_short = "When this tower damages a creep it has a chance to fire a frag grenade.\n"
-	ability.description_full = "When this tower damages a creep it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spell damage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
+	ability.description_short = "When this tower hits a creep, it has a chance to fire a frag grenade. Grenades deal spell damage.\n"
+	ability.description_full = "When this tower hits a creep, it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spell damage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % grenade_chance_add \
-	+ "+%s damage\n" % grenade_damage_add \
+	+ "+%s spell damage\n" % grenade_damage_add \
 	+ "+%s damage increase\n" % grenade_mod_dmg_received_add
 	list.append(ability)
 

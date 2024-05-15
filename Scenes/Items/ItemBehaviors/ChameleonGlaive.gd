@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Launch Glaive[/color]\n"
-	text += "The carrier has a 40% chance on attack to fire an extra projectile that deals the same amount of damage as a normal attack. Can crit.\n"
+	text += "Whenever the carrier attacks, it has a 40% chance to fire an extra projectile at the target. The projectile deals the same amount of damage as a normal attack and can crit.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% chance\n"

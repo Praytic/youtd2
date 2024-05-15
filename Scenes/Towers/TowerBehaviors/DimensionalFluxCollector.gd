@@ -21,16 +21,18 @@ var logged_link_ability: bool = false
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
+
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Dimensional Distortion Field"
 	ability.icon = "res://Resources/Icons/dioramas/fountain.tres"
-	ability.description_short = "Each second this tower attacks a creep in range, dealing damage based on linked tower's spell damage per second.\n"
-	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25% of the linked tower's spell damage per second as energy damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attack speed bonuses.\n" \
+	ability.description_short = "Each second this tower attacks a creep in range, dealing %s damage based on linked tower's spell damage per second.\n" % energy_string
+	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25%% of the linked tower's spell damage per second as %s damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attack speed bonuses.\n" % energy_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% of spell dps as damage\n"
+	+ "+1% of spell DPS as damage\n"
 	ability.radius = 800
 	ability.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ability)

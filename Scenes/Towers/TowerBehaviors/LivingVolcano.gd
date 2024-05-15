@@ -13,8 +13,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
 	heat_stroke.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
-	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode.\n"
-	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 damage in 300 AoE.\n" \
+	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode and deal AoE spell damage.\n"
+	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 spell damage in 300 AoE.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+100 damage\n"
@@ -23,12 +23,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lava_attack: AbilityInfo = AbilityInfo.new()
 	lava_attack.name = "Lava Attack"
 	lava_attack.icon = "res://Resources/Icons/orbs/orb_fire.tres"
-	lava_attack.description_short = "Chance to throw a burning lava ball towards the target, dealing AoE damage.\n"
-	lava_attack.description_full = "Has a 25% chance on attack to throw a burning lava ball towards the target's location, dealing 3500 damage to creeps in 300 AoE.\n" \
+	lava_attack.description_short = "Whenever this tower attacks, it has a chance to throw a burning lava ball towards the main target, dealing AoE spell damage.\n"
+	lava_attack.description_full = "Whenever this tower attacks, it has a 25% chance to throw a burning lava ball towards the main target, dealing 3500 spell damage to creeps in 300 AoE.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+5 AoE\n" \
-	+ "+100 damage\n"
+	+ "+100 spell damage\n"
 	list.append(lava_attack)
 
 	return list
@@ -60,7 +60,7 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Heat Aura"
 	aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
-	aura.description_short = "Burns every enemy in range.\n"
+	aura.description_short = "Burns every enemy in range, making them lose life every second.\n"
 	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
 
 	aura.aura_range = AURA_RANGE

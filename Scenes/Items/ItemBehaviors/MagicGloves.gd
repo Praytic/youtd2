@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magic Powers[/color]\n"
-	text += "This item deals 100 spell damage multiplied with the base attack speed of the tower on each attack.\n"
+	text += "Whenever the carrier attacks, it deals extra 100 spell damage multiplied with the base attack speed of the tower to the main target.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+5 damage"

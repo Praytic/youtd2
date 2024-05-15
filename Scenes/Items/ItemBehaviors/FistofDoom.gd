@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Pay With Blood[/color]\n"
-	text += "Every 10 seconds the user of this item loses 2 experience.\n"
+	text += "Every 10 seconds, the user of this item loses 2 experience.\n"
 
 	return text
 

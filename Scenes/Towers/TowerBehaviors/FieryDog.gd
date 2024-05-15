@@ -28,8 +28,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Roar"
 	ability.icon = "res://Resources/Icons/animals/dragon_03.tres"
-	ability.description_short = "Whenever this tower damages a creep it has a chance to increase the damage of nearby towers.\n"
-	ability.description_full = "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower has allready the roar buff the attack damage is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % stack_bonus \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Roar[/color] which increases attack damage of nearby towers.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has 30%% chance to release a [color=GOLD]Roar[/color]. The cry increases attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower already has [color=GOLD]Roar[/color], then attack damage is increased by %s and duration is refreshed. Stacks up to 100 times.\n" % stack_bonus \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s attack damage\n" % stack_bonus

@@ -40,13 +40,13 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Melt"
 	aura.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
-	aura.description_short = "The enormous heat of the Caged Fire damages nearby creeps and decreases their armor.\n"
-	aura.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %d range by %s and damages them by %s. Each second creeps in %d range around the caged fire lose %s extra armor and the fire damage will increase by %s.\n" % [AURA_RANGE, mod_armor, melt_damage, AURA_RANGE, periodic_mod_armor, periodic_melt_damage_increase] \
+	aura.description_short = "The enormous heat of the Caged Fire decreases their armor of nearby creeps and deals spell damage.\n"
+	aura.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %d range by %s and deals %s spell damage. Each second creeps in %d range around the caged fire lose %s extra armor and the spell damage will increase by %s.\n" % [AURA_RANGE, mod_armor, melt_damage, AURA_RANGE, periodic_mod_armor, periodic_melt_damage_increase] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s start armor reduction\n" % mod_armor_add \
 	+ "+%s armor reduction\n" % periodic_mod_armor_add \
-	+ "+%s damage\n" % melt_damage_add
+	+ "+%s spell damage\n" % melt_damage_add
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)

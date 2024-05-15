@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Acid Coating"
 	ability.icon = "res://Resources/Icons/potions/potion_green_03.tres"
-	ability.description_short = "Decreases the armor of damaged units.\n"
-	ability.description_full = "Decreases the armor of damaged units by %s for 3 seconds.\n" % armor_base \
+	ability.description_short = "Whenever this tower hits a creep, it decreases it's armor.\n"
+	ability.description_full = "Whenever this tower hits a creep, it decreases it's armor by %s for 3 seconds.\n" % armor_base \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % armor_add \

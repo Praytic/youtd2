@@ -11,7 +11,7 @@ var ritual_bt: BuffType
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Performs a shamanistic ritual on a nearby tower, granting it 20% more experience gain and 10% more damage for 10 seconds.\n"
+	text += "Performs a shamanistic ritual on a nearby tower, granting it 20% more experience gain and 10% more attack damage for 10 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.8% experience\n"

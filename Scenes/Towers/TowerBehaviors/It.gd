@@ -26,10 +26,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var dark_ritual: AbilityInfo = AbilityInfo.new()
 	dark_ritual.name = "Dark Ritual"
 	dark_ritual.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
-	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color].\n"
+	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color], causing them to transport creeps and deal spell damage.\n"
 	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color]. Creeps standing in the [color=GOLD]Corruption Field[/color] will be instantly teleported to the [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
 	+ " \n" \
-	+ "The Fields will also deal 3000 spell damage to all unfortunate enough to be standing in those areas.\n" \
+	+ "[color=GOLD]Fields[/color] will also deal 3000 spell damage to all unfortunate enough to be standing in those areas.\n" \
 	+ " \n" \
 	+ "1 sec cooldown.\n" \
 	+ " \n" \

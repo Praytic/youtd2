@@ -30,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var leaf_storm: AbilityInfo = AbilityInfo.new()
 	leaf_storm.name = "Leaf Storm"
 	leaf_storm.icon = "res://Resources/Icons/plants/leaf_01.tres"
-	leaf_storm.description_short = "Chance to summon a leaf storm at the target's position, slowing creeps inside and dealing damage over time.\n"
-	leaf_storm.description_full = "Each time this tower attacks it has a 15% chance to summon a 200 AoE leaf storm at the target's position, slowing creeps inside by 30% for 1 second and dealing 2100 spell damage over time.\n" \
+	leaf_storm.description_short = "Whenever this tower hits a creep, it has a chance to summon a [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it and deals spell damage over time.\n"
+	leaf_storm.description_full = "Whenever this tower hits a creep, it has a 15% chance to summon a 200 AoE [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it by 30% for 1 second and deals 2100 spell damage over time.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \
@@ -43,8 +43,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var thorned: AbilityInfo = AbilityInfo.new()
 	thorned.name = "Thorned!"
 	thorned.icon = "res://Resources/Icons/TowerIcons/QuillboarThornweaver.tres"
-	thorned.description_short = "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
-	thorned.description_full = "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from %s towers by 30%%.\n" % nature_string \
+	thorned.description_short = "When a unit comes in range it receives the [color=GOLD]Thorned[/color] debuff. The debuff increases damage taken from %s towers.\n" % nature_string
+	thorned.description_full = "When a unit comes in 950 range to this tower it receives the [color=GOLD]Thorned[/color] debuff. The debuff lasts 3 seconds and increases damage taken from %s towers by 30%%.\n" % nature_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.06 seconds duration\n" \
@@ -104,7 +104,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Entangling Roots"
 	autocast.icon = "res://Resources/Icons/plants/branch_01.tres"
-	autocast.description_short = "Launches roots towards the target which will entangle creeps.\n"
+	autocast.description_short = "Launches roots towards the target which will entangle creeps and deal spell damage.\n"
 	autocast.description = "Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

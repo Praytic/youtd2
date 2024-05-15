@@ -27,8 +27,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Soul Split"
 	ability.icon = "res://Resources/Icons/undead/skull_phazing.tres"
-	ability.description_short = "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
-	ability.description_full = "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attack speed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attack speed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attack_speed, soul_chance_decrease] \
+	ability.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage and increase Witch's attack speed.\n"
+	ability.description_full = "Whenever this tower hits a creep, it has a %s chance to deal %s spell damage to the target, increasing the Witch's attack speed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attack speed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attack_speed, soul_chance_decrease] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % soul_damage_add
@@ -86,12 +86,12 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Love Potion"
 	autocast.icon = "res://Resources/Icons/potions/potion_heart_02.tres"
-	autocast.description_short = "The witch throws a bottle of love potion on the target, applying a slow and increase target's item drop chance.\n"
-	autocast.description = "The witch throws a bottle of love potion on the target, slowing it by %s and increasing its item drop chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance] \
+	autocast.description_short = "The Witch throws a love potion on the target, applying a slow and increasing target's item chance.\n"
+	autocast.description = "The Witch throws a love potion on the target, slowing it by %s and increasing its item chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.375% slow\n" \
-	+ "+0.3% Item drop chance\n"
+	+ "+0.3% item drop chance\n"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

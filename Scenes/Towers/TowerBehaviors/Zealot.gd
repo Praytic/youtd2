@@ -46,8 +46,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var phase_blade: AbilityInfo = AbilityInfo.new()
 	phase_blade.name = "Phase Blade"
 	phase_blade.icon = "res://Resources/Icons/swords/sword_swing_02.tres"
-	phase_blade.description_short = "Each attack on the same creep penetrates deeper through its armor.\n"
-	phase_blade.description_full = "Each attack on the same creep penetrates deeper through its armor. Per attack %s of this tower's attack damage won't be reduced by armor resistances. This effect stacks up to 5 times.\n" % wound_power \
+	phase_blade.description_short = "Each hit on the same creep penetrates deeper through its armor.\n"
+	phase_blade.description_full = "Each hit on the same creep penetrates deeper through its armor. Per hit %s of this tower's attack damage won't be reduced by armor resistances. This effect stacks up to 5 times.\n" % wound_power \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage per stack\n" % wound_power_add

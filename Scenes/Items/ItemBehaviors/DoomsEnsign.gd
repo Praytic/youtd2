@@ -8,7 +8,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ensign's Touch[/color]\n"
-	text += "When the user of this item attacks an enemy it decreases the armor of the target by 10% for 5 seconds.\n"
+	text += "Whenever the carrier hits the main target, it decreases the armor of the target by 10% for 5 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% armor decrease\n"

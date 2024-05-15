@@ -24,11 +24,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Toxic Vapor"
 	ability.icon = "res://Resources/Icons/mechanical/factory_fumes.tres"
-	ability.description_short = "Deals damage over time.\n"
-	ability.description_full = "On attack, has a 30%% chance to apply a buff that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage \
+	ability.description_short = "On attack, this tower has a chance to apply a buff to the main target, dealing spell damage over time.\n"
+	ability.description_full = "On attack, this tower has a 30%% chance to apply a buff to the the main target that deals %s spell damage per second that lasts for 10 seconds.\n" % vapor_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage per second\n" % vapor_damage_add
+	+ "+%s spell damage per second\n" % vapor_damage_add
 	list.append(ability)
 
 	return list

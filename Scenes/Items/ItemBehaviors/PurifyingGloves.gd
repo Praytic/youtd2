@@ -12,7 +12,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Purify[/color]\n"
-	text += "Grants the carrier a 12.5%% attack speed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spell damage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
+	text += "Whenever the carrier attacks, it has a 12.5%% attack speed adjusted chance to cast a purifying beam of magic on the main target. The beam deals 250 spell damage to the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
 
 	return text
 

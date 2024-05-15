@@ -21,8 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frozen Thorn"
 	ability.icon = "res://Resources/Icons/trinkets/claw_03.tres"
-	ability.description_short = "Has a chance to deal additional spell damage each time it deals damage.\n"
-	ability.description_full = "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage \
+	ability.description_short = "Whenever this tower hits the main target, it has a chance to deal additional spell damage.\n"
+	ability.description_full = "Whenever this tower hits the main target, it has a 15%% chance to deal %s additional spell damage.\n" % damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % damage_add

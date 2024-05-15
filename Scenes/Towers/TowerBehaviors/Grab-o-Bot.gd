@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grapple"
 	ability.icon = "res://Resources/Icons/gloves/gloves_08.tres"
-	ability.description_short = "Chance to grab the target, holding it in place for 2.5 seconds.\n"
-	ability.description_full = "Each time the bot attacks there is an 8% chance it will grab the target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
+	ability.description_short = "Whenever this tower attacks, it has is a chance to grab the main target, holding it in place for 2.5 seconds.\n"
+	ability.description_full = "Whenever this tower attacks, it has is an 8% chance to grab the main target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.32% chance\n"
@@ -48,7 +48,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Shock"
 	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
-	autocast.description_short = "Slams all creeps in around the target, dealing damage and stunning them.\n"
+	autocast.description_short = "Slams all creeps around the target, dealing spell damage and stunning them.\n"
 	autocast.description = "Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

@@ -26,8 +26,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lingering: AbilityInfo = AbilityInfo.new()
 	lingering.name = "Lingering Flame"
 	lingering.icon = "res://Resources/Icons/fire/fire_bowl_01.tres"
-	lingering.description_short = "Enemies hit are inflicted with [color=GOLD]Lingering Flame[/color], which deals periodic spell damage.\n"
-	lingering.description_full = "Enemies hit are inflicted with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
+	lingering.description_short = "Whenever this tower hits a creep, it inflicts the target with [color=GOLD]Lingering Flame[/color], which deals periodic spell damage.\n"
+	lingering.description_full = "Whenever this tower hits a creep, it inflicts the target with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 spell damage\n"
@@ -82,7 +82,7 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Intense Heat"
 	autocast.icon = "res://Resources/Icons/orbs/orb_fire.tres"
-	autocast.description_short = "Expends all mana to unleash a wave of heat.\n"
+	autocast.description_short = "Expends all mana to unleash a wave of heat, dealing spell damage.\n"
 	autocast.description = "Expends all mana to unleash a wave of heat, dealing [color=GOLD][mana x 7][/color] spell damage and applying [color=GOLD]Lingering Flame[/color] to all creeps in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [color=GOLD][mana / 300]%[/color] for 4 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -111,8 +111,8 @@ func get_aura_types() -> Array[AuraType]:
 	
 	aura.name = "Flames of the Forge"
 	aura.icon = "res://Resources/Icons/TowerIcons/CruelFire.tres"
-	aura.description_short = "Increases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage of nearby Common and Uncommon %s towers.\n" % fire_string
-	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [fire_string, AURA_RANGE] \
+	aura.description_short = "A portion of attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to nearby Common and Uncommon %s towers.\n" % fire_string
+	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [fire_string, AURA_RANGE] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% stats\n"

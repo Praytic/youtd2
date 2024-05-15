@@ -26,8 +26,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rampage"
 	ability.icon = "res://Resources/Icons/misc/red_knight.tres"
-	ability.description_short = "Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.\n"
-	ability.description_full = "Has a %s chance on attack to go into a rampage for %s seconds. While in rampage, it has +%s attack speed, +25%% critical strike chance and +75%% critical strike damage. Cannot retrigger while in [color=GOLD]Rampage[/color]!\n" % [trigger_chance, duration, attack_speed] \
+	ability.description_short = "Chance on attack to go into [color=GOLD]Rampage[/color], increasing attack speed and critical strike stats enormously.\n"
+	ability.description_full = "Has a %s chance on attack to go into [color=GOLD]Rampage[/color] for %s seconds. While in [color=GOLD]Rampage[/color], it has +%s attack speed, +25%% critical strike chance and +75%% critical strike damage. Cannot retrigger while active!\n" % [trigger_chance, duration, attack_speed] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s sec duration\n" % duration_add \

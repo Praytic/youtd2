@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rock Throw"
 	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_gray.tres"
-	ability.description_short = "Chance to throw a rock towards the target.\n"
-	ability.description_full = "30%% chance to throw a rock towards the attacked unit. On impact it deals %s spell damage in a %s AoE.\n" % [damage, rock_range] \
+	ability.description_short = "Whenever this tower attacks, it has a chance to throw a rock towards the target. On impact, the rock deals AoE spell damage.\n"
+	ability.description_full = "Whenever this tower attacks, it has a 30%% chance to throw a rock towards the target. On impact the rock deals %s spell damage in a %s AoE.\n" % [damage, rock_range] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \

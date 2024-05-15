@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var silence: AbilityInfo = AbilityInfo.new()
 	silence.name = "Silence"
 	silence.icon = "res://Resources/Icons/animals/dragon_02.tres"
-	silence.description_short = "Units damaged by this tower are silenced.\n"
-	silence.description_full = "Units damaged by this tower are silenced for %s seconds. Bosses are silenced only for %s of the normal duration.\n" % [silence_duration, boss_silence_multiplier] \
+	silence.description_short = "Whenever this tower hits a creep, it silences it.\n"
+	silence.description_full = "Whenever this tower hits a creep, it silences it for %s seconds. Bosses are silenced only for %s of the normal duration.\n" % [silence_duration, boss_silence_multiplier] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % silence_duration_add

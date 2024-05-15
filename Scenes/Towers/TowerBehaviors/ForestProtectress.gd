@@ -20,8 +20,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var wrath: AbilityInfo = AbilityInfo.new()
 	wrath.name = "Protectress's Wrath"
 	wrath.icon = "res://Resources/Icons/plants/leaf_01.tres"
-	wrath.description_short = "Each attack has a chance to deal an extra damage to all units in range around the target. Slows all damaged units.\n"
-	wrath.description_full = "Each attack has a [seconds since last attack x 5]% chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attack speed decreases time needed to gain a charge.\n" \
+	wrath.description_short = "Whenever this tower hits a creep, it has a chance to deal an extra attack damage to all units in range around the target. Slows all damaged units.\n"
+	wrath.description_full = "Whenever this tower hits a creep, it has a [color=GOLD][seconds since last attack x 5]%[/color] chance to deal an extra 50% attack damage to all units in 250 range around the target. The maximum chance is 75%. Slows all damaged units by 50% for 1.5 seconds. Increased attack speed decreases time needed to gain a charge.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% damage\n" \

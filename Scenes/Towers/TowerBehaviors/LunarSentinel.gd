@@ -29,8 +29,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Lunar Grace"
 	autocast.icon = "res://Resources/Icons/orbs/moon.tres"
-	autocast.description_short = "Smites a target creep with a chance to stun the creep and make it more vulnerable to spells.\n"
-	autocast.description = "Smites a target creep dealing %s spell damage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells] \
+	autocast.description_short = "Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.\n"
+	autocast.description = "Smites a target creep dealing %s spell damage to it. There is also a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s inital and chanced spell damage\n" % spell_damage_add \

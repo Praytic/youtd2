@@ -13,8 +13,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var devour: AbilityInfo = AbilityInfo.new()
 	devour.name = "Devour"
 	devour.icon = "res://Resources/Icons/animals/dragon_04.tres"
-	devour.description_short = "On attack the Kodo has a chance to take a bite out of its target.\n"
-	devour.description_full = "On attack the Kodo has a 6% chance to take a bite out of its target dealing 5000 spell damage and increasing the multiplier for bonuses granted by [color=GOLD]Kodo Dung[/color] by 1 for 6 seconds.\n" \
+	devour.description_short = "On attack the Kodo has a chance to take a bite out of the main target, dealing spell damage and increasing effectiveness of [color=GOLD]Kodo Dung[/color].\n"
+	devour.description_full = "On attack the Kodo has a 6% chance to take a bite out of the main target, dealing 5000 spell damage and increasing the multiplier for bonuses granted by [color=GOLD]Kodo Dung[/color] by 1 for 6 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.1% chance\n" \
@@ -46,15 +46,15 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Kodo Dung"
 	aura.icon = "res://Resources/Icons/trinkets/trinket_03.tres"
-	aura.description_short = "The dung of this kodo empowers nearby towers.\n"
+	aura.description_short = "The dung of this kodo gives attack bonuses to nearby towers.\n"
 	aura.description_full = "The dung of this kodo grants towers in %d range:\n" % AURA_RANGE \
-	+ "  +10% damage\n" \
+	+ "  +10% attack damage\n" \
 	+ "  +10% attack speed\n" \
 	+ "  +3% critical strike chance\n" \
 	+ "  +15% critical strike damage\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% damage\n" \
+	+ "+0.2% attack damage\n" \
 	+ "+0.2% attack speed\n" \
 	+ "+0.06% critical strike chance\n" \
 	+ "+0.3% critical strike damage\n"

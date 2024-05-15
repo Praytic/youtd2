@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Greed Is Good[/color]\n"
-	text += "On attack there is a 20% attack speed adjusted chance to deal 10% of your current gold as spell damage to the target.\n"
+	text += "Whenever the carrier attacks, it has a 20% attack speed adjusted chance to deal 10% of your current gold as spell damage to the main target.\n"
 
 	return text
 

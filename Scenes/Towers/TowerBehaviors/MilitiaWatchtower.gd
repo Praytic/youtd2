@@ -21,8 +21,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Hail of Axes"
 	ability.icon = "res://Resources/Icons/hud/recipe_reassemble.tres"
-	ability.description_short = "Attacks multiple enemies at once with a chance to miss.\n"
-	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n" \
+	ability.description_short = "Militia guardians throw axes to up to 3 enemies at once, but each attack has a chance to miss.\n"
+	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss. If there are less creeps than attacks, the remaining axes will hit the main target.\n" \
+	+ " \n" \
+	+ "Note: these extra attacks are not considered as a \"true multishot\" and do not trigger any \"on hit\" abilities.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-%s chance to miss\n" % miss_chance_add \

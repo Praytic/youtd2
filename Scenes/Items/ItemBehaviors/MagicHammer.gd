@@ -5,7 +5,7 @@ func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magic Weapon[/color]\n"
-	text += "Every 5th spell is a critical hit.\n"
+	text += "Every 5th spell cast will deal critical spell damage. The crit will be applied only to the first instance of spell damage for spells which deal spell damage multiple times.\n"
 
 	return text
 
