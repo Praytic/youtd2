@@ -314,14 +314,10 @@ func _float_format(number) -> String:
 
 
 func _generate_tower_details_text(tower: Tower) -> String:
-	var ranges_text: String = _get_tower_ranges_text(tower)
 	var oils_text: String = _get_tower_oils_text(tower)
 	var details_text: String = _get_tower_details_text(tower)
 
 	var text: String = ""
-	text += ranges_text
-	text += " \n"
-	text += " \n"
 	text += oils_text
 	text += " \n"
 	text += " \n"
@@ -371,29 +367,6 @@ func _get_tower_details_text(tower: Tower) -> String:
 			var value: String = multiboard.get_value(row)
 
 			text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [key, value]
-
-	text += "[/table]"
-
-	return text
-
-
-func _get_tower_ranges_text(tower: Tower) -> String:
-	var text: String = ""
-
-	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(tower.get_id())
-
-	text += "[color=GOLD]Ranges:[/color]\n \n"
-
-	text += "[table=2]"
-
-	for i in range(0, range_data_list.size()):
-		var range_data: RangeData = range_data_list[i]
-		var radius: float = range_data.get_radius_with_builder_bonus(tower.get_player())
-		var radius_string: String = Utils.format_float(radius, 0)
-		var range_color: Color = RangeData.get_color_for_index(i)
-		radius_string = Utils.get_colored_string(radius_string, range_color)
-
-		text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [range_data.name, radius_string]
 
 	text += "[/table]"
 
