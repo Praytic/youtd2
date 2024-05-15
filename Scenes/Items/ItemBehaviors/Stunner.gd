@@ -30,6 +30,9 @@ func on_damage(event: Event):
 	var tower: Tower = item.get_carrier()
 	var speed: float = tower.get_base_attack_speed()
 
+	if !event.is_main_target():
+		return
+
 	if size < CreepSize.enm.BOSS:
 		if tower.calc_chance((0.15 + tower.get_level() * 0.0025) * speed) && event.is_main_target() == true:
 			CombatLog.log_item_ability(item, null, "Stun")
