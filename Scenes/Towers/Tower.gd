@@ -472,12 +472,20 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	projectile.set_tower_crit_count(crit_count)
 	projectile.set_tower_crit_ratio(crit_ratio)
 
+#	NOTE: need to save some variables to be used later when
+#	projectile reaches target
 	if _attack_style == AttackStyle.BOUNCE:
 		var randomize_damage: bool = true
 		var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
+		var current_bounce_index: int = 0
 
 		projectile.user_real = damage
-		projectile.user_int = 0
+		projectile.user_int = current_bounce_index
+	elif _attack_style == AttackStyle.NORMAL:
+		if target_is_first:
+			projectile.user_int2 = 1
+		else:
+			projectile.user_int2 = 0
 
 	var sfx_path: String
 	match get_element():
@@ -635,10 +643,14 @@ func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 			_on_projectile_target_hit_bounce(projectile, target)
 
 
+# NOTE: only the first target is considered to be the "main
+# target" in case of multishot. This is how it works in
+# original game.
 func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var randomize_damage: bool = true
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
-	var is_main_target: bool = true
+	var target_is_first: bool = projectile.user_int2 == 1
+	var is_main_target: bool = target_is_first
 	
 	_do_damage_from_projectile(projectile, target, damage, is_main_target)
 
