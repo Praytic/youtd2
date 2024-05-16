@@ -12,16 +12,16 @@ const game_scene_scene: PackedScene = preload("res://src/game_scene/GameScene.ts
 const item_button_scene: PackedScene = preload("res://src/hud/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://src/hud/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://src/hud/FloatingText.tscn")
-const explosion_scene: PackedScene = preload("res://src/effects/Explosion.tscn")
+const explosion_scene: PackedScene = preload("res://src/effects/explosion.tscn")
 const projectile_scene: PackedScene = preload("res://src/projectiles/Projectile.tscn")
-const aura_scene: PackedScene = preload("res://src/buffs/Aura.tscn")
-const buff_range_area_scene: PackedScene = preload("res://src/buffs/BuffRangeArea.tscn")
-const corpse_scene: PackedScene = preload("res://src/creeps/CreepCorpse.tscn")
-const blood_pool_scene: PackedScene = preload("res://src/creeps/CreepBloodPool.tscn")
+const aura_scene: PackedScene = preload("res://src/buffs/aura.tscn")
+const buff_range_area_scene: PackedScene = preload("res://src/buffs/buff_range_area.tscn")
+const corpse_scene: PackedScene = preload("res://src/creeps/creep_corpse.tscn")
+const blood_pool_scene: PackedScene = preload("res://src/creeps/creep_blood_pool.tscn")
 const flying_item_scene: PackedScene = preload("res://src/hud/FlyingItem.tscn")
 const autocast_button_scene: PackedScene = preload("res://src/hud/Buttons/AutocastButton.tscn")
 const autocast_scene: PackedScene = preload("res://src/towers/Autocast.tscn")
-const placeholder_effect_scene: PackedScene = preload("res://src/effects/GenericMagic.tscn")
+const placeholder_effect_scene: PackedScene = preload("res://src/effects/generic_magic.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://src/hud/Buttons/EmptyUnitButton.tscn")
 const range_indicator_scene: PackedScene = preload("res://src/towers/RangeIndicator.tscn")
 const outline_shader: Material = preload("res://resources/shaders/glowing_outline.material")
@@ -46,12 +46,12 @@ const element_icons: Dictionary = {
 
 
 const creep_scenes: Dictionary = {
-	"OrcChampion": preload("res://src/creeps/Instances/Orc/OrcChampionCreep.tscn"),
-	"OrcAir": preload("res://src/creeps/Instances/Orc/OrcAirCreep.tscn"),
-	"OrcBoss": preload("res://src/creeps/Instances/Orc/OrcBossCreep.tscn"),
-	"OrcMass": preload("res://src/creeps/Instances/Orc/OrcMassCreep.tscn"),
-	"OrcNormal": preload("res://src/creeps/Instances/Orc/OrcNormalCreep.tscn"),
+	"OrcChampion": preload("res://src/creeps/instances/Orc/OrcChampionCreep.tscn"),
+	"OrcAir": preload("res://src/creeps/instances/Orc/OrcAirCreep.tscn"),
+	"OrcBoss": preload("res://src/creeps/instances/Orc/OrcBossCreep.tscn"),
+	"OrcMass": preload("res://src/creeps/instances/Orc/OrcMassCreep.tscn"),
+	"OrcNormal": preload("res://src/creeps/instances/Orc/OrcNormalCreep.tscn"),
 	
-	"ChallengeBoss": preload("res://src/creeps/Instances/Challenge/ChallengeBossCreep.tscn"),
-	"ChallengeMass": preload("res://src/creeps/Instances/Challenge/ChallengeMassCreep.tscn"),
+	"ChallengeBoss": preload("res://src/creeps/instances/Challenge/ChallengeBossCreep.tscn"),
+	"ChallengeMass": preload("res://src/creeps/instances/Challenge/ChallengeMassCreep.tscn"),
 }

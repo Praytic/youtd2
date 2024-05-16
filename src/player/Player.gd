@@ -70,7 +70,7 @@ func _ready():
 # up at a time
 func create_focus_target_effect(target: Unit):
 	Effect.destroy_effect(_focus_target_effect_id)
-	var effect: int = Effect.create_simple_on_unit("res://src/effects/TargetArrow.tscn", target, Unit.BodyPart.HEAD)
+	var effect: int = Effect.create_simple_on_unit("res://src/effects/target_arrow.tscn", target, Unit.BodyPart.HEAD)
 	Effect.set_lifetime(effect, 2.0)
 	_focus_target_effect_id = effect
 

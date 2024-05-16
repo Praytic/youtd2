@@ -43,7 +43,7 @@ func add_item(item: Item, insert_index: int = -1):
 # 	transformed. In such cases, we do not show the application
 # 	Effect again.
 	if is_oil && !item._is_oil_and_was_applied_already:
-		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/OilApplication.tscn", _tower)
+		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/oil_application.tscn", _tower)
 		Effect.set_scale(effect_id, 8)
 		Effect.destroy_effect_after_its_over(effect_id)
 

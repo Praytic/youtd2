@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmcahg14hpv5j"]
+
+[ext_resource type="Script" path="res://src/creeps/creep.gd" id="1_pofyw"]
+[ext_resource type="Script" path="res://src/creeps/creep_sprite.gd" id="2_412am"]
+[ext_resource type="Script" path="res://src/creeps/health_bar.gd" id="3_bsm61"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fcpqs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woyy6"]
+bg_color = Color(0.0862745, 0.00392157, 0, 0.721569)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wam3"]
+resource_local_to_scene = true
+bg_color = Color(0.176471, 0.960784, 0, 1)
+
+[node name="Creep" type="Node2D"]
+script = ExtResource("1_pofyw")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual"]
+sprite_frames = SubResource("SpriteFrames_fcpqs")
+script = ExtResource("2_412am")
+
+[node name="HealthBar" type="ProgressBar" parent="Visual"]
+offset_left = -50.0
+offset_top = -123.0
+offset_right = 50.0
+offset_bottom = -114.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_woyy6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0wam3")
+value = 100.0
+show_percentage = false
+script = ExtResource("3_bsm61")
+color3 = Color(0.176471, 0.960784, 0, 1)
+color2 = Color(1, 0.635294, 0.0745098, 1)
+color1 = Color(0.698039, 0, 0, 1)
+
+[node name="SelectionArea" type="Area2D" parent="Visual"]
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
+
+[node name="SpecialsIconContainer" type="HBoxContainer" parent="Visual"]
+visible = false
+offset_left = -51.0
+offset_top = -177.0
+offset_right = 51.0
+offset_bottom = -128.0
+
+[connection signal="hovered_changed" from="." to="." method="_on_hovered_changed"]
+[connection signal="selected_changed" from="." to="." method="_on_selected_changed"]
+[connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

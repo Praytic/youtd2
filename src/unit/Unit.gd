@@ -651,7 +651,7 @@ func add_stun():
 	_stun_count += 1
 
 	if stun_started:
-		_stun_effect_id = Effect.add_special_effect_target("res://src/effects/StunVisual.tscn", self, Unit.BodyPart.HEAD)
+		_stun_effect_id = Effect.add_special_effect_target("res://src/effects/stun_visual.tscn", self, Unit.BodyPart.HEAD)
 
 
 func remove_stun():
@@ -768,7 +768,7 @@ func _change_experience(amount: float) -> float:
 	get_player().display_floating_text(exp_text, self, text_color)
 
 	if level_increased:
-		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/LevelUp.tscn", self)
+		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/level_up.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
 		Effect.set_scale(effect_id, effect_scale)
 		Effect.destroy_effect_after_its_over(effect_id)
@@ -1019,7 +1019,7 @@ func _accept_kill(target: Unit):
 	kill.emit(kill_event)
 
 
-# This is for internal use in Buff.gd only. For external
+# This is for internal use in buff.gd only. For external
 # use, call BuffType.apply().
 func _add_buff_internal(buff: Buff):
 	var buff_type_name: String = buff.get_buff_type_name()

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgajgmvgctimg"]
+
+[ext_resource type="Script" path="res://src/buffs/buff_range_area.gd" id="1"]
+[ext_resource type="Script" path="res://src/game_scene/ManualTimer.gd" id="2_4yswb"]
+
+[node name="buff_range_area" type="Node2D"]
+script = ExtResource("1")
+
+[node name="ManualTimer" type="Node" parent="."]
+script = ExtResource("2_4yswb")
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="ManualTimer" to="." method="_on_manual_timer_timeout"]

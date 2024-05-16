@@ -13,7 +13,7 @@ signal horadric_lock_changed()
 const FLY_DURATION: float = 1.0
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 
-# NOTE: this is used in Creep.gd to determine which items
+# NOTE: this is used in creep.gd to determine which items
 # will not drop.
 
 # NOTE: Nermind's Eye(220) and Eye of True Sight(221) are
