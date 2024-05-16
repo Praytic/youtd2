@@ -13,7 +13,7 @@ enum MoveType {
 }
 
 
-const FALLBACK_PROJECTILE_VISUAL: String = "res://src/projectiles/ProjectileVisuals/DefaultProjectile.tscn"
+const FALLBACK_PROJECTILE_VISUAL: String = "res://src/projectiles/projectile_visuals/DefaultProjectile.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 const LIGHTNING_VISUAL_LIFETIME: float = 0.5
 # NOTE: same value is used in original game. It roughly

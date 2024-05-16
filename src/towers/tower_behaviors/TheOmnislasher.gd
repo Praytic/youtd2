@@ -45,7 +45,7 @@ func tower_init():
 	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
 	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 
-	mirror_image_pt = ProjectileType.create_interpolate("res://src/projectiles/ProjectileVisuals/OmnislasherMirrorImage.tscn", 1000.0, self)
+	mirror_image_pt = ProjectileType.create_interpolate("res://src/projectiles/projectile_visuals/OmnislasherMirrorImage.tscn", 1000.0, self)
 	mirror_image_pt.set_event_on_interpolation_finished(mirror_image_pt_on_interpolation_finished)
 	mirror_image_pt.disable_explode_on_hit()
 

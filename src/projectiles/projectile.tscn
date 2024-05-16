@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdibpipbjyshb"]
 
-[ext_resource type="PackedScene" uid="uid://by01sg1a1yihc" path="res://src/unit/DummyUnit.tscn" id="1_fkawk"]
-[ext_resource type="Script" path="res://src/projectiles/Projectile.gd" id="2_xv7xk"]
+[ext_resource type="PackedScene" uid="uid://by01sg1a1yihc" path="res://src/unit/dummy_unit.tscn" id="1_fkawk"]
+[ext_resource type="Script" path="res://src/projectiles/projectile.gd" id="2_xv7xk"]
 [ext_resource type="Script" path="res://src/game_scene/ManualTimer.gd" id="4_o28ps"]
 
 [node name="Projectile" node_paths=PackedStringArray("_lifetime_timer", "_visual_node") groups=["projectiles"] instance=ExtResource("1_fkawk")]
