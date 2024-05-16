@@ -1,26 +1,26 @@
 [gd_scene load_steps=595 format=3 uid="uid://bo30n7bw36ewf"]
 
 [ext_resource type="PackedScene" uid="uid://183m2b07mas0" path="res://src/Creeps/Instances/MassCreep.tscn" id="1_cy6vo"]
-[ext_resource type="Texture2D" uid="uid://c031gwyl83vsh" path="res://assets/Creeps/orc/mass/death_E.png" id="2_xu42w"]
-[ext_resource type="Texture2D" uid="uid://byqwfls7534ta" path="res://assets/Creeps/orc/mass/death_N.png" id="3_2yg2m"]
-[ext_resource type="Texture2D" uid="uid://dc3ghqhhglmqi" path="res://assets/Creeps/orc/mass/death_S.png" id="4_lk5l4"]
-[ext_resource type="Texture2D" uid="uid://e7syh2jbikvl" path="res://assets/Creeps/orc/mass/death_W.png" id="5_6p4v1"]
-[ext_resource type="Texture2D" uid="uid://dk5vygk7senlm" path="res://assets/Creeps/orc/mass/floating_E.png" id="6_fnr84"]
-[ext_resource type="Texture2D" uid="uid://beengm2y0b2p0" path="res://assets/Creeps/orc/mass/floating_N.png" id="7_ps1di"]
-[ext_resource type="Texture2D" uid="uid://e350fgnbwlwk" path="res://assets/Creeps/orc/mass/floating_S.png" id="8_x45ke"]
-[ext_resource type="Texture2D" uid="uid://dmgxjjys0vm72" path="res://assets/Creeps/orc/mass/floating_W.png" id="9_xtrr1"]
-[ext_resource type="Texture2D" uid="uid://dvas5rrof4w" path="res://assets/Creeps/orc/mass/run_E.png" id="10_28bbi"]
-[ext_resource type="Texture2D" uid="uid://csuav6l30urgs" path="res://assets/Creeps/orc/mass/run_N.png" id="11_nm831"]
-[ext_resource type="Texture2D" uid="uid://dfhna0reepyxs" path="res://assets/Creeps/orc/mass/run_S.png" id="12_obtfg"]
-[ext_resource type="Texture2D" uid="uid://c8jmnhjii6vik" path="res://assets/Creeps/orc/mass/run_W.png" id="13_5wqcl"]
-[ext_resource type="Texture2D" uid="uid://bd5vg4oke4m70" path="res://assets/Creeps/orc/mass/slow_run_E.png" id="14_42ega"]
-[ext_resource type="Texture2D" uid="uid://jmweiopkc2gm" path="res://assets/Creeps/orc/mass/slow_run_N.png" id="15_t1c1m"]
-[ext_resource type="Texture2D" uid="uid://beanme0cwvawx" path="res://assets/Creeps/orc/mass/slow_run_S.png" id="16_r4o23"]
-[ext_resource type="Texture2D" uid="uid://c2kjqefq762mo" path="res://assets/Creeps/orc/mass/slow_run_W.png" id="17_obc2c"]
-[ext_resource type="Texture2D" uid="uid://7hu28w4boo8k" path="res://assets/Creeps/orc/mass/stunned_E.png" id="18_yx8k2"]
-[ext_resource type="Texture2D" uid="uid://2q8chye3e3wv" path="res://assets/Creeps/orc/mass/stunned_N.png" id="19_k8np1"]
-[ext_resource type="Texture2D" uid="uid://cowlgingdbtri" path="res://assets/Creeps/orc/mass/stunned_S.png" id="20_4in3e"]
-[ext_resource type="Texture2D" uid="uid://c0e755oteg36s" path="res://assets/Creeps/orc/mass/stunned_W.png" id="21_3txac"]
+[ext_resource type="Texture2D" uid="uid://c031gwyl83vsh" path="res://assets/creeps/orc/mass/death_E.png" id="2_xu42w"]
+[ext_resource type="Texture2D" uid="uid://byqwfls7534ta" path="res://assets/creeps/orc/mass/death_N.png" id="3_2yg2m"]
+[ext_resource type="Texture2D" uid="uid://dc3ghqhhglmqi" path="res://assets/creeps/orc/mass/death_S.png" id="4_lk5l4"]
+[ext_resource type="Texture2D" uid="uid://e7syh2jbikvl" path="res://assets/creeps/orc/mass/death_W.png" id="5_6p4v1"]
+[ext_resource type="Texture2D" uid="uid://dk5vygk7senlm" path="res://assets/creeps/orc/mass/floating_E.png" id="6_fnr84"]
+[ext_resource type="Texture2D" uid="uid://beengm2y0b2p0" path="res://assets/creeps/orc/mass/floating_N.png" id="7_ps1di"]
+[ext_resource type="Texture2D" uid="uid://e350fgnbwlwk" path="res://assets/creeps/orc/mass/floating_S.png" id="8_x45ke"]
+[ext_resource type="Texture2D" uid="uid://dmgxjjys0vm72" path="res://assets/creeps/orc/mass/floating_W.png" id="9_xtrr1"]
+[ext_resource type="Texture2D" uid="uid://dvas5rrof4w" path="res://assets/creeps/orc/mass/run_E.png" id="10_28bbi"]
+[ext_resource type="Texture2D" uid="uid://csuav6l30urgs" path="res://assets/creeps/orc/mass/run_N.png" id="11_nm831"]
+[ext_resource type="Texture2D" uid="uid://dfhna0reepyxs" path="res://assets/creeps/orc/mass/run_S.png" id="12_obtfg"]
+[ext_resource type="Texture2D" uid="uid://c8jmnhjii6vik" path="res://assets/creeps/orc/mass/run_W.png" id="13_5wqcl"]
+[ext_resource type="Texture2D" uid="uid://bd5vg4oke4m70" path="res://assets/creeps/orc/mass/slow_run_E.png" id="14_42ega"]
+[ext_resource type="Texture2D" uid="uid://jmweiopkc2gm" path="res://assets/creeps/orc/mass/slow_run_N.png" id="15_t1c1m"]
+[ext_resource type="Texture2D" uid="uid://beanme0cwvawx" path="res://assets/creeps/orc/mass/slow_run_S.png" id="16_r4o23"]
+[ext_resource type="Texture2D" uid="uid://c2kjqefq762mo" path="res://assets/creeps/orc/mass/slow_run_W.png" id="17_obc2c"]
+[ext_resource type="Texture2D" uid="uid://7hu28w4boo8k" path="res://assets/creeps/orc/mass/stunned_E.png" id="18_yx8k2"]
+[ext_resource type="Texture2D" uid="uid://2q8chye3e3wv" path="res://assets/creeps/orc/mass/stunned_N.png" id="19_k8np1"]
+[ext_resource type="Texture2D" uid="uid://cowlgingdbtri" path="res://assets/creeps/orc/mass/stunned_S.png" id="20_4in3e"]
+[ext_resource type="Texture2D" uid="uid://c0e755oteg36s" path="res://assets/creeps/orc/mass/stunned_W.png" id="21_3txac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7yau6"]
 atlas = ExtResource("2_xu42w")
@@ -4136,7 +4136,7 @@ bg_color = Color(0.176471, 0.960784, 0, 1)
 [node name="Sprite" parent="Visual" index="0"]
 sprite_frames = SubResource("SpriteFrames_v32rs")
 offset = Vector2(-9, 30)
-sprite_sheets_dir = "res://assets/Creeps/orc/mass"
+sprite_sheets_dir = "res://assets/creeps/orc/mass"
 _animation_offset_map = {
 "death_E": Vector2(5, 40),
 "death_N": Vector2(27, 26),

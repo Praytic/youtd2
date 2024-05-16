@@ -5,7 +5,7 @@ class_name SelectTargetForCast extends Node
 
 var _autocast: Autocast = null
 
-const _cast_cursor: Texture2D = preload("res://assets/Misc/cast_cursor.png")
+const _cast_cursor: Texture2D = preload("res://assets/misc/cast_cursor.png")
 
 @export var _mouse_state: MouseState
 @export var _game_client: GameClient
