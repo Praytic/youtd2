@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4giw0t33nkpi"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/Theme/wc3_theme.tres" id="1_tyvge"]
+[ext_resource type="Script" path="res://src/HUD/ButtonStatusCard.gd" id="2_o5u5x"]
+[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://resources/Textures/UI/rect_container_m.tres" id="3_4s80j"]
+[ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/UI/ButtonGroup/menu_cards_button_group.tres" id="4_kq8xt"]
+[ext_resource type="Texture2D" uid="uid://r7qkt7vep0ar" path="res://resources/Icons/hud/tower_stash.tres" id="5_ycddg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ni3r1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ebngv"]
+content_margin_left = 10.0
+content_margin_right = 50.0
+content_margin_bottom = 5.0
+texture = ExtResource("3_4s80j")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 154)
+modulate_color = Color(1, 1, 1, 0.784314)
+
+[node name="ButtonStatusCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container", "_empty_container", "_main_button")]
+custom_minimum_size = Vector2(2.08165e-12, 100)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -163.0
+offset_bottom = 100.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 1
+theme = ExtResource("1_tyvge")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
+script = ExtResource("2_o5u5x")
+_expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
+_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
+_status_panels = [NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2"), NodePath("PanelContainer/HBoxContainer/VBoxContainer"), NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
+_panels_container = NodePath("PanelContainer")
+_empty_container = NodePath("PanelContainer/HBoxContainer/EmptySpace")
+_main_button = NodePath("AspectRatioContainer/MainButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ebngv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+stretch_mode = 1
+
+[node name="ExpandButton" type="Button" parent="PanelContainer/HBoxContainer/AspectRatioContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ExpandButton"
+icon_alignment = 1
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="EmptySpace" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+columns = 4
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+stretch_mode = 1
+
+[node name="MainButton" type="Button" parent="AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Open Towers menu"
+focus_mode = 0
+theme_type_variation = &"BigCircleButton"
+theme_override_constants/icon_max_width = 90
+toggle_mode = true
+button_group = ExtResource("4_kq8xt")
+icon = ExtResource("5_ycddg")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton" to="." method="_on_expand_button_pressed"]
+[connection signal="toggled" from="AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]

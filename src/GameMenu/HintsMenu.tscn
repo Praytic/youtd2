@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbrryq35rxvkv"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/Theme/wc3_theme.tres" id="1_njctg"]
+[ext_resource type="Script" path="res://src/GameMenu/HintsMenu.gd" id="2_jpay6"]
+[ext_resource type="PackedScene" uid="uid://dqb37g0dwa4o2" path="res://src/GameMenu/HintsMenuTab.tscn" id="3_iygdm"]
+
+[node name="HintsMenu" type="TabContainer"]
+custom_minimum_size = Vector2(1100, 700)
+offset_right = 900.0
+offset_bottom = 705.0
+theme = ExtResource("1_njctg")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_jpay6")
+
+[node name="Tutorial" parent="." instance=ExtResource("3_iygdm")]
+layout_mode = 2
+csv_path = "res://data/hints/tutorial.csv"
+
+[node name="Basics" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/basics.csv"
+
+[node name="Towers" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/towers.csv"
+
+[node name="Items" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/items.csv"
+
+[node name="Creeps" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/creeps.csv"
+
+[node name="Advanced" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/advanced.csv"

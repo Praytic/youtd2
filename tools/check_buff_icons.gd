@@ -23,7 +23,7 @@ func run():
 	print("List of files which use invalid buff icons:")
 	print(" \n")
 
-	process_dir("res://Scenes")
+	process_dir("res://src")
 
 
 func process_dir(dir_path: String):

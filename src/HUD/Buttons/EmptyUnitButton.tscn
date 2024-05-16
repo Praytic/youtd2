@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://8xsklkw4jhlw"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/HUD/Buttons/UnitButton.tscn" id="1_k0gtm"]
+[ext_resource type="Script" path="res://src/HUD/Buttons/EmptyUnitButton.gd" id="1_lftg8"]
+
+[node name="EmptyUnitButton" instance=ExtResource("1_k0gtm")]
+mouse_filter = 1
+theme_type_variation = &"EmptySlot"
+icon = null
+expand_icon = false
+script = ExtResource("1_lftg8")
+
+[node name="RarityContainer" parent="MarginContainer" index="0"]
+visible = false
+
+[node name="MarginContainer2" parent="." index="1"]
+visible = false

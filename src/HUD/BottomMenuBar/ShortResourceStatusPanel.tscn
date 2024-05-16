@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://ngr2je0iun8h"]
+
+[ext_resource type="Script" path="res://src/HUD/BottomMenuBar/ShortResourceStatusPanel.gd" id="1_ox7ia"]
+[ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://resources/Icons/hud/gem_common.tres" id="1_uerio"]
+
+[node name="ShortResourceStatusPanel" type="MarginContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
+custom_minimum_size = Vector2(70, 40)
+offset_right = 114.0
+offset_bottom = 40.0
+script = ExtResource("1_ox7ia")
+_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
+_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = 10
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/MarginContainer2"]
+layout_mode = 2
+stretch_mode = 1
+
+[node name="ResourceIconTexture" type="TextureRect" parent="HBoxContainer/MarginContainer2/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_uerio")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -5
+
+[node name="ResourceCountLabel" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "99"
+vertical_alignment = 2
+
+[node name="NewResourceCountLabel" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_type_variation = &"LabelSmall"
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "(+99)"

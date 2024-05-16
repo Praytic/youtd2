@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://csayw0jxo1omx"]
+
+[ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://src/HUD/ButtonStatusCard.tscn" id="1_smc8e"]
+[ext_resource type="Script" path="res://src/HUD/UnitStatusCard.gd" id="2_eu816"]
+[ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://src/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_lqtu6"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/HUD/misc3.png" id="4_75p6f"]
+[ext_resource type="Texture2D" uid="uid://dhblrxave2k52" path="res://resources/Icons/TowerIcons/ObeliskofFortuity.tres" id="5_sg1bn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8tah"]
+atlas = ExtResource("4_75p6f")
+region = Rect2(768, 128, 128, 128)
+
+[node name="UnitStatusCard" node_paths=PackedStringArray("_level_panel", "_hidable_status_panels", "_status_panels") instance=ExtResource("1_smc8e")]
+script = ExtResource("2_eu816")
+_level_panel = NodePath("PanelContainer/HBoxContainer/VBoxContainer/LevelPanel")
+_hidable_status_panels = []
+_status_panels = [NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2"), NodePath("PanelContainer/HBoxContainer/VBoxContainer"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
+
+[node name="ExpandButton" parent="PanelContainer/HBoxContainer/AspectRatioContainer2" index="0"]
+visible = false
+
+[node name="LevelPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("2_lqtu6")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/LevelPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = SubResource("AtlasTexture_w8tah")
+
+[node name="MainButton" parent="AspectRatioContainer" index="0"]
+tooltip_text = "Open Unit Menu"
+icon = ExtResource("5_sg1bn")
+
+[editable path="PanelContainer/HBoxContainer/VBoxContainer/LevelPanel"]

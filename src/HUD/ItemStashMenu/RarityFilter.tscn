@@ -1,0 +1,155 @@
+[gd_scene load_steps=30 format=3 uid="uid://qcct52drete4"]
+
+[ext_resource type="Script" path="res://src/HUD/ItemStashMenu/RarityFilter.gd" id="1_rlkt4"]
+[ext_resource type="PackedScene" uid="uid://dan6pqpxexgbi" path="res://src/HUD/Buttons/ItemFilterButton.tscn" id="2_vblb1"]
+[ext_resource type="Texture2D" uid="uid://775ninjr2sio" path="res://resources/Icons/hud/gem_all_rarities.tres" id="3_gyfma"]
+[ext_resource type="Script" path="res://src/HUD/Buttons/RarityFilterButton.gd" id="5_b4cx2"]
+[ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://resources/Icons/hud/gem_common.tres" id="6_7mf3k"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://resources/Icons/hud/gem_uncommon.tres" id="7_4ph1u"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://resources/Icons/hud/gem_rare.tres" id="8_xp3gw"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://resources/Icons/hud/gem_unique.tres" id="9_ke47u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gpxcy"]
+texture = ExtResource("3_gyfma")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8om6p"]
+texture = ExtResource("3_gyfma")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1qp0x"]
+texture = ExtResource("3_gyfma")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8j5n"]
+texture = ExtResource("3_gyfma")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t535v"]
+texture = ExtResource("3_gyfma")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtpi7"]
+texture = ExtResource("6_7mf3k")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56vm4"]
+texture = ExtResource("6_7mf3k")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dssae"]
+texture = ExtResource("6_7mf3k")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oii3d"]
+texture = ExtResource("6_7mf3k")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o20ob"]
+texture = ExtResource("7_4ph1u")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l068u"]
+texture = ExtResource("7_4ph1u")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aoswy"]
+texture = ExtResource("7_4ph1u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lu628"]
+texture = ExtResource("7_4ph1u")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5piem"]
+texture = ExtResource("8_xp3gw")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3slk"]
+texture = ExtResource("8_xp3gw")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xbgks"]
+texture = ExtResource("8_xp3gw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4p5to"]
+texture = ExtResource("8_xp3gw")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_twa77"]
+texture = ExtResource("9_ke47u")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2ngo"]
+texture = ExtResource("9_ke47u")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_olwpn"]
+texture = ExtResource("9_ke47u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmsb3"]
+texture = ExtResource("9_ke47u")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[node name="RarityFilter" type="VBoxContainer"]
+size_flags_horizontal = 0
+script = ExtResource("1_rlkt4")
+
+[node name="Button" parent="." instance=ExtResource("2_vblb1")]
+layout_mode = 2
+tooltip_text = "All rarities"
+theme_override_styles/normal = SubResource("StyleBoxTexture_gpxcy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8om6p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1qp0x")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_s8j5n")
+theme_override_styles/focus = SubResource("StyleBoxTexture_t535v")
+button_pressed = true
+icon = null
+script = ExtResource("5_b4cx2")
+rarity_list = Array[int]([0, 1, 2, 3])
+
+[node name="Button2" parent="." instance=ExtResource("2_vblb1")]
+layout_mode = 2
+tooltip_text = "Common"
+theme_override_styles/normal = SubResource("StyleBoxTexture_qtpi7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_56vm4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dssae")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_oii3d")
+icon = null
+script = ExtResource("5_b4cx2")
+rarity_list = Array[int]([0])
+
+[node name="Button3" parent="." instance=ExtResource("2_vblb1")]
+layout_mode = 2
+tooltip_text = "Uncommon"
+theme_override_styles/normal = SubResource("StyleBoxTexture_o20ob")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l068u")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_aoswy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_lu628")
+icon = null
+script = ExtResource("5_b4cx2")
+rarity_list = Array[int]([1])
+
+[node name="Button4" parent="." instance=ExtResource("2_vblb1")]
+layout_mode = 2
+tooltip_text = "Rare"
+theme_override_styles/normal = SubResource("StyleBoxTexture_5piem")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o3slk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xbgks")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4p5to")
+icon = null
+script = ExtResource("5_b4cx2")
+rarity_list = Array[int]([2])
+
+[node name="Button5" parent="." instance=ExtResource("2_vblb1")]
+layout_mode = 2
+tooltip_text = "Unique"
+theme_override_styles/normal = SubResource("StyleBoxTexture_twa77")
+theme_override_styles/hover = SubResource("StyleBoxTexture_d2ngo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_olwpn")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_hmsb3")
+icon = null
+script = ExtResource("5_b4cx2")
+rarity_list = Array[int]([3])
+
+[connection signal="toggled" from="Button" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="Button2" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="Button3" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="Button4" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="Button5" to="." method="_on_filter_button_pressed"]

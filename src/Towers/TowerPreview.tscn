@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0630tccvc2i"]
+
+[ext_resource type="Script" path="res://src/Towers/TowerPreview.gd" id="1"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/Theme/wc3_theme.tres" id="2_xnufi"]
+
+[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left", "_range_indicator_container", "_transform_label")]
+script = ExtResource("1")
+_pedestal_up = NodePath("Pedestal/PedestalUp")
+_pedestal_right = NodePath("Pedestal/PedestalRight")
+_pedestal_down = NodePath("Pedestal/PedestalDown")
+_pedestal_left = NodePath("Pedestal/PedestalLeft")
+_range_indicator_container = NodePath("RangeIndicatorContainer")
+_transform_label = NodePath("MarginContainer/TransformLabel")
+
+[node name="Pedestal" type="Node2D" parent="."]
+
+[node name="PedestalUp" type="Polygon2D" parent="Pedestal"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, -64, -32, 0, -64, 64, -32)
+
+[node name="PedestalRight" type="Polygon2D" parent="Pedestal"]
+color = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(0, 0, 64, -32, 128, 0, 64, 32)
+
+[node name="PedestalDown" type="Polygon2D" parent="Pedestal"]
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 64, 32, 0, 64, -64, 32)
+
+[node name="PedestalLeft" type="Polygon2D" parent="Pedestal"]
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(0, 0, -64, 32, -128, 0, -64, -32)
+
+[node name="RangeIndicatorContainer" type="Node2D" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_right = 84.5
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 40
+
+[node name="TransformLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("2_xnufi")
+theme_type_variation = &"MessageLabel"
+bbcode_enabled = true
+text = "[center][color=CORNFLOWER_BLUE]Transform Tower[/color][/center]"
+fit_content = true
+scroll_active = false

@@ -1,0 +1,201 @@
+[gd_scene load_steps=38 format=3 uid="uid://l8hrrql7ne16"]
+
+[ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://src/HUD/Buttons/ElementButton.tscn" id="1_0qma8"]
+[ext_resource type="Script" path="res://src/HUD/TowerStashMenu/ElementsContainer.gd" id="1_u5xus"]
+[ext_resource type="StyleBox" uid="uid://q2y25uf1xpyp" path="res://resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_normal.tres" id="2_jrn2r"]
+[ext_resource type="StyleBox" uid="uid://ckjfsihgl3nhp" path="res://resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_hover.tres" id="3_1daat"]
+[ext_resource type="StyleBox" uid="uid://behifdalodejt" path="res://resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_pressed.tres" id="4_d1mbg"]
+[ext_resource type="StyleBox" uid="uid://d0qdny6k5khyq" path="res://resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_disabled.tres" id="5_y1rw8"]
+[ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://resources/UI/ButtonGroup/element_filter_button_group.tres" id="7_7lcyv"]
+[ext_resource type="Texture2D" uid="uid://c14cl1op1y5wk" path="res://resources/Icons/elements/nature.tres" id="10_ovq8i"]
+[ext_resource type="Texture2D" uid="uid://bvhrjk28kmjxg" path="res://resources/Icons/elements/fire.tres" id="10_viyfp"]
+[ext_resource type="Texture2D" uid="uid://b58m66c4f8n2n" path="res://resources/Icons/elements/astral.tres" id="11_2p2c2"]
+[ext_resource type="Texture2D" uid="uid://b7c8ugpn34iib" path="res://resources/Icons/elements/darkness.tres" id="12_8mild"]
+[ext_resource type="Texture2D" uid="uid://3aghxlv6b4hb" path="res://resources/Icons/elements/iron.tres" id="13_74xn2"]
+[ext_resource type="Texture2D" uid="uid://ofrvficsj8ih" path="res://resources/Icons/elements/storm.tres" id="14_qp4qc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sutn3"]
+texture = ExtResource("10_ovq8i")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_li745"]
+texture = ExtResource("10_ovq8i")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eh63f"]
+texture = ExtResource("10_ovq8i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ea07t"]
+texture = ExtResource("10_ovq8i")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8wa8"]
+texture = ExtResource("10_viyfp")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y4lma"]
+texture = ExtResource("10_viyfp")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kw7yc"]
+texture = ExtResource("10_viyfp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egfcl"]
+texture = ExtResource("10_viyfp")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvu85"]
+texture = ExtResource("11_2p2c2")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ex0ly"]
+texture = ExtResource("11_2p2c2")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4cav"]
+texture = ExtResource("11_2p2c2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ot5h"]
+texture = ExtResource("11_2p2c2")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a750c"]
+texture = ExtResource("12_8mild")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwsf8"]
+texture = ExtResource("12_8mild")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yuchi"]
+texture = ExtResource("12_8mild")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wjusv"]
+texture = ExtResource("12_8mild")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pbakr"]
+texture = ExtResource("13_74xn2")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfnlr"]
+texture = ExtResource("13_74xn2")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w3wvg"]
+texture = ExtResource("13_74xn2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udj2c"]
+texture = ExtResource("13_74xn2")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hvg8s"]
+texture = ExtResource("14_qp4qc")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hok0h"]
+texture = ExtResource("14_qp4qc")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evrf4"]
+texture = ExtResource("14_qp4qc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toos0"]
+texture = ExtResource("14_qp4qc")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[node name="HBoxContainer" type="VBoxContainer"]
+alignment = 2
+script = ExtResource("1_u5xus")
+
+[node name="ElementButton" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = ExtResource("2_jrn2r")
+theme_override_styles/hover = ExtResource("3_1daat")
+theme_override_styles/pressed = ExtResource("4_d1mbg")
+theme_override_styles/disabled = ExtResource("5_y1rw8")
+button_pressed = true
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+
+[node name="ElementButton2" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_sutn3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_li745")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eh63f")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ea07t")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 1
+
+[node name="ElementButton3" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_o8wa8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y4lma")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kw7yc")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_egfcl")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 2
+
+[node name="ElementButton4" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_mvu85")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ex0ly")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v4cav")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7ot5h")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 3
+
+[node name="ElementButton5" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_a750c")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rwsf8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yuchi")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_wjusv")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 4
+
+[node name="ElementButton6" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_pbakr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qfnlr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_w3wvg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_udj2c")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 5
+
+[node name="ElementButton7" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
+layout_mode = 2
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_hvg8s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hok0h")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_evrf4")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_toos0")
+keep_pressed_outside = true
+button_group = ExtResource("7_7lcyv")
+icon = null
+element = 6
+
+[connection signal="pressed" from="ElementButton" to="." method="_on_element_button_pressed" binds= [0]]
+[connection signal="pressed" from="ElementButton2" to="." method="_on_element_button_pressed" binds= [1]]
+[connection signal="pressed" from="ElementButton3" to="." method="_on_element_button_pressed" binds= [2]]
+[connection signal="pressed" from="ElementButton4" to="." method="_on_element_button_pressed" binds= [3]]
+[connection signal="pressed" from="ElementButton5" to="." method="_on_element_button_pressed" binds= [4]]
+[connection signal="pressed" from="ElementButton6" to="." method="_on_element_button_pressed" binds= [5]]
+[connection signal="pressed" from="ElementButton7" to="." method="_on_element_button_pressed" binds= [6]]

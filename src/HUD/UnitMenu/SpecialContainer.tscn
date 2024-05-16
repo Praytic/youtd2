@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1jo2a8vlvwlb"]
+
+[ext_resource type="Script" path="res://src/HUD/UnitMenu/SpecialContainer.gd" id="1_635h2"]
+
+[node name="SpecialContainer" type="VBoxContainer" node_paths=PackedStringArray("special_name_label", "title_container", "special_description_label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_635h2")
+special_name_label = NodePath("TitleContainer/Label")
+title_container = NodePath("TitleContainer")
+special_description_label = NodePath("TowerSpecialLabel")
+
+[node name="TitleContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
+text = "Splash attack"
+vertical_alignment = 2
+
+[node name="TowerSpecialLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.36
+bbcode_enabled = true
+text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
+[color=GOLD]+15%[/color] damage to mass ([color=GOLD]+1%[/color]/lvl)
+[color=GOLD]+15%[/color] damage to humanoid ([color=GOLD]+1%[/color]/lvl)"
+fit_content = true
