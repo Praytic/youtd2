@@ -346,7 +346,7 @@ func _deal_damage_to_portal():
 
 	player.get_team().modify_lives(-damage_to_portal)
 
-	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
+	SFX.play_sfx("res://assets/SFX/Assets_SFX_hit_3.mp3")
 
 	EventBus.portal_received_damage.emit()
 

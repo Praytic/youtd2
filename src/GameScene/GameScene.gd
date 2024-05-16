@@ -649,7 +649,7 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+	SFX.play_sfx("res://assets/SFX/move_item.mp3", -10.0)
 	
 	var local_player: Player = PlayerManager.get_local_player()
 	
@@ -687,7 +687,7 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 
 
 func _on_player_requested_transmute():
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+	SFX.play_sfx("res://assets/SFX/move_item.mp3", -10.0)
 	
 	var action: Action = ActionTransmute.make()
 	_game_client.add_action(action)

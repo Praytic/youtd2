@@ -19,20 +19,20 @@ jobs:
     - name: list assets in gdrive
       uses: wei/rclone@v1
       with:
-        args: lsf -R --filter-from rclone-filter "Assets" | sort > .assets-list
+        args: lsf -R --filter-from rclone-filter "assets" | sort > .assets-list
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
 
     - name: restore cache
       uses: actions/cache@v3
       with:
-        path: Assets
+        path: assets
         key: assets-${{ hashFiles('.assets-list') }}
 
     - name: sync assets from gdrive via rclone
       uses: wei/rclone@v1
       with:
-        args: sync -P --filter-from rclone-filter "gdrive:Assets" "Assets"
+        args: sync -P --filter-from rclone-filter "gdrive:assets" "assets"
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
 

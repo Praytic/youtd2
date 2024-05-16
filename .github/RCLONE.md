@@ -2,7 +2,7 @@
 
 Rclone is an advanced way to sync assets between your computer and google drive.
 
-Note that if you're using the public version of Assets (Assets_public), you can ignore this page and manually download files from drive.
+Note that if you're using the public version of assets (assets_public), you can ignore this page and manually download files from drive.
 
 ## Setup steps
 
@@ -13,16 +13,16 @@ Note that if you're using the public version of Assets (Assets_public), you can 
 ```
 rclone listremotes
 ```
-5. This command should print the list of folders insides Assets in Google Drive.
+5. This command should print the list of folders insides assets in Google Drive.
 ```
-rclone lsd <remote>:Assets
+rclone lsd <remote>:assets
 ```
 6. Transfer files to your local.
 ```
-rclone sync -P --filter-from rclone-filter "<remote>:Assets" "Assets"
+rclone sync -P --filter-from rclone-filter "<remote>:assets" "assets"
 ```
 
-Now you should be able to run the project inside the Godot editor. If you make changes to a file inside Assets folder, make sure to update Google Drive as well. There are two options.
+Now you should be able to run the project inside the Godot editor. If you make changes to a file inside assets folder, make sure to update Google Drive as well. There are two options.
 
 **First option - Google Drive upload.**
 
@@ -32,10 +32,10 @@ Now you should be able to run the project inside the Godot editor. If you make c
 4. Commit `.import` file to remote
 
 **Second option - rclone copy.**
-1. Move a file to `Assets` folder
+1. Move a file to `assets` folder
 2. Generate `.import` by opening the file in the editor
 3. Commit `.import` file to remote
 4. Upload the file to <remote>.
 ```
-rclone copy -v --filter-from rclone-filter Assets <remote>:Assets
+rclone copy -v --filter-from rclone-filter assets <remote>:assets
 ```

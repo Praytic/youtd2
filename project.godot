@@ -15,9 +15,9 @@ config/description="Discover the standalone sequel to the well-liked WC3 custom 
 run/main_scene="res://src/TitleScreen/TitleScreen.tscn"
 config/features=PackedStringArray("4.1")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-boot_splash/image="res://Assets/Misc/icob_ultra_wide.png"
-config/icon="res://Assets/Misc/icob_min.png"
-config/windows_native_icon="res://Assets/Misc/icob_min.ico"
+boot_splash/image="res://assets/Misc/icob_ultra_wide.png"
+config/icon="res://assets/Misc/icob_min.png"
+config/windows_native_icon="res://assets/Misc/icob_min.ico"
 config/visible_spell_dummys=false
 config/dev_controls=false
 config/preload_all_towers_on_startup=false
@@ -123,7 +123,7 @@ enabled=PackedStringArray("res://addons/w4gd/plugin/plugin.cfg")
 [gui]
 
 theme/custom="res://resources/theme/wc3_theme.tres"
-theme/custom_font="res://Assets/Fonts/Friz Quadrata Std Medium.otf"
+theme/custom_font="res://assets/Fonts/Friz Quadrata Std Medium.otf"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]
