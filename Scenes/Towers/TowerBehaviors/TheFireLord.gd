@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var hellfire: AbilityInfo = AbilityInfo.new()
 	hellfire.name = "Hellfire"
-	hellfire.icon = "res://Resources/Icons/orbs/orb_fire.tres"
+	hellfire.icon = "res://resources/Icons/orbs/orb_fire.tres"
 	hellfire.description_short = "When the Fire Lord attacks there is a chance that it gains a multishot ability and bonus attack speed.\n"
 	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attack speed for 7.5 seconds. Cannot retrigger!\n" \
 	+ " \n" \
@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var liquid_fire: AbilityInfo = AbilityInfo.new()
 	liquid_fire.name = "Liquid Fire"
-	liquid_fire.icon = "res://Resources/Icons/potions/potion_orange_03.tres"
+	liquid_fire.icon = "res://resources/Icons/potions/potion_orange_03.tres"
 	liquid_fire.description_short = "Whenever this tower hits a creep, it has a chance to set the target on fire, dealing spell damage and increasing the damage the target takes from %s towers.\n" % fire_string
 	liquid_fire.description_full = "Whenever this tower hits a creep, it has a chance to set the target on fire, dealing 500 spell damage per second and increasing the damage the target takes from %s towers by 10%%. Lasts 5 seconds.\n" % fire_string \
 	+ " \n" \
@@ -60,11 +60,11 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.10, 0.004)
 	liquid_fire_bt.set_buff_modifier(mod)
 	liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
-	liquid_fire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
+	liquid_fire_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
 	liquid_fire_bt.set_buff_tooltip("Liquid Fire\nDeals damage over time and increases damage taken from Fire towers.")
 
 	hellfire_bt = BuffType.new("hellfire_bt", 7.5, 0.2, true, self)
-	hellfire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mighty_force.tres")
+	hellfire_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
 	hellfire_bt.add_event_on_create(hellfire_on_create)
 	hellfire_bt.add_event_on_cleanup(hellfire_on_cleanup)
 	hellfire_bt.set_buff_tooltip("Hellfire\nAttacks extra targets and increases attack speed.")

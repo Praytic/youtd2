@@ -1,7 +1,7 @@
 class_name BuffDisplay extends PanelContainer
 
 
-const FALLBACK_BUFF_ICON: String = "res://Resources/Icons/GenericIcons/egg.tres"
+const FALLBACK_BUFF_ICON: String = "res://resources/Icons/GenericIcons/egg.tres"
 
 
 @export var _texture_rect: TextureRect

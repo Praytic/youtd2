@@ -54,7 +54,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Blood Spill"
-	ability.icon = "res://Resources/Icons/helmets/helmet_06.tres"
+	ability.icon = "res://resources/Icons/helmets/helmet_06.tres"
 	ability.description_short = "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
 	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts [color=GOLD]Blood Spill[/color], the tower gains %s experience for every other tower affected. Cannot retrigger while active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attack_speed, buff_duration, bloodspill_exp] \
 	+ " \n" \
@@ -81,18 +81,18 @@ func tower_init():
 	var dave_blood_target: Modifier = Modifier.new()
 	dave_blood_target.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
 	bloodspill_boost_bt.set_buff_modifier(dave_blood_target)
-	bloodspill_boost_bt.set_buff_icon("res://Resources/Icons/GenericIcons/sprint.tres")
+	bloodspill_boost_bt.set_buff_icon("res://resources/Icons/GenericIcons/sprint.tres")
 	bloodspill_boost_bt.set_buff_tooltip("Blood Spill Boost\nIncreases attack speed.")
 
 	bloodspill_fatigue_bt = BuffType.new("bloodspill_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_blood_altar: Modifier = Modifier.new()
 	dave_blood_altar.add_modification(Modification.Type.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
 	bloodspill_fatigue_bt.set_buff_modifier(dave_blood_altar)
-	bloodspill_fatigue_bt.set_buff_icon("res://Resources/Icons/GenericIcons/bat_mask.tres")
+	bloodspill_fatigue_bt.set_buff_icon("res://resources/Icons/GenericIcons/bat_mask.tres")
 	bloodspill_fatigue_bt.set_buff_tooltip("Blood Spill Fatigue\nReduces attack damage by 100%.")
 
 	sacrifice_boost_bt = BuffType.new("sacrifice_boost_bt", BUFF_DURATION, 0, true, self)
-	sacrifice_boost_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
+	sacrifice_boost_bt.set_buff_icon("res://resources/Icons/GenericIcons/animal_skull.tres")
 	sacrifice_boost_bt.add_event_on_cleanup(dave_sacrifice_target_on_cleanup)
 	sacrifice_boost_bt.set_buff_tooltip("Sacrifice Boost\nIncreases DPS.")
 
@@ -100,7 +100,7 @@ func tower_init():
 	var dave_sacrifice_altar: Modifier = Modifier.new()
 	dave_sacrifice_altar.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
 	sacrifice_fatigue_bt.set_buff_modifier(dave_sacrifice_altar)
-	sacrifice_fatigue_bt.set_buff_icon("res://Resources/Icons/GenericIcons/animal_skull.tres")
+	sacrifice_fatigue_bt.set_buff_icon("res://resources/Icons/GenericIcons/animal_skull.tres")
 	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
 
@@ -114,7 +114,7 @@ func create_autocasts() -> Array[Autocast]:
 	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
 
 	autocast.title = "Sacrifice"
-	autocast.icon = "res://Resources/Icons/furniture/artifact_on_pedestal.tres"
+	autocast.icon = "res://resources/Icons/furniture/artifact_on_pedestal.tres"
 	autocast.description_short = "This tower loses a portion of its attack damage to boost the DPS of a nearby tower.\n"
 	autocast.description = "This tower loses %s of its attack damage to boost the DPS of a tower in %s range by %s of its total attack damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration] \
 	+ " \n" \

@@ -16,7 +16,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var grow: AbilityInfo = AbilityInfo.new()
 	grow.name = "Grow!"
-	grow.icon = "res://Resources/Icons/trinkets/trinket_09.tres"
+	grow.icon = "res://resources/Icons/trinkets/trinket_09.tres"
 	grow.description_short = "Bonk will periodically grow, gaining experience and bonus attack damage.\n"
 	grow.description_full = "Every 25 seconds Bonk grows, gaining 4 experience and 3% bonus attack damage. Bonk can grow 160 times.\n" \
 	+ " \n" \
@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var landslide: AbilityInfo = AbilityInfo.new()
 	landslide.name = "Landslide!"
-	landslide.icon = "res://Resources/Icons/food/lard.tres"
+	landslide.icon = "res://resources/Icons/food/lard.tres"
 	landslide.description_short = "Whenever Bonk attacks, it has a chance to throw rocks at creeps around the main target. These rocks deal spell damage and stun.\n"
 	landslide.description_full = "This ability works only after Bonk has grown 20 times.\n" \
 	+ " \n" \
@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var crush: AbilityInfo = AbilityInfo.new()
 	crush.name = "Crush!"
-	crush.icon = "res://Resources/Icons/TowerIcons/BlackrocksTotem.tres"
+	crush.icon = "res://resources/Icons/TowerIcons/BlackrocksTotem.tres"
 	crush.description_short = "Whenever Bonk hits a stunned creep, it gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \
@@ -69,7 +69,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	morale_bt = BuffType.new("morale_bt", 10, 0, true, self)
-	morale_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
+	morale_bt.set_buff_icon("res://resources/Icons/GenericIcons/biceps.tres")
 	morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)

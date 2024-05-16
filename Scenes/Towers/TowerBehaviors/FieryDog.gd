@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Roar"
-	ability.icon = "res://Resources/Icons/animals/dragon_03.tres"
+	ability.icon = "res://resources/Icons/animals/dragon_03.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Roar[/color] which increases attack damage of nearby towers.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has 30%% chance to release a [color=GOLD]Roar[/color]. The cry increases attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower already has [color=GOLD]Roar[/color], then attack damage is increased by %s and duration is refreshed. Stacks up to 100 times.\n" % stack_bonus \
 	+ " \n" \
@@ -49,7 +49,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.05, 0.0005)
 
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
-	roar_bt.set_buff_icon("res://Resources/Icons/GenericIcons/wolf_howl.tres")
+	roar_bt.set_buff_icon("res://resources/Icons/GenericIcons/wolf_howl.tres")
 	roar_bt.set_buff_modifier(mod)
 
 	roar_bt.set_buff_tooltip("Roar\nIncreases attack damage.")

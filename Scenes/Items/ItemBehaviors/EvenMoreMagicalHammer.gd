@@ -105,12 +105,12 @@ func aura_bt_on_damaged(event: Event):
 
 func item_init():
 	mark_bt = BuffType.new("mark_bt", -1, 0, true, self)
-	mark_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
+	mark_bt.set_buff_icon("res://resources/Icons/GenericIcons/hammer_drop.tres")
 	mark_bt.add_event_on_create(mark_bt_on_create)
 	mark_bt.set_hidden()
 
 	aura_bt = BuffType.new("aura_bt", -1, 0, true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/hammer_drop.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_hidden()
 

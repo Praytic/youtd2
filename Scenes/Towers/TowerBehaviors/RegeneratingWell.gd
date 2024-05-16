@@ -24,7 +24,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
 	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
 
@@ -36,7 +36,7 @@ func create_autocasts() -> Array[Autocast]:
 	var replenish_mana_add: String = Utils.format_percent(_stats.replenish_mana_add, 2)
 
 	autocast.title = "Replenish"
-	autocast.icon = "res://Resources/Icons/plants/flower_01.tres"
+	autocast.icon = "res://resources/Icons/plants/flower_01.tres"
 	autocast.description_short = "Restores mana of nearby towers.\n"
 	autocast.description = "Restores %s of each towers maximum mana for towers in %s range. Restores only half the amount for towers of the same family.\n" % [replenish_mana, replenish_range] \
 	+ " \n" \
@@ -69,7 +69,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)
 
 	aura.name = "Cleansing Water"
-	aura.icon = "res://Resources/Icons/orbs/orb_ice.tres"
+	aura.icon = "res://resources/Icons/orbs/orb_ice.tres"
 	aura.description_short = "Increases spell damage dealt by nearby towers.\n"
 	aura.description_full = "Increases the spell damage dealt by all towers in %d range by %s.\n" % [AURA_RANGE, mod_spell_dmg] \
 	+ " \n" \

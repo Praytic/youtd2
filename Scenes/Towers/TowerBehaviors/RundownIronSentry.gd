@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var alert: AbilityInfo = AbilityInfo.new()
 	alert.name = "Alert"
-	alert.icon = "res://Resources/Icons/misc/red_knight.tres"
+	alert.icon = "res://resources/Icons/misc/red_knight.tres"
 	alert.description_short = "Nearby towers get alerted of trespassers.\n"
 	alert.description_full = "Towers in %s range get alerted whenever a creep of size air, champion or boss enters the sentry's attack range. They have their base damage increased by %s for %s seconds. Does not stack.\n" % [alert_range, alert_mod_dmg, alert_duration] \
 	+ " \n" \
@@ -45,7 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var tresspasser: AbilityInfo = AbilityInfo.new()
 	tresspasser.name = "Trespasser Awareness"
-	tresspasser.icon = "res://Resources/Icons/magic/eye.tres"
+	tresspasser.icon = "res://resources/Icons/magic/eye.tres"
 	tresspasser.description_short = "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
 	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus 5%%-40%% base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
 	+ " \n" \
@@ -66,14 +66,14 @@ func tower_init():
 	var alert_mod: Modifier = Modifier.new()
 	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
 	alert_bt.set_buff_modifier(alert_mod)
-	alert_bt.set_buff_icon("res://Resources/Icons/GenericIcons/barbute.tres")
+	alert_bt.set_buff_icon("res://resources/Icons/GenericIcons/barbute.tres")
 	alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
 
 	trespasser_bt = BuffType.new("trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
 	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 	trespasser_bt.set_buff_modifier(trespasser_mod)
-	trespasser_bt.set_buff_icon("res://Resources/Icons/GenericIcons/semi_closed_eye.tres")
+	trespasser_bt.set_buff_icon("res://resources/Icons/GenericIcons/semi_closed_eye.tres")
 	trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
 
 

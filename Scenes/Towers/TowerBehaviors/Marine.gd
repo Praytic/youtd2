@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frag Grenade"
-	ability.icon = "res://Resources/Icons/misc/balls_02.tres"
+	ability.icon = "res://resources/Icons/misc/balls_02.tres"
 	ability.description_short = "When this tower hits a creep, it has a chance to fire a frag grenade. Grenades deal spell damage.\n"
 	ability.description_full = "When this tower hits a creep, it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spell damage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
 	+ " \n" \
@@ -58,14 +58,14 @@ func tower_init():
 	boekie_stim_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, STIM_ATTACKSPEED, 0.0)
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	stim_bt.set_buff_modifier(boekie_stim_mod)
-	stim_bt.set_buff_icon("res://Resources/Icons/GenericIcons/meat.tres")
+	stim_bt.set_buff_icon("res://resources/Icons/GenericIcons/meat.tres")
 	stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
 
 	fragged_bt = BuffType.new("fragged_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	fragged_bt.set_buff_modifier(boekie_grenade_mod)
-	fragged_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ankh.tres")
+	fragged_bt.set_buff_icon("res://resources/Icons/GenericIcons/ankh.tres")
 	fragged_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
 
 	shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
@@ -82,7 +82,7 @@ func create_autocasts() -> Array[Autocast]:
 	var stim_duration_add: String = Utils.format_float(STIM_DURATION_ADD, 2)
 
 	autocast.title = "Stim"
-	autocast.icon = "res://Resources/Icons/rockets/rocket_06.tres"
+	autocast.icon = "res://resources/Icons/rockets/rocket_06.tres"
 	autocast.description_short = "This marine uses a stimpack, increasing its attack speed and decreasing its attack damage.\n"
 	autocast.description = "This marine uses a stimpack, increasing its attack speed by %s and decreasing its attack damage by %s. This buff lasts %s seconds.\n" % [stim_attack_speed, stim_attack_dmg, stim_duration] \
 	+ " \n" \

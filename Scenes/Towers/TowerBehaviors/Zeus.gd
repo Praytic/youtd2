@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var electrified_attack: AbilityInfo = AbilityInfo.new()
 	electrified_attack.name = "Electrified Attack"
-	electrified_attack.icon = "res://Resources/Icons/trinkets/claw_03.tres"
+	electrified_attack.icon = "res://resources/Icons/trinkets/claw_03.tres"
 	electrified_attack.description_short = "Whenever Zeus hits the main target, he deals additional AoE spell damage.\n"
 	electrified_attack.description_full = "Whenever Zeus hits the main target, he deals an additional 500 spell damage in 175 AoE around their target.\n" \
 	+ " \n" \
@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var divine_hammer: AbilityInfo = AbilityInfo.new()
 	divine_hammer.name = "Divine Hammer"
-	divine_hammer.icon = "res://Resources/Icons/blunt_weapons/hammer_02.tres"
+	divine_hammer.icon = "res://resources/Icons/blunt_weapons/hammer_02.tres"
 	divine_hammer.description_short = "Whenever Zeus kills a creep he restores mana.\n"
 	divine_hammer.description_full = "Whenever Zeus kills a creep he restores 5% of his maximum mana.\n"
 	list.append(divine_hammer)
@@ -54,7 +54,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Thunderstorm"
-	autocast.icon = "res://Resources/Icons/TowerIcons/RuinedMonolith.tres"
+	autocast.icon = "res://resources/Icons/TowerIcons/RuinedMonolith.tres"
 	autocast.description_short = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.\n"
 	autocast.description = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spell damage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n" \
 	+ " \n" \

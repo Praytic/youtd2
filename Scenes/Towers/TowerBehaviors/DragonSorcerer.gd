@@ -16,7 +16,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.075, 0.002)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.006)
 	mark_bt.set_buff_modifier(mod)
-	mark_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
+	mark_bt.set_buff_icon("res://resources/Icons/GenericIcons/biceps.tres")
 	mark_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
 
@@ -24,7 +24,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Burning Mark"
-	autocast.icon = "res://Resources/Icons/TowerIcons/SmallFireSprayer.tres"
+	autocast.icon = "res://resources/Icons/TowerIcons/SmallFireSprayer.tres"
 	autocast.description_short = "This tower adds a buff to a tower in range. The buff increases multicrit, crit chance and attack speed.\n"
 	autocast.description = "This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases the multicrit count by 1,  the crit chance by 7.5% and the attack speed by 25%.\n" \
 	+ " \n" \

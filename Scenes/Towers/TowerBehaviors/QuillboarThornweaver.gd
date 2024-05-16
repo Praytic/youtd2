@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Occasional Quillspray"
-	ability.icon = "res://Resources/Icons/trinkets/claw_01.tres"
+	ability.icon = "res://resources/Icons/trinkets/claw_01.tres"
 	ability.description_short = "On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].\n"
 	ability.description_full = "On attack this tower has a %s chance to trigger a [color=GOLD]Quillspray[/color].\n" % occasional_quillspray_chance \
 	+ " \n" \
@@ -48,7 +48,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	thorns_bt = BuffType.new("thorns_bt", 0, 0, false, self)
-	thorns_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
+	thorns_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
 	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
 
 	quillspray_pt = ProjectileType.create("QuillSprayMissile.mdl", 2, 1300, self)
@@ -69,7 +69,7 @@ func create_autocasts() -> Array[Autocast]:
 	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 
 	autocast.title = "Quillspray"
-	autocast.icon = "res://Resources/Icons/spears/many_spears_01.tres"
+	autocast.icon = "res://resources/Icons/spears/many_spears_01.tres"
 	autocast.description_short = "This tower releases thorns from its back, dealing %s damage to every unit in range.\n" % physical_string
 	autocast.description = "This tower deals %s of its attack damage as %s damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, physical_string, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max] \
 	+ " \n" \

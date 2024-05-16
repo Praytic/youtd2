@@ -25,14 +25,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var reimbursement: AbilityInfo = AbilityInfo.new()
 	reimbursement.name = "Reimbursement"
-	reimbursement.icon = "res://Resources/Icons/mechanical/gold_machine.tres"
+	reimbursement.icon = "res://resources/Icons/mechanical/gold_machine.tres"
 	reimbursement.description_short = "Reimburses gold when no ability is used.\n"
 	reimbursement.description_full = "Whenever this tower attacks and doesn't trigger any of it's abilities, the player is reimbursed 5 gold.\n"
 	list.append(reimbursement)
 
 	var field: AbilityInfo = AbilityInfo.new()
 	field.name = "Probability Field Emitter"
-	field.icon = "res://Resources/Icons/dioramas/fountain.tres"
+	field.icon = "res://resources/Icons/dioramas/fountain.tres"
 	field.description_short = "Whenever this tower attacks, it has a chance to launch a [color=GOLD]Probability Field Emitter[/color] at a random tower, increasing trigger chances.\n"
 	field.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Probability Field Emitter[/color] at a random tower within 500 range, increasing trigger chances by 30% - 60% for 5 seconds.\n" \
 	+ " \n" \
@@ -45,7 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var clockwork: AbilityInfo = AbilityInfo.new()
 	clockwork.name = "Clockwork Engineer"
-	clockwork.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
+	clockwork.icon = "res://resources/Icons/mechanical/mech_badge.tres"
 	clockwork.description_short = "Whenever this tower attacks, it has a chance to launch a [color=GOLD]Clockwork Engineer[/color] at a random tower, increasing attack speed and damage.\n"
 	clockwork.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Clockwork Engineer[/color] at a random tower within 500 range, increasing attack speed and attack damage by 10% - 40% for 5 seconds.\n" \
 	+ " \n" \
@@ -58,7 +58,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var sapper: AbilityInfo = AbilityInfo.new()
 	sapper.name = "Goblin Sapper"
-	sapper.icon = "res://Resources/Icons/faces/mech_zombie.tres"
+	sapper.icon = "res://resources/Icons/faces/mech_zombie.tres"
 	sapper.description_short = "Whenever this tower attacks, it has chance to launch a [color=GOLD]Goblin Sapper[/color] at the main target, dealing AoE spell damage and slowing creeps in an AoE.\n"
 	sapper.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Goblin Sapper[/color] at the main target. On contact [color=GOLD]Goblin Sapper[/color] deals 1350 - 7650 spell damage to the main target and all creeps within 250 range. Also slows all affected creeps by 25% - 45% for 3 seconds.\n" \
 	+ " \n" \
@@ -89,7 +89,7 @@ func tower_init():
 	var cedi_goblin_sapper_mod: Modifier = Modifier.new()
 	cedi_goblin_sapper_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
-	sapper_bt.set_buff_icon("res://Resources/Icons/GenericIcons/barefoot.tres")
+	sapper_bt.set_buff_icon("res://resources/Icons/GenericIcons/barefoot.tres")
 	sapper_bt.set_buff_tooltip("Sapper Burn\nThis creep was hit by a Goblin Sapper; it has reduced movement speed.")
 
 	robot_bt = BuffType.new("robot_bt", 5, 0, true, self)
@@ -97,7 +97,7 @@ func tower_init():
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
-	robot_bt.set_buff_icon("res://Resources/Icons/GenericIcons/cog.tres")
+	robot_bt.set_buff_icon("res://resources/Icons/GenericIcons/cog.tres")
 	robot_bt.set_special_effect("HeroTinkerRobot.mdl", 200, 5.0)
 	robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
 
@@ -105,7 +105,7 @@ func tower_init():
 	var cedi_goblin_emitter_mod: Modifier = Modifier.new()
 	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
-	emitter_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
+	emitter_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
 	emitter_bt.set_special_effect("GoblinLandMine.mdl", 200, 5.0)
 	emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
 

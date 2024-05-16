@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var dreadlord_slash: AbilityInfo = AbilityInfo.new()
 	dreadlord_slash.name = "Dreadlord Slash"
-	dreadlord_slash.icon = "res://Resources/Icons/daggers/dagger_07.tres"
+	dreadlord_slash.icon = "res://resources/Icons/daggers/dagger_07.tres"
 	dreadlord_slash.description_short = "Whenever this tower hits a creep, it deals extra spell damage based on current mana.\n"
 	dreadlord_slash.description_full = "Whenever this tower hits a creep, it deals 100% of his max mana in spell damage. Costs 80 mana on each attack.\n" \
 	+ " \n" \
@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var bloodsucker: AbilityInfo = AbilityInfo.new()
 	bloodsucker.name = "Bloodsucker"
-	bloodsucker.icon = "res://Resources/Icons/gems/gem_07.tres"
+	bloodsucker.icon = "res://resources/Icons/gems/gem_07.tres"
 	bloodsucker.description_short = "Dreadlord gains extra power with every kill.\n"
 	bloodsucker.description_full = "The Dreadlord is hungry. For every kill he gains 0.5% attack speed and 10 maximum mana. The mana bonus caps at 2000. Both bonuses are permanent.\n"
 	list.append(bloodsucker)
@@ -52,7 +52,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.02)
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
 	awakening_bt.set_buff_modifier(mod)
-	awakening_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_dot.tres")
+	awakening_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_dot.tres")
 	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)
@@ -63,7 +63,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Dreadlord's Awakening"
-	autocast.icon = "res://Resources/Icons/undead/skull_03.tres"
+	autocast.icon = "res://resources/Icons/undead/skull_03.tres"
 	autocast.description_short = "When activated, Dreadlord empowers himself with darkness.\n"
 	autocast.description = "When activated, Dreadlord empowers himself with darkness for 10 seconds, increasing own attack speed by 50% and mana regeneration by 20 per second.\n" \
 	+ " \n" \

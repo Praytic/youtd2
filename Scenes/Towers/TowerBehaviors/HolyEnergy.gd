@@ -36,11 +36,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
-	glimmer_bt.set_buff_icon("res://Resources/Icons/GenericIcons/star_swirl.tres")
+	glimmer_bt.set_buff_icon("res://resources/Icons/GenericIcons/star_swirl.tres")
 	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
-	sunlight_bt.set_buff_icon("res://Resources/Icons/GenericIcons/shiny_omega.tres")
+	sunlight_bt.set_buff_icon("res://resources/Icons/GenericIcons/shiny_omega.tres")
 
 
 func create_autocasts() -> Array[Autocast]:
@@ -51,7 +51,7 @@ func create_autocasts() -> Array[Autocast]:
 	var sunlight_duration_add: String = Utils.format_float(SUNLIGHT_DURATION_ADD, 2)
 
 	autocast.title = "Sunlight Burst"
-	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	autocast.description_short = "Stuns all towers and creeps in range.\n"
 	autocast.description = "Stuns all towers and all enemies in %s range for %s seconds.\n" % [sunlight_range, sunlight_duration] \
 	+ " \n" \
@@ -81,7 +81,7 @@ func get_aura_types() -> Array[AuraType]:
 	var glimmer_mod_debuff_duration_add: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION_ADD, 2)
 	
 	aura.name = "Glimmer of Hope"
-	aura.icon = "res://Resources/Icons/holy/orb.tres"
+	aura.icon = "res://resources/Icons/holy/orb.tres"
 	aura.description_short = "Reduces debuff duration of all towers in range.\n"
 	aura.description_full = "Reduces the debuff duration of all towers in %d range by %s.\n" % [AURA_RANGE, glimmer_mod_debuff_duration] \
 	+ " \n" \

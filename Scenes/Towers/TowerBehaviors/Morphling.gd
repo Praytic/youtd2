@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var morphling_strike: AbilityInfo = AbilityInfo.new()
 	morphling_strike.name = "Morphling Strike"
-	morphling_strike.icon = "res://Resources/Icons/misc/poison_01.tres"
+	morphling_strike.icon = "res://resources/Icons/misc/poison_01.tres"
 	morphling_strike.description_short = "Every time this tower hits a creep, it has a chance to launch 3 projectiles to random creeps, dealing spell damage.\n"
 	morphling_strike.description_full = "Every time this tower hits a creep, if it has at least 25 stacks of [color=GOLD]Morph: Might[/color] or [color=GOLD]Morph: Swiftness[/color], there is a 20%% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if [color=GOLD]Morph: Might[/color] has at least 25 stacks, the projectiles deal additional spell damage equal to 25%% of the tower's damage per second for 5 seconds; if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks, they slow the targets by 20%% and increase the damage they receive from %s by 15%% for 8 seconds.\n" % nature_string \
 	+ " \n" \
@@ -40,7 +40,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var evolve: AbilityInfo = AbilityInfo.new()
 	evolve.name = "Evolve"
-	evolve.icon = "res://Resources/Icons/plants/tree.tres"
+	evolve.icon = "res://resources/Icons/plants/tree.tres"
 	evolve.description_short = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains power, depending on current [color=GOLD]Morph/color] stacks.\n"
 	evolve.description_full = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
 	list.append(evolve)
@@ -59,7 +59,7 @@ func tower_init():
 	might_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
 	might_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
 	might_bt.set_buff_modifier(might_bt_mod)
-	might_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
+	might_bt.set_buff_icon("res://resources/Icons/GenericIcons/biceps.tres")
 	might_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
 
 	swiftness_bt = BuffType.new("swiftness_bt", -1, 0, true, self)
@@ -67,15 +67,15 @@ func tower_init():
 	swiftness_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
 	swiftness_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
 	swiftness_bt.set_buff_modifier(swiftness_bt_mod)
-	swiftness_bt.set_buff_icon("res://Resources/Icons/GenericIcons/sprint.tres")
+	swiftness_bt.set_buff_icon("res://resources/Icons/GenericIcons/sprint.tres")
 	swiftness_bt.set_buff_tooltip("Morph: Swiftness\nIncreases attack speed and reduces attack damage after each attack.")
 
 	adapt_bt = BuffType.new("adapt_bt", -1, 0, true, self)
-	adapt_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
+	adapt_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
 	adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
 
 	dot_bt = BuffType.new("dot_bt", 5, 0, false, self)
-	dot_bt.set_buff_icon("res://Resources/Icons/GenericIcons/triple_scratches.tres")
+	dot_bt.set_buff_icon("res://resources/Icons/GenericIcons/triple_scratches.tres")
 	dot_bt.add_periodic_event(dot_bt_periodic, 1.0)
 	dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
 
@@ -84,7 +84,7 @@ func tower_init():
 	swift_strike_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
 	swift_strike_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
 	swift_strike_bt.set_buff_modifier(swift_strike_bt_mod)
-	swift_strike_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
+	swift_strike_bt.set_buff_icon("res://resources/Icons/GenericIcons/amber_mosquito.tres")
 	swift_strike_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
 	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)
@@ -103,7 +103,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_might: Autocast = Autocast.make()
 	autocast_might.title = "Morph: Might"
-	autocast_might.icon = "res://Resources/Icons/trinkets/trinket_07.tres"
+	autocast_might.icon = "res://resources/Icons/trinkets/trinket_07.tres"
 	autocast_might.description_short = "Activates [color=GOLD]Morph: Might[/color].\n"
 	autocast_might.description = "Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.\n"
 	autocast_might.caster_art = ""
@@ -123,7 +123,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_swiftness: Autocast = Autocast.make()
 	autocast_swiftness.title = "Morph: Swiftness"
-	autocast_swiftness.icon = "res://Resources/Icons/trinkets/trinket_08.tres"
+	autocast_swiftness.icon = "res://resources/Icons/trinkets/trinket_08.tres"
 	autocast_swiftness.description_short = "Activates [color=GOLD]Morph: Swiftness[/color].\n"
 	autocast_swiftness.description = "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated."
 	autocast_swiftness.caster_art = ""
@@ -143,7 +143,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_adapt: Autocast = Autocast.make()
 	autocast_adapt.title = "Adapt"
-	autocast_adapt.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	autocast_adapt.icon = "res://resources/Icons/trinkets/trinket_01.tres"
 	autocast_adapt.description_short = "Stops the effect of morphs.\n"
 	autocast_adapt.description = "Stops the effect of [color=GOLD]Morphs[/color], leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
 	autocast_adapt.caster_art = ""

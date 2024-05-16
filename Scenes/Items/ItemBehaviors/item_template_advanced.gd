@@ -28,7 +28,7 @@ extends ItemBehavior
 
 # func item_init():
 # 	example_bt = BuffType.new("example_bt", 5, 0, true, self)
-# 	example_bt.set_buff_icon("res://Resources/Icons/GenericIcons/egg.tres")
+# 	example_bt.set_buff_icon("res://resources/Icons/GenericIcons/egg.tres")
 # 	example_bt.set_buff_tooltip("Title\nDescription.")
 # 	example_bt.set_stacking_group("example_bt")
 # 	var mod: Modifier = Modifier.new()
@@ -38,7 +38,7 @@ extends ItemBehavior
 # 	var autocast: Autocast = Autocast.make()
 #	autocast.title = "Title"
 #	autocast.description = "description"
-#	autocast.icon = "res://Resources/Icons/hud/gold.tres"
+#	autocast.icon = "res://resources/Icons/hud/gold.tres"
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""
 # 	autocast.num_buffs_before_idle = 0

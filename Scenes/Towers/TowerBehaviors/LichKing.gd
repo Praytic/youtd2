@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var icy_curse: AbilityInfo = AbilityInfo.new()
 	icy_curse.name = "Icy Curse"
-	icy_curse.icon = "res://Resources/Icons/furniture/furniture.tres"
+	icy_curse.icon = "res://resources/Icons/furniture/furniture.tres"
 	icy_curse.description_short = "Whenever this tower hits a creep, it increases creep's debuff duration.\n"
 	icy_curse.description_full = "Whenever this tower hits a creep, it increases creep's debuff duration by 30% for 5 seconds.\n"
 	list.append(icy_curse)
@@ -38,11 +38,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.30, 0.008)
 	curse_bt.set_buff_modifier(mod)
-	curse_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
+	curse_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
 	curse_bt.set_buff_tooltip("Icy Curse\nThis creep was cursed; it has increased debuff duration.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/omega.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/omega.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
@@ -56,7 +56,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "King's Authority"
-	aura.icon = "res://Resources/Icons/helmets/helmet_07.tres"
+	aura.icon = "res://resources/Icons/helmets/helmet_07.tres"
 	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished and suffer spell damage.\n"
 	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spell damage for every second it was under this aura's effect.\n" % AURA_RANGE \
 	+ "If a creep dies in this area of authority, the spell damage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spell damage.\n" \

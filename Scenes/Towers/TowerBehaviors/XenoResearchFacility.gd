@@ -44,7 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var sample: AbilityInfo = AbilityInfo.new()
 	sample.name = "Sample Collection"
-	sample.icon = "res://Resources/Icons/mechanical/alchemy_kit_01.tres"
+	sample.icon = "res://resources/Icons/mechanical/alchemy_kit_01.tres"
 	sample.description_short = "Has a chance to collect a tissue sample from attacked creeps. Once researched, it will provide a bonus vs the race of that creep to nearby towers.\n"
 	sample.description_full = "Has a 25% chance to collect a tissue sample from attacked creeps. Once researched, it will provide a 5% bonus vs the race of that creep, through the [color=GOLD]Xeno Vulnerability Research Aura[/color]. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
 	+ " \n" \
@@ -67,39 +67,39 @@ func tower_init():
 	var palandu_xeno_undead_mod: Modifier = Modifier.new()
 	palandu_xeno_undead_mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
 	undead_bt.set_buff_modifier(palandu_xeno_undead_mod)
-	undead_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	undead_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	undead_bt.set_buff_tooltip("Xeno Undead Research\nIncreases damage dealt to Undead creeps.")
 
 	magic_bt = BuffType.new("magic_bt", 1, 0, true, self)
 	var palandu_xeno_magic_mod: Modifier = Modifier.new()
 	palandu_xeno_magic_mod.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.0, 0.001)
 	magic_bt.set_buff_modifier(palandu_xeno_magic_mod)
-	magic_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	magic_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	magic_bt.set_buff_tooltip("Xeno Magic Research\nIncreases damage dealt to Magic creeps.")
 
 	nature_bt = BuffType.new("nature_bt", 1, 0, true, self)
 	var palandu_xeno_nature_mod: Modifier = Modifier.new()
 	palandu_xeno_nature_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.0, 0.001)
 	nature_bt.set_buff_modifier(palandu_xeno_nature_mod)
-	nature_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	nature_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	nature_bt.set_buff_tooltip("Xeno Nature Research\nIncreases damage dealt to Nature creeps.")
 
 	orc_bt = BuffType.new("orc_bt", 1, 0, true, self)
 	var palandu_xeno_orc_mod: Modifier = Modifier.new()
 	palandu_xeno_orc_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.0, 0.001)
 	orc_bt.set_buff_modifier(palandu_xeno_orc_mod)
-	orc_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	orc_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	orc_bt.set_buff_tooltip("Xeno Orc Research\nIncreases damage dealt to Orc creeps.")
 
 	humanoid_bt = BuffType.new("humanoid_bt", 1, 0, true, self)
 	var palandu_xeno_humanoid_mod: Modifier = Modifier.new()
 	palandu_xeno_humanoid_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.0, 0.001)
 	humanoid_bt.set_buff_modifier(palandu_xeno_humanoid_mod)
-	humanoid_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	humanoid_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	humanoid_bt.set_buff_tooltip("Xeno Humanoid Research\nIncreases damage dealt to Humanoid creeps.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/spell_book.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
 	aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
 
 	
@@ -107,7 +107,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Xeno Vulnerability Research"
-	aura.icon = "res://Resources/Icons/orbs/orb_green.tres"
+	aura.icon = "res://resources/Icons/orbs/orb_green.tres"
 	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.\n"
 	aura.description_full = "Improves damage vs various creep races for all towers in %d range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" % AURA_RANGE \
 	+ " \n" \

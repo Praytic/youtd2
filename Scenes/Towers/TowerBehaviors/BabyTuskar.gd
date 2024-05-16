@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Vicious Snow Ball"
-	ability.icon = "res://Resources/Icons/elements/storm.tres"
+	ability.icon = "res://resources/Icons/elements/storm.tres"
 	ability.description_short = "Whenever this tower attacks, it hurls a snowball at the target if the target is not facing the tower. Snowball deals spell damage.\n"
 	ability.description_full = "Whenever this tower attacks, it hurls a snowball at the target if the target is not facing the tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n" \
 	+ " \n" \

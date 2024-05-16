@@ -18,7 +18,7 @@ func get_research_text(element: Element.enm, player: Player) -> String:
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
 	text += "Research %s level %s\n" % [element_string, research_level]
-	text += "[img=32x32]res://Resources/Icons/hud/knowledge_tome.tres[/img] %s\n" % cost_string
+	text += "[img=32x32]res://resources/Icons/hud/knowledge_tome.tres[/img] %s\n" % cost_string
 
 	match Globals.get_game_mode():
 		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
@@ -204,9 +204,9 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	text += "[b]%s[/b]\n" % display_name
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Icons/hud/gold.tres[/img] %s [img=32x32]res://Resources/Icons/hud/knowledge_tome.tres[/img] %s [img=32x32]res://Resources/Icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+		text += "[img=32x32]res://resources/Icons/hud/gold.tres[/img] %s [img=32x32]res://resources/Icons/hud/knowledge_tome.tres[/img] %s [img=32x32]res://resources/Icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
 	else:
-		text += "[img=32x32]res://Resources/Icons/hud/gold.tres[/img] %s [img=32x32]res://Resources/Icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
+		text += "[img=32x32]res://resources/Icons/hud/gold.tres[/img] %s [img=32x32]res://resources/Icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 	
 	text += generated_tooltip_text
 	

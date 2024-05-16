@@ -22,7 +22,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	earth_and_moon_bt = BuffType.new("earth_and_moon_bt", 5, 0, true, self)
-	earth_and_moon_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
+	earth_and_moon_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
 	earth_and_moon_bt.set_buff_tooltip("Earth and Moon\nIncreases trigger chances.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)

@@ -128,7 +128,7 @@ func sprite_hit(_P: Projectile, target: Unit):
 
 func tower_init():
 	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
-	gift_bt.set_buff_icon("res://Resources/Icons/GenericIcons/holy_grail.tres")
+	gift_bt.set_buff_icon("res://resources/Icons/GenericIcons/holy_grail.tres")
 	gift_bt.add_event_on_create(gift_create)
 	gift_bt.add_event_on_cleanup(effect_clean)
 	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
@@ -164,7 +164,7 @@ func create_autocasts() -> Array[Autocast]:
 	var iron_string: String = Element.convert_to_colored_string(Element.enm.IRON)
 
 	autocast.title = "Nature's Gift"
-	autocast.icon = "res://Resources/Icons/plants/leaf_03.tres"
+	autocast.icon = "res://resources/Icons/plants/leaf_03.tres"
 	autocast.description_short = "Buffs a tower, increasing stats depending on tower's element.\n"
 	autocast.description = "One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:\n" \
 	+ "+%s experience for %s\n" % [exp_received, astral_string] \

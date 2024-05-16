@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Piercing Shot"
-	ability.icon = "res://Resources/Icons/rockets/rocket_02.tres"
+	ability.icon = "res://resources/Icons/rockets/rocket_02.tres"
 	ability.description_short = "A portion of this tower's attack damage ignores creep's armor.\n"
 	ability.description_full = "%s of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored \
 	+ " \n" \

@@ -27,7 +27,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_wings.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
 	aura_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
 
 
@@ -48,7 +48,7 @@ func get_aura_types() -> Array[AuraType]:
 	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
 
 	aura.name = "Sunshine"
-	aura.icon = "res://Resources/Icons/staves/wand_glowing.tres"
+	aura.icon = "res://resources/Icons/staves/wand_glowing.tres"
 	aura.description_short = "Reduces the armor of creeps in range and makes them more vulnerable to damage from %s, %s, %s and %s towers.\n" % [astral_string, fire_string, iron_string, nature_string]
 	aura.description_full = "Reduces the armor of creeps in %d range by %s and increases the vulnerability to damage from %s, %s, %s and %s towers by %s.\n" % [_stats.aura_range, mod_armor, astral_string, fire_string, iron_string, nature_string, vuln] \
 	+ " \n" \

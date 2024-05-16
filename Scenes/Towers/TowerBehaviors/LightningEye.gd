@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var glare: AbilityInfo = AbilityInfo.new()
 	glare.name = "Glare"
-	glare.icon = "res://Resources/Icons/magic/eye_blue.tres"
+	glare.icon = "res://resources/Icons/magic/eye_blue.tres"
 	glare.description_short = "On attack, the Eye launches a forked lightning, dealing spell damage.\n"
 	glare.description_full = "On attack, the Eye launches a forked lightning at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n" \
 	+ " \n" \
@@ -33,7 +33,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 	aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
 
@@ -46,7 +46,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Static Field"
-	aura.icon = "res://Resources/Icons/dioramas/book_display.tres"
+	aura.icon = "res://resources/Icons/dioramas/book_display.tres"
 	aura.description_short = "Towers in range have their attack damage increased when attacking immune creeps.\n"
 	aura.description_full = "Towers within %d range of this tower have their attack damage increased by 20%% when attacking immune creeps.\n" % AURA_RANGE \
 	+ " \n" \

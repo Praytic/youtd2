@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var unstable_energies: AbilityInfo = AbilityInfo.new()
 	unstable_energies.name = "Unstable Energies"
-	unstable_energies.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	unstable_energies.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	unstable_energies.description_short = "Whenever this tower hits a creep, it has a chance to release a powerful energy blast at the cost of some mana, dealing %s damage.\n" % elemental_attack_type_string
 	unstable_energies.description_full = "Whenever this tower hits a creep, it has a 28%% chance to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
 	+ " \n" \
@@ -59,7 +59,7 @@ func drake_aura_manaburn(event: Event):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/moebius_trefoil.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/moebius_trefoil.tres")
 	aura_bt.add_event_on_attack(drake_aura_manaburn)
 	aura_bt.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
 
@@ -73,7 +73,7 @@ func get_aura_types() -> Array[AuraType]:
 	var damage_per_mana_point_add: String = Utils.format_float(_stats.aura_power_add, 2)
 
 	aura.name = "Mana Distortion Field"
-	aura.icon = "res://Resources/Icons/magic/magic_stone.tres"
+	aura.icon = "res://resources/Icons/magic/magic_stone.tres"
 	aura.description_short = "Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.\n"
 	aura.description_full = "Whenever a tower in %d range attacks, it burn %s mana from the main target. The mana burn costs the Drake %s mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals %s spell damage per mana point burned.\n" % [AURA_RANGE, buffed_tower_mana_burned, aura_mana_cost, damage_per_mana_point] \
 	+ " \n" \

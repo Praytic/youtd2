@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var storm_hammer: AbilityInfo = AbilityInfo.new()
 	storm_hammer.name = "Mystical Storm Hammer"
-	storm_hammer.icon = "res://Resources/Icons/blunt_weapons/hammer_04.tres"
+	storm_hammer.icon = "res://resources/Icons/blunt_weapons/hammer_04.tres"
 	storm_hammer.description_short = "Whenever this tower attacks, it launches a hammer at the main target. Hammer deals part of the damage as spell damage and the rest as attack damage.\n"
 	storm_hammer.description_full = "Whenever this tower attacks, it launches a hammer at the main target. Hammer deals part of the damage as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no %s damage against ethereal creeps. If this [color=GOLD]Storm Hammer[/color] deals all the damage in one type, it will have 5%% increased critchance.\n" % physical_string \
 	+ " \n" \
@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var storm_bolt: AbilityInfo = AbilityInfo.new()
 	storm_bolt.name = "Storm Bolt"
-	storm_bolt.icon = "res://Resources/Icons/rockets/rocket_07.tres"
+	storm_bolt.icon = "res://resources/Icons/rockets/rocket_07.tres"
 	storm_bolt.description_short = "When this tower attacks, it launches a [color=GOLD]Storm Bolt[/color] towards the main target. [color=GOLD]Storm Bolt[/color] deals AoE attack damage.\n"
 	storm_bolt.description_full = "When this tower attacks, it launches a [color=GOLD]Storm Bolt[/color] towards the main target. Upon collision, [color=GOLD]Storm Bolt[/color] deals the tower's attack damage to the target and creates a trail of 5 storm explosions. The explosions deal the tower's attack damage to every unit in 85 AoE. Each explosion deals 40% less damage than the previous one.\n" \
 	+ " \n" \
@@ -62,7 +62,7 @@ func tower_init():
 	var hammer_fall_bt_mod: Modifier = Modifier.new()
 	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
-	hammer_fall_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
+	hammer_fall_bt.set_buff_icon("res://resources/Icons/GenericIcons/hammer_drop.tres")
 	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
 	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)
@@ -76,7 +76,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Hammer Fall"
-	autocast.icon = "res://Resources/Icons/blunt_weapons/hammer_02.tres"
+	autocast.icon = "res://resources/Icons/blunt_weapons/hammer_02.tres"
 	autocast.description_short = "Summons a hammer which falls from the sky and deals AoE spell damage.\n"
 	autocast.description = "Summons a hammer which falls from the sky. The hammer deals 10000 spell damage to all units in 600 AoE and stuns them for 1 second. Each of the player's storm tower in 2500 range loses 10% attack damage for 6 seconds but increases the spell damage of the hammer by 5%. Can gain a maximum of 100% bonus damage.\n" \
 	+ " \n" \

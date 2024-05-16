@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Faerie Fire"
-	ability.icon = "res://Resources/Icons/plants/flower_06.tres"
+	ability.icon = "res://resources/Icons/plants/flower_06.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] makes the attacked creep more vulnerable to spells and debuffs.\n"
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] increases the spell damage taken by %s and debuff duration by %s for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
 	+ " \n" \
@@ -76,7 +76,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
 
 	faerie_bt = BuffType.new("faerie_bt", 9, 0.3, false, self)
-	faerie_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pisces.tres")
+	faerie_bt.set_buff_icon("res://resources/Icons/GenericIcons/pisces.tres")
 	faerie_bt.set_buff_modifier(modifier)
 	faerie_bt.set_stacking_group("MagicBattery")
 	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it is more vulnerable to spell damage and has increased debuff duration.")
@@ -92,7 +92,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://Resources/Icons/mechanical/battery.tres"
+	autocast.icon = "res://resources/Icons/mechanical/battery.tres"
 	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Faerie Fire[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals %s spell damage and applies [color=GOLD]Faerie Fire[/color].\n" % [projectile_damage] \
 	+ " \n" \

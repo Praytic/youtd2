@@ -25,7 +25,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_add_3: String = Utils.format_float(_stats.damage_add * 3, 2)
 
 	autocast.title = "Soul Revenge"
-	autocast.icon = "res://Resources/Icons/orbs/orb_shadow.tres"
+	autocast.icon = "res://resources/Icons/orbs/orb_shadow.tres"
 	autocast.description_short = "Hits 3 random creeps with dark powers, dealing spell damage.\n"
 	autocast.description = "Hits 3 random creeps in 875 range, the first one suffers %s spell damage, the second one suffers %s spell damage and the third one suffers %s spell damage.\n" % [damage_1, damage_2, damage_3] \
 	+ " \n" \

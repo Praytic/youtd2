@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var spellfire: AbilityInfo = AbilityInfo.new()
 	spellfire.name = "Spellfire"
-	spellfire.icon = "res://Resources/Icons/scrolls/scroll_03.tres"
+	spellfire.icon = "res://resources/Icons/scrolls/scroll_03.tres"
 	spellfire.description_short = "This tower treats all spell modifiers as attack bonuses.\n"
 	spellfire.description_full = "This tower treats all spell modifiers as attack bonuses, with %s bonus gain of stated effect. This is recalculated before every attack.\n" % spellfire_ratio \
 	+ " \n" \
@@ -48,7 +48,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var spellfire_projectiles: AbilityInfo = AbilityInfo.new()
 	spellfire_projectiles.name = "Spellfire Projectiles"
-	spellfire_projectiles.icon = "res://Resources/Icons/daggers/dagger_07.tres"
+	spellfire_projectiles.icon = "res://resources/Icons/daggers/dagger_07.tres"
 	spellfire_projectiles.description_short = "On attack this towers uses all of its mana to make the next attack critical.\n"
 	spellfire_projectiles.description_full = "If this tower has at least %s mana when it attacks, it will spend all its mana to proc a critical strike. %s mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana] \
 	+ " \n" \

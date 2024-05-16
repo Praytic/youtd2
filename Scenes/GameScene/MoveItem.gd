@@ -224,10 +224,10 @@ func _get_item_cursor_icon(item: Item) -> Texture2D:
 	var rarity: Rarity.enm = item.get_rarity()
 	var background_texture: Texture2D
 	match rarity:
-		Rarity.enm.COMMON: background_texture = load("res://Resources/Textures/UI/common_unit_button_hover.tres")
-		Rarity.enm.UNCOMMON: background_texture = load("res://Resources/Textures/UI/uncommon_unit_button_hover.tres")
-		Rarity.enm.RARE: background_texture = load("res://Resources/Textures/UI/rare_unit_button_hover.tres")
-		Rarity.enm.UNIQUE: background_texture = load("res://Resources/Textures/UI/unique_unit_button_hover.tres")
+		Rarity.enm.COMMON: background_texture = load("res://resources/Textures/UI/common_unit_button_hover.tres")
+		Rarity.enm.UNCOMMON: background_texture = load("res://resources/Textures/UI/uncommon_unit_button_hover.tres")
+		Rarity.enm.RARE: background_texture = load("res://resources/Textures/UI/rare_unit_button_hover.tres")
+		Rarity.enm.UNIQUE: background_texture = load("res://resources/Textures/UI/unique_unit_button_hover.tres")
 		
 	var background_image: Image = background_texture.get_image()
 	background_image.resize(cursor_icon_size.x, cursor_icon_size.y)

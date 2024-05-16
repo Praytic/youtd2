@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poisonous Spittle"
-	ability.icon = "res://Resources/Icons/misc/poison_01.tres"
+	ability.icon = "res://resources/Icons/misc/poison_01.tres"
 	ability.description_short = "Whenever this tower hits a creep, it infects the creep, dealing spell damage over time.\n"
 	ability.description_full = "Whenever this tower hits a creep, it infects the creep, making them receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n" % damage \
 	+ " \n" \
@@ -90,7 +90,7 @@ func hit(event: Event):
 
 func tower_init():
 	poison_bt = BuffType.new("poison_bt", 5, 0.05, false, self)
-	poison_bt.set_buff_icon("res://Resources/Icons/GenericIcons/poison_gas.tres")
+	poison_bt.set_buff_icon("res://resources/Icons/GenericIcons/poison_gas.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 

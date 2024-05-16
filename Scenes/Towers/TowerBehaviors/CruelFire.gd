@@ -19,7 +19,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
 	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
-	fire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/shiny_omega.tres")
+	fire_bt.set_buff_icon("res://resources/Icons/GenericIcons/shiny_omega.tres")
 	fire_bt.set_buff_modifier(m)
 	fire_bt.set_stacking_group("fire_bt")
 	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")
@@ -33,7 +33,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_crit_add: String = Utils.format_percent(_stats.mod_crit_add, 2)
 
 	aura.name = "Fire of Fury"
-	aura.icon = "res://Resources/Icons/TowerIcons/BurningWatchtower.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/BurningWatchtower.tres"
 	aura.description_short = "Increases crit chance of nearby towers.\n"
 	aura.description_full = "Increases crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
 	+ " \n" \

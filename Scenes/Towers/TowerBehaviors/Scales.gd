@@ -14,14 +14,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var i_scale: AbilityInfo = AbilityInfo.new()
 	i_scale.name = "I Scale"
-	i_scale.icon = "res://Resources/Icons/magic/claw_01.tres"
+	i_scale.icon = "res://resources/Icons/magic/claw_01.tres"
 	i_scale.description_short = "This tower gains spell damage, spell crit damage and spell crit chance for each level the player survives.\n"
 	i_scale.description_full = "This tower gains 1.66% spell damage, spell crit damage and 0.125% spell crit chance for each level the player survives.\n"
 	list.append(i_scale)
 
 	var electrify: AbilityInfo = AbilityInfo.new()
 	electrify.name = "Electrify"
-	electrify.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	electrify.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	electrify.description_short = "Whenever this tower hits a creep, it has a chance to [color=GOLD]Electrify[/color] the creep. Creeps in range of the [color=GOLD]Electrified[/color] unit will take spell damage.\n"
 	electrify.description_full = "Whenever this tower hits a creep, it has a 20% chance to [color=GOLD]Electrify[/color] the creep for 5 seconds. Each second, all creeps in 225 range of the [color=GOLD]Electrified[/color] creep will take 900 spell damage.\n" \
 	+ " \n" \
@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var overcharge: AbilityInfo = AbilityInfo.new()
 	overcharge.name = "I Overcharge"
-	overcharge.icon = "res://Resources/Icons/mechanical/battery.tres"
+	overcharge.icon = "res://resources/Icons/mechanical/battery.tres"
 	overcharge.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower.\n"
 	overcharge.description_full = "Whenever this tower hits a creep, it has a 25% chance to deal extra 900 spell damage. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower. [color=GOLD]. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
 	+ " \n" \
@@ -63,7 +63,7 @@ func tower_init():
 	lightning_st.data.forked_lightning.target_count = 3
 
 	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
-	electrify_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
+	electrify_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
 	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
 	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 
@@ -77,7 +77,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Lightmare"
-	autocast.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	autocast.icon = "res://resources/Icons/electricity/lightning_circle_white.tres"
 	autocast.description_short = "Summons a storm cloud which attacks units in range, dealing spell damage.\n"
 	autocast.description = "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration.\n" \
 	+ " \n" \

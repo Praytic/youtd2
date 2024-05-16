@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Knowledge"
-	ability.icon = "res://Resources/Icons/dioramas/pyramid.tres"
+	ability.icon = "res://resources/Icons/dioramas/pyramid.tres"
 	ability.description_short = "Attacks have a chance to grant experience to a random nearby tower.\n"
 	ability.description_full = "Attacks have a 10%% chance to grant %s experience to a random tower in 600 range\n" % exp_teach \
 	+ " \n" \

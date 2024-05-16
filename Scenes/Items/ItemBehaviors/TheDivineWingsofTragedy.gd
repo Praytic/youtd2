@@ -19,7 +19,7 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
 	divine_wings_bt = BuffType.create_aura_effect_type("item230_divine_wings_bt", true, self)
-	divine_wings_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_wings.tres")
+	divine_wings_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
 	divine_wings_bt.set_buff_tooltip("The Divine Wings of Tragedy\nIncreases attack damage and attack speed.")
 	divine_wings_bt.set_stacking_group("divine_wings_bt")
 	var mod: Modifier = Modifier.new()

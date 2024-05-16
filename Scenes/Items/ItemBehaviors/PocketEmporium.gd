@@ -61,7 +61,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Purchase an Item"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://Resources/Icons/hud/gold.tres"
+	autocast.icon = "res://resources/Icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

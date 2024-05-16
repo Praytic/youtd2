@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var spacial_rift: AbilityInfo = AbilityInfo.new()
 	spacial_rift.name = "Spacial Rift"
-	spacial_rift.icon = "res://Resources/Icons/furniture/exploding_mirror.tres"
+	spacial_rift.icon = "res://resources/Icons/furniture/exploding_mirror.tres"
 	spacial_rift.description_short = "Whenever this tower hits a creep, it has a chance to move it back by 175 units.\n"
 	spacial_rift.description_full = "Whenever this tower hits a creep, it has a 10% chance to move it back by 175 units. Upon triggering there is a further 15% chance that all creeps in 175 AoE of the target will also be moved back 175 units. Costs 30 mana. Chance is halved for bosses.  The original target and creeps around it will get startled and become slowed by 30% for 2 seconds in a 250 AoE.\n" \
 	+ " \n" \
@@ -39,14 +39,14 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", 2, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
 	slow_bt.set_buff_modifier(mod)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ophiucus.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/ophiucus.tres")
 	aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 
@@ -55,7 +55,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Presence of the Rift"
-	aura.icon = "res://Resources/Icons/clubs/club_glowing.tres"
+	aura.icon = "res://resources/Icons/clubs/club_glowing.tres"
 	aura.description_full = "The Astral Rift's presence is so powerful that it deals spell damage to creeps equal to 200%% of their movement speed every second in an area of %d.\n" % AURA_RANGE \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

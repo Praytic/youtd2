@@ -11,7 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var plague: AbilityInfo = AbilityInfo.new()
 	plague.name = "Plague"
-	plague.icon = "res://Resources/Icons/undead/skull_04.tres"
+	plague.icon = "res://resources/Icons/undead/skull_04.tres"
 	plague.description_short = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color] which deals spell damage over time.\n"
 	plague.description_full = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 spell damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
 	+ " \n" \
@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var army: AbilityInfo = AbilityInfo.new()
 	army.name = "Army of the Damned"
-	army.icon = "res://Resources/Icons/shields/shield_skull.tres"
+	army.icon = "res://resources/Icons/shields/shield_skull.tres"
 	army.description_short = "If there is a corpse in range, this tower will extract its soul increasing its attack speed and attack damage. This will also increase the rate of spread of [color=GOLD]Plague[/color].\n"
 	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and attack damage by 5%. This will also increase the rate of spread of [color=GOLD]Plague[/color] by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones.\n" \
 	+ " \n" \
@@ -52,7 +52,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	plague_bt = BuffType.new("plague_bt", 5.0, 0.2, false, self)
-	plague_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
+	plague_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
 	plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
 	plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
 	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
@@ -68,7 +68,7 @@ func tower_init():
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.05)
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	army_bt.set_buff_modifier(cedi_crypt_army_mod)
-	army_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
+	army_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
 	army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
 
 	multiboard = MultiboardValues.new(2)

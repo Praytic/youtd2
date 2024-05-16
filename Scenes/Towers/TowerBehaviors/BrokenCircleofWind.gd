@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Wind of Death"
-	ability.icon = "res://Resources/Icons/elements/storm.tres"
+	ability.icon = "res://resources/Icons/elements/storm.tres"
 	ability.description_short = "Whenever this tower attacks, it has a chance to catch the main target in a cyclone and cause %s damage to nearby creeps. Doesn't work on bosses or air creeps.\n" % physical_string
 	ability.description_full = "Whenever this tower attacks, it has a %s chance to catch the main target in a cyclone for %s seconds, dealing %s %s damage to all units in 300 AoE when it falls back down. Falling champions deal 25%% more damage. Doesn't work on bosses or air creeps.\n" % [catch_chance, cyclone_duration, physical_string, cyclone_damage] \
 	+ " \n" \
@@ -47,7 +47,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	wind_bt = CbStun.new("wind_bt", 1.0, 0, false, self)
-	wind_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rolling_energy.tres")
+	wind_bt.set_buff_icon("res://resources/Icons/GenericIcons/rolling_energy.tres")
 	wind_bt.add_event_on_create(wind_bt_on_create)
 	wind_bt.add_periodic_event(wind_bt_periodic, 0.1)
 	wind_bt.add_event_on_cleanup(wind_bt_on_cleanup)

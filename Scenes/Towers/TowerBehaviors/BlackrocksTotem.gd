@@ -11,7 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shamanic_totem: AbilityInfo = AbilityInfo.new()
 	shamanic_totem.name = "Shamanic Totem"
-	shamanic_totem.icon = "res://Resources/Icons/undead/skull_doll.tres"
+	shamanic_totem.icon = "res://resources/Icons/undead/skull_doll.tres"
 	shamanic_totem.description_short = "Upon casting [color=GOLD]Demonic Fire[/color] there is a chance to buff towers in range, increasing their spell damage dealt and restoring some of their mana.\n"
 	shamanic_totem.description_full = "Upon casting [color=GOLD]Demonic Fire[/color] there is a 30% chance to buff towers in 500 range, increasing their spell damage dealt by 10% for 5 seconds and restoring 7.5% of their max mana.\n" \
 	+ " \n" \
@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var fighter_totem: AbilityInfo = AbilityInfo.new()
 	fighter_totem.name = "Fighter Totem"
-	fighter_totem.icon = "res://Resources/Icons/misc/spiky_totem_01.tres"
+	fighter_totem.icon = "res://resources/Icons/misc/spiky_totem_01.tres"
 	fighter_totem.description_short = "Whenever this tower attacks, it has a chance to buff towers in range, increasing their attack damage dealt, crit chance and crit damage.\n"
 	fighter_totem.description_full = "Whenever this tower attacks, it has a 15% chance to buff towers in 500 range, increasing their attack damage dealt by 10%, their crit chance by 5% and their crit damage by 50% for 5 seconds.\n" \
 	+ " \n" \
@@ -54,18 +54,18 @@ func tower_init():
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.05, 0.002)
 	poussix_blackrock_physique_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
 	fighter_totem_bt.set_buff_modifier(poussix_blackrock_physique_mod)
-	fighter_totem_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mighty_force.tres")
+	fighter_totem_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
 	fighter_totem_bt.set_buff_tooltip("Fighter Totem\nIncreases attack damage, crit chance and crit damage.")
 
 	shamanic_totem_bt = BuffType.new("shamanic_totem_bt", 5, 0.2, true, self)
 	var poussix_blackrock_spell_mod: Modifier = Modifier.new()
 	poussix_blackrock_spell_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
 	shamanic_totem_bt.set_buff_modifier(poussix_blackrock_spell_mod)
-	shamanic_totem_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
+	shamanic_totem_bt.set_buff_icon("res://resources/Icons/GenericIcons/aquarius.tres")
 	shamanic_totem_bt.set_buff_tooltip("Shamanic Totem\nIncreases spell damage.")
 
 	demonic_fire_bt = BuffType.new("demonic_fire_bt", 5, 0.2, false, self)
-	demonic_fire_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
+	demonic_fire_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
 	demonic_fire_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
 	demonic_fire_bt.add_event_on_damaged(demonic_fire_bt_on_damaged)
 
@@ -76,7 +76,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Demonic Fire"
-	autocast.icon = "res://Resources/Icons/fire/fire_bowl_02.tres"
+	autocast.icon = "res://resources/Icons/fire/fire_bowl_02.tres"
 	autocast.description_short = "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from %s towers.\n" % fire_string
 	autocast.description = "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20%% chance to permanently increase the damage it takes from %s towers by 3%% (1%% for bosses).\n" % fire_string\
 	+ " \n" \

@@ -3,10 +3,10 @@ class_name BuffGroupButton extends Button
 
 @export var _buff_group_number: int
 @onready var _texture_rect: TextureRect = $TextureRect
-@onready var _buff_group_none_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_none.tres")
-@onready var _buff_group_incoming_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_incoming.tres")
-@onready var _buff_group_outgoing_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_outgoing.tres")
-@onready var _buff_group_both_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_both.tres")
+@onready var _buff_group_none_icon: Texture2D = load("res://resources/Textures/UI/Icons/buff_group_none.tres")
+@onready var _buff_group_incoming_icon: Texture2D = load("res://resources/Textures/UI/Icons/buff_group_incoming.tres")
+@onready var _buff_group_outgoing_icon: Texture2D = load("res://resources/Textures/UI/Icons/buff_group_outgoing.tres")
+@onready var _buff_group_both_icon: Texture2D = load("res://resources/Textures/UI/Icons/buff_group_both.tres")
 
 var _tower: Tower = null
 

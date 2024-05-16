@@ -36,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Cold"
-	ability.icon = "res://Resources/Icons/magic/eye_blue.tres"
+	ability.icon = "res://resources/Icons/magic/eye_blue.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to freeze the it and reduce its health regeneration.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a %s chance to freeze the it and reduce its health regeneration by %s. The freeze lasts for %s second and cannot be reapplied on already frozen creeps. Chance to proc, health regeneration reduction and freeze duration are halved for bosses. Does not affect immune creeps.\n" % [freeze_chance, mod_regen, freeze_duration] \
 	+ " \n" \
@@ -58,7 +58,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	frozen_bt.set_buff_modifier(mod)
-	frozen_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
+	frozen_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
 	frozen_bt.add_event_on_create(frozen_bt_on_create)
 	frozen_bt.add_event_on_cleanup(frozen_bt_on_cleanup)
 	frozen_bt.set_buff_tooltip("Frozen\nReduces health regeneration.")

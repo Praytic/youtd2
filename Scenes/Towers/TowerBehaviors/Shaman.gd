@@ -29,13 +29,13 @@ func tower_init():
 	var bloodlust_mod: Modifier = Modifier.new()
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.15, 0.002)
-	bloodlust_bt.set_buff_icon("res://Resources/Icons/GenericIcons/moebius_trefoil.tres")
+	bloodlust_bt.set_buff_icon("res://resources/Icons/GenericIcons/moebius_trefoil.tres")
 	bloodlust_bt.set_buff_modifier(bloodlust_mod)
 	bloodlust_bt.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.add_event_on_damage(bloody_exp_aura_on_damage)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
 
@@ -48,7 +48,7 @@ func create_autocasts() -> Array[Autocast]:
 	var bloodlust_attack_speed_add: String = Utils.format_percent(_stats.bloodlust_attack_speed_add, 2)
 
 	autocast.title = "Bloodlust"
-	autocast.icon = "res://Resources/Icons/masks/mask_07.tres"
+	autocast.icon = "res://resources/Icons/masks/mask_07.tres"
 	autocast.description_short = "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.\n"
 	autocast.description = "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attack speed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attack_speed, BLOODLUST_DURATION] \
 	+ " \n" \
@@ -80,7 +80,7 @@ func get_aura_types() -> Array[AuraType]:
 	var bloody_experience_gain: String = Utils.format_float(BLOODY_EXPERIENCE_EXP_GAIN, 2)
 
 	aura.name = "Bloody Experience"
-	aura.icon = "res://Resources/Icons/gems/gem_07.tres"
+	aura.icon = "res://resources/Icons/gems/gem_07.tres"
 	aura.description_short = "Nearby towers receive experience every time they crit with an attack.\n"
 	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
 	+ " \n" \

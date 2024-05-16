@@ -66,7 +66,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	jolt_bt = BuffType.new("jolt_bt", 10, 0, true, self)
-	jolt_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
+	jolt_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
 	jolt_bt.add_event_on_create(junction_on_create)
 	jolt_bt.add_event_on_attack(junction_on_damage)
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
@@ -82,7 +82,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_on_attack_add: String = Utils.format_float(_stats.damage_on_attack / 25.0, 2)
 	
 	autocast.title = "Jolt"
-	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	autocast.description_short = "Buffs a tower in range increasing its attack speed. The buffed tower deals extra attack damage and spell damage.\n"
 	autocast.description = "Buffs a tower in 500 range for 10 seconds increasing its attack speed by %s. The buffed tower deals %s attack damage and %s spell damage on attack multiplied with its base attack speed.\n" % [attack_speed, damage_on_attack, damage_on_attack] \
 	+ " \n" \

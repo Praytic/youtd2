@@ -22,21 +22,21 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var aqua_breath: AbilityInfo = AbilityInfo.new()
 	aqua_breath.name = "Aqua Breath"
-	aqua_breath.icon = "res://Resources/Icons/magic/lock_04.tres"
+	aqua_breath.icon = "res://resources/Icons/magic/lock_04.tres"
 	aqua_breath.description_short = "This tower deals %s damage equal to its current mana.\n" % energy_string
 	aqua_breath.description_full = "This tower deals %s damage equal to its current mana.\n" % energy_string
 	list.append(aqua_breath)
 
 	var cold_blooded: AbilityInfo = AbilityInfo.new()
 	cold_blooded.name = "Cold Blooded"
-	cold_blooded.icon = "res://Resources/Icons/gems/gem_03.tres"
+	cold_blooded.icon = "res://resources/Icons/gems/gem_03.tres"
 	cold_blooded.description_short = "Every second this tower loses mana.\n"
 	cold_blooded.description_full = "Every second this tower loses %s of its max mana.\n" % mana_loss_per_sec
 	list.append(cold_blooded)
 
 	var splash: AbilityInfo = AbilityInfo.new()
 	splash.name = "Splash"
-	splash.icon = "res://Resources/Icons/trinkets/trinket_02.tres"
+	splash.icon = "res://resources/Icons/trinkets/trinket_02.tres"
 	splash.description_short = "Restores mana after every attack.\n"
 	splash.description_full = "Restores %s mana after every attack. Mana regeneration will increase mana restored. Negative mana regeneration will not decrease mana restored below %s.\n" % [mana_per_attack, mana_per_attack] \
 	+ " \n" \

@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Empowering Darkness"
-	ability.icon = "res://Resources/Icons/tower_variations/AshGeyser_purple.tres"
+	ability.icon = "res://resources/Icons/tower_variations/AshGeyser_purple.tres"
 	ability.description_short = "Whenever this tower attacks, it makes the main target more vulnerable to %s.\n" % darkness_string
 	ability.description_full = "Whenever this tower attacks, it increases the damage the main target receives from other %s towers by %s. This effect stacks up to 10 times.\n" % [darkness_string, dmg_increase] \
 	+ " \n" \
@@ -38,7 +38,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
-	curse_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
+	curse_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
 	curse_bt.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
 
 

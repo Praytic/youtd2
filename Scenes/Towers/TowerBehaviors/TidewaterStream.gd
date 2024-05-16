@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var spring: AbilityInfo = AbilityInfo.new()
 	spring.name = "Spring Tide"
-	spring.icon = "res://Resources/Icons/food/lard.tres"
+	spring.icon = "res://resources/Icons/food/lard.tres"
 	spring.description_short = "Whenever this tower attacks it has chance to launch a wave which deals spell damage to each creep it hits.\n"
 	spring.description_full = "Whenever this tower attacks it has a 15% chance to launch a wave. The wave travels 1200 units and has a 200 AoE. It deals 2200 spell damage to each creep it hits. Every 0.4 seconds the wave has a 35% chance to drag a stone with it. The stone travels 500 units, deals 2200 spell damage on collision and stuns for 0.65 seconds.\n" \
 	+ " \n" \
@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var splash: AbilityInfo = AbilityInfo.new()
 	splash.name = "Splash"
-	splash.icon = "res://Resources/Icons/trinkets/trinket_02.tres"
+	splash.icon = "res://resources/Icons/trinkets/trinket_02.tres"
 	splash.description_short = "Whenever this tower hits a creep, it has a chance to deal spell damage in AoE around the creep and increase spell damage taken of all affected creeps.\n"
 	splash.description_full = "Whenever this tower hits a creep, it has a 20% chance to deal 4000 spell damage in 175 AoE around the creep. Also increases spell damage taken by all affected creeps by 12.5% for 6 seconds.\n" \
 	+ " \n" \
@@ -50,14 +50,14 @@ func tower_init():
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
 	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
 	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
 	aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
 
 	splash_bt = BuffType.new("splash_bt", 6.0, 0, false, self)
 	var cedi_tidewater_splash_mod: Modifier = Modifier.new()
 	cedi_tidewater_splash_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
 	splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
-	splash_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
+	splash_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
 	splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
 
 	water_pt = ProjectileType.create_ranged("Waterfall.mdl", 1200, 700, self)
@@ -73,7 +73,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Calming Noises"
-	aura.icon = "res://Resources/Icons/dioramas/church.tres"
+	aura.icon = "res://resources/Icons/dioramas/church.tres"
 	aura.description_short = "Increases the spell crit chance of nearby towers.\n"
 	aura.description_full = "Increases the spell crit chance of towers in %d range by 10%%.\n" % AURA_RANGE \
 	+ " \n" \

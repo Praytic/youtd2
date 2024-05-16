@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	motivation_bt = BuffType.create_aura_effect_type("motivation_bt", true, self) 
-	motivation_bt.set_buff_icon("res://Resources/Icons/GenericIcons/mighty_force.tres")
+	motivation_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
 	motivation_bt.set_buff_tooltip("Motivation\nIncreases attack speed.")
 	motivation_bt.set_stacking_group("motivation_bt")
 	var mod: Modifier = Modifier.new() 

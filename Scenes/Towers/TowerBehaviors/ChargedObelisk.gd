@@ -10,7 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electric Field"
-	ability.icon = "res://Resources/Icons/mechanical/mech_badge.tres"
+	ability.icon = "res://resources/Icons/mechanical/mech_badge.tres"
 	ability.description_short = "On every attack this tower shocks a random creep in range. This shock deals spell damage and stuns the creep.\n"
 	ability.description_full = "On every attack this tower shocks a random creep in 1000 range. This shock deals 1000 spell damage and stuns for 0.2 seconds, the spell damage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
 	+ " \n" \
@@ -39,7 +39,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
 	charge_bt.set_buff_modifier(mod)
-	charge_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
+	charge_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
 	charge_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
 	charge_bt.add_periodic_event(charge_bt_periodic, 1.0)
 
@@ -48,7 +48,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Charge"
-	autocast.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	autocast.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	autocast.description_short = "Applies a buff to target tower which increases attack speed.\n"
 	autocast.description = "Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attack speed.\n" \
 	+ " \n" \

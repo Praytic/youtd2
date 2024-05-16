@@ -14,7 +14,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var wrath: AbilityInfo = AbilityInfo.new()
 	wrath.name = "Wrath of Ymir"
-	wrath.icon = "res://Resources/Icons/animals/dragon_05.tres"
+	wrath.icon = "res://resources/Icons/animals/dragon_05.tres"
 	wrath.description_short = "Whenever this tower hits a creep, it has a chance to deal portion of attack damage as spell damage and slow the creep.\n"
 	wrath.description_full = "Whenever this tower hits a creep, it has a 20% chance to deal additional 10% of tower's attack damage as spell damage and slow the creep by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
 	+ " \n" \
@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var blood: AbilityInfo = AbilityInfo.new()
 	blood.name = "Blood of Ymir"
-	blood.icon = "res://Resources/Icons/gems/gem_07.tres"
+	blood.icon = "res://resources/Icons/gems/gem_07.tres"
 	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from %s towers." % ice_string
 	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to %s towers by 25%%.\n" % ice_string \
 	+ " \n" \
@@ -55,21 +55,21 @@ func tower_init():
 	var iaman_ymir_blood_mod: Modifier = Modifier.new()
 	iaman_ymir_blood_mod.add_modification(Modification.Type.MOD_DMG_FROM_ICE, 0.25, 0.004)
 	blood_bt.set_buff_modifier(iaman_ymir_blood_mod)
-	blood_bt.set_buff_icon("res://Resources/Icons/GenericIcons/round_potion.tres")
+	blood_bt.set_buff_icon("res://resources/Icons/GenericIcons/round_potion.tres")
 	blood_bt.set_buff_tooltip("Blood of Ymir\nIncreases damage taken from Ice towers.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var iaman_ymir_flesh_mod: Modifier = Modifier.new()
 	iaman_ymir_flesh_mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.25, -0.006)
 	aura_bt.set_buff_modifier(iaman_ymir_flesh_mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/meat.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/meat.tres")
 	aura_bt.set_buff_tooltip("Flesh of Ymir Aura\nReduces debuff duration.")
 
 	wrath_bt = BuffType.new("wrath_bt", 0, 0, false, self)
 	var iaman_ymir_wrath_mod: Modifier = Modifier.new()
 	iaman_ymir_wrath_mod.add_modification(Modification.Type.MOD_MOVESPEED, -1.0, 0.001)
 	wrath_bt.set_buff_modifier(iaman_ymir_wrath_mod)
-	wrath_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	wrath_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 	wrath_bt.set_buff_tooltip("Wrath of Ymir\nReduces movement speed.")
 
 	multiboard = MultiboardValues.new(1)
@@ -80,7 +80,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Flesh of Ymir"
-	aura.icon = "res://Resources/Icons/scrolls/scroll_01.tres"
+	aura.icon = "res://resources/Icons/scrolls/scroll_01.tres"
 	aura.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
 	aura.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
 	+ " \n" \

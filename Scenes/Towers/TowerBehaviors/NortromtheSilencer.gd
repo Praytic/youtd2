@@ -15,14 +15,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var glaive: AbilityInfo = AbilityInfo.new()
 	glaive.name = "Glaives of Wisdom"
-	glaive.icon = "res://Resources/Icons/hud/recipe_reassemble.tres"
+	glaive.icon = "res://resources/Icons/hud/recipe_reassemble.tres"
 	glaive.description_short = "Every attack an extra glaive is shot out at the cost of mana. The glaive deals %s damage.\n" % physical_string
 	glaive.description_full = "Every attack an extra glaive is shot out at the cost of 40 mana. This glaive deals %s damage equal to Nortrom's attack damage and targets the creep with the least health in Nortrom's attack range.\n" % physical_string
 	list.append(glaive)
 
 	var last_word: AbilityInfo = AbilityInfo.new()
 	last_word.name = "Last Word"
-	last_word.icon = "res://Resources/Icons/shields/shield_skull.tres"
+	last_word.icon = "res://resources/Icons/shields/shield_skull.tres"
 	last_word.description_short = "Whenever Nortrom hits a creep, he deals more damage if the creep is silenced.\n"
 	last_word.description_full = "Whenever Nortrom hits a creep, he deals 20% more damage if the creep is silenced. This affects [color=GOLD]Glaives of Wisdom[/color] as well.\n" \
 	+ " \n" \
@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var curse: AbilityInfo = AbilityInfo.new()
 	curse.name = "Curse of the Silent"
-	curse.icon = "res://Resources/Icons/tower_variations/AshGeyser_purple.tres"
+	curse.icon = "res://resources/Icons/tower_variations/AshGeyser_purple.tres"
 	curse.description_short = "Creeps in range of Nortrom are periodically silenced.\n"
 	curse.description_full = "Every 7 seconds creeps within 800 range of Nortrom are silenced for 2 seconds.\n" \
 	+ " \n" \
@@ -55,7 +55,7 @@ func tower_init():
 	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aries.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/aries.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 
@@ -67,7 +67,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Global Silence"
-	aura.icon = "res://Resources/Icons/TowerIcons/TinyStormLantern.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/TinyStormLantern.tres"
 	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
 	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence attacked creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
 	+ " \n" \

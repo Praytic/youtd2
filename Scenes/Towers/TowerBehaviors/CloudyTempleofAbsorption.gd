@@ -46,7 +46,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/semi_closed_eye.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/semi_closed_eye.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 
@@ -66,7 +66,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast1: Autocast = Autocast.make()
 	autocast1.title = "Cloudy Thunderstorm"
-	autocast1.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	autocast1.icon = "res://resources/Icons/electricity/lightning_circle_white.tres"
 	autocast1.description_short = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range, dealing spell damage.\n"
 	autocast1.description = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n" \
 	+ " \n" \
@@ -91,7 +91,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast2: Autocast = Autocast.make()
 	autocast2.title = "Adjust Thunderstorm Threshold"
-	autocast2.icon = "res://Resources/Icons/mechanical/compass.tres"
+	autocast2.icon = "res://resources/Icons/mechanical/compass.tres"
 	autocast2.description_short = "Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
 	autocast2.description = "Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n" \
 	+ " \n" \
@@ -118,7 +118,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Cloud of Absorption"
-	aura.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	aura.icon = "res://resources/Icons/trinkets/trinket_01.tres"
 	aura.description_short = "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
 	aura.description_full = "Creates a lightning ball if a creep in %d range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n" % AURA_RANGE \
 	+ " \n" \

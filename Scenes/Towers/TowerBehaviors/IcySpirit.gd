@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Nova Storm"
-	ability.icon = "res://Resources/Icons/magic/claw_02.tres"
+	ability.icon = "res://resources/Icons/magic/claw_02.tres"
 	ability.description_short = "When this tower attacks there is a chance to blast nearby creeps with ice novas. Ice novas deal AoE spell damage.\n"
 	ability.description_full = "When this tower attacks there is a 25%% chance to hit 3 creeps in 900 range around the tower with ice novas. A nova hits all creeps in 200 AoE dealing %s spell damage at the centre, dropping off to 50%% at the sides. Also slows by 12.5%% for 4 seconds.\n" % nova_dmg \
 	+ " \n" \
@@ -50,7 +50,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/amber_mosquito.tres")
 	slow_bt.set_buff_modifier(m)
 	slow_bt.set_buff_tooltip("Frozen\nReduces movement speed.")
 

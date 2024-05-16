@@ -31,7 +31,7 @@ func tower_init():
 	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
 	curse_bt.set_buff_modifier(m)
 	curse_bt.set_stacking_group("curse_bt")
-	curse_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
+	curse_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
 	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 
@@ -41,7 +41,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_increase: String = Utils.format_percent(0.15 + _stats.buff_level * 0.001, 0)
 
 	autocast.title = "Dark Curse"
-	autocast.icon = "res://Resources/Icons/fire/flame_purple.tres"
+	autocast.icon = "res://resources/Icons/fire/flame_purple.tres"
 	autocast.description_short = "Causes the target creep to receive more attack damage.\n"
 	autocast.description = "Increases the attack damage target creep receives by %s, the curse lasts 5 seconds.\n" % [damage_increase] \
 	+ " \n" \

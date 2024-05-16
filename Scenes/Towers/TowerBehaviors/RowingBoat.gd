@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var pirates: AbilityInfo = AbilityInfo.new()
 	pirates.name = "Pirates"
-	pirates.icon = "res://Resources/Icons/TowerIcons/DutchmansGrave.tres"
+	pirates.icon = "res://resources/Icons/TowerIcons/DutchmansGrave.tres"
 	pirates.description_short = "This tower plunders gold each attack.\n"
 	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
 	list.append(pirates)
@@ -50,7 +50,7 @@ func tower_init():
 #	Set by aura
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	aura_bt.set_buff_modifier(bounty_mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
 
 	multiboard = MultiboardValues.new(1)
@@ -63,7 +63,7 @@ func get_aura_types() -> Array[AuraType]:
 	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
 
 	aura.name = "Treasure Seeker"
-	aura.icon = "res://Resources/Icons/trinkets/trinket_05.tres"
+	aura.icon = "res://resources/Icons/trinkets/trinket_05.tres"
 	aura.description_short = "Increases the bounty gain of nearby towers.\n"
 	aura.description_full = "Increases the bounty gain of towers in %d range by 10%%.\n" % AURA_RANGE \
 	+ " \n" \

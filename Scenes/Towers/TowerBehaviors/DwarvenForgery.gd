@@ -15,7 +15,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.15, 0.004)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
 	aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
 
 
@@ -23,7 +23,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Dwarven Polish"
-	aura.icon = "res://Resources/Icons/swords/greatsword_04.tres"
+	aura.icon = "res://resources/Icons/swords/greatsword_04.tres"
 	aura.description_short = "Increases item quality of towers in range.\n"
 	aura.description_full = "Increases the item quality of friendly towers in %d range including itself by 15%%.\n" % AURA_RANGE \
 	+ " \n" \

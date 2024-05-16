@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var lightning: AbilityInfo = AbilityInfo.new()
 	lightning.name = "Lightning Strike"
-	lightning.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
+	lightning.icon = "res://resources/Icons/electricity/lightning_glowing.tres"
 	lightning.description_short = "Whenever this tower hits a creep, there is a chance that a lightning bolt strikes the target, dealing spell damage.\n"
 	lightning.description_full = "Whenever this tower hits a creep, there is a %s chance that a lightning bolt strikes the target for %s spell damage.\n" % [strike_chance, strike_damage] \
 	+ " \n" \
@@ -53,7 +53,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Realm of Thunder Aura\nIncreases damage taken from Storm towers.")
 
 	
@@ -68,7 +68,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
 
 	aura.name = "Realm of Thunder"
-	aura.icon = "res://Resources/Icons/TowerIcons/LightningGenerator.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/LightningGenerator.tres"
 	aura.description_short = "Increases the vulnerability of enemies in range to damage from %s towers.\n" % storm_string
 	aura.description_full = "Increases the vulnerability of enemies in %d range to damage from %s towers by %s.\n" % [AURA_RANGE, storm_string, mod_dmg_from_storm] \
 	+ " \n" \

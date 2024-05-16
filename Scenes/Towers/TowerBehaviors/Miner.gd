@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var goldrush: AbilityInfo = AbilityInfo.new()
 	goldrush.name = "Goldrush"
-	goldrush.icon = "res://Resources/Icons/gems/gem_01.tres"
+	goldrush.icon = "res://resources/Icons/gems/gem_01.tres"
 	goldrush.description_short = "The miner has a chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed and grants gold whenever this tower hits a creep.\n"
 	goldrush.description_full = "The miner has a 20%% chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed by more than %s depending on the player's gold and grants %s gold whenever this tower hits a creep. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attack_speed_bonus, goldrush_gold] \
 	+ " \n" \
@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var excavation: AbilityInfo = AbilityInfo.new()
 	excavation.name = "Excavation"
-	excavation.icon = "res://Resources/Icons/misc/gold_cart.tres"
+	excavation.icon = "res://resources/Icons/misc/gold_cart.tres"
 	excavation.description_short = "Every few seconds the miner has a chance to find gold.\n"
 	excavation.description_full = "Every 20 seconds the miner has a 25%% chance to find %s gold.\n" % excavation_gold \
 	+ " \n" \
@@ -67,7 +67,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	goldrush_bt = BuffType.new("goldrush_bt", 5, 0.1, true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.2, 0.01)
-	goldrush_bt.set_buff_icon("res://Resources/Icons/GenericIcons/gold_bar.tres")
+	goldrush_bt.set_buff_icon("res://resources/Icons/GenericIcons/gold_bar.tres")
 	goldrush_bt.set_buff_modifier(m)
 	goldrush_bt.set_stacking_group("goldrush_bt")
 	goldrush_bt.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")

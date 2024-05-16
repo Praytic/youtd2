@@ -4,7 +4,7 @@ class_name AbilityButton extends UnitButton
 # Button for tower abilities. Note that this is for not-active abilities. Active abilities use AutocastButton.
 
 
-const FALLBACK_ICON: String = "res://Resources/Icons/mechanical/compass.tres"
+const FALLBACK_ICON: String = "res://resources/Icons/mechanical/compass.tres"
 
 
 var _icon_path: String = ""

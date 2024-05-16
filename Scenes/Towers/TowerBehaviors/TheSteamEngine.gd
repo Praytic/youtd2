@@ -17,7 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var power_surge: AbilityInfo = AbilityInfo.new()
 	power_surge.name = "Power Surge"
-	power_surge.icon = "res://Resources/Icons/electricity/electricity_yellow.tres"
+	power_surge.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
 	power_surge.description_short = "Towers under the effect of [color=GOLD]Steam Power[/color] have a chance to cause a surge in the Steam Engine, generating exp.\n"
 	power_surge.description_full = "Towers under the effect of [color=GOLD]Steam Power[/color] have a 1% base attack speed adjusted chance to cause a surge in the Steam Engine, granting it 1 exp.\n" \
 	+ " \n" \
@@ -41,7 +41,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 1.0, 0, false, self)
 
 	steam_bt = BuffType.new("steam_bt", 5, 0, true, self)
-	steam_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pokecog.tres")
+	steam_bt.set_buff_icon("res://resources/Icons/GenericIcons/pokecog.tres")
 	steam_bt.add_event_on_create(steam_bt_on_create)
 	steam_bt.add_event_on_attack(steam_bt_on_attack)
 	steam_bt.add_periodic_event(steam_bt_periodic, 1.0)
@@ -58,7 +58,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_speed_up: Autocast = Autocast.make()
 	autocast_speed_up.title = "Speed Up"
-	autocast_speed_up.icon = "res://Resources/Icons/magic/claw_03.tres"
+	autocast_speed_up.icon = "res://resources/Icons/magic/claw_03.tres"
 	autocast_speed_up.description_short = "Increases the power level of the engine.\n"
 	autocast_speed_up.description = "Increases the power level of the engine by 1. Maximum power level is 50.\n"
 	autocast_speed_up.caster_art = ""
@@ -78,7 +78,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_speed_down: Autocast = Autocast.make()
 	autocast_speed_down.title = "Speed Down"
-	autocast_speed_down.icon = "res://Resources/Icons/magic/claw_04.tres"
+	autocast_speed_down.icon = "res://resources/Icons/magic/claw_04.tres"
 	autocast_speed_down.description_short = "Decreases the power level of the engine.\n"
 	autocast_speed_down.description = "Decreases the power level of the engine by 1.\n"
 	autocast_speed_down.caster_art = ""
@@ -103,7 +103,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Steam Power"
-	aura.icon = "res://Resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/CloudyTempleofAbsorption.tres"
 	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
 	aura.description_full = "Increases attack damage of towers in %d AoE by [color=GOLD][6 x power level]%%[/color] and attack speed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
 	

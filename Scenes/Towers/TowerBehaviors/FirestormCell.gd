@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Firestorm"
-	ability.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
+	ability.icon = "res://resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
 	ability.description_short = "Attacks have a chance to cause repeating AoE spell damage around the main target.\n"
 	ability.description_full = "Attacks have a %s chance to apply 3 charges of [color=GOLD]Firestorm[/color] to the target. Each second, a charge will be spent, dealing %s spell damage to enemies in 300 range. If the target already has charges, the charges will accumulate and a charge will be consumed instantly. On death all remaining [color=GOLD]Firestorm[/color] charges get consumed at once.\n" % [firestorm_chance, firestorm_damage] \
 	+ " \n" \
@@ -71,7 +71,7 @@ func firestorm(event: Event):
 
 func tower_init():
 	firestorm_bt = BuffType.new("firestorm_bt", 1000, 0, false, self)
-	firestorm_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
+	firestorm_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
 	firestorm_bt.set_buff_tooltip("Firestorm\nPeriodically deals AoE damage.")
 	firestorm_bt.add_event_on_create(ashbringer_firestorm_setint)
 	firestorm_bt.add_periodic_event(ashbringer_firestorm_periodic, 1)

@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var overload: AbilityInfo = AbilityInfo.new()
 	overload.name = "Overload"
-	overload.icon = "res://Resources/Icons/electricity/lightning_circle_white.tres"
+	overload.icon = "res://resources/Icons/electricity/lightning_circle_white.tres"
 	overload.description_short = "Whenever this tower hits a creep, it deals %s damage and slow the target. Effect is stronger for creeps far away.\n" % energy_string
 	overload.description_full = "Whenever this tower hits a creep, it deals [color=GOLD][distance to the target x 12][/color] %s damage, modified by tower's attack damage and slow the target for 1.5 seconds. The further away the target is, the more it will be slowed. The maximum slow value is 30%%.\n" % energy_string
 	list.append(overload)
@@ -32,16 +32,16 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
 	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
-	surge_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
+	surge_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
 	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
 	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
@@ -50,7 +50,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Magnetic Surge"
-	autocast.icon = "res://Resources/Icons/electricity/electricity_blue.tres"
+	autocast.icon = "res://resources/Icons/electricity/electricity_blue.tres"
 	autocast.description_short = "This tower creates a [color=GOLD]Magnetic Surge[/color] at its target's current location. Target will take periodic damage.\n"
 	autocast.description = "This tower creates a [color=GOLD]Magnetic Surge[/color] at the target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.\n" \
 	+ " \n" \
@@ -80,7 +80,7 @@ func get_aura_types() -> Array[AuraType]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	aura.name = "Energetic Field"
-	aura.icon = "res://Resources/Icons/TowerIcons/MagicBattery.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/MagicBattery.tres"
 	aura.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
 	aura.description_full = "Units in %d range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % [AURA_RANGE, storm_string] \
 	+ " \n" \

@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var transmute: AbilityInfo = AbilityInfo.new()
 	transmute.name = "Transmute"
-	transmute.icon = "res://Resources/Icons/mechanical/gold_machine.tres"
+	transmute.icon = "res://resources/Icons/mechanical/gold_machine.tres"
 	transmute.description_short = "Whenever this tower hits a creep, it has a chance to turn a lesser creep into gold.\n"
 	transmute.description_full = "Whenever this tower hits a creep, it has a %s chance to turn the creep into %s additional gold immediately. Doesn't work on bosses and champions.\n" % [transmute_chance, transmute_gold] \
 	+ " \n" \
@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var gold_gree: AbilityInfo = AbilityInfo.new()
 	gold_gree.name = "Gold Gree"
-	gold_gree.icon = "res://Resources/Icons/misc/gold_cart.tres"
+	gold_gree.icon = "res://resources/Icons/misc/gold_cart.tres"
 	gold_gree.description_short = "Whenever this tower hits a creep, it deals extra spell damage which scales with current player gold.\n"
 	gold_gree.description_full = "Whenever this tower hits a creep, it deals extra [color=GOLD][%s x squareroot (current gold)][/color] spell damage to its target.\n" % gold_greed_value
 	list.append(gold_gree)

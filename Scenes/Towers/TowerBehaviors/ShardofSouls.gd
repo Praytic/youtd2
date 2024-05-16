@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Soul Consumption"
-	ability.icon = "res://Resources/Icons/gloves/curse.tres"
+	ability.icon = "res://resources/Icons/gloves/curse.tres"
 	ability.description_short = "Whenever a unit under the effect of [color=GOLD]Soul Link[/color] dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
 	ability.description_full = "Whenever a unit under the effect of [color=GOLD]Soul Link[/color] dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
 	list.append(ability)
@@ -48,7 +48,7 @@ func tower_init():
 	soul_link_bt = BuffType.new("soul_link_bt", SOUL_LINK_DURATION, 0, false, self)
 	soul_link_bt.add_event_on_damaged(soul_link_on_damaged)
 	soul_link_bt.add_event_on_death(soul_link_on_death)
-	soul_link_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
+	soul_link_bt.set_buff_icon("res://resources/Icons/GenericIcons/aquarius.tres")
 	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 
@@ -61,7 +61,7 @@ func create_autocasts() -> Array[Autocast]:
 	var link_damage_ratio_add: String = Utils.format_percent(_stats.link_damage_ratio_add, 2)
 
 	autocast.title = "Soul Link"
-	autocast.icon = "res://Resources/Icons/undead/skull_phazing.tres"
+	autocast.icon = "res://resources/Icons/undead/skull_phazing.tres"
 	autocast.description_short = "Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.\n"
 	autocast.description = "Links %s enemies' souls together for %s seconds. If a linked unit takes damage all other linked units will take %s of this damage. This tower does not benefit from damage increasing items or oils.\n" % [soul_link_count, soul_link_duration, link_damage_ratio] \
 	+ " \n" \

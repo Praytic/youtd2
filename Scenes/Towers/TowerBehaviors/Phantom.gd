@@ -45,7 +45,7 @@ func tower_init():
 	
 	wind_shear_bt.set_buff_modifier(m)
 	
-	wind_shear_bt.set_buff_icon("res://Resources/Icons/GenericIcons/rss.tres")
+	wind_shear_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	
@@ -72,7 +72,7 @@ func create_autocasts() -> Array[Autocast]:
 	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
 
 	autocast.title = "Wind Shear"
-	autocast.icon = "res://Resources/Icons/plants/leaf_02.tres"
+	autocast.icon = "res://resources/Icons/plants/leaf_02.tres"
 	autocast.description_short = "Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.\n"
 	autocast.description = "Increases the attack speed of a tower in 300 range by %s and gives it a 25%% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals %s initial spell damage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attack_speed, chain_damage] \
 	+ " \n" \

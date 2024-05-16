@@ -11,7 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Inject Parasite"
-	ability.icon = "res://Resources/Icons/animals/spider_03.tres"
+	ability.icon = "res://resources/Icons/animals/spider_03.tres"
 	ability.description_short = "Whenever the Queen hits a creep, she has a chance to inject it with a parasite. Each second the creep will suffer spell damage and will permanently lose a portion of its armor.\n"
 	ability.description_full = "Whenever the Queen hits a creep, she has a 30% chance to inject it with a parasite that lives for 10 seconds. Each second the creep will suffer 500 spell damage and will permanently lose 2% armor. When an infected creep dies, the Nerubian Queen will gain 0.75% permanent bonus attack damage and the parasite will attempt to jump to another host in 500 range.\n" \
 	+ " \n" \
@@ -34,7 +34,7 @@ func tower_init():
 	parasite_bt.set_buff_modifier(mod)
 	parasite_bt.add_periodic_event(parasite_bt_periodic, 1.0)
 	parasite_bt.add_event_on_death(parasite_bt_on_death)
-	parasite_bt.set_buff_icon("res://Resources/Icons/GenericIcons/amber_mosquito.tres")
+	parasite_bt.set_buff_icon("res://resources/Icons/GenericIcons/amber_mosquito.tres")
 	parasite_bt.set_buff_tooltip("Parasite\nDeals damage over time.")
 
 	spider_pt = ProjectileType.create_interpolate("Spider.mdl", 500, self)

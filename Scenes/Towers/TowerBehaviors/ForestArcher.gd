@@ -36,14 +36,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var advanced_multishot: AbilityInfo = AbilityInfo.new()
 	advanced_multishot.name = "Advanced Multishot"
-	advanced_multishot.icon = "res://Resources/Icons/bows/bow_01.tres"
+	advanced_multishot.icon = "res://resources/Icons/bows/bow_01.tres"
 	advanced_multishot.description_short = "Multishot count increases by 1 at level 15.\n"
 	advanced_multishot.description_full = "Multishot count increases by 1 at level 15.\n"
 	list.append(advanced_multishot)
 
 	var gift: AbilityInfo = AbilityInfo.new()
 	gift.name = "Gift of the Forest"
-	gift.icon = "res://Resources/Icons/plants/plant_in_pot.tres"
+	gift.icon = "res://resources/Icons/plants/plant_in_pot.tres"
 	gift.description_short = "The magical powers of the forest grant this archer enchanted arrows, which have a chance to stun or slow creeps.\n"
 	gift.description_full = "Whenever this tower hits a creep, it has a %s chance to stun the creep for %s seconds. If the stun fails to happen then there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration] \
 	+ " \n" \
@@ -70,7 +70,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
 	roots_bt = BuffType.new("roots_bt", 0, 0, false, self)
-	roots_bt.set_buff_icon("res://Resources/Icons/GenericIcons/root_tip.tres")
+	roots_bt.set_buff_icon("res://resources/Icons/GenericIcons/root_tip.tres")
 	roots_bt.set_buff_modifier(mod)
 	roots_bt.set_stacking_group("ForestArcherStacks")
 	roots_bt.set_buff_tooltip("Forest Roots\nReduces movement speed.")

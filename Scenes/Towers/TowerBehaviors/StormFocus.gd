@@ -17,11 +17,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.1, 0.008)
 	freezing_bt.set_buff_modifier(mod)
-	freezing_bt.set_buff_icon("res://Resources/Icons/GenericIcons/energy_breath.tres")
+	freezing_bt.set_buff_icon("res://resources/Icons/GenericIcons/energy_breath.tres")
 	freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
 	aura_bt.add_event_on_create(gust_on_create)
 	aura_bt.add_periodic_event(gust_periodic, 1.0)
 	aura_bt.add_event_on_cleanup(gust_on_cleanup)
@@ -32,7 +32,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Freezing Gust"
-	autocast.icon = "res://Resources/Icons/fire/flame_blue.tres"
+	autocast.icon = "res://resources/Icons/fire/flame_blue.tres"
 	autocast.description_short = "Casts a buff on a tower in range, doubling the effect of [color=GOLD]Gust Aura[/color]."
 	autocast.description = "Casts a buff on a tower in 800 range, doubling the effect of [color=GOLD]Gust Aura[/color] and increasing that tower's damage against air units by 10% for 5 seconds.\n" \
 	+ " \n" \
@@ -60,7 +60,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Gust"
-	aura.icon = "res://Resources/Icons/TowerIcons/IceBattery.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/IceBattery.tres"
 	aura.description_short = "Towers in range around the Storm Focus gain additional attack damage scaled by their bonus damage against air.\n"
 	aura.description_full = "Towers in %d range around the Storm Focus gain additional attack damage equal to 50%% of the bonus damage against air they have.\n" % AURA_RANGE \
 	+ " \n" \

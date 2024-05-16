@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var lightning_shock: AbilityInfo = AbilityInfo.new()
 	lightning_shock.name = "Lightning Shock"
-	lightning_shock.icon = "res://Resources/Icons/electricity/lightning_glowing.tres"
+	lightning_shock.icon = "res://resources/Icons/electricity/lightning_glowing.tres"
 	lightning_shock.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps, dealing spell damage.\n"
 	lightning_shock.description_full = "Whenever this tower hits a creep, it has a %s chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps. [color=GOLD]Lightning Shock[/color] deals %s spell damage and has a %s bonus chance to crit with %s bonus spell damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
 	+ " \n" \
@@ -54,7 +54,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
 	aura_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
 
 
@@ -68,7 +68,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 	
 	aura.name = "Lightning Charge"
-	aura.icon = "res://Resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/BallLightningAccelerator.tres"
 	aura.description_short = "Towers in range have their spell damage increased.\n"
 	aura.description_full = "Towers in %d range have their spell damage increased by %s.\n" % [AURA_RANGE, mod_spell_damage] \
 	+ " \n" \

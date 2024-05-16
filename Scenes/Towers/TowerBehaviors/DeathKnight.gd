@@ -11,7 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var insatiable: AbilityInfo = AbilityInfo.new()
 	insatiable.name = "Insatiable Hunger"
-	insatiable.icon = "res://Resources/Icons/helmets/helmet_07.tres"
+	insatiable.icon = "res://resources/Icons/helmets/helmet_07.tres"
 	insatiable.description_short = "Whenever this tower hits a creep, it deals bonus attack damage based on missing mana and replenishes mana when attacking.\n"
 	insatiable.description_full = "Whenever this tower hits a creep, it deals 0.25% bonus attack damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
 	+ " \n" \
@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var withering: AbilityInfo = AbilityInfo.new()
 	withering.name = "Withering Presence"
-	withering.icon = "res://Resources/Icons/TowerIcons/LesserSkeletalMage.tres"
+	withering.icon = "res://resources/Icons/TowerIcons/LesserSkeletalMage.tres"
 	withering.description_short = "Chance to steal health of nearby creeps.\n"
 	withering.description_full = "Whenever a unit comes in 900 range of the Death Knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
 	+ " \n" \
@@ -51,14 +51,14 @@ func tower_init():
 	var will_positive_bt_mod: Modifier = Modifier.new()
 	will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
 	will_positive_bt.set_buff_modifier(will_positive_bt_mod)
-	will_positive_bt.set_buff_icon("res://Resources/Icons/GenericIcons/alien_skull.tres")
+	will_positive_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
 	will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
 	will_negative_bt = BuffType.new("will_negative_bt", 5, 0, false, self)
 	var will_negative_bt_mod: Modifier = Modifier.new()
 	will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
 	will_negative_bt.set_buff_modifier(will_negative_bt_mod)
-	will_negative_bt.set_buff_icon("res://Resources/Icons/GenericIcons/pisces.tres")
+	will_negative_bt.set_buff_icon("res://resources/Icons/GenericIcons/pisces.tres")
 	will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
 	withering_bt = BuffType.new("withering_bt", 4, 0, false, self)
@@ -67,7 +67,7 @@ func tower_init():
 	withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
 	withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
 	withering_bt.set_buff_modifier(withering_bt_mod)
-	withering_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
+	withering_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
 	withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
 	withering_bt.add_periodic_event(withering_bt_periodic, 1.0)
 
@@ -76,7 +76,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Will of the Undying"
-	autocast.icon = "res://Resources/Icons/undead/skull_01.tres"
+	autocast.icon = "res://resources/Icons/undead/skull_01.tres"
 	autocast.description_short = "The death knight empowers himself by draining the power of nearby towers.\n"
 	autocast.description = "The Death Knight decreases the base attack damage of all towers in 200 range by 10% and loses 50% of his remaining mana to increase his base damage by 15% for each tower affected for 5 seconds. Only towers that cost at least 1300 gold are affected by this spell.\n" \
 	+ " \n" \

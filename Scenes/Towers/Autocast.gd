@@ -103,7 +103,7 @@ var _point_type_list: Array[Autocast.Type] = [
 var title: String = "Placeholder Title"
 var description: String = "Description"
 var description_short: String = "Description Short"
-var icon: String = "res://Resources/Icons/hud/gold.tres"
+var icon: String = "res://resources/Icons/hud/gold.tres"
 var caster_art: String = ""
 var cooldown: float = 0.1
 # NOTE: in original engine "num_buffs_before_idle"

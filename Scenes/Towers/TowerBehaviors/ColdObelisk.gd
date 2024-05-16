@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Absolute Zero"
-	ability.icon = "res://Resources/Icons/TowerIcons/EbonfrostCrystal.tres"
+	ability.icon = "res://resources/Icons/TowerIcons/EbonfrostCrystal.tres"
 	ability.description_short = "Whenever this tower hits a creep, it slows the creep.\n"
 	ability.description_full = "Whenever this tower hits a creep, it slows the creep by %s for 4 seconds.\n" % slow_amount \
 	+ " \n" \
@@ -45,7 +45,7 @@ func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow)
 	slow_bt.set_buff_tooltip("Absolute Zero\nReduces movement speed.")
 

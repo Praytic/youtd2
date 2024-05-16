@@ -19,7 +19,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.001)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0005)
 	charm_bt = BuffType.new("charm_bt", 0, 0.0005, true, self)
-	charm_bt.set_buff_icon("res://Resources/Icons/GenericIcons/charm.tres")
+	charm_bt.set_buff_icon("res://resources/Icons/GenericIcons/charm.tres")
 	charm_bt.set_buff_modifier(m)
 	charm_bt.set_stacking_group("charm_bt")
 	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
@@ -36,7 +36,7 @@ func create_autocasts() -> Array[Autocast]:
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.buff_power_add * 0.0005, 2)
 
 	autocast.title = "Snake Charm"
-	autocast.icon = "res://Resources/Icons/undead/skull_wand_03.tres"
+	autocast.icon = "res://resources/Icons/undead/skull_wand_03.tres"
 	autocast.description_short = "This unit will increase nearby towers' mana, mana regeneration and spell damage.\n"
 	autocast.description = "Increases the target's maximum mana by %s, its mana regeneration by %s and its spell damage by %s. The buff lasts 5 seconds.\n" % [mod_mana_max, mod_mana_regen, mod_spell_damage] \
 	+ " \n" \

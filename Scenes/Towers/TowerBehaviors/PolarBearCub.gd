@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Cold Feet"
-	ability.icon = "res://Resources/Icons/furniture/furniture.tres"
+	ability.icon = "res://resources/Icons/furniture/furniture.tres"
 	ability.description_short = "On attack this tower decreases its attack speed while increasing its attack damage.\n"
 	ability.description_full = "On attack this tower cools down decreasing its attack speed by 5%% while increasing attack damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase \
 	+ " \n" \
@@ -52,14 +52,14 @@ func tower_init():
 	cold_feet_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
 	cold_feet_bt.set_buff_modifier(cold_feet_bt_mod)
 	cold_feet_bt.set_stacking_group("cold_feet_bt")
-	cold_feet_bt.set_buff_icon("res://Resources/Icons/GenericIcons/barefoot.tres")
+	cold_feet_bt.set_buff_icon("res://resources/Icons/GenericIcons/barefoot.tres")
 	cold_feet_bt.add_event_on_cleanup(on_cleanup)
 	cold_feet_bt.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
 
 	cold_arms_bt = BuffType.new("cold_arms_bt", 0, 0, true, self)
 	cold_arms_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
 	cold_arms_bt.set_buff_modifier(cold_arms_bt_mod)
-	cold_arms_bt.set_buff_icon("res://Resources/Icons/GenericIcons/biceps.tres")
+	cold_arms_bt.set_buff_icon("res://resources/Icons/GenericIcons/biceps.tres")
 	cold_arms_bt.set_buff_tooltip("Cold Arms\nIncreases attack damage.")
 
 

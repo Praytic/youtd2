@@ -11,7 +11,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var time_travel: AbilityInfo = AbilityInfo.new()
 	time_travel.name = "Time Travel"
-	time_travel.icon = "res://Resources/Icons/mechanical/compass.tres"
+	time_travel.icon = "res://resources/Icons/mechanical/compass.tres"
 	time_travel.description_short = "Whenever this tower hits a creep, it teleports the creep back in time after a delay. Has a lower chance for bosses.\n"
 	time_travel.description_full = "Whenever this tower hits a creep, it teleports the creep 3 seconds back in time after 3 seconds delay. Has a 20% chance to teleport bosses, other creeps will be always teleported.\n" \
 	+ " \n" \
@@ -31,7 +31,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.30, 0.006)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
 	aura_bt.set_buff_tooltip("Timesurge\nIncreases trigger chances.")
 
 
@@ -39,7 +39,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Timesurge"
-	aura.icon = "res://Resources/Icons/mechanical/lamp.tres"
+	aura.icon = "res://resources/Icons/mechanical/lamp.tres"
 	aura.description_short = "Increases triggerchance of nearby towers.\n"
 	aura.description_full = "Increases triggerchance of towers in %d range by 30%%.\n" % AURA_RANGE \
 	+ " \n" \

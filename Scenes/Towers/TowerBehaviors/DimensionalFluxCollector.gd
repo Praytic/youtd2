@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Dimensional Distortion Field"
-	ability.icon = "res://Resources/Icons/dioramas/fountain.tres"
+	ability.icon = "res://resources/Icons/dioramas/fountain.tres"
 	ability.description_short = "Each second this tower attacks a creep in range, dealing %s damage based on linked tower's spell damage per second.\n" % energy_string
 	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25%% of the linked tower's spell damage per second as %s damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attack speed bonuses.\n" % energy_string \
 	+ " \n" \
@@ -52,7 +52,7 @@ func tower_init():
 	link_bt = BuffType.new("link_bt", -1, 0, true, self)
 	link_bt.add_event_on_create(aura_bt_on_create)
 	link_bt.add_event_on_cleanup(aura_bt_on_cleanup)
-	link_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aquarius.tres")
+	link_bt.set_buff_icon("res://resources/Icons/GenericIcons/aquarius.tres")
 	link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)
@@ -66,7 +66,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Dimensional Link"
-	autocast.icon = "res://Resources/Icons/mechanical/circuit_board.tres"
+	autocast.icon = "res://resources/Icons/mechanical/circuit_board.tres"
 	autocast.description_short = "Creates a link between this tower and the target tower.\n"
 	autocast.description = "Creates a link between this tower and the target tower. This tower will now monitor any spell damage dealt by the linked tower to creeps within 2000 range of this tower. If the linked tower is sold, replaced or upgraded the link will dissolve.\n"
 	autocast.caster_art = ""

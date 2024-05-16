@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Entangle"
-	ability.icon = "res://Resources/Icons/plants/branch_01.tres"
+	ability.icon = "res://resources/Icons/plants/branch_01.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to entangle the creep. Entangled creeps are immobile and suffer spell damage over time. Cannot entangle air or boss units.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a 12.5%% chance to entangle the creep for %s seconds. Entangled creeps are immobile and suffer %s spell damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
 	+ " \n" \
@@ -45,7 +45,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	entangle_bt = CbStun.new("entangle_bt", _stats.entangle_duration, 0.75, false, self)
-	entangle_bt.set_buff_icon("res://Resources/Icons/GenericIcons/atomic_slashes.tres")
+	entangle_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
 	entangle_bt.add_periodic_event(entangle_bt_damage, 1.0)
 
 

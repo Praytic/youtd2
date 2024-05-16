@@ -14,7 +14,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Planeshift"
-	ability.icon = "res://Resources/Icons/TowerIcons/HarpyWitch.tres"
+	ability.icon = "res://resources/Icons/TowerIcons/HarpyWitch.tres"
 	ability.description_short = "On attack the Gate releases a magical falcon at the main target. The falcon deals %s damage and bounces to multiple targets.\n" % energy_string
 	ability.description_full = "On attack the Gate releases a magical falcon at the main target.\n" \
 	+ "The falcon deals %s damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5%% less damage.\n" % energy_string \
@@ -35,11 +35,11 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
-	eruption_bt.set_buff_icon("res://Resources/Icons/GenericIcons/azul_flake.tres")
+	eruption_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
 	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
 	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
-	planar_shift_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ghost.tres")
+	planar_shift_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
 	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
 	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 
@@ -53,7 +53,7 @@ func create_autocasts() -> Array[Autocast]:
 	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
 
 	autocast.title = "Astral Eruption"
-	autocast.icon = "res://Resources/Icons/magic/magic_stone.tres"
+	autocast.icon = "res://resources/Icons/magic/magic_stone.tres"
 	autocast.description_short = "Releases a huge wave of astral power through the gate. This empowers falcons.\n"
 	autocast.description = "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from %s towers by 1%% of the falcon's current damage ratio.\n" % astral_string \
 	+ " \n" \

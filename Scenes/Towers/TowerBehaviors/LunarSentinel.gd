@@ -28,7 +28,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_from_spells_at_15: String = Utils.format_percent((_stats.buff_power_15 - _stats.buff_power)  * 0.1 * 0.01, 2)
 
 	autocast.title = "Lunar Grace"
-	autocast.icon = "res://Resources/Icons/orbs/moon.tres"
+	autocast.icon = "res://resources/Icons/orbs/moon.tres"
 	autocast.description_short = "Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.\n"
 	autocast.description = "Smites a target creep dealing %s spell damage to it. There is also a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells] \
 	+ " \n" \
@@ -61,7 +61,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	lunar_energy_bt = BuffType.new("lunar_energy_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
-	lunar_energy_bt.set_buff_icon("res://Resources/Icons/GenericIcons/polar_star.tres")
+	lunar_energy_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
 	lunar_energy_bt.set_stacking_group("lunar_energy_bt")
 
 	lunar_energy_bt.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")

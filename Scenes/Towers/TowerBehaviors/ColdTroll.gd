@@ -42,7 +42,7 @@ func tower_init():
 	blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
 	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	slow_bt.set_stacking_group("cedi_troll_blizzard")
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
@@ -68,7 +68,7 @@ func create_autocasts() -> Array[Autocast]:
 	var slow_add: String = Utils.format_percent(-_stats.slow_add, 2)
 	
 	autocast.title = "Blizzard"
-	autocast.icon = "res://Resources/Icons/tower_variations/MeteorTotem_blue.tres"
+	autocast.icon = "res://resources/Icons/tower_variations/MeteorTotem_blue.tres"
 	autocast.description_short = "Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.\n"
 	autocast.description = "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s spell damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s to slow the unit by %s for %s seconds and a chance of %s to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration] \
 	+ " \n" \

@@ -17,7 +17,7 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 1.0 / 10000)
 	aura_bt.set_buff_modifier(m)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/aries.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/aries.tres")
 	aura_bt.set_stacking_group("wolf_aura")
 	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
 
@@ -29,7 +29,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_attack_speed_add: String = Utils.format_percent(_stats.mod_attack_speed_add, 2)
 
 	aura.name = "Wolven Tenacity"
-	aura.icon = "res://Resources/Icons/faces/orc_01.tres"
+	aura.icon = "res://resources/Icons/faces/orc_01.tres"
 	aura.description_short = "The strong physical presence of the wolves increases attack speed of nearby towers.\n"
 	aura.description_full = "The strong physical presence of the wolves encourages nearby towers within a %d radius, to increase their attack speed by %s.\n" % [_stats.aura_range, mod_attack_speed] \
 	+ " \n" \

@@ -60,7 +60,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magic Missile"
-	ability.icon = "res://Resources/Icons/TowerIcons/ChargedObelisk.tres"
+	ability.icon = "res://resources/Icons/TowerIcons/ChargedObelisk.tres"
 	ability.description_short = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction.\n"
 	ability.description_full = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n" \
 	+ " \n" \
@@ -87,28 +87,28 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.01)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://Resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Magic Missile Slow\nReduces movement speed.")
 
 	sunder_bt = BuffType.new("sunder_bt", 5, 0, false, self)
 	var sunder_bt_mod: Modifier = Modifier.new()
 	sunder_bt_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.0, -0.01)
 	sunder_bt.set_buff_modifier(sunder_bt_mod)
-	sunder_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
+	sunder_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
 	sunder_bt.set_buff_tooltip("Magic Missile Sunder\nReduces armor.")
 
 	spell_vuln_bt = BuffType.new("spell_vuln_bt", 5, 0, false, self)
 	var spell_vuln_bt_mod: Modifier = Modifier.new()
 	spell_vuln_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.01)
 	spell_vuln_bt.set_buff_modifier(spell_vuln_bt_mod)
-	spell_vuln_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
+	spell_vuln_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
 	spell_vuln_bt.set_buff_tooltip("Magic Missile Vulnerability\nIncreases spell damage taken.")
 
 	cripple_bt = BuffType.new("cripple_bt", 5, 0, false, self)
 	var cripple_bt_mod: Modifier = Modifier.new()
 	cripple_bt_mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.01)
 	cripple_bt.set_buff_modifier(cripple_bt_mod)
-	cripple_bt.set_buff_icon("res://Resources/Icons/GenericIcons/burning_meteor.tres")
+	cripple_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_meteor.tres")
 	cripple_bt.set_buff_tooltip("Magic Missile Cripple\nReduces health regeneration.")
 
 	multiboard = MultiboardValues.new(8)
@@ -127,7 +127,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_choose: Autocast = Autocast.make()
 	autocast_choose.title = "Choose Modification"
-	autocast_choose.icon = "res://Resources/Icons/trinkets/trinket_01.tres"
+	autocast_choose.icon = "res://resources/Icons/trinkets/trinket_01.tres"
 	autocast_choose.description_short = "Cycle through the modifications.\n"
 	autocast_choose.description = "Cycle through the modifications:\n" \
 	+ "Slow: 8% for 5 seconds, -20% dmg\n" \
@@ -153,7 +153,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_add: Autocast = Autocast.make()
 	autocast_add.title = "Add Modification"
-	autocast_add.icon = "res://Resources/Icons/magic/claw_02.tres"
+	autocast_add.icon = "res://resources/Icons/magic/claw_02.tres"
 	autocast_add.description_short = "Adds the bonus to the missile if the tower has enough damage left.\n"
 	autocast_add.description = "Adds the bonus to the missile if the tower has enough damage left.\n"
 	autocast_add.caster_art = ""
@@ -173,7 +173,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_remove: Autocast = Autocast.make()
 	autocast_remove.title = "Remove Modification"
-	autocast_remove.icon = "res://Resources/Icons/magic/claw_04.tres"
+	autocast_remove.icon = "res://resources/Icons/magic/claw_04.tres"
 	autocast_remove.description_short = "Removes the bonus to the missile and returns the damage used.\n"
 	autocast_remove.description = "Removes the bonus to the missile and returns the damage used.\n"
 	autocast_remove.caster_art = ""

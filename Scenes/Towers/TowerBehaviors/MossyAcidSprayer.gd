@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Acid Coating"
-	ability.icon = "res://Resources/Icons/potions/potion_green_03.tres"
+	ability.icon = "res://resources/Icons/potions/potion_green_03.tres"
 	ability.description_short = "Whenever this tower hits a creep, it decreases it's armor.\n"
 	ability.description_full = "Whenever this tower hits a creep, it decreases it's armor by %s for 3 seconds.\n" % armor_base \
 	+ " \n" \
@@ -48,7 +48,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
 	acid_bt = BuffType.new("acid_bt", 3.0, 0.12, false, self)
-	acid_bt.set_buff_icon("res://Resources/Icons/GenericIcons/open_wound.tres")
+	acid_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
 	acid_bt.set_buff_modifier(m)
 
 	acid_bt.set_buff_tooltip("Acid Corosion\nReduces armor.")

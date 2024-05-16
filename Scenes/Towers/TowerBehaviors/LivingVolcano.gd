@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
-	heat_stroke.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
+	heat_stroke.icon = "res://resources/Icons/TowerIcons/FireStar.tres"
 	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode and deal AoE spell damage.\n"
 	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 spell damage in 300 AoE.\n" \
 	+ " \n" \
@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var lava_attack: AbilityInfo = AbilityInfo.new()
 	lava_attack.name = "Lava Attack"
-	lava_attack.icon = "res://Resources/Icons/orbs/orb_fire.tres"
+	lava_attack.icon = "res://resources/Icons/orbs/orb_fire.tres"
 	lava_attack.description_short = "Whenever this tower attacks, it has a chance to throw a burning lava ball towards the main target, dealing AoE spell damage.\n"
 	lava_attack.description_full = "Whenever this tower attacks, it has a 25% chance to throw a burning lava ball towards the main target, dealing 3500 spell damage to creeps in 300 AoE.\n" \
 	+ " \n" \
@@ -46,7 +46,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/flame.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
 	aura_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.add_event_on_death(aura_bt_on_death)
@@ -59,7 +59,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Heat Aura"
-	aura.icon = "res://Resources/Icons/TowerIcons/FireBattery.tres"
+	aura.icon = "res://resources/Icons/TowerIcons/FireBattery.tres"
 	aura.description_short = "Burns every enemy in range, making them lose life every second.\n"
 	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
 

@@ -24,24 +24,24 @@ const autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
 const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn")
 const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeIndicator.tscn")
-const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
+const outline_shader: Material = preload("res://resources/Shaders/GlowingOutline.material")
 const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
 const player_scene: PackedScene = preload("res://Scenes/Player/Player.tscn")
 const team_scene: PackedScene = preload("res://Scenes/Player/Team.tscn")
 const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 const buff_display_scene: PackedScene = preload("res://Scenes/HUD/UnitMenu/BuffDisplay.tscn")
-const fallback_buff_icon: Texture = preload("res://Resources/Icons/GenericIcons/egg.tres")
+const fallback_buff_icon: Texture = preload("res://resources/Icons/GenericIcons/egg.tres")
 const builder_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/BuilderButton.tscn")
 const ability_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AbilityButton.tscn")
 const element_icons: Dictionary = {
-	Element.enm.ICE: preload("res://Resources/Icons/elements/ice.tres"),
-	Element.enm.NATURE: preload("res://Resources/Icons/elements/nature.tres"),
-	Element.enm.ASTRAL: preload("res://Resources/Icons/elements/astral.tres"),
-	Element.enm.DARKNESS: preload("res://Resources/Icons/elements/darkness.tres"),
-	Element.enm.FIRE: preload("res://Resources/Icons/elements/fire.tres"),
-	Element.enm.IRON: preload("res://Resources/Icons/elements/iron.tres"),
-	Element.enm.STORM: preload("res://Resources/Icons/elements/storm.tres"),
+	Element.enm.ICE: preload("res://resources/Icons/elements/ice.tres"),
+	Element.enm.NATURE: preload("res://resources/Icons/elements/nature.tres"),
+	Element.enm.ASTRAL: preload("res://resources/Icons/elements/astral.tres"),
+	Element.enm.DARKNESS: preload("res://resources/Icons/elements/darkness.tres"),
+	Element.enm.FIRE: preload("res://resources/Icons/elements/fire.tres"),
+	Element.enm.IRON: preload("res://resources/Icons/elements/iron.tres"),
+	Element.enm.STORM: preload("res://resources/Icons/elements/storm.tres"),
 }
 
 

@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	speed_bt = BuffType.new("speed_bt", 0.0, 0.0, true, self)
-	speed_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
+	speed_bt.set_buff_icon("res://resources/Icons/GenericIcons/hammer_drop.tres")
 	speed_bt.set_buff_tooltip("Speed Boost\nIncreases attack speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
@@ -29,7 +29,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Speed Boost"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://Resources/Icons/hud/gold.tres"
+	autocast.icon = "res://resources/Icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

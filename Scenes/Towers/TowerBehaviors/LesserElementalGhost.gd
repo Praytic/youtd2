@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var elemental_wrath: AbilityInfo = AbilityInfo.new()
 	elemental_wrath.name = "Elemental Wrath"
-	elemental_wrath.icon = "res://Resources/Icons/scrolls/scroll_04.tres"
+	elemental_wrath.icon = "res://resources/Icons/scrolls/scroll_04.tres"
 	elemental_wrath.description_short = "The Ghost has a chance on attack to increase its trigger chance temporarily.\n"
 	elemental_wrath.description_full = "The Elemental Ghost has a %s chance to unleash it's wrath on attack, increasing its trigger chance by 15%% for 5 seconds. Cannot retrigger during Elemental Wrath.\n" % elemental_wrath_chance \
 	+ " \n" \
@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var mimic: AbilityInfo = AbilityInfo.new()
 	mimic.name = "Mimic"
-	mimic.icon = "res://Resources/Icons/orbs/orb_ice_melting.tres"
+	mimic.icon = "res://resources/Icons/orbs/orb_ice_melting.tres"
 	mimic.description_short = "The Ghost is able to deal different damage types.\n"
 	mimic.description_full = "The Ghost's attacks are varied, and its damage type will either be good or bad against its target. Trigger chance adjusts the good/bad attacks to be better.\n"
 	list.append(mimic)
@@ -54,7 +54,7 @@ func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	wrath_bt = BuffType.new("wrath_bt", 5, 0, true, self)
-	wrath_bt.set_buff_icon("res://Resources/Icons/GenericIcons/holy_grail.tres")
+	wrath_bt.set_buff_icon("res://resources/Icons/GenericIcons/holy_grail.tres")
 	wrath_bt.set_buff_modifier(modifier)
 	wrath_bt.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
 

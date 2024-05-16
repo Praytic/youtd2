@@ -17,8 +17,8 @@ enum CsvProperty {
 const PROPERTIES_PATH = "res://data/item_properties.csv"
 # NOTE: this id needs to be updated if it's changed in csv
 const CONSUMABLE_CHICKEN_ID: int = 2003
-const ITEM_ICON_DIR: String = "res://Resources/Icons/ItemIcons"
-const PLACEHOLDER_ITEM_ICON: String = "res://Resources/Icons/animals/cow.tres"
+const ITEM_ICON_DIR: String = "res://resources/Icons/ItemIcons"
+const PLACEHOLDER_ITEM_ICON: String = "res://resources/Icons/animals/cow.tres"
 
 
 var _properties: Dictionary = {}

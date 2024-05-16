@@ -43,7 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var twin_flames: AbilityInfo = AbilityInfo.new()
 	twin_flames.name = "Twin Flames"
-	twin_flames.icon = "res://Resources/Icons/orbs/orb_fire.tres"
+	twin_flames.icon = "res://resources/Icons/orbs/orb_fire.tres"
 	twin_flames.description_short = "On each attack, this tower has a chance equal to launch a green flame or a red flame. Flames can deal %s damage or spell damage\n" % physical_string
 	twin_flames.description_full = "On each attack, this tower has a chance equal to its crit chance to launch a green flame, dealing %s of tower's attack damage as spell damage, and a chance equal to its spell crit chance to launch a red flame, dealing %s of tower's attack damage as %s damage.\n" % [flame_dmg_ratio, flame_dmg_ratio, physical_string] \
 	+ " \n" \
@@ -53,7 +53,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var twin_pulses: AbilityInfo = AbilityInfo.new()
 	twin_pulses.name = "Twin Pulses"
-	twin_pulses.icon = "res://Resources/Icons/TowerIcons/FireStar.tres"
+	twin_pulses.icon = "res://resources/Icons/TowerIcons/FireStar.tres"
 	twin_pulses.description_short = "Every time this tower has launched a lot of flames, it releases a pulse, dealing %s damage or spell damage to creeps in range.\n" % physical_string
 	twin_pulses.description_full = "Every time this tower has launched 8 red flames, it releases a green pulse, dealing %s of its attack damage as spell damage in 900 AoE and every time it has launched 8 green flames, it releases a red pulse, dealing %s of its attack damage as %s damage in 900 AoE.\n" % [pulse_dmg_ratio, pulse_dmg_ratio, physical_string] \
 	+ " \n" \
@@ -66,7 +66,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var twin_disciplines: AbilityInfo = AbilityInfo.new()
 	twin_disciplines.name = "Twin Disciplines"
-	twin_disciplines.icon = "res://Resources/Icons/swords/greatsword_03.tres"
+	twin_disciplines.icon = "res://resources/Icons/swords/greatsword_03.tres"
 	twin_disciplines.description_short = "Whenever this tower deals a critical hit to a creep, it gains bonus crit chance or spell crit chance.\n"
 	twin_disciplines.description_full = "Whenever this tower deals a critical hit to a creep, it gains %s bonus critical chance or spell critical chance, both stacking up to 10 times, for 7 seconds. The lower chance will always be prioritized." % twin_disciplines_crit
 	list.append(twin_disciplines)
@@ -84,14 +84,14 @@ func tower_init():
 	var dave_physical_mod: Modifier = Modifier.new()
 	dave_physical_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	attack_bt.set_buff_modifier(dave_physical_mod)
-	attack_bt.set_buff_icon("res://Resources/Icons/GenericIcons/hammer_drop.tres")
+	attack_bt.set_buff_icon("res://resources/Icons/GenericIcons/hammer_drop.tres")
 	attack_bt.set_buff_tooltip("Attack Discipline\nIncreases crit chance.")
 
 	spell_bt = BuffType.new("spell_bt", 7, 0, true, self)
 	var dave_spell_mod: Modifier = Modifier.new()
 	dave_spell_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	spell_bt.set_buff_modifier(dave_spell_mod)
-	spell_bt.set_buff_icon("res://Resources/Icons/GenericIcons/ankh.tres")
+	spell_bt.set_buff_icon("res://resources/Icons/GenericIcons/ankh.tres")
 	spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
 
 	red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)

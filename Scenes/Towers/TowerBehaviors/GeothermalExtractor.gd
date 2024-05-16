@@ -19,7 +19,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 1.0 / 10000)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_stacking_group("dmg_aura")
-	aura_bt.set_buff_icon("res://Resources/Icons/GenericIcons/angel_outfit.tres")
+	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_outfit.tres")
 	aura_bt.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 
@@ -30,7 +30,7 @@ func get_aura_types() -> Array[AuraType]:
 	var damage_increase_add: String = Utils.format_percent(_stats.damage_increase_add, 2)
 
 	aura.name = "Thermal Boost"
-	aura.icon = "res://Resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
+	aura.icon = "res://resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
 	aura.description_short = "Increases attack damage of nearby towers.\n"
 	aura.description_full = "Increases attack damage of towers in %d range by %s.\n" % [AURA_RANGE, damage_increase] \
 	+ " \n" \
