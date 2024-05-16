@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
-	heat_stroke.icon = "res://resources/icons/TowerIcons/FireStar.tres"
+	heat_stroke.icon = "res://resources/icons/tower_icons/FireStar.tres"
 	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode and deal AoE spell damage.\n"
 	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 spell damage in 300 AoE.\n" \
 	+ " \n" \
@@ -46,7 +46,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	aura_bt.set_buff_tooltip("Heat Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.add_event_on_death(aura_bt_on_death)
@@ -59,7 +59,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Heat Aura"
-	aura.icon = "res://resources/icons/TowerIcons/FireBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/FireBattery.tres"
 	aura.description_short = "Burns every enemy in range, making them lose life every second.\n"
 	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
 

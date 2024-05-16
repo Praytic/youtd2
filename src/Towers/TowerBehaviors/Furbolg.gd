@@ -53,7 +53,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	rage_0_bt = BuffType.new("rage_0_bt", 0, 0, true, self)
 	rage_0_bt.set_buff_modifier(m)
-	rage_0_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	rage_0_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_0_bt.set_stacking_group("gex_rage")
 	rage_0_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance and crit damage.")
 
@@ -64,7 +64,7 @@ func tower_init():
 	m_15.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
 	rage_15_bt = BuffType.new("rage_15_bt", 0, 0, true, self)
 	rage_15_bt.set_buff_modifier(m_15)
-	rage_15_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	rage_15_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_15_bt.set_stacking_group("gex_rage")
 	rage_15_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
@@ -75,7 +75,7 @@ func tower_init():
 	m_25.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
 	rage_25_bt = BuffType.new("rage_25_bt", 0, 0, true, self)
 	rage_25_bt.set_buff_modifier(m_25)
-	rage_25_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	rage_25_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_25_bt.set_stacking_group("gex_rage")
 	rage_25_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 

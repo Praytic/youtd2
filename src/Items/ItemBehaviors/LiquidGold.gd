@@ -37,7 +37,7 @@ func item_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	drunk_bt = BuffType.new("drunk_bt", 8, 0, false, self)
-	drunk_bt.set_buff_icon("res://resources/icons/GenericIcons/perpendicular_rings.tres")
+	drunk_bt.set_buff_icon("res://resources/icons/generic_icons/perpendicular_rings.tres")
 	drunk_bt.set_buff_tooltip("Drunk\nReduces attack speed and stuns after a period of time.")
 	drunk_bt.add_event_on_expire(drunk_bt_on_expire)
 	var mod: Modifier = Modifier.new()

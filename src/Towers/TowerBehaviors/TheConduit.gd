@@ -47,14 +47,14 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
 	unleash_bt = BuffType.new("unleash_bt", 3, 0, false, self)
 	var unleash_bt_mod: Modifier = Modifier.new()
 	unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
 	unleash_bt.set_buff_modifier(unleash_bt_mod)
-	unleash_bt.set_buff_icon("res://resources/icons/GenericIcons/bat_mask.tres")
+	unleash_bt.set_buff_icon("res://resources/icons/generic_icons/bat_mask.tres")
 	unleash_bt.add_event_on_create(unleash_bt_on_create)
 	unleash_bt.add_event_on_cleanup(unleash_bt_on_cleanup)
 	unleash_bt.add_periodic_event(unleash_bt_periodic, 5)

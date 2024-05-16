@@ -66,7 +66,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	rage_bt.set_buff_modifier(mod)
-	rage_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	rage_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
 	multiboard = MultiboardValues.new(1)

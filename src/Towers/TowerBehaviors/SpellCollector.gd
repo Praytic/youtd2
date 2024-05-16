@@ -50,7 +50,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Magical Barrage"
-	ability.icon = "res://resources/icons/TowerIcons/ChargedObelisk.tres"
+	ability.icon = "res://resources/icons/tower_icons/ChargedObelisk.tres"
 	ability.description_short = "Attacks have a chance to launch magical missiles at the main target, dealing spell damage.\n"
 	ability.description_full = "Attacks have a %s chance to launch magical missiles at the main target. The Spell Collector can shoot up to %s missiles per attack. Each missile deals %s spell damage. Each additional missile has %s higher crit chance and %s higher crit damage than the previous one.\n" % [barrage_chance, missile_count_max, missile_damage, missile_crit_chance, missile_crit_dmg] \
 	+ " \n" \
@@ -76,12 +76,12 @@ func tower_init():
 	spell_pt.set_event_on_interpolation_finished(spell_pt_on_hit)
 
 	spell_gathering_bt = BuffType.create_aura_effect_type("spell_gathering_bt", true, self)
-	spell_gathering_bt.set_buff_icon("res://resources/icons/GenericIcons/electric.tres")
+	spell_gathering_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	spell_gathering_bt.add_event_on_spell_casted(spell_gathering_bt_on_spell_casted)
 	spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
 
 	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
-	missile_stacks_bt.set_buff_icon("res://resources/icons/GenericIcons/shiny_omega.tres")
+	missile_stacks_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
 
 	multiboard = MultiboardValues.new(1)
@@ -92,7 +92,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Spell Absorb"
-	aura.icon = "res://resources/icons/TowerIcons/MagicBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/MagicBattery.tres"
 	aura.description_short = "Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by 1.\n"
 	aura.description_full = "Whenever a tower in %d range casts a spell, the amount of missiles for [color=GOLD]Magical Barrage[/color] is increased by 1. The missile is stored for a duration equal to the spell cooldown.\n" % AURA_RANGE
 

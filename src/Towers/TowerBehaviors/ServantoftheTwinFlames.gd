@@ -53,7 +53,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var twin_pulses: AbilityInfo = AbilityInfo.new()
 	twin_pulses.name = "Twin Pulses"
-	twin_pulses.icon = "res://resources/icons/TowerIcons/FireStar.tres"
+	twin_pulses.icon = "res://resources/icons/tower_icons/FireStar.tres"
 	twin_pulses.description_short = "Every time this tower has launched a lot of flames, it releases a pulse, dealing %s damage or spell damage to creeps in range.\n" % physical_string
 	twin_pulses.description_full = "Every time this tower has launched 8 red flames, it releases a green pulse, dealing %s of its attack damage as spell damage in 900 AoE and every time it has launched 8 green flames, it releases a red pulse, dealing %s of its attack damage as %s damage in 900 AoE.\n" % [pulse_dmg_ratio, pulse_dmg_ratio, physical_string] \
 	+ " \n" \
@@ -84,14 +84,14 @@ func tower_init():
 	var dave_physical_mod: Modifier = Modifier.new()
 	dave_physical_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	attack_bt.set_buff_modifier(dave_physical_mod)
-	attack_bt.set_buff_icon("res://resources/icons/GenericIcons/hammer_drop.tres")
+	attack_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	attack_bt.set_buff_tooltip("Attack Discipline\nIncreases crit chance.")
 
 	spell_bt = BuffType.new("spell_bt", 7, 0, true, self)
 	var dave_spell_mod: Modifier = Modifier.new()
 	dave_spell_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	spell_bt.set_buff_modifier(dave_spell_mod)
-	spell_bt.set_buff_icon("res://resources/icons/GenericIcons/ankh.tres")
+	spell_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
 	spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
 
 	red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)

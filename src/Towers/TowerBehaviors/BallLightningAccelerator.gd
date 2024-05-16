@@ -47,14 +47,14 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	absorb_target_bt = BuffType.new("absorb_target_bt", 8, 0, false, self)
-	absorb_target_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
+	absorb_target_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	absorb_target_bt.set_buff_tooltip("Energy Absorption\nDecreases attack speed.")
 	var absorb_target_bt_mod: Modifier = Modifier.new()
 	absorb_target_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.1, 0.001)
 	absorb_target_bt.set_buff_modifier(absorb_target_bt_mod)
 
 	absorb_caster_bt = BuffType.new("absorb_caster_bt", 8, 0, true, self)
-	absorb_caster_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
+	absorb_caster_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	absorb_caster_bt.set_buff_tooltip("Energy Absorption\nIncreases mana regeneration.")
 	var absorb_caster_bt_mod: Modifier = Modifier.new()
 	absorb_caster_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
@@ -64,7 +64,7 @@ func tower_init():
 	energetic_weapon_pt.enable_collision(energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
 
 	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, false, self)
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)

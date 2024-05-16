@@ -36,11 +36,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
-	glimmer_bt.set_buff_icon("res://resources/icons/GenericIcons/star_swirl.tres")
+	glimmer_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
 	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
-	sunlight_bt.set_buff_icon("res://resources/icons/GenericIcons/shiny_omega.tres")
+	sunlight_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 
 
 func create_autocasts() -> Array[Autocast]:

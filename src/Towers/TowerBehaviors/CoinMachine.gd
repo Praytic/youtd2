@@ -36,7 +36,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	golden_bt.set_buff_modifier(mod)
-	golden_bt.set_buff_icon("res://resources/icons/GenericIcons/holy_grail.tres")
+	golden_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 

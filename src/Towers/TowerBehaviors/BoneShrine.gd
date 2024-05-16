@@ -38,7 +38,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	curse_bt = BuffType.new("curse_bt", 0, 0, false, self)
-	curse_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
+	curse_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	curse_bt.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
 
 

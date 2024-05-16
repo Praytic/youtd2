@@ -38,11 +38,11 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.30, 0.008)
 	curse_bt.set_buff_modifier(mod)
-	curse_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
+	curse_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	curse_bt.set_buff_tooltip("Icy Curse\nThis creep was cursed; it has increased debuff duration.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/omega.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/omega.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)

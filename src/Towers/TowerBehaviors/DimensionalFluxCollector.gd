@@ -52,7 +52,7 @@ func tower_init():
 	link_bt = BuffType.new("link_bt", -1, 0, true, self)
 	link_bt.add_event_on_create(aura_bt_on_create)
 	link_bt.add_event_on_cleanup(aura_bt_on_cleanup)
-	link_bt.set_buff_icon("res://resources/icons/GenericIcons/aquarius.tres")
+	link_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
 	link_bt.set_buff_tooltip("Dimensional Link\nLinks to Flux Collector.")
 
 	multiboard = MultiboardValues.new(1)

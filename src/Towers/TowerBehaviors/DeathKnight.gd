@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var withering: AbilityInfo = AbilityInfo.new()
 	withering.name = "Withering Presence"
-	withering.icon = "res://resources/icons/TowerIcons/LesserSkeletalMage.tres"
+	withering.icon = "res://resources/icons/tower_icons/LesserSkeletalMage.tres"
 	withering.description_short = "Chance to steal health of nearby creeps.\n"
 	withering.description_full = "Whenever a unit comes in 900 range of the Death Knight, it has a 15% chance to have its health regeneration reduced by 50% and to lose 5% of its current health every second for 4 seconds. Units affected by this spell grant 50% less experience and bounty on death.\n" \
 	+ " \n" \
@@ -51,14 +51,14 @@ func tower_init():
 	var will_positive_bt_mod: Modifier = Modifier.new()
 	will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
 	will_positive_bt.set_buff_modifier(will_positive_bt_mod)
-	will_positive_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
+	will_positive_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
 	will_negative_bt = BuffType.new("will_negative_bt", 5, 0, false, self)
 	var will_negative_bt_mod: Modifier = Modifier.new()
 	will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
 	will_negative_bt.set_buff_modifier(will_negative_bt_mod)
-	will_negative_bt.set_buff_icon("res://resources/icons/GenericIcons/pisces.tres")
+	will_negative_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")
 	will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
 	withering_bt = BuffType.new("withering_bt", 4, 0, false, self)
@@ -67,7 +67,7 @@ func tower_init():
 	withering_bt_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, -0.5, 0.01)
 	withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
 	withering_bt.set_buff_modifier(withering_bt_mod)
-	withering_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
+	withering_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
 	withering_bt.add_periodic_event(withering_bt_periodic, 1.0)
 

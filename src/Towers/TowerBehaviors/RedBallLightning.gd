@@ -54,7 +54,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	aura_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
 
 
@@ -68,7 +68,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 	
 	aura.name = "Lightning Charge"
-	aura.icon = "res://resources/icons/TowerIcons/BallLightningAccelerator.tres"
+	aura.icon = "res://resources/icons/tower_icons/BallLightningAccelerator.tres"
 	aura.description_short = "Towers in range have their spell damage increased.\n"
 	aura.description_full = "Towers in %d range have their spell damage increased by %s.\n" % [AURA_RANGE, mod_spell_damage] \
 	+ " \n" \

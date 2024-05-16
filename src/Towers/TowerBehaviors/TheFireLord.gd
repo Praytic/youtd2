@@ -60,11 +60,11 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.10, 0.004)
 	liquid_fire_bt.set_buff_modifier(mod)
 	liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
-	liquid_fire_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
+	liquid_fire_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	liquid_fire_bt.set_buff_tooltip("Liquid Fire\nDeals damage over time and increases damage taken from Fire towers.")
 
 	hellfire_bt = BuffType.new("hellfire_bt", 7.5, 0.2, true, self)
-	hellfire_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	hellfire_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	hellfire_bt.add_event_on_create(hellfire_on_create)
 	hellfire_bt.add_event_on_cleanup(hellfire_on_cleanup)
 	hellfire_bt.set_buff_tooltip("Hellfire\nAttacks extra targets and increases attack speed.")

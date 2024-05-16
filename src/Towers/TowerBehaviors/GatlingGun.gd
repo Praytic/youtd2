@@ -67,7 +67,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.005)
 	sentry_bt.set_buff_modifier(mod)
-	sentry_bt.set_buff_icon("res://resources/icons/GenericIcons/semi_closed_eye.tres")
+	sentry_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	sentry_bt.set_buff_tooltip("Sentry\nIncreases attack damage.")
 
 

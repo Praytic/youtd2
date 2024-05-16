@@ -19,7 +19,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 1.0 / 10000)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_stacking_group("dmg_aura")
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_outfit.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/angel_outfit.tres")
 	aura_bt.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 

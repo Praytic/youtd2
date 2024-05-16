@@ -52,7 +52,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	plague_bt = BuffType.new("plague_bt", 5.0, 0.2, false, self)
-	plague_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
+	plague_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
 	plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
 	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
@@ -68,7 +68,7 @@ func tower_init():
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.05)
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	army_bt.set_buff_modifier(cedi_crypt_army_mod)
-	army_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
+	army_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
 
 	multiboard = MultiboardValues.new(2)

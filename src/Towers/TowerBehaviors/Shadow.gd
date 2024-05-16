@@ -40,7 +40,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var dark_orbs: AbilityInfo = AbilityInfo.new()
 	dark_orbs.name = "Dark Orbs"
-	dark_orbs.icon = "res://resources/icons/TowerIcons/DarkBattery.tres"
+	dark_orbs.icon = "res://resources/icons/tower_icons/DarkBattery.tres"
 	dark_orbs.description_short = "Chance to spawn orbs that fire off dark rays at enemies in range, dealing spell damage.\n"
 	dark_orbs.description_full = "Each attack has a 20% chance to spawn 3 orbs that travel outwards in all directions from Shadow. Orbs travel for 8 seconds, firing off dark rays at enemies within 450 range, which deal 15% of this tower's attack damage as spell damage per second.\n" \
 	+ " \n" \
@@ -69,7 +69,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 
@@ -89,7 +89,7 @@ func get_aura_types() -> Array[AuraType]:
 	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
 
 	aura.name = "Dark Shroud"
-	aura.icon = "res://resources/icons/TowerIcons/Shadow.tres"
+	aura.icon = "res://resources/icons/tower_icons/Shadow.tres"
 	aura.description_short = "Towers in range have 10%% of their attack damage output stolen by Shadow. Shadow deals stolen damage as %s damage.\n" % decay_string
 	aura.description_full = "Towers within %d range have 10%% of their attack damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of %s damage. This damage cannot crit.\n" % [AURA_RANGE, decay_string] \
 	+ " \n" \

@@ -42,7 +42,7 @@ func tower_init():
 	blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
 	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	slow_bt.set_stacking_group("cedi_troll_blizzard")
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 

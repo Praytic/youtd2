@@ -76,7 +76,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
 
 	faerie_bt = BuffType.new("faerie_bt", 9, 0.3, false, self)
-	faerie_bt.set_buff_icon("res://resources/icons/GenericIcons/pisces.tres")
+	faerie_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")
 	faerie_bt.set_buff_modifier(modifier)
 	faerie_bt.set_stacking_group("MagicBattery")
 	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it is more vulnerable to spell damage and has increased debuff duration.")

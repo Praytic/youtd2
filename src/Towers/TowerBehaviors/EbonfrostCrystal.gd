@@ -80,12 +80,12 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	frostburn_bt = BuffType.new("frostburn_bt", 5, 0, false, self)
-	frostburn_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_dot.tres")
+	frostburn_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
 	frostburn_bt.add_periodic_event(frostburn_bt_periodic, 1.0)
 	frostburn_bt.set_buff_tooltip("Frostburn\nDeals damage over time.")
 
 	shatter_bt = BuffType.new("shatter_bt", 5, 0, false, self)
-	shatter_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
+	shatter_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	var ashbringer_ebonfrost_shatter_mod: Modifier = Modifier.new()
 	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 1.0)
 	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 1.0)
@@ -98,7 +98,7 @@ func tower_init():
 	ashbringer_ebonfrost_icicle_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.05)
 	ashbringer_ebonfrost_icicle_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.5)
 	icicle_bt.set_buff_modifier(ashbringer_ebonfrost_icicle_mod)
-	icicle_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
+	icicle_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	icicle_bt.set_buff_tooltip("Icicle\nIncreases attack damage and mana regeration.")
 
 # 	NOTE: in original script, this ProjectileType.create()

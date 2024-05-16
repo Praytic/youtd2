@@ -50,7 +50,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/amber_mosquito.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	slow_bt.set_buff_modifier(m)
 	slow_bt.set_buff_tooltip("Frozen\nReduces movement speed.")
 

@@ -51,7 +51,7 @@ func tower_init():
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
 	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
-	armor_bt.set_buff_icon("res://resources/icons/GenericIcons/semi_closed_eye.tres")
+	armor_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	armor_bt.set_buff_modifier(armor)
 	armor_bt.set_stacking_group("astral_armor")
 

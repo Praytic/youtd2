@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var energyball: AbilityInfo = AbilityInfo.new()
 	energyball.name = "Energyball"
-	energyball.icon = "res://resources/icons/TowerIcons/StormBattery.tres"
+	energyball.icon = "res://resources/icons/tower_icons/StormBattery.tres"
 	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast [color=GOLD]Energyball[/color] on the main target. [color=GOLD]Energyball[/color] deals AoE spell damage scales with tower's experience.\b"
 	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast [color=GOLD]Energyball[/color] on the main target. The [color=GOLD]Energyball[/color] deals [color=GOLD][%s + (%s x  tower exp)][/color] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [color=GOLD][150x current wave][/color] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
 	+ " \n" \

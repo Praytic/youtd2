@@ -23,7 +23,7 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
 	playtime_bt = BuffType.new("playtime_bt", 2.0, 0, false, self)
-	playtime_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
+	playtime_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	playtime_bt.set_buff_tooltip("Playtime\nReduces attack speed.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.5, 0.0)

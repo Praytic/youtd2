@@ -45,12 +45,12 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	siphon_bt = BuffType.new("siphon_bt", 5, 0, true, self)
-	siphon_bt.set_buff_icon("res://resources/icons/GenericIcons/omega.tres")
+	siphon_bt.set_buff_icon("res://resources/icons/generic_icons/omega.tres")
 	siphon_bt.add_event_on_attack(siphon_bt_on_attack)
 	siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.set_buff_tooltip("Slow Decay - Aura\nKills creep instantly if it reaches low health.")
 

@@ -59,7 +59,7 @@ func tower_init():
 	might_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
 	might_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
 	might_bt.set_buff_modifier(might_bt_mod)
-	might_bt.set_buff_icon("res://resources/icons/GenericIcons/biceps.tres")
+	might_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
 	might_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
 
 	swiftness_bt = BuffType.new("swiftness_bt", -1, 0, true, self)
@@ -67,15 +67,15 @@ func tower_init():
 	swiftness_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
 	swiftness_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
 	swiftness_bt.set_buff_modifier(swiftness_bt_mod)
-	swiftness_bt.set_buff_icon("res://resources/icons/GenericIcons/sprint.tres")
+	swiftness_bt.set_buff_icon("res://resources/icons/generic_icons/sprint.tres")
 	swiftness_bt.set_buff_tooltip("Morph: Swiftness\nIncreases attack speed and reduces attack damage after each attack.")
 
 	adapt_bt = BuffType.new("adapt_bt", -1, 0, true, self)
-	adapt_bt.set_buff_icon("res://resources/icons/GenericIcons/atomic_slashes.tres")
+	adapt_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	adapt_bt.set_buff_tooltip("Adapt\nGetting read to adapt to new Morph.")
 
 	dot_bt = BuffType.new("dot_bt", 5, 0, false, self)
-	dot_bt.set_buff_icon("res://resources/icons/GenericIcons/triple_scratches.tres")
+	dot_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")
 	dot_bt.add_periodic_event(dot_bt_periodic, 1.0)
 	dot_bt.set_buff_tooltip("Mighty Strike\nDeals damage over time.")
 
@@ -84,7 +84,7 @@ func tower_init():
 	swift_strike_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
 	swift_strike_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
 	swift_strike_bt.set_buff_modifier(swift_strike_bt_mod)
-	swift_strike_bt.set_buff_icon("res://resources/icons/GenericIcons/amber_mosquito.tres")
+	swift_strike_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	swift_strike_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
 	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)

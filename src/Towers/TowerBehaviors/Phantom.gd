@@ -45,7 +45,7 @@ func tower_init():
 	
 	wind_shear_bt.set_buff_modifier(m)
 	
-	wind_shear_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
+	wind_shear_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	

@@ -75,7 +75,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
-	corruption_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
+	corruption_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	corruption_bt.set_buff_modifier(modifier)
 	corruption_bt.set_stacking_group("DarkBattery")
 	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")

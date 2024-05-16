@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	conduction_bt = BuffType.new("conduction_bt", 0.0, 0.0, true, self)
-	conduction_bt.set_buff_icon("res://resources/icons/GenericIcons/rolling_energy.tres")
+	conduction_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
 	conduction_bt.set_buff_tooltip("Magical Conduction\nIncreases attack speed.")
 	conduction_bt.set_stacking_group("boekie_magicConductor")
 	var mod: Modifier = Modifier.new()

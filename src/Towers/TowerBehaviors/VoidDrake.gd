@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var void_1: AbilityInfo = AbilityInfo.new()
 	void_1.name = "Void"
-	void_1.icon = "res://resources/icons/TowerIcons/SmallBugNest.tres"
+	void_1.icon = "res://resources/icons/tower_icons/SmallBugNest.tres"
 	void_1.description_short = "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
 	void_1.description_full = "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss \
 	+ "When this tower is upgraded or replaced to Void Dragon, it loses experience equal to 50% of its current experience.\n" \
@@ -43,7 +43,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var void_2: AbilityInfo = AbilityInfo.new()
 	void_2.name = "Void"
-	void_2.icon = "res://resources/icons/TowerIcons/SmallBugNest.tres"
+	void_2.icon = "res://resources/icons/tower_icons/SmallBugNest.tres"
 	void_2.description_short = "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
 	void_2.description_full = "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss \
 	+ " \n" \

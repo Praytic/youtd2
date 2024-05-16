@@ -63,7 +63,7 @@ func tower_init():
 	lightning_st.data.forked_lightning.target_count = 3
 
 	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
-	electrify_bt.set_buff_icon("res://resources/icons/GenericIcons/electric.tres")
+	electrify_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
 	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 

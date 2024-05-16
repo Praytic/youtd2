@@ -44,7 +44,7 @@ func item_init():
 	item.set_autocast(autocast)
 
 	backpack_bt = BuffType.new("backpack_bt", 0, 0, true, self)
-	backpack_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
+	backpack_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	backpack_bt.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
 	backpack_bt.add_event_on_kill(backpack_bt_on_kill)
 	

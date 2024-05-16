@@ -55,7 +55,7 @@ func tower_init():
 	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/aries.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 
@@ -67,7 +67,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Global Silence"
-	aura.icon = "res://resources/icons/TowerIcons/TinyStormLantern.tres"
+	aura.icon = "res://resources/icons/tower_icons/TinyStormLantern.tres"
 	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
 	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence attacked creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
 	+ " \n" \

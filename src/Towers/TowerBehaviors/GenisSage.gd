@@ -56,7 +56,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var magic_boost: AbilityInfo = AbilityInfo.new()
 	magic_boost.name = "Magic Boost"
-	magic_boost.icon = "res://resources/icons/TowerIcons/StormBattery.tres"
+	magic_boost.icon = "res://resources/icons/tower_icons/StormBattery.tres"
 	magic_boost.description_short = "Chance to increase spell damage of nearby towers.\n"
 	magic_boost.description_full = "Every 7 seconds Genis has a 30% chance to increase the spell damage of all towers within 350 range of him by 20% for 3 seconds. Costs 10 mana.\n" \
 	+ " \n" \
@@ -81,7 +81,7 @@ func tower_init():
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.01)
 	speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
-	speedcast_bt.set_buff_icon("res://resources/icons/GenericIcons/holy_grail.tres")
+	speedcast_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
 
 	spread_bt = CbStun.new("spread_bt", 0.8, 0, false, self)
@@ -93,7 +93,7 @@ func tower_init():
 	var mock_genis_magic_boost_mod: Modifier = Modifier.new()
 	mock_genis_magic_boost_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.2, 0.01)
 	magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
-	magic_boost_bt.set_buff_icon("res://resources/icons/GenericIcons/gold_bar.tres")
+	magic_boost_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
 
 	swarm_st = SpellType.new("@@0@@", "carrionswarm", 1, self)

@@ -10,7 +10,7 @@ func _init(type: String, time_base: float, time_level_add: float,friendly: bool,
 	add_event_on_create(on_create)
 	add_event_on_cleanup(_on_cleanup)
 
-	set_buff_icon("res://resources/icons/GenericIcons/beard.tres")
+	set_buff_icon("res://resources/icons/generic_icons/beard.tres")
 	set_buff_tooltip("Silence\nSilenced.")
 
 

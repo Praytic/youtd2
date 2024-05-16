@@ -36,7 +36,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
 	chaos_bt.set_buff_modifier(mod)
-	chaos_bt.set_buff_icon("res://resources/icons/GenericIcons/mine_explosion.tres")
+	chaos_bt.set_buff_icon("res://resources/icons/generic_icons/mine_explosion.tres")
 	chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
 
 

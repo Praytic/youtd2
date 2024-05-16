@@ -16,7 +16,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/barefoot.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
 	aura_bt.set_buff_tooltip("Frost Aura\nThis creep is under the effect of Frost Aura; it has reduced movement speed.")
 
 	

@@ -22,7 +22,7 @@ const AURA_RANGE: float = 1000
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_death(aura_bt_on_death)
 	aura_bt.set_hidden()

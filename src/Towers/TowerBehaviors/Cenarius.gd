@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var thorned: AbilityInfo = AbilityInfo.new()
 	thorned.name = "Thorned!"
-	thorned.icon = "res://resources/icons/TowerIcons/QuillboarThornweaver.tres"
+	thorned.icon = "res://resources/icons/tower_icons/QuillboarThornweaver.tres"
 	thorned.description_short = "When a unit comes in range it receives the [color=GOLD]Thorned[/color] debuff. The debuff increases damage taken from %s towers.\n" % nature_string
 	thorned.description_full = "When a unit comes in 950 range to this tower it receives the [color=GOLD]Thorned[/color] debuff. The debuff lasts 3 seconds and increases damage taken from %s towers by 30%%.\n" % nature_string \
 	+ " \n" \
@@ -67,11 +67,11 @@ func tower_init():
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
-	tranquility_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
+	tranquility_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
-	entangle_bt.set_buff_icon("res://resources/icons/GenericIcons/root_tip.tres")
+	entangle_bt.set_buff_icon("res://resources/icons/generic_icons/root_tip.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
 	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
@@ -89,14 +89,14 @@ func tower_init():
 	leaf_storm_bt = BuffType.new("leaf_storm_bt", 1.0, 0.04, false, self)
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
-	leaf_storm_bt.set_buff_icon("res://resources/icons/GenericIcons/atomic_slashes.tres")
+	leaf_storm_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	thorned_bt.set_buff_modifier(cenarius_thorned_mod)
-	thorned_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
+	thorned_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 func create_autocasts() -> Array[Autocast]:

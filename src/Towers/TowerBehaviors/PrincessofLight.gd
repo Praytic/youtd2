@@ -57,14 +57,14 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	extract_bt = BuffType.new("extract_bt", EXTRACT_DURATION, 0, false, self)
 	extract_bt.add_event_on_damaged(extract_bt_on_damaged)
-	extract_bt.set_buff_icon("res://resources/icons/GenericIcons/gold_bar.tres")
+	extract_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	extract_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
 
 	channel_bt = BuffType.new("channel_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	channel_bt.set_buff_modifier(mod)
-	channel_bt.set_buff_icon("res://resources/icons/GenericIcons/aquarius.tres")
+	channel_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
 	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 

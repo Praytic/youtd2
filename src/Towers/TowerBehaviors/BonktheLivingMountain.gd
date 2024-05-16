@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var crush: AbilityInfo = AbilityInfo.new()
 	crush.name = "Crush!"
-	crush.icon = "res://resources/icons/TowerIcons/BlackrocksTotem.tres"
+	crush.icon = "res://resources/icons/tower_icons/BlackrocksTotem.tres"
 	crush.description_short = "Whenever Bonk hits a stunned creep, it gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \
@@ -69,7 +69,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	morale_bt = BuffType.new("morale_bt", 10, 0, true, self)
-	morale_bt.set_buff_icon("res://resources/icons/GenericIcons/biceps.tres")
+	morale_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
 	morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)

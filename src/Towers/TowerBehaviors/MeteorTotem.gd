@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Torture"
-	ability.icon = "res://resources/icons/TowerIcons/AshGeyser.tres"
+	ability.icon = "res://resources/icons/tower_icons/AshGeyser.tres"
 	ability.description_short = "Whenever this tower hits a creep, it debufs it. Whenever a debuffed creep takes attack damage it receives additional spell damage.\n"
 	ability.description_full = "Whenever this tower hits a creep, it debufs it for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attack damage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
 	+ " \n" \
@@ -45,11 +45,11 @@ func tower_init():
 	attraction_bt = BuffType.new("attraction_bt", 2.5, 0.05, true, self)
 	attraction_bt.add_event_on_attack(attraction_bt_on_attack)
 	attraction_bt.add_event_on_spell_casted(attraction_bt_on_spell_casted)
-	attraction_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_meteor.tres")
+	attraction_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")
 	attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
 	torture_bt = BuffType.new("torture_bt", 2.5, 0.05, false, self)
-	torture_bt.set_buff_icon("res://resources/icons/GenericIcons/animal_skull.tres")
+	torture_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
 	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 

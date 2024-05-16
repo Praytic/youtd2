@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var soul_attack: AbilityInfo = AbilityInfo.new()
 	soul_attack.name = "Soul Attack"
-	soul_attack.icon = "res://resources/icons/TowerIcons/MossyAcidSprayer.tres"
+	soul_attack.icon = "res://resources/icons/tower_icons/MossyAcidSprayer.tres"
 	soul_attack.description_short = "Every 5 seconds the Dutchman attacks a random creep in range with a collected soul, dealing spell damage.\n"
 	soul_attack.description_full = "Every 5 seconds the Dutchman attacks a random creep in 1200 range with a collected soul. Deals 14000 spell damage to the target.\n" \
 	+ " \n" \
@@ -77,7 +77,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
-	panic_bt.set_buff_icon("res://resources/icons/GenericIcons/animal_skull.tres")
+	panic_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	panic_bt.set_buff_tooltip("Panic\nReduces armor and movement speed.")
 
 	multiboard = MultiboardValues.new(1)

@@ -61,7 +61,7 @@ func tower_init():
 	ice_claw_bt = BuffType.new("ice_claw_bt", 5, 0.2, false, self)
 	ice_claw_bt.set_buff_modifier(m)
 	
-	ice_claw_bt.set_buff_icon("res://resources/icons/GenericIcons/triple_scratches.tres")
+	ice_claw_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")
 	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 

@@ -44,7 +44,7 @@ func tower_init():
 	illuminate_bt = BuffType.new("illuminate_bt", 5, 0, false, self)
 	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	illuminate_bt.set_buff_modifier(astral_mod)
-	illuminate_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
+	illuminate_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	
 	illuminate_bt.set_buff_tooltip("Illuminate\nIncreases experience granted.")
 

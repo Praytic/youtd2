@@ -32,16 +32,16 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
 	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
-	surge_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
+	surge_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
 	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
@@ -80,7 +80,7 @@ func get_aura_types() -> Array[AuraType]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	aura.name = "Energetic Field"
-	aura.icon = "res://resources/icons/TowerIcons/MagicBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/MagicBattery.tres"
 	aura.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
 	aura.description_full = "Units in %d range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % [AURA_RANGE, storm_string] \
 	+ " \n" \

@@ -48,7 +48,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
 	acid_bt = BuffType.new("acid_bt", 3.0, 0.12, false, self)
-	acid_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
+	acid_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_bt.set_buff_modifier(m)
 
 	acid_bt.set_buff_tooltip("Acid Corosion\nReduces armor.")

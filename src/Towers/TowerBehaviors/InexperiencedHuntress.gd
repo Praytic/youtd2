@@ -78,7 +78,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACK_SPEED, SHADOW_GLAIVE_ATTACK_SPEED_ADD)
 	glaive_bt.set_buff_modifier(mod)
-	glaive_bt.set_buff_icon("res://resources/icons/GenericIcons/pisces.tres")
+	glaive_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")
 	glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
 
 

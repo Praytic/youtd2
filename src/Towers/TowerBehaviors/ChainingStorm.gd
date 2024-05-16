@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var storm_power_ability: AbilityInfo = AbilityInfo.new()
 	storm_power_ability.name = "Storm Power"
-	storm_power_ability.icon = "res://resources/icons/TowerIcons/LightningGenerator.tres"
+	storm_power_ability.icon = "res://resources/icons/tower_icons/LightningGenerator.tres"
 	storm_power_ability.description_short = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.\n"
 	storm_power_ability.description_full = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for this [color=GOLD]Chaining Storm[/color] tower by 0.02% (75% max) and also increase the damage dealt with [color=GOLD]Strong Winds[/color] by 0.05 damage per 1% slow.\n"
 	list.append(storm_power_ability)
@@ -50,7 +50,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	strong_wind_bt = BuffType.create_aura_effect_type("strong_wind_bt", false, self)
-	strong_wind_bt.set_buff_icon("res://resources/icons/GenericIcons/energy_breath.tres")
+	strong_wind_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
 	strong_wind_bt.add_event_on_create(strong_wind_bt_on_create)
 	strong_wind_bt.add_periodic_event(strong_wind_bt_periodic, 1.0)
 	strong_wind_bt.add_event_on_cleanup(strong_wind_bt_on_cleanup)

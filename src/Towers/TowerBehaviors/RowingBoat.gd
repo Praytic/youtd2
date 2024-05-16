@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var pirates: AbilityInfo = AbilityInfo.new()
 	pirates.name = "Pirates"
-	pirates.icon = "res://resources/icons/TowerIcons/DutchmansGrave.tres"
+	pirates.icon = "res://resources/icons/tower_icons/DutchmansGrave.tres"
 	pirates.description_short = "This tower plunders gold each attack.\n"
 	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
 	list.append(pirates)
@@ -50,7 +50,7 @@ func tower_init():
 #	Set by aura
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	aura_bt.set_buff_modifier(bounty_mod)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/gold_bar.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
 
 	multiboard = MultiboardValues.new(1)

@@ -58,7 +58,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	frozen_bt.set_buff_modifier(mod)
-	frozen_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
+	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	frozen_bt.add_event_on_create(frozen_bt_on_create)
 	frozen_bt.add_event_on_cleanup(frozen_bt_on_cleanup)
 	frozen_bt.set_buff_tooltip("Frozen\nReduces health regeneration.")

@@ -56,7 +56,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var unleash: AbilityInfo = AbilityInfo.new()
 	unleash.name = "Unleash"
-	unleash.icon = "res://resources/icons/TowerIcons/BronzeDragonRoost.tres"
+	unleash.icon = "res://resources/icons/tower_icons/BronzeDragonRoost.tres"
 	unleash.description_short = "Whenever this tower attacks, it has a chance to unleash a bronze drake towards the main target.\n"
 	unleash.description_full = "Whenever this tower attacks, it has a 12.5% chance to unleash a bronze drake towards the main target. The bronze drake deals 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n" \
 	+ " \n" \
@@ -101,14 +101,14 @@ func tower_init():
 	var versatile_bt_mod: Modifier = Modifier.new()
 	versatile_bt_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 1.0)
 	versatile_bt.set_buff_modifier(versatile_bt_mod)
-	versatile_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
+	versatile_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	versatile_bt.set_buff_tooltip("Versatile\nIncreases DPS.")
 
 	slow_bt = BuffType.new("slow_bt", 3.0, 0, false, self)
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/energy_breath.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
 	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
 
 	blue_drake_pt = ProjectileType.create_interpolate("AzureDragon.mdl", 1000, self)

@@ -35,12 +35,12 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	grapple_bt = CbStun.new("grapple_bt", 2.5, 0, false, self)
-	grapple_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
+	grapple_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	grapple_bt.add_event_on_create(grapple_bt_on_create)
 	grapple_bt.add_event_on_cleanup(grapple_bt_on_cleanup)
 
 	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
-	shock_bt.set_buff_icon("res://resources/icons/GenericIcons/atomic_slashes.tres")
+	shock_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 
 
 func create_autocasts() -> Array[Autocast]:

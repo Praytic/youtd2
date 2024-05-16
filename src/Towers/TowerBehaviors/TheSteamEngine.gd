@@ -41,7 +41,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 1.0, 0, false, self)
 
 	steam_bt = BuffType.new("steam_bt", 5, 0, true, self)
-	steam_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
+	steam_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	steam_bt.add_event_on_create(steam_bt_on_create)
 	steam_bt.add_event_on_attack(steam_bt_on_attack)
 	steam_bt.add_periodic_event(steam_bt_periodic, 1.0)
@@ -103,7 +103,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Steam Power"
-	aura.icon = "res://resources/icons/TowerIcons/CloudyTempleofAbsorption.tres"
+	aura.icon = "res://resources/icons/tower_icons/CloudyTempleofAbsorption.tres"
 	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
 	aura.description_full = "Increases attack damage of towers in %d AoE by [color=GOLD][6 x power level]%%[/color] and attack speed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
 	

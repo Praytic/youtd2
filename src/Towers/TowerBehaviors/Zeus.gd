@@ -54,7 +54,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Thunderstorm"
-	autocast.icon = "res://resources/icons/TowerIcons/RuinedMonolith.tres"
+	autocast.icon = "res://resources/icons/tower_icons/RuinedMonolith.tres"
 	autocast.description_short = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.\n"
 	autocast.description = "Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spell damage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.\n" \
 	+ " \n" \

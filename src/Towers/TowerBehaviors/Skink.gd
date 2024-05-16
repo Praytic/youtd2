@@ -58,12 +58,12 @@ func dot(event: Event):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	aura_bt.add_event_on_attack(poisenskin)
 	aura_bt.set_buff_tooltip("Poisonous attack\nApplies poison on attack.")
 
 	poison_bt = BuffType.new("poison_bt", 5.00, 0.0, false, self)
-	poison_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
+	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_bt.add_periodic_event(dot, 1.0)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 
@@ -75,7 +75,7 @@ func get_aura_types() -> Array[AuraType]:
 	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
 
 	aura.name = "Poisonous Skin"
-	aura.icon = "res://resources/icons/TowerIcons/PoisonBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/PoisonBattery.tres"
 	aura.description_short = "This and nearby towers gain a poisonous attack, which deals spell damage.\n"
 	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.\n" % [AURA_RANGE, dmg] \
 	+ " \n" \

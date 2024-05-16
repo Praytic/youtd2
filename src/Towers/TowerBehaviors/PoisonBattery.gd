@@ -96,7 +96,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/icons/TowerIcons/PoisonBattery.tres"
+	autocast.icon = "res://resources/icons/tower_icons/PoisonBattery.tres"
 	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Poison[/color].\n" % [projectile_damage] \
 	+ " \n" \

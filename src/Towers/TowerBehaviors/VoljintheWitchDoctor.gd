@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var serpent_ward: AbilityInfo = AbilityInfo.new()
 	serpent_ward.name = "Serpent Ward"
-	serpent_ward.icon = "res://resources/icons/TowerIcons/SmallSerpentWard.tres"
+	serpent_ward.icon = "res://resources/icons/tower_icons/SmallSerpentWard.tres"
 	serpent_ward.description_short = "Whenever Vol'jin attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
 	serpent_ward.description_full = "Whenever Vol'jin attacks, he has a 18% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
@@ -72,7 +72,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	maledict_bt = BuffType.new("maledict_bt", 0, 0, false, self)
-	maledict_bt.set_buff_icon("res://resources/icons/GenericIcons/omega.tres")
+	maledict_bt.set_buff_icon("res://resources/icons/generic_icons/omega.tres")
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)

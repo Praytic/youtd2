@@ -43,7 +43,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/animal_skull.tres")
+	slow_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
 	slow_bt.set_stacking_group("slow_bt1")
 	

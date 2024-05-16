@@ -128,7 +128,7 @@ func sprite_hit(_P: Projectile, target: Unit):
 
 func tower_init():
 	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
-	gift_bt.set_buff_icon("res://resources/icons/GenericIcons/holy_grail.tres")
+	gift_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	gift_bt.add_event_on_create(gift_create)
 	gift_bt.add_event_on_cleanup(effect_clean)
 	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")

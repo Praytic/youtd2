@@ -58,7 +58,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/hammer_drop.tres")
+	aura_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_periodic_event(aura_bt_periodic, 5.0)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
@@ -69,7 +69,7 @@ func tower_init():
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt.set_buff_modifier(intense_heat_bt_mod)
-	intense_heat_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
+	intense_heat_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	intense_heat_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
 
 	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)
@@ -110,7 +110,7 @@ func get_aura_types() -> Array[AuraType]:
 	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
 	
 	aura.name = "Flames of the Forge"
-	aura.icon = "res://resources/icons/TowerIcons/CruelFire.tres"
+	aura.icon = "res://resources/icons/tower_icons/CruelFire.tres"
 	aura.description_short = "A portion of attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to nearby Common and Uncommon %s towers.\n" % fire_string
 	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [fire_string, AURA_RANGE] \
 	+ " \n" \

@@ -23,7 +23,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	threads_bt = BuffType.new("threads_bt", 5.0, 0.1, false, self)
-	threads_bt.set_buff_icon("res://resources/icons/GenericIcons/spider_web.tres")
+	threads_bt.set_buff_icon("res://resources/icons/generic_icons/spider_web.tres")
 	threads_bt.set_buff_tooltip("Silver Threads\nIncreases quality of dropped items.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)

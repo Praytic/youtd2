@@ -81,7 +81,7 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	lacerate_bt = BuffType.new("lacerate_bt", 5, 0, false, self)
-	lacerate_bt.set_buff_icon("res://resources/icons/GenericIcons/triple_scratches.tres")
+	lacerate_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")
 	lacerate_bt.add_periodic_event(lacerate_bt_periodic, 1.0)
 	lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 

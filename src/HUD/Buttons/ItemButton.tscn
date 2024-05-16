@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://src/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://src/HUD/Buttons/AutoModeIndicator.tscn" id="4_e5nkx"]
-[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/textures/UI/unit_button_disabled.tres" id="5_0m88b"]
+[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/ui_textures/unit_button_disabled.tres" id="5_0m88b"]
 
 [node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
 custom_minimum_size = Vector2(88, 88)

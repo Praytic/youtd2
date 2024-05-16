@@ -20,7 +20,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	rot_bt = BuffType.create_aura_effect_type("rot_bt", true, self)
-	rot_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
+	rot_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	rot_bt.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
 	rot_bt.set_stacking_group("rot_bt")
 	var mod: Modifier = Modifier.new()

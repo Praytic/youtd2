@@ -14,7 +14,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Planeshift"
-	ability.icon = "res://resources/icons/TowerIcons/HarpyWitch.tres"
+	ability.icon = "res://resources/icons/tower_icons/HarpyWitch.tres"
 	ability.description_short = "On attack the Gate releases a magical falcon at the main target. The falcon deals %s damage and bounces to multiple targets.\n" % energy_string
 	ability.description_full = "On attack the Gate releases a magical falcon at the main target.\n" \
 	+ "The falcon deals %s damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5%% less damage.\n" % energy_string \
@@ -35,11 +35,11 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
-	eruption_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
+	eruption_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
 
 	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
-	planar_shift_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
+	planar_shift_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
 	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
 

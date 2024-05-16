@@ -30,26 +30,26 @@ func tower_init():
 	var dave_concussive_creep_mod: Modifier = Modifier.new()
 	dave_concussive_creep_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.concussive_mod_movespeed, -_stats.concussive_mod_movespeed_add)
 	concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
-	concussive_creep_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
+	concussive_creep_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
 
 	acid_creep_bt = BuffType.new("acid_creep_bt", ACID_DURATION, 0, false, self)
 	var dave_acid_creep_mod: Modifier = Modifier.new()
 	dave_acid_creep_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -_stats.acid_mod_armor, -_stats.acid_mod_armor_add)
 	acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
-	acid_creep_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
+	acid_creep_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
 
 	concussive_tower_bt = BuffType.new("concussive_tower_bt", -1, 0, true, self)
-	concussive_tower_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
+	concussive_tower_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
 
 	acid_tower_bt = BuffType.new("acid_tower_bt", -1, 0, true, self)
-	acid_tower_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
+	acid_tower_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
 
 	smoke_tower_bt = BuffType.new("smoke_tower_bt", -1, 0, true, self)
-	smoke_tower_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_meteor.tres")
+	smoke_tower_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")
 	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
 

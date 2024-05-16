@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var lightning_shield: AbilityInfo = AbilityInfo.new()
 	lightning_shield.name = "Lightning Shield"
-	lightning_shield.icon = "res://resources/icons/TowerIcons/LightningGenerator.tres"
+	lightning_shield.icon = "res://resources/icons/tower_icons/LightningGenerator.tres"
 	lightning_shield.description_short = "As the zealot gets pumped up debuff durations are reduced.\n"
 	lightning_shield.description_full = "As the zealot gets pumped up debuff durations are reduced by %s with each stack of [color=GOLD]Zeal[/color].\n" % shield_power
 	list.append(lightning_shield)
@@ -87,10 +87,10 @@ func tower_init():
 	drain_bt.set_buff_modifier(n)
 	shield_bt.set_buff_modifier(o)
 
-	zeal_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
-	wound_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
-	drain_bt.set_buff_icon("res://resources/icons/GenericIcons/energy_breath.tres")
-	shield_bt.set_buff_icon("res://resources/icons/GenericIcons/turtle_shell.tres")
+	zeal_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
+	wound_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
+	drain_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
+	shield_bt.set_buff_icon("res://resources/icons/generic_icons/turtle_shell.tres")
 
 	zeal_bt.set_buff_tooltip("Zeal\nIncreases attack speed.")
 	wound_bt.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")

@@ -49,7 +49,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.05, 0.0005)
 
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
-	roar_bt.set_buff_icon("res://resources/icons/GenericIcons/wolf_howl.tres")
+	roar_bt.set_buff_icon("res://resources/icons/generic_icons/wolf_howl.tres")
 	roar_bt.set_buff_modifier(mod)
 
 	roar_bt.set_buff_tooltip("Roar\nIncreases attack damage.")
