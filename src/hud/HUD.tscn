@@ -1,0 +1,387 @@
+[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
+[ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://assets/hud/darkness_face.png" id="4_nuyc0"]
+[ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://assets/hud/tranquility_face.png" id="5_0wwxe"]
+[ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://src/hud/TopMenuBar.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://co5pnbtulrmps" path="res://src/hud/ElementStatusCard.tscn" id="8_b1gwh"]
+[ext_resource type="PackedScene" uid="uid://bx03slt7u3oce" path="res://src/hud/TowersStatusCard.tscn" id="8_ts7ak"]
+[ext_resource type="PackedScene" uid="uid://dj7llpr0oenw7" path="res://src/hud/ItemsStatusCard.tscn" id="9_16kcd"]
+[ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/hud/TopLeftMenu.tscn" id="10_agdn3"]
+[ext_resource type="Script" path="res://src/hud/HUD.gd" id="11"]
+[ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://src/hud/ItemStashMenu/ItemStashMenu.tscn" id="11_5i6a2"]
+[ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://resources/ui_textures/portal_lives_round_bg.tres" id="11_hbwuy"]
+[ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://src/hud/ButtonTooltip.tscn" id="11_ka7k1"]
+[ext_resource type="PackedScene" uid="uid://cnavhmlpsk00o" path="res://src/hud/UnitMenu/CreepMenu.tscn" id="12_32wi7"]
+[ext_resource type="PackedScene" uid="uid://csayw0jxo1omx" path="res://src/hud/UnitStatusCard.tscn" id="12_rwl1n"]
+[ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/CombatLogWindow.tscn" id="14_g64vx"]
+[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/hud/TowerStashMenu/TowerStashMenu.tscn" id="15_eivr8"]
+[ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/hud/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
+[ext_resource type="PackedScene" uid="uid://c41f2x03lnjw6" path="res://src/hud/UnitMenu/TowerMenu.tscn" id="16_1o1mr"]
+[ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/hud/UnitMenu/ElementsMenu.tscn" id="17_bxii1"]
+[ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/BuildVersion.tscn" id="21_ko2ou"]
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_elements_menu_card", "_top_left_menu", "_creep_menu", "_tower_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xs0tv")
+script = ExtResource("11")
+_error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
+_normal_message_container = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxContainer/NormalMessageContainer")
+_game_over_label = NodePath("GameOverLabel")
+_elements_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu")
+_tower_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu")
+_item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu")
+_towers_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard")
+_items_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard")
+_unit_status_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard")
+_elements_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ElementStatusCard")
+_top_left_menu = NodePath("MarginContainer/All/Center/CenterLeft/VBoxContainer/TopLeftMenu")
+_creep_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/CreepMenu")
+_tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerMenu")
+_host_player_label = NodePath("MarginContainer/All/Top/HBoxContainer/PlayerLabel1")
+_second_player_label = NodePath("MarginContainer/All/Top/HBoxContainer2/PlayerLabel2")
+_chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxContainer/MarginContainer/ChatLineEdit")
+_desync_label = NodePath("DesyncLabel")
+metadata/_edit_vertical_guides_ = [960.0]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="All" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Top" type="HBoxContainer" parent="MarginContainer/All"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Top"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("11_hbwuy")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer/MarginContainer"]
+texture_filter = 4
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_nuyc0")
+expand_mode = 1
+
+[node name="PlayerLabel1" type="Label" parent="MarginContainer/All/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/All/Top"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="PlayerLabel2" type="Label" parent="MarginContainer/All/Top/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Top/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("11_hbwuy")
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer2/MarginContainer2"]
+texture_filter = 4
+layout_mode = 2
+texture = ExtResource("5_0wwxe")
+expand_mode = 1
+
+[node name="Center" type="Control" parent="MarginContainer/All"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/All/Center"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -194.0
+offset_right = 1000.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 140
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer3"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+max_length = 200
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+caret_blink = true
+
+[node name="CenterLeft" type="VBoxContainer" parent="MarginContainer/All/Center"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1000.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TopLeftMenu" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("10_agdn3")]
+layout_mode = 2
+
+[node name="TopMenuBar" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MenuCardsContainer" type="Panel" parent="MarginContainer/All/Center"]
+custom_minimum_size = Vector2(80, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -81.0
+offset_right = -1.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/MenuCardsContainer"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -131.0
+offset_top = 66.0
+offset_right = 36.0
+offset_bottom = 279.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme_override_constants/separation = 10
+
+[node name="ElementStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("8_b1gwh")]
+layout_mode = 2
+
+[node name="TowersStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("8_ts7ak")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemsStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("9_16kcd")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="UnitStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("12_rwl1n")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_right = 110
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="ButtonTooltip" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("11_ka7k1")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="TowerMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("16_1o1mr")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="CreepMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("12_32wi7")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("11_5i6a2")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TowerStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ElementsMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("17_bxii1")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="BottomMenuBar" parent="MarginContainer/All/Bottom" instance=ExtResource("15_ir4hq")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+metadata/_edit_vertical_guides_ = []
+
+[node name="DevControls" parent="." instance_placeholder="res://src/hud/DevControls.tscn"]
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_right = 350.0
+offset_bottom = 300.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 300
+
+[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
+clip_contents = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -503.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Minimap" parent="." instance_placeholder="res://src/hud/Minimap.tscn"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 229.0
+offset_right = 445.0
+grow_horizontal = 1
+mouse_filter = 2
+
+[node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = -20.0
+offset_right = 430.0
+offset_bottom = 14.0
+scale = Vector2(0.55408, 0.55408)
+
+[node name="GameOverLabel" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -40.5
+offset_right = 250.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[color=RED]GAME OVER[/color]"
+fit_content = true
+
+[node name="DesyncLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.5
+offset_right = 60.5
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "placeholder"
+
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ElementStatusCard" to="." method="_on_element_status_card_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard" to="." method="_on_towers_status_card_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="." method="_on_items_status_card_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard" to="." method="_on_unit_status_card_main_button_toggled"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerMenu" to="." method="_on_tower_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/CreepMenu" to="." method="_on_creep_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu" to="." method="_on_tower_stash_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu" to="." method="_on_elements_menu_hidden"]

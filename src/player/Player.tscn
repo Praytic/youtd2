@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc5f84ah71fsh"]
+
+[ext_resource type="Script" path="res://src/player/Player.gd" id="1_qsf5w"]
+[ext_resource type="Script" path="res://src/items/ItemContainer.gd" id="2_ietwb"]
+[ext_resource type="Script" path="res://src/player/TowerStash.gd" id="3_rmd8h"]
+[ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://src/creeps/WaveSpawner.tscn" id="4_7cd82"]
+
+[node name="Player" type="Node" node_paths=PackedStringArray("_item_stash", "_horadric_stash", "_tower_stash", "_wave_spawner")]
+script = ExtResource("1_qsf5w")
+_item_stash = NodePath("ItemStash")
+_horadric_stash = NodePath("HoradricStash")
+_tower_stash = NodePath("TowerStash")
+_wave_spawner = NodePath("WaveSpawner")
+
+[node name="ItemStash" type="Node" parent="."]
+script = ExtResource("2_ietwb")
+_capacity = 1000
+
+[node name="HoradricStash" type="Node" parent="."]
+script = ExtResource("2_ietwb")
+_capacity = 6
+
+[node name="TowerStash" type="Node" parent="."]
+script = ExtResource("3_rmd8h")
+
+[node name="WaveSpawner" parent="." instance=ExtResource("4_7cd82")]
+
+[connection signal="wave_finished" from="WaveSpawner" to="." method="_on_wave_spawner_wave_finished"]

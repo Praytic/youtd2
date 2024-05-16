@@ -108,14 +108,14 @@ func get_special_script_name(special: int) -> String:
 
 func get_script_path(special: int) -> String:
 	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-	var script_path: String = "res://src/Creeps/SpecialBuffs/%s.gd" % script_name
+	var script_path: String = "res://src/creeps/SpecialBuffs/%s.gd" % script_name
 
 	return script_path
 
 
 func get_icon_path(special: int) -> String:
 	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-	var icon_path: String = "res://src/Creeps/SpecialIcons/%sSpecial.tscn" % script_name
+	var icon_path: String = "res://src/creeps/SpecialIcons/%sSpecial.tscn" % script_name
 
 	return icon_path
 

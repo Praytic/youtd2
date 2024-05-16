@@ -7,33 +7,33 @@ extends Node
 # scenes cause cyclic references.
 
 
-const title_screen_scene: PackedScene = preload("res://src/TitleScreen/TitleScreen.tscn")
-const game_scene_scene: PackedScene = preload("res://src/GameScene/GameScene.tscn")
-const item_button_scene: PackedScene = preload("res://src/HUD/Buttons/ItemButton.tscn")
-const tower_button_scene: PackedScene = preload("res://src/HUD/Buttons/TowerButton.tscn")
-const floating_text_scene: PackedScene = preload("res://src/HUD/FloatingText.tscn")
-const explosion_scene: PackedScene = preload("res://src/Effects/Explosion.tscn")
-const projectile_scene: PackedScene = preload("res://src/Projectiles/Projectile.tscn")
+const title_screen_scene: PackedScene = preload("res://src/title_screen/TitleScreen.tscn")
+const game_scene_scene: PackedScene = preload("res://src/game_scene/GameScene.tscn")
+const item_button_scene: PackedScene = preload("res://src/hud/Buttons/ItemButton.tscn")
+const tower_button_scene: PackedScene = preload("res://src/hud/Buttons/TowerButton.tscn")
+const floating_text_scene: PackedScene = preload("res://src/hud/FloatingText.tscn")
+const explosion_scene: PackedScene = preload("res://src/effects/Explosion.tscn")
+const projectile_scene: PackedScene = preload("res://src/projectiles/Projectile.tscn")
 const aura_scene: PackedScene = preload("res://src/buffs/Aura.tscn")
 const buff_range_area_scene: PackedScene = preload("res://src/buffs/BuffRangeArea.tscn")
-const corpse_scene: PackedScene = preload("res://src/Creeps/CreepCorpse.tscn")
-const blood_pool_scene: PackedScene = preload("res://src/Creeps/CreepBloodPool.tscn")
-const flying_item_scene: PackedScene = preload("res://src/HUD/FlyingItem.tscn")
-const autocast_button_scene: PackedScene = preload("res://src/HUD/Buttons/AutocastButton.tscn")
-const autocast_scene: PackedScene = preload("res://src/Towers/Autocast.tscn")
-const placeholder_effect_scene: PackedScene = preload("res://src/Effects/GenericMagic.tscn")
-const empty_slot_button_scene: PackedScene = preload("res://src/HUD/Buttons/EmptyUnitButton.tscn")
-const range_indicator_scene: PackedScene = preload("res://src/Towers/RangeIndicator.tscn")
+const corpse_scene: PackedScene = preload("res://src/creeps/CreepCorpse.tscn")
+const blood_pool_scene: PackedScene = preload("res://src/creeps/CreepBloodPool.tscn")
+const flying_item_scene: PackedScene = preload("res://src/hud/FlyingItem.tscn")
+const autocast_button_scene: PackedScene = preload("res://src/hud/Buttons/AutocastButton.tscn")
+const autocast_scene: PackedScene = preload("res://src/towers/Autocast.tscn")
+const placeholder_effect_scene: PackedScene = preload("res://src/effects/GenericMagic.tscn")
+const empty_slot_button_scene: PackedScene = preload("res://src/hud/Buttons/EmptyUnitButton.tscn")
+const range_indicator_scene: PackedScene = preload("res://src/towers/RangeIndicator.tscn")
 const outline_shader: Material = preload("res://resources/shaders/glowing_outline.material")
-const special_container: PackedScene = preload("res://src/HUD/UnitMenu/SpecialContainer.tscn")
-const player_scene: PackedScene = preload("res://src/Player/Player.tscn")
-const team_scene: PackedScene = preload("res://src/Player/Team.tscn")
-const tower_preview_scene: PackedScene = preload("res://src/Towers/TowerPreview.tscn")
-const tower_scene: PackedScene = preload("res://src/Towers/Tower.tscn")
-const buff_display_scene: PackedScene = preload("res://src/HUD/UnitMenu/BuffDisplay.tscn")
+const special_container: PackedScene = preload("res://src/hud/UnitMenu/SpecialContainer.tscn")
+const player_scene: PackedScene = preload("res://src/player/Player.tscn")
+const team_scene: PackedScene = preload("res://src/player/Team.tscn")
+const tower_preview_scene: PackedScene = preload("res://src/towers/TowerPreview.tscn")
+const tower_scene: PackedScene = preload("res://src/towers/Tower.tscn")
+const buff_display_scene: PackedScene = preload("res://src/hud/UnitMenu/BuffDisplay.tscn")
 const fallback_buff_icon: Texture = preload("res://resources/icons/generic_icons/egg.tres")
-const builder_button_scene: PackedScene = preload("res://src/HUD/Buttons/BuilderButton.tscn")
-const ability_button_scene: PackedScene = preload("res://src/HUD/Buttons/AbilityButton.tscn")
+const builder_button_scene: PackedScene = preload("res://src/hud/Buttons/BuilderButton.tscn")
+const ability_button_scene: PackedScene = preload("res://src/hud/Buttons/AbilityButton.tscn")
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://resources/icons/elements/ice.tres"),
 	Element.enm.NATURE: preload("res://resources/icons/elements/nature.tres"),
@@ -46,12 +46,12 @@ const element_icons: Dictionary = {
 
 
 const creep_scenes: Dictionary = {
-	"OrcChampion": preload("res://src/Creeps/Instances/Orc/OrcChampionCreep.tscn"),
-	"OrcAir": preload("res://src/Creeps/Instances/Orc/OrcAirCreep.tscn"),
-	"OrcBoss": preload("res://src/Creeps/Instances/Orc/OrcBossCreep.tscn"),
-	"OrcMass": preload("res://src/Creeps/Instances/Orc/OrcMassCreep.tscn"),
-	"OrcNormal": preload("res://src/Creeps/Instances/Orc/OrcNormalCreep.tscn"),
+	"OrcChampion": preload("res://src/creeps/Instances/Orc/OrcChampionCreep.tscn"),
+	"OrcAir": preload("res://src/creeps/Instances/Orc/OrcAirCreep.tscn"),
+	"OrcBoss": preload("res://src/creeps/Instances/Orc/OrcBossCreep.tscn"),
+	"OrcMass": preload("res://src/creeps/Instances/Orc/OrcMassCreep.tscn"),
+	"OrcNormal": preload("res://src/creeps/Instances/Orc/OrcNormalCreep.tscn"),
 	
-	"ChallengeBoss": preload("res://src/Creeps/Instances/Challenge/ChallengeBossCreep.tscn"),
-	"ChallengeMass": preload("res://src/Creeps/Instances/Challenge/ChallengeMassCreep.tscn"),
+	"ChallengeBoss": preload("res://src/creeps/Instances/Challenge/ChallengeBossCreep.tscn"),
+	"ChallengeMass": preload("res://src/creeps/Instances/Challenge/ChallengeMassCreep.tscn"),
 }
