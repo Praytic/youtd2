@@ -6,8 +6,6 @@ extends MainLoop
 # original pixels with a solid color.
 # Writes results into a folder called "placeholders".
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/GeneratePlaceholderAssets.gd"
 
 const PLACEHOLDER_COLOR = Color.BLUE
 const RESULT_FOLDER: String = "placeholders"

@@ -4,11 +4,6 @@ class_name RemoveSheetMargins extends MainLoop
 # Takes a tilesheet and removes margins from it.
 # Overwrites original file.
 
-# How to use:
-# "path/to/godot-console.exe" -s "path/to/RemoveSheetMargins.gd" -- "sheet.png"
-# Example:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/RemoveSheetMargins.gd" -- "floor.png"
-
 
 const ARG_COUNT: int = 1
 

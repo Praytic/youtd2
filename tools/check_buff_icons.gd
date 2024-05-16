@@ -3,8 +3,6 @@ extends MainLoop
 
 # Checks which buff icons do not point to existing assets.
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.4-rc1_win64_console.exe" -s "C:/Users/kvely/youtd2/Tools/CheckBuffIcons.gd"
 
 const SET_BUFF_ICON_FUNC: String = ".set_buff_icon("
 

@@ -17,8 +17,6 @@ extends MainLoop
 # "foo.png" -> "foo (raw).png" (original) + "foo.png" (cut)
 # "foo (raw).png" -> "foo (raw).png" (original) + "foo.png" (cut)
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CutTilesIntoDecorations.gd" -- foo.png
 
 const ARG_COUNT: int = 1
 const RAW_SUFFIX: String = " (raw).png"

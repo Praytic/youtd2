@@ -6,9 +6,7 @@ extends MainLoop
 # "right" versions. Note that this script assumes that the
 # cut tiles will be placed above brick tiles. There will be
 # a gap if you place these tiles above dirt tiles.
-# 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CutSingleTile.gd"
+
 
 const ARG_COUNT: int = 0
 const PNG_SUFFIX: String = ".png"

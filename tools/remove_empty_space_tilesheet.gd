@@ -12,11 +12,6 @@ class_name RemoveEmptySpaceTilesheet extends MainLoop
 # NOTE: the minimum result tile height is 128, so that tile
 # is usable in tilesets.
 
-# How to use:
-# "path/to/godot-console.exe" -s "path/to/RemoveEmptySpaceTilesheet.gd" -- "path/to/sheets-folder"
-# Example:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/RemoveEmptySpaceTilesheet.gd" -- "."
-
 
 const ARG_COUNT: int = 1
 

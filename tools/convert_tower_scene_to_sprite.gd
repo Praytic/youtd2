@@ -1,10 +1,6 @@
 extends MainLoop
 
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.4-rc1_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/ConvertTowerSceneToSprite.gd"
-
-
 # NOTE: this script works for most towers but stumbles on
 # some. Run TestTowersTool to check which towers failed and
 # fix manually.

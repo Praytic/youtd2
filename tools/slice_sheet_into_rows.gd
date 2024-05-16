@@ -10,8 +10,6 @@ extends MainLoop
 # Examples:
 # "foo.png" -> "foo-1.png", "foo-2.png"...
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/SliceSheetIntoRows.gd" -- foo.png 6
 
 const ARG_COUNT: int = 2
 

@@ -4,8 +4,6 @@ extends MainLoop
 # Renames all files in current directory according to a
 # pattern.
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/RenameFiles.gd"
 
 const PLACEHOLDER_COLOR = Color.BLUE
 const RESULT_FOLDER: String = "placeholders"

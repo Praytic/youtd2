@@ -13,8 +13,6 @@ extends MainLoop
 # Output will have margins of 4 around tiles.
 # Output will have 8 rows.
 
-# Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CreateTilesheet.gd" -- "barrel"
 
 const ARG_COUNT: int = 1
 
