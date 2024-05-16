@@ -12,7 +12,7 @@ extends Node
 # player, experience maxes out at ~27000, which is too much
 # to pre-calculate.
 
-const EXP_FOR_LEVEL_PATH: String = "res://Data/player_exp_for_level.csv"
+const EXP_FOR_LEVEL_PATH: String = "res://data/player_exp_for_level.csv"
 
 enum ExpForLevelColumn {
 	LEVEL = 0,

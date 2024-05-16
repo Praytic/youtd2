@@ -1,7 +1,7 @@
 extends Node
 
 
-const PROPERTIES_PATH: String = "res://Data/recipe_properties.csv"
+const PROPERTIES_PATH: String = "res://data/recipe_properties.csv"
 
 enum CsvProperty {
 	ID,

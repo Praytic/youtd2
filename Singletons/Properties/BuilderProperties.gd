@@ -1,7 +1,7 @@
 extends Node
 
 
-const PROPERTIES_PATH: String = "res://Data/builder_properties.csv"
+const PROPERTIES_PATH: String = "res://data/builder_properties.csv"
 const BUILDER_SCRIPT_DIR: String = "res://Scenes/Builders/Instances"
 
 enum CsvProperty {

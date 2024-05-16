@@ -21,7 +21,7 @@ enum Id {
 }
 
 
-const PROPERTIES_PATH = "res://Data/wisdom_upgrades.csv"
+const PROPERTIES_PATH = "res://data/wisdom_upgrades.csv"
 
 var _properties: Dictionary = {}
 

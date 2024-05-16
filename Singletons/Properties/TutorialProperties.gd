@@ -27,7 +27,7 @@ enum CsvProperty {
 	TEXT,
 }
 
-const PROPERTIES_PATH = "res://Data/Hints/tutorial.csv"
+const PROPERTIES_PATH = "res://data/hints/tutorial.csv"
 
 var _properties: Dictionary = {}
 

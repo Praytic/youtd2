@@ -36,9 +36,9 @@ enum RangeColumn {
 	COUNT
 }
 
-const PROPERTIES_PATH = "res://Data/tower_properties.csv"
-const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
-const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
+const PROPERTIES_PATH = "res://data/tower_properties.csv"
+const TOWER_TOOLTIPS_PATH = "res://data/tower_tooltips.csv"
+const TOWER_RANGES_PATH: String = "res://data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://Scenes/Towers/TowerSprites"
 const TOWER_BEHAVIORS_DIR: String = "res://Scenes/Towers/TowerBehaviors"
 const TOWER_ICON_DIR: String = "res://Resources/Icons/TowerIcons"

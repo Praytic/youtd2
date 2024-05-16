@@ -1,7 +1,7 @@
 extends Node
 
 
-const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
+const PROPERTIES_PATH: String = "res://data/wave_special_properties.csv"
 
 enum CsvProperty {
 	ID,

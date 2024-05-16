@@ -4,7 +4,7 @@ extends Node
 # Mapping of level -> required experience
 # Mapping of experience -> current level
 
-const EXP_FOR_LEVEL_PATH: String = "res://Data/exp_for_level.csv"
+const EXP_FOR_LEVEL_PATH: String = "res://data/exp_for_level.csv"
 
 enum ExpForLevelColumn {
 	LEVEL = 0,
