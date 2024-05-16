@@ -1,0 +1,305 @@
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
+
+[ext_resource type="Script" path="res://src/game_scene/game_scene.gd" id="1_0wd1b"]
+[ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_gestc"]
+[ext_resource type="Script" path="res://src/game_scene/team_container.gd" id="3_qsih1"]
+[ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://src/game_scene/audio_player_pool.tscn" id="4_l0jro"]
+[ext_resource type="Script" path="res://src/game_scene/game_time.gd" id="5_8syq6"]
+[ext_resource type="Script" path="res://src/game_scene//select_unit.gd" id="6_vam2w"]
+[ext_resource type="Script" path="res://src/game_scene/select_point_for_cast.gd" id="7_h82dk"]
+[ext_resource type="Script" path="res://src/game_scene/select_target_for_cast.gd" id="8_n5fu4"]
+[ext_resource type="Script" path="res://src/game_scene/move_item.gd" id="9_tujdk"]
+[ext_resource type="Script" path="res://src/game_scene/build_tower.gd" id="10_tkjjb"]
+[ext_resource type="Script" path="res://src/game_scene/mouse_state.gd" id="11_e0bvs"]
+[ext_resource type="Script" path="res://src/game_scene/combat_log_storage.gd" id="12_8gb75"]
+[ext_resource type="Script" path="res://src/game_scene/game_host.gd" id="14_y26vd"]
+[ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://src/game_scene/game_client.tscn" id="15_a5l86"]
+[ext_resource type="Script" path="res://src/game_scene/chat_commands.gd" id="16_amwbk"]
+[ext_resource type="Script" path="res://src/game_scene/build_space.gd" id="16_p1jwo"]
+[ext_resource type="Script" path="res://src/game_scene/tutorial_controller.gd" id="17_5cvlj"]
+[ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map.tscn" id="17_td8cv"]
+[ext_resource type="Script" path="res://src/creeps/wave_path.gd" id="18_m2fcq"]
+[ext_resource type="Script" path="res://src/player/camera_origin.gd" id="19_jib72"]
+[ext_resource type="Script" path="res://src/effects/effects_container.gd" id="20_rnpn6"]
+[ext_resource type="Script" path="res://src/game_scene/default_camera.gd" id="21_8op63"]
+[ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://src/towers/TowerPreview.tscn" id="22_53ta1"]
+[ext_resource type="Shader" path="res://resources/shaders/saturation_burn.gdshader" id="23_go3nh"]
+[ext_resource type="Shader" path="res://resources/shaders/foggy_camera.gdshader" id="24_omg4c"]
+[ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://src/hud/HUD.tscn" id="25_m068l"]
+[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://src/game_menu/game_menu.tscn" id="26_xukvx"]
+[ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://src/hud/TutorialMenu.tscn" id="27_vroom"]
+
+[sub_resource type="Curve2D" id="1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2555, -2374, 0, 0, 0, 0, -376, -882, 3.76354, -42.3398, -3.76354, 42.3398, -426, -827, 0, 0, 0, 0, -386, -759, 0, 0, 0, 0, 402, -364, -36.6945, -0.470442, 36.6945, 0.470442, 510, -341, 0, 0, 0, 0, 632, -370, 0, 0, 0, 0, 2049, -1082, -52.6896, -0.470442, 52.6896, 0.470442, 2174, -1124, 0, 0, 0, 0, 2305, -1079, 0, 0, 0, 0, 3075, -659, 1.40535, -33.4014, -1.40535, 33.4014, 3131, -627, 0, 0, 0, 0, 3073, -566, 0, 0, 0, 0, 642, 647, 40.458, 0.470442, -40.458, -0.470442, 515, 695, 0, 0, 0, 0, 388, 648, 0, 0, 0, 0, -897, 9, 45.1023, 0.136732, -45.1023, -0.136732, -1022, -33, 0, 0, 0, 0, -1152, 8, 0, 0, 0, 0, -1920, 394, -0.840896, -31.3902, 0.840896, 31.3902, -1961, 459, 0, 0, 0, 0, -1919, 521, 0, 0, 0, 0, -640, 1163, 0.379654, -32.8072, -0.379654, 32.8072, -603, 1228, 0, 0, 0, 0, -3325, 2662, 0, 0, 0, 0, -3325, 2622)
+}
+point_count = 26
+
+[sub_resource type="Curve2D" id="Curve2D_72x3r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2558, -2376, 0, 0, 0, 0, 1471, -1828, 0, 0, 0, 0, 1507, 261, 0, 0, 0, 0, -1537, 166, 0, 0, 0, 0, -1224, 1534, 0, 0, 0, 0, -3356, 2589)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_u40fb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3706, -390, 0, 0, 0, 0, 3203, -631, 0, 0, 0, 0, 516, 714, 0, 0, 0, 0, -1020, -55, 0, 0, 0, 0, -2048, 460, 0, 0, 0, 0, -489, 1212, 0, 0, 0, 0, -3369, 2656)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_gtbgo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3711, -376, 0, 0, 0, 0, 3208, -601, 0, 0, 0, 0, 551, 735, 0, 0, 0, 0, -1024, -18, 0, 0, 0, 0, -1918, 460, 0, 0, 0, 0, -475, 1188, 0, 0, 0, 0, -3418, 2711)
+}
+point_count = 7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cij5r"]
+shader = ExtResource("23_go3nh")
+shader_parameter/vignette_intensity = 1.214
+shader_parameter/edge_saturation = 0.174
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6fevd"]
+shader = ExtResource("24_omg4c")
+shader_parameter/vignette_intensity = 0.299
+shader_parameter/vignette_opacity = 0.742
+shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
+
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
+process_mode = 3
+script = ExtResource("1_0wd1b")
+_game_menu = NodePath("UI/GameMenu")
+_hud = NodePath("UI/HUD")
+_map = NodePath("World/Map")
+_ui_canvas_layer = NodePath("UI")
+_camera = NodePath("World/Camera2D")
+_team_container = NodePath("Gameplay/TeamContainer")
+_game_start_timer = NodePath("Gameplay/GameStartTimer")
+_select_point_for_cast = NodePath("Gameplay/SelectPointForCast")
+_select_target_for_cast = NodePath("Gameplay/SelectTargetForCast")
+_move_item = NodePath("Gameplay/MoveItem")
+_select_unit = NodePath("Gameplay/SelectUnit")
+_build_tower = NodePath("Gameplay/BuildTower")
+_mouse_state = NodePath("Gameplay/MouseState")
+_ui_layer = NodePath("UI")
+_game_client = NodePath("Gameplay/GameClient")
+_game_host = NodePath("Gameplay/GameHost")
+_game_time = NodePath("Gameplay/GameTime")
+_pause_shadow_rect = NodePath("UI/PauseShadowRect")
+_object_container = NodePath("World/ObjectContainer")
+_build_space = NodePath("Gameplay/BuildSpace")
+_tutorial_menu = NodePath("UI/VBoxContainer/TutorialMenu")
+_tutorial_controller = NodePath("Gameplay/TutorialController")
+
+[node name="Gameplay" type="Node" parent="."]
+process_mode = 1
+
+[node name="GameStartTimer" type="Node" parent="Gameplay"]
+script = ExtResource("2_gestc")
+one_shot = true
+
+[node name="TeamContainer" type="Node" parent="Gameplay"]
+script = ExtResource("3_qsih1")
+
+[node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("4_l0jro")]
+
+[node name="GameTime" type="Node" parent="Gameplay"]
+script = ExtResource("5_8syq6")
+
+[node name="SelectUnit" type="Node" parent="Gameplay"]
+script = ExtResource("6_vam2w")
+
+[node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
+script = ExtResource("7_h82dk")
+_mouse_state = NodePath("../MouseState")
+_game_client = NodePath("../GameClient")
+
+[node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
+script = ExtResource("8_n5fu4")
+_mouse_state = NodePath("../MouseState")
+_game_client = NodePath("../GameClient")
+
+[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_game_client")]
+script = ExtResource("9_tujdk")
+_mouse_state = NodePath("../MouseState")
+_map = NodePath("../../World/Map")
+_game_client = NodePath("../GameClient")
+
+[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_build_space", "_tower_preview", "_game_client")]
+script = ExtResource("10_tkjjb")
+_mouse_state = NodePath("../MouseState")
+_map = NodePath("../../World/Map")
+_build_space = NodePath("../BuildSpace")
+_tower_preview = NodePath("../../World/TowerPreview")
+_game_client = NodePath("../GameClient")
+
+[node name="MouseState" type="Node" parent="Gameplay"]
+script = ExtResource("11_e0bvs")
+
+[node name="CombatLogStorage" type="Node" parent="Gameplay"]
+script = ExtResource("12_8gb75")
+
+[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud")]
+script = ExtResource("14_y26vd")
+_game_client = NodePath("../GameClient")
+_hud = NodePath("../../UI/HUD")
+
+[node name="GameClient" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_build_space", "_chat_commands", "_select_unit") instance=ExtResource("15_a5l86")]
+_game_host = NodePath("../GameHost")
+_game_time = NodePath("../GameTime")
+_hud = NodePath("../../UI/HUD")
+_build_space = NodePath("../BuildSpace")
+_chat_commands = NodePath("../ChatCommands")
+_select_unit = NodePath("../SelectUnit")
+
+[node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
+script = ExtResource("16_amwbk")
+_team_container = NodePath("../TeamContainer")
+
+[node name="BuildSpace" type="Node" parent="Gameplay"]
+script = ExtResource("16_p1jwo")
+
+[node name="TutorialController" type="Node" parent="Gameplay"]
+script = ExtResource("17_5cvlj")
+
+[node name="World" type="Node2D" parent="."]
+process_mode = 1
+y_sort_enabled = true
+
+[node name="Map" parent="World" instance=ExtResource("17_td8cv")]
+unique_name_in_owner = true
+
+[node name="PathContainer" type="Node2D" parent="World"]
+z_index = 999
+
+[node name="Ground0" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("1")
+script = ExtResource("18_m2fcq")
+
+[node name="Air0" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_72x3r")
+script = ExtResource("18_m2fcq")
+is_air = true
+
+[node name="Ground1" type="Path2D" parent="World/PathContainer"]
+modulate = Color(1, 0, 1, 1)
+curve = SubResource("Curve2D_u40fb")
+script = ExtResource("18_m2fcq")
+player_id = 1
+
+[node name="Air1" type="Path2D" parent="World/PathContainer"]
+modulate = Color(1, 0, 1, 1)
+curve = SubResource("Curve2D_gtbgo")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 1
+
+[node name="CameraOriginContainer" type="Node2D" parent="World"]
+
+[node name="CameraOrigin0" type="Node2D" parent="World/CameraOriginContainer"]
+position = Vector2(900, -1300)
+script = ExtResource("19_jib72")
+
+[node name="CameraOrigin1" type="Node2D" parent="World/CameraOriginContainer"]
+position = Vector2(1100, -1300)
+script = ExtResource("19_jib72")
+player_id = 1
+
+[node name="ObjectContainer" type="Node2D" parent="World"]
+z_index = 10
+y_sort_enabled = true
+
+[node name="EffectsContainer" type="Node2D" parent="World"]
+z_index = 100
+script = ExtResource("20_rnpn6")
+
+[node name="FloatingTextContainer" type="Node2D" parent="World"]
+z_index = 1000
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+unique_name_in_owner = true
+z_index = 1000
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(0.31481, 0.5)
+limit_smoothed = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("21_8op63")
+
+[node name="TowerPreview" parent="World" node_paths=PackedStringArray("_build_space") instance=ExtResource("22_53ta1")]
+visible = false
+z_index = 100
+_build_space = NodePath("../../Gameplay/BuildSpace")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DesaturationFilter" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_cij5r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VignetteFilter" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_6fevd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HUD" parent="UI" instance=ExtResource("25_m068l")]
+unique_name_in_owner = true
+process_mode = 1
+size_flags_horizontal = 1
+mouse_filter = 2
+
+[node name="PauseShadowRect" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="GameMenu" parent="UI" instance=ExtResource("26_xukvx")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -192.5
+offset_right = 121.5
+offset_bottom = 192.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TutorialMenu" parent="UI/VBoxContainer" instance=ExtResource("27_vroom")]
+process_mode = 3
+visible = false
+layout_mode = 2
+
+[connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
+[connection signal="tutorial_triggered" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_tutorial_triggered"]
+[connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
+[connection signal="quit_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_pressed"]
+[connection signal="quit_to_title_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_to_title_pressed"]
+[connection signal="hidden" from="UI/VBoxContainer/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]

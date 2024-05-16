@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://81kmmaauauh7"]
 
 [ext_resource type="Script" path="res://src/towers/Autocast.gd" id="1"]
-[ext_resource type="Script" path="res://src/game_scene/ManualTimer.gd" id="2_hmm6b"]
+[ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_hmm6b"]
 
 [node name="Autocast" type="Node2D" node_paths=PackedStringArray("_cooldown_timer", "_auto_timer")]
 script = ExtResource("1")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://p3dp5y01hnon"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_bm7wx"]
+[ext_resource type="Script" path="res://src/title_screen/auth_menu.gd" id="2_m6f8b"]
+
+[node name="AuthMenu" type="PanelContainer" node_paths=PackedStringArray("_player_name_text_edit", "_info_message_label")]
+offset_right = 377.0
+offset_bottom = 235.0
+size_flags_vertical = 0
+theme = ExtResource("1_bm7wx")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_m6f8b")
+_player_name_text_edit = NodePath("VBoxContainer/TextEdit")
+_info_message_label = NodePath("VBoxContainer/InfoMessage")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "CREATE ACCOUNT"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+placeholder_text = "YOUR NICKNAME"
+scroll_fit_content_height = true
+
+[node name="LogInButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "LOG IN"
+
+[node name="CreateAccountButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "CREATE"
+
+[node name="InfoMessage" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.454902, 0.454902, 1)
+text = "We cannot guarantee the persistence of your progress because the game is in the pre-release stage."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/LogInButton" to="." method="_on_log_in_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreateAccountButton" to="." method="_on_create_account_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

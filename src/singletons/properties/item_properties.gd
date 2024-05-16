@@ -17,7 +17,6 @@ enum CsvProperty {
 const PROPERTIES_PATH = "res://data/item_properties.csv"
 # NOTE: this id needs to be updated if it's changed in csv
 const CONSUMABLE_CHICKEN_ID: int = 2003
-const ITEM_ICON_DIR: String = "res://resources/icons/ItemIcons"
 const PLACEHOLDER_ITEM_ICON: String = "res://resources/icons/animals/cow.tres"
 
 
@@ -52,8 +51,10 @@ func _ready():
 
 func get_script_path(item_id: int):
 	var item_name: String = ItemProperties.get_display_name(item_id)
-	item_name = item_name.replace(" ", "")
 	item_name = item_name.replace("'", "")
+	item_name = item_name.replace(".", "")
+	item_name = item_name.replace(",", "")
+	item_name = item_name.to_snake_case()
 	var path: String = "res://src/items/item_behaviors/%s.gd" % [item_name]
 
 	return path

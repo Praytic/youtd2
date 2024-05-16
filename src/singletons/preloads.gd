@@ -7,8 +7,8 @@ extends Node
 # scenes cause cyclic references.
 
 
-const title_screen_scene: PackedScene = preload("res://src/title_screen/TitleScreen.tscn")
-const game_scene_scene: PackedScene = preload("res://src/game_scene/GameScene.tscn")
+const title_screen_scene: PackedScene = preload("res://src/title_screen/title_screen.tscn")
+const game_scene_scene: PackedScene = preload("res://src/game_scene/game_scene.tscn")
 const item_button_scene: PackedScene = preload("res://src/hud/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://src/hud/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://src/hud/FloatingText.tscn")
@@ -26,8 +26,8 @@ const empty_slot_button_scene: PackedScene = preload("res://src/hud/Buttons/Empt
 const range_indicator_scene: PackedScene = preload("res://src/towers/RangeIndicator.tscn")
 const outline_shader: Material = preload("res://resources/shaders/glowing_outline.material")
 const special_container: PackedScene = preload("res://src/hud/UnitMenu/SpecialContainer.tscn")
-const player_scene: PackedScene = preload("res://src/player/Player.tscn")
-const team_scene: PackedScene = preload("res://src/player/Team.tscn")
+const player_scene: PackedScene = preload("res://src/player/player.tscn")
+const team_scene: PackedScene = preload("res://src/player/team.tscn")
 const tower_preview_scene: PackedScene = preload("res://src/towers/TowerPreview.tscn")
 const tower_scene: PackedScene = preload("res://src/towers/Tower.tscn")
 const buff_display_scene: PackedScene = preload("res://src/hud/UnitMenu/BuffDisplay.tscn")
@@ -46,12 +46,12 @@ const element_icons: Dictionary = {
 
 
 const creep_scenes: Dictionary = {
-	"OrcChampion": preload("res://src/creeps/instances/Orc/OrcChampionCreep.tscn"),
-	"OrcAir": preload("res://src/creeps/instances/Orc/OrcAirCreep.tscn"),
-	"OrcBoss": preload("res://src/creeps/instances/Orc/OrcBossCreep.tscn"),
-	"OrcMass": preload("res://src/creeps/instances/Orc/OrcMassCreep.tscn"),
-	"OrcNormal": preload("res://src/creeps/instances/Orc/OrcNormalCreep.tscn"),
+	"OrcChampion": preload("res://src/creeps/instances/orc/orc_champion_creep.tscn"),
+	"OrcAir": preload("res://src/creeps/instances/orc/orc_air_creep.tscn"),
+	"OrcBoss": preload("res://src/creeps/instances/orc/orc_boss_creep.tscn"),
+	"OrcMass": preload("res://src/creeps/instances/orc/orc_mass_creep.tscn"),
+	"OrcNormal": preload("res://src/creeps/instances/orc/orc_normal_creep.tscn"),
 	
-	"ChallengeBoss": preload("res://src/creeps/instances/Challenge/ChallengeBossCreep.tscn"),
-	"ChallengeMass": preload("res://src/creeps/instances/Challenge/ChallengeMassCreep.tscn"),
+	"ChallengeBoss": preload("res://src/creeps/instances/challenge/challenge_boss_creep.tscn"),
+	"ChallengeMass": preload("res://src/creeps/instances/challenge/challenge_mass_creep.tscn"),
 }

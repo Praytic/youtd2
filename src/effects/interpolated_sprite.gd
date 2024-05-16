@@ -14,7 +14,7 @@ class_name InterpolatedSprite extends Node2D
 # InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, ...)
 
 
-const LIGHTNING: String = "res://src/sprites/LightningAnimation.tscn"
+const LIGHTNING: String = "res://src/sprites/lightning_animation.tscn"
 
 var _sprite_scene_path: String
 var _start_unit: Unit
