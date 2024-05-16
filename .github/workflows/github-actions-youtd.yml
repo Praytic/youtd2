@@ -90,7 +90,7 @@ jobs:
 
     - name: update release version for Sentry lib
       run: |
-        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.version }}/g" "${{ github.workspace }}/Build/Web/full-size.html"
+        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.version }}/g" "${{ github.workspace }}/build/web/full-size.html"
 
     - name: create .godot dirs
       run: |
@@ -111,8 +111,8 @@ jobs:
 
     - name: repack web artifact
       run: |
-        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
-        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
+        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/build/web/*
+        cp ${{ github.workspace }}/build/web/* ${{ steps.export.outputs.build_directory }}/web/
 
     - uses: actions/upload-artifact@v3
       with:
