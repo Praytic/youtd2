@@ -22,7 +22,7 @@ const AURA_RANGE: float = 1000
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_death(aura_bt_on_death)
 	aura_bt.set_hidden()
@@ -36,7 +36,7 @@ func get_aura_types() -> Array[AuraType]:
 	var soul_experience: String = Utils.format_float(_stats.soul_experience, 2)
 
 	aura.name = "Revenge of Souls"
-	aura.icon = "res://resources/Icons/masks/mask_06.tres"
+	aura.icon = "res://resources/icons/masks/mask_06.tres"
 	aura.description_short = "This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.\n"
 	aura.description_full = "This tower gains %s permanent bonus attack damage and %s experience every time a creep in %d range dies.\n" % [soul_damage, soul_experience, AURA_RANGE] \
 	+ " \n" \

@@ -31,7 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Extreme Cold"
-	ability.icon = "res://resources/Icons/furniture/furniture.tres"
+	ability.icon = "res://resources/icons/furniture/furniture.tres"
 	ability.description_short = "Creeps that come in range of this tower will suffer spell damage and become slowed.\n"
 	ability.description_full = "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spell damage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration] \
 	+ " \n" \
@@ -62,7 +62,7 @@ func tower_init():
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.cold_slow, -COLD_SLOW_ADD)
 	extreme_cold_bt = BuffType.new("extreme_cold_bt", COLD_SLOW_DURATION, 0, false, self)
-	extreme_cold_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	extreme_cold_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	extreme_cold_bt.set_buff_modifier(modifier)
 	extreme_cold_bt.add_event_on_expire(boekie_igloo_end)
 	extreme_cold_bt.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")

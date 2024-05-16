@@ -26,7 +26,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Search For Item"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://resources/Icons/hud/gold.tres"
+	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0
@@ -44,7 +44,7 @@ func item_init():
 	item.set_autocast(autocast)
 
 	backpack_bt = BuffType.new("backpack_bt", 0, 0, true, self)
-	backpack_bt.set_buff_icon("res://resources/Icons/GenericIcons/pokecog.tres")
+	backpack_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
 	backpack_bt.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
 	backpack_bt.add_event_on_kill(backpack_bt_on_kill)
 	

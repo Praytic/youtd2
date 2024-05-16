@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var future: AbilityInfo = AbilityInfo.new()
 	future.name = "Future Knowledge"
-	future.icon = "res://resources/Icons/books/book_10.tres"
+	future.icon = "res://resources/icons/books/book_10.tres"
 	future.description_short = "Every 10 seconds, the Manipulator travels into the future to learn more and gain experience, then returns to where he left.\n"
 	future.description_full = "Every 10 seconds, the Manipulator travels into the future to learn more and gains 2 experience, then returns to where he left. If he has 700 or more exp then he will exchange 50 experience for 5% extra spell damage. If the Manipulator is replaced by another tower, this process is reversed and all experience refunded.\n"
 	list.append(future)
@@ -34,7 +34,7 @@ func tower_init():
 	time_field_bt = BuffType.new("time_field_bt", 10, 0, true, self)
 	time_field_bt.set_special_effect("EnergyField.mdl", 150, 5.0)
 	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
-	time_field_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
+	time_field_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
 	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
@@ -44,7 +44,7 @@ func tower_init():
 	aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
 	aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
 	aura_bt.set_buff_modifier(aura_bt_mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/electric.tres")
 	aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
 
 	multiboard = MultiboardValues.new(1)
@@ -55,7 +55,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Time Field"
-	autocast.icon = "res://resources/Icons/mechanical/compass.tres"
+	autocast.icon = "res://resources/icons/mechanical/compass.tres"
 	autocast.description_short = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him."
 	autocast.description = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
 	autocast.caster_art = "DrainCaster.mdl"
@@ -79,7 +79,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Time Twist"
-	aura.icon = "res://resources/Icons/mechanical/mech_badge.tres"
+	aura.icon = "res://resources/icons/mechanical/mech_badge.tres"
 	aura.description_short = "The Manipulator reaches into the timestream and brings bonuses to nearby towers.\n"
 	aura.description_full = "The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in %d range:\n" % AURA_RANGE \
 	+ "+10% experience gain\n" \

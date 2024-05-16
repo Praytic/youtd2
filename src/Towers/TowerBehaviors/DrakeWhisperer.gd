@@ -46,7 +46,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var versatile: AbilityInfo = AbilityInfo.new()
 	versatile.name = "Versatile"
-	versatile.icon = "res://resources/Icons/weapons_misc/barbed_spike.tres"
+	versatile.icon = "res://resources/icons/weapons_misc/barbed_spike.tres"
 	versatile.description_short = "Every time this tower deals spell damage through its abilities, it increases its DPS.\n"
 	versatile.description_full = "Every time this tower deals spell damage through its abilities, it increases its DPS by 1.5% of the spell damage dealt. Lasts 2.5 seconds and stacks. Maximum bonus of [color=GOLD][200 x (current wave)][/color].\n" \
 	+ " \n" \
@@ -56,7 +56,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var unleash: AbilityInfo = AbilityInfo.new()
 	unleash.name = "Unleash"
-	unleash.icon = "res://resources/Icons/TowerIcons/BronzeDragonRoost.tres"
+	unleash.icon = "res://resources/icons/TowerIcons/BronzeDragonRoost.tres"
 	unleash.description_short = "Whenever this tower attacks, it has a chance to unleash a bronze drake towards the main target.\n"
 	unleash.description_full = "Whenever this tower attacks, it has a 12.5% chance to unleash a bronze drake towards the main target. The bronze drake deals 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n" \
 	+ " \n" \
@@ -67,7 +67,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var feed: AbilityInfo = AbilityInfo.new()
 	feed.name = "Feed the Drakes"
-	feed.icon = "res://resources/Icons/undead/skull_04.tres"
+	feed.icon = "res://resources/icons/undead/skull_04.tres"
 	feed.description_short = "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target.\n"
 	feed.description_full = "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n" \
 	+ " \n" \
@@ -101,14 +101,14 @@ func tower_init():
 	var versatile_bt_mod: Modifier = Modifier.new()
 	versatile_bt_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 1.0)
 	versatile_bt.set_buff_modifier(versatile_bt_mod)
-	versatile_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
+	versatile_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
 	versatile_bt.set_buff_tooltip("Versatile\nIncreases DPS.")
 
 	slow_bt = BuffType.new("slow_bt", 3.0, 0, false, self)
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/energy_breath.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/energy_breath.tres")
 	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
 
 	blue_drake_pt = ProjectileType.create_interpolate("AzureDragon.mdl", 1000, self)

@@ -18,7 +18,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
 	autocast.title = "Release Lightning"
-	autocast.icon = "res://resources/Icons/electricity/lightning_glowing.tres"
+	autocast.icon = "res://resources/icons/electricity/lightning_glowing.tres"
 	autocast.description_short = "Releases a lightning bolt."
 	autocast.description = "This tower releases a lightning bolt that strikes the target for %s spell damage.\n" % damage \
 	+ " \n" \

@@ -23,7 +23,7 @@ func tower_init():
 	melt_bt.add_event_on_create(melt_bt_on_create)
 	melt_bt.add_periodic_event(melt_bt_on_periodic, 1.0)
 	melt_bt.add_event_on_cleanup(melt_bt_on_cleanup)
-	melt_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
+	melt_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
 	melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 
@@ -39,7 +39,7 @@ func get_aura_types() -> Array[AuraType]:
 	var periodic_melt_damage_increase: String = Utils.format_float(_stats.periodic_melt_damage_increase, 2)
 
 	aura.name = "Melt"
-	aura.icon = "res://resources/Icons/tower_variations/MossyAcidSprayer_red.tres"
+	aura.icon = "res://resources/icons/tower_variations/MossyAcidSprayer_red.tres"
 	aura.description_short = "The enormous heat of the Caged Fire decreases their armor of nearby creeps and deals spell damage.\n"
 	aura.description_full = "The enormous heat of the Caged Fire decreases the armor of all creeps in %d range by %s and deals %s spell damage. Each second creeps in %d range around the caged fire lose %s extra armor and the spell damage will increase by %s.\n" % [AURA_RANGE, mod_armor, melt_damage, AURA_RANGE, periodic_mod_armor, periodic_melt_damage_increase] \
 	+ " \n" \

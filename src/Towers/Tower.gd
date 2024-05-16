@@ -887,7 +887,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if !specials_description.is_empty():
 		var specials: AbilityInfo = AbilityInfo.new()
 		specials.name = "Specials"
-		specials.icon = "res://resources/Icons/rockets/rocket_04.tres"
+		specials.icon = "res://resources/icons/rockets/rocket_04.tres"
 		specials.description_full = specials_description
 		specials.description_short = specials_description
 		list.append(specials)
@@ -895,7 +895,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if _attack_style == AttackStyle.SPLASH:
 		var splash_attack: AbilityInfo = AbilityInfo.new()
 		splash_attack.name = "Splash Attack"
-		splash_attack.icon = "res://resources/Icons/rockets/rocket_05.tres"
+		splash_attack.icon = "res://resources/icons/rockets/rocket_05.tres"
 		splash_attack.description_full = _get_splash_attack_description()
 		splash_attack.description_short = splash_attack.description_full
 		list.append(splash_attack)
@@ -903,7 +903,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if _attack_style == AttackStyle.BOUNCE:
 		var bounce_attack: AbilityInfo = AbilityInfo.new()
 		bounce_attack.name = "Bounce Attack"
-		bounce_attack.icon = "res://resources/Icons/daggers/dagger_09.tres"
+		bounce_attack.icon = "res://resources/icons/daggers/dagger_09.tres"
 		bounce_attack.description_full = _get_bounce_attack_description()
 		bounce_attack.description_short = bounce_attack.description_full
 		list.append(bounce_attack)
@@ -914,7 +914,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	if _target_count_from_tower > 1:
 		var multishot: AbilityInfo = AbilityInfo.new()
 		multishot.name = "Multishot"
-		multishot.icon = "res://resources/Icons/spears/many_spears_01.tres"
+		multishot.icon = "res://resources/icons/spears/many_spears_01.tres"
 		var multishot_tooltip: String = "Attacks up to [color=GOLD]%d[/color] targets at the same time.\n" % _target_count_from_tower
 		multishot.description_short = multishot_tooltip
 		multishot.description_full = multishot_tooltip

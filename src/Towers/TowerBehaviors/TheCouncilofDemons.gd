@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var maledict: AbilityInfo = AbilityInfo.new()
 	maledict.name = "Maledict"
-	maledict.icon = "res://resources/Icons/orbs/orb_shadow.tres"
+	maledict.icon = "res://resources/icons/orbs/orb_shadow.tres"
 	maledict.description_short = "Whenever this tower hits a creep, it has a chance to increase spell vulnerability of the creep. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster."
 	maledict.description_full = "Whenever this tower hits a creep, it has a 20% chance to increase spell vulnerability of the creep by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
 	+ " \n" \
@@ -46,7 +46,7 @@ func tower_init():
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.4, -0.006)
 	dave_council_darkness_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, -0.95, 0.0)
 	darkness_bt.set_buff_modifier(dave_council_darkness_mod)
-	darkness_bt.set_buff_icon("res://resources/Icons/GenericIcons/fire_dash.tres")
+	darkness_bt.set_buff_icon("res://resources/icons/GenericIcons/fire_dash.tres")
 	darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
 	darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
 	darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
@@ -56,7 +56,7 @@ func tower_init():
 	var dave_council_maledict_mod: Modifier = Modifier.new()
 	dave_council_maledict_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.006)
 	maledict_bt.set_buff_modifier(dave_council_maledict_mod)
-	maledict_bt.set_buff_icon("res://resources/Icons/GenericIcons/fire_dash.tres")
+	maledict_bt.set_buff_icon("res://resources/icons/GenericIcons/fire_dash.tres")
 	maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
 	maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
 
@@ -64,11 +64,11 @@ func tower_init():
 	var dave_council_mana_mod: Modifier = Modifier.new()
 	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
 	demonic_mana_bt.set_buff_modifier(dave_council_mana_mod)
-	demonic_mana_bt.set_buff_icon("res://resources/Icons/GenericIcons/star_swirl.tres")
+	demonic_mana_bt.set_buff_icon("res://resources/icons/GenericIcons/star_swirl.tres")
 	demonic_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_meteor.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_meteor.tres")
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 
@@ -80,7 +80,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Impenetrable Darkness"
-	autocast.icon = "res://resources/Icons/orbs/orb_molten_dull.tres"
+	autocast.icon = "res://resources/icons/orbs/orb_molten_dull.tres"
 	autocast.description_short = "Shrouds a creep in darkness, slowing it and converting attack damage it takes into spell damage.\n"
 	autocast.description = "Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n" \
 	+ " \n" \
@@ -109,7 +109,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Demonic Edict"
-	aura.icon = "res://resources/Icons/misc/flag_02.tres"
+	aura.icon = "res://resources/icons/misc/flag_02.tres"
 	aura.description_short = "Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower. Doesn't include AoE spells\n"
 	aura.description_full = "Whenever a tower in %d range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100%% for 3 seconds. Doesn't include AoE spells.\n" % AURA_RANGE \
 	+ " \n" \

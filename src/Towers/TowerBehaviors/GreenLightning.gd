@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var mana_feed: AbilityInfo = AbilityInfo.new()
 	mana_feed.name = "Mana Feed"
-	mana_feed.icon = "res://resources/Icons/magic/magic_stone.tres"
+	mana_feed.icon = "res://resources/icons/magic/magic_stone.tres"
 	mana_feed.description_short = "Attacks restore mana to the tower and increase spell crit chance.\n"
 	mana_feed.description_full = "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit \
 	+ "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n" \
@@ -39,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var burst: AbilityInfo = AbilityInfo.new()
 	burst.name = "Lightning Burst"
-	burst.icon = "res://resources/Icons/electricity/lightning_circle_white.tres"
+	burst.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
 	burst.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n"
 	burst.description_full = "Whenever this tower hits a creep, it has a 12.5%% chance to deal %s times current mana as spell damage. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n" % damage_from_mana_multiplier \
 	+ " \n" \
@@ -82,7 +82,7 @@ func tower_init():
 	surge_bt = BuffType.new("surge_bt", 8, 0, true, self)
 	surge_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
 	surge_bt.set_buff_modifier(surge_bt_mod)
-	surge_bt.set_buff_icon("res://resources/Icons/GenericIcons/over_infinity.tres")
+	surge_bt.set_buff_icon("res://resources/icons/GenericIcons/over_infinity.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
@@ -93,7 +93,7 @@ func create_autocasts() -> Array[Autocast]:
 	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
 	
 	autocast.title = "Lightning Surge"
-	autocast.icon = "res://resources/Icons/electricity/lightning_circle_white.tres"
+	autocast.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
 	autocast.description_short = "Increases the attack speed of this tower for next few attacks.\n"
 	autocast.description = "Increases the attack speed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attack_speed \
 	+ " \n" \

@@ -31,7 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ain_soph_aur: AbilityInfo = AbilityInfo.new()
 	ain_soph_aur.name = "Ain Soph Aur"
-	ain_soph_aur.icon = "res://resources/Icons/shields/shield_with_gold_helmet.tres"
+	ain_soph_aur.icon = "res://resources/icons/shields/shield_with_gold_helmet.tres"
 	ain_soph_aur.description_short = "Whenever this tower attacks, it has a chance to create a shockwave of light, dealing spell damage in a path.\n"
 	ain_soph_aur.description_full = "Whenever this tower attacks, it has a %s chance to create a shockwave of light that starts at the main target and travels %s units behind that creep dealing %s spell damage to all creeps in its path.\n" % [shockwave_chance, shockwave_range_from_target, shockwave_damage] \
 	+ " \n" \
@@ -52,7 +52,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/shiny_omega.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/shiny_omega.tres")
 	aura_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
 
 #	NOTE: original script and tooltip don't mention the
@@ -75,7 +75,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura_radius: String = Utils.format_float(AURA_RANGE, 2)
 
 	aura.name = "Aura of Light"
-	aura.icon = "res://resources/Icons/gloves/heal.tres"
+	aura.icon = "res://resources/icons/gloves/heal.tres"
 	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
 	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
 	+ " \n" \

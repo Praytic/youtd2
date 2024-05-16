@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var arcane_attraction: AbilityInfo = AbilityInfo.new()
 	arcane_attraction.name = "Arcane Attraction"
-	arcane_attraction.icon = "res://resources/Icons/trinkets/trinket_10.tres"
+	arcane_attraction.icon = "res://resources/icons/trinkets/trinket_10.tres"
 	arcane_attraction.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Attraction[/color] to the creep and generates mana.\n"
 	arcane_attraction.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Attraction[/color] to the creep. After applying [color=GOLD]Attraction[/color], the tower also generates 1 mana for each stack of [color=GOLD]Attraction[/color] on all creeps. When a creep dies, all stacks of [color=GOLD]Attraction[/color] on it will distribute evenly to nearby targets within 500 range and deal 20% attack damage per stack transferred. [color=GOLD]Attraction[/color] lasts indefinitely.\n" \
 	+ " \n" \
@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var surge: AbilityInfo = AbilityInfo.new()
 	surge.name = "Surge"
-	surge.icon = "res://resources/Icons/scrolls/scroll_08.tres"
+	surge.icon = "res://resources/icons/scrolls/scroll_08.tres"
 	surge.description_short = "Whenever this tower hits a creep, it has a chance to send a surge of energy that deals attack damage to the target and then attempts to jump to another creep.\n"
 	surge.description_full = "Whenever this tower hits a creep, it has a 1% chance per [color=GOLD]Attraction[/color] stack on the target to send a surge of energy that deals 200% of attack damage to the target and then attempts to jump from creep to creep within 750 range of the original target. At each creep, the chance to jump is calculated based on the next target's [color=GOLD]Attraction[/color] stacks. Can only hit each target once and benefits from [color=GOLD]Mana Storm's[/color] damage bonus.\n" \
 	+ " \n" \
@@ -49,7 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var mana_storm: AbilityInfo = AbilityInfo.new()
 	mana_storm.name = "Mana Storm"
-	mana_storm.icon = "res://resources/Icons/electricity/thunderstorm.tres"
+	mana_storm.icon = "res://resources/icons/electricity/thunderstorm.tres"
 	mana_storm.description_full = "Attacks hit up to 2 additional enemies within attack range and consume all mana to deal [color=GOLD][mana consumed]%[/color] increased attack damage. [color=GOLD]Mana Storm[/color] gains an additional attack for every 75 mana consumed. If at least 100 mana is consumed, the tower's multicrit is increased by 3 for 2 seconds. If there are less creeps than attacks, the remaining attacks will hit the main target.\n" \
 	+ " \n" \
 	+ "Note that extra hits from [color=GOLD]Mana Storm[/color] do not trigger [color=GOLD]Attraction[/color] or [color=GOLD]Surge[/color].\n" \
@@ -68,12 +68,12 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	attraction_bt = BuffType.new("attraction_bt", -1, 0, false, self)
-	attraction_bt.set_buff_icon("res://resources/Icons/GenericIcons/star_swirl.tres")
+	attraction_bt.set_buff_icon("res://resources/icons/GenericIcons/star_swirl.tres")
 	attraction_bt.set_buff_tooltip("Attraction\nSpreads Attraction and deals damage to nearby units when target dies.")
 	attraction_bt.add_event_on_death(attraction_bt_on_death)
 
 	manastorm_bt = BuffType.new("manastorm_bt", 2.0, 0, true, self)
-	manastorm_bt.set_buff_icon("res://resources/Icons/GenericIcons/rolling_energy.tres")
+	manastorm_bt.set_buff_icon("res://resources/icons/GenericIcons/rolling_energy.tres")
 	manastorm_bt.set_buff_tooltip("Mana Storm\nIncreases multicrit.")
 	var manastorm_bt_mod: Modifier = Modifier.new()
 	manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)

@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electrify"
-	ability.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
+	ability.icon = "res://resources/icons/electricity/electricity_yellow.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color]. [color=GOLD]Electrify[/color] makes the creep occasionally take extra damage\n"
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color] for 9 seconds. Everytime the [color=GOLD]Electrified[/color] creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
 	+ " \n" \
@@ -80,7 +80,7 @@ func hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	electrified_bt = BuffType.new("electrified_bt", 9, 0.3, false, self)
-	electrified_bt.set_buff_icon("res://resources/Icons/GenericIcons/electric.tres")
+	electrified_bt.set_buff_icon("res://resources/icons/GenericIcons/electric.tres")
 	electrified_bt.add_event_on_damaged(debuff_on_damaged)
 	electrified_bt.set_stacking_group("StormBattery")
 	electrified_bt.set_buff_tooltip("Electrified\nThis creep has been electrified; it will sometimes take extra damage when damaged by attacks or spells.")
@@ -96,7 +96,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/Icons/mechanical/battery.tres"
+	autocast.icon = "res://resources/icons/mechanical/battery.tres"
 	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Electrify[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Electrify[/color].\n" % [projectile_damage] \
 	+ " \n" \

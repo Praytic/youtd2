@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var energy_accel: AbilityInfo = AbilityInfo.new()
 	energy_accel.name = "Energy Acceleration"
-	energy_accel.icon = "res://resources/Icons/trinkets/trinket_10.tres"
+	energy_accel.icon = "res://resources/icons/trinkets/trinket_10.tres"
 	energy_accel.description_short = "Every attack increases attack speed and attack damage.\n"
 	energy_accel.description_full = "Every attack increases attack speed and attack damage by %s.\n" % mod_value \
 	+ " \n" \
@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var errant: AbilityInfo = AbilityInfo.new()
 	errant.name = "Errant Tachyons"
-	errant.icon = "res://resources/Icons/magic/fire.tres"
+	errant.icon = "res://resources/icons/magic/fire.tres"
 	errant.description_short = "On kill, this tower is stunned and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n"
 	errant.description_full = "On kill, this tower is stunned for %s seconds and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n" % STUN_DURATION
 	list.append(errant)

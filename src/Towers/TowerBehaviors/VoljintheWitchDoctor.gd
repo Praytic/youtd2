@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var serpent_ward: AbilityInfo = AbilityInfo.new()
 	serpent_ward.name = "Serpent Ward"
-	serpent_ward.icon = "res://resources/Icons/TowerIcons/SmallSerpentWard.tres"
+	serpent_ward.icon = "res://resources/icons/TowerIcons/SmallSerpentWard.tres"
 	serpent_ward.description_short = "Whenever Vol'jin attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
 	serpent_ward.description_full = "Whenever Vol'jin attacks, he has a 18% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" \
 	+ " \n" \
@@ -45,7 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var purify: AbilityInfo = AbilityInfo.new()
 	purify.name = "Purify"
-	purify.icon = "res://resources/Icons/holy/white_trinket.tres"
+	purify.icon = "res://resources/icons/holy/white_trinket.tres"
 	purify.description_short = "Whenever Vol'jin hits a creep, it purges all buffs and debuffs and deals bonus attack damage based on the purge count. This ability has a 4 second cooldown\n"
 	purify.description_full = "Whenever Vol'jin hits a creep, it purges all buffs and debuffs and deals bonus 12% attack damage for each purged effect. This ability has a 4 second cooldown.\n" \
 	+ " \n" \
@@ -72,7 +72,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	maledict_bt = BuffType.new("maledict_bt", 0, 0, false, self)
-	maledict_bt.set_buff_icon("res://resources/Icons/GenericIcons/omega.tres")
+	maledict_bt.set_buff_icon("res://resources/icons/GenericIcons/omega.tres")
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)
@@ -86,7 +86,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Maledict"
-	autocast.icon = "res://resources/Icons/undead/monster_hand.tres"
+	autocast.icon = "res://resources/icons/undead/monster_hand.tres"
 	autocast.description_short = "Vol'jin jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.\n"
 	autocast.description = "Vol'jin jinxes all units in 800 range with [color=GOLD]Maledict[/color] which will deal spell damage to the target after 8 seconds. The damage is equal to 15% of the total damage received by the target while [color=GOLD]Maledict[/color] was active. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n" \
 	+ " \n" \

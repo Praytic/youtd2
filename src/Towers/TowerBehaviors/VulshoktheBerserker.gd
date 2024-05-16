@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ultimate_fighter: AbilityInfo = AbilityInfo.new()
 	ultimate_fighter.name = "Ultimate Fighter"
-	ultimate_fighter.icon = "res://resources/Icons/weapons_misc/glaive_02.tres"
+	ultimate_fighter.icon = "res://resources/icons/weapons_misc/glaive_02.tres"
 	ultimate_fighter.description_short = "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus attack damage, AoE attack damage or empower Vulshok.\n"
 	ultimate_fighter.description_full = "Vulshok uses his great power to specialize his attacks:\n" \
 	+ "- Every 3rd attack adds a critical hit\n" \
@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var maim: AbilityInfo = AbilityInfo.new()
 	maim.name = "Maim"
-	maim.icon = "res://resources/Icons/clubs/club_glowing.tres"
+	maim.icon = "res://resources/icons/clubs/club_glowing.tres"
 	maim.description_short = "Whenever this tower hits a creep, it slows it.\n"
 	maim.description_full = "Whenever this tower hits a creep, it slows it by 10% for 5 seconds and every second it gets slowed by an extra 5%. This buff lasts for 5 seconds and cannot be refreshed.\n" \
 	+ " \n" \
@@ -69,7 +69,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
 	slow_bt.set_buff_modifier(mod)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Maimed\nReduces movement speed.")
 	slow_bt.add_periodic_event(slow_bt_periodic, 1.0)
 

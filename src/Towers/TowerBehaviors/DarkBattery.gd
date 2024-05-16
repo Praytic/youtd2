@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Corruption"
-	ability.icon = "res://resources/Icons/tower_variations/MeteorTotem_purple.tres"
+	ability.icon = "res://resources/icons/tower_variations/MeteorTotem_purple.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Corruption[/color], which causes the creep to take extra damage from attacks and spells.\n"
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Corruption[/color], which causes the creep to take %s extra damage from attacks and %s extra damage from spells for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
 	+ " \n" \
@@ -75,7 +75,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
-	corruption_bt.set_buff_icon("res://resources/Icons/GenericIcons/poison_gas.tres")
+	corruption_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
 	corruption_bt.set_buff_modifier(modifier)
 	corruption_bt.set_stacking_group("DarkBattery")
 	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
@@ -91,7 +91,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/Icons/mechanical/battery.tres"
+	autocast.icon = "res://resources/icons/mechanical/battery.tres"
 	autocast.description_short = "Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage] \
 	+ " \n" \

@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Essence of the Mortals"
-	ability.icon = "res://resources/Icons/dioramas/mountain.tres"
+	ability.icon = "res://resources/icons/dioramas/mountain.tres"
 	ability.description_short = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain. The lifeforce is used to deal extra spell damage.\n" % [nature_string, orc_string, human_string]
 	ability.description_full = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain. Whenever the Garden attacks, it deals [color=GOLD][current spawn level x 2][/color] spell damage, for each lifeforce stored in the fountain, to the main target. Maximum of 5 stored lifeforce.\n" % [nature_string, orc_string, human_string] \
 	+ " \n" \
@@ -46,7 +46,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Eden's Wrath"
-	autocast.icon = "res://resources/Icons/trinkets/trinket_03.tres"
+	autocast.icon = "res://resources/icons/trinkets/trinket_03.tres"
 	autocast.description_short = "Create a huge explosion.\n"
 	autocast.description = "The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.\n"
 	autocast.caster_art = ""

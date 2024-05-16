@@ -10,7 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grapple"
-	ability.icon = "res://resources/Icons/gloves/gloves_08.tres"
+	ability.icon = "res://resources/icons/gloves/gloves_08.tres"
 	ability.description_short = "Whenever this tower attacks, it has is a chance to grab the main target, holding it in place for 2.5 seconds.\n"
 	ability.description_full = "Whenever this tower attacks, it has is an 8% chance to grab the main target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
 	+ " \n" \
@@ -35,19 +35,19 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	grapple_bt = CbStun.new("grapple_bt", 2.5, 0, false, self)
-	grapple_bt.set_buff_icon("res://resources/Icons/GenericIcons/pokecog.tres")
+	grapple_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
 	grapple_bt.add_event_on_create(grapple_bt_on_create)
 	grapple_bt.add_event_on_cleanup(grapple_bt_on_cleanup)
 
 	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
-	shock_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
+	shock_bt.set_buff_icon("res://resources/icons/GenericIcons/atomic_slashes.tres")
 
 
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Shock"
-	autocast.icon = "res://resources/Icons/electricity/electricity_blue.tres"
+	autocast.icon = "res://resources/icons/electricity/electricity_blue.tres"
 	autocast.description_short = "Slams all creeps around the target, dealing spell damage and stunning them.\n"
 	autocast.description = "Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.\n" \
 	+ " \n" \

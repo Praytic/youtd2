@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Energetic Weapon"
-	ability.icon = "res://resources/Icons/rockets/rocket_03.tres"
+	ability.icon = "res://resources/icons/rockets/rocket_03.tres"
 	ability.description_short = "The Accelerator attacks with energetic missiles, which deal AoE spell damage scaled with tower's current mana. Additionally, the missile slows hit creeps.\n"
 	ability.description_full = "The Accelerator attacks with energetic missiles, which deal %s plus 3 times the current mana as spell damage to all units in 250 range of the missile. Additionally, the missile slows all units by 1%% for each 4000 damage it deals to a creep for 1.5 seconds. Cannot slow by more than 20%%. Each attack consumes 20%% of this tower's current mana.\n" % projectile_damage \
 	+ " \n" \
@@ -47,14 +47,14 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	absorb_target_bt = BuffType.new("absorb_target_bt", 8, 0, false, self)
-	absorb_target_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
+	absorb_target_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
 	absorb_target_bt.set_buff_tooltip("Energy Absorption\nDecreases attack speed.")
 	var absorb_target_bt_mod: Modifier = Modifier.new()
 	absorb_target_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.1, 0.001)
 	absorb_target_bt.set_buff_modifier(absorb_target_bt_mod)
 
 	absorb_caster_bt = BuffType.new("absorb_caster_bt", 8, 0, true, self)
-	absorb_caster_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
+	absorb_caster_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
 	absorb_caster_bt.set_buff_tooltip("Energy Absorption\nIncreases mana regeneration.")
 	var absorb_caster_bt_mod: Modifier = Modifier.new()
 	absorb_caster_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
@@ -64,7 +64,7 @@ func tower_init():
 	energetic_weapon_pt.enable_collision(energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
 
 	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, false, self)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
@@ -75,7 +75,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Energy Absorb"
-	autocast.icon = "res://resources/Icons/rings/ring_06.tres"
+	autocast.icon = "res://resources/icons/rings/ring_06.tres"
 	autocast.description_short = "Decreases attack speed of all towers in range. Increases mana regeneration of the Accelerator.\n"
 	autocast.description = "Decreases the attack speed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n" \
 	+ " \n" \

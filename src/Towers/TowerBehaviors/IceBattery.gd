@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frost"
-	ability.icon = "res://resources/Icons/orbs/orb_ice.tres"
+	ability.icon = "res://resources/icons/orbs/orb_ice.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Frost[/color]. [color=GOLD]Frost[/color] slows the creep.\n"
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Frost[/color]. [color=GOLD]Frost[/color] slows the creep by %s for 9 seconds.\n" % slow_amount \
 	+ " \n" \
@@ -76,7 +76,7 @@ func tower_init():
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
 	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
-	frozen_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
+	frozen_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
 	frozen_bt.set_buff_modifier(slow)
 	frozen_bt.set_stacking_group("IceBattery")
 	frozen_bt.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
@@ -92,7 +92,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 	
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/Icons/mechanical/battery.tres"
+	autocast.icon = "res://resources/icons/mechanical/battery.tres"
 	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Frost[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Frost[/color].\n" % [projectile_damage] \
 	+ " \n" \

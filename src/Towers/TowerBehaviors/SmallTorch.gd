@@ -18,7 +18,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
 	autocast.title = "Fire Blast"
-	autocast.icon = "res://resources/Icons/elements/fire.tres"
+	autocast.icon = "res://resources/icons/elements/fire.tres"
 	autocast.description_short = "Deals spell damage in a small area with magical flames.\n"
 	autocast.description = "Releases a blast of fire that strikes all targets in 200 AoE around the main target for %s damage.\n" % damage \
 	+ " \n" \

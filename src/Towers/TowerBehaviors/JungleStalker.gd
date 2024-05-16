@@ -29,14 +29,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var feral_aggression: AbilityInfo = AbilityInfo.new()
 	feral_aggression.name = "Feral Aggression"
-	feral_aggression.icon = "res://resources/Icons/animals/rooster_warrior.tres"
+	feral_aggression.icon = "res://resources/icons/animals/rooster_warrior.tres"
 	feral_aggression.description_short = "On every critical hit this tower gains permanent bonus attack damage.\n"
 	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus attack damage. This bonus is permanent and has a maximum of %s bonus attack damage.\n" % [feral_dmg_gain, feral_dmg_max]
 	list.append(feral_aggression)
 
 	var bloodthirst: AbilityInfo = AbilityInfo.new()
 	bloodthirst.name = "Bloodthirst"
-	bloodthirst.icon = "res://resources/Icons/potions/potion_red_03.tres"
+	bloodthirst.icon = "res://resources/icons/potions/potion_red_03.tres"
 	bloodthirst.description_short = "Whenever this tower kills a unit it becomes enraged.\n"
 	bloodthirst.description_full = "Whenever this tower kills a unit it becomes enraged, gaining +%s attack speed for %s seconds. Cannot retrigger while active!\n" % [bloodthirst_attack_speed, bloodthirst_duration] \
 	+ " \n" \
@@ -66,7 +66,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	rage_bt.set_buff_modifier(mod)
-	rage_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
+	rage_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
 	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
 	multiboard = MultiboardValues.new(1)

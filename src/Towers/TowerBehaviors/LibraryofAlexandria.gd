@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var divine_knowledge: AbilityInfo = AbilityInfo.new()
 	divine_knowledge.name = "Divine Knowledge"
-	divine_knowledge.icon = "res://resources/Icons/holy/white_trinket.tres"
+	divine_knowledge.icon = "res://resources/icons/holy/white_trinket.tres"
 	divine_knowledge.description_short = "This tower periodically grants experience to a random tower in range.\n"
 	divine_knowledge.description_full = "Every 5 seconds this tower grants 2 experience to a random tower in 500 range.\n" \
 	+ " \n" \
@@ -38,14 +38,14 @@ func tower_init():
 	var library_aura_mod: Modifier = Modifier.new()
 	library_aura_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.30, 0.01)
 	aura_bt.set_buff_modifier(library_aura_mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/spell_book.tres")
 	aura_bt.set_buff_tooltip("Divine Research Aura\nIncreases experience granted.")
 
 	teachings_bt = BuffType.new("teachings_bt", 10, 0.2, true, self)
 	var library_divine_teachings_mod: Modifier = Modifier.new()
 	library_divine_teachings_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 1.0, 0.02)
 	teachings_bt.set_buff_modifier(library_divine_teachings_mod)
-	teachings_bt.set_buff_icon("res://resources/Icons/GenericIcons/spell_book.tres")
+	teachings_bt.set_buff_icon("res://resources/icons/GenericIcons/spell_book.tres")
 	teachings_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
 
@@ -53,7 +53,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Divine Teachings"
-	autocast.icon = "res://resources/Icons/books/book_02.tres"
+	autocast.icon = "res://resources/icons/books/book_02.tres"
 	autocast.description_short = "Adds a buff to the target tower which increases the amount of experience the tower gains.\n"
 	autocast.description = "Adds a buff to the targeted tower which lasts 10 seconds. The buff increases the amount of experience the tower gains by 100%. This tower gains 2 experience every time it casts this buff.\n" \
 	+ " \n" \
@@ -81,7 +81,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Divine Research"
-	aura.icon = "res://resources/Icons/books/book_08.tres"
+	aura.icon = "res://resources/icons/books/book_08.tres"
 	aura.description_short = "Increases experience gain from creeps in range.\n"
 	aura.description_full = "Increases the experience gain from creeps in %d range by 30%%.\n" % AURA_RANGE \
 	+ " \n" \

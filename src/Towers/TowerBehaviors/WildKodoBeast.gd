@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var devour: AbilityInfo = AbilityInfo.new()
 	devour.name = "Devour"
-	devour.icon = "res://resources/Icons/animals/dragon_04.tres"
+	devour.icon = "res://resources/icons/animals/dragon_04.tres"
 	devour.description_short = "On attack the Kodo has a chance to take a bite out of the main target, dealing spell damage and increasing effectiveness of [color=GOLD]Kodo Dung[/color].\n"
 	devour.description_full = "On attack the Kodo has a 6% chance to take a bite out of the main target, dealing 5000 spell damage and increasing the multiplier for bonuses granted by [color=GOLD]Kodo Dung[/color] by 1 for 6 seconds.\n" \
 	+ " \n" \
@@ -36,7 +36,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0010)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.0010)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/poison_gas.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
 	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
 	aura_bt.set_buff_tooltip("Kodo Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
 
@@ -45,7 +45,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Kodo Dung"
-	aura.icon = "res://resources/Icons/trinkets/trinket_03.tres"
+	aura.icon = "res://resources/icons/trinkets/trinket_03.tres"
 	aura.description_short = "The dung of this kodo gives attack bonuses to nearby towers.\n"
 	aura.description_full = "The dung of this kodo grants towers in %d range:\n" % AURA_RANGE \
 	+ "  +10% attack damage\n" \

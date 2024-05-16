@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Burn"
-	ability.icon = "res://resources/Icons/fire/torch.tres"
+	ability.icon = "res://resources/icons/fire/torch.tres"
 	ability.description_short = "Whenever this tower hits a creep, it starts to burn it. Burned creep will receive extra damage from %s towers and explode after death, dealing AoE spell damage.\n" % [fire_string]
 	ability.description_full = "Whenever this tower hits a creep, it starts to burn it. Burned creep will receive extra damage from %s towers. On every further hit of a %s tower, the target will receive more bonus damage then before. Towers from the same family as this tower will increase the bonus damage by %s, any other %s towers by %s. If the unit dies, it explodes and deals %s spell damage to nearby units in a range of 200.\n" % [fire_string, fire_string, bonus_damage, fire_string, bonus_damage_other, explode_damage] \
 	+ "Lasts 5 seconds after the last attack of a %s tower.\n" % fire_string \
@@ -94,7 +94,7 @@ func tower_init():
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
 	burning_bt = BuffType.new("burning_bt", 0.0, 0.0, false, self)
-	burning_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
+	burning_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
 	burning_bt.add_event_on_create(burning_bt_on_create)
 	burning_bt.add_event_on_damaged(burning_bt_on_damaged)
 	burning_bt.add_event_on_death(burning_bt_on_death)

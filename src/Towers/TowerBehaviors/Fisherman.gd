@@ -15,7 +15,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var fishermans_net: AbilityInfo = AbilityInfo.new()
 	fishermans_net.name = "Fisherman's Net"
-	fishermans_net.icon = "res://resources/Icons/food/lard.tres"
+	fishermans_net.icon = "res://resources/icons/food/lard.tres"
 	fishermans_net.description_short = "Whenever this tower hits a creep, it catches the creep in its net, slowing them.\n"
 	fishermans_net.description_full = "Whenever this tower hits a creep, it catches the creep in its net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when this buff expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the buff duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
 	+ " \n" \
@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var fresh_fish_ability: AbilityInfo = AbilityInfo.new()
 	fresh_fish_ability.name = "Fresh Fish!"
-	fresh_fish_ability.icon = "res://resources/Icons/animals/fish_01.tres"
+	fresh_fish_ability.icon = "res://resources/icons/animals/fish_01.tres"
 	fresh_fish_ability.description_short = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, it increases the DPS of nearby towers.\n"
 	fresh_fish_ability.description_full = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, the DPS of towers in 500 range is increased by 15% of this tower's DPS for 5 seconds.\n" \
 	+ " \n" \
@@ -38,7 +38,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var impatient: AbilityInfo = AbilityInfo.new()
 	impatient.name = "Impatient"
-	impatient.icon = "res://resources/Icons/daggers/dagger_06.tres"
+	impatient.icon = "res://resources/icons/daggers/dagger_06.tres"
 	impatient.description_short = "After 4 attacks on the same target the fisherman will attack a different unit.\n"
 	impatient.description_full = "After 4 attacks on the same target the fisherman will attack a different unit. Favoring creeps that are not suffering the effect of [color=GOLD]Fisherman's Net[/color].\n"
 	list.append(impatient)
@@ -60,14 +60,14 @@ func tower_init():
 	var fisherman_dps_boost_mod: Modifier = Modifier.new()
 	fisherman_dps_boost_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 0.001)
 	dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
-	dps_boost_bt.set_buff_icon("res://resources/Icons/GenericIcons/meat.tres")
+	dps_boost_bt.set_buff_icon("res://resources/icons/GenericIcons/meat.tres")
 	dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
 
 	slow_bt = BuffType.new("slow_bt", 3, 0, false, self)
 	var fisherman_slow_mod: Modifier = Modifier.new()
 	fisherman_slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, -0.01)
 	slow_bt.set_buff_modifier(fisherman_slow_mod)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.add_event_on_create(slow_bt_on_create)
 	slow_bt.add_event_on_expire(slow_bt_on_expire)
 	slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")

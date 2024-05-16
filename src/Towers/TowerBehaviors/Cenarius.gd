@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var leaf_storm: AbilityInfo = AbilityInfo.new()
 	leaf_storm.name = "Leaf Storm"
-	leaf_storm.icon = "res://resources/Icons/plants/leaf_01.tres"
+	leaf_storm.icon = "res://resources/icons/plants/leaf_01.tres"
 	leaf_storm.description_short = "Whenever this tower hits a creep, it has a chance to summon a [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it and deals spell damage over time.\n"
 	leaf_storm.description_full = "Whenever this tower hits a creep, it has a 15% chance to summon a 200 AoE [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it by 30% for 1 second and deals 2100 spell damage over time.\n" \
 	+ " \n" \
@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var thorned: AbilityInfo = AbilityInfo.new()
 	thorned.name = "Thorned!"
-	thorned.icon = "res://resources/Icons/TowerIcons/QuillboarThornweaver.tres"
+	thorned.icon = "res://resources/icons/TowerIcons/QuillboarThornweaver.tres"
 	thorned.description_short = "When a unit comes in range it receives the [color=GOLD]Thorned[/color] debuff. The debuff increases damage taken from %s towers.\n" % nature_string
 	thorned.description_full = "When a unit comes in 950 range to this tower it receives the [color=GOLD]Thorned[/color] debuff. The debuff lasts 3 seconds and increases damage taken from %s towers by 30%%.\n" % nature_string \
 	+ " \n" \
@@ -67,11 +67,11 @@ func tower_init():
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
-	tranquility_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
+	tranquility_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
 	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
-	entangle_bt.set_buff_icon("res://resources/Icons/GenericIcons/root_tip.tres")
+	entangle_bt.set_buff_icon("res://resources/icons/GenericIcons/root_tip.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
 	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
@@ -89,21 +89,21 @@ func tower_init():
 	leaf_storm_bt = BuffType.new("leaf_storm_bt", 1.0, 0.04, false, self)
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
-	leaf_storm_bt.set_buff_icon("res://resources/Icons/GenericIcons/atomic_slashes.tres")
+	leaf_storm_bt.set_buff_icon("res://resources/icons/GenericIcons/atomic_slashes.tres")
 	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	thorned_bt.set_buff_modifier(cenarius_thorned_mod)
-	thorned_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
+	thorned_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Entangling Roots"
-	autocast.icon = "res://resources/Icons/plants/branch_01.tres"
+	autocast.icon = "res://resources/icons/plants/branch_01.tres"
 	autocast.description_short = "Launches roots towards the target which will entangle creeps and deal spell damage.\n"
 	autocast.description = "Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.\n" \
 	+ " \n" \
@@ -131,7 +131,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Tranquility"
-	aura.icon = "res://resources/Icons/misc/flag_03.tres"
+	aura.icon = "res://resources/icons/misc/flag_03.tres"
 	aura.description_short = "Decreases the attack speed of all nearby towers and increases their attack damage.\n"
 	aura.description_full = "Decreases the attack speed of all towers in a %d AoE by 20%% and increases their attack damage by 40%%.\n" % AURA_RANGE\
 	+ " \n" \

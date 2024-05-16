@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var twin_attack: AbilityInfo = AbilityInfo.new()
 	twin_attack.name = "Twin Attack"
-	twin_attack.icon = "res://resources/Icons/bows/arrow_02.tres"
+	twin_attack.icon = "res://resources/icons/bows/arrow_02.tres"
 	twin_attack.description_short = "The Phoenix attacks multiple targets at once.\n"
 	twin_attack.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. Each attack applies [color=GOLD]Phoenixfire[/color].\n" % [target_count] \
 	+ " \n" \
@@ -47,7 +47,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var phoenixfire: AbilityInfo = AbilityInfo.new()
 	phoenixfire.name = "Phoenixfire"
-	phoenixfire.icon = "res://resources/Icons/orbs/orb_molten.tres"
+	phoenixfire.icon = "res://resources/icons/orbs/orb_molten.tres"
 	phoenixfire.description_short = "Whenever this tower hits a creep, it reduces creep's armor.\n"
 	phoenixfire.description_full = "Whenever this tower hits a creep, it reduces creep's armor by %s for %s seconds. This buff is stackable.\n" % [mod_armor, debuff_duration] \
 	+ " \n" \
@@ -57,7 +57,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var phoenix_explosion: AbilityInfo = AbilityInfo.new()
 	phoenix_explosion.name = "Phoenix Explosion"
-	phoenix_explosion.icon = "res://resources/Icons/elements/fire.tres"
+	phoenix_explosion.icon = "res://resources/icons/elements/fire.tres"
 	phoenix_explosion.description_short = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals AoE attack damage."
 	phoenix_explosion.description_full = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals %s %s damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, element_string, erupt_range, armor_regain] \
 	+ " \n" \
@@ -117,7 +117,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 
 	phoenix_fire_bt = BuffType.new("phoenix_fire_bt", 5, 0, false, self)
-	phoenix_fire_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
+	phoenix_fire_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
 	phoenix_fire_bt.set_buff_modifier(mod)
 	phoenix_fire_bt.add_event_on_cleanup(phoenix_fire_bt_on_cleanup)
 	phoenix_fire_bt.add_event_on_purge(phoenix_fire_bt_on_purge)
@@ -131,7 +131,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Eruption"
-	autocast.icon = "res://resources/Icons/fire/fire_bowl_02.tres"
+	autocast.icon = "res://resources/icons/fire/fire_bowl_02.tres"
 	autocast.description_short = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].\n"
 	autocast.description = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.\n"
 	autocast.caster_art = ""

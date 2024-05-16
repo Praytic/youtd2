@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Fireblossom"
-	ability.icon = "res://resources/Icons/plants/flower_02.tres"
+	ability.icon = "res://resources/icons/plants/flower_02.tres"
 	ability.description_short = "Every few attacks this tower deals some bonus damage.\n"
 	ability.description_full = "Every 7th attack deals %s bonus damage.\n" % bonus_7 \
 	+ "Every 8th attack deals %s bonus damage.\n" % bonus_8 \

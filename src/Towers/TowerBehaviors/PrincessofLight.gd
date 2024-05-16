@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Channel Energy"
-	ability.icon = "res://resources/Icons/gems/earring_05.tres"
+	ability.icon = "res://resources/icons/gems/earring_05.tres"
 	ability.description_short = "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus attack damage.\n"
 	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus attack damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
 	+ " \n" \
@@ -57,14 +57,14 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	extract_bt = BuffType.new("extract_bt", EXTRACT_DURATION, 0, false, self)
 	extract_bt.add_event_on_damaged(extract_bt_on_damaged)
-	extract_bt.set_buff_icon("res://resources/Icons/GenericIcons/gold_bar.tres")
+	extract_bt.set_buff_icon("res://resources/icons/GenericIcons/gold_bar.tres")
 	extract_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
 
 	channel_bt = BuffType.new("channel_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	channel_bt.set_buff_modifier(mod)
-	channel_bt.set_buff_icon("res://resources/Icons/GenericIcons/aquarius.tres")
+	channel_bt.set_buff_icon("res://resources/icons/GenericIcons/aquarius.tres")
 	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 
@@ -79,7 +79,7 @@ func create_autocasts() -> Array[Autocast]:
 	var extract_count_add: String = Utils.format_float(EXTRACT_COUNT_ADD, 2)
 
 	autocast.title = "Extract Experience"
-	autocast.icon = "res://resources/Icons/fire/fire_in_cup.tres"
+	autocast.icon = "res://resources/icons/fire/fire_in_cup.tres"
 	autocast.description_short = "Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
 	autocast.description = "Casts a buff on a creep. Towers that damage this creep have a %s chance to extract %s experience. Buff lasts %s seconds or until %s extractions occur.\n" % [extract_chance, extract_exp, extract_duration, extract_count] \
 	+ " \n" \

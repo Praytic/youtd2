@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	flames_bt = BuffType.create_aura_effect_type("flames_bt", true, self)
-	flames_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
+	flames_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
 	flames_bt.set_buff_tooltip("Flames of Fury\nIncreases critical chance.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.035, 0.0)

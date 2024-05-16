@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Blessed Weapon"
-	ability.icon = "res://resources/Icons/holy/cross_01.tres"
+	ability.icon = "res://resources/icons/holy/cross_01.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance a chance to deal spell damage and restore mana.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a chance a %s chance to deal %s spell damage and restore %s mana.\n" % [blessed_weapon_chance, blessed_weapon_damage, blessed_weapon_mana_gain] \
 	+ " \n" \
@@ -63,7 +63,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
 	crusader_bt.set_buff_modifier(mod)
-	crusader_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
+	crusader_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
 	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 
@@ -76,7 +76,7 @@ func create_autocasts() -> Array[Autocast]:
 	var duration_add: String = Utils.format_float(FOR_THE_GOD_DURATION_ADD, 2)
 
 	autocast.title = "For the God"
-	autocast.icon = "res://resources/Icons/holy/altar.tres"
+	autocast.icon = "res://resources/icons/holy/altar.tres"
 	autocast.description_short = "This tower casts a buff on a tower that increases attack damage and experience gain.\n"
 	autocast.description = "This tower casts a buff on a friendly tower that increases attack damage and experience gain by %s. The buff lasts %s seconds.\n" % [for_the_god_effect, duration] \
 	+ " \n" \

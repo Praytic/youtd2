@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	slow_bt = BuffType.new("slow_bt", 4, 0, false, self)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/spider_web.tres") 
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/spider_web.tres") 
 	slow_bt.set_stacking_group("boekieSpiderlingSlow")
 	slow_bt.set_buff_tooltip("Webbed\nReduces movement speed.")
 	var mod: Modifier = Modifier.new() 

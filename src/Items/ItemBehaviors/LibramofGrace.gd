@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	grace_bt = BuffType.create_aura_effect_type("grace_bt", true, self)
-	grace_bt.set_buff_icon("res://resources/Icons/GenericIcons/angel_wings.tres")
+	grace_bt.set_buff_icon("res://resources/icons/GenericIcons/angel_wings.tres")
 	grace_bt.set_buff_tooltip("Grace\nIncreases experience received.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.1, 0.004)

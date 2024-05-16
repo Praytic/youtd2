@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var dark_ritual: AbilityInfo = AbilityInfo.new()
 	dark_ritual.name = "Dark Ritual"
-	dark_ritual.icon = "res://resources/Icons/furniture/artifact_on_pedestal.tres"
+	dark_ritual.icon = "res://resources/icons/furniture/artifact_on_pedestal.tres"
 	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color], causing them to transport creeps and deal spell damage.\n"
 	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color]. Creeps standing in the [color=GOLD]Corruption Field[/color] will be instantly teleported to the [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
 	+ " \n" \
@@ -39,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var hunger: AbilityInfo = AbilityInfo.new()
 	hunger.name = "It Hunger"
-	hunger.icon = "res://resources/Icons/furniture/wooden_stand_with_nail.tres"
+	hunger.icon = "res://resources/icons/furniture/wooden_stand_with_nail.tres"
 	hunger.description_short = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains spell damage.\n"
 	hunger.description_full = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains 0.1% spell damage. There is a maximum of 700% bonus spell damage.\n" \
 	+ " \n" \
@@ -69,7 +69,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_recreation: Autocast = Autocast.make()
 	autocast_recreation.title = "Recreation Field"
-	autocast_recreation.icon = "res://resources/Icons/magic/magic_stone.tres"
+	autocast_recreation.icon = "res://resources/icons/magic/magic_stone.tres"
 	autocast_recreation.description_short = "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
 	autocast_recreation.description = "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 	autocast_recreation.caster_art = ""
@@ -89,7 +89,7 @@ func create_autocasts() -> Array[Autocast]:
 
 	var autocast_corruption: Autocast = Autocast.make()
 	autocast_corruption.title = "Corruption Field"
-	autocast_corruption.icon = "res://resources/Icons/misc/poison_02.tres"
+	autocast_corruption.icon = "res://resources/icons/misc/poison_02.tres"
 	autocast_corruption.description_short = "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
 	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
 	autocast_corruption.caster_art = ""

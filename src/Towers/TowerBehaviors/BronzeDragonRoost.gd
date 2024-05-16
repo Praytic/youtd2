@@ -9,7 +9,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Bronzefication"
-	ability.icon = "res://resources/Icons/potions/potion_07.tres"
+	ability.icon = "res://resources/icons/potions/potion_07.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to turn the creep's flesh into bronze. The creep is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a 10% chance to turn the creep's flesh into bronze for 5 seconds. The creep is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
 	+ " \n" \
@@ -39,7 +39,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
 	bronze_bt.set_buff_modifier(mod)
-	bronze_bt.set_buff_icon("res://resources/Icons/GenericIcons/gold_bar.tres")
+	bronze_bt.set_buff_icon("res://resources/icons/GenericIcons/gold_bar.tres")
 	bronze_bt.add_event_on_create(bronze_bt_on_create)
 	bronze_bt.add_event_on_cleanup(bronze_bt_on_cleanup)
 	bronze_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")

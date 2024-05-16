@@ -17,7 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var icy_touch: AbilityInfo = AbilityInfo.new()
 	icy_touch.name = "Icy Touch"
-	icy_touch.icon = "res://resources/Icons/gloves/gloves_07.tres"
+	icy_touch.icon = "res://resources/icons/gloves/gloves_07.tres"
 	icy_touch.description_short = "Whenever this tower hits a creep, it slows it.\n"
 	icy_touch.description_full = "Whenever this tower hits a creep, it slows it by 10% for 5 seconds, stacking up to 6 times. This tower deals additional 10% attack damage for every stack of [color=GOLD]Icy Touch[/color] the target has.\n" \
 	+ " \n" \
@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var frost_bolt: AbilityInfo = AbilityInfo.new()
 	frost_bolt.name = "Frost Bolt"
-	frost_bolt.icon = "res://resources/Icons/tower_variations/MeteorTotem_blue.tres"
+	frost_bolt.icon = "res://resources/icons/tower_variations/MeteorTotem_blue.tres"
 	frost_bolt.description_short = "Attacks have a chance to launch a [color=GOLD]Frost Bolt[/color] at the main target, dealing AoE attack damage.\n"
 	frost_bolt.description_full = "Attacks have a chance to launch to launch a [color=GOLD]Frost Bolt[/color] at the main target. The chance is equal to the percentage of movement speed the main target is missing. [color=GOLD]Frost Bolt[/color] deals 20%% of the tower's attack damage as %s damage in 200 AoE around the creep for each stack of [color=GOLD]Icy Touch[/color] the creep has. This spell deals double damage to stunned targets.\n" % elemental_string\
 	+ " \n" \
@@ -37,7 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var cold_blood: AbilityInfo = AbilityInfo.new()
 	cold_blood.name = "Cold Blood"
-	cold_blood.icon = "res://resources/Icons/potions/potion_10.tres"
+	cold_blood.icon = "res://resources/icons/potions/potion_10.tres"
 	cold_blood.description_short = "Every time it kills a unit, this tower temporarily gains attack speed.\n"
 	cold_blood.description_full = "Every time it kills a unit, this tower gains 50% attack speed for 3 seconds.\n" \
 	+ " \n" \
@@ -59,14 +59,14 @@ func tower_init():
 	var dave_taita_blood_mod: Modifier = Modifier.new()
 	dave_taita_blood_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.005)
 	cold_blood_bt.set_buff_modifier(dave_taita_blood_mod)
-	cold_blood_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
+	cold_blood_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
 	cold_blood_bt.set_buff_tooltip("Cold Blood\nIncreases attack speed.")
 
 	icy_touch_bt = BuffType.new("icy_touch_bt", 5, 0, false, self)
 	var dave_taita_touch_mod: Modifier = Modifier.new()
 	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
 	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
-	icy_touch_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	icy_touch_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
 
 	frostbolt_pt = ProjectileType.create("FreezingBreathMissile.mdl", 4, 900, self)

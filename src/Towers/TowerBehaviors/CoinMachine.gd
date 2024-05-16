@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Multiply Gold"
-	ability.icon = "res://resources/Icons/mechanical/gold_machine.tres"
+	ability.icon = "res://resources/icons/mechanical/gold_machine.tres"
 	ability.description_short = "This tower increases the gold income of the player.\n"
 	ability.description_full = "This tower increases the gold income of the player by %s.\n" % mod_income
 	list.append(ability)
@@ -36,7 +36,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	golden_bt.set_buff_modifier(mod)
-	golden_bt.set_buff_icon("res://resources/Icons/GenericIcons/holy_grail.tres")
+	golden_bt.set_buff_icon("res://resources/icons/GenericIcons/holy_grail.tres")
 	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 
@@ -51,7 +51,7 @@ func create_autocasts() -> Array[Autocast]:
 	var gold_per_cast: String = Utils.format_float(_stats.gold_per_cast, 2)
 	
 	autocast.title = "Golden Influence"
-	autocast.icon = "res://resources/Icons/hud/gold.tres"
+	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.description_short = "Increases bounty gain of a nearby tower and gives gold to player.\n"
 	autocast.description = "This tower adds a buff to a tower in %s range that lasts %s seconds. The buff increases bounty gain by %s. Everytime this spell is cast you gain %s gold.\n" % [autocast_range, buff_duration, mod_bounty_gain, gold_per_cast] \
 	+ " \n" \

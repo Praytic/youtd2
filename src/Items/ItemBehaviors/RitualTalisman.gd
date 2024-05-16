@@ -22,7 +22,7 @@ func get_autocast_description() -> String:
 
 func item_init():
 	ritual_bt = BuffType.new("ritual_bt", 10, 0, true, self)
-	ritual_bt.set_buff_icon("res://resources/Icons/GenericIcons/moebius_trefoil.tres")
+	ritual_bt.set_buff_icon("res://resources/icons/GenericIcons/moebius_trefoil.tres")
 	ritual_bt.set_buff_tooltip("Shamanistic Ritual\nIncreases experience received and attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.2, 0.008)
@@ -32,7 +32,7 @@ func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shamanistic Ritual"
 	autocast.description = get_autocast_description()
-	autocast.icon = "res://resources/Icons/hud/gold.tres"
+	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "HealingWaveTarget.mdl"
 	autocast.num_buffs_before_idle = 1

@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grace"
-	ability.icon = "res://resources/Icons/gloves/heal.tres"
+	ability.icon = "res://resources/icons/gloves/heal.tres"
 	ability.description_short = "Whenever this tower hits a creep, a portion of the attack damage will be revoked over 3 seconds.\n"
 	ability.description_full = "Whenever this tower hits a creep, %s of the attack damage will be revoked over 3 seconds. Does not affect immune targets.\n" % heal_ratio \
 	+ " \n" \

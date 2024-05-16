@@ -39,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ice_smashing_axe: AbilityInfo = AbilityInfo.new()
 	ice_smashing_axe.name = "Ice Smashing Axe"
-	ice_smashing_axe.icon = "res://resources/Icons/weapons_misc/axe_01.tres"
+	ice_smashing_axe.icon = "res://resources/icons/weapons_misc/axe_01.tres"
 	ice_smashing_axe.description_short = "Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs from the creep and deals %s damage.\n" % elemental_string
 	ice_smashing_axe.description_full = "Whenever the Troll attacks, he has a %s chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs from its target and deals %s of the tower's attack damage as %s damage for each buff purged. If more than %s buffs are removed the target is also stunned for %s seconds (%s on bosses). The axe is so heavy that its wielder's attack speed is slowed by %s for %s seconds after throwing it.\n" % [on_attack_chance, smashing_axe_dmg, elemental_string, purge_count_for_stun, stun_duration, stun_duration_for_bosses, mod_attack_speed, fatigue_duration] \
 	+ " \n" \
@@ -50,7 +50,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var ice_coated_axes: AbilityInfo = AbilityInfo.new()
 	ice_coated_axes.name = "Ice Coated Axes"
-	ice_coated_axes.icon = "res://resources/Icons/weapons_misc/glaive_01.tres"
+	ice_coated_axes.icon = "res://resources/icons/weapons_misc/glaive_01.tres"
 	ice_coated_axes.description_short = "Whenever the Troll hits a slowed creep, it deals bonus damage.\n"
 	ice_coated_axes.description_full = "Whenever the Troll hits a slowed creep, it deals %s bonus damage for every 1%% movement speed the creep is missing.\n" % coated_axes_dmg \
 	+ " \n" \
@@ -78,7 +78,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
 	fatigue_bt.set_buff_modifier(mod)
-	fatigue_bt.set_buff_icon("res://resources/Icons/GenericIcons/animal_skull.tres")
+	fatigue_bt.set_buff_icon("res://resources/icons/GenericIcons/animal_skull.tres")
 	fatigue_bt.set_buff_tooltip("Fatigue\nReduces attack speed.")
 
 	axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)

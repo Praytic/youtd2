@@ -14,7 +14,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var fungus_strike: AbilityInfo = AbilityInfo.new()
 	fungus_strike.name = "Fungus Strike"
-	fungus_strike.icon = "res://resources/Icons/TowerIcons/QuillboarThornweaver.tres"
+	fungus_strike.icon = "res://resources/icons/TowerIcons/QuillboarThornweaver.tres"
 	fungus_strike.description_short = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive more damage from spells.\n"
 	fungus_strike.description_full = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
 	+ " \n" \
@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var rapid_growth: AbilityInfo = AbilityInfo.new()
 	rapid_growth.name = "Rapid Growth"
-	rapid_growth.icon = "res://resources/Icons/TowerIcons/BabyPlant.tres"
+	rapid_growth.icon = "res://resources/icons/TowerIcons/BabyPlant.tres"
 	rapid_growth.description_short = "Chance to grow, permanently gaining bonus spell damage.\n"
 	rapid_growth.description_full = "Every 20 seconds the Mushroom has a 40% chance to grow, permanently gaining 3% bonus spell damage. Maximum of 40 succesful growths.\n" \
 	+ " \n" \
@@ -48,7 +48,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
-	fungus_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_dot.tres")
+	fungus_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_dot.tres")
 	fungus_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
 
 	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
@@ -56,7 +56,7 @@ func tower_init():
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
-	trance_bt.set_buff_icon("res://resources/Icons/GenericIcons/beard.tres")
+	trance_bt.set_buff_icon("res://resources/icons/GenericIcons/beard.tres")
 	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
 
 	multiboard = MultiboardValues.new(2)
@@ -68,7 +68,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Mystical Trance"
-	autocast.icon = "res://resources/Icons/masks/mask_05.tres"
+	autocast.icon = "res://resources/icons/masks/mask_05.tres"
 	autocast.description_short = "Buffs a tower in range, increasing its spell damage and trigger chances.\n"
 	autocast.description = "Buffs a tower in 500 range, increasing its spell damage and trigger chances by 25%. Lasts 5 seconds.\n" \
 	+ " \n" \

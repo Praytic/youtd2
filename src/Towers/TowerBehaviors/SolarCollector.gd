@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Energetic Attack"
-	ability.icon = "res://resources/Icons/swords/sword_swing_01.tres"
+	ability.icon = "res://resources/icons/swords/sword_swing_01.tres"
 	ability.description_short = "Each attack costs mana. Without mana the tower can't attack.\n"
 	ability.description_full = "Each attack costs %s mana. Without mana the tower can't attack.\n" % attack_mana_cost
 	list.append(ability)
@@ -55,7 +55,7 @@ func create_autocasts() -> Array[Autocast]:
 	var stun_duration_for_bosses: String = Utils.format_float(_stats.stun_duration_for_bosses, 2)
 
 	autocast.title = "Release Energy"
-	autocast.icon = "res://resources/Icons/electricity/electricity_yellow.tres"
+	autocast.icon = "res://resources/icons/electricity/electricity_yellow.tres"
 	autocast.description_short = "Deals damage to the target and stuns it.\n"
 	autocast.description = "Deals %s damage to the attacked creep and stuns it for %s seconds (%s seconds on bosses).\n" % [release_energy_dmg, stun_duration, stun_duration_for_bosses] \
 	+ " \n" \

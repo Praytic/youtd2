@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Glacial Wrath"
-	ability.icon = "res://resources/Icons/TowerIcons/GenisSage.tres"
+	ability.icon = "res://resources/icons/TowerIcons/GenisSage.tres"
 	ability.description_short = "Whenever this tower hits a creep, it slows the creep and has a chance to stun it.\n"
 	ability.description_full = "Whenever this tower hits a creep, it slows the creep by %s for 3 seconds. It also has a %s chance to deal %s spell damage and stun the target for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
 	+ " \n" \
@@ -45,7 +45,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_modifier(m)
 

@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var zeal: AbilityInfo = AbilityInfo.new()
 	zeal.name = "Zeal"
-	zeal.icon = "res://resources/Icons/holy/cross_01.tres"
+	zeal.icon = "res://resources/icons/holy/cross_01.tres"
 	zeal.description_short = "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
 	zeal.description_full = "Each attack works the Zealot into a greater frenzy, increasing his attack speed by %s from each tower in 175 range. These towers have their attack speed slowed by %s. Both effects stack up to 5 times and last 2.5 seconds. The attack speed amount reduces slightly with more towers.\nOnly towers that cost %s gold or more are affected by this.\n" % [leech_power_base, leech_power_base, affected_gold_cost] \
 	+ " \n" \
@@ -38,14 +38,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var lightning_shield: AbilityInfo = AbilityInfo.new()
 	lightning_shield.name = "Lightning Shield"
-	lightning_shield.icon = "res://resources/Icons/TowerIcons/LightningGenerator.tres"
+	lightning_shield.icon = "res://resources/icons/TowerIcons/LightningGenerator.tres"
 	lightning_shield.description_short = "As the zealot gets pumped up debuff durations are reduced.\n"
 	lightning_shield.description_full = "As the zealot gets pumped up debuff durations are reduced by %s with each stack of [color=GOLD]Zeal[/color].\n" % shield_power
 	list.append(lightning_shield)
 
 	var phase_blade: AbilityInfo = AbilityInfo.new()
 	phase_blade.name = "Phase Blade"
-	phase_blade.icon = "res://resources/Icons/swords/sword_swing_02.tres"
+	phase_blade.icon = "res://resources/icons/swords/sword_swing_02.tres"
 	phase_blade.description_short = "Each hit on the same creep penetrates deeper through its armor.\n"
 	phase_blade.description_full = "Each hit on the same creep penetrates deeper through its armor. Per hit %s of this tower's attack damage won't be reduced by armor resistances. This effect stacks up to 5 times.\n" % wound_power \
 	+ " \n" \
@@ -87,10 +87,10 @@ func tower_init():
 	drain_bt.set_buff_modifier(n)
 	shield_bt.set_buff_modifier(o)
 
-	zeal_bt.set_buff_icon("res://resources/Icons/GenericIcons/mighty_force.tres")
-	wound_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
-	drain_bt.set_buff_icon("res://resources/Icons/GenericIcons/energy_breath.tres")
-	shield_bt.set_buff_icon("res://resources/Icons/GenericIcons/turtle_shell.tres")
+	zeal_bt.set_buff_icon("res://resources/icons/GenericIcons/mighty_force.tres")
+	wound_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
+	drain_bt.set_buff_icon("res://resources/icons/GenericIcons/energy_breath.tres")
+	shield_bt.set_buff_icon("res://resources/icons/GenericIcons/turtle_shell.tres")
 
 	zeal_bt.set_buff_tooltip("Zeal\nIncreases attack speed.")
 	wound_bt.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")

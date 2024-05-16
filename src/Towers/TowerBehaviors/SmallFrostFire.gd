@@ -29,7 +29,7 @@ func create_autocasts() -> Array[Autocast]:
 	var slow_duration_add: String = Utils.format_float(_stats.slow_duration_add, 2)
 
 	autocast.title = "Soul Chill"
-	autocast.icon = "res://resources/Icons/fire/flame_blue_glowing.tres"
+	autocast.icon = "res://resources/icons/fire/flame_blue_glowing.tres"
 	autocast.description_short = "Deals spell damage and slows units in a small area.\n"
 	autocast.description = "Chills the souls of all creeps in 250 AoE of the target, dealing %s spell damage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value] \
 	+ " \n" \
@@ -58,7 +58,7 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 

@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
-	ability.icon = "res://resources/Icons/misc/teapot_04.tres"
+	ability.icon = "res://resources/icons/misc/teapot_04.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals a portion of tower's attack damage as spell damage per second and reduces target's health regeneration.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a 30%% chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals 15%% of tower's attack damage as spell damage per second and reduces target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
 	+ " \n" \
@@ -54,7 +54,7 @@ func ignite_bt_periodic(event: Event):
 
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 8, 0, false, self)
-	ignite_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
+	ignite_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
 	ignite_bt.set_buff_tooltip("On Fire\nDeals spell damage over time and reduces health regeneration.")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()

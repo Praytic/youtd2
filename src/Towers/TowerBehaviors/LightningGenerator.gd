@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var chain: AbilityInfo = AbilityInfo.new()
 	chain.name = "Chain Lightning"
-	chain.icon = "res://resources/Icons/electricity/thunderstorm.tres"
+	chain.icon = "res://resources/icons/electricity/thunderstorm.tres"
 	chain.description_short = "On attack, this tower has a chance to release [color=GOLD]Chain Lightning[/color], dealing spell damage.\n"
 	chain.description_full = "On attack, this tower has a 19.5%% chance to release a [color=GOLD]Chain Lightning[/color] that does %s spell damage and hits up to 3 units.\n" % chain_damage \
 	+ " \n" \
@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var force_attack: AbilityInfo = AbilityInfo.new()
 	force_attack.name = "Force Attack"
-	force_attack.icon = "res://resources/Icons/TowerIcons/ChargedObelisk.tres"
+	force_attack.icon = "res://resources/icons/TowerIcons/ChargedObelisk.tres"
 	force_attack.description_short = "This tower's attacks deal spell damage instead of attack damage.\n"
 	force_attack.description_full = "This tower's attacks deal %s spell damage instead of attack damage.\n" % on_attack_damage \
 	+ " \n" \

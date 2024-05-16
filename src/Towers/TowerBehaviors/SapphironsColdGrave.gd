@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ice_shard: AbilityInfo = AbilityInfo.new()
 	ice_shard.name = "Ice Shard"
-	ice_shard.icon = "res://resources/Icons/gems/gem_03.tres"
+	ice_shard.icon = "res://resources/icons/gems/gem_03.tres"
 	ice_shard.description_short = "Fires an [color=GOLD]Ice Shard[/color] towards a creep which splits into multiple shards. [color=GOLD]Ice Shard[/color] deals spell damage if it collides with a creep.\n"
 	ice_shard.description_full = "This tower fires an [color=GOLD]Ice Shard[/color] towards a creep. After a distance of 300 the [color=GOLD]Ice Shard[/color] splits into 2 new shards which will split again. If a shard collides with a creep it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
 	+ " \n" \
@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var liquid_ice: AbilityInfo = AbilityInfo.new()
 	liquid_ice.name = "Liquide Ice"
-	liquid_ice.icon = "res://resources/Icons/potions/potion_10.tres"
+	liquid_ice.icon = "res://resources/icons/potions/potion_10.tres"
 	liquid_ice.description_short = "Each time an [color=GOLD]Ice Shard[/color] deals damage, it decreases the target's defense against %s towers.\n" % ice_string
 	liquid_ice.description_full = "Each time an [color=GOLD]Ice Shard[/color] deals damage, it decreases the target's defense against %s towers. The target takes 15%% more damage from %s towers. The effect lasts until the creep's death and stacks.\n" % [ice_string, ice_string] \
 	+ " \n" \
@@ -43,7 +43,7 @@ func tower_init():
 	shard_pt.enable_collision(shard_pt_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
 	liquid_ice_bt = BuffType.new("liquid_ice_bt", -1, 0, false, self)
-	liquid_ice_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_dot.tres")
+	liquid_ice_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_dot.tres")
 	liquid_ice_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
 
 

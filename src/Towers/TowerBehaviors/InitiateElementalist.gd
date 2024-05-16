@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var elemental_fury: AbilityInfo = AbilityInfo.new()
 	elemental_fury.name = "Elemental Fury"
-	elemental_fury.icon = "res://resources/Icons/hud/research_elements.tres"
+	elemental_fury.icon = "res://resources/icons/hud/research_elements.tres"
 	elemental_fury.description_short = "Consecutive casts of the same spell will deal more damage.\n"
 	elemental_fury.description_full = "Consecutive casts of the same spell will deal 50% more damage.\n" \
 	+ " \n" \
@@ -29,7 +29,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var elemental_chaos_1: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_1.name = "Elemental Chaos"
-	elemental_chaos_1.icon = "res://resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	elemental_chaos_1.icon = "res://resources/icons/TowerIcons/BallLightningAccelerator.tres"
 	elemental_chaos_1.description_short = "Elementalist casts a random spell on attack.\n"
 	elemental_chaos_1.description_full = "Elementalist casts one of the following spells on attack:\n" \
 	+ " \n" \
@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var elemental_chaos_2: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_2.name = "Elemental Chaos"
-	elemental_chaos_2.icon = "res://resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	elemental_chaos_2.icon = "res://resources/icons/TowerIcons/BallLightningAccelerator.tres"
 	elemental_chaos_2.description_short = "Elementalist casts a random spell on attack.\n"
 	elemental_chaos_2.description_full = "Elementalist casts one of the following spells on attack:\n" \
 	+ " \n" \
@@ -57,7 +57,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var elemental_chaos_3: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_3.name = "Elemental Chaos"
-	elemental_chaos_3.icon = "res://resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	elemental_chaos_3.icon = "res://resources/icons/TowerIcons/BallLightningAccelerator.tres"
 	elemental_chaos_3.description_short = "Elementalist casts a random spell on attack.\n"
 	elemental_chaos_3.description_full = "Elementalist casts one of the following spells on attack:\n" \
 	+ " \n" \
@@ -74,7 +74,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var elemental_chaos_4: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_4.name = "Elemental Chaos"
-	elemental_chaos_4.icon = "res://resources/Icons/TowerIcons/BallLightningAccelerator.tres"
+	elemental_chaos_4.icon = "res://resources/icons/TowerIcons/BallLightningAccelerator.tres"
 	elemental_chaos_4.description_short = "Elementalist casts a random spell on attack.\n"
 	elemental_chaos_4.description_full = "Elementalist casts one of the following spells on attack:\n" \
 	+ " \n" \
@@ -114,7 +114,7 @@ func tower_init():
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow)
 	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")
 

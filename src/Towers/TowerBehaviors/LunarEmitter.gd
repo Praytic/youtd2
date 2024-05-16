@@ -27,7 +27,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_ICE, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Moonlight Aura\nIncreases spell damage taken and damage taken from Astral, Darkness, Ice and Storm towers.")
 
 
@@ -48,7 +48,7 @@ func get_aura_types() -> Array[AuraType]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	aura.name = "Moonlight"
-	aura.icon = "res://resources/Icons/orbs/moon.tres"
+	aura.icon = "res://resources/icons/orbs/moon.tres"
 	aura.description_short = "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from %s, %s, %s and %s towers.\n" % [astral_string, darkness_string, ice_string, storm_string]
 	aura.description_full = "Reduces the spell resistance of enemies in %d range by %s and increases the vulnerability to damage from %s, %s, %s and %s towers by %s.\n" % [_stats.aura_range, mod_spell_resist, astral_string, darkness_string, ice_string, storm_string, vuln] \
 	+ " \n" \

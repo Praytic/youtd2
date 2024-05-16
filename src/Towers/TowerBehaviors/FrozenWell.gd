@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var freezing_mist: AbilityInfo = AbilityInfo.new()
 	freezing_mist.name = "Freezing Mist"
-	freezing_mist.icon = "res://resources/Icons/gems/crystal.tres"
+	freezing_mist.icon = "res://resources/icons/gems/crystal.tres"
 	freezing_mist.description_short = "Whenever this tower hits a creep, it will be slowed.\n"
 	freezing_mist.description_full = "Whenever this tower hits a creep, it will be slowed by 15% for 10 seconds.\n" \
 	+ " \n" \
@@ -39,14 +39,14 @@ func tower_init():
 	var boekie_frozen_well_aura_mod: Modifier = Modifier.new()
 	boekie_frozen_well_aura_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.25, 0.004)
 	aura_bt.set_buff_modifier(boekie_frozen_well_aura_mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/star_swirl.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/star_swirl.tres")
 	aura_bt.set_buff_tooltip("Flowing Frost Aura\nIncreases buff duration.")
 
 	mist_bt = BuffType.new("mist_bt", 10, 0, false, self)
 	var boekie_freezing_mist_mod: Modifier = Modifier.new()
 	boekie_freezing_mist_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.15, -0.004)
 	mist_bt.set_buff_modifier(boekie_freezing_mist_mod)
-	mist_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
+	mist_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
 	mist_bt.set_buff_tooltip("Freezing Mist\nReduces movement speed.")
 
 
@@ -54,7 +54,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Flowing Frost"
-	aura.icon = "res://resources/Icons/TowerIcons/IceBattery.tres"
+	aura.icon = "res://resources/icons/TowerIcons/IceBattery.tres"
 	aura.description_short = "Increases buff duration of towers in range.\n"
 	aura.description_full = "Increases the buff duration of towers in %d range by 25%%.\n" % AURA_RANGE \
 	+ " \n" \

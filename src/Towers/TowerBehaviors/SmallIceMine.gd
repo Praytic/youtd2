@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ice Nova"
-	ability.icon = "res://resources/Icons/elements/ice.tres"
+	ability.icon = "res://resources/icons/elements/ice.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to blast the target with an [color=GOLD]Ice Nova[/color]. [color=GOLD]Ice Nova[/color] deals AoE spell damage and slows affected creeps.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a 20%% chance to blast the target with an [color=GOLD]Ice Nova[/color]. [color=GOLD]Ice Nova[/color] deals %s spell damage and slows creeps in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration] \
 	+ " \n" \
@@ -46,7 +46,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt.set_buff_modifier(m)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
 
 

@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "High Knowledge"
-	ability.icon = "res://resources/Icons/books/book_07.tres"
+	ability.icon = "res://resources/icons/books/book_07.tres"
 	ability.description_short = "Grants minor amount of experience on attack.\n"
 	ability.description_full = "Grants %s experience on attack.\n" % experience
 	list.append(ability)

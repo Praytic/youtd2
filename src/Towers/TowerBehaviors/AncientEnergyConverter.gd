@@ -34,7 +34,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Energy Conversion"
-	autocast.icon = "res://resources/Icons/mechanical/battery.tres"
+	autocast.icon = "res://resources/icons/mechanical/battery.tres"
 	autocast.description_short = "Spawns 3 chain lightning orbs that fly around the Converter. Orbs deal spell damage and stun nearby units.\n"
 	autocast.description = "Spawns 3 orbs that last 12 seconds flying around the Converter. Each orb deals 1500 spell damage per second to random units in 650 range. Additionally, the orbs have a 25% chance every second to cast a [color=GOLD]Chain Lightning[/color] that deals 1500 initial spell damage and hits up to 4 targets dealing 25% less damage with each bounce.\n" \
 	+ "Units hit by the [color=GOLD]Chain Lightning[/color] are stunned for 0.8 seconds.\n" \

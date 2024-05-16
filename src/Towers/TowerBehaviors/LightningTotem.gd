@@ -21,7 +21,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/polar_star.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/polar_star.tres")
 	aura_bt.set_stacking_group("aura_bt")
 	aura_bt.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
 
@@ -33,7 +33,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_spell_crit_add: String = Utils.format_percent(MOD_SPELL_CRIT_ADD, 2)
 
 	aura.name = "Ancient Magic"
-	aura.icon = "res://resources/Icons/TowerIcons/LightningEye.tres"
+	aura.icon = "res://resources/icons/TowerIcons/LightningEye.tres"
 	aura.description_short = "Increases spell crit chance of nearby towers.\n"
 	aura.description_full = "Increases spell crit chance of towers in %d range by %s.\n" % [AURA_RANGE, mod_spell_crit] \
 	+ " \n" \

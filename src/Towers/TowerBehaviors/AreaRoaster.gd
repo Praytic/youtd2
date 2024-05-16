@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
-	ability.icon = "res://resources/Icons/orbs/orb_fire.tres"
+	ability.icon = "res://resources/icons/orbs/orb_fire.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] causes the target to receive more damage from %s towers and deals spell damage over time.\n" % fire_string
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] causes the target to receive %s more damage from %s towers and deals %s spell damage every 0.5 seconds for 5 seconds. The damage over time effect stacks.\n" % [dmg_from_fire, fire_string, spell_damage] \
 	+ " \n" \
@@ -53,7 +53,7 @@ func ignite_bt_periodic(event: Event):
 
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 0, 0, false, self)
-	ignite_bt.set_buff_icon("res://resources/Icons/GenericIcons/flame.tres")
+	ignite_bt.set_buff_icon("res://resources/icons/GenericIcons/flame.tres")
 	ignite_bt.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
 	ignite_bt.set_stacking_group("ignite_bt")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 0.5)

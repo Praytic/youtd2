@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Soul Split"
-	ability.icon = "res://resources/Icons/undead/skull_phazing.tres"
+	ability.icon = "res://resources/icons/undead/skull_phazing.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage and increase Witch's attack speed.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a %s chance to deal %s spell damage to the target, increasing the Witch's attack speed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attack speed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attack_speed, soul_chance_decrease] \
 	+ " \n" \
@@ -64,14 +64,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.001)
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
 	love_bt.set_buff_modifier(mod)
-	love_bt.set_buff_icon("res://resources/Icons/GenericIcons/charm.tres")
+	love_bt.set_buff_icon("res://resources/icons/GenericIcons/charm.tres")
 	love_bt.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
 
 #	NOTE: this buff is needed to display the effect of the
 #	"Soul Split" ability. The actual effect of the ability
 #	is implemented via modify_property().
 	soul_split_bt = BuffType.new("soul_split_bt", 10, 0, true, self)
-	soul_split_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
+	soul_split_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
 	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
 	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
@@ -85,7 +85,7 @@ func create_autocasts() -> Array[Autocast]:
 	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
 	
 	autocast.title = "Love Potion"
-	autocast.icon = "res://resources/Icons/potions/potion_heart_02.tres"
+	autocast.icon = "res://resources/icons/potions/potion_heart_02.tres"
 	autocast.description_short = "The Witch throws a love potion on the target, applying a slow and increasing target's item chance.\n"
 	autocast.description = "The Witch throws a love potion on the target, slowing it by %s and increasing its item chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance] \
 	+ " \n" \

@@ -18,7 +18,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Omnislash"
-	ability.icon = "res://resources/Icons/daggers/dagger_07.tres"
+	ability.icon = "res://resources/icons/daggers/dagger_07.tres"
 	ability.description_short = "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
 	ability.description_full = "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals attack damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10%% of this tower's normal attack damage and permanently increases the damage its target takes from %s type attacks by 4%%.\n" % physical_string \
 	+ " \n" \
@@ -41,7 +41,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	omnislashed_bt = BuffType.new("omnislashed_bt", -1, 0, false, self)
-	omnislashed_bt.set_buff_icon("res://resources/Icons/GenericIcons/triple_scratches.tres")
+	omnislashed_bt.set_buff_icon("res://resources/icons/GenericIcons/triple_scratches.tres")
 	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
 	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 

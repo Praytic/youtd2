@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var cursed_attack: AbilityInfo = AbilityInfo.new()
 	cursed_attack.name = "Cursed Attack"
-	cursed_attack.icon = "res://resources/Icons/undead/skull_wand_02.tres"
+	cursed_attack.icon = "res://resources/icons/undead/skull_wand_02.tres"
 	cursed_attack.description_short = "Whenever this tower hits a creep, it has a chance to deal additional spell damage and weaken the creep, reducing its movement speed and increasing spell damage received.\n"
 	cursed_attack.description_full = "Whenever this tower hits a creep, it has a %s chance to deal %s additional spell damage and weaken the creep for %s seconds, reducing its movement speed by %s and increasing spell damage received by %s.\n" % [cursed_attack_chance, cursed_attack_damage, cursed_duration, mod_movespeed, mod_spell_dmg_received] \
 	+ " \n" \
@@ -60,7 +60,7 @@ func tower_init():
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
+	slow_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
 	slow_bt.set_stacking_group("slow_bt1")
 	slow_bt.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
 
@@ -70,7 +70,7 @@ func tower_init():
 	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.1, 0.002)
 	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
 	aura_bt.set_buff_modifier(aura_bt_mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/over_infinity.tres")
 	aura_bt.set_stacking_group("aura_bt")
 	aura_bt.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
 
@@ -85,7 +85,7 @@ func get_aura_types() -> Array[AuraType]:
 	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
 
 	aura.name = "Mortal Coil"
-	aura.icon = "res://resources/Icons/undead/demon_emblem.tres"
+	aura.icon = "res://resources/icons/undead/demon_emblem.tres"
 	aura.description_short = "Grants bonus damage against %s, %s and %s creeps to nearby towers.\n" % [human_string, orc_string, nature_string]
 	aura.description_full = "Grants %s bonus damage against %s, %s and %s creeps to all towers within %d range.\n" % [aura_effect_value, human_string, orc_string, nature_string, AURA_RANGE] \
 	+ " \n" \

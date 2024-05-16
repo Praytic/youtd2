@@ -16,7 +16,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/barefoot.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/barefoot.tres")
 	aura_bt.set_buff_tooltip("Frost Aura\nThis creep is under the effect of Frost Aura; it has reduced movement speed.")
 
 	
@@ -30,7 +30,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
 
 	aura.name = "Frost"
-	aura.icon = "res://resources/Icons/orbs/orb_ice.tres"
+	aura.icon = "res://resources/icons/orbs/orb_ice.tres"
 	aura.description_short = "Slows nearby creeps.\n"
 	aura.description_full = "Slows creeps in %d range by %s.\n" % [_stats.aura_range, mod_movespeed] \
 	+ " \n" \

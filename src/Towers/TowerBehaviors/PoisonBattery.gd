@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poison"
-	ability.icon = "res://resources/Icons/potions/potion_green_02.tres"
+	ability.icon = "res://resources/icons/potions/potion_green_02.tres"
 	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Poison[/color]. [color=GOLD]Poison[/color] deals spell damage and slows the creep.\n"
 	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Poison[/color]. [color=GOLD]Poison[/color] deals %s spell damage and slows the creep by %s for 9 seconds.\n" % [poison_damage, mod_movespeed] \
 	+ " \n" \
@@ -79,7 +79,7 @@ func tower_init():
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
 	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
-	poison_bt.set_buff_icon("res://resources/Icons/mechanical/battery.tres")
+	poison_bt.set_buff_icon("res://resources/icons/mechanical/battery.tres")
 	poison_bt.add_periodic_event(damage_periodic, 1)
 	poison_bt.set_buff_modifier(modifier)
 	poison_bt.set_stacking_group("PoisonBattery")
@@ -96,7 +96,7 @@ func create_autocasts() -> Array[Autocast]:
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
 	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/Icons/TowerIcons/PoisonBattery.tres"
+	autocast.icon = "res://resources/icons/TowerIcons/PoisonBattery.tres"
 	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Poison[/color].\n" % [projectile_damage] \
 	+ " \n" \

@@ -22,14 +22,14 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var cannon: AbilityInfo = AbilityInfo.new()
 	cannon.name = "Cannon"
-	cannon.icon = "res://resources/Icons/cannons/cannon_07.tres"
+	cannon.icon = "res://resources/icons/cannons/cannon_07.tres"
 	cannon.description_short = "The Dutchman attacks a random creep in range, dealing AoE attack damage.\n"
 	cannon.description_full = "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attack speed.\n"
 	list.append(cannon)
 
 	var soul_attack: AbilityInfo = AbilityInfo.new()
 	soul_attack.name = "Soul Attack"
-	soul_attack.icon = "res://resources/Icons/TowerIcons/MossyAcidSprayer.tres"
+	soul_attack.icon = "res://resources/icons/TowerIcons/MossyAcidSprayer.tres"
 	soul_attack.description_short = "Every 5 seconds the Dutchman attacks a random creep in range with a collected soul, dealing spell damage.\n"
 	soul_attack.description_full = "Every 5 seconds the Dutchman attacks a random creep in 1200 range with a collected soul. Deals 14000 spell damage to the target.\n" \
 	+ " \n" \
@@ -39,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var panic: AbilityInfo = AbilityInfo.new()
 	panic.name = "Panic"
-	panic.icon = "res://resources/Icons/undead/skull_03.tres"
+	panic.icon = "res://resources/icons/undead/skull_03.tres"
 	panic.description_short = "Whenever the Dutchman kills a creep, it collects its soul. Reduces armor of other creeps near the killed creep but also causes them to move faster.\n"
 	panic.description_full = "Whenever the Dutchman kills a creep, it collects its soul. All creeps in a range of 300 around the killed creep start to panic. They have only one thing in mind: RUN!. They don't care about their defense and their armor is reduced by 25, but they run 20% faster. This effect lasts 10 seconds.\n" \
 	+ " \n" \
@@ -77,7 +77,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_ARMOR, -25.0, -1.0)
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
-	panic_bt.set_buff_icon("res://resources/Icons/GenericIcons/animal_skull.tres")
+	panic_bt.set_buff_icon("res://resources/icons/GenericIcons/animal_skull.tres")
 	panic_bt.set_buff_tooltip("Panic\nReduces armor and movement speed.")
 
 	multiboard = MultiboardValues.new(1)
@@ -88,7 +88,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Soul Storm"
-	autocast.icon = "res://resources/Icons/misc/flag_02.tres"
+	autocast.icon = "res://resources/icons/misc/flag_02.tres"
 	autocast.description_short = "When this spell is activated 2 souls will be periodically released.\n"
 	autocast.description = "When this spell is activated 2 souls will be released every 0.3 seconds. When a soul collides with a creep it deals 14000 spell damage. When a soul damages a creep, its damage is reduced by 50%.\n"
 	autocast.caster_art = ""

@@ -22,7 +22,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
 	aura_bt.set_buff_modifier(mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/biceps.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/biceps.tres")
 	aura_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
 
 
@@ -30,7 +30,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Green Dragon Force"
-	aura.icon = "res://resources/Icons/animals/dragon_02.tres"
+	aura.icon = "res://resources/icons/animals/dragon_02.tres"
 	aura.description_short = "Increases multicrit of towers in range.\n"
 	aura.description_full = "Increases the multicrit of towers in %d range by 2.\n" % AURA_RANGE
 

@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var soulfire: AbilityInfo = AbilityInfo.new()
 	soulfire.name = "Soulfire"
-	soulfire.icon = "res://resources/Icons/fire/flame_purple.tres"
+	soulfire.icon = "res://resources/icons/fire/flame_purple.tres"
 	soulfire.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Soulfire[/color] which deals spell damage.\n"
 	soulfire.description_full = "Whenever this tower hits a creep, it has a 20% chance to apply [color=GOLD]Soulfire[/color] which deals 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
 	+ " \n" \
@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var soul_consumption: AbilityInfo = AbilityInfo.new()
 	soul_consumption.name = "Soul Consumption"
-	soul_consumption.icon = "res://resources/Icons/TowerIcons/DarkBattery.tres"
+	soul_consumption.icon = "res://resources/icons/TowerIcons/DarkBattery.tres"
 	soul_consumption.description_short = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps.\n"
 	soul_consumption.description_full = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps within 200 range. The creep is consumed by the tower, restoring 5 mana.\n"
 	list.append(soul_consumption)
@@ -53,7 +53,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	evil_device_bt = BuffType.create_aura_effect_type("evil_device_bt", true, self)
-	evil_device_bt.set_buff_icon("res://resources/Icons/GenericIcons/pokecog.tres")
+	evil_device_bt.set_buff_icon("res://resources/icons/GenericIcons/pokecog.tres")
 	evil_device_bt.add_event_on_create(evil_device_bt_on_create)
 	evil_device_bt.add_event_on_cleanup(evil_device_bt_on_cleanup)
 	evil_device_bt.add_periodic_event(evil_device_bt_periodic, 5)
@@ -63,7 +63,7 @@ func tower_init():
 	var soulfire_bt_mod: Modifier = Modifier.new()
 	soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	soulfire_bt.set_buff_modifier(soulfire_bt_mod)
-	soulfire_bt.set_buff_icon("res://resources/Icons/GenericIcons/burning_dot.tres")
+	soulfire_bt.set_buff_icon("res://resources/icons/GenericIcons/burning_dot.tres")
 	soulfire_bt.add_periodic_event(soulfire_bt_periodic, 1)
 	soulfire_bt.add_event_on_death(soulfire_bt_on_death)
 	soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
@@ -72,7 +72,7 @@ func tower_init():
 	var awaken_bt_mod: Modifier = Modifier.new()
 	awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	awaken_bt.set_buff_modifier(awaken_bt_mod)
-	awaken_bt.set_buff_icon("res://resources/Icons/GenericIcons/semi_closed_eye.tres")
+	awaken_bt.set_buff_icon("res://resources/icons/GenericIcons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
 	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)
@@ -85,7 +85,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Awaken"
-	autocast.icon = "res://resources/Icons/magic/fire.tres"
+	autocast.icon = "res://resources/icons/magic/fire.tres"
 	autocast.description_short = "Increases the attack speed of nearby towers and permanently increases the attack speed of this tower.\n"
 	autocast.description = "Increases the attack speed of towers within 350 range by 50% for 3 seconds and permanently increases the attack speed of this tower by 1%.\n" \
 	+ " \n" \
@@ -114,7 +114,7 @@ func get_aura_types() -> Array[AuraType]:
 	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
 
 	aura.name = "Evil Device"
-	aura.icon = "res://resources/Icons/mechanical/battery.tres"
+	aura.icon = "res://resources/icons/mechanical/battery.tres"
 	aura.description_short = "Increases attack stats of nearby Common and Uncommon %s towers.\n" % darkness_string
 	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [darkness_string, AURA_RANGE] \
 	+ " \n" \

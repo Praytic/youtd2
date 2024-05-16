@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var acid_skull: AbilityInfo = AbilityInfo.new()
 	acid_skull.name = "Acid Skull"
-	acid_skull.icon = "res://resources/Icons/tower_variations/AshGeyser_green.tres"
+	acid_skull.icon = "res://resources/icons/tower_variations/AshGeyser_green.tres"
 	acid_skull.description_short = "Whenever this tower attacks, it has a chance to throw an [color=GOLD]Acid Skull[/color] onto the main target and nearby units, dealing spell damage.\n"
 	acid_skull.description_full = "Whenever this tower attacks, it has a 25% chance to throw an [color=GOLD]Acid Skull[/color] onto the main target, dealing 1800 spell damage to the main target and 1440 spell damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \
 	+ " \n" \
@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var soulsteal: AbilityInfo = AbilityInfo.new()
 	soulsteal.name = "Soulsteal"
-	soulsteal.icon = "res://resources/Icons/undead/skull_phazing.tres"
+	soulsteal.icon = "res://resources/icons/undead/skull_phazing.tres"
 	soulsteal.description_short = "Whenever this tower hits a creep, it has a chance to lock the target's soul. A unit without a soul will receive more spell damage.\n"
 	soulsteal.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to lock the target's soul. A unit without a soul will receive 50% more spell damage.\n" \
 	+ " \n" \
@@ -57,21 +57,21 @@ func tower_init():
 	var sir_soul_vault_aura_mod: Modifier = Modifier.new()
 	sir_soul_vault_aura_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.25, -0.002)
 	aura_bt.set_buff_modifier(sir_soul_vault_aura_mod)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
 	aura_bt.set_buff_tooltip("Vault's Presence - Aura\nReduces armor.")
 
 	acid_skull_bt = BuffType.new("acid_skull_bt", 4.5, 0, false, self)
 	var sir_soul_vault_acid_skull_mod: Modifier = Modifier.new()
 	sir_soul_vault_acid_skull_mod.add_modification(Modification.Type.MOD_ARMOR, 0.50, 0.02)
 	acid_skull_bt.set_buff_modifier(sir_soul_vault_acid_skull_mod)
-	acid_skull_bt.set_buff_icon("res://resources/Icons/GenericIcons/poison_gas.tres")
+	acid_skull_bt.set_buff_icon("res://resources/icons/GenericIcons/poison_gas.tres")
 	acid_skull_bt.set_buff_tooltip("Acid Skull\nReduces armor.")
 
 	soulsteal_bt = BuffType.new("soulsteal_bt", 1000, 0, false, self)
 	var sir_soul_vault_soulsteal_mod: Modifier = Modifier.new()
 	sir_soul_vault_soulsteal_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.50, 0.02)
 	soulsteal_bt.set_buff_modifier(sir_soul_vault_soulsteal_mod)
-	soulsteal_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
+	soulsteal_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
 	soulsteal_bt.set_buff_tooltip("Soulsteal\nIncreases spell damage taken.")
 
 	acid_skull_pt = ProjectileType.create("Hippogryph.mdl", 20, 700, self)
@@ -82,7 +82,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Vault's Presence"
-	aura.icon = "res://resources/Icons/TowerIcons/SmallFrostFire.tres"
+	aura.icon = "res://resources/icons/TowerIcons/SmallFrostFire.tres"
 	aura.description_short = "Units in range have their armor reduced.\n"
 	aura.description_full = "Units in %d range have their armor reduced by 25%%.\n" % AURA_RANGE \
 	+ " \n" \

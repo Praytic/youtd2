@@ -22,7 +22,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	cripple_bt = BuffType.new("cripple_bt", 0, 0, false, self)
-	cripple_bt.set_buff_icon("res://resources/Icons/GenericIcons/foot_trip.tres")
+	cripple_bt.set_buff_icon("res://resources/icons/GenericIcons/foot_trip.tres")
 	cripple_bt.set_stacking_group("cripple_bt")
 	cripple_bt.set_buff_tooltip("Cripple\nReduces movement speed.")
 	var mod: Modifier = Modifier.new() 

@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shadowbolt: AbilityInfo = AbilityInfo.new()
 	shadowbolt.name = "Shadowbolt Wave"
-	shadowbolt.icon = "res://resources/Icons/tower_variations/MeteorTotem_purple.tres"
+	shadowbolt.icon = "res://resources/icons/tower_variations/MeteorTotem_purple.tres"
 	shadowbolt.description_short = "Every autocast has a chance to release a wave of shadowbolts. Shadowbolts deal spell damage.\n"
 	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This spell has a 40%% chance to trigger if the last autocast released a shadowbolt wave.\n" % [bolt_count, bolt_damage] \
 	+ " \n" \
@@ -45,12 +45,12 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	siphon_bt = BuffType.new("siphon_bt", 5, 0, true, self)
-	siphon_bt.set_buff_icon("res://resources/Icons/GenericIcons/omega.tres")
+	siphon_bt.set_buff_icon("res://resources/icons/GenericIcons/omega.tres")
 	siphon_bt.add_event_on_attack(siphon_bt_on_attack)
 	siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/alien_skull.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/alien_skull.tres")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.set_buff_tooltip("Slow Decay - Aura\nKills creep instantly if it reaches low health.")
 
@@ -73,7 +73,7 @@ func create_autocasts() -> Array[Autocast]:
 	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
 
 	autocast.title = "Siphon Essence"
-	autocast.icon = "res://resources/Icons/fire/flame_purple.tres"
+	autocast.icon = "res://resources/icons/fire/flame_purple.tres"
 	autocast.description_short = "Stuns nearby towers and steals their damage.\n"
 	autocast.description = "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as %s damage to the target of the buffed tower.\n" % essence_string \
 	+ " \n" \
@@ -104,7 +104,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Slow Decay"
-	aura.icon = "res://resources/Icons/faces/green_demon.tres"
+	aura.icon = "res://resources/icons/faces/green_demon.tres"
 	aura.description_short = "Eredar Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.\n"
 	aura.description_full = "Creeps in %d range around the Eredar Diabolist with less then 5.5%% of their healthpoints will be killed. Doesn't work on bosses.\n" % AURA_RANGE \
 	+ " \n" \

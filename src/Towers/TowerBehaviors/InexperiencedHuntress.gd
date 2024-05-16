@@ -37,7 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shadow_glaive: AbilityInfo = AbilityInfo.new()
 	shadow_glaive.name = "Shadow Glaive"
-	shadow_glaive.icon = "res://resources/Icons/daggers/dagger_07.tres"
+	shadow_glaive.icon = "res://resources/icons/daggers/dagger_07.tres"
 	shadow_glaive.description_short = "Whenever this tower attacks, it has a chance to do a fast follow-up attack which is guaranteed to be critical.\n"
 	shadow_glaive.description_full = "Whenever this tower attacks, it has a %s chance to gain %s attack speed until the next attack. The next attack will also crit for sure and deal %s more crit damage.\n" % [shadow_glaive_chance, shadow_glaive_attack_speed, shadow_glaive_crit_bonus] \
 	+ " \n" \
@@ -49,7 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var star_glaive: AbilityInfo = AbilityInfo.new()
 	star_glaive.name = "Star Glaive"
-	star_glaive.icon = "res://resources/Icons/swords/greatsword_01.tres"
+	star_glaive.icon = "res://resources/icons/swords/greatsword_01.tres"
 	star_glaive.description_short = "Whenever this tower hits a creep, there is a chance to deal additional spell damage.\n"
 	star_glaive.description_full = "Whenever this tower hits a creep, there is a %s chance to deal an additional %s of the attack's damage as spell damage.\n" % [star_glaive_chance, star_glaive_dmg_ratio] \
 	+ " \n" \
@@ -78,7 +78,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACK_SPEED, SHADOW_GLAIVE_ATTACK_SPEED_ADD)
 	glaive_bt.set_buff_modifier(mod)
-	glaive_bt.set_buff_icon("res://resources/Icons/GenericIcons/pisces.tres")
+	glaive_bt.set_buff_icon("res://resources/icons/GenericIcons/pisces.tres")
 	glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
 
 

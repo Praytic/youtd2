@@ -18,7 +18,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	forcefield_bt = BuffType.create_aura_effect_type("forcefield_bt", true, self)
-	forcefield_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
+	forcefield_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
 	forcefield_bt.set_buff_tooltip("Forcefield\nReduces debuff duration.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.15, -0.01)

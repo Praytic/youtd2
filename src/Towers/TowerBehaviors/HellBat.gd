@@ -37,7 +37,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var bat_swarm: AbilityInfo = AbilityInfo.new()
 	bat_swarm.name = "Bat Swarm"
-	bat_swarm.icon = "res://resources/Icons/animals/bat_03.tres"
+	bat_swarm.icon = "res://resources/icons/animals/bat_03.tres"
 	bat_swarm.description_short = "This tower has a chance on attack to release a swarm of bats at the main target. The swarm deals spell damage in a cone.\n"
 	bat_swarm.description_full = "This tower has a %s chance on attack to release a swarm of bats at the main target. The swarm deals %s spell damage at nighttime or %s spell damage at daytime to all enemies in a cone. The cone grows from a %s AoE radius at the start to a %s AoE radius at the end.\n" % [on_attack_chance, swarm_damage_night, swarm_damage_day, SWARM_START_RADIUS, SWARM_END_RADIUS] \
 	+ " \n" \
@@ -49,7 +49,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var creature: AbilityInfo = AbilityInfo.new()
 	creature.name = "Creature of the Night"
-	creature.icon = "res://resources/Icons/animals/spider_03.tres"
+	creature.icon = "res://resources/icons/animals/spider_03.tres"
 	creature.description_short = "This tower deals more attack damage during nighttime.\n"
 	creature.description_full = "This tower deals %s attack damage during nighttime and %s attack damage during daytime.\n" % [attack_damage_night, attack_damage_day] \
 	+ " \n" \
@@ -68,7 +68,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	darkness_bt = BuffType.new("darkness_bt", 5, 0, true, self)
-	darkness_bt.set_buff_icon("res://resources/Icons/GenericIcons/fire_dash.tres")
+	darkness_bt.set_buff_icon("res://resources/icons/GenericIcons/fire_dash.tres")
 	darkness_bt.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
 
 #	NOTE: settubg danage to "1.0" here because value for
@@ -86,7 +86,7 @@ func create_autocasts() -> Array[Autocast]:
 	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)
 
 	autocast.title = "Engulfing Darkness"
-	autocast.icon = "res://resources/Icons/orbs/orb_shadow.tres"
+	autocast.icon = "res://resources/icons/orbs/orb_shadow.tres"
 	autocast.description_short = "This tower engulfs itself in darkness, gaining power as if it's night.\n"
 	autocast.description = "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
 	autocast.caster_art = "AnimateDeadTarget.mdl"

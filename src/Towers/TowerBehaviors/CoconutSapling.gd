@@ -30,7 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Coconut Rain"
-	ability.icon = "res://resources/Icons/orbs/orb_green.tres"
+	ability.icon = "res://resources/icons/orbs/orb_green.tres"
 	ability.description_short = "Whenever this tower hits a creep, there is a chance to drop coconuts which deal AoE spell damage and stun affected creeps.\n"
 	ability.description_full = "Whenever this tower hits a creep, there is a chance to drop multiple coconuts. The chance to drop a coconut is 100%% for the 1st one and after each coconut the chance is decreased by %s. Each coconut deals %s spell damage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd] \
 	+ " \n" \
@@ -57,7 +57,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 	cooldown_bt = BuffType.new("cooldown_bt", STUN_CD, 0, false, self)
-	cooldown_bt.set_buff_icon("res://resources/Icons/GenericIcons/turtle_shell.tres")
+	cooldown_bt.set_buff_icon("res://resources/icons/GenericIcons/turtle_shell.tres")
 	cooldown_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
 
 

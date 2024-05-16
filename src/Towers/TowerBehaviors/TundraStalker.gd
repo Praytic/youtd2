@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Frenzy"
-	ability.icon = "res://resources/Icons/undead/skull_03.tres"
+	ability.icon = "res://resources/icons/undead/skull_03.tres"
 	ability.description_short = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased permanently.\n"
 	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
 	list.append(ability)
@@ -61,7 +61,7 @@ func tower_init():
 	ice_claw_bt = BuffType.new("ice_claw_bt", 5, 0.2, false, self)
 	ice_claw_bt.set_buff_modifier(m)
 	
-	ice_claw_bt.set_buff_icon("res://resources/Icons/GenericIcons/triple_scratches.tres")
+	ice_claw_bt.set_buff_icon("res://resources/icons/GenericIcons/triple_scratches.tres")
 	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
@@ -79,7 +79,7 @@ func create_autocasts() -> Array[Autocast]:
 	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
 
 	autocast.title = "Ice Claw"
-	autocast.icon = "res://resources/Icons/magic/claw_02.tres"
+	autocast.icon = "res://resources/icons/magic/claw_02.tres"
 	autocast.description_short = "Causes the target creep to be slowed and suffer spell damage over time.\n"
 	autocast.description = "Ravages a target creep in 850 range, causing it to be slowed by %s and suffer %s spell damage per second. Effect lasts 5 seconds.\n" % [slow_amount, spell_damage] \
 	+ " \n" \

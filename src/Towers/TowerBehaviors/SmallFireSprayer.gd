@@ -20,7 +20,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Spray and Pray"
-	ability.icon = "res://resources/Icons/TowerIcons/MeteorTotem.tres"
+	ability.icon = "res://resources/icons/TowerIcons/MeteorTotem.tres"
 	ability.description_short = "Due to its high rate of fire, this tower often misses its target.\n"
 	ability.description_full = "Each attack of this tower has a 33% chance to miss the target.\n" \
 	+ " \n" \

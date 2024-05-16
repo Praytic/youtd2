@@ -17,7 +17,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var absorb: AbilityInfo = AbilityInfo.new()
 	absorb.name = "Absorb Energy"
-	absorb.icon = "res://resources/Icons/undead/skull_phazing.tres"
+	absorb.icon = "res://resources/icons/undead/skull_phazing.tres"
 	absorb.description_short = "Attacks do no damage but have a chance to absorb mana from target.\n"
 	absorb.description_full = "Attacks do no damage. There is a 10% chance per hit to gather energy, stealing 50 mana from the target.\n" \
 	+ " \n" \
@@ -47,14 +47,14 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/Icons/GenericIcons/over_infinity.tres")
+	aura_bt.set_buff_icon("res://resources/icons/GenericIcons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
 	unleash_bt = BuffType.new("unleash_bt", 3, 0, false, self)
 	var unleash_bt_mod: Modifier = Modifier.new()
 	unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
 	unleash_bt.set_buff_modifier(unleash_bt_mod)
-	unleash_bt.set_buff_icon("res://resources/Icons/GenericIcons/bat_mask.tres")
+	unleash_bt.set_buff_icon("res://resources/icons/GenericIcons/bat_mask.tres")
 	unleash_bt.add_event_on_create(unleash_bt_on_create)
 	unleash_bt.add_event_on_cleanup(unleash_bt_on_cleanup)
 	unleash_bt.add_periodic_event(unleash_bt_periodic, 5)
@@ -71,7 +71,7 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Unleash"
-	autocast.icon = "res://resources/Icons/electricity/electricity_blue.tres"
+	autocast.icon = "res://resources/icons/electricity/electricity_blue.tres"
 	autocast.description_short = "Unleashes built up energy, dealing spell damage to a single creep and increasing the spell crit damage of nearby towers.\n"
 	autocast.description = "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single creep and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n" \
 	+ " \n" \
@@ -101,7 +101,7 @@ func get_aura_types() -> Array[AuraType]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	aura.name = "Conduit"
-	aura.icon = "res://resources/Icons/trinkets/trinket_06.tres"
+	aura.icon = "res://resources/icons/trinkets/trinket_06.tres"
 	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon %s towers.\n" % storm_string
 	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [storm_string, AURA_RANGE] \
 	+ " \n" \

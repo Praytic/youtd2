@@ -10,7 +10,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var burn: AbilityInfo = AbilityInfo.new()
 	burn.name = "Burn!"
-	burn.icon = "res://resources/Icons/fire/fire_bowl_02.tres"
+	burn.icon = "res://resources/icons/fire/fire_bowl_02.tres"
 	burn.description_short = "Whenever this tower hits a creep, it will ignite it, dealing attack damage over time and slowing it.\n"
 	burn.description_full = "Whenever this tower hits a creep, it will ignite it and make it receive attack damage every 2 seconds. Ignite damage is equal to this tower's current attack damage. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
 	+ " \n" \
@@ -21,7 +21,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var double_the_trouble: AbilityInfo = AbilityInfo.new()
 	double_the_trouble.name = "Double the Trouble"
-	double_the_trouble.icon = "res://resources/Icons/cannons/cannon_05.tres"
+	double_the_trouble.icon = "res://resources/icons/cannons/cannon_05.tres"
 	double_the_trouble.description_short = "Whenever this tower hits a creep, it has a chance to launch an additional projectile which deals the same damage as a normal attack.\n"
 	double_the_trouble.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n" \
 	+ " \n" \
@@ -45,7 +45,7 @@ func tower_init():
 	var ignite_bt_mod: Modifier = Modifier.new()
 	ignite_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
 	ignite_bt.set_buff_modifier(ignite_bt_mod)
-	ignite_bt.set_buff_icon("res://resources/Icons/GenericIcons/azul_flake.tres")
+	ignite_bt.set_buff_icon("res://resources/icons/GenericIcons/azul_flake.tres")
 	ignite_bt.set_buff_tooltip("Ignite\nThis is Ignited; it will take periodic damage and has reduced movement speed.")
 	ignite_bt.add_event_on_refresh(ignite_bt_on_refresh)
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 2.0)

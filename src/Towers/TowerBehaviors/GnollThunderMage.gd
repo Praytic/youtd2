@@ -29,7 +29,7 @@ func create_autocasts() -> Array[Autocast]:
 	var damage_per_tower_add: String = Utils.format_float(_stats.damage_per_tower_add, 2)
 	
 	autocast.title = "Thunder Shock"
-	autocast.icon = "res://resources/Icons/electricity/lightning_glowing.tres"
+	autocast.icon = "res://resources/icons/electricity/lightning_glowing.tres"
 	autocast.description_short = "Releases a strong lightning on the target, dealing spell damage."
 	autocast.description = "Deals [%s + (%s x amount of player towers)] spell damage to a target creep. This ability has a %s chance to recast itself when cast. Maximum of 1 extra cast.\n" % [base_damage, damage_per_tower, recast_chance] \
 	+ " \n" \

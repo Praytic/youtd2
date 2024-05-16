@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	resonance_bt = BuffType.new("resonance_bt", 5, 0, false, self)
-	resonance_bt.set_buff_icon("res://resources/Icons/GenericIcons/rss.tres")
+	resonance_bt.set_buff_icon("res://resources/icons/GenericIcons/rss.tres")
 	resonance_bt.set_buff_tooltip("Resonance\nIncreases spell damage taken.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)

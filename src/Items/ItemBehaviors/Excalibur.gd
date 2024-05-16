@@ -28,7 +28,7 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
     power_bt = BuffType.new("power_bt", 5, 0, false, self)
-    power_bt.set_buff_icon("res://resources/Icons/GenericIcons/open_wound.tres")
+    power_bt.set_buff_icon("res://resources/icons/GenericIcons/open_wound.tres")
     power_bt.set_buff_tooltip("Power of the Sword\nReduces armor.")
     var mod: Modifier = Modifier.new()
     mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.2)

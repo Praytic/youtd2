@@ -19,7 +19,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Fear the Dark"
-	ability.icon = "res://resources/Icons/undead/skull_06.tres"
+	ability.icon = "res://resources/icons/undead/skull_06.tres"
 	ability.description_short = "Whenever this tower hits a creep, it has a chance to debuff it so that it takes more damage.\n"
 	ability.description_full = "Whenever this tower hits a creep, it has a 20% chance to debuff it for 7 seconds. Debuffed creeps take 30% more damage (from all sources). Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
 	+ " \n" \
@@ -38,7 +38,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	fear_dark_bt = BuffType.new("fear_dark_bt", 5, 0.1, false, self)
-	fear_dark_bt.set_buff_icon("res://resources/Icons/GenericIcons/ghost.tres")
+	fear_dark_bt.set_buff_icon("res://resources/icons/GenericIcons/ghost.tres")
 	fear_dark_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
 	fear_dark_bt.add_event_on_create(fear_dark_bt_on_create)
 	fear_dark_bt.add_event_on_cleanup(fear_dark_bt_on_cleanup)
