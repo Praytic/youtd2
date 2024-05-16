@@ -1,0 +1,58 @@
+"id","Title","Text"
+1,"Diminishing Returns","Some tower stats are affected by [color=GOLD]diminishing returns[/color]. These stats will get less effect from items, auras and other modifications once the stat goes above 170% or below 60%. This means that you should avoid stacking all of the bonuses for these stats on a single tower and try to spread the power around evenly to all of your towers.
+ 
+All of the stats in the [color=GOLD]Misc[/color] section in [color=GOLD]Tower Details[/color] are affected by [color=GOLD]diminishing returns[/color]:
+- Bounty ratio
+- Exp ratio
+- Item drop ratio
+- Item quality ratio
+- Trigger chances
+- Buff duration
+- Debuff duration
+"
+2,"Stacking buffs","In general, buffs coming two copies of the same tower will not stack. For example, if you got two copies of the same tower which slows creeps by 10%, then total effect will be 10%, not 20%! Buffs from towers at different upgrade levels but in same family will also not stack.
+ 
+There are exceptions, in which case the ability tooltip will mention that it stacks.
+ 
+Note that this also applies to items with abilities.
+"
+3,"Distribute experience","Towers continue to get experience from kills even after reaching the max level. There are items which transfer experience from one tower to another. Try to use such items on max level towers to distribute the extra experience.
+"
+4,"Carry towers","Usually, a single tower will tend to become more powerful than others and will get the majority of kills as a result. More kills means more experience and levels which will make that tower get even more powerful and get more kills. Such towers are called [color=GOLD]Carry[/color] towers.
+ 
+You can check your best tower in [color=GOLD]Game Stats[/color], which shows towers with [color=GOLD]most kills[/color].
+ 
+It is a good idea to prioritize your [color=GOLD]Carry[/color] tower for oils, items and upgrades. For example, f you have a level 15 tower and a level 2 tower then the adding oils to level 2 tower is generally a bad idea.
+"
+5,"Support towers","[color=GOLD]Support[/color] towers are towers which do not provide as much firepower as [color=GOLD]Carry[/color] towers but have valuable abilities which empower other towers.
+ 
+Such towers should be built strategically next to [color=GOLD]Carry[/color] towers to make them even more powerful.
+ 
+[color=GOLD]Support[/color] towers can be useful even at low levels. If you can build a tower with a useful support ability and got food to spare, build it!
+"
+6,"On attack abilities","[color=GOLD]On attack[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower attacks...][/color] or [color=GOLD][On attack, this tower...][/color]. Such abilities are triggered when the tower attacks, at the moment when the tower launches the projectile.
+ 
+[color=GOLD]On attack[/color] abilities trigger only once per attack, even if the tower has [color=GOLD]splash attack[/color], [color=GOLD]bounce attack[/color] or [color=GOLD]multishot attack[/color].
+ 
+[color=GOLD]On attack[/color] abilities will trigger even if the attack misses or somehow deals 0 damage.
+"
+7,"On hit abilities","[color=GOLD]On hit[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower hits a creep...][/color] or [color=GOLD][On hit, this tower...][/color]. Such abilities are triggered when the tower hits a creep with an attack projectile.
+ 
+[color=GOLD]On hit[/color] abilities trigger for every hit of the attack unless otherwise stated in the tooltip. If the ability tooltip says that the ability affects only the [color=GOLD]main target[/color], then this ability will not trigger for secondary targets of a [color=GOLD]splash attack[/color] for example.
+ 
+For [color=GOLD]splash attacks[/color], the main creep is considered to be the [color=GOLD]main target[/color]. For [color=GOLD]multishot attacks[/color], one of the targets is considered to be the [color=GOLD]main target[/color]. For [color=GOLD]bounce attacks[/color], the first hit creep is considered to be the [color=GOLD]main target[/color].
+ 
+[color=GOLD]On hit[/color] abilities will trigger even if the attack projectile somehow deals 0 damage.
+ 
+[color=GOLD]On hit[/color] abilities will not trigger from damage dealt by tower abilities or item abilities. For example, if a tower is carrying an item which sometimes shoots a projectile at a creep, the hits from this projectile will not trigger [color=GOLD]On hit[/color] abilities.
+"
+8,"On spell cast abilities","[color=GOLD]On spell cast[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower casts a spell...][/color]. Such abilities are triggered when the tower uses an [color=GOLD]active ability[/color]. Passive abilities don't count even if they have a cooldown.
+ 
+[color=GOLD]On spell cast[/color] abilities sometimes include more specific conditions like [color=GOLD][Whenever this tower casts a spell on a friendly tower...][/color]. In such cases, the ability will trigger only when the tower uses an active [color=GOLD]targeted[/color] ability on a friendly tower. You can check if the ability is targeted by trying to cast it yourself and seeing if there's a targeting cursor.
+"
+9,"Attack speed adjusted chance","Some abilities will mention that they have an [color=GOLD]Attack speed adjusted chance[/color] to trigger. What this means is that if the ability has a base 10% chance to trigger on attack, then this ability will trigger at the same rate for towers with different attack speeds.
+ 
+For a tower with 1.0 second attack speed, the ability will trigger [color=GOLD][0.10 * 1.0 = 0.10 = 10%][/color] of the time. In a 10 second period, the ability will on average trigger one time.
+ 
+For a tower with 0.5 second attack speed, the ability will trigger [color=GOLD][0.10 * 0.5 = 0.05 = 5%][/color] of the time. In a 10 second period, the ability will on average trigger one time.
+"

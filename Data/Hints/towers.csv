@@ -41,17 +41,7 @@ Example: A tower has 10% critical chance, 50% critical damage bonus and multicri
  
 Note that only [color=GOLD]attack damage[/color] can multicrit, [color=GOLD]spell damage[/color] can only crit once.
 "
-8,"Diminishing Returns","Some tower stats are affected by [color=GOLD]diminishing returns[/color]. These stats will get less effect from items, auras and other modifications once the stat goes above 170% or below 60%. This means that you should avoid stacking all of the bonuses for these stats on a single tower and try to spread the power around evenly to all of your towers.
- 
-All of the stats in the [color=GOLD]Misc[/color] section in [color=GOLD]Tower Details[/color] are affected by [color=GOLD]diminishing returns[/color]:
-- Bounty ratio
-- Exp ratio
-- Item drop ratio
-- Item quality ratio
-- Trigger chances
-- Buff duration
-- Debuff duration"
-"9","Tower Level","Towers gain experience when they kill creeps and once they get enough experience, their level increases. Leveling up increases the power of tower abilities and some items.
+"8","Tower Level","Towers gain experience when they kill creeps and once they get enough experience, their level increases. Leveling up increases the power of tower abilities and some items.
  
 In addition, all towers gain bonuses to the following stats when they level up:
  
@@ -61,7 +51,7 @@ In addition, all towers gain bonuses to the following stats when they level up:
 +2% spell crit damage
 +4% base damage
 +1% attack speed"
-10,"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
+9,"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
  
 [color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], [color=DODGER_BLUE]Energy[/color], [color=AQUAMARINE]Essence[/color], [color=CORNFLOWER_BLUE]Elemental[/color] and [color=DEEP_SKY_BLUE]Magic[/color].
  
@@ -69,32 +59,15 @@ Each [color=GOLD]attack type[/color] deals different amounts of damage to [color
  
 You can check the stats of a tower's [color=GOLD]attack type[/color] by selecting the tower and then mousing over the [color=GOLD]attack type[/color] in the tower menu.
 "
-11,"Carry towers","Usually, a single tower will tend to become more powerful than others and will get the majority of kills as a result. More kills means more experience and levels which will make that tower get even more powerful and get more kills. Such towers are called [color=GOLD]Carry[/color] towers.
- 
-You can check your best tower in [color=GOLD]Game Stats[/color], which shows towers with [color=GOLD]most kills[/color].
- 
-It is a good idea to prioritize your [color=GOLD]Carry[/color] tower for oils, items and upgrades. For example, f you have a level 15 tower and a level 2 tower then the adding oils to level 2 tower is generally a bad idea.
+10,"Item drop and item quality","Put items that increase item drop and item quality only on towers that secure many kills. Only the killer's ratio will be used for calculations!
 "
-12,"Item drop and item quality","Put items that increase item drop and item quality only on towers that secure many kills. Only the killer's ratio will be used for calculations!
-"
-13,"Support towers","[color=GOLD]Support[/color] towers are towers which do not provide as much firepower as [color=GOLD]Carry[/color] towers but have valuable abilities which empower other towers.
- 
-Such towers should be built strategically next to [color=GOLD]Carry[/color] towers to make them even more powerful.
- 
-[color=GOLD]Support[/color] towers can be useful even at low levels. If you can build a tower with a useful support ability and got food to spare, build it!
-"
-14,"Distribute experience","Towers continue to get experience from kills even after reaching the max level. There are items which transfer experience from one tower to another. Try to use such items on max level towers to distribute the extra experience."
-15,"Buff groups","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on the left side of the menu.
+11,"Buff groups","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on the left side of the menu.
  
 Mouse over the [color=GOLD]buff group[/color] buttons to read more details.
  
-[color=GOLD]Buff groups[/color] can be used to create powerful setups between buffing towers and [color=GOLD]Carry[/color] towers. An example setup could be:
-- Buffing tower is assigned to CASTER [color=GOLD]buff group[/color] 1
+[color=GOLD]Buff groups[/color] can be used to create powerful setups between [color=GOLD]Buffing[/color] towers and [color=GOLD]Carry[/color] towers. An example setup could be:
+- [color=GOLD]Buffing[/color] tower is assigned to CASTER [color=GOLD]buff group[/color] 1
 - [color=GOLD]Carry[/color] tower is assigned to RECEIVER [color=GOLD]buff group[/color] 1
+
 As a result, the buffing tower will only cast buffs on the [color=GOLD]Carry[/color] tower. Normally, buffing towers will choose targets randomly but with this setup you will maximize the gain from the buffs.
 "
-16,"Stacking buffs","In general, buffs coming two copies of the same tower will not stack. For example, if you got two copies of the same tower which slows creeps by 10%, then total effect will be 10%, not 20%! Buffs from towers at different upgrade levels but in same family will also not stack.
- 
-There are exceptions, in which case the ability tooltip will mention that it stacks.
- 
-Note that this also applies to items with abilities."
