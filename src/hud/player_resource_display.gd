@@ -4,6 +4,7 @@ class_name PlayerResourceDisplay extends PanelContainer
 # Displays the amounts of player resources.
 
 
+@export var _lives_status: ResourceStatusPanel
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
 @export var _food_status: ResourceStatusPanel
@@ -18,9 +19,13 @@ func _process(_delta: float):
 
 	if local_player == null:
 		return
+	
+	var local_team: Team = local_player.get_team()
+	var portal_lives: String = local_team.get_lives_string()
+	_lives_status.set_label_text(portal_lives)
 
-	var gold: float = local_player.get_gold()
-	var gold_string: String = str(floori(gold))
+	var gold: int = floori(local_player.get_gold())
+	var gold_string: String = TowerDetails.int_format(gold)
 	_gold_status.set_label_text(gold_string)
 
 	var tomes: int = local_player.get_tomes()

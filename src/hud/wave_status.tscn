@@ -12,7 +12,7 @@ unicode = 110
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
 events = [SubResource("InputEventKey_srlh2")]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_start_game_button", "_start_next_wave_button", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label", "_score_label", "_lives_label", "_game_time_label", "_total_damage_label", "_gold_farmed_label")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_start_game_button", "_start_next_wave_button", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label", "_score_label", "_game_time_label", "_total_damage_label", "_gold_farmed_label")]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
@@ -26,11 +26,10 @@ _game_start_time_container = NodePath("HBoxContainer/GameStartTimeContainer")
 _game_start_time_label = NodePath("HBoxContainer/GameStartTimeContainer/GameStartTimeLabel")
 _next_wave_time_container = NodePath("HBoxContainer/NextWaveTimeContainer")
 _next_wave_time_label = NodePath("HBoxContainer/NextWaveTimeContainer/NextWaveTimeLabel")
-_score_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/ScoreLabel")
-_lives_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/LivesLabel")
-_game_time_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/GameTimeLabel")
-_total_damage_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer2/TotalDamageLabel")
-_gold_farmed_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer2/GoldFarmedLabel")
+_score_label = NodePath("HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer/ScoreLabel")
+_game_time_label = NodePath("HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer2/GameTimeLabel")
+_total_damage_label = NodePath("HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer3/TotalDamageLabel")
+_gold_farmed_label = NodePath("HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer4/GoldFarmedLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -87,54 +86,55 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "Score:"
 
-[node name="ScoreLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
 text = "11"
 
-[node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0, 1)
-text = "    Lives:"
 
-[node name="LivesLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "11%"
-
-[node name="Label3" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Label3" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "    Game time:"
 
-[node name="GameTimeLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="GameTimeLabel" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer2"]
 layout_mode = 2
 text = "03:07"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label4" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "Total damage:"
 
-[node name="TotalDamageLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="TotalDamageLabel" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer3"]
 layout_mode = 2
 text = "11"
 
-[node name="Label5" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "    Gold farmed:"
 
-[node name="GoldFarmedLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="GoldFarmedLabel" type="Label" parent="HBoxContainer2/VBoxContainer/GridContainer/HBoxContainer4"]
 layout_mode = 2
 text = "11"
 

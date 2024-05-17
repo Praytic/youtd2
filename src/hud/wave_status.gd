@@ -14,7 +14,6 @@ class_name WaveStatus extends VBoxContainer
 @export var _next_wave_time_container: HBoxContainer
 @export var _next_wave_time_label: Label
 @export var _score_label: Label
-@export var _lives_label: Label
 @export var _game_time_label: Label
 @export var _total_damage_label: Label
 @export var _gold_farmed_label: Label
@@ -62,9 +61,6 @@ func _process(_delta: float):
 	var total_damage_string: String = TowerDetails.int_format(floori(total_damage))
 	_total_damage_label.text = total_damage_string
 	
-	var lives_string: String = local_player.get_team().get_lives_string()
-	_lives_label.text = lives_string
-
 	var score: float = local_player.get_score()
 	var score_string: String = TowerDetails.int_format(floori(score))
 	_score_label.text = score_string
