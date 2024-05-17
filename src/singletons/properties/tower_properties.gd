@@ -42,7 +42,7 @@ const TOWER_RANGES_PATH: String = "res://data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://src/towers/tower_sprites"
 const TOWER_BEHAVIORS_DIR: String = "res://src/towers/tower_behaviors"
 const TOWER_ICON_DIR: String = "res://resources/icons/tower_icons"
-const PLACEHOLDER_ITEM_ICON: String = "res://resources/icons/tower_icons/AbandonedPit.tres"
+const PLACEHOLDER_ITEM_ICON: String = "res://resources/icons/tower_icons/abandoned_pit.tres"
 
 const REQUIRED_WAVE_MAX: int = 80
 
@@ -545,7 +545,7 @@ func get_range_data_list(tower_id: int) -> Array[RangeData]:
 
 
 # Family name is the name of the first tier tower in the
-# family, with spaces removed. Used to construct filenames
+# family, converted to snake case. Used to construct filenames
 # for tower scenes and scripts.
 func get_family_name(tower_id: int) -> String:
 	var family_id: int = TowerProperties.get_family(tower_id)
@@ -559,9 +559,11 @@ func get_family_name(tower_id: int) -> String:
 
 #	NOTE: remove weird chars because family name is used for
 #	filenames
-	var family_name: String = first_tier_name.replace(" ", "")
-	family_name = family_name.replace(",", "")
+	var family_name: String = first_tier_name
 	family_name = family_name.replace("'", "")
+	family_name = family_name.replace(".", "")
+	family_name = family_name.replace(",", "")
+	family_name = family_name.to_snake_case()
 
 	return family_name
 
@@ -569,7 +571,7 @@ func get_family_name(tower_id: int) -> String:
 func get_sprite_path(tower_id: int) -> String:
 	var family_name: String = TowerProperties.get_family_name(tower_id)
 	var tier: int = TowerProperties.get_tier(tower_id)
-	var sprite_path: String = "%s/%s%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
+	var sprite_path: String = "%s/%s_%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
 	
 	return sprite_path
 

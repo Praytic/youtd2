@@ -7,10 +7,7 @@ extends Node
 const ICON_SIZE = 128
 const TIER_ICON_SIZE = 64
 
-const _creep_icons: Texture2D = preload("res://assets/icons/creep_icons_atlas.png")
-const _tier_icons_m: Texture2D = preload("res://assets/icons/tier_icons_m.png")
-const _tower_icons_m: Texture2D = preload("res://assets/icons/tower_icons_m.png")
-const _placeholder_tower_icon: Texture2D = preload("res://resources/icons/tower_icons/ObeliskofFortuity.tres")
+const _placeholder_tower_icon: Texture2D = preload("res://resources/icons/tower_icons/obelisk_of_fortuity.tres")
 const CREEP_ICON_DIR: String = "res://resources/icons/creep_icons"
 const TIER_ICON_DIR: String = "res://resources/icons/tier_icons"
 
