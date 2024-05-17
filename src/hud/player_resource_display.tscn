@@ -1,16 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_mggw6"]
-[ext_resource type="Script" path="res://src/hud/bottom_menu_bar/bottom_menu_bar.gd" id="2_m57on"]
-[ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://resources/theme/bottom_menu_bar/rect_container_top_menu.tres" id="3_i5jws"]
-[ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://src/hud/bottom_menu_bar/resource_status_panel.tscn" id="4_ajusi"]
+[ext_resource type="Script" path="res://src/hud/player_resource_display.gd" id="2_m57on"]
+[ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://resources/theme/player_resource_display/rect_container_top_menu.tres" id="3_i5jws"]
+[ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://src/hud/status_panel/resource_status_panel.tscn" id="4_ajusi"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://resources/icons/hud/gold.tres" id="5_uvsoy"]
 [ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://resources/icons/hud/knowledge_tome.tres" id="6_6qkfi"]
 [ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://resources/icons/hud/tower_food.tres" id="7_rye6p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrkv0"]
 
-[node name="BottomMenuBar" type="PanelContainer" node_paths=PackedStringArray("_tomes_status", "_gold_status", "_food_status")]
+[node name="PlayerResourceDisplay" type="PanelContainer" node_paths=PackedStringArray("_tomes_status", "_gold_status", "_food_status")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 73.0

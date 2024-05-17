@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://1a6qmxkrspc8"]
 
-[ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://resources/theme/bottom_menu_bar/resource_status_panel.tres" id="1_ri1eg"]
-[ext_resource type="Script" path="res://src/hud/bottom_menu_bar/resource_status_panel.gd" id="2_y71mw"]
+[ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://resources/theme/player_resource_display/resource_status_panel.tres" id="1_ri1eg"]
+[ext_resource type="Script" path="res://src/hud/status_panel/resource_status_panel.gd" id="2_y71mw"]
 
 [node name="ResourceStatusPanel" type="Panel" node_paths=PackedStringArray("_label")]
 custom_minimum_size = Vector2(120, 40)

@@ -1,4 +1,7 @@
-class_name BottomMenuBar extends PanelContainer
+class_name PlayerResourceDisplay extends PanelContainer
+
+
+# Displays the amounts of player resources.
 
 
 @export var _tomes_status: ResourceStatusPanel
