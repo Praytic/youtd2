@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfkqoriruwxt8"]
+
+[ext_resource type="Script" path="res://src/hud/flying_item.gd" id="1_5ump5"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/UnitButton.tscn" id="2_f21m0"]
+
+[node name="FlyingItem" type="Control" node_paths=PackedStringArray("_unit_button")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5ump5")
+_unit_button = NodePath("UnitButton")
+
+[node name="UnitButton" parent="." instance=ExtResource("2_f21m0")]
+layout_mode = 0
+mouse_filter = 2

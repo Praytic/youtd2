@@ -193,7 +193,7 @@ func _ready():
 		var builder_id: int = Config.autostart_builder_id()
 		_set_builder_for_local_player(builder_id)
 	else:
-		var builder_menu: BuilderMenu = preload("res://src/hud/BuilderMenu.tscn").instantiate()
+		var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
 		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		
 #		NOTE: add builder menu below game menu so that game

@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://bx03slt7u3oce"]
+
+[ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://src/hud/button_status_card.tscn" id="1_r4shn"]
+[ext_resource type="Script" path="res://src/hud/towers_status_card.gd" id="2_kkn58"]
+[ext_resource type="Texture2D" uid="uid://r7qkt7vep0ar" path="res://resources/icons/hud/tower_stash.tres" id="4_7jrlq"]
+[ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://src/hud/bottom_menu_bar/ShortResourceStatusPanel.tscn" id="4_dt3ka"]
+[ext_resource type="Texture2D" uid="uid://63uq7vjycais" path="res://resources/icons/elements/ice.tres" id="5_fghnp"]
+[ext_resource type="Texture2D" uid="uid://c14cl1op1y5wk" path="res://resources/icons/elements/nature.tres" id="6_1l58v"]
+[ext_resource type="Texture2D" uid="uid://bvhrjk28kmjxg" path="res://resources/icons/elements/fire.tres" id="7_73uer"]
+[ext_resource type="Texture2D" uid="uid://b58m66c4f8n2n" path="res://resources/icons/elements/astral.tres" id="8_jlm3b"]
+[ext_resource type="Texture2D" uid="uid://b7c8ugpn34iib" path="res://resources/icons/elements/darkness.tres" id="9_6i5d2"]
+[ext_resource type="Texture2D" uid="uid://3aghxlv6b4hb" path="res://resources/icons/elements/iron.tres" id="10_cauc6"]
+[ext_resource type="Texture2D" uid="uid://ofrvficsj8ih" path="res://resources/icons/elements/storm.tres" id="11_n1ear"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_vl08n"]
+device = -1
+physical_keycode = 84
+unicode = 116
+
+[sub_resource type="Shortcut" id="Shortcut_lrntq"]
+events = [SubResource("InputEventKey_vl08n")]
+
+[node name="TowersStatusCard" node_paths=PackedStringArray("_towers_status_panel", "_ice_towers_status_panel", "_nature_towers_status_panel", "_fire_towers_status_panel", "_astral_towers_status_panel", "_darkness_towers_status_panel", "_iron_towers_status_panel", "_storm_towers_status_panel", "_short_resource_status_panels") instance=ExtResource("1_r4shn")]
+script = ExtResource("2_kkn58")
+_towers_status_panel = NodePath("PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2")
+_ice_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel")
+_nature_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel")
+_fire_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel")
+_astral_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel")
+_darkness_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel")
+_iron_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel")
+_storm_towers_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")
+_short_resource_status_panels = [NodePath("PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"), NodePath("PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")]
+
+[node name="TowersCountPanel2" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("4_7jrlq")
+
+[node name="IceTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="0" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("5_fghnp")
+
+[node name="NatureTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="1" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("6_1l58v")
+
+[node name="FireTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="2" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("7_73uer")
+
+[node name="AstralTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="3" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("8_jlm3b")
+
+[node name="DarknessTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="4" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("9_6i5d2")
+
+[node name="IronTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="5" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("10_cauc6")
+
+[node name="StormTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="6" instance=ExtResource("4_dt3ka")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("11_n1ear")
+
+[node name="MainButton" parent="AspectRatioContainer" index="0"]
+tooltip_text = "Open Tower Stash (T)"
+shortcut = SubResource("Shortcut_lrntq")
+shortcut_in_tooltip = false
+
+[editable path="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]

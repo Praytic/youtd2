@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3grhp7bp5t54"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_lhpbt"]
+[ext_resource type="Script" path="res://src/hud/top_left_menu.gd" id="2_ijvc2"]
+[ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://src/hud/wave_status.tscn" id="2_l18jy"]
+[ext_resource type="PackedScene" uid="uid://jm3vhrboca8b" path="res://src/hud/game_stats.tscn" id="3_k62ty"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwtay"]
+
+[node name="TopLeftMenu" type="PanelContainer" node_paths=PackedStringArray("_wave_status", "_game_stats")]
+theme = ExtResource("1_lhpbt")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hwtay")
+script = ExtResource("2_ijvc2")
+_wave_status = NodePath("TabContainer/Wave Status")
+_game_stats = NodePath("TabContainer/Game Stats")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0.705882)
+custom_minimum_size = Vector2(640, 250)
+layout_mode = 2
+
+[node name="Wave Status" parent="TabContainer" instance=ExtResource("2_l18jy")]
+layout_mode = 2
+
+[node name="Game Stats" parent="TabContainer" instance=ExtResource("3_k62ty")]
+visible = false
+layout_mode = 2
