@@ -1,43 +1,38 @@
-class_name TowerMenu
-extends PanelContainer
+class_name UnitMenu extends PanelContainer
 
 
-# This has been replaced with UnitMenu. Delete this file soon.
+# This menu is displayed when a unit is selected. Displays
+# info about towers and creeps and allows performing actions
+# on them.
 
-
-enum Tabs {
-	MAIN = 0,
-	DETAILS = 1
-}
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
 
-@export var _tab_container: TabContainer
 @export var _tower_button: TowerButton
-@export var _title_label: Label
+@export var _creep_button: UnitButton
 @export var _level_label: Label
-@export var _info_label: RichTextLabel
 @export var _reset_sell_button_timer: Timer
 @export var _upgrade_button: Button
 @export var _sell_button: Button
-@export var _details_tab: ScrollContainer
-@export var _specials_scroll_container: ScrollContainer
-@export var _inventory_empty_slots: GridContainer
-@export var _items_box_container: GridContainer
+@export var _inventory_empty_grid: GridContainer
+@export var _inventory_grid: GridContainer
 @export var _buff_container: BuffContainer
-@export var _details: TowerDetails
-@export var _buff_group_container: VBoxContainer
+@export var _buff_group_container: BoxContainer
 @export var _buff_group_button_1: BuffGroupButton
 @export var _buff_group_button_2: BuffGroupButton
 @export var _buff_group_button_3: BuffGroupButton
 @export var _buff_group_button_4: BuffGroupButton
 @export var _buff_group_button_5: BuffGroupButton
 @export var _buff_group_button_6: BuffGroupButton
-@export var _passive_ability_container: GridContainer
-@export var _active_ability_container: GridContainer
+@export var _ability_grid: GridContainer
+@export var _exp_bar: ProgressBarWithLabel
+@export var _health_bar: ProgressBarWithLabel
+@export var _mana_bar: ProgressBarWithLabel
 
 var _selling_for_real: bool = false
-var _tower: Tower = null
+var _unit: Unit = null
+var _tower: Unit = null
+var _creep: Creep = null
 
 @onready var _buff_group_button_list: Array[BuffGroupButton] = [
 	_buff_group_button_1,
@@ -48,86 +43,142 @@ var _tower: Tower = null
 	_buff_group_button_6,
 ]
 
+@onready var _visible_controls_for_tower: Array[Control] = [
+	_tower_button,
+	_exp_bar,
+	_upgrade_button,
+	_sell_button,
+	_buff_group_container,
+	_buff_group_container,
+]
+
+@onready var _visible_controls_for_creep: Array[Control] = [
+	_creep_button,
+	_health_bar,
+]
 
 #########################
 ###     Built-in      ###
 #########################
 
 func _ready():
-	_info_label.mouse_entered.connect(_on_info_label_mouse_entered)
-
-	_info_label.mouse_exited.connect(_on_info_label_mouse_exited)
-	_info_label.tree_exited.connect(_on_info_label_mouse_exited)
-	_info_label.hidden.connect(_on_info_label_mouse_exited)
+	_tower_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
 
 
 func _process(_delta: float):
-	if _tower == null:
+	if _unit == null:
 		return
-
-# 	NOTE: need to update info label every frame because it
-# 	displays creep's armor stat which changes. Also need to
-# 	update upgrade button because it depends on player's
-# 	gold/tomes which change.
-	_info_label.text = RichTexts.get_tower_info_short(_tower)
-	_update_upgrade_button()
+	
+	var health: int = floori(_unit.get_health())
+	var health_max: int = floori(_unit.get_overall_health())
+	var health_ratio: float = _unit.get_health_ratio()
+	var health_string: String = "%d/%d" % [floori(health), floori(health_max)]
+	_health_bar.set_text(health_string)
+	_health_bar.set_as_ratio(health_ratio)
+	
+	var mana: float = _unit.get_mana()
+	var mana_max: float = _unit.get_overall_mana()
+	var mana_ratio: float = _unit.get_mana_ratio()
+	var mana_string: String = "%d/%d" % [floori(mana), floori(mana_max)]
+	_mana_bar.set_text(mana_string)
+	_mana_bar.set_as_ratio(mana_ratio)
+	
+	var unit_level: int = _unit.get_level()
+	var unit_is_max_level: bool = unit_level == Constants.MAX_LEVEL
+	if !unit_is_max_level:
+		var exp_for_current_level: int = Experience.get_exp_for_level(unit_level)
+		var exp_for_next_level: int = Experience.get_exp_for_level(unit_level + 1)
+		var current_exp: int = floori(_unit.get_exp())
+		var exp_over_current_level: int = current_exp - exp_for_current_level
+		var exp_until_next_level: int = exp_for_next_level - exp_for_current_level
+		var exp_ratio: float = Utils.divide_safe(exp_over_current_level, exp_until_next_level)
+		var exp_string: String = "%d/%d" % [current_exp, exp_for_next_level]
+		_exp_bar.set_text(exp_string)
+		_exp_bar.set_as_ratio(exp_ratio)
+	else:
+		var current_exp: int = floori(_unit.get_exp())
+		var exp_for_max_level: int = Experience.get_exp_for_level(Constants.MAX_LEVEL)
+		var exp_string: String = "%d/%d" % [current_exp, exp_for_max_level]
+		_exp_bar.set_text(exp_string)
+		_exp_bar.set_as_ratio(1.0)
 
 
 #########################
 ###       Public      ###
 #########################
 
-func set_tower(tower: Tower):
-	var prev_tower: Tower = _tower
-	_tower = tower
-
-	_details.set_tower(tower)
+func set_unit(unit: Unit):
+	var prev_unit: Unit = _unit
 	
+	_unit = unit
+	_tower = unit as Tower
+	_creep = unit as Creep
+	
+	if prev_unit != null:
+		prev_unit.buff_list_changed.disconnect(_on_buff_list_changed)
+	
+		if prev_unit is Tower:
+			var prev_tower: Tower = prev_unit as Tower
+			prev_tower.level_up.disconnect(_on_tower_level_up)
+			prev_tower.items_changed.disconnect(_on_tower_items_changed)
+	
+#	NOTE: need to setup visibility before calling _load_tower() because it can further hide some controls conditionally.
+	for control in _visible_controls_for_tower:
+		control.visible = unit is Tower
+	
+	for control in _visible_controls_for_creep:
+		control.visible = unit is Creep
+	
+	if unit != null:
+		_load_unit()
+	
+	if unit is Tower:
+		_load_tower()
+	elif unit is Creep:
+		_load_creep()
+
+
+#########################
+###      Private      ###
+#########################
+
+func _load_unit():
+	_unit.buff_list_changed.connect(_on_buff_list_changed)
+	_on_buff_list_changed()
+	
+	var overall_mana: float = _unit.get_overall_mana()
+	var unit_has_mana: bool = overall_mana > 0
+	_mana_bar.visible = unit_has_mana
+
+	var prev_button_list: Array = _ability_grid.get_children()
+	for button in prev_button_list:
+		_ability_grid.remove_child(button)
+		button.queue_free()
+
+
+func _load_tower():
 	for button in _buff_group_button_list:
-		button.set_tower(tower)
+		button.set_tower(_tower)
 
-#	Reset all scroll positions when switching to a different unit
-	Utils.reset_scroll_container(_specials_scroll_container)
-	Utils.reset_scroll_container(_details_tab)
+	_tower.items_changed.connect(_on_tower_items_changed)
+	_on_tower_items_changed()
 
-	if prev_tower != null and prev_tower is Tower:
-		prev_tower.items_changed.disconnect(_on_tower_items_changed)
-		prev_tower.buff_list_changed.disconnect(_on_buff_list_changed)
-		prev_tower.level_up.disconnect(_on_tower_level_up)
-	
-#	NOTE: properties below are skipped if tower is null because they can't be loaded
-	if tower == null:
-		return
-	
-	tower.items_changed.connect(_on_tower_items_changed.bind(tower))
-	_on_tower_items_changed(tower)
-	
-	tower.buff_list_changed.connect(_on_buff_list_changed.bind(tower))
-	_on_buff_list_changed(tower)
-	
-	tower.level_up.connect(_on_tower_level_up)
+	_tower.level_up.connect(_on_tower_level_up)
 	_update_level_label()
 
-	var tower_name: String = tower.get_display_name()
-	_title_label.text = tower_name
+	var inventory_capacity: int = _tower.get_inventory_capacity()
+	_update_inventory_empty_slots(inventory_capacity)
+	_update_sell_tooltip()
+	_setup_tower_ability_buttons()
 
-	_update_inventory_empty_slots(tower)
-	_update_sell_tooltip(tower)
-
-	var tooltip_for_info_label: String = _get_tooltip_for_info_label()
-	_info_label.set_tooltip_text(tooltip_for_info_label)
-
-	_setup_ability_buttons()
-
-	_tower_button.set_tower_id(tower.get_id())
+	var tower_id: int = _tower.get_id()
+	_tower_button.set_tower_id(tower_id)
 	_tower_button.set_tier_visible(true)
-	
-	_tower_button.set_tower_id(tower.get_id())
 
 	_set_selling_for_real(false)
 
-	var tower_belongs_to_local_player: bool = tower.belongs_to_local_player()
-	
+	var tower_belongs_to_local_player: bool = _tower.belongs_to_local_player()
+
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
 	_upgrade_button.visible = upgrade_button_should_be_visible && tower_belongs_to_local_player
@@ -135,9 +186,19 @@ func set_tower(tower: Tower):
 	_buff_group_container.visible = tower_belongs_to_local_player
 
 
-#########################
-###      Private      ###
-#########################
+func _load_creep():
+	var icon: Texture2D = UnitIcons.get_creep_icon(_creep)
+	_creep_button.set_icon(icon)
+
+	var empty_item_list: Array[Item] = []
+	_load_items(empty_item_list)
+	_update_inventory_empty_slots(0)
+	
+	_setup_creep_ability_buttons()
+
+	var creep_level: int = _creep.get_spawn_level()
+	_level_label.text = str(creep_level)
+
 
 func _connect_to_ability_button(button: AbilityButton):
 	button.mouse_entered.connect(_on_ability_button_mouse_entered.bind(button))
@@ -155,22 +216,12 @@ func _connect_to_autocast_button(button: AutocastButton):
 	button.hidden.connect(_on_autocast_button_mouse_exited.bind(button))
 
 
-func _setup_ability_buttons():
-	var prev_passive_button_list: Array = _passive_ability_container.get_children()
-	for button in prev_passive_button_list:
-		_passive_ability_container.remove_child(button)
-		button.queue_free()
-	
-	var prev_active_button_list: Array = _active_ability_container.get_children()
-	for button in prev_active_button_list:
-		_active_ability_container.remove_child(button)
-		button.queue_free()
-
+func _setup_tower_ability_buttons():	
 	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list()
 	
 	for ability_info in ability_info_list:
 		var button: AbilityButton = AbilityButton.make(ability_info)
-		_passive_ability_container.add_child(button)
+		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
 	var aura_type_list: Array[AuraType] = _tower.get_aura_types()
@@ -179,31 +230,23 @@ func _setup_ability_buttons():
 			continue
 
 		var button: AbilityButton = AbilityButton.make_from_aura_type(aura_type)
-		_passive_ability_container.add_child(button)
+		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
-	for autocast in _tower.get_autocast_list():
+	var autocast_list: Array[Autocast] = _tower.get_autocast_list()
+	for autocast in autocast_list:
 		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
-		_active_ability_container.add_child(autocast_button)
+		_ability_grid.add_child(autocast_button)
 		_connect_to_autocast_button(autocast_button)
 
 
-func _get_specials_text(tower: Tower) -> String:
-	var text: String = ""
-
-	var abilities_text: String = RichTexts.get_abilities_text(tower)
-
-	text += abilities_text
-
-	if !abilities_text.is_empty():
-		text += " \n"
-
-	for autocast in tower.get_autocast_list():
-		var autocast_text: String = RichTexts.get_autocast_text(autocast)
-		text += autocast_text
-		text += " \n"
+func _setup_creep_ability_buttons():
+	var ability_info_list: Array[AbilityInfo] = _creep.get_ability_info_list()
 	
-	return text
+	for ability_info in ability_info_list:
+		var button: AbilityButton = AbilityButton.make(ability_info)
+		_ability_grid.add_child(button)
+		_connect_to_ability_button(button)
 
 
 func _update_level_label():
@@ -212,14 +255,20 @@ func _update_level_label():
 
 # Show the number of empty slots equal to tower's inventory
 # capacity
-func _update_inventory_empty_slots(tower: Tower):
-	var inventory_capacity: int = tower.get_inventory_capacity()
+func _update_inventory_empty_slots(inventory_capacity: int):
+	var inventory_empty_slots: Array[Node] = _inventory_empty_grid.get_children()
 
-	var inventory_slots: Array[Node] = _inventory_empty_slots.get_children()
-
-	for i in range(0, inventory_slots.size()):
-		var slot: Control = inventory_slots[i] as Control
-		slot.visible = i < inventory_capacity
+#	NOTE: need to make slots transparent instead of
+#	invisible to have correct size for grid container
+	for i in range(0, inventory_empty_slots.size()):
+		var slot: Control = inventory_empty_slots[i] as Control
+		var slot_is_available: bool = i < inventory_capacity
+		var slot_color: Color
+		if slot_is_available:
+			slot_color = Color.WHITE
+		else:
+			slot_color = Color.TRANSPARENT
+		slot.modulate = slot_color
 
 
 func _update_upgrade_button():
@@ -238,11 +287,12 @@ func _update_upgrade_button():
 	_upgrade_button.set_disabled(!can_upgrade)
 
 
-func _update_sell_tooltip(tower: Tower):
+func _update_sell_tooltip():
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
 	var sell_ratio_string: String = Utils.format_percent(sell_ratio, 0)
-	var sell_price: int = TowerProperties.get_sell_price(tower.get_id())
+	var tower_id: int = _tower.get_id()
+	var sell_price: int = TowerProperties.get_sell_price(tower_id)
 	var tooltip: String = "Sell tower\nYou will receive %d gold (%s of original cost)." % [sell_price, sell_ratio_string]
 
 	_sell_button.set_tooltip_text(tooltip)
@@ -295,19 +345,23 @@ func _set_ability_range_visible(button: AbilityButton, value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_tower_items_changed(tower: Tower):
-	for item_button in _items_box_container.get_children():
-		_items_box_container.remove_child(item_button)
+func _on_tower_items_changed():
+	var item_list: Array[Item] = _tower.get_items()
+	_load_items(item_list)
+
+
+func _load_items(item_list: Array[Item]):
+	for item_button in _inventory_grid.get_children():
+		_inventory_grid.remove_child(item_button)
 		item_button.queue_free()
 
-	var items: Array[Item] = tower.get_items()
-
-	for item in items:
+	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
 		item_button.show_cooldown_indicator()
 		item_button.show_auto_mode_indicator()
 		item_button.show_charges()
-		_items_box_container.add_child(item_button)
+		item_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
+		_inventory_grid.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 		item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
 		item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
@@ -354,18 +408,18 @@ func _on_sell_button_pressed():
 	EventBus.player_requested_to_sell_tower.emit(_tower)
 
 
-func _on_details_button_pressed():
-	var new_tab: int
-	if _tab_container.current_tab == Tabs.MAIN:
-		new_tab = Tabs.DETAILS
-	else:
-		new_tab = Tabs.MAIN
-		
-	_tab_container.set_current_tab(new_tab)
+#func _on_details_button_pressed():
+#	var new_tab: int
+#	if _tab_container.current_tab == Tabs.MAIN:
+#		new_tab = Tabs.DETAILS
+#	else:
+#		new_tab = Tabs.MAIN
+#
+#	_tab_container.set_current_tab(new_tab)
 
 
-func _on_buff_list_changed(unit: Unit):
-	_buff_container.load_buffs_for_unit(unit)
+func _on_buff_list_changed():
+	_buff_container.load_buffs_for_unit(_unit)
 
 
 func _on_upgrade_button_mouse_entered():
@@ -379,14 +433,7 @@ func _on_upgrade_button_mouse_entered():
 	else:
 		tooltip = "Cannot upgrade any further."
 
-	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
-
-
-func _on_items_container_gui_input(event):
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		EventBus.player_clicked_tower_inventory.emit(_tower)
+	ButtonTooltip.show_tooltip(_upgrade_button, tooltip, ButtonTooltip.Location.BOTTOM)
 
 
 # When tower menu is closed, deselect the unit which will
@@ -415,15 +462,8 @@ func _on_ability_button_mouse_exited(button: AbilityButton):
 	_set_ability_range_visible(button, false)
 
 
-func _on_info_label_mouse_entered():
-	if _tower == null:
-		return
+func _on_inventory_grid_gui_input(event):
+	var left_click: bool = event.is_action_released("left_click")
 
-	_tower.set_range_indicator_visible("Attack Range", true)
-
-
-func _on_info_label_mouse_exited():
-	if _tower == null:
-		return
-
-	_tower.set_range_indicator_visible("Attack Range", false)
+	if left_click:
+		EventBus.player_clicked_tower_inventory.emit(_tower)

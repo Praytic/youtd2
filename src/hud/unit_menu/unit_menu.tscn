@@ -1,0 +1,666 @@
+[gd_scene load_steps=27 format=3 uid="uid://dcqjart40vpjy"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_trhe5"]
+[ext_resource type="Script" path="res://src/hud/unit_menu/unit_menu.gd" id="2_maep6"]
+[ext_resource type="PackedScene" uid="uid://22mf4myucw0w" path="res://src/hud/buttons/tower_button.tscn" id="3_muugt"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="4_bl3rp"]
+[ext_resource type="PackedScene" uid="uid://d4mgo5v7j01kj" path="res://src/hud/unit_menu/buff_display.tscn" id="4_d2h33"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://resources/theme/unit_menu/unit_level_label_normal.tres" id="4_mpyt6"]
+[ext_resource type="PackedScene" uid="uid://d0aesr1u8n1xt" path="res://src/hud/buttons/ability_button.tscn" id="5_iq4vd"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="5_xoeuc"]
+[ext_resource type="Script" path="res://src/hud/buttons/buff_group_button.gd" id="6_q2twi"]
+[ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://src/hud/unit_menu/buff_container.tscn" id="8_1niac"]
+[ext_resource type="PackedScene" uid="uid://bscc3lifv4bx4" path="res://src/hud/unit_menu/progress_bar_with_label.tscn" id="8_7iile"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="8_ami32"]
+[ext_resource type="Texture2D" uid="uid://gjoldkg0ife" path="res://resources/icons/creep_icons/orc_normal.tres" id="9_7dqoj"]
+[ext_resource type="StyleBox" uid="uid://bxmrnso7h7np1" path="res://resources/theme/unit_menu/exp_bar_background.tres" id="9_lvj74"]
+[ext_resource type="StyleBox" uid="uid://dab1qvryjypqs" path="res://resources/theme/unit_menu/exp_bar_fill.tres" id="10_6udoc"]
+[ext_resource type="StyleBox" uid="uid://bg0camfo41dqc" path="res://resources/theme/unit_menu/health_bar_background.tres" id="13_10x1w"]
+[ext_resource type="StyleBox" uid="uid://1g0617tasr0m" path="res://resources/theme/unit_menu/health_bar_fill.tres" id="14_sjp88"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0es22"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sebvg"]
+atlas = ExtResource("5_xoeuc")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="InputEventKey" id="InputEventKey_3p2ki"]
+device = -1
+physical_keycode = 85
+unicode = 117
+
+[sub_resource type="Shortcut" id="Shortcut_bdake"]
+events = [SubResource("InputEventKey_3p2ki")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwy80"]
+atlas = ExtResource("5_xoeuc")
+region = Rect2(0, 128, 128, 128)
+margin = Rect2(10, 10, 0, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m6wk"]
+atlas = ExtResource("5_xoeuc")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="InputEventKey" id="InputEventKey_8sgsd"]
+device = -1
+physical_keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_ocraw"]
+events = [SubResource("InputEventKey_8sgsd")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oyt8"]
+atlas = ExtResource("5_xoeuc")
+region = Rect2(128, 256, 128, 128)
+margin = Rect2(10, 10, 20, 20)
+
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_inventory_empty_grid", "_inventory_grid", "_buff_container", "_buff_group_container", "_buff_group_button_1", "_buff_group_button_2", "_buff_group_button_3", "_buff_group_button_4", "_buff_group_button_5", "_buff_group_button_6", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar")]
+offset_right = 800.0
+offset_bottom = 200.0
+mouse_filter = 2
+theme = ExtResource("1_trhe5")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0es22")
+script = ExtResource("2_maep6")
+_tower_button = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TowerButton")
+_creep_button = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/CreepButton")
+_level_label = NodePath("VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/LevelLabel")
+_reset_sell_button_timer = NodePath("ResetSellButtonTimer")
+_upgrade_button = NodePath("VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton")
+_sell_button = NodePath("VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/SellButton")
+_inventory_empty_grid = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid")
+_inventory_grid = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryGrid")
+_buff_container = NodePath("VBoxContainer/MarginContainer/BuffContainer")
+_buff_group_container = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer")
+_buff_group_button_1 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1")
+_buff_group_button_2 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2")
+_buff_group_button_3 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3")
+_buff_group_button_4 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4")
+_buff_group_button_5 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5")
+_buff_group_button_6 = NodePath("VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6")
+_ability_grid = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid")
+_exp_bar = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/ExpBar")
+_health_bar = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/HealthBar")
+_mana_bar = NodePath("VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/ManaBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ResetSellButtonTimer" type="Timer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 55
+theme_override_constants/margin_right = 50
+
+[node name="BuffContainer" parent="VBoxContainer/MarginContainer" instance=ExtResource("8_1niac")]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+columns = 10
+
+[node name="PlaceholderBuff" parent="VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
+layout_mode = 2
+
+[node name="PlaceholderBuff2" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff3" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff4" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff5" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff6" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff7" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff8" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff9" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff10" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff11" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff12" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff13" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff14" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff15" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff16" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff17" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff18" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff19" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="PlaceholderBuff20" parent="VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+layout_mode = 2
+_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="BuffGroupContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="BuffGroup1" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "1"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffGroup2" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "2"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffGroup3" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "3"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffGroup4" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "4"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffGroup5" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "5"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 5
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffGroup6" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+text = "6"
+expand_icon = true
+script = ExtResource("6_q2twi")
+_buff_group_number = 6
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sebvg")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme = ExtResource("1_trhe5")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TowerButton" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_muugt")]
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"UnitButtonBright"
+_tower_id = 1
+
+[node name="CreepButton" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_ami32")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"UnitButtonBright"
+icon = ExtResource("9_7dqoj")
+
+[node name="ExpBar" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
+layout_mode = 2
+tooltip_text = "Experience"
+theme_override_styles/background = ExtResource("9_lvj74")
+theme_override_styles/fill = ExtResource("10_6udoc")
+
+[node name="HealthBar" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
+visible = false
+layout_mode = 2
+theme_override_styles/background = ExtResource("13_10x1w")
+theme_override_styles/fill = ExtResource("14_sjp88")
+
+[node name="ManaBar" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
+layout_mode = 2
+
+[node name="Abilities" type="PanelContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelSectionTitle"
+text = "Abilities"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2"]
+layout_mode = 2
+
+[node name="AbilityGrid" type="GridContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+columns = 4
+
+[node name="Placeholder" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+
+[node name="Placeholder2" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+
+[node name="Placeholder3" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+
+[node name="Placeholder4" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+
+[node name="Placeholder5" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+
+[node name="Placeholder6" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
+_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="Placeholder7" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
+_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="Placeholder8" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/Abilities/MarginContainer2/VBoxContainer/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+layout_mode = 2
+_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
+_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelSectionTitle"
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="InventoryEmptyGrid" type="GridContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="EmptyUnitButton" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_left = -20
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_mpyt6")
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="UpgradeButton" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "Upgrade (U)"
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_bdake")
+shortcut_in_tooltip = false
+icon = SubResource("AtlasTexture_fwy80")
+expand_icon = true
+
+[node name="DetailsButton" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "Stat Details"
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+icon = SubResource("AtlasTexture_7m6wk")
+expand_icon = true
+
+[node name="SellButton" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "Sell (R)"
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_ocraw")
+shortcut_in_tooltip = false
+icon = SubResource("AtlasTexture_7oyt8")
+expand_icon = true
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" to="VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" method="_on_pressed"]
+[connection signal="gui_input" from="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryGrid" to="." method="_on_inventory_grid_gui_input"]
+[connection signal="mouse_entered" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]

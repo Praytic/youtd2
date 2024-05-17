@@ -19,7 +19,8 @@ var _ability_name: String = ""
 func _ready():
 	var icon_path_is_valid: bool = ResourceLoader.exists(_icon_path)
 	if !icon_path_is_valid:
-		push_error("Invalid icon path for ability: %s" % _icon_path)
+		if !_icon_path.is_empty():
+			push_error("Invalid icon path for ability: %s" % _icon_path)
 
 		_icon_path = FALLBACK_ICON
 
@@ -72,4 +73,4 @@ static func make_from_aura_type(aura_type: AuraType) -> AbilityButton:
 #########################
 
 func _on_mouse_entered():
-	ButtonTooltip.show_tooltip(self, _tooltip_text)
+	ButtonTooltip.show_tooltip(self, _tooltip_text, ButtonTooltip.Location.BOTTOM)

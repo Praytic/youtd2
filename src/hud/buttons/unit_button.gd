@@ -9,6 +9,7 @@ extends Button
 var _count: int: set = set_count, get = get_count
 var _rarity: Rarity.enm: get = get_rarity, set = set_rarity
 var _always_show_count: bool = false
+var _tooltip_location: ButtonTooltip.Location = ButtonTooltip.Location.TOP
 
 
 func _ready():
@@ -50,3 +51,9 @@ func always_show_count():
 
 func get_count() -> int:
 	return _count
+
+
+# NOTE: this value is used in subclasses. Not used in base
+# class.
+func set_tooltip_location(value: ButtonTooltip.Location):
+	_tooltip_location = value

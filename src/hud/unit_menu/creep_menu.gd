@@ -1,6 +1,9 @@
 class_name CreepMenu extends PanelContainer
 
 
+# This has been replaced with UnitMenu. Delete this file soon.
+
+
 enum Tabs {
 	MAIN = 0,
 	DETAILS = 1

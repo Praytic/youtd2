@@ -856,6 +856,26 @@ func get_item_container() -> ItemContainer:
 	return _item_container
 
 
+
+func _get_attack_ability_description() -> String:
+	var text: String = ""
+	
+	var tower_id: int = get_id()
+
+	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
+	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
+	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
+
+	text += "Attack type: %s.\n" % attack_type_string \
+	+ "Range: %s\n" % attack_range \
+	+ " \n" \
+	+ "Damage to:\n" \
+	+ "%s" % damage_dealt_string
+
+	return text
+
+
 # This function automatically generates a description for
 # specials that tower instance defined in load_specials().
 func _get_specials_description() -> String:
@@ -882,6 +902,19 @@ func _get_specials_description() -> String:
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
+
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(get_id())
+	if attack_enabled:
+		var attack_ability: AbilityInfo = AbilityInfo.new()
+		var attack_description: String = _get_attack_ability_description()
+		var attack_range: float = get_range()
+		attack_ability.name = "Normal attack"
+		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
+		attack_ability.description_full = attack_description
+		attack_ability.description_short = attack_description
+		attack_ability.radius = attack_range
+		attack_ability.target_type = TargetType.new(TargetType.CREEPS)
+		list.append(attack_ability)
 
 	var specials_description: String = _get_specials_description()
 	if !specials_description.is_empty():

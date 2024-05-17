@@ -13,17 +13,17 @@ signal stop_wave()
 @export var _item_stash_menu: ItemStashMenu
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
-@export var _unit_status_menu_card: ButtonStatusCard
 @export var _elements_menu_card: ButtonStatusCard
 @export var _top_left_menu: TopLeftMenu
-@export var _creep_menu: CreepMenu
-@export var _tower_menu: TowerMenu
+@export var _unit_menu: UnitMenu
 @export var _host_player_label: Label
 @export var _second_player_label: Label
 @export var _chat_line_edit: LineEdit
 @export var _desync_label: Label
+@export var _button_tooltip_top: ButtonTooltip
+@export var _button_tooltip_bottom: ButtonTooltip
 
-@onready var _window_list: Array = [_tower_stash_menu, _item_stash_menu, _tower_menu, _creep_menu]
+@onready var _window_list: Array = [_elements_menu_card, _tower_stash_menu, _item_stash_menu]
 
 
 #########################
@@ -50,6 +50,8 @@ func _ready():
 	for i in range(0, Messages.NORMAL_MESSAGE_MAX):
 		var blank_label: RichTextLabel = Utils.create_message_label(" ")
 		_normal_message_container.add_child(blank_label)
+	
+	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
 
 
 #########################
@@ -108,23 +110,8 @@ func add_chat_message(player: Player, message: String):
 # NOTE: the callback for set_pressed() which make tower menu
 # or creep menu visible.
 func set_menu_unit(unit: Unit):
-	if unit == null:
-		_tower_menu.set_tower(null)
-		_creep_menu.set_creep(null)
-	elif unit is Tower:
-		var tower: Tower = unit as Tower
-		_tower_menu.set_tower(tower)
-		_tower_menu.show()
-		_creep_menu.hide()
-	elif unit is Creep:
-		var creep: Creep = unit as Creep
-		_creep_menu.set_creep(creep)
-		_creep_menu.show()
-		_tower_menu.hide()
-	
-	_unit_status_menu_card.set_unit(unit)
-	_unit_status_menu_card.visible = unit != null
-	_unit_status_menu_card.get_main_button().set_pressed(unit != null)
+	_unit_menu.set_unit(unit)
+	_unit_menu.visible = unit != null
 
 
 func hide_roll_towers_button():
@@ -236,14 +223,6 @@ func _on_local_player_roll_was_disabled():
 	hide_roll_towers_button()
 
 
-func _on_creep_menu_hidden():
-	_unit_status_menu_card.collapse()
-
-
-func _on_tower_menu_hidden():
-	_unit_status_menu_card.collapse()
-
-
 func _on_tower_stash_menu_hidden():
 	_towers_menu_card.collapse()
 
@@ -291,19 +270,6 @@ func _on_towers_status_card_main_button_toggled(toggled_on: bool):
 
 func _on_items_status_card_main_button_toggled(toggled_on: bool):
 	_item_stash_menu.visible = toggled_on
-
-
-func _on_unit_status_card_main_button_toggled(toggled_on: bool):
-	if toggled_on:
-		var displayed_unit: Unit = _unit_status_menu_card.get_unit()
-		
-		if displayed_unit is Tower:
-			_tower_menu.show()
-		else:
-			_creep_menu.show()
-	else:
-		_tower_menu.hide()
-		_creep_menu.hide()
 
 
 func _on_element_status_card_main_button_toggled(toggled_on):

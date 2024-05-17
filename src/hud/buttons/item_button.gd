@@ -95,7 +95,7 @@ func get_item() -> Item:
 
 func _on_mouse_entered():
 	var tooltip: String = RichTexts.get_item_text(_item)
-	ButtonTooltip.show_tooltip(self, tooltip)
+	ButtonTooltip.show_tooltip(self, tooltip, _tooltip_location)
 
 
 func _on_item_charges_changed():

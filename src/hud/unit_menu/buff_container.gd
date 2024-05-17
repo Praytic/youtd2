@@ -4,8 +4,6 @@ class_name BuffContainer extends GridContainer
 # Displays buffs of a unit.
 
 
-const MAX_DISPLAYED_BUFF_COUNT: int = 24
-
 var _buff_display_list: Array[BuffDisplay] = []
 
 
@@ -14,10 +12,21 @@ var _buff_display_list: Array[BuffDisplay] = []
 #########################
 
 func _ready():
-	for i in range(0, MAX_DISPLAYED_BUFF_COUNT):
-		var buff_display: BuffDisplay = Preloads.buff_display_scene.instantiate()
+	var child_node_list: Array[Node] = get_children()
+	
+	if child_node_list.is_empty():
+		push_error("BuffContainer has no BuffDisplay children, add some or buffs won't display!")
+		
+		return
+	
+	for child_node in child_node_list:
+		if !child_node is BuffDisplay:
+			push_error("BuffContainer must have BuffDisplay children.")
+			
+			return
+		
+		var buff_display: BuffDisplay = child_node as BuffDisplay
 		_buff_display_list.append(buff_display)
-		add_child(buff_display)
 
 
 #########################
@@ -41,7 +50,7 @@ func load_buffs_for_unit(unit: Unit):
 		buff_display.hide()
 
 	for i in range(0, buff_list.size()):
-		if i >= MAX_DISPLAYED_BUFF_COUNT:
+		if i >= _buff_display_list.size():
 			break
 		
 		var buff_display: BuffDisplay = _buff_display_list[i]

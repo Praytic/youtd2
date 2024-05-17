@@ -27,7 +27,6 @@ var _properties: Dictionary = {}
 # Map of group [String] to special [int]
 var _group_to_special_map: Dictionary = {}
 var _buff_map: Dictionary = {}
-var _icon_map: Dictionary = {}
 
 
 #########################
@@ -70,13 +69,6 @@ func _ready():
 		
 		_buff_map[special] = special_bt
 
-#	Load icons
-	for special in special_list:
-		var icon_path: String = WaveSpecialProperties.get_icon_path(special)
-		var icon_scene: PackedScene = load(icon_path)
-
-		_icon_map[special] = icon_scene
-
 	FLOCK = _find_flock_id()
 
 
@@ -114,8 +106,7 @@ func get_script_path(special: int) -> String:
 
 
 func get_icon_path(special: int) -> String:
-	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-	var icon_path: String = "res://src/creeps/special_icons/%sSpecial.tscn" % script_name
+	var icon_path: String = _get_property(special, CsvProperty.ICON_PATH)
 
 	return icon_path
 
@@ -217,13 +208,6 @@ func get_specials_in_group(group: String) -> Array:
 
 func get_special_buff(special_id: int) -> BuffType:
 	return _buff_map[special_id]
-
-
-func get_special_icon(special: int) -> TextureRect:
-	var icon_scene: PackedScene = _icon_map[special]
-	var icon: TextureRect = icon_scene.instantiate()
-
-	return icon
 
 
 #########################

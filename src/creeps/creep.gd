@@ -183,10 +183,6 @@ func get_damage_to_portal() -> float:
 	return damage_to_portal
 
 
-func add_special_icon(special_icon: TextureRect):
-	_specials_icon_container.add_child(special_icon)
-
-
 # Creep moves to a point on path, which is closest to given
 # point.
 func move_to_point(point: Vector2):
@@ -592,3 +588,37 @@ func get_special_list() -> Array[int]:
 
 func set_special_list(special_list: Array[int]):
 	_special_list = special_list
+
+
+func get_ability_info_list() -> Array[AbilityInfo]:
+	var list: Array[AbilityInfo] = []
+
+	var armor_type: ArmorType.enm = get_armor_type()
+	var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
+	var armor_type_name_colored: String = ArmorType.convert_to_colored_string(armor_type)
+	var armor_type_damage_taken: String = ArmorType.get_rich_text_for_damage_taken(armor_type)
+	var armor_type_description: String = "Armor type: %s\n" % armor_type_name_colored \
+	+ " \n" \
+	+ "Damage from:\n" \
+	+ " \n" \
+	+ "%s\n" % armor_type_damage_taken
+	var armor_type_ability: AbilityInfo = AbilityInfo.new()
+	armor_type_ability.name = "[color=GOLD]%s[/color] armor" % armor_type_name
+	armor_type_ability.icon = "res://resources/icons/shields/shield_green.tres"
+	armor_type_ability.description_full = armor_type_description
+	armor_type_ability.description_short = armor_type_description
+	list.append(armor_type_ability)
+
+	for special in _special_list:
+		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var special_description: String = WaveSpecialProperties.get_description(special)
+		var special_icon: String = WaveSpecialProperties.get_icon_path(special)
+
+		var ability: AbilityInfo = AbilityInfo.new()
+		ability.name = special_name
+		ability.icon = special_icon
+		ability.description_full = special_description
+		ability.description_short = special_description
+		list.append(ability)
+
+	return list

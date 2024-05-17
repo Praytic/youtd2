@@ -55,7 +55,7 @@ func set_locked(value: bool):
 func _on_mouse_entered():
 	var local_player: Player = PlayerManager.get_local_player()
 	var tooltip: String = RichTexts.get_tower_text(_tower_id, local_player)
-	ButtonTooltip.show_tooltip(self, tooltip)
+	ButtonTooltip.show_tooltip(self, tooltip, _tooltip_location)
 
 
 #########################

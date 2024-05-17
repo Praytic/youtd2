@@ -78,9 +78,6 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	creep.set_sprite_base_color(base_color)
 
 	for special in applied_list:
-		var special_icon: TextureRect = WaveSpecialProperties.get_special_icon(special)
-		creep.add_special_icon(special_icon)
-
 		var buff: BuffType = WaveSpecialProperties.get_special_buff(special)
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
