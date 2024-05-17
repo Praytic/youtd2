@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cro8ec573upqo"]
 
 [ext_resource type="Script" path="res://src/hud/dev_controls.gd" id="1_0jdrl"]
-[ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://src/hud/dev_controls/WaveControl.tscn" id="2_455wo"]
-[ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://src/hud/dev_controls/SignalsControl.tscn" id="3_esahe"]
+[ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://src/hud/dev_controls/wave_control.tscn" id="2_455wo"]
+[ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://src/hud/dev_controls/signals_control.tscn" id="3_esahe"]
 
 [node name="DevControls" type="Control" node_paths=PackedStringArray("positional_control", "position_info_label")]
 layout_mode = 3

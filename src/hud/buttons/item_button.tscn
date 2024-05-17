@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs7talxfb2fac"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="1_56ir5"]
+[ext_resource type="Script" path="res://src/hud/buttons/item_button.gd" id="2_0spo4"]
+[ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://src/hud/buttons/cooldown_indicator.tscn" id="3_fy62u"]
+[ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://src/hud/buttons/auto_mode_indicator.tscn" id="4_e5nkx"]
+[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/ui_textures/unit_button_disabled.tres" id="5_0m88b"]
+
+[node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
+custom_minimum_size = Vector2(88, 88)
+offset_right = 50.0
+offset_bottom = 50.0
+theme_type_variation = &"TinyUnitButton"
+script = ExtResource("2_0spo4")
+_cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
+_auto_mode_indicator = NodePath("MarginContainer/MarginContainer/AutoModeIndicator")
+_charges_label = NodePath("AspectRatioContainer/ChargesLabel")
+_lock_texture = NodePath("AspectRatioContainer2/LockTexture")
+
+[node name="CooldownIndicator" parent="MarginContainer" index="0" instance=ExtResource("3_fy62u")]
+z_index = 1
+layout_mode = 2
+
+[node name="RarityContainer" parent="MarginContainer" index="1"]
+theme_type_variation = &"UncommonRarityPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" index="2"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="AutoModeIndicator" parent="MarginContainer/MarginContainer" index="0" instance=ExtResource("4_e5nkx")]
+visible = false
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." index="2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.8, 0.8)
+
+[node name="ChargesLabel" type="Label" parent="AspectRatioContainer" index="0"]
+layout_mode = 2
+theme_type_variation = &"CounterLabel"
+theme_override_font_sizes/font_size = 20
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="." index="3"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 50.0
+grow_vertical = 0
+
+[node name="LockTexture" type="TextureRect" parent="AspectRatioContainer2" index="0"]
+z_index = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5_0m88b")
+expand_mode = 2

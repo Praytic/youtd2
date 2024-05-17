@@ -439,7 +439,7 @@ static func make_item_drop(item: Item, drop_pos: Vector3):
 	if ItemProperties.get_is_oil(item_id):
 		item_drop_scene_path = "res://src/items/red_oil.tscn"
 	else:
-		item_drop_scene_path = "res://src/items/%sItem.tscn" % rarity_string.capitalize()
+		item_drop_scene_path = "res://src/items/%s_item.tscn" % rarity_string
 	var item_drop_scene: PackedScene = item_drop_scene_map[item_drop_scene_path]
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
 	item_drop.set_position_wc3(drop_pos)
