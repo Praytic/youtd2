@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://assets/hud/darkness_face.png" id="4_nuyc0"]
@@ -15,11 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/combat_log_window.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/hud/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/hud/player_resource_display.tscn" id="15_ir4hq"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://src/hud/unit_menu/tower_details.tscn" id="17_12w0v"]
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/hud/unit_menu/elements_menu.tscn" id="17_bxii1"]
+[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_elements_menu_card", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_elements_menu_card", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,6 +49,8 @@ _chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxCont
 _desync_label = NodePath("DesyncLabel")
 _button_tooltip_top = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/MarginContainer/ButtonTooltipTop")
 _button_tooltip_bottom = NodePath("MarginContainer/VBoxContainer2/ButtonTooltipBottom")
+_tower_details = NodePath("MarginContainer/MarginContainer/TowerDetails")
+_creep_details = NodePath("MarginContainer/MarginContainer/CreepDetails")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -286,6 +290,22 @@ size_flags_horizontal = 4
 visible = false
 layout_mode = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 80
+
+[node name="TowerDetails" parent="MarginContainer/MarginContainer" instance=ExtResource("17_12w0v")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CreepDetails" parent="MarginContainer/MarginContainer" instance=ExtResource("18_acgvt")]
+visible = false
+layout_mode = 2
+
 [node name="DevControls" parent="." instance_placeholder="res://src/hud/dev_controls.tscn"]
 visible = false
 layout_mode = 1
@@ -387,3 +407,4 @@ text = "placeholder"
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu" to="." method="_on_tower_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu" to="." method="_on_elements_menu_hidden"]
+[connection signal="details_pressed" from="MarginContainer/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]

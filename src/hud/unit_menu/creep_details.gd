@@ -1,5 +1,7 @@
-class_name CreepDetails extends GridContainer
+class_name CreepDetails extends PanelContainer
 
+
+@export var _creep_name_label: Label
 
 # Movespeed
 @export var _base_movespeed: Label
@@ -70,9 +72,12 @@ func set_creep(creep: Creep):
 ###      Private      ###
 #########################
 
-func _update_text():
+func update_text():
 	if _creep == null:
 		return
+	
+	var creep_name: String = _creep.get_display_name()
+	_creep_name_label.text = creep_name
 
 #	Movespeed
 	var base_movespeed: float = _creep.get_base_movespeed()
@@ -247,8 +252,15 @@ func _update_text():
 #########################
 
 func _on_selected_unit_changed(_prev_unit: Unit):
-	_update_text()
+	update_text()
 
 
 func _on_refresh_timer_timeout():
-	_update_text()
+	if !visible:
+		return
+	
+	update_text()
+
+
+func _on_close_button_pressed():
+	hide()

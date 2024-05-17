@@ -22,8 +22,13 @@ signal stop_wave()
 @export var _desync_label: Label
 @export var _button_tooltip_top: ButtonTooltip
 @export var _button_tooltip_bottom: ButtonTooltip
+@export var _tower_details: TowerDetails
+@export var _creep_details: CreepDetails
 
-@onready var _window_list: Array = [_elements_menu_card, _tower_stash_menu, _item_stash_menu]
+# NOTE: this list is ordered by priority of closure. If
+# multiple windows are open, then the first window in the
+# list will be closed, others will stay.
+@onready var _window_list: Array = [_tower_details, _creep_details, _elements_menu, _tower_stash_menu, _item_stash_menu]
 
 
 #########################
@@ -112,6 +117,11 @@ func add_chat_message(player: Player, message: String):
 func set_menu_unit(unit: Unit):
 	_unit_menu.set_unit(unit)
 	_unit_menu.visible = unit != null
+	
+	var tower: Tower = unit as Tower
+	var creep: Creep = unit as Creep
+	_tower_details.set_tower(tower)
+	_creep_details.set_creep(creep)
 
 
 func hide_roll_towers_button():
@@ -144,9 +154,11 @@ func set_game_start_timer(timer: ManualTimer):
 	_top_left_menu.set_game_start_timer(timer)
 
 
-func hide_all_windows():
+func close_one_window():
 	for window in _window_list:
-		window.hide()
+		if window.visible:
+			window.hide()
+			break
 
 
 func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
@@ -285,3 +297,13 @@ func _on_elements_menu_hidden():
 func _on_local_player_rolled_towers():
 	var tower_status_button: Button = _towers_menu_card.get_main_button()
 	tower_status_button.set_pressed(true)
+
+
+func _on_unit_menu_details_pressed():
+	var current_unit: Unit = _unit_menu.get_unit()
+	
+	_tower_details.update_text()
+	_creep_details.update_text()
+	
+	_tower_details.visible = current_unit is Tower
+	_creep_details.visible = current_unit is Creep

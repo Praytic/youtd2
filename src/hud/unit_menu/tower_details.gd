@@ -1,9 +1,11 @@
-class_name TowerDetails extends GridContainer
+class_name TowerDetails extends PanelContainer
 
 # Displays detailed information about the stats of the
 # currently selected tower. Can be toggled in unit menu by
 # pressing the "info" button.
 
+
+@export var _tower_name_label: Label
 
 # Attack
 @export var _base_damage: Label
@@ -79,14 +81,14 @@ var _tower: Tower = null
 
 func set_tower(tower: Tower):
 	_tower = tower
-	_update_text()
+	update_text()
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _update_text():
+func update_text():
 	if _tower == null:
 		return
 
@@ -96,6 +98,10 @@ func _update_text():
 #	This can happen while hovering over tower build buttons.
 	if !_tower.is_inside_tree():
 		return
+
+	var tower_id: int = _tower.get_id()
+	var tower_name: String = TowerProperties.get_display_name(tower_id)
+	_tower_name_label.text = tower_name
 
 #	Attack
 	var base_damage: int = _tower.get_base_damage()
@@ -398,4 +404,11 @@ func _get_oil_count_map(tower: Tower) -> Dictionary:
 #########################
 
 func _on_refresh_timer_timeout():
-	_update_text()
+	if !visible:
+		return
+	
+	update_text()
+
+
+func _on_close_button_pressed():
+	hide()

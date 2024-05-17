@@ -663,4 +663,5 @@ expand_icon = true
 [connection signal="gui_input" from="VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/PanelContainer/MarginContainer2/MarginContainer/InventoryGrid" to="." method="_on_inventory_grid_gui_input"]
 [connection signal="mouse_entered" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]

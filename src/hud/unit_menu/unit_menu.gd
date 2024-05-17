@@ -6,6 +6,9 @@ class_name UnitMenu extends PanelContainer
 # on them.
 
 
+signal details_pressed()
+
+
 const SELL_BUTTON_RESET_TIME: float = 5.0
 
 @export var _tower_button: TowerButton
@@ -106,6 +109,10 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func get_unit() -> Unit:
+	return _unit
+
 
 func set_unit(unit: Unit):
 	var prev_unit: Unit = _unit
@@ -467,3 +474,7 @@ func _on_inventory_grid_gui_input(event):
 
 	if left_click:
 		EventBus.player_clicked_tower_inventory.emit(_tower)
+
+
+func _on_details_button_pressed():
+	details_pressed.emit()

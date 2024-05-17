@@ -274,7 +274,7 @@ func _unhandled_input(event: InputEvent):
 		elif editing_chat:
 			_finish_editing_chat()
 		elif _hud.any_window_is_open():
-			_hud.hide_all_windows()
+			_hud.close_one_window()
 		elif selected_unit != null:
 			_select_unit.set_selected_unit(null)
 		elif !_tutorial_menu.visible:
