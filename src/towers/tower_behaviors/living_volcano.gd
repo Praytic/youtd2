@@ -12,7 +12,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var heat_stroke: AbilityInfo = AbilityInfo.new()
 	heat_stroke.name = "Heat Stroke"
-	heat_stroke.icon = "res://resources/icons/tower_icons/FireStar.tres"
+	heat_stroke.icon = "res://resources/icons/tower_icons/fire_star.tres"
 	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode and deal AoE spell damage.\n"
 	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 spell damage in 300 AoE.\n" \
 	+ " \n" \

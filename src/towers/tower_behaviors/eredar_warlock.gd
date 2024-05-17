@@ -28,7 +28,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var shadowbolt: AbilityInfo = AbilityInfo.new()
 	shadowbolt.name = "Shadowbolt Wave"
-	shadowbolt.icon = "res://resources/icons/tower_variations/meteor_totem.purple.tres"
+	shadowbolt.icon = "res://resources/icons/tower_variations/meteor_totem_purple.tres"
 	shadowbolt.description_short = "Every autocast has a chance to release a wave of shadowbolts. Shadowbolts deal spell damage.\n"
 	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This spell has a 40%% chance to trigger if the last autocast released a shadowbolt wave.\n" % [bolt_count, bolt_damage] \
 	+ " \n" \

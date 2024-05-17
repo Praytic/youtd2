@@ -14,7 +14,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var fungus_strike: AbilityInfo = AbilityInfo.new()
 	fungus_strike.name = "Fungus Strike"
-	fungus_strike.icon = "res://resources/icons/tower_icons/QuillboarThornweaver.tres"
+	fungus_strike.icon = "res://resources/icons/tower_icons/quillboar_thornweaver.tres"
 	fungus_strike.description_short = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive more damage from spells.\n"
 	fungus_strike.description_full = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
 	+ " \n" \
@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var rapid_growth: AbilityInfo = AbilityInfo.new()
 	rapid_growth.name = "Rapid Growth"
-	rapid_growth.icon = "res://resources/icons/tower_icons/BabyPlant.tres"
+	rapid_growth.icon = "res://resources/icons/tower_icons/baby_plant.tres"
 	rapid_growth.description_short = "Chance to grow, permanently gaining bonus spell damage.\n"
 	rapid_growth.description_full = "Every 20 seconds the Mushroom has a 40% chance to grow, permanently gaining 3% bonus spell damage. Maximum of 40 succesful growths.\n" \
 	+ " \n" \

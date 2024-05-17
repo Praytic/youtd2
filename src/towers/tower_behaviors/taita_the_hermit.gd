@@ -27,7 +27,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var frost_bolt: AbilityInfo = AbilityInfo.new()
 	frost_bolt.name = "Frost Bolt"
-	frost_bolt.icon = "res://resources/icons/tower_variations/meteor_totem.blue.tres"
+	frost_bolt.icon = "res://resources/icons/tower_variations/meteor_totem_blue.tres"
 	frost_bolt.description_short = "Attacks have a chance to launch a [color=GOLD]Frost Bolt[/color] at the main target, dealing AoE attack damage.\n"
 	frost_bolt.description_full = "Attacks have a chance to launch to launch a [color=GOLD]Frost Bolt[/color] at the main target. The chance is equal to the percentage of movement speed the main target is missing. [color=GOLD]Frost Bolt[/color] deals 20%% of the tower's attack damage as %s damage in 200 AoE around the creep for each stack of [color=GOLD]Icy Touch[/color] the creep has. This spell deals double damage to stunned targets.\n" % elemental_string\
 	+ " \n" \
