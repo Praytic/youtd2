@@ -76,7 +76,7 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
-	ButtonTooltip.show_tooltip(self, tooltip)
+	ButtonTooltip.show_tooltip(self, tooltip, ButtonTooltip.Location.BOTTOM)
 
 
 static func make(autocast: Autocast) -> AutocastButton:
