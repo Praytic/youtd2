@@ -498,55 +498,49 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="InvisibleGridForSizing" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2"]
+[node name="BackgroundGridForSizing" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2"]
 layout_mode = 2
 columns = 4
 
-[node name="InvisibleButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="InvisibleButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton7" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton7" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="InvisibleButton8" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/InvisibleGridForSizing" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="EmptyUnitButton8" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../InvisibleButton/MarginContainer/RarityContainer")
-_counter_label = NodePath("../InvisibleButton/MarginContainer2/AspectRatioContainer/CounterLabel")
 
 [node name="AbilityGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2"]
 layout_mode = 2
@@ -561,26 +555,25 @@ layout_mode = 2
 [node name="Placeholder3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("5_iq4vd")]
 layout_mode = 2
 
-[node name="Placeholder4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("5_iq4vd")]
+[node name="PlaceholderEmpty" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="Placeholder5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("5_iq4vd")]
+[node name="PlaceholderEmpty2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="Placeholder6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="PlaceholderEmpty3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
-_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="Placeholder7" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="PlaceholderEmpty4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
-_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
 
-[node name="Placeholder8" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("5_iq4vd")]
+[node name="PlaceholderEmpty5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-_rarity_container = NodePath("../Placeholder5/MarginContainer/RarityContainer")
-_counter_label = NodePath("../Placeholder5/MarginContainer2/AspectRatioContainer/CounterLabel")
 
 [node name="InventoryPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 100)

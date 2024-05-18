@@ -10,6 +10,7 @@ signal details_pressed()
 
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
+const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 
 @export var _tower_button: TowerButton
 @export var _creep_button: UnitButton
@@ -254,11 +255,31 @@ func _setup_tower_ability_buttons():
 		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
+#	NOTE: add padding buttons so that autocasts abilities go
+#	on the second row (for visual separation). If there are
+#	too many passive abilities, then some of them will go to
+#	second row.
+	var ability_count_without_autocasts: int = _ability_grid.get_child_count()
+	var column_count: int = _ability_grid.get_columns()
+	if ability_count_without_autocasts < column_count:
+		var padding_button_count: int = column_count - ability_count_without_autocasts
+
+		for i in range(0, padding_button_count):
+			var padding_button: EmptyUnitButton = Preloads.empty_slot_button_scene.instantiate()
+			padding_button.custom_minimum_size = ABILITY_BUTTON_SIZE
+			_ability_grid.add_child(padding_button)
+
 	var autocast_list: Array[Autocast] = _tower.get_autocast_list()
 	for autocast in autocast_list:
 		var autocast_button: AutocastButton = AutocastButton.make(autocast)  
 		_ability_grid.add_child(autocast_button)
 		_connect_to_autocast_button(autocast_button)
+
+	var second_row_pad_count: int = column_count * 2 - _ability_grid.get_child_count()
+	for i in range(0, second_row_pad_count):
+		var padding_button: EmptyUnitButton = Preloads.empty_slot_button_scene.instantiate()
+		padding_button.custom_minimum_size = ABILITY_BUTTON_SIZE
+		_ability_grid.add_child(padding_button)
 
 
 func _setup_creep_ability_buttons():
