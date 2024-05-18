@@ -307,8 +307,16 @@ func _on_local_player_rolled_towers():
 func _on_unit_menu_details_pressed():
 	var current_unit: Unit = _unit_menu.get_unit()
 	
-	_tower_details.update_text()
-	_creep_details.update_text()
+	if current_unit is Tower:
+		_tower_details.visible = !_tower_details.visible
+		_creep_details.visible = false
 	
-	_tower_details.visible = current_unit is Tower
-	_creep_details.visible = current_unit is Creep
+		_tower_details.update_text()
+	elif current_unit is Creep:
+		_tower_details.visible = false
+		_creep_details.visible = !_creep_details.visible
+	
+		_creep_details.update_text()
+	else:
+		_tower_details.visible = false
+		_creep_details.visible = false
