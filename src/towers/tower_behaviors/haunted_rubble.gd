@@ -1,11 +1,18 @@
 extends TowerBehavior
 
 
+# NOTE: changed value for tier 1 stats:
+# 15% + 0.15%/lvl -> 10% + 0.10%/lvl
+# Changed because it didn't make sense, the values went down
+# when upgrading to tier 2. Pretty sure this is a typo in
+# original script.
+
+
 var slow_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-	1: {slow_value = 0.15, chance = 0.15, chance_add = 0.0015},
+	1: {slow_value = 0.15, chance = 0.10, chance_add = 0.0010},
 	2: {slow_value = 0.18, chance = 0.12, chance_add = 0.0012},
 	3: {slow_value = 0.21, chance = 0.15, chance_add = 0.0014},
 	4: {slow_value = 0.24, chance = 0.16, chance_add = 0.0016},
