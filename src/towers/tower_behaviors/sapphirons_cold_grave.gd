@@ -85,6 +85,11 @@ func shard_pt_on_collide(p: Projectile, target: Unit):
 		buff.set_level(buff.get_level() + 1)
 		buff.user_real += dmg_from_ice_add
 
+	buff = target.get_buff_of_type(liquid_ice_bt)
+	if buff != null:
+		var stack_count: int = roundi(buff.user_real * 100)
+		buff.set_displayed_stacks(stack_count)
+
 	# NOTE: removed this floating text because it happens too often
 	# var total_dmg_from_ice: float = buff.user_real
 	# var floating_text: String = Utils.format_percent(total_dmg_from_ice, 0)

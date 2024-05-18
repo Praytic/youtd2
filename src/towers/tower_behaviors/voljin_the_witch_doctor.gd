@@ -319,6 +319,10 @@ func apply_maledict(caster: Tower, target: Unit, B: bool):
 	elif (buff != null && !B && caster.calc_chance(0.35)) || (buff != null && B == true):
 		maledict_bt.apply_advanced(caster, target, buff.get_level() + 1, 0, duration)
 
+	buff = target.get_buff_of_type(maledict_bt)
+	if buff != null:
+		buff.set_displayed_stacks(buff.get_level())
+
 
 # NOTE: "damageEvent()" in original script
 func maledict_bt_on_damaged(event: Event):

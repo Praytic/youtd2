@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4mgo5v7j01kj"]
+[gd_scene load_steps=5 format=3 uid="uid://d4mgo5v7j01kj"]
 
 [ext_resource type="Script" path="res://src/hud/unit_menu/buff_display.gd" id="1_k2kus"]
 [ext_resource type="Texture2D" uid="uid://ba6ku7cx0nqo0" path="res://resources/icons/generic_icons/energy_breath.tres" id="2_bo03g"]
-
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si6yn"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -16,13 +15,31 @@ corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
-[node name="BuffDisplay" type="PanelContainer" node_paths=PackedStringArray("_texture_rect")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdrdp"]
+
+[node name="BuffDisplay" type="PanelContainer" node_paths=PackedStringArray("_texture_rect", "_stacks_label")]
 custom_minimum_size = Vector2(48, 48)
 theme_override_styles/panel = SubResource("StyleBoxFlat_si6yn")
 script = ExtResource("1_k2kus")
 _texture_rect = NodePath("TextureRect")
+_stacks_label = NodePath("StacksLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("2_bo03g")
 expand_mode = 2
+
+[node name="StacksLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(25, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xdrdp")
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 2

@@ -101,6 +101,10 @@ func on_damage(event: Event):
 	if buff_level < 6:
 		icy_touch_bt.apply(tower, target, buff_level + 1)
 
+	buff = target.get_buff_of_type(icy_touch_bt)
+	if buff != null:
+		buff.set_displayed_stacks(buff.get_level())
+
 
 func on_kill(_event: Event):
 	var level: int = tower.get_level()

@@ -82,7 +82,7 @@ func tower_init():
 
 	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
 	missile_stacks_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
-	spell_gathering_bt.set_buff_tooltip("Missile Barrage\nLaunches magical missiles on attack.")
+	missile_stacks_bt.set_buff_tooltip("Absorbed Missile\nThis tower has absorbed spells and turned them into missiles.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spells Harvested")
@@ -165,6 +165,7 @@ func spell_gathering_bt_on_spell_casted(event: Event):
 		stacks_count = 1
 
 	stacks_buff = missile_stacks_bt.apply(caster, caster, stacks_count)
+	stacks_buff.set_displayed_stacks(stacks_count)
 
 	var autocast: Autocast = event.get_autocast_type()
 	var autocast_cooldown: float = autocast.get_cooldown()
@@ -176,6 +177,7 @@ func spell_gathering_bt_on_spell_casted(event: Event):
 
 		if stacks_buff != null:
 			stacks_buff.set_level(stacks_buff.get_level() - 1)
+			stacks_buff.set_displayed_stacks(stacks_buff.get_level())
 			if stacks_buff.get_level() == 0:
 				stacks_buff.remove_buff()
 

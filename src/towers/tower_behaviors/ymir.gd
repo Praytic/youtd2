@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var blood: AbilityInfo = AbilityInfo.new()
 	blood.name = "Blood of Ymir"
 	blood.icon = "res://resources/icons/gems/gem_07.tres"
-	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from %s towers." % ice_string
+	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from %s towers.\n" % ice_string
 	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to %s towers by 25%%.\n" % ice_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \

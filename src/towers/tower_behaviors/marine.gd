@@ -138,6 +138,11 @@ func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 	else:
 		fragged_bt.apply(tower, target, level)
 
+	buff = target.get_buff_of_type(fragged_bt)
+	if buff != null:
+		var stack_count: int = buff.get_power() / 10
+		buff.set_displayed_stacks(stack_count)
+
 
 func boekie_shard_on_expiration(projectile: Projectile):
 	var CONE_WIDTH: float = 120

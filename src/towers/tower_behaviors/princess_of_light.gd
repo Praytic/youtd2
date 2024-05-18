@@ -36,7 +36,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Channel Energy"
 	ability.icon = "res://resources/icons/gems/earring_05.tres"
 	ability.description_short = "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus attack damage.\n"
-	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus attack damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of olds ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
+	ability.description_full = "Whenever this tower is hit by a friendly spell, the caster of that spell will be granted %s experience and this tower will gain %s bonus attack damage for %s seconds. This effect stacks up to %s times, but new stacks will not refresh the duration of old ones.\n" % [channel_exp, channel_mod_dmg, channel_buff_duration, channel_stack_count] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s attack damage\n" % channel_mod_dmg_add \
@@ -118,6 +118,7 @@ func on_spell_target(event: Event):
 	if buff == null:
 		buff = channel_bt.apply(tower, tower, buff_level)
 		buff.user_int = 1
+		buff.set_displayed_stacks(1)
 	else:
 		var reached_max_stacks: bool = buff.user_int >= CHANNEL_STACK_COUNT
 		if reached_max_stacks:
@@ -125,6 +126,7 @@ func on_spell_target(event: Event):
 
 		buff.user_int += 1
 		buff.set_power(buff.get_power() + buff_level)
+		buff.set_displayed_stacks(buff.user_int)
 
 	await Utils.create_timer(stack_duration, self).timeout
 

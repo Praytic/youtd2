@@ -71,8 +71,11 @@ func on_attack(_event: Event):
 	elif tower.get_level() < 25:
 		power = 40
 
-	cold_feet_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * power, 6.0)
-	cold_arms_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * _stats.dmg_increase, 6.0)
+	var cold_feet_buff: Buff = cold_feet_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * power, 6.0)
+	var cold_arms_buff: Buff = cold_arms_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * _stats.dmg_increase, 6.0)
+
+	cold_feet_buff.set_displayed_stacks(tower.user_int)
+	cold_arms_buff.set_displayed_stacks(tower.user_int)
 
 
 func on_create(_preceding_tower: Tower):

@@ -122,6 +122,8 @@ func on_unit_in_range(_event: Event):
 	buff = sentry_bt.apply_custom_timed(tower, tower, buff_level * (30 + tower_level), buff_duration)
 	buff.user_int = buff_level
 
+	buff.set_displayed_stacks(buff.user_int)
+
 
 func periodic(_event: Event):
 	if !gatling_fire_enabled:

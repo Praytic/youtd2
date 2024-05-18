@@ -72,3 +72,8 @@ func on_damage(event: Event):
 		tower.user_int2 = _stats.buff_power
 
 	ignite_bt.apply_advanced(tower, event.get_target(), tower.user_int, tower.user_int2, 5 + tower.get_level() * 0.05)
+
+	buffyourno = event.get_target().get_buff_of_type(ignite_bt)
+	if buffyourno != null:
+		var stack_count: int = buffyourno.get_level() / _stats.buff_level_per_stack
+		buffyourno.set_displayed_stacks(stack_count)

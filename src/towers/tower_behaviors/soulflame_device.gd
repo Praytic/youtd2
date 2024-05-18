@@ -265,4 +265,5 @@ func ashbringer_soulfire_apply(target: Unit, power_gain: int):
 	else:
 		power = power_gain
 
-	soulfire_bt.apply_custom_power(tower, target, 1, power)
+	var buff: Buff = soulfire_bt.apply_custom_power(tower, target, 1, power)
+	buff.set_displayed_stacks(power)

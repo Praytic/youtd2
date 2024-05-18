@@ -4,6 +4,7 @@ extends TowerBehavior
 var love_bt: BuffType
 var soul_split_bt: BuffType
 var missile_pt: ProjectileType
+var current_soul_split_stacks: int = 0
 
 
 func get_tier_stats() -> Dictionary:
@@ -123,15 +124,23 @@ func on_damage(event: Event):
 
 		SFX.sfx_at_unit("UndeadDissipate.mdl", tower)
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())
-		soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
+		var soul_split_buff: Buff = soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed * multiplier)
+		current_soul_split_stacks += 1
+
+		soul_split_buff.set_displayed_stacks(current_soul_split_stacks)
 
 		await Utils.create_timer(10.0 * multiplier, self).timeout
 
 		if Utils.unit_is_valid(tower):
 			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attack_speed * multiplier)
 			tower.user_real = tower.user_real + _stats.soul_chance_decrease
+			current_soul_split_stacks -= 1
+
+			soul_split_buff = tower.get_buff_of_type(soul_split_bt)
+			if soul_split_buff != null:
+				soul_split_buff.set_displayed_stacks(current_soul_split_stacks)
 
 
 func on_create(_preceding_tower: Tower):

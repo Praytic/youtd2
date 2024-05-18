@@ -11,6 +11,10 @@ extends TowerBehavior
 # Also fixed color of pulse effects. They were swapped (red
 # vs green).
 
+# NOTE: fixed small bug in original script where "Twin
+# Disciplines" would not trigger if attack crit chance is
+# exactly equal to spell crit chance. Rare, but possible.
+
 # NOTE: green = attack damage
 # 		red = spell damage
 
@@ -182,18 +186,24 @@ func on_damage(event: Event):
 	else:
 		spell_buff_level = 0
 
-	if attack_crit_chance < spell_crit_chance || spell_buff_level == 10:
+	if attack_crit_chance <= spell_crit_chance || spell_buff_level == 10:
 		if physical_buff == null:
 			attack_bt.apply(tower, tower, 1)
 		else:
 			var new_buff_level: int = min(physical_buff_level + 1, 10)
 			attack_bt.apply(tower, tower, new_buff_level)
+
+		physical_buff = tower.get_buff_of_type(attack_bt)
+		physical_buff.set_displayed_stacks(physical_buff.get_level())
 	elif attack_crit_chance > spell_crit_chance || physical_buff_level == 10:
 		if spell_buff == null:
 			spell_bt.apply(tower, tower, 1)
 		else:
 			var new_buff_level: int = min(spell_buff_level + 1, 10)
 			spell_bt.apply(tower, tower, new_buff_level)
+
+		spell_buff = tower.get_buff_of_type(spell_bt)
+		spell_buff.set_displayed_stacks(spell_buff.get_level())
 
 
 func red_pt_on_hit(_projectile: Projectile, creep: Unit):

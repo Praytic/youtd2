@@ -119,6 +119,7 @@ func periodic(_event: Event):
 		new_buff_level = 1
 	
 	var buff: Buff = army_bt.apply(tower, tower, new_buff_level)
+	buff.set_displayed_stacks(buff.get_level())
 
 	var stack_duration: float = (20.0 + 0.4 * tower.get_level()) * tower.get_prop_buff_duration()
 	await Utils.create_timer(stack_duration, self).timeout

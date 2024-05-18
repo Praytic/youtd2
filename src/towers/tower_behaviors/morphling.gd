@@ -171,9 +171,11 @@ func on_attack(_event: Event):
 
 	if adapt_buff == null:
 		if damage_buff != null && damage_buff.get_level() < 50:
-			might_bt.apply(tower, tower, damage_buff.get_level() + 1)
+			var might_buff: Buff = might_bt.apply(tower, tower, damage_buff.get_level() + 1)
+			might_buff.set_displayed_stacks(might_buff.get_level())
 		elif speed_buff != null && speed_buff.get_level() < 50:
-			swiftness_bt.apply(tower, tower, speed_buff.get_level() + 1)
+			var swiftness_buff: Buff = swiftness_bt.apply(tower, tower, speed_buff.get_level() + 1)
+			swiftness_buff.set_displayed_stacks(swiftness_buff.get_level())
 
 
 func on_damage(event: Event):

@@ -62,6 +62,7 @@ func hit(event: Event):
 	var level: int = tower.get_level()
 	var add_dam: float = tower.user_int + tower.user_real * level
 	var max_dam: float = tower.user_int2 + tower.user_real2 * level + add_dam * (int(float(level) / 5))
+	var add_dam_original: float = add_dam
 
 	if b == null:
 		b = poison_bt.apply(tower, target, level)
@@ -86,6 +87,11 @@ func hit(event: Event):
 
 		b.user_real = add_dam
 		b.user_real2 = max_dam
+
+	b = target.get_buff_of_type(poison_bt)
+	if b != null:
+		var stack_count: int = roundi(Utils.divide_safe(b.user_real, add_dam_original))
+		b.set_displayed_stacks(stack_count)
 
 
 func tower_init():

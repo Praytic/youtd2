@@ -84,3 +84,8 @@ func on_damage(_event: Event):
 		else:
 			B = roar_bt.apply(tower, U, tower.get_level() * _stats.level_multiplier)
 			B.user_int = 0
+
+		B = U.get_buff_of_type(roar_bt)
+		if B != null:
+			var stack_count: int = B.user_int
+			B.set_displayed_stacks(stack_count)

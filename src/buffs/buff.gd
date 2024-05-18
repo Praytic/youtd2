@@ -34,6 +34,7 @@ var _cleanup_done: bool = false
 var _periodic_timer_map: Dictionary = {}
 var _is_hidden: bool
 var _special_effect_id: int = 0
+var _displayed_stacks: int = 0
 # NOTE: these values are defined if the buff type was
 # created inside a TowerBehavior script.
 var _is_owned_by_tower: bool = false
@@ -97,6 +98,16 @@ func get_tower_family() -> int:
 
 func get_tower_tier() -> int:
 	return _tower_tier
+
+
+# NOTE: this is visual only, stack logic has to be
+# implemented separately
+func set_displayed_stacks(value: int):
+	_displayed_stacks = value
+
+
+func get_displayed_stacks() -> int:
+	return _displayed_stacks
 
 
 # NOTE: do not change remaining duration if original

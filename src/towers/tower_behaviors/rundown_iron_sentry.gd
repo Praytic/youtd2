@@ -16,6 +16,7 @@ const ARMOR_SHRED_STACKS_MAX: int = 5
 const ALERT_MOD_DMG: float = 0.075
 const ALERT_MOD_DMG_ADD: float = 0.005
 const ALERT_RANGE: int = 500
+const TRESSPASSER_RANGE: int = 925
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
@@ -52,13 +53,15 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % [armor_shred_amount_add] \
 	+ "+0.1%-0.8% bonus base percent damage\n"
+	tresspasser.radius = TRESSPASSER_RANGE
+	tresspasser.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(tresspasser)
 
 	return list
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 925, TargetType.new(TargetType.CREEPS))
+	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, TRESSPASSER_RANGE, TargetType.new(TargetType.CREEPS))
 
 
 func tower_init():
@@ -111,7 +114,8 @@ func on_unit_in_range(event: Event):
 	var size_is_big_enough_for_alert: bool = alert_sizes.has(creep_size)
 
 	if tower.calc_chance(_stats.armor_shred_chance):
-		trespasser_bt.apply(tower, creep, buff_level)
+		var trespasser_buff: Buff = trespasser_bt.apply(tower, creep, buff_level)
+		trespasser_buff.set_displayed_stacks(buff_level)
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_damage_value)
 

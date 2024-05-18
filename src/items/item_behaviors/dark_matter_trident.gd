@@ -52,8 +52,18 @@ func on_damage(event: Event):
 	else:
 		boost_bt.apply_custom_timed(tower, tower, level_add, duration)
 
+	positive_buff = tower.get_buff_of_type(boost_bt)
+	if positive_buff != null:
+		var stack_count: int = positive_buff.get_level() / 100
+		positive_buff.set_displayed_stacks(stack_count)
+
 	var negative_buff: Buff = creep.get_buff_of_type(drain_bt)
 	if negative_buff != null:
 		drain_bt.apply_custom_timed(tower, creep, min(level_add + negative_buff.get_level(), 2000), duration)
 	else:
 		drain_bt.apply_custom_timed(tower, creep, level_add, duration)
+
+	negative_buff = creep.get_buff_of_type(drain_bt)
+	if negative_buff != null:
+		var stack_count: int = negative_buff.get_level() / 100
+		negative_buff.set_displayed_stacks(stack_count)

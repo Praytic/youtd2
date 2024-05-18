@@ -203,3 +203,8 @@ func _apply_phoenix_fire_buff(target: Unit):
 		phoenix_fire_bt.apply(tower, target, buff.get_power() + int(armor_loss * 100))
 	else:
 		phoenix_fire_bt.apply(tower, target, int(armor_loss * 100))
+
+	buff = target.get_buff_of_type(phoenix_fire_bt)
+	if buff != null:
+		var stack_count: int = roundi(Utils.divide_safe(buff.get_power(), armor_loss * 100))
+		buff.set_displayed_stacks(stack_count)

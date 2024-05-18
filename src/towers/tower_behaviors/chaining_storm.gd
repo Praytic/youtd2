@@ -184,6 +184,8 @@ func strong_wind_bt_periodic(event: Event):
 		creep.modify_property(Modification.Type.MOD_MOVESPEED, -buff.user_real2)
 		buff.user_real = buff.user_real + buff.user_real2
 
+	buff.set_displayed_stacks(buff.user_int2)
+
 #	Deal damage
 	var damage_multiplier: float = 1.0 + 0.05 * buff_level + 0.0005 * storm_power
 	var damage: float = buff.user_real * 10 * caster.get_current_attack_damage_with_bonus() * damage_multiplier

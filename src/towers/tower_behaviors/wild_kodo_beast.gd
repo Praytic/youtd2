@@ -101,3 +101,4 @@ func aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_power: int = (100 + 2 * tower.get_level()) * devour_count
 	buff.set_power(new_power)
+	buff.set_displayed_stacks(devour_count)

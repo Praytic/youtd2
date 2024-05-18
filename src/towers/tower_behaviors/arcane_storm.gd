@@ -161,6 +161,10 @@ func ashbringer_attraction_apply(target: Unit, stacks: int):
 
 	attraction_bt.apply_custom_power(tower, target, 1, i)
 
+	attraction_buff = target.get_buff_of_type(attraction_bt)
+	if attraction_buff != null:
+		attraction_buff.set_displayed_stacks(i)
+
 	return i
 
 

@@ -74,6 +74,7 @@ func tower_init():
 
 	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)
 	lingering_flames_bt.add_periodic_event(lingering_flames_bt_periodic, 1.0)
+	lingering_flames_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	lingering_flames_bt.set_buff_tooltip("Lingering Flames\nDeals damage over time.")
 
 
@@ -192,7 +193,8 @@ func ashbringer_linger_apply(target: Unit):
 	else:
 		power = 1
 
-	lingering_flames_bt.apply_custom_power(tower, target, 1, power)
+	buff = lingering_flames_bt.apply_custom_power(tower, target, 1, power)
+	buff.set_displayed_stacks(buff.get_power())
 
 
 func lingering_flames_bt_periodic(event: Event):

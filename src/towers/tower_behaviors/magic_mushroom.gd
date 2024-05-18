@@ -1,6 +1,11 @@
 extends TowerBehavior
 
 
+# NOTE: added storage of stacks in power level for Fungus
+# Strike buff. This is to display stacks. Won't affect
+# behavior because Fungus Strike buff is cosmetic only.
+
+
 var trance_bt: BuffType
 var fungus_bt: BuffType
 var multiboard: MultiboardValues
@@ -103,7 +108,20 @@ func on_damage(event: Event):
 
 	fungus_strike_activated = false
 
-	fungus_bt.apply(tower, target, tower.get_level())
+	var fungus_buff: Buff = target.get_buff_of_type(fungus_bt)
+
+	var old_stack_count: int
+	if fungus_buff != null:
+		old_stack_count = fungus_buff.get_power()
+	else:
+		old_stack_count = 0
+
+	var new_stack_count: int = old_stack_count + 1
+
+	fungus_buff = fungus_bt.apply_custom_power(tower, target, tower.get_level(), new_stack_count)
+
+	fungus_buff.set_displayed_stacks(new_stack_count)
+
 	target.modify_property(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.10)
 	var fungus_strike_damage: float = event.damage * (1.0 + 0.01 * tower.get_level())
 	tower.do_spell_damage(target, fungus_strike_damage, tower.calc_spell_crit(0.20 + 0.008 * tower.get_level(), 0))

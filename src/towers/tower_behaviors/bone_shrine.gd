@@ -53,3 +53,8 @@ func on_attack(event: Event):
 	if buff_level < 10:
 		event.get_target().modify_property(Modification.Type.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
 		curse_bt.apply_advanced(tower, event.get_target(), buff_level + 1, 0, 1000)
+
+	existing_buff = event.get_target().get_buff_of_type(curse_bt)
+	if existing_buff != null:
+		var stack_count: int = existing_buff.get_level()
+		existing_buff.set_displayed_stacks(stack_count)

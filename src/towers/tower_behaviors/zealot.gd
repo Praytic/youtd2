@@ -140,6 +140,10 @@ func on_attack(_event: Event):
 				drain_bt.apply_custom_power(tower, u, b.user_int, leech_power * b.user_int)
 			else:
 				drain_bt.apply_custom_power(tower, u, 1, leech_power).user_int = 1
+			
+			var drain_buff: Buff = u.get_buff_of_type(drain_bt)
+			if drain_buff != null:
+				drain_buff.set_displayed_stacks(drain_buff.user_int)
 
 #	in a way, that's the per stack base
 	leech_power = leech_power * leech_counter
@@ -150,6 +154,11 @@ func on_attack(_event: Event):
 		zeal_bt.apply(tower, tower, min(leech_power + b.get_level(), leech_power * max_stacks))
 	else:
 		zeal_bt.apply(tower, tower, leech_power)
+	
+	var zeal_buff: Buff = tower.get_buff_of_type(zeal_bt)
+	if zeal_buff != null:
+		var zeal_stack_count: int = min(Utils.divide_safe(zeal_buff.get_level(), leech_power), max_stacks)
+		zeal_buff.set_displayed_stacks(zeal_stack_count)
 
 	b = tower.get_buff_of_type(shield_bt)
 
@@ -193,6 +202,9 @@ func on_damage(event: Event):
 
 		phase_wound.user_int = min(5, phase_wound.user_int + 1)
 		phase_wound.refresh_duration()
+
+	if phase_wound != null:
+		phase_wound.set_displayed_stacks(phase_wound.user_int)
 
 #	ignoring armor type "resistance" not weakness :P
 	if temp > 0.001 && temp < 1.0:

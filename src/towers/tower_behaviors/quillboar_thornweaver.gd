@@ -127,7 +127,8 @@ func on_projectile_hit(_projectile: Projectile, creep: Unit):
 	var damage: float = damage_ratio * tower.get_current_attack_damage_with_bonus()
 
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
-	thorns_bt.apply_advanced(tower, creep, buff_level + 1, 0, QUILLSPRAY_DEBUFF_DURATION)
+	var thorns_buff: Buff = thorns_bt.apply_advanced(tower, creep, buff_level + 1, 0, QUILLSPRAY_DEBUFF_DURATION)
+	thorns_buff.set_displayed_stacks(thorns_buff.get_level())
 
 
 func do_quillspray_series():

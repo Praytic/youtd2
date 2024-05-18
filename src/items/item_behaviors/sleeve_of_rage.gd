@@ -42,3 +42,8 @@ func on_attack(_event: Event):
 		enraged_bt.apply_advanced(tower, tower, 1 + level, level, 1.5)
 	else:
 		b.refresh_duration()
+
+	b = tower.get_buff_of_type(enraged_bt)
+	if b != null:
+		var stack_count: int = b.get_level()
+		b.set_displayed_stacks(stack_count)

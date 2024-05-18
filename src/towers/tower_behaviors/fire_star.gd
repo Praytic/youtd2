@@ -69,6 +69,11 @@ func on_damage(event: Event):
 		var damage_multiplier: float = 1.0 + 0.04 * level
 		buff.user_real = damage_multiplier
 
+	buff = target.get_buff_of_type(ignite_bt)
+	if buff != null:
+		var stack_count: int = buff.get_power()
+		buff.set_displayed_stacks(stack_count)
+
 	var double_trouble_chance: float = 0.125 + 0.005 * level
 
 	if !tower.calc_chance(double_trouble_chance):
