@@ -111,13 +111,13 @@ func update_text():
 	_base_damage_bonus.text = TowerDetails.int_format(base_damage_bonus)
 
 	var base_damage_bonus_perc: float = _tower.get_base_damage_bonus_percent() - 1.0
-	_base_damage_bonus_perc.text = _percent_signed_format(base_damage_bonus_perc)
+	_base_damage_bonus_perc.text = TowerDetails.percent_signed_format(base_damage_bonus_perc)
 
 	var damage_add: float = _tower.get_damage_add()
 	_damage_add.text = TowerDetails.int_format(damage_add)
 
 	var damage_add_perc: float = _tower.get_damage_add_percent() - 1.0
-	_damage_add_perc.text = _percent_signed_format(damage_add_perc)
+	_damage_add_perc.text = TowerDetails.percent_signed_format(damage_add_perc)
 
 	var overall_damage: float = _tower.get_overall_damage()
 	_overall_damage.text = TowerDetails.int_format(overall_damage)
@@ -138,7 +138,7 @@ func update_text():
 	_crit_chance.text = Utils.format_percent(crit_chance, 1)
 
 	var crit_damage: float = _tower.get_prop_atk_crit_damage()
-	_crit_damage.text = _multiplier_format(crit_damage)
+	_crit_damage.text = TowerDetails.multiplier_format(crit_damage)
 
 	var multicrit: int = _tower.get_prop_multicrit_count()
 	_multicrit.text = TowerDetails.int_format(multicrit)
@@ -154,7 +154,7 @@ func update_text():
 	_spell_crit_chance.text = Utils.format_percent(spell_crit_chance, 1)
 
 	var spell_crit_damage: float = _tower.get_spell_crit_damage()
-	_spell_crit_damage.text = _multiplier_format(spell_crit_damage)
+	_spell_crit_damage.text = TowerDetails.multiplier_format(spell_crit_damage)
 
 #	Veteran
 	var total_damage: float = _tower.get_damage()
@@ -187,7 +187,7 @@ func update_text():
 	_mana_bonus.text = TowerDetails.int_format(mana_bonus)
 
 	var mana_bonus_perc: float = _tower.get_base_mana_bonus_percent() - 1.0
-	_mana_bonus_perc.text = _percent_signed_format(mana_bonus_perc)
+	_mana_bonus_perc.text = TowerDetails.percent_signed_format(mana_bonus_perc)
 
 	var overall_mana: float = _tower.get_overall_mana()
 	_overall_mana.text = TowerDetails.int_format(overall_mana)
@@ -199,7 +199,7 @@ func update_text():
 	_mana_regen_bonus.text = Utils.format_float(mana_regen_bonus, 1)
 
 	var mana_regen_bonus_perc: float = _tower.get_base_mana_regen_bonus_percent() - 1.0
-	_mana_regen_bonus_perc.text = _percent_signed_format(mana_regen_bonus_perc)
+	_mana_regen_bonus_perc.text = TowerDetails.percent_signed_format(mana_regen_bonus_perc)
 
 	var overall_mana_regen: float = _tower.get_overall_mana_regen()
 	_overall_mana_regen.text = Utils.format_float(overall_mana_regen, 1)
@@ -259,7 +259,7 @@ func update_text():
 	_dmg_to_boss.text = Utils.format_percent(dmg_to_boss, 0)
 
 #	Details
-	var tower_details_text: String = _generate_tower_details_text(_tower)
+	var tower_details_text: String = _get_tower_details_text(_tower)
 	_tower_details_label.clear()
 	_tower_details_label.append_text(tower_details_text)
 
@@ -302,7 +302,7 @@ static func int_format(num: float) -> String:
 	return num_str + frac_str + suffix
 
 
-func _percent_signed_format(number: float) -> String:
+static func percent_signed_format(number: float) -> String:
 	var formatted: String = Utils.format_percent(number, 0)
 
 	if int(number) > 0:
@@ -311,47 +311,12 @@ func _percent_signed_format(number: float) -> String:
 	return formatted
 
 
-func _multiplier_format(number) -> String:
+static func multiplier_format(number) -> String:
 	return "x%.2f" % number
 
 
-func _float_format(number) -> String:
+static func float_format(number) -> String:
 	return Utils.format_float(number, 2)
-
-
-func _generate_tower_details_text(tower: Tower) -> String:
-	var oils_text: String = _get_tower_oils_text(tower)
-	var details_text: String = _get_tower_details_text(tower)
-
-	var text: String = ""
-	text += oils_text
-	text += " \n"
-	text += " \n"
-	text += details_text
-
-	return text
-
-
-func _get_tower_oils_text(tower: Tower) -> String:
-	var text: String = ""
-
-	text += "[color=PURPLE]Tower Oils:[/color]\n"
-	text += " \n"
-
-	var oil_count_map: Dictionary = _get_oil_count_map(tower)
-
-	var oil_name_list: Array = oil_count_map.keys()
-	oil_name_list.sort()
-
-	for oil_name in oil_name_list:
-		var count: int = oil_count_map[oil_name]
-
-		text += "%s x %s\n" % [str(count), oil_name]
-
-	if oil_count_map.is_empty():
-		text += "None"
-
-	return text
 
 
 func _get_tower_details_text(tower: Tower) -> String:
@@ -377,26 +342,6 @@ func _get_tower_details_text(tower: Tower) -> String:
 	text += "[/table]"
 
 	return text
-
-
-func _get_oil_count_map(tower: Tower) -> Dictionary:
-	var oil_list: Array[Item] = tower.get_item_container().get_oil_list()
-
-	var oil_count_map: Dictionary = {}
-
-	for oil in oil_list:
-		var oil_id: int = oil.get_id()
-		var oil_name: String = ItemProperties.get_display_name(oil_id)
-		var oil_rarity: Rarity.enm = ItemProperties.get_rarity(oil_id)
-		var rarity_color: Color = Rarity.get_color(oil_rarity)
-		var oil_name_colored: String = Utils.get_colored_string(oil_name, rarity_color)
-
-		if !oil_count_map.has(oil_name_colored):
-			oil_count_map[oil_name_colored] = 0
-
-		oil_count_map[oil_name_colored] += 1
-
-	return oil_count_map
 
 
 #########################
