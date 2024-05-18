@@ -130,7 +130,7 @@ func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, target_pos: 
 func _get_spell_scene_path() -> String:
 	match _order:
 		"blizzard": return "res://src/spells/spell_blizzard.tscn"
-		"chainlightning": return "res://src/spells/spell_chain_lightningtscn"
+		"chainlightning": return "res://src/spells/spell_chain_lightning.tscn"
 		"forkedlightning": return "res://src/spells/spell_forked_lightning.tscn"
 		"carrionswarm": return "res://src/spells/spell_swarm.tscn"
 
