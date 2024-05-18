@@ -422,7 +422,7 @@ func _get_dmg_stats_left_text() -> String:
 	var text: String = "" \
 	+ "[hint=Attack damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
 	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
-	+ "[hint=Attack crit chance][img=30 color=ebe834]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
+	+ "[hint=Attack crit chance][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
 	+ "[hint=Attack crit damage][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % crit_damage_string \
 	+ "[hint=Multicrit][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % multicrit_string \
 	+ "[hint=DPS][img=30 color=e85831]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % overall_dps_string \
@@ -446,10 +446,10 @@ func _get_dmg_stats_right_text() -> String:
 	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
 
 	var text: String = "" \
-	+ "[hint=Spell damage bonus][img=30 color=31cde8]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
-	+ "[hint=Spell crit chance][img=30 color=31e8c3]res://resources/icons/generic_icons/azul_flake.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
-	+ "[hint=Spell crit damage][img=30 color=31e896]res://resources/icons/generic_icons/burning_dot.tres[/img] %s[/hint]\n" % spell_crit_damage_string \
-	+ "[hint=Mana regen][img=30 color=35a8de]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s[/hint]\n" % overall_mana_regen_string \
+	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s[/hint]\n" % overall_mana_regen_string \
+	+ "[hint=Spell damage bonus][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
+	+ "[hint=Spell crit chance][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
+	+ "[hint=Spell crit damage][img=30 color=35a8de]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % spell_crit_damage_string \
 	+ ""
 
 	return text
