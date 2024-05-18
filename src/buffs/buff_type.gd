@@ -414,8 +414,21 @@ func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff
 
 		return active_buff
 	elif new_level == active_level:
-#		NOTE: refresh active buff, no new buff
-		active_buff._refresh_by_new_buff()
+#		NOTE: if level is same but new power is greater then
+#		still upgrade the buff to give it new power level!
+#		Some towers do this kind of weird thing where they
+#		use same level but different power levels. FYI this
+#		case might not be handled correctly in original
+#		youtd because API docs say that the buff is upgraded
+#		only if new level is greater, no mention about
+#		comparing power level? Not sure.
+		var old_power: int = active_buff.get_power()
+		if new_power > old_power:
+#			NOTE: upgrade active buff, no new buff
+			active_buff._upgrade_by_new_buff(new_level, new_power)
+		else:
+#			NOTE: refresh active buff, no new buff
+			active_buff._refresh_by_new_buff()
 
 		return active_buff
 	else :
