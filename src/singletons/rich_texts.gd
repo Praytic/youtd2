@@ -390,6 +390,10 @@ func get_abilities_text_short(tower: Tower) -> String:
 
 	for ability_info in ability_info_list:
 		var description: String = ability_info.description_short
+
+		if description.is_empty():
+			continue
+
 		description = RichTexts.add_color_to_numbers(description)
 		var ability_text: String = "[color=GOLD]%s[/color]\n%s" % [ability_info.name, description]
 

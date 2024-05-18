@@ -911,7 +911,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		attack_ability.name = "Normal attack"
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
 		attack_ability.description_full = attack_description
-		attack_ability.description_short = attack_description
+		attack_ability.description_short = ""
 		attack_ability.radius = attack_range
 		attack_ability.target_type = TargetType.new(TargetType.CREEPS)
 		list.append(attack_ability)
