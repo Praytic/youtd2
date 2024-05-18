@@ -121,7 +121,7 @@ func on_attack(_event: Event):
 		return
 
 # 	1% leech per tower with 1 tower, 0.65% per tower with 8 
-	leech_power = 105 - 5 * leech_counter
+	leech_power = _stats.leech_power_base - _stats.leech_power_add * leech_counter
 
 	it = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 175.0)
 
