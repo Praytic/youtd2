@@ -52,7 +52,6 @@ func tower_init():
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
-	slow_bt.set_stacking_group("slow_bt1")
 	
 	slow_bt.set_buff_tooltip("Atrophy\nReduces movement speed.")
 

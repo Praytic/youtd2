@@ -55,7 +55,6 @@ func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 0, 0, false, self)
 	ignite_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	ignite_bt.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
-	ignite_bt.set_stacking_group("ignite_bt")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 0.5)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)

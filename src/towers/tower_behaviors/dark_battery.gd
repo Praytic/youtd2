@@ -77,7 +77,6 @@ func tower_init():
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
 	corruption_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	corruption_bt.set_buff_modifier(modifier)
-	corruption_bt.set_stacking_group("DarkBattery")
 	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
 
 	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)

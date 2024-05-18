@@ -29,7 +29,6 @@ func item_init():
 	bestial_bt = BuffType.create_aura_effect_type("bestial_bt", true, self)
 	bestial_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	bestial_bt.set_buff_tooltip("Bestial Rage\nIncreases damage dealt to orc and human creeps. Also increases DPS.")
-	bestial_bt.set_stacking_group("bestial_bt")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.12, 0.0024)
 	mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.12, 0.0024)

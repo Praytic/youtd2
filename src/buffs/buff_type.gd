@@ -486,8 +486,8 @@ func set_buff_icon_color(color: Color):
 # prio'd by caster "tier".
 # 
 # NOTE: buffType.setStackingGroup() in JASS
-func set_stacking_group(_stacking_group: String):
-	pass
+# func set_stacking_group(_stacking_group: String):
+# 	pass
 
 
 # NOTE: effects created by this functions will not follow a

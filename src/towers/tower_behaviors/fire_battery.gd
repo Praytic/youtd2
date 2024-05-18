@@ -82,7 +82,6 @@ func tower_init():
 	incinerate_bt.set_buff_modifier(modifier)
 	incinerate_bt.set_buff_icon("res://resources/icons/mechanical/battery.tres")
 	incinerate_bt.add_periodic_event(damage_periodic, 1)
-	incinerate_bt.set_stacking_group("FireBattery")
 	incinerate_bt.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")
 
 	fireball_pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200, self)

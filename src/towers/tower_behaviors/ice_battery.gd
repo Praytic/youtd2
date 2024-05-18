@@ -78,7 +78,6 @@ func tower_init():
 	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	frozen_bt.set_buff_modifier(slow)
-	frozen_bt.set_stacking_group("IceBattery")
 	frozen_bt.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
 
 	missile_pt = ProjectileType.create("LichMissile.mdl", 10, 1200, self)

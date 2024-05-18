@@ -69,7 +69,6 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.2, 0.01)
 	goldrush_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	goldrush_bt.set_buff_modifier(m)
-	goldrush_bt.set_stacking_group("goldrush_bt")
 	goldrush_bt.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")
 
 	multiboard = MultiboardValues.new(2)

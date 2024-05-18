@@ -54,7 +54,6 @@ func tower_init():
 	rage_0_bt = BuffType.new("rage_0_bt", 0, 0, true, self)
 	rage_0_bt.set_buff_modifier(m)
 	rage_0_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	rage_0_bt.set_stacking_group("gex_rage")
 	rage_0_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance and crit damage.")
 
 	var m_15: Modifier = Modifier.new()
@@ -65,7 +64,6 @@ func tower_init():
 	rage_15_bt = BuffType.new("rage_15_bt", 0, 0, true, self)
 	rage_15_bt.set_buff_modifier(m_15)
 	rage_15_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	rage_15_bt.set_stacking_group("gex_rage")
 	rage_15_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
 	var m_25: Modifier = Modifier.new()
@@ -76,7 +74,6 @@ func tower_init():
 	rage_25_bt = BuffType.new("rage_25_bt", 0, 0, true, self)
 	rage_25_bt.set_buff_modifier(m_25)
 	rage_25_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	rage_25_bt.set_stacking_group("gex_rage")
 	rage_25_bt.set_buff_tooltip("Rampage\nIncreases attack speed, crit chance, crit damage and multicrit.")
 
 

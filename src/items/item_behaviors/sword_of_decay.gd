@@ -22,7 +22,6 @@ func item_init():
 	rot_bt = BuffType.create_aura_effect_type("rot_bt", true, self)
 	rot_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	rot_bt.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
-	rot_bt.set_stacking_group("rot_bt")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.12, 0.0024)
 	rot_bt.set_buff_modifier(mod)

@@ -82,7 +82,6 @@ func tower_init():
 	poison_bt.set_buff_icon("res://resources/icons/mechanical/battery.tres")
 	poison_bt.add_periodic_event(damage_periodic, 1)
 	poison_bt.set_buff_modifier(modifier)
-	poison_bt.set_stacking_group("PoisonBattery")
 	poison_bt.set_buff_tooltip("Poison\nThis creep is poisoned; it will take damage over time and it has reduced movement speed.")
 
 	orb_pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200, self)

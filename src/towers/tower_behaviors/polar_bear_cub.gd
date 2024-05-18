@@ -51,7 +51,6 @@ func tower_init():
 	cold_feet_bt = BuffType.new("cold_feet_bt", 0, 0, true, self)
 	cold_feet_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
 	cold_feet_bt.set_buff_modifier(cold_feet_bt_mod)
-	cold_feet_bt.set_stacking_group("cold_feet_bt")
 	cold_feet_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
 	cold_feet_bt.add_event_on_cleanup(on_cleanup)
 	cold_feet_bt.set_buff_tooltip("Cold Feet\nDecreases attack speed.")

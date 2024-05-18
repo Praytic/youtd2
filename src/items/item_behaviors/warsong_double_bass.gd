@@ -20,7 +20,6 @@ func item_init():
 	warsong_bt = BuffType.create_aura_effect_type("warsong_bt", true, self)
 	warsong_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	warsong_bt.set_buff_tooltip("Warsong Double Bass Effect\nIncreased attack speed.")
-	warsong_bt.set_stacking_group("warsong_bt")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
 	warsong_bt.set_buff_modifier(mod)

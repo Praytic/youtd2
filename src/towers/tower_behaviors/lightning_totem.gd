@@ -22,7 +22,6 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
-	aura_bt.set_stacking_group("aura_bt")
 	aura_bt.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
 
 	

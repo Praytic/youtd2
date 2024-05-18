@@ -25,7 +25,6 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
 	charitable_bt = BuffType.create_aura_effect_type("charitable_bt", true, self)
-	charitable_bt.set_stacking_group("multi_aura")
 	charitable_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	charitable_bt.set_buff_tooltip("Charitable Presence\nIncreases maximum mana, spell damage and trigger chances.")
 	var mod: Modifier = Modifier.new()

@@ -61,7 +61,6 @@ func tower_init():
 	slow_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
-	slow_bt.set_stacking_group("slow_bt1")
 	slow_bt.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
@@ -71,7 +70,6 @@ func tower_init():
 	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
 	aura_bt.set_buff_modifier(aura_bt_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
-	aura_bt.set_stacking_group("aura_bt")
 	aura_bt.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
 
 

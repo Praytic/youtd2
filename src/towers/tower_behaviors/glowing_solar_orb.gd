@@ -53,7 +53,6 @@ func tower_init():
 	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
 	armor_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	armor_bt.set_buff_modifier(armor)
-	armor_bt.set_stacking_group("astral_armor")
 
 	armor_bt.set_buff_tooltip("Blinded\nReduces armor.")
 

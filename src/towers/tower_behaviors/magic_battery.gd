@@ -78,7 +78,6 @@ func tower_init():
 	faerie_bt = BuffType.new("faerie_bt", 9, 0.3, false, self)
 	faerie_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")
 	faerie_bt.set_buff_modifier(modifier)
-	faerie_bt.set_stacking_group("MagicBattery")
 	faerie_bt.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it is more vulnerable to spell damage and has increased debuff duration.")
 
 	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
