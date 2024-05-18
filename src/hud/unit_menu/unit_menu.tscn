@@ -806,6 +806,7 @@ size_flags_vertical = 3
 mouse_force_pass_scroll_events = false
 text = "No oils applied."
 
+[connection signal="hidden" from="." to="." method="_on_hidden"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" method="_on_pressed"]

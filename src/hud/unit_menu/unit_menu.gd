@@ -151,8 +151,7 @@ func set_unit(unit: Unit):
 	for control in _visible_controls_for_creep:
 		control.visible = unit is Creep
 	
-	if unit != null:
-		_load_unit()
+	_load_unit()
 	
 	if unit is Tower:
 		_load_tower()
@@ -165,17 +164,27 @@ func set_unit(unit: Unit):
 #########################
 
 func _load_unit():
+#	Clear elements from previous unit
+	var prev_ability_list: Array = _ability_grid.get_children()
+	for button in prev_ability_list:
+		_ability_grid.remove_child(button)
+		button.queue_free()
+	
+	var prev_item_list: Array = _inventory_grid.get_children()
+	for button in prev_item_list:
+		_inventory_grid.remove_child(button)
+		button.queue_free()
+		
+	if _unit == null:
+		return
+	
+#	Setup stuff for generic units
 	_unit.buff_list_changed.connect(_on_buff_list_changed)
 	_on_buff_list_changed()
 	
 	var overall_mana: float = _unit.get_overall_mana()
 	var unit_has_mana: bool = overall_mana > 0
 	_mana_bar.visible = unit_has_mana
-
-	var prev_button_list: Array = _ability_grid.get_children()
-	for button in prev_button_list:
-		_ability_grid.remove_child(button)
-		button.queue_free()
 
 
 func _load_tower():
@@ -720,3 +729,10 @@ func _on_inventory_grid_gui_input(event):
 
 func _on_details_button_pressed():
 	details_pressed.emit()
+
+
+# NOTE: need to clear current unit when hiding to avoid
+# leaving invalid references in case unit got removed from
+# the game
+func _on_hidden():
+	set_unit(null)
