@@ -61,7 +61,7 @@ func tower_init():
 	stim_bt.set_buff_icon("res://resources/icons/generic_icons/meat.tres")
 	stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
 
-	fragged_bt = BuffType.new("fragged_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
+	fragged_bt = BuffType.new("fragged_bt", -1, 0, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	fragged_bt.set_buff_modifier(boekie_grenade_mod)
