@@ -809,10 +809,11 @@ func _on_game_menu_quit_to_title_pressed():
 func _on_tutorial_controller_tutorial_triggered(tutorial_id):
 #	NOTE: ignore tutorial triggers in build mode because
 #	tutorial is written for random mode and shouldn't show
-#	up in build mode.
+#	up in build mode. Don't ignore the trigger for intro
+#	because it's necessary to show it.
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var game_mode_is_build: bool = game_mode == GameMode.enm.BUILD
-	if game_mode_is_build:
+	if game_mode_is_build && tutorial_id != TutorialProperties.TutorialId.INTRO_FOR_BUILD_MODE:
 		return
 	
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
