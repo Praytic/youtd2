@@ -158,3 +158,7 @@ func on_tower_details() -> MultiboardValues:
 	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
 
 	return empty_multiboard
+
+
+func get_tower() -> Tower:
+	return tower

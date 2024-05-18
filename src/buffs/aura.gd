@@ -107,7 +107,6 @@ func _change_buff_level_to_this_aura_level(buff: Buff):
 ###     Callbacks     ###
 #########################
 
-
 func _on_manual_timer_timeout():
 	_remove_invalid_targets()
 
@@ -135,6 +134,28 @@ func _on_manual_timer_timeout():
 			continue
 
 		var active_buff: Buff = unit.get_buff_of_type(_aura_effect)
+
+#		NOTE: if there's an active buff and it's from a
+#		tower of same family but lower tier - remove it.
+#		This is to always prio auras from higher tier
+#		towers. Doesn't affect buffs defined outside tower
+#		scripts, in items for example.
+# 
+#		NOTE: this code section needs to be duplicated from
+#		BuffType._do_stacking_behavior() because for auras
+#		this logic needs to be slightly different.
+		if active_buff != null:
+			var owned_by_tower: bool = _aura_effect.get_is_owned_by_tower()
+			var family_active: int = active_buff.get_tower_family()
+			var family_new: int = _aura_effect.get_tower_family()
+			var family_is_same: bool = family_active == family_new
+			var tier_active: int = active_buff.get_tower_tier()
+			var tier_new: int = _aura_effect.get_tower_tier()
+			var new_tier_is_greater: bool = tier_new > tier_active
+
+			if owned_by_tower && family_is_same && new_tier_is_greater:
+				active_buff._remove_as_aura()
+				active_buff = null
 
 		if active_buff == null:
 			_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)

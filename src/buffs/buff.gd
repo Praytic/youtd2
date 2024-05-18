@@ -34,6 +34,11 @@ var _cleanup_done: bool = false
 var _periodic_timer_map: Dictionary = {}
 var _is_hidden: bool
 var _special_effect_id: int = 0
+# NOTE: these values are defined if the buff type was
+# created inside a TowerBehavior script.
+var _is_owned_by_tower: bool = false
+var _tower_family: int = -1
+var _tower_tier: int = -1
 
 
 #########################
@@ -81,6 +86,18 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_is_owned_by_tower() -> bool:
+	return _is_owned_by_tower
+
+
+func get_tower_family() -> int:
+	return _tower_family
+
+
+func get_tower_tier() -> int:
+	return _tower_tier
+
 
 # NOTE: do not change remaining duration if original
 # duration is negative because that means that the buff is

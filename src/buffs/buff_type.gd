@@ -54,6 +54,11 @@ var _is_hidden: bool = false
 var _stacking_behavior_is_enabled: bool = true
 var _is_aura: bool = false
 var _special_effect_data: SpecialEffect = null
+# NOTE: these values are defined if the buff type was
+# created inside a TowerBehavior script.
+var _is_owned_by_tower: bool
+var _tower_family: int
+var _tower_tier: int
 
 
 #########################
@@ -63,17 +68,28 @@ var _special_effect_data: SpecialEffect = null
 # NOTE: if your script creates multiple BuffType's, then
 # each BuffType should be created with a different
 # "variable_name" arg. Examples: "poison_bt", "curse_bt".
-func _init(variable_name: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
-	parent.add_child(self)
+func _init(variable_name: String, time_base: float, time_level_add: float, friendly: bool, owner_node: Node):
+	owner_node.add_child(self)
 
-#	NOTE: add path of parent script to ensure uniqueness
-	var parent_script: Script = parent.get_script()
+#	NOTE: add path of owner script to ensure uniqueness
+	var parent_script: Script = owner_node.get_script()
 	var parent_script_path: String = parent_script.get_path()
 	_unique_name = "%s-%s" % [parent_script_path, variable_name]
 
 	_time_base = time_base
 	_time_level_add = time_level_add
 	_friendly = friendly
+
+	if owner_node is TowerBehavior:
+		var owner_tower_behavior: TowerBehavior = owner_node as TowerBehavior
+		var owner_tower: Tower = owner_tower_behavior.get_tower()
+		_is_owned_by_tower = true
+		_tower_family = owner_tower.get_family()
+		_tower_tier = owner_tower.get_tier()
+	else:
+		_is_owned_by_tower = false
+		_tower_family = -1
+		_tower_tier = -1
 
 
 #########################
@@ -109,6 +125,9 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._is_hidden = _is_hidden
 	buff._buff_icon = _buff_icon
 	buff._buff_icon_color = _buff_icon_color
+	buff._is_owned_by_tower = _is_owned_by_tower
+	buff._tower_family = _tower_family
+	buff._tower_tier = _tower_tier
 
 	if _is_aura:
 		buff.set_is_purgable(false)
@@ -341,20 +360,51 @@ func disable_stacking_behavior():
 ###      Private      ###
 #########################
 
+# This function handles situations where a buff is applied
+# while another buff of same type is already active.
+# 
 # This f-n will return null if new buff can be applied. It
 # returns an active buff if new buff cannot be applied due
 # to stacking behavior. In addition, this f-n modifies the
 # active buff in certain cases.
+#
+# NOTE: there's a special case for two buffs from same
+# bufftype buf different tower tiers (same family). In such
+# cases, we can't compare by level because different tier
+# towers define completely different bonuses for buffs. If
+# old tier is lower, old buff gets discarded. If old tier is
+# higher, new buff gets discarded. The level difference gets
+# ignored.
 # 
 # NOTE: the stacking logic has to be in the exact way as
-# defined here. Changing this logic might break some tower
-# and item scripts.
+# defined here. Changing this logic will break tower and
+# item scripts.
 func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff:
 	var active_buff: Buff = target.get_buff_of_type(self)
 
+#	NOTE: no active buff, so ok to create new buff
 	if active_buff == null:
-#		NOTE: no active buff, create new buff
 		return null
+
+	var owned_by_tower: bool = get_is_owned_by_tower()
+	var family_active: int = active_buff.get_tower_family()
+	var family_new: int = self.get_tower_family()
+	var family_is_same: bool = family_active == family_new
+	var tier_active: int = active_buff.get_tower_tier()
+	var tier_new: int = self.get_tower_tier()
+	var tier_is_same: bool = tier_active == tier_new
+
+	if owned_by_tower && family_is_same && !tier_is_same:
+		if tier_active > tier_new:
+#			NOTE: active buff is always prio if it comes
+#			from higher tier same family tower
+			return active_buff
+		elif tier_active < tier_new:
+#			NOTE: active buff gets removed (not upgraded) if
+#			it comes from lower tier same family tower.
+			active_buff.remove_buff()
+
+			return null
 
 	var active_level: int = active_buff.get_level()
 
@@ -377,6 +427,18 @@ func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff
 #########################
 ### Setters / Getters ###
 #########################
+
+func get_is_owned_by_tower() -> bool:
+	return _is_owned_by_tower
+
+
+func get_tower_family() -> int:
+	return _tower_family
+
+
+func get_tower_tier() -> int:
+	return _tower_tier
+
 
 func get_unique_name() -> String:
 	return _unique_name
@@ -417,11 +479,11 @@ func set_buff_icon_color(color: Color):
 	_buff_icon_color = color
 
 
-# NOTE: this f-n does nothing. According to original youtd
-# engine docs, stacking group is supposed to make it so that
-# different buff types do not stack with each other. Checked
-# tower and item scripts and all calls to setStackingGroup()
-# use unique strings so this f-n serves no purpose.
+# NOTE: this f-n is not implemented. With the way tower
+# scripts are done in youtd2, it's not possible to implement
+# stacking groups in the same way as in original youtd.
+# Instead, there's a workaround where buffs are always
+# prio'd by caster "tier".
 # 
 # NOTE: buffType.setStackingGroup() in JASS
 func set_stacking_group(_stacking_group: String):
