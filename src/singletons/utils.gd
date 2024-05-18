@@ -111,6 +111,8 @@ func get_time() -> float:
 
 # Returns current time of day in the game world, in hours.
 # Between 0.0 and 24.0.
+# NOTE: this function works as intended but the day/night
+# cycle is not supported visually so don't use this in scripts.
 # NOTE: GetFloatGameState(GAME_STATE_TIME_OF_DAY) in JASS
 func get_time_of_day() -> float:
 	var irl_seconds: float = get_time()
