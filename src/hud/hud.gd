@@ -123,6 +123,11 @@ func set_menu_unit(unit: Unit):
 	_tower_details.set_tower(tower)
 	_creep_details.set_creep(creep)
 
+	if tower == null:
+		_tower_details.hide()
+	if creep == null:
+		_creep_details.hide()
+
 
 func hide_roll_towers_button():
 	_elements_menu.hide_roll_towers_button()
