@@ -650,7 +650,9 @@ func _on_upgrade_button_mouse_entered():
 
 	var tooltip: String
 	if upgrade_id != -1:
-		tooltip = RichTexts.get_tower_text(upgrade_id, local_player)
+		tooltip = "[color=GOLD]Upgrade tower[/color]\n" \
+		+ " \n" \
+		+ RichTexts.get_tower_text(upgrade_id, local_player)
 	else:
 		tooltip = "Cannot upgrade any further."
 
