@@ -302,6 +302,33 @@ static func int_format(num: float) -> String:
 	return num_str + frac_str + suffix
 
 
+# This variant shortens thousands as well and doesn't
+# include fractional part.
+static func int_format_shortest(num: float) -> String:
+	# Determine the appropriate suffix for the number
+	var suffix = ""
+	if num >= 1_000_000_000_000:
+		num /= 1_000_000_000_000
+		suffix = "T"
+	elif num >= 1_000_000_000:
+		num /= 1_000_000_000
+		suffix = "G"
+	elif num >= 1_000_000:
+		num /= 1_000_000
+		suffix = "M"
+	elif num >= 1_000:
+		num /= 1_000
+		suffix = "K"
+
+	var num_str = ""
+	if num >= 1:
+		num_str = str(int(num))
+	else:
+		num_str = "0"
+	
+	return num_str + suffix
+
+
 static func percent_signed_format(number: float) -> String:
 	var formatted: String = Utils.format_percent(number, 0)
 

@@ -87,17 +87,11 @@ func _process(_delta: float):
 	
 	var health: int = floori(_unit.get_health())
 	var health_max: int = floori(_unit.get_overall_health())
-	var health_ratio: float = _unit.get_health_ratio()
-	var health_string: String = "%d/%d" % [floori(health), floori(health_max)]
-	_health_bar.set_text(health_string)
-	_health_bar.set_as_ratio(health_ratio)
+	_health_bar.set_ratio_custom(health, health_max)
 	
-	var mana: float = _unit.get_mana()
-	var mana_max: float = _unit.get_overall_mana()
-	var mana_ratio: float = _unit.get_mana_ratio()
-	var mana_string: String = "%d/%d" % [floori(mana), floori(mana_max)]
-	_mana_bar.set_text(mana_string)
-	_mana_bar.set_as_ratio(mana_ratio)
+	var mana: int = roundi(_unit.get_mana())
+	var mana_max: int = roundi(_unit.get_overall_mana())
+	_mana_bar.set_ratio_custom(mana, mana_max)
 	
 	var unit_level: int = _unit.get_level()
 	var unit_is_max_level: bool = unit_level == Constants.MAX_LEVEL
@@ -107,16 +101,18 @@ func _process(_delta: float):
 		var current_exp: int = floori(_unit.get_exp())
 		var exp_over_current_level: int = current_exp - exp_for_current_level
 		var exp_until_next_level: int = exp_for_next_level - exp_for_current_level
+		_exp_bar.set_ratio_custom(current_exp, exp_for_next_level)
+
+#		NOTE: need to set ratio manually because exp bar
+#		needs to display:
+#		text - current total exp
+#		ratio - current total exp minus exp for prev level
 		var exp_ratio: float = Utils.divide_safe(exp_over_current_level, exp_until_next_level)
-		var exp_string: String = "%d/%d" % [current_exp, exp_for_next_level]
-		_exp_bar.set_text(exp_string)
 		_exp_bar.set_as_ratio(exp_ratio)
 	else:
 		var current_exp: int = floori(_unit.get_exp())
 		var exp_for_max_level: int = Experience.get_exp_for_level(Constants.MAX_LEVEL)
-		var exp_string: String = "%d/%d" % [current_exp, exp_for_max_level]
-		_exp_bar.set_text(exp_string)
-		_exp_bar.set_as_ratio(1.0)
+		_exp_bar.set_ratio_custom(current_exp, exp_for_max_level)
 	
 	if _tower != null:
 		_update_stats_panel()
