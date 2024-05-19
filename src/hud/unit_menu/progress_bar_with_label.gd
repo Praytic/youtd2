@@ -11,6 +11,8 @@ func set_text(text: String):
 	_label.text = text
 
 
+# This function makes sure that the text will fit into the
+# width of the progress bar
 func set_ratio_custom(left: int, right: int):
 	var left_string: String = TowerDetails.int_format_shortest(left)
 	var right_string: String = TowerDetails.int_format_shortest(right)
