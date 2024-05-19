@@ -6,6 +6,7 @@ const FALLBACK_BUFF_ICON: String = "res://resources/icons/generic_icons/egg.tres
 
 @export var _texture_rect: TextureRect
 @export var _stacks_label: Label
+@export var _time_indicator: TimeIndicator
 
 var _buff: Buff = null
 
@@ -33,6 +34,14 @@ func _process(_delta: float):
 		stacks_text = "99"
 
 	_stacks_label.text = stacks_text
+	
+	var remaining_duration: float = _buff.get_remaining_duration()
+	var overall_duration: float = _buff.get_original_duration()
+	var elapsed_duration: float = overall_duration - remaining_duration
+	var buff_is_permanent: bool = overall_duration < 0
+
+	if !buff_is_permanent:
+		_time_indicator.set_time_values(elapsed_duration, overall_duration)
 
 
 #########################
@@ -41,7 +50,7 @@ func _process(_delta: float):
 
 func set_buff(buff: Buff):
 	_buff = buff
-
+	
 	if buff == null:
 		return
 

@@ -429,6 +429,10 @@ func get_remaining_duration() -> float:
 	return remaining_duration
 
 
+func get_original_duration() -> float:
+	return _original_duration
+
+
 # NOTE: buff.isPurgable() in JASS
 func is_purgable() -> bool:
 	return _purgable
