@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg7nrj1oufmwa"]
+
+[ext_resource type="PackedScene" uid="uid://bpewn2rh5b1kf" path="res://src/hud/filters/filter_button.tscn" id="1_c5lm0"]
+[ext_resource type="Script" path="res://src/hud/filters/filter_button_rarity.gd" id="2_45pqm"]
+
+[node name="FilterButtonRarity" instance=ExtResource("1_c5lm0")]
+script = ExtResource("2_45pqm")

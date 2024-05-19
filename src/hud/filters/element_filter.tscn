@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://l8hrrql7ne16"]
+
+[ext_resource type="Script" path="res://src/hud/filters/element_filter.gd" id="1_6o50p"]
+[ext_resource type="PackedScene" uid="uid://cgdwym7h2i5ot" path="res://src/hud/filters/filter_button_element.tscn" id="2_ds1w8"]
+[ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://resources/button_groups/element_filter_button_group.tres" id="3_g3ljb"]
+[ext_resource type="Texture2D" uid="uid://63uq7vjycais" path="res://resources/icons/elements/ice.tres" id="4_p60bo"]
+[ext_resource type="Texture2D" uid="uid://c14cl1op1y5wk" path="res://resources/icons/elements/nature.tres" id="5_s2nhr"]
+[ext_resource type="Texture2D" uid="uid://bvhrjk28kmjxg" path="res://resources/icons/elements/fire.tres" id="6_kuaiu"]
+[ext_resource type="Texture2D" uid="uid://b58m66c4f8n2n" path="res://resources/icons/elements/astral.tres" id="7_6nm5y"]
+[ext_resource type="Texture2D" uid="uid://ofrvficsj8ih" path="res://resources/icons/elements/storm.tres" id="8_yvbhi"]
+[ext_resource type="Texture2D" uid="uid://b7c8ugpn34iib" path="res://resources/icons/elements/darkness.tres" id="9_fsbg5"]
+[ext_resource type="Texture2D" uid="uid://3aghxlv6b4hb" path="res://resources/icons/elements/iron.tres" id="10_xf7tc"]
+
+[node name="ElementFilter" type="VBoxContainer"]
+alignment = 2
+script = ExtResource("1_6o50p")
+
+[node name="FilterButtonElement" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("4_p60bo")
+
+[node name="FilterButtonElement2" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("5_s2nhr")
+element = 1
+
+[node name="FilterButtonElement3" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("6_kuaiu")
+element = 2
+
+[node name="FilterButtonElement4" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("7_6nm5y")
+element = 3
+
+[node name="FilterButtonElement7" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("8_yvbhi")
+element = 6
+
+[node name="FilterButtonElement5" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("9_fsbg5")
+element = 4
+
+[node name="FilterButtonElement6" parent="." instance=ExtResource("2_ds1w8")]
+layout_mode = 2
+button_group = ExtResource("3_g3ljb")
+icon = ExtResource("10_xf7tc")
+element = 5
+
+[connection signal="toggled" from="FilterButtonElement" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement2" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement3" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement4" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement7" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement5" to="." method="_on_element_button_pressed"]
+[connection signal="toggled" from="FilterButtonElement6" to="." method="_on_element_button_pressed"]

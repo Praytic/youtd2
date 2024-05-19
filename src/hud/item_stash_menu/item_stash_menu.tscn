@@ -12,9 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://bqsnuywmbb5c1" path="res://resources/icons/mechanical/alchemy_kit_03.tres" id="11_vmis2"]
 [ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://resources/icons/hud/recipe_perfect.tres" id="11_vtu31"]
 [ext_resource type="Texture2D" uid="uid://b30yt0bkbmhsj" path="res://resources/icons/mechanical/alchemy_kit_01.tres" id="12_b1vp8"]
+[ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://src/hud/filters/item_type_filter.tscn" id="13_1dykx"]
 [ext_resource type="Texture2D" uid="uid://bkmyw11w5jqjw" path="res://resources/icons/magic/magic_stone.tres" id="13_hyx2e"]
-[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://src/hud/item_stash_menu/rarity_filter.tscn" id="14_7wnn3"]
-[ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://src/hud/item_stash_menu/item_type_filter_container.tscn" id="16_k0q2d"]
+[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://src/hud/filters/rarity_filter.tscn" id="14_bh43e"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="17_ba6s8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_od67h"]
@@ -31,7 +31,7 @@ mouse_force_pass_scroll_events = false
 theme_override_styles/panel = SubResource("StyleBoxEmpty_od67h")
 script = ExtResource("2_7jmcp")
 _rarity_filter = NodePath("MarginContainer/VBoxContainer2/RarityFilter")
-_item_type_filter_container = NodePath("MarginContainer/VBoxContainer2/ItemTypeFilterContainer")
+_item_type_filter_container = NodePath("MarginContainer/VBoxContainer2/ItemTypeFilter")
 _item_buttons_container = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
 _backpacker_recipes = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
 _horadric_menu = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel")
@@ -425,10 +425,10 @@ size_flags_horizontal = 0
 mouse_filter = 2
 theme_override_constants/separation = 40
 
-[node name="ItemTypeFilterContainer" parent="MarginContainer/VBoxContainer2" instance=ExtResource("16_k0q2d")]
+[node name="ItemTypeFilter" parent="MarginContainer/VBoxContainer2" instance=ExtResource("13_1dykx")]
 layout_mode = 2
 
-[node name="RarityFilter" parent="MarginContainer/VBoxContainer2" instance=ExtResource("14_7wnn3")]
+[node name="RarityFilter" parent="MarginContainer/VBoxContainer2" instance=ExtResource("14_bh43e")]
 layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]
@@ -459,6 +459,6 @@ horizontal_alignment = 1
 [connection signal="gui_input" from="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer" to="." method="_on_item_buttons_container_gui_input"]
 [connection signal="pressed" from="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
-[connection signal="filter_changed" from="MarginContainer/VBoxContainer2/ItemTypeFilterContainer" to="." method="_on_item_type_filter_container_filter_changed"]
+[connection signal="filter_changed" from="MarginContainer/VBoxContainer2/ItemTypeFilter" to="." method="_on_item_type_filter_container_filter_changed"]
 [connection signal="filter_changed" from="MarginContainer/VBoxContainer2/RarityFilter" to="." method="_on_rarity_filter_filter_changed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
