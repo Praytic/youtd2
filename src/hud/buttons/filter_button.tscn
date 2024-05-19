@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpewn2rh5b1kf"]
+
+[ext_resource type="Texture2D" uid="uid://775ninjr2sio" path="res://resources/icons/hud/gem_all_rarities.tres" id="1_4j25c"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_dx1f6"]
+
+[node name="FilterButton" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+focus_mode = 0
+theme = ExtResource("1_dx1f6")
+theme_type_variation = &"FilterButton"
+toggle_mode = true
+icon = ExtResource("1_4j25c")
+expand_icon = true

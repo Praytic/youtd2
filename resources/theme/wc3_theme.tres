@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=93 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=98 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://assets/fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://resources/theme/common/rect_container_l.tres" id="1_7apqd"]
@@ -171,6 +171,16 @@ texture_margin_bottom = 10.0
 modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehwjq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6boc5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3rl6t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5u1yn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1jfq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atyef"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
@@ -835,6 +845,16 @@ ExpandButton/styles/disabled = SubResource("StyleBoxEmpty_f8clf")
 ExpandButton/styles/hover = SubResource("StyleBoxTexture_c46h0")
 ExpandButton/styles/normal = SubResource("StyleBoxTexture_wifc2")
 ExpandButton/styles/pressed = SubResource("StyleBoxEmpty_ehwjq")
+FilterButton/base_type = &"Button"
+FilterButton/colors/icon_hover_color = Color(0.901961, 0.901961, 0.901961, 1)
+FilterButton/colors/icon_hover_pressed_color = Color(0.901961, 0.901961, 0.901961, 1)
+FilterButton/colors/icon_normal_color = Color(0.501961, 0.501961, 0.501961, 1)
+FilterButton/colors/icon_pressed_color = Color(1, 1, 1, 1)
+FilterButton/styles/disabled = SubResource("StyleBoxEmpty_6boc5")
+FilterButton/styles/focus = SubResource("StyleBoxEmpty_3rl6t")
+FilterButton/styles/hover = SubResource("StyleBoxEmpty_5u1yn")
+FilterButton/styles/normal = SubResource("StyleBoxEmpty_e1jfq")
+FilterButton/styles/pressed = SubResource("StyleBoxEmpty_atyef")
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_2t7ys")
 Label/font_sizes/font_size = 24
