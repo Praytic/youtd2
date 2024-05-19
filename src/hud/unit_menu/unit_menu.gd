@@ -435,7 +435,7 @@ func _get_dmg_stats_right_text() -> String:
 	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
 
 	var text: String = "" \
-	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s[/hint]\n" % overall_mana_regen_string \
+	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_mana_regen_string \
 	+ "[hint=Spell damage bonus][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
 	+ "[hint=Spell crit chance][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
 	+ "[hint=Spell crit damage][img=30 color=35a8de]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % spell_crit_damage_string \
