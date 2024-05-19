@@ -98,7 +98,7 @@ func tower_init():
 	poison_bt = BuffType.new("poison_bt", 5, 0.05, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
-	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
+	poison_bt.set_buff_tooltip("Poisonous Spittle\nDeals damage over time.")
 
 
 func on_create(_preceding_tower: Tower):

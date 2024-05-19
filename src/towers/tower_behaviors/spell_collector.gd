@@ -82,7 +82,7 @@ func tower_init():
 
 	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
 	missile_stacks_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
-	missile_stacks_bt.set_buff_tooltip("Absorbed Missile\nThis tower has absorbed spells and turned them into missiles.")
+	missile_stacks_bt.set_buff_tooltip("Absorbed Missile\nMagical missiles are ready to be fired.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spells Harvested")

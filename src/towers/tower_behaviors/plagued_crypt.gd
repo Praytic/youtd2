@@ -61,7 +61,7 @@ func tower_init():
 #	enable_advanced(). It starts at 0.01 to change to real
 #	period as quickly as possible.
 	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_spread, 0.01)
-	plague_bt.set_buff_tooltip("Plague\nThis creep is affected by Plague; it will take damage over time.")
+	plague_bt.set_buff_tooltip("Plague\nDeals damage over time.")
 
 	army_bt = BuffType.new("army_bt", -1, 0, true, self)
 	var cedi_crypt_army_mod: Modifier = Modifier.new()

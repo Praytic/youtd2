@@ -47,7 +47,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt.set_buff_modifier(m)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Ice Nova\nReduces movement speed.")
 
 
 func on_damage(event: Event):

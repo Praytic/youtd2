@@ -90,7 +90,7 @@ func tower_init():
 	cenarius_leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(cenarius_leaf_storm_mod)
 	leaf_storm_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nThis creep is inside a Leaf Storm; it has reduced movement speed.")
+	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nReduces movement speed.")
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var cenarius_thorned_mod: Modifier = Modifier.new()

@@ -11,7 +11,7 @@ func tower_init():
 	entangle_bt = CbStun.new("entangle_bt", 1.2, 0, false, self)
 	entangle_bt.set_buff_icon("res://resources/icons/generic_icons/ophiucus.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
-	entangle_bt.set_buff_tooltip("Entangled\nThis creep is entangled; it can't move and will take periodic damage.")
+	entangle_bt.set_buff_tooltip("Entangled\nPrevents movement and deals damage over time.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")

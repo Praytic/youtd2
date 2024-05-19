@@ -99,7 +99,7 @@ func tower_init():
 	burning_bt.add_event_on_damaged(burning_bt_on_damaged)
 	burning_bt.add_event_on_death(burning_bt_on_death)
 
-	burning_bt.set_buff_tooltip("Burning Structures\nIncreases damage taken from Fire towers. If the target dies while burning, it will explode dealing damage to nearby units.")
+	burning_bt.set_buff_tooltip("Burn\nIncreases damage taken from Fire towers. If the target dies while burning, it will explode dealing damage to nearby units.")
 
 
 func load_triggers(triggers_buff_type: BuffType):

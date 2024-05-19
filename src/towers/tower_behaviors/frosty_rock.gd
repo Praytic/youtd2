@@ -49,7 +49,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_modifier(m)
 
-	slow_bt.set_buff_tooltip("Slowed\nReduces movement speed.")
+	slow_bt.set_buff_tooltip("Glacial Wrath\nReduces movement speed.")
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 

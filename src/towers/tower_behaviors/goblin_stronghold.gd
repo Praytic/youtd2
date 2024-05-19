@@ -90,7 +90,7 @@ func tower_init():
 	cedi_goblin_sapper_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
 	sapper_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
-	sapper_bt.set_buff_tooltip("Sapper Burn\nThis creep was hit by a Goblin Sapper; it has reduced movement speed.")
+	sapper_bt.set_buff_tooltip("Sapper Burn\nReduces movement speed.")
 
 	robot_bt = BuffType.new("robot_bt", 5, 0, true, self)
 	var cedi_goblin_robot_mod: Modifier = Modifier.new()

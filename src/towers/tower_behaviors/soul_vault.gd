@@ -58,7 +58,7 @@ func tower_init():
 	sir_soul_vault_aura_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.25, -0.002)
 	aura_bt.set_buff_modifier(sir_soul_vault_aura_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
-	aura_bt.set_buff_tooltip("Vault's Presence - Aura\nReduces armor.")
+	aura_bt.set_buff_tooltip("Vault's Presence Aura\nReduces armor.")
 
 	acid_skull_bt = BuffType.new("acid_skull_bt", 4.5, 0, false, self)
 	var sir_soul_vault_acid_skull_mod: Modifier = Modifier.new()

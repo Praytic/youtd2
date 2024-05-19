@@ -61,7 +61,7 @@ func tower_init():
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	frozen_bt.add_event_on_create(frozen_bt_on_create)
 	frozen_bt.add_event_on_cleanup(frozen_bt_on_cleanup)
-	frozen_bt.set_buff_tooltip("Frozen\nReduces health regeneration.")
+	frozen_bt.set_buff_tooltip("Cold\nReduces health regeneration.")
 
 
 func on_damage(event: Event):
