@@ -56,6 +56,8 @@ static func _static_init():
 #	Generate "progress points", these points are spread
 #	evenly along a square perimeter.
 
+	_progress_point_list.append(_top_middle_point)
+
 # 	From top center to top right
 	for angle in range(0, 45, ANGLE_STEP):
 		var x: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
@@ -90,6 +92,8 @@ static func _static_init():
 		var y: float = 0
 		var point: Vector2 = Vector2(x, y)
 		_progress_point_list.append(point)
+
+	_progress_point_list.append(_top_middle_point)
 
 
 func _process(_delta: float):
@@ -140,7 +144,7 @@ func set_autocast(autocast: Autocast):
 #########################
 
 static func _generate_draw_points(progress: float, icon_size: float, style: TimeIndicator.DrawStyle) -> PackedVector2Array:
-	var current_progress_point: int = int(progress * (_progress_point_list.size() - 1))
+	var current_progress_point: int = ceili(progress * (_progress_point_list.size() - 1))
 	
 	if current_progress_point < 3:
 		return []

@@ -40,7 +40,9 @@ func _process(_delta: float):
 	var elapsed_duration: float = overall_duration - remaining_duration
 	var buff_is_permanent: bool = overall_duration < 0
 
-	if !buff_is_permanent:
+	if buff_is_permanent:
+		_time_indicator.set_time_values(0.0, 1.0)
+	else:
 		_time_indicator.set_time_values(elapsed_duration, overall_duration)
 
 
