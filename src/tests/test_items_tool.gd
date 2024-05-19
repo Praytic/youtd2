@@ -19,7 +19,8 @@ static func run(gamescene: Node, player: Player):
 		print("(%d/%d) Testing item %d %s" % [i + 1, item_id_list.size(), item_id, item_name])
 
 		var item: Item = Item.make(item_id, player)
-		Item.make_item_drop(item, Vector3.ZERO)
+		var item_drop: ItemDrop = ItemDrop.make(item, Vector3.ZERO)
+		Utils.add_object_to_world(item_drop)
 		item.pickup(tower)
 		await scene_tree.create_timer(0.01).timeout
 		item.drop()

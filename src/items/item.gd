@@ -131,10 +131,6 @@ func get_specials_tooltip_text() -> String:
 func set_visible(visible: bool):
 	_visible = visible
 
-	var item_drop: ItemDrop = get_parent() as ItemDrop
-	if item_drop != null:
-		item_drop.visible = visible
-
 
 func set_autocast(autocast: Autocast):
 	autocast._is_item_autocast = true
@@ -249,7 +245,8 @@ func drop():
 	var carrier_container: ItemContainer = _carrier.get_item_container()
 	carrier_container.remove_item(self)
 	
-	Item.make_item_drop(self, drop_pos)
+	var item_drop: ItemDrop = ItemDrop.make(self, drop_pos)
+	Utils.add_object_to_world(item_drop)
 
 
 # Item starts flying to the stash and will get added to
@@ -269,10 +266,6 @@ func fly_to_stash(_mystery_float: float):
 		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)
 		flying_item.visible = _visible
 		_hud.add_child(flying_item)
-
-#	NOTE: need to hide item drop because it continues to
-#	exist while item is "flying".
-	parent_item_drop.hide()
 
 #	NOTE: fly duration has to be a constant value, doesn't
 #	matter if fly animation will finish earlier. This is to
@@ -380,7 +373,8 @@ func uses_charges() -> bool:
 #########################
 
 # Creates item on the ground. Item is stored inside an
-# ItemDrop object.
+# ItemDrop object until it's picked up by a tower or
+# moved to stash.
 # NOTE: Item.create() in JASS
 static func create(player: Player, item_id: int, position: Vector3) -> Item:
 	if player == null:
@@ -389,8 +383,9 @@ static func create(player: Player, item_id: int, position: Vector3) -> Item:
 		return null
 
 	var item: Item = Item.make(item_id, player)
-	Item.make_item_drop(item, position)
-	
+	var item_drop: ItemDrop = ItemDrop.make(item, position)
+	Utils.add_object_to_world(item_drop)
+
 	return item
 
 
@@ -412,40 +407,3 @@ static func make(id: int, player: Player) -> Item:
 	item.add_child(item_behavior)
 
 	return item
-
-
-# NOTE: this function would be better placed in ItemDrop but
-# that causes problems, I think due to cyclic references.
-# You will get errors like "Bad address index" when an oil
-# drops or "X could not be resolved".
-static func make_item_drop(item: Item, drop_pos: Vector3):
-	if item.get_parent() != null:
-		push_error("Item must be unparented before being added to ItemDrop.")
-		
-		return
-	
-	var item_drop_scene_map: Dictionary = {
-		"res://src/items/common_item.tscn": preload("res://src/items/common_item.tscn"),
-		"res://src/items/uncommon_item.tscn": preload("res://src/items/uncommon_item.tscn"),
-		"res://src/items/rare_item.tscn": preload("res://src/items/rare_item.tscn"),
-		"res://src/items/unique_item.tscn": preload("res://src/items/unique_item.tscn"),
-		"res://src/items/red_oil.tscn": preload("res://src/items/red_oil.tscn"),
-	}
-	
-	var item_id: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(item_id):
-		item_drop_scene_path = "res://src/items/red_oil.tscn"
-	else:
-		item_drop_scene_path = "res://src/items/%s_item.tscn" % rarity_string
-	var item_drop_scene: PackedScene = item_drop_scene_map[item_drop_scene_path]
-	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	item_drop.set_position_wc3(drop_pos)
-	item_drop.visible = item._visible
-	item_drop.set_player(item.get_player())
-	item_drop._item = item
-	item_drop.add_child(item)
-
-	Utils.add_object_to_world(item_drop)

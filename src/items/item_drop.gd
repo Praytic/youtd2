@@ -1,12 +1,18 @@
-class_name ItemDrop
-extends Unit
-
-# ItemDrop is the visual for the item when it is dropped on
-# the ground. Contains item instance inside it.
+class_name ItemDrop extends Unit
 
 
-var _item: Item = null
-@export var _selection_area: Area2D
+# ItemDrop is the storage for the item when it is dropped on
+# the ground. Contains item instance as child. Note that
+# this class is basically a vestigial thing from original
+# youtd because in youtd2 it's always invisible. In original
+# youtd, items could be moved around on the ground but in
+# youtd2, items are always either in item stash or tower
+# inventory. The only functional thing this class does in
+# youtd2 is storing the item while it's flying to item stash
+# and also if it somehow becomes visible then that's a
+# signal that something went wrong.
+
+
 @export var _visual: Node2D
 
 
@@ -14,13 +20,9 @@ var _item: Item = null
 ###     Built-in      ###
 #########################
 
-# NOTE: note calling Unit._set_unit_dimensions() because no
-# sprite on base class and dimensions are not important for
-# ItemDrop's.
 func _ready():
 	super()
 
-	_setup_selection_signals(_selection_area)
 	_set_visual_node(_visual)
 
 # 	NOTE: use 100 so that item drops is drawn in front of
@@ -30,23 +32,20 @@ func _ready():
 
 
 #########################
-###       Public      ###
+###       Static      ###
 #########################
 
-func get_id() -> int:
-	return _item.get_id()
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-# NOTE: don't allow picking up invisible items
-func _on_selected_changed():
-	if !is_selected():
-		return
+static func make(item: Item, drop_pos: Vector3) -> ItemDrop:
+	if item.get_parent() != null:
+		push_error("ItemDrop.make() was called on an item which still has a parent. Item must be unparented before being added to ItemDrop. Forcefully removing item from parent to proceed.")
+		item.get_parent().remove_child(item)
 	
-	var can_pickup: bool = _item._visible
+	var item_drop_scene: PackedScene = preload("res://src/items/item_drop.tscn")
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	item_drop.set_position_wc3(drop_pos)
+#	NOTE: in youtd2, item drops are always invisible
+	item_drop.visible = false
+	item_drop.set_player(item.get_player())
+	item_drop.add_child(item)
 
-	if can_pickup:
-		_item.fly_to_stash(0.0)
+	return item_drop

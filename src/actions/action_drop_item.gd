@@ -30,7 +30,8 @@ static func execute(action: Dictionary, player: Player):
 
 	var position_wc3_2d: Vector2 = VectorUtils.canvas_to_wc3_2d(position_canvas)
 	var position_wc3: Vector3 = Vector3(position_wc3_2d.x, position_wc3_2d.y, 0)
-	Item.make_item_drop(item, position_wc3)
+	var item_drop: ItemDrop = ItemDrop.make(item, position_wc3)
+	Utils.add_object_to_world(item_drop)
 	item.fly_to_stash(0.0)
 
 
