@@ -110,84 +110,35 @@ custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 columns = 10
 
-[node name="PlaceholderBuff" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
 
-[node name="PlaceholderBuff2" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay2" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff3" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay3" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff4" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay4" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff5" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay5" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff6" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay6" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff7" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay7" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff8" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay8" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff9" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay9" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
-[node name="PlaceholderBuff10" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
+[node name="BuffDisplay10" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff11" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff12" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff13" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff14" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff15" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff16" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff17" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff18" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff19" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
-
-[node name="PlaceholderBuff20" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" node_paths=PackedStringArray("_texture_rect") instance=ExtResource("4_d2h33")]
-layout_mode = 2
-_texture_rect = NodePath("../PlaceholderBuff/TextureRect")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2

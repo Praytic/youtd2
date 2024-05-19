@@ -42,6 +42,9 @@ func _process(_delta: float):
 func set_buff(buff: Buff):
 	_buff = buff
 
+	if buff == null:
+		return
+
 	var buff_icon_path: String = buff.get_buff_icon()
 
 	if !ResourceLoader.exists(buff_icon_path):

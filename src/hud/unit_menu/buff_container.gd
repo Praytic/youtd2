@@ -46,7 +46,21 @@ func load_buffs_for_unit(unit: Unit):
 		for buff in hidden_buff_list:
 			buff_list.erase(buff)
 
+	var perma_buff_list: Array[Buff] = []
+	for buff in buff_list:
+		var buff_is_perma: bool = buff.get_original_duration() < 0
+		if buff_is_perma:
+			perma_buff_list.append(buff)
+
+#	NOTE: need to put permanent buffs first, otherwise they
+#	will just around too much due to temporary buffs
+#	expiring
+	for buff in perma_buff_list:
+		buff_list.erase(buff)
+		buff_list.insert(0, buff)
+
 	for buff_display in _buff_display_list:
+		buff_display.set_buff(null)
 		buff_display.hide()
 
 	for i in range(0, buff_list.size()):
