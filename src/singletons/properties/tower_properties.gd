@@ -606,22 +606,12 @@ func _load_tower_ranges_map() -> Dictionary:
 
 	var result: Dictionary = {}
 
-# 	Add attack ranges
-	var tower_id_list: Array = get_tower_id_list()
+	var tower_id_list: Array = TowerProperties.get_tower_id_list()
+
 	for tower_id in tower_id_list:
 		var empty_list: Array[RangeData] = []
 		result[tower_id] = empty_list
-		
-		var attack_enabled: bool = get_attack_enabled(tower_id)
 
-		if attack_enabled:
-			var attack_range: float = get_range(tower_id)
-			var range_data: RangeData = RangeData.new("Attack Range", attack_range)
-			range_data.targets_creeps = true
-			range_data.affected_by_builder = true
-			result[tower_id].append(range_data)
-
-# 	Add ability ranges
 	for csv_line in csv:
 		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
 		var tower_id: int = properties[TowerProperties.RangeColumn.TOWER_ID].to_int()

@@ -25,7 +25,6 @@ const placeholder_effect_scene: PackedScene = preload("res://src/effects/generic
 const empty_slot_button_scene: PackedScene = preload("res://src/hud/buttons/empty_unit_button.tscn")
 const range_indicator_scene: PackedScene = preload("res://src/towers/range_indicator.tscn")
 const outline_shader: Material = preload("res://resources/shaders/glowing_outline.material")
-const special_container: PackedScene = preload("res://src/hud/unit_menu/special_container.tscn")
 const player_scene: PackedScene = preload("res://src/player/player.tscn")
 const team_scene: PackedScene = preload("res://src/player/team.tscn")
 const tower_preview_scene: PackedScene = preload("res://src/towers/tower_preview.tscn")
