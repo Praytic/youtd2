@@ -25,6 +25,9 @@ func _ready():
 		var recipe_button: RecipeButton = node as RecipeButton
 		var recipe: HoradricCube.Recipe = recipe_button.recipe
 		recipe_button.pressed.connect(_on_recipe_button_pressed.bind(recipe))
+		
+#		NOTE: recipe buttons start out disabled until items are added to item stash
+		recipe_button.disabled = true
 
 
 #########################
