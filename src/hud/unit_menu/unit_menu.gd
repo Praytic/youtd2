@@ -120,6 +120,7 @@ func _process(_delta: float):
 	
 	if _tower != null:
 		_update_stats_panel()
+		_update_upgrade_button()
 
 
 #########################
