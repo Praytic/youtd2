@@ -5,7 +5,7 @@ const FALLBACK_AUTOCAST_ICON: String = "res://resources/icons/mechanical/compass
 
 
 var _autocast: Autocast = null
-@export var _cooldown_indicator: CooldownIndicator
+@export var _time_indicator: TimeIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _indicator_container: MarginContainer
 
@@ -28,7 +28,7 @@ func _ready():
 
 	mouse_entered.connect(_on_mouse_entered)
 
-	_cooldown_indicator.set_autocast(_autocast)
+	_time_indicator.set_autocast(_autocast)
 	_auto_mode_indicator.set_autocast(_autocast)
 
 	var button_stylebox: StyleBox = get_theme_stylebox("normal", "Button")

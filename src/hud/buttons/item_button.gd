@@ -9,7 +9,7 @@ signal ctrl_right_clicked()
 
 var _item: Item
 
-@export var _cooldown_indicator: CooldownIndicator
+@export var _time_indicator: TimeIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _charges_label: Label
 @export var _lock_texture: TextureRect
@@ -32,12 +32,12 @@ func _ready():
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
-		_cooldown_indicator.set_autocast(autocast)
+		_time_indicator.set_autocast(autocast)
 		_auto_mode_indicator.set_autocast(autocast)
 	
 	mouse_entered.connect(_on_mouse_entered)
 
-	_cooldown_indicator.set_visible(_show_cooldown_indicator)
+	_time_indicator.set_visible(_show_cooldown_indicator)
 	_auto_mode_indicator.set_visible(_show_auto_mode_indicator)
 
 	_item.charges_changed.connect(_on_item_charges_changed)

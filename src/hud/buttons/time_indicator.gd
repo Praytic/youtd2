@@ -1,5 +1,5 @@
 @tool
-class_name CooldownIndicator extends Control
+class_name TimeIndicator extends Control
 
 # Displays a rotating shadow polygon over a square area,
 # like a clock hand. Has two styles:
@@ -33,7 +33,7 @@ var _elapsed_progress: float = 0.0
 
 
 @export var overlay_color: Color = Color8(0, 0, 0, 180)
-@export var draw_style: CooldownIndicator.DrawStyle = DrawStyle.SHRINKING
+@export var draw_style: TimeIndicator.DrawStyle = DrawStyle.SHRINKING
 
 
 #########################
@@ -41,7 +41,7 @@ var _elapsed_progress: float = 0.0
 #########################
 
 # Setup points once inside static vars and reuse for all
-# instances of CooldownIndicator.
+# instances of TimeIndicator.
 # Pick points on a square, spaced out by angle from
 # center. There is definitely a better way to do this but
 # whatever.
@@ -113,7 +113,7 @@ func _process(_delta: float):
 
 func _draw():
 	var icon_size: float = size.x
-	var point_list: PackedVector2Array = CooldownIndicator._generate_draw_points(_elapsed_progress, icon_size, draw_style)
+	var point_list: PackedVector2Array = TimeIndicator._generate_draw_points(_elapsed_progress, icon_size, draw_style)
 
 	if point_list.is_empty():
 		return
@@ -139,7 +139,7 @@ func set_autocast(autocast: Autocast):
 ###       Static      ###
 #########################
 
-static func _generate_draw_points(progress: float, icon_size: float, style: CooldownIndicator.DrawStyle) -> PackedVector2Array:
+static func _generate_draw_points(progress: float, icon_size: float, style: TimeIndicator.DrawStyle) -> PackedVector2Array:
 	var current_progress_point: int = int(progress * (_progress_point_list.size() - 1))
 	
 	if current_progress_point < 3:
@@ -151,7 +151,7 @@ static func _generate_draw_points(progress: float, icon_size: float, style: Cool
 
 #	Pick appropriate corner points, to complete the polygon
 	match style:
-		CooldownIndicator.DrawStyle.EXPANDING:
+		TimeIndicator.DrawStyle.EXPANDING:
 			point_list.append(_center_point)
 			point_list.append(_top_middle_point)
 
@@ -165,7 +165,7 @@ static func _generate_draw_points(progress: float, icon_size: float, style: Cool
 				point_list.append(_top_left_point)
 
 			point_list.append(progress_point)
-		CooldownIndicator.DrawStyle.SHRINKING:
+		TimeIndicator.DrawStyle.SHRINKING:
 			var remaining_progress: float = 1.0 - progress
 			
 			point_list.append(_center_point)

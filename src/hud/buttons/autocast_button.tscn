@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://src/hud/buttons/autocast_button.gd" id="1_eojut"]
 [ext_resource type="Texture2D" uid="uid://0npkf7jas08m" path="res://resources/icons/gloves/heal.tres" id="2_o57jp"]
-[ext_resource type="Script" path="res://src/hud/buttons/cooldown_indicator.gd" id="3_d6wsi"]
+[ext_resource type="Script" path="res://src/hud/buttons/time_indicator.gd" id="3_d6wsi"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="3_rtugu"]
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://src/hud/buttons/auto_mode_indicator.tscn" id="5_xah78"]
 
-[node name="AutocastButton" type="Button" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_indicator_container")]
+[node name="AutocastButton" type="Button" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_indicator_container")]
 custom_minimum_size = Vector2(100, 100)
 focus_mode = 0
 theme = ExtResource("3_rtugu")
@@ -14,7 +14,7 @@ theme_type_variation = &"UnitButton"
 icon = ExtResource("2_o57jp")
 expand_icon = true
 script = ExtResource("1_eojut")
-_cooldown_indicator = NodePath("IndicatorContainer/CooldownIndicator")
+_time_indicator = NodePath("IndicatorContainer/TimeIndicator")
 _auto_mode_indicator = NodePath("IndicatorContainer/MarginContainer/AutoModeIndicator")
 _indicator_container = NodePath("IndicatorContainer")
 
@@ -30,7 +30,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="CooldownIndicator" type="Control" parent="IndicatorContainer"]
+[node name="TimeIndicator" type="Control" parent="IndicatorContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("3_rtugu")
