@@ -18,8 +18,9 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _reset_sell_button_timer: Timer
 @export var _upgrade_button: Button
 @export var _sell_button: Button
-@export var _inventory_empty_grid: GridContainer
-@export var _inventory_grid: GridContainer
+@export var _inventory_background_grid: GridContainer
+@export var _inventory_slot_grid: GridContainer
+@export var _inventory_item_grid: GridContainer
 @export var _buff_container: BuffContainer
 @export var _buff_group_container: BoxContainer
 @export var _buff_group_button_1: BuffGroupButton
@@ -151,7 +152,16 @@ func set_unit(unit: Unit):
 	for control in _visible_controls_for_creep:
 		control.visible = unit is Creep
 	
-	_load_unit()
+#	Clear elements from previous unit
+	_clear_item_buttons()
+
+	var prev_ability_list: Array = _ability_grid.get_children()
+	for button in prev_ability_list:
+		_ability_grid.remove_child(button)
+		button.queue_free()
+	
+	if unit != null:
+		_load_unit()
 	
 	if unit is Tower:
 		_load_tower()
@@ -163,22 +173,14 @@ func set_unit(unit: Unit):
 ###      Private      ###
 #########################
 
+func _clear_item_buttons():
+	for item_button in _inventory_item_grid.get_children():
+		_inventory_item_grid.remove_child(item_button)
+		item_button.queue_free()
+
+
+# Setup stuff that is generic for all unit types
 func _load_unit():
-#	Clear elements from previous unit
-	var prev_ability_list: Array = _ability_grid.get_children()
-	for button in prev_ability_list:
-		_ability_grid.remove_child(button)
-		button.queue_free()
-	
-	var prev_item_list: Array = _inventory_grid.get_children()
-	for button in prev_item_list:
-		_inventory_grid.remove_child(button)
-		button.queue_free()
-		
-	if _unit == null:
-		return
-	
-#	Setup stuff for generic units
 	_unit.buff_list_changed.connect(_on_buff_list_changed)
 	_on_buff_list_changed()
 	
@@ -192,13 +194,11 @@ func _load_tower():
 		button.set_tower(_tower)
 
 	_tower.items_changed.connect(_on_tower_items_changed)
-	_on_tower_items_changed()
+	_update_inventory()
 
 	_tower.level_up.connect(_on_tower_level_up)
 	_update_level_label()
 
-	var inventory_capacity: int = _tower.get_inventory_capacity()
-	_update_inventory_empty_slots(inventory_capacity)
 	_update_sell_tooltip()
 	_setup_tower_ability_buttons()
 
@@ -221,10 +221,6 @@ func _load_creep():
 	var icon: Texture2D = UnitIcons.get_creep_icon(_creep)
 	_creep_button.set_icon(icon)
 
-	var empty_item_list: Array[Item] = []
-	_load_items(empty_item_list)
-	_update_inventory_empty_slots(0)
-	
 	_setup_creep_ability_buttons()
 
 	var creep_level: int = _creep.get_spawn_level()
@@ -307,24 +303,6 @@ func _pad_ability_grid(pad_count: int):
 
 func _update_level_label():
 	_level_label.text = str(_tower.get_level())
-
-
-# Show the number of empty slots equal to tower's inventory
-# capacity
-func _update_inventory_empty_slots(inventory_capacity: int):
-	var inventory_empty_slots: Array[Node] = _inventory_empty_grid.get_children()
-
-#	NOTE: need to make slots transparent instead of
-#	invisible to have correct size for grid container
-	for i in range(0, inventory_empty_slots.size()):
-		var slot: Control = inventory_empty_slots[i] as Control
-		var slot_is_available: bool = i < inventory_capacity
-		var slot_color: Color
-		if slot_is_available:
-			slot_color = Color.WHITE
-		else:
-			slot_color = Color.TRANSPARENT
-		slot.modulate = slot_color
 
 
 func _update_upgrade_button():
@@ -597,10 +575,14 @@ func _get_oil_count_map() -> Dictionary:
 	return oil_count_map
 
 
-func _load_items(item_list: Array[Item]):
-	for item_button in _inventory_grid.get_children():
-		_inventory_grid.remove_child(item_button)
-		item_button.queue_free()
+func _update_inventory():
+	_clear_item_buttons()
+
+	if _tower == null:
+		return
+	
+	var inventory_capacity: int = _tower.get_inventory_capacity()
+	var item_list: Array[Item] = _tower.get_items()
 
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
@@ -608,10 +590,38 @@ func _load_items(item_list: Array[Item]):
 		item_button.show_auto_mode_indicator()
 		item_button.show_charges()
 		item_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
-		_inventory_grid.add_child(item_button)
+		_inventory_item_grid.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 		item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
 		item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
+
+#	Update color and visibility of grid cells, based on
+#	capacity and current item count.
+#	NOTE: need to make cells transparent instead of hiding.
+#	This is to preserve size of grid container.
+	var background_cell_list: Array[Node] = _inventory_background_grid.get_children()
+	var slot_cell_list: Array[Node] = _inventory_slot_grid.get_children()
+	for i in range(0, background_cell_list.size()):
+		var slot_cell: Control = slot_cell_list[i] as Control
+		var background_cell: Control = background_cell_list[i] as Control
+		var within_capacity: bool = i < inventory_capacity
+		var behind_item: bool = i < item_list.size()
+	
+		var background_color: Color
+		if within_capacity:
+			background_color = Color.WHITE
+		else:
+			background_color = Color.WHITE.darkened(0.6)
+		background_cell.modulate = background_color
+
+		var slot_color: Color
+		if behind_item:
+			slot_color = Color.TRANSPARENT
+		elif within_capacity:
+			slot_color = Color.WHITE.darkened(0.2)
+		else:
+			slot_color = Color.TRANSPARENT
+		slot_cell.modulate = slot_color
 
 
 #########################
@@ -619,8 +629,7 @@ func _load_items(item_list: Array[Item]):
 #########################
 
 func _on_tower_items_changed():
-	var item_list: Array[Item] = _tower.get_items()
-	_load_items(item_list)
+	_update_inventory()
 
 
 func _on_item_button_pressed(item_button: ItemButton):
@@ -662,16 +671,6 @@ func _on_sell_button_pressed():
 		return
 
 	EventBus.player_requested_to_sell_tower.emit(_tower)
-
-
-#func _on_details_button_pressed():
-#	var new_tab: int
-#	if _tab_container.current_tab == Tabs.MAIN:
-#		new_tab = Tabs.DETAILS
-#	else:
-#		new_tab = Tabs.MAIN
-#
-#	_tab_container.set_current_tab(new_tab)
 
 
 func _on_buff_list_changed():

@@ -54,7 +54,7 @@ atlas = ExtResource("5_xoeuc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_inventory_empty_grid", "_inventory_grid", "_buff_container", "_buff_group_container", "_buff_group_button_1", "_buff_group_button_2", "_buff_group_button_3", "_buff_group_button_4", "_buff_group_button_5", "_buff_group_button_6", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar", "_dmg_stats_left", "_dmg_stats_right", "_support_stats_label", "_dmg_against_left", "_dmg_against_right", "_oils_label", "_stats_panel", "_inventory_panel")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_inventory_background_grid", "_inventory_slot_grid", "_inventory_item_grid", "_buff_container", "_buff_group_container", "_buff_group_button_1", "_buff_group_button_2", "_buff_group_button_3", "_buff_group_button_4", "_buff_group_button_5", "_buff_group_button_6", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar", "_dmg_stats_left", "_dmg_stats_right", "_support_stats_label", "_dmg_against_left", "_dmg_against_right", "_oils_label", "_stats_panel", "_inventory_panel")]
 offset_right = 800.0
 offset_bottom = 200.0
 mouse_filter = 2
@@ -67,8 +67,9 @@ _level_label = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginCont
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _upgrade_button = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton")
 _sell_button = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/SellButton")
-_inventory_empty_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid")
-_inventory_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryGrid")
+_inventory_background_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid")
+_inventory_slot_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid")
+_inventory_item_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/ItemGrid")
 _buff_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/BuffContainer")
 _buff_group_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer")
 _buff_group_button_1 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1")
@@ -554,35 +555,85 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="InventoryEmptyGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer"]
+[node name="BackgroundGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer"]
 layout_mode = 2
 columns = 3
 
-[node name="EmptyUnitButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="EmptyUnitButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="EmptyUnitButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="EmptyUnitButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="EmptyUnitButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="EmptyUnitButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryEmptyGrid" instance=ExtResource("4_bl3rp")]
+[node name="EmptyUnitButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid" instance=ExtResource("4_bl3rp")]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="InventoryGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer"]
+[node name="SlotsGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="UnitButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+
+[node name="UnitButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+_rarity_container = NodePath("../UnitButton/MarginContainer/RarityContainer")
+_counter_label = NodePath("../UnitButton/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="UnitButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+_rarity_container = NodePath("../UnitButton/MarginContainer/RarityContainer")
+_counter_label = NodePath("../UnitButton/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="UnitButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+_rarity_container = NodePath("../UnitButton/MarginContainer/RarityContainer")
+_counter_label = NodePath("../UnitButton/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="UnitButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+_rarity_container = NodePath("../UnitButton/MarginContainer/RarityContainer")
+_counter_label = NodePath("../UnitButton/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="UnitButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/SlotsGrid" node_paths=PackedStringArray("_rarity_container", "_counter_label") instance=ExtResource("8_ami32")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+theme_type_variation = &"TinyUnitButton"
+icon = null
+_rarity_container = NodePath("../UnitButton/MarginContainer/RarityContainer")
+_counter_label = NodePath("../UnitButton/MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="ItemGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer"]
 layout_mode = 2
 columns = 3
 
@@ -764,7 +815,7 @@ text = "No oils applied."
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" method="_on_pressed"]
-[connection signal="gui_input" from="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/InventoryGrid" to="." method="_on_inventory_grid_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/ItemGrid" to="." method="_on_inventory_grid_gui_input"]
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
