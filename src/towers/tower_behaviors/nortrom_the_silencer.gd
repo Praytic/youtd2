@@ -67,7 +67,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Global Silence"
-	aura.icon = "res://resources/icons/tower_icons/TinyStormLantern.tres"
+	aura.icon = "res://resources/icons/tower_icons/tiny_storm_lantern.tres"
 	aura.description_short = "Nearby towers have a small chance to silence creeps.\n"
 	aura.description_full = "All towers within %d range of Nortrom have a 3%% attack speed adjusted chance to silence attacked creeps for 1 second. Duration is halved against bosses.\n" % AURA_RANGE \
 	+ " \n" \

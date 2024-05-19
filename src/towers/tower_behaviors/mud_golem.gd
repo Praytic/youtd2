@@ -55,7 +55,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Earthquake Aura"
-	aura.icon = "res://resources/icons/tower_icons/FireBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/fire_battery.tres"
 	aura.description_short = "Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].\n"
 	aura.description_full = "Towers in %d range around the Mud Golem have a 3%% attack speed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].\n" % AURA_RANGE \
 	+ " \n" \

@@ -32,7 +32,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_spell_crit_add: String = Utils.format_percent(MOD_SPELL_CRIT_ADD, 2)
 
 	aura.name = "Ancient Magic"
-	aura.icon = "res://resources/icons/tower_icons/LightningEye.tres"
+	aura.icon = "res://resources/icons/tower_icons/lightning_eye.tres"
 	aura.description_short = "Increases spell crit chance of nearby towers.\n"
 	aura.description_full = "Increases spell crit chance of towers in %d range by %s.\n" % [AURA_RANGE, mod_spell_crit] \
 	+ " \n" \

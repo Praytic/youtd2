@@ -59,7 +59,7 @@ func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Heat Aura"
-	aura.icon = "res://resources/icons/tower_icons/FireBattery.tres"
+	aura.icon = "res://resources/icons/tower_icons/fire_battery.tres"
 	aura.description_short = "Burns every enemy in range, making them lose life every second.\n"
 	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
 

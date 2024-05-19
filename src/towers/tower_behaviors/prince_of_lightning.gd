@@ -68,7 +68,7 @@ func get_aura_types() -> Array[AuraType]:
 	var mod_dmg_from_storm_add: String = Utils.format_percent(_stats.mod_dmg_from_storm_add, 2)
 
 	aura.name = "Realm of Thunder"
-	aura.icon = "res://resources/icons/tower_icons/LightningGenerator.tres"
+	aura.icon = "res://resources/icons/tower_icons/lightning_generator.tres"
 	aura.description_short = "Increases the vulnerability of enemies in range to damage from %s towers.\n" % storm_string
 	aura.description_full = "Increases the vulnerability of enemies in %d range to damage from %s towers by %s.\n" % [AURA_RANGE, storm_string, mod_dmg_from_storm] \
 	+ " \n" \
