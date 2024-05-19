@@ -1,5 +1,3 @@
 Pictures for tutorial.
 
-Note that for consistency, these screenshots need to be taken at 1080p with 0.5 screen scale + scaled by 0.75 in image editor, so 0.375 scaling total.
-
-Also, keep the width under 600 because tutorial window will not expand to fit images bigger than that. It's a problem with RichTextLabel.
+Note that for consistency, these screenshots need to all have the same width of 600. This is because the tutorial window is setup to fix this 600 at most. Couldn't figure out how to make RichTextLabel automatically expand to fit the image.

@@ -5,8 +5,7 @@
 
 [node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_display_tutorial_check_box")]
 process_mode = 1
-custom_minimum_size = Vector2(650, 200)
-offset_right = 650.0
+offset_right = 700.0
 offset_bottom = 502.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -27,6 +26,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="TextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 200)
 layout_mode = 2
 bbcode_enabled = true
 text = "[center][img]res://assets/tutorial_pictures/research_element.png[/img][/center]
