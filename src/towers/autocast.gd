@@ -370,6 +370,9 @@ func _get_target_for_buff_autocast() -> Unit:
 		unit_list.erase(_caster)
 
 	for unit in unit_list:
+		if !Utils.unit_is_valid(unit):
+			continue
+
 		if buff_type == null:
 			return unit
 
