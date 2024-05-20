@@ -108,6 +108,7 @@ func on_autocast(_event: Event):
 		if target != tower:
 			var buff: Buff = attraction_bt.apply(tower, target, tower.get_level())
 			buff.user_int = 0
+			number -= 1
 
 
 func missile_pt_on_hit(projectile: Projectile, _target: Unit):
