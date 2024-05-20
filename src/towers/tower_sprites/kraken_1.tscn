@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwjmredxije14"]
+
+[ext_resource type="Texture2D" uid="uid://1pqqjmja242i" path="res://assets/tower_sprites/tentacle_spawn_atlas.png" id="1_tmtgj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0eji7"]
+atlas = ExtResource("1_tmtgj")
+region = Rect2(22, 370, 246, 223)
+
+[node name="Kraken" type="Sprite2D"]
+modulate = Color(0.580392, 1, 1, 1)
+texture = SubResource("AtlasTexture_0eji7")
+offset = Vector2(-5, -40)
