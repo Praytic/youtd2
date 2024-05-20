@@ -9,6 +9,10 @@ extends TowerBehavior
 # I set autocast target_self to false to make it less
 # confusing.
 
+# NOTE: changed autocast type
+# AC_TYPE_ALWAYS_BUFF->AC_TYPE_ALWAYS_IMMEDIATE because it
+# buffs multiple towers.
+
 
 var attraction_bt: BuffType
 var torture_bt: BuffType
@@ -71,7 +75,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+20 spell damage on cast\n"
 	autocast.caster_art = ""
 	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
+	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
 	autocast.num_buffs_before_idle = 0
 	autocast.cast_range = 500
 	autocast.auto_range = 500

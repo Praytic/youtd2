@@ -6,6 +6,13 @@ class_name ShardofSouls1 extends TowerBehavior
 # linked group and check for all units in game if they have
 # buff with same id.
 
+# NOTE: it is weird that autocast type is
+# AC_TYPE_ALWAYS_BUFF but it needs to be this way. The
+# on_autocast() uses the target, so IMMEDIATE type wouldn't
+# work because it has no target. Also, ALWAYS needs to be
+# used instead of OFFENSIVE because this tower doesn't
+# attack so it never triggers AC_TYPE_OFFENSIVE_BUFF.
+
 
 static var soul_link_id_max: int = 0
 
@@ -77,7 +84,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.cooldown = 5
 	autocast.is_extended = false
 	autocast.mana_cost = 50
-	autocast.buff_type = null
+	autocast.buff_type = soul_link_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1000
 	autocast.handler = on_autocast

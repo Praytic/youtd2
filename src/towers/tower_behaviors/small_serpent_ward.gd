@@ -1,6 +1,11 @@
 extends TowerBehavior
 
 
+# NOTE: changed autocast.buff_type (null->charm_bt). This
+# fixes issue where tower would rebuff a unit which is
+# already buffed.
+
+
 var charm_bt: BuffType
 
 
@@ -53,7 +58,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.cooldown = 5
 	autocast.is_extended = false
 	autocast.mana_cost = 10
-	autocast.buff_type = null
+	autocast.buff_type = charm_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 200
 	autocast.handler = on_autocast

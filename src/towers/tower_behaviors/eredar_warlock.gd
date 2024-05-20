@@ -1,6 +1,12 @@
 extends TowerBehavior
 
 
+# NOTE: changed autocast.buff_type (null->siphon_bt). This
+# fixes an issue where autocast would rebuff the unit which
+# is already buffed. Now, the autocast will buff only units
+# which don't already have the buff.
+
+
 var stun_bt: BuffType
 var siphon_bt: BuffType
 var aura_bt: BuffType
@@ -89,7 +95,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.mana_cost = 0
 	autocast.target_self = false
 	autocast.is_extended = true
-	autocast.buff_type = null
+	autocast.buff_type = siphon_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 
