@@ -127,7 +127,7 @@ func on_autocast(event: Event):
 		if next == null:
 			break
 
-		target_list.append(current_target)
+		target_list.append(next)
 		current_target = next
 		counter += 1
 
