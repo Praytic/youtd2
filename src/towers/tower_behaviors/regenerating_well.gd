@@ -1,6 +1,12 @@
 extends TowerBehavior
 
 
+# NOTE: changed autocast type
+# AC_TYPE_ALWAYS_BUFF->AC_TYPE_ALWAYS_IMMEDIATE because the
+# autocast is an AoE effect. Not sure why the original
+# script used AC_TYPE_ALWAYS_BUFF, typo?
+
+
 var aura_bt: BuffType
 
 
@@ -44,7 +50,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s maximum mana\n" % replenish_mana_add
 	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
 	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
+	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
 	autocast.num_buffs_before_idle = 0
 	autocast.cast_range = REPLENISH_RANGE
 	autocast.auto_range = REPLENISH_RANGE
@@ -52,7 +58,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.mana_cost = 200
 	autocast.target_self = true
 	autocast.is_extended = false
-	autocast.buff_type = aura_bt
+	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
 
@@ -101,8 +107,8 @@ func on_autocast(_event: Event):
 
 		var replenish_mana: float
 		if is_same_family:
-			replenish_mana = target.get_mana() * mana_gain_ratio * 0.5
+			replenish_mana = target.get_overall_mana() * mana_gain_ratio * 0.5
 		else:
-			replenish_mana = target.get_mana() * mana_gain_ratio
+			replenish_mana = target.get_overall_mana() * mana_gain_ratio
 
 		target.add_mana(replenish_mana)
