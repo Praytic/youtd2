@@ -41,6 +41,7 @@ var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _range_indicator_list: Array[RangeIndicator] = []
 var _tower_behavior: TowerBehavior = null
 var _sprite: Sprite2D = null
+var _hide_attack_projectiles: bool = false
 
 
 @export var _mana_bar: ProgressBar
@@ -335,6 +336,9 @@ func _make_projectile(from_pos_base: Vector3, target: Unit) -> Projectile:
 	var z_arc: float = TowerProperties.get_missile_arc(get_id())
 	var from_pos: Vector3 = from_pos_base + Projectile.UNIT_Z_OFFSET
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_point_to_unit(_default_projectile_type, self, 0, 0, from_pos, target, z_arc, true)
+
+	if _hide_attack_projectiles:
+		projectile.hide()
 
 	var element_color: Color
 	var element: Element.enm = get_element()
@@ -751,6 +755,11 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 #########################
 ### Setters / Getters ###
 #########################
+
+# Makes all future attack projectiles invisible. Useful in
+# rare cases.
+func hide_attack_projectiles():
+	_hide_attack_projectiles = true
 
 
 # NOTE: call this in load_specials() of tower instance

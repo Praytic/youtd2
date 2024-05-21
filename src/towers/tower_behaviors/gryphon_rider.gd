@@ -56,6 +56,8 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
+	tower.hide_attack_projectiles()
+
 	stun_bt = CbStun.new("gryphon_rider_stun", 0, 0, false, self)
 	
 	hammer_fall_bt = BuffType.new("hammer_fall_bt", 6, 0, false, self)

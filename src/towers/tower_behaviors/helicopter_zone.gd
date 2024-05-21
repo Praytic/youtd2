@@ -125,6 +125,8 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
+	tower.hide_attack_projectiles()
+	
 	copter_slow_bt = BuffType.new("copter_slow_bt", 0.8, 0, false, self)
 	var copter_slow_bt_mod: Modifier = Modifier.new()
 	copter_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.1, -0.01)

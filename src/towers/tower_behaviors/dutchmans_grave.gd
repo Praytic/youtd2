@@ -58,6 +58,8 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
+	tower.hide_attack_projectiles()
+	
 	dutchman_pt = ProjectileType.create("UndeadDestroyerShip.mdl", 999999, 550, self)
 	dutchman_pt.enable_periodic(dutchman_pt_periodic, 0.1)
 	dutchman_pt.enable_homing(dutchman_pt_on_hit, 4.0)

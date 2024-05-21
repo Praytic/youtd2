@@ -526,6 +526,11 @@ func _start_movement_bezier_interpolated(target_pos: Vector3, z_arc: float, side
 
 
 func _do_explosion_visual():
+	# NOTE: if projectile is hidden, also don't display
+	# explosion visual
+	if !visible:
+		return
+
 	var explosion = Preloads.explosion_scene.instantiate()
 	var projectile_pos: Vector3 = get_position_wc3()
 	var projectile_pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(projectile_pos)

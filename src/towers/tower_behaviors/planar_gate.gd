@@ -34,6 +34,8 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
+	tower.hide_attack_projectiles()
+
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
 	eruption_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")

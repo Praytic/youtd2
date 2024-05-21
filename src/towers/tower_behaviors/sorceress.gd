@@ -78,6 +78,8 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
+	tower.hide_attack_projectiles()
+
 	silence_bt = CbSilence.new("sorceress_silence", 0, 0, false, self)
 
 	missile_pt = ProjectileType.create_ranged("FaerieDragonMissile.mdl", 1200, 1200, self)
