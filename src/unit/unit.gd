@@ -785,7 +785,14 @@ func _change_experience(amount: float) -> float:
 
 func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source: DamageSource, is_main_target: bool, target: Unit):
 	var damage_color: Color
-	var damage_text: String
+	var damage_text: String = str(floori(damage))
+
+#	NOTE: do not show crits for 0 damage, because it shows
+#	up as "0!" and looks weird. Do show "0" for spell damage
+#	because it indicates helpful info about certain
+#	abilities.
+	if crit_count > 0 && roundi(damage) == 0:
+		return
 	
 	match damage_source:
 		DamageSource.Attack: 
@@ -793,11 +800,6 @@ func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source
 		DamageSource.Spell:
 			damage_color = Color.SKY_BLUE
 	
-	if int(damage) != 0:
-		damage_text = str(int(damage))
-	else:
-		damage_text = "miss"
-
 	var is_critical: bool = crit_count > 0
 
 	for i in range(0, crit_count):
