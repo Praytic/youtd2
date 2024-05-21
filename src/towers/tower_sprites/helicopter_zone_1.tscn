@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://soq2prqadk4l"]
+
+[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://assets/tower_sprites/lesser_defender.png" id="1_j137w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ravj"]
+atlas = ExtResource("1_j137w")
+region = Rect2(661, 306, 183, 276)
+
+[node name="helicopter_zone" type="Sprite2D"]
+texture = SubResource("AtlasTexture_5ravj")
+offset = Vector2(0, -80)
