@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=30 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://assets/hud/darkness_face.png" id="4_nuyc0"]
@@ -15,11 +15,38 @@
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/combat_log_window.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/hud/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/hud/player_resource_display.tscn" id="15_ir4hq"]
+[ext_resource type="PackedScene" uid="uid://dq1y6eowvvl45" path="res://src/hud/buttons/speed_button.tscn" id="15_lo44t"]
+[ext_resource type="Texture2D" uid="uid://cny5e3y68r18y" path="res://resources/ui_textures/speed_fast.tres" id="16_avri0"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://src/hud/unit_menu/tower_details.tscn" id="17_12w0v"]
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/hud/elements_menu.tscn" id="17_bxii1"]
+[ext_resource type="Texture2D" uid="uid://c1cbjc01sbgsu" path="res://resources/ui_textures/speed_fastest.tres" id="17_dklkb"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6ubjv"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_8c3lr"]
+events = [SubResource("InputEventKey_6ubjv")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6jvxc"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_5psg1"]
+events = [SubResource("InputEventKey_6jvxc")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_26jvu"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_uebri"]
+events = [SubResource("InputEventKey_26jvu")]
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_elements_menu_card", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
 layout_mode = 3
@@ -264,6 +291,35 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SpeedNormal" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+layout_mode = 2
+tooltip_text = "Set game speed to normal"
+shortcut = SubResource("Shortcut_8c3lr")
+
+[node name="SpeedFast" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+layout_mode = 2
+tooltip_text = "Set game speed to fast"
+shortcut = SubResource("Shortcut_5psg1")
+icon = ExtResource("16_avri0")
+
+[node name="SpeedFastest" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+layout_mode = 2
+tooltip_text = "Set game speed to fastest"
+shortcut = SubResource("Shortcut_uebri")
+icon = ExtResource("17_dklkb")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -403,4 +459,7 @@ text = "placeholder"
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu" to="." method="_on_tower_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu" to="." method="_on_elements_menu_hidden"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/SpeedNormal" to="." method="_on_speed_normal_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/SpeedFast" to="." method="_on_speed_fast_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/SpeedFastest" to="." method="_on_speed_fastest_pressed"]
 [connection signal="details_pressed" from="MarginContainer/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]

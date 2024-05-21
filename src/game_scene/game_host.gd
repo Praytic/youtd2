@@ -52,7 +52,7 @@ func _physics_process(_delta: float):
 	_check_lagging_players()
 	_check_desynced_players()
 
-	var update_tick_count: int = min(Config.update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
+	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
 
 	for i in range(0, update_tick_count):
 		_current_tick += 1

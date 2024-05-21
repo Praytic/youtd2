@@ -38,6 +38,9 @@ func _ready():
 	Globals.reset()
 	PlayerManager.reset()
 	GroupManager.reset()
+
+	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
+	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
 	
 	var buildable_cells: Array[Vector2i] = _map.get_buildable_cells()
 	_build_space.set_buildable_cells(buildable_cells)

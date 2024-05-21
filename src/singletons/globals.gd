@@ -9,6 +9,7 @@ var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _origin_seed: int = 0
+var _update_ticks_per_physics_tick: int = 1
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
@@ -63,3 +64,11 @@ func game_mode_is_random() -> bool:
 
 func game_mode_allows_transform() -> bool:
 	return Globals.get_game_mode() != GameMode.enm.BUILD || Config.allow_transform_in_build_mode()
+
+
+func get_update_ticks_per_physics_tick() -> int:
+	return _update_ticks_per_physics_tick
+
+
+func set_update_ticks_per_physics_tick(value: int):
+	_update_ticks_per_physics_tick = value

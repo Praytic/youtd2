@@ -124,3 +124,9 @@ const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 4.0
 
 const TOMES_WARNING_THRESHOLD: int = 50
 const WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP: int = 100
+
+# NOTE: picked these values because they are used in a
+# certain game about a World on the Rim
+const GAME_SPEED_NORMAL: int = 1
+const GAME_SPEED_FAST: int = 3
+const GAME_SPEED_FASTEST: int = 6
