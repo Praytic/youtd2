@@ -291,7 +291,7 @@ func copter_ability_ghost(copter: Copter):
 			new_color = Color8(80, 80, 80, roundi(255 - copter.ghost_ability_timer * 9.6))
 		projectile.set_color(new_color)
 
-#			If faded in, start fading out again
+#		If faded in, start fading out again
 		if copter.ghost_ability_timer == 25:
 			copter.ghost_ability_timer = 0
 
@@ -491,6 +491,8 @@ func level_up_copters():
 	if level >= 25:
 		copter_3.active_ability = CopterAbility.GHOST
 		copter_3.projectile.set_color(Color8(80, 80, 80))
+		copter_3.ghost_ability_timer = 0
 	else:
 		copter_3.active_ability = CopterAbility.NONE
 		copter_3.projectile.set_color(Color8(255, 255, 255))
+		copter_3.ghost_ability_timer = 0
