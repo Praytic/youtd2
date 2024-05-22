@@ -183,7 +183,7 @@ func on_create(_preceding: Tower):
 
 
 func on_destruct():
-	for copter in copter_map.keys():
+	for copter in copter_map.values():
 		var projectile: Projectile = copter.projectile
 		projectile.remove_from_game()
 
