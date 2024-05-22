@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Grapple"
 	ability.icon = "res://resources/icons/gloves/gloves_08.tres"
-	ability.description_short = "Whenever this tower attacks, it has is a chance to grab the main target, holding it in place for 2.5 seconds.\n"
-	ability.description_full = "Whenever this tower attacks, it has is an 8% chance to grab the main target, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
+	ability.description_short = "Chance to grab the attacked creep, holding it in place for 2.5 seconds.\n"
+	ability.description_full = "8% chance to grab the attacked creep, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.32% chance\n"

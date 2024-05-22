@@ -28,8 +28,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Entangle"
 	ability.icon = "res://resources/icons/plants/branch_01.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to entangle the creep. Entangled creeps are immobile and suffer spell damage over time. Cannot entangle air or boss units.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 12.5%% chance to entangle the creep for %s seconds. Entangled creeps are immobile and suffer %s spell damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
+	ability.description_short = "Chance to entangle hit creeps. Entangled creeps are immobile and suffer spell damage over time. Cannot entangle air or boss units.\n"
+	ability.description_full = "12.5%% chance to entangle hit creeps for %s seconds. Entangled creeps are immobile and suffer %s spell damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% chance to entangle\n" \

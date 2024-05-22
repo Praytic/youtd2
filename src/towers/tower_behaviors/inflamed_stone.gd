@@ -49,8 +49,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var spellfire_projectiles: AbilityInfo = AbilityInfo.new()
 	spellfire_projectiles.name = "Spellfire Projectiles"
 	spellfire_projectiles.icon = "res://resources/icons/daggers/dagger_07.tres"
-	spellfire_projectiles.description_short = "On attack this towers uses all of its mana to make the next attack critical.\n"
-	spellfire_projectiles.description_full = "If this tower has at least %s mana when it attacks, it will spend all its mana to proc a critical strike. %s mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana] \
+	spellfire_projectiles.description_short = "If this tower has enough mana, it will spend all its mana to make the next attack critical.\n"
+	spellfire_projectiles.description_full = "If this tower has at least %s mana, it will spend all its mana to make the next attack critical. %s mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-%s Mana needed\n" % mana_threshold_add

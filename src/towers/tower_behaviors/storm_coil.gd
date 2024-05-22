@@ -16,8 +16,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var overload: AbilityInfo = AbilityInfo.new()
 	overload.name = "Overload"
 	overload.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
-	overload.description_short = "Whenever this tower hits a creep, it deals %s damage and slow the target. Effect is stronger for creeps far away.\n" % energy_string
-	overload.description_full = "Whenever this tower hits a creep, it deals [color=GOLD][distance to the target x 12][/color] %s damage, modified by tower's attack damage and slow the target for 1.5 seconds. The further away the target is, the more it will be slowed. The maximum slow value is 30%%.\n" % energy_string
+	overload.description_short = "Deals %s damage and slow hit creeps. Effect is stronger for creeps far away.\n" % energy_string
+	overload.description_full = "Deals %s damage and slows hit creeps for 1.5 seconds. Damage is equal to [color=GOLD][distance to the target x 12][/color] and is affected by bonuses to tower's attack damage. The further away the target is, the more it will be slowed. The maximum slow value is 30%%.\n" % energy_string
 	list.append(overload)
 
 	return list

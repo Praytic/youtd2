@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Corruption"
 	ability.icon = "res://resources/icons/tower_variations/meteor_totem_purple.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Corruption[/color], which causes the creep to take extra damage from attacks and spells.\n"
-	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Corruption[/color], which causes the creep to take %s extra damage from attacks and %s extra damage from spells for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
+	ability.description_short = "Corrupts hit creeps, increasing damage received from attacks and spells.\n"
+	ability.description_full = "Corrupts hit creeps, increasing damage received from attacks by %s and damage received from spells by %s for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage from attacks\n" % mod_attack_damage_add \

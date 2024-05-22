@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var plague: AbilityInfo = AbilityInfo.new()
 	plague.name = "Plague"
 	plague.icon = "res://resources/icons/undead/skull_04.tres"
-	plague.description_short = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color] which deals spell damage over time.\n"
-	plague.description_full = "Whenever this tower hits a creep, it infects it with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 spell damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
+	plague.description_short = "Infects hit creeps with [color=GOLD]Plague[/color] which deals spell damage over time.\n"
+	plague.description_full = "Infects hit creeps with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 spell damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+30 damage\n" \

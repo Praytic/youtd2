@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Hot Coals"
 	ability.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	ability.description_short = "Gains increased crit chance on kill.\n"
-	ability.description_full = "Whenever this tower kills a creep it gains %s bonus crit chance for %s seconds.\n" % [bonus_crit, duration] \
+	ability.description_short = "On kill, this tower gains increased crit chance.\n"
+	ability.description_full = "On kill, this tower gains %s bonus crit chance for %s seconds.\n" % [bonus_crit, duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.05 sec duration\n" \

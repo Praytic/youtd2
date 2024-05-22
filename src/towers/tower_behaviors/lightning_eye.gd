@@ -13,8 +13,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var glare: AbilityInfo = AbilityInfo.new()
 	glare.name = "Glare"
 	glare.icon = "res://resources/icons/magic/eye_blue.tres"
-	glare.description_short = "On attack, the Eye launches a forked lightning, dealing spell damage.\n"
-	glare.description_full = "On attack, the Eye launches a forked lightning at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n" \
+	glare.description_short = "Whenever this tower attacks, it launches a forked lightning, dealing spell damage.\n"
+	glare.description_full = "Whenever this tower attacks, it launches a forked lightning at the cost of 40 mana. The forked lightning deals 500 plus 1.5% of the original target's current health as spell damage. The forked lightning hits up to 3 creeps.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+120 spell damage\n"

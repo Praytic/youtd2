@@ -32,8 +32,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Atrophy"
 	ability.icon = "res://resources/icons/gloves/curse.tres"
-	ability.description_short = "Whenever this tower attacks, it has a chance to slow the main target.\n"
-	ability.description_full = "Whenever this tower attacks, it has a %s chance to slow the main target by %s for 5 seconds. Chance is reduced to %s for bosses.\n" % [chance, chance_for_bosses, slow_value] \
+	ability.description_short = "Chance to slow the attacked creep.\n"
+	ability.description_full = "%s chance to slow the attacked creep by %s for 5 seconds. Chance is reduced to %s for bosses.\n" % [chance, chance_for_bosses, slow_value] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]

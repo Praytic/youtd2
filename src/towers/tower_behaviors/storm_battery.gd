@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electrify"
 	ability.icon = "res://resources/icons/electricity/electricity_yellow.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color]. [color=GOLD]Electrify[/color] makes the creep occasionally take extra damage\n"
-	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Electrify[/color] for 9 seconds. Everytime the [color=GOLD]Electrified[/color] creep is damaged by an attack or spell it has a chance of 20%% to take %s extra damage.\n" % damage_increase \
+	ability.description_short = "Electrifies hit creeps, causing them to occasionally take extra damage.\n"
+	ability.description_full = "Electrifies hit creeps for 9 seconds. Everytime an electrified creep is damaged by an attack or spell it has a 20%% chance to take %s extra damage.\n" % damage_increase \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.3% chance\n" \

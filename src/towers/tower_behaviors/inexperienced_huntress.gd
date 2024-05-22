@@ -50,8 +50,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var star_glaive: AbilityInfo = AbilityInfo.new()
 	star_glaive.name = "Star Glaive"
 	star_glaive.icon = "res://resources/icons/swords/greatsword_01.tres"
-	star_glaive.description_short = "Whenever this tower hits a creep, there is a chance to deal additional spell damage.\n"
-	star_glaive.description_full = "Whenever this tower hits a creep, there is a %s chance to deal an additional %s of the attack's damage as spell damage.\n" % [star_glaive_chance, star_glaive_dmg_ratio] \
+	star_glaive.description_short = "Chance to deal additional spell damage to hit creeps.\n"
+	star_glaive.description_full = "%s chance to deal additional %s of the attack's damage as spell damage to hit creeps.\n" % [star_glaive_chance, star_glaive_dmg_ratio] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % star_glaive_chance_add \

@@ -13,8 +13,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ice_shard: AbilityInfo = AbilityInfo.new()
 	ice_shard.name = "Ice Shard"
 	ice_shard.icon = "res://resources/icons/gems/gem_03.tres"
-	ice_shard.description_short = "Fires an [color=GOLD]Ice Shard[/color] towards a creep which splits into multiple shards. [color=GOLD]Ice Shard[/color] deals spell damage if it collides with a creep.\n"
-	ice_shard.description_full = "This tower fires an [color=GOLD]Ice Shard[/color] towards a creep. After a distance of 300 the [color=GOLD]Ice Shard[/color] splits into 2 new shards which will split again. If a shard collides with a creep it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
+	ice_shard.description_short = "Whenever this tower hits a creep, it also fires an [color=GOLD]Ice Shard[/color] which splits into multiple shards. [color=GOLD]Ice Shard[/color] deals spell damage if it collides with a creep.\n"
+	ice_shard.description_full = "Whenever this tower hits a creep, it also fires an [color=GOLD]Ice Shard[/color]. After a distance of 300 the [color=GOLD]Ice Shard[/color] splits into 2 new shards which will split again. If a shard collides with a creep it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+85 damage\n"

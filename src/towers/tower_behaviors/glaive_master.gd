@@ -58,8 +58,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var bounder: AbilityInfo = AbilityInfo.new()
 	bounder.name = "Bounder"
 	bounder.icon = "res://resources/icons/daggers/dagger_04.tres"
-	bounder.description_short = "Attacks have a chance to throw a glaive at one of the [color=GOLD]Glaivesaws[/color].\n"
-	bounder.description_full = "Attacks have a 15% chance to throw a glaive towards one of the [color=GOLD]Glaivesaws[/color]. The glaive will bounce to another [color=GOLD]Glaivesaw[/color], dealing 250% of attack damage as [color=GOLD]Lacerate[/color] damage to enemies it passes through.\n" \
+	bounder.description_short = "Whenever this tower attacks, it has a chance to throw a glaive at one of the [color=GOLD]Glaivesaws[/color].\n"
+	bounder.description_full = "Whenever this tower attacks, it has a 15% chance to throw a glaive towards one of the [color=GOLD]Glaivesaws[/color]. The glaive will bounce to another [color=GOLD]Glaivesaw[/color], dealing 250% of attack damage as [color=GOLD]Lacerate[/color] damage to enemies it passes through.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% chance\n" \

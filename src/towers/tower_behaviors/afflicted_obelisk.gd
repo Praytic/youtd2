@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Slumbering Parasite"
 	ability.icon = "res://resources/icons/tower_icons/nerubian_queen.tres"
-	ability.description_short = "Whenever this tower hits a creep, it injects a [color=GOLD]Slumbering Parasite[/color]. [color=GOLD]Slumbering Parasite[/color] deals %s damage to the target and increases creep's vulnerability to %s towers.\n" % [decay_string, nature_string]
-	ability.description_full = "Whenever this tower hits a creep, it injects a [color=GOLD]Slumbering Parasite[/color]. [color=GOLD]Slumbering Parasite[/color] surfaces after 3 seconds dealing this tower's attack damage as %s damage to the target. Each additional [color=GOLD]Slumbering Parasite[/color] increases creep's vulnerability to %s towers by %s.\n" % [decay_string, nature_string, vuln_value] \
+	ability.description_short = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers and causes %s damage after a delay.\n" % [nature_string, decay_string]
+	ability.description_full = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers by %s and deals this tower's attack damage as %s damage after a delay of 3 seconds. Vulnerability stacks with multiple Parasites.\n" % [nature_string, vuln_value, decay_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s %s vulnerability\n" % [vuln_value_add, nature_string]

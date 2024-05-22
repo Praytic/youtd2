@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Incinerate"
 	ability.icon = "res://resources/icons/tower_icons/ash_geyser.tres"
-	ability.description_short = "Whenever this tower hits a creep, it [color=GOLD]Incinerates[/color] the creep. A burning creep takes more damage from %s towers and receives spell damage over time\n" % fire_string
-	ability.description_full = "Whenever this tower hits a creep, it [color=GOLD]Incinerates[/color] the creep. A burning creep takes %s more damage from %s towers and receives %s spell damage every second for 9 seconds.\n" % [mod_dmg_from_fire, fire_string, periodic_damage] \
+	ability.description_short = "Incinerates hit creeps. An incinerated creep takes more damage from %s towers and suffers spell damage over time\n" % fire_string
+	ability.description_full = "Incinerates hit creeps. An incinerated creep takes %s more damage from %s towers and suffers %s spell damage every second for 9 seconds.\n" % [mod_dmg_from_fire, fire_string, periodic_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % periodic_damage_add \

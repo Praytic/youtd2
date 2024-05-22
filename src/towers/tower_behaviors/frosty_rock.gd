@@ -27,8 +27,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Glacial Wrath"
 	ability.icon = "res://resources/icons/tower_icons/genis_sage.tres"
-	ability.description_short = "Whenever this tower hits a creep, it slows the creep and has a chance to stun it.\n"
-	ability.description_full = "Whenever this tower hits a creep, it slows the creep by %s for 3 seconds. It also has a %s chance to deal %s spell damage and stun the target for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
+	ability.description_short = "Slows hit creeps and has a chance to stun.\n"
+	ability.description_full = "Slows hit creeps by %s for 3 seconds. There's also a %s chance to deal %s spell damage and stun the creep for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets when stun suceeds.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % extra_damage_add \

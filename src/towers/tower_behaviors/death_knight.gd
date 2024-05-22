@@ -12,8 +12,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var insatiable: AbilityInfo = AbilityInfo.new()
 	insatiable.name = "Insatiable Hunger"
 	insatiable.icon = "res://resources/icons/helmets/helmet_07.tres"
-	insatiable.description_short = "Whenever this tower hits a creep, it deals bonus attack damage based on missing mana and replenishes mana when attacking.\n"
-	insatiable.description_full = "Whenever this tower hits a creep, it deals 0.25% bonus attack damage for each mana point he's currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
+	insatiable.description_short = "Deals additional attack damage to hit creeps based on missing mana and replenishes mana when attacking.\n"
+	insatiable.description_full = "Deals 0.25% additional attack damage to hit creeps for each mana point the Death Knight is currently missing and replenishes 1% of his maximum mana. He replenishes 5% of his maximum mana for each unit he kills.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.01% damage per mana point\n"

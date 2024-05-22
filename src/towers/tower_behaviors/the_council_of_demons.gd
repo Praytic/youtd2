@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var maledict: AbilityInfo = AbilityInfo.new()
 	maledict.name = "Maledict"
 	maledict.icon = "res://resources/icons/orbs/orb_shadow.tres"
-	maledict.description_short = "Whenever this tower hits a creep, it has a chance to increase spell vulnerability of the creep. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster."
-	maledict.description_full = "Whenever this tower hits a creep, it has a 20% chance to increase spell vulnerability of the creep by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
+	maledict.description_short = "Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster."
+	maledict.description_full = "20% chance to increase spell vulnerability of hit creeps by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \

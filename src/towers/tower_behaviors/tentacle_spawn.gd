@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Rend"
 	ability.icon = "res://resources/icons/clubs/club_glowing.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Rend[/color]. [color=GOLD]Rend[/color] deals spell damage over time and makes the creep vulnerable to spell damage.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 25%% chance to apply [color=GOLD]Rend[/color]. [color=GOLD]Rend[/color] makes the creep suffer %s increased spell damage and deals %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
+	ability.description_short = "Chance to rend hit creeps, dealing spell damage over time and increasing vulnerability to spell damage.\n"
+	ability.description_full = "25%% chance to rend hit creeps. [color=GOLD]Rend[/color] makes the creep suffer %s increased spell damage and deals %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1% chance\n" \

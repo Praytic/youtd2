@@ -17,8 +17,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var flaming_inferno: AbilityInfo = AbilityInfo.new()
 	flaming_inferno.name = "Flaming Inferno"
 	flaming_inferno.icon = "res://resources/icons/tower_icons/geothermal_extractor.tres"
-	flaming_inferno.description_short = "This tower occasionally releases 3 fireballs random creeps in range. Fireballs deal AoE spell damage.\n"
-	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack releases 3 fireballs that fly towards random targets in 950 range, dealing 3750 spell damage in 250 AoE around the target on impact.\n" \
+	flaming_inferno.description_short = "This tower occasionally releases 3 fireballs at random creeps in range. Fireballs deal AoE spell damage.\n"
+	flaming_inferno.description_full = "Every [color=GOLD]7th-11th[/color] attack, this tower releases 3 fireballs that fly towards random creeps in 950 range, dealing 3750 spell damage in 250 AoE around the target on impact.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+150 spell damage\n" \
@@ -32,8 +32,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var dragons_hoard: AbilityInfo = AbilityInfo.new()
 	dragons_hoard.name = "Dragon's Hoard"
 	dragons_hoard.icon = "res://resources/icons/misc/gold_cart.tres"
-	dragons_hoard.description_short = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty.\n"
-	dragons_hoard.description_full = "Whenever the Crimson Wyrm kills a creep it hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spell damage and base attack damage.\n" \
+	dragons_hoard.description_short = "On kill, this tower hoards 75% of the bounty.\n"
+	dragons_hoard.description_full = "On kill, this tower hoards 75% of the bounty. The hoard has a maximum capacity of 90000 gold and grants [color=GOLD][gold hoarded / 50]%[/color] spell damage and base attack damage.\n" \
 	+ "[color=GOLD]Hint:[/color] [color=GOLD]Dragon's Hoard[/color] is modified by both the creep's and this tower's bounty ratios.\n"
 	list.append(dragons_hoard)
 

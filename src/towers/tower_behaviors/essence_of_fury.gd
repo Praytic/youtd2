@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poisoned Heart"
 	ability.icon = "res://resources/icons/misc/poison_01.tres"
-	ability.description_short = "When this tower hits a creep, it destroys a piece of the creep's heart, causing it to suffer spell damage over time.\n"
-	ability.description_full = "When this tower hits a creep, it destroys a piece of the creep's heart. The affected creep takes %s spell damage every second for 6 seconds.\n" % poison_damage \
+	ability.description_short = "Destroys a piece of the creep's heart on hit, causing spell damage over time.\n"
+	ability.description_full = "Destroys a piece of the creep's heart on hit, causing %s spell damage every second for 6 seconds.\n" % poison_damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s poison damage\n" % poison_damage_add \

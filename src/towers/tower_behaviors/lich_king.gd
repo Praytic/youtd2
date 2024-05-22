@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var icy_curse: AbilityInfo = AbilityInfo.new()
 	icy_curse.name = "Icy Curse"
 	icy_curse.icon = "res://resources/icons/furniture/furniture.tres"
-	icy_curse.description_short = "Whenever this tower hits a creep, it increases creep's debuff duration.\n"
-	icy_curse.description_full = "Whenever this tower hits a creep, it increases creep's debuff duration by 30% for 5 seconds.\n"
+	icy_curse.description_short = "Increases debuff duration of hit creeps.\n"
+	icy_curse.description_full = "Increases debuff duration of hit creeps by 30% for 5 seconds.\n"
 	list.append(icy_curse)
 
 	return list

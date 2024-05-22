@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
 	ability.icon = "res://resources/icons/misc/teapot_04.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals a portion of tower's attack damage as spell damage per second and reduces target's health regeneration.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 30%% chance to apply [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] deals 15%% of tower's attack damage as spell damage per second and reduces target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
+	ability.description_short = "Chance to ignite hit creeps, dealing a portion of tower's attack damage as spell damage per second and reducing target's health regeneration.\n"
+	ability.description_full = "30%% chance to ignite hit creeps, dealing 15%% of tower's attack damage as spell damage per second and reducing target's health regeneration by %s for 8 seconds.\n" % regen_reduction \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.6% attack damage\n" \

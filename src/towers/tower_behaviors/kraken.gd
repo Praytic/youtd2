@@ -83,8 +83,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var acid_goo: AbilityInfo = AbilityInfo.new()
 	acid_goo.name = "Acid Goo"
 	acid_goo.icon = "res://resources/icons/tower_icons/mossy_acid_sprayer.tres"
-	acid_goo.description_short = "Chance to decrease armor on hit.\n"
-	acid_goo.description_full = "Whenever this tower hits a creep, it has a %s chance to decrease creep's armor by %s for %s seconds.\n" % [acid_goo_chance, acid_goo_armor, acid_goo_duration] \
+	acid_goo.description_short = "Chance to decrease armor of hit creeps.\n"
+	acid_goo.description_full = "%s chance to decrease armor of hit creeps by %s for %s seconds.\n" % [acid_goo_chance, acid_goo_armor, acid_goo_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds\n" % acid_goo_duration_add \

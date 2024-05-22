@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Electric Field"
 	ability.icon = "res://resources/icons/mechanical/mech_badge.tres"
-	ability.description_short = "On every attack this tower shocks a random creep in range. This shock deals spell damage and stuns the creep.\n"
-	ability.description_full = "On every attack this tower shocks a random creep in 1000 range. This shock deals 1000 spell damage and stuns for 0.2 seconds, the spell damage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
+	ability.description_short = "On attack, this tower shocks a random creep in range. This shock deals spell damage and stuns the creep.\n"
+	ability.description_full = "On attack, this tower shocks a random creep in 1000 range. This shock deals 1000 spell damage and stuns for 0.2 seconds, the spell damage has 20% bonus chance to crit. The stun does not work on bosses!\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+40 spell damage\n" \

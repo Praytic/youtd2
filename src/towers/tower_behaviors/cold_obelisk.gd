@@ -21,8 +21,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Absolute Zero"
 	ability.icon = "res://resources/icons/tower_icons/ebonfrost_crystal.tres"
-	ability.description_short = "Whenever this tower hits a creep, it slows the creep.\n"
-	ability.description_full = "Whenever this tower hits a creep, it slows the creep by %s for 4 seconds.\n" % slow_amount \
+	ability.description_short = "Slows hit creeps.\n"
+	ability.description_full = "Slows hit creeps by %s for 4 seconds.\n" % slow_amount \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow\n" % slow_amount_add

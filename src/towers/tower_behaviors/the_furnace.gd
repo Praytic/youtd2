@@ -26,8 +26,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lingering: AbilityInfo = AbilityInfo.new()
 	lingering.name = "Lingering Flame"
 	lingering.icon = "res://resources/icons/fire/fire_bowl_01.tres"
-	lingering.description_short = "Whenever this tower hits a creep, it inflicts the target with [color=GOLD]Lingering Flame[/color], which deals periodic spell damage.\n"
-	lingering.description_full = "Whenever this tower hits a creep, it inflicts the target with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
+	lingering.description_short = "Inflicts hit creeps with [color=GOLD]Lingering Flame[/color], dealing spell damage over time.\n"
+	lingering.description_full = "Inflicts hit creeps with [color=GOLD]Lingering Flame[/color], dealing 100 spell damage per second for 10 seconds. This effect stacks.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 spell damage\n"

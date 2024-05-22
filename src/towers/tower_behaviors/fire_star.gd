@@ -11,8 +11,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var burn: AbilityInfo = AbilityInfo.new()
 	burn.name = "Burn!"
 	burn.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	burn.description_short = "Whenever this tower hits a creep, it will ignite it, dealing attack damage over time and slowing it.\n"
-	burn.description_full = "Whenever this tower hits a creep, it will ignite it and make it receive attack damage every 2 seconds. Ignite damage is equal to this tower's current attack damage. The buff slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
+	burn.description_short = "Ignites hit creeps, dealing attack damage over time and slowing the creep.\n"
+	burn.description_full = "Ignites hit creeps, dealing attack damage every 2 seconds. Ignite damage is equal to this tower's current attack damage. Ignite slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+4% initial damage\n" \

@@ -16,8 +16,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Essence of the Mortals"
 	ability.icon = "res://resources/icons/dioramas/mountain.tres"
-	ability.description_short = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain. The lifeforce is used to deal extra spell damage.\n" % [nature_string, orc_string, human_string]
-	ability.description_full = "When the Garden kills a %s, %s and %s unit, its lifeforce is captured in the fountain. Whenever the Garden attacks, it deals [color=GOLD][current spawn level x 2][/color] spell damage, for each lifeforce stored in the fountain, to the main target. Maximum of 5 stored lifeforce.\n" % [nature_string, orc_string, human_string] \
+	ability.description_short = "When the Garden kills a %s, %s and %s creep, its lifeforce is captured in the fountain. The lifeforce is used to deal extra spell damage.\n" % [nature_string, orc_string, human_string]
+	ability.description_full = "When the Garden kills a %s, %s and %s creep, its lifeforce is captured in the fountain. Whenever the Garden attacks, it deals [color=GOLD][current spawn level x 2][/color] spell damage, for each lifeforce stored in the fountain, to the main target. Maximum of 5 stored lifeforce.\n" % [nature_string, orc_string, human_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 maximum lifeforce\n"

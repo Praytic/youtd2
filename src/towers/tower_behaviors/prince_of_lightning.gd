@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning: AbilityInfo = AbilityInfo.new()
 	lightning.name = "Lightning Strike"
 	lightning.icon = "res://resources/icons/electricity/lightning_glowing.tres"
-	lightning.description_short = "Whenever this tower hits a creep, there is a chance that a lightning bolt strikes the target, dealing spell damage.\n"
-	lightning.description_full = "Whenever this tower hits a creep, there is a %s chance that a lightning bolt strikes the target for %s spell damage.\n" % [strike_chance, strike_damage] \
+	lightning.description_short = "Chance to strike hit creeps with a lightning bolt, dealing spell damage.\n"
+	lightning.description_full = "%s chance to strike hit creeps with a lightning bolt, dealing %s spell damage.\n" % [strike_chance, strike_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % strike_damage_add \

@@ -20,8 +20,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Fear the Dark"
 	ability.icon = "res://resources/icons/undead/skull_06.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to debuff it so that it takes more damage.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 20% chance to debuff it for 7 seconds. Debuffed creeps take 30% more damage (from all sources). Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
+	ability.description_short = "Chance to debuff hit creeps, increasing damage received from all sources.\n"
+	ability.description_full = "20% chance to debuff hit creeps for 7 seconds. Debuffed creeps take 30% more damage (from all sources). Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \
@@ -42,7 +42,7 @@ func tower_init():
 	fear_dark_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
 	fear_dark_bt.add_event_on_create(fear_dark_bt_on_create)
 	fear_dark_bt.add_event_on_cleanup(fear_dark_bt_on_cleanup)
-	fear_dark_bt.add_event_on_damaged(fear_dark_bt_on_damage)
+	fear_dark_bt.add_event_on_damaged(fear_dark_bt_on_damaged)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.5, 0.0)
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.01)
@@ -77,7 +77,7 @@ func fear_dark_bt_on_cleanup(event: Event):
 
 
 # NOTE: dmg() in original script
-func fear_dark_bt_on_damage(event: Event):
+func fear_dark_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()

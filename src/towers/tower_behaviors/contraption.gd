@@ -9,6 +9,7 @@ func get_tier_stats() -> Dictionary:
 		4: {mana_burned = 12, mana_burned_add = 0.20, dmg_bonus_per_mana = 0.12},
 	}
 
+
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var mana_burned: String = Utils.format_float(_stats.mana_burned, 2)
 	var mana_burned_add: String = Utils.format_float(_stats.mana_burned_add, 2)

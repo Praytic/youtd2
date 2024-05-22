@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Poison"
 	ability.icon = "res://resources/icons/potions/potion_green_02.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Poison[/color]. [color=GOLD]Poison[/color] deals spell damage and slows the creep.\n"
-	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Poison[/color]. [color=GOLD]Poison[/color] deals %s spell damage and slows the creep by %s for 9 seconds.\n" % [poison_damage, mod_movespeed] \
+	ability.description_short = "Poisons hit creeps, causing spell damage over time and slowing.\n"
+	ability.description_full = "Poisons hit creeps, causing %s spell damage every second and slowing the creep by %s for 9 seconds.\n" % [poison_damage, mod_movespeed] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s poison damage\n" % poison_damage_add \

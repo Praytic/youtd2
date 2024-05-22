@@ -35,8 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Faerie Fire"
 	ability.icon = "res://resources/icons/plants/flower_06.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] makes the attacked creep more vulnerable to spells and debuffs.\n"
-	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Faerie Fire[/color]. [color=GOLD]Faerie Fire[/color] increases the spell damage taken by %s and debuff duration by %s for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
+	ability.description_short = "Debuffs hit creeps, making them more vulnerable to spells and debuffs.\n"
+	ability.description_full = "Debuffs hit creeps, making them take %s more spell damage and increasing debuff duration by %s for 9 seconds.\n" % [mod_spell_damage, mod_debuff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s extra spell damage\n" % mod_spell_damage_add \

@@ -22,8 +22,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var electrify: AbilityInfo = AbilityInfo.new()
 	electrify.name = "Electrify"
 	electrify.icon = "res://resources/icons/electricity/electricity_yellow.tres"
-	electrify.description_short = "Whenever this tower hits a creep, it has a chance to [color=GOLD]Electrify[/color] the creep. Creeps in range of the [color=GOLD]Electrified[/color] unit will take spell damage.\n"
-	electrify.description_full = "Whenever this tower hits a creep, it has a 20% chance to [color=GOLD]Electrify[/color] the creep for 5 seconds. Each second, all creeps in 225 range of the [color=GOLD]Electrified[/color] creep will take 900 spell damage.\n" \
+	electrify.description_short = "Chance to electrify hit creeps. Creeps in range of the electrified creeps will take spell damage.\n"
+	electrify.description_full = "20% chance to electrify hit creeps for 5 seconds. Each second, all creeps in 225 range of the electrified creep will take 900 spell damage.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.8% chance\n" \
@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var overcharge: AbilityInfo = AbilityInfo.new()
 	overcharge.name = "I Overcharge"
 	overcharge.icon = "res://resources/icons/mechanical/battery.tres"
-	overcharge.description_short = "Whenever this tower hits a creep, it has a chance to deal extra spell damage. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower.\n"
-	overcharge.description_full = "Whenever this tower hits a creep, it has a 25% chance to deal extra 900 spell damage. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower. [color=GOLD]. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
+	overcharge.description_short = "Chance to deal additional spell damage to hit creeps. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower.\n"
+	overcharge.description_full = "25% chance to deal 900 additional spell damage to hit creeps. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower. [color=GOLD]. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+36 spell damage\n" \

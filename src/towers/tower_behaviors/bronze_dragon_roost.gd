@@ -10,8 +10,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Bronzefication"
 	ability.icon = "res://resources/icons/potions/potion_07.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to turn the creep's flesh into bronze. The creep is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 10% chance to turn the creep's flesh into bronze for 5 seconds. The creep is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
+	ability.description_short = "Chance to turn the flesh of the hit creep into bronze. The creep is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
+	ability.description_full = "10% chance to turn the flesh of the hit creep into bronze for 5 seconds. The creep is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-1% hp regen\n" \

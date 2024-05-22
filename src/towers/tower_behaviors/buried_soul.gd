@@ -37,8 +37,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var shadowstrike: AbilityInfo = AbilityInfo.new()
 	shadowstrike.name = "Shadowstrike"
 	shadowstrike.icon = "res://resources/icons/swords/sword_swing_02.tres"
-	shadowstrike.description_short = "Whenever this tower attacks, it has a chance to deal additional spell damage to the main target.\n"
-	shadowstrike.description_full = "Whenever this tower attacks, it has a 25%% chance to deal %s spell damage to the main target.\n" % damage \
+	shadowstrike.description_short = "Chance to deal additional spell damage to the attacked creep.\n"
+	shadowstrike.description_full = "25%% chance to deal %s additional spell damage to the attacked creep.\n" % damage \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % damage_add \

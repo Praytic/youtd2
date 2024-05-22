@@ -23,8 +23,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Ignite"
 	ability.icon = "res://resources/icons/orbs/orb_fire.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] causes the target to receive more damage from %s towers and deals spell damage over time.\n" % fire_string
-	ability.description_full = "Whenever this tower hits a creep, it applies [color=GOLD]Ignite[/color]. [color=GOLD]Ignite[/color] causes the target to receive %s more damage from %s towers and deals %s spell damage every 0.5 seconds for 5 seconds. The damage over time effect stacks.\n" % [dmg_from_fire, fire_string, spell_damage] \
+	ability.description_short = "Ignites hit creeps, causing spell damage over time and increasing vulnerability to %s towers.\n" % fire_string
+	ability.description_full = "Ignites hit creeps, causing %s spell damage every 0.5 seconds for 5 seconds and increasing vulnerability to %s towers by %s. The damage over time effect stacks.\n" % [spell_damage, fire_string, dmg_from_fire] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage \n" % spell_damage_add \

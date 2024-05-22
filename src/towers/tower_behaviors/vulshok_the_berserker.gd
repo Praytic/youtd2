@@ -33,8 +33,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var maim: AbilityInfo = AbilityInfo.new()
 	maim.name = "Maim"
 	maim.icon = "res://resources/icons/clubs/club_glowing.tres"
-	maim.description_short = "Whenever this tower hits a creep, it slows it.\n"
-	maim.description_full = "Whenever this tower hits a creep, it slows it by 10% for 5 seconds and every second it gets slowed by an extra 5%. This buff lasts for 5 seconds and cannot be refreshed.\n" \
+	maim.description_short = "Slows hit creeps.\n"
+	maim.description_full = "Slows hit creeps for 5 seconds. The slow amount starts at 10% and increases by 5% every second. This buff lasts for 5 seconds and cannot be refreshed.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% slow \n" \

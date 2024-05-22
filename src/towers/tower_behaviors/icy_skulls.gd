@@ -24,8 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Icy Touch"
 	ability.icon = "res://resources/icons/tower_variations/ash_geyser_blue.tres"
-	ability.description_short = "Whenever this tower hits a creep, it applies a slow.\n"
-	ability.description_full = "Whenever this tower hits a creep, it slows the creep by %s for %s seconds.\n" % [slow_base, duration_base] \
+	ability.description_short = "Slows hit creeps.\n"
+	ability.description_full = "Slows hit creeps by %s for %s seconds.\n" % [slow_base, duration_base] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % duration_add \

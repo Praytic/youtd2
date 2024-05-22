@@ -27,10 +27,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var landslide: AbilityInfo = AbilityInfo.new()
 	landslide.name = "Landslide!"
 	landslide.icon = "res://resources/icons/food/lard.tres"
-	landslide.description_short = "Whenever Bonk attacks, it has a chance to throw rocks at creeps around the main target. These rocks deal spell damage and stun.\n"
+	landslide.description_short = "Chance to throw rocks at creeps around the main target. These rocks deal spell damage and stun.\n"
 	landslide.description_full = "This ability works only after Bonk has grown 20 times.\n" \
 	+ " \n" \
-	+ "Whenever Bonk attacks, it has a 25% chance to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spell damage and stun for 0.5 seconds. [color=GOLD]Landslide[/color] deals 15 bonus spell damage per grow.\n" \
+	+ "25% chance to throw rocks at all creeps in 300 AoE around the main target. These rocks deal 700 spell damage and stun for 0.5 seconds. [color=GOLD]Landslide[/color] deals 15 bonus spell damage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+50 spell damage\n"
@@ -39,10 +39,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var crush: AbilityInfo = AbilityInfo.new()
 	crush.name = "Crush!"
 	crush.icon = "res://resources/icons/tower_icons/blackrocks_totem.tres"
-	crush.description_short = "Whenever Bonk hits a stunned creep, it gives a morale boost to nearby towers.\n"
+	crush.description_short = "When hitting stunned creeps, Bonk deals extra spell damage and gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \
-	+ "Whenever Bonk hits a stunned creep, it deals 5000 spell damage to it. When this happens, towers in 500 range will gain 10% attack speed and damage for 10 seconds. [color=GOLD]Crush[/color] deals 50 bonus spell damage per grow.\n" \
+	+ "When hitting stunned creeps, Bonk deals 5000 extra spell damage. In addition, towers in 500 range will gain 10% attack speed and damage for 10 seconds. [color=GOLD]Crush[/color] deals 50 bonus spell damage per grow.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+250 spell damage\n" \

@@ -36,8 +36,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var liquid_fire: AbilityInfo = AbilityInfo.new()
 	liquid_fire.name = "Liquid Fire"
 	liquid_fire.icon = "res://resources/icons/potions/potion_orange_03.tres"
-	liquid_fire.description_short = "Whenever this tower hits a creep, it has a chance to set the target on fire, dealing spell damage and increasing the damage the target takes from %s towers.\n" % fire_string
-	liquid_fire.description_full = "Whenever this tower hits a creep, it has a chance to set the target on fire, dealing 500 spell damage per second and increasing the damage the target takes from %s towers by 10%%. Lasts 5 seconds.\n" % fire_string \
+	liquid_fire.description_short = "Sets hit creeps on fire, dealing spell damage and increasing damage taken from %s towers.\n" % fire_string
+	liquid_fire.description_full = "Sets hit creeps on fire, dealing 500 spell damage per second and increasing damage taken from %s towers by 10%%. Lasts 5 seconds.\n" % fire_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+50 spell damage per second " \

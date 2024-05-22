@@ -30,8 +30,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning_shock: AbilityInfo = AbilityInfo.new()
 	lightning_shock.name = "Lightning Shock"
 	lightning_shock.icon = "res://resources/icons/electricity/lightning_glowing.tres"
-	lightning_shock.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps, dealing spell damage.\n"
-	lightning_shock.description_full = "Whenever this tower hits a creep, it has a %s chance to release a [color=GOLD]Lightning Shock[/color] on attacked creeps. [color=GOLD]Lightning Shock[/color] deals %s spell damage and has a %s bonus chance to crit with %s bonus spell damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
+	lightning_shock.description_short = "Chance to shock hit creeps, dealing spell damage.\n"
+	lightning_shock.description_full = "%s chance to shock hit creeps, dealing %s spell damage. Has a %s bonus chance to crit with %s bonus spell damage.\n" % [shock_chance, shock_damage, shock_crit_chance, shock_crit_damage] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % shock_chance_add \

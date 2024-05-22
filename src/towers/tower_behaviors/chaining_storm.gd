@@ -26,8 +26,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var chaining_storm: AbilityInfo = AbilityInfo.new()
 	chaining_storm.name = "Chaining Storm"
 	chaining_storm.icon = "res://resources/icons/electricity/thunderstorm.tres"
-	chaining_storm.description_short = "Whenever this tower attacks, it has a chance to cast a [color=GOLD]Chaining Storm[/color] at the position of the main target. All creeps in range of the [color=GOLD]Chaining Storm[/color] suffer spell damage.\n"
-	chaining_storm.description_full = "Whenever this tower attacks, it has a 25%% chance to cast a [color=GOLD]Chaining Storm[/color] at the position of the main target for the cost of 100 mana. All creeps in 350 range of the [color=GOLD]Chaining Storm[/color] suffer 200 spell damage multiplied by the number of creeps hit. They are also weakened to receive [color=GOLD][2 x creep count]%%[/color] more damage from %s, %s and %s towers. All effects of this [color=GOLD]Chaining Storm[/color] tower are doubled and a 25%% higher spell critical chance is applied whenever the main target hit is an air unit.\n" % [storm_string, ice_string, astral_string] \
+	chaining_storm.description_short = "Chance to cast [color=GOLD]Chaining Storm[/color] at the attacked creep. All creeps in range of the [color=GOLD]Chaining Storm[/color] suffer spell damage.\n"
+	chaining_storm.description_full = "25%% chance to cast [color=GOLD]Chaining Storm[/color] at the attacked creep for the cost of 100 mana. All creeps in 350 range of the [color=GOLD]Chaining Storm[/color] suffer 200 spell damage multiplied by the number of creeps hit. They are also weakened to receive [color=GOLD][2 x creep count]%%[/color] more damage from %s, %s and %s towers. All effects of this [color=GOLD]Chaining Storm[/color] tower are doubled and a 25%% higher spell critical chance is applied whenever the main target is an air unit.\n" % [storm_string, ice_string, astral_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1.25% trigger chance\n" \

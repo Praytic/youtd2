@@ -48,8 +48,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var phoenixfire: AbilityInfo = AbilityInfo.new()
 	phoenixfire.name = "Phoenixfire"
 	phoenixfire.icon = "res://resources/icons/orbs/orb_molten.tres"
-	phoenixfire.description_short = "Whenever this tower hits a creep, it reduces creep's armor.\n"
-	phoenixfire.description_full = "Whenever this tower hits a creep, it reduces creep's armor by %s for %s seconds. This buff is stackable.\n" % [mod_armor, debuff_duration] \
+	phoenixfire.description_short = "Reduces armor of hit creeps.\n"
+	phoenixfire.description_full = "Reduces armor of hit creeps by %s for %s seconds. This buff is stackable.\n" % [mod_armor, debuff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % mod_armor_add

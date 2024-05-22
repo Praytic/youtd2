@@ -45,7 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	gift.name = "Gift of the Forest"
 	gift.icon = "res://resources/icons/plants/plant_in_pot.tres"
 	gift.description_short = "The magical powers of the forest grant this archer enchanted arrows, which have a chance to stun or slow creeps.\n"
-	gift.description_full = "Whenever this tower hits a creep, it has a %s chance to stun the creep for %s seconds. If the stun fails to happen then there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration] \
+	gift.description_full = "The magical powers of the forest grant this archer enchanted arrows, which have a chance to stun or slow creeps.These arrows have a %s chance to stun hit creeps for %s seconds. If the stun fails to happen then there is a %s chance to slow by %s for %s seconds.\n" % [stun_chance, stun_duration, slow_chance, slow_amount, slow_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance to stun\n" % stun_chance_add \

@@ -41,8 +41,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var dark_orbs: AbilityInfo = AbilityInfo.new()
 	dark_orbs.name = "Dark Orbs"
 	dark_orbs.icon = "res://resources/icons/tower_icons/dark_battery.tres"
-	dark_orbs.description_short = "Chance to spawn orbs that fire off dark rays at enemies in range, dealing spell damage.\n"
-	dark_orbs.description_full = "Each attack has a 20% chance to spawn 3 orbs that travel outwards in all directions from Shadow. Orbs travel for 8 seconds, firing off dark rays at enemies within 450 range, which deal 15% of this tower's attack damage as spell damage per second.\n" \
+	dark_orbs.description_short = "Whenever this tower attacks, it has a chance to spawn orbs that fire off dark rays at enemies in range, dealing spell damage.\n"
+	dark_orbs.description_full = "Whenever this tower attacks, it has a 20% chance to spawn 3 orbs that travel outwards in all directions from Shadow. Orbs travel for 8 seconds, firing off dark rays at enemies within 450 range, which deal 15% of this tower's attack damage as spell damage per second.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 orb every 5 levels\n" \

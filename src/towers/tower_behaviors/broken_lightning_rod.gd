@@ -20,7 +20,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Release Lightning"
 	autocast.icon = "res://resources/icons/electricity/lightning_glowing.tres"
 	autocast.description_short = "Releases a lightning bolt."
-	autocast.description = "This tower releases a lightning bolt that strikes the target for %s spell damage.\n" % damage \
+	autocast.description = "Releases a lightning bolt that strikes the target for %s spell damage.\n" % damage \
 	+ " \n" \
 	+"[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % damage_add

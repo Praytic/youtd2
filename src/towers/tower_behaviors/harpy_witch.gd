@@ -42,8 +42,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Twister"
 	ability.icon = "res://resources/icons/tower_icons/broken_circle_of_wind.tres"
-	ability.description_short = "Attacks have a chance to summon tornados towards two random creeps. Tornados deal attack damage.\n"
-	ability.description_full = "Attacks have a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from %s towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, storm_string, twister_duration] \
+	ability.description_short = "Whenever this tower attacks, it has a chance to summon tornados towards two random creeps. Tornados deal attack damage.\n"
+	ability.description_full = "Whenever this tower attacks, it has a %s chance to summon %s tornados towards two random creeps in attack range of the harpy. Upon hit each tornado deals this tower's attack damage to the target and makes it suffer %s additional damage from %s towers for %s seconds.\n" % [twister_chance, twister_tornado_count, twister_mod_storm_dmg, storm_string, twister_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % twister_chance_add \
