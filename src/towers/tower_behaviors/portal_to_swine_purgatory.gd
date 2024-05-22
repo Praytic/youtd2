@@ -86,6 +86,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	initiative.icon = "res://resources/icons/weapons_misc/barbed_spike.tres"
 	initiative.description_short = "The portal will occasionally release an extra [color=GOLD]Rampage of Pigs[/color].\n"
 	initiative.description_full = "The portal will occasionally release an extra [color=GOLD]Rampage of Pigs[/color]. The cooldown for [color=GOLD]Initiative[/color] is reduced every time a creep comes within %s range of this tower and also whenever this tower kills a creep. [color=GOLD]Initiative[/color] will trigger every %sth mass creep and more often for larger creeps.\n" % [initiative_range, initiative_stack_max]
+	initiative.radius = _stats.initiative_range
+	initiative.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(initiative)
 
 	return list

@@ -39,6 +39,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage\n" % dmg_ratio_add \
 	+ ""
+	ability.radius = EMBER_RADIUS
+	ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(ability)
 
 	return list
