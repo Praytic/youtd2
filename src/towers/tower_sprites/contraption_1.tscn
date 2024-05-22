@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpua72gnt6gvy"]
+
+[ext_resource type="Texture2D" uid="uid://ilnxq75vo735" path="res://assets/tower_sprites/contraption_atlas.png" id="1_cq30p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83glq"]
+atlas = ExtResource("1_cq30p")
+region = Rect2(55, 76, 202, 220)
+
+[node name="contraption_1" type="Sprite2D"]
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_83glq")
+offset = Vector2(0, -60)

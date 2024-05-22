@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://250046jfagk3"]
+
+[ext_resource type="Texture2D" uid="uid://bvgyvbj1s7jc7" path="res://resources/icons/food/pork_without_plate.tres" id="1_kkgpb"]
+
+[node name="flying_pork" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_kkgpb")
