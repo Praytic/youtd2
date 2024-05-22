@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dck0q1bxf80i"]
+
+[ext_resource type="Texture2D" uid="uid://ce8dfphn6iv4o" path="res://assets/tower_sprites/fenced_flames_atlas.png" id="1_rf13i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rswi"]
+atlas = ExtResource("1_rf13i")
+region = Rect2(676, 128, 153, 148)
+
+[node name="fenced_flames_2" type="Sprite2D"]
+texture = SubResource("AtlasTexture_6rswi")
+offset = Vector2(0, -20)

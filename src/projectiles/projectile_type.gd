@@ -40,6 +40,10 @@ func _init():
 ###       Public      ###
 #########################
 
+func set_speed(value: float):
+	_speed = value
+
+
 # Makes projectile use lightning visual instead of the
 # visual scene passed to constructor.
 # NOTE: works only for interpolated projectiles.
