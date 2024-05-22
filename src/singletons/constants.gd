@@ -22,6 +22,11 @@ const TILE_SIZE_WC3: float = 128
 # isometric projection, need to unproject vectors first.
 const WC3_DISTANCE_TO_PIXELS: float = TILE_SIZE_PIXELS / TILE_SIZE_WC3
 
+# This extension comes from original youtd2/wc3 engine. It
+# basically changes attack range check to start from tower
+# edge instead of tower center.
+const ATTACK_RANGE_EXTENSION: float = 72
+
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0
 
