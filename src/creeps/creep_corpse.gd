@@ -8,7 +8,7 @@ class_name CreepCorpse extends Unit
 
 
 const DURATION: float = 10
-const RANDOM_OFFSET: float = 15
+const RANDOM_OFFSET: float = 5
 
 @export var _sprite: AnimatedSprite2D
 @export var _visual: Node2D
@@ -22,13 +22,19 @@ func _ready():
 #	Move corpse to a random small offset during death
 #	animation. Otherwise corpses line up perfectly and it
 #	looks weird.
-# 	NOTE: need to use synced_rng for corpse position because
-# 	corpse position affects game logic. For example, some
-# 	towers explode corpses in range.
+# 
+# 	NOTE: it's ok to use tween and local_rng here because
+# 	position of sprite doesn't affect game logic in any way.
+# 	Note that position of the corpse parent node is still
+# 	important and affects game logic.
 	var position_tween = create_tween()
-	var random_position: Vector2 = _sprite.position + Vector2(Globals.synced_rng.randf_range(-RANDOM_OFFSET, RANDOM_OFFSET), Globals.synced_rng.randf_range(-RANDOM_OFFSET, RANDOM_OFFSET))
+	var random_offset_top_down: Vector2 = Vector2(
+		RANDOM_OFFSET * Globals.local_rng.randf_range(-1, 1),
+		RANDOM_OFFSET * Globals.local_rng.randf_range(-1, -1))
+	var random_offset_canvas: Vector2 = VectorUtils.top_down_to_canvas(random_offset_top_down)
+	var final_pos: Vector2 = _sprite.position + random_offset_canvas
 	position_tween.tween_property(_sprite, "position",
-		random_position,
+		final_pos,
 		0.2 * DURATION).set_trans(Tween.TRANS_LINEAR)
 
 	var fade_tween = create_tween()
