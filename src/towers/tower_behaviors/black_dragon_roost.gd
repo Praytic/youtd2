@@ -10,6 +10,10 @@ extends TowerBehavior
 # handler which increases damage take by creep is called
 # when creep takes damage.
 
+# NOTE: the trigger chance for Fear the Dark ability appears
+# to have been changed often. Used 20% which is the value on
+# youtd.best and appears to be the most recent.
+
 
 var fear_dark_bt: BuffType
 
@@ -52,7 +56,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var chance: float = 0.5 + 0.004 * tower.get_level()
+	var chance: float = 0.20 + 0.004 * tower.get_level()
 
 	if !tower.calc_chance(chance):
 		return
