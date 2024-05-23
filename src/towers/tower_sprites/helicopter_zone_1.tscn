@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://soq2prqadk4l"]
 
-[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://assets/tower_sprites/lesser_defender.png" id="1_j137w"]
+[ext_resource type="Texture2D" uid="uid://btyfkgylreg0f" path="res://assets/tower_sprites/helicopter_zone_atlas.png" id="1_awkkb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ravj"]
-atlas = ExtResource("1_j137w")
-region = Rect2(661, 306, 183, 276)
+atlas = ExtResource("1_awkkb")
+region = Rect2(67, 52, 164, 190)
 
 [node name="helicopter_zone" type="Sprite2D"]
 texture = SubResource("AtlasTexture_5ravj")
-offset = Vector2(0, -80)
+offset = Vector2(0, -40)
