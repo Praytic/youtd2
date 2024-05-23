@@ -1,14 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsfo2v7m21tqm"]
+[gd_scene load_steps=3 format=3 uid="uid://dsfo2v7m21tqm"]
 
 [ext_resource type="Script" path="res://src/creeps/creep_corpse.gd" id="1_mvyph"]
+[ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_7a4st"]
 
-[node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite", "_visual")]
+[node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite", "_visual", "_expire_timer")]
 script = ExtResource("1_mvyph")
 _sprite = NodePath("Visual/Sprite2D")
 _visual = NodePath("Visual")
+_expire_timer = NodePath("ExpireTimer")
 
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Visual"]
 
-[connection signal="animation_finished" from="Visual/Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
+[node name="ExpireTimer" type="Node" parent="."]
+script = ExtResource("2_7a4st")
+one_shot = true
+
+[connection signal="timeout" from="ExpireTimer" to="." method="_on_expire_timer_timeout"]

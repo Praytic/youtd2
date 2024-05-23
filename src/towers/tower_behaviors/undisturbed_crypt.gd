@@ -8,6 +8,11 @@ extends TowerBehavior
 # load_triggers() instead of to EventTypeList in
 # tower_init().
 
+# NOTE: changed script to not make corpse invisible when
+# exploding coprses. It looks weird because it can interrupt
+# the death animation. Working around this problem also
+# caused desync issues so removed work arounds.
+
 
 var ball_pt: ProjectileType
 var meat_pt: ProjectileType
@@ -40,7 +45,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s slow and damage taken\n" % debuff_effect_add \
 	+ "+0.25 seconds duration\n"
-	corpse_explosion.radius = 500
+	corpse_explosion.radius = 1000
 	corpse_explosion.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(corpse_explosion)
 

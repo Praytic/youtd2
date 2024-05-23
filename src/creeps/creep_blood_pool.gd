@@ -35,7 +35,9 @@ func _ready():
 # 	Blood pool fades in shortly after creep death animation
 # 	falls to the ground.
 # 	Then it slowly fades away.
+	var game_speed: int = Globals.get_update_ticks_per_physics_tick()
 	var modulate_tween = create_tween()
+	modulate_tween.set_speed_scale(game_speed)
 	modulate_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, transparency_max), 1.0).set_delay(1.0)
 	modulate_tween.tween_property(_sprite, "modulate",

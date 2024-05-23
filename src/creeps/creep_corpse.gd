@@ -2,9 +2,22 @@ class_name CreepCorpse extends Unit
 
 
 # Corpse visual created after creep dies. Fades away slowly
-# then disappears. Note that creep corpses are used by some
-# towers, for example the Undistrubed Crypt tower deals aoe
-# damage centered on corpse positions.
+# then disappears.
+# 
+# NOTE: this code is very easy to change in such a way that
+# it creates a new desync source. It looks like it's visuals
+# only but it's not - it affects game logic sometimes.
+# Corpses are used by Undistrubed Crypt tower to deal AoE
+# damage centered on corpse positions. Therefore, corpse
+# properties like position and duration MUST be synced with
+# the game client and game speed. That is why a ManualTimer
+# is used for expiry instead of a tween.
+# 
+# Note that for the position and modulate of the sprite (not
+# root node), it's ok to use tweens because these properties
+# won't have any effect on game logic. But these tweens do
+# need to be synced to game speed - otherwise it looks weird
+# on fast game speeds.
 
 
 const DURATION: float = 10
@@ -12,22 +25,29 @@ const RANDOM_OFFSET: float = 5
 
 @export var _sprite: AnimatedSprite2D
 @export var _visual: Node2D
+@export var _expire_timer: ManualTimer
 
+
+#########################
+###     Built-in      ###
+#########################
 
 func _ready():
 	super()
 
+	add_to_group("corpses")
+
 	_set_visual_node(_visual)
+	
+	_expire_timer.start(DURATION)
+
+	var game_speed: int = Globals.get_update_ticks_per_physics_tick()
 
 #	Move corpse to a random small offset during death
 #	animation. Otherwise corpses line up perfectly and it
 #	looks weird.
-# 
-# 	NOTE: it's ok to use tween and local_rng here because
-# 	position of sprite doesn't affect game logic in any way.
-# 	Note that position of the corpse parent node is still
-# 	important and affects game logic.
 	var position_tween = create_tween()
+	position_tween.set_speed_scale(game_speed)
 	var random_offset_top_down: Vector2 = Vector2(
 		RANDOM_OFFSET * Globals.local_rng.randf_range(-1, 1),
 		RANDOM_OFFSET * Globals.local_rng.randf_range(-1, -1))
@@ -38,11 +58,15 @@ func _ready():
 		0.2 * DURATION).set_trans(Tween.TRANS_LINEAR)
 
 	var fade_tween = create_tween()
+	fade_tween.set_speed_scale(game_speed)
 	fade_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),
 		0.2 * DURATION).set_delay(0.8 * DURATION).set_trans(Tween.TRANS_LINEAR)
-	fade_tween.finished.connect(_on_fade_finished)
 
+
+#########################
+###      Private      ###
+#########################
 
 # Copies sprite from creep and starts the death animation.
 # NOTE: need to copy original sprite's position and scale to
@@ -62,19 +86,12 @@ func _setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.play(death_animation)
 
 
-func _on_fade_finished():
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_expire_timer_timeout():
 	remove_from_game()
-
-
-# NOTE: need to add to group after animation is finished and
-# not inside _ready() so that this node is considered a
-# "corpse" only after the animation is finished. This
-# means that this node won't be visible when towers search
-# for corpses via Iterate. Otherwise, there are problems
-# with towers like "Plagued Crypt" which destroy corpses
-# too early before death animation is finished.
-func _on_sprite_2d_animation_finished():
-	add_to_group("corpses")
 
 
 #########################
