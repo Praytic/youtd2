@@ -2,12 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://cumqesf84dyfq" path="res://assets/tower_sprites/broken_fire_pit_atlas.png" id="3_mes63"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_mes63")
 region = Rect2(300, 300, 300, 300)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -68)
+position = Vector2(-2, -85)
 scale = Vector2(0.9, 0.9)
 texture = SubResource("AtlasTexture_lrt4k")
