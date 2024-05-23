@@ -4,12 +4,15 @@ class_name SeekersOil extends ItemBehavior
 # NOTE: this range is a hand-picked value which hits 3x3
 # grid of towers around the main tower or 4+3+4 towers built
 # in honeycomb pattern.
+# 
 # Distance to tower 2 tiles away = 128 * 2 = 256
-# -64 to account for tower-tower range extension
-# = 192
-# so pick 190 to NOT hit tower 2 tiles away
-# but hit a tower on the edge of honeycomb pattern.
-static var SEEKER_OIL_RANGE: float = 190
+# -RANGE_CHECK_BONUS_FOR_TOWERS(72) to account for Iterate
+# adding it during range checking.
+# 256 - 72 = 184
+# and then additional -4 so that the oil doesn't hit tower 2
+# tiles away but hits a tower on the edge of honeycomb
+# pattern.
+static var SEEKER_OIL_RANGE: float = 2 * Constants.TILE_SIZE_WC3 - Constants.RANGE_CHECK_BONUS_FOR_TOWERS - 4
 const SEEKER_OIL_ID: int = 1018
 
 

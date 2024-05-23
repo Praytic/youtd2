@@ -314,7 +314,9 @@ func _target_is_valid(target) -> bool:
 	if !unit_is_valid:
 		return false
 
-	var attack_range: float = get_range() + Constants.ATTACK_RANGE_EXTENSION
+# 	NOTE: need to extend attack range by "tower radius".
+# 	This is how it works in the original game.
+	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 	var in_range = VectorUtils.in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
 
 	var target_is_invisible: bool = target.is_invisible()
@@ -530,7 +532,9 @@ func _update_target_list():
 		_remove_target(target)
 
 # 	Add new targets that have entered into range
-	var attack_range: float = get_range() + Constants.ATTACK_RANGE_EXTENSION
+# 	NOTE: need to extend attack range by "tower radius".
+# 	This is how it works in the original game.
+	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
 
 	if Config.smart_targeting():

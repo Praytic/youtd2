@@ -25,7 +25,8 @@ const WC3_DISTANCE_TO_PIXELS: float = TILE_SIZE_PIXELS / TILE_SIZE_WC3
 # This extension comes from original youtd2/wc3 engine. It
 # basically changes attack range check to start from tower
 # edge instead of tower center.
-const ATTACK_RANGE_EXTENSION: float = 72
+const RANGE_CHECK_BONUS_FOR_TOWERS: float = 72
+const RANGE_CHECK_BONUS_FOR_OTHER_UNITS: float = 8
 
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0

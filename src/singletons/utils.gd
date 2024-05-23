@@ -416,9 +416,14 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float, includ
 # 
 #	Note that this doesn't apply to creeps - in that case,
 #	the default distance to unit position is used.
+	var radius_bonus: float
 	var target_is_tower: bool = type.get_unit_type() == TargetType.UnitType.TOWERS
 	if target_is_tower:
-		radius += Constants.TILE_SIZE_WC3 / 2
+		radius_bonus = Constants.RANGE_CHECK_BONUS_FOR_TOWERS
+	else:
+		radius_bonus = Constants.RANGE_CHECK_BONUS_FOR_OTHER_UNITS
+
+	radius += radius_bonus
 
 #	NOTE: not using Array.filter() here because it takes
 #	more time than for loop
@@ -623,6 +628,12 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 #		shift them slightly so that they don't get drawn on
 #		top of each other.
 		var indicator_radius: float = range_data.get_radius_with_builder_bonus(player)
+
+#		NOTE: add this bonus because
+#		Utils.get_units_in_range() adds it. Otherwise the
+#		range would look like it's too small.
+		if !range_data.targets_creeps:
+			indicator_radius += Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 
 		while occupied_radius_list.has(indicator_radius):
 			indicator_radius -= 10

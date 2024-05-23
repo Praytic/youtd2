@@ -63,10 +63,11 @@ func periodic(_event: Event):
 	if common_tower == null:
 		return
 
-#	NOTE: need to add 72 for tower collision size, bit of a
-#	hack to get real attack range AoE-- iterate only takes
-#	target collision to consideration
-	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_caster(common_tower, TargetType.new(TargetType.CREEPS), tower.get_range() + 72)
+#	NOTE: need to add RANGE_CHECK_BONUS_FOR_TOWERS to
+#	account for tower radius, bit of a hack to get real
+#	attack range. Iterate class only takes target radius into
+#	consideration.
+	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_caster(common_tower, TargetType.new(TargetType.CREEPS), tower.get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS)
 
 	var dmg_ratio: float = _stats.dmg_ratio + _stats.dmg_ratio_add * tower.get_level()
 
