@@ -18,8 +18,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var absorb: AbilityInfo = AbilityInfo.new()
 	absorb.name = "Absorb Energy"
 	absorb.icon = "res://resources/icons/undead/skull_phazing.tres"
-	absorb.description_short = "Attacks do no damage but every hit has a chance to absorb mana from target.\n"
-	absorb.description_full = "Attacks do no damage. There is a 10% chance per hit to gather energy, stealing 50 mana from the target.\n" \
+	absorb.description_short = "Attacks do no damage but every hit has a chance to restore mana and steal mana from the target.\n"
+	absorb.description_full = "Attacks do no damage. There is a 10% chance per hit to gather energy, restoring 50 mana to the tower and the target will lose 50 mana if it has mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 mana\n" \

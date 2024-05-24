@@ -80,6 +80,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=BLUE]Blue[/color] Drake : +150 spell damage\n" \
 	+ "[color=RED]Red[/color] Drake : +8% damage\n" \
 	+ "[color=GREEN]Green[/color] Drake : +0.04 seconds duration\n"
+	feed.radius = 1000
+	feed.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(feed)
 
 	return list

@@ -90,6 +90,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% armor reduction\n" \
 	+ ""
+	helicopter_zone.radius = 1000
+	helicopter_zone.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(helicopter_zone)
 
 	return list

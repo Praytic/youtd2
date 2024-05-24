@@ -24,6 +24,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+230 damage\n" \
 	+ "+0.012 seconds slow duration\n" \
 	+ "+50 range at level 25.\n"
+	ground_smash.radius = 750
+	ground_smash.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(ground_smash)
 
 	return list

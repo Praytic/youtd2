@@ -34,6 +34,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.1 second duration\n" \
 	+ "+0.004 damage per second multipler\n"
+	fresh_fish_ability.radius = 500
+	fresh_fish_ability.target_type = TargetType.new(TargetType.TOWERS)
 	list.append(fresh_fish_ability)
 
 	var impatient: AbilityInfo = AbilityInfo.new()

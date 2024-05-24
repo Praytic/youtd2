@@ -41,6 +41,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "+0.1 seconds duration\n" \
 	+ "+0.28% chance to summon a ward\n" \
 	+ "+1 maximum ward at level 15 and 25\n"
+	serpent_ward.radius = 800
+	serpent_ward.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(serpent_ward)
 
 	var purify: AbilityInfo = AbilityInfo.new()
