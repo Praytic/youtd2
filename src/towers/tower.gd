@@ -1041,29 +1041,28 @@ func get_damage_min() -> int:
 func get_damage_max() -> int:
 	return TowerProperties.get_damage_max(_id)
 
+# NOTE: this f-n maps to both
+# tower.getCurrentAttackDamageBase() and
+# tower.getBaseDamage() in JASS. Yes, original API had two
+# functions which did the exact same thing.
 func get_base_damage() -> int:
 	return TowerProperties.get_base_damage(_id)
 
-# NOTE: tower.getCurrentAttackDamageBase() in JASS
+
 # NOTE: by default this value is based on the average of
 # tower's min and max damage. When tower is calculating
 # attack damage, the randomize_damage arg is set to true so
 # that this f-n returns random value between min and max.
-func get_current_attack_damage_base(randomize_damage: bool = false) -> float:
-	var damage_min: float = get_damage_min()
-	var damage_max: float = get_damage_max()
-
-	var damage: float
-	if randomize_damage:
-		damage = Globals.synced_rng.randf_range(damage_min, damage_max)
-	else:
-		damage = floori((damage_min + damage_max) / 2)
-
-	return damage
-
 # NOTE: tower.getCurrentAttackDamageWithBonus() in JASS
 func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> float:
-	var base_damage: float = get_current_attack_damage_base(randomize_damage)
+	var base_damage: float
+	var damage_min: float = get_damage_min()
+	var damage_max: float = get_damage_max()
+	if randomize_damage:
+		base_damage = Globals.synced_rng.randf_range(damage_min, damage_max)
+	else:
+		base_damage = floori((damage_min + damage_max) / 2)
+
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()
 	var damage_add: float = get_damage_add()
