@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cohvvjatutbx5"]
+
+[ext_resource type="Texture2D" uid="uid://drqpne3jx6gly" path="res://assets/tower_sprites/greyfang_atlas.png" id="1_uyme0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvsf3"]
+atlas = ExtResource("1_uyme0")
+region = Rect2(62, 64, 203, 177)
+
+[node name="greyfang_1" type="Sprite2D"]
+texture = SubResource("AtlasTexture_vvsf3")
+offset = Vector2(0, -40)

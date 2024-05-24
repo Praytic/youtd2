@@ -42,6 +42,8 @@ var _range_indicator_list: Array[RangeIndicator] = []
 var _tower_behavior: TowerBehavior = null
 var _sprite: Sprite2D = null
 var _hide_attack_projectiles: bool = false
+var _current_crit_count: int = 0
+var _current_crit_damage: float = 0
 
 
 @export var _mana_bar: ProgressBar
@@ -228,6 +230,12 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: resetAttackCrits() in JASS
+func reset_attack_crits():
+	_current_crit_count = 0
+	_current_crit_damage = 0.0
+
 
 func set_range_indicator_visible(ability_name: String, value: bool):
 	for range_indicator in _range_indicator_list:
@@ -435,8 +443,12 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 #	splash damage and bounce attacks all of the damage dealt
 #	has the same crit values. Also so that attack and damage
 #	event handlers have access to crit count.
-	var crit_count: int = _generate_crit_count(0.0, 0.0)
-	var crit_ratio: float = _calc_attack_multicrit_from_crit_count(crit_count, 0.0)
+# 
+# 	NOTE: these variables need to be member vars instead of
+# 	local vars because some ATTACK callbacks in tower
+# 	scripts need to modify them.
+	_current_crit_count = _generate_crit_count(0.0, 0.0)
+	_current_crit_damage = _calc_attack_multicrit_from_crit_count(_current_crit_count, 0.0)
 
 #	NOTE: emit attack event only for the "first" target so
 #	that if the tower has multishot ability, the attack
@@ -444,16 +456,16 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 #	is the way it works in original game.
 	if target_is_first:
 		var attack_event: Event = Event.new(target)
-		attack_event._number_of_crits = crit_count
+		attack_event._number_of_crits = _current_crit_count
 		attack.emit(attack_event)
 
 #	NOTE: process crit bonuses after attack event so that if
 #	any attack event handlers added crit bonuses, we apply
 #	these bonuses to current attack.
-	crit_count += _bonus_crit_count_for_next_attack
+	_current_crit_count += _bonus_crit_count_for_next_attack
 	_bonus_crit_count_for_next_attack = 0
 
-	crit_ratio += _bonus_crit_ratio_for_next_attack
+	_current_crit_damage += _bonus_crit_ratio_for_next_attack
 	_bonus_crit_ratio_for_next_attack = 0.0
 
 #	NOTE: handlers for attack event may order the tower to
@@ -470,13 +482,13 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 			target = _new_target_from_order
 
 	var attacked_event: Event = Event.new(self)
-	attacked_event._number_of_crits = crit_count
+	attacked_event._number_of_crits = _current_crit_count
 	target.attacked.emit(attacked_event)
 
 	var tower_pos: Vector3 = get_position_wc3()
 	var projectile: Projectile = _make_projectile(tower_pos, target)
-	projectile.set_tower_crit_count(crit_count)
-	projectile.set_tower_crit_ratio(crit_ratio)
+	projectile.set_tower_crit_count(_current_crit_count)
+	projectile.set_tower_crit_ratio(_current_crit_damage)
 
 #	NOTE: need to save some variables to be used later when
 #	projectile reaches target
