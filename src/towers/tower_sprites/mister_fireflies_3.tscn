@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://8mqmqee6s3h8"]
+
+[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://assets/tower_sprites/lesser_defender.png" id="1_cycxf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f35u"]
+atlas = ExtResource("1_cycxf")
+region = Rect2(389, 79, 140, 195)
+
+[node name="mister_fireflies_3" type="Sprite2D"]
+texture = SubResource("AtlasTexture_7f35u")
+offset = Vector2(0, -59)

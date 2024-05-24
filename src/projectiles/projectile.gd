@@ -778,6 +778,15 @@ static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, 
 	return projectile
 
 
+# NOTE: Projectile.createBezierInterpolationFromUnitToPoint() in JASS
+static func create_bezier_interpolation_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector3, z_arc: float, side_arc: float, steepness: float) -> Projectile:
+	var from_pos: Vector3 = from_unit.get_position_wc3() + UNIT_Z_OFFSET
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, from_pos, 0)
+	projectile.start_bezier_interpolation_to_point(target_pos, z_arc, side_arc, steepness)
+
+	return projectile
+
+
 # NOTE: Projectile.create() in JASS
 static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector3, facing: float) -> Projectile:
 	var projectile: Projectile = Preloads.projectile_scene.instantiate()
