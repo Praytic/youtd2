@@ -156,20 +156,20 @@ func update_text():
 	_dmg_from_iron.set_text(dmg_from_iron_string)
 
 # 	Health
-	var base_health: float = _creep.get_base_health()
-	var base_health_string: String = Utils.format_float(base_health, 1)
+	var base_health: int = floori(_creep.get_base_health())
+	var base_health_string: String = TowerDetails.int_format(base_health)
 	_base_health.set_text(base_health_string)
 
-	var health_bonus: float = _creep.get_base_health_bonus()
-	var health_bonus_string: String = Utils.format_float(health_bonus, 1)
+	var health_bonus: int = floori(_creep.get_base_health_bonus())
+	var health_bonus_string: String = TowerDetails.int_format(health_bonus)
 	_health_bonus.set_text(health_bonus_string)
 
 	var health_bonus_perc: float = _creep.get_base_health_bonus_percent() - 1.0
 	var health_bonus_perc_string: String = Utils.format_percent(health_bonus_perc, 0)
 	_health_bonus_perc.set_text(health_bonus_perc_string)
 
-	var overall_health: float = _creep.get_overall_health()
-	var overall_health_string: String = Utils.format_float(overall_health, 1)
+	var overall_health: int = floori(_creep.get_overall_health())
+	var overall_health_string: String = TowerDetails.int_format(overall_health)
 	_overall_health.set_text(overall_health_string)
 
 	var base_health_regen: float = _creep.get_base_health_regen()
@@ -189,20 +189,20 @@ func update_text():
 	_overall_health_regen.set_text(overall_health_regen_string)
 
 # 	Mana
-	var base_mana: float = _creep.get_base_mana()
-	var base_mana_string: String = Utils.format_float(base_mana, 1)
+	var base_mana: int = floori(_creep.get_base_mana())
+	var base_mana_string: String = TowerDetails.int_format(base_mana)
 	_base_mana.set_text(base_mana_string)
 
-	var mana_bonus: float = _creep.get_base_mana_bonus()
-	var mana_bonus_string: String = Utils.format_float(mana_bonus, 1)
+	var mana_bonus: int = floori(_creep.get_base_mana_bonus())
+	var mana_bonus_string: String = TowerDetails.int_format(mana_bonus)
 	_mana_bonus.set_text(mana_bonus_string)
 
 	var mana_bonus_perc: float = _creep.get_base_mana_bonus_percent() - 1.0
 	var mana_bonus_perc_string: String = Utils.format_percent(mana_bonus_perc, 0)
 	_mana_bonus_perc.set_text(mana_bonus_perc_string)
 
-	var overall_mana: float = _creep.get_overall_mana()
-	var overall_mana_string: String = Utils.format_float(overall_mana, 1)
+	var overall_mana: int = floori(_creep.get_overall_mana())
+	var overall_mana_string: String = TowerDetails.int_format(overall_mana)
 	_overall_mana.set_text(overall_mana_string)
 
 	var base_mana_regen: float = _creep.get_base_mana_regen()

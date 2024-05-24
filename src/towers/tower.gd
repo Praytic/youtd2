@@ -1049,6 +1049,15 @@ func get_base_damage() -> int:
 	return TowerProperties.get_base_damage(_id)
 
 
+func get_base_damage_with_bonus() -> float:
+	var base_damage: float = get_base_damage()
+	var base_bonus: float = get_base_damage_bonus()
+	var base_bonus_percent: float = get_base_damage_bonus_percent()
+	var base_damage_with_bonus: float = (base_damage + base_bonus) * base_bonus_percent
+
+	return base_damage_with_bonus
+
+
 # NOTE: by default this value is based on the average of
 # tower's min and max damage. When tower is calculating
 # attack damage, the randomize_damage arg is set to true so
@@ -1091,7 +1100,28 @@ func get_overall_dps() -> float:
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.
 func get_dps_with_crit() -> float:
-	return get_overall_dps() * get_crit_multiplier()
+	var crit_multiplier: float = 1.0
+	var current_crit_chance: float = get_prop_atk_crit_chance()
+	var crit_damage: float = get_prop_atk_crit_damage() - 1.0
+	var multicrit_current: int = get_prop_multicrit_count()
+	var current_dmg_multiplier: float = 1.0
+
+	while multicrit_current > 0:
+		if current_crit_chance > Constants.ATK_MULTICRIT_DIMISHING:
+			current_dmg_multiplier *= Constants.ATK_MULTICRIT_DIMISHING
+		else:
+			current_dmg_multiplier *= current_crit_chance
+
+		crit_multiplier += crit_damage * current_dmg_multiplier
+		current_crit_chance *= Constants.ATK_MULTICRIT_DIMISHING
+
+		multicrit_current -= 1
+
+	var dps: float = get_overall_dps()
+	var dps_with_crit: float = dps * crit_multiplier
+	
+	return dps_with_crit
+
 
 # How much damage the tower dealt in total
 func get_damage() -> float:

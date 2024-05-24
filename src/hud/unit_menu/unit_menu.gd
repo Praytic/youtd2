@@ -387,8 +387,14 @@ func _update_stats_panel():
 
 
 func _get_dmg_stats_left_text() -> String:
-	var overall_damage: float = _tower.get_current_attack_damage_with_bonus()
-	var overall_damage_string: String = TowerDetails.int_format(roundi(overall_damage))
+	var base_damage: int = roundi(_tower.get_base_damage_with_bonus())
+	var base_damage_string: String = TowerDetails.int_format(base_damage)
+
+	var overall_damage: int = roundi(_tower.get_current_attack_damage_with_bonus())
+	var overall_damage_string: String = TowerDetails.int_format(overall_damage)
+
+	var dps_with_crit: int = roundi(_tower.get_dps_with_crit())
+	var dps_with_crit_string: String = TowerDetails.int_format(dps_with_crit)
 
 	var overall_cooldown: float = _tower.get_current_attack_speed()
 	var overall_cooldown_string: String = Utils.format_float(overall_cooldown, 2)
@@ -402,20 +408,14 @@ func _get_dmg_stats_left_text() -> String:
 	var multicrit: int = _tower.get_prop_multicrit_count()
 	var multicrit_string: String = TowerDetails.int_format(multicrit)
 
-	var overall_dps: float = _tower.get_overall_dps()
-	var overall_dps_string: String = TowerDetails.int_format(roundi(overall_dps))
-
-	var dps_with_crit: float = _tower.get_dps_with_crit()
-	var dps_with_crit_string: String = TowerDetails.int_format(roundi(dps_with_crit))
-
 	var text: String = "" \
-	+ "[hint=Attack damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
+	+ "[hint=Base damage][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % base_damage_string \
+	+ "[hint=Overall damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
+	+ "[hint=DPS with crit][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % dps_with_crit_string \
 	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
 	+ "[hint=Attack crit chance][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
 	+ "[hint=Attack crit damage][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % crit_damage_string \
 	+ "[hint=Multicrit][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % multicrit_string \
-	+ "[hint=DPS][img=30 color=e85831]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % overall_dps_string \
-	+ "[hint=DPS with crit][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % dps_with_crit_string \
 	+ ""
 
 	return text

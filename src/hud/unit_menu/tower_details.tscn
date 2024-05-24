@@ -10,7 +10,7 @@
 atlas = ExtResource("3_3n5aj")
 region = Rect2(896, 0, 128, 128)
 
-[node name="TowerDetails" type="PanelContainer" node_paths=PackedStringArray("_tower_name_label", "_base_damage", "_base_damage_bonus", "_base_damage_bonus_perc", "_damage_add", "_damage_add_perc", "_overall_damage", "_base_cooldown", "_attack_speed", "_overall_cooldown", "_overall_dps", "_crit_chance", "_crit_damage", "_multicrit", "_dps_with_crit", "_spell_damage", "_spell_crit_chance", "_spell_crit_damage", "_total_damage", "_best_hit", "_kills", "_experience", "_level_x_at_left", "_level_x_at_right", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_trigger_chances", "_buff_duration", "_debuff_duration", "_dmg_to_undead", "_dmg_to_magical", "_dmg_to_nature", "_dmg_to_orc", "_dmg_to_humanoid", "_dmg_to_mass", "_dmg_to_normal", "_dmg_to_air", "_dmg_to_champion", "_dmg_to_boss", "_tower_details_label")]
+[node name="TowerDetails" type="PanelContainer" node_paths=PackedStringArray("_tower_name_label", "_base_damage", "_base_damage_bonus", "_base_damage_bonus_perc", "_damage_add", "_damage_add_perc", "_overall_damage", "_base_attack_speed", "_attack_speed_modifier", "_overall_attack_speed", "_overall_dps", "_crit_chance", "_crit_damage", "_multicrit", "_dps_with_crit", "_spell_damage", "_spell_crit_chance", "_spell_crit_damage", "_total_damage", "_best_hit", "_kills", "_experience", "_level_x_at_left", "_level_x_at_right", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_trigger_chances", "_buff_duration", "_debuff_duration", "_dmg_to_undead", "_dmg_to_magical", "_dmg_to_nature", "_dmg_to_orc", "_dmg_to_humanoid", "_dmg_to_mass", "_dmg_to_normal", "_dmg_to_air", "_dmg_to_champion", "_dmg_to_boss", "_tower_details_label")]
 offset_right = 1219.0
 offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_w837r")
@@ -22,9 +22,9 @@ _base_damage_bonus_perc = NodePath("PanelContainer/VBoxContainer/HBoxContainer/P
 _damage_add = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/DamageAdd")
 _damage_add_perc = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/DamageAddPercent")
 _overall_damage = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/OverallDamage")
-_base_cooldown = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/BaseCooldown")
-_attack_speed = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/AttackSpeedModifier")
-_overall_cooldown = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/OverallCooldown")
+_base_attack_speed = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/BaseAttackSpeed")
+_attack_speed_modifier = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/AttackSpeedModifier")
+_overall_attack_speed = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/OverallAttackSpeed")
 _overall_dps = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer/OverallDPS")
 _crit_chance = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer/PropAtkCritChance")
 _crit_damage = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer/PropAtkCritDamage")
@@ -232,9 +232,9 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Base cooldown"
+text = "Base attack speed"
 
-[node name="BaseCooldown" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+[node name="BaseAttackSpeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -247,7 +247,7 @@ size_flags_horizontal = 3
 tooltip_text = "This value divides the base cooldown to get
 overall cooldown."
 mouse_filter = 1
-text = "Attack speed"
+text = "Attack speed mod"
 
 [node name="AttackSpeedModifier" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -261,9 +261,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Time between tower attacks."
 mouse_filter = 1
-text = "Overall cooldown"
+text = "Overall attack speed"
 
-[node name="OverallCooldown" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+[node name="OverallAttackSpeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1

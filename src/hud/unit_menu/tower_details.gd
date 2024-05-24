@@ -14,9 +14,9 @@ class_name TowerDetails extends PanelContainer
 @export var _damage_add: Label
 @export var _damage_add_perc: Label
 @export var _overall_damage: Label
-@export var _base_cooldown: Label
-@export var _attack_speed: Label
-@export var _overall_cooldown: Label
+@export var _base_attack_speed: Label
+@export var _attack_speed_modifier: Label
+@export var _overall_attack_speed: Label
 @export var _overall_dps: Label
 @export var _crit_chance: Label
 @export var _crit_damage: Label
@@ -104,34 +104,34 @@ func update_text():
 	_tower_name_label.text = tower_name
 
 #	Attack
-	var base_damage: int = _tower.get_base_damage()
+	var base_damage: int = roundi(_tower.get_base_damage_with_bonus())
 	_base_damage.text = TowerDetails.int_format(base_damage)
 
-	var base_damage_bonus: float = _tower.get_base_damage_bonus()
+	var base_damage_bonus: int = roundi(_tower.get_base_damage_bonus())
 	_base_damage_bonus.text = TowerDetails.int_format(base_damage_bonus)
 
 	var base_damage_bonus_perc: float = _tower.get_base_damage_bonus_percent() - 1.0
 	_base_damage_bonus_perc.text = TowerDetails.percent_signed_format(base_damage_bonus_perc)
 
-	var damage_add: float = _tower.get_damage_add()
+	var damage_add: int = roundi(_tower.get_damage_add())
 	_damage_add.text = TowerDetails.int_format(damage_add)
 
 	var damage_add_perc: float = _tower.get_damage_add_percent() - 1.0
 	_damage_add_perc.text = TowerDetails.percent_signed_format(damage_add_perc)
 
-	var overall_damage: float = _tower.get_current_attack_damage_with_bonus()
+	var overall_damage: int = roundi(_tower.get_current_attack_damage_with_bonus())
 	_overall_damage.text = TowerDetails.int_format(overall_damage)
 
-	var base_cooldown: float = _tower.get_base_attack_speed()
-	_base_cooldown.text = Utils.format_float(base_cooldown, 2)
+	var base_attack_speed: float = _tower.get_base_attack_speed()
+	_base_attack_speed.text = Utils.format_float(base_attack_speed, 2)
 
-	var attack_speed: float = _tower.get_attack_speed_modifier()
-	_attack_speed.text = Utils.format_percent(attack_speed, 0)
+	var attack_speed_modifier: float = _tower.get_attack_speed_modifier()
+	_attack_speed_modifier.text = Utils.format_percent(attack_speed_modifier, 0)
 
-	var overall_cooldown: float = _tower.get_current_attack_speed()
-	_overall_cooldown.text = Utils.format_float(overall_cooldown, 2)
+	var overall_attack_speed: float = _tower.get_current_attack_speed()
+	_overall_attack_speed.text = Utils.format_float(overall_attack_speed, 2)
 
-	var overall_dps: float = _tower.get_overall_dps()
+	var overall_dps: int = roundi(_tower.get_overall_dps())
 	_overall_dps.text = TowerDetails.int_format(overall_dps)
 
 	var crit_chance: float = _tower.get_prop_atk_crit_chance()
@@ -143,7 +143,7 @@ func update_text():
 	var multicrit: int = _tower.get_prop_multicrit_count()
 	_multicrit.text = TowerDetails.int_format(multicrit)
 
-	var dps_with_crit: float = _tower.get_dps_with_crit()
+	var dps_with_crit: int = roundi(_tower.get_dps_with_crit())
 	_dps_with_crit.text = TowerDetails.int_format(dps_with_crit)
 
 #	Spells
@@ -157,16 +157,16 @@ func update_text():
 	_spell_crit_damage.text = TowerDetails.multiplier_format(spell_crit_damage)
 
 #	Veteran
-	var total_damage: float = _tower.get_damage()
+	var total_damage: int = roundi(_tower.get_damage())
 	_total_damage.text = TowerDetails.int_format(total_damage)
 
-	var best_hit: float = _tower.get_best_hit()
+	var best_hit: int = roundi(_tower.get_best_hit())
 	_best_hit.text = TowerDetails.int_format(best_hit)
 
-	var kills: float = _tower.get_kills()
+	var kills: int = _tower.get_kills()
 	_kills.text = TowerDetails.int_format(kills)
 
-	var experience: float = _tower.get_exp()
+	var experience: int = floori(_tower.get_exp())
 	_experience.text = TowerDetails.int_format(experience)
 
 	var next_level: int = _tower.get_level() + 1
@@ -180,16 +180,16 @@ func update_text():
 		_level_x_at_right.text = TowerDetails.int_format(exp_for_next_level)
 
 # 	Mana
-	var base_mana: float = _tower.get_base_mana()
+	var base_mana: int = floori(_tower.get_base_mana())
 	_base_mana.text = TowerDetails.int_format(base_mana)
 
-	var mana_bonus: float = _tower.get_base_mana_bonus()
+	var mana_bonus: int = floori(_tower.get_base_mana_bonus())
 	_mana_bonus.text = TowerDetails.int_format(mana_bonus)
 
 	var mana_bonus_perc: float = _tower.get_base_mana_bonus_percent() - 1.0
 	_mana_bonus_perc.text = TowerDetails.percent_signed_format(mana_bonus_perc)
 
-	var overall_mana: float = _tower.get_overall_mana()
+	var overall_mana: int = floori(_tower.get_overall_mana())
 	_overall_mana.text = TowerDetails.int_format(overall_mana)
 
 	var base_mana_regen: float = _tower.get_base_mana_regen()

@@ -1398,11 +1398,6 @@ func get_prop_atk_crit_chance() -> float:
 func get_prop_atk_crit_damage() -> float:
 	return max(1.0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE])
 
-# Returns the value of the average damage multipler based on crit chance, crit damage
-# and multicrit count of the tower
-func get_crit_multiplier() -> float:
-	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
-
 # NOTE: "getProp_BountyReceived()" in JASS
 func get_prop_bounty_received() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BOUNTY_RECEIVED)
