@@ -1079,13 +1079,9 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 	return overall_damage
 
 
-func get_overall_damage() -> float:
-	return get_current_attack_damage_with_bonus()
-
-
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps() -> float:
-	var damage: float = get_overall_damage()
+	var damage: float = get_current_attack_damage_with_bonus()
 	var attack_speed: float = get_current_attack_speed()
 	var dps: float = damage / attack_speed
 

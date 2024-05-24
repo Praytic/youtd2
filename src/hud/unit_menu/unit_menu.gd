@@ -387,7 +387,7 @@ func _update_stats_panel():
 
 
 func _get_dmg_stats_left_text() -> String:
-	var overall_damage: float = _tower.get_overall_damage()
+	var overall_damage: float = _tower.get_current_attack_damage_with_bonus()
 	var overall_damage_string: String = TowerDetails.int_format(roundi(overall_damage))
 
 	var overall_cooldown: float = _tower.get_current_attack_speed()

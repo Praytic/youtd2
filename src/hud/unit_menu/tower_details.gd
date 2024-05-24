@@ -119,7 +119,7 @@ func update_text():
 	var damage_add_perc: float = _tower.get_damage_add_percent() - 1.0
 	_damage_add_perc.text = TowerDetails.percent_signed_format(damage_add_perc)
 
-	var overall_damage: float = _tower.get_overall_damage()
+	var overall_damage: float = _tower.get_current_attack_damage_with_bonus()
 	_overall_damage.text = TowerDetails.int_format(overall_damage)
 
 	var base_cooldown: float = _tower.get_base_attack_speed()

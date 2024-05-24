@@ -326,7 +326,7 @@ func spread_buff():
 
 # NOTE: "blueDrakeHit()" in original script
 func blue_drake_on_hit(p: Projectile, _target: Unit):
-	var damage_before: float = tower.get_overall_damage()
+	var damage_before: float = tower.get_damage()
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 125)
 
@@ -347,14 +347,14 @@ func blue_drake_on_hit(p: Projectile, _target: Unit):
 		slow_bt.apply(tower, next, 1)
 		tower.do_spell_damage(next, drake_damage, tower.calc_spell_crit_no_bonus())
 
-	var damage_after: float = tower.get_overall_damage()
+	var damage_after: float = tower.get_damage()
 	var damage_dealt: float = damage_after - damage_before
 	refresh_buff(damage_dealt)
 
 
 # NOTE: "greenDrakeHit()" in original script
 func green_drake_on_hit(_p: Projectile, target: Unit):
-	var damage_before: float = tower.get_overall_damage()
+	var damage_before: float = tower.get_damage()
 
 	if target == null:
 		spread_buff()
@@ -363,7 +363,7 @@ func green_drake_on_hit(_p: Projectile, target: Unit):
 
 	tower.do_spell_damage(target, 5000, tower.calc_spell_crit_no_bonus())
 
-	var damage_after: float = tower.get_overall_damage()
+	var damage_after: float = tower.get_damage()
 	var damage_dealt: float = damage_after - damage_before
 	refresh_buff(damage_dealt)	
 	spread_buff()
@@ -453,7 +453,7 @@ func bronze_drake_pt_periodic(p: Projectile):
 
 # NOTE: "onBronzeDrakeHit()" in original script
 func bronze_drake_attack_pt_on_hit(_p: Projectile, target: Unit):
-	var damage_before: float = tower.get_overall_damage()
+	var damage_before: float = tower.get_damage()
 
 	if target == null:
 		return
@@ -461,7 +461,7 @@ func bronze_drake_attack_pt_on_hit(_p: Projectile, target: Unit):
 	var drake_damage: float = 1250 + 40 * tower.get_level()
 	tower.do_spell_damage(target, drake_damage, tower.calc_spell_crit_no_bonus())
 
-	var damage_after: float = tower.get_overall_damage()
+	var damage_after: float = tower.get_damage()
 	var damage_dealt: float = damage_after - damage_before
 	refresh_buff(damage_dealt)
 
