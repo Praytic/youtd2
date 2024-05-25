@@ -36,7 +36,6 @@ var _height_change_speed: float = 0.0
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-@onready var _specials_icon_container: Container = $Visual/SpecialsIconContainer
 
 
 #########################
@@ -442,15 +441,6 @@ func _on_death(_event: Event):
 		var blood_pool: Node2D = Preloads.blood_pool_scene.instantiate()
 		blood_pool.position = position
 		Utils.add_object_to_world(blood_pool)
-
-
-func _on_selected_changed():
-	_specials_icon_container.visible = is_selected()
-
-
-func _on_hovered_changed():
-	var specials_visible: bool = is_hovered() || is_selected()
-	_specials_icon_container.visible = specials_visible
 
 
 #########################
