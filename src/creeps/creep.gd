@@ -12,22 +12,10 @@ const ANIMATION_FOR_DIMENSIONS: String = "default"
 # selection visual doesn't clip into floor2 tiles.
 const MAX_SELECTION_VISUAL_SIZE: float = 120.0
 
-const run_animations: Array[String] = ["run_E", "run_S", "run_W", "run_N"]
 const slow_run_animations: Array[String] = ["slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"]
 const fly_animations: Array[String] = ["fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"]
 const death_animations: Array[String] = ["death_E", "death_S", "death_W", "death_N"]
 
-# This is a threshold speed at which creeps will switch from
-# "slow run" to "fast run" animations.
-const run_animation_threshold_map: Dictionary = {
-	CreepSize.enm.MASS: Constants.DEFAULT_MOVE_SPEED * 0.90,
-	CreepSize.enm.NORMAL: Constants.DEFAULT_MOVE_SPEED * 1.50,
-	CreepSize.enm.AIR: Constants.DEFAULT_MOVE_SPEED * 1.50,
-	CreepSize.enm.CHAMPION: Constants.DEFAULT_MOVE_SPEED * 1.50,
-	CreepSize.enm.BOSS: Constants.DEFAULT_MOVE_SPEED * 1.50,
-	CreepSize.enm.CHALLENGE_MASS: Constants.DEFAULT_MOVE_SPEED * 0.90,
-	CreepSize.enm.CHALLENGE_BOSS: Constants.DEFAULT_MOVE_SPEED * 1.50,
-}
 
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm
@@ -93,6 +81,10 @@ func update(delta: float):
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 	_selection_outline.play(creep_animation)
+
+	var creep_move_speed: float = get_current_movespeed()
+	var move_speed_ratio: float = creep_move_speed / Constants.DEFAULT_MOVE_SPEED
+	_sprite.set_speed_scale(move_speed_ratio)
 
 	var current_z: float = get_z()
 
@@ -368,14 +360,7 @@ func _get_creep_animation() -> String:
 	if get_size() == CreepSize.enm.AIR:
 		animation_list = fly_animations
 	else:
-		var creep_move_speed: float = get_current_movespeed()
-		var fast_run_threshold: float = run_animation_threshold_map[get_size()]
-		var use_run_animations: bool = creep_move_speed > fast_run_threshold
-
-		if use_run_animations:
-			animation_list = run_animations
-		else:
-			animation_list = slow_run_animations
+		animation_list = slow_run_animations
 
 	var animation: String = _get_animation_based_on_facing_angle(animation_list)
 

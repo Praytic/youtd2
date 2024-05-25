@@ -5,7 +5,7 @@ class_name CreepSprite extends AnimatedSprite2D
 @export var sprite_sheets_dir: String
 @export var _animation_offset_map: Dictionary = {}
 
-const ACTIONS = ["floating", "slow_run", "run", "death", "stunned", "fly"]
+const ACTIONS = ["slow_run", "death", "fly"]
 const DIRECTIONS = ["E", "SW", "W", "NE", "S", "SE", "N", "NW"]
 const ANIMATION_FPS = 15.0
 
@@ -29,17 +29,18 @@ func _ready():
 			_create_animation(animation_name, sprite_sheet_path)
 
 	var default_animation_path: String = ""
-	var run_path: String = _get_sprite_sheet_path("run_S")
-	var floating_path: String = _get_sprite_sheet_path("fly_NW")
+	var run_path: String = _get_sprite_sheet_path("slow_run_S")
+	var fly_path: String = _get_sprite_sheet_path("fly_NW")
 	if ResourceLoader.exists(run_path):
 		default_animation_path = run_path
-	elif ResourceLoader.exists(floating_path):
-		default_animation_path = floating_path
+	elif ResourceLoader.exists(fly_path):
+		default_animation_path = fly_path
 
 	if !default_animation_path.is_empty():
+		print_verbose("creating default")
 		_create_animation("default", default_animation_path)
 	else:
-		push_error("Couldn't create default animation. No run_S or floating_S animation sprite sheet exists.")
+		push_error("Failed to set default animation! Tried these paths: %s and %s." % [run_path, fly_path])
 
 	var end_time = Time.get_ticks_msec()
 	print_verbose("Generated animation frames in [%s] seconds." % [(end_time - start_time) / 1000.0])
@@ -68,13 +69,13 @@ func get_offset_for_animation(animation_name: String):
 
 
 func _create_animation(animation_name: String, sprite_sheet_path: String):
+	if sprite_frames.has_animation(animation_name):
+		sprite_frames.clear(animation_name)
+
 #	NOTE: currently quietly skipping non-existing animations
 #	because some creeps don't use animations for NW, SW,
 #	etc.
 	if !ResourceLoader.exists(sprite_sheet_path):
-		if sprite_frames.has_animation(animation_name):
-			sprite_frames.clear(animation_name)
-
 		return
 
 	var sprite_sheet_atlas = load(sprite_sheet_path)
@@ -117,7 +118,7 @@ func _create_animation_frame(anim, row, col, sprite_sheet, cell_size: Vector2):
 	texture.atlas = sprite_sheet
 	texture.region = Rect2(col * cell_size.x, row * cell_size.y, cell_size.x, cell_size.y)
 
-	print_verbose("texture.region=", texture.region)
+	# print_verbose("texture.region=", texture.region)
 	sprite_frames.add_frame(anim, texture)
 
 
