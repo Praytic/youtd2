@@ -28,20 +28,6 @@ func _ready():
 
 			_create_animation(animation_name, sprite_sheet_path)
 
-	var default_animation_path: String = ""
-	var run_path: String = _get_sprite_sheet_path("slow_run_S")
-	var fly_path: String = _get_sprite_sheet_path("fly_NW")
-	if ResourceLoader.exists(run_path):
-		default_animation_path = run_path
-	elif ResourceLoader.exists(fly_path):
-		default_animation_path = fly_path
-
-	if !default_animation_path.is_empty():
-		print_verbose("creating default")
-		_create_animation("default", default_animation_path)
-	else:
-		push_error("Failed to set default animation! Tried these paths: %s and %s." % [run_path, fly_path])
-
 	var end_time = Time.get_ticks_msec()
 	print_verbose("Generated animation frames in [%s] seconds." % [(end_time - start_time) / 1000.0])
 

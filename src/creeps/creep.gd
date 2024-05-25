@@ -6,7 +6,6 @@ signal moved(delta)
 
 
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
-const ANIMATION_FOR_DIMENSIONS: String = "default"
 
 # NOTE: need to limit size of selection visual so that creep
 # selection visual doesn't clip into floor2 tiles.
@@ -64,7 +63,13 @@ func _ready():
 	var outline_thickness: float = _get_outline_thickness()
 	_set_sprite_node(_sprite, outline_thickness)
 
-	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
+	var animation_for_dimensions: String
+	if _size == CreepSize.enm.AIR:
+		animation_for_dimensions = fly_animations[0]
+	else:
+		animation_for_dimensions = slow_run_animations[0]
+
+	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, animation_for_dimensions)
 	_set_unit_dimensions(sprite_dimensions)
 
 	var selection_size: float = min(sprite_dimensions.x, MAX_SELECTION_VISUAL_SIZE)
