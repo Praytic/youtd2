@@ -19,7 +19,6 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _upgrade_button: Button
 @export var _sell_button: Button
 @export var _inventory_background_grid: GridContainer
-@export var _inventory_slot_grid: GridContainer
 @export var _inventory_item_grid: GridContainer
 @export var _buff_container: BuffContainer
 @export var _buff_group_container: BoxContainer
@@ -171,9 +170,10 @@ func set_unit(unit: Unit):
 #########################
 
 func _clear_item_buttons():
-	for item_button in _inventory_item_grid.get_children():
-		_inventory_item_grid.remove_child(item_button)
-		item_button.queue_free()
+	var button_list: Array[Node] = _inventory_item_grid.get_children()
+	for button in button_list:
+		_inventory_item_grid.remove_child(button)
+		button.queue_free()
 
 
 # Setup stuff that is generic for all unit types
@@ -579,30 +579,33 @@ func _update_inventory():
 		return
 	
 	var inventory_capacity: int = _tower.get_inventory_capacity()
-	var item_list: Array[Item] = _tower.get_items()
+	var item_container: ItemContainer = _tower.get_item_container()
 
-	for item in item_list:
-		var item_button: ItemButton = ItemButton.make(item)
-		item_button.show_cooldown_indicator()
-		item_button.show_auto_mode_indicator()
-		item_button.show_charges()
-		item_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
-		_inventory_item_grid.add_child(item_button)
-		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-		item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
-		item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
+	for index in range(0, inventory_capacity):
+		var item: Item = item_container.get_item_at_index(index)
+		var slot_has_item: bool = item != null
 
-#	Update color and visibility of grid cells, based on
-#	capacity and current item count.
-#	NOTE: need to make cells transparent instead of hiding.
-#	This is to preserve size of grid container.
+		if slot_has_item:
+			var item_button: ItemButton = ItemButton.make(item)
+			item_button.show_cooldown_indicator()
+			item_button.show_auto_mode_indicator()
+			item_button.show_charges()
+			item_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
+			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+			item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
+			item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
+		
+			_inventory_item_grid.add_child(item_button)
+		else:
+			var slot_button: Button = Preloads.inventory_slot_button_scene.instantiate()
+			slot_button.pressed.connect(_on_slot_button_pressed.bind(slot_button))
+			_inventory_item_grid.add_child(slot_button)
+	
+#	Update color of background cells based on capacity
 	var background_cell_list: Array[Node] = _inventory_background_grid.get_children()
-	var slot_cell_list: Array[Node] = _inventory_slot_grid.get_children()
 	for i in range(0, background_cell_list.size()):
-		var slot_cell: Control = slot_cell_list[i] as Control
 		var background_cell: Control = background_cell_list[i] as Control
 		var within_capacity: bool = i < inventory_capacity
-		var behind_item: bool = i < item_list.size()
 	
 		var background_color: Color
 		if within_capacity:
@@ -610,15 +613,6 @@ func _update_inventory():
 		else:
 			background_color = Color.WHITE.darkened(0.6)
 		background_cell.modulate = background_color
-
-		var slot_color: Color
-		if behind_item:
-			slot_color = Color.TRANSPARENT
-		elif within_capacity:
-			slot_color = Color.WHITE.darkened(0.2)
-		else:
-			slot_color = Color.TRANSPARENT
-		slot_cell.modulate = slot_color
 
 
 #########################
@@ -629,9 +623,17 @@ func _on_tower_items_changed():
 	_update_inventory()
 
 
+func _on_generic_inventory_button_pressed(button: Button):
+	var clicked_index: int = button.get_index()
+	EventBus.player_clicked_in_tower_inventory.emit(_tower, clicked_index)
+
+
 func _on_item_button_pressed(item_button: ItemButton):
-	var item: Item = item_button.get_item()
-	EventBus.player_clicked_item_in_tower_inventory.emit(item)
+	_on_generic_inventory_button_pressed(item_button)
+
+
+func _on_slot_button_pressed(button: Button):
+	_on_generic_inventory_button_pressed(button)
 
 
 func _on_item_button_right_clicked(item_button: ItemButton):
@@ -714,13 +716,6 @@ func _on_ability_button_mouse_entered(button: AbilityButton):
 
 func _on_ability_button_mouse_exited(button: AbilityButton):
 	_set_ability_range_visible(button, false)
-
-
-func _on_inventory_grid_gui_input(event):
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		EventBus.player_clicked_tower_inventory.emit(_tower)
 
 
 func _on_details_button_pressed():

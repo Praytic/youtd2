@@ -33,6 +33,7 @@ const buff_display_scene: PackedScene = preload("res://src/hud/unit_menu/buff_di
 const fallback_buff_icon: Texture = preload("res://resources/icons/generic_icons/egg.tres")
 const builder_button_scene: PackedScene = preload("res://src/hud/buttons/builder_button.tscn")
 const ability_button_scene: PackedScene = preload("res://src/hud/buttons/ability_button.tscn")
+const inventory_slot_button_scene: PackedScene = preload("res://src/hud/buttons/inventory_slot_button.tscn")
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://resources/icons/elements/ice.tres"),
 	Element.enm.NATURE: preload("res://resources/icons/elements/nature.tres"),

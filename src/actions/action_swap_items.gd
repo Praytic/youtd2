@@ -35,8 +35,8 @@ static func execute(action: Dictionary, player: Player):
 #		NOTE: do extra work for the case where items are
 #		swapped in same container, to ensure that their
 #		indexes are swapped
-		var item_src_index: int = dest_item_container.index_of_item(item_src)
-		var item_dest_index: int = dest_item_container.index_of_item(item_dest)
+		var item_src_index: int = dest_item_container.get_item_index(item_src)
+		var item_dest_index: int = dest_item_container.get_item_index(item_dest)
 
 # 		NOTE: must remove both items first to avoid errors about
 # 		capacity

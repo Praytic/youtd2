@@ -23,12 +23,11 @@ var _moved_item: Item = null
 #########################
 
 func _ready():
-	EventBus.player_clicked_item_in_tower_inventory.connect(_on_player_clicked_item_in_tower_inventory)
+	EventBus.player_clicked_in_tower_inventory.connect(_on_player_clicked_in_tower_inventory)
 	EventBus.player_clicked_item_in_main_stash.connect(_on_player_clicked_item_in_main_stash)
 	EventBus.player_clicked_item_in_horadric_stash.connect(_on_player_clicked_item_in_horadric_stash)
 	EventBus.player_clicked_main_stash.connect(_on_player_clicked_main_stash)
 	EventBus.player_clicked_horadric_stash.connect(_on_player_clicked_horadric_stash)
-	EventBus.player_clicked_tower_inventory.connect(_on_player_clicked_tower_inventory)
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 
 
@@ -70,17 +69,21 @@ func process_click_on_nothing():
 
 
 func process_click_on_tower(tower: Tower):
-	_on_player_clicked_tower_inventory(tower)
+	if !tower.belongs_to_local_player():
+		return
+
+	var container: ItemContainer = tower.get_item_container()
+	_item_container_was_clicked(container)
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer) -> bool:
+func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer, clicked_index: int = -1) -> bool:
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	var verify_ok: bool = ActionMoveItem.verify(local_player, item, src_item_container, dest_item_container)
+	var verify_ok: bool = ActionMoveItem.verify(local_player, item, src_item_container, dest_item_container, clicked_index)
 	if !verify_ok:
 		return false
 
@@ -90,7 +93,7 @@ func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_c
 
 	SFX.play_sfx("res://assets/sfx/move_item.mp3", -10.0)
 
-	var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid)
+	var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid, clicked_index)
 	_game_client.add_action(action)
 
 	return true
@@ -177,11 +180,11 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 
 # When an item container is clicked, we add the currently
 # moved item to that container.
-func _item_container_was_clicked(container: ItemContainer):
+func _item_container_was_clicked(container: ItemContainer, clicked_index: int = -1):
 	if !_move_in_progress():
 		return
 
-	var success: bool = _add_move_action(_moved_item, _source_container, container)
+	var success: bool = _add_move_action(_moved_item, _source_container, container, clicked_index)
 
 	if success:
 		_end_move_process()
@@ -259,20 +262,26 @@ func _can_start_moving() -> bool:
 ###     Callbacks     ###
 #########################
 
-func _on_player_clicked_item_in_tower_inventory(clicked_item: Item):
-	if !clicked_item.belongs_to_local_player():
+func _on_player_clicked_in_tower_inventory(tower: Tower, clicked_index: int):
+	if !tower.belongs_to_local_player():
 		return
-
-	var shift_click: bool = Input.is_action_pressed("shift")
-	var tower: Tower = clicked_item.get_carrier()
 	
-	if shift_click && !_move_in_progress():
+	var container: ItemContainer = tower.get_item_container()
+	var clicked_item: Item = container.get_item_at_index(clicked_index)
+	var shift_click: bool = Input.is_action_pressed("shift")
+	var shift_click_to_move_from_tower_to_stash: bool = shift_click && clicked_item != null && !_move_in_progress()
+
+	if shift_click_to_move_from_tower_to_stash:
 		var local_item_stash: ItemContainer = _get_local_item_stash()
 		var tower_container: ItemContainer = tower.get_item_container()
 		_add_move_action(clicked_item, tower_container, local_item_stash)
-	else:
-		var container: ItemContainer = tower.get_item_container()
+
+		return
+	
+	if clicked_item != null:
 		_item_was_clicked_in_item_container(container, clicked_item)
+	else:
+		_item_container_was_clicked(container, clicked_index)
 
 
 func _on_player_clicked_item_in_main_stash(clicked_item: Item):
@@ -323,14 +332,6 @@ func _on_player_clicked_main_stash():
 func _on_player_clicked_horadric_stash():
 	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
 	_item_container_was_clicked(local_horadric_stash)
-
-
-func _on_player_clicked_tower_inventory(tower: Tower):
-	if !tower.belongs_to_local_player():
-		return
-
-	var container: ItemContainer = tower.get_item_container()
-	_item_container_was_clicked(container)
 
 
 func _on_item_flew_to_item_stash(item: Item):
