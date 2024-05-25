@@ -6,22 +6,23 @@
 [ext_resource type="StyleBox" uid="uid://b5iupqqmqci6d" path="res://resources/theme/health_bar_background.tres" id="3_inlld"]
 [ext_resource type="StyleBox" uid="uid://b3ycwn0t4rl5u" path="res://resources/theme/health_bar_fill.tres" id="4_csbf1"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fcpqs"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xfndm"]
 
 [node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Visual"]
-sprite_frames = SubResource("SpriteFrames_fcpqs")
+[node name="SpriteParent" type="Node2D" parent="Visual"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual/SpriteParent"]
+sprite_frames = SubResource("SpriteFrames_xfndm")
 script = ExtResource("2_412am")
 
 [node name="HealthBar" type="ProgressBar" parent="Visual"]
 offset_left = -50.0
-offset_top = -123.0
 offset_right = 50.0
-offset_bottom = -114.0
+offset_bottom = 9.0
 mouse_filter = 2
 theme_override_styles/background = ExtResource("3_inlld")
 theme_override_styles/fill = ExtResource("4_csbf1")
@@ -37,5 +38,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
+polygon = PackedVector2Array(-30, -40, 30, -40, 30, 40, -30, 40)
 
 [connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

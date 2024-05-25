@@ -32,7 +32,7 @@ var _height_change_speed: float = 0.0
 # @export because export vars cause null errors in HTML5
 # build, for some reason.
 @onready var _visual = $Visual
-@onready var _sprite: AnimatedSprite2D = $Visual/Sprite
+@onready var _sprite: AnimatedSprite2D = $Visual/SpriteParent/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
 

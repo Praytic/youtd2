@@ -19,7 +19,8 @@ func _ready():
 	_animation_offset_map.clear()
 	
 	var start_time = Time.get_ticks_msec()
-	sprite_frames.clear_all()
+	
+	sprite_frames = SpriteFrames.new()
 
 	for action in ACTIONS:
 		for direction in DIRECTIONS:
@@ -27,6 +28,15 @@ func _ready():
 			var sprite_sheet_path = _get_sprite_sheet_path(animation_name)
 
 			_create_animation(animation_name, sprite_sheet_path)
+	
+#	NOTE: remove default animation because it's empty
+	sprite_frames.remove_animation("default")
+
+#	Switch to some valid animation to display it in godot editor
+	var animation_list: Array = sprite_frames.get_animation_names()
+	if !animation_list.is_empty():
+		var first_animation: String = animation_list[0]
+		set_animation(first_animation)
 
 	var end_time = Time.get_ticks_msec()
 	print_verbose("Generated animation frames in [%s] seconds." % [(end_time - start_time) / 1000.0])
