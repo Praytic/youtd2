@@ -4,6 +4,12 @@ extends TowerBehavior
 # NOTE: this is the fizzbuzz tower
 
 
+# NOTE: SCALE_MIN should match the value in tower sprite
+# scene
+const SCALE_MIN: float = 0.7
+const SCALE_MAX: float = 1.2
+
+
 var slow_bt: BuffType
 var multiboard: MultiboardValues
 
@@ -127,11 +133,9 @@ func on_attack(event: Event):
 
 #		Increase model size
 		growth_count += 1
-# 		NOTE: in original script, scale starts from 0.9.
-# 		Changed to start from 1.0 because 0.9 value made
-# 		scale jump from 1.0 to 0.9 after first change.
-		var unit_scale: float = 1.0 + 0.001 * growth_count
-		tower.set_unit_scale(unit_scale)
+
+		var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, growth_count, 1000)
+		tower.set_unit_scale(tower_scale)
 
 	if attack_count >= 420:
 		attack_count = 0

@@ -35,6 +35,7 @@ var _height_change_speed: float = 0.0
 @onready var _sprite: AnimatedSprite2D = $Visual/SpriteParent/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
+@onready var _sprite_parent: Node2D = $Visual/SpriteParent
 
 
 #########################
@@ -61,7 +62,7 @@ func _ready():
 	
 	_set_visual_node(_visual)
 	var outline_thickness: float = _get_outline_thickness()
-	_set_sprite_node(_sprite, outline_thickness)
+	_setup_unit_sprite(_sprite, _sprite_parent, outline_thickness)
 
 	var animation_for_dimensions: String
 	if _size == CreepSize.enm.AIR:
@@ -82,13 +83,17 @@ func update(delta: float):
 	if !is_stunned():
 		_move(delta)
 
+#	NOTE: need to also play animation for outline, so it
+#	matches sprite
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
-	_selection_outline.play(creep_animation)
+	var selection_outline: Node2D = get_selection_outline()
+	selection_outline.play(creep_animation)
 
 	var creep_move_speed: float = get_current_movespeed()
 	var move_speed_ratio: float = creep_move_speed / Constants.DEFAULT_MOVE_SPEED
 	_sprite.set_speed_scale(move_speed_ratio)
+	selection_outline.set_speed_scale(move_speed_ratio)
 
 	var current_z: float = get_z()
 
@@ -469,12 +474,6 @@ func get_log_name() -> String:
 	return log_name
 
 
-# NOTE: SetUnitTimeScale() in JASS
-func set_unit_time_scale(time_scale: float):
-	_sprite.set_speed_scale(time_scale)
-	_selection_outline.set_speed_scale(time_scale)
-
-
 # NOTE: creeps are always considered to be attacking for the
 # purposes of their autocasts.
 func is_attacking() -> bool:
@@ -503,7 +502,8 @@ func set_unit_facing(angle: float):
 	var animation: String = _get_creep_animation()
 	if animation != "":
 		_sprite.play(animation)
-		_selection_outline.play(animation)
+		var selection_outline: Node2D = get_selection_outline()
+		selection_outline.play(animation)
 
 
 # NOTE: angle is top down

@@ -4,15 +4,18 @@
 [ext_resource type="StyleBox" uid="uid://cefr72vfj04ja" path="res://resources/theme/unit_menu/mana_bar_background.tres" id="2_35wpd"]
 [ext_resource type="StyleBox" uid="uid://rku7yxxl0iit" path="res://resources/theme/unit_menu/mana_bar_fill.tres" id="3_vryaj"]
 
-[node name="Tower" type="Node2D" node_paths=PackedStringArray("_mana_bar", "_tower_selection_area", "_visual", "_range_indicator_parent")]
+[node name="Tower" type="Node2D" node_paths=PackedStringArray("_mana_bar", "_tower_selection_area", "_visual", "_range_indicator_parent", "_sprite_parent")]
 script = ExtResource("2")
 _mana_bar = NodePath("Visual/ManaBar")
 _tower_selection_area = NodePath("Visual/TowerSelectionArea")
 _visual = NodePath("Visual")
 _range_indicator_parent = NodePath("Visual/RangeIndicatorParent")
+_sprite_parent = NodePath("Visual/SpriteParent")
 
 [node name="Visual" type="Node2D" parent="."]
 z_index = 1
+
+[node name="SpriteParent" type="Node2D" parent="Visual"]
 
 [node name="TowerSelectionArea" type="Area2D" parent="Visual"]
 monitoring = false
@@ -36,5 +39,3 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RangeIndicatorParent" type="Node2D" parent="Visual"]
 visible = false
-
-[connection signal="selected_changed" from="." to="." method="_on_selected_changed"]

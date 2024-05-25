@@ -18,11 +18,12 @@ var _tower_sprite: Node2D = null
 @export var _pedestal_left: Polygon2D
 @export var _range_indicator_container: Node2D
 @export var _transform_label: RichTextLabel
+@export var _sprite_parent: Node2D
 
 
 func set_tower(tower_id: int):
 	if _tower_sprite != null:
-		remove_child(_tower_sprite)
+		_sprite_parent.remove_child(_tower_sprite)
 		_tower_sprite.queue_free()
 		_tower_sprite = null
 		
@@ -32,7 +33,7 @@ func set_tower(tower_id: int):
 	_tower_id = tower_id
 	
 	_tower_sprite = TowerSprites.get_sprite(tower_id)
-	add_child(_tower_sprite)
+	_sprite_parent.add_child(_tower_sprite)
 	
 	var range_data_list: Array[RangeData] = TowerProperties.get_range_data_list(tower_id)
 	var local_player: Player = PlayerManager.get_local_player()
@@ -58,9 +59,9 @@ func _process(_delta: float):
 	var can_transform: bool = _build_space.can_transform_at_pos(mouse_pos)
 
 	if can_transform:
-		_tower_sprite.modulate = opaque_blue
+		_sprite_parent.modulate = opaque_blue
 	else:
-		_tower_sprite.modulate = Color.WHITE
+		_sprite_parent.modulate = Color.WHITE
 	
 	_transform_label.visible = can_transform
 

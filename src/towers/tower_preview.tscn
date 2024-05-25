@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/towers/tower_preview.gd" id="1"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_xnufi"]
 
-[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left", "_range_indicator_container", "_transform_label")]
+[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left", "_range_indicator_container", "_transform_label", "_sprite_parent")]
 script = ExtResource("1")
 _pedestal_up = NodePath("Pedestal/PedestalUp")
 _pedestal_right = NodePath("Pedestal/PedestalRight")
@@ -11,6 +11,7 @@ _pedestal_down = NodePath("Pedestal/PedestalDown")
 _pedestal_left = NodePath("Pedestal/PedestalLeft")
 _range_indicator_container = NodePath("RangeIndicatorContainer")
 _transform_label = NodePath("MarginContainer/TransformLabel")
+_sprite_parent = NodePath("SpriteParent")
 
 [node name="Pedestal" type="Node2D" parent="."]
 
@@ -53,3 +54,5 @@ bbcode_enabled = true
 text = "[center][color=CORNFLOWER_BLUE]Transform Tower[/color][/center]"
 fit_content = true
 scroll_active = false
+
+[node name="SpriteParent" type="Node2D" parent="."]

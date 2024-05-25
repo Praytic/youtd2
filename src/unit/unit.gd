@@ -54,10 +54,13 @@ enum BodyPart {
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
 
+# NOTE: need to have "_unit_" prefix in names to avoid
+# conflicts with variables in subclasses
 var _visual_node: Node2D = null
-var _sprite_node: Node2D = null
+var _unit_sprite: Node2D = null
+var _unit_sprite_parent: Node2D = null
+var _unit_selection_outline_parent: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
-var _base_sprite_color: Color = Color.WHITE
 
 # NOTE: userInt/userInt2/... in JASS
 var user_int: int = 0
@@ -115,11 +118,9 @@ static var _uid_max: int = 1
 var _uid: int = 0
 # NOTE: up axis is positive z, down axis is negative z.
 var _position_wc3: Vector3
-var _initial_sprite_scale: Vector2 = Vector2.ONE
-var _initial_sprite_position: Vector2 = Vector2.ZERO
 
 var _selection_indicator: Node = null
-var _selection_outline: Node = null
+var _unit_selection_outline: Node = null
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -245,12 +246,17 @@ func _ready():
 #	NOTE: add dummy sprite and selection outline, in case
 #	some Unit subclass doesn't set them up. This prevents
 #	null access.
-	_sprite_node = Sprite2D.new()
-	add_child(_sprite_node)
-	_selection_outline = Sprite2D.new()
+	_unit_sprite = Sprite2D.new()
+	_unit_sprite_parent = Node2D.new()
+	_unit_sprite_parent.add_child(_unit_sprite)
+	add_child(_unit_sprite_parent)
+
+	_unit_selection_outline = Sprite2D.new()
 	var selection_shader: ShaderMaterial = Preloads.outline_shader.duplicate()
-	_selection_outline.set_material(selection_shader)
-	add_child(_selection_outline)
+	_unit_selection_outline.set_material(selection_shader)
+	_unit_selection_outline_parent = Node2D.new()
+	_unit_selection_outline_parent.add_child(_unit_selection_outline)
+	add_child(_unit_selection_outline_parent)
 
 
 #########################
@@ -258,18 +264,8 @@ func _ready():
 #########################
 
 func set_unit_scale(value: float):
-	var scale_total: Vector2 = _initial_sprite_scale * value
-	_sprite_node.scale = scale_total
-	_selection_outline.scale = scale_total
-	
-#	NOTE: need to multiply sprite position by scale so that
-#	scale doesn't change the intended position of sprite.
-#	For example, if sprite is positioned at (0, 40) and unit
-#	scale is 2x, then sprite position should change to (0, 80)
-#	to account for scale multiplaying position when drawing.
-	var position_total: Vector2 = _initial_sprite_position * value
-	_sprite_node.position = position_total
-	_selection_outline.position = position_total
+	_unit_sprite_parent.scale = value * Vector2.ONE
+	_unit_selection_outline_parent.scale = value * Vector2.ONE
 
 
 func get_uid() -> int:
@@ -697,6 +693,10 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 	return actual_subtracted
 
 
+func get_selection_outline() -> Node2D:
+	return _unit_selection_outline
+
+
 #########################
 ###      Private      ###
 #########################
@@ -1074,18 +1074,16 @@ func _set_visual_node(visual_node: Node2D):
 # NOTE: sprite is Sprite2D in case of tower and
 # AnimatedSprite2D in case of Creeps. The operations we do
 # here are valid for both types.
-func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
+# NOTE: sprite parent node is used to chance scale and color of the sprite without affecting default values.
+func _setup_unit_sprite(sprite_node: Node2D, sprite_parent_node: Node2D, outline_thickness: float):
 #	NOTE: delete existing sprite node and selection outline
-	if _sprite_node != null:
-		_sprite_node.queue_free()
-	if _selection_outline != null:
-		_selection_outline.queue_free()
-
-	_sprite_node = sprite_node
-	_sprite_node.modulate = _base_sprite_color
-
-	_initial_sprite_scale = sprite_node.scale
-	_initial_sprite_position = sprite_node.position
+	if _unit_sprite_parent != null:
+		_unit_sprite_parent.queue_free()
+	if _unit_selection_outline_parent != null:
+		_unit_selection_outline_parent.queue_free()
+	
+	_unit_sprite = sprite_node
+	_unit_sprite_parent = sprite_parent_node
 
 #	NOTE: create a duplicate sprite to use it as selection
 #	outline. Outline is implemented by using a shader which
@@ -1102,12 +1100,18 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 #	all other units
 	sprite_for_outline.z_index = 1
 
-	_sprite_node.add_sibling(sprite_for_outline)
-	_selection_outline = sprite_for_outline
+#	NOTE: need to keep sprite and outline under separate
+#	parents because outline should not be affected by
+#	changes to sprite color, which is done via sprite parent
+	_unit_selection_outline_parent = Node2D.new()
+	_unit_sprite_parent.add_sibling(_unit_selection_outline_parent)
+
+	_unit_selection_outline_parent.add_child(sprite_for_outline)
+	_unit_selection_outline = sprite_for_outline
 
 #	NOTE: initially hide the outline, it will get shown when
 #	unit is hovered or selected.
-	_selection_outline.hide()
+	_unit_selection_outline.hide()
 
 
 # Call this in subclass to set dimensions of unit. Use
@@ -1245,17 +1249,17 @@ func set_invisible(invisible: bool):
 # set_sprite_color(). This is intended to be called once
 # when creeps are created to apply color based on wave
 # specials.
-func set_sprite_base_color(base_color: Color):
-	_base_sprite_color = base_color
-	_sprite_node.modulate = _base_sprite_color
+func set_sprite_base_color(color: Color):
+	_unit_sprite.modulate = color
 
 
 # Changes color of sprite. Note that this color will be
 # mixed with base color - it does not overwrite it. Pass
 # Color.WHITE to reset to base color.
+# NOTE: not modifying color of selection outline here because outline should not be affected by sprite color
 # NOTE: SetUnitVertexColor() in JASS
-func set_sprite_color(new_color: Color):
-	_sprite_node.modulate = _base_sprite_color * new_color
+func set_sprite_color(value: Color):
+	_unit_sprite_parent.modulate = value
 
 
 # NOTE: overriden in Tower to return non-null value
@@ -1686,9 +1690,9 @@ func set_hovered(hovered: bool):
 		return
 
 	_selection_indicator.modulate = Color.WHITE
-	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
+	_unit_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
 	_selection_indicator.set_visible(hovered)
-	_selection_outline.set_visible(hovered)
+	_unit_selection_outline.set_visible(hovered)
 	_hovered = hovered
 	hovered_changed.emit()
 
@@ -1713,8 +1717,8 @@ func set_selected(selected_arg: bool):
 
 	_selection_indicator.modulate = selection_color
 	_selection_indicator.set_visible(selected_arg)
-	_selection_outline.material.set_shader_parameter("line_color", selection_color)
-	_selection_outline.set_visible(selected_arg)
+	_unit_selection_outline.material.set_shader_parameter("line_color", selection_color)
+	_unit_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg
 	selected_changed.emit()
 

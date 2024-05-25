@@ -717,3 +717,14 @@ func item_list_to_item_id_list(item_list: Array[Item]) -> Array[int]:
 	item_id_list.sort()
 
 	return item_id_list
+
+
+# NOTE: this assumes that you got a sprite inside a sprite
+# parent and the scale value returned by this function will
+# multiply the sprite's scale.
+func get_scale_from_grows(sprite_scale_min: float, sprite_scale_max: float, current_grows: float, max_grows: float) -> float:
+	var scale_max: float = sprite_scale_max / sprite_scale_min
+	var grow_ratio: float = clampf(current_grows / max_grows, 0.0, 1.0)
+	var current_scale: float = 1.0 + (scale_max - 1.0) *grow_ratio
+
+	return current_scale

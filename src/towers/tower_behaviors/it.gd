@@ -9,6 +9,12 @@ class Summoner:
 	var to_pos: Vector2 = Vector2.ZERO
 
 
+# NOTE: SCALE_MIN should match the value in tower sprite
+# scene
+const SCALE_MIN: float = 0.7
+const SCALE_MAX: float = 1.0
+
+
 var multiboard: MultiboardValues
 var sum: Summoner = Summoner.new()
 var recreation_field_exists: bool = false
@@ -229,5 +235,5 @@ func it_kill():
 
 	if sum.size < 3.7:
 		var diff_from_initial: float = sum.size - 3.0
-		var tower_scale: float = 1.0 + diff_from_initial
+		var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, sum.size - 3.0, 0.7)
 		tower.set_unit_scale(tower_scale)

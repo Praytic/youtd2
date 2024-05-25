@@ -4,6 +4,11 @@ extends TowerBehavior
 # NOTE: changed values for growth scale a bit.
 
 
+# NOTE: SCALE_MIN should match the value in tower sprite
+# scene
+const SCALE_MIN: float = 0.5
+const SCALE_MAX: float = 1.0
+
 var stun_bt: BuffType
 var morale_bt: BuffType
 var rock_pt: ProjectileType
@@ -154,11 +159,7 @@ func periodic(_event: Event):
 
 	grow_count += 1
 
-#	NOTE: cap scale at 3.0 because scale of sprite in tower
-#	scene starts at 0.5. This way, at max growth sprite will
-#	reach original size times 1.5.
-#	0.5 * 3.0 = 1.5
-	var tower_scale: float = 1.0 + (2.0 / 160) * grow_count
+	var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, grow_count, 160)
 	tower.set_unit_scale(tower_scale)
 
 

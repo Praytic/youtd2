@@ -6,6 +6,12 @@ extends TowerBehavior
 # behavior because Fungus Strike buff is cosmetic only.
 
 
+# NOTE: SCALE_MIN should match the value in tower sprite
+# scene
+const SCALE_MIN: float = 0.5
+const SCALE_MAX: float = 1.2
+
+
 var trance_bt: BuffType
 var fungus_bt: BuffType
 var multiboard: MultiboardValues
@@ -162,11 +168,8 @@ func periodic(event: Event):
 
 	growth_count += 1
 
-# 	NOTE: in original script, scale starts from 1.25.
-# 	Changed to start from 1.0 because 1.25 value made scale
-# 	jump from 1.0 to 1.25 after first change.
-	var scale_from_growth: float = 1.0 + 0.015 * growth_count
-	tower.set_unit_scale(scale_from_growth)
+	var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, growth_count, 40)
+	tower.set_unit_scale(tower_scale)
 
 	var periodic_time: float = 20 - 0.4 * lvl
 	event.enable_advanced(periodic_time, false)

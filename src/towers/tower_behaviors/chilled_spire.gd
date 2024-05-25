@@ -10,6 +10,12 @@ extends TowerBehavior
 #    the per level portion was halved. Fixed so that the
 #    total regen reduction is halved for bosses.
 
+# NOTE: removed "freezing" movement of creeps effect which
+# called SetUnitTimeScale(). This f-n is only used by this
+# script and it's too complex to implement to work together
+# with creep's already existing scaling of animation speed
+# to movement speed.
+
 
 var frozen_bt: BuffType
 
@@ -59,8 +65,6 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	frozen_bt.set_buff_modifier(mod)
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	frozen_bt.add_event_on_create(frozen_bt_on_create)
-	frozen_bt.add_event_on_cleanup(frozen_bt_on_cleanup)
 	frozen_bt.set_buff_tooltip("Cold\nReduces health regeneration.")
 
 
@@ -87,17 +91,3 @@ func on_damage(event: Event):
 
 	frozen_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
 	SFX.sfx_at_unit("FreezingBreathTargetArt.mdl", creep)
-
-
-# NOTE: pauseAnim() in original script
-func frozen_bt_on_create(event: Event):
-	var buff: Buff = event.get_buff()
-	var creep: Creep = buff.get_buffed_unit()
-	creep.set_unit_time_scale(0.0)
-
-
-# NOTE: unPauseAnim() in original script
-func frozen_bt_on_cleanup(event: Event):
-	var buff: Buff = event.get_buff()
-	var creep: Creep = buff.get_buffed_unit()
-	creep.set_unit_time_scale(1.0)

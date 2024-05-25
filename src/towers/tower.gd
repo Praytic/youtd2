@@ -50,6 +50,7 @@ var _current_crit_damage: float = 0
 @export var _tower_selection_area: Area2D
 @export var _visual: Node2D
 @export var _range_indicator_parent: Node2D
+@export var _sprite_parent: Node2D
 
 
 #########################
@@ -61,7 +62,7 @@ func _ready():
 
 	_set_visual_node(_visual)
 	var outline_thickness: float = 6.0
-	_set_sprite_node(_sprite, outline_thickness)
+	_setup_unit_sprite(_sprite, _sprite_parent, outline_thickness)
 
 #	NOTE: set z to this value to position tower on 2nd floor
 	var tower_z: float = Constants.TILE_SIZE_WC3
@@ -1202,14 +1203,14 @@ static func make(id: int, player: Player, preceding_tower: Tower = null) -> Towe
 	tower.add_child(tower_behavior)
 	var tower_sprite: Sprite2D = TowerSprites.get_sprite(id)
 	var visual_node: Node2D = tower.get_node("Visual")
+	var sprite_parent_node: Node2D = tower.get_node("Visual/SpriteParent")
 	
 	if visual_node == null:
 		push_error("visual node is null")
 		
 		return null
 
-	visual_node.add_child(tower_sprite)
-	visual_node.move_child(tower_sprite, 0)
+	sprite_parent_node.add_child(tower_sprite)
 	tower._sprite = tower_sprite
 	
 	tower._temp_preceding_tower = preceding_tower
