@@ -39,3 +39,5 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RangeIndicatorParent" type="Node2D" parent="Visual"]
 visible = false
+
+[connection signal="selected_changed" from="." to="." method="_on_selected_changed"]
