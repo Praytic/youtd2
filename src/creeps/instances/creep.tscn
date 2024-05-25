@@ -3,23 +3,10 @@
 [ext_resource type="Script" path="res://src/creeps/creep.gd" id="1_pofyw"]
 [ext_resource type="Script" path="res://src/creeps/creep_sprite.gd" id="2_412am"]
 [ext_resource type="Script" path="res://src/creeps/health_bar.gd" id="3_bsm61"]
+[ext_resource type="StyleBox" uid="uid://b5iupqqmqci6d" path="res://resources/theme/health_bar_background.tres" id="3_inlld"]
+[ext_resource type="StyleBox" uid="uid://b3ycwn0t4rl5u" path="res://resources/theme/health_bar_fill.tres" id="4_csbf1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fcpqs"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woyy6"]
-bg_color = Color(0.0862745, 0.00392157, 0, 0.721569)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wam3"]
-resource_local_to_scene = true
-bg_color = Color(0.176471, 0.960784, 0, 1)
 
 [node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
@@ -36,8 +23,8 @@ offset_top = -123.0
 offset_right = 50.0
 offset_bottom = -114.0
 mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_woyy6")
-theme_override_styles/fill = SubResource("StyleBoxFlat_0wam3")
+theme_override_styles/background = ExtResource("3_inlld")
+theme_override_styles/fill = ExtResource("4_csbf1")
 value = 100.0
 show_percentage = false
 script = ExtResource("3_bsm61")
