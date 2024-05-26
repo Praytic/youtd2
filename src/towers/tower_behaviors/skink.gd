@@ -1,15 +1,16 @@
 extends TowerBehavior
 
 
-# NOTE: added aura levels which scale with posion damage.
-# Original script doesn't define aura levels, not sure how
-# it managed to work correctly.
+# NOTE: removed check for validity of poison caster. It's
+# not needed because in youtd2, buffs get automatically
+# removed when caster becomes invalid.
 
 
-var aura_bt: BuffType
+var poison_skin_bt: BuffType
 var poison_bt: BuffType
 
 const AURA_RANGE: int = 200
+const POISON_DURATION: float = 5.0
 
 
 func get_tier_stats() -> Dictionary:
@@ -22,49 +23,43 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func poisenskin(event: Event):
-	var B: Buff = event.get_buff()
+func poison_skin_bt_on_attack(event: Event):
+	var poisonskin_buff: Buff = event.get_buff()
 
-	var C: Tower = B.get_caster()
-	var T: Tower = B.get_buffed_unit()
-	var U: Unit = event.get_target()
-	var P: Buff = U.get_buff_of_type(poison_bt)
-	var dmg: float = (C.user_real + C.user_real2 * C.get_level()) * T.get_current_attack_speed() / (T.get_range() / 800.0)
+	var caster: Tower = poisonskin_buff.get_caster()
+	var caster_level: int = caster.get_level()
+	var buffed_tower: Tower = poisonskin_buff.get_buffed_unit()
+	var target: Unit = event.get_target()
+	var poison_buff: Buff = target.get_buff_of_type(poison_bt)
+	var dmg: float = (_stats.dmg + _stats.dmg_add * caster_level) * buffed_tower.get_current_attack_speed() / (buffed_tower.get_range() / 800.0)
 
-	if P != null:
-		if P.get_caster().get_instance_id() == P.user_int:
-			P.refresh_duration()
-			P.user_real = P.user_real + dmg
-		else:
-			dmg = P.user_real + dmg
-			P.remove_buff()
-			P = poison_bt.apply(C, U, C.get_level())
-			P.user_int = C.get_instance_id()
-			P.user_real = dmg
+	if poison_buff != null:
+		poison_buff.refresh_duration()
+		poison_buff.user_real += dmg
 	else:
-		P = poison_bt.apply(C, U, C.get_level())
-		P.user_int = C.get_instance_id()
-		P.user_real = dmg
+		poison_buff = poison_bt.apply(caster, target, caster_level)
+		poison_buff.user_real = dmg
 
 
-func dot(event: Event):
-	var B: Buff = event.get_buff()
+func poison_bt_periodic(event: Event):
+	var buff: Buff = event.get_buff()
+	var target: Unit = buff.get_buffed_unit()
+	var damage: float = buff.user_real
 
-	var T: Tower = B.get_caster()
-	T.do_spell_damage(B.get_buffed_unit(), B.user_real, T.calc_spell_crit_no_bonus())
-	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\CorrosiveBreath\\ChimaeraAcidTargetArt.mdl", T, Unit.BodyPart.HEAD)
+	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
+	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\CorrosiveBreath\\ChimaeraAcidTargetArt.mdl", tower, Unit.BodyPart.HEAD)
 	Effect.destroy_effect_after_its_over(effect)
 
 
 func tower_init():
-	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	aura_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
-	aura_bt.add_event_on_attack(poisenskin)
-	aura_bt.set_buff_tooltip("Poisonous attack\nApplies poison on attack.")
+	poison_skin_bt = BuffType.create_aura_effect_type("poison_skin_bt", true, self)
+	poison_skin_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
+	poison_skin_bt.add_event_on_attack(poison_skin_bt_on_attack)
+	poison_skin_bt.set_buff_tooltip("Poisonous Skin\nApplies poison on attack.")
 
-	poison_bt = BuffType.new("poison_bt", 5.00, 0.0, false, self)
+	poison_bt = BuffType.new("poison_bt", POISON_DURATION, 0.0, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
-	poison_bt.add_periodic_event(dot, 1.0)
+	poison_bt.add_periodic_event(poison_bt_periodic, 1.0)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 
 	
@@ -73,26 +68,22 @@ func get_aura_types() -> Array[AuraType]:
 
 	var dmg: String = Utils.format_float(_stats.dmg, 2)
 	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
+	var poison_duration: String = Utils.format_float(POISON_DURATION, 2)
 
 	aura.name = "Poisonous Skin"
 	aura.icon = "res://resources/icons/tower_icons/poison_battery.tres"
 	aura.description_short = "This and nearby towers gain a poisonous attack, which deals spell damage.\n"
-	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison applies to the main target and deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.\n" % [AURA_RANGE, dmg] \
+	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison applies to the main target and deals %s spell damage per second for %s seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.\n" % [AURA_RANGE, dmg, poison_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage per second" % dmg_add
 
-	aura.level = _stats.dmg * 1000
-	aura.level_add = _stats.dmg_add * 1000
+	aura.level = 0
+	aura.level_add = 1
 	aura.power = 0
 	aura.power_add = 1
 	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.aura_effect = aura_bt
+	aura.aura_effect = poison_skin_bt
 	aura.target_self = true
 	aura.aura_range = AURA_RANGE
 	return [aura]
-
-
-func on_create(_preceding_tower: Tower):
-	tower.user_real = _stats.dmg
-	tower.user_real2 = _stats.dmg_add
