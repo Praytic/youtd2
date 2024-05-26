@@ -53,7 +53,8 @@ func load_specials(_modifier: Modifier):
 func tower_init():
 	plague_bt = BuffType.new("plague_bt", 5.0, 0.2, false, self)
 	plague_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
-	plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_create)
+	plague_bt.add_event_on_create(cedi_crypt_plague_on_create)
+	plague_bt.add_event_on_upgrade(cedi_crypt_plague_on_upgrade)
 	plague_bt.add_event_on_refresh(cedi_crypt_plague_on_refresh)
 	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_damage, 1.0)
 #	NOTE: The period of periodic event starts out at 0.01
@@ -138,6 +139,7 @@ func periodic(_event: Event):
 		buff.remove_buff()
 
 
+# NOTE: onCreate() in original script
 func cedi_crypt_plague_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var damage_increase_multiplier: int = 0
@@ -145,14 +147,31 @@ func cedi_crypt_plague_on_create(event: Event):
 	var first_periodic_call: int = 0
 	buff.user_int2 = first_periodic_call
 
+	buff.set_displayed_stacks(buff.user_int + 1)
 
+
+# NOTE: part of refresh() in original script
+func cedi_crypt_plague_on_upgrade(event: Event):
+	var buff: Buff = event.get_buff()
+	increase_plague_stacks(buff)
+
+
+# NOTE: part of refresh() in original script
 func cedi_crypt_plague_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
+	increase_plague_stacks(buff)
+
+
+# NOTE: part of refresh() in original script
+func increase_plague_stacks(buff: Buff):
 	var old_damage_increase_multiplier: int = buff.user_int
 	var new_damage_increase_multiplier: int = old_damage_increase_multiplier + 1
 	buff.user_int = new_damage_increase_multiplier
 
+	buff.set_displayed_stacks(buff.user_int + 1)
 
+
+# NOTE: periodicDamage() in original script
 func cedi_crypt_plague_periodic_damage(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
@@ -167,6 +186,7 @@ func cedi_crypt_plague_periodic_damage(event: Event):
 # that case happens 0.01s after buff is applied. Once we
 # call enable_advanced() with real duration of around 1.5s,
 # we will start doing real plague spreads.
+# NOTE: periodicSpread() in original script
 func cedi_crypt_plague_periodic_spread(event: Event):
 	var plague_buff: Buff = event.get_buff()
 	var target: Unit = plague_buff.get_buffed_unit()
