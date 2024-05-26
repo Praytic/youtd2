@@ -7,9 +7,9 @@ var aura_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {cursed_attack_damage = 200, cursed_attack_damage_add = 10, mod_movespeed = 0.20, mod_spell_dmg_received = 0.100, aura_effect_value = 0.10, aura_effect_value_add = 0.004, aura_level = 0, aura_level_add = 2},
-		2: {cursed_attack_damage = 320, cursed_attack_damage_add = 16, mod_movespeed = 0.25, mod_spell_dmg_received = 0.125, aura_effect_value = 0.15, aura_effect_value_add = 0.006, aura_level = 25, aura_level_add = 3},
-		3: {cursed_attack_damage = 560, cursed_attack_damage_add = 28, mod_movespeed = 0.30, mod_spell_dmg_received = 0.150, aura_effect_value = 0.20, aura_effect_value_add = 0.008, aura_level = 50, aura_level_add = 4},
+		1: {cursed_attack_damage = 200, cursed_attack_damage_add = 10, mod_movespeed = 0.20, mod_spell_dmg_received = 0.100, aura_effect = 0.10, aura_effect_add = 0.004},
+		2: {cursed_attack_damage = 320, cursed_attack_damage_add = 16, mod_movespeed = 0.25, mod_spell_dmg_received = 0.125, aura_effect = 0.15, aura_effect_add = 0.006},
+		3: {cursed_attack_damage = 560, cursed_attack_damage_add = 28, mod_movespeed = 0.30, mod_spell_dmg_received = 0.150, aura_effect = 0.20, aura_effect_add = 0.008},
 	}
 
 const CURSED_ATTACK_CHANCE: float = 0.25
@@ -55,19 +55,19 @@ func load_specials(_modifier: Modifier):
 
 
 func tower_init():
-	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", CURSED_DURATION, CURSED_DURATION_ADD, false, self)
 	var slow_bt_mod: Modifier = Modifier.new()
-	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	slow_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.0005)
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, 0)
+	slow_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_dmg_received, 0)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	slow_bt.set_buff_tooltip("Cursed Attack\nReduces movement speed and increases spell damage taken.")
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var aura_bt_mod: Modifier = Modifier.new()
-	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.1, 0.002)
-	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.1, 0.002)
-	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.1, 0.002)
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.aura_effect, _stats.aura_effect_add)
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, _stats.aura_effect, _stats.aura_effect_add)
+	aura_bt_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, _stats.aura_effect, _stats.aura_effect_add)
 	aura_bt.set_buff_modifier(aura_bt_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	aura_bt.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
@@ -76,8 +76,8 @@ func tower_init():
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
-	var aura_effect_value: String = Utils.format_percent(_stats.aura_effect_value, 2)
-	var aura_effect_value_add: String = Utils.format_percent(_stats.aura_effect_value_add, 2)
+	var aura_effect: String = Utils.format_percent(_stats.aura_effect, 2)
+	var aura_effect_add: String = Utils.format_percent(_stats.aura_effect_add, 2)
 	var human_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.HUMANOID)
 	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
 	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
@@ -85,34 +85,36 @@ func get_aura_types() -> Array[AuraType]:
 	aura.name = "Mortal Coil"
 	aura.icon = "res://resources/icons/undead/demon_emblem.tres"
 	aura.description_short = "Grants bonus damage against %s, %s and %s creeps to nearby towers.\n" % [human_string, orc_string, nature_string]
-	aura.description_full = "Grants %s bonus damage against %s, %s and %s creeps to all towers within %d range.\n" % [aura_effect_value, human_string, orc_string, nature_string, AURA_RANGE] \
+	aura.description_full = "Grants %s bonus damage against %s, %s and %s creeps to all towers within %d range.\n" % [aura_effect, human_string, orc_string, nature_string, AURA_RANGE] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % aura_effect_value_add
+	+ "+%s damage\n" % aura_effect_add
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = _stats.aura_level
-	aura.level_add = _stats.aura_level_add
-	aura.power = _stats.aura_level
-	aura.power_add = _stats.aura_level_add
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]
 
 
 func on_damage(event: Event):
-	var creep: Unit = event.get_target()
+	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 
-	if !tower.calc_chance(CURSED_ATTACK_CHANCE + CURSED_ATTACK_CHANCE_ADD * level):
+	var cursed_attack_chance: float = CURSED_ATTACK_CHANCE + CURSED_ATTACK_CHANCE_ADD * level
+
+	if !tower.calc_chance(cursed_attack_chance):
 		return
 
-	if !creep.is_immune():
-		CombatLog.log_ability(tower, creep, "Cursed Attack")
+	if !target.is_immune():
+		CombatLog.log_ability(tower, target, "Cursed Attack")
 
-		tower.do_spell_damage(creep, _stats.cursed_attack_damage + _stats.cursed_attack_damage_add * level, tower.calc_spell_crit_no_bonus())
-		var buff_level: int = int(_stats.mod_movespeed * 1000)
-		var buff_duration: float = CURSED_DURATION + CURSED_DURATION_ADD * level
-		slow_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
-		SFX.sfx_on_unit("feralspirittarget.mdl", creep, Unit.BodyPart.ORIGIN)
+		var damage: float = _stats.cursed_attack_damage + _stats.cursed_attack_damage_add * level
+		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
+
+		slow_bt.apply(tower, target, level)
+		SFX.sfx_on_unit("feralspirittarget.mdl", target, Unit.BodyPart.ORIGIN)

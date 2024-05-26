@@ -7,12 +7,17 @@ var missile_pt: ProjectileType
 var current_soul_split_stacks: int = 0
 
 
+const POTION_DURATION: float = 7.0
+const MOD_MOVESPEED_ADD: float = 0.00375
+const MOD_ITEM_CHANCE_ADD: float = 0.003
+
+
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {item_chance = 200, soul_chance = 30, soul_damage = 50, soul_damage_add = 2, soul_duration = 10, soul_chance_decrease = 10, mod_attack_speed = 0.10},
-		2: {item_chance = 256, soul_chance = 36, soul_damage = 400, soul_damage_add = 16, soul_duration = 12, soul_chance_decrease = 9, mod_attack_speed = 0.15},
-		3: {item_chance = 288, soul_chance = 39, soul_damage = 800, soul_damage_add = 32, soul_duration = 13, soul_chance_decrease = 8.5, mod_attack_speed = 0.20},
-		4: {item_chance = 336, soul_chance = 42, soul_damage = 2000, soul_damage_add = 80, soul_duration = 15, soul_chance_decrease = 8, mod_attack_speed = 0.25},
+		1: {mod_movespeed = 0.25, mod_item_chance = 0.200, soul_chance = 30, soul_damage = 50, soul_damage_add = 2, soul_duration = 10, soul_chance_decrease = 10, mod_attack_speed = 0.10},
+		2: {mod_movespeed = 0.32, mod_item_chance = 0.256, soul_chance = 36, soul_damage = 400, soul_damage_add = 16, soul_duration = 12, soul_chance_decrease = 9, mod_attack_speed = 0.15},
+		3: {mod_movespeed = 0.36, mod_item_chance = 0.288, soul_chance = 39, soul_damage = 800, soul_damage_add = 32, soul_duration = 13, soul_chance_decrease = 8.5, mod_attack_speed = 0.20},
+		4: {mod_movespeed = 0.42, mod_item_chance = 0.336, soul_chance = 42, soul_damage = 2000, soul_damage_add = 80, soul_duration = 15, soul_chance_decrease = 8, mod_attack_speed = 0.25},
 	}
 
 
@@ -48,22 +53,26 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.00, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
-	projectile.user_int = _stats.item_chance + tower.get_level() * 3
+	var target: Unit = event.get_target()
+
+	Projectile.create_from_unit_to_unit(missile_pt, tower, 1.00, 1.0, tower, target, true, false, false)
 
 
-func cedi_love(p: Projectile, target: Unit):
+# NOTE: cedi_Love() in original script
+func missile_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	love_bt.apply(tower, target, p.user_int)
+	var level: int = tower.get_level()
+
+	love_bt.apply(tower, target, level)
+
 
 func tower_init():
+	love_bt = BuffType.new("love_bt", POTION_DURATION, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	
-	love_bt = BuffType.new("love_bt", 7, 0, false, self)
-	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.001)
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
+	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, _stats.mod_item_chance, MOD_ITEM_CHANCE_ADD)
+	mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -MOD_MOVESPEED_ADD)
 	love_bt.set_buff_modifier(mod)
 	love_bt.set_buff_icon("res://resources/icons/generic_icons/charm.tres")
 	love_bt.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
@@ -76,23 +85,26 @@ func tower_init():
 	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
 	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
-	missile_pt.enable_homing(cedi_love, 0.0)
+	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
-	var potion_slow: String = Utils.format_percent(_stats.item_chance * 0.00125, 0)
-	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
+	var potion_duration: String = Utils.format_percent(POTION_DURATION, 0)
+	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 0)
+	var mod_movespeed_add: String = Utils.format_percent(MOD_MOVESPEED_ADD, 0)
+	var mod_item_chance: String = Utils.format_percent(_stats.mod_item_chance, 0)
+	var mod_item_chance_add: String = Utils.format_percent(MOD_ITEM_CHANCE_ADD, 0)
 	
 	autocast.title = "Love Potion"
 	autocast.icon = "res://resources/icons/potions/potion_heart_02.tres"
 	autocast.description_short = "The Witch throws a love potion on the target, applying a slow and increasing target's item chance.\n"
-	autocast.description = "The Witch throws a love potion on the target, slowing it by %s and increasing its item chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance] \
+	autocast.description = "The Witch throws a love potion on the target, slowing it by %s and increasing its item chance by %s. The potion lasts %s seconds.\n" % [mod_movespeed, mod_item_chance, potion_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.375% slow\n" \
-	+ "+0.3% item drop chance\n"
+	+ "+%s slow\n" % mod_movespeed_add \
+	+ "+%s item drop chance\n" % mod_item_chance_add
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

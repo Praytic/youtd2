@@ -21,20 +21,17 @@ func load_specials(_modifier: Modifier):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.1)
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_ASTRAL, 0.0, 0.001)
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.0, 0.001)
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.0, 0.001)
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, 0.0, 0.001)
+	mod.add_modification(Modification.Type.MOD_ARMOR, -_stats.mod_armor, -_stats.mod_armor_add)
+	mod.add_modification(Modification.Type.MOD_DMG_FROM_ASTRAL, _stats.vuln, _stats.vuln_add)
+	mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, _stats.vuln, _stats.vuln_add)
+	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, _stats.vuln, _stats.vuln_add)
+	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, _stats.vuln, _stats.vuln_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	aura_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
 
 
 func get_aura_types() -> Array[AuraType]:
-	var aura_level: int = int(_stats.vuln * 1000)
-	var aura_level_add: int = int(_stats.vuln_add * 1000)
-
 	var aura: AuraType = AuraType.new()
 
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
@@ -59,9 +56,9 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = _stats.aura_range
 	aura.target_type = TargetType.new(TargetType.CREEPS)
 	aura.target_self = false
-	aura.level = aura_level
-	aura.level_add = aura_level_add
-	aura.power = aura_level
-	aura.power_add = aura_level_add
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]

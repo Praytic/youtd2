@@ -32,9 +32,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 
 func tower_init():
-	golden_bt = BuffType.new("golden_bt", 0, 0, true, self)
+	golden_bt = BuffType.new("golden_bt", _stats.buff_duration, BUFF_DURATION_ADD, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
+	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty_gain, MOD_BOUNTY_GAIN_ADD)
 	golden_bt.set_buff_modifier(mod)
 	golden_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
@@ -76,10 +76,10 @@ func create_autocasts() -> Array[Autocast]:
 
 
 func on_autocast(event: Event):
+	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	var buff_level: int = int((_stats.mod_bounty_gain + MOD_BOUNTY_GAIN_ADD * level) * 1000)
-	var buff_duration: float = _stats.buff_duration + BUFF_DURATION_ADD * level
-	golden_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	
+	golden_bt.apply(tower, target, level)
 	tower.get_player().give_gold(_stats.gold_per_cast, tower, true, true)
 
 

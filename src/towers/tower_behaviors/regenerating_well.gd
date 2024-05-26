@@ -28,7 +28,7 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.001)
+	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_dmg, _stats.mod_spell_dmg_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
@@ -66,9 +66,6 @@ func create_autocasts() -> Array[Autocast]:
 
 
 func get_aura_types() -> Array[AuraType]:
-	var aura_level: int = int(_stats.mod_spell_dmg * 1000)
-	var aura_level_add: int = int(_stats.mod_spell_dmg_add * 1000)
-
 	var aura: AuraType = AuraType.new()
 
 	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
@@ -85,10 +82,10 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = aura_level
-	aura.level_add = aura_level_add
-	aura.power = aura_level
-	aura.power_add = aura_level_add
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]
 

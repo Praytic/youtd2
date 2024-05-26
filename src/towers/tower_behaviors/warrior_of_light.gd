@@ -50,7 +50,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
+	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, _stats.mod_dmg_to_undead_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	aura_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
@@ -65,9 +65,6 @@ func tower_init():
 
 
 func get_aura_types() -> Array[AuraType]:
-	var aura_level: int = int(_stats.mod_dmg_to_undead * 1000)
-	var aura_level_add: int = int(_stats.mod_dmg_to_undead_add * 1000)
-
 	var aura: AuraType = AuraType.new()
 
 	var mod_dmg_to_undead: String = Utils.format_percent(_stats.mod_dmg_to_undead, 2)
@@ -85,10 +82,10 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = aura_level
-	aura.level_add = aura_level_add
-	aura.power = aura_level
-	aura.power_add = aura_level_add
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]
 

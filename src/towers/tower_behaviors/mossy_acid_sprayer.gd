@@ -8,17 +8,23 @@ var acid_bt: BuffType
 # stick to original to avoid introducting bugs.
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {armor_base = 600, armor_add = 24},
-		2: {armor_base = 1200, armor_add = 48},
-		3: {armor_base = 2400, armor_add = 96},
-		4: {armor_base = 4800, armor_add = 192},
-		5: {armor_base = 9600, armor_add = 384},
+		1: {armor_base = 0.6, armor_add = 0.024},
+		2: {armor_base = 1.2, armor_add = 0.048},
+		3: {armor_base = 2.4, armor_add = 0.096},
+		4: {armor_base = 4.8, armor_add = 0.192},
+		5: {armor_base = 9.6, armor_add = 0.384},
 	}
 
 
+const DEBUFF_DURATION: float = 3.0
+const DEBUFF_DURATION_ADD: float = 0.12
+
+
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var armor_base: String = Utils.format_float(_stats.armor_base / 1000.0, 3)
-	var armor_add: String = Utils.format_float(_stats.armor_add / 1000.0, 3)
+	var debuff_duration: String = Utils.format_float(DEBUFF_DURATION, 2)
+	var debuff_duration_add: String = Utils.format_float(DEBUFF_DURATION_ADD, 2)
+	var armor_base: String = Utils.format_float(_stats.armor_base, 3)
+	var armor_add: String = Utils.format_float(_stats.armor_add, 3)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -26,11 +32,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Acid Coating"
 	ability.icon = "res://resources/icons/potions/potion_green_03.tres"
 	ability.description_short = "Decreases armor of hit creeps.\n"
-	ability.description_full = "Decreases armor of hit creeps by %s for 3 seconds.\n" % armor_base \
+	ability.description_full = "Decreases armor of hit creeps by %s for %s seconds.\n" % [armor_base, debuff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % armor_add \
-	+ "+0.12 seconds\n"
+	+ "+%s seconds\n" % debuff_duration_add
 	list.append(ability)
 
 	return list
@@ -46,8 +52,8 @@ func load_specials(_modifier: Modifier):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
-	acid_bt = BuffType.new("acid_bt", 3.0, 0.12, false, self)
+	m.add_modification(Modification.Type.MOD_ARMOR, -_stats.armor_base, -_stats.armor_add)
+	acid_bt = BuffType.new("acid_bt", DEBUFF_DURATION, DEBUFF_DURATION_ADD, false, self)
 	acid_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_bt.set_buff_modifier(m)
 
@@ -55,4 +61,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	acid_bt.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())
+	var target: Unit = event.get_target()
+	var level: int = tower.get_level()
+
+	acid_bt.apply(tower, target, level)

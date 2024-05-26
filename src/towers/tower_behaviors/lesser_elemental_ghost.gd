@@ -6,16 +6,24 @@ var wrath_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {self_trigger_chances = 0.005, trigger_chance_add = 5, elemental_wrath_chance = 0.150},
-		2: {self_trigger_chances = 0.006, trigger_chance_add = 6, elemental_wrath_chance = 0.175},
-		3: {self_trigger_chances = 0.007, trigger_chance_add = 7, elemental_wrath_chance = 0.200},
-		4: {self_trigger_chances = 0.008, trigger_chance_add = 8, elemental_wrath_chance = 0.225},
-		5: {self_trigger_chances = 0.009, trigger_chance_add = 9, elemental_wrath_chance = 0.250},
+		1: {self_trigger_chances = 0.005, wrath_mod_trigger_chances_add = 0.005, elemental_wrath_chance = 0.150},
+		2: {self_trigger_chances = 0.006, wrath_mod_trigger_chances_add = 0.006, elemental_wrath_chance = 0.175},
+		3: {self_trigger_chances = 0.007, wrath_mod_trigger_chances_add = 0.007, elemental_wrath_chance = 0.200},
+		4: {self_trigger_chances = 0.008, wrath_mod_trigger_chances_add = 0.008, elemental_wrath_chance = 0.225},
+		5: {self_trigger_chances = 0.009, wrath_mod_trigger_chances_add = 0.009, elemental_wrath_chance = 0.250},
 	}
 
 
+var BUFF_DURATION: float = 5.0
+var BUFF_DURATION_ADD: float = 0.1
+var WRATH_MOD_TRIGGER_CHANCES: float = 0.15
+
+
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var trigger_chance_add: String = Utils.format_percent(_stats.trigger_chance_add * 0.001, 2)
+	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
+	var buff_duration_add: String = Utils.format_float(BUFF_DURATION_ADD, 2)
+	var wrath_mod_trigger_chances: String = Utils.format_percent(WRATH_MOD_TRIGGER_CHANCES, 2)
+	var wrath_mod_trigger_chances_add: String = Utils.format_percent(_stats.wrath_mod_trigger_chances_add, 2)
 	var elemental_wrath_chance: String = Utils.format_percent(_stats.elemental_wrath_chance, 2)
 
 	var list: Array[AbilityInfo] = []
@@ -24,11 +32,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	elemental_wrath.name = "Elemental Wrath"
 	elemental_wrath.icon = "res://resources/icons/scrolls/scroll_04.tres"
 	elemental_wrath.description_short = "The Ghost has a chance on attack to increase its trigger chance temporarily.\n"
-	elemental_wrath.description_full = "The Elemental Ghost has a %s chance to unleash it's wrath on attack, increasing its trigger chance by 15%% for 5 seconds. Cannot retrigger during Elemental Wrath.\n" % elemental_wrath_chance \
+	elemental_wrath.description_full = "The Elemental Ghost has a %s chance to unleash it's wrath on attack, increasing its trigger chance by %s for %s seconds. Cannot retrigger during Elemental Wrath.\n" % [elemental_wrath_chance, wrath_mod_trigger_chances, buff_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.1 seconds duration\n" \
-	+ "+%s trigger chance increase\n" % trigger_chance_add
+	+ "+%s seconds duration\n" % buff_duration_add \
+	+ "+%s trigger chance increase\n" % wrath_mod_trigger_chances_add
 	list.append(elemental_wrath)
 
 	var mimic: AbilityInfo = AbilityInfo.new()
@@ -52,8 +60,8 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
-	wrath_bt = BuffType.new("wrath_bt", 5, 0, true, self)
+	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, WRATH_MOD_TRIGGER_CHANCES, _stats.wrath_mod_trigger_chances_add)
+	wrath_bt = BuffType.new("wrath_bt", BUFF_DURATION, BUFF_DURATION_ADD, true, self)
 	wrath_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	wrath_bt.set_buff_modifier(modifier)
 	wrath_bt.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
@@ -66,7 +74,9 @@ func on_attack(_event: Event):
 	if tower.get_buff_of_type(wrath_bt) == null:
 		CombatLog.log_ability(tower, null, "Elemental Wrath")
 
-		wrath_bt.apply_custom_timed(tower, tower, 150 + tower.get_level() * _stats.trigger_chance_add, 5.0 + 0.1 * tower.get_level())
+		var level: int = tower.get_level()
+
+		wrath_bt.apply(tower, tower, level)
 
 
 func on_damage(event: Event):

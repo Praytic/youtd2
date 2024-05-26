@@ -1,26 +1,39 @@
 extends TowerBehavior
 
 
+# NOTE: removed floating text for ability chance because it
+# popped up on every attack and was annoying. Added display
+# of this chance in tower details instead.
+
+
 var slow_bt: BuffType
 var stun_bt: BuffType
+var multiboard : MultiboardValues
+
+
+const SLOW_DURATION: float = 3.0
+
+
+var accumulated_chance: float = 0.0
 
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {slow_value = 70, extra_damage = 100, damage_and_stun_chance = 0.02, stun_duration = 0.8},
-		2: {slow_value = 100, extra_damage = 520, damage_and_stun_chance = 0.03, stun_duration = 0.9},
-		3: {slow_value = 130, extra_damage = 1300, damage_and_stun_chance = 0.04, stun_duration = 1.0},
-		4: {slow_value = 160, extra_damage = 2150, damage_and_stun_chance = 0.05, stun_duration = 1.1},
+		1: {mod_movespeed = 0.070, mod_movespeed_add = 0.0035, wrath_damage = 100, wrath_damage_add = 2, damage_and_stun_chance = 0.02, stun_duration = 0.8},
+		2: {mod_movespeed = 0.100, mod_movespeed_add = 0.0050, wrath_damage = 520, wrath_damage_add = 10.4, damage_and_stun_chance = 0.03, stun_duration = 0.9},
+		3: {mod_movespeed = 0.130, mod_movespeed_add = 0.0065, wrath_damage = 1300, wrath_damage_add = 26, damage_and_stun_chance = 0.04, stun_duration = 1.0},
+		4: {mod_movespeed = 0.160, mod_movespeed_add = 0.0080, wrath_damage = 2150, wrath_damage_add = 43, damage_and_stun_chance = 0.05, stun_duration = 1.1},
 	}
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.001, 2)
-	var slow_add: String = Utils.format_percent(_stats.slow_value / 20.0 * 0.001, 2)
-	var extra_damage: String = Utils.format_float(_stats.extra_damage, 2)
+	var slow_duration: String = Utils.format_float(SLOW_DURATION, 2)
+	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
+	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
+	var wrath_damage: String = Utils.format_float(_stats.wrath_damage, 2)
+	var wrath_damage_add: String = Utils.format_float(_stats.wrath_damage_add, 2)
 	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
 	var damage_and_stun_chance: String = Utils.format_percent(_stats.damage_and_stun_chance, 2)
-	var extra_damage_add: String = Utils.format_float(_stats.extra_damage * 0.02, 2)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -28,11 +41,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Glacial Wrath"
 	ability.icon = "res://resources/icons/tower_icons/genis_sage.tres"
 	ability.description_short = "Slows hit creeps and has a chance to stun.\n"
-	ability.description_full = "Slows hit creeps by %s for 3 seconds. There's also a %s chance to deal %s spell damage and stun the creep for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets when stun suceeds.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance] \
+	ability.description_full = "Slows hit creeps by %s for %s seconds. There's also a %s chance to deal %s spell damage and stun the creep for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets when stun suceeds.\n" % [mod_movespeed, slow_duration, damage_and_stun_chance, wrath_damage, stun_duration, damage_and_stun_chance] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % extra_damage_add \
-	+ "+%s slow\n" % slow_add
+	+ "+%s spell damage\n" % wrath_damage_add \
+	+ "+%s slow\n" % mod_movespeed_add
 	list.append(ability)
 
 	return list
@@ -43,33 +56,42 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	var m: Modifier = Modifier.new()
-	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	slow_bt.set_buff_modifier(m)
-
 	slow_bt.set_buff_tooltip("Glacial Wrath\nReduces movement speed.")
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
+	slow_bt.set_buff_modifier(slow_bt_mod)
 
-	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
+	stun_bt = CbStun.new("stun_bt", _stats.stun_duration, 0, false, self)
+
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Wrath stun chance")
 
 
 func on_damage(event: Event):
-	var creep: Unit = event.get_target()
+	var target: Unit = event.get_target()
+	var level: int = tower.get_level()
 
-	slow_bt.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
-	var current_chance_text: String = "%s Chance" % Utils.format_percent(tower.user_real, 0)
-	tower.get_player().display_floating_text_x(current_chance_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
+	slow_bt.apply(tower, target, level)
 
-	if tower.calc_chance(tower.user_real) == true && !event.get_target().is_immune():
-		CombatLog.log_ability(tower, creep, "Glacial Wrath Bonus")
+	if tower.calc_chance(accumulated_chance) == true && !event.get_target().is_immune():
+		CombatLog.log_ability(tower, target, "Glacial Wrath Bonus")
 
-		stun_bt.apply_only_timed(tower, event.get_target(), 0.8)
-		tower.do_spell_damage(creep, _stats.extra_damage * (1 + tower.get_level() * 0.02), tower.calc_spell_crit_no_bonus())
-		tower.user_real = _stats.damage_and_stun_chance
+		stun_bt.apply(tower, target, level)
+		var wrath_damage: float = _stats.wrath_damage + _stats.wrath_damage_add * level
+		tower.do_spell_damage(target, wrath_damage, tower.calc_spell_crit_no_bonus())
+		accumulated_chance = _stats.damage_and_stun_chance
 	else:
-		tower.user_real = tower.user_real + _stats.damage_and_stun_chance
+		accumulated_chance += _stats.damage_and_stun_chance
 
 
 func on_create(_preceding_tower: Tower):
-	tower.user_real = _stats.damage_and_stun_chance
+	accumulated_chance = _stats.damage_and_stun_chance
+
+
+func on_tower_details() -> MultiboardValues:
+	var accumulated_chance_text: String = Utils.format_percent(accumulated_chance, 2)
+	multiboard.set_value(0, accumulated_chance_text)
+	
+	return multiboard

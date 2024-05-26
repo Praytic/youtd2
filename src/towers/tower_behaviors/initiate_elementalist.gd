@@ -111,11 +111,11 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
-	var slow: Modifier = Modifier.new()
-	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
+	var slow_bt_mod: Modifier = Modifier.new()
+	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_modifier(slow)
+	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")
 
 

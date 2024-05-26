@@ -40,9 +40,9 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", _stats.duration_base, _stats.duration_add, false, self)
 	var slow_mod: Modifier = Modifier.new()
-	slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
+	slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_base, -_stats.slow_add)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_mod)
 
@@ -50,8 +50,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
+	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()
-	var slow: int = int((_stats.slow_base + lvl * _stats.slow_add) * 1000)
-	var dur: int = int(_stats.duration_base + lvl * _stats.duration_add)
 
-	slow_bt.apply_custom_timed(tower, event.get_target(), slow, dur)
+	slow_bt.apply(tower, target, lvl)

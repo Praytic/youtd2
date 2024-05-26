@@ -2,17 +2,17 @@ extends TowerBehavior
 
 
 var aura_bt: BuffType
-var multiboard : MultiboardValues
+var multiboard: MultiboardValues
 
 const AURA_RANGE: int = 300
 
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {plunder_amount = 0.3, aura_power_and_lvl = 5},
-		2: {plunder_amount = 1.3, aura_power_and_lvl = 10},
-		3: {plunder_amount = 2.4, aura_power_and_lvl = 10},
-		4: {plunder_amount = 4.0, aura_power_and_lvl = 10},
+		1: {plunder_amount = 0.3, mod_bounty = 0.10, mod_bounty_add = 0.005},
+		2: {plunder_amount = 1.3, mod_bounty = 0.10, mod_bounty_add = 0.010},
+		3: {plunder_amount = 2.4, mod_bounty = 0.15, mod_bounty_add = 0.010},
+		4: {plunder_amount = 4.0, mod_bounty = 0.20, mod_bounty_add = 0.010},
 	}
 
 
@@ -48,7 +48,7 @@ func tower_init():
 	var bounty_mod: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 #	Set by aura
-	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
+	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty, _stats.mod_bounty_add)
 	aura_bt.set_buff_modifier(bounty_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
@@ -60,23 +60,24 @@ func tower_init():
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
-	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
+	var mod_bounty: String = Utils.format_percent(_stats.mod_bounty, 2)
+	var mod_bounty_add: String = Utils.format_percent(_stats.mod_bounty_add, 2)
 
 	aura.name = "Treasure Seeker"
 	aura.icon = "res://resources/icons/trinkets/trinket_05.tres"
 	aura.description_short = "Increases the bounty gain of nearby towers.\n"
-	aura.description_full = "Increases the bounty gain of towers in %d range by 10%%.\n" % AURA_RANGE \
+	aura.description_full = "Increases the bounty gain of towers in %d range by %s.\n" % [AURA_RANGE, mod_bounty] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bounty\n" % bounty_level_add
+	+ "+%s bounty\n" % mod_bounty_add
 
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 100
-	aura.level_add = _stats.aura_power_and_lvl
-	aura.power = 100
-	aura.power_add = _stats.aura_power_and_lvl
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]
 

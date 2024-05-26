@@ -10,6 +10,11 @@ extends TowerBehavior
 
 var slow_bt: BuffType
 
+
+const SLOW_DURATION: float = 5.0
+const MULTIPLIER_FOR_BOSSES: float = 0.66
+
+
 func get_tier_stats() -> Dictionary:
 	return {
 	1: {slow_value = 0.15, chance = 0.10, chance_add = 0.0010},
@@ -22,10 +27,11 @@ func get_tier_stats() -> Dictionary:
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var chance: String = Utils.format_percent(_stats.chance, 2)
-	var chance_for_bosses: String = Utils.format_percent(_stats.chance * 2 / 3, 2)
+	var chance_for_bosses: String = Utils.format_percent(_stats.chance * MULTIPLIER_FOR_BOSSES, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)
 	var chance_add: String = Utils.format_percent(_stats.chance_add, 2)
-	var chance_add_for_bosses: String = Utils.format_percent(_stats.chance_add * 2 / 3, 2)
+	var chance_add_for_bosses: String = Utils.format_percent(_stats.chance_add * MULTIPLIER_FOR_BOSSES, 2)
+	var slow_duration: String = Utils.format_float(SLOW_DURATION, 2)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -33,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Atrophy"
 	ability.icon = "res://resources/icons/gloves/curse.tres"
 	ability.description_short = "Chance to slow the attacked creep.\n"
-	ability.description_full = "%s chance to slow the attacked creep by %s for 5 seconds. Chance is reduced to %s for bosses.\n" % [chance, chance_for_bosses, slow_value] \
+	ability.description_full = "%s chance to slow the attacked creep by %s for %s seconds. Chance is reduced to %s for bosses.\n" % [chance, slow_value, slow_duration, chance_for_bosses] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]
@@ -47,9 +53,9 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, 0, false, self)
 	var slow: Modifier = Modifier.new()
-	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
+	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_value, 0.0)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
 	
@@ -57,16 +63,17 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var creep: Unit = event.get_target()
-	var size: int = creep.get_size()
-	var calc: bool
+	var target: Unit = event.get_target()
+	var level: int = tower.get_level()
 
-	if size == CreepSize.enm.BOSS:
-		calc = tower.calc_chance((_stats.chance + tower.get_level() * _stats.chance_add) * 2 / 3)
-	else:
-		calc = tower.calc_chance(_stats.chance + tower.get_level() * _stats.chance_add)
+	var atrophy_chance: float = _stats.chance + _stats.chance_add * level
+	var target_size: int = target.get_size()
+	if target_size == CreepSize.enm.BOSS:
+		atrophy_chance *= MULTIPLIER_FOR_BOSSES
 
-	if calc == true:
-		CombatLog.log_ability(tower, creep, "Atrophy")
+	if !tower.calc_chance(atrophy_chance):
+		return
 
-		slow_bt.apply_custom_timed(tower, event.get_target(), int(_stats.slow_value * 1000), 5.0)
+	CombatLog.log_ability(tower, target, "Atrophy")
+
+	slow_bt.apply(tower, target, level)

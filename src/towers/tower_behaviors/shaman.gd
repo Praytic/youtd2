@@ -7,9 +7,9 @@ var aura_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {bloodlust_crit_damage = 0.45, bloodlust_crit_damage_add = 0.004, bloodlust_attack_speed = 0.15, bloodlust_attack_speed_add = 0.002, bloody_experience_range = 250, bloody_experience_level_cap = 10, bloodlust_level = 150, bloodlust_level_add = 2},
-		2: {bloodlust_crit_damage = 0.55, bloodlust_crit_damage_add = 0.006, bloodlust_attack_speed = 0.20, bloodlust_attack_speed_add = 0.003, bloody_experience_range = 300, bloody_experience_level_cap = 15, bloodlust_level = 200, bloodlust_level_add = 3},
-		3: {bloodlust_crit_damage = 0.65, bloodlust_crit_damage_add = 0.008, bloodlust_attack_speed = 0.25, bloodlust_attack_speed_add = 0.004, bloody_experience_range = 350, bloody_experience_level_cap = 20, bloodlust_level = 250, bloodlust_level_add = 4},
+		1: {bloodlust_crit_damage = 0.45, bloodlust_crit_damage_add = 0.004, bloodlust_attack_speed = 0.15, bloodlust_attack_speed_add = 0.002, bloody_experience_range = 250, bloody_experience_level_cap = 10},
+		2: {bloodlust_crit_damage = 0.55, bloodlust_crit_damage_add = 0.006, bloodlust_attack_speed = 0.20, bloodlust_attack_speed_add = 0.003, bloody_experience_range = 300, bloody_experience_level_cap = 15},
+		3: {bloodlust_crit_damage = 0.65, bloodlust_crit_damage_add = 0.008, bloodlust_attack_speed = 0.25, bloodlust_attack_speed_add = 0.004, bloody_experience_range = 350, bloody_experience_level_cap = 20},
 	}
 
 const BLOODLUST_DURATION: float = 5.0
@@ -25,10 +25,10 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	bloodlust_bt = BuffType.new("bloodlust_bt", 0, 0, true, self)
+	bloodlust_bt = BuffType.new("bloodlust_bt", BLOODLUST_DURATION, BLOODLUST_DURATION_ADD, true, self)
 	var bloodlust_mod: Modifier = Modifier.new()
-	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
-	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.15, 0.002)
+	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.bloodlust_attack_speed, _stats.bloodlust_attack_speed_add)
+	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.bloodlust_crit_damage, _stats.bloodlust_crit_damage_add)
 	bloodlust_bt.set_buff_icon("res://resources/icons/generic_icons/moebius_trefoil.tres")
 	bloodlust_bt.set_buff_modifier(bloodlust_mod)
 	bloodlust_bt.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
@@ -90,20 +90,18 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = _stats.bloody_experience_range
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 1
-	aura.level_add = 0
-	aura.power = 1
-	aura.power_add = 0
+	aura.level = 0
+	aura.level_add = 1
+	aura.power = 0
+	aura.power_add = 1
 	aura.aura_effect = aura_bt
 	return [aura]
 
 
 func on_autocast(event: Event):
 	var level: int = tower.get_level()
-	var buff_level: int = _stats.bloodlust_level + _stats.bloodlust_level_add * level
-	var buff_duration: float = BLOODLUST_DURATION + BLOODLUST_DURATION_ADD * level
 
-	bloodlust_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	bloodlust_bt.apply(tower, event.get_target(), level)
 
 
 func bloody_exp_aura_on_damage(event: Event):

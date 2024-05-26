@@ -13,11 +13,11 @@ var magical_sight_bt: BuffType
 # leaving as in original
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {magical_sight_range = 650, mod_value = 50, mod_value_add = 2, duration = 3, duration_add = 0.12},
-		2: {magical_sight_range = 700, mod_value = 100, mod_value_add = 4, duration = 3, duration_add = 0.16},
-		3: {magical_sight_range = 750, mod_value = 150, mod_value_add = 6, duration = 4, duration_add = 0.16},
-		4: {magical_sight_range = 800, mod_value = 200, mod_value_add = 8, duration = 4, duration_add = 0.20},
-		5: {magical_sight_range = 850, mod_value = 300, mod_value_add = 10, duration = 5, duration_add = 0.20},
+		1: {magical_sight_range = 650, vuln = 0.05, vuln_add = 0.002, duration = 3, duration_add = 0.12},
+		2: {magical_sight_range = 700, vuln = 0.10, vuln_add = 0.004, duration = 3, duration_add = 0.16},
+		3: {magical_sight_range = 750, vuln = 0.15, vuln_add = 0.006, duration = 4, duration_add = 0.16},
+		4: {magical_sight_range = 800, vuln = 0.20, vuln_add = 0.008, duration = 4, duration_add = 0.20},
+		5: {magical_sight_range = 850, vuln = 0.30, vuln_add = 0.010, duration = 5, duration_add = 0.20},
 	}
 
 
@@ -25,8 +25,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	# var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
-	var mod_value: String = Utils.format_percent(_stats.mod_value * 0.1 * 0.01, 2)
-	var mod_value_add: String = Utils.format_percent(_stats.mod_value_add * 0.1 * 0.01, 2)
+	var vuln: String = Utils.format_percent(_stats.vuln, 2)
+	var vuln_add: String = Utils.format_percent(_stats.vuln_add, 2)
 	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
 
 	var list: Array[AbilityInfo] = []
@@ -35,11 +35,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	power_of_light.name = "Power of Light"
 	power_of_light.icon = "res://resources/icons/electricity/electricity_yellow.tres"
 	power_of_light.description_short = "Weakens %s hit creeps, increasing attack and spell damage taken.\n" % undead_string
-	power_of_light.description_full = "Weakens %s hit creeps, increasing attack and spell damage taken by %s for %s seconds.\n" % [undead_string, mod_value, duration] \
+	power_of_light.description_full = "Weakens %s hit creeps, increasing attack and spell damage taken by %s for %s seconds.\n" % [undead_string, vuln, duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds\n" % duration_add \
-	+ "+%s damage" % mod_value_add
+	+ "+%s damage" % vuln_add
 	list.append(power_of_light)
 
 	# var magical_sight: AbilityInfo = AbilityInfo.new()
@@ -66,9 +66,9 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var light_mod: Modifier = Modifier.new()
-	holy_weak_bt = BuffType.new("holy_weak_bt", 0.0, 0.0, false, self)
-	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
-	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
+	holy_weak_bt = BuffType.new("holy_weak_bt", _stats.duration, _stats.duration_add, false, self)
+	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.vuln, _stats.vuln_add)
+	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.vuln, _stats.vuln_add)
 	holy_weak_bt.set_buff_modifier(light_mod)
 	holy_weak_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	holy_weak_bt.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
@@ -76,7 +76,7 @@ func tower_init():
 
 func on_damage(event: Event):
 	var creep = event.get_target()
-#	0.001 Basic Bonus
-	var bufflevel: int = _stats.mod_value + _stats.mod_value_add * tower.get_level()
-	if (CreepCategory.enm.UNDEAD == creep.get_category()):
-		holy_weak_bt.apply_custom_timed(tower, event.get_target(), bufflevel, _stats.duration + _stats.duration_add * tower.get_level())
+	var level: int = tower.get_level()
+
+	if creep.get_category() == CreepCategory.enm.UNDEAD:
+		holy_weak_bt.apply(tower, creep, level)

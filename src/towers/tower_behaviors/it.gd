@@ -234,6 +234,5 @@ func it_kill():
 		sum.size += mod
 
 	if sum.size < 3.7:
-		var diff_from_initial: float = sum.size - 3.0
 		var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, sum.size - 3.0, 0.7)
 		tower.set_unit_scale(tower_scale)

@@ -58,10 +58,10 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	crusader_bt = BuffType.new("crusader_bt", 0, 0, true, self)
+	crusader_bt = BuffType.new("crusader_bt", FOR_THE_GOD_DURATION, FOR_THE_GOD_DURATION_ADD, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
-	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
+	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
+	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
 	crusader_bt.set_buff_modifier(mod)
 	crusader_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
@@ -116,8 +116,7 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
+	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
-	var buff_level: int = _stats.for_the_god_level + _stats.for_the_god_level_add * level
-	var buff_duration: float = FOR_THE_GOD_DURATION + FOR_THE_GOD_DURATION_ADD * level
 
-	crusader_bt.apply_custom_timed(tower, event.get_target(), buff_level, buff_duration)
+	crusader_bt.apply(tower, target, level)
