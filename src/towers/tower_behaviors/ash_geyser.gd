@@ -1,6 +1,12 @@
 extends TowerBehavior
 
 
+# NOTE: fixed bug in original script where lower tier tower
+# could temporarily reduce damage of the Ignite. This
+# happened because DAMAGE callback always changed user_real
+# without checking if it's a downgrade.
+
+
 var ignite_bt: BuffType
 
 
@@ -82,4 +88,8 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, event.get_target(), "Ignite")
 
 	var buff: Buff = ignite_bt.apply(tower, target, level)
-	buff.user_real = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)
+
+	var current_ignite_damage: float = buff.user_real
+	var new_ignite_damage: float = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)
+	if new_ignite_damage > current_ignite_damage:
+		buff.user_real = new_ignite_damage
