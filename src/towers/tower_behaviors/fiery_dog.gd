@@ -12,11 +12,11 @@ var roar_bt: BuffType
 #         70   , 210   , 840  , 1680  , 3360
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {level_multiplier = 6},
-		2: {level_multiplier = 9},
-		3: {level_multiplier = 12},
-		4: {level_multiplier = 15},
-		5: {level_multiplier = 18},
+		1: {mod_damage_add = 0.00, level_multiplier = 6},
+		2: {mod_damage_add = 0.05, level_multiplier = 9},
+		3: {mod_damage_add = 0.06, level_multiplier = 12},
+		4: {mod_damage_add = 0.07, level_multiplier = 15},
+		5: {mod_damage_add = 0.08, level_multiplier = 18},
 	}
 
 
@@ -42,6 +42,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
+
+
+func load_specials(modifier: Modifier):
+	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, _stats.mod_damage_add)
 
 
 func tower_init():
