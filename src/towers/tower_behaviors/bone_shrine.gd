@@ -23,7 +23,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Empowering Darkness"
 	ability.icon = "res://resources/icons/tower_variations/ash_geyser_purple.tres"
 	ability.description_short = "Makes the attacked creep receive more damage from %s towers.\n" % darkness_string
-	ability.description_full = "Makes the attacked creep receive %s more damage from %s towers. This effect stacks up to 10 times.\n" % [dmg_increase, darkness_string] \
+	ability.description_full = "Makes the attacked creep receive %s more damage from %s towers. This effect is permanent and stacks up to 10 times.\n" % [dmg_increase, darkness_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ " +%s damage increased\n" % dmg_increase_add
