@@ -1,0 +1,108 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy7728ew6n4n"]
+
+[ext_resource type="Script" path="res://src/hud/unit_menu/tower_mini_details.gd" id="1_nxq0b"]
+
+[node name="TowerMiniDetails" type="TabContainer" node_paths=PackedStringArray("_dmg_left_label", "_dmg_right_label", "_misc_label", "_types_left_label", "_types_right_label", "_oils_label")]
+custom_minimum_size = Vector2(400, 362)
+size_flags_vertical = 8
+script = ExtResource("1_nxq0b")
+_dmg_left_label = NodePath("Dmg/DmgLeftLabel")
+_dmg_right_label = NodePath("Dmg/DmgRightLabel")
+_misc_label = NodePath("Misc/MiscLabel")
+_types_left_label = NodePath("Types/TypesLeftLabel")
+_types_right_label = NodePath("Types/TypesRightLabel")
+_oils_label = NodePath("Oils/ScrollContainer/OilsLabel")
+
+[node name="Dmg" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DmgLeftLabel" type="RichTextLabel" parent="Dmg"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/line_separation = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="DmgRightLabel" type="RichTextLabel" parent="Dmg"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/line_separation = 3
+bbcode_enabled = true
+text = "[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="Misc" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="MiscLabel" type="RichTextLabel" parent="Misc"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_separation = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="Types" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="TypesLeftLabel" type="RichTextLabel" parent="Types"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/line_separation = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="TypesRightLabel" type="RichTextLabel" parent="Types"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/line_separation = 3
+hint_underlined = false
+
+[node name="Oils" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Oils"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OilsLabel" type="RichTextLabel" parent="Oils/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_force_pass_scroll_events = false
+text = "No oils applied."

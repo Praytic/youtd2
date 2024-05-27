@@ -32,18 +32,8 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _exp_bar: ProgressBarWithLabel
 @export var _health_bar: ProgressBarWithLabel
 @export var _mana_bar: ProgressBarWithLabel
-@export var _dmg_stats_left: RichTextLabel
-@export var _dmg_stats_right: RichTextLabel
-@export var _support_stats_label: RichTextLabel
-@export var _dmg_against_left: RichTextLabel
-@export var _dmg_against_right: RichTextLabel
-@export var _oils_label: RichTextLabel
-@export var _stats_panel: TabContainer
-@export var _creep_stats_panel: TabContainer
-@export var _creep_stats_left: RichTextLabel
-@export var _creep_stats_right: RichTextLabel
-@export var _creep_dmg_stats_left: RichTextLabel
-@export var _creep_dmg_stats_right: RichTextLabel
+@export var _tower_mini_details: TowerMiniDetails
+@export var _creep_mini_details: CreepMiniDetails
 @export var _inventory_panel: PanelContainer
 
 var _selling_for_real: bool = false
@@ -67,14 +57,14 @@ var _creep: Creep = null
 	_sell_button,
 	_buff_group_container,
 	_buff_group_container,
-	_stats_panel,
+	_tower_mini_details,
 	_inventory_panel,
 ]
 
 @onready var _visible_controls_for_creep: Array[Control] = [
 	_creep_button,
 	_health_bar,
-	_creep_stats_panel,
+	_creep_mini_details,
 ]
 
 
@@ -120,12 +110,8 @@ func _process(_delta: float):
 		_exp_bar.set_ratio_custom(current_exp, exp_for_max_level)
 	
 	if _tower != null:
-		_update_stats_panel()
 		_update_upgrade_button()
 	
-	if _creep != null:
-		_update_creep_stats_panel()
-
 
 #########################
 ###       Public      ###
@@ -141,6 +127,9 @@ func set_unit(unit: Unit):
 	_unit = unit
 	_tower = unit as Tower
 	_creep = unit as Creep
+	
+	_tower_mini_details.set_tower(_tower)
+	_creep_mini_details.set_creep(_creep)
 	
 	if prev_unit != null:
 		prev_unit.buff_list_changed.disconnect(_on_buff_list_changed)
@@ -367,324 +356,6 @@ func _set_ability_range_visible(button: AbilityButton, value: bool):
 
 	var ability_name: String = button.get_ability_name()
 	_tower.set_range_indicator_visible(ability_name, value)
-
-
-func _update_stats_panel():
-	var dmg_stats_left_text: String = _get_dmg_stats_left_text()
-	_dmg_stats_left.clear()
-	_dmg_stats_left.append_text(dmg_stats_left_text)
-	
-	var dmg_stats_right_text: String = _get_dmg_stats_right_text()
-	_dmg_stats_right.clear()
-	_dmg_stats_right.append_text(dmg_stats_right_text)
-	
-	var support_stats_text: String = _get_support_stats_text()
-	_support_stats_label.clear()
-	_support_stats_label.append_text(support_stats_text)
-	
-	var dmg_against_left_text: String = _get_dmg_against_left_text()
-	_dmg_against_left.clear()
-	_dmg_against_left.append_text(dmg_against_left_text)
-	
-	var dmg_against_right_text: String = _get_dmg_against_right_text()
-	_dmg_against_right.clear()
-	_dmg_against_right.append_text(dmg_against_right_text)
-	
-	var oils_text: String = _get_tower_oils_text()
-	_oils_label.clear()
-	_oils_label.append_text(oils_text)
-
-
-func _get_dmg_stats_left_text() -> String:
-	var base_damage: int = roundi(_tower.get_base_damage_with_bonus())
-	var base_damage_string: String = TowerDetails.int_format(base_damage)
-
-	var overall_damage: int = roundi(_tower.get_current_attack_damage_with_bonus())
-	var overall_damage_string: String = TowerDetails.int_format(overall_damage)
-
-	var dps_with_crit: int = roundi(_tower.get_dps_with_crit())
-	var dps_with_crit_string: String = TowerDetails.int_format(dps_with_crit)
-
-	var overall_cooldown: float = _tower.get_current_attack_speed()
-	var overall_cooldown_string: String = Utils.format_float(overall_cooldown, 2)
-
-	var crit_chance: float = _tower.get_prop_atk_crit_chance()
-	var crit_chance_string: String = Utils.format_percent(crit_chance, 1)
-
-	var crit_damage: float = _tower.get_prop_atk_crit_damage()
-	var crit_damage_string: String = TowerDetails.multiplier_format(crit_damage)
-
-	var multicrit: int = _tower.get_prop_multicrit_count()
-	var multicrit_string: String = TowerDetails.int_format(multicrit)
-
-	var text: String = "" \
-	+ "[hint=Base damage][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % base_damage_string \
-	+ "[hint=Overall damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
-	+ "[hint=DPS with crit][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % dps_with_crit_string \
-	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
-	+ "[hint=Attack crit chance][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
-	+ "[hint=Attack crit damage][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % crit_damage_string \
-	+ "[hint=Multicrit][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % multicrit_string \
-	+ ""
-
-	return text
-
-
-func _get_dmg_stats_right_text() -> String:
-	var spell_damage: float = _tower.get_prop_spell_damage_dealt()
-	var spell_damage_string: String = Utils.format_percent(spell_damage, 0)
-	
-	var spell_crit_chance: float = _tower.get_spell_crit_chance()
-	var spell_crit_chance_string: String = Utils.format_percent(spell_crit_chance, 1)
-
-	var spell_crit_damage: float = _tower.get_spell_crit_damage()
-	var spell_crit_damage_string: String = TowerDetails.multiplier_format(spell_crit_damage)
-
-	var overall_mana_regen: float = _tower.get_overall_mana_regen()
-	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
-
-	var text: String = "" \
-	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_mana_regen_string \
-	+ "[hint=Spell damage bonus][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
-	+ "[hint=Spell crit chance][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
-	+ "[hint=Spell crit damage][img=30 color=35a8de]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % spell_crit_damage_string \
-	+ ""
-
-	return text
-
-
-func _get_support_stats_text() -> String:
-	var bounty_ratio: float = _tower.get_prop_bounty_received()
-	var bounty_ratio_string: String = Utils.format_percent(bounty_ratio, 0)
-
-	var exp_ratio: float = _tower.get_prop_exp_received()
-	var exp_ratio_string: String = Utils.format_percent(exp_ratio, 0)
-
-	var item_drop_ratio: float = _tower.get_item_drop_ratio()
-	var item_drop_ratio_string: String = Utils.format_percent(item_drop_ratio, 0)
-
-	var item_quality_ratio: float = _tower.get_item_quality_ratio()
-	var item_quality_ratio_string: String = Utils.format_percent(item_quality_ratio, 0)
-
-	var trigger_chances: float = _tower.get_prop_trigger_chances()
-	var trigger_chances_string: String = Utils.format_percent(trigger_chances, 0)
-
-	var buff_duration: float = _tower.get_prop_buff_duration()
-	var buff_duration_string: String = Utils.format_percent(buff_duration, 0)
-
-	var debuff_duration: float = _tower.get_prop_debuff_duration()
-	var debuff_duration_string: String = Utils.format_percent(debuff_duration, 0)
-
-	var text: String = "" \
-	+ "[hint=Bounty ratio][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % bounty_ratio_string \
-	+ "[hint=Exp ratio][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % exp_ratio_string \
-	+ "[hint=Item chance][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % item_drop_ratio_string \
-	+ "[hint=Item quality][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % item_quality_ratio_string \
-	+ "[hint=Trigger chances][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % trigger_chances_string \
-	+ "[hint=Buff duration][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % buff_duration_string \
-	+ "[hint=Debuff duration][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % debuff_duration_string \
-	+ ""
-
-	return text
-
-
-func _get_dmg_against_left_text() -> String:
-	var dmg_to_undead: float = _tower.get_damage_to_undead()
-	var dmg_to_undead_string: String = Utils.format_percent(dmg_to_undead, 0)
-
-	var dmg_to_magic: float = _tower.get_damage_to_magic()
-	var dmg_to_magic_string: String = Utils.format_percent(dmg_to_magic, 0)
-
-	var dmg_to_nature: float = _tower.get_damage_to_nature()
-	var dmg_to_nature_string: String = Utils.format_percent(dmg_to_nature, 0)
-
-	var dmg_to_orc: float = _tower.get_damage_to_orc()
-	var dmg_to_orc_string: String = Utils.format_percent(dmg_to_orc, 0)
-
-	var dmg_to_humanoid: float = _tower.get_damage_to_humanoid()
-	var dmg_to_humanoid_string: String = Utils.format_percent(dmg_to_humanoid, 0)
-
-	var text: String = "" \
-	+ "[hint=Damage to Undead][img=30 color=9370db]res://resources/icons/generic_icons/animal_skull.tres[/img] %s[/hint]\n" % dmg_to_undead_string \
-	+ "[hint=Damage to Magic][img=30 color=6495ed]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % dmg_to_magic_string \
-	+ "[hint=Damage to Nature][img=30 color=32cd32]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % dmg_to_nature_string \
-	+ "[hint=Damage to Orc][img=30 color=8fbc8f]res://resources/icons/generic_icons/orc_head.tres[/img] %s[/hint]\n" % dmg_to_orc_string \
-	+ "[hint=Damage to Humanoid][img=30 color=d2b48c]res://resources/icons/generic_icons/armor_vest.tres[/img] %s[/hint]\n" % dmg_to_humanoid_string \
-	+ ""
-	
-	return text
-
-
-func _get_dmg_against_right_text() -> String:
-	var dmg_to_mass: float = _tower.get_damage_to_mass()
-	var dmg_to_mass_string: String = Utils.format_percent(dmg_to_mass, 0)
-
-	var dmg_to_normal: float = _tower.get_damage_to_magic()
-	var dmg_to_normal_string: String = Utils.format_percent(dmg_to_normal, 0)
-
-	var dmg_to_air: float = _tower.get_damage_to_air()
-	var dmg_to_air_string: String = Utils.format_percent(dmg_to_air, 0)
-
-	var dmg_to_champion: float = _tower.get_damage_to_champion()
-	var dmg_to_champion_string: String = Utils.format_percent(dmg_to_champion, 0)
-
-	var dmg_to_boss: float = _tower.get_damage_to_boss()
-	var dmg_to_boss_string: String = Utils.format_percent(dmg_to_boss, 0)
-
-	var text: String = "" \
-	+ "[hint=Damage to Mass][img=30 color=ffa500]res://resources/icons/generic_icons/sprint.tres[/img] %s[/hint]\n" % dmg_to_mass_string \
-	+ "[hint=Damage to Normal][img=30 color=8fbc8f]res://resources/icons/generic_icons/barbute.tres[/img] %s[/hint]\n" % dmg_to_normal_string \
-	+ "[hint=Damage to Air][img=30 color=6495ed]res://resources/icons/generic_icons/liberty_wing.tres[/img] %s[/hint]\n" % dmg_to_air_string \
-	+ "[hint=Damage to Champion][img=30 color=9370db]res://resources/icons/generic_icons/horned_helm.tres[/img] %s[/hint]\n" % dmg_to_champion_string \
-	+ "[hint=Damage to Boss][img=30 color=ff4500]res://resources/icons/generic_icons/bat_mask.tres[/img] %s[/hint]\n" % dmg_to_boss_string \
-	+ ""
-	
-	return text
-
-
-func _get_tower_oils_text() -> String:
-	var oil_count_map: Dictionary = _get_oil_count_map()
-	
-	if oil_count_map.is_empty():
-		return "No oils applied."
-
-	var text: String = ""
-
-	var oil_name_list: Array = oil_count_map.keys()
-	oil_name_list.sort()
-
-	for oil_name in oil_name_list:
-		var count: int = oil_count_map[oil_name]
-
-		text += "%s x %s\n" % [str(count), oil_name]
-
-	return text
-
-
-func _get_oil_count_map() -> Dictionary:
-	var oil_list: Array[Item] = _tower.get_item_container().get_oil_list()
-
-	var oil_count_map: Dictionary = {}
-
-	for oil in oil_list:
-		var oil_id: int = oil.get_id()
-		var oil_name: String = ItemProperties.get_display_name(oil_id)
-		var oil_rarity: Rarity.enm = ItemProperties.get_rarity(oil_id)
-		var rarity_color: Color = Rarity.get_color(oil_rarity)
-		var oil_name_colored: String = Utils.get_colored_string(oil_name, rarity_color)
-
-		if !oil_count_map.has(oil_name_colored):
-			oil_count_map[oil_name_colored] = 0
-
-		oil_count_map[oil_name_colored] += 1
-
-	return oil_count_map
-
-
-func _update_creep_stats_panel():
-	var stats_left_text: String = _get_creep_stats_left_text()
-	_creep_stats_left.clear()
-	_creep_stats_left.append_text(stats_left_text)
-	
-	var stats_right_text: String = _get_creep_stats_right_text()
-	_creep_stats_right.clear()
-	_creep_stats_right.append_text(stats_right_text)
-	
-	var dmg_stats_left_text: String = _get_creep_dmg_stats_left_text()
-	_creep_dmg_stats_left.clear()
-	_creep_dmg_stats_left.append_text(dmg_stats_left_text)
-	
-	var dmg_stats_right_text: String = _get_creep_dmg_stats_right_text()
-	_creep_dmg_stats_right.clear()
-	_creep_dmg_stats_right.append_text(dmg_stats_right_text)
-
-
-func _get_creep_stats_left_text() -> String:
-	var slow_amount: float = _creep.get_prop_move_speed() - 1.0
-	var slow_amount_string: String = Utils.format_percent(slow_amount, 0)
-
-	var overall_armor: float = _creep.get_overall_armor()
-	var overall_armor_string: String = Utils.format_float(overall_armor, 1)
-
-	var exp_ratio: float = _creep.get_prop_exp_granted()
-	var exp_ratio_string: String = Utils.format_percent(exp_ratio, 0)
-
-	var item_drop_ratio: float = _creep.get_item_drop_ratio_on_death()
-	var item_drop_ratio_string: String = Utils.format_percent(item_drop_ratio, 0)
-	
-	var item_quality_ratio: float = _creep.get_item_quality_ratio_on_death()
-	var item_quality_ratio_string: String = Utils.format_percent(item_quality_ratio, 0)
-
-	var overall_health_regen: float = _creep.get_overall_health_regen()
-	var overall_health_regen_string: String = Utils.format_float(overall_health_regen, 1)
-
-	var overall_mana_regen: float = _creep.get_overall_mana_regen()
-	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
-
-	var text: String = "" \
-	+ "[hint=Speed modifier][img=30 color=6495ed]res://resources/icons/generic_icons/barefoot.tres[/img] %s[/hint]\n" % slow_amount_string \
-	+ "[hint=Armor][img=30 color=d2b48c]res://resources/icons/generic_icons/abdominal_armor.tres[/img] %s[/hint]\n" % overall_armor_string \
-	+ "[hint=Exp ratio][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % exp_ratio_string \
-	+ "[hint=Item chance][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % item_drop_ratio_string \
-	+ "[hint=Item quality][img=30 color=bcde35]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % item_quality_ratio_string \
-	+ "[hint=Health regen][img=30 color=32cd32]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_health_regen_string \
-	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_mana_regen_string \
-	+ ""
-	
-	return text
-
-
-func _get_creep_stats_right_text() -> String:
-	return ""
-
-
-func _get_creep_dmg_stats_left_text() -> String:
-	var dmg_from_ice: float = _creep.get_damage_from_element(Element.enm.ICE)
-	var dmg_from_ice_string: String = Utils.format_percent(dmg_from_ice, 0)
-	var dmg_from_nature: float = _creep.get_damage_from_element(Element.enm.NATURE)
-	var dmg_from_nature_string: String = Utils.format_percent(dmg_from_nature, 0)
-
-	var dmg_from_fire: float = _creep.get_damage_from_element(Element.enm.FIRE)
-	var dmg_from_fire_string: String = Utils.format_percent(dmg_from_fire, 0)
-
-	var dmg_from_astral: float = _creep.get_damage_from_element(Element.enm.ASTRAL)
-	var dmg_from_astral_string: String = Utils.format_percent(dmg_from_astral, 0)
-
-	var dmg_from_darkness: float = _creep.get_damage_from_element(Element.enm.DARKNESS)
-	var dmg_from_darkness_string: String = Utils.format_percent(dmg_from_darkness, 0)
-
-	var dmg_from_iron: float = _creep.get_damage_from_element(Element.enm.IRON)
-	var dmg_from_iron_string: String = Utils.format_percent(dmg_from_iron, 0)
-
-	var dmg_from_storm: float = _creep.get_damage_from_element(Element.enm.STORM)
-	var dmg_from_storm_string: String = Utils.format_percent(dmg_from_storm, 0)
-
-	var text: String = "" \
-	+ "[hint=Damage from Ice][img=30 color=6495ed]res://resources/icons/generic_icons/azul_flake.tres[/img] %s[/hint]\n" % dmg_from_ice_string \
-	+ "[hint=Damage from Nature][img=30 color=32cd32]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % dmg_from_nature_string \
-	+ "[hint=Damage from Fire][img=30 color=ff4500]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % dmg_from_fire_string \
-	+ "[hint=Damage from Astral][img=30 color=66cdaa]res://resources/icons/generic_icons/star_swirl.tres[/img] %s[/hint]\n" % dmg_from_astral_string \
-	+ "[hint=Damage from Darkness][img=30 color=9370db]res://resources/icons/generic_icons/animal_skull.tres[/img] %s[/hint]\n" % dmg_from_darkness_string \
-	+ "[hint=Damage from Iron][img=30 color=d2b48c]res://resources/icons/generic_icons/pokecog.tres[/img] %s[/hint]\n" % dmg_from_iron_string \
-	+ "[hint=Damage from Storm][img=30 color=ffffe0]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s[/hint]\n" % dmg_from_storm_string \
-	+ ""
-	
-	return text
-
-
-func _get_creep_dmg_stats_right_text() -> String:
-	var attack_damage_received: float = _creep.get_prop_atk_damage_received()
-	var attack_damage_received_string: String = Utils.format_percent(attack_damage_received, 0)
-
-	var spell_damage_received: float = _creep.get_prop_spell_damage_received()
-	var spell_damage_received_string: String = Utils.format_percent(spell_damage_received, 0)
-
-	var text: String = "" \
-	+ "[hint=Attack damage received][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % attack_damage_received_string \
-	+ "[hint=Spell damage received][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_received_string \
-	+ ""
-	
-	return text
 
 
 func _update_inventory():

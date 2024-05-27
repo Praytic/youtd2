@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkknomxku1jcv"]
+
+[ext_resource type="Script" path="res://src/hud/unit_menu/creep_mini_details.gd" id="1_0rr73"]
+
+[node name="CreepMiniDetails" type="TabContainer" node_paths=PackedStringArray("_stats_label", "_dmg_left_label", "_dmg_right_label")]
+custom_minimum_size = Vector2(400, 362)
+size_flags_vertical = 8
+script = ExtResource("1_0rr73")
+_stats_label = NodePath("Stats/StatsLabel")
+_dmg_left_label = NodePath("Dmg/DmgLeftLabel")
+_dmg_right_label = NodePath("Dmg/DmgRightLabel")
+
+[node name="Stats" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="StatsLabel" type="RichTextLabel" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="Dmg" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="DmgLeftLabel" type="RichTextLabel" parent="Dmg"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
+
+[node name="DmgRightLabel" type="RichTextLabel" parent="Dmg"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25 color=0aff0a
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
+[img=25
+]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
+[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
+hint_underlined = false
