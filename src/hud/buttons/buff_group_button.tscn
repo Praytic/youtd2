@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/hud/buttons/buff_group_button.gd" id="1_ddno2"]
 [ext_resource type="Texture2D" uid="uid://dho1jq3a82j7u" path="res://resources/ui_textures/buff_group_none.tres" id="3_d7v21"]
 
-[node name="buff_group_button" type="Button" node_paths=PackedStringArray("_number_label")]
+[node name="BuffGroupButton" type="Button" node_paths=PackedStringArray("_number_label", "_texture_rect")]
 custom_minimum_size = Vector2(50, 50)
 offset_right = 50.0
 offset_bottom = 50.0
@@ -13,6 +13,7 @@ theme = ExtResource("1_2mwqg")
 theme_type_variation = &"BuffGroupButton"
 script = ExtResource("1_ddno2")
 _number_label = NodePath("MarginContainer/NumberLevel")
+_texture_rect = NodePath("TextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -41,5 +42,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="pressed" from="." to="." method="_on_pressed"]

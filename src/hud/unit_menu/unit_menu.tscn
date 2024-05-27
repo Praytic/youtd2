@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="4_bl3rp"]
 [ext_resource type="PackedScene" uid="uid://d4mgo5v7j01kj" path="res://src/hud/unit_menu/buff_display.tscn" id="4_d2h33"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://resources/theme/unit_menu/unit_level_label_normal.tres" id="4_mpyt6"]
-[ext_resource type="PackedScene" uid="uid://dfid7khpwu0i8" path="res://src/hud/buttons/buff_group_button.tscn" id="5_5ddnt"]
 [ext_resource type="PackedScene" uid="uid://d0aesr1u8n1xt" path="res://src/hud/buttons/ability_button.tscn" id="5_iq4vd"]
+[ext_resource type="PackedScene" uid="uid://ccys3jpdwu3ft" path="res://src/hud/unit_menu/buff_group_editor.tscn" id="5_v3s2e"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="5_xoeuc"]
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://src/hud/unit_menu/buff_container.tscn" id="8_1niac"]
 [ext_resource type="PackedScene" uid="uid://bscc3lifv4bx4" path="res://src/hud/unit_menu/progress_bar_with_label.tscn" id="8_7iile"]
@@ -52,7 +52,7 @@ atlas = ExtResource("5_xoeuc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_inventory_background_grid", "_inventory_item_grid", "_buff_container", "_buff_group_container", "_buff_group_button_1", "_buff_group_button_2", "_buff_group_button_3", "_buff_group_button_4", "_buff_group_button_5", "_buff_group_button_6", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar", "_tower_mini_details", "_creep_mini_details", "_inventory_panel")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_inventory_background_grid", "_inventory_item_grid", "_buff_container", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar", "_tower_mini_details", "_creep_mini_details", "_inventory_panel", "_buff_group_editor")]
 offset_right = 800.0
 offset_bottom = 200.0
 mouse_filter = 2
@@ -68,13 +68,6 @@ _sell_button = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginCont
 _inventory_background_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/BackgroundGrid")
 _inventory_item_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/ItemGrid")
 _buff_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/BuffContainer")
-_buff_group_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer")
-_buff_group_button_1 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton1")
-_buff_group_button_2 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton2")
-_buff_group_button_3 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton3")
-_buff_group_button_4 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton4")
-_buff_group_button_5 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton5")
-_buff_group_button_6 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton6")
 _ability_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid")
 _exp_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/ExpBar")
 _health_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HealthBar")
@@ -82,6 +75,7 @@ _mana_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer
 _tower_mini_details = NodePath("HBoxContainer/TowerMiniDetails")
 _creep_mini_details = NodePath("HBoxContainer/CreepMiniDetails")
 _inventory_panel = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel")
+_buff_group_editor = NodePath("HBoxContainer/VBoxContainer/MarginContainer/BuffGroupEditor")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -133,37 +127,9 @@ layout_mode = 2
 [node name="BuffDisplay10" parent="HBoxContainer/VBoxContainer/MarginContainer/BuffContainer" instance=ExtResource("4_d2h33")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="BuffGroupEditor" parent="HBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("5_v3s2e")]
 layout_mode = 2
 size_flags_horizontal = 8
-mouse_filter = 2
-
-[node name="BuffGroupContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="BuffGroupButton1" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 1
-
-[node name="BuffGroupButton2" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 2
-
-[node name="BuffGroupButton3" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 3
-
-[node name="BuffGroupButton4" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 4
-
-[node name="BuffGroupButton5" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 5
-
-[node name="BuffGroupButton6" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
-layout_mode = 2
-_buff_group_number = 6
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

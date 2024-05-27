@@ -2,16 +2,14 @@
 class_name BuffGroupButton extends Button
 
 
-@export var _number_label: Label
 @export var _buff_group_number: int = 0
+@export var _number_label: Label
+@export var _texture_rect: TextureRect
 
-@onready var _texture_rect: TextureRect = $TextureRect
-@onready var _buff_group_none_icon: Texture2D = load("res://resources/ui_textures/buff_group_none.tres")
-@onready var _buff_group_incoming_icon: Texture2D = load("res://resources/ui_textures/buff_group_incoming.tres")
-@onready var _buff_group_outgoing_icon: Texture2D = load("res://resources/ui_textures/buff_group_outgoing.tres")
-@onready var _buff_group_both_icon: Texture2D = load("res://resources/ui_textures/buff_group_both.tres")
-
-var _tower: Tower = null
+const _buff_group_none_icon: Texture2D = preload("res://resources/ui_textures/buff_group_none.tres")
+const _buff_group_incoming_icon: Texture2D = preload("res://resources/ui_textures/buff_group_incoming.tres")
+const _buff_group_outgoing_icon: Texture2D = preload("res://resources/ui_textures/buff_group_outgoing.tres")
+const _buff_group_both_icon: Texture2D = preload("res://resources/ui_textures/buff_group_both.tres")
 
 
 #########################
@@ -26,34 +24,12 @@ func _ready():
 ###       Public      ###
 #########################
 
-func set_tower(tower: Tower):
-	var prev_tower: Tower = _tower
-	if prev_tower != null && prev_tower.buff_group_changed.is_connected(_on_tower_buff_group_changed):
-		prev_tower.buff_group_changed.disconnect(_on_tower_buff_group_changed)
-
-	_tower = tower
-	
-	if tower != null:
-		tower.buff_group_changed.connect(_on_tower_buff_group_changed)
-		_update_visual()
+func get_buff_group_number() -> int:
+	return _buff_group_number
 
 
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_pressed():
-	EventBus.player_clicked_tower_buff_group.emit(_tower, _buff_group_number)
-
-
-func _on_tower_buff_group_changed():
-	_update_visual()
-
-
-func _update_visual():
-	var mode: BuffGroupMode.enm = _tower.get_buff_group_mode(_buff_group_number)
-
-	match mode:
+func set_buff_group_mode(value: BuffGroupMode.enm):
+	match value:
 		BuffGroupMode.enm.NONE: 
 			_texture_rect.texture = _buff_group_none_icon
 			tooltip_text = "This tower is not part of buffgroup %d. Press to change\nmode to CASTER." % _buff_group_number

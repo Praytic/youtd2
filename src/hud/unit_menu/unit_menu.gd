@@ -21,13 +21,6 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _inventory_background_grid: GridContainer
 @export var _inventory_item_grid: GridContainer
 @export var _buff_container: BuffContainer
-@export var _buff_group_container: BoxContainer
-@export var _buff_group_button_1: BuffGroupButton
-@export var _buff_group_button_2: BuffGroupButton
-@export var _buff_group_button_3: BuffGroupButton
-@export var _buff_group_button_4: BuffGroupButton
-@export var _buff_group_button_5: BuffGroupButton
-@export var _buff_group_button_6: BuffGroupButton
 @export var _ability_grid: GridContainer
 @export var _exp_bar: ProgressBarWithLabel
 @export var _health_bar: ProgressBarWithLabel
@@ -35,28 +28,19 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _tower_mini_details: TowerMiniDetails
 @export var _creep_mini_details: CreepMiniDetails
 @export var _inventory_panel: PanelContainer
+@export var _buff_group_editor: BuffGroupEditor
 
 var _selling_for_real: bool = false
 var _unit: Unit = null
 var _tower: Unit = null
 var _creep: Creep = null
 
-@onready var _buff_group_button_list: Array[BuffGroupButton] = [
-	_buff_group_button_1,
-	_buff_group_button_2,
-	_buff_group_button_3,
-	_buff_group_button_4,
-	_buff_group_button_5,
-	_buff_group_button_6,
-]
-
 @onready var _visible_controls_for_tower: Array[Control] = [
 	_tower_button,
 	_exp_bar,
 	_upgrade_button,
 	_sell_button,
-	_buff_group_container,
-	_buff_group_container,
+	_buff_group_editor,
 	_tower_mini_details,
 	_inventory_panel,
 ]
@@ -129,6 +113,8 @@ func set_unit(unit: Unit):
 	_creep = unit as Creep
 	
 	_tower_mini_details.set_tower(_tower)
+	_buff_group_editor.set_tower(_tower)
+
 	_creep_mini_details.set_creep(_creep)
 	
 	if prev_unit != null:
@@ -185,9 +171,6 @@ func _load_unit():
 
 
 func _load_tower():
-	for button in _buff_group_button_list:
-		button.set_tower(_tower)
-
 	_tower.items_changed.connect(_on_tower_items_changed)
 	_update_inventory()
 
@@ -209,7 +192,7 @@ func _load_tower():
 	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
 	_upgrade_button.visible = upgrade_button_should_be_visible && tower_belongs_to_local_player
 	_sell_button.visible = tower_belongs_to_local_player
-	_buff_group_container.visible = tower_belongs_to_local_player
+	_buff_group_editor.visible = tower_belongs_to_local_player
 
 
 func _load_creep():
