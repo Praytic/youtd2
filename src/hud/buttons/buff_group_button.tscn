@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfid7khpwu0i8"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_2mwqg"]
+[ext_resource type="Script" path="res://src/hud/buttons/buff_group_button.gd" id="1_ddno2"]
+[ext_resource type="Texture2D" uid="uid://dho1jq3a82j7u" path="res://resources/ui_textures/buff_group_none.tres" id="3_d7v21"]
+
+[node name="buff_group_button" type="Button" node_paths=PackedStringArray("_number_label")]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 50.0
+offset_bottom = 50.0
+focus_mode = 0
+theme = ExtResource("1_2mwqg")
+theme_type_variation = &"BuffGroupButton"
+script = ExtResource("1_ddno2")
+_number_label = NodePath("MarginContainer/NumberLevel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_d7v21")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
+
+[node name="NumberLevel" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

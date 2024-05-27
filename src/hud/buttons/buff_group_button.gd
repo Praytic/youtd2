@@ -1,7 +1,10 @@
+@tool
 class_name BuffGroupButton extends Button
 
 
-@export var _buff_group_number: int
+@export var _number_label: Label
+@export var _buff_group_number: int = 0
+
 @onready var _texture_rect: TextureRect = $TextureRect
 @onready var _buff_group_none_icon: Texture2D = load("res://resources/ui_textures/buff_group_none.tres")
 @onready var _buff_group_incoming_icon: Texture2D = load("res://resources/ui_textures/buff_group_incoming.tres")
@@ -9,6 +12,15 @@ class_name BuffGroupButton extends Button
 @onready var _buff_group_both_icon: Texture2D = load("res://resources/ui_textures/buff_group_both.tres")
 
 var _tower: Tower = null
+
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready():
+	_number_label.text = str(_buff_group_number)
+
 
 #########################
 ###       Public      ###

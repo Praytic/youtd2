@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dcqjart40vpjy"]
+[gd_scene load_steps=28 format=3 uid="uid://dcqjart40vpjy"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_trhe5"]
 [ext_resource type="Script" path="res://src/hud/unit_menu/unit_menu.gd" id="2_maep6"]
@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="4_bl3rp"]
 [ext_resource type="PackedScene" uid="uid://d4mgo5v7j01kj" path="res://src/hud/unit_menu/buff_display.tscn" id="4_d2h33"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://resources/theme/unit_menu/unit_level_label_normal.tres" id="4_mpyt6"]
+[ext_resource type="PackedScene" uid="uid://dfid7khpwu0i8" path="res://src/hud/buttons/buff_group_button.tscn" id="5_5ddnt"]
 [ext_resource type="PackedScene" uid="uid://d0aesr1u8n1xt" path="res://src/hud/buttons/ability_button.tscn" id="5_iq4vd"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="5_xoeuc"]
-[ext_resource type="Script" path="res://src/hud/buttons/buff_group_button.gd" id="6_q2twi"]
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://src/hud/unit_menu/buff_container.tscn" id="8_1niac"]
 [ext_resource type="PackedScene" uid="uid://bscc3lifv4bx4" path="res://src/hud/unit_menu/progress_bar_with_label.tscn" id="8_7iile"]
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="8_ami32"]
@@ -21,10 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://bkknomxku1jcv" path="res://src/hud/unit_menu/creep_mini_details.tscn" id="19_fhhud"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0es22"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sebvg"]
-atlas = ExtResource("5_xoeuc")
-region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="InputEventKey" id="InputEventKey_3p2ki"]
 device = -1
@@ -73,12 +69,12 @@ _inventory_background_grid = NodePath("HBoxContainer/VBoxContainer/MarginContain
 _inventory_item_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/InventoryPanel/MarginContainer2/MarginContainer/ItemGrid")
 _buff_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/BuffContainer")
 _buff_group_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer")
-_buff_group_button_1 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1")
-_buff_group_button_2 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2")
-_buff_group_button_3 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3")
-_buff_group_button_4 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4")
-_buff_group_button_5 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5")
-_buff_group_button_6 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6")
+_buff_group_button_1 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton1")
+_buff_group_button_2 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton2")
+_buff_group_button_3 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton3")
+_buff_group_button_4 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton4")
+_buff_group_button_5 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton5")
+_buff_group_button_6 = NodePath("HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroupButton6")
 _ability_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid")
 _exp_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/ExpBar")
 _health_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HealthBar")
@@ -145,233 +141,29 @@ mouse_filter = 2
 [node name="BuffGroupContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="BuffGroup1" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton1" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "1"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 1
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffGroup2" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton2" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "2"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffGroup3" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton3" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "3"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 3
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffGroup4" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton4" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "4"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 4
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-4"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffGroup5" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton5" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "5"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 5
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffGroup6" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="BuffGroupButton6" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer" instance=ExtResource("5_5ddnt")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-focus_mode = 0
-theme_type_variation = &"BuffGroupButton"
-text = "6"
-expand_icon = true
-script = ExtResource("6_q2twi")
 _buff_group_number = 6
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_sebvg")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-
-
-
-6"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -663,12 +455,6 @@ visible = false
 layout_mode = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup1" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup2" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup3" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup4" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup5" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" to="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/BuffGroupContainer/BuffGroup6" method="_on_pressed"]
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/DetailsButton" to="." method="_on_details_button_pressed"]
