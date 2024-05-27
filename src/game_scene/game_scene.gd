@@ -791,8 +791,8 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 		return
 
 	var tower_uid: int = tower.get_uid()
-	var current_mode: BuffGroup.Mode = tower.get_buff_group_mode(buff_group)
-	var new_mode: BuffGroup.Mode = wrapi(current_mode + 1, BuffGroup.Mode.NONE, BuffGroup.Mode.BOTH + 1) as BuffGroup.Mode
+	var current_mode: BuffGroupMode.enm = tower.get_buff_group_mode(buff_group)
+	var new_mode: BuffGroupMode.enm = wrapi(current_mode + 1, BuffGroupMode.enm.NONE, BuffGroupMode.enm.BOTH + 1) as BuffGroupMode.enm
 	
 	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
 	_game_client.add_action(action)

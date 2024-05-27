@@ -215,7 +215,7 @@ func _init():
 			push_error("No default value defined for modification type: ", mod_type)
 
 	for buff_group in range(1, Constants.BUFFGROUP_COUNT + 1):
-		_buff_groups[buff_group] = BuffGroup.Mode.NONE
+		_buff_groups[buff_group] = BuffGroupMode.enm.NONE
 
 
 func _ready():
@@ -1828,14 +1828,14 @@ func get_buff_groups(mode_list: Array) -> Array[int]:
 
 # 	NOTE: need ordered iteration for determinism
 	for buff_group in range(1, Constants.BUFFGROUP_COUNT + 1):
-		var this_mode: BuffGroup.Mode = _buff_groups[buff_group]
+		var this_mode: BuffGroupMode.enm = _buff_groups[buff_group]
 		if mode_list.has(this_mode):
 			result.append(buff_group)
 
 	return result
 
 
-func set_buff_group_mode(buff_group: int, mode: BuffGroup.Mode):
+func set_buff_group_mode(buff_group: int, mode: BuffGroupMode.enm):
 	if !_buff_groups.has(buff_group):
 		push_error("Invalid buff group: ", buff_group)
 
@@ -1846,7 +1846,7 @@ func set_buff_group_mode(buff_group: int, mode: BuffGroup.Mode):
 	buff_group_changed.emit()
 
 
-func get_buff_group_mode(buff_group: int) -> BuffGroup.Mode:
-	var mode: BuffGroup.Mode = _buff_groups[buff_group]
+func get_buff_group_mode(buff_group: int) -> BuffGroupMode.enm:
+	var mode: BuffGroupMode.enm = _buff_groups[buff_group]
 
 	return mode

@@ -406,7 +406,7 @@ func _get_target_for_buff_autocast() -> Unit:
 # e) Caster has no buffgroups, target has
 #    buffgroup 1=incoming => accept
 func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) -> Array:
-	var caster_outgoing: Array[int] = caster.get_buff_groups([BuffGroup.Mode.OUTGOING, BuffGroup.Mode.BOTH])
+	var caster_outgoing: Array[int] = caster.get_buff_groups([BuffGroupMode.enm.OUTGOING, BuffGroupMode.enm.BOTH])
 
 	if caster_outgoing.is_empty():
 		return targets
@@ -414,8 +414,8 @@ func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) ->
 	var filtered_targets: Array = targets.filter(
 		func(unit: Unit) -> bool:
 			for buff_group in caster_outgoing:
-				var target_mode: BuffGroup.Mode = unit.get_buff_group_mode(buff_group)
-				var buff_group_match: bool = target_mode == BuffGroup.Mode.INCOMING || target_mode == BuffGroup.Mode.BOTH
+				var target_mode: BuffGroupMode.enm = unit.get_buff_group_mode(buff_group)
+				var buff_group_match: bool = target_mode == BuffGroupMode.enm.INCOMING || target_mode == BuffGroupMode.enm.BOTH
 
 				if buff_group_match:
 					return true
