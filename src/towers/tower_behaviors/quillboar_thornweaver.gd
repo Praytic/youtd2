@@ -47,7 +47,7 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	thorns_bt = BuffType.new("thorns_bt", 0, 0, false, self)
+	thorns_bt = BuffType.new("thorns_bt", QUILLSPRAY_DEBUFF_DURATION, 0, false, self)
 	thorns_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Quillspray.")
 
@@ -112,23 +112,33 @@ func on_autocast(_event: Event):
 	do_quillspray_series()
 
 
-func on_projectile_hit(_projectile: Projectile, creep: Unit):
-	if creep == null:
+func on_projectile_hit(_projectile: Projectile, target: Unit):
+	if target == null:
 		return
+	
+	var level: int = tower.get_level()
 
-	var active_buff: Buff = creep.get_buff_of_type(thorns_bt)
-	var buff_level: int
+	var active_buff: Buff = target.get_buff_of_type(thorns_bt)
+
+	var active_stacks: int
 	if active_buff != null:
-		buff_level = min(active_buff.get_level(), QUILLSPRAY_STACKS_MAX)
+		active_stacks = active_buff.user_int
 	else:
-		buff_level = 0
+		active_stacks = 0
 
-	var damage_ratio: float = (QUILLSPRAY_DAMAGE_RATIO + QUILLSPRAY_DAMAGE_RATIO_ADD * tower.get_level()) * pow(1.0 + QUILLSPRAY_STACK_BONUS, buff_level)
+	var thorns_multiplier: float = pow(1.0 + QUILLSPRAY_STACK_BONUS, active_stacks)
+	var damage_ratio: float = (QUILLSPRAY_DAMAGE_RATIO + QUILLSPRAY_DAMAGE_RATIO_ADD * level) * thorns_multiplier
 	var damage: float = damage_ratio * tower.get_current_attack_damage_with_bonus()
 
-	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
-	var thorns_buff: Buff = thorns_bt.apply_advanced(tower, creep, buff_level + 1, 0, QUILLSPRAY_DEBUFF_DURATION)
-	thorns_buff.set_displayed_stacks(thorns_buff.get_level())
+	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
+
+	var new_stacks: int = min(active_stacks + 1, QUILLSPRAY_STACKS_MAX)
+
+#	NOTE: weaker tier tower increases buff effect without
+#	refreshing duration
+	active_buff = thorns_bt.apply(tower, target, 1)
+	active_buff.user_int = new_stacks
+	active_buff.set_displayed_stacks(new_stacks)
 
 
 func do_quillspray_series():

@@ -26,19 +26,30 @@ func get_tier_stats() -> Dictionary:
 func poison_skin_bt_on_attack(event: Event):
 	var poisonskin_buff: Buff = event.get_buff()
 
-	var caster: Tower = poisonskin_buff.get_caster()
-	var caster_level: int = caster.get_level()
+	var skink: Tower = poisonskin_buff.get_caster()
+	var level: int = skink.get_level()
 	var buffed_tower: Tower = poisonskin_buff.get_buffed_unit()
 	var target: Unit = event.get_target()
-	var poison_buff: Buff = target.get_buff_of_type(poison_bt)
-	var dmg: float = (_stats.dmg + _stats.dmg_add * caster_level) * buffed_tower.get_current_attack_speed() / (buffed_tower.get_range() / 800.0)
 
-	if poison_buff != null:
-		poison_buff.refresh_duration()
-		poison_buff.user_real += dmg
-	else:
-		poison_buff = poison_bt.apply(caster, target, caster_level)
-		poison_buff.user_real = dmg
+	var active_buff: Buff = target.get_buff_of_type(poison_bt)
+
+	var active_stacks: int = 0
+	var active_damage: float = 0
+	if active_buff != null:
+		active_stacks = active_buff.user_int
+		active_damage = active_buff.user_real
+
+	var new_stacks: int = active_stacks + 1
+	var attack_speed_and_range_adjustment: float = buffed_tower.get_current_attack_speed() / (buffed_tower.get_range() / 800.0)
+	var added_damage: float = (_stats.dmg + _stats.dmg_add * level) * attack_speed_and_range_adjustment
+	var new_damage: float = active_damage + added_damage
+
+#	NOTE: weaker tier tower increases buff effect without
+#	refreshing duration
+	active_buff = poison_bt.apply(skink, target, 1)
+	active_buff.user_int = new_stacks
+	active_buff.set_displayed_stacks(new_stacks)
+	active_buff.user_real = new_damage
 
 
 func poison_bt_periodic(event: Event):

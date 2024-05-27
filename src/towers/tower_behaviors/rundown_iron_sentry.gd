@@ -115,7 +115,7 @@ func on_unit_in_range(event: Event):
 
 	if tower.calc_chance(_stats.armor_shred_chance):
 		var trespasser_buff: Buff = trespasser_bt.apply(tower, creep, buff_level)
-		trespasser_buff.set_displayed_stacks(buff_level)
+		trespasser_buff.set_displayed_stacks(trespasser_buff.get_level())
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_damage_value)
 

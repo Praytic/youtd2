@@ -1,8 +1,16 @@
 extends TowerBehavior
 
-# NOTE: in original an EventTypeList is used to add
+
+# NOTE: in original script an EventTypeList is used to add
 # "on_damage" event handler. Changed script to add handler
 # directly to tower.
+
+# NOTE: removed mechanic of Poison getting replaced when a
+# tower with higher "spell damage dealt" applies it. It's
+# not good because a lower tier Spider could randomly get a
+# big boost to "spell damage dealt" from some ability or
+# item, which would incorrectly replace the more powerful
+# Poison.
 
 
 var poison_bt: BuffType
@@ -27,7 +35,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Poisonous Spittle"
 	ability.icon = "res://resources/icons/misc/poison_01.tres"
 	ability.description_short = "Infects hit creeps, dealing spell damage over time.\n"
-	ability.description_full = "Infects hit creeps, dealing %s spell damage per second for 5 seconds. Further attacks on the same creep will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a creep will be used.\n" % damage \
+	ability.description_full = "Infects hit creeps, dealing %s spell damage per second for 5 seconds. Further attacks on the same creep will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks.\n" % damage \
+	+ " \n" \
+	+ "If there are multiple towers of this family, then [color=GOLD]Poisonous Spittle[/color] damage at 5 stacks will be equal to damage of the most powerful tower.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s damage per second\n" % damage_add \
@@ -45,53 +55,45 @@ func load_specials(modifier: Modifier):
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(hit)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 # NOTE: D1000_Spider_Damage() in original script
 func poison_bt_periodic(event: Event):
-	var b: Buff = event.get_buff()
+	var buff: Buff = event.get_buff()
+	var target: Unit = buff.get_buffed_unit()
+	var poison_damage: float = buff.user_real
+	
+	tower.do_spell_damage(target, poison_damage, tower.calc_spell_crit_no_bonus())
 
-	var caster: Unit = b.get_caster()
-	caster.do_spell_damage(b.get_buffed_unit(), b.user_real, caster.calc_spell_crit_no_bonus())
 
-
-func hit(event: Event):
+func on_damage(event: Event):
 	var target: Unit = event.get_target()
-	var b: Buff = target.get_buff_of_type(poison_bt)
 	var level: int = tower.get_level()
-	var add_dam: float = tower.user_int + tower.user_real * level
-	var max_dam: float = tower.user_int2 + tower.user_real2 * level + add_dam * (int(float(level) / 5))
-	var add_dam_original: float = add_dam
 
-	if b == null:
-		b = poison_bt.apply(tower, target, level)
-		b.user_real = add_dam
-		b.user_real2 = max_dam
-		b.user_real3 = tower.get_prop_spell_damage_dealt()
-	else:
-		if b.user_real2 >= max_dam:
-			max_dam = b.user_real2
+	var active_buff: Buff = target.get_buff_of_type(poison_bt)
+	
+	var active_stacks: int = 0
+	var active_damage: float = 0
+	var active_damage_cap: float = 0
+	if active_buff != null:
+		active_stacks = active_buff.user_int
+		active_damage = active_buff.user_real
+		active_damage_cap = active_buff.user_real2
 
-		if b.user_real + add_dam >= max_dam:
-			add_dam = max_dam
-		else:
-			add_dam = b.user_real + add_dam
+	var new_stacks: int = min(active_stacks + 1, 5)
+	var added_damage: float = _stats.damage + _stats.damage_add * level
+	var this_damage_cap: float = _stats.max_damage + _stats.max_damage_add * level
+	var new_damage_cap: float = max(active_damage_cap, this_damage_cap)
+	var new_damage: float = min(active_damage + added_damage, new_damage_cap)
 
-		if b.user_real3 < tower.get_prop_spell_damage_dealt():
-			b.remove_buff()
-			b = poison_bt.apply(tower, target, level)
-			b.user_real3 = tower.get_prop_spell_damage_dealt()
-		else:
-			b.set_remaining_duration(tower.user_int3 + tower.user_real3 * level)
-
-		b.user_real = add_dam
-		b.user_real2 = max_dam
-
-	b = target.get_buff_of_type(poison_bt)
-	if b != null:
-		var stack_count: int = roundi(Utils.divide_safe(b.user_real, add_dam_original))
-		b.set_displayed_stacks(stack_count)
+#	NOTE: weaker tier tower increases damage without
+#	refreshing duration
+	active_buff = poison_bt.apply(tower, target, 1)
+	active_buff.user_int = new_stacks
+	active_buff.set_displayed_stacks(new_stacks)
+	active_buff.user_real = new_damage
+	active_buff.user_real2 = new_damage_cap
 
 
 func tower_init():
@@ -99,12 +101,3 @@ func tower_init():
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 	poison_bt.set_buff_tooltip("Poisonous Spittle\nDeals damage over time.")
-
-
-func on_create(_preceding_tower: Tower):
-	tower.user_int = _stats.damage
-	tower.user_real = _stats.damage_add
-	tower.user_int2 = _stats.max_damage
-	tower.user_real2 = _stats.max_damage_add
-	tower.user_int3 = 5
-	tower.user_real3 = 0.05
