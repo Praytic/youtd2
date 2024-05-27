@@ -11,6 +11,7 @@ const SCALE_MAX: float = 1.0
 
 var stun_bt: BuffType
 var morale_bt: BuffType
+var grow_bt: BuffType
 var rock_pt: ProjectileType
 var multiboard: MultiboardValues
 var grow_count: int = 0
@@ -74,18 +75,27 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
 	morale_bt = BuffType.new("morale_bt", 10, 0, true, self)
-	morale_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
+	morale_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.10, 0.004)
 	morale_bt.set_buff_modifier(mod)
 
+	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
+	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
+	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
+
 	rock_pt = ProjectileType.create("AncientProtectorMissile.mdl", 4, 700, self)
 	rock_pt.enable_homing(rock_pt_on_hit, 0)
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Number of Grows")
+
+
+func on_create(_preceding: Tower):
+	var grow_buff: Buff = grow_bt.apply_to_unit_permanent(tower, tower, 0)
+	grow_buff.set_displayed_stacks(grow_count)
 
 
 func on_attack(event: Event):
@@ -158,6 +168,9 @@ func periodic(_event: Event):
 	tower.add_exp(4)
 
 	grow_count += 1
+
+	var grow_buff: Buff = tower.get_buff_of_type(grow_bt)
+	grow_buff.set_displayed_stacks(grow_count)
 
 	var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, grow_count, 160)
 	tower.set_unit_scale(tower_scale)

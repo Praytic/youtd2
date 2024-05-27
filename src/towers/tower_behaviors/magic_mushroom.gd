@@ -14,6 +14,7 @@ const SCALE_MAX: float = 1.2
 
 var trance_bt: BuffType
 var fungus_bt: BuffType
+var grow_bt: BuffType
 var multiboard: MultiboardValues
 var growth_count: int = 0
 var spell_damage_from_growth: float = 0.0
@@ -70,9 +71,18 @@ func tower_init():
 	trance_bt.set_buff_icon("res://resources/icons/generic_icons/beard.tres")
 	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
 
+	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
+	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
+	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
+
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Growths")
 	multiboard.set_key(1, "Spell Damage")
+
+
+func on_create(_preceding: Tower):
+	var grow_buff: Buff = grow_bt.apply_to_unit_permanent(tower, tower, 0)
+	grow_buff.set_displayed_stacks(growth_count)
 
 
 func create_autocasts() -> Array[Autocast]:
@@ -167,6 +177,9 @@ func periodic(event: Event):
 	Effect.set_lifetime(target_effect, 1.0)
 
 	growth_count += 1
+
+	var grow_buff: Buff = tower.get_buff_of_type(grow_bt)
+	grow_buff.set_displayed_stacks(growth_count)
 
 	var tower_scale: float = Utils.get_scale_from_grows(SCALE_MIN, SCALE_MAX, growth_count, 40)
 	tower.set_unit_scale(tower_scale)
