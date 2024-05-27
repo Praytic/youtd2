@@ -30,14 +30,14 @@ static func execute(action: Dictionary, player: Player):
 		
 		return
 
+	var item_src_index: int = src_item_container.get_item_index(item_src)
+	var item_dest_index: int = dest_item_container.get_item_index(item_dest)
+
 	var swapping_items_in_same_container: bool = src_item_container == dest_item_container
 	if swapping_items_in_same_container:
 #		NOTE: do extra work for the case where items are
 #		swapped in same container, to ensure that their
 #		indexes are swapped
-		var item_src_index: int = dest_item_container.get_item_index(item_src)
-		var item_dest_index: int = dest_item_container.get_item_index(item_dest)
-
 # 		NOTE: must remove both items first to avoid errors about
 # 		capacity
 		src_item_container.remove_item(item_src)
@@ -56,8 +56,8 @@ static func execute(action: Dictionary, player: Player):
 # 		capacity
 		src_item_container.remove_item(item_src)
 		dest_item_container.remove_item(item_dest)
-		dest_item_container.add_item(item_src)
-		src_item_container.add_item(item_dest)
+		dest_item_container.add_item(item_src, item_dest_index)
+		src_item_container.add_item(item_dest, item_src_index)
 
 
 # NOTE: don't need to check for capacity because swapping
