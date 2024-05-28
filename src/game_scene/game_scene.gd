@@ -59,10 +59,9 @@ func _ready():
 	EventBus.player_requested_return_from_horadric_cube.connect(_on_player_requested_return_from_horadric_cube)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 	EventBus.player_right_clicked_autocast.connect(_on_player_right_clicked_autocast)
-	EventBus.player_right_clicked_item_in_tower_inventory.connect(_on_player_right_clicked_item_in_tower_inventory)
-	EventBus.player_shift_right_clicked_item_in_tower_inventory.connect(_on_player_shift_right_clicked_item_in_tower_inventory)
+	EventBus.player_right_clicked_item.connect(_on_player_right_clicked_item)
+	EventBus.player_shift_right_clicked_item.connect(_on_player_shift_right_clicked_item)
 	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
-	EventBus.player_right_clicked_item_in_item_stash.connect(_on_player_right_clicked_item_in_item_stash)
 	
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 
@@ -757,26 +756,24 @@ func _on_player_right_clicked_autocast(autocast: Autocast):
 	_toggle_autocast(autocast)
 
 
-func _on_player_right_clicked_item_in_tower_inventory(item: Item):
+func _on_player_right_clicked_item(item: Item):
 	if !item.belongs_to_local_player():
 		return
-	
-	var autocast: Autocast = item.get_autocast()
 
-	if autocast != null:
+	var clicked_on_consumable: bool = item.is_consumable()
+	var autocast: Autocast = item.get_autocast()
+	var carrier: Unit = item.get_carrier()
+	var clicked_on_item_with_autocast: bool = autocast != null && carrier != null
+
+	if clicked_on_consumable:
+		var item_uid: int = item.get_uid()
+		var action: Action = ActionConsumeItem.make(item_uid)
+		_game_client.add_action(action)
+	elif clicked_on_item_with_autocast:
 		_on_player_clicked_autocast(autocast)
 
 
-func _on_player_right_clicked_item_in_item_stash(item: Item):
-	if !item.is_consumable():
-		return
-
-	var item_uid: int = item.get_uid()
-	var action: Action = ActionConsumeItem.make(item_uid)
-	_game_client.add_action(action)
-
-
-func _on_player_shift_right_clicked_item_in_tower_inventory(item: Item):
+func _on_player_shift_right_clicked_item(item: Item):
 	if !item.belongs_to_local_player():
 		return
 

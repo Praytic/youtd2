@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://beu73m131qhyk"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_663hy"]
+[ext_resource type="Script" path="res://src/hud/unit_menu/item_container_panel.gd" id="2_uxpon"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="3_6p1q1"]
+
+[node name="ItemContainerPanel" type="MarginContainer" node_paths=PackedStringArray("_background_grid", "_foreground_grid")]
+theme = ExtResource("1_663hy")
+script = ExtResource("2_uxpon")
+_background_grid = NodePath("BackgroundGrid")
+_foreground_grid = NodePath("ForegroundGrid")
+
+[node name="BackgroundGrid" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 3
+
+[node name="EmptyUnitButton" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+
+[node name="ForegroundGrid" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 3

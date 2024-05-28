@@ -9,7 +9,8 @@ class_name ItemStashMenu extends PanelContainer
 @export var _item_buttons_container: UnitButtonsContainer
 
 @export var _backpacker_recipes: GridContainer
-@export var _horadric_menu: HoradricMenu
+@export var _horadric_item_container_panel: ItemContainerPanel
+@export var _transmute_button: Button
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -33,6 +34,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func connect_to_local_player(local_player: Player):
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	_horadric_item_container_panel.set_item_container(horadric_stash)
+	
+	horadric_stash.items_changed.connect(_on_horadric_stash_items_changed)
+
 
 # NOTE: need to update buttons selectively to minimuze the
 # amount of times buttons are created/destroyed and avoid
@@ -73,10 +81,6 @@ func set_items(item_list: Array[Item]):
 	
 	_load_current_filter()
 	_update_autofill_buttons()
-
-
-func set_items_for_horadric_cube(item_list: Array[Item]):
-	_horadric_menu.set_items(item_list)
 
 
 #########################
@@ -157,7 +161,10 @@ func _on_item_buttons_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		EventBus.player_clicked_main_stash.emit()
+		var local_player: Player = PlayerManager.get_local_player()
+		var item_stash: ItemContainer = local_player.get_item_stash()
+		var clicked_index: int = -1
+		EventBus.player_clicked_in_item_container.emit(item_stash, clicked_index)
 
 
 func _on_transmute_button_pressed():
@@ -166,12 +173,15 @@ func _on_transmute_button_pressed():
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	EventBus.player_clicked_item_in_main_stash.emit(item)
+	var local_player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var item_index: int = item_stash.get_item_index(item)
+	EventBus.player_clicked_in_item_container.emit(item_stash, item_index)
 
 
 func _on_item_button_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	EventBus.player_right_clicked_item_in_item_stash.emit(item)
+	EventBus.player_right_clicked_item.emit(item)
 
 
 func _on_item_button_ctrl_right_clicked(item_button: ItemButton):
@@ -211,3 +221,13 @@ func _on_item_horadric_lock_changed():
 
 func _on_return_button_pressed():
 	EventBus.player_requested_return_from_horadric_cube.emit()
+
+
+func _on_horadric_stash_items_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var item_list: Array[Item] = horadric_stash.get_item_list()
+	
+	var can_transmute: bool = HoradricCube.can_transmute(item_list)
+	_transmute_button.set_disabled(!can_transmute)
+

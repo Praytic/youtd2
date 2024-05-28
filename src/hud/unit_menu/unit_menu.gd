@@ -18,8 +18,6 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _reset_sell_button_timer: Timer
 @export var _upgrade_button: Button
 @export var _sell_button: Button
-@export var _inventory_background_grid: GridContainer
-@export var _inventory_item_grid: GridContainer
 @export var _buff_container: BuffContainer
 @export var _ability_grid: GridContainer
 @export var _exp_bar: ProgressBarWithLabel
@@ -27,7 +25,8 @@ const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 @export var _mana_bar: ProgressBarWithLabel
 @export var _tower_mini_details: TowerMiniDetails
 @export var _creep_mini_details: CreepMiniDetails
-@export var _inventory_panel: PanelContainer
+@export var _tower_inventory_panel: ItemContainerPanel
+@export var _tower_inventory_outer_panel: PanelContainer
 @export var _buff_group_editor: BuffGroupEditor
 
 var _selling_for_real: bool = false
@@ -42,7 +41,7 @@ var _creep: Creep = null
 	_sell_button,
 	_buff_group_editor,
 	_tower_mini_details,
-	_inventory_panel,
+	_tower_inventory_outer_panel,
 ]
 
 @onready var _visible_controls_for_creep: Array[Control] = [
@@ -123,7 +122,6 @@ func set_unit(unit: Unit):
 		if prev_unit is Tower:
 			var prev_tower: Tower = prev_unit as Tower
 			prev_tower.level_up.disconnect(_on_tower_level_up)
-			prev_tower.items_changed.disconnect(_on_tower_items_changed)
 	
 #	NOTE: need to setup visibility before calling _load_tower() because it can further hide some controls conditionally.
 	for control in _visible_controls_for_tower:
@@ -132,13 +130,16 @@ func set_unit(unit: Unit):
 	for control in _visible_controls_for_creep:
 		control.visible = unit is Creep
 	
-#	Clear elements from previous unit
-	_clear_item_buttons()
-
 	var prev_ability_list: Array = _ability_grid.get_children()
 	for button in prev_ability_list:
 		_ability_grid.remove_child(button)
 		button.queue_free()
+	
+	if unit != null && unit is Tower:
+		var tower_item_container: ItemContainer = _tower.get_item_container()
+		_tower_inventory_panel.set_item_container(tower_item_container)
+	else:
+		_tower_inventory_panel.set_item_container(null)
 	
 	if unit != null:
 		_load_unit()
@@ -153,13 +154,6 @@ func set_unit(unit: Unit):
 ###      Private      ###
 #########################
 
-func _clear_item_buttons():
-	var button_list: Array[Node] = _inventory_item_grid.get_children()
-	for button in button_list:
-		_inventory_item_grid.remove_child(button)
-		button.queue_free()
-
-
 # Setup stuff that is generic for all unit types
 func _load_unit():
 	_unit.buff_list_changed.connect(_on_buff_list_changed)
@@ -171,9 +165,6 @@ func _load_unit():
 
 
 func _load_tower():
-	_tower.items_changed.connect(_on_tower_items_changed)
-	_update_inventory()
-
 	_tower.level_up.connect(_on_tower_level_up)
 	_update_level_label()
 
@@ -340,80 +331,9 @@ func _set_ability_range_visible(button: AbilityButton, value: bool):
 	var ability_name: String = button.get_ability_name()
 	_tower.set_range_indicator_visible(ability_name, value)
 
-
-func _update_inventory():
-	_clear_item_buttons()
-
-	if _tower == null:
-		return
-	
-	var inventory_capacity: int = _tower.get_inventory_capacity()
-	var item_container: ItemContainer = _tower.get_item_container()
-
-	for index in range(0, inventory_capacity):
-		var item: Item = item_container.get_item_at_index(index)
-		var slot_has_item: bool = item != null
-
-		if slot_has_item:
-			var item_button: ItemButton = ItemButton.make(item)
-			item_button.show_cooldown_indicator()
-			item_button.show_auto_mode_indicator()
-			item_button.show_charges()
-			item_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
-			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-			item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
-			item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
-		
-			_inventory_item_grid.add_child(item_button)
-		else:
-			var slot_button: Button = Preloads.inventory_slot_button_scene.instantiate()
-			slot_button.pressed.connect(_on_slot_button_pressed.bind(slot_button))
-			_inventory_item_grid.add_child(slot_button)
-	
-#	Update color of background cells based on capacity
-	var background_cell_list: Array[Node] = _inventory_background_grid.get_children()
-	for i in range(0, background_cell_list.size()):
-		var background_cell: Control = background_cell_list[i] as Control
-		var within_capacity: bool = i < inventory_capacity
-	
-		var background_color: Color
-		if within_capacity:
-			background_color = Color.WHITE
-		else:
-			background_color = Color.WHITE.darkened(0.6)
-		background_cell.modulate = background_color
-
-
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_tower_items_changed():
-	_update_inventory()
-
-
-func _on_generic_inventory_button_pressed(button: Button):
-	var clicked_index: int = button.get_index()
-	EventBus.player_clicked_in_tower_inventory.emit(_tower, clicked_index)
-
-
-func _on_item_button_pressed(item_button: ItemButton):
-	_on_generic_inventory_button_pressed(item_button)
-
-
-func _on_slot_button_pressed(button: Button):
-	_on_generic_inventory_button_pressed(button)
-
-
-func _on_item_button_right_clicked(item_button: ItemButton):
-	var item: Item = item_button.get_item()
-	EventBus.player_right_clicked_item_in_tower_inventory.emit(item)
-
-
-func _on_item_button_shift_right_clicked(item_button: ItemButton):
-	var item: Item = item_button.get_item()
-	EventBus.player_shift_right_clicked_item_in_tower_inventory.emit(item)
-
 
 func _on_upgrade_button_pressed():
 	EventBus.player_requested_to_upgrade_tower.emit(_tower)

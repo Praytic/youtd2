@@ -14,11 +14,6 @@ var _buff_display_list: Array[BuffDisplay] = []
 func _ready():
 	var child_node_list: Array[Node] = get_children()
 	
-	if child_node_list.is_empty():
-		push_error("BuffContainer has no BuffDisplay children, add some or buffs won't display!")
-		
-		return
-	
 	for child_node in child_node_list:
 		if !child_node is BuffDisplay:
 			push_error("BuffContainer must have BuffDisplay children.")

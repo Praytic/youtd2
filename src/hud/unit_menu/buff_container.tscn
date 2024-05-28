@@ -1,6 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://7hnklay7gedu"]
+[gd_scene load_steps=3 format=3 uid="uid://7hnklay7gedu"]
 
 [ext_resource type="Script" path="res://src/hud/unit_menu/buff_container.gd" id="1_5eut6"]
+[ext_resource type="PackedScene" uid="uid://d4mgo5v7j01kj" path="res://src/hud/unit_menu/buff_display.tscn" id="2_nldtx"]
 
 [node name="BuffContainer" type="GridContainer"]
+offset_right = 516.0
+offset_bottom = 48.0
+columns = 10
 script = ExtResource("1_5eut6")
+
+[node name="BuffDisplay" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay2" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay3" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay4" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay5" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay6" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay7" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay8" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay9" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay10" parent="." instance=ExtResource("2_nldtx")]
+layout_mode = 2

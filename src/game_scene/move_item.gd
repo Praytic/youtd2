@@ -23,11 +23,7 @@ var _moved_item: Item = null
 #########################
 
 func _ready():
-	EventBus.player_clicked_in_tower_inventory.connect(_on_player_clicked_in_tower_inventory)
-	EventBus.player_clicked_item_in_main_stash.connect(_on_player_clicked_item_in_main_stash)
-	EventBus.player_clicked_item_in_horadric_stash.connect(_on_player_clicked_item_in_horadric_stash)
-	EventBus.player_clicked_main_stash.connect(_on_player_clicked_main_stash)
-	EventBus.player_clicked_horadric_stash.connect(_on_player_clicked_horadric_stash)
+	EventBus.player_clicked_in_item_container.connect(_on_player_clicked_in_item_container)
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 
 
@@ -142,8 +138,11 @@ func _move_in_progress() -> bool:
 # 1. If no item is currently being moved, then we start
 #    moving the clicked item.
 # 
-# 2. If an item is currently being moved, then we stop moving the old
-#    item and start moving the clicked item.
+# 2. If an item is currently being moved, then we stop
+#    moving the old item and start moving the clicked item.
+# 
+# 3. If player shift clicked, item is instantly moved from
+#    current stash to item stash.
 func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item: Item):
 	if !_can_start_moving():
 		return
@@ -161,6 +160,17 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 		if success:
 			_end_move_process()
 			get_viewport().set_input_as_handled()
+
+		return
+
+	var shift_click: bool = Input.is_action_pressed("shift")
+	var player: Player = clicked_item.get_player()
+	var item_stash: ItemContainer = player.get_item_stash()
+	var item_is_in_item_stash: bool = container == item_stash
+	var instantly_move_item_to_item_stash: bool = shift_click && !item_is_in_item_stash
+
+	if instantly_move_item_to_item_stash:
+		_add_move_action(clicked_item, container, item_stash)
 
 		return
 
@@ -262,61 +272,13 @@ func _can_start_moving() -> bool:
 ###     Callbacks     ###
 #########################
 
-func _on_player_clicked_in_tower_inventory(tower: Tower, clicked_index: int):
-	if !tower.belongs_to_local_player():
-		return
-	
-	var container: ItemContainer = tower.get_item_container()
-	var clicked_item: Item = container.get_item_at_index(clicked_index)
-	var shift_click: bool = Input.is_action_pressed("shift")
-	var shift_click_to_move_from_tower_to_stash: bool = shift_click && clicked_item != null && !_move_in_progress()
-
-	if shift_click_to_move_from_tower_to_stash:
-		var local_item_stash: ItemContainer = _get_local_item_stash()
-		var tower_container: ItemContainer = tower.get_item_container()
-		_add_move_action(clicked_item, tower_container, local_item_stash)
-
-		return
+func _on_player_clicked_in_item_container(item_container: ItemContainer, clicked_index: int):
+	var clicked_item: Item = item_container.get_item_at_index(clicked_index)
 	
 	if clicked_item != null:
-		_item_was_clicked_in_item_container(container, clicked_item)
+		_item_was_clicked_in_item_container(item_container, clicked_item)
 	else:
-		_item_container_was_clicked(container, clicked_index)
-
-
-func _on_player_clicked_item_in_main_stash(clicked_item: Item):
-	if !clicked_item.belongs_to_local_player():
-		return
-
-	var shift_click: bool = Input.is_action_pressed("shift")
-
-	var local_item_stash: ItemContainer = _get_local_item_stash()
-	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
-
-	if shift_click && !_move_in_progress():
-		var success: bool = _add_move_action(clicked_item, local_item_stash, local_horadric_stash)
-
-#		NOTE: this is needed to prevent the click getting
-#		passed to SelectUnit which closes the tower menu
-		if success:
-			get_viewport().set_input_as_handled()
-	else:
-		_item_was_clicked_in_item_container(local_item_stash, clicked_item)
-
-
-func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
-	if !clicked_item.belongs_to_local_player():
-		return
-
-	var shift_click: bool = Input.is_action_pressed("shift")
-	
-	var local_item_stash: ItemContainer = _get_local_item_stash()
-	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
-	
-	if shift_click:
-		_add_move_action(clicked_item, local_horadric_stash, local_item_stash)
-	else:
-		_item_was_clicked_in_item_container(local_horadric_stash, clicked_item)
+		_item_container_was_clicked(item_container, clicked_index)
 
 
 # NOTE: add item to item stash at position 0 so that if
@@ -327,11 +289,6 @@ func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
 func _on_player_clicked_main_stash():
 	var local_item_stash: ItemContainer = _get_local_item_stash()
 	_item_container_was_clicked(local_item_stash)
-
-
-func _on_player_clicked_horadric_stash():
-	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
-	_item_container_was_clicked(local_horadric_stash)
 
 
 func _on_item_flew_to_item_stash(item: Item):

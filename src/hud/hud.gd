@@ -134,11 +134,10 @@ func hide_roll_towers_button():
 
 
 func connect_to_local_player(local_player: Player):
+	_item_stash_menu.connect_to_local_player(local_player)
+
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	item_stash.items_changed.connect(_on_local_player_item_stash_changed)
-
-	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	horadric_stash.items_changed.connect(_on_local_player_horadric_stash_changed)
 
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	tower_stash.changed.connect(_on_local_player_tower_stash_changed)
@@ -189,14 +188,6 @@ func _on_local_player_item_stash_changed():
 	
 	_item_stash_menu.set_items(item_list)
 	_items_menu_card.set_items(item_list)
-
-
-func _on_local_player_horadric_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	var item_list: Array[Item] = horadric_stash.get_item_list()
-	
-	_item_stash_menu.set_items_for_horadric_cube(item_list)
 
 
 func _on_local_player_tower_stash_changed():
