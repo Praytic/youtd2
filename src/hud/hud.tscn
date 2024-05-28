@@ -3,15 +3,15 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://assets/hud/darkness_face.png" id="4_nuyc0"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://assets/hud/tranquility_face.png" id="5_0wwxe"]
-[ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://src/hud/top_menu_bar/top_menu_bar.tscn" id="6"]
-[ext_resource type="PackedScene" uid="uid://co5pnbtulrmps" path="res://src/hud/element_status_card.tscn" id="8_b1gwh"]
-[ext_resource type="PackedScene" uid="uid://bx03slt7u3oce" path="res://src/hud/towers_status_card.tscn" id="8_ts7ak"]
-[ext_resource type="PackedScene" uid="uid://dj7llpr0oenw7" path="res://src/hud/items_status_card.tscn" id="9_16kcd"]
+[ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
+[ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/hud/top_left_menu.tscn" id="10_agdn3"]
+[ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://resources/icons/hud/research_elements.tres" id="10_ylm6g"]
 [ext_resource type="Script" path="res://src/hud/hud.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://src/hud/item_stash_menu/item_stash_menu.tscn" id="11_5i6a2"]
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://resources/ui_textures/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://src/hud/button_tooltip.tscn" id="11_ka7k1"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://resources/icons/hud/item_stash.tres" id="12_vixmf"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/combat_log_window.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/hud/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/hud/player_resource_display.tscn" id="15_ir4hq"]
@@ -49,7 +49,7 @@ unicode = 51
 [sub_resource type="Shortcut" id="Shortcut_uebri"]
 events = [SubResource("InputEventKey_26jvu")]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_elements_menu_card", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,10 +66,9 @@ _game_over_label = NodePath("GameOverLabel")
 _elements_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu")
 _tower_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu")
 _item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu")
-_towers_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard")
-_items_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard")
-_elements_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ElementStatusCard")
-_top_left_menu = NodePath("MarginContainer/All/Center/CenterLeft/VBoxContainer/TopLeftMenu")
+_tower_stash_button = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/TowerStashButton")
+_item_stash_button = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ItemStashButton")
+_top_left_menu = NodePath("MarginContainer/All/Center/TopLeftMenu")
 _unit_menu = NodePath("MarginContainer/VBoxContainer2/UnitMenu")
 _host_player_label = NodePath("MarginContainer/All/Top/HBoxContainer/PlayerLabel1")
 _second_player_label = NodePath("MarginContainer/All/Top/HBoxContainer2/PlayerLabel2")
@@ -192,61 +191,45 @@ middle_mouse_paste_enabled = false
 selecting_enabled = false
 caret_blink = true
 
-[node name="CenterLeft" type="VBoxContainer" parent="MarginContainer/All/Center"]
+[node name="TopLeftMenu" parent="MarginContainer/All/Center" instance=ExtResource("10_agdn3")]
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 1000.0
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 50
+offset_right = 730.0
+offset_bottom = 388.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="TopLeftMenu" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("10_agdn3")]
-layout_mode = 2
-
-[node name="TopMenuBar" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("6")]
-visible = false
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="MenuCardsContainer" type="Panel" parent="MarginContainer/All/Center"]
-custom_minimum_size = Vector2(80, 2.08165e-12)
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -81.0
-offset_right = -1.0
+offset_left = -100.0
+offset_bottom = 308.0
 grow_horizontal = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 2
+theme_override_constants/margin_top = 80
 
-[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/MenuCardsContainer"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = -131.0
-offset_top = 66.0
-offset_right = 36.0
-offset_bottom = 279.0
-grow_horizontal = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer2"]
+layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 10
+size_flags_vertical = 0
 
-[node name="ElementStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("8_b1gwh")]
+[node name="ElementsMenuButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
+tooltip_text = "Open Elements Menu"
+button_group = ExtResource("7_8m5sl")
+icon = ExtResource("10_ylm6g")
+_menu = NodePath("../../../MarginContainer/HBoxContainer/ElementsMenu")
 
-[node name="TowersStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("8_ts7ak")]
-unique_name_in_owner = true
+[node name="TowerStashButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
+tooltip_text = "Open Tower Stash"
+button_group = ExtResource("7_8m5sl")
+_menu = NodePath("../../../MarginContainer/HBoxContainer/TowerStashMenu")
 
-[node name="ItemsStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("9_16kcd")]
-unique_name_in_owner = true
+[node name="ItemStashButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
+tooltip_text = "Open Item Stash"
+button_group = ExtResource("7_8m5sl")
+icon = ExtResource("12_vixmf")
+_menu = NodePath("../../../MarginContainer/HBoxContainer/ItemStashMenu")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
@@ -256,6 +239,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 110
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center/MarginContainer"]
@@ -458,12 +442,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
 text = "placeholder"
 
-[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ElementStatusCard" to="." method="_on_element_status_card_main_button_toggled"]
-[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard" to="." method="_on_towers_status_card_main_button_toggled"]
-[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="." method="_on_items_status_card_main_button_toggled"]
-[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
-[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu" to="." method="_on_tower_stash_menu_hidden"]
-[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu" to="." method="_on_elements_menu_hidden"]
 [connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedNormal" to="." method="_on_speed_normal_toggled"]
 [connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedFast" to="." method="_on_speed_fast_toggled"]
 [connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedFastest" to="." method="_on_speed_fastest_toggled"]

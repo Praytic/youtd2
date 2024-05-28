@@ -11,9 +11,8 @@ signal stop_wave()
 @export var _elements_menu: ElementsMenu
 @export var _tower_stash_menu: TowerStashMenu
 @export var _item_stash_menu: ItemStashMenu
-@export var _towers_menu_card: ButtonStatusCard
-@export var _items_menu_card: ButtonStatusCard
-@export var _elements_menu_card: ButtonStatusCard
+@export var _tower_stash_button: MenuExpandingButton
+@export var _item_stash_button: MenuExpandingButton
 @export var _top_left_menu: TopLeftMenu
 @export var _unit_menu: UnitMenu
 @export var _host_player_label: Label
@@ -128,8 +127,6 @@ func connect_to_local_player(local_player: Player):
 	_tower_stash_menu.connect_to_local_player(local_player)
 	_elements_menu.connect_to_local_player(local_player)
 	_top_left_menu.connect_to_local_player(local_player)
-	_items_menu_card.connect_to_local_player(local_player)
-	_towers_menu_card.connect_to_local_player(local_player)
 
 
 func set_game_start_timer(timer: ManualTimer):
@@ -159,14 +156,6 @@ func show_game_over():
 ###     Callbacks     ###
 #########################
 
-func _on_tower_stash_menu_hidden():
-	_towers_menu_card.collapse()
-
-
-func _on_item_stash_menu_hidden():
-	_items_menu_card.collapse()
-
-
 func _on_peer_connected(id):
 	_host_player_label.text = "Player ID: %s" % multiplayer.get_unique_id()
 	_second_player_label.text = "Player ID: %s" % id
@@ -189,7 +178,7 @@ func get_normal_message_container() -> VBoxContainer:
 
 
 func get_item_stash_button() -> Button:
-	return _items_menu_card.get_main_button()
+	return _item_stash_button
 
 
 func any_window_is_open() -> bool:
@@ -212,15 +201,10 @@ func _on_element_status_card_main_button_toggled(toggled_on):
 	_elements_menu.visible = toggled_on
 
 
-func _on_elements_menu_hidden():
-	_elements_menu_card.collapse()
-
-
 # Manually press status button for tower stash menu to
 # switch to tower stash menu after rolling towers.
 func _on_local_player_rolled_towers():
-	var tower_status_button: Button = _towers_menu_card.get_main_button()
-	tower_status_button.set_pressed(true)
+	_tower_stash_button.set_pressed(true)
 
 
 func _on_unit_menu_details_pressed():
