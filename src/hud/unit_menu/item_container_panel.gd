@@ -52,15 +52,18 @@ func _load_items():
 	
 	var inventory_capacity: int = _item_container.get_capacity()
 
+	var item_container_is_tower_inventory: bool = _item_container is TowerItemContainer
+
 	for index in range(0, inventory_capacity):
 		var item: Item = _item_container.get_item_at_index(index)
 		var slot_has_item: bool = item != null
 
 		if slot_has_item:
 			var item_button: ItemButton = ItemButton.make(item)
-			item_button.show_cooldown_indicator()
-			item_button.show_auto_mode_indicator()
-			item_button.show_charges()
+			if item_container_is_tower_inventory:
+				item_button.show_cooldown_indicator()
+				item_button.show_auto_mode_indicator()
+				item_button.show_charges()
 			item_button.set_tooltip_location(_button_tooltip_location)
 			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 			item_button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(item_button))
