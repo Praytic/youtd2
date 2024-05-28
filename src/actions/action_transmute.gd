@@ -12,7 +12,7 @@ static func make() -> Action:
 static func execute(_action: Dictionary, player: Player):
 	var horadric_stash: ItemContainer = player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
-	var current_recipe: HoradricCube.Recipe = HoradricCube.get_current_recipe(item_list)
+	var current_recipe: HoradricCube.Recipe = HoradricCube.get_current_recipe(player, item_list)
 	var can_transmute: bool = current_recipe != HoradricCube.Recipe.NONE
 	
 	if !can_transmute:

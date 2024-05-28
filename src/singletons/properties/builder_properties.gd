@@ -3,6 +3,7 @@ extends Node
 
 const PROPERTIES_PATH: String = "res://data/builder_properties.csv"
 const BUILDER_SCRIPT_DIR: String = "res://src/builders/instances"
+const BACKPACKER_BUILDER_ID: int = 19
 
 enum CsvProperty {
 	ID,
@@ -28,6 +29,11 @@ func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
 	_string_to_id_map = _make_string_to_id_map()
+
+#	Check BACKPACKER_BUILDER_ID
+	var backpacker_name: String = get_display_name(BACKPACKER_BUILDER_ID)
+	if !backpacker_name.contains("Backpacker"):
+		push_error("BACKPACKER_BUILDER_ID is incorrect.")
 
 #	Check script paths
 	var builder_id_list: Array = get_id_list()

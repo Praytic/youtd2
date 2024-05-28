@@ -45,8 +45,8 @@ static func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bo
 	return !get_item_list_for_autofill(recipe, item_list).is_empty()
 
 
-static func can_transmute(item_list: Array[Item]) -> bool:
-	var current_recipe: Recipe = HoradricCube.get_current_recipe(item_list)
+static func can_transmute(player: Player, item_list: Array[Item]) -> bool:
+	var current_recipe: Recipe = HoradricCube.get_current_recipe(player, item_list)
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
@@ -134,7 +134,7 @@ static func get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Arr
 # Returns recipe which matches the given item list. Do this
 # by getting an autofill list and checking if autofill list
 # is equal to input list.
-static func get_current_recipe(item_list: Array[Item]) -> Recipe:
+static func get_current_recipe(player: Player, item_list: Array[Item]) -> Recipe:
 	if item_list.is_empty():
 		return Recipe.NONE
 
@@ -142,7 +142,17 @@ static func get_current_recipe(item_list: Array[Item]) -> Recipe:
 
 	var recipe_list: Array = RecipeProperties.get_id_list()
 
+	var builder: Builder = player.get_builder()
+	var builder_id: int = builder.get_id()
+	var backpacked_builder_is_selected: bool = builder_id == BuilderProperties.BACKPACKER_BUILDER_ID
+
 	for recipe in recipe_list:
+		var recipe_unlocked_by_backpacker: bool = RecipeProperties.get_unlocked_by_backpacker(recipe)
+		var recipe_is_locked: bool = recipe_unlocked_by_backpacker && !backpacked_builder_is_selected
+
+		if recipe_is_locked:
+			continue
+
 		var autofill_item_list: Array[Item] = HoradricCube.get_item_list_for_autofill(recipe, item_list)
 		var autofill_id_list: Array[int] = Utils.item_list_to_item_id_list(autofill_item_list)
 

@@ -13,6 +13,7 @@ enum CsvProperty {
 	RARITY_CHANGE,
 	LVL_BONUS_MIN,
 	LVL_BONUS_MAX,
+	UNLOCKED_BY_BACKPACKER,
 	DESCRIPTION,
 }
 
@@ -97,6 +98,12 @@ func get_lvl_bonus_max(recipe: int) -> int:
 	var lvl_bonus_max: int = _get_property(recipe, CsvProperty.LVL_BONUS_MAX) as int
 
 	return lvl_bonus_max
+
+
+func get_unlocked_by_backpacker(recipe: int) -> bool:
+	var value: bool = _get_property(recipe, CsvProperty.UNLOCKED_BY_BACKPACKER) == "TRUE"
+
+	return value
 
 
 func get_description(recipe: int) -> String:

@@ -243,7 +243,7 @@ func _on_horadric_stash_items_changed():
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
 	
-	var can_transmute: bool = HoradricCube.can_transmute(item_list)
+	var can_transmute: bool = HoradricCube.can_transmute(local_player, item_list)
 	_transmute_button.set_disabled(!can_transmute)
 
 #	NOTE: need to update autofill buttons both after changes
