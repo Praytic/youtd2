@@ -245,3 +245,10 @@ func _on_horadric_stash_items_changed():
 	
 	var can_transmute: bool = HoradricCube.can_transmute(item_list)
 	_transmute_button.set_disabled(!can_transmute)
+
+#	NOTE: need to update autofill buttons both after changes
+#	in item stash and horadric stash. If an item is moved
+#	from item stash to horadric stash, then it will
+#	temporarily be unavailable during the move process, so
+#	updating only after item stash change is not enough.
+	_update_autofill_buttons()
