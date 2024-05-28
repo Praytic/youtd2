@@ -91,11 +91,11 @@ func tower_init():
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
-	var potion_duration: String = Utils.format_percent(POTION_DURATION, 0)
-	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 0)
-	var mod_movespeed_add: String = Utils.format_percent(MOD_MOVESPEED_ADD, 0)
-	var mod_item_chance: String = Utils.format_percent(_stats.mod_item_chance, 0)
-	var mod_item_chance_add: String = Utils.format_percent(MOD_ITEM_CHANCE_ADD, 0)
+	var potion_duration: String = Utils.format_float(POTION_DURATION, 2)
+	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
+	var mod_movespeed_add: String = Utils.format_percent(MOD_MOVESPEED_ADD, 2)
+	var mod_item_chance: String = Utils.format_percent(_stats.mod_item_chance, 2)
+	var mod_item_chance_add: String = Utils.format_percent(MOD_ITEM_CHANCE_ADD, 2)
 	
 	autocast.title = "Love Potion"
 	autocast.icon = "res://resources/icons/potions/potion_heart_02.tres"
