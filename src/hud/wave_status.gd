@@ -31,7 +31,9 @@ func _ready():
 
 #	NOTE: remove placeholder text, will be replaced by real
 #	text
-	show_wave_details([])
+	_show_wave_list([])
+
+	EventBus.first_wave_started.connect(_on_first_wave_started)
 
 
 func _process(_delta: float):
@@ -74,16 +76,29 @@ func _process(_delta: float):
 ###      Public       ###
 #########################
 
+func connect_to_local_player(local_player: Player):
+	var local_team: Team = local_player.get_team()
+	local_team.level_changed.connect(_on_wave_level_changed)
+	_on_wave_level_changed()
+
+	local_player.generated_waves.connect(_on_local_player_generated_waves)
+
+
 func set_game_start_timer(timer: ManualTimer):
 	_game_start_timer = timer
 
 
-func show_next_wave_button():
-	_start_game_button.hide()
-	_start_next_wave_button.show()
+#########################
+###      Private      ###
+#########################
+
+func _update_wave_details():
+	var local_player: Player = PlayerManager.get_local_player()
+	var wave_list: Array[Wave] = local_player.get_next_5_waves()
+	_show_wave_list(wave_list)
 
 
-func show_wave_details(wave_list: Array[Wave]):
+func _show_wave_list(wave_list: Array[Wave]):
 	_label.clear()
 	
 	var text: String = ""
@@ -115,10 +130,6 @@ func show_wave_details(wave_list: Array[Wave]):
 
 	_label.append_text(text)
 
-
-#########################
-###      Private      ###
-#########################
 
 func _get_specials_description(wave: Wave) -> String:
 	var special_list: Array[int] = wave.get_specials()
@@ -178,6 +189,19 @@ func _get_time_string(timer: ManualTimer) -> String:
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_local_player_generated_waves():
+	_update_wave_details()
+
+
+func _on_first_wave_started():
+	_start_game_button.hide()
+	_start_next_wave_button.show()
+
+
+func _on_wave_level_changed():
+	_update_wave_details()
+
 
 func _on_start_next_wave_button_pressed():
 	EventBus.player_requested_next_wave.emit()

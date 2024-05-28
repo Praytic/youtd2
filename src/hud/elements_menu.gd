@@ -27,6 +27,10 @@ class_name ElementsMenu extends PanelContainer
 #########################
 
 func _ready():
+	var game_mode_is_build: bool = Globals.get_game_mode() == GameMode.enm.BUILD
+	if game_mode_is_build:
+		_hide_roll_towers_button()
+
 	for element in _button_map.keys():
 		var button: UnitButton = _button_map[element]
 		button.always_show_count()
@@ -40,12 +44,40 @@ func _ready():
 ###       Public      ###
 #########################
 
-func hide_roll_towers_button():
+func connect_to_local_player(local_player: Player):
+	local_player.element_level_changed.connect(_on_element_level_changed)
+	_on_element_level_changed()
+
+	local_player.roll_was_disabled.connect(_on_local_player_roll_was_disabled)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _hide_roll_towers_button():
 	_roll_towers_button.hide()
 	_empty_unit_button_to_replace_roll_towers.show()
-	
 
-func update_element_level(element_levels: Dictionary):
+
+func _show_element_tooltip(button: Button, element: Element.enm):
+	var local_player: Player = PlayerManager.get_local_player()
+	var tooltip: String = RichTexts.get_research_text(element, local_player)
+	ButtonTooltip.show_tooltip(button, tooltip)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_local_player_roll_was_disabled():
+	_hide_roll_towers_button()
+
+
+func _on_element_level_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var element_levels: Dictionary = local_player.get_element_level_map()
+	
 	var current_tooltip_target: Button = ButtonTooltip.get_current_target()
 	
 	for element in element_levels.keys():
@@ -59,20 +91,6 @@ func update_element_level(element_levels: Dictionary):
 		if button == current_tooltip_target:
 			_show_element_tooltip(button, element)
 
-
-#########################
-###      Private      ###
-#########################
-
-func _show_element_tooltip(button: Button, element: Element.enm):
-	var local_player: Player = PlayerManager.get_local_player()
-	var tooltip: String = RichTexts.get_research_text(element, local_player)
-	ButtonTooltip.show_tooltip(button, tooltip)
-
-
-#########################
-###     Callbacks     ###
-#########################
 
 func _on_button_mouse_entered(button: Button, element: Element.enm):
 	_show_element_tooltip(button, element)

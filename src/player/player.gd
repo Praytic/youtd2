@@ -6,6 +6,7 @@ class_name Player extends Node
 
 signal wave_finished(level: int)
 signal element_level_changed(element: Element.enm)
+signal generated_waves()
 signal selected_builder()
 signal voted_ready()
 signal roll_was_disabled()
@@ -90,6 +91,7 @@ func is_ready() -> bool:
 
 func generate_waves():
 	_wave_spawner.generate_waves()
+	generated_waves.emit()
 
 
 func start_wave(level: int):

@@ -14,8 +14,37 @@ extends ButtonStatusCard
 ###       Public      ###
 #########################
 
-func set_towers(towers: Dictionary):
-	var tower_list: Array = towers.keys()
+func connect_to_local_player(local_player: Player):
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	tower_stash.changed.connect(_on_tower_stash_changed)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_towers_count(tower_list: Array, element: Element.enm) -> int:
+	var count: int = 0
+
+	for tower_id in tower_list:
+		var tower_element: Element.enm = TowerProperties.get_element(tower_id)
+		var element_match: bool = tower_element == element
+
+		if element_match:
+			count += 1
+
+	return count
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_tower_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	var tower_map: Dictionary = tower_stash.get_towers()
+	var tower_list: Array = tower_map.keys()
 
 	var fire_count: int = _get_towers_count(tower_list, Element.enm.FIRE)
 	var astral_count: int = _get_towers_count(tower_list, Element.enm.ASTRAL)
@@ -34,20 +63,3 @@ func set_towers(towers: Dictionary):
 	_iron_towers_status_panel.set_count(iron_count)
 	_storm_towers_status_panel.set_count(storm_count)
 	_darkness_towers_status_panel.set_count(darkness_count)
-
-
-#########################
-###      Private      ###
-#########################
-
-func _get_towers_count(tower_list: Array, element: Element.enm) -> int:
-	var count: int = 0
-
-	for tower_id in tower_list:
-		var tower_element: Element.enm = TowerProperties.get_element(tower_id)
-		var element_match: bool = tower_element == element
-
-		if element_match:
-			count += 1
-
-	return count

@@ -164,11 +164,6 @@ func _ready():
 	for player in player_list:
 		player.generate_waves()
 
-	_hud.update_wave_details()
-
-	if Globals.get_game_mode() == GameMode.enm.BUILD:
-		_hud.hide_roll_towers_button()
-	
 #	NOTE: in Build mode, use element filter for tower stash
 #	because in Build mode all towers are visible from the
 #	start and filtering by rarity would show too many
@@ -314,8 +309,11 @@ func _unhandled_input(event: InputEvent):
 func _start_game():
 	_game_start_timer.stop()
 	_hud.show_next_wave_button()
-	_hud.hide_roll_towers_button()
-	
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	for player in player_list:
+		player.disable_rolling()
+
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.start_first_wave()

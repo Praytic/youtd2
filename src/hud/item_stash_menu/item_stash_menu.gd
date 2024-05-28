@@ -41,46 +41,10 @@ func connect_to_local_player(local_player: Player):
 	
 	horadric_stash.items_changed.connect(_on_horadric_stash_items_changed)
 
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	item_stash.items_changed.connect(_on_item_stash_changed)
 
-# NOTE: need to update buttons selectively to minimuze the
-# amount of times buttons are created/destroyed and avoid
-# perfomance issues for large item counts. A simpler
-# approach would be to remove all buttons and then go
-# through the item list and add new buttons but that causes
-# perfomance issues.
-func set_items(item_list: Array[Item]):
-# 	Remove buttons for items which were removed from stash
-	var removed_button_list: Array[ItemButton] = []
-
-	for button in _item_button_list:
-		var item: Item = button.get_item()
-		var item_was_removed: bool = !item_list.has(item)
-
-		if item_was_removed:
-			removed_button_list.append(button)
-
-	for button in removed_button_list:
-		var item: Item = button.get_item()
-		item.horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
-
-		_item_buttons_container.remove_child(button)
-		button.queue_free()
-		_item_button_list.erase(button)
-
-# 	Add buttons for items which were added to stash
-#	NOTE: preserve the same order as in the stash
-	for i in range(0, item_list.size()):
-		var item: Item = item_list[i]
-		var item_was_added: bool = !_prev_item_list.has(item)
-
-		if item_was_added:
-			_add_item_button(item, i)
-			item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
-
-	_prev_item_list = item_list.duplicate()
-	
-	_load_current_filter()
-	_update_autofill_buttons()
+	local_player.selected_builder.connect(_on_local_player_selected_builder)
 
 
 #########################
@@ -157,6 +121,15 @@ func _get_visible_item_list() -> Array[Item]:
 ###     Callbacks     ###
 #########################
 
+func _on_local_player_selected_builder():
+	var local_player: Player = PlayerManager.get_local_player()
+	var builder: Builder = local_player.get_builder()
+	var builder_adds_extra_recipes: bool = builder.get_adds_extra_recipes()
+	
+	if builder_adds_extra_recipes:
+		_backpacker_recipes.show()
+
+
 func _on_item_buttons_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
@@ -194,10 +167,6 @@ func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):
 	EventBus.player_requested_autofill.emit(recipe, rarity_filter)
 
 
-func enable_extra_recipes():
-	_backpacker_recipes.show()
-
-
 func _on_close_button_pressed():
 	hide()
 
@@ -223,6 +192,51 @@ func _on_return_button_pressed():
 	EventBus.player_requested_return_from_horadric_cube.emit()
 
 
+# NOTE: need to update buttons selectively to minimuze the
+# amount of times buttons are created/destroyed and avoid
+# perfomance issues for large item counts. A simpler
+# approach would be to remove all buttons and then go
+# through the item list and add new buttons but that causes
+# perfomance issues.
+func _on_item_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var item_list: Array[Item] = item_stash.get_item_list()
+	
+# 	Remove buttons for items which were removed from stash
+	var removed_button_list: Array[ItemButton] = []
+
+	for button in _item_button_list:
+		var item: Item = button.get_item()
+		var item_was_removed: bool = !item_list.has(item)
+
+		if item_was_removed:
+			removed_button_list.append(button)
+
+	for button in removed_button_list:
+		var item: Item = button.get_item()
+		item.horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
+
+		_item_buttons_container.remove_child(button)
+		button.queue_free()
+		_item_button_list.erase(button)
+
+# 	Add buttons for items which were added to stash
+#	NOTE: preserve the same order as in the stash
+	for i in range(0, item_list.size()):
+		var item: Item = item_list[i]
+		var item_was_added: bool = !_prev_item_list.has(item)
+
+		if item_was_added:
+			_add_item_button(item, i)
+			item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
+
+	_prev_item_list = item_list.duplicate()
+	
+	_load_current_filter()
+	_update_autofill_buttons()
+
+
 func _on_horadric_stash_items_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
@@ -230,4 +244,3 @@ func _on_horadric_stash_items_changed():
 	
 	var can_transmute: bool = HoradricCube.can_transmute(item_list)
 	_transmute_button.set_disabled(!can_transmute)
-

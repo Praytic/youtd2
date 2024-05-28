@@ -31,6 +31,10 @@ func _process(_delta: float):
 ###       Public      ###
 #########################
 
+func connect_to_local_player(local_player: Player):
+	local_player.selected_builder.connect(_on_local_player_selected_builder)
+
+
 func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	var game_length_string: String = _get_game_length_string(wave_count)
 
@@ -41,14 +45,6 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
 
 	_settings_label.text = settings_string
-
-
-func set_local_builder(builder_id: int):
-	var builder_name: String = BuilderProperties.get_display_name(builder_id)
-	var builder_description: String = BuilderProperties.get_description(builder_id)
-	
-	_builder_label.text = builder_name
-	_builder_label.tooltip_text = builder_description
 
 
 func _get_player_stats_text() -> String:
@@ -231,3 +227,18 @@ func _get_colored_name_for_tower(tower: Tower) -> String:
 	var colored_name: String = Utils.get_colored_string(tower_name, element_color)
 
 	return colored_name
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_local_player_selected_builder():
+	var local_player: Player = PlayerManager.get_local_player()
+	var builder: Builder = local_player.get_builder()
+	var builder_id: int = builder.get_id()
+	var builder_name: String = BuilderProperties.get_display_name(builder_id)
+	var builder_description: String = BuilderProperties.get_description(builder_id)
+	
+	_builder_label.text = builder_name
+	_builder_label.tooltip_text = builder_description

@@ -20,6 +20,18 @@ var _filter_type: FilterType = FilterType.RARITY
 ###       Public      ###
 #########################
 
+func connect_to_local_player(local_player: Player):
+	local_player.element_level_changed.connect(_on_element_level_changed)
+	_on_element_level_changed()
+
+	var local_team: Team = local_player.get_team()
+	local_team.level_changed.connect(_on_wave_level_changed)
+	_on_wave_level_changed()
+
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	tower_stash.changed.connect(_on_tower_stash_changed)
+
+
 func set_filter_type(filter_type: TowerStashMenu.FilterType):
 	_filter_type = filter_type
 	
@@ -28,67 +40,7 @@ func set_filter_type(filter_type: TowerStashMenu.FilterType):
 	
 	_update_button_visibility()
 
-
-func set_towers(towers: Dictionary):
-	var tower_list: Array = towers.keys()
-
-	tower_list.sort_custom(
-		func(a, b) -> bool:
-			var rarity_a: Rarity.enm = TowerProperties.get_rarity(a)
-			var rarity_b: Rarity.enm = TowerProperties.get_rarity(b)
-			var cost_a: int = TowerProperties.get_cost(a)
-			var cost_b: int = TowerProperties.get_cost(b)
-			
-			if rarity_a == rarity_b:
-				return cost_a < cost_b
-			else:
-				return rarity_a < rarity_b
-	)
-
-# 	Remove buttons for towers which were removed from stash
-	var removed_button_list: Array[TowerButton] = []
-
-	for button in _button_list:
-		var tower_id: int = button.get_tower_id()
-		var tower_was_removed: bool = !towers.has(tower_id)
-
-		if tower_was_removed:
-			removed_button_list.append(button)
-
-	for button in removed_button_list:
-		_tower_buttons_container.remove_child(button)
-		button.queue_free()
-		_button_list.erase(button)
-
-# 	Add buttons for towers which were added to stash
-#	NOTE: preserve order
-	for i in range(0, tower_list.size()):
-		var tower_id: int = tower_list[i]
-		var tower_was_added: bool = !_prev_tower_list.has(tower_id)
-		
-		if tower_was_added:
-			_add_tower_button(tower_id, i)
 	
-	_prev_tower_list = tower_list.duplicate()
-
-# 	Update tower counts
-	for button in _button_list:
-		var tower_id: int = button.get_tower_id()
-		var tower_count: int = towers[tower_id]
-		button.set_count(tower_count)
-
-	_unlock_tower_buttons_if_possible()
-	_update_button_visibility()
-
-
-func update_level(_level: int):
-	_unlock_tower_buttons_if_possible()
-
-	
-func update_element_level(_element_levels: Dictionary):
-	_unlock_tower_buttons_if_possible()
-
-
 #########################
 ###      Private      ###
 #########################
@@ -148,6 +100,61 @@ func _update_button_visibility():
 ###     Callbacks     ###
 #########################
 
+func _on_tower_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	var tower_map: Dictionary = tower_stash.get_towers()
+	var tower_list: Array = tower_map.keys()
+
+	tower_list.sort_custom(
+		func(a, b) -> bool:
+			var rarity_a: Rarity.enm = TowerProperties.get_rarity(a)
+			var rarity_b: Rarity.enm = TowerProperties.get_rarity(b)
+			var cost_a: int = TowerProperties.get_cost(a)
+			var cost_b: int = TowerProperties.get_cost(b)
+			
+			if rarity_a == rarity_b:
+				return cost_a < cost_b
+			else:
+				return rarity_a < rarity_b
+	)
+
+# 	Remove buttons for towers which were removed from stash
+	var removed_button_list: Array[TowerButton] = []
+
+	for button in _button_list:
+		var tower_id: int = button.get_tower_id()
+		var tower_was_removed: bool = !tower_map.has(tower_id)
+
+		if tower_was_removed:
+			removed_button_list.append(button)
+
+	for button in removed_button_list:
+		_tower_buttons_container.remove_child(button)
+		button.queue_free()
+		_button_list.erase(button)
+
+# 	Add buttons for towers which were added to stash
+#	NOTE: preserve order
+	for i in range(0, tower_list.size()):
+		var tower_id: int = tower_list[i]
+		var tower_was_added: bool = !_prev_tower_list.has(tower_id)
+		
+		if tower_was_added:
+			_add_tower_button(tower_id, i)
+	
+	_prev_tower_list = tower_list.duplicate()
+
+# 	Update tower counts
+	for button in _button_list:
+		var tower_id: int = button.get_tower_id()
+		var tower_count: int = tower_map[tower_id]
+		button.set_count(tower_count)
+
+	_unlock_tower_buttons_if_possible()
+	_update_button_visibility()
+
+
 func _on_close_button_pressed():
 	hide()
 
@@ -162,3 +169,11 @@ func _on_rarity_filter_container_filter_changed():
 
 func _on_element_filter_element_changed():
 	_update_button_visibility()
+
+
+func _on_element_level_changed():
+	_unlock_tower_buttons_if_possible()
+
+
+func _on_wave_level_changed():
+	_unlock_tower_buttons_if_possible()

@@ -72,12 +72,6 @@ func show_desync_message(message: String):
 	_desync_label.text = message
 
 
-func update_wave_details():
-	var local_player: Player = PlayerManager.get_local_player()
-	var next_waves: Array[Wave] = local_player.get_next_5_waves()
-	_top_left_menu.show_wave_details(next_waves)
-
-
 func start_editing_chat():
 	_chat_line_edit.show()
 	_chat_line_edit.grab_focus()
@@ -129,29 +123,13 @@ func set_menu_unit(unit: Unit):
 		_creep_details.hide()
 
 
-func hide_roll_towers_button():
-	_elements_menu.hide_roll_towers_button()
-
-
 func connect_to_local_player(local_player: Player):
 	_item_stash_menu.connect_to_local_player(local_player)
-
-	var item_stash: ItemContainer = local_player.get_item_stash()
-	item_stash.items_changed.connect(_on_local_player_item_stash_changed)
-
-	var tower_stash: TowerStash = local_player.get_tower_stash()
-	tower_stash.changed.connect(_on_local_player_tower_stash_changed)
-
-	var local_team: Team = local_player.get_team()
-	local_team.level_changed.connect(_on_local_team_level_changed)
-	_on_local_team_level_changed()
-
-	local_player.element_level_changed.connect(_on_local_player_element_level_changed)
-	_on_local_player_element_level_changed()
-
-	local_player.selected_builder.connect(_on_local_player_selected_builder)
-
-	local_player.roll_was_disabled.connect(_on_local_player_roll_was_disabled)
+	_tower_stash_menu.connect_to_local_player(local_player)
+	_elements_menu.connect_to_local_player(local_player)
+	_top_left_menu.connect_to_local_player(local_player)
+	_items_menu_card.connect_to_local_player(local_player)
+	_towers_menu_card.connect_to_local_player(local_player)
 
 
 func set_game_start_timer(timer: ManualTimer):
@@ -180,56 +158,6 @@ func show_game_over():
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_local_player_item_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var item_stash: ItemContainer = local_player.get_item_stash()
-	var item_list: Array[Item] = item_stash.get_item_list()
-	
-	_item_stash_menu.set_items(item_list)
-	_items_menu_card.set_items(item_list)
-
-
-func _on_local_player_tower_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var tower_stash: TowerStash = local_player.get_tower_stash()
-	var towers: Dictionary = tower_stash.get_towers()
-	
-	_tower_stash_menu.set_towers(towers)
-	_towers_menu_card.set_towers(towers)
-
-
-func _on_local_team_level_changed():
-	update_wave_details()
-	
-	var local_player: Player = PlayerManager.get_local_player()
-	var local_team: Team = local_player.get_team()
-	var level: int = local_team.get_level()
-	_tower_stash_menu.update_level(level)
-
-
-func _on_local_player_element_level_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var new_element_levels: Dictionary = local_player.get_element_level_map()
-	_tower_stash_menu.update_element_level(new_element_levels)
-	_elements_menu.update_element_level(new_element_levels)
-
-
-func _on_local_player_selected_builder():
-	var local_player: Player = PlayerManager.get_local_player()
-	var builder: Builder = local_player.get_builder()
-	var builder_id: int = builder.get_id()
-
-	_top_left_menu.set_local_builder(builder_id)
-
-	var builder_adds_extra_recipes: bool = builder.get_adds_extra_recipes()
-	if builder_adds_extra_recipes:
-		_item_stash_menu.enable_extra_recipes()
-
-
-func _on_local_player_roll_was_disabled():
-	hide_roll_towers_button()
-
 
 func _on_tower_stash_menu_hidden():
 	_towers_menu_card.collapse()
