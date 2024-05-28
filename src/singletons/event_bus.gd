@@ -33,6 +33,8 @@ signal player_requested_next_wave()
 signal mouse_entered_unit(unit: Unit)
 signal mouse_exited_unit(unit: Unit)
 signal local_player_rolled_towers()
+signal first_wave_started()
+signal item_started_flying_to_item_stash(item: Item, canvas_pos: Vector2)
 
 # NOTE: signals for triggering tutorials
 signal finished_tutorial_section(tutorial_id: int)

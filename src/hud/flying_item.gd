@@ -11,6 +11,7 @@ class_name FlyingItem extends Control
 
 
 var _item_id: int = 0
+var _end_pos: Vector2 = Vector2.ZERO
 
 @export var _unit_button: UnitButton
 
@@ -31,13 +32,9 @@ func _ready():
 # 	scale.
 	_unit_button.scale = Vector2(1.5, 1.5)
 	
-	var hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
-	var item_stash_button: Button = hud.get_item_stash_button()
-	var target_pos: Vector2 = item_stash_button.global_position + Vector2(45, 45)
-	
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
-		target_pos,
+		_end_pos,
 		Item.FLY_DURATION).set_trans(Tween.TRANS_SINE)
 
 	var scale_tween = create_tween()
@@ -61,9 +58,10 @@ func _on_tween_finished():
 ###       Static      ###
 #########################
 
-static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
+static func create(item_id: int, start_pos: Vector2, end_pos: Vector2) -> FlyingItem:
 	var flying_item: FlyingItem = Preloads.flying_item_scene.instantiate()
 	flying_item.position = start_pos
+	flying_item._end_pos = end_pos
 	flying_item._item_id = item_id
 	flying_item.scale = Vector2(0.5, 0.5)
 

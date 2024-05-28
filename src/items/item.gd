@@ -49,8 +49,6 @@ var _item_behavior: ItemBehavior
 static var _uid_max: int = 1
 var _uid: int = 0
 
-@onready var _hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
-
 
 #########################
 ###     Built-in      ###
@@ -130,6 +128,10 @@ func get_specials_tooltip_text() -> String:
 # NOTE: SetItemVisible() in JASS
 func set_visible(visible: bool):
 	_visible = visible
+
+
+func is_visible() -> bool:
+	return _visible
 
 
 func set_autocast(autocast: Autocast):
@@ -260,12 +262,8 @@ func fly_to_stash(_mystery_float: float):
 	if !is_on_ground:
 		return
 
-	var item_drop_screen_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
-
-	if belongs_to_local_player():
-		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)
-		flying_item.visible = _visible
-		_hud.add_child(flying_item)
+	var canvas_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
+	EventBus.item_started_flying_to_item_stash.emit(self, canvas_pos)
 
 #	NOTE: fly duration has to be a constant value, doesn't
 #	matter if fly animation will finish earlier. This is to

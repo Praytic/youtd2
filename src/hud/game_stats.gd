@@ -12,6 +12,21 @@ class_name GameStats extends VBoxContainer
 ###     Built-in      ###
 #########################
 
+func _ready():
+	var wave_count: int = Globals.get_wave_count()
+	var game_length_string: String = _get_game_length_string(wave_count)
+
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
+	
+	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
+
+	_settings_label.text = settings_string
+
+
 func _process(_delta: float):
 	var player_stats_text: String = _get_player_stats_text()
 	var your_best_towers_text: String = _get_your_best_towers_text()
@@ -33,18 +48,6 @@ func _process(_delta: float):
 
 func connect_to_local_player(local_player: Player):
 	local_player.selected_builder.connect(_on_local_player_selected_builder)
-
-
-func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
-	var game_length_string: String = _get_game_length_string(wave_count)
-
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
-
-	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
-	
-	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
-
-	_settings_label.text = settings_string
 
 
 func _get_player_stats_text() -> String:

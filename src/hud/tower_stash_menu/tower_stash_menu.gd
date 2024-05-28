@@ -17,6 +17,29 @@ var _filter_type: FilterType = FilterType.RARITY
 
 
 #########################
+###     Built-in      ###
+#########################
+
+# NOTE: in Build mode, use element filter for tower stash
+# because in Build mode all towers are visible from the
+# start and filtering by rarity would show too many towers.
+# 
+# In random modes, it's better to filter by rarity because
+# players typically research only 2-3 elements and a small
+# amount of towers is randomly distributed after each wave.
+func _ready():
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
+		_filter_type = TowerStashMenu.FilterType.ELEMENT
+	else:
+		_filter_type = TowerStashMenu.FilterType.RARITY
+
+	_rarity_filter.visible = _filter_type == FilterType.RARITY
+	_element_filter.visible = _filter_type == FilterType.ELEMENT
+	
+	_update_button_visibility()
+
+
+#########################
 ###       Public      ###
 #########################
 
@@ -30,15 +53,6 @@ func connect_to_local_player(local_player: Player):
 
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	tower_stash.changed.connect(_on_tower_stash_changed)
-
-
-func set_filter_type(filter_type: TowerStashMenu.FilterType):
-	_filter_type = filter_type
-	
-	_rarity_filter.visible = filter_type == FilterType.RARITY
-	_element_filter.visible = filter_type == FilterType.ELEMENT
-	
-	_update_button_visibility()
 
 	
 #########################

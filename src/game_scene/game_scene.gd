@@ -92,10 +92,7 @@ func _ready():
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var wave_count: int = Globals.get_wave_count()
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var difficulty: Difficulty.enm = Globals.get_difficulty()
 
-	_hud.set_pregame_settings(wave_count, game_mode, difficulty)
-	
 # 	Save the seed which host gave to this client so that rng
 # 	on this game client is the same as on all other clients.
 	Globals.synced_rng.set_seed(origin_seed)
@@ -163,20 +160,6 @@ func _ready():
 
 	for player in player_list:
 		player.generate_waves()
-
-#	NOTE: in Build mode, use element filter for tower stash
-#	because in Build mode all towers are visible from the
-#	start and filtering by rarity would show too many
-#	towers.
-#	In random modes, it's better to filter by rarity because
-#	a small amount of towers is randomly distributed after
-#	each wave.
-	var tower_stash_filter_type: TowerStashMenu.FilterType
-	if Globals.get_game_mode() == GameMode.enm.BUILD:
-		tower_stash_filter_type = TowerStashMenu.FilterType.ELEMENT
-	else:
-		tower_stash_filter_type = TowerStashMenu.FilterType.RARITY
-	_hud.set_tower_stash_filter_type(tower_stash_filter_type)
 
 	var test_item_list: Array = Config.test_item_list()
 	for player in player_list:
@@ -308,7 +291,8 @@ func _unhandled_input(event: InputEvent):
 
 func _start_game():
 	_game_start_timer.stop()
-	_hud.show_next_wave_button()
+
+	EventBus.first_wave_started.emit()
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 	for player in player_list:

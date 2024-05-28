@@ -44,6 +44,7 @@ func _ready():
 	SFX.connect_sfx_to_signal_in_group("res://assets/sfx/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
 	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
+	EventBus.item_started_flying_to_item_stash.connect(_on_item_started_flying_to_item_stash)
 
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
@@ -61,10 +62,6 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
-
-func set_tower_stash_filter_type(filter_type: TowerStashMenu.FilterType):
-	_tower_stash_menu.set_filter_type(filter_type)
-
 
 func show_desync_message(message: String):
 	_desync_label.show()
@@ -140,14 +137,6 @@ func close_one_window():
 			break
 
 
-func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
-	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty)
-
-
-func show_next_wave_button():
-	_top_left_menu.show_next_wave_button()
-
-
 func show_game_over():
 	_game_over_label.show()
 
@@ -177,10 +166,6 @@ func get_normal_message_container() -> VBoxContainer:
 	return _normal_message_container
 
 
-func get_item_stash_button() -> Button:
-	return _item_stash_button
-
-
 func any_window_is_open() -> bool:
 	for window in _window_list:
 		if window.visible:
@@ -205,6 +190,18 @@ func _on_element_status_card_main_button_toggled(toggled_on):
 # switch to tower stash menu after rolling towers.
 func _on_local_player_rolled_towers():
 	_tower_stash_button.set_pressed(true)
+
+
+func _on_item_started_flying_to_item_stash(item: Item, canvas_pos: Vector2):
+	if !item.belongs_to_local_player():
+		return
+
+	var item_stash_button_pos: Vector2 = _item_stash_button.global_position + Vector2(45, 45)
+	var item_id: int = item.get_id()
+
+	var flying_item: FlyingItem = FlyingItem.create(item_id, canvas_pos, item_stash_button_pos)
+	flying_item.visible = item.is_visible()
+	add_child(flying_item)
 
 
 func _on_unit_menu_details_pressed():
