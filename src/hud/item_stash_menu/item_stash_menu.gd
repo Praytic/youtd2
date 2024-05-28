@@ -40,6 +40,7 @@ func connect_to_local_player(local_player: Player):
 	_horadric_item_container_panel.set_item_container(horadric_stash)
 	
 	horadric_stash.items_changed.connect(_on_horadric_stash_items_changed)
+	_on_horadric_stash_items_changed()
 
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	item_stash.items_changed.connect(_on_item_stash_changed)
