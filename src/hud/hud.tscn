@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
 [ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
+[ext_resource type="PackedScene" uid="uid://n8326r4m33s3" path="res://src/hud/game_speed_controller.tscn" id="9_ilyra"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/hud/top_left_menu.tscn" id="10_agdn3"]
 [ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://resources/icons/hud/research_elements.tres" id="10_ylm6g"]
 [ext_resource type="Script" path="res://src/hud/hud.gd" id="11"]
@@ -12,39 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/combat_log_window.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/hud/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/hud/player_resource_display.tscn" id="15_ir4hq"]
-[ext_resource type="PackedScene" uid="uid://dq1y6eowvvl45" path="res://src/hud/buttons/speed_button.tscn" id="15_lo44t"]
-[ext_resource type="Texture2D" uid="uid://cny5e3y68r18y" path="res://resources/ui_textures/speed_fast.tres" id="16_avri0"]
-[ext_resource type="ButtonGroup" uid="uid://5mj7ntug0txa" path="res://resources/button_groups/speed_button_group.tres" id="16_ejnny"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://src/hud/unit_menu/tower_details.tscn" id="17_12w0v"]
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/hud/elements_menu.tscn" id="17_bxii1"]
-[ext_resource type="Texture2D" uid="uid://c1cbjc01sbgsu" path="res://resources/ui_textures/speed_fastest.tres" id="17_dklkb"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_6ubjv"]
-device = -1
-keycode = 49
-unicode = 49
-
-[sub_resource type="Shortcut" id="Shortcut_8c3lr"]
-events = [SubResource("InputEventKey_6ubjv")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_6jvxc"]
-device = -1
-keycode = 50
-unicode = 50
-
-[sub_resource type="Shortcut" id="Shortcut_5psg1"]
-events = [SubResource("InputEventKey_6jvxc")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_26jvu"]
-device = -1
-keycode = 51
-unicode = 51
-
-[sub_resource type="Shortcut" id="Shortcut_uebri"]
-events = [SubResource("InputEventKey_26jvu")]
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
 layout_mode = 3
@@ -202,29 +175,8 @@ grow_vertical = 0
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer6"]
+[node name="GameSpeedController" parent="MarginContainer6" instance=ExtResource("9_ilyra")]
 layout_mode = 2
-
-[node name="SpeedNormal" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
-layout_mode = 2
-tooltip_text = "Set game speed to normal"
-button_pressed = true
-button_group = ExtResource("16_ejnny")
-shortcut = SubResource("Shortcut_8c3lr")
-
-[node name="SpeedFast" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
-layout_mode = 2
-tooltip_text = "Set game speed to fast"
-button_group = ExtResource("16_ejnny")
-shortcut = SubResource("Shortcut_5psg1")
-icon = ExtResource("16_avri0")
-
-[node name="SpeedFastest" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
-layout_mode = 2
-tooltip_text = "Set game speed to fastest"
-button_group = ExtResource("16_ejnny")
-shortcut = SubResource("Shortcut_uebri")
-icon = ExtResource("17_dklkb")
 
 [node name="MarginContainer7" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -386,6 +338,3 @@ theme_override_font_sizes/font_size = 40
 text = "placeholder"
 
 [connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
-[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedNormal" to="." method="_on_speed_normal_toggled"]
-[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedFast" to="." method="_on_speed_fast_toggled"]
-[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedFastest" to="." method="_on_speed_fastest_toggled"]
