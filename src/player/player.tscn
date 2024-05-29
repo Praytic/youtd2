@@ -26,3 +26,4 @@ script = ExtResource("3_rmd8h")
 [node name="WaveSpawner" parent="." instance=ExtResource("4_7cd82")]
 
 [connection signal="wave_finished" from="WaveSpawner" to="." method="_on_wave_spawner_wave_finished"]
+[connection signal="wave_spawned" from="WaveSpawner" to="." method="_on_wave_spawner_wave_spawned"]

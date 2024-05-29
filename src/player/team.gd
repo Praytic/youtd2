@@ -17,7 +17,6 @@ var _player_list: Array[Player] = []
 var _finished_the_game: bool = false
 
 @export var _next_wave_timer: ManualTimer
-@export var _extreme_timer: ManualTimer
 
 
 #########################
@@ -56,6 +55,7 @@ func create_player(player_id: int, peer_id: int) -> Player:
 	player._builder = placeholder_builder
 	player.add_child(placeholder_builder)
 	
+	player.wave_spawned.connect(_on_player_wave_spawned)
 	player.wave_finished.connect(_on_player_wave_finished)
 
 	return player
@@ -104,7 +104,6 @@ func is_local() -> bool:
 
 func set_waves_paused(paused: bool):
 	_next_wave_timer.set_paused(paused)
-	_extreme_timer.set_paused(paused)
 
 
 #########################
@@ -112,16 +111,10 @@ func set_waves_paused(paused: bool):
 #########################
 
 func _start_wave():
-	_extreme_timer.stop()
 	_next_wave_timer.stop()
 	
 	for player in _player_list:
 		player.start_wave(_level)
-
-	var started_last_wave: bool = _level == Globals.get_wave_count()
-
-	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
-		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
 func _do_game_win():
@@ -164,7 +157,6 @@ func _do_game_lose():
 			creep.remove_from_game()
 
 	_next_wave_timer.stop()
-	_extreme_timer.stop()
 
 	for player in _player_list:
 		Messages.add_normal(player, "[color=RED]The portal has been destroyed! The game is over.[/color]")
@@ -208,16 +200,39 @@ func _convert_local_player_score_to_exp():
 		Messages.add_normal(local_player, "You obtained a new wisdom upgrade slot! You can select wisdom upgrades in the [color=GOLD]Profile[/color] menu on the Title screen.")
 
 
+# This function starts the timer only if it's not already
+# running or if new duration is shorter
+# NOTE: it's possible for timer to already be running if the
+# difficulty is extreme and the timer has been started
+# automatically. In such cases, start timer only if new
+# timer is shorter.
+func _start_timer_before_next_wave(duration: float):
+	var timer_already_running: bool = !_next_wave_timer.is_stopped()
+	var new_duration_is_shorter: bool = _next_wave_timer.get_time_left()
+	var need_to_start_timer: bool = !timer_already_running || new_duration_is_shorter
+
+	if need_to_start_timer:
+		_next_wave_timer.start(duration)
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_extreme_timer_timeout():
-	_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
+	_start_timer_before_next_wave(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
 
 
 func _on_next_wave_timer_timeout():
 	start_next_wave()
+
+
+func _on_player_wave_spawned(level: int):
+	var started_last_wave: bool = level == Globals.get_wave_count()
+	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
+	
+	if difficulty_is_extreme && !started_last_wave:
+		_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
 
 
 func _on_player_wave_finished(level: int):
@@ -239,21 +254,14 @@ func _on_player_wave_finished(level: int):
 		if !player.current_wave_is_finished():
 			all_players_finished = false
 		
-	_extreme_timer.stop()
-
 	var player_finished_last_level: bool = level == Utils.get_max_level()
 	var team_achieved_victory: bool = player_finished_last_level && all_players_finished 
 
 	if team_achieved_victory:
 		_do_game_win()
 
-#	NOTE: need to check that next wave timer is stopped
-#	because it could've already been started by extreme
-#	timer. In that case, we don't want to start next wave
-#	timer again because that would reset the duration.
-	var need_to_start_next_wave_timer: bool = _next_wave_timer.is_stopped() && !player_finished_last_level
-	if need_to_start_next_wave_timer:
-		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
+	if !player_finished_last_level:
+		_start_timer_before_next_wave(Constants.TIME_BETWEEN_WAVES)
 
 
 #########################

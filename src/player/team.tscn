@@ -3,19 +3,12 @@
 [ext_resource type="Script" path="res://src/player/team.gd" id="1_58bum"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_r2jva"]
 
-
-[node name="Team" type="Node" node_paths=PackedStringArray("_next_wave_timer", "_extreme_timer")]
+[node name="Team" type="Node" node_paths=PackedStringArray("_next_wave_timer")]
 script = ExtResource("1_58bum")
 _next_wave_timer = NodePath("NextWaveTimer")
-_extreme_timer = NodePath("ExtremeTimer")
 
 [node name="NextWaveTimer" type="Node" parent="."]
 script = ExtResource("2_r2jva")
 one_shot = true
 
-[node name="ExtremeTimer" type="Node" parent="."]
-script = ExtResource("2_r2jva")
-one_shot = true
-
 [connection signal="timeout" from="NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
-[connection signal="timeout" from="ExtremeTimer" to="." method="_on_extreme_timer_timeout"]

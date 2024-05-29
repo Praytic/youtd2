@@ -5,6 +5,7 @@ class_name Player extends Node
 # Team.create_player().
 
 signal wave_finished(level: int)
+signal wave_spawned(level: int)
 signal element_level_changed(element: Element.enm)
 signal generated_waves()
 signal selected_builder()
@@ -546,3 +547,7 @@ func _on_wave_spawner_wave_finished(level: int):
 		Messages.add_normal(self, "[color=CORNFLOWER_BLUE]You have[/color] [color=GOLD]%d[/color] [color=CORNFLOWER_BLUE]unspent knowledge tomes. Make sure to spend them on researching elements![/color]" % current_tomes)
 
 	wave_finished.emit(level)
+
+
+func _on_wave_spawner_wave_spawned(level: int):
+	wave_spawned.emit(level)

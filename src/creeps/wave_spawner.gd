@@ -1,6 +1,7 @@
 class_name WaveSpawner extends Node
 
 
+signal wave_spawned(level: int)
 signal wave_finished(level: int)
 
 
@@ -145,6 +146,8 @@ func _on_CreepSpawner_all_creeps_spawned():
 		return
 
 	_current_wave.state = Wave.State.SPAWNED
+	var level: int = _current_wave.get_level()
+	wave_spawned.emit(level)
 	print_verbose("Wave has been spawned [%s]." % _current_wave)
 
 
