@@ -1,10 +1,6 @@
 class_name HUD extends Control
 
 
-signal start_wave(wave_index)
-signal stop_wave()
-
-
 @export var _error_message_container: VBoxContainer
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
@@ -15,8 +11,6 @@ signal stop_wave()
 @export var _item_stash_button: MenuExpandingButton
 @export var _top_left_menu: TopLeftMenu
 @export var _unit_menu: UnitMenu
-@export var _host_player_label: Label
-@export var _second_player_label: Label
 @export var _chat_line_edit: LineEdit
 @export var _desync_label: Label
 @export var _button_tooltip_top: ButtonTooltip
@@ -35,16 +29,13 @@ signal stop_wave()
 #########################
 
 func _ready():
-	if OS.is_debug_build() and Config.dev_controls_enabled():
+	if OS.is_debug_build() && Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
 	SFX.connect_sfx_to_signal_in_group("res://assets/sfx/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
 	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
 	EventBus.item_started_flying_to_item_stash.connect(_on_item_started_flying_to_item_stash)
-
-	multiplayer.peer_connected.connect(_on_peer_connected)
-	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
 
@@ -115,6 +106,9 @@ func connect_to_local_player(local_player: Player):
 	_elements_menu.connect_to_local_player(local_player)
 	_top_left_menu.connect_to_local_player(local_player)
 
+	var local_team: Team = local_player.get_team()
+	local_team.game_lose.connect(_on_local_game_lose)
+
 
 func set_game_start_timer(timer: ManualTimer):
 	_top_left_menu.set_game_start_timer(timer)
@@ -125,23 +119,6 @@ func close_one_window():
 		if window.visible:
 			window.hide()
 			break
-
-
-func show_game_over():
-	_game_over_label.show()
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_peer_connected(id):
-	_host_player_label.text = "Player ID: %s" % multiplayer.get_unique_id()
-	_second_player_label.text = "Player ID: %s" % id
-
-
-func _on_peer_disconnected(_id):
-	_second_player_label.text = ""
 
 
 #########################
@@ -162,18 +139,6 @@ func any_window_is_open() -> bool:
 			return true
 	
 	return false
-
-
-func _on_towers_status_card_main_button_toggled(toggled_on: bool):
-	_tower_stash_menu.visible = toggled_on
-
-
-func _on_items_status_card_main_button_toggled(toggled_on: bool):
-	_item_stash_menu.visible = toggled_on
-
-
-func _on_element_status_card_main_button_toggled(toggled_on):
-	_elements_menu.visible = toggled_on
 
 
 # Manually press status button for tower stash menu to
@@ -210,3 +175,7 @@ func _on_unit_menu_details_pressed():
 	else:
 		_tower_details.visible = false
 		_creep_details.visible = false
+
+
+func _on_local_game_lose():
+	_game_over_label.show()

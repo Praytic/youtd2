@@ -184,11 +184,14 @@ func get_race() -> CreepCategory.enm:
 
 # Returns an array of possible Creep sizes
 # which can be spawned in this wave
-func get_creep_sizes() -> Array:
-	var result = []
-	for creep_size in get_creep_combination():
-		if not result.has(creep_size):
+func get_creep_sizes() -> Array[CreepSize.enm]:
+	var result: Array[CreepSize.enm] = []
+	var creep_combination: Array[CreepSize.enm] = get_creep_combination()
+
+	for creep_size in creep_combination:
+		if !result.has(creep_size):
 			result.append(creep_size)
+	
 	return result
 
 

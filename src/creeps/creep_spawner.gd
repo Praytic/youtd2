@@ -40,7 +40,7 @@ var _creep_index: int = 0
 func set_player(player: Player):
 	_player = player
 
-	_player.get_team().game_over.connect(_on_game_over)
+	_player.get_team().game_lose.connect(_on_game_lose)
 
 	_ground_path = Utils.find_creep_path(player, false)
 	_air_path = Utils.find_creep_path(player, true)
@@ -152,7 +152,7 @@ func _on_spawn_timer_timeout():
 	_spawn_next_creep()
 
 
-func _on_game_over():
+func _on_game_lose():
 	_timer_between_creeps.stop()
 
 

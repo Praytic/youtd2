@@ -392,7 +392,7 @@ func add_food_for_tower(tower_id: int):
 	var food_cost: int = TowerProperties.get_food_cost(tower_id)
 	var new_food: int = _food + food_cost
 
-	if new_food > _food_cap and not Config.unlimited_food():
+	if new_food > _food_cap and !Config.unlimited_food():
 		push_error("Tried to change food above cap.")
 
 		return

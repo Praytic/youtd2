@@ -14,7 +14,7 @@ var acc_delta: float = 0
 
 
 func _ready():
-	if not debug_enabled or not Config.dev_controls_enabled():
+	if !debug_enabled || !Config.dev_controls_enabled():
 		return
 	_connect_all_nodes(get_tree().get_root().get_node("GameScene"))
 	get_tree().node_added.connect(_on_Node_added)
@@ -23,7 +23,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if current_node != prev_node and acc_delta > 1:
+	if current_node != prev_node && acc_delta > 1:
 		if current_node == null:
 			debug_container.hide()
 			prev_node = current_node
@@ -80,7 +80,7 @@ func _on_SignalArgEdit_submitted(command, arg_name, node, node_signal):
 	var result = expression.execute()
 	
 	var arg
-	if not expression.has_execute_failed():
+	if !expression.has_execute_failed():
 		arg = result
 	else:
 		arg = command
@@ -94,18 +94,18 @@ func _on_SignalArgEdit_submitted(command, arg_name, node, node_signal):
 
 #func _on_Gui_input(event):
 #	if event is InputEventMouseButton:
-#		if event.get_button_index() == MOUSE_BUTTON_LEFT or event.get_button_index() == MOUSE_BUTTON_RIGHT:
+#		if event.get_button_index() == MOUSE_BUTTON_LEFT || event.get_button_index() == MOUSE_BUTTON_RIGHT:
 #			node_selection_blocked = true
 
 
 func _on_Node_added(node: Node):
-	if (node is Control or node is CollisionObject2D) and not _is_parent_of(node, self):
+	if (node is Control || node is CollisionObject2D) && !_is_parent_of(node, self):
 		node.mouse_entered.connect(_on_Node_mouse_entered.bind(node))
 		node.mouse_exited.connect(_on_Node_mouse_exited.bind(node))
 
 
 func _on_Node_mouse_entered(node: Node):
-#	if not node_selection_blocked:
+#	if !node_selection_blocked:
 	current_node = node
 
 

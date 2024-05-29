@@ -44,7 +44,7 @@ func _init_oils_and_items_controls():
 	oil_ids = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, oil_type_string)
 	item_ids = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, regular_type_string)
 	
-	assert(oil_ids.size() > 0 and item_ids.size() > 0, \
+	assert(oil_ids.size() > 0 && item_ids.size() > 0, \
 	"Data file for items and oils probably has been updated.")
 	
 	var oil_submenu = PopupMenu.new()

@@ -116,7 +116,7 @@ func set_own_username(username: String, is_new: bool) -> bool:
 		var profile = Profile.new()
 		profile.username = username
 		var res = await W4GD.mapper.create(profile)
-		if not res:
+		if !res:
 			return _update_status("Player profile creation failed for username: %s" % username, true)
 	
 	current_username = username

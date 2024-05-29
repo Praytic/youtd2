@@ -149,8 +149,9 @@ func _on_CreepSpawner_all_creeps_spawned():
 
 
 func _on_wave_finished(wave: Wave):
-	var game_over: bool = _player.get_team().is_game_over()
-	if game_over:
+	var team: Team = _player.get_team()
+	var finished_the_game: bool = team.finished_the_game()
+	if finished_the_game:
 		return
 
 	var level: int = wave.get_level()

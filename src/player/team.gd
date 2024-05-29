@@ -1,11 +1,11 @@
 class_name Team extends Node
 
-# Represents player's team. Two players per team.
+# Represents the player's team. In singleplayer, the player
+# simply has a team. In multiplayer it can be 1-2 players
+# per team.
 
-# NOTE: Currently team is barely implemented. Will need to
-# work on it for multiplayer.
 
-signal game_over()
+signal game_lose()
 signal game_win()
 signal level_changed()
 
@@ -14,7 +14,7 @@ var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
 var _player_list: Array[Player] = []
-var _is_game_over: bool = false
+var _finished_the_game: bool = false
 
 @export var _next_wave_timer: ManualTimer
 @export var _extreme_timer: ManualTimer
@@ -24,8 +24,8 @@ var _is_game_over: bool = false
 ###       Public      ###
 #########################
 
-func is_game_over() -> bool:
-	return _is_game_over
+func finished_the_game() -> bool:
+	return _finished_the_game
 
 
 func get_next_wave_timer() -> ManualTimer:
@@ -84,20 +84,8 @@ func modify_lives(amount: float):
 
 	var out_of_lives: bool = _lives <= 0
 
-	if out_of_lives && !_is_game_over:
-		_is_game_over = true
-		game_over.emit()
-
-#		Delete all creeps for this team
-		var creep_list: Array[Creep] = Utils.get_creep_list()
-		for creep in creep_list:
-			var player_match: bool = _player_list.has(creep.get_player())
-
-			if player_match:
-				creep.remove_from_game()
-
-		_next_wave_timer.stop()
-		_extreme_timer.stop()
+	if out_of_lives && !_finished_the_game:
+		_do_game_lose()
 
 
 # Current level is the level of the last started wave.
@@ -136,8 +124,8 @@ func _start_wave():
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
-func _do_victory_effects():
-	game_win.emit()
+func _do_game_win():
+	_finished_the_game = true
 	
 	for i in range(10):
 		var effect_count: int = 100 + i * 20
@@ -155,6 +143,70 @@ func _do_victory_effects():
 
 		await Utils.create_timer(1.0, self).timeout
 
+	for player in _player_list:
+		Messages.add_normal(PlayerManager.get_local_player(), "[color=GOLD]You are a winner![/color]")
+
+	if is_local():
+		_convert_local_player_score_to_exp()
+
+	game_win.emit()
+
+
+func _do_game_lose():
+	_finished_the_game = true
+
+#	Delete all creeps for this team
+	var creep_list: Array[Creep] = Utils.get_creep_list()
+	for creep in creep_list:
+		var player_match: bool = _player_list.has(creep.get_player())
+
+		if player_match:
+			creep.remove_from_game()
+
+	_next_wave_timer.stop()
+	_extreme_timer.stop()
+
+	for player in _player_list:
+		Messages.add_normal(player, "[color=RED]The portal has been destroyed! The game is over.[/color]")
+
+	if is_local():
+		_convert_local_player_score_to_exp()
+
+	game_lose.emit()
+
+
+func _convert_local_player_score_to_exp():
+	var old_exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
+	var old_player_exp: int = ExperiencePassword.decode(old_exp_password)
+	var old_player_level: int = PlayerExperience.get_level_at_exp(old_player_exp)
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var score: int = floori(local_player.get_score())
+	var exp_gain: int = floori(score * Constants.SCORE_TO_EXP)
+
+	var new_player_exp: int = old_player_exp + exp_gain
+	var new_exp_password: String = ExperiencePassword.encode(new_player_exp)
+	var new_player_level: int = PlayerExperience.get_level_at_exp(new_player_exp)
+	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
+	Settings.flush()
+
+	var old_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(old_player_level)
+	var new_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(new_player_level)
+	var gained_new_wisdom_upgrade_slot: bool = new_upgrade_count > old_upgrade_count
+
+	if exp_gain > 0:
+		Messages.add_normal(local_player, "You gained [color=GOLD]%d[/color] experience." % exp_gain)
+	elif exp_gain == 0:
+		Messages.add_normal(local_player, "Your score is too low! You gained no experience.")
+	elif exp_gain < 0:
+		push_error("Exp gained is negative!")
+
+	if new_player_level != old_player_level:
+		Messages.add_normal(local_player, "You leveled up! You are now level [color=GOLD]%d[/color]." % new_player_level)
+
+	if gained_new_wisdom_upgrade_slot:
+		Messages.add_normal(local_player, "You obtained a new wisdom upgrade slot! You can select wisdom upgrades in the [color=GOLD]Profile[/color] menu on the Title screen.")
+
 
 #########################
 ###     Callbacks     ###
@@ -169,7 +221,7 @@ func _on_next_wave_timer_timeout():
 
 
 func _on_player_wave_finished(level: int):
-	if _is_game_over:
+	if _finished_the_game:
 		return
 
 #	NOTE: need to check that *current* level was finished
@@ -193,7 +245,7 @@ func _on_player_wave_finished(level: int):
 	var team_achieved_victory: bool = player_finished_last_level && all_players_finished 
 
 	if team_achieved_victory:
-		_do_victory_effects()
+		_do_game_win()
 
 #	NOTE: need to check that next wave timer is stopped
 #	because it could've already been started by extreme

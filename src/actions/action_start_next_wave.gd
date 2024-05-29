@@ -21,8 +21,8 @@ static func execute(_action: Dictionary, player: Player):
 
 static func verify(player: Player) -> bool:
 	var team: Team = player.get_team()
-	var game_over: bool = team.is_game_over()
-	if game_over:
+	var team_finished_the_game: bool = team.finished_the_game()
+	if team_finished_the_game:
 		Messages.add_error(player, "Can't start next wave because the game is over.")
 
 		return false
