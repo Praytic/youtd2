@@ -11,6 +11,11 @@ extends ProgressBar
 @export var color1: Color
 
 
+# NOTE: load color for initial value here
+func _ready():
+	_on_value_changed(value)
+
+
 func _on_value_changed(new_value: float):
 	var health_ratio: float = Utils.divide_safe(new_value, max_value)
 
