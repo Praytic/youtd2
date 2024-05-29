@@ -15,6 +15,7 @@ var _lives: float = 100
 var _level: int = 1
 var _player_list: Array[Player] = []
 var _finished_the_game: bool = false
+var _player_defined_autospawn_time: float = -1
 
 @export var _next_wave_timer: ManualTimer
 
@@ -104,6 +105,10 @@ func is_local() -> bool:
 
 func set_waves_paused(paused: bool):
 	_next_wave_timer.set_paused(paused)
+
+
+func set_autospawn_time(time: float):
+	_player_defined_autospawn_time = time
 
 
 #########################
@@ -256,12 +261,22 @@ func _on_player_wave_spawned(level: int):
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
 	var game_is_neverending: bool = Globals.game_is_neverending()
 	var next_wave_is_bonus: bool = Utils.wave_is_bonus(level + 1)
-	
+	var autospawn_time_is_defined: bool = _player_defined_autospawn_time > 0
+	var extreme_autospawn_time: float = _get_extreme_autospawn_time(level)
+
+#	NOTE: pick shortest autospawn time out of all possible
+#	sources
+	var autospawn_time_list: Array[float] = []
+	if autospawn_time_is_defined:
+		autospawn_time_list.append(_player_defined_autospawn_time)
 	if difficulty_is_extreme && !started_last_wave:
-		var extreme_autospawn_time: float = _get_extreme_autospawn_time(level)
-		_next_wave_timer.start(extreme_autospawn_time)
-	elif game_is_neverending && next_wave_is_bonus:
-		_next_wave_timer.start(Constants.DELAY_BETWEEN_BONUS_WAVES)
+		autospawn_time_list.append(extreme_autospawn_time)
+	if game_is_neverending && next_wave_is_bonus:
+		autospawn_time_list.append(Constants.AUTOSPAWN_TIME_FOR_BONUS_WAVES)
+
+	if !autospawn_time_list.is_empty():
+		var autospawn_time: float = autospawn_time_list.min()
+		_start_timer_before_next_wave(autospawn_time)
 
 
 func _on_player_wave_finished(level: int):

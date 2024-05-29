@@ -8,6 +8,7 @@ const READY: String = "/ready"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
 const CREATE_ITEM: String = "/createitem"
+const AUTOSPAWN: String = "/autospawn"
 
 const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
 	READY,
@@ -40,6 +41,7 @@ func process_command(player: Player, command: String):
 		ChatCommands.PAUSE: _command_pause(player)
 		ChatCommands.UNPAUSE: _command_unpause(player)
 		ChatCommands.CREATE_ITEM: _command_create_item(player, command_args)
+		ChatCommands.AUTOSPAWN: _command_autospawn(player, command_args)
 
 
 #########################
@@ -78,3 +80,25 @@ func _command_create_item(player: Player, args: Array):
 	item.fly_to_stash(0.0)
 
 	Messages.add_normal(player, "Created item %d" % item_id)
+
+
+# TODO: in multiplayer, it should not be possible for one
+# player to change autospawn for whole team. Both players
+# need to input same value to agree?
+func _command_autospawn(player: Player, args: Array):
+	if args.size() != 1:
+		Messages.add_error(player, "Invalid command args.")
+
+		return
+
+	var autospawn_time: int = args[0].to_int()
+
+	if 1.0 > autospawn_time || autospawn_time > 100:
+		Messages.add_error(player, "Invalid time argument.")
+
+		return
+
+	var team: Team = player.get_team()
+	team.set_autospawn_time(autospawn_time)
+
+	Messages.add_normal(player, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
