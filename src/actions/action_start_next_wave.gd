@@ -27,13 +27,11 @@ static func verify(player: Player) -> bool:
 
 		return false
 
-#	TODO: handle special case of neverending mode, when it's
-#	implemented. In neverending, the wave count is
-#	infinite.
 	var current_level: int = player.get_team().get_level()
 	var wave_count: int = Globals.get_wave_count()
 	var reached_last_wave: bool = current_level == wave_count
-	if reached_last_wave:
+	var game_is_neverending: bool = Globals.game_is_neverending()
+	if reached_last_wave && !game_is_neverending:
 		Messages.add_error(player, "There are no more waves.")
 
 		return false

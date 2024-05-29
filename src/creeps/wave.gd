@@ -131,6 +131,10 @@ func get_creep_count() -> int:
 # =>
 # "3 Mass, 1 Champion"
 func get_creep_combination_string() -> String:
+	var is_final_boss: bool = _level == Utils.get_max_level()
+	if is_final_boss:
+		return "[color=GOLD]Final Boss[/color]"
+
 	var size_count_map: Dictionary = {}
 
 	for size in _creep_combination:
@@ -158,11 +162,6 @@ func get_creep_combination_string() -> String:
 	var combination_string: String = ", ".join(string_split)
 
 	return combination_string
-
-
-func is_bonus_wave() -> bool:
-	# TODO:
-	return false
 
 
 # Armor type of the creeps
@@ -266,11 +265,21 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm, armor_typ
 			f = 0.000015 * 1.9
 			g = 0.000000018
 
+	var wave_is_bonus: bool = Utils.wave_is_bonus(level)
+
 #	NOTE: extra hp multiplier can be found in jass code but
 #	it's located far from the code which implements the main
 #	health formula. Search for "(.9-" strings to find it in
 #	multiple locations.
 	var extra_hp_multiplier: float = (0.9 - (level * 0.002))
+	
+# 	TODO: tweak the values here, most important one is the
+# 	exponent	
+#	NOTE: this formula gradually reverse the direction of
+#	extra_hp_multiplier from decreasing to increasing and
+#	finally to exponential
+	if wave_is_bonus:
+		extra_hp_multiplier += pow(1.0001, pow((level - Constants.WAVE_COUNT_NEVERENDING) / 2.0, 2.5)) - 1.0
 
 	var j: int = level - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))

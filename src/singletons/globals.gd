@@ -66,6 +66,10 @@ func game_mode_allows_transform() -> bool:
 	return Globals.get_game_mode() != GameMode.enm.BUILD || Config.allow_transform_in_build_mode()
 
 
+func game_is_neverending() -> bool:
+	return _wave_count == Constants.WAVE_COUNT_NEVERENDING
+
+
 func get_update_ticks_per_physics_tick() -> int:
 	return _update_ticks_per_physics_tick
 

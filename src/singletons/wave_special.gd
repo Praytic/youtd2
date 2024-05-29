@@ -12,6 +12,12 @@ const _special_count_chances: Dictionary = {
 	2: 20,
 }
 
+const _special_count_chances_for_bonus_waves: Dictionary = {
+	0: 10,
+	1: 60,
+	2: 30,
+}
+
 
 #########################
 ###       Public      ###
@@ -35,11 +41,7 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 
 	var generated_specials: Array[int] = [first_special, second_special]
 
-	var special_count: int
-	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
-		special_count = 0
-	else:
-		special_count = Utils.random_weighted_pick(Globals.synced_rng, _special_count_chances)
+	var special_count: int = get_random_special_count(level)
 
 	var random_special_list: Array[int] = []
 
@@ -92,6 +94,22 @@ func creep_has_flock_special(creep: Creep) -> bool:
 #########################
 ###      Private      ###
 #########################
+
+func get_random_special_count(level: int) -> int:
+	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
+		return 0
+
+	var wave_is_bonus: bool = Utils.wave_is_bonus(level)
+	var count_chance_map: Dictionary
+	if wave_is_bonus:
+		count_chance_map = _special_count_chances
+	else:
+		count_chance_map = _special_count_chances_for_bonus_waves
+
+	var special_count: int = Utils.random_weighted_pick(Globals.synced_rng, count_chance_map)
+
+	return special_count
+
 
 func _get_random_special(available_special_list: Array[int]) -> int:
 	if available_special_list.is_empty():

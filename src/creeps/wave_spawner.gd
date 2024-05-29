@@ -24,9 +24,13 @@ func set_player(player: Player):
 
 func generate_waves():
 	var wave_count: int = Globals.get_wave_count()
+	_generate_waves_for(1, wave_count)
+
+
+func _generate_waves_for(level_start: int, wave_count: int):
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
 	
-	for wave_level in range(1, wave_count + 1):
+	for wave_level in range(level_start, level_start + wave_count):
 		var wave: Wave = Wave.new(wave_level, difficulty)
 		
 		var creep_combination_string: String = wave.get_creep_combination_string()
@@ -115,7 +119,15 @@ func _add_message_about_wave(wave: Wave):
 	var creep_armor: ArmorType.enm = wave.get_armor_type()
 	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
 
-	Messages.add_normal(_player, "[color=GOLD]=== LEVEL %s ===[/color]" % wave.get_level())
+	var wave_level: int = wave.get_level()
+	var wave_is_bonus: int = Utils.wave_is_bonus(wave_level)
+	var wave_header_text: String
+	if !wave_is_bonus:
+		wave_header_text = "[color=GOLD]=== LEVEL %s ===[/color]" % wave_level
+	else:
+		wave_header_text = "[color=GOLD]=== BONUS LEVEL %s ===[/color]" % wave_level
+
+	Messages.add_normal(_player, wave_header_text)
 	Messages.add_normal(_player, "%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
 
 	var special_list: Array[int] = wave.get_specials()
@@ -159,6 +171,15 @@ func _on_wave_finished(wave: Wave):
 
 	var level: int = wave.get_level()
 	wave_finished.emit(level)
+
+# 	Keep generating extra waves in neverending mode
+	var game_is_neverending: bool = Globals.game_is_neverending()
+	if game_is_neverending:
+		var last_generated_level: int = _wave_list.back().get_level()
+		var distance_to_last_generated_wave: int = last_generated_level - level
+
+		if distance_to_last_generated_wave < 20:
+			_generate_waves_for(last_generated_level + 1, 20)
 
 
 #########################

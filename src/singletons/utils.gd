@@ -1,6 +1,10 @@
 class_name UtilsStatic extends Node
 
 
+func wave_is_bonus(level: int) -> bool:
+	return level > Constants.WAVE_COUNT_NEVERENDING	
+
+
 func create_message_label(text: String) -> RichTextLabel:
 	var label: RichTextLabel = RichTextLabel.new()
 	label.append_text(text)

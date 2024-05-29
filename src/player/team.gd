@@ -118,8 +118,25 @@ func _start_wave():
 
 
 func _do_game_win():
-	_finished_the_game = true
+	var game_is_neverending: bool = Globals.game_is_neverending()
 	
+	if !game_is_neverending:
+		_finished_the_game = true
+	
+	var game_win_message: String
+	if game_is_neverending:
+		game_win_message = "[color=GOLD]You are a winner... but the waves are[/color] [color=RED]Neverending[/color][color=GOLD]![/color]"
+	else:
+		game_win_message = "[color=GOLD]You are a winner![/color]"
+
+	for player in _player_list:
+		Messages.add_normal(PlayerManager.get_local_player(), game_win_message)
+
+	if is_local():
+		_convert_local_player_score_to_exp()
+
+	game_win.emit()
+
 	for i in range(10):
 		var effect_count: int = 100 + i * 20
 		
@@ -135,14 +152,6 @@ func _do_game_win():
 			Effect.destroy_effect_after_its_over(effect)
 
 		await Utils.create_timer(1.0, self).timeout
-
-	for player in _player_list:
-		Messages.add_normal(PlayerManager.get_local_player(), "[color=GOLD]You are a winner![/color]")
-
-	if is_local():
-		_convert_local_player_score_to_exp()
-
-	game_win.emit()
 
 
 func _do_game_lose():
@@ -202,6 +211,8 @@ func _convert_local_player_score_to_exp():
 
 # This function starts the timer only if it's not already
 # running or if new duration is shorter
+
+
 # NOTE: it's possible for timer to already be running if the
 # difficulty is extreme and the timer has been started
 # automatically. In such cases, start timer only if new
@@ -219,20 +230,20 @@ func _start_timer_before_next_wave(duration: float):
 ###     Callbacks     ###
 #########################
 
-func _on_extreme_timer_timeout():
-	_start_timer_before_next_wave(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
-
-
 func _on_next_wave_timer_timeout():
 	start_next_wave()
 
 
-func _on_player_wave_spawned(level: int):
-	var started_last_wave: bool = level == Globals.get_wave_count()
+func _on_player_wave_spawned(_level: int):
+	var started_last_wave: bool = _level == Globals.get_wave_count()
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
+	var game_is_neverending: bool = Globals.game_is_neverending()
+	var next_wave_is_bonus: bool = Utils.wave_is_bonus(_level + 1)
 	
 	if difficulty_is_extreme && !started_last_wave:
 		_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
+	elif game_is_neverending && next_wave_is_bonus:
+		_next_wave_timer.start(Constants.DELAY_BETWEEN_BONUS_WAVES)
 
 
 func _on_player_wave_finished(level: int):
@@ -255,12 +266,14 @@ func _on_player_wave_finished(level: int):
 			all_players_finished = false
 		
 	var player_finished_last_level: bool = level == Utils.get_max_level()
-	var team_achieved_victory: bool = player_finished_last_level && all_players_finished 
+	var team_achieved_victory: bool = player_finished_last_level && all_players_finished
 
 	if team_achieved_victory:
 		_do_game_win()
 
-	if !player_finished_last_level:
+	var game_is_neverending: bool = Globals.game_is_neverending()
+	var need_to_start_next_wave_timer: bool = !player_finished_last_level || game_is_neverending
+	if need_to_start_next_wave_timer:
 		_start_timer_before_next_wave(Constants.TIME_BETWEEN_WAVES)
 
 
