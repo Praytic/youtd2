@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3iiv0urhfoac"]
 
-[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://assets/tower_sprites/lesser_defender.png" id="1_mfdck"]
+[ext_resource type="Texture2D" uid="uid://cb542s2y4av17" path="res://assets/tower_sprites/portal_to_swine_purgatory.png" id="1_nvw0o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbwjn"]
-atlas = ExtResource("1_mfdck")
-region = Rect2(389, 79, 140, 195)
+[sub_resource type="AtlasTexture" id="AtlasTexture_btv8m"]
+atlas = ExtResource("1_nvw0o")
+region = Rect2(327, 60, 125, 153)
 
 [node name="portal_to_swine_purgatory_2" type="Sprite2D"]
-modulate = Color(1, 0.4, 0.4, 1)
 scale = Vector2(1.1, 1.1)
-texture = SubResource("AtlasTexture_pbwjn")
-offset = Vector2(0, -60)
+texture = SubResource("AtlasTexture_btv8m")
+offset = Vector2(0, -30)
