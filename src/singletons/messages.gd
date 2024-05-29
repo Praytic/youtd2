@@ -40,13 +40,9 @@ func add_error(player: Player, text: String):
 		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
 		ERROR_FADE_DURATION).set_delay(ERROR_DELAY_BEFORE_FADE_START)
 
-#	NOTE: have to add label under dummy because there's no
-#	insert_child() f-n available.
-	var first_node_dummy: Control = error_message_container.get_children()[0]
-	first_node_dummy.add_sibling(label)
+	error_message_container.add_child(label)
 
-#	NOTE: subtract 1 from size to account for dummy child
-	var label_count: int = error_message_container.get_children().size() - 1
+	var label_count: int = error_message_container.get_children().size()
 	var reached_max: bool = label_count >= ERROR_MESSAGE_MAX + 1
 
 	if reached_max:
@@ -80,10 +76,15 @@ func add_normal(player: Player, text: String):
 	modulate_tween.tween_property(label, "modulate",
 		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
 		NORMAL_FADE_DURATION).set_delay(NORMAL_DELAY_BEFORE_FADE_START)
-
-	var child_list: Array = normal_message_container.get_children()
-	var last_label: RichTextLabel = child_list.front()
-	normal_message_container.remove_child(last_label)
-	last_label.queue_free()
-
+	
 	normal_message_container.add_child(label)
+	
+	var label_count: int = normal_message_container.get_children().size()
+	var reached_max: bool = label_count >= NORMAL_MESSAGE_MAX + 1
+
+	if reached_max:
+		var child_list: Array = normal_message_container.get_children()
+		var last_label: RichTextLabel = child_list.back()
+
+		normal_message_container.remove_child(last_label)
+		last_label.queue_free()

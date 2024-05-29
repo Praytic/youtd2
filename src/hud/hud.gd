@@ -35,9 +35,6 @@ signal stop_wave()
 #########################
 
 func _ready():
-	if Config.minimap_enabled():
-		$Minimap.call_deferred("create_instance")
-	
 	if OS.is_debug_build() and Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
@@ -49,13 +46,6 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
-#	NOTE: fill message container with blank labels before
-#	first messages arrive, so that initial messages appear
-#	at the bottom
-	for i in range(0, Messages.NORMAL_MESSAGE_MAX):
-		var blank_label: RichTextLabel = Utils.create_message_label(" ")
-		_normal_message_container.add_child(blank_label)
-	
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
 
 

@@ -1,15 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=28 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
-[ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://assets/hud/darkness_face.png" id="4_nuyc0"]
-[ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://assets/hud/tranquility_face.png" id="5_0wwxe"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
 [ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/hud/top_left_menu.tscn" id="10_agdn3"]
 [ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://resources/icons/hud/research_elements.tres" id="10_ylm6g"]
 [ext_resource type="Script" path="res://src/hud/hud.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://src/hud/item_stash_menu/item_stash_menu.tscn" id="11_5i6a2"]
-[ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://resources/ui_textures/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://src/hud/button_tooltip.tscn" id="11_ka7k1"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://resources/icons/hud/item_stash.tres" id="12_vixmf"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/hud/combat_log_window.tscn" id="14_g64vx"]
@@ -49,7 +46,7 @@ unicode = 51
 [sub_resource type="Shortcut" id="Shortcut_uebri"]
 events = [SubResource("InputEventKey_26jvu")]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_host_player_label", "_second_player_label", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,105 +57,31 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
-_error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
-_normal_message_container = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxContainer/NormalMessageContainer")
+_error_message_container = NodePath("MarginContainer8/ErrorMessageContainer")
+_normal_message_container = NodePath("MarginContainer/VBoxContainer/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
-_elements_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementsMenu")
-_tower_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerStashMenu")
-_item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu")
-_tower_stash_button = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/TowerStashButton")
-_item_stash_button = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ItemStashButton")
-_top_left_menu = NodePath("MarginContainer/All/Center/TopLeftMenu")
-_unit_menu = NodePath("MarginContainer/VBoxContainer2/UnitMenu")
-_host_player_label = NodePath("MarginContainer/All/Top/HBoxContainer/PlayerLabel1")
-_second_player_label = NodePath("MarginContainer/All/Top/HBoxContainer2/PlayerLabel2")
-_chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer3/VBoxContainer/MarginContainer/ChatLineEdit")
+_elements_menu = NodePath("MarginContainer7/MarginContainer2/HBoxContainer/ElementsMenu")
+_tower_stash_menu = NodePath("MarginContainer7/MarginContainer2/HBoxContainer/TowerStashMenu")
+_item_stash_menu = NodePath("MarginContainer7/MarginContainer2/HBoxContainer/ItemStashMenu")
+_tower_stash_button = NodePath("MarginContainer7/MarginContainer/VBoxContainer/TowerStashButton")
+_item_stash_button = NodePath("MarginContainer7/MarginContainer/VBoxContainer/ItemStashButton")
+_top_left_menu = NodePath("MarginContainer2/TopLeftMenu")
+_unit_menu = NodePath("MarginContainer5/VBoxContainer2/UnitMenu")
+_chat_line_edit = NodePath("MarginContainer/VBoxContainer/MarginContainer/ChatLineEdit")
 _desync_label = NodePath("DesyncLabel")
-_button_tooltip_top = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/MarginContainer/ButtonTooltipTop")
-_button_tooltip_bottom = NodePath("MarginContainer/VBoxContainer2/ButtonTooltipBottom")
-_tower_details = NodePath("MarginContainer/MarginContainer/TowerDetails")
-_creep_details = NodePath("MarginContainer/MarginContainer/CreepDetails")
+_button_tooltip_top = NodePath("MarginContainer7/MarginContainer2/HBoxContainer/MarginContainer/ButtonTooltipTop")
+_button_tooltip_bottom = NodePath("MarginContainer5/VBoxContainer2/ButtonTooltipBottom")
+_tower_details = NodePath("MarginContainer4/TowerDetails")
+_creep_details = NodePath("MarginContainer4/CreepDetails")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="All" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="Top" type="HBoxContainer" parent="MarginContainer/All"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Top"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Top/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_hbwuy")
-
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer/MarginContainer"]
-texture_filter = 4
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("4_nuyc0")
-expand_mode = 1
-
-[node name="PlayerLabel1" type="Label" parent="MarginContainer/All/Top/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/All/Top"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="PlayerLabel2" type="Label" parent="MarginContainer/All/Top/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Top/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer2/MarginContainer2"]
-layout_mode = 2
-texture = ExtResource("11_hbwuy")
-
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/All/Top/HBoxContainer2/MarginContainer2"]
-texture_filter = 4
-layout_mode = 2
-texture = ExtResource("5_0wwxe")
-expand_mode = 1
-
-[node name="Center" type="Control" parent="MarginContainer/All"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/All/Center"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -194.0
+offset_top = -1454.0
 offset_right = 1000.0
 grow_vertical = 0
 size_flags_horizontal = 0
@@ -167,20 +90,23 @@ mouse_filter = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_bottom = 350
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
+alignment = 2
 
-[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer"]
+[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1050)
 layout_mode = 2
 mouse_filter = 2
+alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/All/Center/MarginContainer3/VBoxContainer/MarginContainer"]
+[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/MarginContainer"]
 visible = false
 layout_mode = 2
 max_length = 200
@@ -191,92 +117,78 @@ middle_mouse_paste_enabled = false
 selecting_enabled = false
 caret_blink = true
 
-[node name="TopLeftMenu" parent="MarginContainer/All/Center" instance=ExtResource("10_agdn3")]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
 offset_right = 730.0
 offset_bottom = 388.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Center"]
+[node name="TopLeftMenu" parent="MarginContainer2" instance=ExtResource("10_agdn3")]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_bottom = 308.0
-grow_horizontal = 0
-theme_override_constants/margin_top = 80
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="ElementsMenuButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
-layout_mode = 2
-tooltip_text = "Open Elements Menu"
-button_group = ExtResource("7_8m5sl")
-icon = ExtResource("10_ylm6g")
-_menu = NodePath("../../../MarginContainer/HBoxContainer/ElementsMenu")
-
-[node name="TowerStashButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
-layout_mode = 2
-tooltip_text = "Open Tower Stash"
-button_group = ExtResource("7_8m5sl")
-_menu = NodePath("../../../MarginContainer/HBoxContainer/TowerStashMenu")
-
-[node name="ItemStashButton" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
-layout_mode = 2
-tooltip_text = "Open Item Stash"
-button_group = ExtResource("7_8m5sl")
-icon = ExtResource("12_vixmf")
-_menu = NodePath("../../../MarginContainer/HBoxContainer/ItemStashMenu")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -287.0
+offset_right = 287.0
+offset_bottom = 61.0
 grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 110
+theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center/MarginContainer"]
+[node name="PlayerResourceDisplay" parent="MarginContainer3" instance=ExtResource("15_ir4hq")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_constants/separation = 30
-alignment = 2
+metadata/_edit_vertical_guides_ = []
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="."]
 layout_mode = 2
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 15.0
+offset_bottom = 95.0
+size_flags_horizontal = 0
 size_flags_vertical = 0
-mouse_filter = 2
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 80
 
-[node name="ButtonTooltipTop" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer/MarginContainer" instance=ExtResource("11_ka7k1")]
+[node name="TowerDetails" parent="MarginContainer4" instance=ExtResource("17_12w0v")]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
 
-[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("11_5i6a2")]
+[node name="CreepDetails" parent="MarginContainer4" instance=ExtResource("18_acgvt")]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
 
-[node name="TowerStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
+[node name="MarginContainer5" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer5"]
+layout_mode = 2
+
+[node name="ButtonTooltipBottom" parent="MarginContainer5/VBoxContainer2" instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
 
-[node name="ElementsMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("17_bxii1")]
+[node name="UnitMenu" parent="MarginContainer5/VBoxContainer2" instance=ExtResource("19_bqmfs")]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center"]
+[node name="MarginContainer6" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -287,76 +199,115 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="SpeedNormal" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer6"]
+layout_mode = 2
+
+[node name="SpeedNormal" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
 layout_mode = 2
 tooltip_text = "Set game speed to normal"
 button_pressed = true
 button_group = ExtResource("16_ejnny")
 shortcut = SubResource("Shortcut_8c3lr")
 
-[node name="SpeedFast" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+[node name="SpeedFast" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
 layout_mode = 2
 tooltip_text = "Set game speed to fast"
 button_group = ExtResource("16_ejnny")
 shortcut = SubResource("Shortcut_5psg1")
 icon = ExtResource("16_avri0")
 
-[node name="SpeedFastest" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_lo44t")]
+[node name="SpeedFastest" parent="MarginContainer6/HBoxContainer2" instance=ExtResource("15_lo44t")]
 layout_mode = 2
 tooltip_text = "Set game speed to fastest"
 button_group = ExtResource("16_ejnny")
 shortcut = SubResource("Shortcut_uebri")
 icon = ExtResource("17_dklkb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+[node name="MarginContainer7" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_bottom = 418.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
 
-[node name="PlayerResourceDisplay" parent="MarginContainer/VBoxContainer" instance=ExtResource("15_ir4hq")]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer7"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-metadata/_edit_vertical_guides_ = []
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="ButtonTooltipBottom" parent="MarginContainer/VBoxContainer2" instance=ExtResource("11_ka7k1")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="UnitMenu" parent="MarginContainer/VBoxContainer2" instance=ExtResource("19_bqmfs")]
-visible = false
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
 theme_override_constants/margin_top = 80
 
-[node name="TowerDetails" parent="MarginContainer/MarginContainer" instance=ExtResource("17_12w0v")]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer7/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
-[node name="CreepDetails" parent="MarginContainer/MarginContainer" instance=ExtResource("18_acgvt")]
-visible = false
+[node name="ElementsMenuButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
+tooltip_text = "Open Elements Menu"
+button_group = ExtResource("7_8m5sl")
+icon = ExtResource("10_ylm6g")
+_menu = NodePath("../../../MarginContainer2/HBoxContainer/ElementsMenu")
 
-[node name="DevControls" parent="." instance_placeholder="res://src/hud/dev_controls.tscn"]
-visible = false
-layout_mode = 1
+[node name="TowerStashButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
+layout_mode = 2
+tooltip_text = "Open Tower Stash"
+button_group = ExtResource("7_8m5sl")
+_menu = NodePath("../../../MarginContainer2/HBoxContainer/TowerStashMenu")
+
+[node name="ItemStashButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
+layout_mode = 2
+tooltip_text = "Open Item Stash"
+button_group = ExtResource("7_8m5sl")
+icon = ExtResource("12_vixmf")
+_menu = NodePath("../../../MarginContainer2/HBoxContainer/ItemStashMenu")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer7"]
+layout_mode = 2
 mouse_filter = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 120
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer7/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer7/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_top = 80
+
+[node name="ButtonTooltipTop" parent="MarginContainer7/MarginContainer2/HBoxContainer/MarginContainer" instance=ExtResource("11_ka7k1")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="ItemStashMenu" parent="MarginContainer7/MarginContainer2/HBoxContainer" instance=ExtResource("11_5i6a2")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TowerStashMenu" parent="MarginContainer7/MarginContainer2/HBoxContainer" instance=ExtResource("15_eivr8")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ElementsMenu" parent="MarginContainer7/MarginContainer2/HBoxContainer" instance=ExtResource("17_bxii1")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer8" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -365,16 +316,20 @@ offset_left = -350.0
 offset_right = 350.0
 offset_bottom = 300.0
 grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 mouse_filter = 2
-theme_override_constants/margin_top = 300
+theme_override_constants/margin_top = 200
 
-[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
-custom_minimum_size = Vector2(700, 300)
+[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer8"]
+custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 mouse_filter = 2
+alignment = 2
 
-[node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
-layout_mode = 2
+[node name="DevControls" parent="." instance_placeholder="res://src/hud/dev_controls.tscn"]
+visible = false
+layout_mode = 1
 mouse_filter = 2
 
 [node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
@@ -388,18 +343,6 @@ offset_top = -251.5
 offset_right = 1000.0
 offset_bottom = 251.5
 grow_vertical = 2
-
-[node name="Minimap" parent="." instance_placeholder="res://src/hud/minimap.tscn"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 2
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 229.0
-offset_right = 445.0
-grow_horizontal = 1
-mouse_filter = 2
 
 [node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
 layout_mode = 1
@@ -442,7 +385,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
 text = "placeholder"
 
-[connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedNormal" to="." method="_on_speed_normal_toggled"]
-[connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedFast" to="." method="_on_speed_fast_toggled"]
-[connection signal="toggled" from="MarginContainer/All/Center/HBoxContainer/SpeedFastest" to="." method="_on_speed_fastest_toggled"]
-[connection signal="details_pressed" from="MarginContainer/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
+[connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
+[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedNormal" to="." method="_on_speed_normal_toggled"]
+[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedFast" to="." method="_on_speed_fast_toggled"]
+[connection signal="toggled" from="MarginContainer6/HBoxContainer2/SpeedFastest" to="." method="_on_speed_fastest_toggled"]
