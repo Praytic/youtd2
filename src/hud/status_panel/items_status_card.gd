@@ -1,5 +1,7 @@
 extends ButtonStatusCard
 
+# NOTE: this file is unused
+
 
 @export var _items_status_panel: ShortResourceStatusPanel
 @export var _oils_status_panel: ShortResourceStatusPanel

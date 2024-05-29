@@ -1,6 +1,8 @@
 extends Control
 
 
+# NOTE: this file is unused
+
 @export var livesBar: TextureProgressBar
 
 

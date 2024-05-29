@@ -1,5 +1,9 @@
 extends Control
 
+
+# NOTE: this file is unused
+
+
 @onready var default_camera = get_node("%Camera2D")
 @export var minimap_camera: Camera2D
 @export var minimap_texture: TextureRect

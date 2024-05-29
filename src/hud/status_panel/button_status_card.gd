@@ -1,6 +1,8 @@
 class_name ButtonStatusCard
 extends PanelContainer
 
+# NOTE: this file is unused
+
 
 signal visibility_level_changed(old_visibility_level: VisibilityLevel, new_visibility_level: VisibilityLevel)
 signal main_button_toggled(toggled_on: bool)

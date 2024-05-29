@@ -1,5 +1,7 @@
 extends ButtonStatusCard
 
+# NOTE: this file is unused
+
 @export var _towers_status_panel: ShortResourceStatusPanel
 @export var _ice_towers_status_panel: ShortResourceStatusPanel
 @export var _nature_towers_status_panel: ShortResourceStatusPanel
