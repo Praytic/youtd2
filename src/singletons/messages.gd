@@ -47,7 +47,7 @@ func add_error(player: Player, text: String):
 
 	if reached_max:
 		var child_list: Array = error_message_container.get_children()
-		var last_label: RichTextLabel = child_list.back()
+		var last_label: RichTextLabel = child_list.front()
 
 		error_message_container.remove_child(last_label)
 		last_label.queue_free()
@@ -84,7 +84,7 @@ func add_normal(player: Player, text: String):
 
 	if reached_max:
 		var child_list: Array = normal_message_container.get_children()
-		var last_label: RichTextLabel = child_list.back()
+		var last_label: RichTextLabel = child_list.front()
 
 		normal_message_container.remove_child(last_label)
 		last_label.queue_free()
