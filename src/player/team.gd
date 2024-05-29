@@ -226,6 +226,23 @@ func _start_timer_before_next_wave(duration: float):
 		_next_wave_timer.start(duration)
 
 
+# On extreme difficulty, there's built-in autospawn. This
+# f-n calculates the autospawn time.
+# Sample values:
+# lvl 1 = 25s
+# lvl 30 = 40s
+# lvl 100 = 40s
+# lvl 120 = 40s
+# lvl 240 = 34s
+# Goes up, stays at 40s, then goes down
+func _get_extreme_autospawn_time(level: int) -> float:
+	var time: float = min(25 + 0.5 * level, 40) + 6 - max(0.05 * level, 6)
+#	NOTE: prevent negative value
+	time = max(time, 1)
+
+	return time
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -234,14 +251,15 @@ func _on_next_wave_timer_timeout():
 	start_next_wave()
 
 
-func _on_player_wave_spawned(_level: int):
-	var started_last_wave: bool = _level == Globals.get_wave_count()
+func _on_player_wave_spawned(level: int):
+	var started_last_wave: bool = level == Globals.get_wave_count()
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
 	var game_is_neverending: bool = Globals.game_is_neverending()
-	var next_wave_is_bonus: bool = Utils.wave_is_bonus(_level + 1)
+	var next_wave_is_bonus: bool = Utils.wave_is_bonus(level + 1)
 	
 	if difficulty_is_extreme && !started_last_wave:
-		_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
+		var extreme_autospawn_time: float = _get_extreme_autospawn_time(level)
+		_next_wave_timer.start(extreme_autospawn_time)
 	elif game_is_neverending && next_wave_is_bonus:
 		_next_wave_timer.start(Constants.DELAY_BETWEEN_BONUS_WAVES)
 
