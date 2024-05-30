@@ -236,7 +236,9 @@ func ashbringer_icicle_store():
 	icicle.position = VectorUtils.vector3_to_vector2(icicle_pos)
 	icicle_list.append(icicle)
 
-	icicle_bt.apply(tower, tower, icicle_list.size())
+	var icicle_count: int = icicle_list.size()
+	var buff: Buff = icicle_bt.apply(tower, tower, icicle_count)
+	buff.set_displayed_stacks(icicle_count)
 
 
 func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
