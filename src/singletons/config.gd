@@ -188,3 +188,6 @@ func show_multiplayer_button() -> bool:
 # speed
 func update_ticks_per_physics_tick() -> int:
 	return ProjectSettings.get_setting("application/config/update_ticks_per_physics_tick") as int
+
+func enable_dev_commands() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_dev_commands") as bool

@@ -6,13 +6,20 @@ class_name ChatCommands extends Node
 
 const HELP: String = "/help"
 const READY: String = "/ready"
+const AUTOSPAWN: String = "/autospawn"
+
+const CREATE_ITEM: String = "/createitem"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
-const CREATE_ITEM: String = "/createitem"
-const AUTOSPAWN: String = "/autospawn"
 
 const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
 	READY,
+]
+
+const DEV_COMMAND_LIST: Array[String] = [
+	CREATE_ITEM,
+	PAUSE,
+	UNPAUSE,
 ]
 
 @export var _team_container: TeamContainer
@@ -36,6 +43,11 @@ func process_command(player: Player, command: String):
 			Messages.add_error(player, "This command is not allowed in multiplayer.")
 
 			return
+
+	var command_is_dev: bool = DEV_COMMAND_LIST.has(command_main)
+	var enable_dev_commands: bool = Config.enable_dev_commands()
+	if command_is_dev && !enable_dev_commands:
+		return
 
 	match command_main:
 		ChatCommands.HELP: _command_help(player)
