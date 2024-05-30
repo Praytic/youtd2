@@ -12,8 +12,8 @@ const CREATE_ITEM: String = "/createitem"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
 
-const ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
-	READY,
+const NOT_ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
+	AUTOSPAWN,
 ]
 
 const DEV_COMMAND_LIST: Array[String] = [
@@ -36,17 +36,17 @@ func process_command(player: Player, command: String):
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
-	if is_multiplayer:
-		var command_is_allowed_in_multiplayer: bool = ALLOWED_IN_MULTIPLAYER_LIST.has(command_main)
+	var command_not_allowed_in_multiplayer: bool = NOT_ALLOWED_IN_MULTIPLAYER_LIST.has(command_main)
+	if is_multiplayer && command_not_allowed_in_multiplayer:
+		Messages.add_error(player, "This command is not allowed in multiplayer.")
 
-		if !command_is_allowed_in_multiplayer:
-			Messages.add_error(player, "This command is not allowed in multiplayer.")
-
-			return
+		return
 
 	var command_is_dev: bool = DEV_COMMAND_LIST.has(command_main)
 	var enable_dev_commands: bool = Config.enable_dev_commands()
 	if command_is_dev && !enable_dev_commands:
+		Messages.add_error(player, "This command is only available in dev mode.")
+		
 		return
 
 	match command_main:
