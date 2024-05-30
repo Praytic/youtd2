@@ -4,6 +4,7 @@ class_name ChatCommands extends Node
 # with "/" are treated as commands.
 
 
+const HELP: String = "/help"
 const READY: String = "/ready"
 const PAUSE: String = "/pause"
 const UNPAUSE: String = "/unpause"
@@ -37,6 +38,7 @@ func process_command(player: Player, command: String):
 			return
 
 	match command_main:
+		ChatCommands.HELP: _command_help(player)
 		ChatCommands.READY: _command_ready(player)
 		ChatCommands.PAUSE: _command_pause(player)
 		ChatCommands.UNPAUSE: _command_unpause(player)
@@ -47,6 +49,10 @@ func process_command(player: Player, command: String):
 #########################
 ###      Private      ###
 #########################
+
+func _command_help(player: Player):
+	Messages.add_normal(player, "You can read about chat commands in the [color=GOLD]Advanced[/color] tab of the [color=GOLD]Hints[/color] menu.")
+
 
 func _command_ready(player: Player):
 	if !player.is_ready():
