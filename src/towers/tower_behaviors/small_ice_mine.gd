@@ -8,8 +8,8 @@ func get_tier_stats() -> Dictionary:
 	return {
 		1: {slow_value = 0.075, slow_duration = 2.0, aoe_range = 250, aoe_damage = 150, aoe_damage_add = 7.5},
 		2: {slow_value = 0.090, slow_duration = 3.0, aoe_range = 300, aoe_damage = 500, aoe_damage_add = 25},
-		3: {slow_value = 0.011, slow_duration = 4.0, aoe_range = 350, aoe_damage = 1250, aoe_damage_add = 62.5},
-		4: {slow_value = 0.014, slow_duration = 5.0, aoe_range = 400, aoe_damage = 2500, aoe_damage_add = 125},
+		3: {slow_value = 0.110, slow_duration = 4.0, aoe_range = 350, aoe_damage = 1250, aoe_damage_add = 62.5},
+		4: {slow_value = 0.140, slow_duration = 5.0, aoe_range = 400, aoe_damage = 2500, aoe_damage_add = 125},
 	}
 
 
