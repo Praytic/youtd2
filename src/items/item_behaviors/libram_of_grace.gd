@@ -10,7 +10,7 @@ func get_ability_description() -> String:
 	text += "[color=GOLD]Grace - Aura[/color]\n"
 	text += "Increases the amount of experience towers in 150 range of the carrier gain by 10%.\n"
 	text += " \n"
-	text += "Level Bonus:\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% experience\n"
 
 	return text

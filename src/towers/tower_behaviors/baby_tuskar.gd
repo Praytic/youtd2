@@ -26,9 +26,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.description_short = "Hurls a snowball at the attacked creep if it's not facing the tower. Snowball deals spell damage.\n"
 	ability.description_full = "Hurls a snowball at the attacked creep if it's not facing the tower. But the snowball only has a 20% chance to hit, where it hits is decided by the angle of attack.\n" \
 	+ " \n" \
-	+ "Temple Crusher : If it hits side-on, does 120%% of its attack damage as spell damage and a %s second stun.\n" % stun_temple_duration \
+	+ "[color=GOLD]Temple Crusher:[/color] If it hits side-on, does 120%% of its attack damage as spell damage and a %s second stun.\n" % stun_temple_duration \
 	+ " \n" \
-	+ "Knockdown : If it hits the back of the head, does 40%% of its attack damage as spell damage and a %s second stun.\n" % stun_knockdown_duration \
+	+ "[color=GOLD]Knockdown:[/color] If it hits the back of the head, does 40%% of its attack damage as spell damage and a %s second stun.\n" % stun_knockdown_duration \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance to hit\n" % hit_chance_add
