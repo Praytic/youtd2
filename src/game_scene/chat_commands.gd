@@ -4,9 +4,14 @@ class_name ChatCommands extends Node
 # with "/" are treated as commands.
 
 
+const GAMESPEED_MIN: int = 1
+const GAMESPEED_MAX: int = 30
+
+
 const HELP: String = "/help"
 const READY: String = "/ready"
 const AUTOSPAWN: String = "/autospawn"
+const GAMESPEED: String = "/gamespeed"
 
 const CREATE_ITEM: String = "/createitem"
 const PAUSE: String = "/pause"
@@ -14,6 +19,7 @@ const UNPAUSE: String = "/unpause"
 
 const NOT_ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
 	AUTOSPAWN,
+	GAMESPEED,
 ]
 
 const DEV_COMMAND_LIST: Array[String] = [
@@ -52,6 +58,7 @@ func process_command(player: Player, command: String):
 	match command_main:
 		ChatCommands.HELP: _command_help(player)
 		ChatCommands.READY: _command_ready(player)
+		ChatCommands.GAMESPEED: _command_gamespeed(player, command_args)
 		ChatCommands.PAUSE: _command_pause(player)
 		ChatCommands.UNPAUSE: _command_unpause(player)
 		ChatCommands.CREATE_ITEM: _command_create_item(player, command_args)
@@ -69,6 +76,24 @@ func _command_help(player: Player):
 func _command_ready(player: Player):
 	if !player.is_ready():
 		player.vote_ready()
+
+
+func _command_gamespeed(player: Player, args: Array):
+	if args.size() != 1:
+		Messages.add_error(player, "Invalid command args.")
+
+		return
+
+	var value: int = args[0].to_int()
+
+	if GAMESPEED_MIN > value || value > GAMESPEED_MAX:
+		Messages.add_normal(player, "[color=RED]Gamespeed value must be within [%s,%s] range.[/color]" % [GAMESPEED_MIN, GAMESPEED_MAX])
+
+		return
+
+	Globals.set_update_ticks_per_physics_tick(value)
+
+	Messages.add_normal(player, "Set gamespeed to %d." % value)
 
 
 func _command_pause(_player: Player):
