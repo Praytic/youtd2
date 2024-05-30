@@ -261,7 +261,7 @@ func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
 #	the target point?
 	p.avert_destruction()
 
-	var effect: int = Effect.create_scaled("res://src/effects/stun_visual.tscn", Vector3(icicle_x, icicle_y, 200), angle, 5)
+	var effect: int = Effect.create_scaled("res://src/effects/stun_visual.tscn", Vector3(icicle_x, icicle_y, 200), angle, 2)
 	icicle.effect = effect
 
 
