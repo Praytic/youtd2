@@ -24,10 +24,12 @@ func canvas_to_wc3_2d(pos_canvas: Vector2) -> Vector2:
 	return pos_wc3
 
 
+# NOTE: need to use z without converting to pixels, this is
+# how it works in general
 func wc3_to_canvas(pos_wc3: Vector3) -> Vector2:
 	var pos_pixels: Vector3 = pos_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
 	var canvas_x: float = pos_pixels.x
-	var canvas_y: float = pos_pixels.y * 0.5 - pos_pixels.z
+	var canvas_y: float = pos_pixels.y * 0.5 - pos_wc3.z
 	var pos_canvas: Vector2 = Vector2(canvas_x, canvas_y)
 
 	return pos_canvas
