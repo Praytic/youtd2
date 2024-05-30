@@ -5,6 +5,15 @@ extends TowerBehavior
 # manipulating Icicle structs. Changed to a different method
 # which is less complex.
 
+# NOTE: fixed bug in original script where the effect of
+# Shattering Barrage scaled by tower level when it
+# shouldn't. According to ability description, the debuff
+# "increases damage taken by 100%". The actual value was
+# 100% * [tower level], because the Modifier for shatter_bt
+# incorrectly had "1.0" args in the "level_add" portion
+# (last arg). This caused this tower to occasionally
+# instakill creeps with Shattering Barrage.
+
 
 class Icicle:
 	var projectile: Projectile
@@ -87,8 +96,8 @@ func tower_init():
 	shatter_bt = BuffType.new("shatter_bt", 5, 0, false, self)
 	shatter_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	var ashbringer_ebonfrost_shatter_mod: Modifier = Modifier.new()
-	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 1.0)
-	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 1.0)
+	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 1.0, 0.0)
+	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 1.0, 0.0)
 	shatter_bt.set_buff_modifier(ashbringer_ebonfrost_shatter_mod)
 	shatter_bt.add_event_on_create(shatter_bt_on_create)
 	shatter_bt.set_buff_tooltip("Shatter\nIncreases attack and spell damage taken.")
