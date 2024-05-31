@@ -529,14 +529,8 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float, crit_
 func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm, crit_count: int = -1, is_main_target: bool = false, emit_damage_event: bool = false):
 	var armor_mod: float = 1.0 - target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
-	var element_mod: float = 1.0
 
-	if self is Tower:
-		var tower: Tower = self as Tower
-		var element: Element.enm = tower.get_element()
-		element_mod = target.get_damage_from_element(element)
-
-	var damage: float = damage_base * armor_mod * received_mod * element_mod
+	var damage: float = damage_base * armor_mod * received_mod
 
 	var deals_no_damage_to_immune: bool = AttackType.deals_no_damage_to_immune(attack_type)
 
@@ -894,6 +888,12 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var spell_damage_multiplier: float = ArmorType.get_spell_damage_taken(armor_type)
 
 	var damage: float = damage_base * size_mod * category_mod
+	
+	if self is Tower:
+		var tower: Tower = self as Tower
+		var element: Element.enm = tower.get_element()
+		var element_mod: float = target.get_damage_from_element(element)
+		damage *= element_mod
 
 	match damage_source:
 		DamageSource.Attack: damage *= armor_type_mod
