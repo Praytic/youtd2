@@ -147,14 +147,24 @@ func _command_autospawn(player: Player, args: Array):
 
 		return
 
-	var autospawn_time: int = args[0].to_int()
+	var team: Team = player.get_team()
+
+	var option: String = args[0]
+	var disable_autospawn: bool = option == "off"
+
+	if disable_autospawn:
+		team.set_autospawn_time(-1)
+		_add_status(player, "Disabled autospawn.")
+
+		return
+
+	var autospawn_time: int = option.to_int()
 
 	if 1.0 > autospawn_time || autospawn_time > 100:
 		_add_error(player, "Invalid time argument.")
 
 		return
 
-	var team: Team = player.get_team()
 	team.set_autospawn_time(autospawn_time)
 
 	_add_status(player, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
