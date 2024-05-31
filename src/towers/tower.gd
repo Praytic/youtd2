@@ -102,6 +102,8 @@ func _ready():
 # 	Carry over some properties and all items from preceding
 # 	tower
 	if _temp_preceding_tower != null:
+		get_player().transfer_autooils(_temp_preceding_tower, self)
+		
 		var preceding_item_list: Array = _temp_preceding_tower.get_items()
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 

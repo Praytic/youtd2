@@ -11,6 +11,7 @@ const GAMESPEED_MAX: int = 30
 const HELP: String = "/help"
 const READY: String = "/ready"
 const AUTOSPAWN: String = "/autospawn"
+const AUTOOIL: Array[String] = ["/autooil", "/ao"]
 const GAMESPEED: String = "/gamespeed"
 
 const CREATE_ITEM: String = "/createitem"
@@ -61,6 +62,11 @@ func process_command(player: Player, command: String):
 	if command_is_dev && !enable_dev_commands:
 		_add_error(player, "This command is only available in dev mode.")
 		
+		return
+
+	if ChatCommands.AUTOOIL.has(command_main):
+		_command_autooil(player, command_args)
+
 		return
 
 	match command_main:
@@ -168,6 +174,74 @@ func _command_autospawn(player: Player, args: Array):
 	team.set_autospawn_time(autospawn_time)
 
 	_add_status(player, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
+
+
+func _command_autooil(player: Player, args: Array):
+	var unit: Unit = player.get_selected_unit()
+
+	var selected_non_tower: bool = unit != null && !unit is Tower
+	if selected_non_tower:
+		_add_error(player, "Cannot autooil while selecting non-tower units.")
+
+		return
+
+	var tower: Tower = unit as Tower
+
+	var option: String
+	if !args.is_empty():
+		option = args[0]
+	else:
+		option = ""
+	
+	var clear_all: bool = option == "clear" && tower == null
+	if clear_all:
+		player.clear_all_autooil()
+		_add_status(player, "Cleared all autooils.")
+		
+		return
+	
+	var clear_tower: bool = option == "clear" && tower != null
+	if clear_tower:
+		player.clear_autooil_for_tower(tower)
+		var tower_name: String = tower.get_display_name()
+		_add_status(player, "Cleared autooils for %s." % tower_name)
+		
+		return
+	
+	var show_status: bool = option == "show"
+	if show_status:
+		var status_text: String = player.get_autooil_status()
+		_add_status(player, "Autooil status:")
+		Messages.add_normal(player, status_text)
+		
+		return
+	
+	var list_types: bool = option == "list"
+	if list_types:
+		var oil_type_list: Array = AutoOil.get_oil_type_list()
+		var text: String = ", ".join(oil_type_list)
+		_add_status(player, "Available oils for autooil:")
+		_add_status(player, text)
+		
+		return
+	
+	if tower == null:
+		_add_error(player, "You must select a tower to execute this mode of autooil command.")
+		
+		return
+	
+	var oil_type: String = option
+	var oil_type_is_valid: bool = AutoOil.get_oil_type_is_valid(oil_type)
+	
+	if !oil_type_is_valid:
+		_add_error(player, "Invalid oil type: \"%s\"." % oil_type)
+
+		return
+	
+	player.set_autooil_for_tower(oil_type, tower)
+	var tower_name: String = tower.get_display_name()
+	var full_oil_type: String = AutoOil.convert_short_type_to_full(oil_type)
+	_add_status(player, "Set autooil for tower [color=GOLD]%s[/color] to [color=GOLD]%s[/color] oils." % [tower_name, full_oil_type])
 
 
 func _command_add_exp(player: Player, args: Array):

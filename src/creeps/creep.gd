@@ -251,16 +251,29 @@ func drop_item(caster: Tower, use_creep_player: bool):
 	EventBus.item_dropped.emit()
 
 
-func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
+func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id: int):
 	var item_position: Vector3 = get_position_wc3()
 	var item: Item = Item.create(caster.get_player(), item_id, item_position)
-	item.fly_to_stash(0.0)
 
 	var item_name: String = ItemProperties.get_item_name(item_id)
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 
 	caster.get_player().display_floating_text(item_name, self, rarity_color)
+
+	var player: Player = get_player()
+	var autooil_tower: Tower = player.get_autooil_tower(item_id)
+	var autooil_exists_for_this_item: bool = autooil_tower != null
+	if autooil_exists_for_this_item:
+		item.pickup(autooil_tower)
+		
+		var oil_name: String = item.get_display_name()
+		var tower_name: String = autooil_tower.get_display_name()
+		Messages.add_normal(player, "[color=CYAN]Autooil: applied [color=GOLD]%s[/color] to tower [color=GOLD]%s[/color].[/color]" % [oil_name, tower_name])
+
+		return
+	else:
+		item.fly_to_stash(0.0)
 
 
 #########################

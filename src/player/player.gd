@@ -45,6 +45,7 @@ var _focus_target_effect_id: int = 0
 var _wisdom_upgrade_effect_multiplier: float = 1.0
 var _wisdom_modifier: Modifier = Modifier.new()
 var _selected_unit: Unit = null
+var _autooil: AutoOil = AutoOil.new()
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -68,6 +69,30 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_autooil_status() -> String:
+	return _autooil.get_status()
+
+
+func get_autooil_tower(oil_id: int) -> Tower:
+	return _autooil.get_tower(oil_id)
+
+
+func transfer_autooils(prev_tower: Tower, new_tower: Tower):
+	_autooil.transfer_autooils(prev_tower, new_tower)
+
+
+func set_autooil_for_tower(type: String, tower: Tower):
+	_autooil.set_tower(type, tower)
+
+
+func clear_autooil_for_tower(tower: Tower):
+	_autooil.clear_for_tower(tower)
+
+
+func clear_all_autooil():
+	_autooil.clear_all()
+
 
 # NOTE: destroy prev effect so that there's only one arrow
 # up at a time
