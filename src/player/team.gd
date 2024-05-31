@@ -224,7 +224,7 @@ func _convert_local_player_score_to_exp():
 # timer is shorter.
 func _start_timer_before_next_wave(duration: float):
 	var timer_already_running: bool = !_next_wave_timer.is_stopped()
-	var new_duration_is_shorter: bool = _next_wave_timer.get_time_left()
+	var new_duration_is_shorter: bool = duration < _next_wave_timer.get_time_left()
 	var need_to_start_timer: bool = !timer_already_running || new_duration_is_shorter
 
 	if need_to_start_timer:
