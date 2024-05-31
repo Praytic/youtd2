@@ -291,8 +291,11 @@ static func int_format(num: float) -> String:
 		num_str = "0"
 	var frac_str = ""
 	if suffix != "":
-		frac_str = ".%d" % ((num - int(num)) * 100)
-	
+		var num_float_str: String = Utils.format_float(num, 2)
+		if num_float_str.contains("."):
+			var num_float_str_split: Array = num_float_str.split(".")
+			frac_str = ".%s" % num_float_str_split[1]
+
 	# Add commas to the integer part of the number
 	var digits = num_str.length()
 	for i in range(digits - 3, 0, -3):
