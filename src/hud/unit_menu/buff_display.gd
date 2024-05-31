@@ -71,6 +71,10 @@ func set_buff(buff: Buff):
 	_texture_rect.modulate = color
 
 
+func get_buff() -> Buff:
+	return _buff
+
+
 #########################
 ###      Private      ###
 #########################
