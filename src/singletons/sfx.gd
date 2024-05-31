@@ -38,7 +38,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	sfx_player.play()
 
 
-func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0):
+func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
@@ -48,6 +48,7 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0)
 		return
 
 	var sfx_player: AudioStreamPlayer2D = audio_player_pool.get_2d_sfx_player()
+	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
 
@@ -62,15 +63,15 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0)
 
 
 # NOTE: SFXAtUnit() in JASS
-func sfx_at_unit(sfx_name: String, unit: Unit, volume_db: float = 0.0):
+func sfx_at_unit(sfx_name: String, unit: Unit, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	var sfx_position: Vector2 = unit.get_visual_position()
-	sfx_at_pos(sfx_name, sfx_position, volume_db)
+	sfx_at_pos(sfx_name, sfx_position, volume_db, pitch_scale)
 
 
 # NOTE: SFXOnUnit() in JASS
-func sfx_on_unit(sfx_name: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0):
+func sfx_on_unit(sfx_name: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
-	sfx_at_pos(sfx_name, sfx_position, volume_db)
+	sfx_at_pos(sfx_name, sfx_position, volume_db, pitch_scale)
 
 
 func connect_sfx_to_signal_in_group(sfx_name, signal_name, group_name):
