@@ -41,7 +41,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var evolve: AbilityInfo = AbilityInfo.new()
 	evolve.name = "Evolve"
 	evolve.icon = "res://resources/icons/plants/tree.tres"
-	evolve.description_short = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains power, depending on current [color=GOLD]Morph/color] stacks.\n"
+	evolve.description_short = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains power, depending on current [color=GOLD]Morph[/color] stacks.\n"
 	evolve.description_full = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
 	list.append(evolve)
 
@@ -125,7 +125,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_swiftness.title = "Morph: Swiftness"
 	autocast_swiftness.icon = "res://resources/icons/trinkets/trinket_08.tres"
 	autocast_swiftness.description_short = "Activates [color=GOLD]Morph: Swiftness[/color].\n"
-	autocast_swiftness.description = "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated."
+	autocast_swiftness.description = "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated.\n"
 	autocast_swiftness.caster_art = ""
 	autocast_swiftness.target_art = ""
 	autocast_swiftness.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE

@@ -24,7 +24,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	aqua_breath.name = "Aqua Breath"
 	aqua_breath.icon = "res://resources/icons/magic/lock_04.tres"
 	aqua_breath.description_short = "This tower deals %s damage equal to its current mana.\n" % energy_string
-	aqua_breath.description_full = "This tower deals %s damage equal to its current mana.\n" % energy_string
+	aqua_breath.description_full = "When this tower hits a creep, it deals %s damage equal to its current mana.\n" % energy_string \
+	+ " \n" \
+	+ "This damage is not affected by bonuses to attack damage but is affected by attack crit bonuses.\n" \
+	+ ""
 	list.append(aqua_breath)
 
 	var cold_blooded: AbilityInfo = AbilityInfo.new()

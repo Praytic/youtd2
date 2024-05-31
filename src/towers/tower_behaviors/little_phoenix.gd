@@ -58,7 +58,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var phoenix_explosion: AbilityInfo = AbilityInfo.new()
 	phoenix_explosion.name = "Phoenix Explosion"
 	phoenix_explosion.icon = "res://resources/icons/elements/fire.tres"
-	phoenix_explosion.description_short = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals AoE attack damage."
+	phoenix_explosion.description_short = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals AoE attack damage.\n"
 	phoenix_explosion.description_full = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals %s %s damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, element_string, erupt_range, armor_regain] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
