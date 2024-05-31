@@ -2,12 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://c5wlklyshg3gg" path="res://assets/tower_sprites/tundra_stalker_atlas.png" id="3_p8rjt"]
 
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bkgl"]
 atlas = ExtResource("3_p8rjt")
-region = Rect2(0, 300, 300, 300)
+region = Rect2(341, 17, 225, 250)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -61)
-scale = Vector2(0.8, 0.8)
-texture = SubResource("AtlasTexture_lrt4k")
+position = Vector2(0, -65)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_7bkgl")
