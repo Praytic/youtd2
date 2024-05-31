@@ -11,6 +11,8 @@ var _units_under_mouse_list: Array[Unit] = []
 var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
 
+@export var _game_client: GameClient
+
 
 #########################
 ###     Built-in      ###
@@ -30,6 +32,7 @@ func set_selected_unit(new_selected_unit: Unit):
 
 	if old_selected_unit != null:
 		old_selected_unit.set_selected(false)
+		old_selected_unit.tree_exited.disconnect(_on_unit_tree_exited)
 
 	if new_selected_unit != null:
 		new_selected_unit.set_selected(true)
@@ -39,6 +42,15 @@ func set_selected_unit(new_selected_unit: Unit):
 
 	_selected_unit = new_selected_unit
 	selected_unit_changed.emit(old_selected_unit)
+
+# 	NOTE: this part syncs selection in multiplayer
+	var unit_id: int
+	if new_selected_unit != null:
+		unit_id = new_selected_unit.get_uid()
+	else:
+		unit_id = -1
+	var action: Action = ActionSelectUnit.make(unit_id)
+	_game_client.add_action(action)
 
 
 func get_selected_unit() -> Unit:

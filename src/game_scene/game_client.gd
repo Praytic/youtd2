@@ -209,6 +209,7 @@ func _execute_action(action: Dictionary):
 		Action.Type.FOCUS_TARGET: ActionFocusTarget.execute(action, player)
 		Action.Type.CHANGE_BUFFGROUP: ActionChangeBuffgroup.execute(action, player)
 		Action.Type.SELECT_WISDOM_UPGRADES: ActionSelectWisdomUpgrades.execute(action, player)
+		Action.Type.SELECT_UNIT: ActionSelectUnit.execute(action, player)
 
 
 func _update_state():

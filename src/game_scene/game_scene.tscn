@@ -105,8 +105,9 @@ script = ExtResource("3_qsih1")
 [node name="GameTime" type="Node" parent="Gameplay"]
 script = ExtResource("5_8syq6")
 
-[node name="SelectUnit" type="Node" parent="Gameplay"]
+[node name="SelectUnit" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client")]
 script = ExtResource("6_vam2w")
+_game_client = NodePath("../GameClient")
 
 [node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_game_client")]
 script = ExtResource("7_h82dk")

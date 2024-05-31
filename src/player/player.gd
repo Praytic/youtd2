@@ -44,6 +44,7 @@ var _is_ready: bool = false
 var _focus_target_effect_id: int = 0
 var _wisdom_upgrade_effect_multiplier: float = 1.0
 var _wisdom_modifier: Modifier = Modifier.new()
+var _selected_unit: Unit = null
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -474,6 +475,28 @@ func get_wisdom_modifier() -> Modifier:
 	return _wisdom_modifier
 
 
+# NOTE: this functionality is split between here and
+# SelectUnit class at the moment. Need to figure out how to
+# factor it properly, to have correct syncing in multiplayer
+# and without sacrificing responsiveness.
+# 
+# NOTE: this f-n should be called only by ActionSelectUnit
+func set_selected_unit(new_selected_unit: Unit):
+	var old_selected_unit: Unit = _selected_unit
+
+	if old_selected_unit != null:
+		old_selected_unit.tree_exited.disconnect(_on_selected_unit_tree_exited)
+
+	if new_selected_unit != null && !new_selected_unit.tree_exited.is_connected(_on_selected_unit_tree_exited):
+		new_selected_unit.tree_exited.connect(_on_selected_unit_tree_exited.bind(new_selected_unit))
+
+	_selected_unit = new_selected_unit
+
+
+func get_selected_unit() -> Unit:
+	return _selected_unit
+
+
 #########################
 ###      Private      ###
 #########################
@@ -551,3 +574,12 @@ func _on_wave_spawner_wave_finished(level: int):
 
 func _on_wave_spawner_wave_spawned(level: int):
 	wave_spawned.emit(level)
+
+
+# NOTE: Need this slot because "mouse_exited" signal doesn't
+# get emitted when units exit the tree because of
+# queue_free().
+func _on_selected_unit_tree_exited(unit: Unit):
+	var selected_unit_is_being_removed: bool = _selected_unit == unit
+	if selected_unit_is_being_removed:
+		set_selected_unit(null)
