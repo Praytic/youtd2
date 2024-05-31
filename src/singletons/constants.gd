@@ -32,6 +32,7 @@ const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0
 
 const SPELL_DAMAGE_RATIO: float = 0.9
+const SPELL_DAMAGE_RATIO_FOR_SIF: float = 0.4
 
 const MAX_LEVEL: int = 25
 const PLAYER_MAX_LEVEL: int = 225

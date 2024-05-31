@@ -78,6 +78,10 @@ static func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 
 		text += "%s:\t %s\n" % [attack_type_name, damage_taken_string]
 
+	var spell_damage_taken: float = ArmorType.get_spell_damage_taken(armor_type)
+	var spell_damage_taken_string: String = Utils.format_percent(spell_damage_taken, 2)
+	text += "Spell Damage:\t %s\n" % [spell_damage_taken_string]
+
 	return text
 
 
@@ -93,6 +97,21 @@ static func get_rich_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 
 		text += "%s:\t %s\n" % [attack_type_name, damage_taken_string]
 
+	var spell_damage_taken: float = ArmorType.get_spell_damage_taken(armor_type)
+	var spell_damage_taken_string: String = Utils.format_percent(spell_damage_taken, 2)
+	text += "Spell Damage:\t %s\n" % [spell_damage_taken_string]
+
 	text = RichTexts.add_color_to_numbers(text)
 
 	return text
+
+
+static func get_spell_damage_taken(armor_type: ArmorType.enm) -> float:
+	var value: float
+
+	if armor_type == ArmorType.enm.SIF:
+		value = Constants.SPELL_DAMAGE_RATIO_FOR_SIF
+	else:
+		value = Constants.SPELL_DAMAGE_RATIO
+
+	return value
