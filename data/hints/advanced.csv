@@ -60,12 +60,12 @@ For a tower with 0.5 second attack speed, the ability will trigger [color=GOLD][
  
 [color=GOLD]/ready[/color] - Starts the first level early.
  
-[color=GOLD]/autospawn[/color] <TIME> - Sets up an additional timer which will automatically start the next level <TIME> seconds after the current level has finished spawning. Use [color=GOLD]/autospawn off[/color] to disable autospawn.
-
+[color=GOLD]/autospawn <TIME>[/color] or [color=GOLD]/as[/color] - Sets up an additional timer which will automatically start the next level <TIME> seconds after the current level has finished spawning. Use [color=GOLD]/autospawn off[/color] to disable autospawn.
+ 
 [color=GOLD]/autooil[/color] or [color=GOLD]/ao[/color] - Sets up automatic oiling of towers. When an assigned oil drops from a creep, it will be automatically applied on a tower.
 Available variations:
 [color=GOLD]/autooil list[/color] - shows available oil types.
-[color=GOLD]/autooil oiltype[/color] - this will set autooiling for selected tower. You can type short versions of oiltypes.
+[color=GOLD]/autooil <OILTYPE>[/color] - this will set autooiling for selected tower. You can type short versions of oiltypes - "sharpness", "sharp", "sh".
 [color=GOLD]/autooil show[/color] - shows all current autooil assignments.
 [color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
 [color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.

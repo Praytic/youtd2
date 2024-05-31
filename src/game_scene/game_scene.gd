@@ -504,7 +504,7 @@ func _on_player_requested_start_game():
 
 		return
 
-	var action: Action = ActionChat.make(ChatCommands.READY)
+	var action: Action = ActionChat.make(ChatCommands.READY[0])
 	_game_client.add_action(action)
 
 

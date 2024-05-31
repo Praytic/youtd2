@@ -8,26 +8,26 @@ const GAMESPEED_MIN: int = 1
 const GAMESPEED_MAX: int = 30
 
 
-const HELP: String = "/help"
-const READY: String = "/ready"
-const AUTOSPAWN: String = "/autospawn"
+const HELP: Array[String] = ["/help"]
+const READY: Array[String] = ["/ready"]
+const AUTOSPAWN: Array[String] = ["/autospawn", "/as"]
 const AUTOOIL: Array[String] = ["/autooil", "/ao"]
-const GAMESPEED: String = "/gamespeed"
+const GAMESPEED: Array[String] = ["/gamespeed", "/gs"]
 
-const CREATE_ITEM: String = "/createitem"
-const PAUSE: String = "/pause"
-const UNPAUSE: String = "/unpause"
-const ADD_EXP: String = "/add-exp"
-const ADD_TEST_OILS: String = "/add-test-oils"
-const SPAWN_CHALLENGE: String = "/spawn-challenge"
-const SETUP_TEST_TOWER: String = "/setup-test-tower"
+const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
+const PAUSE: Array[String] = ["/pause", "/p"]
+const UNPAUSE: Array[String] = ["/unpause", "/up"]
+const ADD_EXP: Array[String] = ["/add-exp", "/ae"]
+const ADD_TEST_OILS: Array[String] = ["/add-test-oils", "/ato"]
+const SPAWN_CHALLENGE: Array[String] = ["/spawn-challenge", "/sc"]
+const SETUP_TEST_TOWER: Array[String] = ["/setup-test-tower", "/stt"]
 
-const NOT_ALLOWED_IN_MULTIPLAYER_LIST: Array[String] = [
+const NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS: Array = [
 	AUTOSPAWN,
 	GAMESPEED,
 ]
 
-const DEV_COMMAND_LIST: Array[String] = [
+const DEV_COMMAND_LIST_OF_LISTS: Array = [
 	CREATE_ITEM,
 	PAUSE,
 	UNPAUSE,
@@ -37,7 +37,24 @@ const DEV_COMMAND_LIST: Array[String] = [
 	SETUP_TEST_TOWER,
 ]
 
+var not_allowed_in_multiplayer: Array = []
+var dev_command_list: Array = []
+
 @export var _team_container: TeamContainer
+
+
+#########################
+###     Built-in      ###
+#########################
+
+# NOTE: need to convert list of lists into list of strings
+# for easy "has()" calls
+func _ready():
+	for list in NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS:
+		not_allowed_in_multiplayer.append_array(list)
+
+	for list in DEV_COMMAND_LIST_OF_LISTS:
+		dev_command_list.append_array(list)
 
 
 #########################
@@ -51,37 +68,45 @@ func process_command(player: Player, command: String):
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
-	var command_not_allowed_in_multiplayer: bool = NOT_ALLOWED_IN_MULTIPLAYER_LIST.has(command_main)
+	var command_not_allowed_in_multiplayer: bool = not_allowed_in_multiplayer.has(command_main)
 	if is_multiplayer && command_not_allowed_in_multiplayer:
 		_add_error(player, "This command is not allowed in multiplayer.")
 
 		return
 
-	var command_is_dev: bool = DEV_COMMAND_LIST.has(command_main)
+	var command_is_dev: bool = dev_command_list.has(command_main)
 	var enable_dev_commands: bool = Config.enable_dev_commands()
 	if command_is_dev && !enable_dev_commands:
 		_add_error(player, "This command is only available in dev mode.")
 		
 		return
 
-	if ChatCommands.AUTOOIL.has(command_main):
+	if HELP.has(command_main):
+		_command_help(player)
+	elif READY.has(command_main):
+		_command_ready(player)
+	elif AUTOSPAWN.has(command_main):
+		_command_autospawn(player, command_args)
+	elif AUTOOIL.has(command_main):
 		_command_autooil(player, command_args)
-
-		return
-
-	match command_main:
-		ChatCommands.HELP: _command_help(player)
-		ChatCommands.READY: _command_ready(player)
-		ChatCommands.GAMESPEED: _command_gamespeed(player, command_args)
-		ChatCommands.PAUSE: _command_pause(player)
-		ChatCommands.UNPAUSE: _command_unpause(player)
-		ChatCommands.CREATE_ITEM: _command_create_item(player, command_args)
-		ChatCommands.AUTOSPAWN: _command_autospawn(player, command_args)
-		ChatCommands.ADD_EXP: _command_add_exp(player, command_args)
-		ChatCommands.ADD_TEST_OILS: _command_add_test_oils(player, command_args)
-		ChatCommands.SPAWN_CHALLENGE: _command_spawn_challenge(player, command_args)
-		ChatCommands.SETUP_TEST_TOWER: _command_setup_test_tower(player, command_args)
-		_: _add_error(player, "Unknown command: %s" % command_main)
+	elif GAMESPEED.has(command_main):
+		_command_gamespeed(player, command_args)
+	elif CREATE_ITEM.has(command_main):
+		_command_create_item(player, command_args)
+	elif PAUSE.has(command_main):
+		_command_pause(player)
+	elif UNPAUSE.has(command_main):
+		_command_unpause(player)
+	elif ADD_EXP.has(command_main):
+		_command_add_exp(player, command_args)
+	elif ADD_TEST_OILS.has(command_main):
+		_command_add_test_oils(player, command_args)
+	elif SPAWN_CHALLENGE.has(command_main):
+		_command_spawn_challenge(player, command_args)
+	elif SETUP_TEST_TOWER.has(command_main):
+		_command_setup_test_tower(player, command_args)
+	else:
+		_add_error(player, "Unknown command: %s" % command_main)
 
 
 #########################
