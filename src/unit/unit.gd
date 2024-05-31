@@ -891,15 +891,14 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var category_mod: float = get_damage_to_category(target.get_category())
 	var armor_type: ArmorType.enm = target.get_armor_type()
 	var armor_type_mod: float = AttackType.get_damage_against(attack_type, armor_type)
+	var spell_damage_multiplier: float = ArmorType.get_spell_damage_taken(armor_type)
 
-	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
+	var damage: float = damage_base * size_mod * category_mod
 
-# 	NOTE: all spell damage is reduced by this amount
-	if damage_source == DamageSource.Spell:
-		var spell_damage_multiplier: float = ArmorType.get_spell_damage_taken(armor_type)
+	match damage_source:
+		DamageSource.Attack: damage *= armor_type_mod
+		DamageSource.Spell: damage *= spell_damage_multiplier
 
-		damage *= spell_damage_multiplier
-		
 # 	Immune creeps take 0 damage from spells
 	if damage_source == DamageSource.Spell && target.is_immune():
 		damage = 0
