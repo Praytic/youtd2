@@ -2,6 +2,7 @@ extends TowerBehavior
 
 
 var ice_claw_bt: BuffType
+var frenzy_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -24,7 +25,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Frenzy"
 	ability.icon = "res://resources/icons/undead/skull_03.tres"
 	ability.description_short = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased permanently.\n"
-	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
+	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus \
+	+ " \n" \
+	+ "The stacks are lost if this tower is transformed into a tower of another family.\n" \
+	+ ""
 	list.append(ability)
 
 	return list
@@ -37,7 +41,12 @@ func load_specials(modifier: Modifier):
 func on_autocast(event: Event):
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005
+		tower.user_int += 1
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
+
+		var frenzy_buff: Buff = tower.get_buff_of_type(frenzy_bt)
+		var stack_count: int = tower.user_int
+		frenzy_buff.set_displayed_stacks(stack_count)
 
 	SFX.sfx_at_unit("FrostBoltMissile.mdl", event.get_target())
 	event.get_target().set_sprite_color(Color8(100, 100, 255, 255))
@@ -66,6 +75,10 @@ func tower_init():
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
 	ice_claw_bt.set_buff_tooltip("Ice Claw\nDeals spell damage over time and reduces movement speed.")
+
+	frenzy_bt = BuffType.new("frenzy_bt", -1, 0, true, self)
+	frenzy_bt.set_buff_icon("res://resources/icons/generic_icons/alligator_clip.tres")
+	frenzy_bt.set_buff_tooltip("Frenzy\nPermanently increases attack speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Speed Bonus")
@@ -106,9 +119,15 @@ func create_autocasts() -> Array[Autocast]:
 func on_create(preceding: Tower):
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real = preceding.user_real
+		tower.user_int = preceding.user_int
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, preceding.user_real)
 	else:
 		tower.user_real = 0
+		tower.user_int = 0
+
+	var buff: Buff = frenzy_bt.apply_to_unit_permanent(tower, tower, 0)
+	var stack_count: int = tower.user_int
+	buff.set_displayed_stacks(stack_count)
 
 
 func on_tower_details() -> MultiboardValues:
