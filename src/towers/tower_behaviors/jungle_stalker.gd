@@ -2,6 +2,7 @@ extends TowerBehavior
 
 
 var rage_bt: BuffType
+var feral_bt: BuffType
 var multiboard: MultiboardValues
 
 
@@ -31,7 +32,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	feral_aggression.name = "Feral Aggression"
 	feral_aggression.icon = "res://resources/icons/animals/rooster_warrior.tres"
 	feral_aggression.description_short = "On every critical hit this tower gains permanent bonus attack damage.\n"
-	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus attack damage. This bonus is permanent and has a maximum of %s bonus attack damage.\n" % [feral_dmg_gain, feral_dmg_max]
+	feral_aggression.description_full = "On every critical hit this tower gains +%s bonus attack damage. This bonus is permanent and has a maximum of %s bonus attack damage.\n" % [feral_dmg_gain, feral_dmg_max] \
+	+ " \n" \
+	+ "The bonus is lost if this tower is transformed into a tower of another family.\n" \
+	+ ""
 	list.append(feral_aggression)
 
 	var bloodthirst: AbilityInfo = AbilityInfo.new()
@@ -69,6 +73,10 @@ func tower_init():
 	rage_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
+	feral_bt = BuffType.new("feral_bt", -1, 0, true, self)
+	feral_bt.set_buff_icon("res://resources/icons/generic_icons/orc_head.tres")
+	feral_bt.set_buff_tooltip("Feral Aggression\nPermanently increases attack damage.")
+
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Damage Bonus")
 
@@ -77,6 +85,10 @@ func on_damage(event: Event):
 	if event.is_attack_damage_critical() && tower.user_real <= _stats.feral_dmg_max:
 		tower.user_real += _stats.feral_dmg_gain
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.feral_dmg_gain)
+
+		var feral_buff: Buff = tower.get_buff_of_type(feral_bt)
+		var feral_stack_count: int = floori(tower.user_real * 100)
+		feral_buff.set_displayed_stacks(feral_stack_count)
 
 
 func on_kill(_event: Event):
@@ -97,6 +109,10 @@ func on_create(preceding: Tower):
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, damage_bonus)
 	else:
 		tower.user_real = 0.0
+
+	var feral_buff: Buff = feral_bt.apply_to_unit_permanent(tower, tower, 0)
+	var feral_stack_count: int = floori(tower.user_real * 100)
+	feral_buff.set_displayed_stacks(feral_stack_count)
 
 
 func on_tower_details() -> MultiboardValues:
