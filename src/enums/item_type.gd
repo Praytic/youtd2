@@ -6,11 +6,21 @@ enum enm {
 	CONSUMABLE,
 }
 
+const LIST: Array[ItemType.enm] = [
+		ItemType.enm.REGULAR,
+		ItemType.enm.OIL,
+		ItemType.enm.CONSUMABLE,
+	]
+
 static var _string_map: Dictionary = {
 	ItemType.enm.REGULAR: "regular",
 	ItemType.enm.OIL: "oil",
 	ItemType.enm.CONSUMABLE: "consumable",
 }
+
+
+static func get_list() -> Array[ItemType.enm]:
+	return LIST.duplicate()
 
 
 static func convert_to_string(type: ItemType.enm) -> String:

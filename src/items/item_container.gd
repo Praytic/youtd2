@@ -15,6 +15,7 @@ var _item_to_index_map: Dictionary = {}
 
 static var _uid_max: int = 1
 var _uid: int = 0
+var _highest_index: int = 0
 
 
 #########################
@@ -79,10 +80,13 @@ func add_item(item: Item, insert_index: int = -1):
 			push_error("Failed to find free index.")
 			
 			return
-	
+
 	_item_list.append(item)
 	_item_list_with_slots[insert_index] = item
 	_item_to_index_map[item] = insert_index
+
+	if insert_index > _highest_index:
+		_highest_index = insert_index
 
 	item.consumed.connect(_on_item_consumed.bind(item))
 	add_child(item)
@@ -92,13 +96,13 @@ func add_item(item: Item, insert_index: int = -1):
 func remove_item(item: Item):
 	var item_index: int = get_item_index(item)
 	var item_not_found: bool = item_index == -1
-	
+
 	if item_not_found:
 		var item_name: String = ItemProperties.get_item_name(item.get_id())
 		push_error("Attempted to remove item from item container but it is not in container. Item: ", item_name)
 
 		return
-	
+
 	_item_list.erase(item)
 	_item_list_with_slots[item_index] = null
 	_item_to_index_map.erase(item)
@@ -114,8 +118,12 @@ func has(item: Item) -> bool:
 	return has_item
 
 
+# NOTE: this f-n returns a contiguous item list without
+# empty slots. The order of this list doesn't match the real
+# order. To get items in real order, iterate over indexes
+# and use get_item_at_index().
 func get_item_list() -> Array[Item]:
-	return _item_list
+	return _item_list.duplicate()
 
 
 func get_item_count() -> int:
@@ -143,6 +151,12 @@ func get_item_at_index(index: int) -> Item:
 		return item
 	else:
 		return null
+
+
+# Returns highest occupied index (ever). This value doesn't
+# decrease if items are removed.
+func get_highest_index() -> int:
+	return _highest_index
 
 
 #########################
