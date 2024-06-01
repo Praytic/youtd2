@@ -28,10 +28,10 @@ func _process(_delta: float):
 	var stacks_text: String
 	if stacks == 0:
 		stacks_text = ""
-	elif stacks <= 99:
+	elif stacks <= 999:
 		stacks_text = str(stacks)
 	else:
-		stacks_text = "99"
+		stacks_text = "999"
 
 	_stacks_label.text = stacks_text
 	
