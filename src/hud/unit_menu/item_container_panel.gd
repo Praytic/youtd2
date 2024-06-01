@@ -11,6 +11,7 @@ var _item_container: ItemContainer = null
 
 @export var _button_tooltip_location: ButtonTooltip.Location = ButtonTooltip.Location.BOTTOM
 @export var show_slot_borders: bool = true
+@export var _show_horadric_lock: bool = false
 @export var _background_grid: GridContainer
 @export var _slot_grid: GridContainer
 @export var _item_grid: GridContainer
@@ -27,6 +28,7 @@ func _ready():
 		button.show()
 		
 		button.set_tooltip_location(_button_tooltip_location)
+		button.set_horadric_lock_visible(_show_horadric_lock)
 		button.pressed.connect(_on_item_button_pressed.bind(button))
 		button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(button))
 		button.right_clicked.connect(_on_item_button_right_clicked.bind(button))
