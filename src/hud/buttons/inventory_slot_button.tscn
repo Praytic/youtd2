@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxqwwjejrj3rl"]
+[gd_scene load_steps=2 format=3 uid="uid://fwj77pscccxg"]
 
-[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="1_84og5"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_t0n1x"]
 
-[node name="inventory_slot_button" instance=ExtResource("1_84og5")]
+[node name="InventorySlotButton" type="Button"]
 custom_minimum_size = Vector2(88, 88)
+focus_mode = 0
+theme = ExtResource("1_t0n1x")
 theme_type_variation = &"TinyUnitButton"
-icon = null

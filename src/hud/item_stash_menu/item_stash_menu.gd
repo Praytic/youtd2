@@ -2,8 +2,8 @@ class_name ItemStashMenu extends PanelContainer
 
 
 # NOTE: these are visible counts, not total possible counts
-const ITEM_STASH_ROW_COUNT: int = 4
-const ITEM_STASH_COLUMN_COUNT: int = 5
+const ROW_COUNT: int = 4
+const COLUMN_COUNT: int = 5
 
 
 # This UI element displays items which are currently in the
@@ -11,7 +11,7 @@ const ITEM_STASH_COLUMN_COUNT: int = 5
 @export var _rarity_filter: RarityFilter
 @export var _item_type_filter_container: VBoxContainer
 @export var _background_grid: GridContainer
-@export var _foreground_grid: GridContainer
+@export var _item_grid: GridContainer
 
 @export var _backpacker_recipes: GridContainer
 @export var _horadric_item_container_panel: ItemContainerPanel
@@ -65,15 +65,14 @@ func _make_slot_button() -> EmptyUnitButton:
 
 
 func _make_item_button(item: Item) -> ItemButton:
-	var item_button: ItemButton = ItemButton.make(item)
-	item_button.enable_horadric_lock_display()
+	var item_button: ItemButton = ItemButton.make()
+	item_button.set_item(item)
+	item_button.set_horadric_lock_visible(true)
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 	item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
 	item_button.ctrl_right_clicked.connect(_on_item_button_ctrl_right_clicked.bind(item_button))
+	item_button.horadric_lock_changed.connect(_on_item_button_horadric_lock_changed)
 	
-	if !item.horadric_lock_changed.is_connected(_on_item_horadric_lock_changed):
-		item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
-
 	return item_button
 
 
@@ -86,26 +85,32 @@ func _load_current_filter():
 	var no_filter: bool = rarity_filter.size() == Rarity.get_list().size() && item_type_filter.size() == ItemType.get_list().size()
 
 	if no_filter:
-		for child in _foreground_grid.get_children():
+		for child in _item_grid.get_children():
 			child.show()
 		
 		return
 	
 #	When there's a filter, hide all empty slots and show
 #	item buttons which match the filter
-	for child in _foreground_grid.get_children():
-		if child is EmptyUnitButton:
-			child.hide()
-		elif child is ItemButton:
-			var item_button: ItemButton = child as ItemButton
-			var item: Item = item_button.get_item()
-			var rarity: Rarity.enm = item.get_rarity()
-			var item_type: ItemType.enm = item.get_item_type()
-			var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
-			var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
-			var filter_match: bool = rarity_match && item_type_match
+	for child in _item_grid.get_children():
+		var button: ItemButton = child as ItemButton
+		var item: Item = button.get_item()
 
-			item_button.visible = filter_match
+#		NOTE: item buttons become transparent if the item is
+#		null but still need to hide the button to make item
+#		grid contiguous
+		if item == null:
+			button.hide()
+
+			continue
+
+		var rarity: Rarity.enm = item.get_rarity()
+		var item_type: ItemType.enm = item.get_item_type()
+		var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
+		var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
+		var filter_match: bool = rarity_match && item_type_match
+
+		button.visible = filter_match
 
 
 # Enable/disable autofill buttons based on which items are
@@ -133,14 +138,13 @@ func _update_autofill_buttons():
 func _get_visible_item_list() -> Array[Item]:
 	var list: Array[Item] = []
 	
-	for child_node in _foreground_grid.get_children():
-		var child_is_visible_item_button: bool = child_node is ItemButton && child_node.visible
-		
-		if child_is_visible_item_button:
-			var item_button: ItemButton = child_node as ItemButton
+	var item_button_list: Array = _item_grid.get_children()
+	for item_button in item_button_list:
+		if item_button.visible:
 			var item: Item = item_button.get_item()
 			
-			list.append(item)
+			if item != null:
+				list.append(item)
 
 	return list
 
@@ -162,7 +166,7 @@ func _on_slot_button_pressed(button: EmptyUnitButton):
 	var index: int = button.get_index()
 	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
-	
+
 	EventBus.player_clicked_in_item_container.emit(item_stash, index)
 
 
@@ -171,10 +175,9 @@ func _on_transmute_button_pressed():
 
 
 func _on_item_button_pressed(item_button: ItemButton):
-	var item: Item = item_button.get_item()
 	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
-	var item_index: int = item_stash.get_item_index(item)
+	var item_index: int = item_button.get_index()
 	EventBus.player_clicked_in_item_container.emit(item_stash, item_index)
 
 
@@ -210,7 +213,7 @@ func _on_item_type_filter_container_filter_changed():
 # NOTE: need to update recipe buttons when an item locked
 # state changes because that changes the item list for
 # autofill
-func _on_item_horadric_lock_changed():
+func _on_item_button_horadric_lock_changed():
 	_update_autofill_buttons()
 
 
@@ -231,54 +234,33 @@ func _on_item_stash_changed():
 	
 #	Add new rows of slots to have enough space if the item
 #	count increased
-	var current_slot_count: int = _foreground_grid.get_child_count()
+	var current_slot_count: int = _item_grid.get_child_count()
 	var need_more_slots: bool = highest_index + 1 > current_slot_count || current_slot_count < (5 * 4)
 
 	if need_more_slots:
-		var new_slot_count: int = ceili((highest_index + 1) / float(ITEM_STASH_COLUMN_COUNT)) * ITEM_STASH_COLUMN_COUNT
-		var min_slot_count: int = ITEM_STASH_ROW_COUNT * ITEM_STASH_COLUMN_COUNT
+		var new_slot_count: int = ceili((highest_index + 1) / float(COLUMN_COUNT)) * COLUMN_COUNT
+		var min_slot_count: int = ROW_COUNT * COLUMN_COUNT
 		new_slot_count = max(new_slot_count, min_slot_count)
 		
 #		NOTE: need two separate while loops because
 #		background grid contains an initial set of slot
 #		buttons
 		while _background_grid.get_child_count() < new_slot_count:
-			var button_for_background: EmptyUnitButton = _make_slot_button()
-			button_for_background.modulate = Color.WHITE
-			_background_grid.add_child(button_for_background)
-		
-		while _foreground_grid.get_child_count() < new_slot_count:
-			var button_for_foreround: EmptyUnitButton = _make_slot_button()
-			_foreground_grid.add_child(button_for_foreround)
-		
-	for i in range(0, highest_index + 1):
-		var item: Item = item_stash.get_item_at_index(i)
-		var current_button: Button = _foreground_grid.get_child(i)
-		var item_button: ItemButton = current_button as ItemButton
-		
-		var remove_item_button: bool = item == null && item_button != null
-		var item_mismatch: bool = item_button != null && item_button.get_item() != item
-		var change_button: bool = item != null && (item_button == null || item_mismatch)
-		
-		if remove_item_button:
-			item_button.get_item().horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
-			_foreground_grid.remove_child(item_button)
-			item_button.queue_free()
-			
 			var slot_button: EmptyUnitButton = _make_slot_button()
-			_foreground_grid.add_child(slot_button)
-			_foreground_grid.move_child(slot_button, i)
-		elif change_button:
-			if item_button != null:
-				item_button.get_item().horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
-			
-			_foreground_grid.remove_child(current_button)
-			current_button.queue_free()
-			
-			var new_item_button: ItemButton = _make_item_button(item)
-			_foreground_grid.add_child(new_item_button)
-			_foreground_grid.move_child(new_item_button, i)
+			slot_button.modulate = Color.WHITE
+			_background_grid.add_child(slot_button)
+		
+		while _item_grid.get_child_count() < new_slot_count:
+			var item_button: ItemButton = _make_item_button(null)
+			_item_grid.add_child(item_button)
 	
+	var item_button_list: Array = _item_grid.get_children()
+	for item_button in item_button_list:
+		var index: int = item_button.get_index()
+		var new_item: Item = item_stash.get_item_at_index(index)
+
+		item_button.set_item(new_item)
+
 	_load_current_filter()
 	_update_autofill_buttons()
 

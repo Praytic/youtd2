@@ -22,7 +22,7 @@
 atlas = ExtResource("17_ba6s8")
 region = Rect2(896, 0, 128, 128)
 
-[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter", "_item_type_filter_container", "_background_grid", "_foreground_grid", "_backpacker_recipes", "_horadric_item_container_panel", "_transmute_button")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter", "_item_type_filter_container", "_background_grid", "_item_grid", "_backpacker_recipes", "_horadric_item_container_panel", "_transmute_button")]
 custom_minimum_size = Vector2(630, 850)
 offset_right = 630.0
 offset_bottom = 850.0
@@ -32,7 +32,7 @@ script = ExtResource("2_7jmcp")
 _rarity_filter = NodePath("MarginContainer/VBoxContainer2/RarityFilter")
 _item_type_filter_container = NodePath("MarginContainer/VBoxContainer2/ItemTypeFilter")
 _background_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid")
-_foreground_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ForegroundGrid")
+_item_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid")
 _backpacker_recipes = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
 _horadric_item_container_panel = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/HoradricItemContainerPanel")
 _transmute_button = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton")
@@ -183,7 +183,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 
-[node name="ForegroundGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/h_separation = 10

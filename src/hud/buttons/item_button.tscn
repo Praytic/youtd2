@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://src/hud/buttons/auto_mode_indicator.tscn" id="4_e5nkx"]
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/ui_textures/unit_button_disabled.tres" id="5_0m88b"]
 
-[node name="UnitButton2" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
+[node name="ItemButton" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
 custom_minimum_size = Vector2(88, 88)
 offset_right = 50.0
 offset_bottom = 50.0
@@ -64,3 +64,5 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("5_0m88b")
 expand_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
