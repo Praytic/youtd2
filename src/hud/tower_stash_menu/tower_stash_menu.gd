@@ -7,7 +7,13 @@ enum FilterType {
 }
 
 
-@export var _tower_buttons_container: UnitButtonsContainer
+const BUTTON_SIZE: Vector2 = Vector2(120, 120)
+const COLUMN_COUNT: int = 4
+const ROW_COUNT: int = 5
+
+
+@export var _background_grid: GridContainer
+@export var _tower_grid: GridContainer
 @export var _rarity_filter: RarityFilter
 @export var _element_filter: ElementsContainer
 
@@ -62,8 +68,8 @@ func connect_to_local_player(local_player: Player):
 func _add_tower_button(tower_id: int, index: int):
 	var tower_button: TowerButton = TowerButton.make()
 	_button_list.append(tower_button)
-	_tower_buttons_container.add_child(tower_button)
-	_tower_buttons_container.move_child(tower_button, index)
+	_tower_grid.add_child(tower_button)
+	_tower_grid.move_child(tower_button, index)
 	tower_button.pressed.connect(_on_tower_button_pressed.bind(tower_id))
 
 	tower_button.set_tower_id(tower_id)
@@ -90,8 +96,8 @@ func _update_button_visibility():
 	var selected_rarity_list: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var selected_element: Element.enm = _element_filter.get_element()
 	
-	for button in _button_list:
-		var tower_id: int = button.get_tower_id()
+	for tower_button in _button_list:
+		var tower_id: int = tower_button.get_tower_id()
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 		var element: Element.enm = TowerProperties.get_element(tower_id)
 		
@@ -100,15 +106,35 @@ func _update_button_visibility():
 			FilterType.RARITY: filter_match = selected_rarity_list.has(rarity)
 			FilterType.ELEMENT: filter_match = selected_element == element
 		
-		button.visible = filter_match
+		tower_button.visible = filter_match
 		
-	var visible_count: int = 0
-	for button in _button_list:
-		if button.visible:
-			visible_count += 1
+	var visible_tower_count: int = 0
+	for tower_button in _button_list:
+		if tower_button.visible:
+			visible_tower_count += 1
+	
+	var current_background_count: int = _background_grid.get_child_count()
+	var min_background_count: int = ROW_COUNT * COLUMN_COUNT
+	var expected_background_count: int = ceili(visible_tower_count / float(COLUMN_COUNT)) * COLUMN_COUNT
+	expected_background_count = max(expected_background_count, min_background_count)
+	
+	var need_more_background: bool = expected_background_count > current_background_count
+	
+	if need_more_background:
+		while _background_grid.get_child_count() < expected_background_count:
+			var background_button: EmptyUnitButton = _make_background_button()
+			_background_grid.add_child(background_button)
+	
+	var background_button_list: Array = _background_grid.get_children()
+	for background_button in background_button_list:
+		background_button.visible = background_button.get_index() < expected_background_count
 
-	_tower_buttons_container.update_empty_slots(visible_count)
 
+func _make_background_button() -> EmptyUnitButton:
+	var button: Button = EmptyUnitButton.make()
+	button.custom_minimum_size = BUTTON_SIZE
+	
+	return button
 
 #########################
 ###     Callbacks     ###
@@ -144,7 +170,7 @@ func _on_tower_stash_changed():
 			removed_button_list.append(button)
 
 	for button in removed_button_list:
-		_tower_buttons_container.remove_child(button)
+		_tower_grid.remove_child(button)
 		button.queue_free()
 		_button_list.erase(button)
 
