@@ -76,19 +76,28 @@ func _make_item_button(item: Item) -> ItemButton:
 	return item_button
 
 
-func _load_current_filter():
-#	Show/hide item buttons depending on whether they match
-#	current filter
+func _get_filter_is_none() -> bool:
 	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
 	
-	var no_filter: bool = rarity_filter.size() == Rarity.get_list().size() && item_type_filter.size() == ItemType.get_list().size()
+	var filter_is_none: bool = rarity_filter.size() == Rarity.get_list().size() && item_type_filter.size() == ItemType.get_list().size()
 
-	if no_filter:
+	return filter_is_none
+
+
+func _load_current_filter():
+	var filter_is_none: bool = _get_filter_is_none()
+
+	if filter_is_none:
 		for child in _item_grid.get_children():
 			child.show()
 		
 		return
+
+#	Show/hide item buttons depending on whether they match
+#	current filter
+	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
+	var item_type_filter: Array = _item_type_filter_container.get_filter()
 	
 #	When there's a filter, hide all empty slots and show
 #	item buttons which match the filter
@@ -279,3 +288,27 @@ func _on_horadric_stash_items_changed():
 #	temporarily be unavailable during the move process, so
 #	updating only after item stash change is not enough.
 	_update_autofill_buttons()
+
+
+# NOTE: this callback is needed to implement "move item from
+# horadric cube to item stash while filtering item stash".
+# Normal movement doesn't work because filtered item stash
+# has no empty slots to click on and in filtered state the
+# item stash is contiguous anyway. Also, this callback is a
+# bit bad because it gets triggered on clicks between
+# buttons, so do it only for filtered case. Otherwise, it
+# would be possible for player to misclick and move item to
+# wrong place.
+func _on_item_grid_gui_input(event):
+	var left_click: bool = event.is_action_released("left_click")
+	
+	if left_click:
+		var filter_is_none: bool = _get_filter_is_none()
+
+		if filter_is_none:
+			return
+
+		var local_player: Player = PlayerManager.get_local_player()
+		var item_stash: ItemContainer = local_player.get_item_stash()
+
+		EventBus.player_clicked_in_item_container.emit(item_stash, -1)
