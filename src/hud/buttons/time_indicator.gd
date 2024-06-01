@@ -104,9 +104,8 @@ func _process(_delta: float):
 			_progress_in_editor = 0.0
 
 		_elapsed_progress = _progress_in_editor
-
-#	Pull time values from autocast, if it's defined
-	if _autocast != null && is_instance_valid(_autocast):
+	elif _autocast != null && is_instance_valid(_autocast):
+#		Pull time values from autocast, if it's defined
 		var overall_cooldown: float = _autocast.get_cooldown()
 		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
 		var elapsed_cooldown: float = overall_cooldown - remaining_cooldown
