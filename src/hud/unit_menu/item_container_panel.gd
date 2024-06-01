@@ -33,6 +33,11 @@ func _ready():
 		button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(button))
 		button.right_clicked.connect(_on_item_button_right_clicked.bind(button))
 
+	var slot_button_list: Array[Node] = _slot_grid.get_children()
+	for button in slot_button_list:
+		if !show_slot_borders:
+			button.modulate = Color.TRANSPARENT
+
 	_update_buttons()
 
 
