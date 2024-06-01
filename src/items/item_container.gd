@@ -114,18 +114,12 @@ func has(item: Item) -> bool:
 	return has_item
 
 
-func get_item_list_with_slots() -> Array[Item]:
-	return _item_list_with_slots
+func get_item_list() -> Array[Item]:
+	return _item_list
 
 
-func get_item_list(rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
-	var filtered_list: Array[Item] = Utils.filter_item_list(_item_list, rarity_filter, type_filter)
-
-	return filtered_list
-
-
-func get_item_count(rarity_filter: Array = [], type_filter: Array = []) -> int:
-	var item_count: int = get_item_list(rarity_filter, type_filter).size()
+func get_item_count() -> int:
+	var item_count: int = _item_list.size()
 
 	return item_count
 
@@ -149,15 +143,6 @@ func get_item_at_index(index: int) -> Item:
 		return item
 	else:
 		return null
-
-
-func clear():
-	for item in _item_list_with_slots:
-		remove_child(item)
-		item.queue_free()
-
-	_item_list.clear()
-	_item_list_with_slots.clear()
 
 
 #########################
