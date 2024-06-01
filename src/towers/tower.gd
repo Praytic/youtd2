@@ -824,8 +824,18 @@ func get_target_count() -> int:
 
 
 # Tower is attacking while it has valid targets in range.
+# NOTE: for towers which don't attack, the target list is
+# always empty, so treat such towers as always attacking.
+# This is to ensure that items with offensive autocasts
+# still get triggered when equipped on such towers.
 func is_attacking() -> bool:
-	var attacking: bool = !_target_list.is_empty()
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(get_id())
+
+	var attacking: bool
+	if attack_enabled:
+		attacking = !_target_list.is_empty()
+	else:
+		attacking = true
 
 	return attacking
 
