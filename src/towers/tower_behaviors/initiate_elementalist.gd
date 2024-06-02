@@ -317,7 +317,7 @@ func on_attack_4(event: Event):
 				break
 
 			SFX.sfx_at_unit("BoltImpact.mdl", u)
-			tower.do_spell_damage(u, (3000 + tower.get_level() * 60) * (1 + ((0.5 + tower.get_level() - 1))), tower.calc_spell_crit_no_bonus())
+			tower.do_spell_damage(u, (3000 + tower.get_level() * 60) * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus())
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, u)
 			lightning.modulate = Color.LIGHT_BLUE
 			lightning.set_lifetime(0.15)
