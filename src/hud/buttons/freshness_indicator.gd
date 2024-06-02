@@ -8,8 +8,6 @@ class_name FreshnessIndicator extends Control
 # different from auto mode indicator which has 4 particles.
 
 
-var _cycle_timer: float = 0.0
-
 @export var _particle_1: CPUParticles2D
 @export var _particle_2: CPUParticles2D
 	
@@ -19,12 +17,8 @@ var _cycle_timer: float = 0.0
 ]
 
 
-func _process(delta):
+func _process(_delta: float):
 	if !visible:
 		return
 	
-	_cycle_timer -= delta
-	if _cycle_timer <= 0.0:
-		_cycle_timer = AutoModeIndicator.CYCLE_DURATION
-	
-	AutoModeIndicator.update_border_particles(self, _particle_list, _cycle_timer, 0.5)
+	AutoModeIndicator.update_border_particles(self, _particle_list, 0.5)

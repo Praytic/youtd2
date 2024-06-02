@@ -13,11 +13,10 @@ class_name AutoModeIndicator extends Control
 # can decide whether the indicator should be visible
 # overall.
 
-
-const CYCLE_DURATION: float = 3.0
+# NOTE: in msec
+const INDICATOR_CYCLE_DURATION: float = 3.0 * 1000
 
 var _autocast: Autocast = null
-var _cycle_timer: float = 0.0
 
 @export var _particles_container: Control
 @export var _particles_1: CPUParticles2D
@@ -38,25 +37,22 @@ func set_autocast(autocast: Autocast):
 	_autocast = autocast
 
 
-func _process(delta: float):
+func _process(_delta: float):
 	if !Engine.is_editor_hint():
 		_particles_container.visible = _autocast != null && _autocast.auto_mode_is_enabled()
 	
 	if !_particles_container.visible:
 		return
 	
-	_cycle_timer -= delta
-	if _cycle_timer <= 0.0:
-		_cycle_timer = CYCLE_DURATION
-	
-	AutoModeIndicator.update_border_particles(self, _particle_list, _cycle_timer, 0.25)
+	AutoModeIndicator.update_border_particles(self, _particle_list, 0.25)
 
 
-static func update_border_particles(parent_control: Control, particle_list: Array[CPUParticles2D], cycle_timer: float, border_ratio_per_particle: float):
+static func update_border_particles(parent_control: Control, particle_list: Array[CPUParticles2D], border_ratio_per_particle: float):
 	var particle_area_size: Vector2 = parent_control.size
 	var particle_area_perimeter: float = 2 * (particle_area_size.x + particle_area_size.y)
 	
-	var distance_ratio_base: float = (1.0 - cycle_timer / CYCLE_DURATION)
+	var cycle_timer: float = fmod(Time.get_ticks_msec(), INDICATOR_CYCLE_DURATION)
+	var distance_ratio_base: float = cycle_timer / INDICATOR_CYCLE_DURATION
 	
 	for i in range(0, particle_list.size()):
 		var particle: CPUParticles2D = particle_list[i]
