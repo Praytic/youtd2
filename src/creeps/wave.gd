@@ -279,7 +279,7 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm, armor_typ
 #	extra_hp_multiplier from decreasing to increasing and
 #	finally to exponential
 	if wave_is_bonus:
-		extra_hp_multiplier += pow(1.0001, pow((level - Constants.WAVE_COUNT_NEVERENDING) / 2.0, 2.5)) - 1.0
+		extra_hp_multiplier += pow(1.0001, pow((level - Constants.WAVE_COUNT_NEVERENDING) / 2.0, 2.7)) - 1.0
 
 	var j: int = level - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
