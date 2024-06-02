@@ -248,6 +248,17 @@ func _get_extreme_autospawn_time(level: int) -> float:
 	return time
 
 
+func _get_bonus_wave_autospawn_time(level: int) -> float:
+	const START_TIME: float = 20.0
+	const MIN_TIME: float = 1.0
+	const REDUCTION_PER_LEVEL: float = 0.5
+
+	var autospawn_time: float = START_TIME - level * REDUCTION_PER_LEVEL
+	autospawn_time = max(autospawn_time, MIN_TIME)
+
+	return autospawn_time
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -272,7 +283,8 @@ func _on_player_wave_spawned(level: int):
 	if difficulty_is_extreme && !started_last_wave:
 		autospawn_time_list.append(extreme_autospawn_time)
 	if game_is_neverending && bonus_waves_in_progress:
-		autospawn_time_list.append(Constants.AUTOSPAWN_TIME_FOR_BONUS_WAVES)
+		var bonus_wave_autospawn_time: float = _get_bonus_wave_autospawn_time(level)
+		autospawn_time_list.append(bonus_wave_autospawn_time)
 
 	if !autospawn_time_list.is_empty():
 		var autospawn_time: float = autospawn_time_list.min()
