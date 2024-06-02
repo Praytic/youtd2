@@ -12,6 +12,7 @@ const COLUMN_COUNT: int = 5
 @export var _item_type_filter_container: VBoxContainer
 @export var _background_grid: GridContainer
 @export var _item_grid: GridContainer
+@export var _item_scroll_container: ScrollContainer
 
 @export var _backpacker_recipes: GridContainer
 @export var _horadric_item_container_panel: ItemContainerPanel
@@ -93,6 +94,12 @@ func _load_current_filter():
 			child.show()
 		
 		return
+
+#	NOTE: reset scroll position when a filter is defined. If
+#	this is not done, a player may scroll down, turn on a
+#	filter and then see empty stash even though there are
+#	items at the beginning, before visible scrolled area.
+	Utils.reset_scroll_container(_item_scroll_container)
 
 #	Show/hide item buttons depending on whether they match
 #	current filter
