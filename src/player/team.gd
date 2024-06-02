@@ -260,7 +260,7 @@ func _on_player_wave_spawned(level: int):
 	var started_last_wave: bool = level == Globals.get_wave_count()
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
 	var game_is_neverending: bool = Globals.game_is_neverending()
-	var next_wave_is_bonus: bool = Utils.wave_is_bonus(level + 1)
+	var bonus_waves_in_progress: bool = Utils.wave_is_bonus(level)
 	var autospawn_time_is_defined: bool = _player_defined_autospawn_time > 0
 	var extreme_autospawn_time: float = _get_extreme_autospawn_time(level)
 
@@ -271,7 +271,7 @@ func _on_player_wave_spawned(level: int):
 		autospawn_time_list.append(_player_defined_autospawn_time)
 	if difficulty_is_extreme && !started_last_wave:
 		autospawn_time_list.append(extreme_autospawn_time)
-	if game_is_neverending && next_wave_is_bonus:
+	if game_is_neverending && bonus_waves_in_progress:
 		autospawn_time_list.append(Constants.AUTOSPAWN_TIME_FOR_BONUS_WAVES)
 
 	if !autospawn_time_list.is_empty():
