@@ -2,7 +2,7 @@ extends Node
 
 
 enum TutorialId {
-	INTRO_FOR_RANDOM_MODE = 1,
+	INTRO_FOR_RANDOM_MODE = 0,
 	INTRO_FOR_BUILD_MODE,
 	RESEARCH_ELEMENTS,
 	ROLL_TOWERS,
@@ -22,7 +22,6 @@ enum TutorialId {
 }
 
 enum CsvProperty {
-	ID = 0,
 	TITLE,
 	TEXT,
 }
@@ -37,7 +36,7 @@ var _properties: Dictionary = {}
 #########################
 
 func _ready():
-	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
+	UtilsStatic.load_csv_properties_with_automatic_ids(PROPERTIES_PATH, _properties)
 	
 	for id in range(1, TutorialId.COUNT):
 		var id_exists: bool = _properties.has(id)

@@ -4,7 +4,6 @@ class_name HintsMenuTab extends VBoxContainer
 signal closed()
 
 enum CsvProperty {
-	ID = 0,
 	TITLE,
 	TEXT,
 }
@@ -24,7 +23,7 @@ var _properties: Dictionary = {}
 #########################
 
 func _ready():
-	UtilsStatic.load_csv_properties(csv_path, _properties, CsvProperty.ID)
+	UtilsStatic.load_csv_properties_with_automatic_ids(csv_path, _properties)
 	
 	var root: TreeItem = _tree.create_item()
 
@@ -32,11 +31,12 @@ func _ready():
 	id_list.sort()
 	
 	for id in id_list:
+		var displayed_index: int = id + 1
 		var entry: Dictionary = _properties[id]
 		var title: String = entry[CsvProperty.TITLE]
 		var text: String = entry[CsvProperty.TEXT]
 		
-		var tree_item_text: String = "%d. %s" % [id, title]
+		var tree_item_text: String = "%d. %s" % [displayed_index, title]
 		var child: TreeItem = _tree.create_item(root)
 		child.set_text(0, tree_item_text)
 		

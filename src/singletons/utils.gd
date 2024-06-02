@@ -255,6 +255,17 @@ static func load_csv_properties(properties_path: String, properties_dict: Dictio
 		properties_dict[id] = properties
 
 
+# Same as load_csv_properties(), but for property csv's
+# without an id column.
+static func load_csv_properties_with_automatic_ids(properties_path: String, properties_dict: Dictionary):
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(properties_path)
+
+	for id in range(0, csv.size()):
+		var csv_line: PackedStringArray = csv[id]
+		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
+		properties_dict[id] = properties
+
+
 static func load_csv_line(csv_line) -> Dictionary:
 	var out: Dictionary = {}
 
