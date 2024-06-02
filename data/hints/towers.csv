@@ -29,7 +29,7 @@ Note that you cannot [color=GOLD]transform[/color] in [color=GOLD]Build[/color] 
  
 Normal tower attacks and some abilities will deal [color=GOLD]attack damage[/color]. Attack damage is dealt as the [color=GOLD]attack type[/color] of the tower ([color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], etc). Attack damage is reduced by creep armor and deals different ratios of damage depending on the [color=GOLD]armor type[/color] of the creep.
  
-Some tower abilities will deal [color=GOLD]spell damage[/color]. Spell damage ignores creep armor and always deals 90% to all armor types! But some creeps are 100% immune to spell damage.
+Some tower abilities will deal [color=GOLD]spell damage[/color]. Spell damage ignores creep armor but some creeps are 100% immune to spell damage.
  
 Make sure to equip your towers appropriately based on their main damage source. For example, towers which deal primarily [color=GOLD]attack damage[/color] will not get any benefit from oils which increase [color=GOLD]spell damage[/color].
 "
@@ -51,7 +51,7 @@ In addition, all towers gain bonuses to the following stats when they level up:
 +2% spell crit damage
 +4% base damage
 +1% attack speed"
-9,"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
+"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
  
 [color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], [color=DODGER_BLUE]Energy[/color], [color=AQUAMARINE]Essence[/color], [color=CORNFLOWER_BLUE]Elemental[/color] and [color=DEEP_SKY_BLUE]Magic[/color].
  
@@ -59,8 +59,9 @@ Each [color=GOLD]attack type[/color] deals different amounts of damage to [color
  
 You can check the stats of a tower's [color=GOLD]attack type[/color] by selecting the tower and then mousing over the [color=GOLD]attack type[/color] in the tower menu.
 "
-"Item drop and item quality","Put items that increase item drop and item quality only on towers that secure many kills. Only the killer's ratio will be used for calculations!
-"
+"Killing Blows","Towers gain experience only when they deal [color=GOLD]killing blows[/color]. This means that even if some tower attacked a creep many times, it will not get any experience if the creep was killed by another tower. In general, towers with highest damage will tend to deal the majority of [color=GOLD]killing blows[/color] and therefore will gain the most experience.
+ 
+The dealer of the [color=GOLD]killing blow[/color] is also important because that tower's stats will be used to calculate bounty, item chance and item quality. Make sure that you equip items which affect these stats on towers which actually get kills. Equipping such items on towers which never get kills will give you almost no benefit. You can see which tower has the most kills in the [color=GOLD]Game Stats[/color] panel. You can also check each tower's kill counts in the tower details panel."
 "Buff groups","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on the left side of the menu.
  
 Mouse over the [color=GOLD]buff group[/color] buttons to read more details.
