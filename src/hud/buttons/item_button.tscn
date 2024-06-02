@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs7talxfb2fac"]
+[gd_scene load_steps=7 format=3 uid="uid://bs7talxfb2fac"]
 
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="1_56ir5"]
 [ext_resource type="Script" path="res://src/hud/buttons/item_button.gd" id="2_0spo4"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://src/hud/buttons/time_indicator.tscn" id="3_fy62u"]
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://src/hud/buttons/auto_mode_indicator.tscn" id="4_e5nkx"]
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/ui_textures/unit_button_disabled.tres" id="5_0m88b"]
+[ext_resource type="PackedScene" uid="uid://dpsfkaoappjpe" path="res://src/hud/buttons/freshness_indicator.tscn" id="5_kfxlr"]
 
-[node name="ItemButton" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
+[node name="ItemButton" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_freshness_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
 custom_minimum_size = Vector2(88, 88)
 offset_right = 50.0
 offset_bottom = 50.0
@@ -14,6 +15,7 @@ theme_type_variation = &"TinyUnitButton"
 script = ExtResource("2_0spo4")
 _time_indicator = NodePath("MarginContainer/TimeIndicator")
 _auto_mode_indicator = NodePath("MarginContainer/MarginContainer/AutoModeIndicator")
+_freshness_indicator = NodePath("MarginContainer/FreshnessIndicator")
 _charges_label = NodePath("AspectRatioContainer/ChargesLabel")
 _lock_texture = NodePath("AspectRatioContainer2/LockTexture")
 
@@ -33,6 +35,10 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="AutoModeIndicator" parent="MarginContainer/MarginContainer" index="0" instance=ExtResource("4_e5nkx")]
+visible = false
+layout_mode = 2
+
+[node name="FreshnessIndicator" parent="MarginContainer" index="3" instance=ExtResource("5_kfxlr")]
 visible = false
 layout_mode = 2
 

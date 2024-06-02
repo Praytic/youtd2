@@ -8,10 +8,12 @@ extends Node
 signal charges_changed()
 signal consumed()
 signal horadric_lock_changed()
+signal freshness_changed()
 
 
 const FLY_DURATION: float = 1.0
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
+const FRESHNESS_DURATION: float = 7.0
 
 # NOTE: this is used in creep.gd to determine which items
 # will not drop.
@@ -35,6 +37,7 @@ var _visible: bool = true
 var _uses_charges: bool = false
 var _is_oil_and_was_applied_already: bool = false
 var _horadric_lock_is_enabled: bool = false
+var _is_fresh: bool = true
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -87,11 +90,27 @@ func _init(id: int, player: Player):
 # ItemBehavior.on_create()
 func _ready():
 	_item_behavior.init(self, _modifier, _triggers_bt)
+	
+	#	NOTE: need to use Timer instead of ManualTimer here because this effect affects only visuals and shouldn't be affected by gamespeed. Otherwise, the freshness indicator would go away too fast when gamespeed is set to fast.
+	var freshness_timer: Timer = Timer.new()
+	freshness_timer.one_shot = true
+	freshness_timer.timeout.connect(_on_freshness_timer_timeout)
+	add_child(freshness_timer)
+	freshness_timer.start(FRESHNESS_DURATION)
 
 
 #########################
 ###       Public      ###
 #########################
+
+func set_is_fresh(value: bool):
+	_is_fresh = value
+	freshness_changed.emit()
+
+
+func get_is_fresh() -> bool:
+	return _is_fresh
+
 
 func toggle_horadric_lock():
 	_horadric_lock_is_enabled = !_horadric_lock_is_enabled
@@ -339,10 +358,13 @@ func _remove_from_tower():
 	_carrier = null
 
 
+func _on_freshness_timer_timeout():
+	set_is_fresh(false)
+
+
 #########################
 ### Setters / Getters ###
 #########################
-
 
 # Sets the charge count that is displayed on the item icon.
 # NOTE: item.setCharges() in JASS

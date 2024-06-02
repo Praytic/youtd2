@@ -12,6 +12,7 @@ var _item: Item
 
 @export var _time_indicator: TimeIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
+@export var _freshness_indicator: FreshnessIndicator
 @export var _charges_label: Label
 @export var _lock_texture: TextureRect
 
@@ -122,6 +123,7 @@ func _set_item_internal(item: Item):
 	if prev_item != null:
 		prev_item.charges_changed.disconnect(_on_item_charges_changed)
 		prev_item.horadric_lock_changed.disconnect(_on_item_horadric_lock_changed)
+		prev_item.freshness_changed.disconnect(_on_item_freshness_changed)
 
 	if item != null:
 		_item.charges_changed.connect(_on_item_charges_changed)
@@ -129,6 +131,9 @@ func _set_item_internal(item: Item):
 
 		_item.horadric_lock_changed.connect(_on_item_horadric_lock_changed)
 		_on_item_horadric_lock_changed()
+		
+		_item.freshness_changed.connect(_on_item_freshness_changed)
+		_on_item_freshness_changed()
 
 
 #########################
@@ -141,6 +146,8 @@ func _on_mouse_entered():
 
 	var tooltip: String = RichTexts.get_item_text(_item)
 	ButtonTooltip.show_tooltip(self, tooltip, _tooltip_location)
+
+	_item.set_is_fresh(false)
 
 
 func _on_item_charges_changed():
@@ -163,6 +170,14 @@ func _on_item_horadric_lock_changed():
 	_lock_texture.visible = _horadric_lock_display_is_enabled && horadric_lock_is_enabled
 
 	horadric_lock_changed.emit()
+
+
+func _on_item_freshness_changed():
+	if _item == null:
+		return
+	
+	var item_is_fresh: bool = _item.get_is_fresh()
+	_freshness_indicator.visible = item_is_fresh
 
 
 #########################

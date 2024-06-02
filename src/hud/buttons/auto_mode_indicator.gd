@@ -6,6 +6,13 @@ class_name AutoModeIndicator extends Control
 # UI element. Should be used to display that autocast
 # automatic mode is enabled.
 
+# NOTE: ParticlesContainer node is needed to be able to hide
+# particles without modifying "visible" property of the
+# AutoModeIndicator itself. This way, the indicator can
+# show/hide it's particles while the parent of the indicator
+# can decide whether the indicator should be visible
+# overall.
+
 
 const CYCLE_DURATION: float = 3.0
 
@@ -42,15 +49,18 @@ func _process(delta: float):
 	if _cycle_timer <= 0.0:
 		_cycle_timer = CYCLE_DURATION
 	
-	var particle_area_size: Vector2 = size
+	AutoModeIndicator.update_border_particles(self, _particle_list, _cycle_timer, 0.25)
+
+
+static func update_border_particles(parent_control: Control, particle_list: Array[CPUParticles2D], cycle_timer: float, border_ratio_per_particle: float):
+	var particle_area_size: Vector2 = parent_control.size
 	var particle_area_perimeter: float = 2 * (particle_area_size.x + particle_area_size.y)
 	
-	var distance_ratio_base: float = (1.0 - _cycle_timer / CYCLE_DURATION)
+	var distance_ratio_base: float = (1.0 - cycle_timer / CYCLE_DURATION)
 	
-	for i in range(0, _particle_list.size()):
-		var particle = _particle_list[i]
-		
-		var distance_ratio: float = distance_ratio_base + 0.25 * i
+	for i in range(0, particle_list.size()):
+		var particle: CPUParticles2D = particle_list[i]
+		var distance_ratio: float = distance_ratio_base + border_ratio_per_particle * i
 		var travel_distance: float = particle_area_perimeter * distance_ratio
 		
 		var current_direction: Vector2 = Vector2(1, 0)
