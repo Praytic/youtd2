@@ -36,6 +36,11 @@ visible = false
 layout_mode = 2
 csv_path = "res://data/hints/creeps.csv"
 
+[node name="Creep Specials" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/creep_specials.csv"
+
 [node name="Advanced" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
