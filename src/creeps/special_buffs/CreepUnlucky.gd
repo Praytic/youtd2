@@ -22,6 +22,10 @@ func on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	var attacker: Unit = event.get_target()
+	var creep_is_silenced: bool = creep.is_silenced()
+
+	if creep_is_silenced:
+		return
 
 	if !creep.calc_chance(0.30):
 		return

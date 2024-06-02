@@ -16,7 +16,11 @@ func on_attacked(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	var attacker: Unit = event.get_target()
-	var stun_success: bool = creep.calc_chance(0.3)
+	
+	var creep_is_silenced: bool = creep.is_silenced()
+	if creep_is_silenced:
+		return
 
+	var stun_success: bool = creep.calc_chance(0.3)
 	if stun_success:
 		stun_bt.apply_only_timed(creep, attacker, 3.0)

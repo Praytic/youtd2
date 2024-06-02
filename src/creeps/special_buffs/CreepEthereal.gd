@@ -25,6 +25,10 @@ func _init(parent: Node):
 func on_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
+	var creep_is_silenced: bool = creep.is_silenced()
+
+	if creep_is_silenced:
+		return
 
 	ethereal_active_buff.apply(creep, creep, 0)
 
