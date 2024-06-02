@@ -97,7 +97,10 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_corruption.title = "Corruption Field"
 	autocast_corruption.icon = "res://resources/icons/misc/poison_02.tres"
 	autocast_corruption.description_short = "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
-	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
+	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n" \
+	+ " \n" \
+	+ "[color=RED]You must place [color=GOLD]Recreation Field[/color] before using this ability![/color]\n" \
+	+ ""
 	autocast_corruption.caster_art = ""
 	autocast_corruption.target_art = ""
 	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
