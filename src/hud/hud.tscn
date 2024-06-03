@@ -157,6 +157,11 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="Spacer" type="VBoxContainer" parent="MarginContainer5/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="UnitMenu" parent="MarginContainer5/VBoxContainer2" instance=ExtResource("19_bqmfs")]
 visible = false
 layout_mode = 2
