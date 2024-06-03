@@ -200,6 +200,7 @@ func steam_bt_periodic(event: Event):
 	var new_mod_value: float = 0.06 * power_level
 	var mod_value_delta: float = new_mod_value - current_mod_value
 	buff.user_real = new_mod_value
+	buff.set_displayed_stacks(power_level)
 	buffed_tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, mod_value_delta)
 	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, mod_value_delta / 2.0)
 
