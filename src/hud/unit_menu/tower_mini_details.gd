@@ -8,7 +8,8 @@ var _tower: Tower = null
 
 @export var _dmg_left_label: RichTextLabel
 @export var _dmg_right_label: RichTextLabel
-@export var _misc_label: RichTextLabel
+@export var _misc_left_label: RichTextLabel
+@export var _misc_right_label: RichTextLabel
 @export var _types_left_label: RichTextLabel
 @export var _types_right_label: RichTextLabel
 @export var _oils_label: RichTextLabel
@@ -30,9 +31,13 @@ func _process(_delta: float):
 	_dmg_right_label.clear()
 	_dmg_right_label.append_text(dmg_stats_right_text)
 	
-	var support_stats_text: String = _get_support_stats_text()
-	_misc_label.clear()
-	_misc_label.append_text(support_stats_text)
+	var support_stats_left_text: String = _get_support_stats_left_text()
+	_misc_left_label.clear()
+	_misc_left_label.append_text(support_stats_left_text)
+	
+	var support_stats_right_text: String = _get_support_stats_right_text()
+	_misc_right_label.clear()
+	_misc_right_label.append_text(support_stats_right_text)
 	
 	var dmg_against_left_text: String = _get_dmg_against_left_text()
 	_types_left_label.clear()
@@ -69,9 +74,6 @@ func _get_dmg_stats_left_text() -> String:
 	var dps_with_crit: int = roundi(_tower.get_dps_with_crit())
 	var dps_with_crit_string: String = TowerDetails.int_format(dps_with_crit)
 
-	var overall_cooldown: float = _tower.get_current_attack_speed()
-	var overall_cooldown_string: String = Utils.format_float(overall_cooldown, 2)
-
 	var crit_chance: float = _tower.get_prop_atk_crit_chance()
 	var crit_chance_string: String = Utils.format_percent(crit_chance, 1)
 
@@ -85,7 +87,6 @@ func _get_dmg_stats_left_text() -> String:
 	+ "[hint=Base damage][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % base_damage_string \
 	+ "[hint=Overall damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
 	+ "[hint=DPS with crit][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % dps_with_crit_string \
-	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
 	+ "[hint=Attack crit chance][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
 	+ "[hint=Attack crit damage][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % crit_damage_string \
 	+ "[hint=Multicrit][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % multicrit_string \
@@ -95,6 +96,9 @@ func _get_dmg_stats_left_text() -> String:
 
 
 func _get_dmg_stats_right_text() -> String:
+	var overall_cooldown: float = _tower.get_current_attack_speed()
+	var overall_cooldown_string: String = Utils.format_float(overall_cooldown, 2)
+
 	var spell_damage: float = _tower.get_prop_spell_damage_dealt()
 	var spell_damage_string: String = Utils.format_percent(spell_damage, 0)
 	
@@ -108,6 +112,7 @@ func _get_dmg_stats_right_text() -> String:
 	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
 
 	var text: String = "" \
+	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
 	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_mana_regen_string \
 	+ "[hint=Spell damage bonus][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
 	+ "[hint=Spell crit chance][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
@@ -117,7 +122,7 @@ func _get_dmg_stats_right_text() -> String:
 	return text
 
 
-func _get_support_stats_text() -> String:
+func _get_support_stats_left_text() -> String:
 	var bounty_ratio: float = _tower.get_prop_bounty_received()
 	var bounty_ratio_string: String = Utils.format_percent(bounty_ratio, 0)
 
@@ -133,6 +138,18 @@ func _get_support_stats_text() -> String:
 	var trigger_chances: float = _tower.get_prop_trigger_chances()
 	var trigger_chances_string: String = Utils.format_percent(trigger_chances, 0)
 
+	var text: String = "" \
+	+ "[hint=Bounty ratio][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % bounty_ratio_string \
+	+ "[hint=Exp ratio][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % exp_ratio_string \
+	+ "[hint=Item chance][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % item_drop_ratio_string \
+	+ "[hint=Item quality][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % item_quality_ratio_string \
+	+ "[hint=Trigger chances][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % trigger_chances_string \
+	+ ""
+
+	return text
+
+
+func _get_support_stats_right_text() -> String:
 	var buff_duration: float = _tower.get_prop_buff_duration()
 	var buff_duration_string: String = Utils.format_percent(buff_duration, 0)
 
@@ -140,11 +157,6 @@ func _get_support_stats_text() -> String:
 	var debuff_duration_string: String = Utils.format_percent(debuff_duration, 0)
 
 	var text: String = "" \
-	+ "[hint=Bounty ratio][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % bounty_ratio_string \
-	+ "[hint=Exp ratio][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % exp_ratio_string \
-	+ "[hint=Item chance][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % item_drop_ratio_string \
-	+ "[hint=Item quality][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % item_quality_ratio_string \
-	+ "[hint=Trigger chances][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % trigger_chances_string \
 	+ "[hint=Buff duration][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % buff_duration_string \
 	+ "[hint=Debuff duration][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % debuff_duration_string \
 	+ ""
