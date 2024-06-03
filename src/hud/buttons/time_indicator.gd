@@ -133,8 +133,12 @@ func _draw():
 ###       Public      ###
 #########################
 
+# NOTE: need to clamp value because one time an autocast
+# somehow had set elapsed time higher than overall time.
+# Couldn't reproduce, try to look into it.
 func set_time_values(elapsed_time: float, overall_time: float):
 	_elapsed_progress = Utils.divide_safe(elapsed_time, overall_time)
+	_elapsed_progress = clampf(_elapsed_progress, 0.0, 1.0)
 
 
 # NOTE: you can pass an autocast to the indicator and the
