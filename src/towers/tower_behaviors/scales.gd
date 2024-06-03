@@ -34,7 +34,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	overcharge.name = "I Overcharge"
 	overcharge.icon = "res://resources/icons/mechanical/battery.tres"
 	overcharge.description_short = "Chance to deal additional spell damage to hit creeps. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower.\n"
-	overcharge.description_full = "25% chance to deal 900 additional spell damage to hit creeps. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower. [color=GOLD]. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
+	overcharge.description_full = "25% chance to deal 900 additional spell damage to hit creeps. [color=GOLD]Overcharge[/color] can also be triggered by other innate abilities of this tower. [color=GOLD]Overcharge[/color] can trigger itself, but the chance to do so is decreased by 5% for each time it retriggers.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+36 spell damage\n" \

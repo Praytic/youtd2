@@ -30,7 +30,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	var ignite_chance: String = Utils.format_percent(IGNITE_CHANCE, 2)
-	var ignite_duration: String = Utils.format_percent(IGNITE_DURATION, 2)
+	var ignite_duration: String = Utils.format_float(IGNITE_DURATION, 2)
 	var mod_regen: String = Utils.format_percent(_stats.mod_regen, 2)
 	var mod_regen_add: String = Utils.format_percent(_stats.mod_regen_add, 2)
 	var ignite_damage: String = Utils.format_percent(IGNITE_DAMAGE, 2)

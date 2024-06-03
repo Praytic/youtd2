@@ -21,7 +21,7 @@ func tower_init():
 	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
 	fire_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	fire_bt.set_buff_modifier(m)
-	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")
+	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases attack crit chance.")
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -33,8 +33,8 @@ func get_aura_types() -> Array[AuraType]:
 
 	aura.name = "Fire of Fury"
 	aura.icon = "res://resources/icons/tower_icons/burning_watchtower.tres"
-	aura.description_short = "Increases crit chance of nearby towers.\n"
-	aura.description_full = "Increases crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
+	aura.description_short = "Increases attack crit chance of nearby towers.\n"
+	aura.description_full = "Increases attack crit chance of towers in %s range by %s.\n" % [aura_range, mod_crit] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % mod_crit_add
