@@ -65,7 +65,7 @@ _level_label = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginCont
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _upgrade_button = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/UpgradeButton")
 _sell_button = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/SellButton")
-_buff_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2/BuffContainer")
+_buff_container = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2/MarginContainer/BuffContainer")
 _ability_grid = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid")
 _exp_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/ExpBar")
 _health_bar = NodePath("HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HealthBar")
@@ -343,17 +343,20 @@ expand_icon = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_left = 55
 theme_override_constants/margin_top = -50
 theme_override_constants/margin_right = 50
 
-[node name="BuffContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2" instance=ExtResource("8_1niac")]
-custom_minimum_size = Vector2(400, 50)
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-columns = 8
+theme_override_constants/margin_top = -50
+
+[node name="BuffContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2/MarginContainer" instance=ExtResource("8_1niac")]
+layout_mode = 2
 
 [node name="BuffGroupEditor" parent="HBoxContainer/VBoxContainer/MarginContainer2/MarginContainer2" instance=ExtResource("5_v3s2e")]
 layout_mode = 2

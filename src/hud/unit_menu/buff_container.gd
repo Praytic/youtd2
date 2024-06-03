@@ -1,10 +1,17 @@
-class_name BuffContainer extends GridContainer
+class_name BuffContainer extends VBoxContainer
 
 
 # Displays buffs of a unit.
 
+# NOTE: The weird setup of two grid containers for two rows
+# is needed to make buffs appear on second row first, then
+# on second when first row runs out of space.
+
 
 var _buff_display_list: Array[BuffDisplay] = []
+
+@export var _row_top: GridContainer
+@export var _row_bottom: GridContainer
 
 
 #########################
@@ -12,14 +19,14 @@ var _buff_display_list: Array[BuffDisplay] = []
 #########################
 
 func _ready():
-	var child_node_list: Array[Node] = get_children()
+	var top_list: Array[Node] = _row_top.get_children()
+	var bottom_list: Array[Node] = _row_bottom.get_children()
 	
-	for child_node in child_node_list:
-		if !child_node is BuffDisplay:
-			push_error("BuffContainer must have BuffDisplay children.")
-			
-			return
-		
+	var combined_list: Array = []
+	combined_list.append_array(bottom_list)
+	combined_list.append_array(top_list)
+	
+	for child_node in combined_list:
 		var buff_display: BuffDisplay = child_node as BuffDisplay
 		_buff_display_list.append(buff_display)
 
