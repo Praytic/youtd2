@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkknomxku1jcv"]
+[gd_scene load_steps=3 format=3 uid="uid://bkknomxku1jcv"]
 
 [ext_resource type="Script" path="res://src/hud/unit_menu/creep_mini_details.gd" id="1_0rr73"]
+[ext_resource type="PackedScene" uid="uid://b5kapr6gujqbt" path="res://src/hud/unit_menu/mini_details_label.tscn" id="2_swo34"]
 
 [node name="CreepMiniDetails" type="TabContainer" node_paths=PackedStringArray("_stats_left_label", "_stats_right_label", "_dmg_left_label", "_dmg_right_label")]
-custom_minimum_size = Vector2(400, 362)
+custom_minimum_size = Vector2(400, 300)
 size_flags_vertical = 8
 script = ExtResource("1_0rr73")
 _stats_left_label = NodePath("Stats/StatsLeftLabel")
@@ -14,62 +15,18 @@ _dmg_right_label = NodePath("Dmg/DmgRightLabel")
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="StatsLeftLabel" type="RichTextLabel" parent="Stats"]
+[node name="StatsLeftLabel" parent="Stats" instance=ExtResource("2_swo34")]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25 color=0aff0a
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
-hint_underlined = false
 
-[node name="StatsRightLabel" type="RichTextLabel" parent="Stats"]
+[node name="StatsRightLabel" parent="Stats" instance=ExtResource("2_swo34")]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25 color=0aff0a
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
-hint_underlined = false
 
 [node name="Dmg" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 2
 
-[node name="DmgLeftLabel" type="RichTextLabel" parent="Dmg"]
+[node name="DmgLeftLabel" parent="Dmg" instance=ExtResource("2_swo34")]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25 color=0aff0a
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
-hint_underlined = false
 
-[node name="DmgRightLabel" type="RichTextLabel" parent="Dmg"]
+[node name="DmgRightLabel" parent="Dmg" instance=ExtResource("2_swo34")]
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[img=25 color=ff0000]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25 color=0aff0a
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2
-[img=25
-]res://resources/icons/generic_icons/alligator_clip.tres[/img] 32
-[img=25]res://resources/icons/generic_icons/open_wound.tres[/img] 1.2"
-hint_underlined = false
