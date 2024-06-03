@@ -110,11 +110,6 @@ func _process(_delta: float):
 		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
 		var elapsed_cooldown: float = overall_cooldown - remaining_cooldown
 		set_time_values(elapsed_cooldown, overall_cooldown)
-	else:
-#		NOTE: need to reset time values if there's no
-#		autocast so that if item was changed, indicator
-#		doesn't keep showing time value for previous item
-		set_time_values(0.0, 1.0)
 
 	queue_redraw()
 
@@ -145,6 +140,12 @@ func set_time_values(elapsed_time: float, overall_time: float):
 # indicator will automatically pull cooldown values from it.
 func set_autocast(autocast: Autocast):
 	_autocast = autocast
+	
+#	NOTE: need to reset time values if there's no
+#	autocast so that if item was changed, indicator
+#	doesn't keep showing time value for previous item
+	if autocast == null:
+		set_time_values(0.0, 1.0)
 
 
 #########################
