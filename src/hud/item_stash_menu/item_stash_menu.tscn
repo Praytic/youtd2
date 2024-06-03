@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=17 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Script" path="res://src/hud/item_stash_menu/item_stash_menu.gd" id="2_7jmcp"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://resources/theme/common/rect_container_m.tres" id="3_tvpws"]
-[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="5_mldwo"]
 [ext_resource type="PackedScene" uid="uid://c1ccsqvpyqd4i" path="res://src/hud/buttons/recipe_button.tscn" id="7_4dttm"]
 [ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://resources/icons/hud/recipe_rebrew.tres" id="8_aeibv"]
 [ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://resources/icons/hud/recipe_distill.tres" id="9_nqpec"]
@@ -88,108 +87,28 @@ size_flags_vertical = 3
 theme_override_constants/margin_bottom = -1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 390)
+custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 6
 theme_override_constants/margin_bottom = 10
 
 [node name="BackgroundGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 5
-
-[node name="EmptyUnitButton" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton2" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton3" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton4" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton5" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton6" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton7" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton8" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton9" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton10" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton11" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton12" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton13" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton14" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton15" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton16" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton17" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton18" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton19" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
-
-[node name="EmptyUnitButton20" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid" instance=ExtResource("5_mldwo")]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
 
 [node name="ItemGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 5
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
 
 [node name="HoradricPanel" type="PanelContainer" parent="TabContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 280)

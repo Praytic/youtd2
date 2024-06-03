@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://src/hud/buttons/ability_button.gd" id="2_kb4ln"]
 
 [node name="AbilityButton" instance=ExtResource("1_qdggn")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
+offset_right = 85.0
+offset_bottom = 85.0
 theme_type_variation = &"PassiveAbilityButton"
 script = ExtResource("2_kb4ln")

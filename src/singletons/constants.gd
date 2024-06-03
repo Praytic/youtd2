@@ -1,4 +1,4 @@
-extends Node
+class_name ConstantsStatic extends Node
 
 
 # NOTE: this tile size is for isometric projection.
@@ -135,3 +135,6 @@ const WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP: int = 100
 const GAME_SPEED_NORMAL: int = 1
 const GAME_SPEED_FAST: int = 3
 const GAME_SPEED_FASTEST: int = 6
+
+const ITEM_BUTTON_SIZE: Vector2 = Vector2(80, 80)
+const ABILITY_BUTTON_SIZE: Vector2 = Vector2(85, 85)

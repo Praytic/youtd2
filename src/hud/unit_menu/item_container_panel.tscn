@@ -15,62 +15,68 @@ _item_grid = NodePath("ItemGrid")
 
 [node name="BackgroundGrid" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 3
 
 [node name="EmptyUnitButton" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="EmptyUnitButton2" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="EmptyUnitButton3" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="EmptyUnitButton4" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="EmptyUnitButton5" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="EmptyUnitButton6" parent="BackgroundGrid" instance=ExtResource("3_6p1q1")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="SlotGrid" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 3
 
 [node name="InventorySlotButton" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="InventorySlotButton2" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="InventorySlotButton3" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="InventorySlotButton4" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="InventorySlotButton5" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="InventorySlotButton6" parent="SlotGrid" instance=ExtResource("4_mvykn")]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="ItemGrid" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 3
 
 [node name="ItemButton" parent="ItemGrid" instance=ExtResource("5_22vk1")]

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dpsfkaoappjpe" path="res://src/hud/buttons/freshness_indicator.tscn" id="5_kfxlr"]
 
 [node name="ItemButton" node_paths=PackedStringArray("_time_indicator", "_auto_mode_indicator", "_freshness_indicator", "_charges_label", "_lock_texture") instance=ExtResource("1_56ir5")]
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(80, 80)
 offset_right = 50.0
 offset_bottom = 50.0
 theme_type_variation = &"TinyUnitButton"
@@ -51,20 +51,20 @@ scale = Vector2(0.8, 0.8)
 [node name="ChargesLabel" type="Label" parent="AspectRatioContainer" index="0"]
 layout_mode = 2
 theme_type_variation = &"CounterLabel"
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="." index="3"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -50.0
-offset_right = 50.0
+offset_top = -30.0
+offset_right = 30.0
 grow_vertical = 0
 
 [node name="LockTexture" type="TextureRect" parent="AspectRatioContainer2" index="0"]
 z_index = 1
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

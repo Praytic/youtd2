@@ -10,7 +10,6 @@ signal details_pressed()
 
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
-const ABILITY_BUTTON_SIZE: Vector2 = Vector2(100, 100)
 
 @export var _tower_button: TowerButton
 @export var _creep_button: UnitButton
@@ -266,7 +265,7 @@ func _setup_creep_ability_buttons():
 func _pad_ability_grid(pad_count: int):
 	for i in range(0, pad_count):
 		var padding_button: EmptyUnitButton = Preloads.empty_slot_button_scene.instantiate()
-		padding_button.custom_minimum_size = ABILITY_BUTTON_SIZE
+		padding_button.custom_minimum_size = Constants.ABILITY_BUTTON_SIZE
 		_ability_grid.add_child(padding_button)
 
 

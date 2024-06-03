@@ -222,7 +222,6 @@ func _end_move_process():
 # centered on the background - in ItemButton this function
 # is done automatically by the theme.
 func _get_item_cursor_icon(item: Item) -> Texture2D:
-	const ITEM_BUTTON_SIZE: Vector2 = Vector2(88, 88)
 #	NOTE: this value is an estimate to account for margins
 #	in item buttons
 	const ITEM_ICON_SCALE: float = 0.85
@@ -231,7 +230,7 @@ func _get_item_cursor_icon(item: Item) -> Texture2D:
 	const CURSOR_ICON_SCALE: float = 0.80
 
 	var viewport_scale: Vector2 = get_viewport().get_final_transform().get_scale()
-	var cursor_icon_size: Vector2i = Vector2i(ITEM_BUTTON_SIZE * viewport_scale * CURSOR_ICON_SCALE)
+	var cursor_icon_size: Vector2i = Vector2i(Constants.ITEM_BUTTON_SIZE * viewport_scale * CURSOR_ICON_SCALE)
 	var item_icon_size: Vector2i = Vector2i(cursor_icon_size * ITEM_ICON_SCALE)
 
 	var rarity: Rarity.enm = item.get_rarity()

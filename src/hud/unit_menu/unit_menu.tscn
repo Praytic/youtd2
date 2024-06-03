@@ -53,8 +53,8 @@ region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
 [node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_tower_button", "_creep_button", "_level_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_buff_container", "_ability_grid", "_exp_bar", "_health_bar", "_mana_bar", "_tower_mini_details", "_creep_mini_details", "_tower_inventory_panel", "_tower_inventory_outer_panel", "_buff_group_editor")]
-offset_right = 800.0
-offset_bottom = 200.0
+offset_right = 1282.0
+offset_bottom = 342.0
 mouse_filter = 2
 theme = ExtResource("1_trhe5")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0es22")
@@ -95,6 +95,7 @@ theme_override_constants/margin_right = 50
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 size_flags_horizontal = 0
+columns = 8
 
 [node name="BuffGroupEditor" parent="HBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("5_v3s2e")]
 layout_mode = 2
@@ -179,42 +180,42 @@ columns = 4
 
 [node name="EmptyUnitButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton6" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton7" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="EmptyUnitButton8" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/BackgroundGridForSizing" instance=ExtResource("4_bl3rp")]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="AbilityGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2"]
@@ -231,23 +232,23 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="PlaceholderEmpty" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="PlaceholderEmpty2" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="PlaceholderEmpty3" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="PlaceholderEmpty4" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="PlaceholderEmpty5" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/Abilities/MarginContainer2/AbilityGrid" instance=ExtResource("4_bl3rp")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 
 [node name="TowerInventoryOuterPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer"]
@@ -351,10 +352,12 @@ icon = SubResource("AtlasTexture_7oyt8")
 expand_icon = true
 
 [node name="TowerMiniDetails" parent="HBoxContainer" instance=ExtResource("18_q420s")]
+custom_minimum_size = Vector2(400, 332)
 layout_mode = 2
 
 [node name="CreepMiniDetails" parent="HBoxContainer" instance=ExtResource("19_fhhud")]
 visible = false
+custom_minimum_size = Vector2(400, 332)
 layout_mode = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]

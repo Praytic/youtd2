@@ -1,9 +1,10 @@
+@tool
 class_name ItemStashMenu extends PanelContainer
 
 
 # NOTE: these are visible counts, not total possible counts
-const ROW_COUNT: int = 4
-const COLUMN_COUNT: int = 5
+const ROW_COUNT: int = 5
+const COLUMN_COUNT: int = 6
 
 
 # This UI element displays items which are currently in the
@@ -23,7 +24,18 @@ const COLUMN_COUNT: int = 5
 ### Code starts here  ###
 #########################
 
+# NOTE: the background buttons are also added while the scene is open in editor, to check how it looks visually.
 func _ready():
+	var min_slot_count: int = ROW_COUNT * COLUMN_COUNT
+	
+	for i in range(0, min_slot_count):
+		var slot_button: Button = _make_slot_button()
+		slot_button.modulate = Color.WHITE
+		_background_grid.add_child(slot_button)
+	
+	if Engine.is_editor_hint():
+		return
+	
 	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
 	for node in recipe_buttons:
 		var recipe_button: RecipeButton = node as RecipeButton
@@ -58,7 +70,7 @@ func connect_to_local_player(local_player: Player):
 
 func _make_slot_button() -> EmptyUnitButton:
 	var button: Button = EmptyUnitButton.make()
-	button.custom_minimum_size = Vector2(88, 88)
+	button.custom_minimum_size = ConstantsStatic.ITEM_BUTTON_SIZE
 	button.pressed.connect(_on_slot_button_pressed.bind(button))
 	button.modulate = Color.TRANSPARENT
 	
