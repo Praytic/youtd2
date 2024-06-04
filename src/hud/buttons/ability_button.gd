@@ -1,4 +1,4 @@
-class_name AbilityButton extends UnitButton
+class_name AbilityButton extends Button
 
 
 # Button for tower abilities. Note that this is for not-active abilities. Active abilities use AutocastButton.

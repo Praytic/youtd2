@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0aesr1u8n1xt"]
+[gd_scene load_steps=4 format=3 uid="uid://d0aesr1u8n1xt"]
 
-[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="1_qdggn"]
-[ext_resource type="Script" path="res://src/hud/buttons/ability_button.gd" id="2_kb4ln"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_vdlb1"]
+[ext_resource type="Texture2D" uid="uid://ckb2soah83qpl" path="res://resources/icons/rockets/rocket_05.tres" id="2_b5mkd"]
+[ext_resource type="Script" path="res://src/hud/buttons/ability_button.gd" id="3_cgguu"]
 
-[node name="AbilityButton" instance=ExtResource("1_qdggn")]
+[node name="AbilityButton" type="Button"]
 custom_minimum_size = Vector2(85, 85)
-offset_right = 85.0
-offset_bottom = 85.0
+focus_mode = 0
+theme = ExtResource("1_vdlb1")
 theme_type_variation = &"PassiveAbilityButton"
-script = ExtResource("2_kb4ln")
+icon = ExtResource("2_b5mkd")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_cgguu")

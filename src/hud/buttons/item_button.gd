@@ -1,5 +1,5 @@
 class_name ItemButton
-extends UnitButton
+extends Button
 
 
 signal right_clicked()
@@ -8,16 +8,18 @@ signal ctrl_right_clicked()
 signal horadric_lock_changed()
 
 
-var _item: Item
+var _item: Item = null
+var _tooltip_location: ButtonTooltip.Location = ButtonTooltip.Location.TOP
+var _show_charges: bool = false
+var _horadric_lock_display_is_enabled: bool = false
 
+
+@export var _rarity_background: RarityBackground
 @export var _time_indicator: TimeIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _freshness_indicator: FreshnessIndicator
 @export var _charges_label: Label
-@export var _lock_texture: TextureRect
-
-var _show_charges: bool = false
-var _horadric_lock_display_is_enabled: bool = false
+@export var _lock_indicator: TextureRect
 
 
 #########################
@@ -25,8 +27,6 @@ var _horadric_lock_display_is_enabled: bool = false
 #########################
 
 func _ready():
-	super._ready()
-
 	_set_item_internal(null)
 
 
@@ -83,6 +83,10 @@ func get_item() -> Item:
 	return _item
 
 
+func set_tooltip_location(value: ButtonTooltip.Location):
+	_tooltip_location = value
+
+
 #########################
 ###      Private      ###
 #########################
@@ -106,10 +110,10 @@ func _set_item_internal(item: Item):
 		var item_id: int = _item.get_id()
 		
 		var item_icon: Texture2D = ItemProperties.get_icon(item_id)
-		set_icon(item_icon)
+		set_button_icon(item_icon)
 		
 		var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
-		set_rarity(item_rarity)
+		_rarity_background.set_rarity(item_rarity)
 
 	var autocast: Autocast
 	if item != null:
@@ -167,7 +171,7 @@ func _on_item_horadric_lock_changed():
 		return
 	
 	var horadric_lock_is_enabled: bool = _item.get_horadric_lock_is_enabled()
-	_lock_texture.visible = _horadric_lock_display_is_enabled && horadric_lock_is_enabled
+	_lock_indicator.visible = _horadric_lock_display_is_enabled && horadric_lock_is_enabled
 
 	horadric_lock_changed.emit()
 

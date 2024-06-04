@@ -13,7 +13,8 @@ class_name FlyingItem extends Control
 var _item_id: int = 0
 var _end_pos: Vector2 = Vector2.ZERO
 
-@export var _unit_button: UnitButton
+@export var _button: Button
+@export var _rarity_background: RarityBackground
 
 
 #########################
@@ -24,14 +25,9 @@ var _end_pos: Vector2 = Vector2.ZERO
 func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
 	var rarity: Rarity.enm = ItemProperties.get_rarity(_item_id)
-	_unit_button.set_icon(icon)
-	_unit_button.set_rarity(rarity)
+	_button.set_button_icon(icon)
+	_rarity_background.set_rarity(rarity)
 
-# 	NOTE: couldn't figure out why unit button is smaller
-# 	than it should be. Hackfix by manually changing the
-# 	scale.
-	_unit_button.scale = Vector2(1.5, 1.5)
-	
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
 		_end_pos,
@@ -63,6 +59,5 @@ static func create(item_id: int, start_pos: Vector2, end_pos: Vector2) -> Flying
 	flying_item.position = start_pos
 	flying_item._end_pos = end_pos
 	flying_item._item_id = item_id
-	flying_item.scale = Vector2(0.5, 0.5)
 
 	return flying_item

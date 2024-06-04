@@ -1,8 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://dcqjart40vpjy"]
+[gd_scene load_steps=27 format=3 uid="uid://dcqjart40vpjy"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_trhe5"]
 [ext_resource type="Script" path="res://src/hud/unit_menu/unit_menu.gd" id="2_maep6"]
-[ext_resource type="PackedScene" uid="uid://22mf4myucw0w" path="res://src/hud/buttons/tower_button.tscn" id="3_muugt"]
+[ext_resource type="PackedScene" uid="uid://ni34yd5liwbj" path="res://src/hud/buttons/tower_button.tscn" id="3_muugt"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://src/hud/buttons/empty_unit_button.tscn" id="4_bl3rp"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://resources/theme/unit_menu/unit_level_label_normal.tres" id="4_mpyt6"]
 [ext_resource type="PackedScene" uid="uid://d0aesr1u8n1xt" path="res://src/hud/buttons/ability_button.tscn" id="5_iq4vd"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="5_xoeuc"]
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://src/hud/unit_menu/buff_container.tscn" id="8_1niac"]
 [ext_resource type="PackedScene" uid="uid://bscc3lifv4bx4" path="res://src/hud/unit_menu/progress_bar_with_label.tscn" id="8_7iile"]
-[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://src/hud/buttons/unit_button.tscn" id="8_ami32"]
 [ext_resource type="Texture2D" uid="uid://gjoldkg0ife" path="res://resources/icons/creep_icons/orc_normal.tres" id="9_7dqoj"]
 [ext_resource type="StyleBox" uid="uid://bxmrnso7h7np1" path="res://resources/theme/unit_menu/exp_bar_background.tres" id="9_lvj74"]
 [ext_resource type="StyleBox" uid="uid://dab1qvryjypqs" path="res://resources/theme/unit_menu/exp_bar_fill.tres" id="10_6udoc"]
@@ -114,15 +113,19 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_vertical = 0
 theme_type_variation = &"UnitButtonBright"
-_tower_id = 1
+_tooltip_location = 1
+_show_freshness = false
 
-[node name="CreepButton" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_ami32")]
+[node name="CreepButton" type="Button" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-size_flags_vertical = 0
 mouse_filter = 2
+theme = ExtResource("1_trhe5")
 theme_type_variation = &"UnitButtonBright"
 icon = ExtResource("9_7dqoj")
+icon_alignment = 1
+expand_icon = true
 
 [node name="ExpBar" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
 layout_mode = 2

@@ -1,12 +1,17 @@
 class_name TowerButton
-extends UnitButton
+extends Button
 
+var _tower_id: int = 1
 
 @export var _disabled_lock: TextureRect
 @export var _tier_icon: TextureRect
-@export var _tower_id: int
 @export var _freshness_timer: Timer
 @export var _freshness_indicator: FreshnessIndicator
+@export var _rarity_background: RarityBackground
+@export var _counter_label: Label
+
+@export var _tooltip_location: ButtonTooltip.Location
+@export var _show_freshness: bool = true
 
 
 #########################
@@ -14,20 +19,19 @@ extends UnitButton
 #########################
 
 func _ready():
-	super._ready()
-	
 	set_locked(false)
-	
-	_freshness_timer.start()
-	
-	if !visible:
-		_freshness_timer.pause()
-	
-	_freshness_indicator.show()
-	
-	var game_mode_is_build: bool = Globals.get_game_mode() == GameMode.enm.BUILD
-	if game_mode_is_build:
-		_freshness_indicator.hide()
+
+	if _show_freshness:
+		_freshness_timer.start()
+		
+		if !visible:
+			_freshness_timer.pause()
+		
+		_freshness_indicator.show()
+		
+		var game_mode_is_build: bool = Globals.get_game_mode() == GameMode.enm.BUILD
+		if game_mode_is_build:
+			_freshness_indicator.hide()
 
 
 #########################
@@ -43,10 +47,10 @@ func set_tower_id(tower_id: int):
 	_tower_id = tower_id
 
 	var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-	set_rarity(rarity)
+	_rarity_background.set_rarity(rarity)
 	
 	var tower_icon: Texture2D = TowerProperties.get_icon(tower_id)
-	set_icon(tower_icon)
+	set_button_icon(tower_icon)
 	
 	var tier_icon: Texture2D = UnitIcons.get_tower_tier_icon(tower_id)
 	_tier_icon.texture = tier_icon
@@ -59,6 +63,11 @@ func set_tier_visible(value: bool):
 func set_locked(value: bool):
 	_disabled_lock.visible = value
 	disabled = value
+
+
+func set_count(count: int):
+	_counter_label.text = str(count)
+	_counter_label.visible = count > 1
 
 
 #########################

@@ -1,15 +1,15 @@
 class_name ElementsMenu extends PanelContainer
 
 
-@export var _ice_button: UnitButton
-@export var _fire_button: UnitButton
-@export var _nature_button: UnitButton
-@export var _darkness_button: UnitButton
-@export var _iron_button: UnitButton
-@export var _astral_button: UnitButton
-@export var _storm_button: UnitButton
-@export var _roll_towers_button: UnitButton
-@export var _empty_unit_button_to_replace_roll_towers: Button
+@export var _ice_button: ElementButton
+@export var _fire_button: ElementButton
+@export var _nature_button: ElementButton
+@export var _darkness_button: ElementButton
+@export var _iron_button: ElementButton
+@export var _astral_button: ElementButton
+@export var _storm_button: ElementButton
+@export var _roll_towers_button: Button
+@export var _slot_button_to_replace_roll_towers: Button
 
 @onready var _button_map: Dictionary = {
 	Element.enm.ICE: _ice_button,
@@ -32,9 +32,8 @@ func _ready():
 		_hide_roll_towers_button()
 
 	for element in _button_map.keys():
-		var button: UnitButton = _button_map[element]
-		button.always_show_count()
-		button.set_count(0)
+		var button: ElementButton = _button_map[element]
+		button.set_level(0)
 		
 		button.mouse_entered.connect(_on_button_mouse_entered.bind(button, element))
 		button.pressed.connect(_on_button_pressed.bind(element))
@@ -57,7 +56,7 @@ func connect_to_local_player(local_player: Player):
 
 func _hide_roll_towers_button():
 	_roll_towers_button.hide()
-	_empty_unit_button_to_replace_roll_towers.show()
+	_slot_button_to_replace_roll_towers.show()
 
 
 func _show_element_tooltip(button: Button, element: Element.enm):
@@ -81,9 +80,9 @@ func _on_element_level_changed():
 	var current_tooltip_target: Button = ButtonTooltip.get_current_target()
 	
 	for element in element_levels.keys():
-		var button: UnitButton = _button_map[element]
+		var button: ElementButton = _button_map[element]
 		var element_level: int = element_levels[element]
-		button.set_count(element_level)
+		button.set_level(element_level)
 		
 #		NOTE: need to manually refresh button tooltip,
 #		otherwise it will keep showing old element level

@@ -12,7 +12,7 @@ signal details_pressed()
 const SELL_BUTTON_RESET_TIME: float = 5.0
 
 @export var _tower_button: TowerButton
-@export var _creep_button: UnitButton
+@export var _creep_button: Button
 @export var _level_label: Label
 @export var _reset_sell_button_timer: Timer
 @export var _upgrade_button: Button
@@ -53,10 +53,6 @@ var _creep: Creep = null
 #########################
 ###     Built-in      ###
 #########################
-
-func _ready():
-	_tower_button.set_tooltip_location(ButtonTooltip.Location.BOTTOM)
-
 
 func _process(_delta: float):
 	if _unit == null:
@@ -187,7 +183,7 @@ func _load_tower():
 
 func _load_creep():
 	var icon: Texture2D = UnitIcons.get_creep_icon(_creep)
-	_creep_button.set_icon(icon)
+	_creep_button.set_button_icon(icon)
 
 	_setup_creep_ability_buttons()
 
