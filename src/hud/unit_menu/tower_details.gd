@@ -158,7 +158,7 @@ func update_text():
 	_spell_crit_damage.text = TowerDetails.multiplier_format(spell_crit_damage)
 
 #	Veteran
-	var total_damage: int = roundi(_tower.get_damage())
+	var total_damage: int = roundi(_tower.get_total_damage())
 	_total_damage.text = TowerDetails.int_format(total_damage)
 	
 	var total_damage_recent: int = roundi(_tower.get_total_damage_recent())

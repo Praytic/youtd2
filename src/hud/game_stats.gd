@@ -113,11 +113,11 @@ func _get_overall_best_towers_text() -> String:
 
 
 func _get_tower_stats_text_generic(tower_list: Array[Tower]) -> String:
-	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
+	var most_damage_tower: Tower = _get_most_total_damage_tower(tower_list)
 	var most_damage_tower_name: String = _get_colored_name_for_tower(most_damage_tower)
 	var most_damage_value: String = ""
 	if most_damage_tower != null:
-		var most_damage: float = most_damage_tower.get_damage()
+		var most_damage: float = most_damage_tower.get_total_damage()
 		most_damage_value = TowerDetails.int_format(most_damage)
 
 	var tower_with_best_hit: Tower = _get_best_hit_tower(tower_list)
@@ -168,10 +168,10 @@ func _get_game_length_string(wave_count: int) -> String:
 	return game_length_string
 
 
-func _get_most_damage_tower(tower_list: Array[Tower]) -> Tower:
+func _get_most_total_damage_tower(tower_list: Array[Tower]) -> Tower:
 	var best_tower: Tower = _get_best_tower_by_criteria(tower_list,
 		func(a: Tower, b: Tower) -> bool:
-			return a.get_damage() > b.get_damage()
+			return a.get_total_damage() > b.get_total_damage()
 			)
 
 	return best_tower

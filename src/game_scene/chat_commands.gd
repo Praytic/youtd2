@@ -354,8 +354,8 @@ func _command_damage_meters(player: Player, _args: Array):
 
 	tower_list.sort_custom(
 		func(a: Tower, b: Tower) -> bool:
-			var damage_a: float = a.get_damage()
-			var damage_b: float = b.get_damage()
+			var damage_a: float = a.get_total_damage()
+			var damage_b: float = b.get_total_damage()
 			
 			return damage_a > damage_b
 			)
@@ -368,7 +368,7 @@ func _command_damage_meters(player: Player, _args: Array):
 			break
 
 		var tower_name: String = tower.get_display_name()
-		var damage: float = tower.get_damage()
+		var damage: float = tower.get_total_damage()
 		var damage_string: String = TowerDetails.int_format(damage)
 		
 		Messages.add_normal(player, "%s: [color=GOLD]%s[/color]" % [tower_name, damage_string])

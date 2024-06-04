@@ -1151,7 +1151,8 @@ func get_dps_with_crit() -> float:
 
 
 # How much damage the tower dealt in total
-func get_damage() -> float:
+# NOTE: getOverallDamage() in JASS, renamed to avoid confusion
+func get_total_damage() -> float:
 	return _damage_dealt_total
 
 # How much damage the tower dealt in total, during last 5 min
