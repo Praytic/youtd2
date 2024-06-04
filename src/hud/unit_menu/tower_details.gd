@@ -30,6 +30,7 @@ class_name TowerDetails extends PanelContainer
 
 # Veteran
 @export var _total_damage: Label
+@export var _total_damage_recent: Label
 @export var _best_hit: Label
 @export var _kills: Label
 @export var _experience: Label
@@ -159,6 +160,9 @@ func update_text():
 #	Veteran
 	var total_damage: int = roundi(_tower.get_damage())
 	_total_damage.text = TowerDetails.int_format(total_damage)
+	
+	var total_damage_recent: int = roundi(_tower.get_total_damage_recent())
+	_total_damage_recent.text = TowerDetails.int_format(total_damage_recent)
 
 	var best_hit: int = roundi(_tower.get_best_hit())
 	_best_hit.text = TowerDetails.int_format(best_hit)

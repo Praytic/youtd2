@@ -105,6 +105,7 @@ var _base_armor: float = 0.0
 var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
+var _damage_dealt_to_wave_map: Dictionary = {}
 var _ethereal_count: int = 0
 var _silence_count: int = 0
 var _stun_count: int = 0
@@ -952,6 +953,15 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 		damage = clampf(damage, Constants.DAMAGE_MIN, Constants.DAMAGE_MAX)
 	
 	_damage_dealt_total += damage
+	
+	if target is Creep:
+		var creep: Creep = target as Creep
+		var wave_level: int = creep.get_spawn_level()
+		
+		if !_damage_dealt_to_wave_map.has(wave_level):
+			_damage_dealt_to_wave_map[wave_level] = 0
+		
+		_damage_dealt_to_wave_map[wave_level] += damage
 
 	if damage > _best_hit:
 		_best_hit = damage

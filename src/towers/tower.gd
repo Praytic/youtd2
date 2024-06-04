@@ -139,6 +139,7 @@ func _ready():
 		_kill_count = _temp_preceding_tower._kill_count
 		_best_hit = _temp_preceding_tower._best_hit
 		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
+		_damage_dealt_to_wave_map = _temp_preceding_tower._damage_dealt_to_wave_map
 		
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
@@ -1152,6 +1153,19 @@ func get_dps_with_crit() -> float:
 # How much damage the tower dealt in total
 func get_damage() -> float:
 	return _damage_dealt_total
+
+# How much damage the tower dealt in total, during last 5 min
+func get_total_damage_recent() -> float:
+	var total_damage_recent: float = 0
+	
+	var team: Team = _player.get_team()
+	var current_wave_level: int = team.get_level()
+	
+	for i in range(current_wave_level, current_wave_level - 5, -1):
+		var damage_to_wave: float = _damage_dealt_to_wave_map.get(i, 0)
+		total_damage_recent += damage_to_wave
+	
+	return total_damage_recent
 
 # How much kills the tower has in total
 func get_kills() -> int:
