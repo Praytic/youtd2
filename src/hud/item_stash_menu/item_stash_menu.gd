@@ -3,7 +3,10 @@ class_name ItemStashMenu extends PanelContainer
 
 
 # NOTE: these are visible counts, not total possible counts
-const ROW_COUNT: int = 5
+# NOTE: set min row count to 6 to have one row extra at
+# startup. Otherwise item stash would go from having no
+# scroll bar to having a scroll bar which is weird behavior.
+const MIN_ROW_COUNT: int = 6
 const COLUMN_COUNT: int = 6
 
 
@@ -26,7 +29,7 @@ const COLUMN_COUNT: int = 6
 
 # NOTE: the background buttons are also added while the scene is open in editor, to check how it looks visually.
 func _ready():
-	var min_slot_count: int = ROW_COUNT * COLUMN_COUNT
+	var min_slot_count: int = MIN_ROW_COUNT * COLUMN_COUNT
 	
 	for i in range(0, min_slot_count):
 		var slot_button: Button = _make_slot_button()
@@ -60,6 +63,7 @@ func connect_to_local_player(local_player: Player):
 
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	item_stash.items_changed.connect(_on_item_stash_changed)
+	_on_item_stash_changed()
 
 	local_player.selected_builder.connect(_on_local_player_selected_builder)
 
@@ -249,36 +253,29 @@ func _on_return_button_pressed():
 	EventBus.player_requested_return_from_horadric_cube.emit()
 
 
-# NOTE: need to update buttons selectively to minimize the
-# amount of times buttons are created/destroyed and avoid
-# perfomance issues for large item counts. A simpler
-# approach would be to remove all buttons and then go
-# through the item list and add new buttons but that causes
-# perfomance issues.
 func _on_item_stash_changed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	var highest_index: int = item_stash.get_highest_index()
 	
-#	Add new rows of slots to have enough space if the item
-#	count increased
+#	Add new rows to give the player space to organize items.
+#	The amount of rows depends on the highest occupied
+#	index, not total item count because item stash can have
+#	empty slots between items. Always add one extra empty
+#	row to prevent the item stash from feeling confined.
+	var required_row_count: int = ceili((highest_index + 1) / float(COLUMN_COUNT)) + 1
+	required_row_count = max(required_row_count, MIN_ROW_COUNT)
+	var required_slot_count: int = required_row_count * COLUMN_COUNT
 	var current_slot_count: int = _item_grid.get_child_count()
-	var need_more_slots: bool = highest_index + 1 > current_slot_count || current_slot_count < (5 * 4)
+	var need_more_slots: bool = required_slot_count > current_slot_count
 
 	if need_more_slots:
-		var new_slot_count: int = ceili((highest_index + 1) / float(COLUMN_COUNT)) * COLUMN_COUNT
-		var min_slot_count: int = ROW_COUNT * COLUMN_COUNT
-		new_slot_count = max(new_slot_count, min_slot_count)
-		
-#		NOTE: need two separate while loops because
-#		background grid contains an initial set of slot
-#		buttons
-		while _background_grid.get_child_count() < new_slot_count:
+		while _background_grid.get_child_count() < required_slot_count:
 			var slot_button: EmptyUnitButton = _make_slot_button()
 			slot_button.modulate = Color.WHITE
 			_background_grid.add_child(slot_button)
 		
-		while _item_grid.get_child_count() < new_slot_count:
+		while _item_grid.get_child_count() < required_slot_count:
 			var item_button: ItemButton = _make_item_button(null)
 			_item_grid.add_child(item_button)
 	
