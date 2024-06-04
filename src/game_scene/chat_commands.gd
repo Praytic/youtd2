@@ -6,6 +6,7 @@ class_name ChatCommands extends Node
 
 const GAMESPEED_MIN: int = 1
 const GAMESPEED_MAX: int = 30
+const DAMAGE_METERS_TOWER_COUNT: int = 5
 
 
 const HELP: Array[String] = ["/help"]
@@ -13,6 +14,8 @@ const READY: Array[String] = ["/ready"]
 const AUTOSPAWN: Array[String] = ["/autospawn", "/as"]
 const AUTOOIL: Array[String] = ["/autooil", "/ao"]
 const GAMESPEED: Array[String] = ["/gamespeed", "/gs"]
+const DAMAGE_METERS: Array[String] = ["/damage-meters", "/dm"]
+const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE: Array[String] = ["/pause", "/p"]
@@ -105,6 +108,10 @@ func process_command(player: Player, command: String):
 		_command_spawn_challenge(player, command_args)
 	elif SETUP_TEST_TOWER.has(command_main):
 		_command_setup_test_tower(player, command_args)
+	elif DAMAGE_METERS.has(command_main):
+		_command_damage_meters(player, command_args)
+	elif DAMAGE_METERS_RECENT.has(command_main):
+		_command_damage_meters_recent(player, command_args)
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -340,6 +347,60 @@ func _command_setup_test_tower(player: Player, _args: Array):
 	selected_tower.add_exp(1000)
 	_add_test_oils(player, selected_tower)
 	_add_status(player, "Test tower is ready")
+
+
+func _command_damage_meters(player: Player, _args: Array):
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	tower_list.sort_custom(
+		func(a: Tower, b: Tower) -> bool:
+			var damage_a: float = a.get_damage()
+			var damage_b: float = b.get_damage()
+			
+			return damage_a > damage_b
+			)
+
+	_add_status(player, "Top towers by damage:")
+
+	var count: int = 0
+	for tower in tower_list:
+		if count > DAMAGE_METERS_TOWER_COUNT:
+			break
+
+		var tower_name: String = tower.get_display_name()
+		var damage: float = tower.get_damage()
+		var damage_string: String = TowerDetails.int_format(damage)
+		
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color]" % [tower_name, damage_string])
+
+		count += 1
+
+
+func _command_damage_meters_recent(player: Player, _args: Array):
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	tower_list.sort_custom(
+		func(a: Tower, b: Tower) -> bool:
+			var damage_a: float = a.get_total_damage_recent()
+			var damage_b: float = b.get_total_damage_recent()
+			
+			return damage_a > damage_b
+			)
+
+	_add_status(player, "Top towers by recent damage:")
+
+	var count: int = 0
+	for tower in tower_list:
+		if count > DAMAGE_METERS_TOWER_COUNT:
+			break
+
+		var tower_name: String = tower.get_display_name()
+		var damage: float = tower.get_total_damage_recent()
+		var damage_string: String = TowerDetails.int_format(damage)
+		
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color]" % [tower_name, damage_string])
+
+		count += 1
 
 
 # NOTE: oil counts are based on average oil counts obtained
