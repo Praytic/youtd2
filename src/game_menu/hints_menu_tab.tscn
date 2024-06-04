@@ -7,7 +7,7 @@ custom_minimum_size = Vector2(1000, 900)
 theme_override_constants/separation = 10
 script = ExtResource("1_q2uv5")
 _tree = NodePath("HBoxContainer/Tree")
-_hints_text_label = NodePath("HBoxContainer/PanelContainer/MarginContainer/HintsTextLabel")
+_hints_text_label = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/HintsTextLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -32,9 +32,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HintsTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+
+[node name="HintsTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
 bbcode_enabled = true
 text = "Hint text goes here."
 fit_content = true
