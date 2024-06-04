@@ -28,18 +28,21 @@ func _ready():
 	_button.set_button_icon(icon)
 	_rarity_background.set_rarity(rarity)
 
+	var game_speed: int = Globals.get_update_ticks_per_physics_tick()
+	var fly_duration_actual: float = Item.FLY_DURATION / float(game_speed)
+
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
 		_end_pos,
-		Item.FLY_DURATION).set_trans(Tween.TRANS_SINE)
+		fly_duration_actual).set_trans(Tween.TRANS_SINE)
 
 	var scale_tween = create_tween()
 	scale_tween.tween_property(self, "scale",
 		Vector2(0, 0),
-		0.3 * Item.FLY_DURATION).set_delay(0.7 * Item.FLY_DURATION)
+		0.3 * fly_duration_actual).set_delay(0.7 * fly_duration_actual)
 
 	var finished_tween = create_tween()
-	finished_tween.tween_callback(_on_tween_finished).set_delay(Item.FLY_DURATION)
+	finished_tween.tween_callback(_on_tween_finished).set_delay(fly_duration_actual)
 
 
 #########################
