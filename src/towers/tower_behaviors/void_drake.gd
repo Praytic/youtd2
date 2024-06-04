@@ -35,7 +35,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	void_1.icon = "res://resources/icons/tower_icons/small_bug_nest.tres"
 	void_1.description_short = "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
 	void_1.description_full = "Every second, this unit loses %s of its experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n" % void_exp_loss \
-	+ "When this tower is upgraded or replaced to Void Dragon, it loses experience equal to 50% of its current experience.\n" \
+	+ " \n" \
+	+ "When this tower is upgraded or replaced to Void Dragon, it will lose 50% experience.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s periodical experience lost\n" % void_exp_loss_add \

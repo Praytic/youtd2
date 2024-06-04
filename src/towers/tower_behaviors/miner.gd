@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	goldrush.description_short = "The miner has a chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed and grants gold whenever this tower hits a creep.\n"
 	goldrush.description_full = "The miner has a 20%% chance on attack to go into a [color=GOLD]Goldrush[/color]. [color=GOLD]Goldrush[/color] increases attack speed by more than %s depending on the player's gold and grants %s gold whenever this tower hits a creep. Goldrush lasts 5 seconds. Cannot retrigger while active!\n" % [attack_speed_bonus, goldrush_gold] \
 	+ " \n" \
-	+ "Hint: Check multiboard to view exact attack speed bonus\n" \
+	+ "[color=GOLD]Hint:[/color] Check multiboard to view exact attack speed bonus\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s gold gained\n" % goldrush_gold_add \

@@ -48,11 +48,11 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	tresspasser.name = "Trespasser Awareness"
 	tresspasser.icon = "res://resources/icons/magic/eye.tres"
 	tresspasser.description_short = "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
-	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus 5%%-40%% base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
+	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus [color=GOLD]5%%-40%%[/color] base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s armor reduction\n" % [armor_shred_amount_add] \
-	+ "+0.1%-0.8% bonus base percent damage\n"
+	+ "+[color=GOLD]0.1%-0.8%[/color] bonus base percent damage\n"
 	tresspasser.radius = TRESSPASSER_RANGE
 	tresspasser.target_type = TargetType.new(TargetType.CREEPS)
 	list.append(tresspasser)

@@ -24,7 +24,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.description_short = "Militia guardians throw axes to up to 3 enemies at once, but each axe has a chance to miss.\n"
 	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each axe has 33% chance to miss. If there are less creeps than axes, the remaining axes will hit the main target.\n" \
 	+ " \n" \
-	+ "Note: these extra axes will not trigger any \"on hit\" abilities.\n" \
+	+ "[color=GOLD]Note:[/color] these extra axes will not trigger any \"on hit\" abilities.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-%s chance to miss\n" % miss_chance_add \

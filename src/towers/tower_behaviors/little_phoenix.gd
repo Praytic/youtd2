@@ -39,7 +39,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	twin_attack.description_short = "The Phoenix attacks multiple targets at once.\n"
 	twin_attack.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. Each attack applies [color=GOLD]Phoenixfire[/color].\n" % [target_count] \
 	+ " \n" \
-	+ "Note: these extra attacks are not considered as a \"true multishot\" and do not trigger any \"on hit\" abilities, other than [color=GOLD]Phoenixfire[/color].\n" \
+	+ "[color=GOLD]Note:[/color] these extra attacks are not considered as a \"true multishot\" and do not trigger any \"on hit\" abilities, other than [color=GOLD]Phoenixfire[/color].\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 target at level 15\n"

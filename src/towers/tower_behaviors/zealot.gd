@@ -30,7 +30,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	zeal.name = "Zeal"
 	zeal.icon = "res://resources/icons/holy/cross_01.tres"
 	zeal.description_short = "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
-	zeal.description_full = "Each attack works the Zealot into a greater frenzy, increasing his attack speed by %s from each tower in 175 range. These towers have their attack speed slowed by %s. Both effects stack up to 5 times and last 2.5 seconds. The attack speed amount reduces slightly with more towers.\nOnly towers that cost %s gold or more are affected by this.\n" % [leech_power_base, leech_power_base, affected_gold_cost] \
+	zeal.description_full = "Each attack works the Zealot into a greater frenzy, increasing his attack speed by %s from each tower in 175 range. These towers have their attack speed slowed by %s. Both effects stack up to 5 times and last 2.5 seconds. The attack speed amount reduces slightly with more towers.\n" % [leech_power_base, leech_power_base] \
+	+ " \n" \
+	+ "Only towers that cost %s gold or more are affected by this.\n" % affected_gold_cost \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1 max stack per 5 levels\n"

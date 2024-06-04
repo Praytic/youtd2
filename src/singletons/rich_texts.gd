@@ -298,6 +298,11 @@ func get_item_text(item: Item) -> String:
 
 
 # Adds gold color to all ints and floats in the text.
+# NOTE: cases like these need to be colored:
+# "15%"
+# "3s"
+# "x0.04" (for crit damage)
+# "+x0.04"
 func add_color_to_numbers(text: String) -> String:
 	var colored_text: String = text
 
@@ -328,7 +333,7 @@ func add_color_to_numbers(text: String) -> String:
 			if string_before_c.ends_with("[/color]"):
 				inside_existing_tag = false
 		elif tag_is_opened:
-			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s"
+			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s" || c == "x"
 
 			if c == ".":
 				var dot_is_part_of_float: bool = next.is_valid_int()
@@ -341,7 +346,7 @@ func add_color_to_numbers(text: String) -> String:
 				index += tag_close.length()
 				tag_is_opened = false
 		else:
-			var c_is_valid_start_of_number: bool = c.is_valid_int() || ((c == "+" || c == "-") && next.is_valid_int())
+			var c_is_valid_start_of_number: bool = c.is_valid_int() || ((c == "+" || c == "-" || c == "x") && (next.is_valid_int() || next == "x"))
 
 			if c_is_valid_start_of_number:
 				colored_text = colored_text.insert(index, tag_open)

@@ -22,7 +22,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.description_short = "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
 	ability.description_full = "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals attack damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10%% of this tower's normal attack damage and permanently increases the damage its target takes from %s type attacks by 4%%.\n" % physical_string \
 	+ " \n" \
-	+ "Note: Omnislasher won't trigger any \"on hit\" abilities from items or other towers.\n" \
+	+ "[color=GOLD]Note:[/color] Omnislasher won't trigger any \"on hit\" abilities from items or other towers.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2 slashes every 5 levels\n"

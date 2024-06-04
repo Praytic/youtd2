@@ -71,9 +71,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	feed.description_short = "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target.\n"
 	feed.description_full = "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n" \
 	+ " \n" \
-	+ "The [color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n" \
-	+ "The [color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n" \
-	+ "The [color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads [color=GOLD]Versatile's[/color] current DPS bonus to towers in 175 range for 2.5 seconds.\n" \
+	+ "[color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n" \
+	+ "[color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n" \
+	+ "[color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads [color=GOLD]Versatile's[/color] current DPS bonus to towers in 175 range for 2.5 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% double feed chance\n" \

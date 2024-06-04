@@ -31,6 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	mana_feed.icon = "res://resources/icons/magic/magic_stone.tres"
 	mana_feed.description_short = "Attacks restore mana to the tower and increase spell crit chance.\n"
 	mana_feed.description_full = "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit \
+	+ " \n" \
 	+ "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -43,7 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	burst.description_short = "Chance to deal additional spell damage to hit creeps. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n"
 	burst.description_full = "12.5%% chance to deal %s times current mana as spell damage to hit creeps. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n" % damage_from_mana_multiplier \
 	+ " \n" \
-	+ "Resets the bonus spell crit of 'Mana Feed'.\n" \
+	+ "Resets the bonus spell crit of [color=GOLD]Mana Feed[/color].\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.5% chance\n"

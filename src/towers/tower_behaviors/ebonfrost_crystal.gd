@@ -138,7 +138,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Shattering Barrage"
 	autocast.icon = "res://resources/icons/tower_variations/meteor_totem_blue.tres"
 	autocast.description_short = "Spends all mana to encase the target in ice.\n"
-	autocast.description = "Spends all mana to encase the target in ice, stunning it and increasing all damage taken by 100% for up to [mana / 150] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.\n" \
+	autocast.description = "Spends all mana to encase the target in ice, stunning it and increasing all damage taken by 100% for up to [color=GOLD][mana / 150][/color] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "-1 mana divisor\n"

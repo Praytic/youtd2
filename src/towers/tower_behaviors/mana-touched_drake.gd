@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	unstable_energies.name = "Unstable Energies"
 	unstable_energies.icon = "res://resources/icons/electricity/electricity_yellow.tres"
 	unstable_energies.description_short = "Whenever this tower hits a creep, it has a chance to release a powerful energy blast at the cost of some mana, dealing %s damage.\n" % elemental_attack_type_string
-	unstable_energies.description_full = "Whenever this tower hits a creep, it has a 28%% chance to release a powerful energy blast, dealing [current mana x %s] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
+	unstable_energies.description_full = "Whenever this tower hits a creep, it has a 28%% chance to release a powerful energy blast, dealing [color=GOLD][current mana x %s][/color] %s damage to the target, but consuming 75%% of its own current mana.\n" % [damage_mana_multiplier, elemental_attack_type_string] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.48% chance\n" \

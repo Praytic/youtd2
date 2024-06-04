@@ -33,7 +33,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.description_short = "On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].\n"
 	ability.description_full = "On attack this tower has a %s chance to trigger a [color=GOLD]Quillspray[/color].\n" % occasional_quillspray_chance \
 	+ " \n" \
-	+ "Hint: This [color=GOLD]Quillspray[/color] costs no mana.\n" \
+	+ "[color=GOLD]Hint:[/color] This [color=GOLD]Quillspray[/color] costs no mana.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s chance\n" % occasional_quillspray_chance_add
@@ -73,7 +73,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.description_short = "This tower releases thorns from its back, dealing %s damage to every unit in range.\n" % physical_string
 	autocast.description = "This tower deals %s of its attack damage as %s damage to every unit in %s range around it. A creep hit by [color=GOLD]Quillspray[/color] receives %s more damage than it did from the previous [color=GOLD]Quillspray[/color], if hit again within %s seconds. This effect stacks up to %s times.\n" % [quillspray_damage_ratio, physical_string, quillspray_range, quillspray_stack_bonus, quillspray_debuff_duration, quillspray_stacks_max] \
 	+ " \n" \
-	+ "Hint: Save mana to amplify the effect of this ability.\n" \
+	+ "[color=GOLD]Hint:[/color] Save mana to amplify the effect of this ability.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s base damage\n" % quillspray_damage_ratio_add \

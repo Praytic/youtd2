@@ -37,8 +37,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Frost Nova:[/color] 33% chance, 250 AoE, 125 spell damage, 10% slow for 3 seconds\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+7.6 spell damage (Fire Blast)\n" \
-	+ "+5 spell damage (Frost Nova)\n"
+	+ "+7.6 spell damage [color=ORANGE](Fire Blast)[/color]\n" \
+	+ "+5 spell damage [color=ORANGE](Frost Nova)[/color]\n"
 
 	var elemental_chaos_2: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_2.name = "Elemental Chaos"
@@ -51,9 +51,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Aftershock:[/color] 40% chance, 750 spell damage, 0.5 seconds stun\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+10 spell damage (Fire Blast)\n" \
-	+ "+8 spell damage (Frost Nova)\n" \
-	+ "+0.01 seconds stun (Aftershock)\n"
+	+ "+10 spell damage [color=ORANGE](Fire Blast)[/color]\n" \
+	+ "+8 spell damage [color=ORANGE](Frost Nova)[/color]\n" \
+	+ "+0.01 seconds stun [color=ORANGE](Aftershock)[/color]\n"
 
 	var elemental_chaos_3: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_3.name = "Elemental Chaos"
@@ -67,10 +67,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Lightning Burst:[/color] 20% chance, 1650 spell damage, affects 5 random targets in 900 range\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+18 spell damage (Fire Blast)\n" \
-	+ "+10 spell damage (Frost Nova)\n" \
-	+ "+0.01 seconds stun (Aftershock)\n" \
-	+ "+30 damage (Lightning Burst)\n"
+	+ "+18 spell damage [color=ORANGE](Fire Blast)[/color]\n" \
+	+ "+10 spell damage [color=ORANGE](Frost Nova)[/color]\n" \
+	+ "+0.01 seconds stun [color=ORANGE](Aftershock)[/color]\n" \
+	+ "+30 damage [color=ORANGE](Lightning Burst)[/color]\n"
 
 	var elemental_chaos_4: AbilityInfo = AbilityInfo.new()
 	elemental_chaos_4.name = "Elemental Chaos"
@@ -84,10 +84,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "[color=ORANGE]Lightning Burst:[/color] 20% chance, 3000 spell damage, affects 6 random targets in 900 range\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+60 spell damage (Fire Blast)\n" \
-	+ "+80 spell damage (Frost Nova)\n" \
-	+ "+0.02 seconds stun (Aftershock)\n" \
-	+ "+60 spell damage (Lightning Burst)\n"
+	+ "+60 spell damage [color=ORANGE](Fire Blast)[/color]\n" \
+	+ "+80 spell damage [color=ORANGE](Frost Nova)[/color]\n" \
+	+ "+0.02 seconds stun [color=ORANGE](Aftershock)[/color]\n" \
+	+ "+60 spell damage [color=ORANGE](Lightning Burst)[/color]\n"
 
 	match tower.get_tier():
 		1: list.append(elemental_chaos_1)
