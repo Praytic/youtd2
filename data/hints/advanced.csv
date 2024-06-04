@@ -70,3 +70,39 @@ Available variations:
  
 [color=GOLD]/gamespeed <SPEED>[/color] or [color=GOLD]/gs[/color] - Changes game speed. This command allows changing game speed beyond the values available in the UI controls.
 "
+"Multiplicative stats","Not all damage increasing stats are the same, some can increase total damage by more than others because they are [color=GOLD]multiplicative[/color].
+ 
+Here's an example:
+ 
+You have a tower with 100 base damage, 1s attack speed, 0% crit chance. The tower has 2 inventory slots and you have 3 items:
+Item A gives +40% attack damage
+Item B gives +40% attack damage
+Item C gives +40% damage to bosses
+ 
+Let's say that the next wave will be a boss.
+ 
+If you equip Item A and Item B, the tower will deal:
+[color=GOLD]100 * (1.0 + 0.4 + 0.4) = 180[/color] damage.
+ 
+If you equip Item A and Item C, the tower will deal:
+[color=GOLD]100 * (1.0 + 0.4) * (1.0 + 0.4) = 196[/color] damage.
+ 
+As you can see, Item C looks like it should provide the same increase as other items but in reality the actual bonus is greater.
+ 
+In general, stats are broken down into categories. Stats within one category are additive while stats between categories multiply with each other. Here's a list of all categories which can affect damage:
+ 
+- Base attack damage flat
+- Base attack damage %
+- Attack damage flat
+- Attack damage %
+- Attack speed
+- Spell damage %
+- Damage against creep armor type
+- Damage against creep category
+- Attack damage received % (on creep)
+- Spell damage received % (on creep)
+- Damage received from element % (on creep)
+- Damage reduction from armor (on creep)
+
+Note that crit chance, crit damage and multicrit can also be considered multiplicative with other categories.
+"
