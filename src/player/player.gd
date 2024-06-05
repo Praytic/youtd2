@@ -228,12 +228,10 @@ func is_able_to_research(element: Element.enm) -> bool:
 	return is_able
 
 
+# TODO: sync this info in multiplayer. Players need to tell
+# their names to other players.
 func get_player_name() -> String:
-	var player_name: String 
-	if Config.enable_auth():
-		player_name = W4Manager.current_username
-	else:
-		player_name = "Player %d" % _id
+	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 
 	return player_name
 
