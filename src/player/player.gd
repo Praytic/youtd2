@@ -22,11 +22,12 @@ const MAX_GOLD = 999999
 const INTEREST_GAIN_MAX: int = 1000
 const MAX_KNOWLEDGE_TOMES: int = 999999
 const KNOWLEDGE_TOMES_INCOME: int = 8
+const INITIAL_TOWER_ROLL_COUNT: int = 6
 
 
 var _team: Team = null
 var _total_damage: float = 0
-var _tower_count_for_starting_roll: int = 6
+var _tower_count_for_starting_roll: int = INITIAL_TOWER_ROLL_COUNT
 var _element_level_map: Dictionary = {}
 var _food: int = 0
 var _food_cap: int = INITIAL_FOOD_CAP
@@ -168,6 +169,12 @@ func get_horadric_stash() -> ItemContainer:
 
 func get_tower_stash() -> TowerStash:
 	return _tower_stash
+
+
+func rolled_at_least_once() -> bool:
+	var result: bool = _tower_count_for_starting_roll != INITIAL_TOWER_ROLL_COUNT
+
+	return result
 
 
 func get_tower_count_for_starting_roll() -> int:

@@ -31,6 +31,15 @@ static func execute(_action: Dictionary, player: Player):
 	if player == PlayerManager.get_local_player():
 		EventBus.local_player_rolled_towers.emit()
 
+#	NOTE: handle the weird case where player does nothing
+#	for 3 minutes at the start of the game. If player
+#	decides to roll towers after that, disable rolling.
+#	Otherwise the button stays around and the player can
+#	accidentally reset the tower stash.
+	var game_is_in_progress: bool = Utils.get_time() > 0
+	if game_is_in_progress:
+		player.disable_rolling()
+
 
 static func verify(player: Player) -> bool:
 	var researched_any_elements: bool = false
