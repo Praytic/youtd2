@@ -25,9 +25,6 @@ static func execute(_action: Dictionary, player: Player):
 
 	player.add_message_about_rolled_towers(rolled_towers)
 	
-	var remaining_roll_count: int = player.get_tower_count_for_starting_roll()
-	Messages.add_normal(player, "You have [color=GOLD]%d[/color] rerolls remaining." % remaining_roll_count)
-
 	if player == PlayerManager.get_local_player():
 		EventBus.local_player_rolled_towers.emit()
 
@@ -36,8 +33,14 @@ static func execute(_action: Dictionary, player: Player):
 #	decides to roll towers after that, disable rolling.
 #	Otherwise the button stays around and the player can
 #	accidentally reset the tower stash.
+	var remaining_roll_count: int = player.get_tower_count_for_starting_roll()
+	var player_has_rolls_remaining: bool = remaining_roll_count > 0
 	var game_is_in_progress: bool = Utils.get_time() > 0
-	if game_is_in_progress:
+
+	if player_has_rolls_remaining && !game_is_in_progress:
+		Messages.add_normal(player, "You have [color=GOLD]%d[/color] rerolls remaining." % remaining_roll_count)
+
+	if !player_has_rolls_remaining || game_is_in_progress:
 		player.disable_rolling()
 
 

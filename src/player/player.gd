@@ -182,7 +182,7 @@ func get_tower_count_for_starting_roll() -> int:
 
 
 func decrement_tower_count_for_starting_roll():
-	_tower_count_for_starting_roll = max(1, _tower_count_for_starting_roll - 1)
+	_tower_count_for_starting_roll = max(0, _tower_count_for_starting_roll - 1)
 
 
 func increment_element_level(element: Element.enm):
