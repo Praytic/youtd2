@@ -287,20 +287,6 @@ func _unhandled_input(event: InputEvent):
 func _start_game():
 	_game_start_timer.stop()
 
-	EventBus.first_wave_started.emit()
-
-#	NOTE: handle the weird case where player does nothing
-#	for 3 minutes at the start of the game
-	if Globals.game_mode_is_random():
-		var player_list: Array[Player] = PlayerManager.get_player_list()
-		for player in player_list:
-			var player_rolled_at_least_once: bool = player.rolled_at_least_once()
-
-			if player_rolled_at_least_once:
-				player.disable_rolling()
-			else:
-				Messages.add_normal(player, "[color=RED]The game has started but you still haven't rolled towers! Restart the game and try again.[/color]")
-
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.start_first_wave()

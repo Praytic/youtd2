@@ -5,6 +5,7 @@ class_name Team extends Node
 # per team.
 
 
+signal started_first_wave()
 signal game_lose()
 signal game_win()
 signal level_changed()
@@ -34,6 +35,7 @@ func get_next_wave_timer() -> ManualTimer:
 
 func start_first_wave():
 	_start_wave()
+	started_first_wave.emit()
 
 
 func start_next_wave():

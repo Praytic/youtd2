@@ -33,8 +33,6 @@ func _ready():
 #	text
 	_show_wave_list([])
 
-	EventBus.first_wave_started.connect(_on_first_wave_started)
-
 
 func _process(_delta: float):
 	var local_player: Player = PlayerManager.get_local_player()
@@ -79,6 +77,7 @@ func _process(_delta: float):
 func connect_to_local_player(local_player: Player):
 	var local_team: Team = local_player.get_team()
 	local_team.level_changed.connect(_on_wave_level_changed)
+	local_team.started_first_wave.connect(_on_started_first_wave)
 	_on_wave_level_changed()
 
 	local_player.generated_waves.connect(_on_local_player_generated_waves)
@@ -194,7 +193,7 @@ func _on_local_player_generated_waves():
 	_update_wave_details()
 
 
-func _on_first_wave_started():
+func _on_started_first_wave():
 	_start_game_button.hide()
 	_start_next_wave_button.show()
 

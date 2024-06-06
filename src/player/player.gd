@@ -172,12 +172,6 @@ func get_tower_stash() -> TowerStash:
 	return _tower_stash
 
 
-func rolled_at_least_once() -> bool:
-	var result: bool = _tower_count_for_starting_roll != INITIAL_TOWER_ROLL_COUNT
-
-	return result
-
-
 func get_tower_count_for_starting_roll() -> int:
 	return _tower_count_for_starting_roll
 
