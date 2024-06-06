@@ -6,10 +6,6 @@ extends Node
 # normally would require a long chain of connections.
 
 
-# When user does a specific action to acknowledge the highlighted
-# area, this signal should be emitted.
-signal highlight_target_ack(highlight_target: String)
-signal selected_backpacker_builder()
 signal player_requested_to_join_room()
 signal player_requested_to_host_room()
 signal player_requested_transmute()
