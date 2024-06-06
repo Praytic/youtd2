@@ -104,10 +104,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-
-
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 

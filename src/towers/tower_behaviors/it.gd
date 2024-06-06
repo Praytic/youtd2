@@ -61,8 +61,11 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
+# NOTE: tooltip in original game includes innate stats in some cases
+# spell crit chance = yes
+# crit chance add = no
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.005)
+	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
 
 
 func tower_init():

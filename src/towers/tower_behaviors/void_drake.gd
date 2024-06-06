@@ -69,7 +69,7 @@ func load_triggers(triggers: BuffType):
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, -_stats.mod_exp_gain, -_stats.mod_exp_gain_add)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.04)
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, _stats.mod_damage_add)
+	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, _stats.mod_damage_add)
 
 
 func tower_init():

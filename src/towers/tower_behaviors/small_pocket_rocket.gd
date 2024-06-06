@@ -4,10 +4,10 @@ extends TowerBehavior
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {dmg_to_mass = 0.20},
-		2: {dmg_to_mass = 0.20},
-		3: {dmg_to_mass = 0.20},
-		4: {dmg_to_mass = 0.20},
-		5: {dmg_to_mass = 0.20},
+		2: {dmg_to_mass = 0.25},
+		3: {dmg_to_mass = 0.30},
+		4: {dmg_to_mass = 0.35},
+		5: {dmg_to_mass = 0.40},
 	}
 
 

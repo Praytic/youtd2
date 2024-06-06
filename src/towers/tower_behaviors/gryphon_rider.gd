@@ -52,7 +52,7 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	tower.set_attack_ground_only()
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.08)
+	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 
 func tower_init():

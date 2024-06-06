@@ -44,7 +44,7 @@ func load_triggers(triggers: BuffType):
 
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.50, 0.02)
-	modifier.add_modification(Modification.Type.MOD_MANA, 15, 0)
+	modifier.add_modification(Modification.Type.MOD_MANA, 0, 15)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
