@@ -94,6 +94,8 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.description_short = "Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].\n"
 	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage] \
 	+ " \n" \
+	+ "[color=GOLD]Note:[/color] this ability does not trigger any \"on hit\" effects.\n" \
+	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage\n" % projectile_damage_add
 	autocast.caster_art = ""
