@@ -1,4 +1,10 @@
-class_name ConstantsStatic extends Node
+class_name Constants
+
+
+# NOTE: Constants class is not an autoload because it
+# contains only "const" vars which can be accessed
+# statically. It also needs to be accessed by some @tool
+# scripts which don't work with autoloads.
 
 
 # NOTE: this tile size is for isometric projection.
@@ -103,8 +109,8 @@ const DAMAGE_MAX: float = 1000000000
 
 const SIF_CREEP_HEALTH_MULTIPLIER: float = 0.48
 
-var TIME_BEFORE_FIRST_WAVE: float = 180.0
-var TIME_BETWEEN_WAVES: float = 15.0
+const TIME_BEFORE_FIRST_WAVE: float = 180.0
+const TIME_BETWEEN_WAVES: float = 15.0
 
 const MAX_ELEMENT_LEVEL: int = 15
 

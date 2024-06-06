@@ -74,7 +74,7 @@ func connect_to_local_player(local_player: Player):
 
 func _make_slot_button() -> EmptyUnitButton:
 	var button: Button = EmptyUnitButton.make()
-	button.custom_minimum_size = ConstantsStatic.ITEM_BUTTON_SIZE
+	button.custom_minimum_size = Constants.ITEM_BUTTON_SIZE
 	button.pressed.connect(_on_slot_button_pressed.bind(button))
 	button.modulate = Color.TRANSPARENT
 	
