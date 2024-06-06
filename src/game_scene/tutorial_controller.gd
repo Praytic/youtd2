@@ -50,7 +50,6 @@ var _tutorial_is_in_progress: bool = false
 
 func _ready():
 	EventBus.finished_tutorial_section.connect(_on_finished_tutorial_section)
-	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
 	EventBus.item_dropped.connect(_on_item_dropped)
 	EventBus.portal_received_damage.connect(_on_portal_received_damage)
 	EventBus.built_a_tower.connect(_on_built_a_tower)
@@ -70,6 +69,7 @@ func _ready():
 func connect_to_local_player(local_player: Player):
 	local_player.selected_builder.connect(_on_local_player_selected_builder)
 	local_player.element_level_changed.connect(_on_local_player_element_level_changed)
+	local_player.rolled_starting_towers.connect(_on_local_player_rolled_towers)
 	local_player.wave_finished.connect(_on_local_player_wave_finished)
 
 

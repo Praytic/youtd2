@@ -34,7 +34,6 @@ func _ready():
 	
 	SFX.connect_sfx_to_signal_in_group("res://assets/sfx/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
-	EventBus.local_player_rolled_towers.connect(_on_local_player_rolled_towers)
 	EventBus.item_started_flying_to_item_stash.connect(_on_item_started_flying_to_item_stash)
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
@@ -101,6 +100,8 @@ func set_menu_unit(unit: Unit):
 
 
 func connect_to_local_player(local_player: Player):
+	local_player.rolled_starting_towers.connect(_on_local_player_rolled_towers)
+	
 	_item_stash_menu.connect_to_local_player(local_player)
 	_tower_stash_menu.connect_to_local_player(local_player)
 	_elements_menu.connect_to_local_player(local_player)

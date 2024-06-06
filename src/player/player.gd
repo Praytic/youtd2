@@ -11,6 +11,7 @@ signal generated_waves()
 signal selected_builder()
 signal voted_ready()
 signal roll_was_disabled()
+signal rolled_starting_towers()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -181,11 +182,10 @@ func get_tower_count_for_starting_roll() -> int:
 	return _tower_count_for_starting_roll
 
 
-func decrement_tower_count_for_starting_roll():
-	_tower_count_for_starting_roll = max(0, _tower_count_for_starting_roll - 1)
-
-
-func increment_element_level(element: Element.enm):
+func research_element(element: Element.enm):
+	var research_cost: int = get_research_cost(element)
+	spend_tomes(research_cost)
+	
 	_element_level_map[element] += 1
 	element_level_changed.emit()
 
@@ -527,6 +527,30 @@ func get_selected_unit() -> Unit:
 	return _selected_unit
 
 
+func roll_starting_towers():
+	if _tower_count_for_starting_roll == 0:
+		push_error("Cannot roll starting towers because remaining count is 0. Make sure to verify conditions before you call this function.")
+
+		return
+
+	_tower_stash.clear()
+
+	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(self, _tower_count_for_starting_roll)
+	_tower_stash.add_towers(rolled_towers)
+	_add_message_about_rolled_towers(rolled_towers)
+	
+	_tower_count_for_starting_roll = max(0, _tower_count_for_starting_roll - 1)
+
+	var can_roll_again: bool = _tower_count_for_starting_roll > 0
+
+	if can_roll_again:
+		Messages.add_normal(self, "You have [color=GOLD]%d[/color] rerolls remaining." % _tower_count_for_starting_roll)
+	else:
+		disable_rolling()
+
+	rolled_starting_towers.emit()
+
+
 #########################
 ###      Private      ###
 #########################
@@ -539,7 +563,7 @@ func _set_tomes(value):
 	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
 
 
-func add_message_about_rolled_towers(rolled_towers: Array[int]):
+func _add_message_about_rolled_towers(rolled_towers: Array[int]):
 	Messages.add_normal(self, "New towers were added to stash:")
 
 #	Sort tower list by element to group messages for same
@@ -585,7 +609,7 @@ func _on_wave_spawner_wave_finished(level: int):
 	if game_mode_is_random:
 		var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
 		_tower_stash.add_towers(rolled_towers)
-		add_message_about_rolled_towers(rolled_towers)
+		_add_message_about_rolled_towers(rolled_towers)
 
 #	Warn players if they have too many unspent knowledge
 #	tomes.

@@ -18,9 +18,7 @@ static func execute(action: Dictionary, player: Player):
 	if !verify_ok:
 		return
 
-	var cost: int = player.get_research_cost(element)
-	player.spend_tomes(cost)
-	player.increment_element_level(element)
+	player.research_element(element)
 
 
 static func verify(player: Player, element: Element.enm) -> bool:

@@ -15,33 +15,7 @@ static func execute(_action: Dictionary, player: Player):
 	if !verify_ok:
 		return
 
-	var tower_stash: TowerStash = player.get_tower_stash()
-	tower_stash.clear()
-
-	var tower_count_for_roll: int = player.get_tower_count_for_starting_roll()
-	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(player, tower_count_for_roll)
-	tower_stash.add_towers(rolled_towers)
-	player.decrement_tower_count_for_starting_roll()
-
-	player.add_message_about_rolled_towers(rolled_towers)
-	
-	if player == PlayerManager.get_local_player():
-		EventBus.local_player_rolled_towers.emit()
-
-#	NOTE: handle the weird case where player does nothing
-#	for 3 minutes at the start of the game. If player
-#	decides to roll towers after that, disable rolling.
-#	Otherwise the button stays around and the player can
-#	accidentally reset the tower stash.
-	var remaining_roll_count: int = player.get_tower_count_for_starting_roll()
-	var player_has_rolls_remaining: bool = remaining_roll_count > 0
-	var game_is_in_progress: bool = Utils.get_time() > 0
-
-	if player_has_rolls_remaining && !game_is_in_progress:
-		Messages.add_normal(player, "You have [color=GOLD]%d[/color] rerolls remaining." % remaining_roll_count)
-
-	if !player_has_rolls_remaining || game_is_in_progress:
-		player.disable_rolling()
+	player.roll_starting_towers()
 
 
 static func verify(player: Player) -> bool:
