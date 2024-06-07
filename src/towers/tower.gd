@@ -554,10 +554,7 @@ func _update_target_list():
 	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
 
-	if Config.smart_targeting():
-		Utils.sort_creep_list_for_targeting(creeps_in_range, get_position_wc3_2d())
-	else:
-		Utils.sort_unit_list_by_distance(creeps_in_range, get_position_wc3_2d())
+	Utils.sort_creep_list_for_targeting(creeps_in_range, get_position_wc3_2d())
 
 	for target in _target_list:
 		creeps_in_range.erase(target)

@@ -163,20 +163,15 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-	var skip_builder_menu: bool = Config.autostart_game()
-	if skip_builder_menu:
-		var builder_id: int = Config.autostart_builder_id()
-		_set_builder_for_local_player(builder_id)
-	else:
-		var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
-		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
+	var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
+	builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		
-#		NOTE: add builder menu below game menu so that game
-#		can show the game menu on top of tutorial
-		_ui_layer.add_child(builder_menu)
-		var game_menu_index: int = _game_menu.get_index()
-		_ui_layer.move_child(builder_menu, game_menu_index)
-	
+#	NOTE: add builder menu below game menu so that game
+#	can show the game menu on top of tutorial
+	_ui_layer.add_child(builder_menu)
+	var game_menu_index: int = _game_menu.get_index()
+	_ui_layer.move_child(builder_menu, game_menu_index)
+
 	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
 	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 	
@@ -753,7 +748,7 @@ func _on_tutorial_controller_tutorial_triggered(tutorial_id):
 		return
 
 	var tutorial_is_enabled_in_settings: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
-	if !tutorial_is_enabled_in_settings && !Config.always_show_tutorial():
+	if !tutorial_is_enabled_in_settings:
 		return
 	
 	_show_tutorial(tutorial_id)

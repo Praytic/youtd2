@@ -7,15 +7,11 @@ extends Node
 # repo.
 
 
-# Set starting research level for all elements.
-func starting_research_level() -> int:
-	return ProjectSettings.get_setting("application/config/starting_research_level") as int
+func cheat_gold() -> int:
+	return ProjectSettings.get_setting("application/config/cheat_gold") as int
 
-func starting_gold() -> int:
-	return ProjectSettings.get_setting("application/config/starting_gold") as int
-
-func starting_tomes() -> int:
-	return ProjectSettings.get_setting("application/config/starting_tomes") as int
+func cheat_tomes() -> int:
+	return ProjectSettings.get_setting("application/config/cheat_tomes") as int
 
 # Displays a godot icon texture on the location of a spell dummy.
 func visible_spell_dummys_enabled() -> bool:
@@ -36,9 +32,6 @@ func preload_all_towers_on_startup() -> bool:
 
 func build_version() -> String:
 	return ProjectSettings.get_setting("application/config/version") as String
-
-func minimap_enabled() -> bool:
-	return ProjectSettings.get_setting("application/config/minimap_enabled") as bool
 
 # Enable to make creeps always drop items on death.
 # Normally, items drop rarely, depending on creep's and
@@ -66,36 +59,6 @@ func enable_zoom_by_mousewheel() -> bool:
 func show_position_info_label() -> bool:
 	return ProjectSettings.get_setting("application/config/show_position_info_label") as bool
 
-
-# Set to false to skip title screen and automatically start
-# the game.
-func autostart_game() -> bool:
-	return ProjectSettings.get_setting("application/config/autostart_game") as bool
-
-
-func autostart_wave_count() -> int:
-	return ProjectSettings.get_setting("application/config/autostart_wave_count") as int
-
-
-func autostart_game_mode() -> GameMode.enm:
-	var game_mode_string: String = ProjectSettings.get_setting("application/config/autostart_game_mode") as String
-	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
-
-	return game_mode
-
-func autostart_difficulty() -> Difficulty.enm:
-	var difficulty_string: String = ProjectSettings.get_setting("application/config/autostart_difficulty") as String
-	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
-
-	return difficulty
-
-
-func always_show_tutorial() -> bool:
-	var tutorial_enabled: bool = ProjectSettings.get_setting("application/config/always_show_tutorial") as bool
-
-	return tutorial_enabled
-
-
 # Override wave specials so that all waves have these
 # specials. Can be a single special or a comma-separated
 # list.
@@ -107,9 +70,6 @@ func override_wave_specials() -> Array[int]:
 		result.append(value as int)
 
 	return result
-
-func smart_targeting() -> bool:
-	return ProjectSettings.get_setting("application/config/smart_targeting") as bool
 
 # Override health values for all creeps to a some value.
 # Leave at 0 to use normal health values.
@@ -128,8 +88,8 @@ func override_creep_race() -> String:
 func print_sfx_errors() -> bool:
 	return ProjectSettings.get_setting("application/config/print_sfx_errors") as bool
 
-func unlimited_food() -> bool:
-	return ProjectSettings.get_setting("application/config/unlimited_food") as bool
+func cheat_food_cap() -> int:
+	return ProjectSettings.get_setting("application/config/cheat_food_cap") as int
 
 func allow_transform_in_build_mode() -> bool:
 	return ProjectSettings.get_setting("application/config/allow_transform_in_build_mode") as bool
@@ -171,12 +131,6 @@ func unlimited_portal_lives() -> bool:
 
 func show_hidden_buffs() -> bool:
 	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool
-
-func autostart_builder_id() -> int:
-	var builder_string: String = ProjectSettings.get_setting("application/config/autostart_builder") as String
-	var builder_id: int = BuilderProperties.string_to_id(builder_string)
-
-	return builder_id
 
 func enable_auth() -> bool:
 	return ProjectSettings.get_setting("application/config/enable_auth") as bool

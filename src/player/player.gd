@@ -24,6 +24,8 @@ const INTEREST_GAIN_MAX: int = 1000
 const MAX_KNOWLEDGE_TOMES: int = 999999
 const KNOWLEDGE_TOMES_INCOME: int = 8
 const INITIAL_TOWER_ROLL_COUNT: int = 6
+const INITIAL_GOLD: int = 70
+const INITIAL_TOMES: int = 90
 
 
 var _team: Team = null
@@ -34,9 +36,9 @@ var _food: int = 0
 var _food_cap: int = INITIAL_FOOD_CAP
 var _income_rate: float = 1.0
 var _interest_rate: float = 0.05
-var _gold: float = Config.starting_gold()
+var _gold: float = INITIAL_GOLD
 var _gold_farmed: float = 0
-var _tomes: int = Config.starting_tomes()
+var _tomes: int = INITIAL_TOMES
 var _id: int = -1
 var _peer_id: int = -1
 var _builder: Builder = null
@@ -66,6 +68,10 @@ func _ready():
 	
 	for element in Element.get_list():
 		_element_level_map[element] = 0
+
+	_gold += Config.cheat_gold()
+	_tomes += Config.cheat_tomes()
+	_food_cap += Config.cheat_food_cap()
 
 
 #########################
@@ -404,9 +410,6 @@ func enough_tomes_for_tower(tower_id: int) -> bool:
 
 
 func enough_food_for_tower(tower_id: int) -> bool:
-	if Config.unlimited_food():
-		return true
-	
 	var food_cost: int = TowerProperties.get_food_cost(tower_id)
 	var food_after_add: int = _food + food_cost
 	var enough_food: bool = food_after_add <= _food_cap
@@ -418,7 +421,7 @@ func add_food_for_tower(tower_id: int):
 	var food_cost: int = TowerProperties.get_food_cost(tower_id)
 	var new_food: int = _food + food_cost
 
-	if new_food > _food_cap and !Config.unlimited_food():
+	if new_food > _food_cap:
 		push_error("Tried to change food above cap.")
 
 		return

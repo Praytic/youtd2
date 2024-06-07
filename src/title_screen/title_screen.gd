@@ -39,14 +39,6 @@ func _ready():
 	_quit_button.visible = OS.has_feature("pc")
 	_spacer_before_quit_button.visible = OS.has_feature("pc")
 
-	if Config.autostart_game():
-		var difficulty: Difficulty.enm = Config.autostart_difficulty()
-		var game_mode: GameMode.enm = Config.autostart_game_mode()
-		var wave_count: int = Config.autostart_wave_count()
-		var origin_seed: int = randi()
-
-		_start_game(PlayerMode.enm.SINGLE, wave_count, game_mode, difficulty, origin_seed)
-
 
 #########################
 ###      Private      ###
