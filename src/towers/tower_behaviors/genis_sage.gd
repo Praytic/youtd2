@@ -96,7 +96,7 @@ func tower_init():
 	magic_boost_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
 
-	swarm_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
+	swarm_st = SpellType.new(SpellType.Name.CARRION_SWARM, 1, self)
 	swarm_st.data.swarm.damage = 1.0
 	swarm_st.data.swarm.start_radius = 100
 	swarm_st.data.swarm.end_radius = 300

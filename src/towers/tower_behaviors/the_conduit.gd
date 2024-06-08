@@ -60,7 +60,7 @@ func tower_init():
 	unleash_bt.add_periodic_event(unleash_bt_periodic, 5)
 	unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
 
-	chanlightning_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
+	chanlightning_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 1.0, self)
 	chanlightning_st.set_source_height(220)
 	chanlightning_st.data.chain_lightning.damage = 1.0
 	chanlightning_st.data.chain_lightning.damage_reduction = 0.25

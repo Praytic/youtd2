@@ -32,7 +32,7 @@ func chain_lightning_st_on_damage(event: Event, d: DummyUnit):
 func item_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 	
-	chain_lightning_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
+	chain_lightning_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 5.0, self)
 	chain_lightning_st.set_damage_event(chain_lightning_st_on_damage)
 	chain_lightning_st.data.chain_lightning.damage = 250
 	chain_lightning_st.data.chain_lightning.damage_reduction = 0.25

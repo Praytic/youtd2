@@ -79,7 +79,7 @@ func tower_init():
 	roots_pt.enable_collision(roots_pt_on_hit, 175, TargetType.new(TargetType.CREEPS), false)
 	roots_pt.enable_periodic(roots_pt_periodic, 0.2)
 
-	leaf_storm_st = SpellType.new("@@0@@", "blizzard", 4.00, self)
+	leaf_storm_st = SpellType.new(SpellType.Name.BLIZZARD, 4.00, self)
 	leaf_storm_st.set_damage_event(leaf_storm_st_on_damage)
 	leaf_storm_st.data.blizzard.damage = 1.0
 	leaf_storm_st.data.blizzard.radius = 200

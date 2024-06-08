@@ -80,10 +80,10 @@ func tower_init():
 	darkness_bt.set_buff_icon("res://resources/icons/generic_icons/fire_dash.tres")
 	darkness_bt.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
 
-#	NOTE: settubg danage to "1.0" here because value for
+#	NOTE: settubg damage to "1.0" here because value for
 #	actual damage is passed when spell is casted as
 #	"damage_ratio"
-	swarm_st = SpellType.new("@@0@@", "carrionswarm", 3.0, self)
+	swarm_st = SpellType.new(SpellType.Name.CARRION_SWARM, 3.0, self)
 	swarm_st.data.swarm.damage = 1.0
 	swarm_st.data.swarm.start_radius = SWARM_START_RADIUS
 	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS

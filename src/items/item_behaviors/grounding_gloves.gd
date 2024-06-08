@@ -47,7 +47,7 @@ func item_init():
 	cooldown_bt = BuffType.new("cooldown_bt", 4.8, 0.0, false, self)
 	cooldown_bt.set_hidden()
 
-	blizzard_st = SpellType.new("@@0@@", "blizzard", 4.0, self)
+	blizzard_st = SpellType.new(SpellType.Name.BLIZZARD, 4.0, self)
 	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	
 

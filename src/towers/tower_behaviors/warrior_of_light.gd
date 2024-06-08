@@ -58,7 +58,7 @@ func tower_init():
 #	NOTE: original script and tooltip don't mention the
 #	radius of swarm so made it the same as for "Hell Bat"
 #	tower
-	shockwave_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
+	shockwave_st = SpellType.new(SpellType.Name.CARRION_SWARM, 1, self)
 	shockwave_st.data.swarm.damage = 1.0
 	shockwave_st.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
 	shockwave_st.data.swarm.end_radius = SHOCKWAVE_END_RADIUS

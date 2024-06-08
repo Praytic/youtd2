@@ -79,13 +79,13 @@ func tower_init():
 	manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
 	manastorm_bt.set_buff_modifier(manastorm_bt_mod)
 
-	surge_st = SpellType.new("@@0@@", "chainlightning", 1.0, self)
+	surge_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 1.0, self)
 	surge_st.data.chain_lightning.damage = 0
 	surge_st.data.chain_lightning.damage_reduction = 0
 	surge_st.data.chain_lightning.chain_count = 1
 	surge_st.set_source_height(90.0)
 
-	manastorm_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
+	manastorm_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 1.0, self)
 	manastorm_st.data.chain_lightning.damage = 0
 	manastorm_st.data.chain_lightning.damage_reduction = 0
 	manastorm_st.data.chain_lightning.chain_count = 1

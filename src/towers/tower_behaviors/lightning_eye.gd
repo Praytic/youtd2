@@ -37,7 +37,7 @@ func tower_init():
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 	aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
 
-	forklight_st = SpellType.new("@@0@@", "forkedlightning", 1, self)
+	forklight_st = SpellType.new(SpellType.Name.FORKED_LIGHTNING, 1, self)
 	forklight_st.data.forked_lightning.damage = 1.0
 	forklight_st.data.forked_lightning.target_count = 3
 

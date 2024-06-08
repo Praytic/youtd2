@@ -6,6 +6,14 @@ class_name SpellType extends Node
 # NOTE: this class is called "Cast" in JASS
 
 
+enum Name {
+	BLIZZARD,
+	CHAIN_LIGHTNING,
+	FORKED_LIGHTNING,
+	CARRION_SWARM,
+}
+
+
 class BlizzardData:
 	var damage: float = 0.0
 	var radius: float = 0.0
@@ -36,9 +44,17 @@ class SpellData:
 	var swarm: SwarmData = SwarmData.new()
 
 
+const _spell_scene_map: Dictionary = {
+	SpellType.Name.BLIZZARD: preload("res://src/spells/spell_blizzard.tscn"),
+	SpellType.Name.CHAIN_LIGHTNING: preload("res://src/spells/spell_chain_lightning.tscn"),
+	SpellType.Name.FORKED_LIGHTNING: preload("res://src/spells/spell_forked_lightning.tscn"),
+	SpellType.Name.CARRION_SWARM: preload("res://src/spells/spell_swarm.tscn"),
+}
+
+
 var data: SpellData = SpellData.new()
 
-var _order: String
+var _spell_name: SpellType.Name
 var _lifetime: float
 var _source_height: float = 0.0
 var _damage_event_handler: Callable = Callable()
@@ -48,11 +64,9 @@ var _damage_event_handler: Callable = Callable()
 ###     Built-in      ###
 #########################
 
-# NOTE: ability is unused because it's supposed to reference
-# something configured in wc3 object editor.
-func _init(_ability: String, order: String, lifetime: float, parent: Node):
+func _init(spell_name: SpellType.Name, lifetime: float, parent: Node):
 	parent.add_child(self)
-	_order = order
+	_spell_name = spell_name
 	_lifetime = lifetime
 
 
@@ -113,27 +127,10 @@ func set_source_height(value: float):
 #########################
 
 func _cast_generic(caster: Unit, origin_pos: Vector3, target: Unit, target_pos: Vector2, damage_ratio: float, crit_ratio: float):
-	var spell_scene_path: String = _get_spell_scene_path()
-	
-	if spell_scene_path.is_empty():
-		return
-
-	var scene: PackedScene = load(spell_scene_path)
+	var scene: PackedScene = _spell_scene_map[_spell_name]
 	var instance: SpellDummy = scene.instantiate()
 	origin_pos.z += _source_height
 	instance.set_position_wc3(origin_pos)
 	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, target_pos, damage_ratio, crit_ratio)
 	tree_exited.connect(instance._on_cast_type_tree_exited)
 	Utils.add_object_to_world(instance)
-
-
-func _get_spell_scene_path() -> String:
-	match _order:
-		"blizzard": return "res://src/spells/spell_blizzard.tscn"
-		"chainlightning": return "res://src/spells/spell_chain_lightning.tscn"
-		"forkedlightning": return "res://src/spells/spell_forked_lightning.tscn"
-		"carrionswarm": return "res://src/spells/spell_swarm.tscn"
-
-	push_error("Unhandled order: ", _order)
-
-	return ""

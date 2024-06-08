@@ -49,14 +49,14 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", _stats.slow_duration, 0.0, false, self)
 	mod2.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
 	slow_bt.set_buff_modifier(mod2)
-	blizzard_st = SpellType.new("@@0@@", "blizzard", 9.00, self)
-	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 
 	slow_bt.set_buff_tooltip("Blizzard\nReduces movement speed.")
 
 	stun_bt = CbStun.new("stun_bt", _stats.stun_duration, 0, false, self)
 
+	blizzard_st = SpellType.new(SpellType.Name.BLIZZARD, 9.00, self)
+	blizzard_st.set_damage_event(blizzard_st_on_damage)
 	blizzard_st.data.blizzard.damage = _stats.blizzard_damage
 	blizzard_st.data.blizzard.radius = _stats.blizzard_radius
 	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count

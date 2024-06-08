@@ -56,7 +56,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	lightning_st = SpellType.new("@@0@@", "forkedlightning", 2.0, self)
+	lightning_st = SpellType.new(SpellType.Name.FORKED_LIGHTNING, 2.0, self)
 	lightning_st.set_source_height(300.0)
 	lightning_st.set_damage_event(mock_eye_glare_st_on_damage)
 	lightning_st.data.forked_lightning.damage = 1.0

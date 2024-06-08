@@ -51,7 +51,7 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	chainlight_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	chainlight_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 5.00, self)
 	chainlight_st.data.chain_lightning.damage = _stats.chain_damage
 	chainlight_st.data.chain_lightning.chain_count = 3
 
