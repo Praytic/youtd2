@@ -55,9 +55,6 @@ func tower_init():
 	lastline_real_bt.set_buff_tooltip("Last Line of Defense\nIncreases damage taken.")
 
 	wewillnotfall_bt = BuffType.create_aura_effect_type("wewillnotfall_bt", true, self)
-	var cedi_valor_aura_mod: Modifier = Modifier.new()
-	cedi_valor_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	wewillnotfall_bt.set_buff_modifier(cedi_valor_aura_mod)
 	wewillnotfall_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	wewillnotfall_bt.add_event_on_create(wewillnotfall_bt_on_create)
 	wewillnotfall_bt.add_periodic_event(wewillnotfall_bt_periodic, 15.0)

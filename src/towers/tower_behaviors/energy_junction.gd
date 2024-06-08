@@ -63,8 +63,6 @@ func junction_on_cleanup(event: Event):
 
 
 func tower_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	jolt_bt = BuffType.new("jolt_bt", 10, 0, true, self)
 	jolt_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	jolt_bt.add_event_on_create(junction_on_create)
