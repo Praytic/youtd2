@@ -2,50 +2,20 @@ class_name Modification
 
 
 enum Type {
-	MOD_ARMOR,
-	MOD_ARMOR_PERC,
-	MOD_EXP_GRANTED,
-	MOD_EXP_RECEIVED,
-	MOD_SPELL_DAMAGE_RECEIVED,
-	MOD_SPELL_DAMAGE_DEALT,
-	MOD_SPELL_CRIT_DAMAGE,
-	MOD_SPELL_CRIT_CHANCE,
-	MOD_BOUNTY_GRANTED,
-	MOD_BOUNTY_RECEIVED,
-	MOD_ATK_CRIT_CHANCE,
-	MOD_ATK_CRIT_DAMAGE,
-	MOD_ATK_DAMAGE_RECEIVED,
-	MOD_ATTACKSPEED,
-	MOD_MULTICRIT_COUNT,
-	MOD_ITEM_CHANCE_ON_KILL,
-	MOD_ITEM_QUALITY_ON_KILL,
-	MOD_ITEM_CHANCE_ON_DEATH,
-	MOD_ITEM_QUALITY_ON_DEATH,
-	MOD_BUFF_DURATION,
-	MOD_DEBUFF_DURATION,
-	MOD_TRIGGER_CHANCES,
-	MOD_MOVESPEED,
-	MOD_MOVESPEED_ABSOLUTE,
-	MOD_DAMAGE_BASE,
-	MOD_DAMAGE_BASE_PERC,
-	MOD_DAMAGE_ADD,
-	MOD_DAMAGE_ADD_PERC,
-	MOD_DPS_ADD,
-	MOD_HP,
-	MOD_HP_PERC,
-	MOD_HP_REGEN,
-	MOD_HP_REGEN_PERC,
-	MOD_MANA,
-	MOD_MANA_PERC,
-	MOD_MANA_REGEN,
-	MOD_MANA_REGEN_PERC,
+#	-----------------------
+#	Tower modifications
+#	-----------------------
+#	Modifications below only make sense when applied to
+#	towers
 
+#	"Damage to X creep size" modifications
 	MOD_DMG_TO_MASS,
 	MOD_DMG_TO_NORMAL,
 	MOD_DMG_TO_CHAMPION,
 	MOD_DMG_TO_BOSS,
 	MOD_DMG_TO_AIR,
 
+#	"Damage to X creep race" modifications
 	MOD_DMG_TO_UNDEAD,
 	MOD_DMG_TO_MAGIC,
 	MOD_DMG_TO_NATURE,
@@ -53,6 +23,177 @@ enum Type {
 	MOD_DMG_TO_HUMANOID,
 	MOD_DMG_TO_CHALLENGE,
 
+# 	Crit modifications
+
+#	Modifies the chance that attacks of this unit will be
+#	critical
+#	+0.01 = +1% crit chance
+# 	Note that initial value is equal to
+# 	Constants.INNATE_MOD_ATK_CRIT_CHANCE
+	MOD_ATK_CRIT_CHANCE,
+
+#	Modifies the multiplier applied to critical attack
+#	damage.
+#	+0.01 = +1% crit damage
+# 	Note that initial value is equal to
+# 	Constants.INNATE_MOD_ATK_CRIT_DAMAGE
+	MOD_ATK_CRIT_DAMAGE,
+
+#	Modifies the multicrit value of this unit. Multicrit
+#	determines the amount of types a single attack can crit.
+#	Normally, attacks either don't crit or crit one time.
+#	Some tower and item effects increase this value, making
+#	it possible for an attack to crit 2 or more times. When
+#	attack crits multiple times, the multiplier for crit
+#	damage is added multiple times.
+# 
+#	2 crits with x1.25 crit damage multiplier =
+# 	1.0 + 0.25 + 0.25 = x1.5 total multiplier
+	MOD_MULTICRIT_COUNT,
+
+#	Modifies the chance that spells of this unit will be
+#	critical
+#	+0.01 = +1% crit chance
+# 	Note that initial value is equal to
+# 	Constants.INNATE_MOD_SPELL_CRIT_CHANCE
+	MOD_SPELL_CRIT_CHANCE,
+
+#	Modifies the damage multiplier for critical spell
+#	damage.
+#	+0.01 = +1% crit damage
+# 	Note that initial value is equal to
+# 	Constants.INNATE_MOD_SPELL_CRIT_DAMAGE
+	MOD_SPELL_CRIT_DAMAGE,
+
+# 	Damage modifications
+
+#	Modifies spell damage of this unit
+#	+0.01 = +1% spell damage
+	MOD_SPELL_DAMAGE_DEALT,
+
+#	Modifies the attack speed of this unit. Note that this
+#	value divides the attack speed, so higher = faster
+#	1s base attack speed with 150% MOD_ATTACKSPEED would be
+#	1s / 1.5 = 0.66s
+#	+0.01 = +1% attack speed
+	MOD_ATTACKSPEED,
+
+#	Modifies the base damage of this unit. "White" numbers in WC3.
+#	+1.0 = +1 to base damage
+	MOD_DAMAGE_BASE,
+
+#	Modifies the base damage of this unit. "White" numbers
+#	in WC3. Applied on top of MOD_DAMAGE_BASE.
+#	0.01 = 1% damage increase
+	MOD_DAMAGE_BASE_PERC,
+
+#	Modifies the add damage of this unit. "Green" numbers in WC3.
+#	Applied on top of bonuses to base damage.
+#	+1.0 = +1 to add damage
+	MOD_DAMAGE_ADD,
+
+#	Modifies the add damage of this unit. "Green" numbers in
+#	WC3. Applied on top of MOD_DAMAGE_ADD and bonuses to
+#	base damage.
+#	+0.01 = +1% damage increase
+	MOD_DAMAGE_ADD_PERC,
+
+#	Modifies the DPS of this unit. Applied after base damage
+#	bonuses and add damage bonuses.
+#	+1.0 = +1 DPS
+	MOD_DPS_ADD,
+
+# 	Misc modifications
+
+#	Modifies the chance of item drops when this tower kills
+#	a creep.
+#	+0.01 = +1% chance
+	MOD_ITEM_CHANCE_ON_KILL,
+
+#	Modifies the quality of item drops when this tower kills
+#	a creep.
+#	+0.01 = +1% quality
+	MOD_ITEM_QUALITY_ON_KILL,
+
+#	Modifies the amount of experience this tower receives
+#	from kills.
+#	+0.01 = +1% experience change
+	MOD_EXP_RECEIVED,
+
+#	Modifies the amount of bounty this tower receives
+#	from kills.
+#	+0.01 = +1% bounty change
+	MOD_BOUNTY_RECEIVED,
+
+#	-----------------------
+#	Creep modifications
+#	-----------------------
+#	Modifications below only make sense when applied to
+#	creeps
+
+#	Modifies the amount of experience given by this creep
+#	when killed.
+#	+0.01 = +1% exp change
+	MOD_EXP_GRANTED,
+
+#	Modifies the amount of bounty given by this creep
+#	when killed.
+#	+0.01 = +1% bounty change
+	MOD_BOUNTY_GRANTED,
+
+#	Modifies the amount of attack damage taken by this creep.
+#	+0.01 = +1% attack damage
+	MOD_ATK_DAMAGE_RECEIVED,
+
+#	Modifies the amount of spell damage taken by this creep.
+#	+0.01 = +1% spell damage
+	MOD_SPELL_DAMAGE_RECEIVED,
+
+#	Modifies the chance of item drops when this creep is
+#	killed.
+#	+0.01 = +1% chance
+	MOD_ITEM_CHANCE_ON_DEATH,
+
+#	Modifies the quality of item drops when this creep is
+#	killed.
+#	+0.01 = +1% quality
+	MOD_ITEM_QUALITY_ON_DEATH,
+
+#	Modifies health of this creep
+#	+1.0 = +1 health
+	MOD_HP,
+
+#	Modifies health of this creep. Applied on top of MOD_HP.
+#	+0.01 = +1% health
+	MOD_HP_PERC,
+
+#	Modifies health regeneration of this creep.
+#	+1.0 = +1 health / sec regeneration
+	MOD_HP_REGEN,
+
+#	Modifies health regeneration of this creep. Applied on
+#	top of MOD_HP_REGEN.
+#	+0.01 = +1% health regeneration
+	MOD_HP_REGEN_PERC,
+
+#	Modifies armor.
+#	+1.0 = +1 armor
+	MOD_ARMOR,
+
+#	Modifies armor. Applied on top of MOD_ARMOR.
+#	+0.01 = +1% armor
+	MOD_ARMOR_PERC,
+
+#	Changes movement speed of this creep.
+#	+0.01 = +1% movement speed
+	MOD_MOVESPEED,
+
+#	Changes movement speed of this creep.
+#	+1.0 = +1 movement speed (speed varies between 100 and 500)
+	MOD_MOVESPEED_ABSOLUTE,
+
+#	"Damage from X element" modifications. Modifies damage
+#	by multiplying
 	MOD_DMG_FROM_ASTRAL,
 	MOD_DMG_FROM_DARKNESS,
 	MOD_DMG_FROM_NATURE,
@@ -60,6 +201,45 @@ enum Type {
 	MOD_DMG_FROM_ICE,
 	MOD_DMG_FROM_STORM,
 	MOD_DMG_FROM_IRON,
+
+#	-----------------------
+#	General modifications
+#	-----------------------
+#	Modifications below can be applied to both towers and
+#	creeps.
+
+#	Modifies trigger chances of this unit, whenever
+#	calc_chance() is called.
+#	+0.01 = +1% trigger chances.
+	MOD_TRIGGER_CHANCES,
+
+#	Modifies the duration of buffs applied by this unit on
+#	other units.
+#	+0.01 = +1% buff duration
+	MOD_BUFF_DURATION,
+
+#	Modifies the duration of debuffs (negative buffs)
+#	applied on this unit by other units. Common scenario is
+#	where a creep stuns a tower for 3s. This modification
+#	would reduce the stun duration.
+#	+0.01 = +1% debuff duration
+	MOD_DEBUFF_DURATION,
+	
+#	Modifies mana of this unit.
+#	+1.0 = +1 mana
+	MOD_MANA,
+
+#	Modifies mana of this unit. Applied on top of MOD_MANA.
+#	+0.01 = +1% mana
+	MOD_MANA_PERC,
+
+#	Modifies mana regen of this unit.
+#	+1.0 = +1 mana regen / second
+	MOD_MANA_REGEN,
+
+#	Modifies mana of this unit. Applied on top of MOD_MANA_REGEN.
+#	+0.01 = +1% mana regen
+	MOD_MANA_REGEN_PERC,
 }
 
 const types_without_percent: Array = [
