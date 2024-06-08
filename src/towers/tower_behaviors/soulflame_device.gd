@@ -60,9 +60,6 @@ func tower_init():
 	evil_device_bt.set_buff_tooltip("Evil Device\nIncreases attack speed, trigger changes, spell damage, spell crit chance and attack damage.")
 
 	soulfire_bt = BuffType.new("soulfire_bt", 5, 0, false, self)
-	var soulfire_bt_mod: Modifier = Modifier.new()
-	soulfire_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	soulfire_bt.set_buff_modifier(soulfire_bt_mod)
 	soulfire_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
 	soulfire_bt.add_periodic_event(soulfire_bt_periodic, 1)
 	soulfire_bt.add_event_on_death(soulfire_bt_on_death)
@@ -70,7 +67,7 @@ func tower_init():
 
 	awaken_bt = BuffType.new("awaken_bt", 3, 0, true, self)
 	var awaken_bt_mod: Modifier = Modifier.new()
-	awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
+	awaken_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0.02)
 	awaken_bt.set_buff_modifier(awaken_bt_mod)
 	awaken_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
