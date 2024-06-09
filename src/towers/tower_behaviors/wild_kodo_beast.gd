@@ -62,8 +62,8 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
+	aura.level = 100
+	aura.level_add = 2
 	aura.power = 100
 	aura.power_add = 2
 	aura.aura_effect = aura_bt
@@ -100,5 +100,5 @@ func on_attack(event: Event):
 func aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_power: int = (100 + 2 * tower.get_level()) * devour_count
-	buff.set_power(new_power)
+	buff.set_level(new_power)
 	buff.set_displayed_stacks(devour_count)

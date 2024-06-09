@@ -125,7 +125,7 @@ func on_spell_target(event: Event):
 			return
 
 		buff.user_int += 1
-		buff.set_power(buff.get_power() + buff_level)
+		buff.set_level(buff.get_level() + buff_level)
 		buff.set_displayed_stacks(buff.user_int)
 
 	await Utils.create_timer(stack_duration, self).timeout
@@ -140,7 +140,8 @@ func on_spell_target(event: Event):
 			buff.remove_buff()
 		else:
 			buff.user_int -= 1
-			buff.set_power(buff.get_power() - buff_level)
+			buff.set_level(buff.get_level() - buff_level)
+			buff.set_displayed_stacks(buff.user_int)
 
 
 func on_autocast(event: Event):

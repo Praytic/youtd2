@@ -185,7 +185,7 @@ func valor_light_bt_adjust_effect(buff: Buff):
 		buff.user_int = 1
 	else:
 #		Additional times, decrease slow effect!
-		buff.set_power(buff.get_power() / 2)
+		buff.set_level(buff.get_level() / 2)
 
 #	Deal the right amount of damage
 	caster.do_spell_damage(creep, buff.user_real, caster.calc_spell_crit_no_bonus())

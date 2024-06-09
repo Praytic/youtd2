@@ -156,7 +156,6 @@ func on_attack(event: Event):
 
 func on_damage(event: Event):
 	var target: Creep = event.get_target()
-	var level: int = tower.get_level()
 
 	if do_splash_next:
 		do_splash_next = false
@@ -177,10 +176,10 @@ func on_damage(event: Event):
 				break
 
 			if creep.get_buff_of_type(slow_bt) == null:
-				slow_bt.apply(tower, creep, level * 5)
+				slow_bt.apply(tower, creep, 0)
 	else:
 		if target.get_buff_of_type(slow_bt) == null:
-			slow_bt.apply(tower, target, level * 5)
+			slow_bt.apply(tower, target, 0)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -199,5 +198,7 @@ func on_tower_details() -> MultiboardValues:
 
 func slow_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var new_power: int = int(buff.get_power() + 50 + 0.20 * buff.get_level())
-	buff.set_power(new_power)
+	var active_level: int = buff.get_level()
+	var slow_per_stack: float = 0.05 + 0.01 * tower.get_level()
+	var new_level: int = active_level + floori(slow_per_stack * 1000)
+	buff.set_level(new_level)
