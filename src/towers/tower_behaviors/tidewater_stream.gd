@@ -48,7 +48,7 @@ func tower_init():
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
-	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
+	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.1, 0.004)
 	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
@@ -83,7 +83,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 1
+	aura.level = 0
 	aura.level_add = 1
 	aura.aura_effect = aura_bt
 
