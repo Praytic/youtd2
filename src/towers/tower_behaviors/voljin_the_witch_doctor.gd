@@ -26,15 +26,19 @@ var periodic_is_enabled: bool = true
 var first_periodic_event: bool = false
 var periodic_interval: float
 
+const STACK_MALEDICT_FROM_WARD_CHANCE: float = 0.35
+
 
 func get_ability_info_list() -> Array[AbilityInfo]:
+	var stack_maledict_from_ward_chance: String = Utils.format_percent(STACK_MALEDICT_FROM_WARD_CHANCE, 2)
+
 	var list: Array[AbilityInfo] = []
 	
 	var serpent_ward: AbilityInfo = AbilityInfo.new()
 	serpent_ward.name = "Serpent Ward"
 	serpent_ward.icon = "res://resources/icons/tower_icons/small_serpent_ward.tres"
 	serpent_ward.description_short = "Whenever Vol'jin attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
-	serpent_ward.description_full = "Whenever Vol'jin attacks, he has a 18% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a 35% chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" \
+	serpent_ward.description_full = "Whenever Vol'jin attacks, he has a 18%% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20%% of Vol'jins attack damage and has Vol'jins current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a %s chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" % stack_maledict_from_ward_chance \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% attack damage\n" \
@@ -296,7 +300,8 @@ func on_autocast(_event: Event):
 		if next == null:
 			break
 
-		apply_maledict(tower, next, true)
+		var maledict_comes_from_ward: bool = false
+		apply_maledict(tower, next, maledict_comes_from_ward)
 
 
 # NOTE: "voljin_hit()" in original script
@@ -307,23 +312,37 @@ func voljin_pt_on_hit(_p: Projectile, target: Unit):
 	var damage: float = tower.get_current_attack_damage_with_bonus() * (0.2 + 0.002 * tower.get_level())
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
-	apply_maledict(tower, target, false)
+	
+	if tower.calc_chance(STACK_MALEDICT_FROM_WARD_CHANCE):
+		var maledict_comes_from_ward: bool = true
+		apply_maledict(tower, target, maledict_comes_from_ward)
 
 
+# NOTE: Voljin can apply fresh Maledict and increase stacks.
+# Wards cannot apply fresh Maledict, they can only increase
+# stacks of existing Maledict and they also do it only 35%
+# of the time.
 # NOTE: "ApplyMaledict()" in original script
-func apply_maledict(caster: Tower, target: Unit, B: bool):
+func apply_maledict(caster: Tower, target: Unit, maledict_comes_from_ward: bool):
 	var buff: Buff = target.get_buff_of_type(maledict_bt)
 	var duration: float = 8.0 / caster.get_prop_buff_duration()
 
-	if B && buff == null:
-		var new_buff: Buff = maledict_bt.apply_advanced(caster, target, 1, 0, duration)
-		new_buff.user_real = 0.0
-	elif (buff != null && !B && caster.calc_chance(0.35)) || (buff != null && B == true):
-		maledict_bt.apply_advanced(caster, target, buff.get_level() + 1, 0, duration)
-
-	buff = target.get_buff_of_type(maledict_bt)
+	var active_stacks: int
 	if buff != null:
-		buff.set_displayed_stacks(buff.get_level())
+		active_stacks = buff.user_int
+	else:
+		active_stacks = 0
+
+#	NOTE: wards can only increase Maledict stacks, they
+#	cannot apply fresh Maledict. Voljin does that.
+	if maledict_comes_from_ward && active_stacks == 0:
+		return
+
+	var new_stacks: int = active_stacks + 1
+
+	buff = maledict_bt.apply_custom_timed(caster, target, 1, duration)
+	buff.user_int = new_stacks
+	buff.set_displayed_stacks(new_stacks)
 
 
 # NOTE: "damageEvent()" in original script
@@ -337,7 +356,7 @@ func maledict_bt_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real
-	var stack_count: float = buff.get_level()
+	var stack_count: float = buff.user_int
 	var multiplier_per_stack: float = 0.035 + 0.0014 * tower.get_level()
 	var damage_multiplier: float = 0.15 + multiplier_per_stack * stack_count
 	var damage: float = collected_damage * damage_multiplier
@@ -350,7 +369,7 @@ func maledict_bt_on_purge(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real
-	var stack_count: float = buff.get_level()
+	var stack_count: float = buff.user_int
 	var multiplier_per_stack: float = 0.07 + 0.0028 * tower.get_level()
 	var damage_multiplier: float = 0.3 + multiplier_per_stack * stack_count
 	var damage: float = collected_damage * damage_multiplier

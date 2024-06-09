@@ -48,14 +48,14 @@ func tower_init():
 	var cold_feet_bt_mod: Modifier = Modifier.new()
 	var cold_arms_bt_mod: Modifier = Modifier.new()
 
-	cold_feet_bt = BuffType.new("cold_feet_bt", 0, 0, true, self)
+	cold_feet_bt = BuffType.new("cold_feet_bt", 6, 0, true, self)
 	cold_feet_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.001)
 	cold_feet_bt.set_buff_modifier(cold_feet_bt_mod)
 	cold_feet_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
 	cold_feet_bt.add_event_on_cleanup(on_cleanup)
 	cold_feet_bt.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
 
-	cold_arms_bt = BuffType.new("cold_arms_bt", 0, 0, true, self)
+	cold_arms_bt = BuffType.new("cold_arms_bt", 6, 0, true, self)
 	cold_arms_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
 	cold_arms_bt.set_buff_modifier(cold_arms_bt_mod)
 	cold_arms_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
@@ -63,19 +63,25 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var power: int = 30
-	tower.user_int = min(tower.user_int + 1, 10)
-
+	var active_stack_count: int = tower.user_int
+	var new_stack_count: int = min(active_stack_count + 1, 10)
+	tower.user_int = new_stack_count
+	
+	var cold_feet_per_stack: int
 	if tower.get_level() < 15:
-		power = 50
+		cold_feet_per_stack = 50
 	elif tower.get_level() < 25:
-		power = 40
+		cold_feet_per_stack = 40
+	else:
+		cold_feet_per_stack = 30
 
-	var cold_feet_buff: Buff = cold_feet_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * power, 6.0)
-	var cold_arms_buff: Buff = cold_arms_bt.apply_advanced(tower, tower, tower.user_int, tower.user_int * _stats.dmg_increase, 6.0)
+	var cold_feet_buff_level: int = cold_feet_per_stack * new_stack_count
+	var cold_arms_buff_level: int = _stats.dmg_increase * new_stack_count
+	var cold_feet_buff: Buff = cold_feet_bt.apply(tower, tower, cold_feet_buff_level)
+	var cold_arms_buff: Buff = cold_arms_bt.apply(tower, tower, cold_arms_buff_level)
 
-	cold_feet_buff.set_displayed_stacks(tower.user_int)
-	cold_arms_buff.set_displayed_stacks(tower.user_int)
+	cold_feet_buff.set_displayed_stacks(new_stack_count)
+	cold_arms_buff.set_displayed_stacks(new_stack_count)
 
 
 func on_create(_preceding_tower: Tower):

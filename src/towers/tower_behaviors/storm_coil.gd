@@ -28,14 +28,14 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
+	slow_bt = BuffType.new("slow_bt", 1.5, 0, false, self)
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip("Overload\nReduces movement speed.")
 
-	surge_bt = BuffType.new("surge_bt", 5, 0, true, self)
+	surge_bt = BuffType.new("surge_bt", 4.0, 0.1, true, self)
 	surge_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	surge_bt.add_periodic_event(surge_bt_periodic, 0.4)
 	surge_bt.set_buff_tooltip("Magnetic Surge\nDeals damage over time.")
@@ -80,7 +80,7 @@ func get_aura_types() -> Array[AuraType]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 
 	aura.name = "Energetic Field"
-	aura.icon = "res://resources/icons/tower_icons/bagic_battery.tres"
+	aura.icon = "res://resources/icons/tower_icons/magic_battery.tres"
 	aura.description_short = "Units in range receive extra damage from %s towers. Effect is stronger for creeps far away.\n" % storm_string
 	aura.description_full = "Units in %d range around this tower are dealt up to 20%% bonus damage by %s towers. The further away creeps are from tower, the more damage is dealt.\n" % [AURA_RANGE, storm_string] \
 	+ " \n" \
@@ -107,15 +107,14 @@ func on_damage(event: Event):
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
 	tower.get_player().display_floating_text_x(str(int(damage)), target, Color8(255, 200, 0, 255), 0.05, 0.0, 2.0)
 
-	var slow_power: int = int(distance_to_target * 3)
-	slow_bt.apply_advanced(tower, target, 0, slow_power, 1.5)
+	var slow_buff_level: int = floori(distance_to_target * 3)
+	slow_bt.apply(tower, target, slow_buff_level)
 
 
 func on_autocast(event: Event):
 	var creep: Unit = event.get_target()
-	var duration: float = 4.0 + 0.1 * tower.get_level()
 
-	var buff: Buff = surge_bt.apply_advanced(tower, creep, 0, 0, duration)
+	var buff: Buff = surge_bt.apply(tower, creep, tower.get_level())
 	buff.user_real = creep.get_x()
 	buff.user_real2 = creep.get_y()
 
