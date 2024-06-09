@@ -18,9 +18,9 @@ var _battery_overload_is_active: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {projectile_damage = 300, projectile_damage_add = 12, periodic_damage = 120, periodic_damage_add = 5, mod_dmg_from_fire = 0.05, debuff_level = 1, debuff_level_add = 0},
-		2: {projectile_damage = 750, projectile_damage_add = 30, periodic_damage = 300, periodic_damage_add = 12, mod_dmg_from_fire = 0.10, debuff_level = 26, debuff_level_add = 2},
-		3: {projectile_damage = 1800, projectile_damage_add = 72, periodic_damage = 800, periodic_damage_add = 32, mod_dmg_from_fire = 0.15, debuff_level = 52, debuff_level_add = 3},
+		1: {projectile_damage = 300, projectile_damage_add = 12, periodic_damage = 120, periodic_damage_add = 5, mod_dmg_from_fire = 0.05},
+		2: {projectile_damage = 750, projectile_damage_add = 30, periodic_damage = 300, periodic_damage_add = 12, mod_dmg_from_fire = 0.10},
+		3: {projectile_damage = 1800, projectile_damage_add = 72, periodic_damage = 800, periodic_damage_add = 32, mod_dmg_from_fire = 0.15},
 	}
 
 
@@ -61,8 +61,12 @@ func on_autocast(_event: Event):
 
 
 func damage_periodic(event: Event):
-	var b: Buff = event.get_buff()
-	tower.do_spell_damage(b.get_buffed_unit(), b.get_power() * _stats.periodic_damage_add + _stats.periodic_damage, tower.calc_spell_crit_no_bonus())
+	var buff: Buff = event.get_buff()
+	var buffed_unit: Unit = buff.get_buffed_unit()
+	var level: int = tower.get_level()
+	var damage: float = _stats.periodic_damage + _stats.periodic_damage_add * level
+	
+	tower.do_spell_damage(buffed_unit, damage, tower.calc_spell_crit_no_bonus())
 
 
 # NOTE: hit() in original script
@@ -70,8 +74,11 @@ func fireball_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	incinerate_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	var level: int = tower.get_level()
+	var damage: float = _stats.projectile_damage + _stats.projectile_damage_add * level
+
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	incinerate_bt.apply(tower, creep, level)
 
 
 func tower_init():

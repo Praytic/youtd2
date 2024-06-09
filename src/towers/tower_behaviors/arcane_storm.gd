@@ -146,26 +146,25 @@ func on_damage(event: Event):
 	tower.add_mana(total_stacks)
 
 
-func ashbringer_attraction_apply(target: Unit, stacks: int):
-	var i: int
+func ashbringer_attraction_apply(target: Unit, applied_stacks: int) -> int:
+	if applied_stacks < 1:
+		applied_stacks = 1
 
-	if stacks < 1:
-		stacks = 1
+	var buff: Buff = target.get_buff_of_type(attraction_bt)
 
-	var attraction_buff: Buff = target.get_buff_of_type(attraction_bt)
-
-	if attraction_buff != null:
-		i = stacks + attraction_buff.get_power()
+	var active_stacks: int
+	if buff != null:
+		active_stacks = buff.user_int
 	else:
-		i = 1
+		active_stacks = 0
 
-	attraction_bt.apply_custom_power(tower, target, 1, i)
+	var new_stacks: int = active_stacks + applied_stacks
 
-	attraction_buff = target.get_buff_of_type(attraction_bt)
-	if attraction_buff != null:
-		attraction_buff.set_displayed_stacks(i)
+	buff = attraction_bt.apply(tower, target, 1)
+	buff.user_int = new_stacks
+	buff.set_displayed_stacks(new_stacks)
 
-	return i
+	return new_stacks
 
 
 # NOTE: "ashbringer_attraction_ondeath()" in original script
@@ -175,7 +174,7 @@ func attraction_bt_on_death(event: Event):
 	var it_range: float = 500 + 10 * tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, it_range)
 	var count: int = it.count()
-	var stacks: int = buff.get_power()
+	var stacks: int = buff.user_int
 	var stacks_spare: int = 0
 	var stacks_each: int = 0
 	var applied: int = 0
@@ -234,7 +233,8 @@ func ashbringer_surge_start(target: Unit, mana: float):
 		if attraction_buff == null:
 			continue
 
-		var jump_chance: float = attraction_buff.get_power() * chance_per_stack
+		var active_stacks: int = attraction_buff.user_int
+		var jump_chance: float = active_stacks * chance_per_stack
 
 		if !tower.calc_chance(jump_chance):
 			continue

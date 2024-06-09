@@ -292,27 +292,28 @@ func refresh_buff(damage_dealt: float):
 
 	var powerup: float = damage_dealt * (0.015 + 0.004 * tower.get_level())
 
+	var active_buff_level: int
 	if versatile_buff != null:
-		powerup = versatile_buff.get_power() + powerup
-
-		if powerup > max_damage:
-			powerup = max_damage
-
-		versatile_buff.set_power(int(powerup))
-		versatile_buff.refresh_duration()
+		active_buff_level = versatile_buff.get_level()
 	else:
-		if powerup > max_damage:
-			powerup = max_damage
+		active_buff_level = 0
 
-		versatile_bt.apply_custom_power(tower, tower, 1, int(powerup))
+	var new_buff_level: int = active_buff_level + floori(powerup)
+	new_buff_level = min(new_buff_level, max_damage)
+
+	versatile_bt.apply(tower, tower, new_buff_level)
 
 
 # NOTE: "spreadBuff()" in original script
 func spread_buff():
 	var versatile_buff: Buff = tower.get_buff_of_type(versatile_bt)
+	var level: int = tower.get_level()
+	var buff_duration: float =  2.5 + 0.04 * level
 
 	if versatile_buff == null:
 		return
+
+	var buff_level: int = versatile_buff.get_level()
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 175)
 
@@ -323,7 +324,7 @@ func spread_buff():
 			break
 
 		if next != tower:
-			versatile_bt.apply_advanced(tower, next, 1, versatile_buff.get_power(), 2.5 + 0.04 * tower.get_level())
+			versatile_bt.apply_custom_timed(tower, next, buff_level, buff_duration)
 
 
 # NOTE: "blueDrakeHit()" in original script

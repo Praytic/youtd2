@@ -18,7 +18,7 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	enraged_bt = BuffType.new("enraged_bt", 5, 0, true, self)
+	enraged_bt = BuffType.new("enraged_bt", 1.5, 0, true, self)
 	enraged_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	enraged_bt.set_buff_tooltip("Enraged\nIncreases attack speed, spell damage and attack damage.")
 	var mod: Modifier = Modifier.new()
@@ -30,20 +30,16 @@ func item_init():
 
 func on_attack(_event: Event):
 	var tower: Tower = item.get_carrier()
-	var b: Buff = tower.get_buff_of_type(enraged_bt)
+	var buff: Buff = tower.get_buff_of_type(enraged_bt)
 
-	var level: int
-	if b != null:
-		level = b.get_level()
+	var active_stacks: int
+	if buff != null:
+		active_stacks = buff.get_level()
 	else:
-		level = 0
+		active_stacks = 0
 
-	if level < 120:
-		enraged_bt.apply_advanced(tower, tower, 1 + level, level, 1.5)
-	else:
-		b.refresh_duration()
+	var new_stacks: int = active_stacks + 1
+	new_stacks = min(new_stacks, 120)
 
-	b = tower.get_buff_of_type(enraged_bt)
-	if b != null:
-		var stack_count: int = b.get_level()
-		b.set_displayed_stacks(stack_count)
+	buff = enraged_bt.apply(tower, tower, new_stacks)
+	buff.set_displayed_stacks(new_stacks)

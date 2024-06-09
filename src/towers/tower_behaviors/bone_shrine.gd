@@ -42,19 +42,24 @@ func tower_init():
 	curse_bt.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
 
 
+# NOTE: buff is used only to keep track of stacks and as
+# visual indicator. MOD_DMG_FROM_DARKNESS modifier is
+# applied directly. It's possible to rework this script so
+# that modifier is attached to buff but it's tricky.
 func on_attack(event: Event):
-	var existing_buff: Buff = event.get_target().get_buff_of_type(curse_bt)
-	var buff_level: int
-	if existing_buff != null:
-		buff_level = existing_buff.get_level()
+	var target: Unit = event.get_target()
+	var buff: Buff = target.get_buff_of_type(curse_bt)
+
+	var active_stacks: int
+	if buff != null:
+		active_stacks = buff.get_level()
 	else:
-		buff_level = 0 
+		active_stacks = 0
 
-	if buff_level < 10:
-		event.get_target().modify_property(Modification.Type.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
-		curse_bt.apply_advanced(tower, event.get_target(), buff_level + 1, 0, 1000)
+	if active_stacks < 10:
+		var new_stacks: int = active_stacks + 1
+		
+		target.modify_property(Modification.Type.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
 
-	existing_buff = event.get_target().get_buff_of_type(curse_bt)
-	if existing_buff != null:
-		var stack_count: int = existing_buff.get_level()
-		existing_buff.set_displayed_stacks(stack_count)
+		buff = curse_bt.apply_to_unit_permanent(tower, target, new_stacks)
+		buff.set_displayed_stacks(new_stacks)

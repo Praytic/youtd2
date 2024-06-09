@@ -18,9 +18,9 @@ var _battery_overload_is_active: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {projectile_damage = 300, projectile_damage_add = 12, mod_spell_damage = 0.10, mod_spell_damage_add = 0.004, mod_debuff_duration = 0.20, mod_debuff_duration_add = 0.006, debuff_level = 1, debuff_level_add = 0},
-		2: {projectile_damage = 750, projectile_damage_add = 30, mod_spell_damage = 0.15, mod_spell_damage_add = 0.006, mod_debuff_duration = 0.25, mod_debuff_duration_add = 0.008, debuff_level = 26, debuff_level_add = 2},
-		3: {projectile_damage = 1800, projectile_damage_add = 72, mod_spell_damage = 0.20, mod_spell_damage_add = 0.008, mod_debuff_duration = 0.30, mod_debuff_duration_add = 0.010, debuff_level = 52, debuff_level_add = 3},
+		1: {projectile_damage = 300, projectile_damage_add = 12, mod_spell_damage = 0.10, mod_spell_damage_add = 0.004, mod_debuff_duration = 0.20, mod_debuff_duration_add = 0.006},
+		2: {projectile_damage = 750, projectile_damage_add = 30, mod_spell_damage = 0.15, mod_spell_damage_add = 0.006, mod_debuff_duration = 0.25, mod_debuff_duration_add = 0.008},
+		3: {projectile_damage = 1800, projectile_damage_add = 72, mod_spell_damage = 0.20, mod_spell_damage_add = 0.008, mod_debuff_duration = 0.30, mod_debuff_duration_add = 0.010},
 	}
 
 
@@ -66,8 +66,11 @@ func missile_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	faerie_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	var level: int = tower.get_level()
+	var damage: float = _stats.projectile_damage + _stats.projectile_damage_add * level
+
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	faerie_bt.apply(tower, creep, level)
 
 
 func tower_init():

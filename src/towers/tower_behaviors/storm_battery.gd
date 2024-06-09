@@ -18,9 +18,9 @@ var _battery_overload_is_active: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {projectile_damage = 300, projectile_damage_add = 12, damage_increase = 0.4, damage_increase_add = 0.008, mod_dmg_from_fire = 0.05, debuff_level = 1, debuff_level_add = 0},
-		2: {projectile_damage = 750, projectile_damage_add = 30, damage_increase = 0.8, damage_increase_add = 0.016, mod_dmg_from_fire = 0.10, debuff_level = 26, debuff_level_add = 2},
-		3: {projectile_damage = 1800, projectile_damage_add = 72, damage_increase = 1.2, damage_increase_add = 0.024, mod_dmg_from_fire = 0.15, debuff_level = 52, debuff_level_add = 3},
+		1: {projectile_damage = 300, projectile_damage_add = 12, damage_increase = 0.4, damage_increase_add = 0.008, mod_dmg_from_fire = 0.05},
+		2: {projectile_damage = 750, projectile_damage_add = 30, damage_increase = 0.8, damage_increase_add = 0.016, mod_dmg_from_fire = 0.10},
+		3: {projectile_damage = 1800, projectile_damage_add = 72, damage_increase = 1.2, damage_increase_add = 0.024, mod_dmg_from_fire = 0.15},
 	}
 
 
@@ -61,11 +61,15 @@ func on_autocast(_event: Event):
 
 func debuff_on_damaged(event: Event):
 	var b: Buff = event.get_buff()
+	var level: int = tower.get_level()
+	var extra_damage_chance: float = 0.2 + 0.003 * level
 
-	if tower.calc_chance(0.2 + b.get_power() * 0.003):
+	if !tower.calc_chance(extra_damage_chance):
 		CombatLog.log_ability(tower, b.get_buffed_unit(), "Electrify Effect")
 
-		event.damage = event.damage * b.user_real
+		var damage_multiplier: float = _stats.damage_increase + _stats.damage_increase_add * level
+		event.damage = event.damage * damage_multiplier
+
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), Color8(128, 255, 255), 20)
 
@@ -74,8 +78,11 @@ func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	electrified_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	var level: int = tower.get_level()
+	var damage: float = _stats.projectile_damage + _stats.projectile_damage_add * level
+
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	electrified_bt.apply(tower, creep, level)
 
 
 func tower_init():
@@ -121,8 +128,10 @@ func create_autocasts() -> Array[Autocast]:
 
 
 func on_damage(event: Event):
-	var tower_level: int = tower.get_level()
-	electrified_bt.apply_custom_power(tower, event.get_target(), int(1000 * (_stats.damage_increase + _stats.damage_increase_add * tower_level) * (0.2 + 0.003 * tower_level)), tower_level).user_real = _stats.damage_increase + _stats.damage_increase_add * tower_level + 1
+	var target: Unit = event.get_target()
+	var level: int = tower.get_level()
+
+	electrified_bt.apply(tower, target, level)
 
 
 func on_create(_preceding_tower: Tower):

@@ -137,31 +137,37 @@ func on_attack(_event: Event):
 		if u != tower && u.get_gold_cost() >= _stats.affected_gold_cost:
 			b = u.get_buff_of_type(drain_bt)
 
+			var active_stacks: int
 			if b != null:
-				b.user_int = min(b.user_int + 1, max_stacks)
-				drain_bt.apply_custom_power(tower, u, b.user_int, leech_power * b.user_int)
+				active_stacks = b.user_int
 			else:
-				drain_bt.apply_custom_power(tower, u, 1, leech_power).user_int = 1
-			
-			var drain_buff: Buff = u.get_buff_of_type(drain_bt)
-			if drain_buff != null:
-				drain_buff.set_displayed_stacks(drain_buff.user_int)
+				active_stacks = 0
+
+			var new_stacks: int = min(active_stacks + 1, max_stacks)
+			var new_buff_level: int = leech_power * new_stacks
+
+			b = drain_bt.apply(tower, u, new_buff_level)
+			b.user_int = new_stacks
+			b.set_displayed_stacks(new_stacks)
 
 #	in a way, that's the per stack base
 	leech_power = leech_power * leech_counter
 	b = tower.get_buff_of_type(zeal_bt)
 
-#	now apply zeal
+	var active_stacks: int
 	if b != null:
-		zeal_bt.apply(tower, tower, min(leech_power + b.get_level(), leech_power * max_stacks))
+		active_stacks = b.user_int
 	else:
-		zeal_bt.apply(tower, tower, leech_power)
-	
-	var zeal_buff: Buff = tower.get_buff_of_type(zeal_bt)
-	if zeal_buff != null:
-		var zeal_stack_count: int = min(Utils.divide_safe(zeal_buff.get_level(), leech_power), max_stacks)
-		zeal_buff.set_displayed_stacks(zeal_stack_count)
+		active_stacks = 0
 
+	var new_stacks: int = min(active_stacks + 1, 5)
+	var new_buff_level: int = leech_power * new_stacks
+
+#	now apply zeal
+	b = zeal_bt.apply(tower, tower, new_buff_level)
+	b.user_int = new_stacks
+	b.set_displayed_stacks(new_stacks)
+	
 	b = tower.get_buff_of_type(shield_bt)
 
 	if b != null:

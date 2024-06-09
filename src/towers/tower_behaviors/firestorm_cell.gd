@@ -56,24 +56,23 @@ func ashbringer_firestorm_periodic(event: Event):
 	ashbringer_firestorm_damage(target)
 
 
-func ashbringer_firestorm_setint(event: Event):
-	var b: Buff = event.get_buff()
-	b.user_int = b.get_power()
-
-
 func firestorm(event: Event):
-	var b: Buff = event.get_buff()
-	var creep: Creep = b.get_buffed_unit() 
+	var buff: Buff = event.get_buff()
+	var creep: Creep = buff.get_buffed_unit() 
+	var damage_per_stack: float = _stats.firestorm_damage + _stats.firestorm_damage_add * tower.get_level()
+	var stack_count: int = buff.user_int
+	var damage: float = damage_per_stack * stack_count
+
 	var effect: int = Effect.create_scaled("DoomDeath.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
 	Effect.destroy_effect_after_its_over(effect)
-	tower.do_spell_damage_aoe_unit(creep, 300, b.get_power()* (_stats.firestorm_damage + (_stats.firestorm_damage_add * tower.get_level())), tower.calc_spell_crit_no_bonus(), 0.0)
+
+	tower.do_spell_damage_aoe_unit(creep, 300, damage, tower.calc_spell_crit_no_bonus(), 0.0)
 
 
 func tower_init():
 	firestorm_bt = BuffType.new("firestorm_bt", 1000, 0, false, self)
 	firestorm_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
 	firestorm_bt.set_buff_tooltip("Firestorm\nPeriodically deals AoE damage.")
-	firestorm_bt.add_event_on_create(ashbringer_firestorm_setint)
 	firestorm_bt.add_periodic_event(ashbringer_firestorm_periodic, 1)
 	firestorm_bt.add_event_on_death(firestorm)
 
@@ -83,18 +82,27 @@ func on_attack(event: Event):
 		return
 
 	var creep: Unit = event.get_target()
-	var b: Buff
-	var i: int
-	b = creep.get_buff_of_type(firestorm_bt)
+	var buff: Buff = creep.get_buff_of_type(firestorm_bt)
 
 	CombatLog.log_ability(tower, creep, "Firestorm")
 
-	if b != null:
+	if buff != null:
 		ashbringer_firestorm_damage(creep)
-		i = b.get_power() + 2
-		b.set_power(i)
-		b.user_int = i
-	else:
-		i = 3
-		firestorm_bt.apply_custom_power(tower, creep, i, i)
 
+	var active_stack_count: int
+	if buff != null:
+		active_stack_count = buff.user_int
+	else:
+		active_stack_count = 0
+
+#	NOTE: doing +2 here instead of +3 because one stack
+#	is consumed instantly
+	var new_stack_count: int
+	if buff != null:
+		new_stack_count = active_stack_count + 2
+	else:
+		new_stack_count = 3
+
+	buff = firestorm_bt.apply(tower, creep, 1)
+	buff.user_int = new_stack_count
+	buff.set_displayed_stacks(new_stack_count)

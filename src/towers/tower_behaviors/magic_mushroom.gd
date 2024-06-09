@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: added storage of stacks in power level for Fungus
-# Strike buff. This is to display stacks. Won't affect
-# behavior because Fungus Strike buff is cosmetic only.
+# NOTE: added storage of stacks in for Fungus Strike buff.
+# This is to display stacks. Won't affect behavior because
+# Fungus Strike buff is cosmetic only.
 
 
 # NOTE: SCALE_MIN should match the value in tower sprite
@@ -126,16 +126,16 @@ func on_damage(event: Event):
 
 	var fungus_buff: Buff = target.get_buff_of_type(fungus_bt)
 
-	var old_stack_count: int
+	var active_stack_count: int
 	if fungus_buff != null:
-		old_stack_count = fungus_buff.get_power()
+		active_stack_count = fungus_buff.user_int
 	else:
-		old_stack_count = 0
+		active_stack_count = 0
 
-	var new_stack_count: int = old_stack_count + 1
+	var new_stack_count: int = active_stack_count + 1
 
-	fungus_buff = fungus_bt.apply_custom_power(tower, target, tower.get_level(), new_stack_count)
-
+	fungus_buff = fungus_bt.apply(tower, target, 1)
+	fungus_buff.user_int = new_stack_count
 	fungus_buff.set_displayed_stacks(new_stack_count)
 
 	target.modify_property(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.10)

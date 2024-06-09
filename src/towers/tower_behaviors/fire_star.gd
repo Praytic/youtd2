@@ -8,6 +8,8 @@ extends TowerBehavior
 # lower power. Everytime Ignite is reapplied, it gets
 # increased power, so therefore it always triggers UPGRADE
 # instead of REFRESH.
+# 
+# Instead, multiplier is calculated right before it's needed.
 
 
 var ignite_bt: BuffType
@@ -65,22 +67,8 @@ func tower_init():
 func on_damage(event: Event):
 	var level: int = tower.get_level()
 	var target: Unit = event.get_target()
-	var buff: Buff = target.get_buff_of_type(ignite_bt)
-	var buff_power: int = 0
 
-	if buff != null:
-		buff_power = buff.get_power() + 1
-		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
-	else:
-		buff_power = 0
-		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
-		var damage_multiplier: float = 1.0 + 0.04 * level
-		buff.user_real = damage_multiplier
-
-	buff = target.get_buff_of_type(ignite_bt)
-	if buff != null:
-		var stack_count: int = buff.get_power()
-		buff.set_displayed_stacks(stack_count)
+	apply_ignite(target)
 
 	var double_trouble_chance: float = 0.125 + 0.005 * level
 
@@ -96,20 +84,7 @@ func firestar_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var level: int = tower.get_level()
-	var buff: Buff = target.get_buff_of_type(ignite_bt)
-	var buff_power: int = 0
-
-	if buff != null:
-		buff_power = buff.get_power() + 1
-		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
-		var added_damage_multiplier: float = 0.05 + 0.002 * level
-		buff.user_real += added_damage_multiplier
-	else:
-		buff_power = 0
-		buff = ignite_bt.apply_custom_power(tower, target, 1, buff_power)
-		var initial_damage_multiplier: float = 1.0 + 0.04 * level
-		buff.user_real = initial_damage_multiplier
+	apply_ignite(target)
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit_no_bonus())
 
@@ -117,6 +92,26 @@ func firestar_pt_on_hit(_p: Projectile, target: Unit):
 func ignite_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
-	var damage_multiplier: float = buff.user_real
+	var level: int = tower.get_level()
+
+	var base_multiplier: float = 1.0 + 0.04 * level
+	var damage_multiplier_per_stack: float = 0.05 + 0.002 * level
+	var stack_count: int = buff.get_level()
+	var damage_multiplier: float = base_multiplier + damage_multiplier_per_stack * stack_count
 
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus() * damage_multiplier, tower.calc_attack_multicrit_no_bonus())
+
+
+func apply_ignite(target: Unit):
+	var buff: Buff = target.get_buff_of_type(ignite_bt)
+
+	var active_stacks: int
+	if buff != null:
+		active_stacks = buff.get_level()
+	else:
+		active_stacks = 0
+
+	var new_stacks: int = active_stacks + 1
+
+	buff = ignite_bt.apply(tower, target, new_stacks)
+	buff.set_displayed_stacks(new_stacks)

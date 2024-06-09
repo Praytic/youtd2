@@ -202,14 +202,14 @@ func xeno_buff_towers(is_type_change: bool):
 	if current_creep_category == CreepCategory.enm.CHALLENGE:
 		return
 
-	var power_level: int = bonus_map[current_creep_category]
+	var buff_level: int = bonus_map[current_creep_category]
 	prev_creep_category = current_creep_category
 
 	var category_string = CreepCategory.convert_to_string(current_creep_category).capitalize()
 	var category_color: Color = CreepCategory.get_color(current_creep_category)
 	var floating_text: String = "%s Research Published" % category_string
 
-	if (is_type_change && power_level > 0) || force_show_research_message:
+	if (is_type_change && buff_level > 0) || force_show_research_message:
 		tower.get_player().display_floating_text(floating_text, tower, category_color)
 		force_show_research_message = false
 
@@ -223,9 +223,9 @@ func xeno_buff_towers(is_type_change: bool):
 	}
 	var selected_buff: BuffType = category_to_bt[current_creep_category]
 
-	xeno_manage_bonuses(is_type_change, power_level)
+	xeno_manage_bonuses(is_type_change, buff_level)
 
-	if power_level <= 0:
+	if buff_level <= 0:
 		return
 
 #	larger AoE needed as aura centre seems to be diff + collision problems
@@ -246,4 +246,4 @@ func xeno_buff_towers(is_type_change: bool):
 		if tower_is_in_aura:
 #			always 8.5 secs (comment from original script, no idea what it means)
 			var buff_duration: float = 6.5 / tower.get_prop_buff_duration()
-			selected_buff.apply_advanced(tower, next_tower, power_level, power_level, buff_duration)
+			selected_buff.apply_custom_timed(tower, next_tower, buff_level, buff_duration)

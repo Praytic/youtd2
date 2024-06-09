@@ -18,9 +18,9 @@ var _battery_overload_is_active: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {projectile_damage = 300, projectile_damage_add = 12, poison_damage = 100, poison_damage_add = 3, mod_movespeed = -0.05, mod_movespeed_add = -0.0012, debuff_level = 1, debuff_level_add = 0},
-		2: {projectile_damage = 750, projectile_damage_add = 30, poison_damage = 240, poison_damage_add = 8, mod_movespeed = -0.07, mod_movespeed_add = -0.0028, debuff_level = 26, debuff_level_add = 2},
-		3: {projectile_damage = 1800, projectile_damage_add = 72, poison_damage = 600, poison_damage_add = 20, mod_movespeed = -0.10, mod_movespeed_add = -0.0040, debuff_level = 52, debuff_level_add = 3},
+		1: {projectile_damage = 300, projectile_damage_add = 12, poison_damage = 100, poison_damage_add = 3, mod_movespeed = -0.05, mod_movespeed_add = -0.0012},
+		2: {projectile_damage = 750, projectile_damage_add = 30, poison_damage = 240, poison_damage_add = 8, mod_movespeed = -0.07, mod_movespeed_add = -0.0028},
+		3: {projectile_damage = 1800, projectile_damage_add = 72, poison_damage = 600, poison_damage_add = 20, mod_movespeed = -0.10, mod_movespeed_add = -0.0040},
 	}
 
 
@@ -62,16 +62,23 @@ func on_autocast(_event: Event):
 
 
 func damage_periodic(event: Event):
-	var b: Buff = event.get_buff()
-	tower.do_spell_damage(b.get_buffed_unit(), b.get_power() * _stats.poison_damage_add + _stats.poison_damage, tower.calc_spell_crit_no_bonus())
+	var buff: Buff = event.get_buff()
+	var buffed_unit: Unit = buff.get_buffed_unit()
+	var level: int = tower.get_level()
+	var damage: float = _stats.poison_damage + _stats.poison_damage_add * level
+
+	tower.do_spell_damage(bbuffed_unit, damage, tower.calc_spell_crit_no_bonus())
 
 
 func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	poison_bt.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
+	var level: int = tower.get_level()
+	var damage: float = _stats.projectile_damage + _stats.projectile_damage_add * level
+
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	poison_bt.apply(tower, creep, level)
 
 
 func tower_init():

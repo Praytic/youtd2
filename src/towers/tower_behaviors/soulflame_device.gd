@@ -214,8 +214,9 @@ func evil_device_bt_update(buff: Buff):
 func soulfire_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
-	var power: int = buff.get_power()
-	var damage: float = (1000 + 40 * tower.get_level()) * power
+	var stack_count: int = buff.user_int
+	var damage_per_stack = 1000 + 40 * tower.get_level()
+	var damage: float = damage_per_stack * stack_count
 
 	tower.do_spell_damage(buffed_unit, damage, tower.calc_spell_crit_no_bonus())
 
@@ -234,14 +235,20 @@ func soulfire_bt_on_death(event: Event):
 
 	var nearby_count: int = it.count()
 
+	var stack_count_on_dead_creep: int
+	if buff != null:
+		stack_count_on_dead_creep = buff.user_int
+	else:
+		stack_count_on_dead_creep = 0
+
 	while true:
 		var next: Unit = it.next()
 
 		if next == null:
 			break
 
-		var power_gain: int = buff.get_power() / nearby_count
-		ashbringer_soulfire_apply(next, power_gain)
+		var stack_gain: int = floori(Utils.divide_safe(stack_count_on_dead_creep, nearby_count))
+		ashbringer_soulfire_apply(next, stack_gain)
 
 
 func ashbringer_consumption_missile(target: Unit):
@@ -250,17 +257,18 @@ func ashbringer_consumption_missile(target: Unit):
 	Projectile.create_from_unit_to_point(soulflame_pt, target, 0, 0, target, destination_pos, false, true)
 
 
-func ashbringer_soulfire_apply(target: Unit, power_gain: int):
-	var b: Buff = target.get_buff_of_type(soulfire_bt)
+func ashbringer_soulfire_apply(target: Unit, stack_gain: int):
+	var buff: Buff = target.get_buff_of_type(soulfire_bt)
 
-	if power_gain < 1:
-		power_gain = 1
+	if stack_gain < 1:
+		stack_gain = 1
 
-	var power: int
-	if b != null:
-		power = b.get_power() + power_gain
-	else:
-		power = power_gain
+	var active_stack_count: int = 0
+	if buff != null:
+		active_stack_count = buff.user_int
 
-	var buff: Buff = soulfire_bt.apply_custom_power(tower, target, 1, power)
-	buff.set_displayed_stacks(power)
+	var new_stack_count: int = active_stack_count + stack_gain
+
+	buff = soulfire_bt.apply(tower, target, 1)
+	buff.user_int = new_stack_count
+	buff.set_displayed_stacks(new_stack_count)

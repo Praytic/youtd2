@@ -72,12 +72,11 @@ func tower_init():
 
 func on_unit_in_range(event: Event):
 	var creep: Unit = event.get_target()
-	var lvl: int = tower.get_level()
+	var level: int = tower.get_level()
+	var damage: float = _stats.cold_damage + _stats.cold_damage_add * level
 
-	tower.do_spell_damage(creep, _stats.cold_damage + _stats.cold_damage_add * lvl, tower.calc_spell_crit_no_bonus())
-	var buff_power: int = tower.get_level()
-	var buff_level: int = int((_stats.cold_slow + COLD_SLOW_ADD * buff_power) * 1000)
-	extreme_cold_bt.apply_custom_power(tower, creep, buff_level, buff_power)
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	extreme_cold_bt.apply(tower, creep, level)
 
 	var effect: int = Effect.create_scaled("FrostArmorDamage.mdl", Vector3(creep.get_x(), creep.get_y(), 30), 0, 5)
 	Effect.destroy_effect_after_its_over(effect)

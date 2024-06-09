@@ -11,10 +11,10 @@ var stun_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {spell_damage = 50, spell_damage_15 = 70, spell_damage_add = 2, spell_damage_chance_add = 2, buff_power = 120, buff_power_15 = 150},
-		2: {spell_damage = 500, spell_damage_15 = 700, spell_damage_add = 20, spell_damage_chance_add = 20, buff_power = 160, buff_power_15 = 200},
-		3: {spell_damage = 1500, spell_damage_15 = 2100, spell_damage_add = 60, spell_damage_chance_add = 60, buff_power = 200, buff_power_15 = 250},
-		4: {spell_damage = 2500, spell_damage_15 = 3500, spell_damage_add = 100, spell_damage_chance_add = 1000, buff_power = 240, buff_power_15 = 300},
+		1: {spell_damage = 50, spell_damage_15 = 70, spell_damage_add = 2, spell_damage_chance_add = 2, buff_level = 120, buff_level_15 = 150},
+		2: {spell_damage = 500, spell_damage_15 = 700, spell_damage_add = 20, spell_damage_chance_add = 20, buff_level = 160, buff_level_15 = 200},
+		3: {spell_damage = 1500, spell_damage_15 = 2100, spell_damage_add = 60, spell_damage_chance_add = 60, buff_level = 200, buff_level_15 = 250},
+		4: {spell_damage = 2500, spell_damage_15 = 3500, spell_damage_add = 100, spell_damage_chance_add = 1000, buff_level = 240, buff_level_15 = 300},
 	}
 
 
@@ -23,9 +23,9 @@ func create_autocasts() -> Array[Autocast]:
 
 	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
 	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
-	var damage_from_spells: String = Utils.format_percent(_stats.buff_power * 0.1 * 0.01, 2)
+	var damage_from_spells: String = Utils.format_percent(_stats.buff_level * 0.1 * 0.01, 2)
 	var damage_at_15: String = Utils.format_float(_stats.spell_damage_15 - _stats.spell_damage, 2)
-	var damage_from_spells_at_15: String = Utils.format_percent((_stats.buff_power_15 - _stats.buff_power)  * 0.1 * 0.01, 2)
+	var damage_from_spells_at_15: String = Utils.format_percent((_stats.buff_level_15 - _stats.buff_level)  * 0.1 * 0.01, 2)
 
 	autocast.title = "Lunar Grace"
 	autocast.icon = "res://resources/icons/orbs/moon.tres"
@@ -86,6 +86,6 @@ func on_autocast(event: Event):
 			stun_bt.apply_only_timed(tower, target, 0.4)
 
 		if level < 15:
-			lunar_energy_bt.apply_advanced(tower, target, 0, _stats.buff_power, 2.5)
+			lunar_energy_bt.apply_custom_timed(tower, target, _stats.buff_level, 2.5)
 		else:
-			lunar_energy_bt.apply_advanced(tower, target, 0, _stats.buff_power_15, 2.5)
+			lunar_energy_bt.apply_custom_timed(tower, target, _stats.buff_level_15, 2.5)

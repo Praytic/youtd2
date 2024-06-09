@@ -64,11 +64,11 @@ func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var buff_level: int = int((_stats.slow_amount + _stats.slow_amount_add * tower.get_level()) * 1000)
-	var buff_power: int = tower.get_level()
+	var level: int = tower.get_level()
+	var damage: float = _stats.projectile_damage + _stats.projectile_damage_add * level
 
-	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
-	frozen_bt.apply_custom_power(tower, creep, buff_level, buff_power)
+	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
+	frozen_bt.apply(tower, creep, level)
 
 
 func tower_init():

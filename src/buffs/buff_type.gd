@@ -191,15 +191,6 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	return buff
 
 
-# NOTE: buffType.applyCustomPower() in JASS
-func apply_custom_power(caster: Unit, target: Unit, level: int, power: int) -> Buff:
-	var time: float = _time_base + _time_level_add * level
-
-	var buff: Buff = apply_advanced(caster, target, level, power, time)
-
-	return buff
-
-
 # Base apply function. Overrides time parameters from init().
 # 
 # NOTE: buffType.applyCustomTimed() in JASS

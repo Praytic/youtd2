@@ -187,27 +187,30 @@ func on_autocast(_event: Event):
 func ashbringer_linger_apply(target: Unit):
 	var buff: Buff = target.get_buff_of_type(lingering_flames_bt)
 	
-	var power: int = 0
+	var active_stacks: int
 	if buff != null:
-		power = buff.get_power() + 1
+		active_stacks = buff.user_int
 	else:
-		power = 1
+		active_stacks = 0
 
-	buff = lingering_flames_bt.apply_custom_power(tower, target, 1, power)
-	buff.set_displayed_stacks(buff.get_power())
+	var new_stacks: int = active_stacks + 1
+
+	buff = lingering_flames_bt.apply(tower, target, 1)
+	buff.user_int = new_stacks
+	buff.set_displayed_stacks(new_stacks)
 
 
 func lingering_flames_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var power: int = buff.get_power()
-	var damage: float = (100 + 2 * tower.get_level()) * power
+	var stack_count: int = buff.user_int
+	var damage: float = (100 + 2 * tower.get_level()) * stack_count
 	var gain_mana_chance: float = 0.2 + 0.004 * tower.get_level()
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
 
 	if tower.calc_chance(gain_mana_chance):
-		tower.add_mana_perc(0.005 * power)
+		tower.add_mana_perc(0.005 * stack_count)
 
 
 func aura_bt_on_create(event: Event):
