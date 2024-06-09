@@ -27,6 +27,6 @@ func item_init():
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0
-	aura.level_add = 0
+	aura.level_add = 1
 	aura.aura_effect = magnetic_bt
 	item.add_aura(aura)

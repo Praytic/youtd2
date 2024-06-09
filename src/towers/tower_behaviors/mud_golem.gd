@@ -68,7 +68,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0
-	aura.level_add = 0
+	aura.level_add = 1
 	aura.aura_effect = aura_bt
 
 	return [aura]

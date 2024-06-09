@@ -110,7 +110,7 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 1
+	aura.level = 0
 	aura.level_add = 1
 	aura.aura_effect = steam_bt
 
