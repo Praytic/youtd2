@@ -21,7 +21,7 @@ func item_init():
 	warsong_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	warsong_bt.set_buff_tooltip("Warsong Double Bass Effect\nIncreased attack speed.")
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.075, 0.001)
 	warsong_bt.set_buff_modifier(mod)
 
 	var aura: AuraType = AuraType.new()
@@ -29,8 +29,8 @@ func item_init():
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = 0
-	aura.level_add = 10
+	aura.level_add = 1
 	aura.power = 0
-	aura.power_add = 10
+	aura.power_add = 1
 	aura.aura_effect = warsong_bt
 	item.add_aura(aura)
