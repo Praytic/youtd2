@@ -40,10 +40,19 @@ static func run(build_space: BuildSpace):
 		
 		return
 
+	var player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = player.get_item_stash()
+
 	while true:
 		for tower in built_tower_list:
 			tower.remove_from_game()
 		built_tower_list.clear()
+
+#		NOTE: empty item stash to prevent overflow during testing
+		var item_list: Array[Item] = item_stash.get_item_list()
+		for item in item_list:
+			item_stash.remove_item(item)
+			item.queue_free()
 
 		var random_tower_id_list: Array = FORCE_TOWER_LIST.duplicate()
 
