@@ -67,7 +67,7 @@ func damage_periodic(event: Event):
 	var level: int = tower.get_level()
 	var damage: float = _stats.poison_damage + _stats.poison_damage_add * level
 
-	tower.do_spell_damage(bbuffed_unit, damage, tower.calc_spell_crit_no_bonus())
+	tower.do_spell_damage(buffed_unit, damage, tower.calc_spell_crit_no_bonus())
 
 
 func hit(_p: Projectile, creep: Unit):

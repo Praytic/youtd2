@@ -122,8 +122,6 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_self = false
 	aura.level = 0
 	aura.level_add = 0
-	aura.power = 0
-	aura.power_add = 0
 	aura.aura_effect = aura_bt
 
 	return [aura]

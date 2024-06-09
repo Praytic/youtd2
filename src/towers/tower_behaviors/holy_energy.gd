@@ -2,7 +2,7 @@ extends TowerBehavior
 
 
 # NOTE: fixed bug in original script where glimmer aura's
-# initial level/power were set to 1 which caused the initial
+# initial level was set to 1 which caused the initial
 # effect value to be 15% + 0.2%. Fixed so it's 15%.
 
 
@@ -93,8 +93,6 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_self = true
 	aura.level = 0
 	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
 	aura.aura_effect = glimmer_bt
 	return [aura]
 

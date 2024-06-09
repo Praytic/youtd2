@@ -39,7 +39,5 @@ func item_init():
 	aura_type.target_self = true
 	aura_type.level = 0
 	aura_type.level_add = 1
-	aura_type.power = 0
-	aura_type.power_add = 1
 	aura_type.aura_effect = charitable_bt
 	item.add_aura(aura_type)

@@ -5,6 +5,15 @@ class_name AuraType
 # properties, then pass AuraType to Tower.add_aura() or
 # BuffType.add_aura().
 
+# NOTE: level and level_add parameters define how aura level
+# scales with tower level.
+# aura level = level + level_add * tower_level
+# - Setting level to 0 and level_add to 1 will make aura
+#   level the same as tower level.
+# - Setting level to 100 and level_add to 2 will make aura
+#   level start at 200 and incrase by 2 for each tower
+#   level.
+
 
 var name: String = ""
 var icon: String = ""
@@ -21,8 +30,6 @@ var target_type: TargetType = null
 var target_self: bool = false
 var level: int = 0
 var level_add: int = 0
-var power: int = 0
-var power_add: int = 0
 var aura_effect: BuffType = null
 
 var _include_invisible: bool = false

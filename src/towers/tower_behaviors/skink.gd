@@ -89,12 +89,10 @@ func get_aura_types() -> Array[AuraType]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s spell damage per second" % dmg_add
 
-	aura.level = 0
-	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.aura_effect = poison_skin_bt
 	aura.target_self = true
+	aura.level = 0
+	aura.level_add = 1
 	aura.aura_range = AURA_RANGE
 	return [aura]

@@ -28,7 +28,5 @@ func item_init():
 	aura.target_self = true
 	aura.level = 0
 	aura.level_add = 0
-	aura.power = 1
-	aura.power_add = 0
 	aura.aura_effect = magnetic_bt
 	item.add_aura(aura)

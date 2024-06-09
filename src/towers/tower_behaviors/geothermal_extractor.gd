@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 1.0 / 10000)
+	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.damage_increase, _stats.damage_increase_add)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/angel_outfit.tres")
 	aura_bt.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
@@ -39,9 +39,8 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = int(_stats.damage_increase * 10000)
-	aura.level_add = int(_stats.damage_increase_add * 10000)
-	aura.power = int(_stats.damage_increase * 10000)
-	aura.power_add = int(_stats.damage_increase_add * 10000)
+	aura.level = 0
+	aura.level_add = 1
 	aura.aura_effect = aura_bt
+
 	return [aura]

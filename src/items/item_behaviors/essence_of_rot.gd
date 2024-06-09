@@ -40,8 +40,6 @@ func item_init():
 	aura_tower.target_self = true
 	aura_tower.level = 0
 	aura_tower.level_add = 1
-	aura_tower.power = 0
-	aura_tower.power_add = 1
 	aura_tower.aura_effect = presence_tower_bt
 	item.add_aura(aura_tower)
 
@@ -51,7 +49,5 @@ func item_init():
 	aura_creep.target_self = true
 	aura_creep.level = 0
 	aura_creep.level_add = 1
-	aura_creep.power = 0
-	aura_creep.power_add = 1
 	aura_creep.aura_effect = presence_creep_bt
 	item.add_aura(aura_creep)

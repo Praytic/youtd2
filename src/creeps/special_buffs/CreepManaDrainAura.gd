@@ -14,12 +14,10 @@ func _init(parent: Node):
 	slow_aura_effect.set_buff_tooltip("Drain Gang\nDrains mana and reduces mana regeneration.")
 
 	var aura: AuraType = AuraType.new()
-	aura.power_add = 0
+	aura.level = 0
 	aura.level_add = 0
 	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.level = 0
 	aura.aura_effect = slow_aura_effect
-	aura.power = 0
 	aura.target_self = false
 	aura.aura_range = 1200
 

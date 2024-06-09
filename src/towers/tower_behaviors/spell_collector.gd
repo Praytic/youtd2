@@ -101,8 +101,6 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_self = true
 	aura.level = 0
 	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
 	aura.aura_effect = spell_gathering_bt
 	return [aura]
 

@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 1.0 / 10000)
+	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed, _stats.mod_attack_speed_add)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
@@ -38,10 +38,8 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = _stats.aura_range
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = int(_stats.mod_attack_speed * 10000)
-	aura.level_add = int(_stats.mod_attack_speed_add * 10000)
-	aura.power = int(_stats.mod_attack_speed * 10000)
-	aura.power_add = int(_stats.mod_attack_speed_add * 10000)
+	aura.level = 0
+	aura.level_add = 1
 	aura.aura_effect = aura_bt
 
 	return [aura]

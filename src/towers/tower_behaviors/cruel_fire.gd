@@ -17,7 +17,7 @@ const AURA_RANGE: float = 300
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
+	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.mod_crit, _stats.mod_crit_add)
 	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
 	fire_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	fire_bt.set_buff_modifier(m)
@@ -42,9 +42,8 @@ func get_aura_types() -> Array[AuraType]:
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = int(_stats.mod_crit * 10000)
-	aura.level_add = int(_stats.mod_crit_add * 10000)
-	aura.power = int(_stats.mod_crit * 10000)
-	aura.power_add = int(_stats.mod_crit_add * 10000)
+	aura.level = 0
+	aura.level_add = 1
 	aura.aura_effect = fire_bt
+	
 	return [aura]

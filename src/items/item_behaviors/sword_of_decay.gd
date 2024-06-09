@@ -32,7 +32,5 @@ func item_init():
 	aura.target_self = true
 	aura.level = 0
 	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
 	aura.aura_effect = rot_bt
 	item.add_aura(aura)

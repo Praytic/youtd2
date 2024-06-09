@@ -40,7 +40,5 @@ func item_init():
 	aura.target_self = false
 	aura.level = 0
 	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
 	aura.aura_effect = fright_bt
 	item.add_aura(aura)

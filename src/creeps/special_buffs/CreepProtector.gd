@@ -44,8 +44,6 @@ func _init(parent: Node):
 	aura.target_self = false
 	aura.level = 0
 	aura.level_add = 0
-	aura.power = 0
-	aura.power_add = 0
 	aura.aura_effect = aura_bt
 	add_aura(aura)
 

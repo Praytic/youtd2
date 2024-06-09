@@ -70,8 +70,6 @@ func get_aura_types() -> Array[AuraType]:
 	aura.target_self = false
 	aura.level = 500
 	aura.level_add = 20
-	aura.power = 500
-	aura.power_add = 20
 	aura.aura_effect = aura_bt
 	return [aura]
 
