@@ -14,8 +14,6 @@ var _target_type: TargetType = null
 var _target_self: bool = false
 var _level: int = 0
 var _level_add: int = 0
-var _power: int = 0
-var _power_add: int = 0
 var _aura_effect: BuffType = null
 
 # NOTE: this is only used by MagicalSightBuff. All other
@@ -59,10 +57,6 @@ func refresh():
 		buff._emit_refresh_event()
 
 
-func get_power() -> int:
-	return _power + _caster.get_level() * _power_add
-
-
 func get_level() -> int:
 	return _level + _caster.get_level() * _level_add
 
@@ -98,7 +92,6 @@ func _remove_invalid_targets():
 
 func _change_buff_level_to_this_aura_level(buff: Buff):
 	buff.set_level(get_level())
-	buff.set_power(get_power())
 	buff._change_giver_of_aura_effect(_caster)
 	buff._emit_refresh_event()
 
@@ -158,7 +151,7 @@ func _on_manual_timer_timeout():
 				active_buff = null
 
 		if active_buff == null:
-			_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
+			_aura_effect.apply_to_unit_permanent(_caster, unit, get_level())
 			_target_list.append(unit)
 		else:
 			var can_increase_level: bool = active_buff.get_level() < get_level()

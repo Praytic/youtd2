@@ -601,9 +601,9 @@ func remove_modifier(modifier: Modifier):
 		_direct_modifier_list.append(modifier)
 
 
-func change_modifier_power(modifier: Modifier, old_power: int, new_power: int):
-	_apply_modifier(modifier, old_power, -1)
-	_apply_modifier(modifier, new_power, 1)
+func change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
+	_apply_modifier(modifier, old_level, -1)
+	_apply_modifier(modifier, new_level, 1)
 
 
 # These two functions are used to implement magical sight
@@ -1040,17 +1040,16 @@ func _add_buff_internal(buff: Buff):
 
 	_buff_list.append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_power(), 1)
+	_apply_modifier(buff_modifier, buff.get_level(), 1)
 	
 	buff_list_changed.emit()
 
 
-func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
+func _apply_modifier(modifier: Modifier, level: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var power_bonus: float = modification.level_add * power
-		var value: float = modification.value_base + power_bonus
+		var value: float = modification.value_base + modification.level_add * level
 
 		_modify_property_internal(modification.type, value, modify_direction)
 
@@ -1064,7 +1063,7 @@ func _update_invisible_modulate():
 
 func _remove_buff_internal(buff: Buff):
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_power(), -1)
+	_apply_modifier(buff_modifier, buff.get_level(), -1)
 
 	var buff_type_name: String = buff.get_buff_type_name()
 	_buff_map.erase(buff_type_name)
@@ -1293,7 +1292,7 @@ func set_level(new_level: int):
 
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
-		change_modifier_power(modifier, old_level, new_level)
+		change_modifier_level(modifier, old_level, new_level)
 
 
 # NOTE: Node2D.position and Node2D.get_position() return

@@ -35,8 +35,6 @@ func make(caster: Unit) -> Aura:
 	aura._target_self = target_self
 	aura._level = level
 	aura._level_add = level_add
-	aura._power = power
-	aura._power_add = power_add
 	aura._aura_effect = aura_effect
 	aura._include_invisible = _include_invisible
 

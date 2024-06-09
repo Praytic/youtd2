@@ -17,7 +17,6 @@ var _caster: Unit
 var _target: Unit
 var _modifier: Modifier = Modifier.new()
 var _level: int
-var _power: int
 var _time: float
 var _friendly: bool
 var _buff_type_name: String
@@ -263,11 +262,10 @@ func _emit_refresh_event():
 	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
 
 
-func _upgrade_by_new_buff(new_level: int, new_power: int):
+func _upgrade_by_new_buff(new_level: int):
 	refresh_duration()
 	
 	set_level(new_level)
-	set_power(new_power)
 
 	var upgrade_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
@@ -465,8 +463,9 @@ func get_modifier() -> Modifier:
 
 # NOTE: buff.setLevel() in JASS
 func set_level(level: int):
+	var old_level: int = _level
 	_level = level
-	set_power(level)
+	_target.change_modifier_level(get_modifier(), old_level, level)
 
 
 # Level is used to compare this buff with another buff of
@@ -476,20 +475,6 @@ func set_level(level: int):
 # NOTE: buff.getLevel() in JASS
 func get_level() -> int:
 	return _level
-
-
-# Power level is used to calculate the total time and total
-# value of modifiers.
-# NOTE: buff.getPower() in JASS
-func get_power() -> int:
-	return _power
-
-
-# NOTE: buff.setPower() in JASS
-func set_power(power: int):
-	var old_power: int = _power
-	_power = power
-	_target.change_modifier_power(get_modifier(), old_power, power)
 
 
 func get_buff_type_name() -> String:

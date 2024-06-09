@@ -8,9 +8,9 @@ var buff_was_purged: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {target_count = 2, mod_armor = 0.50, mod_armor_add = 0.010, erupt_damage = 100, armor_regain = 0.70, armor_regain_add = 0.010, damage_per_power = 1.0},
-		2: {target_count = 3, mod_armor = 0.60, mod_armor_add = 0.015, erupt_damage = 260, armor_regain = 0.60, armor_regain_add = 0.015, damage_per_power = 2.6},
-		3: {target_count = 4, mod_armor = 0.70, mod_armor_add = 0.020, erupt_damage = 440, armor_regain = 0.50, armor_regain_add = 0.020, damage_per_power = 4.4},
+		1: {target_count = 2, mod_armor = 0.50, mod_armor_add = 0.010, erupt_damage = 100, armor_regain = 0.70, armor_regain_add = 0.010, damage_per_buff_level = 1.0},
+		2: {target_count = 3, mod_armor = 0.60, mod_armor_add = 0.015, erupt_damage = 260, armor_regain = 0.60, armor_regain_add = 0.015, damage_per_buff_level = 2.6},
+		3: {target_count = 4, mod_armor = 0.70, mod_armor_add = 0.020, erupt_damage = 440, armor_regain = 0.50, armor_regain_add = 0.020, damage_per_buff_level = 4.4},
 	}
 
 
@@ -96,12 +96,12 @@ func phoenix_fire_bt_on_purge(_event: Event):
 func phoenix_fire_bt_on_cleanup(event: Event):
 	var target: Unit = event.get_target()
 	var buff: Buff = event.get_buff()
-	var power: int = buff.get_power()
+	var buff_level: int = buff.get_level()
 	var level: int = tower.get_level()
 	var damage_multiplier: float = tower.get_current_attack_damage_with_bonus() / tower.get_base_damage()
-	var eruption_damage: float = power * _stats.damage_per_power * damage_multiplier
+	var eruption_damage: float = buff_level * _stats.damage_per_buff_level * damage_multiplier
 	var armor_regain_factor: float = _stats.armor_regain + _stats.armor_regain_add * level
-	var armor_regain: float = -power / 100.0 * (1 - armor_regain_factor)
+	var armor_regain: float = -buff_level / 100.0 * (1 - armor_regain_factor)
 
 	if !buff_was_purged:
 		tower.do_attack_damage_aoe_unit(target, ERUPT_RANGE, eruption_damage, tower.calc_attack_multicrit(0, 0, 0), 0.5)
@@ -200,11 +200,11 @@ func _apply_phoenix_fire_buff(target: Unit):
 	var buff: Buff = target.get_buff_of_type(phoenix_fire_bt)
 
 	if buff != null:
-		phoenix_fire_bt.apply(tower, target, buff.get_power() + int(armor_loss * 100))
+		phoenix_fire_bt.apply(tower, target, buff.get_level() + int(armor_loss * 100))
 	else:
 		phoenix_fire_bt.apply(tower, target, int(armor_loss * 100))
 
 	buff = target.get_buff_of_type(phoenix_fire_bt)
 	if buff != null:
-		var stack_count: int = roundi(Utils.divide_safe(buff.get_power(), armor_loss * 100))
+		var stack_count: int = roundi(Utils.divide_safe(buff.get_level(), armor_loss * 100))
 		buff.set_displayed_stacks(stack_count)

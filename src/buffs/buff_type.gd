@@ -96,18 +96,10 @@ func _init(variable_name: String, time_base: float, time_level_add: float, frien
 ###       Public      ###
 #########################
 
-# Base apply function. Overrides time parameters from
-# init(). Returns the new buff that was applied or currently
-# active buff if it has higher priority due to stacking
-# behavior.
-#
-# NOTE: buffs must be applied after the unit has been added
-# to scene tree, after add_child() was called.
-# 
 # NOTE: buffType.applyAdvanced() in JASS
-func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
+func _apply_internal(caster: Unit, target: Unit, level: int, time: float) -> Buff:
 	if _stacking_behavior_is_enabled:
-		var higher_prio_buff: Buff = _do_stacking_behavior(target, level, power)
+		var higher_prio_buff: Buff = _do_stacking_behavior(target, level)
 
 		if higher_prio_buff != null:
 			return higher_prio_buff
@@ -115,7 +107,6 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	var buff: Buff = Buff.new()
 	buff._caster = caster
 	buff._level = level
-	buff._power = power
 	buff._target = target
 	buff._modifier = _modifier
 	buff._time = time
@@ -195,12 +186,18 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 # 
 # NOTE: buffType.applyCustomTimed() in JASS
 func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float) -> Buff:
-	var buff: Buff = apply_advanced(caster, target, level, level, time)
+	var buff: Buff = _apply_internal(caster, target, level, time)
 
 	return buff
 
 
-# Apply using time parameters that were defined in init()
+# Basic apply function. Uses time parameters that were
+# passed to BuffType.new(). Returns the new buff that was
+# applied or currently active buff if it has higher priority
+# due to stacking behavior.
+#
+# NOTE: buffs must be applied after the unit has been added
+# to scene tree, after add_child() was called.
 # 
 # NOTE: buffType.apply() in JASS
 func apply(caster: Unit, target: Unit, level: int) -> Buff:
@@ -219,7 +216,6 @@ func apply_only_timed(caster: Unit, target: Unit, time: float) -> Buff:
 	var buff: Buff = apply_custom_timed(caster, target, 0, time)
 	
 	return buff
-
 
 # NOTE: buffType.applyToUnitPermanent() in JASS
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
@@ -370,7 +366,7 @@ func disable_stacking_behavior():
 # NOTE: the stacking logic has to be in the exact way as
 # defined here. Changing this logic will break tower and
 # item scripts.
-func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff:
+func _do_stacking_behavior(target: Unit, new_level: int):
 	var active_buff: Buff = target.get_buff_of_type(self)
 
 #	NOTE: no active buff, so ok to create new buff
@@ -401,25 +397,12 @@ func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff
 
 	if new_level > active_level:
 #		NOTE: upgrade active buff, no new buff
-		active_buff._upgrade_by_new_buff(new_level, new_power)
+		active_buff._upgrade_by_new_buff(new_level)
 
 		return active_buff
 	elif new_level == active_level:
-#		NOTE: if level is same but new power is greater then
-#		still upgrade the buff to give it new power level!
-#		Some towers do this kind of weird thing where they
-#		use same level but different power levels. FYI this
-#		case might not be handled correctly in original
-#		youtd because API docs say that the buff is upgraded
-#		only if new level is greater, no mention about
-#		comparing power level? Not sure.
-		var old_power: int = active_buff.get_power()
-		if new_power > old_power:
-#			NOTE: upgrade active buff, no new buff
-			active_buff._upgrade_by_new_buff(new_level, new_power)
-		else:
-#			NOTE: refresh active buff, no new buff
-			active_buff._refresh_by_new_buff()
+#		NOTE: refresh active buff, no new buff
+		active_buff._refresh_by_new_buff()
 
 		return active_buff
 	else :
@@ -451,13 +434,7 @@ func get_unique_name() -> String:
 # Defines a modifier which will be applied to target unit.
 # Note that unlike modifiers applied via Unit.add_modifier()
 # function, buff modifiers will not react to unit level ups.
-# The strength of buff modifiers depends on buff's power.
-# Buff power is defined when buff is applied and can be
-# manually modified later via Buff.set_power(). Buff power
-# may also change when a stronger buff of same type is
-# applied on top of an old buff. The most common case is to
-# set buff power to caster level and leave it unchanged
-# for the duration of the buff.
+# The strength of buff modifiers depends on buff level.
 # NOTE: buffType.setBuffModifier() in JASS
 func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
