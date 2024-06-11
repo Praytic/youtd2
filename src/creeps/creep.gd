@@ -80,6 +80,8 @@ func _ready():
 
 
 func update(delta: float):
+	super.update(delta)
+	
 	if !is_stunned():
 		_move(delta)
 

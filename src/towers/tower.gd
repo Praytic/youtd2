@@ -197,6 +197,8 @@ func _ready():
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func update(delta: float):
+	super.update(delta)
+
 	var attack_enabled: bool = get_attack_enabled()
 	if !attack_enabled:
 		return

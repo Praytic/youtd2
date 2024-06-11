@@ -119,6 +119,7 @@ static var _uid_max: int = 1
 var _uid: int = 0
 # NOTE: up axis is positive z, down axis is negative z.
 var _position_wc3: Vector3
+var _total_stun_duration: float = 0.0
 
 var _selection_indicator: Node = null
 var _unit_selection_outline: Node = null
@@ -263,6 +264,11 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func update(delta: float):
+	if is_stunned():
+		_total_stun_duration += delta
+
 
 func set_unit_scale(value: float):
 	_unit_sprite_parent.scale = value * Vector2.ONE
@@ -1519,6 +1525,11 @@ func is_silenced() -> bool:
 
 func is_stunned() -> bool:
 	return _stun_count > 0
+
+# Returns the total amount of time that this unit was
+# stunned for during it's lifetime.
+func get_total_stun_duration() -> float:
+	return _total_stun_duration
 
 # NOTE: unit.isBanished() in JASS
 func is_ethereal() -> bool:
