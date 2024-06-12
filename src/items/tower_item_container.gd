@@ -27,8 +27,6 @@ func _init(capacity: int, tower: Tower):
 #########################
 
 func add_item(item: Item, insert_index: int = -1):
-	item._add_to_tower(_tower)
-	
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	if is_oil:
@@ -36,6 +34,10 @@ func add_item(item: Item, insert_index: int = -1):
 		add_child(item)
 	else:
 		super.add_item(item, insert_index)
+
+#	NOTE: order is important here. Need to call add_item()
+#	to do add_child() before calling _add_to_tower()
+	item._add_to_tower(_tower)
 
 # 	NOTE: hackfix alert! The _is_oil_and_was_applied_already
 # 	flag is used to know when we are transferring oils from

@@ -20,7 +20,7 @@ const FRESHNESS_DURATION: float = 7.0
 
 # NOTE: Nermind's Eye(220) and Eye of True Sight(221) are
 # disabled because invisible waves are disabled.
-static var disabled_item_list: Array[int] = [140, 254, 220, 221]
+static var disabled_item_list: Array[int] = [140, 220, 221]
 
 
 var user_int: int = 0
@@ -89,8 +89,6 @@ func _init(id: int, player: Player):
 # some item scripts access the scene tree inside
 # ItemBehavior.on_create()
 func _ready():
-	_item_behavior.init(self, _modifier, _triggers_bt)
-	
 	#	NOTE: need to use Timer instead of ManualTimer here because this effect affects only visuals and shouldn't be affected by gamespeed. Otherwise, the freshness indicator would go away too fast when gamespeed is set to fast.
 	var freshness_timer: Timer = Timer.new()
 	freshness_timer.one_shot = true
@@ -170,6 +168,11 @@ func get_ability_description() -> String:
 # NOTE: item.onTowerDetails() in JASS
 func on_tower_details() -> MultiboardValues:
 	return _item_behavior.on_tower_details()
+
+
+func disable_autocast():
+	if _autocast != null:
+		_autocast.set_caster(null)
 
 
 #########################
@@ -362,6 +365,11 @@ func _on_freshness_timer_timeout():
 	set_is_fresh(false)
 
 
+func _set_item_behavior(item_behavior: ItemBehavior):
+	_item_behavior = item_behavior
+	_item_behavior.init(self, _modifier, _triggers_bt)
+
+
 #########################
 ### Setters / Getters ###
 #########################
@@ -423,7 +431,7 @@ static func make(id: int, player: Player) -> Item:
 
 	var item: Item = Item.new(id, player)
 	var item_behavior: ItemBehavior = item_behavior_script.new()
-	item._item_behavior = item_behavior
+	item._set_item_behavior(item_behavior)
 	item.add_child(item_behavior)
 
 	return item

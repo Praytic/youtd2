@@ -113,6 +113,12 @@ func can_transform_at_pos(pos_mouse: Vector2) -> bool:
 	return can_transform
 
 
+func buildable_cell_exists_at_pos(pos_map: Vector2i) -> bool:
+	var result: bool = _buildable_cells.has(pos_map)
+
+	return result
+
+
 #########################
 ###      Private      ###
 #########################
