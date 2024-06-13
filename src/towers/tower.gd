@@ -1067,15 +1067,15 @@ func get_damage_min() -> int:
 func get_damage_max() -> int:
 	return TowerProperties.get_damage_max(_id)
 
-# NOTE: this f-n maps to both
-# tower.getCurrentAttackDamageBase() and
-# tower.getBaseDamage() in JASS. Yes, original API had two
-# functions which did the exact same thing.
+# Returns the base damage, without bonuses to base damage
+# NOTE: tower.getBaseDamage() in JASS
 func get_base_damage() -> int:
 	return TowerProperties.get_base_damage(_id)
 
 
-func get_base_damage_with_bonus() -> float:
+# Returns base damage, including bonuses to base damage
+# NOTE: tower.getCurrentAttackDamageBase() in JASS
+func get_current_attack_damage_base() -> float:
 	var base_damage: float = get_base_damage()
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()

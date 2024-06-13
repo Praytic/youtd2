@@ -105,7 +105,7 @@ func update_text():
 	_tower_name_label.text = tower_name
 
 #	Attack
-	var base_damage: int = roundi(_tower.get_base_damage_with_bonus())
+	var base_damage: int = roundi(_tower.get_current_attack_damage_base())
 	_base_damage.text = TowerDetails.int_format(base_damage)
 
 	var base_damage_bonus: int = roundi(_tower.get_base_damage_bonus())

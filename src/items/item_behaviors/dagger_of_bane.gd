@@ -28,7 +28,7 @@ func poison_bt_periodic(event: Event):
 	var tower: Tower = b.get_caster()
 
 	if tower.get_instance_id() == b.user_int:
-		tower.do_spell_damage(b.get_buffed_unit(), tower.get_base_damage() * 0.15, tower.get_spell_crit_damage())
+		tower.do_spell_damage(b.get_buffed_unit(), tower.get_current_attack_damage_base() * 0.15, tower.get_spell_crit_damage())
 	else:
 		b.remove_buff()
 

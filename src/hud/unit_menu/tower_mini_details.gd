@@ -65,7 +65,7 @@ func set_tower(tower: Tower):
 #########################
 
 func _get_dmg_stats_left_text() -> String:
-	var base_damage: int = roundi(_tower.get_base_damage_with_bonus())
+	var base_damage: int = roundi(_tower.get_current_attack_damage_base())
 	var base_damage_string: String = TowerDetails.int_format(base_damage)
 
 	var overall_damage: int = roundi(_tower.get_current_attack_damage_with_bonus())
