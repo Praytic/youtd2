@@ -143,6 +143,10 @@ func _ready():
 		
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
+
+#		Reset preceding tower var to avoid having dangling
+#		reference
+		_temp_preceding_tower = null
 	else:
 #		NOTE: only apply builder tower lvl bonus if tower is
 #		"fresh". When tower is transformed or upgraded, it
@@ -236,6 +240,10 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func get_preceding_tower() -> Tower:
+	return _temp_preceding_tower
+
 
 # NOTE: resetAttackCrits() in JASS
 func reset_attack_crits():

@@ -20,7 +20,7 @@ const FRESHNESS_DURATION: float = 7.0
 
 # NOTE: Nermind's Eye(220) and Eye of True Sight(221) are
 # disabled because invisible waves are disabled.
-static var disabled_item_list: Array[int] = [140, 220, 221]
+static var disabled_item_list: Array[int] = [220, 221]
 
 
 var user_int: int = 0

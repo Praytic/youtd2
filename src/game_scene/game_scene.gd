@@ -276,6 +276,14 @@ func _unhandled_input(event: InputEvent):
 
 
 #########################
+###       Public      ###
+#########################
+
+func get_build_space() -> BuildSpace:
+	return _build_space
+
+
+#########################
 ###      Private      ###
 #########################
 

@@ -35,6 +35,13 @@ func wc3_to_canvas(pos_wc3: Vector3) -> Vector2:
 	return pos_canvas
 
 
+func wc3_2d_to_canvas(pos_wc3_2d: Vector2) -> Vector2:
+	var pos_wc3: Vector3 = Vector3(pos_wc3_2d.x, pos_wc3_2d.y, 0)
+	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(pos_wc3)
+
+	return pos_canvas
+
+
 func in_range(start: Vector2, end: Vector2, radius: float) -> bool:
 	var distance_squared: float = start.distance_squared_to(end)
 	var radius_squared: float = radius * radius

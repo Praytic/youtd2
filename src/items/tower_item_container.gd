@@ -54,9 +54,11 @@ func add_item(item: Item, insert_index: int = -1):
 		item._is_oil_and_was_applied_already = true
 
 
+# NOTE: order is important here. Need to call
+# _remove_from_tower() last so that item properties like
+# _carrier are available before that point.
+# _remove_from_tower() clears those properties.
 func remove_item(item: Item):
-	item._remove_from_tower()
-
 	var item_id: int = item.get_id()
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
@@ -65,6 +67,8 @@ func remove_item(item: Item):
 		remove_child(item)
 	else:
 		super.remove_item(item)
+	
+	item._remove_from_tower()
 
 
 func get_oil_list() -> Array[Item]:

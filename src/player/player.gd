@@ -313,6 +313,19 @@ func display_small_floating_text(text: String, unit: Unit, color: Color, random_
 	_floating_text_container.add_child(floating_text)
 
 
+func display_floating_text_at_pos(text: String, pos_wc3: Vector2, color: Color):
+	if self != PlayerManager.get_local_player():
+		return
+
+	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(Vector3(pos_wc3.x, pos_wc3.y, 0))
+
+	var floating_text = Preloads.floating_text_scene.instantiate()
+	floating_text.text = text
+	floating_text.color = color
+	floating_text.position = pos_canvas
+	_floating_text_container.add_child(floating_text)
+
+
 # NOTE: player.giveGold() in JASS
 func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	add_gold(amount)
