@@ -154,13 +154,10 @@ func set_autocast(autocast: Autocast):
 
 static func _generate_draw_points(progress: float, icon_size: float, style: TimeIndicator.DrawStyle) -> PackedVector2Array:
 	var current_progress_point: int = ceili(progress * (_progress_point_list.size() - 1))
-	
-	if current_progress_point < 3:
-		return []
-
-	var point_list: PackedVector2Array = []
-
+	current_progress_point = clampi(current_progress_point, 0, _progress_point_list.size() - 1)
 	var progress_point: Vector2 = _progress_point_list[current_progress_point]
+	
+	var point_list: PackedVector2Array = []
 
 #	Pick appropriate corner points, to complete the polygon
 	match style:
