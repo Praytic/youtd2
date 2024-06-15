@@ -109,6 +109,9 @@ func run_test_items_tool() -> bool:
 func run_test_horadric_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_test_horadric_tool") as bool
 
+func run_test_tower_sprite_size() -> bool:
+	return ProjectSettings.get_setting("application/config/run_test_tower_sprite_size") as bool
+
 func run_prerender_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_prerender_tool") as bool
 

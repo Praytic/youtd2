@@ -216,6 +216,9 @@ func _ready():
 	if Config.run_auto_playtest_bot():
 		PlaytestBot.run(_build_space)
 
+	if Config.run_test_tower_sprite_size():
+		TestTowerSpriteSize.run()
+
 
 func _unhandled_input(event: InputEvent):
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")
