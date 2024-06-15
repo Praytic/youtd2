@@ -312,22 +312,23 @@ scale = Vector2(0.55408, 0.55408)
 
 [node name="GameOverLabel" type="RichTextLabel" parent="."]
 visible = false
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -40.5
-offset_right = 250.0
-offset_bottom = 40.5
+offset_left = -300.0
+offset_top = -56.0
+offset_right = 300.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
-text = "[color=RED]GAME OVER[/color]"
+text = "[center][color=RED]GAME OVER[/color]
+[font_size=30][color=RED]Press Escape and Quit to Title to Restart[/color][/font_size][/center]"
 fit_content = true
 
 [node name="DesyncLabel" type="Label" parent="."]
