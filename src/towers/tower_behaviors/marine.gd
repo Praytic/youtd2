@@ -138,9 +138,11 @@ func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 	else:
 		fragged_bt.apply(tower, target, level)
 
+#	NOTE: need to add 2 to displayed stacks because fragged
+#	buff applies 2% at buff level 0
 	buff = target.get_buff_of_type(fragged_bt)
 	if buff != null:
-		var stack_count: int = buff.get_level() / 10
+		var stack_count: int = buff.get_level() / 10 + 2
 		buff.set_displayed_stacks(stack_count)
 
 
