@@ -1,13 +1,43 @@
 extends ItemBehavior
 
 
+# NOTE: this item is complicated and has multiple edge
+# cases. Some of the edge cases are handled by this item
+# script. Others depend on specific call order in other
+# source files. Very brittle setup!
+# 
+# Handled edge cases:
+# - Jump to position, transform/upgrade tower while tower is
+#   at jump position. New tower needs to correctly be built
+#   at original position instead of jump position. This is
+#   handled by transform/upgrade code. That code contains
+#   specific call order where tower is first added to world
+#   and then inherits position of prev tower. Adding to
+#   world first ensures that items are transferred fist (in
+#   Tower._ready) which means that CLEANUP callback is
+#   called.
+# - Buildable state at original position. When tower jumps,
+#   previous position stays as "occupied" so it's not
+#   possible to build a new tower on old position while
+#   tower is jumping.
+# - Buildable state at jump position. This is intentionally
+#   not modified in any way. It is possible to build a tower
+#   on top of jumping tower but that doesn't cause any
+#   problems.
+# - Transform tower while it's jumping into a tower with
+#   less inventory slots. If Chrono Jumper is dropped from
+#   tower instead of transferred to new tower because of not
+#   enough inventory space, then new tower is still
+#   correctly built at original position because CLEANUP
+#   callback is still called.
+
+
 const JUMP_DURATION: float = 10.0
 const ATTACKSPEED_BONUS: float = 0.10
 const COOLDOWN: float = 30.0
 
 var jumper_bt: BuffType
 var original_pos: Vector2 = Vector2.ZERO
-var _prev_carrier: Tower = null
 
 
 func item_init():
@@ -99,23 +129,6 @@ func on_autocast(event: Event):
 
 	var effect: int = Effect.create_animated("res://src/effects/generic_magic.tscn", original_pos_3d, 0)
 	Effect.set_lifetime(effect, JUMP_DURATION)
-
-
-# NOTE: this handles edge case where tower is
-# transformed/upgraded while jump is in progress. In such
-# cases, move new tower to original position
-func on_pickup():
-	var tower: Tower = item.get_carrier()
-	var tower_was_transformed: bool = Utils.unit_is_valid(tower._temp_preceding_tower) && tower._temp_preceding_tower == _prev_carrier
-
-	if tower_was_transformed:
-		tower.set_position_wc3_2d(original_pos)
-	
-	_prev_carrier = null
-
-
-func on_drop():
-	_prev_carrier = item.get_carrier()
 
 
 # NOTE: chrono_jumper_onCleanup() in original script

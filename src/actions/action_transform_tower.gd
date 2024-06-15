@@ -43,10 +43,14 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
+#	NOTE: order is important here. Setting tower position
+#	must be done after adding tower world. This is needed
+#	for Chrono Jumper item so that correct position is
+#	inherited.
 	var new_tower: Tower = Tower.make(new_tower_id, player, prev_tower)
+	Utils.add_object_to_world(new_tower)
 	var prev_tower_pos: Vector2 = prev_tower.get_position_wc3_2d()
 	new_tower.set_position_wc3_2d(prev_tower_pos)
-	Utils.add_object_to_world(new_tower)
 
 #	Refund build cost for previous tower
 	var refund_value: int = ActionTransformTower.get_transform_refund(prev_tower.get_id(), new_tower_id)
