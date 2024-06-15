@@ -49,6 +49,7 @@ layout_mode = 2
 
 [node name="DamageNumbers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -59,6 +60,7 @@ layout_mode = 2
 
 [node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+focus_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
@@ -69,6 +71,7 @@ layout_mode = 2
 
 [node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+focus_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
@@ -79,6 +82,7 @@ layout_mode = 2
 
 [node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
+focus_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
@@ -89,6 +93,7 @@ layout_mode = 2
 
 [node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
+focus_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
@@ -100,6 +105,7 @@ text = "Mouse scroll:"
 
 [node name="MouseScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 max_value = 1.0
 step = 0.25
 value = 0.5
@@ -111,6 +117,7 @@ text = "Keyboard scroll:"
 
 [node name="KeyboardScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 max_value = 1.0
 step = 0.25
 value = 0.5
@@ -158,6 +165,7 @@ size_flags_horizontal = 8
 
 [node name="OkButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "OK"
 
 [node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -168,6 +176,7 @@ text = "Cancel"
 
 [node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 text = "Apply"
 

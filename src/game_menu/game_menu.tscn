@@ -29,6 +29,7 @@ layout_mode = 2
 
 [node name="HelpButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Help"
 
 [node name="HintsButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
@@ -53,6 +54,7 @@ size_flags_vertical = 3
 
 [node name="CloseButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Close"
 
 [node name="HelpMenu" parent="TabContainer" instance=ExtResource("6_q6xgl")]

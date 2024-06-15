@@ -36,10 +36,12 @@ layout_mode = 2
 
 [node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Back"
 
 [node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Start"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

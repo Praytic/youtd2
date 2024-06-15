@@ -51,6 +51,7 @@ text = "Name:"
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 35
 text = "Player"
 context_menu_enabled = false
@@ -99,10 +100,12 @@ size_flags_horizontal = 0
 
 [node name="ExportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 text = "Export experience"
 
 [node name="ImportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 text = "Import experience"
 
 [node name="Spacer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
@@ -115,6 +118,7 @@ layout_mode = 2
 [node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 text = "Close"
 
 [node name="ExportExpMenu" parent="VBoxContainer" instance=ExtResource("2_son4h")]

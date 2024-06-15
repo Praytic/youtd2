@@ -31,10 +31,12 @@ alignment = 2
 
 [node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Cancel"
 
 [node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Start"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

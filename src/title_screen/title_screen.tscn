@@ -74,33 +74,39 @@ layout_mode = 2
 
 [node name="SingleplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Singleplayer"
 
 [node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 visible = false
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
 
 [node name="AuthButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 visible = false
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Auth"
 
 [node name="ProfileButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Profile"
 
 [node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Settings"
 
 [node name="CreditsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Credits"
 
@@ -111,6 +117,7 @@ size_flags_vertical = 3
 
 [node name="QuitButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Quit"
 

@@ -14,10 +14,12 @@ layout_mode = 2
 
 [node name="GoToTitleButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Return to Title"
 
 [node name="QuitGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Quit the game"
 
 [node name="Spacer" type="VBoxContainer" parent="VBoxContainer"]
@@ -26,6 +28,7 @@ layout_mode = 2
 
 [node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Cancel"
 
 [connection signal="pressed" from="VBoxContainer/GoToTitleButton" to="." method="_on_go_to_title_button_pressed"]
