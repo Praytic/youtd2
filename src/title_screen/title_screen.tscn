@@ -142,6 +142,22 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="LoadingIndicator" type="VBoxContainer" parent="UI/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/TabContainer/LoadingIndicator"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("2_ec3wj")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/TabContainer/LoadingIndicator/PanelContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=60]LOADING[/font_size][/center]"
+fit_content = true
+
 [connection signal="completed" from="JoinOrHostController" to="." method="_on_join_or_host_controller_completed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]

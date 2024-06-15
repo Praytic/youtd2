@@ -12,6 +12,7 @@ enum Tab {
 	SETTINGS,
 	CREDITS,
 	AUTH,
+	LOADING,
 }
 
 @export var _tab_container: TabContainer
@@ -58,6 +59,12 @@ func _start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMo
 	Globals._wave_count = wave_count
 	Globals._game_mode = game_mode
 	Globals._origin_seed = origin_seed
+	
+#	NOTE: need to add a delay so that the game properly
+#	switches to displaying LOADING tab before starting
+#	change_scene_to_packed()
+	_tab_container.current_tab = Tab.LOADING
+	await get_tree().create_timer(0.1).timeout
 	
 	get_tree().change_scene_to_packed(Preloads.game_scene_scene)
 
