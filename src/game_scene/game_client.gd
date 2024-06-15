@@ -189,6 +189,7 @@ func _execute_action(action: Dictionary):
 
 	match action_type:
 		Action.Type.IDLE: return
+		Action.Type.SET_PLAYER_NAME: ActionSetPlayerName.execute(action, player)
 		Action.Type.CHAT: ActionChat.execute(action, player, _hud, _chat_commands)
 		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _build_space)
 		Action.Type.UPGRADE_TOWER: ActionUpgradeTower.execute(action, player, _select_unit)

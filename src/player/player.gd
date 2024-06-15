@@ -50,6 +50,7 @@ var _wisdom_upgrade_effect_multiplier: float = 1.0
 var _wisdom_modifier: Modifier = Modifier.new()
 var _selected_unit: Unit = null
 var _autooil: AutoOil = AutoOil.new()
+var _player_name: String = "Player"
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -228,12 +229,12 @@ func is_able_to_research(element: Element.enm) -> bool:
 	return is_able
 
 
-# TODO: sync this info in multiplayer. Players need to tell
-# their names to other players.
-func get_player_name() -> String:
-	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+func set_player_name(value: String):
+	_player_name = value
 
-	return player_name
+
+func get_player_name() -> String:
+	return _player_name
 
 
 func get_id() -> int:
