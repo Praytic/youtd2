@@ -1,6 +1,20 @@
 extends HBoxContainer
 
 
+# NOTE: disable game speed controls in multiplayer because
+# all players need to play at same speed
+func _ready():
+	var game_player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var game_is_singleplayer: bool = game_player_mode == PlayerMode.enm.SINGLE
+
+	if !game_is_singleplayer:
+		hide()
+		
+		var button_list: Array[Node] = get_children()
+		for button in button_list:
+			button.disabled = true
+
+
 #########################
 ###     Callbacks     ###
 #########################
