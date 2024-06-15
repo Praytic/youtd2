@@ -44,7 +44,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 
 	var crush: AbilityInfo = AbilityInfo.new()
 	crush.name = "Crush!"
-	crush.icon = "res://resources/icons/tower_icons/blackrocks_totem.tres"
+	crush.icon = "res://resources/icons/tower_icons/black_rock_totem.tres"
 	crush.description_short = "When hitting stunned creeps, Bonk deals extra spell damage and gives a morale boost to nearby towers.\n"
 	crush.description_full = "This ability works only after Bonk has grown 10 times.\n" \
 	+ " \n" \

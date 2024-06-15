@@ -534,10 +534,10 @@ Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].
 [color=YELLOW]Attack:[/color] [color=GOLD]431[/color] DPS, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
 [color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]100[/color] ([color=CORNFLOWER_BLUE]+1[/color]/sec)
  
-[color=GOLD]Occasional Quillspray[/color]
-On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].
+[color=GOLD]Occasional Thornspray[/color]
+On attack this tower has a chance to trigger a [color=GOLD]Thornspray[/color].
  
-[color=GOLD]Quillspray[/color]
+[color=GOLD]Thornspray[/color]
 This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
 
  
@@ -704,10 +704,10 @@ Chance to turn the flesh of the hit creep into bronze. The creep is slowed, lose
 [color=YELLOW]Attack:[/color] [color=GOLD]915[/color] DPS, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
 [color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]100[/color] ([color=CORNFLOWER_BLUE]+1[/color]/sec)
  
-[color=GOLD]Occasional Quillspray[/color]
-On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].
+[color=GOLD]Occasional Thornspray[/color]
+On attack this tower has a chance to trigger a [color=GOLD]Thornspray[/color].
  
-[color=GOLD]Quillspray[/color]
+[color=GOLD]Thornspray[/color]
 This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
 
  
@@ -720,17 +720,17 @@ Mana cost: [color=GOLD]5[/color], [color=GOLD]800[/color] range, [color=GOLD]0.2
 [color=YELLOW]Attack:[/color] [color=GOLD]1776[/color] DPS, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
 [color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]100[/color] ([color=CORNFLOWER_BLUE]+1[/color]/sec)
  
-[color=GOLD]Occasional Quillspray[/color]
-On attack this tower has a chance to trigger a [color=GOLD]Quillspray[/color].
+[color=GOLD]Occasional Thornspray[/color]
+On attack this tower has a chance to trigger a [color=GOLD]Thornspray[/color].
  
-[color=GOLD]Quillspray[/color]
+[color=GOLD]Thornspray[/color]
 This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
 
  
 Mana cost: [color=GOLD]5[/color], [color=GOLD]800[/color] range, [color=GOLD]0.2s[/color] cooldown
 
 "
-66,"[color=LIGHT_BLUE]During the grand battle against humans, The Blackrock clan used this magical totem, making them unstoppable. [/color]
+66,"[color=LIGHT_BLUE]This Black Rock structure makes nearby warriors unstoppable.[/color]
 [color=YELLOW]Author:[/color] poussix
 [color=YELLOW]Element:[/color] [color=ff4500ff]Fire[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]518[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]1200[/color] range
@@ -1367,13 +1367,13 @@ Whenever this tower hits a creep, it has a chance to steal gold.
 [color=GOLD]+8%[/color] base damage/lvl
  
 [color=GOLD]Serpent Ward[/color]
-Whenever Vol'jin attacks, he has a chance to summon [color=GOLD]1[/color] of [color=GOLD]2[/color] [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.
+Whenever Witch Doctor attacks, he has a chance to summon [color=GOLD]1[/color] of [color=GOLD]2[/color] [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.
  
 [color=GOLD]Purify[/color]
-Whenever Vol'jin hits a creep, it purges all buffs and debuffs and deals bonus attack damage based on the purge count. This ability has a [color=GOLD]4[/color] second cooldown
+Whenever Witch Doctor hits a creep, it purges all buffs and debuffs and deals bonus attack damage based on the purge count. This ability has a [color=GOLD]4[/color] second cooldown
  
 [color=GOLD]Maledict[/color]
-Vol'jin jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.
+Witch Doctor jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.
 
  
 Mana cost: [color=GOLD]30[/color], [color=GOLD]800[/color] range, [color=GOLD]5s[/color] cooldown
@@ -1585,7 +1585,7 @@ Stuns nearby towers and steals their damage.
 Every autocast has a chance to release a wave of shadowbolts. Shadowbolts deal spell damage.
  
 [color=GOLD]Slow Decay - Aura[/color]
-Eredar Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.
+Chaos Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.
  
 [color=GOLD]Siphon Essence[/color]
 Stuns nearby towers and steals their damage.
@@ -1920,7 +1920,7 @@ This tower drops all except Common items on attack.
 [color=GOLD]Specials[/color]
 [color=RED]Attacks GROUND only[/color]
  
-[color=GOLD]+8%[/color] attack damage/lvl
+[color=GOLD]+8%[/color] base damage/lvl
  
 [color=GOLD]Mystical Storm Hammer[/color]
 This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage.
@@ -2095,16 +2095,16 @@ Mana cost: [color=GOLD]20[/color], [color=GOLD]1000[/color] range, [color=GOLD]5
 [color=GOLD]Rend[/color]
 Chance to rend hit creeps, dealing spell damage over time and increasing vulnerability to spell damage.
 "
-170,"[color=LIGHT_BLUE]A mighty Kodo beast that will sometimes devour units to strengthen nearby allies and lets fall some dung in a close area. [/color]
+170,"[color=LIGHT_BLUE]A mighty Warbeast that will sometimes devour units to strengthen nearby allies and lets fall some dung in a close area. [/color]
 [color=YELLOW]Author:[/color] SirCoqalot.
 [color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]930[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]800[/color] range
  
 [color=GOLD]Devour[/color]
-On attack the Kodo has a chance to take a bite out of the main target, dealing spell damage and increasing effectiveness of [color=GOLD]Kodo Dung[/color].
+On attack the Warbeast has a chance to take a bite out of the main target, dealing spell damage and increasing effectiveness of [color=GOLD]Beast Dung[/color].
  
-[color=GOLD]Kodo Dung - Aura[/color]
-The dung of this kodo gives attack bonuses to nearby towers.
+[color=GOLD]Beast Dung - Aura[/color]
+The dung of this Warbeast gives attack bonuses to nearby towers.
 "
 171,"[color=LIGHT_BLUE]A combination of decaying body parts and the presence of an unfathomable evil create a pillar of darkness within this crypt to form a reliable attack and the ability to explode corpses.[/color]
 [color=YELLOW]Author:[/color] eMoo
@@ -2450,7 +2450,7 @@ Each hit on the same creep penetrates deeper through its armor.
 [color=GOLD]Specials[/color]
 [color=GOLD]-50%[/color] experience received ([color=GOLD]-6%[/color]/lvl)
 [color=GOLD]+4%[/color] attack speed/lvl
-[color=GOLD]+12%[/color] attack damage/lvl
+[color=GOLD]+12%[/color] base damage/lvl
  
 [color=GOLD]Silence[/color]
 Silences hit creeps.
@@ -2554,7 +2554,7 @@ When hitting stunned creeps, Bonk deals extra spell damage and gives a morale bo
 When this tower hits a creep, it has a chance to fire a frag grenade. Grenades deal spell damage.
  
 [color=GOLD]Stim[/color]
-This marine uses a stimpack, increasing its attack speed and decreasing its attack damage.
+This marine uses a stim, increasing its attack speed and decreasing its attack damage.
 
  
 Mana cost: [color=GOLD]25[/color], [color=GOLD]1200[/color] range, [color=GOLD]1s[/color] cooldown
@@ -2757,7 +2757,7 @@ Every time this tower kills a creep, it temporarily gains attack speed.
 [color=YELLOW]Attack:[/color] [color=GOLD]4342[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]800[/color] range
  
 [color=GOLD]Specials[/color]
-[color=GOLD]+10%[/color] spell crit chance ([color=GOLD]+0.5%[/color]/lvl)
+[color=GOLD]+8.75%[/color] spell crit chance ([color=GOLD]+0.5%[/color]/lvl)
  
 [color=GOLD]Dark Ritual[/color]
 When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color], causing them to transport creeps and deal spell damage.
@@ -3024,7 +3024,7 @@ Releases a lightning bolt.
 Mana cost: [color=GOLD]20[/color], [color=GOLD]1200[/color] range, [color=GOLD]1s[/color] cooldown
 
 "
-235,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magnataur seeks new challenges to beat.[/color]
+235,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magna seeks new challenges to beat.[/color]
 [color=YELLOW]Author:[/color] drol/im0ckdeath
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]67[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]900[/color] range
@@ -3032,7 +3032,7 @@ Mana cost: [color=GOLD]20[/color], [color=GOLD]1200[/color] range, [color=GOLD]1
 [color=GOLD]Frozen Spears[/color]
 Chance to deal additional attack damage and stun hit creeps.
 "
-236,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magnataur seeks new challenges to beat.[/color]
+236,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magna seeks new challenges to beat.[/color]
 [color=YELLOW]Author:[/color] drol/im0ckdeath
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]285[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]900[/color] range
@@ -3040,7 +3040,7 @@ Chance to deal additional attack damage and stun hit creeps.
 [color=GOLD]Frozen Spears[/color]
 Chance to deal additional attack damage and stun hit creeps.
 "
-237,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magnataur seeks new challenges to beat.[/color]
+237,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magna seeks new challenges to beat.[/color]
 [color=YELLOW]Author:[/color] drol/im0ckdeath
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]656[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]900[/color] range
@@ -3048,7 +3048,7 @@ Chance to deal additional attack damage and stun hit creeps.
 [color=GOLD]Frozen Spears[/color]
 Chance to deal additional attack damage and stun hit creeps.
 "
-238,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magnataur seeks new challenges to beat.[/color]
+238,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magna seeks new challenges to beat.[/color]
 [color=YELLOW]Author:[/color] drol/im0ckdeath
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]1474[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]900[/color] range
@@ -3056,7 +3056,7 @@ Chance to deal additional attack damage and stun hit creeps.
 [color=GOLD]Frozen Spears[/color]
 Chance to deal additional attack damage and stun hit creeps.
 "
-239,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magnataur seeks new challenges to beat.[/color]
+239,"[color=LIGHT_BLUE]Roaming on the Frozen Wastes, the Magna seeks new challenges to beat.[/color]
 [color=YELLOW]Author:[/color] drol/im0ckdeath
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]2534[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]900[/color] range
@@ -3161,7 +3161,7 @@ Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Thund
 [color=GOLD]Specials[/color]
 [color=GOLD]-80%[/color] experience received ([color=GOLD]-10%[/color]/lvl)
 [color=GOLD]+4%[/color] attack speed/lvl
-[color=GOLD]+20%[/color] attack damage/lvl
+[color=GOLD]+20%[/color] base damage/lvl
  
 [color=GOLD]Silence[/color]
 Silences hit creeps.
@@ -3700,7 +3700,7 @@ Destroys a piece of the creep's heart on hit, causing spell damage over time.
 When this tower hits a creep, it has a chance to fire a frag grenade. Grenades deal spell damage.
  
 [color=GOLD]Stim[/color]
-This marine uses a stimpack, increasing its attack speed and decreasing its attack damage.
+This marine uses a stim, increasing its attack speed and decreasing its attack damage.
 
  
 Mana cost: [color=GOLD]25[/color], [color=GOLD]1200[/color] range, [color=GOLD]1s[/color] cooldown
@@ -3828,7 +3828,7 @@ If this tower has enough mana, it will spend all its mana to make the next attac
  
 [color=GOLD]Specials[/color]
 [color=GOLD]+50%[/color] damage to air ([color=GOLD]+2%[/color]/lvl)
-[color=GOLD]+15[/color] mana
+[color=GOLD]+15[/color] mana/lvl
 [color=GOLD]+0.1[/color] mana regen/lvl
  
 [color=GOLD]Storm Power[/color]
@@ -6461,7 +6461,7 @@ Mana cost: [color=GOLD]20[/color], [color=GOLD]500[/color] range, [color=GOLD]2s
 [color=GOLD]Coconut Rain[/color]
 Chance to drop coconuts on hit creeps, dealing AoE spell damage and stuning affected creeps.
 "
-526,"[color=LIGHT_BLUE]Sapphiron died a long time ago, but his bones do still carry an unbelievable power.[/color]
+526,"[color=LIGHT_BLUE]Safiron died a long time ago, but his bones do still carry an unbelievable power.[/color]
 [color=YELLOW]Author:[/color] cedi
 [color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]0[/color] DPS, [color=6495edff]Elemental[/color], [color=GOLD]1500[/color] range
@@ -6702,7 +6702,7 @@ Slows nearby creeps.
 [color=YELLOW]Attack:[/color] [color=GOLD]156[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]700[/color] range
  
 [color=GOLD]Specials[/color]
-[color=GOLD]+20%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
+[color=GOLD]+25%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Splash Attack[/color]
 [color=GOLD]125[/color] AoE: [color=GOLD]55%[/color] damage
@@ -6713,7 +6713,7 @@ Slows nearby creeps.
 [color=YELLOW]Attack:[/color] [color=GOLD]443[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]700[/color] range
  
 [color=GOLD]Specials[/color]
-[color=GOLD]+20%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
+[color=GOLD]+30%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Splash Attack[/color]
 [color=GOLD]125[/color] AoE: [color=GOLD]55%[/color] damage
@@ -6724,7 +6724,7 @@ Slows nearby creeps.
 [color=YELLOW]Attack:[/color] [color=GOLD]1135[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]700[/color] range
  
 [color=GOLD]Specials[/color]
-[color=GOLD]+20%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
+[color=GOLD]+35%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Splash Attack[/color]
 [color=GOLD]125[/color] AoE: [color=GOLD]55%[/color] damage
@@ -6735,7 +6735,7 @@ Slows nearby creeps.
 [color=YELLOW]Attack:[/color] [color=GOLD]1904[/color] DPS, [color=9370dbff]Decay[/color], [color=GOLD]700[/color] range
  
 [color=GOLD]Specials[/color]
-[color=GOLD]+20%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
+[color=GOLD]+40%[/color] damage to masses ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Splash Attack[/color]
 [color=GOLD]125[/color] AoE: [color=GOLD]55%[/color] damage
@@ -6987,7 +6987,7 @@ Chance to deal additional spell damage to hit creeps and weaken them, reducing m
 [color=GOLD]Mortal Coil - Aura[/color]
 Grants bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to nearby towers.
 "
-570,"[color=LIGHT_BLUE]The mother of all Nerubian spiders. She is very poisonous! [/color]
+570,"[color=LIGHT_BLUE]The mother of all Cave spiders. She is very poisonous! [/color]
 [color=YELLOW]Author:[/color] Boekie
 [color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
 [color=YELLOW]Attack:[/color] [color=GOLD]804[/color] DPS, [color=d2b48cff]Physical[/color], [color=GOLD]950[/color] range

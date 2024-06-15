@@ -32,7 +32,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Slumbering Parasite"
-	ability.icon = "res://resources/icons/tower_icons/nerubian_queen.tres"
+	ability.icon = "res://resources/icons/tower_icons/spider_queen.tres"
 	ability.description_short = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers and causes %s damage after a delay.\n" % [nature_string, decay_string]
 	ability.description_full = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers by %s and deals this tower's attack damage as %s damage after a delay of 3 seconds. Vulnerability stacks with multiple Parasites.\n" % [nature_string, vuln_value, decay_string] \
 	+ " \n" \

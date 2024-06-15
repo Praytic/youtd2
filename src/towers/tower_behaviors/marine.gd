@@ -59,7 +59,7 @@ func tower_init():
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	stim_bt.set_buff_modifier(boekie_stim_mod)
 	stim_bt.set_buff_icon("res://resources/icons/generic_icons/meat.tres")
-	stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
+	stim_bt.set_buff_tooltip("Stim\nIncreases attack speed and decreases attack damage.")
 
 	fragged_bt = BuffType.new("fragged_bt", -1, 0, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
@@ -83,8 +83,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Stim"
 	autocast.icon = "res://resources/icons/rockets/rocket_06.tres"
-	autocast.description_short = "This marine uses a stimpack, increasing its attack speed and decreasing its attack damage.\n"
-	autocast.description = "This marine uses a stimpack, increasing its attack speed by %s and decreasing its attack damage by %s. This buff lasts %s seconds.\n" % [stim_attack_speed, stim_attack_dmg, stim_duration] \
+	autocast.description_short = "This marine uses a stim, increasing its attack speed and decreasing its attack damage.\n"
+	autocast.description = "This marine uses a stim, increasing its attack speed by %s and decreasing its attack damage by %s. This buff lasts %s seconds.\n" % [stim_attack_speed, stim_attack_dmg, stim_duration] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % stim_duration_add

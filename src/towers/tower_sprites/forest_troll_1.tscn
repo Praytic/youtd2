@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://beagptgya82sa"]
+
+[ext_resource type="Texture2D" uid="uid://bkhwnofkidk1w" path="res://assets/tower_sprites/forest_troll_atlas.png" id="3_kniqu"]
+
+
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_kniqu")
+region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+
+[node name="Sprite2D" type="Sprite2D"]
+position = Vector2(2, -48)
+scale = Vector2(0.65, 0.65)
+texture = SubResource("AtlasTexture_lrt4k")
