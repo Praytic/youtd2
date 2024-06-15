@@ -141,11 +141,12 @@ func set_time_values(elapsed_time: float, overall_time: float):
 func set_autocast(autocast: Autocast):
 	_autocast = autocast
 	
-#	NOTE: need to reset time values if there's no
-#	autocast so that if item was changed, indicator
-#	doesn't keep showing time value for previous item
+#	NOTE: need to reset time values if there's no autocast
+#	so that if item was changed, indicator doesn't keep
+#	showing time value for previous item. Set item values to
+#	1/1 (100% progress) so that no time indicator is drawn.
 	if autocast == null:
-		set_time_values(0.0, 1.0)
+		set_time_values(1.0, 1.0)
 
 
 #########################
@@ -153,7 +154,7 @@ func set_autocast(autocast: Autocast):
 #########################
 
 static func _generate_draw_points(progress: float, icon_size: float, style: TimeIndicator.DrawStyle) -> PackedVector2Array:
-	var current_progress_point: int = ceili(progress * (_progress_point_list.size() - 1))
+	var current_progress_point: int = floori(progress * (_progress_point_list.size() - 1))
 	current_progress_point = clampi(current_progress_point, 0, _progress_point_list.size() - 1)
 	var progress_point: Vector2 = _progress_point_list[current_progress_point]
 	
