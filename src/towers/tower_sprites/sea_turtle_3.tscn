@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://csnas8tcju5sj"]
 
-[ext_resource type="Texture2D" uid="uid://yks6g1yaac8y" path="res://assets/tower_sprites/sea_turtle_atlas.png" id="3_xxa02"]
-
+[ext_resource type="Texture2D" uid="uid://djwd1fnrh5xpc" path="res://assets/tower_sprites/ice_rare.png" id="1_326yq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_xxa02")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_326yq")
+region = Rect2(269, 291, 235, 183)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(5.96046e-07, -61)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfq555tb5yu2o"]
 
-[ext_resource type="Texture2D" uid="uid://c5wlklyshg3gg" path="res://assets/tower_sprites/tundra_stalker_atlas.png" id="3_p8rjt"]
+[ext_resource type="Texture2D" uid="uid://clyoh08bhg4fv" path="res://assets/tower_sprites/ice_uncommon.png" id="1_r6b68"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7bkgl"]
-atlas = ExtResource("3_p8rjt")
-region = Rect2(341, 17, 225, 250)
+atlas = ExtResource("1_r6b68")
+region = Rect2(787, 2, 225, 250)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -65)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_7bkgl")
+offset = Vector2(0, -80)

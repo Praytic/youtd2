@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbo74x3cqbla4"]
 
-[ext_resource type="Texture2D" uid="uid://bwnotyifp16t4" path="res://assets/tower_sprites/ruined_storm_cap_atlas.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dbjvvdlpstmju" path="res://assets/tower_sprites/storm_common.png" id="1_3bcc2"]
 
 [sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("3")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_3bcc2")
+region = Rect2(811, 42, 161, 177)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(12, -64)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("1")
+offset = Vector2(0, -50)

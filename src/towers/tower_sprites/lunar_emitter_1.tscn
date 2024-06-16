@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://j8lh61po4hfi"]
 
-[ext_resource type="Texture2D" uid="uid://bg6gno2i8euoo" path="res://assets/tower_sprites/lunar_emitter_atlas.png" id="3_qjbg8"]
-
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_xkckl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
-atlas = ExtResource("3_qjbg8")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_xkckl")
+region = Rect2(71, 282, 131, 206)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -37)
-scale = Vector2(0.55, 0.55)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_voii6")
+offset = Vector2(0, -60)

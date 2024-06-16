@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjkikniec8h4q"]
 
-[ext_resource type="Texture2D" uid="uid://bxtyncwobn5pr" path="res://assets/tower_sprites/stormy_dog_atlas.png" id="3_t6nyp"]
-
+[ext_resource type="Texture2D" uid="uid://c7hu3aovppxyi" path="res://assets/tower_sprites/storm_uncommon.png" id="1_u53it"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_t6nyp")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_u53it")
+region = Rect2(527, 265, 222, 223)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-20, -60)

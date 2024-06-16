@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctximbkrkpefh"]
+[gd_scene load_steps=3 format=3 uid="uid://ctximbkrkpefh"]
 
-[ext_resource type="Texture2D" uid="uid://dsboipu4yqska" path="res://assets/tower_sprites/meteor_totem_atlas.png" id="3_dw83a"]
+[ext_resource type="Texture2D" uid="uid://bn5nfw6lifhof" path="res://assets/tower_sprites/fire_unique.png" id="1_rysbh"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mycre"]
+atlas = ExtResource("1_rysbh")
+region = Rect2(555, 527, 179, 234)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-4, -73)
-texture = ExtResource("3_dw83a")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_mycre")
+offset = Vector2(0, -50)

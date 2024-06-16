@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsfl1iigg6lap"]
 
-[ext_resource type="Texture2D" uid="uid://xj0l8mdf074f" path="res://assets/tower_sprites/broken_cage_atlas.png" id="3_ogorb"]
-
+[ext_resource type="Texture2D" uid="uid://cqetvcfdjje3s" path="res://assets/tower_sprites/darkness_common.png" id="1_ult0q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_ogorb")
-region = Rect2(2.08165e-12, 300, 300, 300)
+atlas = ExtResource("1_ult0q")
+region = Rect2(58, 1039, 172, 217)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(1, -59)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

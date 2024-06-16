@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://02m0y2qr8xvl"]
 
-[ext_resource type="Texture2D" uid="uid://d2c103vq60vy0" path="res://assets/tower_sprites/lesser_priest_atlas.png" id="3_aek2n"]
-
+[ext_resource type="Texture2D" uid="uid://c0i25gqykkvq2" path="res://assets/tower_sprites/astral_uncommon.png" id="1_lnejb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_aek2n")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_lnejb")
+region = Rect2(66, 1296, 154, 225)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(5, -70)

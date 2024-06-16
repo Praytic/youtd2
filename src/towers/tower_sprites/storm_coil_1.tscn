@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvtdmff0kk6vv"]
+[gd_scene load_steps=3 format=3 uid="uid://cvtdmff0kk6vv"]
 
-[ext_resource type="Texture2D" uid="uid://duitpxtfpunqg" path="res://assets/tower_sprites/storm_coil_atlas.png" id="3_11egx"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_b3x8k"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhoi2"]
+atlas = ExtResource("1_b3x8k")
+region = Rect2(811, 557, 178, 186)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -79)
-texture = ExtResource("3_11egx")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_vhoi2")
+offset = Vector2(0, -50)

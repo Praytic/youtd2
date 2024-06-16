@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr87sy3gdolfn"]
+[gd_scene load_steps=3 format=3 uid="uid://dr87sy3gdolfn"]
 
-[ext_resource type="Texture2D" uid="uid://h2exbfsg83ce" path="res://assets/tower_sprites/garden_of_eden_atlas.png" id="3_rucq0"]
+[ext_resource type="Texture2D" uid="uid://cowfob3sgn0hd" path="res://assets/tower_sprites/nature_unique.png" id="1_yvuke"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_av1fm"]
+atlas = ExtResource("1_yvuke")
+region = Rect2(280, 517, 200, 226)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(5, -67)
-texture = ExtResource("3_rucq0")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_av1fm")
+offset = Vector2(0, -60)

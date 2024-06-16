@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq8rblnxs80pj"]
+[gd_scene load_steps=3 format=3 uid="uid://bq8rblnxs80pj"]
 
-[ext_resource type="Texture2D" uid="uid://diio5f6b2xd1x" path="res://assets/tower_sprites/frozen_well_atlas.png" id="3_5buur"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_wt534"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b1om"]
+atlas = ExtResource("1_wt534")
+region = Rect2(41, 48, 178, 159)
 
 [node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -81)
-texture = ExtResource("3_5buur")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_1b1om")
+offset = Vector2(0, 60)

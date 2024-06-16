@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://df81ub7c7wvjf"]
 
-[ext_resource type="Texture2D" uid="uid://bsi7qb0iqx7q4" path="res://assets/tower_sprites/minor_magic_ruin_atlas.png" id="3_g2iy3"]
-
+[ext_resource type="Texture2D" uid="uid://dv1stv65yi6ch" path="res://assets/tower_sprites/astral_common.png" id="1_5vckx"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_g2iy3")
-region = Rect2(300, 300, 300, 300)
+atlas = ExtResource("1_5vckx")
+region = Rect2(546, 15, 190, 225)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-4, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("2")
+offset = Vector2(0, -70)

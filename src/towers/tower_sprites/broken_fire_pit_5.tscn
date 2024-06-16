@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqau7qlsni14v"]
 
-[ext_resource type="Texture2D" uid="uid://cumqesf84dyfq" path="res://assets/tower_sprites/broken_fire_pit_atlas.png" id="3_mes63"]
+[ext_resource type="Texture2D" uid="uid://sd50h5ps6672" path="res://assets/tower_sprites/fire_common.png" id="1_y777k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_mes63")
-region = Rect2(300, 300, 300, 300)
+atlas = ExtResource("1_y777k")
+region = Rect2(810, 542, 195, 168)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -85)
-scale = Vector2(0.9, 0.9)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -20)

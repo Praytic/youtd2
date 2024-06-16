@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cirxcwhdqledj"]
+[gd_scene load_steps=3 format=3 uid="uid://cirxcwhdqledj"]
 
-[ext_resource type="Texture2D" uid="uid://bc7ftjvw4ux7" path="res://assets/tower_sprites/lightning_eye_atlas.png" id="3_bhyl3"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_wb782"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_utrfi"]
+atlas = ExtResource("1_wb782")
+region = Rect2(41, 302, 187, 169)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -78)
-texture = ExtResource("3_bhyl3")
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_utrfi")
+offset = Vector2(0, -40)

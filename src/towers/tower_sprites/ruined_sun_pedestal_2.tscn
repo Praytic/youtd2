@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://chltkju3nqs6"]
 
-[ext_resource type="Texture2D" uid="uid://du5ximg316i8c" path="res://assets/tower_sprites/ruined_sun_pedestal_atlas.png" id="2"]
-
+[ext_resource type="Texture2D" uid="uid://dv1stv65yi6ch" path="res://assets/tower_sprites/astral_common.png" id="1_kgagu"]
 
 [sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("2")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_kgagu")
+region = Rect2(303, 300, 149, 176)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0.999999, -60)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("1")
+offset = Vector2(0, -60)

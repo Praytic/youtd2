@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0ftx7rgle3ji"]
 
-[ext_resource type="Texture2D" uid="uid://d0c4eyx32d2wr" path="res://assets/tower_sprites/embershell_turtle_hatchling_atlas.png" id="3_k7vp5"]
-
+[ext_resource type="Texture2D" uid="uid://d17ej65dobacn" path="res://assets/tower_sprites/fire_uncommon.png" id="1_cb01h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_k7vp5")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_cb01h")
+region = Rect2(35, 819, 175, 152)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -67)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -20)

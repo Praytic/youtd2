@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://8le5r1vrvcha"]
+[gd_scene load_steps=3 format=3 uid="uid://8le5r1vrvcha"]
 
-[ext_resource type="Texture2D" uid="uid://dipsyqe6gdl80" path="res://assets/tower_sprites/taita_the_hermit_atlas.png" id="3_qc1fv"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_d36xf"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jptc"]
+atlas = ExtResource("1_d36xf")
+region = Rect2(8, 266, 248, 227)
 
 [node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -57)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_qc1fv")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_2jptc")

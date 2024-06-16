@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdspvfclt0ku"]
 
-[ext_resource type="Texture2D" uid="uid://0mr3brqep7eb" path="res://assets/tower_sprites/afflicted_obelisk_atlas.png" id="3_qje7w"]
-
+[ext_resource type="Texture2D" uid="uid://bm1dfh8a2haq1" path="res://assets/tower_sprites/nature_uncommon.png" id="1_j6dn6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_qje7w")
-region = Rect2(0, 300, 300, 300)
+atlas = ExtResource("1_j6dn6")
+region = Rect2(810, 21, 168, 215)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -62)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -50)

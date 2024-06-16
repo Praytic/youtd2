@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bok3m8rgs4d8l"]
+[gd_scene load_steps=3 format=3 uid="uid://bok3m8rgs4d8l"]
 
-[ext_resource type="Texture2D" uid="uid://dfvqny8m66twr" path="res://assets/tower_sprites/vulshok_the_berserker_atlas.png" id="3_jtecx"]
+[ext_resource type="Texture2D" uid="uid://bn5nfw6lifhof" path="res://assets/tower_sprites/fire_unique.png" id="1_ovccn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57c1s"]
+atlas = ExtResource("1_ovccn")
+region = Rect2(537, 34, 182, 214)
 
 [node name="Sprite2D" type="Sprite2D"]
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_jtecx")
-offset = Vector2(-13, -60)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_57c1s")
+offset = Vector2(-15, -60)

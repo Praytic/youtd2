@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqfnlxq4iv6lu"]
 
-[ext_resource type="Texture2D" uid="uid://ci5tkw4x4ak3t" path="res://assets/tower_sprites/small_bug_nest_atlas.png" id="3_sym0f"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_karx4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_sym0f")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_karx4")
+region = Rect2(563, 20, 158, 204)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -52)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -50)

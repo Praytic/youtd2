@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgsng3a07rh2f"]
 
-[ext_resource type="Texture2D" uid="uid://bjofxe37nn85u" path="res://assets/tower_sprites/polar_bear_cub_atlas.png" id="3_x2w6x"]
-
+[ext_resource type="Texture2D" uid="uid://clyoh08bhg4fv" path="res://assets/tower_sprites/ice_uncommon.png" id="1_niom2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_x2w6x")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_niom2")
+region = Rect2(299, 807, 163, 187)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

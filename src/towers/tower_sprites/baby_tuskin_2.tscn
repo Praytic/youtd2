@@ -1,14 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://hoq65tf3jnly"]
 
-[ext_resource type="Texture2D" uid="uid://cnbvpfhbopryp" path="res://assets/tower_sprites/baby_tuskin_atlas.png" id="3_j0l4w"]
-
-
+[ext_resource type="Texture2D" uid="uid://clyoh08bhg4fv" path="res://assets/tower_sprites/ice_uncommon.png" id="1_o5nbp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_j0l4w")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_o5nbp")
+region = Rect2(46, 280, 180, 223)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.85, 0.85)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -70)

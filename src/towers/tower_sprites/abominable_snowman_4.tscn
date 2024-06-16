@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7jgb40dwwvga"]
 
-[ext_resource type="Texture2D" uid="uid://b0dsj1wjvgxva" path="res://assets/tower_sprites/abominable_snowman_atlas.png" id="3_rwdj2"]
-
+[ext_resource type="Texture2D" uid="uid://w6nfohk2lg1s" path="res://assets/tower_sprites/ice_common.png" id="1_d4ni5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_rwdj2")
-region = Rect2(2.08165e-12, 300, 300, 300)
+atlas = ExtResource("1_d4ni5")
+region = Rect2(294, 527, 162, 223)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -70)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -80)

@@ -1,14 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1wyn6j0numcf"]
 
-[ext_resource type="Texture2D" uid="uid://bkhwnofkidk1w" path="res://assets/tower_sprites/forest_troll_atlas.png" id="3_gf28u"]
-
-
+[ext_resource type="Texture2D" uid="uid://bm1dfh8a2haq1" path="res://assets/tower_sprites/nature_uncommon.png" id="1_5ovio"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_gf28u")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_5ovio")
+region = Rect2(278, 264, 208, 231)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -61)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-10, -70)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://be3l35r3rjpwe"]
 
-[ext_resource type="Texture2D" uid="uid://dpb0omafeekn2" path="res://assets/tower_sprites/rotted_flashing_grave_atlas.png" id="3_55ppt"]
-
+[ext_resource type="Texture2D" uid="uid://dbjvvdlpstmju" path="res://assets/tower_sprites/storm_common.png" id="1_4ei3b"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_55ppt")
-region = Rect2(300, 300, 300, 300)
+atlas = ExtResource("1_4ei3b")
+region = Rect2(814, 535, 156, 222)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-6, -54)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("2")
+offset = Vector2(0, -60)

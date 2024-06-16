@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6ahsc51g2pfn"]
+[gd_scene load_steps=3 format=3 uid="uid://b6ahsc51g2pfn"]
 
-[ext_resource type="Texture2D" uid="uid://edr52j3n5rue" path="res://assets/tower_sprites/the_conduit_atlas.png" id="3_fsjod"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_okp4b"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_15e1t"]
+atlas = ExtResource("1_okp4b")
+region = Rect2(518, 516, 235, 227)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(4, -70)
-scale = Vector2(0.85, 0.85)
-texture = ExtResource("3_fsjod")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_15e1t")
+offset = Vector2(10, -60)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dj8ekcmm5yxb2"]
 
-[ext_resource type="Texture2D" uid="uid://b81mxlu3vv57q" path="res://assets/tower_sprites/phantom_atlas.png" id="3_5ot3g"]
-
+[ext_resource type="Texture2D" uid="uid://c7hu3aovppxyi" path="res://assets/tower_sprites/storm_uncommon.png" id="1_mwxpg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_5ot3g")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_mwxpg")
+region = Rect2(296, 25, 168, 215)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -67)
-scale = Vector2(0.9, 0.9)
+scale = Vector2(0.55, 0.55)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-10, -60)

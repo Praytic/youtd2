@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://csjfbhj4ffhie"]
+[gd_scene load_steps=3 format=3 uid="uid://csjfbhj4ffhie"]
 
-[ext_resource type="Texture2D" uid="uid://c3dy5x14ujc5h" path="res://assets/tower_sprites/harby_atlas.png" id="3_540c4"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_hmtrh"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmxfd"]
+atlas = ExtResource("1_hmtrh")
+region = Rect2(284, 273, 200, 234)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -72)
-texture = ExtResource("3_540c4")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_tmxfd")
+offset = Vector2(0, -70)

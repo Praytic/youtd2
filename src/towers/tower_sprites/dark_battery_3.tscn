@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://h2gvrpx54opo"]
 
-[ext_resource type="Texture2D" uid="uid://bmb2vqg78fw8k" path="res://assets/tower_sprites/dark_battery_atlas.png" id="3_xfrf1"]
-
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_n5h8v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2ksm"]
-atlas = ExtResource("3_xfrf1")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_n5h8v")
+region = Rect2(789, 278, 199, 191)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -48)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_p2ksm")
+offset = Vector2(0, -40)

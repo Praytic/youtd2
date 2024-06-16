@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://38xjks7oni5x"]
 
-[ext_resource type="Texture2D" uid="uid://jmltu7xjcb2q" path="res://assets/tower_sprites/rooted_chasm_atlas.png" id="3_flx6j"]
-
+[ext_resource type="Texture2D" uid="uid://bm1dfh8a2haq1" path="res://assets/tower_sprites/nature_uncommon.png" id="1_v61uf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_flx6j")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_v61uf")
+region = Rect2(277, 804, 200, 196)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -61)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -50)

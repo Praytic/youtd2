@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bidci6dqflif0"]
+[gd_scene load_steps=3 format=3 uid="uid://bidci6dqflif0"]
 
-[ext_resource type="Texture2D" uid="uid://dsqnmnvntju2a" path="res://assets/tower_sprites/dutchmans_grave_atlas.png" id="3_5f3oa"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_qg8dm"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipkbc"]
+atlas = ExtResource("1_qg8dm")
+region = Rect2(20, 532, 221, 214)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -76)
-texture = ExtResource("3_5f3oa")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_ipkbc")
+offset = Vector2(-10, -60)

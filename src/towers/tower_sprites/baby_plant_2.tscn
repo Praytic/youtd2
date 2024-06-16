@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhqqrmjk0w0jf"]
 
-[ext_resource type="Texture2D" uid="uid://cv2yhotly1j5n" path="res://assets/tower_sprites/baby_plant_atlas.png" id="3_xwpsu"]
-
+[ext_resource type="Texture2D" uid="uid://c8uwpkclo4nk5" path="res://assets/tower_sprites/nature_common.png" id="1_2yt1i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_xwpsu")
-region = Rect2(300, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_2yt1i")
+region = Rect2(292, 575, 180, 162)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -59)
-scale = Vector2(0.8, 0.8)
+position = Vector2(0, -10)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")

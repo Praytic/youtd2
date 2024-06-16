@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6hbdl0stb5ex"]
+[gd_scene load_steps=3 format=3 uid="uid://c6hbdl0stb5ex"]
 
-[ext_resource type="Texture2D" uid="uid://c5olmcm0cnv13" path="res://assets/tower_sprites/owl_of_wisdom_atlas.png" id="3_frnb7"]
+[ext_resource type="Texture2D" uid="uid://df1ouj1h6g583" path="res://assets/tower_sprites/astral_unique.png" id="1_bweq4"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gbi5"]
+atlas = ExtResource("1_bweq4")
+region = Rect2(524, 288, 221, 213)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -70)
-texture = ExtResource("3_frnb7")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_6gbi5")
+offset = Vector2(0, -60)

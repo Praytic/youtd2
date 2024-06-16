@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://f8g2ap0pfa0b"]
+[gd_scene load_steps=3 format=3 uid="uid://f8g2ap0pfa0b"]
 
-[ext_resource type="Texture2D" uid="uid://cxnkwle6m8xpp" path="res://assets/tower_sprites/fire_star_atlas.png" id="3_2rypa"]
+[ext_resource type="Texture2D" uid="uid://bn5nfw6lifhof" path="res://assets/tower_sprites/fire_unique.png" id="1_ww6cn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0553"]
+atlas = ExtResource("1_ww6cn")
+region = Rect2(278, 281, 222, 210)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -56)
-texture = ExtResource("3_2rypa")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_m0553")
+offset = Vector2(0, -40)

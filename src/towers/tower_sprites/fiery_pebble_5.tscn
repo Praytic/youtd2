@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc5j4mghnqdnt"]
 
-[ext_resource type="Texture2D" uid="uid://dur2pbmp5fprs" path="res://assets/tower_sprites/fiery_pebble_atlas.png" id="1"]
-
+[ext_resource type="Texture2D" uid="uid://sd50h5ps6672" path="res://assets/tower_sprites/fire_common.png" id="1_hnuil"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
-region = Rect2(348, 357, 214, 231)
+atlas = ExtResource("1_hnuil")
+region = Rect2(533, 784, 217, 210)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(1, -46)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("2")
+offset = Vector2(0, -40)

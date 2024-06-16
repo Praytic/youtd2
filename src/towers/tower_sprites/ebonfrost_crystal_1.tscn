@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://batpvupgogo76"]
+[gd_scene load_steps=3 format=3 uid="uid://batpvupgogo76"]
 
-[ext_resource type="Texture2D" uid="uid://dfe6qjimt753" path="res://assets/tower_sprites/ebonfrost_crystal_atlas.png" id="3_b06y4"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_e6f4y"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ovuo"]
+atlas = ExtResource("1_e6f4y")
+region = Rect2(564, 257, 152, 254)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -67)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_b06y4")
+texture = SubResource("AtlasTexture_8ovuo")
+offset = Vector2(0, -90)

@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://0pnfa6qkk4d0"]
+[gd_scene load_steps=3 format=3 uid="uid://0pnfa6qkk4d0"]
 
-[ext_resource type="Texture2D" uid="uid://c35ynnj5jeiqd" path="res://assets/tower_sprites/gryphon_rider_atlas.png" id="3_yr2dt"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_sa8kl"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ignd6"]
+atlas = ExtResource("1_sa8kl")
+region = Rect2(815, 33, 201, 193)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -63)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_yr2dt")
+texture = SubResource("AtlasTexture_ignd6")
+offset = Vector2(20, -70)

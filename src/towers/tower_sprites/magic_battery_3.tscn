@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpgkpakavfoyg"]
 
-[ext_resource type="Texture2D" uid="uid://y7cs0eapenin" path="res://assets/tower_sprites/magic_battery_atlas.png" id="3_w45vf"]
-
+[ext_resource type="Texture2D" uid="uid://biqwx15sdng3w" path="res://assets/tower_sprites/astral_rare.png" id="1_2x02e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_w45vf")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_2x02e")
+region = Rect2(812, 298, 184, 172)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-4, -70)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1mni55u6wfcg"]
 
-[ext_resource type="Texture2D" uid="uid://dbo4fadiuknm1" path="res://assets/tower_sprites/sniper_atlas.png" id="3_ieism"]
-
+[ext_resource type="Texture2D" uid="uid://tqwlpk8sdox0" path="res://assets/tower_sprites/iron_uncommon.png" id="1_34m0c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_ieism")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_34m0c")
+region = Rect2(528, 1045, 205, 210)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-30, -50)

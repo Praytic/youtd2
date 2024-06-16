@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://crm0mxm2ya8um"]
 
-[ext_resource type="Texture2D" uid="uid://dpdwsqilejewx" path="res://assets/tower_sprites/ball_lightning_accelerator_atlas.png" id="3_qi6q5"]
-
+[ext_resource type="Texture2D" uid="uid://badivqvsvs52t" path="res://assets/tower_sprites/iron_unique.png" id="1_xv22d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_qi6q5")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_xv22d")
+region = Rect2(537, 60, 190, 176)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -83)
+scale = Vector2(0.9, 0.9)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-5, -40)

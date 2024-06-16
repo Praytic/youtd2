@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6gd5n06olgc8"]
 
-[ext_resource type="Texture2D" uid="uid://cwchcrqoduq0q" path="res://assets/tower_sprites/thief_apprentice_atlas.png" id="3_avt3f"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_bayg2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_avt3f")
-region = Rect2(0, 300, 300, 300)
+atlas = ExtResource("1_bayg2")
+region = Rect2(797, 269, 185, 224)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(8, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -70)

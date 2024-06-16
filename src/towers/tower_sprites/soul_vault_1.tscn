@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://gmsug4rt8x6l"]
+[gd_scene load_steps=3 format=3 uid="uid://gmsug4rt8x6l"]
 
-[ext_resource type="Texture2D" uid="uid://dc2ghg8hlddba" path="res://assets/tower_sprites/soul_vault_atlas.png" id="3_fykqx"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_pge14"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rgfy"]
+atlas = ExtResource("1_pge14")
+region = Rect2(792, 534, 210, 220)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -60)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_fykqx")
+texture = SubResource("AtlasTexture_5rgfy")
+offset = Vector2(0, -60)

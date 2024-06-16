@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://sxw2ijk4dygm"]
 
-[ext_resource type="Texture2D" uid="uid://ctnimytsfmo5j" path="res://assets/tower_sprites/bone_shrine_atlas.png" id="3_foggc"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_0ftyt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_foggc")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_0ftyt")
+region = Rect2(37, 266, 210, 225)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -65)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://clcfklna0btbo"]
 
-[ext_resource type="Texture2D" uid="uid://coqpfcqkdll8i" path="res://assets/tower_sprites/caged_fire_atlas.png" id="3_gurtv"]
-
+[ext_resource type="Texture2D" uid="uid://cylhbe3f41e1a" path="res://assets/tower_sprites/fire_rare.png" id="1_0tteg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
-atlas = ExtResource("3_gurtv")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_0tteg")
+region = Rect2(546, 28, 183, 214)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(2, -67)
-scale = Vector2(0.9, 0.9)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_d0cuo")
+offset = Vector2(0, -40)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0w8tgtlqlhyv"]
 
-[ext_resource type="Texture2D" uid="uid://bx5e3dkbag8o0" path="res://assets/tower_sprites/healing_obelisk_atlas.png" id="3_e74as"]
-
+[ext_resource type="Texture2D" uid="uid://c0i25gqykkvq2" path="res://assets/tower_sprites/astral_uncommon.png" id="1_2sfuq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_e74as")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_2sfuq")
+region = Rect2(329, 1039, 130, 206)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -61)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -70)

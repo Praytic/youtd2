@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfjufgtbplyvu"]
 
-[ext_resource type="Texture2D" uid="uid://4vypevln1w8t" path="res://assets/tower_sprites/necromantic_altar_atlas.png" id="3_hu7ku"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_0321u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_hu7ku")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_0321u")
+region = Rect2(39, 41, 187, 182)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-6, -65)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

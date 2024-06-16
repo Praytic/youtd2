@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://eaw55yiov7aw"]
 
-[ext_resource type="Texture2D" uid="uid://bkpvd7btbampk" path="res://assets/tower_sprites/small_frozen_mushroom_atlas.png" id="3_30xye"]
-
+[ext_resource type="Texture2D" uid="uid://w6nfohk2lg1s" path="res://assets/tower_sprites/ice_common.png" id="1_b6fda"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_30xye")
-region = Rect2(300, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_b6fda")
+region = Rect2(810, 545, 169, 184)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -57)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("2")
+offset = Vector2(0, -70)

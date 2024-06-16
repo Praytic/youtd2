@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://chwqg617pdrr4"]
 
-[ext_resource type="Texture2D" uid="uid://dxvjbh7l2mcir" path="res://assets/tower_sprites/astral_lantern_atlas.png" id="1"]
-
+[ext_resource type="Texture2D" uid="uid://dv1stv65yi6ch" path="res://assets/tower_sprites/astral_common.png" id="1_06mcv"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
-region = Rect2(77, 54, 150, 211)
+atlas = ExtResource("1_06mcv")
+region = Rect2(821, 21, 149, 211)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -52)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("2")
+offset = Vector2(0, -65)

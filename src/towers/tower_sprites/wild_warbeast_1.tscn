@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3a68k1htvjqi"]
+[gd_scene load_steps=3 format=3 uid="uid://b3a68k1htvjqi"]
 
-[ext_resource type="Texture2D" uid="uid://7gwfshm6fefj" path="res://assets/tower_sprites/wild_warbeast_atlas.png" id="3_4oi7f"]
+[ext_resource type="Texture2D" uid="uid://cowfob3sgn0hd" path="res://assets/tower_sprites/nature_unique.png" id="1_5nvik"]
 
-
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0tu7"]
+atlas = ExtResource("1_5nvik")
+region = Rect2(270, 60, 236, 186)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -70)
-texture = ExtResource("3_4oi7f")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_u0tu7")
+offset = Vector2(0, -60)

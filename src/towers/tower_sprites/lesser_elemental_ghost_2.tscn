@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dg4tum4xri5le"]
 
-[ext_resource type="Texture2D" uid="uid://dc0vpd3asmdt8" path="res://assets/tower_sprites/lesser_elemental_ghost_atlas.png" id="3_62mkr"]
-
+[ext_resource type="Texture2D" uid="uid://d17ej65dobacn" path="res://assets/tower_sprites/fire_uncommon.png" id="1_w7oyp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_62mkr")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_w7oyp")
+region = Rect2(301, 283, 137, 187)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -58)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-20, -60)

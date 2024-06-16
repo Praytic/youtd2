@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://ea10r60784fj"]
+[gd_scene load_steps=3 format=3 uid="uid://ea10r60784fj"]
 
-[ext_resource type="Texture2D" uid="uid://dnv24d8px7kn" path="res://assets/tower_sprites/plagued_crypt_atlas.png" id="3_wmnu0"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_8j8x4"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfyr0"]
+atlas = ExtResource("1_8j8x4")
+region = Rect2(272, 782, 226, 233)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -57)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_wmnu0")
+texture = SubResource("AtlasTexture_qfyr0")
+offset = Vector2(0, -60)

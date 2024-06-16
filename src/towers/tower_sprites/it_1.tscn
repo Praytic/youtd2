@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://s7oqpufbnph4"]
+[gd_scene load_steps=3 format=3 uid="uid://s7oqpufbnph4"]
 
-[ext_resource type="Texture2D" uid="uid://db21p3sw8tk12" path="res://assets/tower_sprites/it_atlas.png" id="3_wneow"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_dcvsv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h55gq"]
+atlas = ExtResource("1_dcvsv")
+region = Rect2(540, 14, 218, 231)
 
 [node name="Sprite2D" type="Sprite2D"]
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_wneow")
-offset = Vector2(-3, -80)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("AtlasTexture_h55gq")
+offset = Vector2(5, -60)

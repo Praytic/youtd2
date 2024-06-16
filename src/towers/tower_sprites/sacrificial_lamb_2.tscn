@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxo2mw5rk68ef"]
 
-[ext_resource type="Texture2D" uid="uid://bbdjh6eobghdn" path="res://assets/tower_sprites/sacrificial_lamb_atlas.png" id="3_35dv4"]
-
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_n5tgk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
-atlas = ExtResource("3_35dv4")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_n5tgk")
+region = Rect2(302, 269, 188, 227)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-8, -67)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_voii6")
+offset = Vector2(15, -60)

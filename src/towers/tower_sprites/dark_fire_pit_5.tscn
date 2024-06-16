@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbdafn75wlqbk"]
 
-[ext_resource type="Texture2D" uid="uid://bw1uvfjs4ippi" path="res://assets/tower_sprites/dark_fire_pit_atlas.png" id="3_flg28"]
-
+[ext_resource type="Texture2D" uid="uid://cqetvcfdjje3s" path="res://assets/tower_sprites/darkness_common.png" id="1_v2w2f"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_flg28")
-region = Rect2(300, 300, 300, 300)
+atlas = ExtResource("1_v2w2f")
+region = Rect2(534, 40, 219, 189)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -80)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("2")
+offset = Vector2(0, -30)

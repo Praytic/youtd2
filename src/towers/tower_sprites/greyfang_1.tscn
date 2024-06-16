@@ -1,11 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cohvvjatutbx5"]
 
-[ext_resource type="Texture2D" uid="uid://drqpne3jx6gly" path="res://assets/tower_sprites/greyfang_atlas.png" id="1_uyme0"]
+[ext_resource type="Texture2D" uid="uid://cowfob3sgn0hd" path="res://assets/tower_sprites/nature_unique.png" id="1_0yrpl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvsf3"]
-atlas = ExtResource("1_uyme0")
-region = Rect2(62, 64, 203, 177)
+atlas = ExtResource("1_0yrpl")
+region = Rect2(552, 576, 203, 177)
 
 [node name="greyfang_1" type="Sprite2D"]
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_vvsf3")
 offset = Vector2(0, -40)

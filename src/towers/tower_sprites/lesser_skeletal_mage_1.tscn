@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2uml0ey511jj"]
 
-[ext_resource type="Texture2D" uid="uid://deatakwtu5baf" path="res://assets/tower_sprites/lesser_skeletal_mage_atlas.png" id="3_ldumj"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_1d773"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_ldumj")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_1d773")
+region = Rect2(35, 1063, 170, 203)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -62)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-30, -70)

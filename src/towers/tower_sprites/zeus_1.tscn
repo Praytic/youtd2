@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhmt3trt5ndqe"]
+[gd_scene load_steps=3 format=3 uid="uid://dhmt3trt5ndqe"]
 
-[ext_resource type="Texture2D" uid="uid://d1nekbsd31uqh" path="res://assets/tower_sprites/zeus_atlas.png" id="3_g2jxt"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_cotu8"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hta3y"]
+atlas = ExtResource("1_cotu8")
+region = Rect2(284, 270, 205, 231)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-7, -72)
-texture = ExtResource("3_g2jxt")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_hta3y")
+offset = Vector2(10, -90)

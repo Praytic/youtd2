@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvqergyl07e3d"]
+[gd_scene load_steps=3 format=3 uid="uid://bvqergyl07e3d"]
 
-[ext_resource type="Texture2D" uid="uid://q8j71furbpig" path="res://assets/tower_sprites/void_drake_atlas.png" id="3_foruh"]
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_t4wji"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4fx0"]
+atlas = ExtResource("1_t4wji")
+region = Rect2(533, 25, 207, 223)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -52)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_foruh")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_b4fx0")
+offset = Vector2(0, -40)

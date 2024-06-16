@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bn3g0yskrumnw"]
 
-[ext_resource type="Texture2D" uid="uid://bkkv78ycpfi2s" path="res://assets/tower_sprites/inflamed_stone_atlas.png" id="3_w785x"]
-
+[ext_resource type="Texture2D" uid="uid://cylhbe3f41e1a" path="res://assets/tower_sprites/fire_rare.png" id="1_p007y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
-atlas = ExtResource("3_w785x")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_p007y")
+region = Rect2(38, 266, 185, 211)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(3, -43)
-scale = Vector2(0.55, 0.55)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_d0cuo")
+offset = Vector2(0, -60)

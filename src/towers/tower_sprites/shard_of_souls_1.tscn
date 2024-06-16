@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci5jtyec0oqsq"]
 
-[ext_resource type="Texture2D" uid="uid://emm0a15q1seq" path="res://assets/tower_sprites/shard_of_souls_atlas.png" id="3_d5m55"]
-
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_dj0sh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
-atlas = ExtResource("3_d5m55")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_dj0sh")
+region = Rect2(821, 25, 156, 206)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(1, -50)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_voii6")
+offset = Vector2(0, -55)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cf3wp5pmfkc2x"]
 
-[ext_resource type="Texture2D" uid="uid://1pqqjmja242i" path="res://assets/tower_sprites/tentacle_spawn_atlas.png" id="3_eipvp"]
-
+[ext_resource type="Texture2D" uid="uid://cqetvcfdjje3s" path="res://assets/tower_sprites/darkness_common.png" id="1_y7mog"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_eipvp")
-region = Rect2(2.08165e-12, 300, 300, 300)
+atlas = ExtResource("1_y7mog")
+region = Rect2(788, 285, 221, 201)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(3, -60)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("2")
+offset = Vector2(0, -40)

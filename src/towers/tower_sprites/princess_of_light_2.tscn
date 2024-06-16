@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://8cpw21mikdhq"]
 
-[ext_resource type="Texture2D" uid="uid://b02mrnpkap4ss" path="res://assets/tower_sprites/princess_of_light_atlas.png" id="3_wb7uo"]
-
+[ext_resource type="Texture2D" uid="uid://biqwx15sdng3w" path="res://assets/tower_sprites/astral_rare.png" id="1_7ne3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_wb7uo")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_7ne3p")
+region = Rect2(38, 540, 196, 214)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(3, -66)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(5, -60)

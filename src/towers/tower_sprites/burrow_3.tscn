@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjy5sn3e2lxeu"]
 
-[ext_resource type="Texture2D" uid="uid://ck72ou6qt316y" path="res://assets/tower_sprites/burrow_atlas.png" id="3_vfp61"]
-
+[ext_resource type="Texture2D" uid="uid://tqwlpk8sdox0" path="res://assets/tower_sprites/iron_uncommon.png" id="1_xnuii"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_vfp61")
-region = Rect2(600, 0, 300, 300)
+atlas = ExtResource("1_xnuii")
+region = Rect2(803, 7, 196, 231)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -78)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -70)

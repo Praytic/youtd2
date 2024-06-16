@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dud7m7tg8ancq"]
 
-[ext_resource type="Texture2D" uid="uid://rexaqe2x00ud" path="res://assets/tower_sprites/small_fire_sprayer_atlas.png" id="3"]
-
+[ext_resource type="Texture2D" uid="uid://sd50h5ps6672" path="res://assets/tower_sprites/fire_common.png" id="1_0qs78"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_0qs78")
+region = Rect2(66, 48, 152, 166)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -65)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("2")
+offset = Vector2(10, -30)

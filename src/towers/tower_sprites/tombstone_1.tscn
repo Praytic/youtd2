@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://wrrf1xdh7rw"]
 
-[ext_resource type="Texture2D" uid="uid://b4q4nqmcq644p" path="res://assets/tower_sprites/tombstone_atlas.png" id="3"]
-
+[ext_resource type="Texture2D" uid="uid://cqetvcfdjje3s" path="res://assets/tower_sprites/darkness_common.png" id="1_huags"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_huags")
+region = Rect2(302, 546, 174, 193)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("2")
+offset = Vector2(0, -50)

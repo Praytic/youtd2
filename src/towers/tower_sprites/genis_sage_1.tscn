@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://l647hnp5e7wf"]
+[gd_scene load_steps=3 format=3 uid="uid://l647hnp5e7wf"]
 
-[ext_resource type="Texture2D" uid="uid://dex3h1o5qrlfi" path="res://assets/tower_sprites/genis_sage_atlas.png" id="3_t5jhb"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_cl5b3"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lunjb"]
+atlas = ExtResource("1_cl5b3")
+region = Rect2(531, 9, 196, 245)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -60)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_t5jhb")
+texture = SubResource("AtlasTexture_lunjb")
+offset = Vector2(0, -80)

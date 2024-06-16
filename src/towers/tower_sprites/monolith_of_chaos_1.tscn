@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://celgsu1wcgqqc"]
+[gd_scene load_steps=3 format=3 uid="uid://celgsu1wcgqqc"]
 
-[ext_resource type="Texture2D" uid="uid://caeki7b22t4pv" path="res://assets/tower_sprites/monolith_of_chaos_atlas.png" id="3_1ehgl"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_vyyfw"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_n41d6"]
+atlas = ExtResource("1_vyyfw")
+region = Rect2(45, 20, 201, 214)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(7, -57)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_1ehgl")
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_n41d6")
+offset = Vector2(15, -80)

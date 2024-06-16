@@ -1,7 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnuny6ulnf7g3"]
+[gd_scene load_steps=3 format=3 uid="uid://bnuny6ulnf7g3"]
 
-[ext_resource type="Texture2D" uid="uid://ilnxq75vo735" path="res://assets/tower_sprites/contraption_atlas.png" id="1_f0x6x"]
+[ext_resource type="Texture2D" uid="uid://tqwlpk8sdox0" path="res://assets/tower_sprites/iron_uncommon.png" id="1_wqy7o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do6fq"]
+atlas = ExtResource("1_wqy7o")
+region = Rect2(33, 288, 202, 220)
 
 [node name="contraption_4" type="Sprite2D"]
-texture = ExtResource("1_f0x6x")
-offset = Vector2(0, -85)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_do6fq")
+offset = Vector2(0, -60)

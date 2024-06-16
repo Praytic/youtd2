@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://da7bx6gkhmj52"]
+[gd_scene load_steps=3 format=3 uid="uid://da7bx6gkhmj52"]
 
-[ext_resource type="Texture2D" uid="uid://dwo33uoponcvs" path="res://assets/tower_sprites/black_dragon_roost_atlas.png" id="3_axncx"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_57gub"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlri5"]
+atlas = ExtResource("1_57gub")
+region = Rect2(785, 30, 224, 194)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -73)
-texture = ExtResource("3_axncx")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_nlri5")
+offset = Vector2(0, -50)

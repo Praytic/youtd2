@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://r2kackqyla7f"]
 
-[ext_resource type="Texture2D" uid="uid://iwghxybrp314" path="res://assets/tower_sprites/gnoll_thunder_mage_atlas.png" id="3_m2jf6"]
-
+[ext_resource type="Texture2D" uid="uid://p0uh8dc0naey" path="res://assets/tower_sprites/storm_rare.png" id="1_qvgo8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
-atlas = ExtResource("3_m2jf6")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_qvgo8")
+region = Rect2(322, 265, 151, 216)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -38)
-scale = Vector2(0.55, 0.55)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_d0cuo")
+offset = Vector2(0, -60)

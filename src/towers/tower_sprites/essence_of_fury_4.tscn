@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ps3w0qpqw41i"]
 
-[ext_resource type="Texture2D" uid="uid://f3st8sr8vo4o" path="res://assets/tower_sprites/essence_of_fury_atlas.png" id="3_yw7pd"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_85iws"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_yw7pd")
-region = Rect2(0, 300, 300, 300)
+atlas = ExtResource("1_85iws")
+region = Rect2(47, 792, 173, 219)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -57)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

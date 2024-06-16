@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://beqh28fhs35pm"]
 
-[ext_resource type="Texture2D" uid="uid://bfnwdqquifv4q" path="res://assets/tower_sprites/mana_touched_drake_atlas.png" id="3_j14ja"]
-
+[ext_resource type="Texture2D" uid="uid://biqwx15sdng3w" path="res://assets/tower_sprites/astral_rare.png" id="1_fkvnd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_j14ja")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_fkvnd")
+region = Rect2(39, 25, 212, 196)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-4, -47)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(15, -70)

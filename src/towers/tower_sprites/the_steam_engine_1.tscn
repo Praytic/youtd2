@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dioufaoh0ystr"]
+[gd_scene load_steps=3 format=3 uid="uid://dioufaoh0ystr"]
 
-[ext_resource type="Texture2D" uid="uid://bdxow6phbxpty" path="res://assets/tower_sprites/steam_engine_atlas.png" id="3_164sd"]
+[ext_resource type="Texture2D" uid="uid://badivqvsvs52t" path="res://assets/tower_sprites/iron_unique.png" id="1_5f64r"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ass1"]
+atlas = ExtResource("1_5f64r")
+region = Rect2(787, 265, 220, 228)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -66)
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_164sd")
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_0ass1")
+offset = Vector2(0, -60)

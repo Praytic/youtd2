@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmfah0vlt4xp8"]
 
-[ext_resource type="Texture2D" uid="uid://drimcntm82o2t" path="res://assets/tower_sprites/undisturbed_crypt_atlas.png" id="3_mfko0"]
-
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_i5b3c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
-atlas = ExtResource("3_mfko0")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_i5b3c")
+region = Rect2(290, 49, 196, 183)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(3, -63)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_voii6")
+offset = Vector2(0, -20)

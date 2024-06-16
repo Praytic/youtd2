@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkgrp2le24wea"]
+[gd_scene load_steps=3 format=3 uid="uid://bkgrp2le24wea"]
 
-[ext_resource type="Texture2D" uid="uid://biy6xh5s8j5dc" path="res://assets/tower_sprites/charged_obelisk_atlas.png" id="3_pegb8"]
+[ext_resource type="Texture2D" uid="uid://b0lv1vv13qxox" path="res://assets/tower_sprites/storm_unique.png" id="1_rr6fh"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbv16"]
+atlas = ExtResource("1_rr6fh")
+region = Rect2(297, 77, 185, 118)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-8, -123)
-texture = ExtResource("3_pegb8")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_tbv16")
+offset = Vector2(0, -30)

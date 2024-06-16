@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dydpvp7bibx8i"]
+[gd_scene load_steps=3 format=3 uid="uid://dydpvp7bibx8i"]
 
-[ext_resource type="Texture2D" uid="uid://qi064tidmaij" path="res://assets/tower_sprites/spider_queen_atlas.png" id="3_rhdq7"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_ss0at"]
 
-
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxid4"]
+atlas = ExtResource("1_ss0at")
+region = Rect2(9, 788, 236, 208)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -71)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_rhdq7")
+texture = SubResource("AtlasTexture_hxid4")
+offset = Vector2(0, -40)

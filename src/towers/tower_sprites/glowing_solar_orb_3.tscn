@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6xegxxm4uo6o"]
 
-[ext_resource type="Texture2D" uid="uid://c1kd1365l1tnx" path="res://assets/tower_sprites/glowing_solar_orb_atlas.png" id="3_tih2d"]
-
+[ext_resource type="Texture2D" uid="uid://dv1stv65yi6ch" path="res://assets/tower_sprites/astral_common.png" id="1_pgr4q"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_tih2d")
-region = Rect2(600, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_pgr4q")
+region = Rect2(554, 559, 164, 164)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -69)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("2")
+offset = Vector2(0, -30)

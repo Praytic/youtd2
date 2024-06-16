@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://ufi3015bf8u5"]
 
-[ext_resource type="Texture2D" uid="uid://dftdali6n4s0l" path="res://assets/tower_sprites/green_lightning_atlas.png" id="1_j8ahf"]
+[ext_resource type="Texture2D" uid="uid://p0uh8dc0naey" path="res://assets/tower_sprites/storm_rare.png" id="1_32o8l"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_br7ur"]
-atlas = ExtResource("1_j8ahf")
-region = Rect2(0, 0, 300, 300)
+[sub_resource type="AtlasTexture" id="AtlasTexture_sefck"]
+atlas = ExtResource("1_32o8l")
+region = Rect2(768, 256, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sfoew"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_br7ur")
+"texture": SubResource("AtlasTexture_sefck")
 }],
 "loop": true,
 "name": &"default",
@@ -19,3 +19,4 @@ animations = [{
 
 [node name="WitchDoctorWard" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_sfoew")
+offset = Vector2(0, -60)

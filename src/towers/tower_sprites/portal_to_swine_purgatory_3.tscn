@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bscmhkihrsuv4"]
 
-[ext_resource type="Texture2D" uid="uid://cb542s2y4av17" path="res://assets/tower_sprites/portal_to_swine_purgatory.png" id="1_8w2ac"]
+[ext_resource type="Texture2D" uid="uid://cylhbe3f41e1a" path="res://assets/tower_sprites/fire_rare.png" id="1_p3tqp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btv8m"]
-atlas = ExtResource("1_8w2ac")
-region = Rect2(543, 39, 177, 173)
+atlas = ExtResource("1_p3tqp")
+region = Rect2(799, 310, 177, 173)
 
 [node name="portal_to_swine_purgatory_3" type="Sprite2D"]
-scale = Vector2(1.2, 1.2)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_btv8m")
-offset = Vector2(0, -50)
+offset = Vector2(0, -40)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5v6xi4b23bqi"]
 
-[ext_resource type="Texture2D" uid="uid://8ry103btafci" path="res://assets/tower_sprites/firestorm_cell_atlas.png" id="3_rclge"]
-
+[ext_resource type="Texture2D" uid="uid://d17ej65dobacn" path="res://assets/tower_sprites/fire_uncommon.png" id="1_orask"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_rclge")
-region = Rect2(0, 300, 300, 300)
+atlas = ExtResource("1_orask")
+region = Rect2(787, 529, 206, 234)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(4, -59)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-20, -50)

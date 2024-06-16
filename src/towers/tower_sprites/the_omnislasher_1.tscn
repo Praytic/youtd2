@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://pnk412qu38i7"]
+[gd_scene load_steps=3 format=3 uid="uid://pnk412qu38i7"]
 
-[ext_resource type="Texture2D" uid="uid://qrp4celywjm6" path="res://assets/tower_sprites/the_omnislasher_atlas.png" id="3_dgpvb"]
+[ext_resource type="Texture2D" uid="uid://bn5nfw6lifhof" path="res://assets/tower_sprites/fire_unique.png" id="1_ib3md"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4fc6"]
+atlas = ExtResource("1_ib3md")
+region = Rect2(38, 277, 174, 229)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -66)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_dgpvb")
+texture = SubResource("AtlasTexture_q4fc6")
+offset = Vector2(-10, -80)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2droh068plc7"]
 
-[ext_resource type="Texture2D" uid="uid://ccsbwlvud2oa6" path="res://assets/tower_sprites/small_frost_fire_atlas.png" id="3_qqbi5"]
-
+[ext_resource type="Texture2D" uid="uid://cqetvcfdjje3s" path="res://assets/tower_sprites/darkness_common.png" id="1_5y0nh"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_qqbi5")
-region = Rect2(300, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_5y0nh")
+region = Rect2(58, 807, 145, 168)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(3, -63)
-scale = Vector2(0.85, 0.85)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("2")
+offset = Vector2(-5, -60)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://2abpsvxauc3o"]
 
-[ext_resource type="Texture2D" uid="uid://biehu0f8cqmwg" path="res://assets/tower_sprites/frosty_rock_atlas.png" id="3_l61an"]
-
+[ext_resource type="Texture2D" uid="uid://clyoh08bhg4fv" path="res://assets/tower_sprites/ice_uncommon.png" id="1_nsi2p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_l61an")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_nsi2p")
+region = Rect2(836, 794, 123, 197)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

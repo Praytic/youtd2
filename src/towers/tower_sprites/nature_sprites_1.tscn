@@ -1,13 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfb7esffdpvjm"]
+[gd_scene load_steps=3 format=3 uid="uid://cfb7esffdpvjm"]
 
-[ext_resource type="Texture2D" uid="uid://c1viu2jr1hk4x" path="res://assets/tower_sprites/nature_sprites_atlas.png" id="2_ybus2"]
-
+[ext_resource type="Texture2D" uid="uid://bm1dfh8a2haq1" path="res://assets/tower_sprites/nature_uncommon.png" id="1_88fn4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("2_ybus2")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_88fn4")
+region = Rect2(277, 550, 215, 210)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -60)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -60)

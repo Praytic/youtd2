@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1m80i6vob67i"]
+[gd_scene load_steps=3 format=3 uid="uid://c1m80i6vob67i"]
 
-[ext_resource type="Texture2D" uid="uid://dpwxpadndvsoy" path="res://assets/tower_sprites/chaos_warlock_atlas.png" id="3_mf40q"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_v6ukw"]
 
-
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn1x1"]
+atlas = ExtResource("1_v6ukw")
+region = Rect2(266, 7, 240, 235)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-9, -63)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_mf40q")
+texture = SubResource("AtlasTexture_pn1x1")
+offset = Vector2(-40, -80)

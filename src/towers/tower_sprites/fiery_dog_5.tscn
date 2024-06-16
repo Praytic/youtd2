@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3wb55iabg7w0"]
 
-[ext_resource type="Texture2D" uid="uid://dung30i16uy7f" path="res://assets/tower_sprites/fiery_dog_atlas.png" id="3_vinke"]
-
+[ext_resource type="Texture2D" uid="uid://d17ej65dobacn" path="res://assets/tower_sprites/fire_uncommon.png" id="1_q3f41"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_vinke")
-region = Rect2(300, 300, 300, 300)
+atlas = ExtResource("1_q3f41")
+region = Rect2(18, 291, 204, 200)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -62)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

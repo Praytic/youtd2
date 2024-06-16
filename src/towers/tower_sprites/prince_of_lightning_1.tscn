@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgs44jihq2aeq"]
+[gd_scene load_steps=3 format=3 uid="uid://cgs44jihq2aeq"]
 
-[ext_resource type="Texture2D" uid="uid://cuyoenmvaj656" path="res://assets/tower_sprites/prince_of_lightning_atlas.png" id="3_xc0yw"]
+[ext_resource type="Texture2D" uid="uid://p0uh8dc0naey" path="res://assets/tower_sprites/storm_rare.png" id="1_4w6m7"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4f7i"]
+atlas = ExtResource("1_4w6m7")
+region = Rect2(779, 525, 213, 236)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -51)
-scale = Vector2(0.55, 0.55)
-texture = ExtResource("3_xc0yw")
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_c4f7i")
+offset = Vector2(-25, -90)

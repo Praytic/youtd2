@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo7jkxeq2ex0e"]
 
-[ext_resource type="Texture2D" uid="uid://bk68pe1pb86w3" path="res://assets/tower_sprites/rundown_iron_sentry_atlas.png" id="3_1q551"]
-
+[ext_resource type="Texture2D" uid="uid://drd4dnffccck2" path="res://assets/tower_sprites/iron_rare.png" id="1_rd41r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_1q551")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_rd41r")
+region = Rect2(52, 32, 169, 207)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -49)
 scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -50)

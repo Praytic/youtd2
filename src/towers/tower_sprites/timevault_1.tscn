@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://clv8742pipnfw"]
+[gd_scene load_steps=3 format=3 uid="uid://clv8742pipnfw"]
 
-[ext_resource type="Texture2D" uid="uid://wuxof1ecpfhb" path="res://assets/tower_sprites/timevault_atlas.png" id="3_cdf7b"]
+[ext_resource type="Texture2D" uid="uid://df1ouj1h6g583" path="res://assets/tower_sprites/astral_unique.png" id="1_qrkvn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2085v"]
+atlas = ExtResource("1_qrkvn")
+region = Rect2(291, 19, 195, 226)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-5, -60)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_cdf7b")
+texture = SubResource("AtlasTexture_2085v")
+offset = Vector2(0, -60)

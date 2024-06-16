@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bumjgi7c3ab52"]
+[gd_scene load_steps=3 format=3 uid="uid://bhycgtdvf2pqq"]
 
-[ext_resource type="Texture2D" uid="uid://bosnnbtijtnom" path="res://assets/tower_sprites/dreadlord_atlas.png" id="3_3f4wu"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_6bsyp"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d2oi"]
+atlas = ExtResource("1_6bsyp")
+region = Rect2(518, 798, 248, 197)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -76)
-texture = ExtResource("3_3f4wu")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_3d2oi")
+offset = Vector2(0, -30)

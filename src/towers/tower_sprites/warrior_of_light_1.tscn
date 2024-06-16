@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlaqwjrspncjs"]
 
-[ext_resource type="Texture2D" uid="uid://2wf4signwegj" path="res://assets/tower_sprites/warrior_of_light_atlas.png" id="3_7ccg8"]
-
+[ext_resource type="Texture2D" uid="uid://biqwx15sdng3w" path="res://assets/tower_sprites/astral_rare.png" id="1_7pp5c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_7ccg8")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_7pp5c")
+region = Rect2(819, 29, 167, 203)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-6, -45)
-scale = Vector2(0.55, 0.55)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-10, -60)

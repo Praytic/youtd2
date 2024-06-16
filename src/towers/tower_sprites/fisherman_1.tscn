@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://0iqbbjy1ctsw"]
+[gd_scene load_steps=3 format=3 uid="uid://0iqbbjy1ctsw"]
 
-[ext_resource type="Texture2D" uid="uid://p6qbcq4kgl8n" path="res://assets/tower_sprites/fisherman_atlas.png" id="3_lel4h"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_hg0a7"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_40j2h"]
+atlas = ExtResource("1_hg0a7")
+region = Rect2(789, 32, 228, 193)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-10, -68)
-texture = ExtResource("3_lel4h")
+texture = SubResource("AtlasTexture_40j2h")
+offset = Vector2(-40, -60)

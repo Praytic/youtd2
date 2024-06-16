@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4782gby1b1ui"]
 
-[ext_resource type="Texture2D" uid="uid://c208jyjvaufwp" path="res://assets/tower_sprites/fire_battery_atlas.png" id="3_g6bpi"]
-
+[ext_resource type="Texture2D" uid="uid://cylhbe3f41e1a" path="res://assets/tower_sprites/fire_rare.png" id="1_bkxe1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmwf3"]
-atlas = ExtResource("3_g6bpi")
-region = Rect2(0, 0, 300, 300)
+atlas = ExtResource("1_bkxe1")
+region = Rect2(54, 565, 148, 153)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -45)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_jmwf3")
+offset = Vector2(0, -30)

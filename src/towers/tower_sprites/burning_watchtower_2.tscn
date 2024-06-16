@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bltrqfs8tn3uu"]
 
-[ext_resource type="Texture2D" uid="uid://c7crxty2hwm1k" path="res://assets/tower_sprites/burning_watchtower_atlas.png" id="3_0yo3j"]
-
+[ext_resource type="Texture2D" uid="uid://d17ej65dobacn" path="res://assets/tower_sprites/fire_uncommon.png" id="1_v2fk4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_0yo3j")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_v2fk4")
+region = Rect2(582, 1044, 106, 205)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -58)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -70)

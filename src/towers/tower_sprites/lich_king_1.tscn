@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://8bf5fdq4hd20"]
+[gd_scene load_steps=3 format=3 uid="uid://8bf5fdq4hd20"]
 
-[ext_resource type="Texture2D" uid="uid://d4fltj8vn0ady" path="res://assets/tower_sprites/lich_king_atlas.png" id="3_5luhm"]
+[ext_resource type="Texture2D" uid="uid://bcj5bery2fwd2" path="res://assets/tower_sprites/ice_unique.png" id="1_7soo3"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hliw"]
+atlas = ExtResource("1_7soo3")
+region = Rect2(47, 525, 165, 231)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -78)
-texture = ExtResource("3_5luhm")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_4hliw")
+offset = Vector2(0, -70)

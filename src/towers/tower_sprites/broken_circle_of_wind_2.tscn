@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bl0r03xpaki5e"]
 
-[ext_resource type="Texture2D" uid="uid://ca4eqfgdjdf0y" path="res://assets/tower_sprites/broken_circle_of_wind_atlas.png" id="3_r838h"]
-
+[ext_resource type="Texture2D" uid="uid://c7hu3aovppxyi" path="res://assets/tower_sprites/storm_uncommon.png" id="1_qvghv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_r838h")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_qvghv")
+region = Rect2(828, 561, 125, 153)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-13, -70)
-scale = Vector2(0.9, 0.9)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://xu70jn6dehwi"]
 
-[ext_resource type="Texture2D" uid="uid://bv6u2bpxeocc3" path="res://assets/tower_sprites/initiate_elementalist_atlas.png" id="3_qa8hx"]
-
+[ext_resource type="Texture2D" uid="uid://c0i25gqykkvq2" path="res://assets/tower_sprites/astral_uncommon.png" id="1_q0ie6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_qa8hx")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_q0ie6")
+region = Rect2(42, 294, 171, 198)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-2, -50)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(-5, -70)

@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://daoptyp5cmjvd"]
+[gd_scene load_steps=3 format=3 uid="uid://daoptyp5cmjvd"]
 
-[ext_resource type="Texture2D" uid="uid://cb3u5rc3baa0u" path="res://assets/tower_sprites/servant_of_the_twin_flames_atlas.png" id="3_g2tt4"]
+[ext_resource type="Texture2D" uid="uid://bn5nfw6lifhof" path="res://assets/tower_sprites/fire_unique.png" id="1_vf7lp"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mnk0"]
+atlas = ExtResource("1_vf7lp")
+region = Rect2(832, 27, 130, 221)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -59)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_g2tt4")
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_8mnk0")
+offset = Vector2(0, -70)

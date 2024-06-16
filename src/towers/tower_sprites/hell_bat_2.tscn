@@ -1,13 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://du0wprvwquce4"]
-
-[ext_resource type="Texture2D" uid="uid://2k7i8xc0iu4i" path="res://assets/tower_sprites/hell_bat_atlas.png" id="3_4xp0x"]
-
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
-atlas = ExtResource("3_4xp0x")
-region = Rect2(0, 0, 300, 300)
+[gd_scene format=3 uid="uid://du0wprvwquce4"]
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(2, -50)
 scale = Vector2(0.7, 0.7)
-texture = SubResource("AtlasTexture_voii6")

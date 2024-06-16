@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4bmigtq35ov7"]
+[gd_scene load_steps=3 format=3 uid="uid://c4bmigtq35ov7"]
 
-[ext_resource type="Texture2D" uid="uid://dhfc3stad0p0n" path="res://assets/tower_sprites/death_knight_atlas.png" id="3_lp1g8"]
+[ext_resource type="Texture2D" uid="uid://b8avj0lojcn77" path="res://assets/tower_sprites/darkness_unique.png" id="1_tus8p"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kmao"]
+atlas = ExtResource("1_tus8p")
+region = Rect2(797, 261, 196, 242)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(0, -77)
-texture = ExtResource("3_lp1g8")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_7kmao")
+offset = Vector2(-10, -75)

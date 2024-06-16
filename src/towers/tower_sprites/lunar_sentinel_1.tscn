@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3wam4ih3r46a"]
 
-[ext_resource type="Texture2D" uid="uid://b7trnnesxrvpi" path="res://assets/tower_sprites/lunar_sentinel_atlas.png" id="3_elfbu"]
-
+[ext_resource type="Texture2D" uid="uid://c0i25gqykkvq2" path="res://assets/tower_sprites/astral_uncommon.png" id="1_0gaag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_elfbu")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_0gaag")
+region = Rect2(35, 44, 178, 164)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -62)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -40)

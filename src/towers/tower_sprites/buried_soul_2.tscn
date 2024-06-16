@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjphea6c8qjmr"]
 
-[ext_resource type="Texture2D" uid="uid://5f1cxiuh2aj4" path="res://assets/tower_sprites/buried_soul_atlas.png" id="3_t10l2"]
-
+[ext_resource type="Texture2D" uid="uid://df1n41qevrcqi" path="res://assets/tower_sprites/darkness_uncommon.png" id="1_fso2e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_t10l2")
-region = Rect2(300, 0, 300, 300)
+atlas = ExtResource("1_fso2e")
+region = Rect2(538, 803, 190, 196)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -69)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")
+offset = Vector2(0, -50)

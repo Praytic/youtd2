@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnyosfcfjxueo"]
+[gd_scene load_steps=3 format=3 uid="uid://bnyosfcfjxueo"]
 
-[ext_resource type="Texture2D" uid="uid://n1vuoy1pj7lk" path="res://assets/tower_sprites/goblin_stronghold_atlas.png" id="3_fgmaa"]
+[ext_resource type="Texture2D" uid="uid://badivqvsvs52t" path="res://assets/tower_sprites/iron_unique.png" id="1_86wos"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_msns3"]
+atlas = ExtResource("1_86wos")
+region = Rect2(541, 286, 199, 191)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(1, -79)
-texture = ExtResource("3_fgmaa")
+scale = Vector2(0.9, 0.9)
+texture = SubResource("AtlasTexture_msns3")
+offset = Vector2(0, -50)

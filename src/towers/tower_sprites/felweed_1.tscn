@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dybcj8oj3t8va"]
 
-[ext_resource type="Texture2D" uid="uid://ctglmlpctbxid" path="res://assets/tower_sprites/felweed_atlas.png" id="3_1i1ud"]
-
+[ext_resource type="Texture2D" uid="uid://sd50h5ps6672" path="res://assets/tower_sprites/fire_common.png" id="1_8gylw"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_1i1ud")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+atlas = ExtResource("1_8gylw")
+region = Rect2(565, 293, 127, 181)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-1, -64)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.65)
 texture = SubResource("2")
+offset = Vector2(0, -50)

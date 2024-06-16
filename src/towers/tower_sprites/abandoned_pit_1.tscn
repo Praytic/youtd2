@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmhldtxy8kcxb"]
 
-[ext_resource type="Texture2D" uid="uid://ddrupn3sfpt3j" path="res://assets/tower_sprites/abandonded_pit_atlas.png" id="3_ybdta"]
+[ext_resource type="Texture2D" uid="uid://dcfvp18syyxci" path="res://assets/tower_sprites/iron_common.png" id="1_tkfbj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_ybdta")
-region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr3l7"]
+atlas = ExtResource("1_tkfbj")
+region = Rect2(54, 69, 143, 133)
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-3, -62)
-scale = Vector2(0.8, 0.8)
-texture = SubResource("AtlasTexture_lrt4k")
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_mr3l7")
+offset = Vector2(0, -30)
