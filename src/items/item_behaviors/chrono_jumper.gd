@@ -2,20 +2,10 @@ extends ItemBehavior
 
 
 # NOTE: this item is complicated and has multiple edge
-# cases. Some of the edge cases are handled by this item
-# script. Others depend on specific call order in other
-# source files. Very brittle setup!
-# 
-# Handled edge cases:
+# cases:
 # - Jump to position, transform/upgrade tower while tower is
-#   at jump position. New tower needs to correctly be built
-#   at original position instead of jump position. This is
-#   handled by transform/upgrade code. That code contains
-#   specific call order where tower is first added to world
-#   and then inherits position of prev tower. Adding to
-#   world first ensures that items are transferred fist (in
-#   Tower._ready) which means that CLEANUP callback is
-#   called.
+#   at jump position. Handled by not allowing
+#   transform/upgrade while tower is jumping.
 # - Buildable state at original position. When tower jumps,
 #   previous position stays as "occupied" so it's not
 #   possible to build a new tower on old position while
@@ -24,12 +14,6 @@ extends ItemBehavior
 #   not modified in any way. It is possible to build a tower
 #   on top of jumping tower but that doesn't cause any
 #   problems.
-# - Transform tower while it's jumping into a tower with
-#   less inventory slots. If Chrono Jumper is dropped from
-#   tower instead of transferred to new tower because of not
-#   enough inventory space, then new tower is still
-#   correctly built at original position because CLEANUP
-#   callback is still called.
 
 
 const JUMP_DURATION: float = 10.0
@@ -47,6 +31,7 @@ func item_init():
 	jumper_bt.set_buff_modifier(jumper_bt_mod)
 	jumper_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	jumper_bt.set_buff_tooltip("Chrono Jump\nThis tower has performed a Chrono Jump.")
+	jumper_bt.add_event_on_create(jumper_bt_on_create)
 	jumper_bt.add_event_on_cleanup(jumper_bt_on_cleanup)
 
 	var jump_duration: String = Utils.format_float(JUMP_DURATION, 2)
@@ -131,6 +116,13 @@ func on_autocast(event: Event):
 	Effect.set_lifetime(effect, JUMP_DURATION)
 
 
+# NOTE: need to disable transform while jumping to prevent
+# unintended behavior
+func jumper_bt_on_create(_event: Event):
+	var tower: Tower = item.get_carrier()
+	tower.set_transform_is_allowed(false)
+
+
 # NOTE: chrono_jumper_onCleanup() in original script
 func jumper_bt_on_cleanup(_event: Event):
 	var tower: Tower = item.get_carrier()
@@ -138,6 +130,8 @@ func jumper_bt_on_cleanup(_event: Event):
 	SFX.sfx_at_unit("MassTeleportCaster.mdl", tower)
 	tower.set_position_wc3_2d(original_pos)
 	SFX.sfx_at_unit("MassTeleportTarget.mdl", tower)
+
+	tower.set_transform_is_allowed(true)
 
 
 func find_nearby_buildable_pos(target_pos: Vector2):

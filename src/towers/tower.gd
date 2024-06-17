@@ -44,6 +44,7 @@ var _sprite: Sprite2D = null
 var _hide_attack_projectiles: bool = false
 var _current_crit_count: int = 0
 var _current_crit_damage: float = 0
+var _transform_is_allowed: bool = true
 
 
 @export var _mana_bar: ProgressBar
@@ -240,6 +241,14 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func set_transform_is_allowed(value: bool):
+	_transform_is_allowed = value
+
+
+func get_transform_is_allowed() -> bool:
+	return _transform_is_allowed
+
 
 func get_preceding_tower() -> Tower:
 	return _temp_preceding_tower

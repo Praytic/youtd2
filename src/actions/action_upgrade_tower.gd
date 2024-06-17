@@ -27,6 +27,13 @@ static func verify(preceding_tower: Tower) -> bool:
 
 		return false
 
+	var transform_is_allowed: bool = preceding_tower.get_transform_is_allowed()
+
+	if !transform_is_allowed:
+		Messages.add_error(player, "Can't transform right now.")
+
+		return false
+
 	return true
 
 
@@ -45,16 +52,15 @@ static func execute(action: Dictionary, player: Player, select_unit: SelectUnit)
 	if !verify_ok:
 		return
 
-#	NOTE: order is important here. Setting tower position
-#	must be done after adding tower world. This is needed
-#	for Chrono Jumper item so that correct position is
-#	inherited.
+# 	NOTE: order is important here. Need to set position
+# 	before adding to world so that correct position can be
+# 	accessed in tower's on_create().
 	var preceding_tower_id: int = preceding_tower.get_id()
 	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(preceding_tower_id)
 	var upgrade_tower: Tower = Tower.make(upgrade_id, player, preceding_tower)
+	var prev_tower_pos: Vector2 = preceding_tower.get_position_wc3_2d()
+	upgrade_tower.set_position_wc3_2d(prev_tower_pos)
 	Utils.add_object_to_world(upgrade_tower)
-	var preceding_tower_pos: Vector2 = preceding_tower.get_position_wc3_2d()
-	upgrade_tower.set_position_wc3_2d(preceding_tower_pos)
 	preceding_tower.remove_from_game()
 
 	if player == PlayerManager.get_local_player():

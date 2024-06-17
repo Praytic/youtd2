@@ -14,7 +14,7 @@ static func make(tower_id_arg: int, global_pos_arg: Vector2) -> Action:
 static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var new_tower_id: int = action[Action.Field.TOWER_ID]
 	var global_pos: Vector2 = action[Action.Field.POSITION]
-	
+
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(new_tower_id, player)
 
 	if !enough_resources:
@@ -40,17 +40,23 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 	var pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(pos_canvas)
 	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
 
+	var transform_is_allowed: bool = prev_tower.get_transform_is_allowed()
+
+	if !transform_is_allowed:
+		Messages.add_error(player, "Can't transform right now.")
+
+		return
+
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
-#	NOTE: order is important here. Setting tower position
-#	must be done after adding tower world. This is needed
-#	for Chrono Jumper item so that correct position is
-#	inherited.
+# 	NOTE: order is important here. Need to set position
+# 	before adding to world so that correct position can be
+# 	accessed in tower's on_create().
 	var new_tower: Tower = Tower.make(new_tower_id, player, prev_tower)
-	Utils.add_object_to_world(new_tower)
 	var prev_tower_pos: Vector2 = prev_tower.get_position_wc3_2d()
 	new_tower.set_position_wc3_2d(prev_tower_pos)
+	Utils.add_object_to_world(new_tower)
 
 #	Refund build cost for previous tower
 	var refund_value: int = ActionTransformTower.get_transform_refund(prev_tower.get_id(), new_tower_id)
