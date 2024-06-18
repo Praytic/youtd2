@@ -145,12 +145,14 @@ func destroy_effect_after_its_over(effect_id: int):
 	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect_id))
 
 
-func set_position(effect_id: int, position: Vector2):
+func set_position(effect_id: int, pos_wc3: Vector2):
 	var effect: Node2D = _get_effect(effect_id)
 	if effect == null:
 		return
 
-	effect.position = position
+	var pos_wc3_3d: Vector3 = Vector3(pos_wc3.x, pos_wc3.y, 0)
+	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(pos_wc3_3d)
+	effect.position = pos_canvas
 
 
 #########################
