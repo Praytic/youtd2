@@ -4,7 +4,7 @@ class_name CameraProjection extends Node2D
 # NOTE: this file is unused
 
 
-var _camera_projection_size: Vector2 : set = set_size
+var _camera_projection_size: Vector2
 
 func _draw():
 	var camera_projection_rect = Rect2(Vector2.ZERO, _camera_projection_size)

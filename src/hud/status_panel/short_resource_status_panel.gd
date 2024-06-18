@@ -9,7 +9,7 @@ extends MarginContainer
 @export var _new_resource_count_label: Label
 
 
-var _count: int : set = set_count
+var _count: int
 var _unchecked_count: int
 
 

@@ -85,17 +85,17 @@ var _bonus_crit_count_for_next_attack: int = 0
 var _bonus_crit_ratio_for_next_attack: float = 0.0
 var _bonus_crit_count_for_next_spell: int = 0
 
-var _level: int = 0 : get = get_level, set = set_level
+var _level: int = 0
 var _buff_map: Dictionary
 var _buff_list: Array[Buff] = []
 var _direct_modifier_list: Array
-var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
+var _base_health: float = 100.0
 var _health: float = 0.0
 var _lowest_health: float = 0.0
 var _base_health_regen: float = 0.0
 var _invisible: bool = false
 var _immune: bool = false
-var _selected: bool = false : get = is_selected
+var _selected: bool = false
 var _hovered: bool = false
 var _experience: float = 0.0
 var _mana: float = 0.0
