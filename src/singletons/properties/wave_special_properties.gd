@@ -7,7 +7,6 @@ enum CsvProperty {
 	ID,
 	NAME,
 	SHORT_NAME,
-	SCRIPT_NAME,
 	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
@@ -92,15 +91,10 @@ func get_short_name(special: int) -> String:
 	return string
 
 
-func get_special_script_name(special: int) -> String:
-	var string: String = _get_property(special, CsvProperty.SCRIPT_NAME)
-
-	return string
-
-
 func get_script_path(special: int) -> String:
-	var script_name: String = WaveSpecialProperties.get_special_script_name(special)
-	var script_path: String = "res://src/creeps/special_buffs/%s.gd" % script_name
+	var special_name: String = WaveSpecialProperties.get_special_name(special)
+	special_name = special_name.to_snake_case()
+	var script_path: String = "res://src/creeps/special_buffs/creep_%s.gd" % special_name
 
 	return script_path
 
