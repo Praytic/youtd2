@@ -275,6 +275,10 @@ func set_unit_scale(value: float):
 	_unit_selection_outline_parent.scale = value * Vector2.ONE
 
 
+func get_unit_scale() -> float:
+	return _unit_sprite_parent.scale.x
+
+
 func get_uid() -> int:
 	return _uid
 

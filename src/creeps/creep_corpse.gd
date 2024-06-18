@@ -24,6 +24,7 @@ const DURATION: float = 10
 const RANDOM_OFFSET: float = 5
 
 var _creep_uid: int = 0
+var _creep_unit_scale: float = 1.0
 
 @export var _sprite: AnimatedSprite2D
 @export var _visual: Node2D
@@ -40,6 +41,10 @@ func _ready():
 	add_to_group("corpses")
 
 	_set_visual_node(_visual)
+
+#	NOTE: need to inherit creep unit scale in case creep's
+#	scale is altered
+	_visual.scale = Vector2.ONE * _creep_unit_scale
 	
 	_expire_timer.start(DURATION)
 
@@ -116,5 +121,6 @@ static func make(creep: Creep, sprite: AnimatedSprite2D, death_animation: String
 	corpse.set_player(player)
 	corpse._setup_sprite(sprite, death_animation)
 	corpse._creep_uid = creep.get_uid()
+	corpse._creep_unit_scale = creep.get_unit_scale()
 
 	return corpse
