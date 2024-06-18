@@ -128,6 +128,8 @@ func necromancer_aura_bt_on_death(event: Event):
 	raised_creep.set_position_wc3_2d(creep_pos)
 	raised_creep._current_path_index = creep_path_index
 
+	raised_creep.set_portal_damage_multiplier(0.5)
+
 	Utils.add_object_to_world(raised_creep)
 
 	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/generic_magic.tscn", necromancer_pos)

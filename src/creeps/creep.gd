@@ -26,6 +26,7 @@ var _spawn_level: int
 var _special_list: Array[int] = []
 var _target_height: float = 0.0
 var _height_change_speed: float = 0.0
+var _portal_damage_multiplier: float = 1.0
 
 
 # NOTE: need to use @onready for these variables instead of
@@ -130,6 +131,10 @@ func set_properties(path: Path2D, player: Player, size: CreepSize.enm, armor_typ
 	_spawn_level = level
 
 
+func set_portal_damage_multiplier(value: float):
+	_portal_damage_multiplier = value
+
+
 # Returns score which will be granted by Creep.
 # Note that this value depends on creep health.
 # NOTE: this function is *mostly* correct. Some multipliers
@@ -189,12 +194,7 @@ func get_damage_to_portal() -> float:
 		damage_done_power = 5
 
 	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
-	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
-
-# 	NOTE: flock creeps deal half damage to portal
-	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
-	if has_flock_special:
-		damage_to_portal *= 0.5
+	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio * _portal_damage_multiplier
 
 	return damage_to_portal
 

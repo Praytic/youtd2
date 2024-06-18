@@ -84,13 +84,6 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
-func creep_has_flock_special(creep: Creep) -> bool:
-	var flock_special: BuffType = WaveSpecialProperties.get_special_buff(WaveSpecialProperties.FLOCK)
-	var creep_has_buff: bool = creep.get_buff_of_type(flock_special) != null
-
-	return creep_has_buff
-
-
 #########################
 ###      Private      ###
 #########################
