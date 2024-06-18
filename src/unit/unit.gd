@@ -669,29 +669,23 @@ func remove_ethereal():
 	_ethereal_count -= 1
 
 
-# Returns the amount of mana that was subtracted.
+# Returns the amount of mana that was actually subtracted.
 # NOTE: unit.subtractMana() in JASS
-func subtract_mana(amount: float, show_text: bool) -> float:
-	var old_mana: float = _mana
-	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
-	set_mana(new_mana)
+func subtract_mana(amount: float, subtract_if_not_enough: bool) -> float:
+	var enough_mana: bool = _mana >= amount 
 
-	var actual_change: float = new_mana - old_mana
+	if enough_mana:
+		var new_mana: float = clampf(_mana - amount, 0.0, _mana)
+		set_mana(new_mana)
 
-	if show_text && actual_change != 0:
-		var text: String
-		var amount_string: String = Utils.format_float(abs(actual_change), 1)
-
-		if actual_change >= 0:
-			text = "+%s" % amount_string
+		return amount
+	else:
+		if subtract_if_not_enough:
+			set_mana(0)
 		else:
-			text = "-%s" % amount_string
-
-		get_player().display_floating_text(text, self, Color.BLUE)
-
-	var actual_subtracted: float = abs(actual_change)
-
-	return actual_subtracted
+			return 0
+	
+	return 0
 
 
 func get_selection_outline() -> Node2D:
