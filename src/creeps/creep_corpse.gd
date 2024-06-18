@@ -23,6 +23,8 @@ class_name CreepCorpse extends Unit
 const DURATION: float = 10
 const RANDOM_OFFSET: float = 5
 
+var _creep_uid: int = 0
+
 @export var _sprite: AnimatedSprite2D
 @export var _visual: Node2D
 @export var _expire_timer: ManualTimer
@@ -65,6 +67,16 @@ func _ready():
 
 
 #########################
+###       Public      ###
+#########################
+
+# NOTE: this uid is invalid because creep is removed from
+# game before corpse is created
+func get_creep_uid() -> int:
+	return _creep_uid
+
+
+#########################
 ###      Private      ###
 #########################
 
@@ -98,9 +110,11 @@ func _on_expire_timer_timeout():
 ###       Static      ###
 #########################
 
-static func make(player: Player, sprite: AnimatedSprite2D, death_animation: String) -> CreepCorpse:
+static func make(creep: Creep, sprite: AnimatedSprite2D, death_animation: String) -> CreepCorpse:
 	var corpse: Node2D = Preloads.corpse_scene.instantiate()
+	var player: Player = creep.get_player()
 	corpse.set_player(player)
 	corpse._setup_sprite(sprite, death_animation)
+	corpse._creep_uid = creep.get_uid()
 
 	return corpse
