@@ -1,46 +1,57 @@
 extends TowerBehavior
 
 
+# NOTE: original script did not allow placing Corruption
+# Field before placing Recreation Field. Removed this
+# restriction.
+
+
 class Summoner:
 	var size: float = 3.0
 	var corruption_effect: int = 0
 	var recreation_effect: int = 0
-	var from_pos: Vector2 = Vector2.ZERO
-	var to_pos: Vector2 = Vector2.ZERO
+	var from_pos: Vector2 = Vector2.INF
+	var dest_pos: Vector2 = Vector2.INF
 
 
 # NOTE: SCALE_MIN should match the value in tower sprite
 # scene
 const SCALE_MIN: float = 0.7
 const SCALE_MAX: float = 1.0
+const TRANSPORT_CD: float = 1.0
+const FIELD_RADIUS: float = 250
+const FIELD_DAMAGE: float = 3000
+const FIELD_DAMAGE_ADD: float = 100
 
 
 var multiboard: MultiboardValues
 var sum: Summoner = Summoner.new()
-var recreation_field_exists: bool = false
-var corruption_field_exists: bool = false
-var can_teleport: bool = false
 # NOTE: this map is never cleared which is a bit suspect but
 # considering that the amount of creeps in game is capped at
 # 1000's and this stores references - it's not a big deal.
 var summoner_units: Dictionary = {}
+var time_when_last_transported: float = 0
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
+
+	var transport_cd: String = Utils.format_float(TRANSPORT_CD, 2)
+	var field_damage: String = Utils.format_float(FIELD_DAMAGE, 2)
+	var field_damage_add: String = Utils.format_float(FIELD_DAMAGE_ADD, 2)
 	
 	var dark_ritual: AbilityInfo = AbilityInfo.new()
 	dark_ritual.name = "Dark Ritual"
 	dark_ritual.icon = "res://resources/icons/furniture/artifact_on_pedestal.tres"
-	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color], causing them to transport creeps and deal spell damage.\n"
-	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic in [color=GOLD]Recreation[/color] and [color=GOLD]Corruption Fields[/color]. Creeps standing in the [color=GOLD]Corruption Field[/color] will be instantly teleported to the [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
+	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic and transports all creeps from [color=GOLD]Corruption Field[/color] to [color=GOLD]Recreation Field[/color]. The tower will also deal spell damage to creeps standing in one of the [color=GOLD]Fields[/color].\n"
+	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic and transports all creeps from [color=GOLD]Corruption Field[/color] to [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
 	+ " \n" \
-	+ "[color=GOLD]Fields[/color] will also deal 3000 spell damage to all unfortunate enough to be standing in those areas.\n" \
+	+ "This tower will also deal %s spell damage to all creeps unfortunate enough to be standing in the [color=GOLD]Recreation Field[/color] and [color=GOLD]Corruption Field[/color].\n" % field_damage \
 	+ " \n" \
-	+ "1 sec cooldown.\n" \
+	+ "%s sec cooldown.\n" % transport_cd \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+100 spell damage\n"
+	+ "+%s spell damage\n" % field_damage_add
 	list.append(dark_ritual)
 
 	var hunger: AbilityInfo = AbilityInfo.new()
@@ -76,11 +87,13 @@ func tower_init():
 func create_autocasts() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
+	var field_radius: String = Utils.format_float(FIELD_RADIUS, 2)
+
 	var autocast_recreation: Autocast = Autocast.make()
 	autocast_recreation.title = "Recreation Field"
 	autocast_recreation.icon = "res://resources/icons/magic/magic_stone.tres"
 	autocast_recreation.description_short = "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
-	autocast_recreation.description = "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n"
+	autocast_recreation.description = "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has %s AoE.\n" % field_radius
 	autocast_recreation.caster_art = ""
 	autocast_recreation.target_art = ""
 	autocast_recreation.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -100,10 +113,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_corruption.title = "Corruption Field"
 	autocast_corruption.icon = "res://resources/icons/misc/poison_02.tres"
 	autocast_corruption.description_short = "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
-	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Field has 250 AoE and will punish creeps that walk over it at the wrong moment.\n" \
-	+ " \n" \
-	+ "[color=RED]You must place [color=GOLD]Recreation Field[/color] before using this ability![/color]\n" \
-	+ ""
+	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has %s AoE.\n" % field_radius
 	autocast_corruption.caster_art = ""
 	autocast_corruption.target_art = ""
 	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
@@ -130,17 +140,29 @@ func on_destruct():
 
 
 func on_attack(_event: Event):
-	var aoe_dmg: float = 3000 + 100 * tower.get_level()
+	var both_fields_were_placed: bool = sum.dest_pos != Vector2.INF && sum.from_pos != Vector2.INF
 
-	if !can_teleport:
+	if !both_fields_were_placed:
 		return
 
-	tower.do_spell_damage_aoe(sum.from_pos, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
+#	NOTE: original script implements transport cooldown by
+#	TriggerSleepAction() which is brittle. Changed it to
+#	this approach.
+	var time_since_last_transport: float = Utils.get_time() - time_when_last_transported
+	var transport_is_on_cooldown: bool = time_since_last_transport < TRANSPORT_CD
 
-	var dmg1: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
-	Effect.set_lifetime(dmg1, 1.0)
+	if transport_is_on_cooldown:
+		return
 
-	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos, 250.0)
+	time_when_last_transported = Utils.get_time()
+
+	var aoe_dmg: float = FIELD_DAMAGE + FIELD_DAMAGE_ADD * tower.get_level()
+	tower.do_spell_damage_aoe(sum.from_pos, FIELD_RADIUS, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
+
+	var effect_at_from_pos: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
+	Effect.set_lifetime(effect_at_from_pos, 1.0)
+
+	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos, FIELD_RADIUS)
 
 	while true:
 		var next: Unit = it.next()
@@ -160,67 +182,64 @@ func on_attack(_event: Event):
 
 		summoner_units[creep] = true
 
-		var tp1: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(next.get_x(), next.get_y(), 0.0), 270.0)
-		Effect.set_lifetime(tp1, 1.0)
+		var individual_effect_at_from_pos: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(next.get_x(), next.get_y(), 0.0), 270.0)
+		Effect.set_lifetime(individual_effect_at_from_pos, 1.0)
 
-		it_kill()
+		it_hunger_ability()
 
 		var random_offset: Vector2 = Vector2(Globals.synced_rng.randf_range(-25, 25), Globals.synced_rng.randf_range(-25, 25))
-		var to_pos: Vector2 = sum.to_pos + random_offset
+		var dest_pos: Vector2 = sum.dest_pos + random_offset
 
-		creep.move_to_point(to_pos)
+		creep.move_to_point(dest_pos)
 
-		var tp2: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(to_pos.x, to_pos.y, 0.0), 270.0)
-		Effect.set_lifetime(tp2, 1.0)
+		var individual_effect_at_dest_pos: int = Effect.create_animated("DarkSummonTarget.mdl", Vector3(dest_pos.x, dest_pos.y, 0.0), 270.0)
+		Effect.set_lifetime(individual_effect_at_dest_pos, 1.0)
 
-	tower.do_spell_damage_aoe(sum.to_pos, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
-	var dmg2: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.to_pos.x, sum.to_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
-	Effect.set_lifetime(dmg2, 1.0)
-
-#	NOTE: this is how the 1 sec cooldown for teleport is
-#	implemented. Wonky, might cause problems.
-	can_teleport = false
-	await Utils.create_timer(1.0, self).timeout
-	can_teleport = true
+	tower.do_spell_damage_aoe(sum.dest_pos, FIELD_RADIUS, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
+	var effect_at_dest_pos: int = Effect.create_colored("ArcaneTowerAttack.mdl", Vector3(sum.dest_pos.x, sum.dest_pos.y, 100.0), 270.0, 5, Color8(0, 0, 0, 255))
+	Effect.set_lifetime(effect_at_dest_pos, 1.0)
 
 
 func on_kill(_event: Event):
-	it_kill()
+	it_hunger_ability()
 
 
+# NOTE: need to check that position of Recreation Field is
+# on creep path because creeps will get transported to that
+# position.
 func on_autocast_recreation(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
-	var last_pos: Vector2 = sum.to_pos
-	sum.to_pos = autocast.get_target_pos()
+	var target_pos: Vector2 = autocast.get_target_pos()
+	
+	var target_pos_is_on_path: bool = Utils.is_point_on_creep_path(target_pos, tower.get_player())
 
-	if Utils.is_point_on_creep_path(sum.to_pos, tower.get_player()):
-		if recreation_field_exists:
-			Effect.set_position(sum.recreation_effect, sum.to_pos)
-		else:
-			recreation_field_exists = true
-			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.to_pos.x, sum.to_pos.y, 0), 270.0, 5, Color8(255, 0, 0, 255))
-	else:
-		sum.to_pos = last_pos
+	if !target_pos_is_on_path:
 		tower.get_player().display_small_floating_text("Invalid location!", tower, Color8(255, 150, 0), 30)
+
+		return
+
+	sum.dest_pos = target_pos
+
+	var recreation_field_exists: bool = sum.recreation_effect != 0
+
+	if !recreation_field_exists:
+		sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", Vector3(target_pos.x, target_pos.y, 0), 270.0, 5, Color8(255, 0, 0, 255))
+	else:
+		Effect.set_position(sum.recreation_effect, target_pos)
 
 
 func on_autocast_corruption(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
+	var target_pos: Vector2 = autocast.get_target_pos()
 
-	if !recreation_field_exists:
-		tower.get_player().display_small_floating_text("You must place the recreation field first!", tower, Color8(255, 150, 0), 30)
-		
-		return
+	sum.from_pos = target_pos
 
-	can_teleport = true
-	sum.from_pos = autocast.get_target_pos()
+	var corruption_field_exists: bool = sum.corruption_effect != 0
 
-# 	No need to check the location in this field's placement
-	if corruption_field_exists:
-		Effect.set_position(sum.corruption_effect, sum.from_pos)
+	if !corruption_field_exists:
+		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", Vector3(target_pos.x, target_pos.y, 0), 270.0, 5, Color8(0, 0, 255, 255))
 	else:
-		corruption_field_exists = true
-		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", Vector3(sum.from_pos.x, sum.from_pos.y, 0), 270.0, 5, Color8(0, 0, 255, 255))
+		Effect.set_position(sum.corruption_effect, target_pos)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -231,7 +250,8 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func it_kill():
+# NOTE: "It_kill()" in original script
+func it_hunger_ability():
 	var mod: float = 0.001 + 0.0001 * tower.get_level()
 
 	if sum.size < 10.0:
