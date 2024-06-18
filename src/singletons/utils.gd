@@ -1,6 +1,14 @@
 class_name UtilsStatic extends Node
 
 
+func get_path_point_wc3(path: Path2D, index: int) -> Vector2:
+	var curve: Curve2D = path.get_curve()
+	var point_canvas: Vector2 = curve.get_point_position(index)
+	var point_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(point_canvas)
+
+	return point_wc3
+
+
 func wave_is_bonus(level: int) -> bool:
 	return level > Constants.WAVE_COUNT_NEVERENDING	
 

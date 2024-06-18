@@ -91,15 +91,10 @@ func _spawn_next_creep():
 
 	var creep_scene: PackedScene = Preloads.creep_scenes[creep_scene_name]
 	var creep: Creep = creep_scene.instantiate()
-	creep.set_path(creep_path)
-	creep.set_player(_player)
-	creep.set_creep_size(creep_size)
-	creep.set_armor_type(creep_armor_type)
-	creep.set_category(creep_race)
-	creep.set_base_health(creep_health)
-	creep.set_health(creep_health)
-	creep.set_base_armor(creep_armor)
-	creep.set_spawn_level(creep_level)
+	creep.set_properties(creep_path, _player, creep_size, creep_armor_type, creep_race, creep_health, creep_armor, creep_level)
+
+	var first_path_point: Vector2 = Utils.get_path_point_wc3(creep_path, 0)
+	creep.set_position_wc3_2d(first_path_point)
 
 	_current_wave.add_alive_creep(creep)
 

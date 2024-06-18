@@ -322,15 +322,11 @@ func _command_spawn_challenge(player: Player, args: Array):
 
 	var creep_scene: PackedScene = Preloads.creep_scenes["ChallengeBoss"]
 	var creep: Creep = creep_scene.instantiate()
-	creep.set_path(creep_path)
-	creep.set_player(player)
-	creep.set_creep_size(CreepSize.enm.CHALLENGE_BOSS)
-	creep.set_armor_type(armor_type)
-	creep.set_category(CreepCategory.enm.CHALLENGE)
-	creep.set_base_health(creep_health)
-	creep.set_health(creep_health)
-	creep.set_base_armor(creep_armor)
-	creep.set_spawn_level(creep_level)
+	creep.set_properties(creep_path, player, CreepSize.enm.CHALLENGE_BOSS, armor_type, CreepCategory.enm.CHALLENGE, creep_health, creep_armor, creep_level)
+
+	var first_path_point: Vector2 = Utils.get_path_point_wc3(creep_path, 0)
+	creep.set_position_wc3_2d(first_path_point)
+
 	Utils.add_object_to_world(creep)
 
 	_add_status(player, "Spawned level %d challenge." % creep_level)

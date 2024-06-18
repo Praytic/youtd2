@@ -16,14 +16,14 @@ const fly_animations: Array[String] = ["fly_E", "fly_SE", "fly_S", "fly_SW", "fl
 const death_animations: Array[String] = ["death_E", "death_S", "death_W", "death_N"]
 
 
-var _path: Path2D : set = set_path
+var _path: Path2D
 var _size: CreepSize.enm
-var _category: CreepCategory.enm : set = set_category, get = get_category
-var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
+var _category: CreepCategory.enm
+var _armor_type: ArmorType.enm
 var _current_path_index: int = 0
 var _facing_angle: float = 0.0
 var _spawn_level: int
-var _special_list: Array[int] = [] : set = set_special_list, get = get_special_list
+var _special_list: Array[int] = []
 var _target_height: float = 0.0
 var _height_change_speed: float = 0.0
 
@@ -117,6 +117,19 @@ func update(delta: float):
 ###       Public      ###
 #########################
 
+# NOTE: should be called once when creating the creep
+func set_properties(path: Path2D, player: Player, size: CreepSize.enm, armor_type: ArmorType.enm, race, health: float, armor: float, level: int):
+	set_player(player)
+	_path = path
+	_size = size
+	_armor_type = armor_type
+	_category = race
+	set_base_health(health)
+	set_health(health)
+	set_base_armor(armor)
+	_spawn_level = level
+
+
 # Returns score which will be granted by Creep.
 # Note that this value depends on creep health.
 # NOTE: this function is *mostly* correct. Some multipliers
@@ -194,10 +207,10 @@ func move_to_point(point: Vector2):
 	var min_distance: float = 10000.0
 	var min_index: int = -1
 	var min_position: Vector2 = Vector2.ZERO
-	var prev: Vector2 = _get_path_point_wc3(0)
+	var prev: Vector2 = Utils.get_path_point_wc3(_path, 0)
 
 	for i in range(1, curve.point_count):
-		var curr: Vector2 = _get_path_point_wc3(i)
+		var curr: Vector2 = Utils.get_path_point_wc3(_path, i)
 		var closest_point: Vector2 = Geometry2D.get_closest_point_to_segment(point, prev, curr)
 		var distance: float = closest_point.distance_to(point)
 
@@ -282,15 +295,6 @@ func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id: int):
 ###      Private      ###
 #########################
 
-
-func _get_path_point_wc3(index: int) -> Vector2:
-	var curve: Curve2D = _path.get_curve()
-	var point_canvas: Vector2 = curve.get_point_position(index)
-	var point_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(point_canvas)
-
-	return point_wc3
-
-
 # NOTE: when a creep has non-zero height, we need to adjust
 # it's z index so that the sprite is drawn correctly in
 # front of tiles.
@@ -315,7 +319,7 @@ func _move(delta):
 
 		return
 
-	var path_point_wc3: Vector2 = _get_path_point_wc3(_current_path_index)
+	var path_point_wc3: Vector2 = Utils.get_path_point_wc3(_path, _current_path_index)
 	var move_delta: float = get_current_movespeed() * delta
 	var old_position_2d: Vector2 = get_position_wc3_2d()
 	var new_position_2d: Vector2 = old_position_2d.move_toward(path_point_wc3, move_delta)
@@ -370,7 +374,7 @@ func _get_current_movement_angle() -> float:
 	if _current_path_index >= path_curve.point_count:
 		return _facing_angle
 
-	var next_point: Vector2 = _get_path_point_wc3(_current_path_index)
+	var next_point: Vector2 = Utils.get_path_point_wc3(_path, _current_path_index)
 	var facing_vector: Vector2 = next_point - get_position_wc3_2d()
 	var facing_angle_radians: float = facing_vector.angle()
 	var facing_angle_degrees: float = rad_to_deg(facing_angle_radians)
@@ -458,7 +462,7 @@ func _on_death(_event: Event):
 # 	Add corpse object
 	if _size != CreepSize.enm.AIR:
 		var death_animation: String = _get_death_animation()
-		var corpse: CreepCorpse = CreepCorpse.make(get_player(), _sprite, death_animation)
+		var corpse: CreepCorpse = CreepCorpse.make(self, _sprite, death_animation)
 		var corpse_pos: Vector3 = Vector3(get_x(), get_y(), 0)
 		corpse.set_position_wc3(corpse_pos)
 		Utils.add_object_to_world(corpse)
@@ -526,9 +530,6 @@ func set_unit_facing(angle: float):
 func get_unit_facing() -> float:
 	return _facing_angle
 
-func set_creep_size(value: CreepSize.enm) -> void:
-	_size = value
-
 # NOTE: this special function forces CHALLENGE_MASS and
 # CHALLENGE_BOSS to be treated as MASS and BOSS creeps. Use
 # get_size_including_challenge_sizes() to get the "real"
@@ -544,14 +545,8 @@ func get_size() -> CreepSize.enm:
 func get_size_including_challenge_sizes() -> CreepSize.enm:
 	return _size
 
-func set_category(value: CreepCategory.enm) -> void:
-	_category = value
-
 func get_category() -> int:
 	return _category
-
-func set_armor_type(value: ArmorType.enm) -> void:
-	_armor_type = value
 
 func get_armor_type() -> ArmorType.enm:
 	return _armor_type
@@ -560,21 +555,12 @@ func get_display_name() -> String:
 	return "Generic Creep"
 
 
-func set_path(path: Path2D):
-	if path == null:
-		return
-
-	_path = path
-	var first_point: Vector2 = _get_path_point_wc3(0)
-	set_position_wc3_2d(first_point)
+func get_move_path() -> Path2D:
+	return _path
 
 
 func get_spawn_level() -> int:
 	return _spawn_level
-
-
-func set_spawn_level(spawn_level: int):
-	_spawn_level = spawn_level
 
 
 func get_special_list() -> Array[int]:
