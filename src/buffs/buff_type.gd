@@ -51,8 +51,8 @@ var _buff_icon: String = ""
 var _buff_icon_color: Color = Color.GRAY
 var _defined_custom_buff_icon_color: bool = false
 var _is_hidden: bool = false
+var _is_purgable: bool = true
 var _stacking_behavior_is_enabled: bool = true
-var _is_aura: bool = false
 var _special_effect_data: SpecialEffect = null
 # NOTE: these values are defined if the buff type was
 # created inside a TowerBehavior script.
@@ -119,9 +119,7 @@ func _apply_internal(caster: Unit, target: Unit, level: int, time: float) -> Buf
 	buff._is_owned_by_tower = _is_owned_by_tower
 	buff._tower_family = _tower_family
 	buff._tower_tier = _tower_tier
-
-	if _is_aura:
-		buff.set_is_purgable(false)
+	buff._is_purgable = _is_purgable
 
 	if _defined_custom_buff_icon_color:
 		buff._buff_icon_color = _buff_icon_color
@@ -488,6 +486,10 @@ func set_hidden():
 	_is_hidden = true
 
 
+func set_is_purgable(value: bool):
+	_is_purgable = value
+
+
 #########################
 ###       Static      ###
 #########################
@@ -495,6 +497,6 @@ func set_hidden():
 # NOTE: BuffType.createAuraEffectType() in JASS
 static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
 	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
-	buff_type._is_aura = true
+	buff_type.set_is_purgable(false)
 
 	return buff_type

@@ -28,7 +28,7 @@ var _original_duration: float = 0.0
 var _tooltip_text: String
 var _buff_icon: String
 var _buff_icon_color: Color
-var _purgable: bool = true
+var _is_purgable: bool = true
 var _cleanup_done: bool = false
 var _periodic_timer_map: Dictionary = {}
 var _is_hidden: bool
@@ -433,11 +433,11 @@ func get_original_duration() -> float:
 
 # NOTE: buff.isPurgable() in JASS
 func is_purgable() -> bool:
-	return _purgable
+	return _is_purgable
 
 
 func set_is_purgable(value: bool):
-	_purgable = value
+	_is_purgable = value
 
 
 func get_buff_icon() -> String:
