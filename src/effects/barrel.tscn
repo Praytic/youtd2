@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://iyviqm3y5a2q"]
+
+[ext_resource type="Texture2D" uid="uid://itq2i72y2h0w" path="res://resources/misc/barrel.tres" id="1_wcjpj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8r1yn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wcjpj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="barrel" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_8r1yn")
+offset = Vector2(0, -30)
