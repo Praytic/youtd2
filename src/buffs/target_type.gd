@@ -180,7 +180,7 @@ static func make_unit_bitmask(unit: Unit) -> int:
 	elif unit is Creep:
 		var creep: Creep = unit as Creep
 
-		var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+		var category: CreepCategory.enm = creep.get_category()
 		var category_bit: int = _creep_category_to_bit[category]
 		var size: CreepSize.enm = creep.get_size()
 		var size_bit: int = _creep_size_to_bit[size]

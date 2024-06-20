@@ -37,7 +37,7 @@ func get_tier_stats() -> Dictionary:
 func gift_create(event: Event):
 	var B: Buff = event.get_buff()
 	var target: Tower = B.get_buffed_unit()
-	var elem: int = target.get_category()
+	var elem: int = target.get_element()
 	var relem
 	var level: int = B.get_level()
 #	scale factor based on family member

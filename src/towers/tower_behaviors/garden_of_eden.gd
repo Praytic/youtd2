@@ -76,8 +76,9 @@ func on_attack(event: Event):
 
 func on_kill(event: Event):
 	var target: Creep = event.get_target()
-	var category: CreepCategory.enm = target.get_category() as CreepCategory.enm
-	var can_store_lifeforce: bool = lifeforce_stored < 5 + tower.get_level() && (category == CreepCategory.enm.NATURE || category == CreepCategory.enm.ORC || category == CreepCategory.enm.HUMANOID)
+	var category: CreepCategory.enm = target.get_category()
+	var category_match: bool = [CreepCategory.enm.NATURE, CreepCategory.enm.ORC, CreepCategory.enm.HUMANOID].has(category)
+	var can_store_lifeforce: bool = lifeforce_stored < 5 + tower.get_level() && category_match
 
 	if !can_store_lifeforce:
 		return

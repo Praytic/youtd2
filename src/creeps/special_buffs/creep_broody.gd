@@ -58,7 +58,7 @@ func on_autocast(event: Event):
 	var caster_path: Path2D = caster.get_move_path()
 	var player: Player = caster.get_player()
 	var caster_armor_type: ArmorType.enm = caster.get_armor_type()
-	var caster_race: CreepCategory.enm = caster.get_category() as CreepCategory.enm
+	var caster_race: CreepCategory.enm = caster.get_category()
 	var caster_size: CreepSize.enm = caster.get_size()
 	var caster_health: float = caster.get_overall_health()
 	var caster_armor: float = caster.get_base_armor()

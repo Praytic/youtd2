@@ -545,7 +545,8 @@ func get_size() -> CreepSize.enm:
 func get_size_including_challenge_sizes() -> CreepSize.enm:
 	return _size
 
-func get_category() -> int:
+# NOTE: unit.getCategory() in JASS
+func get_category() -> CreepCategory.enm:
 	return _category
 
 func get_armor_type() -> ArmorType.enm:

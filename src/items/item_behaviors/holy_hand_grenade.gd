@@ -45,6 +45,7 @@ func on_damage(event: Event):
 	var chance: float = 0.15
 	var r: float = event.damage * (0.75 + 0.01 * tower.get_level())
 	var P: Projectile
+	var target: Creep = event.get_target()
 
 	if !tower.calc_chance(chance):
 		return
@@ -52,7 +53,7 @@ func on_damage(event: Event):
 	if event.is_main_target():
 		CombatLog.log_item_ability(item, null, "Big Badaboom")
 		
-		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:
+		if target.get_category() == CreepCategory.enm.UNDEAD:
 			r = r * 1.5
 
 		P = Projectile.create_from_unit_to_unit(grenade_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)

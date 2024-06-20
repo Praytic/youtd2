@@ -70,7 +70,7 @@ func get_tower_tier_icon(tower_id: int) -> Texture2D:
 
 func get_creep_icon(creep: Creep) -> Texture2D:
 	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
-	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+	var creep_category: CreepCategory.enm = creep.get_category()
 	var icon_path: String = _get_creep_icon_path(creep_category, creep_size)
 	var icon_path_exists: bool = ResourceLoader.exists(icon_path)
 

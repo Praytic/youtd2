@@ -23,9 +23,10 @@ func load_triggers(triggers: BuffType):
 
 # NOTE: drol_chainStun() in original script
 func chain_lightning_st_on_damage(event: Event, d: DummyUnit):
-	var creep: Unit = event.get_target()
+	var creep: Creep = event.get_target()
+	var creep_category: CreepCategory.enm = creep.get_category()
 
-	if creep.get_category() == 0 || creep.get_category() == 3:
+	if creep_category == CreepCategory.enm.UNDEAD || creep_category == CreepCategory.enm.ORC:
 		stun_bt.apply_only_timed(d.get_caster(), event.get_target(), 0.5)
 
 

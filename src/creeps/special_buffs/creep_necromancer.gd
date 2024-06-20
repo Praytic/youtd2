@@ -74,7 +74,7 @@ func necromancer_aura_bt_on_death(event: Event):
 	var creep_path: Path2D = original_creep.get_move_path()
 	var player: Player = original_creep.get_player()
 	var creep_armor_type: ArmorType.enm = original_creep.get_armor_type()
-	var creep_race: CreepCategory.enm = original_creep.get_category() as CreepCategory.enm
+	var creep_race: CreepCategory.enm = original_creep.get_category()
 	var creep_health: float = original_creep.get_overall_health()
 	var creep_armor: float = original_creep.get_base_armor()
 	var creep_level: int = original_creep.get_spawn_level()

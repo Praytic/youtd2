@@ -69,7 +69,7 @@ func on_death(event: Event):
 	var adult_path: Path2D = adult.get_move_path()
 	var player: Player = adult.get_player()
 	var adult_armor_type: ArmorType.enm = adult.get_armor_type()
-	var adult_race: CreepCategory.enm = adult.get_category() as CreepCategory.enm
+	var adult_race: CreepCategory.enm = adult.get_category()
 	var child_health: float = adult.get_overall_health() / child_count * 1.2
 	var adult_armor: float = adult.get_base_armor()
 	var adult_level: int = adult.get_spawn_level()

@@ -56,11 +56,12 @@ func burning_bt_on_damaged(event: Event):
 
 	var damage_gain: float
 	var damage_factor: float
-	var attacker: Unit = event.get_target()
+	var caster: Tower = b.get_caster()
+	var attacker: Tower = event.get_target()
 	var is_burning_tower: bool
 
-	if Element.enm.FIRE == attacker.get_category():
-		is_burning_tower = (attacker as Tower).get_family() == (b.get_caster() as Tower).get_family()
+	if attacker.get_element() == Element.enm.FIRE:
+		is_burning_tower = attacker.get_family() == caster.get_family()
 
 		if is_burning_tower:
 			damage_factor = 1.0

@@ -38,8 +38,10 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var creep: Unit = event.get_target()
+	var creep: Creep = event.get_target()
+	var creep_category: CreepCategory.enm = creep.get_category()
+	var category_match: bool = [CreepCategory.enm.UNDEAD, CreepCategory.enm.MAGIC, CreepCategory.enm.NATURE].has(creep_category)
 
-	if creep.get_category() <= CreepCategory.enm.NATURE:
+	if category_match:
 		tower.do_spell_damage(creep, event.damage * (_stats.damage + (_stats.damage_add * tower.get_level())), tower.calc_spell_crit_no_bonus())
 		SFX.sfx_at_unit("Abilities\\Spells\\NightElf\\ManaBurn\\ManaBurnTarget.mdl", creep)

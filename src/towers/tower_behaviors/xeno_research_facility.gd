@@ -127,7 +127,7 @@ func on_attack(event: Event):
 		return
 
 	var creep: Creep = event.get_target()
-	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+	var creep_category: CreepCategory.enm = creep.get_category()
 
 	if creep.get_spawn_level() > Utils.get_max_level():
 		bonus_levels_in_progress = true
@@ -144,7 +144,7 @@ func on_damage(event: Event):
 		return
 	
 	var creep: Creep = event.get_target()
-	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+	var creep_category: CreepCategory.enm = creep.get_category()
 	var chance: float = 0.25 + 0.01 * tower.get_level()
 
 	if !tower.calc_chance(chance):

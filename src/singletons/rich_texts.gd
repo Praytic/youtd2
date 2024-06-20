@@ -56,7 +56,7 @@ func get_creep_info(creep: Creep) -> String:
 	if overall_mana > 0:
 		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d/%d[/color]\n" % [mana, overall_mana]
 
-	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+	var category: CreepCategory.enm = creep.get_category()
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
 	var creep_size: CreepSize.enm = creep.get_size()
 	var creep_size_string: String = CreepSize.convert_to_colored_string(creep_size)

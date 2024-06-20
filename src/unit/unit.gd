@@ -877,6 +877,11 @@ func _calc_attack_multicrit_from_crit_count(crit_count: int, bonus_damage: float
 
 
 func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, emit_damage_event: bool = false, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1) -> bool:
+	if !target is Creep:
+		push_error("Attempted to deal damage to a unit which is not a creep: %s. Can deal damage only to creeps." % target)
+
+		return false
+
 #	NOTE: if crit_count is -1, then _do_damage() was called
 #	from f-n like do_attack_damage(), where we only have
 #	access to crit_ratio. In that case derive crit count
@@ -887,7 +892,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	var target_size: CreepSize.enm = target.get_size()
 	var size_mod: float = get_damage_to_size(target_size)
-	var category_mod: float = get_damage_to_category(target.get_category())
+	var creep_category: CreepCategory.enm = target.get_category()
+	var category_mod: float = get_damage_to_category(creep_category)
 	var armor_type: ArmorType.enm = target.get_armor_type()
 	var armor_type_mod: float = AttackType.get_damage_against(attack_type, armor_type)
 	var spell_damage_multiplier: float = ArmorType.get_spell_damage_taken(armor_type)
@@ -958,14 +964,12 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	
 	_damage_dealt_total += damage
 	
-	if target is Creep:
-		var creep: Creep = target as Creep
-		var wave_level: int = creep.get_spawn_level()
-		
-		if !_damage_dealt_to_wave_map.has(wave_level):
-			_damage_dealt_to_wave_map[wave_level] = 0
-		
-		_damage_dealt_to_wave_map[wave_level] += damage
+	var wave_level: int = target.get_spawn_level()
+	
+	if !_damage_dealt_to_wave_map.has(wave_level):
+		_damage_dealt_to_wave_map[wave_level] = 0
+	
+	_damage_dealt_to_wave_map[wave_level] += damage
 
 	if damage > _best_hit:
 		_best_hit = damage
@@ -1740,16 +1744,6 @@ func set_selected(selected_arg: bool):
 	_unit_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg
 	selected_changed.emit()
-
-
-# Implemented by Tower and Creep to return tower element or
-# creep category
-# NOTE: because Tower and Creep return different enum types
-# have to use typing for int here.
-# 
-# NOTE: unit.getCategory() in JASS
-func get_category() -> int:
-	return 0
 
 func get_base_damage_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE]

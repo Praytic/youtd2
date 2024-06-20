@@ -75,7 +75,7 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var creep = event.get_target()
+	var creep: Creep = event.get_target()
 	var level: int = tower.get_level()
 
 	if creep.get_category() == CreepCategory.enm.UNDEAD:

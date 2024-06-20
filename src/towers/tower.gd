@@ -1044,13 +1044,6 @@ func get_family() -> int:
 func get_element() -> Element.enm:
 	return TowerProperties.get_element(_id)
 
-# NOTE: in tower scripts getCategory() is called to get
-# tower's element instead of getElement(), for some reason,
-# so make this wrapper over get_element()
-# 
-# NOTE: tower.getCategory() in JASS
-func get_category() -> int:
-	return get_element()
 
 # This is the base time between tower attacks, before
 # applying modifications. Do not confuse this value with
