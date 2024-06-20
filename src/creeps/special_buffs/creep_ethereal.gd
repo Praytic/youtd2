@@ -35,7 +35,7 @@ func on_periodic(event: Event):
 
 func on_damaged(event: Event):
 	var caster: Unit = event.get_target()
-	var is_arcane: bool = caster.get_attack_type()
+	var is_arcane: bool = caster.get_attack_type() == AttackType.enm.ARCANE
 
 	if event.is_spell_damage() || is_arcane:
 		event.damage *= 1.4
