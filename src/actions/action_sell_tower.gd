@@ -10,15 +10,29 @@ static func make(tower_unit_id_arg: int) -> Action:
 	return action
 
 
+static func verify(player: Player, tower: Tower) -> bool:
+	if tower == null:
+		Messages.add_error(player, "Failed to sell tower")
+
+		return false
+
+	var player_match: bool = tower.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this tower")
+
+		return false
+
+	return true
+
+
 static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var tower_uid: int = action[Action.Field.UID]
 
 	var tower_node: Node = GroupManager.get_by_uid("towers", tower_uid)
 	var tower: Tower = tower_node as Tower
 
-	if tower == null:
-		push_error("Sell tower action failed")
-
+	var verify_ok: bool = ActionSellTower.verify(player, tower)
+	if !verify_ok:
 		return
 
 # 	Return tower items to item stash

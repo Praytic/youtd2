@@ -34,6 +34,9 @@ func start(tower_id: int, player: Player):
 	_map.set_buildable_area_visible(true)
 
 
+# NOTE: it would've been better to use Action verify() f-ns
+# here but it doesn't work well. Need special checking
+# logic.
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
@@ -55,7 +58,7 @@ func try_to_finish(player: Player):
 	elif !enough_resources:
 		BuildTower.add_error_about_building_tower(tower_id, player)
 	elif can_transform:
-		_transform_tower(tower_id)
+		_transform_tower(tower_under_mouse, tower_id)
 		cancel()
 	else:
 		_build_tower(tower_id)
@@ -106,10 +109,15 @@ func _build_tower(tower_id: int):
 	_game_client.add_action(action)
 
 
-func _transform_tower(new_tower_id: int):
-	var global_pos: Vector2 = _tower_preview.get_global_mouse_position()
+func _transform_tower(prev_tower: Tower, new_tower_id: int):
+	var local_player: Player = PlayerManager.get_local_player()
+	var verify_ok: bool = ActionUpgradeTower.verify(local_player, prev_tower)
+	if !verify_ok:
+		return
 
+	var global_pos: Vector2 = _tower_preview.get_global_mouse_position()
 	SFX.sfx_at_pos("res://assets/sfx/build_tower.mp3", global_pos)
 	
-	var action: Action = ActionTransformTower.make(new_tower_id, global_pos)
+	var prev_tower_uid: int = prev_tower.get_uid()
+	var action: Action = ActionTransformTower.make(prev_tower_uid, new_tower_id)
 	_game_client.add_action(action)

@@ -83,6 +83,7 @@ func _ready():
 
 	var inventory_capacity: int = get_inventory_capacity()
 	_item_container = TowerItemContainer.new(inventory_capacity, self)
+	_item_container.set_player(get_player())
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 

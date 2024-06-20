@@ -172,13 +172,9 @@ func _load_tower():
 
 	_set_selling_for_real(false)
 
-	var tower_belongs_to_local_player: bool = _tower.belongs_to_local_player()
-
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
-	_upgrade_button.visible = upgrade_button_should_be_visible && tower_belongs_to_local_player
-	_sell_button.visible = tower_belongs_to_local_player
-	_buff_group_editor.visible = tower_belongs_to_local_player
+	_upgrade_button.visible = upgrade_button_should_be_visible
 
 
 func _load_creep():

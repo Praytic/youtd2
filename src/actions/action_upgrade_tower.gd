@@ -10,27 +10,34 @@ static func make(tower_uid: int) -> Action:
 	return action
 
 
-static func verify(preceding_tower: Tower) -> bool:
-	var preceding_tower_id: int = preceding_tower.get_id()
-	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(preceding_tower_id)
+static func verify(player: Player, prev_tower: Tower) -> bool:
+	if prev_tower == null:
+		Messages.add_error(player, "Failed to upgrade")
 
+		return false
+
+	var player_match: bool = prev_tower.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this tower")
+		
+		return false
+
+	var prev_tower_id: int = prev_tower.get_id()
+	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(prev_tower_id)
 	if upgrade_id == -1:
 		print_debug("Failed to find upgrade id")
 
 		return false
 
-	var player: Player = preceding_tower.get_player()
-
-	var enough_gold: bool = player.enough_gold_for_tower(upgrade_id)
-	if !enough_gold:
-		Messages.add_error(player, "Not enough gold.")
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(upgrade_id, player)
+	if !enough_resources:
+		BuildTower.add_error_about_building_tower(upgrade_id, player)
 
 		return false
 
-	var transform_is_allowed: bool = preceding_tower.get_transform_is_allowed()
-
+	var transform_is_allowed: bool = prev_tower.get_transform_is_allowed()
 	if !transform_is_allowed:
-		Messages.add_error(player, "Can't transform right now.")
+		Messages.add_error(player, "Can't transform right now")
 
 		return false
 
@@ -42,13 +49,7 @@ static func execute(action: Dictionary, player: Player, select_unit: SelectUnit)
 	var preceding_tower_node: Node = GroupManager.get_by_uid("towers", preceding_tower_uid)
 	var preceding_tower: Tower = preceding_tower_node as Tower
 
-	if preceding_tower == null:
-		push_error("Failed to find preceding_tower")
-
-		return
-	
-	var verify_ok: bool = ActionUpgradeTower.verify(preceding_tower)
-
+	var verify_ok: bool = ActionUpgradeTower.verify(player, preceding_tower)
 	if !verify_ok:
 		return
 

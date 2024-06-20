@@ -12,6 +12,26 @@ static func make(autocast_uid: int, target_uid: int, target_pos: Vector2) -> Act
 	return action
 
 
+static func verify(player: Player, autocast: Autocast) -> bool:
+	if autocast == null:
+		Messages.add_error(player, "Failed to cast")
+
+		return false
+
+	if !autocast.can_cast():
+		autocast.add_cast_error_message()
+
+		return false
+
+	var caster: Unit = autocast.get_caster()
+	var player_match: bool = caster.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this tower")
+
+		return false
+
+	return true
+
 
 # NOTE: not doing range check on purpose. Range check is
 # performed when action is requested and if target went out
@@ -23,14 +43,9 @@ static func execute(action: Dictionary, player: Player):
 	
 	var autocast: Autocast = GroupManager.get_by_uid("autocasts", autocast_uid)
 
-	if autocast == null:
-		Messages.add_error(player, "Failed to cast.")
+	var verify_ok: bool = ActionAutocast.verify(player, autocast)
 
-		return
-
-	if !autocast.can_cast():
-		autocast.add_cast_error_message()
-
+	if !verify_ok:
 		return
 
 	if autocast.type_is_immediate():

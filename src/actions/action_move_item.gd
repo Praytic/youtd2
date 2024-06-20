@@ -25,8 +25,6 @@ static func execute(action: Dictionary, player: Player):
 
 	var verify_ok: bool = ActionMoveItem.verify(player, item, src_item_container, dest_item_container, clicked_index)
 	if !verify_ok:
-		Messages.add_error(player, "Failed to move item.")
-
 		return
 
 	src_item_container.remove_item(item)
@@ -40,6 +38,12 @@ static func execute(action: Dictionary, player: Player):
 static func verify(player: Player, item: Item, src_container: ItemContainer, dest_container: ItemContainer, clicked_index: int) -> bool:
 	if item == null || src_container == null || dest_container == null:
 		Messages.add_error(player, "Failed to move item")
+		
+		return false
+
+	var player_match: bool = item.get_player() == player && src_container.get_player() == player && dest_container.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this item")
 		
 		return false
 

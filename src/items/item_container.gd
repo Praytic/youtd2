@@ -16,6 +16,7 @@ var _item_to_index_map: Dictionary = {}
 static var _uid_max: int = 1
 var _uid: int = 0
 var _highest_index: int = 0
+var _player: Player = null
 
 
 #########################
@@ -33,6 +34,14 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_player(player: Player):
+	_player = player
+
+
+func get_player() -> Player:
+	return _player
+
 
 func get_uid() -> int:
 	return _uid

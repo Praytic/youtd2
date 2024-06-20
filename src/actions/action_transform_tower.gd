@@ -1,50 +1,71 @@
 class_name ActionTransformTower
 
 
-static func make(tower_id_arg: int, global_pos_arg: Vector2) -> Action:
+static func make(prev_tower_uid: int, new_tower_id: int) -> Action:
 	var action: Action = Action.new({
 		Action.Field.TYPE: Action.Type.TRANSFORM_TOWER,
-		Action.Field.TOWER_ID: tower_id_arg,
-		Action.Field.POSITION: global_pos_arg,
+		Action.Field.UID: prev_tower_uid,
+		Action.Field.TOWER_ID: new_tower_id,
 		})
 
 	return action
 
 
-static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
-	var new_tower_id: int = action[Action.Field.TOWER_ID]
-	var global_pos: Vector2 = action[Action.Field.POSITION]
+static func verify(player: Player, prev_tower: Tower, new_tower_id: int) -> bool:
+	if prev_tower == null:
+		Messages.add_error(player, "Failed to upgrade")
 
-	var enough_resources: bool = BuildTower.enough_resources_for_tower(new_tower_id, player)
+		return false
 
-	if !enough_resources:
-		BuildTower.add_error_about_building_tower(new_tower_id, player)
+	var player_match: bool = prev_tower.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this tower")
+		
+		return false
 
-		return
+	var prev_tower_id: int = prev_tower.get_id()
+	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(prev_tower_id)
+	if upgrade_id == -1:
+		print_debug("Failed to find upgrade id")
+
+		return false
 
 	var tower_stash: TowerStash = player.get_tower_stash()
 	var tower_exists_in_stash: bool = tower_stash.has_tower(new_tower_id)
 	if !tower_exists_in_stash:
-		Messages.add_error(player, "You don't have this tower")
+		Messages.add_error(player, "You don't have this tower in stash")
 
-		return
+		return false
 
-	var can_transform: bool = build_space.can_transform_at_pos(global_pos)
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(new_tower_id, player)
+	if !enough_resources:
+		BuildTower.add_error_about_building_tower(new_tower_id, player)
 
-	if !can_transform:
-		Messages.add_error(player, "Can't transform here.")
+		return false
 
-		return
-	
-	var pos_canvas: Vector2 = VectorUtils.snap_canvas_pos_to_buildable_pos(global_pos) + Vector2(0, Constants.TILE_SIZE.y)
-	var pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(pos_canvas)
-	var prev_tower: Tower = Utils.get_tower_at_position(pos_wc3)
+	var game_mode_allows_transform: bool = Globals.game_mode_allows_transform()
+	if !game_mode_allows_transform:
+		Messages.add_error(player, "Can't transform in build mode")
+
+		return false
 
 	var transform_is_allowed: bool = prev_tower.get_transform_is_allowed()
-
 	if !transform_is_allowed:
-		Messages.add_error(player, "Can't transform right now.")
+		Messages.add_error(player, "Can't transform right now")
 
+		return false
+
+	return true
+
+
+static func execute(action: Dictionary, player: Player):
+	var new_tower_id: int = action[Action.Field.TOWER_ID]
+	var prev_tower_uid: int = action[Action.Field.UID]
+	var prev_tower_node: Node = GroupManager.get_by_uid("towers", prev_tower_uid)
+	var prev_tower: Tower = prev_tower_node as Tower
+
+	var verify_ok: bool = ActionTransformTower.verify(player, prev_tower, new_tower_id)
+	if !verify_ok:
 		return
 
 	player.remove_food_for_tower(prev_tower.get_id())
@@ -72,6 +93,7 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 	prev_tower.remove_from_game()
 
+	var tower_stash: TowerStash = player.get_tower_stash()
 	tower_stash.remove_tower(new_tower_id)
 
 

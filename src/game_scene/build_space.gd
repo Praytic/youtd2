@@ -107,8 +107,9 @@ func can_build_at_pos(global_pos: Vector2) -> bool:
 func can_transform_at_pos(pos_mouse: Vector2) -> bool:
 	var transform_is_allowed: bool = Globals.game_mode_allows_transform()
 	var tower_under_mouse: Tower = Utils.get_tower_at_canvas_pos(pos_mouse)
+	var belongs_to_local_player: bool = tower_under_mouse != null && tower_under_mouse.belongs_to_local_player()
 	var attempting_to_transform: bool = tower_under_mouse != null
-	var can_transform: bool = attempting_to_transform && transform_is_allowed
+	var can_transform: bool = attempting_to_transform && transform_is_allowed && belongs_to_local_player
 
 	return can_transform
 

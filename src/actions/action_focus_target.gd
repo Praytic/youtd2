@@ -11,18 +11,33 @@ static func make(target_uid: int, selected_tower_uid: int) -> Action:
 	return action
 
 
+static func verify(player: Player, target: Unit, selected_tower: Tower) -> bool:
+	if target == null:
+		Messages.add_error(player, "Invalid target")
+
+		return false
+
+	if selected_tower != null:
+		var player_match: bool = selected_tower.get_player() == player
+
+		if !player_match:
+			Messages.add_error(player, "You don't own this tower")
+
+			return false
+
+	return true
+
+
 static func execute(action: Dictionary, player: Player):
 	var target_uid: int = action[Action.Field.UID]
 	var selected_tower_uid: int = action[Action.Field.UID_2]
 
 	var target: Unit = GroupManager.get_by_uid("creeps", target_uid)
-
-	if target == null:
-		Messages.add_error(player, "Invalid target.")
-
-		return
-
 	var selected_tower: Unit = GroupManager.get_by_uid("towers", selected_tower_uid)
+
+	var verify_ok: bool = ActionFocusTarget.verify(player, target, selected_tower)
+	if !verify_ok:
+		return
 
 # 	1. If no tower is selected, then all player towers will
 # 	   switch to the target.

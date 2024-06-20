@@ -65,9 +65,6 @@ func process_click_on_nothing():
 
 
 func process_click_on_tower(tower: Tower):
-	if !tower.belongs_to_local_player():
-		return
-
 	var container: ItemContainer = tower.get_item_container()
 	_item_container_was_clicked(container)
 

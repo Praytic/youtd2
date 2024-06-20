@@ -309,11 +309,9 @@ func _start_game():
 
 func _toggle_autocast(autocast: Autocast):
 	var local_player: Player = PlayerManager.get_local_player()
-	var can_use_auto: bool = autocast.can_use_auto_mode()
+	var verify_ok: bool = ActionToggleAutocast.verify(local_player, autocast)
 
-	if !can_use_auto:
-		Messages.add_error(local_player, "This ability cannot be casted automatically")
-
+	if !verify_ok:
 		return
 
 	var autocast_uid: int = autocast.get_uid()
@@ -404,6 +402,11 @@ func _do_focus_target():
 		selected_tower_uid = selected_tower.get_uid()
 	else:
 		selected_tower_uid = 0
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var verify_ok: bool = ActionFocusTarget.verify(local_player, hovered_creep, selected_tower)
+	if !verify_ok:
+		return
 
 	var action: Action = ActionFocusTarget.make(target_uid, selected_tower_uid)
 	_game_client.add_action(action)
@@ -560,7 +563,8 @@ func _on_player_requested_to_build_tower(tower_id: int):
 
 
 func _on_player_requested_to_upgrade_tower(preceding_tower: Tower):
-	var verify_ok: bool = ActionUpgradeTower.verify(preceding_tower)
+	var local_player: Player = PlayerManager.get_local_player()
+	var verify_ok: bool = ActionUpgradeTower.verify(local_player, preceding_tower)
 	if !verify_ok:
 		return
 
@@ -570,6 +574,11 @@ func _on_player_requested_to_upgrade_tower(preceding_tower: Tower):
 
 
 func _on_player_requested_to_sell_tower(tower: Tower):
+	var local_player: Player = PlayerManager.get_local_player()
+	var verify_ok: bool = ActionSellTower.verify(local_player, tower)
+	if !verify_ok:
+		return
+
 	var tower_unit_id: int = tower.get_uid()
 	var action: Action = ActionSellTower.make(tower_unit_id)
 	_game_client.add_action(action)
@@ -700,15 +709,17 @@ func _on_player_right_clicked_autocast(autocast: Autocast):
 
 
 func _on_player_right_clicked_item(item: Item):
-	if !item.belongs_to_local_player():
-		return
-
 	var clicked_on_consumable: bool = item.is_consumable()
 	var autocast: Autocast = item.get_autocast()
 	var carrier: Unit = item.get_carrier()
 	var clicked_on_item_with_autocast: bool = autocast != null && carrier != null
 
 	if clicked_on_consumable:
+		var local_player: Player = PlayerManager.get_local_player()
+		var verify_ok: bool = ActionConsumeItem.verify(local_player, item)
+		if !verify_ok:
+			return
+
 		var item_uid: int = item.get_uid()
 		var action: Action = ActionConsumeItem.make(item_uid)
 		_game_client.add_action(action)
@@ -717,9 +728,6 @@ func _on_player_right_clicked_item(item: Item):
 
 
 func _on_player_shift_right_clicked_item(item: Item):
-	if !item.belongs_to_local_player():
-		return
-
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
@@ -727,12 +735,14 @@ func _on_player_shift_right_clicked_item(item: Item):
 
 
 func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
-	if !tower.belongs_to_local_player():
-		return
-
 	var tower_uid: int = tower.get_uid()
 	var current_mode: BuffGroupMode.enm = tower.get_buff_group_mode(buff_group)
 	var new_mode: BuffGroupMode.enm = wrapi(current_mode + 1, BuffGroupMode.enm.NONE, BuffGroupMode.enm.BOTH + 1) as BuffGroupMode.enm
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var verify_ok: bool = ActionChangeBuffgroup.verify(local_player, tower)
+	if !verify_ok:
+		return
 	
 	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
 	_game_client.add_action(action)

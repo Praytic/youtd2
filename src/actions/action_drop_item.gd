@@ -22,8 +22,6 @@ static func execute(action: Dictionary, player: Player):
 
 	var verify_ok: bool = ActionDropItem.verify(player, item, src_item_container)
 	if !verify_ok:
-		Messages.add_error(player, "Failed to drop item.")
-
 		return
 
 	src_item_container.remove_item(item)
@@ -45,6 +43,12 @@ static func verify(player: Player, item: Item, src_container: ItemContainer) -> 
 	if !item_exists_in_src_container:
 		Messages.add_error(player, "Failed to drop item")
 		
+		return false
+
+	var player_match: bool = item.get_player() == player && src_container.get_player() == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this item")
+
 		return false
 
 	return true

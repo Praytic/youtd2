@@ -68,6 +68,12 @@ static func verify(player: Player, item_src: Item, item_dest: Item, src_containe
 		
 		return false
 
+	var player_match: bool = item_src.get_player() == player && item_dest == player
+	if !player_match:
+		Messages.add_error(player, "You don't own this item")
+		
+		return false
+
 	var item_exists_in_src_container: bool = src_container.has(item_src)
 	var item_exists_in_dest_container: bool = dest_container.has(item_dest)
 	if !item_exists_in_src_container || !item_exists_in_dest_container:

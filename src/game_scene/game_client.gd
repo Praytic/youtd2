@@ -193,7 +193,7 @@ func _execute_action(action: Dictionary):
 		Action.Type.CHAT: ActionChat.execute(action, player, _hud, _chat_commands)
 		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _build_space)
 		Action.Type.UPGRADE_TOWER: ActionUpgradeTower.execute(action, player, _select_unit)
-		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player, _build_space)
+		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player)
 		Action.Type.SELL_TOWER: ActionSellTower.execute(action, player, _build_space)
 		Action.Type.SELECT_BUILDER: ActionSelectBuilder.execute(action, player)
 		Action.Type.TOGGLE_AUTOCAST: ActionToggleAutocast.execute(action, player)

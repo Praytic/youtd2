@@ -73,6 +73,9 @@ func _ready():
 	_gold += Config.cheat_gold()
 	_tomes += Config.cheat_tomes()
 	_food_cap += Config.cheat_food_cap()
+	
+	_item_stash.set_player(self)
+	_horadric_stash.set_player(self)
 
 
 #########################
