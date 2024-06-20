@@ -26,7 +26,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	storm_hammer.name = "Mystical Storm Hammer"
 	storm_hammer.icon = "res://resources/icons/blunt_weapons/hammer_04.tres"
 	storm_hammer.description_short = "This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage.\n"
-	storm_hammer.description_full = "This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage. The amount of spell damage depends on the magic resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no %s damage against ethereal creeps. If this [color=GOLD]Storm Hammer[/color] deals all the damage in one type, it will have 5%% increased critchance.\n" % physical_string \
+	storm_hammer.description_full = "This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage. The amount of spell damage depends on the spell damage resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no %s damage against ethereal creeps. If this [color=GOLD]Storm Hammer[/color] deals all the damage in one type, it will have 5%% increased critchance.\n" % physical_string \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+1.8% crit chance\n"

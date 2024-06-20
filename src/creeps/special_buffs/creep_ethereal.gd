@@ -17,7 +17,7 @@ func _init(parent: Node):
 	ethereal_active_buff.add_event_on_cleanup(on_cleanup)
 	ethereal_active_buff.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	ethereal_active_buff.set_buff_icon_color(Color.CYAN)
-	ethereal_active_buff.set_buff_tooltip("Ethereal\nImmune against physical attacks. Increases magic and spell damage taken.")
+	ethereal_active_buff.set_buff_tooltip("Ethereal\nImmune against attack damage but takes extra Arcane attack damage and spell damage.")
 
 	add_periodic_event(on_periodic, ETHEREAL_PERIOD)
 
@@ -35,9 +35,9 @@ func on_periodic(event: Event):
 
 func on_damaged(event: Event):
 	var caster: Unit = event.get_target()
-	var is_magic: bool = caster.get_attack_type()
+	var is_arcane: bool = caster.get_attack_type()
 
-	if event.is_spell_damage() || is_magic:
+	if event.is_spell_damage() || is_arcane:
 		event.damage *= 1.4
 	else:
 		event.damage = 0

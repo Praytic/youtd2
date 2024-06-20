@@ -353,10 +353,10 @@ func _target_is_valid(target) -> bool:
 	var target_is_invisible: bool = target.is_invisible()
 
 	var target_is_immune: bool = target.is_immune()
-	var tower_is_magic: bool = get_attack_type() == AttackType.enm.MAGIC
-	var is_immune_valid: bool = !(target_is_immune && tower_is_magic)
+	var attack_type_is_arcane: bool = get_attack_type() == AttackType.enm.ARCANE
+	var target_is_immune_to_attack_type: bool = target_is_immune && attack_type_is_arcane
 
-	var target_is_valid: bool = in_range && !target_is_invisible && is_immune_valid
+	var target_is_valid: bool = in_range && !target_is_invisible && !target_is_immune_to_attack_type
 
 	return target_is_valid
 

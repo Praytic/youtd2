@@ -6,7 +6,7 @@ enum enm {
 	ENERGY,
 	ESSENCE,
 	ELEMENTAL,
-	MAGIC,
+	ARCANE,
 }
 
 static var _list: Array[AttackType.enm] = [
@@ -15,7 +15,7 @@ static var _list: Array[AttackType.enm] = [
 	AttackType.enm.ENERGY,
 	AttackType.enm.ESSENCE,
 	AttackType.enm.ELEMENTAL,
-	AttackType.enm.MAGIC,
+	AttackType.enm.ARCANE,
 ]
 
 static var _string_map: Dictionary = {
@@ -24,7 +24,7 @@ static var _string_map: Dictionary = {
 	AttackType.enm.ENERGY: "energy",
 	AttackType.enm.ESSENCE: "essence",
 	AttackType.enm.ELEMENTAL: "elemental",
-	AttackType.enm.MAGIC: "magic",
+	AttackType.enm.ARCANE: "arcane",
 }
 
 static var _color_map: Dictionary = {
@@ -33,7 +33,7 @@ static var _color_map: Dictionary = {
 	AttackType.enm.ENERGY: Color.DODGER_BLUE,
 	AttackType.enm.ESSENCE: Color.AQUAMARINE,
 	AttackType.enm.ELEMENTAL: Color.CORNFLOWER_BLUE,
-	AttackType.enm.MAGIC: Color.DEEP_SKY_BLUE,
+	AttackType.enm.ARCANE: Color.DEEP_SKY_BLUE,
 }
 
 static var _no_damage_to_immune_map: Dictionary = {
@@ -42,7 +42,7 @@ static var _no_damage_to_immune_map: Dictionary = {
 	AttackType.enm.ENERGY: false,
 	AttackType.enm.ESSENCE: false,
 	AttackType.enm.ELEMENTAL: false,
-	AttackType.enm.MAGIC: true,
+	AttackType.enm.ARCANE: true,
 }
 
 static var _damage_to_armor_map: Dictionary = {
@@ -86,7 +86,7 @@ static var _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.SIF: 0.4,
 		ArmorType.enm.ZOD: 1.0,
 	},
-	AttackType.enm.MAGIC: {
+	AttackType.enm.ARCANE: {
 		ArmorType.enm.MYT: 1.5,
 		ArmorType.enm.LUA: 1.5,
 		ArmorType.enm.SOL: 1.5,
@@ -149,6 +149,9 @@ static func get_rich_text_for_damage_dealt(attack_type: AttackType.enm) -> Strin
 		var damage_dealt_string: String = Utils.format_percent(damage_dealt, 2)
 
 		text += "%s:\t %s\n" % [armor_type_name, damage_dealt_string]
+
+	if attack_type == AttackType.enm.ARCANE:
+		text += "[color=RED]Cannot hit Immune creeps![/color]\n"
 
 	text = RichTexts.add_color_to_numbers(text)
 

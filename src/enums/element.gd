@@ -30,7 +30,7 @@ static var _flavor_text_map: Dictionary = {
 	Element.enm.ASTRAL: "The good element. Astral towers use special astral related abilities to buff other towers. Strong against undead enemies.",
 	Element.enm.DARKNESS: "The evil element. Darkness towers specialize in curses, necromancy and debuffs which weaken enemies. Strong against nature enemies.",
 	Element.enm.IRON: "The manmade element. Iron towers are balanced all around fighters. Strong against boss enemies.",
-	Element.enm.STORM: "The weather element. Storm towers use lightning and other weather phenomena to deal damage to enemies. Strong against air and magical enemies.",
+	Element.enm.STORM: "The weather element. Storm towers use lightning and other weather phenomena to deal damage to enemies. Strong against Air and Magic creeps.",
 	Element.enm.NONE: "none",
 }
 
@@ -38,7 +38,7 @@ static var _main_attack_types_map: Dictionary = {
 	Element.enm.ICE: [AttackType.enm.ELEMENTAL, AttackType.enm.ENERGY],
 	Element.enm.NATURE: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY, AttackType.enm.ESSENCE],
 	Element.enm.FIRE: [AttackType.enm.ELEMENTAL, AttackType.enm.DECAY],
-	Element.enm.ASTRAL: [AttackType.enm.ENERGY, AttackType.enm.ELEMENTAL, AttackType.enm.MAGIC],
+	Element.enm.ASTRAL: [AttackType.enm.ENERGY, AttackType.enm.ELEMENTAL, AttackType.enm.ARCANE],
 	Element.enm.DARKNESS: [AttackType.enm.DECAY, AttackType.enm.PHYSICAL],
 	Element.enm.IRON: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY],
 	Element.enm.STORM: [AttackType.enm.ENERGY, AttackType.enm.PHYSICAL],
