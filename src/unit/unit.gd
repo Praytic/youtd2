@@ -1712,8 +1712,14 @@ func set_hovered(hovered: bool):
 	if _selected:
 		return
 
-	_selection_indicator.modulate = Color.WHITE
-	_unit_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
+	var indicator_color: Color
+	if belongs_to_local_player():
+		indicator_color = Color.WHITE
+	else:
+		indicator_color = Color.YELLOW
+
+	_selection_indicator.modulate = indicator_color
+	_unit_selection_outline.material.set_shader_parameter("line_color", indicator_color)
 	_selection_indicator.set_visible(hovered)
 	_unit_selection_outline.set_visible(hovered)
 	_hovered = hovered
@@ -1736,7 +1742,10 @@ func set_selected(selected_arg: bool):
 	if self is Creep:
 		selection_color = Color.RED
 	else:
-		selection_color = Color.GREEN
+		if belongs_to_local_player():
+			selection_color = Color.GREEN
+		else:
+			selection_color = Color.ORANGE
 
 	_selection_indicator.modulate = selection_color
 	_selection_indicator.set_visible(selected_arg)
