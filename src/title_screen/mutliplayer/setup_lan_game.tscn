@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cusqgcgg37fj7"]
+
+[ext_resource type="Script" path="res://src/title_screen/mutliplayer/setup_lan_game.gd" id="1_02dc7"]
+[ext_resource type="PackedScene" uid="uid://gdcomufk2dhk" path="res://src/title_screen/mutliplayer/lan_room_scanner.tscn" id="2_jobgp"]
+[ext_resource type="Script" path="res://src/title_screen/mutliplayer/lan_room_advertiser.gd" id="3_gmbuw"]
+
+[node name="SetupLanGame" type="Node" node_paths=PackedStringArray("_lan_room_scanner", "_lan_room_advertiser")]
+script = ExtResource("1_02dc7")
+_lan_room_scanner = NodePath("LanRoomScanner")
+_lan_room_advertiser = NodePath("LanRoomAdvertiser")
+
+[node name="LanRoomScanner" parent="." instance=ExtResource("2_jobgp")]
+
+[node name="LanRoomAdvertiser" type="Node" parent="."]
+script = ExtResource("3_gmbuw")
+
+[connection signal="room_list_changed" from="LanRoomScanner" to="." method="_on_lan_room_scanner_room_list_changed"]

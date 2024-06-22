@@ -144,3 +144,11 @@ const GAME_SPEED_FASTEST: int = 6
 
 const ITEM_BUTTON_SIZE: Vector2 = Vector2(80, 80)
 const ABILITY_BUTTON_SIZE: Vector2 = Vector2(85, 85)
+
+# Picked these ports because they were used in Godot
+# examples and are not present on the list of registered or
+# common ports as of December 2022:
+# https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+const SERVER_PORT: int = 8910
+const ROOM_SCANNER_SEND_PORT: int = 8911
+const ROOM_ADVERTISER_SEND_PORT: int = 8912

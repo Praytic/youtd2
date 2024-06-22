@@ -56,3 +56,12 @@ func get_game_mode() -> GameMode.enm:
 	var game_mode: GameMode.enm = selected_index as GameMode.enm
 	
 	return game_mode
+
+
+func get_room_config() -> RoomConfig:
+	var game_mode: GameMode.enm = get_game_mode()
+	var difficulty: Difficulty.enm = get_difficulty()
+	var game_length: int = get_game_length()
+	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
+	
+	return room_config

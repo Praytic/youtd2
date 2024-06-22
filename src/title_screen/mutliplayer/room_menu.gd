@@ -1,13 +1,12 @@
 class_name RoomMenu extends PanelContainer
 
 
-signal back_pressed()
 signal start_pressed()
+signal back_pressed()
 
 
 @export var _player_list: ItemList
-@export var _game_mode_ui: GameModeUI
-@export var _start_button: Button
+@export var _room_config_label: RichTextLabel
 
 
 #########################
@@ -27,27 +26,16 @@ func _process(_delta: float):
 	
 	for i in _player_list.item_count:
 		_player_list.set_item_selectable(i, false)
-
-
+	
 #########################
 ###       Public      ###
 #########################
 
-func get_difficulty() -> Difficulty.enm:
-	return _game_mode_ui.get_difficulty()
-
-
-func get_game_length() -> int:
-	return _game_mode_ui.get_game_length()
-
-
-func get_game_mode() -> GameMode.enm:
-	return _game_mode_ui.get_game_mode()
-
-
-func set_server_controls_disabled(value: bool):
-	_game_mode_ui.set_disabled(value)
-	_start_button.disabled = value
+func display_room_config(room_config: RoomConfig):
+	var room_config_string: String = room_config.get_display_string_rich()
+	
+	_room_config_label.clear()
+	_room_config_label.append_text(room_config_string)
 
 
 #########################

@@ -1,4 +1,4 @@
-extends Node
+class_name TitleScreen extends Node
 
 # Main menu for the game. Opens when the game starts.
 
@@ -6,7 +6,8 @@ extends Node
 enum Tab {
 	MAIN,
 	CONFIGURE_SINGLEPLAYER,
-	JOIN_OR_HOST,
+	ROOM_LIST,
+	CREATE_ROOM,
 	MULTIPLAYER_ROOM,
 	PROFILE,
 	SETTINGS,
@@ -21,7 +22,6 @@ enum Tab {
 @export var _auth_button: Button
 @export var _spacer_before_quit_button: VBoxContainer
 @export var _quit_button: Button
-@export var _room_menu: RoomMenu
 
 
 #########################
@@ -45,13 +45,17 @@ func _ready():
 ###      Private      ###
 #########################
 
+func switch_to_tab(tab: TitleScreen.Tab):
+	_tab_container.current_tab = tab
+
+
 func _switch_to_main_tab():
 	_tab_container.current_tab = Tab.MAIN
 
 
 # NOTE: this function transitions the game from title screen to game scene. Can be called either by client itself or the host if the game is in multiplayer mode.
 @rpc("any_peer", "call_local", "reliable")
-func _start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
+func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
 #	NOTE: save game settings into globals so that GameScene
 #	can access them
 	Globals._player_mode = player_mode
@@ -69,6 +73,11 @@ func _start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMo
 	get_tree().change_scene_to_packed(Preloads.game_scene_scene)
 
 
+func show_message(text: String):
+	var popup: MessagePopup = MessagePopup.make(text)
+	add_child(popup)
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -82,7 +91,7 @@ func _on_singleplayer_button_pressed():
 
 
 func _on_multiplayer_button_pressed():
-	_tab_container.current_tab = Tab.JOIN_OR_HOST
+	_tab_container.current_tab = Tab.ROOM_LIST
 
 
 func _on_settings_button_pressed():
@@ -106,15 +115,7 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	Settings.set_setting(Settings.CACHED_GAME_LENGTH, game_length)
 	Settings.flush()
 	
-	_start_game(PlayerMode.enm.SINGLE, game_length, game_mode, difficulty, origin_seed)
-
-
-func _on_join_or_host_menu_join_button_pressed():
-	pass # Replace with function body.
-
-
-func _on_join_or_host_menu_host_button_pressed():
-	pass # Replace with function body.
+	start_game(PlayerMode.enm.SINGLE, game_length, game_mode, difficulty, origin_seed)
 
 
 func _on_auth_button_pressed():
@@ -129,21 +130,12 @@ func _on_settings_menu_ok_pressed():
 	_switch_to_main_tab()
 
 
-func _on_join_or_host_controller_completed():
-	_tab_container.current_tab = Tab.MULTIPLAYER_ROOM
-
-
 func _on_room_menu_back_pressed():
-	_tab_container.current_tab = Tab.JOIN_OR_HOST
+	_tab_container.current_tab = Tab.ROOM_LIST
 
 
-func _on_room_menu_start_pressed():
-	var difficulty: Difficulty.enm = _room_menu.get_difficulty()
-	var game_length: int = _room_menu.get_game_length()
-	var game_mode: GameMode.enm = _room_menu.get_game_mode()
-	var origin_seed: int = randi()
-
-	_start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
+func _on_create_lan_room_menu_cancel_pressed():
+	_tab_container.current_tab = Tab.ROOM_LIST
 
 
 func _on_profile_button_pressed():

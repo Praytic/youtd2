@@ -1,6 +1,40 @@
 class_name UtilsStatic extends Node
 
 
+# Converts unix time UTC (seconds) into local time string
+func convert_unix_time_to_string(time_utc: float) -> String:
+	var time_zone: Dictionary = Time.get_time_zone_from_system()
+	var bias_minutes: float = time_zone.get("bias", 0)
+	var bias_seconds: float = bias_minutes * 60
+	var time_local: float = time_utc + bias_seconds
+	var time_string: String = Time.get_time_string_from_unix_time(int(time_local))
+	
+	return time_string
+
+
+func check_dict_has_fields(dict: Dictionary, field_count: int) -> bool:
+	var dict_has_keys: bool = true
+	
+	for key in range(0, field_count):
+		if !dict.has(key):
+			dict_has_keys = false
+			
+			break
+	
+	return dict_has_keys
+
+
+func convert_bytes_to_dict(bytes: PackedByteArray) -> Dictionary:
+	var variant: Variant = bytes_to_var(bytes)
+
+	if variant is Dictionary:
+		var dict: Dictionary = variant as Dictionary
+
+		return dict
+	else:
+		return {}
+
+
 func get_path_point_wc3(path: Path2D, index: int) -> Vector2:
 	var curve: Curve2D = path.get_curve()
 	var point_canvas: Vector2 = curve.get_point_position(index)

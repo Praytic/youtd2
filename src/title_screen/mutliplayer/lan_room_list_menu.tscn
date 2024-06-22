@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnnkyqysqqyar"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_vaewn"]
+[ext_resource type="Script" path="res://src/title_screen/mutliplayer/lan_room_list_menu.gd" id="2_82rep"]
+
+[node name="LanRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_status_label", "_no_rooms_found_label", "_item_list")]
+custom_minimum_size = Vector2(900, 400)
+theme = ExtResource("1_vaewn")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_82rep")
+_status_label = NodePath("VBoxContainer/StatusLabel")
+_no_rooms_found_label = NodePath("VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer/NoRoomsFoundLabel")
+_item_list = NodePath("VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer/ItemList")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "LAN Rooms"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_vaewn")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RoomButtonContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="NoRoomsFoundLabel" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
+layout_mode = 2
+text = "No rooms found"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="JoinRoomButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join room"
+
+[node name="CreateRoomButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create room"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/JoinRoomButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/CreateRoomButton" to="." method="_on_create_room_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
