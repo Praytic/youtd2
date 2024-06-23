@@ -6,7 +6,7 @@ class_name MessagePopup extends PopupPanel
 
 var _text: String = ""
 
-@export var _label: Label
+@export var _label: RichTextLabel
 
 
 #########################
@@ -14,7 +14,16 @@ var _text: String = ""
 #########################
 
 func _ready():
-	_label.text = _text
+	_label.clear()
+	_label.append_text(_text)
+	
+#	NOTE: autowrap mode of RichTextLabel must be set to
+#	"Word" in the scene. Otherwise, RichTextLabel behaves
+#	weirdly by expanding to maximum available height. This
+#	makes the popup very tall.
+	var autowrap_mode_is_correct: bool = _label.autowrap_mode == TextServer.AutowrapMode.AUTOWRAP_WORD
+	if !autowrap_mode_is_correct:
+		push_error("RichTextLabel autowrap mode is incorrect. Make sure it's set to Word in the scene.")
 
 
 #########################
