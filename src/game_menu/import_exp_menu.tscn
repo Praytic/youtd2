@@ -1,61 +1,69 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3kgwa2iuucrh"]
 
-[ext_resource type="StyleBox" uid="uid://bw4wtqgmpri3j" path="res://resources/theme/player_resource_display/rect_container_center_l.tres" id="1_80hsm"]
 [ext_resource type="Script" path="res://src/game_menu/import_exp_menu.gd" id="1_ishyk"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_ui0c6"]
 
-[node name="ImportExpMenu" type="PopupPanel" node_paths=PackedStringArray("_exp_password_edit", "_error_label", "_success_label")]
-initial_position = 1
-size = Vector2i(600, 300)
-visible = true
-max_size = Vector2i(32768, 300)
-theme_override_styles/panel = ExtResource("1_80hsm")
+[node name="ImportExpMenu" type="Control" node_paths=PackedStringArray("_exp_password_edit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
 script = ExtResource("1_ishyk")
-_exp_password_edit = NodePath("VBoxContainer/ExpPasswordEdit")
-_error_label = NodePath("VBoxContainer/ErrorLabel")
-_success_label = NodePath("VBoxContainer/SuccessLabel")
+_exp_password_edit = NodePath("PanelContainer/VBoxContainer/ExpPasswordEdit")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 29.8477
-offset_top = 30.2329
-offset_right = 569.848
-offset_bottom = 270.233
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -174.5
+offset_right = 123.0
+offset_bottom = 174.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ui0c6")
+theme_type_variation = &"MainPanelContainer"
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Paste experience password exported from another game client.
+
 (note that copy-paste may fail in browser, you will need to type the password manually)"
 autowrap_mode = 2
 
-[node name="ErrorLabel" type="Label" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-text = "This experience password is invalid."
-
-[node name="SuccessLabel" type="RichTextLabel" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "(placeholder) Imported experience password successfully. You now have 123 experience!"
-fit_content = true
-
-[node name="ExpPasswordEdit" type="TextEdit" parent="VBoxContainer"]
+[node name="ExpPasswordEdit" type="TextEdit" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 context_menu_enabled = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Spacer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Close"
 
-[node name="ImportButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="ImportButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Apply"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/ImportButton" to="." method="_on_import_button_pressed"]

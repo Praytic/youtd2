@@ -1,40 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3gh33xi2di32"]
+[gd_scene load_steps=3 format=3 uid="uid://b3gh33xi2di32"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_0laja"]
-[ext_resource type="StyleBox" uid="uid://crr0tkfd2ggb8" path="res://resources/theme/common/rect_container_center_l.tres" id="2_wxkao"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_nvj37"]
 [ext_resource type="Script" path="res://src/game_menu/export_exp_menu.gd" id="3_qmel2"]
 
-[node name="ExportExpMenu" type="PopupPanel" node_paths=PackedStringArray("_exp_password_edit")]
-initial_position = 1
-size = Vector2i(600, 313)
-visible = true
-theme = ExtResource("1_0laja")
-theme_override_styles/panel = ExtResource("2_wxkao")
+[node name="ExportExpMenu" type="Control" node_paths=PackedStringArray("_exp_password_edit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
 script = ExtResource("3_qmel2")
-_exp_password_edit = NodePath("VBoxContainer/TextEdit")
+_exp_password_edit = NodePath("PanelContainer/VBoxContainer/TextEdit")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 20.0
-offset_top = 40.0
-offset_right = 580.0
-offset_bottom = 273.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -142.5
+offset_right = 300.0
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_nvj37")
+theme_type_variation = &"MainPanelContainer"
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Copy the experience password below and import it into another game client.
 (note that copy-paste may fail in browser, you will need to type the password manually)"
 autowrap_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "asdfasdfasdfasefaef"
 editable = false
 context_menu_enabled = false
 
-[node name="CloseButton" type="Button" parent="VBoxContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

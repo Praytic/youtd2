@@ -1,49 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1di6x5fjm4b5"]
+[gd_scene load_steps=3 format=3 uid="uid://d1di6x5fjm4b5"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_en53a"]
-[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://resources/theme/common/rect_container_m.tres" id="2_se6l6"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_uo1gt"]
 [ext_resource type="Script" path="res://src/title_screen/message_popup.gd" id="3_8ld02"]
 
-[node name="MessagePopup" type="PopupPanel" node_paths=PackedStringArray("_label")]
-initial_position = 1
-size = Vector2i(300, 150)
-visible = true
-always_on_top = true
-min_size = Vector2i(300, 150)
-max_size = Vector2i(1500, 800)
-theme = ExtResource("1_en53a")
-theme_override_styles/panel = ExtResource("2_se6l6")
+[node name="MessagePopup" type="Control" node_paths=PackedStringArray("_label")]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3_8ld02")
-_label = NodePath("MarginContainer/VBoxContainer/RichTextLabel")
+_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/RichTextLabel")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_left = 10.0
-offset_top = 14.0
-offset_right = 290.0
-offset_bottom = 145.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(350, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -46.0
+offset_right = 53.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uo1gt")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "message"
+text = "[center]Title[/center]
+Message."
 fit_content = true
 autowrap_mode = 2
 
-[node name="Spacer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OkButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="OkButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "OK"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]

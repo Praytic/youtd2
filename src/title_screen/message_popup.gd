@@ -1,4 +1,4 @@
-class_name MessagePopup extends PopupPanel
+class_name MessagePopup extends Control
 
 
 # Popup for displaying messages in title screen.

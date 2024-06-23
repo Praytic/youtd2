@@ -1,4 +1,4 @@
-class_name ExportExpMenu extends PopupPanel
+class_name ExportExpMenu extends Control
 
 
 @export var _exp_password_edit: TextEdit
