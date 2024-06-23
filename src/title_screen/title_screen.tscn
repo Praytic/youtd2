@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://src/game_menu/credits_menu.tscn" id="4_rdxi7"]
 [ext_resource type="PackedScene" uid="uid://cnnkyqysqqyar" path="res://src/title_screen/mutliplayer/lan_room_list_menu.tscn" id="5_pc1mj"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/game_menu/settings_menu.tscn" id="5_q0hc3"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/room_menu.tscn" id="6_65btw"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="6_65btw"]
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://src/title_screen/configure_singleplayer_menu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://d0m1fiwnsk3tf" path="res://src/title_screen/mutliplayer/create_lan_room_menu.tscn" id="7_8vssb"]
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://src/title_screen/profile_menu.tscn" id="8_7qboh"]
@@ -24,10 +24,10 @@ _auth_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/AuthButton")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
 
-[node name="SetupLanGame" parent="." node_paths=PackedStringArray("_title_screen", "_lan_room_list_menu", "_room_menu", "_create_lan_room_menu") instance=ExtResource("2_2qgi3")]
+[node name="SetupLanGame" parent="." node_paths=PackedStringArray("_title_screen", "_lan_room_list_menu", "_lan_room_menu", "_create_lan_room_menu") instance=ExtResource("2_2qgi3")]
 _title_screen = NodePath("..")
 _lan_room_list_menu = NodePath("../UI/TabContainer/LanRoomListMenu")
-_room_menu = NodePath("../UI/TabContainer/RoomMenu")
+_lan_room_menu = NodePath("../UI/TabContainer/LanRoomMenu")
 _create_lan_room_menu = NodePath("../UI/TabContainer/CreateLanRoomMenu")
 
 [node name="UI" type="Control" parent="."]
@@ -134,7 +134,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="RoomMenu" parent="UI/TabContainer" instance=ExtResource("6_65btw")]
+[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("6_65btw")]
 visible = false
 layout_mode = 2
 
@@ -185,9 +185,9 @@ fit_content = true
 [connection signal="visibility_changed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_visibility_changed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="." method="_on_create_lan_room_menu_cancel_pressed"]
 [connection signal="create_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="SetupLanGame" method="_on_create_lan_room_menu_create_pressed"]
-[connection signal="back_pressed" from="UI/TabContainer/RoomMenu" to="." method="_on_room_menu_back_pressed"]
-[connection signal="hidden" from="UI/TabContainer/RoomMenu" to="SetupLanGame" method="_on_room_menu_hidden"]
-[connection signal="start_pressed" from="UI/TabContainer/RoomMenu" to="SetupLanGame" method="_on_room_menu_start_pressed"]
+[connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="." method="_on_lan_room_menu_back_pressed"]
+[connection signal="hidden" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_hidden"]
+[connection signal="start_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_start_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_close_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="ok_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]

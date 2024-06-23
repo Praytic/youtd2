@@ -125,7 +125,7 @@ func _on_settings_menu_ok_pressed():
 	_switch_to_main_tab()
 
 
-func _on_room_menu_back_pressed():
+func _on_lan_room_menu_back_pressed():
 	_tab_container.current_tab = Tab.ROOM_LIST
 
 

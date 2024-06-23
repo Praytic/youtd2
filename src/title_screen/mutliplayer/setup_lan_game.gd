@@ -19,7 +19,7 @@ var _current_room_config: RoomConfig = null
 
 @export var _title_screen: TitleScreen
 @export var _lan_room_list_menu: LanRoomListMenu
-@export var _room_menu: RoomMenu
+@export var _lan_room_menu: LanRoomMenu
 @export var _create_lan_room_menu: CreateLanRoomMenu
 @export var _lan_room_scanner: LanRoomScanner
 @export var _lan_room_advertiser: LanRoomAdvertiser
@@ -52,7 +52,7 @@ func _on_create_lan_room_menu_create_pressed():
 	_lan_room_advertiser.set_room_config(_current_room_config)
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
-	_room_menu.display_room_config(_current_room_config)
+	_lan_room_menu.display_room_config(_current_room_config)
 
 
 # NOTE: need to scan for rooms only while room list menu is
@@ -92,10 +92,10 @@ func _on_lan_room_list_menu_join_pressed():
 	_current_room_config = room_info.get_room_config()
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
-	_room_menu.display_room_config(_current_room_config)
+	_lan_room_menu.display_room_config(_current_room_config)
 
 
-func _on_room_menu_start_pressed():
+func _on_lan_room_menu_start_pressed():
 	var is_host: bool = multiplayer.is_server()
 	if !is_host:
 		Utils.show_popup_message(self, "Error", "Only the host can start the game.")
@@ -111,7 +111,7 @@ func _on_room_menu_start_pressed():
 
 
 # NOTE: set room config to null when room menu is hidden, to stop advertising
-func _on_room_menu_hidden():
+func _on_lan_room_menu_hidden():
 	var is_host: bool = !multiplayer.is_server()
 	
 	if is_host:
