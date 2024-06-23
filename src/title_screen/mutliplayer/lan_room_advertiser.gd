@@ -17,7 +17,10 @@ var _room_info: RoomInfo = null
 # NOTE: not setting dest address/port for peer here because it will
 # need to be dynamically switched to send to specific room scanner
 func _ready():
-	_peer.bind(Constants.ROOM_SCANNER_SEND_PORT)
+	var bind_result: Error = _peer.bind(Constants.ROOM_SCANNER_SEND_PORT)
+	
+	if bind_result != OK:
+		push_error("Failed to setup room advertiser LISTEN. Details: %s" % error_string(bind_result))
 
 
 # NOTE: need to get_packet() even while having no room to advertise it, to clear the packet from peer.

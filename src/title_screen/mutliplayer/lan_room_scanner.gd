@@ -19,10 +19,21 @@ var _enabled: bool = false
 
 func _ready():
 	var broadcast_address: String = _get_broadcast_address()
-	_peer.set_dest_address(broadcast_address, Constants.ROOM_SCANNER_SEND_PORT)
+
+	if broadcast_address.is_empty():
+		Utils.show_popup_message(self, "Error", "Failed to find a network address. Make sure that you are connected to a network!")
+
+		return	
+
 	_peer.set_broadcast_enabled(true)
+	var set_dest_address_result: Error = _peer.set_dest_address(broadcast_address, Constants.ROOM_SCANNER_SEND_PORT)
+	var bind_result: Error = _peer.bind(Constants.ROOM_ADVERTISER_SEND_PORT)
+
+	if set_dest_address_result != OK:
+		push_error("Failed to setup room scanner SEND. Details: %s" % error_string(set_dest_address_result))
 	
-	_peer.bind(Constants.ROOM_ADVERTISER_SEND_PORT)
+	if bind_result != OK:
+		push_error("Failed to setup room scanner LISTEN. Details: %s" % error_string(bind_result))
 
 
 func _process(_delta: float):
@@ -80,7 +91,6 @@ func get_room_map() -> Dictionary:
 func _get_broadcast_address() -> String:
 	var local_address_list: Array = IP.get_local_addresses()
 	local_address_list.reverse()
-
 	var last_local_address: String = ""
 
 	for address in local_address_list:
@@ -92,7 +102,6 @@ func _get_broadcast_address() -> String:
 
 			break
 
-#	TODO: handle failure
 	if last_local_address == "":
 		return ""
 

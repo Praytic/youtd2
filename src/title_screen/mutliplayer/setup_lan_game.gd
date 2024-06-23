@@ -39,19 +39,14 @@ func _on_create_lan_room_menu_create_pressed():
 
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	# Maximum of 1 peer, since it's a 2-player co-op.
-	var create_server_error: Error = peer.create_server(Constants.SERVER_PORT, 1)
-	if create_server_error != OK:
-		# Is another server running?
-		var error_text: String = "Can't host, port [%s] in use." % Constants.SERVER_PORT
-		push_error(error_text)
-		_lan_room_list_menu.show_status(error_text)
+	var create_server_result: Error = peer.create_server(Constants.SERVER_PORT, 1)
+	if create_server_result != OK:
+		Utils.show_popup_message(self, "Error", "Failed to create server, port might already be in use. Details: %s." % error_string(create_server_result))
 
 		return
 
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
-
-#	TODO: need to have second call to set_room_config() with null value to stop advertising. Probably when host leaves the room.
 
 #	Start advertising the room
 	_lan_room_advertiser.set_room_config(_current_room_config)
@@ -77,18 +72,15 @@ func _on_lan_room_list_menu_join_pressed():
 	
 	var nothing_selected: bool = selected_room_address.is_empty()
 	if nothing_selected:
-		_title_screen.show_message("Error\nYou must select a room first.")
+		Utils.show_popup_message(self, "Error", "You must select a room first.")
 		
 		return
 	
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	var create_client_error: Error = peer.create_client(selected_room_address, Constants.SERVER_PORT)
+	var create_client_result: Error = peer.create_client(selected_room_address, Constants.SERVER_PORT)
 
-	if create_client_error != OK:
-		# Is another server running?
-		var error_text: String = "Failed to create client. Error:" % create_client_error
-		push_error(error_text)
-		_lan_room_list_menu.show_status(error_text)
+	if create_client_result != OK:
+		Utils.show_popup_message(self, "Error", "Failed to create client. Details:" % error_string(create_client_result))
 
 		return
 
@@ -106,7 +98,7 @@ func _on_lan_room_list_menu_join_pressed():
 func _on_room_menu_start_pressed():
 	var is_host: bool = multiplayer.is_server()
 	if !is_host:
-		_title_screen.show_message("Error\nOnly host can start the game.")
+		Utils.show_popup_message(self, "Error", "Only the host can start the game.")
 		
 		return
 	

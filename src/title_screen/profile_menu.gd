@@ -4,6 +4,9 @@ extends PanelContainer
 signal close_pressed()
 
 
+var _setup_error_list: Array[String] = []
+
+
 @export var _name_edit: TextEdit
 @export var _export_exp_menu: ExportExpMenu
 @export var _import_exp_menu: ImportExpMenu
@@ -27,7 +30,7 @@ func _ready():
 	
 	var player_exp_is_valid: bool = player_exp != -1
 	if !player_exp_is_valid:
-		push_error("Exp password loaded from settings is invalid. Defaulting to 0 experience.")
+		_setup_error_list.append("Exp password loaded from settings is invalid. Defaulting to 0 experience.")
 		
 		player_exp = 0
 	
@@ -94,14 +97,15 @@ func _on_import_exp_menu_import_pressed():
 #	from accidentally resetting exp to 0.
 	var player_level_is_valid: bool = player_exp != -1 && !exp_password.is_empty()
 	if !player_level_is_valid:
-		_import_exp_menu.show_error_label()
+		Utils.show_popup_message(self, "Error", "Experience password is invalid.\n")
 		
 		return
 	
 	Settings.set_setting(Settings.EXP_PASSWORD, exp_password)
 	Settings.flush()
 
-	_import_exp_menu.show_success_label(player_exp)
+	var success_message: String = "Successfully imported experience password. You now have [color=GOLD]%d[/color] experience!" % player_exp
+	Utils.show_popup_message(self, "Success", success_message)
 	_load_player_exp(player_exp)
 
 #	NOTE: need to update wisdom upgrades because they depend
@@ -112,3 +116,9 @@ func _on_import_exp_menu_import_pressed():
 func _on_visibility_changed():
 	if visible:
 		_wisdom_upgrade_menu.load_wisdom_upgrades_from_settings()
+		
+		if !_setup_error_list.is_empty():
+			for error in _setup_error_list:
+				Utils.show_popup_message(self, "Error", error)
+
+			_setup_error_list.clear()

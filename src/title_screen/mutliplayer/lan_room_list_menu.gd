@@ -6,7 +6,6 @@ signal cancel_pressed()
 signal create_room_pressed()
 
 
-@export var _status_label: Label
 @export var _no_rooms_found_label: Label
 @export var _item_list: ItemList
 
@@ -14,18 +13,6 @@ signal create_room_pressed()
 #########################
 ###       Public      ###
 #########################
-
-func get_room_address() -> String:
-	return ""
-
-
-func show_status_text(text: String):
-	_status_label.text = text
-
-
-func show_address_error():
-	pass
-
 
 func update_room_display(room_map: Dictionary):
 	var found_rooms: bool = !room_map.is_empty()
