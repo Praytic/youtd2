@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://8mqmqee6s3h8"]
 
-[ext_resource type="Texture2D" uid="uid://clyoh08bhg4fv" path="res://assets/tower_sprites/ice_uncommon.png" id="1_nem6c"]
+[ext_resource type="Texture2D" uid="uid://65jvdxexe8qw" path="res://assets/tower_sprites/darkness_rare.png" id="1_c7b7c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xs15a"]
-atlas = ExtResource("1_nem6c")
-region = Rect2(264, 266, 215, 235)
+atlas = ExtResource("1_c7b7c")
+region = Rect2(17, 805, 207, 206)
 
 [node name="mister_fireflies_3" type="Sprite2D"]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_xs15a")
-offset = Vector2(-28, -84)
+offset = Vector2(-15, -70)
