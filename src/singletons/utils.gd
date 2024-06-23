@@ -1,6 +1,25 @@
 class_name UtilsStatic extends Node
 
 
+func show_popup_message(node: Node, title: String, message: String):
+	if !node.is_inside_tree():
+		push_error("Node must inside scene tree")
+
+		return
+	
+	var popup_text: String = ""
+	if !title.is_empty():
+		popup_text += "[center]%s[/center]\n \n" % title
+	popup_text += message
+
+#	NOTE: the top node is last in order, after autoload nodes
+	var root = node.get_tree().root
+	var top_node: Node = root.get_child(root.get_child_count() - 1)
+	print(top_node)
+	var popup: MessagePopup = MessagePopup.make(popup_text)
+	top_node.add_child(popup)
+
+
 # Converts unix time UTC (seconds) into local time string
 func convert_unix_time_to_string(time_utc: float) -> String:
 	var time_zone: Dictionary = Time.get_time_zone_from_system()

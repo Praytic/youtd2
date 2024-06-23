@@ -73,11 +73,6 @@ func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMod
 	get_tree().change_scene_to_packed(Preloads.game_scene_scene)
 
 
-func show_message(text: String):
-	var popup: MessagePopup = MessagePopup.make(text)
-	add_child(popup)
-
-
 #########################
 ###     Callbacks     ###
 #########################
