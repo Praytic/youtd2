@@ -3,10 +3,7 @@ class_name Map extends Node2D
 
 @export var play_area: Area2D
 @export var play_area_shape: CollisionShape2D
-@export var _black_border: Node2D
 @export var _buildable_area: TileMap
-@export var _prerendered_background: Node2D
-@export var _foreground_map: TileMap
 @export var _ground_indicator_map: TileMap
 
 const BUILDABLE_PULSE_ALPHA_MIN = 0.1
@@ -43,19 +40,6 @@ func _ready():
 		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR).set_delay(0.5 * BUILDABLE_PULSE_PERIOD)
 	buildable_area_tween.set_loops()
 
-	_prerendered_background.visible = Config.use_prerendered_background()
-
-#	NOTE: create real tilemap if not using prerendered
-#	version. We do this here instead of in scene to avoid
-#	the real tilemap eating VRAM while being hidden.
-	if !Config.use_prerendered_background():
-		print_verbose("Using raw map (not prerendered)")
-		var background_map_scene: PackedScene = load("res://src/map/background_map.tscn")
-		var background_map = background_map_scene.instantiate()
-		_buildable_area.add_sibling(background_map)
-	else:
-		print_verbose("Using prerendered map")
-
 
 #########################
 ###       Public      ###
@@ -65,12 +49,6 @@ func get_buildable_cells() -> Array[Vector2i]:
 	var buildable_cells: Array[Vector2i] = _buildable_area.get_used_cells(0)
 
 	return buildable_cells
-
-
-func setup_for_prerendering():
-	_prerendered_background.hide()
-	_black_border.hide()
-	_foreground_map.hide()
 
 
 func get_play_area_size() -> Vector2:

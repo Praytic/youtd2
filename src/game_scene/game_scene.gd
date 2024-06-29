@@ -4,7 +4,6 @@ class_name GameScene extends Node
 @export var _game_menu: Control
 @export var _hud: HUD
 @export var _map: Map
-@export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
@@ -64,19 +63,6 @@ func _ready():
 	EventBus.player_clicked_tower_buff_group.connect(_on_player_clicked_tower_buff_group)
 	
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
-
-	if Config.run_prerender_tool():
-		var running_on_web: bool = OS.get_name() == "Web"
-
-		if !running_on_web:
-			PrerenderTool.run(self, _ui_canvas_layer, _map)
-
-#			NOTE: do early return here so that the game is
-#			not paused and we can take pictures of the map
-#			properly.
-			return
-		else:
-			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
 
 # 	NOTE: this is where normal gameplay starts
 	Settings.changed.connect(_on_settings_changed)

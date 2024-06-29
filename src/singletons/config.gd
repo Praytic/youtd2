@@ -112,17 +112,6 @@ func run_test_horadric_tool() -> bool:
 func run_test_tower_sprite_size() -> bool:
 	return ProjectSettings.get_setting("application/config/run_test_tower_sprite_size") as bool
 
-func run_prerender_tool() -> bool:
-	return ProjectSettings.get_setting("application/config/run_prerender_tool") as bool
-
-func use_prerendered_background() -> bool:
-	if run_prerender_tool():
-		print("NOTE: forcing application/config/use_prerendered_background to false because application/config/run_prerender_tool is set to true.")
-
-		return false
-
-	return ProjectSettings.get_setting("application/config/use_prerendered_background") as bool
-
 func run_save_tooltips_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_save_tooltips_tool") as bool
 
