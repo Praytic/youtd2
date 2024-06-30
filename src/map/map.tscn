@@ -1,15 +1,15 @@
 [gd_scene load_steps=42 format=3 uid="uid://bjvafnsglmpin"]
 
-[ext_resource type="Texture2D" uid="uid://2v03j2bnie6o" path="res://assets/tiles/EmptyTiles.png" id="3_bwx0l"]
-[ext_resource type="Texture2D" uid="uid://28he7nw8q1lo" path="res://assets/tiles/Floor.png" id="3_gqnhq"]
+[ext_resource type="Texture2D" uid="uid://28he7nw8q1lo" path="res://assets/tiles/floor.png" id="3_gqnhq"]
 [ext_resource type="Script" path="res://src/map/map.gd" id="4"]
-[ext_resource type="Texture2D" uid="uid://bb3cy5nc11xm4" path="res://assets/tiles/Planks.png" id="4_cwe5f"]
-[ext_resource type="Texture2D" uid="uid://8hg2mltwjvch" path="res://assets/tiles/Bridges.png" id="5_deesn"]
-[ext_resource type="Texture2D" uid="uid://c2ui4kf3f3fnc" path="res://assets/tiles/Stairs.png" id="6_8wr14"]
-[ext_resource type="Texture2D" uid="uid://b1jfa4r4faj77" path="res://assets/tiles/WoodenPile.png" id="7_8fht0"]
+[ext_resource type="Texture2D" uid="uid://bb3cy5nc11xm4" path="res://assets/tiles/planks.png" id="4_cwe5f"]
+[ext_resource type="Texture2D" uid="uid://8hg2mltwjvch" path="res://assets/tiles/bridges.png" id="5_deesn"]
+[ext_resource type="Texture2D" uid="uid://c2ui4kf3f3fnc" path="res://assets/tiles/stairs.png" id="6_8wr14"]
+[ext_resource type="Texture2D" uid="uid://b1jfa4r4faj77" path="res://assets/tiles/wooden_pile.png" id="6_a1vcd"]
+[ext_resource type="Texture2D" uid="uid://m7awn68i621a" path="res://assets/tiles/stone_walls.png" id="8_4ckpm"]
 [ext_resource type="Texture2D" uid="uid://bq4bfj6wa7488" path="res://assets/tiles/floor1_walls.png" id="8_6724m"]
-[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://assets/tiles/Barrels.png" id="9_vhjis"]
-[ext_resource type="Texture2D" uid="uid://m7awn68i621a" path="res://assets/tiles/stoneWall-combined.png" id="10_pajhs"]
+[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://assets/tiles/barrels.png" id="9_vhjis"]
+[ext_resource type="Texture2D" uid="uid://2v03j2bnie6o" path="res://assets/tiles/empty_tiles.png" id="11_3auy7"]
 [ext_resource type="TileSet" uid="uid://c2ke1gy0rnehu" path="res://resources/tilesets/decorations.tres" id="11_go4by"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_d2fx0"]
@@ -274,7 +274,7 @@ use_texture_padding = false
 3:2/0/texture_origin = Vector2i(0, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hvd6"]
-texture = ExtResource("7_8fht0")
+texture = ExtResource("6_a1vcd")
 texture_region_size = Vector2i(256, 256)
 use_texture_padding = false
 0:0/0 = 0
@@ -311,8 +311,6 @@ texture_region_size = Vector2i(256, 256)
 1:0/0/texture_origin = Vector2i(0, 64)
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, 64)
-1:1/0 = 0
-1:1/0/texture_origin = Vector2i(0, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryqdi"]
 texture = ExtResource("9_vhjis")
@@ -344,7 +342,7 @@ use_texture_padding = false
 3:2/0/texture_origin = Vector2i(0, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3vo1"]
-texture = ExtResource("10_pajhs")
+texture = ExtResource("8_4ckpm")
 texture_region_size = Vector2i(256, 384)
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, 128)
@@ -603,11 +601,11 @@ pattern_15 = SubResource("TileMapPattern_6nqay")
 pattern_16 = SubResource("TileMapPattern_63foq")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4htcd"]
-texture = ExtResource("3_bwx0l")
+texture = ExtResource("11_3auy7")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 3:0/0 = 0
-3:0/0/texture_origin = Vector2i(0, 187)
+3:0/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSet" id="TileSet_088v3"]
 tile_shape = 1
@@ -616,7 +614,7 @@ tile_size = Vector2i(128, 64)
 sources/1 = SubResource("TileSetAtlasSource_4htcd")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2k3qd"]
-texture = ExtResource("3_bwx0l")
+texture = ExtResource("11_3auy7")
 texture_region_size = Vector2i(256, 512)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 192)
