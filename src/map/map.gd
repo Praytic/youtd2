@@ -1,5 +1,17 @@
 class_name Map extends Node2D
 
+# Map contains TileMaps which are drawn in the world. Note
+# that some tiles are background while other tiles may be
+# drawn in front of units depending on their position. Map
+# also contains extra non-visual map nodes which are used
+# for gameplay purposes.
+# 
+# MainTileMap is for tiles which are aligned with the tile
+# grid (256x128). Contains things like floors and walls.
+# 
+# DecorationTileMap is for tiles which need to have more
+# free positioning. This TileMap has a smaller grid size
+# (64x32). Contains things like vegetation, barrels, etc.
 
 # NOTE: explanation of z_index values for tilemap layers and units:
 # - 0 = lvl1-flat tilemap layer, this is for floor tiles on
@@ -10,6 +22,11 @@ class_name Map extends Node2D
 #   lvl2 elevation
 # - 20 = lvl2-tall tilemap layer, this is for tall tiles
 #   (walls) on lvl2 elevation
+#
+# Buildable area tiles have z_index of 12, so that they are:
+# - above lvl2 flat tiles
+# - above lvl2 flat decoration tiles
+# - below lvl2 units and tall tiles
 #
 # Note that lvl2-flat layer has same z_index as lvl1-tall
 # but it has y-sort origin of 192. This effectively makes
