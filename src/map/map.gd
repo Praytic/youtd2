@@ -71,8 +71,7 @@ class_name Map extends Node2D
 # - y-sorted with lvl1 tall tiles
 
 
-@export var play_area: Area2D
-@export var play_area_shape: CollisionShape2D
+@export var _camera_limits: Polygon2D
 @export var _buildable_area: TileMap
 @export var _ground_indicator_map: TileMap
 
@@ -87,17 +86,13 @@ const BUILDABLE_PULSE_PERIOD = 1.0
 
 func _ready():
 	var camera: Camera2D = get_viewport().get_camera_2d()
-	var s = play_area.scale
-	var ss = play_area_shape.scale
-	var ps = get_play_area_size()
-	var pp = get_play_area_pos()
-	camera.limit_bottom = pp.y + ps.y / 2 * s.y * ss.y
-	camera.limit_top = pp.y - ps.y / 2 * s.y * ss.y
-	camera.limit_left = pp.x - ps.x / 2 * s.x * ss.x
-	camera.limit_right = pp.x + ps.x / 2 * s.x * ss.x
-	camera.position = pp
-	print_verbose("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
-		% [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp])
+	var camera_limits_rect: Rect2 = Utils.get_polygon_bounding_box(_camera_limits)
+	camera.limit_bottom = int(camera_limits_rect.end.y)
+	camera.limit_top = int(camera_limits_rect.position.y)
+	camera.limit_left = int(camera_limits_rect.position.x)
+	camera.limit_right = int(camera_limits_rect.end.x)
+	
+	print_verbose("Set camera limits to [bottom: %s, top: %s, left: %s, right: %s]" % [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right])
 	
 #	Make buildable area pulse by tweening it's alpha between
 #	min and max
@@ -119,14 +114,6 @@ func get_buildable_cells() -> Array[Vector2i]:
 	var buildable_cells: Array[Vector2i] = _buildable_area.get_used_cells(0)
 
 	return buildable_cells
-
-
-func get_play_area_size() -> Vector2:
-	return play_area_shape.get_shape().size
-
-
-func get_play_area_pos() -> Vector2:
-	return play_area_shape.global_position
 
 
 func pos_is_on_ground(pos: Vector2) -> bool:

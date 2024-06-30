@@ -15,7 +15,7 @@ extends Control
 
 func _ready():
 	minimap_camera.position = minimap_texture.get_rect().get_center()
-	var map_size = map.get_play_area_size()
+	var map_size = 1000
 	var minimap_size = minimap_texture.get_rect().size
 	minimap_scale = minimap_size.x / map_size.x / 2
 	_update_view_rect()
