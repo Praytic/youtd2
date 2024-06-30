@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dby8dpgvxybfr"]
+[gd_scene load_steps=3 format=3 uid="uid://dby8dpgvxybfr"]
 
 [ext_resource type="Script" path="res://src/items/item_drop.gd" id="1_id1fy"]
-[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://assets/tiles/Barrels.png" id="2_huh3c"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k6si0"]
-atlas = ExtResource("2_huh3c")
-region = Rect2(335, 378, 80, 83)
+[ext_resource type="Texture2D" uid="uid://itq2i72y2h0w" path="res://resources/misc/barrel.tres" id="2_0jryt"]
 
 [node name="ItemDrop" type="Node2D" node_paths=PackedStringArray("_visual")]
 script = ExtResource("1_id1fy")
@@ -14,6 +10,6 @@ _visual = NodePath("Visual")
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
-texture = SubResource("AtlasTexture_k6si0")
+texture = ExtResource("2_0jryt")
 
 [connection signal="selected_changed" from="." to="." method="_on_selected_changed"]
