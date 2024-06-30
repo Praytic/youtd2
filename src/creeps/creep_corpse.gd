@@ -41,6 +41,9 @@ func _ready():
 	add_to_group("corpses")
 
 	_set_visual_node(_visual)
+	
+#	NOTE: see explanation of z_index setup in map.gd
+	z_index = 10
 
 #	NOTE: need to inherit creep unit scale in case creep's
 #	scale is altered

@@ -61,6 +61,9 @@ var _transform_is_allowed: bool = true
 func _ready():
 	super()
 
+# 	NOTE: see explanation of z_index setup in map.gd
+	z_index = 20
+
 	_set_visual_node(_visual)
 	var outline_thickness: float = 6.0
 	_setup_unit_sprite(_sprite, _sprite_parent, outline_thickness)

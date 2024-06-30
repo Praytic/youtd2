@@ -64,13 +64,12 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
 _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
-_ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
 _team_container = NodePath("Gameplay/TeamContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
@@ -206,7 +205,6 @@ script = ExtResource("19_jib72")
 player_id = 1
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
-z_index = 10
 y_sort_enabled = true
 
 [node name="EffectsContainer" type="Node2D" parent="World"]

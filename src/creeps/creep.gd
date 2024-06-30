@@ -295,20 +295,15 @@ func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id: int):
 ###      Private      ###
 #########################
 
-# NOTE: when a creep has non-zero height, we need to adjust
-# it's z index so that the sprite is drawn correctly in
-# front of tiles.
+# NOTE: see explanation of z_index setup in map.gd
 func _calculate_current_z_index() -> int:
-# 	NOTE: make z_index for air creeps 11 so that air creeps
-# 	are drawn above any ground creep which were temporarily
-# 	elevated.
 	if get_z() > 1.5 * Constants.TILE_SIZE_WC3:
 		if get_size() == CreepSize.enm.AIR:
-			return 11
+			return 21
 		else:
-			return 10
+			return 20
 	else:
-		return 0
+		return 10
 
 
 func _move(delta):
