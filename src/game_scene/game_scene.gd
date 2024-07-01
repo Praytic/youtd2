@@ -205,6 +205,11 @@ func _ready():
 	if Config.run_test_tower_sprite_size():
 		TestTowerSpriteSize.run()
 
+#	NOTE: need to send ready message for multiplayer at this
+#	point because the end of GameScene._ready() is when the
+#	whole game is ready.
+	_game_client.send_ready_message()
+
 
 func _unhandled_input(event: InputEvent):
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")

@@ -16,6 +16,11 @@ class_name GameHost extends Node
 # first.
 
 
+enum HostState {
+	WAITING_BEFORE_START,
+	RUNNING,
+}
+
 # MULTIPLAYER_ACTION_LATENCY needs to be big enough to
 # account for latency.
 # NOTE: 6 ticks at 30ticks/second = 200ms.
@@ -39,6 +44,8 @@ var _timeslot_sent_count: int = 0
 var _player_ack_count_map: Dictionary = {}
 var _player_checksum_map: Dictionary = {}
 var _showed_desync_message: bool = false
+var _state: HostState = HostState.WAITING_BEFORE_START
+var _player_ready_map: Dictionary = {}
 
 
 #########################
@@ -49,6 +56,12 @@ func _physics_process(_delta: float):
 	if !multiplayer.is_server():
 		return
 
+	match _state:
+		HostState.WAITING_BEFORE_START: return
+		HostState.RUNNING: _update_state_running()
+
+
+func _update_state_running():
 	_check_lagging_players()
 	_check_desynced_players()
 
@@ -78,9 +91,6 @@ func setup(latency: int, player_list: Array[Player]):
 	for player in player_list:
 		var player_id: int = player.get_id()
 		_player_ack_count_map[player_id] = 0
-
-#	Send timeslot for 0 tick
-	_send_timeslot()
 
 	_setup_done = true
 
@@ -113,6 +123,41 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 	if !_player_checksum_map.has(player_id):
 		_player_checksum_map[player_id] = []
 	_player_checksum_map[player_id].append(checksum)
+
+
+# TODO: handle case where some player is not ready. Need to
+# show this as message to all players as "Waiting for
+# players...". Also need to add an option to leave the game
+# if the wait is too long.
+
+# Called by players to let the host know that player is
+# loaded and ready to start simulating the game. Host will
+# not start incrementing simulation ticks until all players
+# are ready.
+@rpc("any_peer", "call_local", "reliable")
+func recieve_player_ready():
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	_player_ready_map[player_id] = true
+
+	var all_players_are_ready: bool = true
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	for this_player in player_list:
+		var this_player_id: int = this_player.get_id()
+		var this_player_is_ready: bool = _player_ready_map.has(this_player_id)
+
+		if !this_player_is_ready:
+			all_players_are_ready = false
+
+			break
+
+	if all_players_are_ready:
+		_state = HostState.RUNNING
+
+#		Send timeslot for 0 tick
+		_send_timeslot()
 
 
 #########################

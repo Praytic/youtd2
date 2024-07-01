@@ -51,6 +51,10 @@ func _ready():
 	_tick_delta = 1.0 / tick_rate
 
 
+func send_ready_message():
+	_game_host.recieve_player_ready.rpc_id(1)
+
+
 # NOTE: using _physics_process() because it provides a
 # built-in way to do consistent tickrate, independent of
 # framerate.
