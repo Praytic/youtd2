@@ -135,7 +135,7 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 # not start incrementing simulation ticks until all players
 # are ready.
 @rpc("any_peer", "call_local", "reliable")
-func recieve_player_ready():
+func receive_player_ready():
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
@@ -158,6 +158,12 @@ func recieve_player_ready():
 
 #		Send timeslot for 0 tick
 		_send_timeslot()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func receive_ping():
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	_game_client.receive_pong.rpc_id(peer_id)
 
 
 #########################

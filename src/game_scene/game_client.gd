@@ -25,6 +25,7 @@ var _received_latency: int = 0
 # {tick -> timeslot}
 var _timeslot_map: Dictionary = {}
 var _timeslot_tick_queue: Array = [0]
+var _time_when_sent_ping: float = 0
 
 
 @export var _game_host: GameHost
@@ -52,7 +53,7 @@ func _ready():
 
 
 func send_ready_message():
-	_game_host.recieve_player_ready.rpc_id(1)
+	_game_host.receive_player_ready.rpc_id(1)
 
 
 # NOTE: using _physics_process() because it provides a
@@ -85,6 +86,13 @@ func receive_timeslot(timeslot: Array, latency: int):
 	var tick_for_next_timeslot: int = tick_for_this_timeslot + latency
 	_timeslot_tick_queue.append(tick_for_next_timeslot)
 	_received_latency = latency
+
+
+@rpc("authority", "call_local", "reliable")
+func receive_pong():
+	var time_when_received_pong: float = Time.get_ticks_msec()
+	var ping_time: float = time_when_received_pong - _time_when_sent_ping
+	_hud.set_ping_time(ping_time)
 
 
 #########################
@@ -245,3 +253,8 @@ func _update_state():
 			continue
 
 		node.update(_tick_delta)
+
+
+func _on_ping_timer_timeout():
+	_time_when_sent_ping = Time.get_ticks_msec()
+	_game_host.receive_ping.rpc_id(1)

@@ -17,6 +17,7 @@ class_name HUD extends Control
 @export var _button_tooltip_bottom: ButtonTooltip
 @export var _tower_details: TowerDetails
 @export var _creep_details: CreepDetails
+@export var _ping_label: Label
 
 # NOTE: this list is ordered by priority of closure. If
 # multiple windows are open, then the first window in the
@@ -38,10 +39,18 @@ func _ready():
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
 
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
+	_ping_label.visible = is_multiplayer
+
 
 #########################
 ###       Public      ###
 #########################
+
+func set_ping_time(ping_time: float):
+	_ping_label.text = "Ping: %sms" % round(ping_time)
+
 
 func show_desync_message(message: String):
 	_desync_label.show()

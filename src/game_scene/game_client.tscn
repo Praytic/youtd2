@@ -4,3 +4,9 @@
 
 [node name="GameClient" type="Node"]
 script = ExtResource("1_5ijxp")
+
+[node name="PingTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="PingTimer" to="." method="_on_ping_timer_timeout"]
