@@ -109,7 +109,7 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 #	If client tick is behind host tick, catch up by fast
 #	forwarding
 	var latest_timeslot_tick: int = _timeslot_tick_queue.back()
-	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > _received_latency
+	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > 2 * _received_latency
 	if need_to_fast_forward:
 		return true
 
