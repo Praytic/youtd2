@@ -52,10 +52,6 @@ func _ready():
 	_tick_delta = 1.0 / tick_rate
 
 
-func send_ready_message():
-	_game_host.receive_player_ready.rpc_id(1)
-
-
 # NOTE: using _physics_process() because it provides a
 # built-in way to do consistent tickrate, independent of
 # framerate.
@@ -71,6 +67,10 @@ func _physics_process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func send_ready_message():
+	_game_host.receive_player_ready.rpc_id(1)
+
 
 # Send action from client to host
 func add_action(action: Action):
@@ -254,6 +254,10 @@ func _update_state():
 
 		node.update(_tick_delta)
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_ping_timer_timeout():
 	_time_when_sent_ping = Time.get_ticks_msec()

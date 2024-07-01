@@ -61,21 +61,6 @@ func _physics_process(_delta: float):
 		HostState.RUNNING: _update_state_running()
 
 
-func _update_state_running():
-	_check_lagging_players()
-	_check_desynced_players()
-
-	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
-
-	for i in range(0, update_tick_count):
-		_current_tick += 1
-
-		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_latency
-
-		if need_to_send_timeslot:
-			_send_timeslot()
-
-
 #########################
 ###       Public      ###
 #########################
@@ -169,6 +154,21 @@ func receive_ping():
 #########################
 ###      Private      ###
 #########################
+
+func _update_state_running():
+	_check_lagging_players()
+	_check_desynced_players()
+
+	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
+
+	for i in range(0, update_tick_count):
+		_current_tick += 1
+
+		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_latency
+
+		if need_to_send_timeslot:
+			_send_timeslot()
+
 
 func _send_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
