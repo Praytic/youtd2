@@ -18,7 +18,7 @@ class_name GameClient extends Node
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _received_latency: int = 0
+var _current_turn_length: int = 0
 
 # A map of timeslots. Need to keep a map in case we receive
 # future timeslots before we processed current one.
@@ -78,14 +78,15 @@ func add_action(action: Action):
 	_game_host.receive_action.rpc_id(1, serialized_action)
 
 
-# Receive timeslot sent by host to this client
+# Receive timeslot sent by host to this client and receive
+# turn length
 @rpc("authority", "call_local", "reliable")
-func receive_timeslot(timeslot: Array, latency: int):
+func receive_timeslot(timeslot: Array, current_turn_length: int):
 	var tick_for_this_timeslot: int = _timeslot_tick_queue.back()
 	_timeslot_map[tick_for_this_timeslot] = timeslot
-	var tick_for_next_timeslot: int = tick_for_this_timeslot + latency
+	var tick_for_next_timeslot: int = tick_for_this_timeslot + current_turn_length
 	_timeslot_tick_queue.append(tick_for_next_timeslot)
-	_received_latency = latency
+	_current_turn_length = current_turn_length
 
 
 @rpc("authority", "call_local", "reliable")
@@ -117,7 +118,7 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 #	If client tick is behind host tick, catch up by fast
 #	forwarding
 	var latest_timeslot_tick: int = _timeslot_tick_queue.back()
-	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > 2 * _received_latency
+	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > 2 * _current_turn_length
 	if need_to_fast_forward:
 		return true
 

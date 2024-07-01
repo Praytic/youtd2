@@ -4,6 +4,9 @@ extends Node
 # Provides global access to players.
 
 
+signal players_created()
+
+
 var _id_to_player_map: Dictionary = {}
 var _peer_id_to_player_map: Dictionary = {}
 var _player_list: Array[Player] = []
@@ -70,3 +73,7 @@ func add_player(player: Player):
 		func(a, b) -> bool:
 			return a.get_id() < b.get_id()
 			)
+
+
+func send_players_created_signal():
+	players_created.emit()

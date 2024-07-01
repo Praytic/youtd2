@@ -15,7 +15,6 @@ class_name GameScene extends Node
 @export var _mouse_state: MouseState
 @export var _ui_layer: CanvasLayer
 @export var _game_client: GameClient
-@export var _game_host: GameHost
 @export var _game_time: GameTime
 @export var _pause_shadow_rect: ColorRect
 @export var _object_container: Node2D
@@ -77,7 +76,6 @@ func _ready():
 	var origin_seed: int = Globals.get_origin_seed()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var wave_count: int = Globals.get_wave_count()
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 
 # 	Save the seed which host gave to this client so that rng
 # 	on this game client is the same as on all other clients.
@@ -117,6 +115,8 @@ func _ready():
 		var team_for_player: Team = _team_container.get_team(player_id)
 		var player: Player = team_for_player.create_player(player_id, peer_id)
 		PlayerManager.add_player(player)
+
+	PlayerManager.send_players_created_signal()
 
 	var local_player: Player = PlayerManager.get_local_player()
 	_tutorial_controller.connect_to_local_player(local_player)
@@ -168,15 +168,6 @@ func _ready():
 	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 	
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	
-	if multiplayer.is_server():
-		var latency: int
-		if player_mode == PlayerMode.enm.SINGLE:
-			latency = GameHost.SINGLEPLAYER_ACTION_LATENCY
-		else:
-			latency = GameHost.MULTIPLAYER_ACTION_LATENCY
-		
-		_game_host.setup(latency, player_list)
 	
 	_camera.position = _get_camera_origin_pos()
 

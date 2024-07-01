@@ -6,7 +6,7 @@ class_name GameHost extends Node
 # "timeslot" is a group of actions for a given tick. A host
 # has it's own tick, independent of the GameClient on the
 # host's client. Host sends timeslots periodically with an
-# interval equal to current "latency" value.
+# interval equal to current "turn length" value.
 # 
 # Note that server peer acts as a host and a peer at the
 # same time.
@@ -21,11 +21,11 @@ enum HostState {
 	RUNNING,
 }
 
-# MULTIPLAYER_ACTION_LATENCY needs to be big enough to
-# account for latency.
+# MULTIPLAYER_TURN_LENGTH needs to be bigger than worst case
+# roundtrip time between client and host.
 # NOTE: 6 ticks at 30ticks/second = 200ms.
-const MULTIPLAYER_ACTION_LATENCY: int = 6
-const SINGLEPLAYER_ACTION_LATENCY: int = 1
+const MULTIPLAYER_TURN_LENGTH: int = 6
+const SINGLEPLAYER_TURN_LENGTH: int = 1
 # MAX_LAG_AMOUNT is the max difference in timeslots between
 # host and client. A client is considered to be lagging if
 # it falls behind by more timeslots than this value.
@@ -35,9 +35,8 @@ const MAX_LAG_AMOUNT: int = 10
 @export var _hud: HUD
 
 
-var _setup_done: bool = false
 var _current_tick: int = 0
-var _current_latency: int = -1
+var _current_turn_length: int = -1
 var _in_progress_timeslot: Array = []
 var _last_sent_timeslot_tick: int = 0
 var _timeslot_sent_count: int = 0
@@ -52,6 +51,19 @@ var _player_ready_map: Dictionary = {}
 ###     Built-in      ###
 #########################
 
+func _ready():
+	if !multiplayer.is_server():
+		return
+
+	PlayerManager.players_created.connect(_on_players_created)
+	
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	if player_mode == PlayerMode.enm.SINGLE:
+		_current_turn_length = GameHost.SINGLEPLAYER_TURN_LENGTH
+	else:
+		_current_turn_length = GameHost.MULTIPLAYER_TURN_LENGTH
+
+
 func _physics_process(_delta: float):
 	if !multiplayer.is_server():
 		return
@@ -64,21 +76,6 @@ func _physics_process(_delta: float):
 #########################
 ###       Public      ###
 #########################
-
-func setup(latency: int, player_list: Array[Player]):
-	if _setup_done:
-		push_error("GameHost.setup() was called multiple times.")
-
-		return
-
-	_current_latency = latency
-
-	for player in player_list:
-		var player_id: int = player.get_id()
-		_player_ack_count_map[player_id] = 0
-
-	_setup_done = true
-
 
 # Receive action sent from client to host. Actions are
 # compiled into timeslots - a group of actions from all
@@ -164,7 +161,7 @@ func _update_state_running():
 	for i in range(0, update_tick_count):
 		_current_tick += 1
 
-		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_latency
+		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_turn_length
 
 		if need_to_send_timeslot:
 			_send_timeslot()
@@ -173,7 +170,7 @@ func _update_state_running():
 func _send_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_game_client.receive_timeslot.rpc(timeslot, _current_latency)
+	_game_client.receive_timeslot.rpc(timeslot, _current_turn_length)
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
 
@@ -189,7 +186,10 @@ func _send_timeslot():
 func _check_lagging_players() -> bool:
 	var is_lagging: bool = false
 
-	for player_id in _player_ack_count_map.keys():
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
 		var ack_count: int = _player_ack_count_map[player_id]
 		var lag_amount: int = _timeslot_sent_count - ack_count
 		var player_is_lagging: bool = lag_amount > MAX_LAG_AMOUNT
@@ -241,3 +241,17 @@ func _check_desynced_players():
 		var message: String = "Desync detected @ %s" % game_time_string
 		_hud.show_desync_message(message)
 		_showed_desync_message = true
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_players_created():
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
+
+		_player_ack_count_map[player_id] = 0
+		_player_checksum_map[player_id] = []
