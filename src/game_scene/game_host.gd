@@ -27,6 +27,7 @@ enum HostState {
 # NOTE: 6 ticks at 30ticks/second = 200ms.
 const MULTIPLAYER_TURN_LENGTH: int = 6
 const SINGLEPLAYER_TURN_LENGTH: int = 1
+const PING_TO_TURN_LENGTH: float = 1 / 0.33 * 3
 # MAX_LAG_AMOUNT is the max difference in timeslots between
 # host and client. A client is considered to be lagging if
 # it falls behind by more timeslots than this value.
@@ -41,6 +42,8 @@ var _current_turn_length: int = -1
 var _in_progress_timeslot: Array = []
 var _last_sent_timeslot_tick: int = 0
 var _timeslot_sent_count: int = 0
+var _timeslot_send_time_list: Array[float] = []
+var _player_ack_received_time_map: Dictionary = {}
 var _player_ack_count_map: Dictionary = {}
 var _player_checksum_map: Dictionary = {}
 var _showed_desync_message: bool = false
@@ -107,6 +110,9 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 	if !_player_checksum_map.has(player_id):
 		_player_checksum_map[player_id] = []
 	_player_checksum_map[player_id].append(checksum)
+
+	var current_time: float = Time.get_ticks_msec()
+	_player_ack_received_time_map[player_id].append(current_time)
 
 
 # TODO: handle case where some player is not ready. Need to
@@ -191,11 +197,60 @@ func _update_state_waiting_for_lagging_players():
 
 
 func _send_timeslot():
+#	NOTE: need to adjust turn length *before* sending
+#	timeslot, so that clients will get the latest turn
+#	length value. Otherwise, clients and host would start
+#	having mismatched timeslot ticks.
+	_current_turn_length = _get_optimal_turn_length()
+	print(_current_turn_length)
+
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
 	_game_client.receive_timeslot.rpc(timeslot, _current_turn_length)
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
+
+	var current_time: float = Time.get_ticks_msec()
+	_timeslot_send_time_list.append(current_time)
+
+
+func _get_optimal_turn_length() -> int:
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	if player_mode == PlayerMode.enm.SINGLE:
+		return 1
+
+	var highest_ping: float = _get_highest_ping()
+	var optimal_turn_length: int = ceil(highest_ping * PING_TO_TURN_LENGTH)
+	optimal_turn_length = max(optimal_turn_length, 1)
+
+	return optimal_turn_length
+
+
+# Returns highest ping of all players, in msec. Ping is
+# determined from the most recent ACK exchange.
+func _get_highest_ping() -> float:
+	var highest_ping: float = 0
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
+		var ack_time_list: Array = _player_ack_received_time_map[player_id]
+
+#		NOTE: ack_time_list may be empty during first few
+#		ticks before first ack is received
+		if ack_time_list.is_empty():
+			continue
+
+		var ack_index: int = ack_time_list.size() - 1
+		var ack_send_time: float = ack_time_list[ack_index]
+		var ack_receive_time: float = _timeslot_send_time_list[ack_index]
+		var ping_msec: float = ack_receive_time - ack_send_time
+
+		if ping_msec > highest_ping:
+			highest_ping = ping_msec
+
+	return highest_ping
 
 
 # NOTE: player is considered to be lagging if the last
@@ -281,3 +336,4 @@ func _on_players_created():
 
 		_player_ack_count_map[player_id] = 0
 		_player_checksum_map[player_id] = []
+		_player_ack_received_time_map[player_id] = []
