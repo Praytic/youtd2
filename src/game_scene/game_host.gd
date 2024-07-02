@@ -19,6 +19,7 @@ class_name GameHost extends Node
 enum HostState {
 	WAITING_BEFORE_START,
 	RUNNING,
+	WAITING_FOR_LAGGING_PLAYERS,
 }
 
 # MULTIPLAYER_TURN_LENGTH needs to be bigger than worst case
@@ -71,6 +72,7 @@ func _physics_process(_delta: float):
 	match _state:
 		HostState.WAITING_BEFORE_START: return
 		HostState.RUNNING: _update_state_running()
+		HostState.WAITING_FOR_LAGGING_PLAYERS: _update_state_waiting_for_lagging_players()
 
 
 #########################
@@ -153,7 +155,18 @@ func receive_ping():
 #########################
 
 func _update_state_running():
-	_check_lagging_players()
+	var lagging_player_list: Array[Player] = _get_lagging_players()
+	var players_are_lagging: bool = lagging_player_list.size() > 0
+
+	if players_are_lagging:
+		_state = HostState.WAITING_FOR_LAGGING_PLAYERS
+
+		var lagging_player_name_list: Array[String] = get_player_name_list(lagging_player_list)
+
+		_game_client.enter_waiting_for_lagging_players_state.rpc(lagging_player_name_list)
+
+		return
+
 	_check_desynced_players()
 
 	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
@@ -167,6 +180,16 @@ func _update_state_running():
 			_send_timeslot()
 
 
+func _update_state_waiting_for_lagging_players():
+	var lagging_player_list: Array[Player] = _get_lagging_players()
+	var players_are_lagging: bool = lagging_player_list.size() > 0
+
+	if !players_are_lagging:
+		_state = HostState.RUNNING
+
+		_game_client.exit_waiting_for_lagging_players_state.rpc()
+
+
 func _send_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
@@ -175,16 +198,10 @@ func _send_timeslot():
 	_timeslot_sent_count += 1
 
 
-# Check if any player is lagging. Player is considered to be
-# lagging if it's too far behind host, in terms of
-# timeslots.
-# 
-# TODO: currently, host only detects that a player is
-# lagging but doesn't do anything with this info. Need to
-# tell clients which player is lagging and provide an option
-# to wait for lagging player or kick them.
-func _check_lagging_players() -> bool:
-	var is_lagging: bool = false
+# NOTE: player is considered to be lagging if the last
+# timeslot ACK is too old.
+func _get_lagging_players() -> Array[Player]:
+	var lagging_player_list: Array[Player] = []
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
@@ -195,10 +212,9 @@ func _check_lagging_players() -> bool:
 		var player_is_lagging: bool = lag_amount > MAX_LAG_AMOUNT
 
 		if player_is_lagging:
-			print("player %d is lagging" % player_id)
-			is_lagging = true
+			lagging_player_list.append(player)
 
-	return is_lagging
+	return lagging_player_list
 
 
 # TODO: kick desynced players from the game
@@ -241,6 +257,16 @@ func _check_desynced_players():
 		var message: String = "Desync detected @ %s" % game_time_string
 		_hud.show_desync_message(message)
 		_showed_desync_message = true
+
+
+func get_player_name_list(player_list: Array[Player]) -> Array[String]:
+	var result: Array[String] = []
+
+	for player in player_list:
+		var player_name: String = player.get_player_name()
+		result.append(player_name)
+
+	return result
 
 
 #########################
