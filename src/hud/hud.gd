@@ -18,6 +18,8 @@ class_name HUD extends Control
 @export var _tower_details: TowerDetails
 @export var _creep_details: CreepDetails
 @export var _ping_label: Label
+@export var _players_are_lagging_indicator: MarginContainer
+@export var _lagging_player_list_label: Label
 
 # NOTE: this list is ordered by priority of closure. If
 # multiple windows are open, then the first window in the
@@ -47,6 +49,19 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_waiting_for_lagging_players_indicator_visible(indicator_visible: bool):
+	_players_are_lagging_indicator.visible = indicator_visible
+
+
+func set_waiting_for_lagging_players_indicator_player_list(lagging_player_list: Array[String]):
+	var lagging_player_list_text: String = ""
+	
+	for player_name in lagging_player_list:
+		lagging_player_list_text += "%s\n" % player_name
+
+	_lagging_player_list_label.text = lagging_player_list_text
+
 
 func set_ping_time(ping_time: float):
 	_ping_label.text = "Ping: %sms" % round(ping_time)

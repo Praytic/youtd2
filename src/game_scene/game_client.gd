@@ -96,6 +96,17 @@ func receive_pong():
 	_hud.set_ping_time(ping_time)
 
 
+@rpc("authority", "call_local", "reliable")
+func enter_waiting_for_lagging_players_state(lagging_player_list: Array[String]):
+	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
+	_hud.set_waiting_for_lagging_players_indicator_visible(true)
+
+
+@rpc("authority", "call_local", "reliable")
+func exit_waiting_for_lagging_players_state():
+	_hud.set_waiting_for_lagging_players_indicator_visible(false)
+
+
 #########################
 ###      Private      ###
 #########################

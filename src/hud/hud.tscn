@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,6 +47,8 @@ _button_tooltip_bottom = NodePath("MarginContainer5/VBoxContainer2/ButtonTooltip
 _tower_details = NodePath("MarginContainer4/TowerDetails")
 _creep_details = NodePath("MarginContainer4/CreepDetails")
 _ping_label = NodePath("MarginContainer9/PingLabel")
+_players_are_lagging_indicator = NodePath("PlayersAreLaggingIndicator")
+_lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/LaggingPlayerListLabel")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -360,5 +362,36 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_type_variation = &"LabelSmall"
 text = "Ping: 123ms"
+
+[node name="PlayersAreLaggingIndicator" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayersAreLaggingIndicator"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xs0tv")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayersAreLaggingIndicator/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Waiting for lagging players..."
+
+[node name="LaggingPlayerListLabel" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Dave
+Alice"
+horizontal_alignment = 1
 
 [connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
