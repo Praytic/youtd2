@@ -95,9 +95,13 @@ func receive_pong():
 	var ping_time: float = time_when_received_pong - _time_when_sent_ping
 	_hud.set_ping_time(ping_time)
 
+	_game_host.receive_ping_time_for_player.rpc_id(1, ping_time)
 
+
+# NOTE: arg must be Array instead of Array[String]. RPC
+# calls have typing issues
 @rpc("authority", "call_local", "reliable")
-func enter_waiting_for_lagging_players_state(lagging_player_list: Array[String]):
+func enter_waiting_for_lagging_players_state(lagging_player_list: Array):
 	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
 	_hud.set_waiting_for_lagging_players_indicator_visible(true)
 

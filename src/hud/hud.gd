@@ -54,7 +54,7 @@ func set_waiting_for_lagging_players_indicator_visible(indicator_visible: bool):
 	_players_are_lagging_indicator.visible = indicator_visible
 
 
-func set_waiting_for_lagging_players_indicator_player_list(lagging_player_list: Array[String]):
+func set_waiting_for_lagging_players_indicator_player_list(lagging_player_list: Array):
 	var lagging_player_list_text: String = ""
 	
 	for player_name in lagging_player_list:
