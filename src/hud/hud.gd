@@ -63,8 +63,8 @@ func set_waiting_for_lagging_players_indicator_player_list(lagging_player_list: 
 	_lagging_player_list_label.text = lagging_player_list_text
 
 
-func set_ping_time(ping_time: float):
-	_ping_label.text = "Ping: %sms" % round(ping_time)
+func set_ping_time(ping_time: int):
+	_ping_label.text = "Ping: %dms" % ping_time
 
 
 func show_desync_message(message: String):

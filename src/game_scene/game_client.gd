@@ -25,7 +25,7 @@ var _current_turn_length: int = 0
 # {tick -> timeslot}
 var _timeslot_map: Dictionary = {}
 var _timeslot_tick_queue: Array = [0]
-var _time_when_sent_ping: float = 0
+var _time_when_sent_ping: int = 0
 
 
 @export var _game_host: GameHost
@@ -91,8 +91,8 @@ func receive_timeslot(timeslot: Array, current_turn_length: int):
 
 @rpc("authority", "call_local", "reliable")
 func receive_pong():
-	var time_when_received_pong: float = Time.get_ticks_msec()
-	var ping_time: float = time_when_received_pong - _time_when_sent_ping
+	var time_when_received_pong: int = Time.get_ticks_msec()
+	var ping_time: int = time_when_received_pong - _time_when_sent_ping
 	_hud.set_ping_time(ping_time)
 
 	_game_host.receive_ping_time_for_player.rpc_id(1, ping_time)
