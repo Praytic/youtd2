@@ -41,9 +41,15 @@ static func verify(player: Player, item: Item, src_container: ItemContainer, des
 		
 		return false
 
-	var player_match: bool = item.get_player() == player && src_container.get_player() == player && dest_container.get_player() == player
-	if !player_match:
+	var item_player_match: bool = item.get_player() == player
+	if !item_player_match:
 		Messages.add_error(player, "You don't own this item")
+		
+		return false
+
+	var container_player_match: bool = src_container.get_player() == player && dest_container.get_player() == player
+	if !container_player_match:
+		Messages.add_error(player, "You don't own this tower")
 		
 		return false
 
