@@ -2,17 +2,25 @@
 
 ![icob_min](https://user-images.githubusercontent.com/10060411/228678072-0ad070c8-1c62-4b1a-aaa2-d7e0ff4035e0.png)
 
-Welcome to the codebase of YouTD 2!
-
 ## About
-This is a standalone sequel to the popular WC3 custom map, YouTD. Developed with Godot 4 and infused with the love of hundreds of fans, this game has grown as an open-source project, just like the engine at its core.
+YouTD 2 is a challenging tower defense game where you need to defend the Portal against waves of enemies.
+
+This game is a remake of the WC3 custom map "YouTD" by geX, retaining all the original features.
+
+This game uses the Godot 4 engine.
 
 ![giphy-downsized-large (1)](https://github.com/Praytic/youtd2/assets/10060411/23a4ee6e-f7aa-404c-a3bf-9b8657457453)
 
-Our goal is to develop a self-sustainable Tower Defense game that will grow with the help of the community. After finishing the core gameplay, we plan to implement a straightforward, automated mechanism for adding new towers, items, and builders to the game. This will allow the game to expand faster and maintain an open-sourced codebase.
+Game Features:
+* 200+ towers
+* 300+ items
+* 21 "Builders" which customize gameplay
+* 40+ enemy abilities
+* Countless enemy combinations
+* 5 challenging difficulty levels
 
-Besides being a community-based game, it's still a great, well-balanced Tower Defense game with 1-6 hours of session-based gameplay, over 20,000 wave combinations, more than 700 towers, and an unlimited number of tactics to play with. Give it a go, and one day you might see your name in the game!
 
+Links:
 - Stable release of the game - (https://praytic.itch.io/youtd2)
 - Official website - (https://youtd2.com/)
 - Discord - (https://discord.gg/EksA2CfCS9)
@@ -21,14 +29,20 @@ Besides being a community-based game, it's still a great, well-balanced Tower De
 - Twitter - (https://twitter.com/Icob2Games)
 - XGM - (https://xgm.guru/p/youtd2)
 
-## Getting Started
+## How to help
 Read our [Contributing guidance](https://github.com/Praytic/youtd2/contribute) to find out how you can contribute to the project.
 
-### Required Tools
-[Godot](https://github.com/godotengine/godot) is a feature-packed, cross-platform game engine to create 2D and 3D games from a unified interface. This game is written with [GDScript](https://gdscript.com/) language on Godot engine. You can download the latest version from their official [website](https://godotengine.org/).
+You can submit pull requests for any issues you may find.
 
-### Required Permissions
-Before opening the project inside Godot editor, make sure you download game assets from [original](https://drive.google.com/drive/u/1/folders/1V9GN1uoX9-mu2J5IoWPaNJU2aC_ejGIA) or [obfuscated](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=drive_link) folder and put the contents inside [assets]([url](https://github.com/Praytic/youtd2/tree/main/assets)) directory. Ask owners of the repository if you don't have permissions to these folders.
+You can also play the game and submit bug reports to Github Issues.
+
+## Credits
+
+Developed by [Dmitry Degtyarev](https://github.com/Kvel2D), [Praytic](https://github.com/Praytic) and every direct and indirect [contributors](https://github.com/Praytic/youtd2/graphs/contributors) to the GitHub.
+
+Based on "YouTD" - a WC3 custom map made by geX and the YouTD community.
+
+Also thank you to everyone posting feedback and questions on YouTD2 Discord.
 
 ## License
 
