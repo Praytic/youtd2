@@ -27,6 +27,17 @@ const INITIAL_TOWER_ROLL_COUNT: int = 6
 const INITIAL_GOLD: int = 70
 const INITIAL_TOMES: int = 90
 
+const PLAYER_COLOR_MAP: Dictionary = {
+	0: Color.RED,
+	1: Color.ROYAL_BLUE,
+	2: Color.ORANGE,
+	3: Color.PURPLE,
+	4: Color.GREEN,
+	5: Color.CYAN,
+	6: Color.BROWN,
+	7: Color.PINK,
+}
+
 
 var _team: Team = null
 var _total_damage: float = 0
@@ -238,6 +249,19 @@ func set_player_name(value: String):
 
 func get_player_name() -> String:
 	return _player_name
+
+
+func get_color() -> Color:
+	var player_color: Color = PLAYER_COLOR_MAP.get(_id, Color.WHITE)
+
+	return player_color
+
+
+func get_player_name_with_color() -> String:
+	var player_color: Color = get_color()
+	var player_name_with_color: String = Utils.get_colored_string(_player_name, player_color)
+
+	return player_name_with_color
 
 
 func get_id() -> int:

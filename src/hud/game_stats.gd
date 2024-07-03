@@ -69,7 +69,7 @@ func _get_player_stats_text() -> String:
 	)
 
 	for player in player_list:
-		var player_name: String = player.get_player_name()
+		var player_name: String = player.get_player_name_with_color()
 
 		var team: Team = player.get_team()
 		var team_id: int = team.get_id()
