@@ -250,11 +250,6 @@ func adjust_height(height: float, speed: float):
 
 # NOTE: creep.dropItem() in JASS
 
-# NOTE: _use_creep_player is supposed to switch between
-# using the player which owns the tower vs the player which
-# owns the lane on which the creep spawned. Currently, the
-# concept of "item being owned by a player" is not
-# implemented.
 func drop_item(caster: Tower, use_creep_player: bool):
 	var random_item: int = ItemDropCalc.get_random_item(caster, self)
 
@@ -266,25 +261,30 @@ func drop_item(caster: Tower, use_creep_player: bool):
 	EventBus.item_dropped.emit()
 
 
-func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id: int):
+func drop_item_by_id(caster: Tower, use_creep_player: bool, item_id: int):
+	var player_for_item: Player
+	if use_creep_player:
+		player_for_item = get_player()
+	else:
+		player_for_item = caster.get_player()
+
 	var item_position: Vector3 = get_position_wc3()
-	var item: Item = Item.create(caster.get_player(), item_id, item_position)
+	var item: Item = Item.create(player_for_item, item_id, item_position)
 
 	var item_name: String = ItemProperties.get_item_name(item_id)
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 
-	caster.get_player().display_floating_text(item_name, self, rarity_color)
+	player_for_item.display_floating_text(item_name, self, rarity_color)
 
-	var player: Player = get_player()
-	var autooil_tower: Tower = player.get_autooil_tower(item_id)
+	var autooil_tower: Tower = player_for_item.get_autooil_tower(item_id)
 	var autooil_exists_for_this_item: bool = autooil_tower != null
 	if autooil_exists_for_this_item:
 		item.pickup(autooil_tower)
 		
 		var oil_name: String = item.get_display_name()
 		var tower_name: String = autooil_tower.get_display_name()
-		Messages.add_normal(player, "[color=CYAN]Autooil: applied [color=GOLD]%s[/color] to tower [color=GOLD]%s[/color].[/color]" % [oil_name, tower_name])
+		Messages.add_normal(player_for_item, "[color=CYAN]Autooil: applied [color=GOLD]%s[/color] to tower [color=GOLD]%s[/color].[/color]" % [oil_name, tower_name])
 
 		return
 	else:
