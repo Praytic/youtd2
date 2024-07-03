@@ -103,17 +103,16 @@ func _ready():
 		return
 	
 #	Create teams
-#	TODO: create an amount of teams which is appropriate for the amount of players and selected team mode
-	var team_count: int = peer_id_list.size()
-	for i in range(0, team_count):
-		var team: Team = Team.make(i)
-		_team_container.add_team(team)
+#	TODO: create an amount of teams which is appropriate for
+#	the amount of players and selected team mode
+	var team: Team = Team.make(1)
+	_team_container.add_team(team)
 
-#	TODO: implement different team modes and assign teams based on selected team mode
+#	TODO: implement different team modes and assign teams
+#	based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
-		var team_for_player: Team = _team_container.get_team(player_id)
-		var player: Player = team_for_player.create_player(player_id, peer_id)
+		var player: Player = team.create_player(player_id, peer_id)
 		PlayerManager.add_player(player)
 
 	PlayerManager.send_players_created_signal()

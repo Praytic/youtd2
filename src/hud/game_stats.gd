@@ -55,8 +55,8 @@ func _get_player_stats_text() -> String:
 
 	var text: String = ""
 
-	text += "[table=6]"
-	text += "[cell][color=GOLD]Name[/color][/cell][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
+	text += "[table=7]"
+	text += "[cell][color=GOLD]Name[/color][/cell][cell][color=GOLD]Team[/color][/cell][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
 
 	player_list.sort_custom(
 		func(a, b) -> bool:
@@ -68,6 +68,10 @@ func _get_player_stats_text() -> String:
 
 	for player in player_list:
 		var player_name: String = player.get_player_name()
+
+		var team: Team = player.get_team()
+		var team_id: int = team.get_id()
+		var team_string: String = "Team %d" % team_id
 
 		var score: float = player.get_score()
 		var score_string: String = TowerDetails.int_format(floori(score))
@@ -83,7 +87,7 @@ func _get_player_stats_text() -> String:
 		var gold: float = player.get_gold()
 		var gold_string: String = Utils.format_float(gold, 0)
 		
-		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
+		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, team_string, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
 
 	text += "[/table]"
 
