@@ -14,6 +14,9 @@ class_name SetupLanGame extends Node
 # is closed and should disappear from room list.
 
 
+const SERVER_PEER_ID: int = 1
+
+
 var _current_room_config: RoomConfig = null
 
 
@@ -24,10 +27,79 @@ var _current_room_config: RoomConfig = null
 @export var _lan_room_scanner: LanRoomScanner
 @export var _lan_room_advertiser: LanRoomAdvertiser
 
+var _peer_id_to_player_name_map: Dictionary = {}
+
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready():
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _update_player_list_in_room_menu():
+	var peer_id_list: Array = multiplayer.get_peers()
+	var local_peer_id: int = multiplayer.get_unique_id()
+	peer_id_list.append(local_peer_id)
+
+	var player_list: Array[String] = []
+
+	for peer_id in peer_id_list:
+		var fallback_string: String = "Player %d" % peer_id
+		var player_name: String = _peer_id_to_player_name_map.get(peer_id, fallback_string)
+		player_list.append(player_name)
+	
+	_lan_room_menu.set_player_list(player_list)
+
+
+# All peers (including the host itself) call this f-n to
+# tell the host their player names. The host later passes
+# this info to all peers.
+@rpc("any_peer", "call_local", "reliable")
+func _give_local_player_name_to_host(player_name: String):
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	_peer_id_to_player_name_map[peer_id] = player_name
+
+	_receive_player_name_map_from_host.rpc(_peer_id_to_player_name_map)
+
+
+@rpc("authority", "call_local", "reliable")
+func _receive_player_name_map_from_host(player_name_map: Dictionary):
+	_peer_id_to_player_name_map = player_name_map
+	
+#	NOTE: need to update displayed player list to show
+#	updated player names
+	_update_player_list_in_room_menu()
+
 
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_connected_to_server():
+	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
+
+
+func _on_peer_connected(peer_id: int):
+# 	When a new peer connects, host(server) will tell the
+# 	newly connected peer the names of all of the players.
+	if multiplayer.is_server():
+		_receive_player_name_map_from_host.rpc_id(peer_id, _peer_id_to_player_name_map)
+	
+	_update_player_list_in_room_menu()
+
+
+func _on_peer_disconnected():
+	_update_player_list_in_room_menu()
+
 
 func _on_lan_room_scanner_room_list_changed():
 	var room_map: Dictionary = _lan_room_scanner.get_room_map()
@@ -53,6 +125,11 @@ func _on_create_lan_room_menu_create_pressed():
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
 	_lan_room_menu.display_room_config(_current_room_config)
+
+	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
+
+	_update_player_list_in_room_menu()
 
 
 # NOTE: need to scan for rooms only while room list menu is
