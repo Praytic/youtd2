@@ -36,7 +36,6 @@ func show_popup_message(node: Node, title: String, message: String):
 #	NOTE: the top node is last in order, after autoload nodes
 	var root = node.get_tree().root
 	var top_node: Node = root.get_child(root.get_child_count() - 1)
-	print(top_node)
 	var popup: MessagePopup = MessagePopup.make(popup_text)
 	top_node.add_child(popup)
 
