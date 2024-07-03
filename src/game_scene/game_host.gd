@@ -29,6 +29,10 @@ const MULTIPLAYER_TURN_LENGTH: int = 6
 const SINGLEPLAYER_TURN_LENGTH: int = 1
 # NOTE: picked 3 because 3ticks = 100ms - nice number
 const TURN_LENGTH_STEP: int = 3
+# NOTE: 1 tick = 33ms
+const TURN_LENGTH_MIN: int = 1
+# NOTE: 30 ticks = 1000ms
+const TURN_LENGTH_MAX: int = 30
 # NOTE: this multiplier is x1.5 to give some leeway. If it
 # was exactly x1 then that would make turn length too close
 # to ping which could cause stutters in case of ping
@@ -240,7 +244,7 @@ func _get_optimal_turn_length() -> int:
 #	as the ping changes.
 	optimal_turn_length = ceili(float(optimal_turn_length) / TURN_LENGTH_STEP) * TURN_LENGTH_STEP
 
-	optimal_turn_length = max(optimal_turn_length, TURN_LENGTH_STEP)
+	optimal_turn_length = clampi(optimal_turn_length, TURN_LENGTH_MIN, TURN_LENGTH_MAX)
 
 	return optimal_turn_length
 
