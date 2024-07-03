@@ -34,11 +34,13 @@ func _process(_delta: float):
 
 	_stats_label.clear()
 	_stats_label.append_text(player_stats_text)
-	_stats_label.append_text("\n[color=GOLD]Your best towers[/color]\n")
+	_stats_label.append_text(" \n")
+	_stats_label.append_text("[color=GOLD]Your best towers[/color]\n")
 	_stats_label.append_text(your_best_towers_text)
 	
 	if Globals.get_player_mode() == PlayerMode.enm.COOP:
-		_stats_label.append_text("\n[color=GOLD]Overall best towers[/color]\n")
+		_stats_label.append_text("\n")
+		_stats_label.append_text("[color=GOLD]Overall best towers[/color]\n")
 		_stats_label.append_text(overall_best_towers_text)
 
 
@@ -89,7 +91,7 @@ func _get_player_stats_text() -> String:
 		
 		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, team_string, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
 
-	text += "[/table]"
+	text += "[/table]\n"
 
 	return text
 
