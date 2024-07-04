@@ -94,7 +94,7 @@ static func execute(action: Dictionary, player: Player):
 	prev_tower.remove_from_game()
 
 	var tower_stash: TowerStash = player.get_tower_stash()
-	tower_stash.remove_tower(new_tower_id)
+	tower_stash.spend_tower(new_tower_id)
 
 
 # This is the value refunded when a tower is transformed

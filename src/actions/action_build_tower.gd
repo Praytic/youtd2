@@ -33,9 +33,8 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 	player.disable_rolling()
 
-	if Globals.get_game_mode() != GameMode.enm.BUILD:
-		var tower_stash: TowerStash = player.get_tower_stash()
-		tower_stash.remove_tower(tower_id)
+	var tower_stash: TowerStash = player.get_tower_stash()
+	tower_stash.spend_tower(tower_id)
 
 	var new_tower: Tower = Tower.make(tower_id, player)
 

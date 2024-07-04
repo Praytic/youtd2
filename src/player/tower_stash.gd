@@ -37,7 +37,12 @@ func add_towers(tower_list: Array):
 	changed.emit()
 
 
-func remove_tower(tower: int):
+func spend_tower(tower: int):
+#	NOTE: in build mode, building a tower doesn't use it up
+#	from the stash
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
+		return
+
 	if !_tower_map.has(tower):
 		return
 
