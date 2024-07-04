@@ -68,7 +68,7 @@ static func verify(player: Player, item_src: Item, item_dest: Item, src_containe
 		
 		return false
 
-	var player_match: bool = item_src.get_player() == player && item_dest == player
+	var player_match: bool = item_src.get_player() == player && item_dest.get_player() == player
 	if !player_match:
 		Messages.add_error(player, "You don't own this item")
 		
