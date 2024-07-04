@@ -332,7 +332,8 @@ func _on_player_wave_finished(level: int):
 
 	var game_is_neverending: bool = Globals.game_is_neverending()
 	var need_to_start_next_wave_timer: bool = !player_finished_last_level || game_is_neverending
-	if need_to_start_next_wave_timer:
+	var can_start_next_wave_timer: bool = all_players_finished
+	if need_to_start_next_wave_timer && can_start_next_wave_timer:
 		_start_timer_before_next_wave(Constants.TIME_BETWEEN_WAVES)
 
 
