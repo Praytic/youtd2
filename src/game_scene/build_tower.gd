@@ -111,7 +111,7 @@ func _build_tower(tower_id: int):
 
 func _transform_tower(prev_tower: Tower, new_tower_id: int):
 	var local_player: Player = PlayerManager.get_local_player()
-	var verify_ok: bool = ActionUpgradeTower.verify(local_player, prev_tower)
+	var verify_ok: bool = ActionTransformTower.verify(local_player, prev_tower, new_tower_id)
 	if !verify_ok:
 		return
 
