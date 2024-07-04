@@ -25,6 +25,18 @@ var _player_defined_autospawn_time: float = -1
 ###       Public      ###
 #########################
 
+func get_wave_is_in_progress() -> bool:
+	var wave_is_in_progress: bool = false
+
+	for player in _player_list:
+		if player.wave_is_in_progress():
+			wave_is_in_progress = true
+
+			break
+
+	return wave_is_in_progress
+
+
 func finished_the_game() -> bool:
 	return _finished_the_game
 
