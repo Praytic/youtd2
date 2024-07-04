@@ -131,7 +131,8 @@ func vote_ready():
 		return
 
 	_is_ready = true
-	Messages.add_normal(null, "Player %d is ready." % get_id())
+	var player_name: String = get_player_name_with_color()
+	Messages.add_normal(null, "%s is ready." % player_name)
 	voted_ready.emit()
 
 

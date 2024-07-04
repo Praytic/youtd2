@@ -670,19 +670,22 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 
 func _on_player_voted_ready():
 	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	var not_ready_player_list: Array[Player] = []
 	
-	var not_ready_count: int = 0
 	for player in player_list:
 		if !player.is_ready():
-			not_ready_count += 1
+			not_ready_player_list.append(player)
 	
-	var all_players_are_ready: bool = not_ready_count == 0
+	var all_players_are_ready: bool = not_ready_player_list.is_empty()
 
 	if all_players_are_ready:
 		Messages.add_normal(null, "All players are ready, starting game.")
 		_start_game()
 	else:
-		Messages.add_normal(null, "Waiting for %d players to be ready." % not_ready_count)
+		for player in not_ready_player_list:
+			var player_name: String = player.get_player_name_with_color()
+			Messages.add_normal(null, "Waiting for %s to ready up." % player_name)
 
 
 func _on_player_right_clicked_autocast(autocast: Autocast):
