@@ -91,7 +91,7 @@ use_texture_padding = false
 7:0/size_in_atlas = Vector2i(6, 10)
 7:0/next_alternative_id = 2
 7:0/0 = 0
-7:0/0/texture_origin = Vector2i(34, 144)
+7:0/0/texture_origin = Vector2i(34, 200)
 7:0/1 = 1
 7:0/1/flip_h = true
 7:0/1/texture_origin = Vector2i(0, 128)
@@ -118,10 +118,9 @@ use_texture_padding = false
 0:14/1 = 1
 0:14/1/flip_h = true
 0:14/1/texture_origin = Vector2i(0, 108)
-0:0/size_in_atlas = Vector2i(7, 9)
+0:0/size_in_atlas = Vector2i(7, 14)
 0:0/0 = 0
-0:9/size_in_atlas = Vector2i(7, 5)
-0:9/0 = 0
+0:0/0/texture_origin = Vector2i(0, 350)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7frxb"]
 texture = ExtResource("5_3fs12")
@@ -384,14 +383,23 @@ texture = ExtResource("9_y6ry1")
 texture_region_size = Vector2i(256, 256)
 use_texture_padding = false
 0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 100)
 1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 100)
 1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 100)
 2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, 100)
 2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, 100)
 1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, 100)
 0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, 100)
 0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 100)
 2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 100)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3i46i"]
 texture = ExtResource("10_8vk0w")
