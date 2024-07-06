@@ -68,6 +68,7 @@ tile_data = PackedInt32Array(0, 65562, 0, 1, 65562, 0, 131073, 458776, 0, 196609
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gmax7"]
 texture = ExtResource("2_t5qwx")
 texture_region_size = Vector2i(256, 256)
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 64)
 1:0/0 = 0
@@ -254,6 +255,7 @@ use_texture_padding = false
 resource_name = "wooden-supports"
 texture = ExtResource("5_32inx")
 texture_region_size = Vector2i(256, 384)
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 128)
 2:0/0 = 0
@@ -364,6 +366,7 @@ use_texture_padding = false
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_koob1"]
 texture = ExtResource("8_6724m")
 texture_region_size = Vector2i(256, 256)
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 64)
 1:0/0 = 0
@@ -403,6 +406,7 @@ use_texture_padding = false
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3vo1"]
 texture = ExtResource("8_4ckpm")
 texture_region_size = Vector2i(256, 384)
+use_texture_padding = false
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, 128)
 4:1/0 = 0
@@ -677,6 +681,7 @@ sources/1 = SubResource("TileSetAtlasSource_4htcd")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2k3qd"]
 texture = ExtResource("11_3auy7")
 texture_region_size = Vector2i(256, 512)
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 192)
 

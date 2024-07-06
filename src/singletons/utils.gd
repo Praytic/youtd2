@@ -357,11 +357,12 @@ static func load_csv_line(csv_line) -> Dictionary:
 	return out
 
 
+# NOTE: can't use get_used_rect() here because creep atlases
+# are compressed.
 func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
 	var texture: Texture2D = sprite.texture
-	var image: Image = texture.get_image()
-	var used_rect: Rect2i = image.get_used_rect()
-	var sprite_dimensions: Vector2 = Vector2(used_rect.size) * sprite.scale
+	var texture_size: Vector2 = texture.get_size()
+	var sprite_dimensions: Vector2 = texture_size * sprite.scale
 
 	return sprite_dimensions
 
