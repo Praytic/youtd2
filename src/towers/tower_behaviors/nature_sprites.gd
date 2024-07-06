@@ -6,6 +6,10 @@ extends TowerBehavior
 # level bonus = 0.14%. In script it is 0.16%.
 
 
+const SECONDARY_EFFECT_CHANCE: float = 0.25
+const AUTOCAST_RANGE: float = 500
+const GIFT_DURATION: float = 5
+
 const EXP_RECEIVED: float = 0.28
 const EXP_RECEIVED_ADD: float = 0.008
 const SPELL_DAMAGE_DEALT: float = 0.16
@@ -22,6 +26,17 @@ const ITEM_CHANCE: float = 0.06
 const ITEM_CHANCE_ADD: float = 0.0014
 
 
+const ELEMENT_TO_MOD_MAP: Dictionary = {
+	Element.enm.ASTRAL: Modification.Type.MOD_EXP_RECEIVED,
+	Element.enm.DARKNESS: Modification.Type.MOD_SPELL_DAMAGE_DEALT,
+	Element.enm.NATURE: Modification.Type.MOD_ATK_CRIT_CHANCE,
+	Element.enm.FIRE: Modification.Type.MOD_DAMAGE_ADD_PERC,
+	Element.enm.ICE: Modification.Type.MOD_BUFF_DURATION,
+	Element.enm.STORM: Modification.Type.MOD_ATTACKSPEED,
+	Element.enm.IRON: Modification.Type.MOD_ITEM_CHANCE_ON_KILL,
+}
+
+
 var gift_bt: BuffType
 var sprite_pt: ProjectileType
 
@@ -34,92 +49,76 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func gift_create(event: Event):
-	var B: Buff = event.get_buff()
-	var target: Tower = B.get_buffed_unit()
-	var elem: int = target.get_element()
-	var relem
-	var level: int = B.get_level()
-#	scale factor based on family member
-	var member_modifier: float = tower.user_real
+func gift_bt_on_create(event: Event):
+	var buff: Buff = event.get_buff()
+	var target: Tower = buff.get_buffed_unit()
+	var tower_element: Element.enm = target.get_element()
 
 #	Ensure caster is still alive.
 	if tower == null:
 		return
 
-	if elem == Element.enm.ASTRAL:
-		B.user_int = Modification.Type.MOD_EXP_RECEIVED
-		B.user_real = (EXP_RECEIVED + level * EXP_RECEIVED_ADD) * member_modifier
-	elif elem == Element.enm.DARKNESS:
-		B.user_int = Modification.Type.MOD_SPELL_DAMAGE_DEALT
-		B.user_real = (SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD) * member_modifier
-	elif elem == Element.enm.NATURE:
-		B.user_int = Modification.Type.MOD_ATK_CRIT_CHANCE
-		B.user_real = (ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD) * member_modifier
-	elif elem == Element.enm.FIRE:
-		B.user_int = Modification.Type.MOD_DAMAGE_ADD_PERC
-		B.user_real = (DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD) * member_modifier
-	elif elem == Element.enm.ICE:
-		B.user_int = Modification.Type.MOD_BUFF_DURATION
-		B.user_real = (BUFF_DURATION + level * BUFF_DURATION_ADD) * member_modifier
-	elif elem == Element.enm.STORM:
-		B.user_int = Modification.Type.MOD_ATTACKSPEED
-		B.user_real = (ATTACKSPEED + level * ATTACKSPEED_ADD) * member_modifier
-	elif elem == Element.enm.IRON:
-		B.user_int = Modification.Type.MOD_ITEM_CHANCE_ON_KILL
-		B.user_real = (ITEM_CHANCE + level * ITEM_CHANCE_ADD) * member_modifier
+	var main_mod_type: Modification.Type = ELEMENT_TO_MOD_MAP[tower_element]
+	var main_mod_value: float = get_mod_value_for_stat(main_mod_type)
 
-#	Apply the modification
-	target.modify_property(B.user_int, B.user_real)
+	target.modify_property(main_mod_type, main_mod_value)
 
-	if tower.calc_chance(0.25):
-		relem = Globals.synced_rng.randi_range(0, 5)
-#		Relem cannot be 6 (IRON), so we apply iron buff if elem == relem.
-		if elem == relem:
-			B.user_int2 = Modification.Type.MOD_ITEM_CHANCE_ON_KILL
-			B.user_real2 = (ITEM_CHANCE + level * ITEM_CHANCE_ADD) * member_modifier
-		elif relem == Element.enm.ASTRAL:
-			B.user_int2 = Modification.Type.MOD_EXP_RECEIVED
-			B.user_real2 = (EXP_RECEIVED + level * EXP_RECEIVED_ADD) * member_modifier
-		elif relem == Element.enm.DARKNESS:
-			B.user_int2 = Modification.Type.MOD_SPELL_DAMAGE_DEALT
-			B.user_real2 = (SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD) * member_modifier
-		elif relem == Element.enm.NATURE:
-			B.user_int2 = Modification.Type.MOD_ATK_CRIT_CHANCE
-			B.user_real2 = (ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD) * member_modifier
-		elif relem == Element.enm.FIRE:
-			B.user_int2 = Modification.Type.MOD_DAMAGE_ADD_PERC
-			B.user_real2 = (DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD) * member_modifier
-		elif relem == Element.enm.ICE:
-			B.user_int2 = Modification.Type.MOD_BUFF_DURATION
-			B.user_real2 = (BUFF_DURATION + level * BUFF_DURATION_ADD) * member_modifier
-		elif relem == Element.enm.STORM:
-			B.user_int2 = Modification.Type.MOD_ATTACKSPEED
-			B.user_real2 = (ATTACKSPEED + level * ATTACKSPEED_ADD) * member_modifier
+#	Save values in buff, to be used later when undoing
+	buff.user_int = main_mod_type
+	buff.user_real = main_mod_value
 
-#		Apply the bonus modification
-		target.modify_property(B.user_int2, B.user_real2)
-		B.user_int3 = Effect.create_colored("KeeperGroveMissile.mdl", Vector3(target.get_x(), target.get_y(), 150), 0, 5, Color8(255, 180, 180, 255))
+	var secondary_effect_happened: bool = tower.calc_chance(SECONDARY_EFFECT_CHANCE)
+
+	if secondary_effect_happened:
+#		NOTE: for secondary effect, do not include IRON in
+#		the random list so that IRON effect can be used as a
+#		fallback in case random element is same as tower
+#		element.
+		var element_list: Array[Element.enm] = Element.get_list()
+		element_list.erase(Element.enm.IRON)
+
+		var random_element: Element.enm = Utils.pick_random(Globals.synced_rng, element_list)
+		if random_element == tower_element:
+			random_element = Element.enm.IRON
+
+		var secondary_mod_type: Modification.Type = ELEMENT_TO_MOD_MAP[random_element]
+		var secondary_mod_value: float = get_mod_value_for_stat(secondary_mod_type)
+
+		target.modify_property(secondary_mod_type, secondary_mod_value)
+
+#		Save values in buff, to be used later when undoing
+		buff.user_int2 = secondary_mod_type
+		buff.user_real2 = secondary_mod_value
 	else:
-		B.user_int2 = 0
-		B.user_int3 = Effect.create_scaled("KeeperGroveMissile.mdl", Vector3(target.get_x(), target.get_y(), 150), 0, 5)
+		buff.user_int2 = 0
+		buff.user_real2 = 0
+
+	var effect_id: int = Effect.create_scaled("KeeperGroveMissile.mdl", Vector3(target.get_x(), target.get_y(), 150), 0, 5)
+	if secondary_effect_happened:
+		Effect.set_color(effect_id, Color8(255, 180, 180, 255))
+	buff.user_int3 = effect_id
 
 
-func effect_clean(event: Event):
-	var B: Buff = event.get_buff()
-	var target: Tower = B.get_buffed_unit()
-#	Remove the modification
-	target.modify_property(B.user_int, -B.user_real)
+func gift_bt_on_cleanup(event: Event):
+	var buff: Buff = event.get_buff()
+	var target: Tower = buff.get_buffed_unit()
 
-	if B.user_int2 != 0:
-#		Remove the bonus modification
-		target.modify_property(B.user_int2, -B.user_real2)
+	var main_mod_type: Modification.Type = buff.user_int as Modification.Type
+	var main_mod_value: float = buff.user_real
+	var secondary_mod_type: Modification.Type = buff.user_int2 as Modification.Type
+	var secondary_mod_value: float = buff.user_real2
 
-	if B.user_int3 != 0:
-		Effect.destroy_effect(B.user_int3)
+	target.modify_property(main_mod_type, -main_mod_value)
+
+	if secondary_mod_type != 0:
+		target.modify_property(secondary_mod_type, -secondary_mod_value)
+
+	var effect_id: int = buff.user_int3
+	if effect_id != 0:
+		Effect.destroy_effect(effect_id)
 
 
-func sprite_hit(_P: Projectile, target: Unit):
+func sprite_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -127,10 +126,10 @@ func sprite_hit(_P: Projectile, target: Unit):
 
 
 func tower_init():
-	gift_bt = BuffType.new("gift_bt", 5, 0, true, self)
+	gift_bt = BuffType.new("gift_bt", GIFT_DURATION, 0, true, self)
 	gift_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
-	gift_bt.add_event_on_create(gift_create)
-	gift_bt.add_event_on_cleanup(effect_clean)
+	gift_bt.add_event_on_create(gift_bt_on_create)
+	gift_bt.add_event_on_cleanup(gift_bt_on_cleanup)
 	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
 
 	sprite_pt = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
@@ -139,6 +138,10 @@ func tower_init():
 
 func create_autocasts() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
+
+	var secondary_effect_chance: String = Utils.format_percent(SECONDARY_EFFECT_CHANCE, 2)
+	var autocast_range: String = Utils.format_float(AUTOCAST_RANGE, 2)
+	var gift_duration: String = Utils.format_float(GIFT_DURATION, 2)
 
 	var exp_received: String = Utils.format_percent(_stats.buff_strength * EXP_RECEIVED, 2)
 	var exp_received_add: String = Utils.format_percent(_stats.buff_strength * EXP_RECEIVED_ADD, 2)
@@ -166,7 +169,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Nature's Gift"
 	autocast.icon = "res://resources/icons/plants/leaf_03.tres"
 	autocast.description_short = "Buffs a tower, increasing stats depending on tower's element.\n"
-	autocast.description = "One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:\n" \
+	autocast.description = "One of the spirits flies towards a tower in %s range and buffs it for %s seconds. The buff has a different effect depending on the tower's element:\n" % [autocast_range, gift_duration] \
 	+ "+%s experience for %s\n" % [exp_received, astral_string] \
 	+ "+%s spell damage for %s\n" % [spell_damage, darkness_string] \
 	+ "+%s crit chance for %s\n" % [crit_chance, nature_string] \
@@ -174,7 +177,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s buff duration for %s\n" % [buff_duration, ice_string] \
 	+ "+%s attack speed for %s\n" % [attack_speed, storm_string] \
 	+ "+%s item chance for %s\n" % [item_chance, iron_string] \
-	+ "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n" \
+	+ "The buffed tower has a %s chance to receive another random effect in addition to the first one.\n" % secondary_effect_chance \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s experience\n" % exp_received_add \
@@ -187,7 +190,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.cast_range = 500
+	autocast.cast_range = AUTOCAST_RANGE
 	autocast.target_self = false
 	autocast.target_art = ""
 	autocast.cooldown = 2
@@ -195,19 +198,35 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.mana_cost = 45
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
-	autocast.auto_range = 500
+	autocast.auto_range = AUTOCAST_RANGE
 	autocast.handler = on_autocast
 
 	return [autocast]
 
 
 func on_autocast(event: Event):
-	var p: Projectile
-	p = Projectile.create_from_unit_to_unit(sprite_pt, tower, 0, 0, tower, event.get_target(), true, false, false)
+	var p: Projectile = Projectile.create_from_unit_to_unit(sprite_pt, tower, 0, 0, tower, event.get_target(), true, false, false)
 	p.set_projectile_scale(_stats.projectile_scale)
 	p.set_color(Color8(50, 255, 50, 255))
 
 
-func on_create(_preceding_tower: Tower):
-#	Member buff strength modifier
-	tower.user_real = _stats.buff_strength
+func get_mod_value_for_stat(mod_type: Modification.Type) -> float:
+	var value: float
+
+	var level: int = tower.get_level()
+
+	match mod_type:
+		Modification.Type.MOD_EXP_RECEIVED: value = EXP_RECEIVED + level * EXP_RECEIVED_ADD
+		Modification.Type.MOD_ITEM_CHANCE_ON_KILL: value = ITEM_CHANCE + level * ITEM_CHANCE_ADD
+		Modification.Type.MOD_SPELL_DAMAGE_DEALT: value = SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD
+		Modification.Type.MOD_ATK_CRIT_CHANCE: value = ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD
+		Modification.Type.MOD_DAMAGE_ADD_PERC: value = DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD
+		Modification.Type.MOD_BUFF_DURATION: value = BUFF_DURATION + level * BUFF_DURATION_ADD
+		Modification.Type.MOD_ATTACKSPEED: value = ATTACKSPEED + level * ATTACKSPEED_ADD
+		_:
+			push_error("Unknown mod_type used in Nature's Sprite script")
+			value = 0.0
+
+	value *= _stats.buff_strength
+
+	return value
