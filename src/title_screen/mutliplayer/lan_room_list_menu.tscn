@@ -3,16 +3,18 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_vaewn"]
 [ext_resource type="Script" path="res://src/title_screen/mutliplayer/lan_room_list_menu.gd" id="2_82rep"]
 
-[node name="LanRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list")]
+[node name="LanRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list", "_address_edit")]
 custom_minimum_size = Vector2(900, 400)
 theme = ExtResource("1_vaewn")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_82rep")
-_no_rooms_found_label = NodePath("VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer/NoRoomsFoundLabel")
-_item_list = NodePath("VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer/ItemList")
+_no_rooms_found_label = NodePath("VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer/NoRoomsFoundLabel")
+_item_list = NodePath("VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer/ItemList")
+_address_edit = NodePath("VBoxContainer/GridContainer/PanelContainer2/MarginContainer/HBoxContainer/Address Edit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -20,50 +22,81 @@ theme_type_variation = &"LabelLarge"
 text = "LAN Rooms"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_vaewn")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RoomButtonContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="RoomButtonContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="NoRoomsFoundLabel" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
+[node name="NoRoomsFoundLabel" type="Label" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
 layout_mode = 2
 text = "No rooms found"
 
-[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
+[node name="ItemList" type="ItemList" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="JoinRoomButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="JoinRoomButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join room"
 
-[node name="CreateRoomButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CreateRoomButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 text = "Create room"
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/GridContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "IP Address:"
+
+[node name="Address Edit" type="LineEdit" parent="VBoxContainer/GridContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="JoinAddressButton" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Join address"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Cancel"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/JoinRoomButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/CreateRoomButton" to="." method="_on_create_room_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/JoinRoomButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/CreateRoomButton" to="." method="_on_create_room_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/JoinAddressButton" to="." method="_on_join_address_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

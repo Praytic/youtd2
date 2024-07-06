@@ -79,6 +79,32 @@ func _receive_player_name_map_from_host(player_name_map: Dictionary):
 	_update_player_list_in_room_menu()
 
 
+# NOTE: this functionality is currently duplicated here and
+# in _on_lan_room_list_menu_join_pressed(). This is to
+# handle case where player connects via entered address. In
+# that case, room config is not available on client and has
+# to be obtained from host.
+@rpc("authority", "call_local", "reliable")
+func _receive_room_config_from_host(room_config_bytes: PackedByteArray):
+	_current_room_config = RoomConfig.convert_from_bytes(room_config_bytes)
+	_lan_room_menu.display_room_config(_current_room_config)
+
+
+func _connect_to_room(room_address: String) -> bool:
+	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+	var create_client_result: Error = peer.create_client(room_address, Constants.SERVER_PORT)
+
+	if create_client_result != OK:
+		Utils.show_popup_message(self, "Error", "Failed to create client. Details:" % error_string(create_client_result))
+
+		return false
+
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
+	
+	return true
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -93,6 +119,8 @@ func _on_peer_connected(peer_id: int):
 # 	newly connected peer the names of all of the players.
 	if multiplayer.is_server():
 		_receive_player_name_map_from_host.rpc_id(peer_id, _peer_id_to_player_name_map)
+		var room_config_bytes: PackedByteArray = _current_room_config.convert_to_bytes()
+		_receive_room_config_from_host.rpc_id(peer_id, room_config_bytes)
 	
 	_update_player_list_in_room_menu()
 
@@ -153,16 +181,7 @@ func _on_lan_room_list_menu_join_pressed():
 		
 		return
 	
-	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	var create_client_result: Error = peer.create_client(selected_room_address, Constants.SERVER_PORT)
-
-	if create_client_result != OK:
-		Utils.show_popup_message(self, "Error", "Failed to create client. Details:" % error_string(create_client_result))
-
-		return
-
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)
+	_connect_to_room(selected_room_address)
 
 	var room_map: Dictionary = _lan_room_scanner.get_room_map()
 	var room_info: RoomInfo = room_map[selected_room_address]
@@ -193,3 +212,16 @@ func _on_lan_room_menu_hidden():
 	
 	if is_host:
 		_lan_room_advertiser.set_room_config(null)
+
+
+func _on_lan_room_list_menu_join_address_pressed():
+	var room_address: String = _lan_room_list_menu.get_entered_address()
+	
+	if room_address.is_empty():
+		Utils.show_popup_message(self, "Error", "You must enter an address first.")
+		
+		return
+	
+	_connect_to_room(room_address)
+	
+	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)

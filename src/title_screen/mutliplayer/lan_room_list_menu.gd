@@ -2,12 +2,14 @@ class_name LanRoomListMenu extends PanelContainer
 
 
 signal join_pressed()
+signal join_address_pressed()
 signal cancel_pressed()
 signal create_room_pressed()
 
 
 @export var _no_rooms_found_label: Label
 @export var _item_list: ItemList
+@export var _address_edit: LineEdit
 
 
 #########################
@@ -53,6 +55,10 @@ func get_selected_room_address() -> String:
 	return selected_room_address
 
 
+func get_entered_address() -> String:
+	return _address_edit.text
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -67,3 +73,7 @@ func _on_cancel_button_pressed():
 
 func _on_create_room_button_pressed():
 	create_room_pressed.emit()
+
+
+func _on_join_address_button_pressed():
+	join_address_pressed.emit()
