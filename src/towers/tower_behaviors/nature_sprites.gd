@@ -76,26 +76,26 @@ func gift_create(event: Event):
 		relem = Globals.synced_rng.randi_range(0, 5)
 #		Relem cannot be 6 (IRON), so we apply iron buff if elem == relem.
 		if elem == relem:
-			B.user_int = Modification.Type.MOD_ITEM_CHANCE_ON_KILL
-			B.user_real = (ITEM_CHANCE + level * ITEM_CHANCE_ADD) * member_modifier
-		elif elem == Element.enm.ASTRAL:
-			B.user_int = Modification.Type.MOD_EXP_RECEIVED
-			B.user_real = (EXP_RECEIVED + level * EXP_RECEIVED_ADD) * member_modifier
-		elif elem == Element.enm.DARKNESS:
-			B.user_int = Modification.Type.MOD_SPELL_DAMAGE_DEALT
-			B.user_real = (SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD) * member_modifier
-		elif elem == Element.enm.NATURE:
-			B.user_int = Modification.Type.MOD_ATK_CRIT_CHANCE
-			B.user_real = (ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD) * member_modifier
-		elif elem == Element.enm.FIRE:
-			B.user_int = Modification.Type.MOD_DAMAGE_ADD_PERC
-			B.user_real = (DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD) * member_modifier
-		elif elem == Element.enm.ICE:
-			B.user_int = Modification.Type.MOD_BUFF_DURATION
-			B.user_real = (BUFF_DURATION + level * BUFF_DURATION_ADD) * member_modifier
-		elif elem == Element.enm.STORM:
-			B.user_int = Modification.Type.MOD_ATTACKSPEED
-			B.user_real = (ATTACKSPEED + level * ATTACKSPEED_ADD) * member_modifier
+			B.user_int2 = Modification.Type.MOD_ITEM_CHANCE_ON_KILL
+			B.user_real2 = (ITEM_CHANCE + level * ITEM_CHANCE_ADD) * member_modifier
+		elif relem == Element.enm.ASTRAL:
+			B.user_int2 = Modification.Type.MOD_EXP_RECEIVED
+			B.user_real2 = (EXP_RECEIVED + level * EXP_RECEIVED_ADD) * member_modifier
+		elif relem == Element.enm.DARKNESS:
+			B.user_int2 = Modification.Type.MOD_SPELL_DAMAGE_DEALT
+			B.user_real2 = (SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD) * member_modifier
+		elif relem == Element.enm.NATURE:
+			B.user_int2 = Modification.Type.MOD_ATK_CRIT_CHANCE
+			B.user_real2 = (ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD) * member_modifier
+		elif relem == Element.enm.FIRE:
+			B.user_int2 = Modification.Type.MOD_DAMAGE_ADD_PERC
+			B.user_real2 = (DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD) * member_modifier
+		elif relem == Element.enm.ICE:
+			B.user_int2 = Modification.Type.MOD_BUFF_DURATION
+			B.user_real2 = (BUFF_DURATION + level * BUFF_DURATION_ADD) * member_modifier
+		elif relem == Element.enm.STORM:
+			B.user_int2 = Modification.Type.MOD_ATTACKSPEED
+			B.user_real2 = (ATTACKSPEED + level * ATTACKSPEED_ADD) * member_modifier
 
 #		Apply the bonus modification
 		target.modify_property(B.user_int2, B.user_real2)
