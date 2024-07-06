@@ -47,12 +47,12 @@ layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Name:"
 
-[node name="NameEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="NameEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 35
 text = "Player"
+max_length = 20
 context_menu_enabled = false
 caret_blink = true
 

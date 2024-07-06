@@ -7,7 +7,7 @@ signal close_pressed()
 var _setup_error_list: Array[String] = []
 
 
-@export var _name_edit: TextEdit
+@export var _name_edit: LineEdit
 @export var _export_exp_menu: ExportExpMenu
 @export var _import_exp_menu: ImportExpMenu
 @export var _level_label: Label
@@ -62,9 +62,8 @@ func _load_player_exp(player_exp: int):
 ###     Callbacks     ###
 #########################
 
-func _on_name_edit_text_changed():
-	var new_player_name: String = _name_edit.text
-	Settings.set_setting(Settings.PLAYER_NAME, new_player_name)
+func _on_name_edit_text_changed(new_text: String):
+	Settings.set_setting(Settings.PLAYER_NAME, new_text)
 	Settings.flush()
 
 
