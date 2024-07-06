@@ -56,6 +56,11 @@ func _process(_delta: float):
 #########################
 
 func set_room_config(room_config: RoomConfig):
+	if room_config == null:
+		_room_info = null
+		
+		return
+
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var create_time: float = Time.get_unix_time_from_system()
 	

@@ -125,7 +125,7 @@ func _on_peer_connected(peer_id: int):
 	_update_player_list_in_room_menu()
 
 
-func _on_peer_disconnected():
+func _on_peer_disconnected(_id: int):
 	_update_player_list_in_room_menu()
 
 
@@ -208,10 +208,12 @@ func _on_lan_room_menu_start_pressed():
 
 # NOTE: set room config to null when room menu is hidden, to stop advertising
 func _on_lan_room_menu_hidden():
-	var is_host: bool = !multiplayer.is_server()
+	var is_host: bool = multiplayer.is_server()
 	
 	if is_host:
 		_lan_room_advertiser.set_room_config(null)
+
+	multiplayer.multiplayer_peer.close()
 
 
 func _on_lan_room_list_menu_join_address_pressed():
