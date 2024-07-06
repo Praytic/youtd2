@@ -137,3 +137,6 @@ func update_ticks_per_physics_tick() -> int:
 
 func enable_dev_commands() -> bool:
 	return ProjectSettings.get_setting("application/config/enable_dev_commands") as bool
+
+func print_wave_info() -> bool:
+	return ProjectSettings.get_setting("application/config/print_wave_info") as bool

@@ -29,38 +29,16 @@ func generate_waves():
 
 func _generate_waves_for(level_start: int, wave_count: int):
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
-	
+
 	for wave_level in range(level_start, level_start + wave_count):
 		var wave: Wave = Wave.new(wave_level, difficulty)
-		
-		var creep_combination_string: String = wave.get_creep_combination_string()
-		print_verbose("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
-			% [wave_level, \
-				creep_combination_string, \
-				CreepCategory.convert_to_string(wave.get_race()), \
-				ArmorType.convert_to_string(wave.get_armor_type())])
-		
-		var special_name_list: Array[String] = []
-		for special in wave.get_specials():
-			var special_name: String = WaveSpecialProperties.get_special_name(special)
-			special_name_list.append(special_name)
-
-		var specials_string: String
-		if !special_name_list.is_empty():
-			specials_string = ",".join(special_name_list)
-		else:
-			specials_string = "none"
-
-		print_verbose("    Specials: %s" % specials_string)
-		_print_creep_hp_overall(wave)
-		
 		_wave_list.append(wave)
-		
 		wave.finished.connect(_on_wave_finished.bind(wave))
-		
 		add_child(wave, true)
 
-	print_verbose("Waves have been initialized. Total waves: %s" % _wave_list.size())
+	var should_print_wave_info: bool = Config.print_wave_info()
+	if should_print_wave_info:
+		_print_wave_info()
 
 
 func start_wave(level: int):
@@ -107,6 +85,39 @@ func current_wave_is_finished() -> bool:
 ###      Private      ###
 #########################
 
+func _print_wave_info():
+	for wave in _wave_list:
+		var wave_level: int = wave.get_level()
+		var creep_combination_string: String = wave.get_creep_combination_string()
+
+		var special_name_list: Array[String] = []
+		for special in wave.get_specials():
+			var special_name: String = WaveSpecialProperties.get_special_name(special)
+			special_name_list.append(special_name)
+
+		var specials_string: String
+		if !special_name_list.is_empty():
+			specials_string = ",".join(special_name_list)
+		else:
+			specials_string = "none"
+
+		print("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" % [wave_level, creep_combination_string, CreepCategory.convert_to_string(wave.get_race()), ArmorType.convert_to_string(wave.get_armor_type())])
+		print("    Specials: %s" % specials_string)
+
+		var creep_size_list: Array = wave.get_creep_sizes()
+
+		for creep_size in creep_size_list:
+			var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
+			var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+			print("%s's HP: %s" % [creep_size_string, creep_health])
+
+#		NOTE: need to add delay between prints to avoid
+#		overflowing the console. Console overflow is not
+#		critical but it does cut off the messages.
+		if wave_level % 20 == 0:
+			await get_tree().create_timer(0.1).timeout
+
+
 func _add_message_about_wave(wave: Wave):
 	if _player != PlayerManager.get_local_player():
 		return
@@ -138,15 +149,6 @@ func _add_message_about_wave(wave: Wave):
 		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
 
 		Messages.add_normal(_player, special_string)
-
-
-func _print_creep_hp_overall(wave: Wave):
-	var creep_size_list: Array = wave.get_creep_sizes()
-
-	for creep_size in creep_size_list:
-		var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
-		var creep_size_string: String = CreepSize.convert_to_string(creep_size)
-		print_verbose("%s's HP: %s" % [creep_size_string, creep_health])
 
 
 #########################
