@@ -15,11 +15,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_multiplayer_button", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_auth_button", "_spacer_before_quit_button", "_quit_button")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
-_multiplayer_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton")
 _auth_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/AuthButton")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
@@ -80,7 +79,6 @@ theme_type_variation = &"ButtonLarge"
 text = "Singleplayer"
 
 [node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
-visible = false
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"

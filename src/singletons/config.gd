@@ -127,9 +127,6 @@ func show_hidden_buffs() -> bool:
 func enable_auth() -> bool:
 	return ProjectSettings.get_setting("application/config/enable_auth") as bool
 
-func show_multiplayer_button() -> bool:
-	return ProjectSettings.get_setting("application/config/show_multiplayer_button") as bool
-
 # NOTE: increasing this valid makes the game run at super
 # speed
 func update_ticks_per_physics_tick() -> int:

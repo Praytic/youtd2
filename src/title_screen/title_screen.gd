@@ -18,7 +18,6 @@ enum Tab {
 
 @export var _tab_container: TabContainer
 @export var _configure_singleplayer_menu: ConfigureSinglePlayerMenu
-@export var _multiplayer_button: Button
 @export var _auth_button: Button
 @export var _spacer_before_quit_button: VBoxContainer
 @export var _quit_button: Button
@@ -32,10 +31,6 @@ func _ready():
 	print(" \n")
 	print("The messages about Basis universal can be ignored: \"Basis universal cannot unpack level 1.\".")
 	print(" \n")
-	
-#	NOTE: need to hide multiplayer button in production
-#	builds because multiplayer is very rough right now
-	_multiplayer_button.visible = Config.show_multiplayer_button()
 	
 	_auth_button.visible = Config.enable_auth()
 	
