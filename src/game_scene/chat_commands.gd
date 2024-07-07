@@ -219,6 +219,11 @@ func _command_autooil(player: Player, args: Array):
 
 	var tower: Tower = unit as Tower
 
+	if tower != null && tower.get_player() != player:
+		_add_error(player, "You don't own this tower.")
+
+		return
+
 	var option: String
 	if !args.is_empty():
 		option = args[0]
