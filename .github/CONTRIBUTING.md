@@ -1,10 +1,19 @@
 # Contribution guidance
 
+## How to contribute
+
+You can contribute in different ways:
+
+- Report a bug in Issues
+- Write a suggestion in Discussions
+- Submit a modification to source code!
+
+For the last one, you will need to download the Godot editor and obtain assets.
+Read below to find out how to obtain assets.
+
 ## Assets
 
-The game repository doesn't contain assets. To be able to open the game in the editor, you will need to download the assets separately.
-
-Link to assets folder: [link](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=sharing)
+Follow this link to the assets folder: [link](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=sharing)
 
 (Note that these assets are partially replaced with placeholders)
 
