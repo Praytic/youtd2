@@ -286,6 +286,10 @@ func _on_next_wave_timer_timeout():
 
 
 func _on_player_wave_spawned(level: int):
+	var wave_is_in_progress: bool = get_wave_is_in_progress()
+	if wave_is_in_progress:
+		return
+
 	var started_last_wave: bool = level == Globals.get_wave_count()
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
 	var game_is_neverending: bool = Globals.game_is_neverending()
