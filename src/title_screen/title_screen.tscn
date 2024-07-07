@@ -185,7 +185,7 @@ fit_content = true
 [connection signal="cancel_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="." method="_on_create_lan_room_menu_cancel_pressed"]
 [connection signal="create_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="SetupLanGame" method="_on_create_lan_room_menu_create_pressed"]
 [connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="." method="_on_lan_room_menu_back_pressed"]
-[connection signal="hidden" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_hidden"]
+[connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_back_pressed"]
 [connection signal="start_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_start_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_close_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]

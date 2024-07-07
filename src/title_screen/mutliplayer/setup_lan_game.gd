@@ -206,16 +206,6 @@ func _on_lan_room_menu_start_pressed():
 	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
 
 
-# NOTE: set room config to null when room menu is hidden, to stop advertising
-func _on_lan_room_menu_hidden():
-	var is_host: bool = multiplayer.is_server()
-	
-	if is_host:
-		_lan_room_advertiser.set_room_config(null)
-
-	multiplayer.multiplayer_peer.close()
-
-
 func _on_lan_room_list_menu_join_address_pressed():
 	var room_address: String = _lan_room_list_menu.get_entered_address()
 	
@@ -227,3 +217,15 @@ func _on_lan_room_list_menu_join_address_pressed():
 	_connect_to_room(room_address)
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+
+
+func _on_lan_room_menu_back_pressed():
+# 	NOTE: when host closes the room menu, set room config to
+# 	null to stop advertising
+	var is_server: bool = multiplayer.is_server()
+	if is_server:
+		_lan_room_advertiser.set_room_config(null)
+	
+#	NOTE: both server and clients need to close the
+#	connection when leaving room menu
+	multiplayer.multiplayer_peer.close()
