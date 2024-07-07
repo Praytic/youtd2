@@ -25,6 +25,10 @@ var _player_defined_autospawn_time: float = -1
 ###       Public      ###
 #########################
 
+func get_players() -> Array[Player]:
+	return _player_list
+
+
 func get_wave_is_in_progress() -> bool:
 	var wave_is_in_progress: bool = false
 

@@ -26,7 +26,6 @@ const SPAWN_CHALLENGE: Array[String] = ["/spawn-challenge", "/sc"]
 const SETUP_TEST_TOWER: Array[String] = ["/setup-test-tower", "/stt"]
 
 const NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS: Array = [
-	AUTOSPAWN,
 	GAMESPEED,
 ]
 
@@ -176,9 +175,6 @@ func _command_create_item(player: Player, args: Array):
 	_add_status(player, "Created item %d" % item_id)
 
 
-# TODO: in multiplayer, it should not be possible for one
-# player to change autospawn for whole team. Both players
-# need to input same value to agree?
 func _command_autospawn(player: Player, args: Array):
 	if args.size() != 1:
 		_add_error(player, "Invalid command args.")
@@ -192,7 +188,7 @@ func _command_autospawn(player: Player, args: Array):
 
 	if disable_autospawn:
 		team.set_autospawn_time(-1)
-		_add_status(player, "Disabled autospawn.")
+		_add_status_for_team(team, "Disabled autospawn.")
 
 		return
 
@@ -205,7 +201,7 @@ func _command_autospawn(player: Player, args: Array):
 
 	team.set_autospawn_time(autospawn_time)
 
-	_add_status(player, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
+	_add_status_for_team(team, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
 
 
 func _command_autooil(player: Player, args: Array):
@@ -443,3 +439,10 @@ func _add_status(player: Player, text: String):
 
 func _add_error(player: Player, text: String):
 	Messages.add_normal(player, "[color=RED]%s[/color]" % text)
+
+
+func _add_status_for_team(team: Team, text: String):
+	var player_list: Array[Player] = team.get_players()
+
+	for player in player_list:
+		_add_status(player, text)
