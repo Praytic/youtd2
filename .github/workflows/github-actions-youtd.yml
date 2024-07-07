@@ -120,20 +120,6 @@ jobs:
         path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
 
-    - name: deploy to github pages
-      if: steps.export.outcome == 'success'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.export.outputs.build_directory }}/web
-        cname: youtd2.com
-
-    - name: update youtd2-website
-      run: |
-        gh workflow run workflow-public.yml -f game_version=${{ needs.setup.outputs.version }} -R praytic/youtd2-website
-      env:
-        GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
-
     outputs:
       tag_version: ${{ needs.setup.outputs.tag_version }}
       commit_ref: ${{ needs.setup.outputs.commit_ref }}
