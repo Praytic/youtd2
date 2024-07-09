@@ -23,13 +23,6 @@ static func verify(player: Player, prev_tower: Tower, new_tower_id: int) -> bool
 		
 		return false
 
-	var prev_tower_id: int = prev_tower.get_id()
-	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(prev_tower_id)
-	if upgrade_id == -1:
-		print_debug("Failed to find upgrade id")
-
-		return false
-
 	var tower_stash: TowerStash = player.get_tower_stash()
 	var tower_exists_in_stash: bool = tower_stash.has_tower(new_tower_id)
 	if !tower_exists_in_stash:

@@ -25,7 +25,7 @@ static func verify(player: Player, prev_tower: Tower) -> bool:
 	var prev_tower_id: int = prev_tower.get_id()
 	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(prev_tower_id)
 	if upgrade_id == -1:
-		print_debug("Failed to find upgrade id")
+		Messages.add_error(player, "Failed to find upgrade id")
 
 		return false
 
