@@ -44,7 +44,7 @@ var _default_value_map: Dictionary = {
 	ENABLE_SFX: true,
 	MOUSE_SCROLL: 0.5,
 	KEYBOARD_SCROLL: 0.5,
-	ENABLE_MOUSE_SCROLL: true,
+	ENABLE_MOUSE_SCROLL: false,
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20.0,
 	COMBAT_LOG_Y: 600.0,
