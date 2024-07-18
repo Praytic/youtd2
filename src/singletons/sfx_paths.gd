@@ -6,7 +6,7 @@ const PICKUP_ITEM: String = "res://assets/sfx/411177__silverillusionist__pick-up
 const PICKUP_GOLD: String = "res://assets/sfx/734247__noisyredfox__coins3.ogg"
 const DAMAGE_PORTAL: String = "res://assets/sfx/442903__qubodup__slash-remix.ogg"
 const START_WAVE: String = "res://assets/sfx/161654__qubodup__war-game-battle-level-up-remix.ogg"
-const LEVEL_UP: String = "res://assets/sfx/level_up.mp3"
+const LEVEL_UP: String = "res://assets/sfx/bfxr_level_up.ogg"
 
 const TOWER_ATTACK_MAP: Dictionary = {
 	Element.enm.NATURE: "res://assets/sfx/swosh-08.mp3",
