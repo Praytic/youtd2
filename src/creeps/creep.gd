@@ -358,8 +358,7 @@ func _deal_damage_to_portal():
 	var team: Team = player.get_team()
 
 	team.modify_lives(-damage_to_portal)
-
-	SFX.play_sfx_for_team(team, SfxPaths.DAMAGE_PORTAL)
+	team.play_portal_damage_sfx()
 
 	EventBus.portal_received_damage.emit()
 

@@ -11,6 +11,9 @@ signal game_win()
 signal level_changed()
 
 
+const PORTAL_DAMAGE_SFX_COOLDOWN: float = 0.5
+
+
 var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
@@ -19,6 +22,7 @@ var _finished_the_game: bool = false
 var _player_defined_autospawn_time: float = -1
 
 @export var _next_wave_timer: ManualTimer
+@export var _portal_damage_sound_cooldown_timer: Timer
 
 
 #########################
@@ -129,6 +133,15 @@ func set_autospawn_time(time: float):
 	_player_defined_autospawn_time = time
 
 
+func play_portal_damage_sfx():
+	var portal_damage_sfx_on_cooldown: bool = !_portal_damage_sound_cooldown_timer.is_stopped()
+	
+	if !portal_damage_sfx_on_cooldown:
+		SFX.play_sfx_for_team(self, SfxPaths.DAMAGE_PORTAL)
+
+		_portal_damage_sound_cooldown_timer.start(PORTAL_DAMAGE_SFX_COOLDOWN)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -138,7 +151,7 @@ func _start_wave():
 	
 	for player in _player_list:
 		player.start_wave(_level)
-
+	
 	SFX.play_sfx_for_team(self, SfxPaths.START_WAVE)
 
 
