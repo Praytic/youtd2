@@ -775,7 +775,7 @@ func _change_experience(amount: float) -> float:
 		var level_up_text: String = "Level %d" % _level
 		get_player().display_floating_text(level_up_text, self, Color.GOLD)
 
-		SFX.sfx_at_unit("res://assets/sfx/level_up.mp3", self, -20.0)
+		SFX.sfx_at_unit(SfxPaths.LEVEL_UP, self, -20.0)
 
 	CombatLog.log_experience(self, amount)
 

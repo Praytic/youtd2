@@ -139,6 +139,8 @@ func _start_wave():
 	for player in _player_list:
 		player.start_wave(_level)
 
+	SFX.play_sfx_for_team(self, SfxPaths.START_WAVE)
+
 
 func _do_game_win():
 	var game_is_neverending: bool = Globals.game_is_neverending()

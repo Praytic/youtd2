@@ -532,17 +532,8 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 		else:
 			projectile.user_int2 = 0
 
-	var sfx_path: String
-	match get_element():
-		Element.enm.NATURE: sfx_path = "res://assets/sfx/swosh-08.mp3"
-		Element.enm.STORM: sfx_path = "res://assets/sfx/foom_02.mp3"
-		Element.enm.FIRE: sfx_path = "res://assets/sfx/fire_attack1.mp3"
-		Element.enm.ICE: sfx_path = "res://assets/sfx/iceball.mp3"
-		Element.enm.ASTRAL: sfx_path = "res://assets/sfx/attack_sound1.mp3"
-		Element.enm.DARKNESS: sfx_path = "res://assets/sfx/swosh-11.mp3"
-		Element.enm.IRON: sfx_path = "res://assets/sfx/iron_attack1.mp3"
-		_: sfx_path = "res://assets/sfx/swosh-08.mp3"
-
+	var element: Element.enm = get_element()
+	var sfx_path: String = SfxPaths.TOWER_ATTACK_MAP[element]
 	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
 	SFX.sfx_at_unit(sfx_path, self, -20.0, random_pitch)
 

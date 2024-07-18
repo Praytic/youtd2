@@ -560,6 +560,8 @@ func _on_player_requested_to_sell_tower(tower: Tower):
 	if !verify_ok:
 		return
 
+	SFX.play_sfx(SfxPaths.PICKUP_GOLD)
+
 	var tower_unit_id: int = tower.get_uid()
 	var action: Action = ActionSellTower.make(tower_unit_id)
 	_game_client.add_action(action)
@@ -595,7 +597,8 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	SFX.play_sfx("res://assets/sfx/move_item.mp3", -10.0)
+	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
+	SFX.play_sfx(SfxPaths.PICKUP_ITEM, -10.0, random_pitch)
 	
 	var local_player: Player = PlayerManager.get_local_player()
 	
@@ -633,7 +636,8 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 
 
 func _on_player_requested_transmute():
-	SFX.play_sfx("res://assets/sfx/move_item.mp3", -10.0)
+	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
+	SFX.play_sfx(SfxPaths.PICKUP_ITEM, -10.0, random_pitch)
 	
 	var action: Action = ActionTransmute.make()
 	_game_client.add_action(action)

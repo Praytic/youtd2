@@ -10,10 +10,23 @@ var _loaded_sfx_map: Dictionary = {}
 ###       Public      ###
 #########################
 
+func play_sfx_for_team(team: Team, sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
+	var player_list: Array[Player] = team.get_players()
+
+	for player in player_list:
+		SFX.play_sfx_for_player(player, sfx_path, volume_db, pitch_scale)
+
+
+func play_sfx_for_player(player: Player, sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
+	var player_is_local_player: bool = player == PlayerManager.get_local_player()
+
+	if player_is_local_player:
+		SFX.play_sfx(sfx_path, volume_db, pitch_scale)
+
 
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.
-func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
+func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
@@ -25,20 +38,20 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	var sfx_player: AudioStreamPlayer = audio_player_pool.get_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
-	var sfx_stream: AudioStream = _get_sfx(sfx_name)
+	var sfx_stream: AudioStream = _get_sfx(sfx_path)
 
 	var invalid_sfx: bool = sfx_stream == null || sfx_stream.get_length() == 0
 
 	if invalid_sfx:
 		if Config.print_sfx_errors():
-			push_error("SFX [%s] doesn't exist." % sfx_name)
+			push_error("SFX [%s] doesn't exist." % sfx_path)
 		return
 
 	sfx_player.set_stream(sfx_stream)
 	sfx_player.play()
 
 
-func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0, pitch_scale: float = 1.0):
+func sfx_at_pos(sfx_path: String, sfx_position: Vector2, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
@@ -50,7 +63,7 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0,
 	var sfx_player: AudioStreamPlayer2D = audio_player_pool.get_2d_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
-	var sfx_stream: AudioStream = _get_sfx(sfx_name)
+	var sfx_stream: AudioStream = _get_sfx(sfx_path)
 
 	var invalid_sfx: bool = sfx_stream.get_length() == 0
 
@@ -63,50 +76,40 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0,
 
 
 # NOTE: SFXAtUnit() in JASS
-func sfx_at_unit(sfx_name: String, unit: Unit, volume_db: float = 0.0, pitch_scale: float = 1.0):
+func sfx_at_unit(sfx_path: String, unit: Unit, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	var sfx_position: Vector2 = unit.get_visual_position()
-	sfx_at_pos(sfx_name, sfx_position, volume_db, pitch_scale)
+	sfx_at_pos(sfx_path, sfx_position, volume_db, pitch_scale)
 
 
 # NOTE: SFXOnUnit() in JASS
-func sfx_on_unit(sfx_name: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0, pitch_scale: float = 1.0):
+func sfx_on_unit(sfx_path: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
-	sfx_at_pos(sfx_name, sfx_position, volume_db, pitch_scale)
-
-
-func connect_sfx_to_signal_in_group(sfx_name, signal_name, group_name):
-	var nodes = get_tree().get_nodes_in_group(group_name)
-	for node in nodes:
-		if node.has_signal(signal_name):
-			node.connect(signal_name, func(): SFX.play_sfx(sfx_name))
-			print_verbose("Node [%s] is in group [sfx_menu_click] and has [pressed] signal. Connect a sound to it." % node)
-		else:
-			print_verbose("Node [%s] is in group [sfx_menu_click] but has no [pressed] signal." % node)
+	sfx_at_pos(sfx_path, sfx_position, volume_db, pitch_scale)
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _get_sfx(sfx_name: String) -> AudioStream:
-	if _loaded_sfx_map.has(sfx_name):
-		return _loaded_sfx_map[sfx_name]
+func _get_sfx(sfx_path: String) -> AudioStream:
+	if _loaded_sfx_map.has(sfx_path):
+		return _loaded_sfx_map[sfx_path]
 
-	if !sfx_name.ends_with(".mp3") && !sfx_name.ends_with(".wav") && !sfx_name.ends_with(".ogg"):
+	if !sfx_path.ends_with(".mp3") && !sfx_path.ends_with(".wav") && !sfx_path.ends_with(".ogg"):
 		if Config.print_sfx_errors():
-			push_error("Sfx must be mp3, wav or ogg:", sfx_name)
+			push_error("Sfx must be mp3, wav or ogg:", sfx_path)
 
 		return AudioStreamMP3.new()
 
-	var file_exists: bool = ResourceLoader.exists(sfx_name)
+	var file_exists: bool = ResourceLoader.exists(sfx_path)
 
 	if !file_exists:
 		if Config.print_sfx_errors():
-			push_error("Failed to find sfx at:", sfx_name)
+			push_error("Failed to find sfx at:", sfx_path)
 
 		return AudioStreamMP3.new()
 
-	var stream: AudioStream = load(sfx_name)
+	var stream: AudioStream = load(sfx_path)
 
 #	NOTE: turn off looping in case it was turned on in sfx's
 #	.import file.
@@ -117,7 +120,7 @@ func _get_sfx(sfx_name: String) -> AudioStream:
 		var stream_ogg: AudioStreamOggVorbis = stream as AudioStreamOggVorbis
 		stream_ogg.loop = false
 
-	_loaded_sfx_map[sfx_name] = stream
+	_loaded_sfx_map[sfx_path] = stream
 
 	return stream
 

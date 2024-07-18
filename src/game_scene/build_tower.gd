@@ -103,7 +103,8 @@ static func add_error_about_building_tower(tower_id: int, player: Player):
 func _build_tower(tower_id: int):
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
 	
-	SFX.sfx_at_pos("res://assets/sfx/build_tower.mp3", mouse_pos)
+	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
+	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, mouse_pos, -10.0, random_pitch)
 	
 	var action: Action = ActionBuildTower.make(tower_id, mouse_pos)
 	_game_client.add_action(action)
@@ -116,7 +117,7 @@ func _transform_tower(prev_tower: Tower, new_tower_id: int):
 		return
 
 	var global_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	SFX.sfx_at_pos("res://assets/sfx/build_tower.mp3", global_pos)
+	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, global_pos)
 	
 	var prev_tower_uid: int = prev_tower.get_uid()
 	var action: Action = ActionTransformTower.make(prev_tower_uid, new_tower_id)

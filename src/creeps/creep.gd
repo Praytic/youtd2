@@ -355,9 +355,11 @@ func _deal_damage_to_portal():
 	if creep_score > 0:
 		player.add_score(creep_score)
 
-	player.get_team().modify_lives(-damage_to_portal)
+	var team: Team = player.get_team()
 
-	SFX.play_sfx("res://assets/sfx/Assets_SFX_hit_3.mp3")
+	team.modify_lives(-damage_to_portal)
+
+	SFX.play_sfx_for_team(team, SfxPaths.DAMAGE_PORTAL)
 
 	EventBus.portal_received_damage.emit()
 

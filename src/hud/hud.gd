@@ -35,8 +35,6 @@ func _ready():
 	if OS.is_debug_build() && Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
-	SFX.connect_sfx_to_signal_in_group("res://assets/sfx/menu_sound_5.wav", "pressed", "sfx_menu_click")
-
 	EventBus.item_started_flying_to_item_stash.connect(_on_item_started_flying_to_item_stash)
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
