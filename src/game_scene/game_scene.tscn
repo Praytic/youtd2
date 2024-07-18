@@ -1,9 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://src/game_scene/game_scene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_gestc"]
 [ext_resource type="Script" path="res://src/game_scene/team_container.gd" id="3_qsih1"]
-[ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://src/game_scene/audio_player_pool.tscn" id="4_l0jro"]
 [ext_resource type="Script" path="res://src/game_scene/game_time.gd" id="5_8syq6"]
 [ext_resource type="Script" path="res://src/game_scene/select_unit.gd" id="6_vam2w"]
 [ext_resource type="Script" path="res://src/game_scene/select_point_for_cast.gd" id="7_h82dk"]
@@ -64,7 +63,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_host", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
@@ -81,7 +80,6 @@ _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
 _ui_layer = NodePath("UI")
 _game_client = NodePath("Gameplay/GameClient")
-_game_host = NodePath("Gameplay/GameHost")
 _game_time = NodePath("Gameplay/GameTime")
 _pause_shadow_rect = NodePath("UI/PauseShadowRect")
 _object_container = NodePath("World/ObjectContainer")
@@ -98,8 +96,6 @@ one_shot = true
 
 [node name="TeamContainer" type="Node" parent="Gameplay"]
 script = ExtResource("3_qsih1")
-
-[node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("4_l0jro")]
 
 [node name="GameTime" type="Node" parent="Gameplay"]
 script = ExtResource("5_8syq6")

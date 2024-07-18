@@ -1,9 +1,12 @@
 extends Node
 
 
-# NOTE: don't need to reset loaded sfx because they are
-# Resources.
+# Functions for playing sound effects.
+
+
 var _loaded_sfx_map: Dictionary = {}
+var _2d_sfx_player_list: Array = []
+var _sfx_player_list: Array = []
 
 
 #########################
@@ -30,12 +33,7 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/Gameplay/AudioPlayerPool")
-	if audio_player_pool == null:
-		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
-		return
-
-	var sfx_player: AudioStreamPlayer = audio_player_pool.get_sfx_player()
+	var sfx_player: AudioStreamPlayer = _get_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_path)
@@ -55,12 +53,7 @@ func sfx_at_pos(sfx_path: String, sfx_position: Vector2, volume_db: float = 0.0,
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/Gameplay/AudioPlayerPool")
-	if audio_player_pool == null:
-		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
-		return
-
-	var sfx_player: AudioStreamPlayer2D = audio_player_pool.get_2d_sfx_player()
+	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_path)
@@ -125,3 +118,42 @@ func _get_sfx(sfx_path: String) -> AudioStream:
 	return stream
 
 
+# This function either returns a newly created
+# AudioStreamPlayer or reuses a previously created one.
+func _get_sfx_player() -> AudioStreamPlayer:
+	var idle_player: AudioStreamPlayer = null
+
+	for sfx_player in _sfx_player_list:
+		if !sfx_player.playing:
+			idle_player = sfx_player
+
+			break
+
+	if idle_player != null:
+		return idle_player
+
+	var new_player: AudioStreamPlayer = AudioStreamPlayer.new()
+	_sfx_player_list.append(new_player)
+	add_child(new_player)
+
+	return new_player
+
+
+# Same as _get_sfx_player() but for AudioStreamPlayer2D
+func _get_2d_sfx_player() -> AudioStreamPlayer2D:
+	var idle_player: AudioStreamPlayer2D = null
+
+	for sfx_player in _2d_sfx_player_list:
+		if !sfx_player.playing:
+			idle_player = sfx_player
+
+			break
+
+	if idle_player != null:
+		return idle_player
+
+	var new_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+	_2d_sfx_player_list.append(new_player)
+	add_child(new_player)
+
+	return new_player

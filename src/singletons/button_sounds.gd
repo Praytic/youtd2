@@ -3,10 +3,6 @@ extends Node
 
 # This class playes a SFX when any button is clicked.
 
-# TODO: fix this to work for title screen as well. Need to
-# fix SFX singleton to create audioplayers outside of game
-# scene tree. For audioplayers without position that's okay.
-
 
 func _enter_tree() -> void:
 	get_tree().node_added.connect(_on_node_added)
