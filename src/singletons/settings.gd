@@ -6,10 +6,6 @@ extends Node
 # ingame. Settings are saved to a file on hard drive. For
 # example, on Windows the path would be:
 # %appdata%/Roaming/Godot/...
-# 
-# Note that this is different from Config(project.godot)
-# which doesn't 
-# .
 
 signal changed()
 
@@ -39,9 +35,15 @@ const CACHED_GAME_LENGTH: String = "CACHED_GAME_LENGTH"
 const PLAYER_NAME: String = "PLAYER_NAME"
 const EXP_PASSWORD: String = "EXP_PASSWORD"
 const WISDOM_UPGRADES_CACHED: String = "WISDOM_UPGRADES_CACHED"
+const DISPLAY_MODE: String = "DISPLAY_MODE"
 
 
 var _cache: Dictionary = {}
+
+
+# NOTE: need to convert enum values to floats because JSON
+# only supports floats. If we don't do this, then the type
+# checking of cache will fail.
 var _default_value_map: Dictionary = {
 	SHOW_ALL_DAMAGE_NUMBERS: false,
 	ENABLE_SFX: true,
@@ -55,12 +57,11 @@ var _default_value_map: Dictionary = {
 	SHOW_TUTORIAL_ON_START: true,
 	CACHED_GAME_DIFFICULTY: "beginner",
 	CACHED_GAME_MODE: "random_with_upgrades",
-#	NOTE: need to convert to float because JSON only
-#	supports floats
 	CACHED_GAME_LENGTH: Constants.WAVE_COUNT_TRIAL as float,
 	PLAYER_NAME: "Player",
 	EXP_PASSWORD: "",
 	WISDOM_UPGRADES_CACHED: {},
+	DISPLAY_MODE: DisplayMode.enm.FULLSCREEN as float,
 }
 
 
@@ -189,5 +190,11 @@ func _validate_cache():
 
 func _load_window_settings():
 	var window: Window = get_window()
+
 	var interface_size: float = Settings.get_interface_size()
 	window.content_scale_factor = interface_size
+
+	var display_mode_int: int = Settings.get_setting(Settings.DISPLAY_MODE) as int
+	var display_mode: DisplayMode.enm = display_mode_int as DisplayMode.enm
+	var window_mode: Window.Mode = DisplayMode.convert_to_window_mode(display_mode)
+	window.set_mode(window_mode)

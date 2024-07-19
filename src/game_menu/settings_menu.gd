@@ -14,8 +14,10 @@ signal ok_pressed()
 @export var _keyboard_scroll: Slider
 @export var _interface_size_button_group: ButtonGroup
 @export var _apply_button: Button
+@export var _display_mode_combo: OptionButton
 
 
+var _setting_to_combo_map: Dictionary
 var _setting_to_checkbox_map: Dictionary
 var _setting_to_slider_map: Dictionary
 var _setting_to_button_group_map: Dictionary
@@ -27,7 +29,14 @@ var _is_dirty: bool = false
 #########################
 
 func _ready():
-#	NOTE: need to init this in ready() because this map uses @export vars which are not ready before ready()
+#	NOTE: need to setup these maps inside ready() because this map uses @export vars which are not ready before ready()
+	_setting_to_combo_map = {
+		Settings.DISPLAY_MODE: _display_mode_combo,
+	}
+	for setting in _setting_to_combo_map.keys():
+		var combo: OptionButton = _setting_to_combo_map[setting]
+		combo.item_selected.connect(_on_combo_changed)
+	
 	_setting_to_checkbox_map = {
 		Settings.SHOW_ALL_DAMAGE_NUMBERS: _damage_numbers,
 		Settings.ENABLE_SFX: _enable_sfx,
@@ -65,6 +74,11 @@ func _ready():
 #########################
 
 func _load_current_settings():
+	for setting in _setting_to_combo_map.keys():
+		var checkbox: OptionButton = _setting_to_combo_map[setting]
+		var selected_index: int = Settings.get_setting(setting) as int
+		checkbox.select(selected_index)
+	
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
 		var enabled: bool = Settings.get_bool_setting(setting)
@@ -143,6 +157,10 @@ func _on_slider_changed(_value: float):
 	_set_dirty_state()
 
 
+func _on_combo_changed(_index: int):
+	_set_dirty_state()
+
+
 func _on_checkbox_pressed():
 	_set_dirty_state()
 
@@ -151,3 +169,8 @@ func _on_checkbox_pressed():
 func _on_visibility_changed():
 	if visible:
 		_load_current_settings()
+
+
+func _on_display_mode_combo_item_selected(index: int):
+	var display_mode_int: int = index
+	Settings.set_setting(Settings.DISPLAY_MODE, display_mode_int)
