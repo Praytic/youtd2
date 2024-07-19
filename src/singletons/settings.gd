@@ -1,12 +1,15 @@
 extends Node
 
 
-# Allows getting and setting persistent settings. Inteded to
-# be used by settings which are editable by the player
-# ingame. Settings are saved to a file on hard drive. Note
-# that this is different from Config which doesn't persist
-# changes. For example, on Windows the path would be:
+# Allows getting and setting persistent settings. Intended
+# to be used by settings which are editable by the player
+# ingame. Settings are saved to a file on hard drive. For
+# example, on Windows the path would be:
 # %appdata%/Roaming/Godot/...
+# 
+# Note that this is different from Config(project.godot)
+# which doesn't 
+# .
 
 signal changed()
 
@@ -65,6 +68,12 @@ var _default_value_map: Dictionary = {
 ###     Built-in      ###
 #########################
 
+# NOTE: it is intentional that changed() signal is not
+# emitted at the end of _ready(). This is because
+# Settings._ready() is called before the majority of the
+# game nodes are created (Settings is a singleton). Nodes
+# must load initial values manually instead of relying on
+# Settings.changed() signal.
 func _ready():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
 
@@ -86,6 +95,8 @@ func _ready():
 #		NOTE: call flush() to save default settings to file.
 #		This will create settings file for the first time.
 		flush()
+
+	_load_window_settings()
 
 
 #########################
@@ -120,10 +131,7 @@ func flush():
 	var cache_string: String = JSON.stringify(_cache, "    ")
 	settings_file.store_line(cache_string)
 
-#	NOTE: need to update interface size here so that this
-#	updates both in TitleScreen and GameScene
-	var interface_size: float = Settings.get_interface_size()
-	get_tree().root.content_scale_factor = interface_size
+	_load_window_settings()
 	
 	changed.emit()
 
@@ -177,3 +185,9 @@ func _validate_cache():
 #	fixed settings to file
 	if cache_was_fixed:
 		flush()
+
+
+func _load_window_settings():
+	var window: Window = get_window()
+	var interface_size: float = Settings.get_interface_size()
+	window.content_scale_factor = interface_size
