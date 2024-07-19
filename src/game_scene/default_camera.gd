@@ -30,7 +30,11 @@ func _ready():
 
 
 func _process(delta):
+	var game_window: Window = get_window()
+	var game_has_focus: bool = game_window.has_focus()
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
+	var should_do_mouse_scroll: bool = mouse_scroll_is_enabled && game_has_focus
+
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
 
@@ -80,7 +84,7 @@ func _process(delta):
 	if move_direction_from_keyboard != Vector2.ZERO:
 		move_direction = move_direction_from_keyboard
 		move_speed = speed_from_keyboard
-	elif move_direction_from_mouse != Vector2.ZERO && mouse_scroll_is_enabled:
+	elif move_direction_from_mouse != Vector2.ZERO && should_do_mouse_scroll:
 		move_direction = move_direction_from_mouse
 		move_speed = speed_from_mouse
 
