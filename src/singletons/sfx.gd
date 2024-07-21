@@ -27,6 +27,12 @@ func play_sfx_for_player(player: Player, sfx_path: String, volume_db: float = 0.
 		SFX.play_sfx(sfx_path, volume_db, pitch_scale)
 
 
+func play_sfx_random_pitch(sfx_path: String, volume_db: float = 0.0, pitch_scale_min: float = 0.95, pitch_scale_max: float = 1.05):
+	var random_pitch: float = Globals.local_rng.randf_range(pitch_scale_min, pitch_scale_max)
+	
+	SFX.play_sfx(sfx_path, volume_db, random_pitch)
+
+
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.
 func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0):

@@ -61,7 +61,7 @@ func process_click_on_nothing():
 	var action: Action = ActionDropItem.make(item_uid, drop_pos, src_container_uid)
 	_game_client.add_action(action)
 	
-	_play_item_sfx()
+	SFX.play_sfx_random_pitch(SfxPaths.DROP_ITEM, -10.0)
 
 
 func process_click_on_tower(tower: Tower):
@@ -84,7 +84,7 @@ func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_c
 	var src_container_uid: int = src_item_container.get_uid()
 	var dest_container_uid: int = dest_item_container.get_uid()
 
-	_play_item_sfx()
+	SFX.play_sfx_random_pitch(SfxPaths.DROP_ITEM, -10.0)
 
 	var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid, clicked_index)
 	_game_client.add_action(action)
@@ -104,7 +104,7 @@ func _add_swap_action(item_src: Item, item_dest: Item, src_item_container: ItemC
 	var src_container_uid: int = src_item_container.get_uid()
 	var dest_container_uid: int = dest_item_container.get_uid()
 
-	_play_item_sfx()
+	SFX.play_sfx_random_pitch(SfxPaths.DROP_ITEM, -10.0)
 
 	var action: Action = ActionSwapItems.make(item_uid_src, item_uid_dest, src_container_uid, dest_container_uid)
 	_game_client.add_action(action)
@@ -180,7 +180,7 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
-	_play_item_sfx()
+	SFX.play_sfx_random_pitch(SfxPaths.PICKUP_ITEM, -10.0)
 
 	get_viewport().set_input_as_handled()
 
@@ -298,8 +298,3 @@ func _on_item_flew_to_item_stash(item: Item):
 # example, if item was dropped from tower via code.
 func _on_moved_item_tree_exited():
 	cancel()
-
-
-func _play_item_sfx():
-	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
-	SFX.play_sfx(SfxPaths.PICKUP_ITEM, -10.0, random_pitch)
