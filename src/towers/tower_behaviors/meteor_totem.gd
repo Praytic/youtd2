@@ -114,7 +114,7 @@ func on_autocast(_event: Event):
 func missile_pt_on_hit(projectile: Projectile, _target: Unit):
 	var buffed_tower: Tower = projectile.get_caster()
 	buffed_tower.do_spell_damage_aoe(Vector2(projectile.get_x(), projectile.get_y()), 220, projectile.user_int, buffed_tower.calc_spell_crit_no_bonus(), 0)
-	SFX.sfx_at_pos("DoomDeath.mdl", projectile.get_position_canvas())
+	SFX.sfx_at_pos(SfxPaths.FIRE_SPLASH, projectile.get_position_canvas())
 
 
 func attraction_bt_on_attack(event: Event):

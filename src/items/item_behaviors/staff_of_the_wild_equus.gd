@@ -45,6 +45,7 @@ func ascended_bt_on_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
 	c.adjust_height(-300, 2500)
+	SFX.sfx_at_unit(SfxPaths.THUD_SMALL, c)
 	Effect.destroy_effect(b.user_int)
 	var bolt_impact: int = Effect.create_simple_at_unit("res://src/effects/WarStompCaster.tscn", c)
 	Effect.destroy_effect_after_its_over(bolt_impact)

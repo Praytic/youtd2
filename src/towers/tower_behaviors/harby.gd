@@ -172,8 +172,8 @@ func arcane_mana_replenish(target: Tower):
 
 
 func awaken_bt_on_create(_event: Event):
-	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
-	SFX.sfx_at_unit("ObsidianStatueCrumble2.mdl", tower)
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUMP, tower)
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_UP, tower)
 	# AddUnitAnimationProperties(u, "stand alternate", true)
 	# SetUnitFlyHeight(u, 100, 2000)
 
@@ -183,7 +183,7 @@ func awaken_bt_on_create(_event: Event):
 
 
 func awaken_bt_on_cleanup(_event: Event):
-	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUMP, tower)
 	# AddUnitAnimationProperties(u, "stand alternate", false)
 	# SetUnitFlyHeight(u, 40, 2000)
 

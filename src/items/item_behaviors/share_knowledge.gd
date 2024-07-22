@@ -42,7 +42,7 @@ func periodic(_event: Event):
 					break
 
 				next.add_exp_flat(experience)
-				SFX.sfx_at_unit("PolyMorphTarget.mdl", next)
+				SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, next)
 				count = count - 1
 
 				if count == 0:

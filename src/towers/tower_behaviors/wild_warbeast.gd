@@ -84,7 +84,7 @@ func on_attack(event: Event):
 	CombatLog.log_ability(tower, target, "Devour")
 
 	tower.do_spell_damage(target, devour_damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit("DevourEffectArt.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.ORC_GRUNT, target)
 	devour_count += 1
 	tower.refresh_auras()
 

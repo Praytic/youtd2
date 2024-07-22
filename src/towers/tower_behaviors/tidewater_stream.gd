@@ -130,6 +130,8 @@ func on_damage(event: Event):
 
 
 func water_pt_on_hit(p: Projectile, target: Unit):
+	SFX.sfx_on_unit(SfxPaths.WATER_SLASH, target, Unit.BodyPart.CHEST)
+	
 	var effect: int = Effect.add_special_effect_target("CrushingWaveDamage.mdl", target, Unit.BodyPart.CHEST)
 	Effect.destroy_effect_after_its_over(effect)
 	var caster: Unit = p.get_caster()

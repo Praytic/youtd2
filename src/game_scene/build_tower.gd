@@ -104,7 +104,7 @@ func _build_tower(tower_id: int):
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
 	
 	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
-	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, mouse_pos, -10.0, random_pitch)
+	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, mouse_pos, 0.0, random_pitch)
 	
 	var action: Action = ActionBuildTower.make(tower_id, mouse_pos)
 	_game_client.add_action(action)

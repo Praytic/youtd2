@@ -154,4 +154,4 @@ func energetic_weapon_pt_on_hit(projectile: Projectile, target: Unit):
 	var slow_buff_duration: float = 1.5 + 0.04 * caster.get_level()
 	slow_bt.apply_custom_timed(caster, target, slow_buff_level, slow_buff_duration)
 
-	SFX.sfx_at_unit("PurgeBuffTarget.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_SPRING, target)

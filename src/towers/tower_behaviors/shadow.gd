@@ -174,7 +174,8 @@ func orb_pt_periodic_generic(p: Projectile):
 	var caster: Unit = p.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), Vector2(p.get_x(), p.get_y()), 450)
 
-	SFX.sfx_at_unit("SomeKindOfZappySound.mdl", caster)
+	if it.count() > 0:
+		SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_DOWN, caster)
 
 	while true:
 		var next: Unit = it.next()

@@ -115,4 +115,4 @@ func on_damage(event: Event):
 		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
 
 		slow_bt.apply(tower, target, level)
-		SFX.sfx_on_unit("feralspirittarget.mdl", target, Unit.BodyPart.ORIGIN)
+		SFX.sfx_on_unit(SfxPaths.MAGIC_FAIL, target, Unit.BodyPart.ORIGIN)

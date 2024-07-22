@@ -134,7 +134,7 @@ func on_attack_1(event: Event):
 	if random_spell_id < 3:
 		CombatLog.log_ability(tower, c, "Fire Blast")
 
-		SFX.sfx_at_unit("FireLordDeathExplode.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, c)
 		tower.do_spell_damage_aoe_unit(c, 200, 190 + tower.get_level() * 7.6, tower.calc_spell_crit_no_bonus(), 0)
 	else:
 		CombatLog.log_ability(tower, c, "Frost Nova")
@@ -149,7 +149,7 @@ func on_attack_1(event: Event):
 
 			slow_bt.apply_custom_timed(tower, u, 100, 3)
 
-		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, c)
 		tower.do_spell_damage_aoe_unit(c, 250, 125 + tower.get_level() * 5, tower.calc_spell_crit_no_bonus(), 0)
 			
 
@@ -162,12 +162,12 @@ func on_attack_2(event: Event):
 	if random_spell_id < 3:
 		CombatLog.log_ability(tower, c, "Fire Blast")
 		
-		SFX.sfx_at_unit("FireLordDeathExplode.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, c)
 		tower.do_spell_damage_aoe_unit(c, 250, 500 + tower.get_level() * 10, tower.calc_spell_crit_no_bonus(), 0)
 	elif random_spell_id < 5:
 		CombatLog.log_ability(tower, c, "Aftershock")
 	
-		SFX.sfx_at_unit("AncientProtectorMissile.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, c)
 		stun_bt.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
 		tower.do_spell_damage(c, 750, tower.calc_spell_crit_no_bonus())
 	else:
@@ -183,7 +183,7 @@ func on_attack_2(event: Event):
 
 			slow_bt.apply_custom_timed(tower, u, 120, 3)
 
-		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, c)
 		tower.do_spell_damage_aoe_unit(c, 250, 250 + tower.get_level() * 8, tower.calc_spell_crit_no_bonus(), 0)
 
 func on_attack_3(event: Event):
@@ -196,12 +196,12 @@ func on_attack_3(event: Event):
 	if random_spell_id < 4:
 		CombatLog.log_ability(tower, c, "Fire Blast")
 		
-		SFX.sfx_at_unit("FireLordDeathExplode.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, c)
 		tower.do_spell_damage_aoe_unit(c, 250, 1650 + tower.get_level() * 18, tower.calc_spell_crit_no_bonus(), 0)
 	elif random_spell_id < 7:
 		CombatLog.log_ability(tower, c, "Aftershock")
 		
-		SFX.sfx_at_unit("AncientProtectorMissile.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, c)
 		stun_bt.apply_only_timed(tower, c, 0.5 + tower.get_level() * 0.01)
 		tower.do_spell_damage(c, 2000, tower.calc_spell_crit_no_bonus())
 	elif random_spell_id < 9:
@@ -217,7 +217,7 @@ func on_attack_3(event: Event):
 
 			slow_bt.apply_custom_timed(tower, u, 140, 4)
 
-		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, c)
 		tower.do_spell_damage_aoe_unit(c, 250, 800 + tower.get_level() * 10, tower.calc_spell_crit_no_bonus(), 0)
 	else:
 		CombatLog.log_ability(tower, c, "Lightning Burst")
@@ -231,7 +231,7 @@ func on_attack_3(event: Event):
 			if count == 6 || u == null:
 				break
 
-			SFX.sfx_at_unit("BoltImpact.mdl", u)
+			SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_DOWN, u)
 			tower.do_spell_damage(u, 1650 + (tower.get_level() * 30), tower.calc_spell_crit_no_bonus())
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, u)
 			lightning.modulate = Color.LIGHT_BLUE
@@ -255,7 +255,7 @@ func on_attack_4(event: Event):
 			tower.user_int = 1
 			tower.user_int2 = 1
 
-		SFX.sfx_at_unit("FireLordDeathExplode.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, c)
 		tower.do_spell_damage_aoe_unit(c, 300, (3000 + tower.get_level() * 60) * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus(), 0)
 	elif random_spell_id < 7:
 #		Aftershock
@@ -267,7 +267,7 @@ func on_attack_4(event: Event):
 			tower.user_int = 1
 			tower.user_int2 = 2
 
-		SFX.sfx_at_unit("MarkOfChaosTarget.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.MAGIC_FIZZLE, c)
 		stun_bt.apply_only_timed(tower, c, 0.7 + tower.get_level() * 0.02)
 		tower.do_spell_damage(c, 6000 * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus())
 	elif random_spell_id < 9:
@@ -290,8 +290,8 @@ func on_attack_4(event: Event):
 
 			slow_bt.apply_custom_timed(tower, u, 150, 4)
 
-		SFX.sfx_at_unit("FrostNovaTarget.mdl", c)
-		SFX.sfx_at_unit("FreezingBreathMissile.mdl", c)
+		SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, c)
+		SFX.sfx_at_unit(SfxPaths.ICE_HISS, c)
 		tower.do_spell_damage_aoe_unit(c, 300, (2000 + tower.get_level() * 80) * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus(), 0)
 	else:
 #		Lightning Burst
@@ -312,7 +312,7 @@ func on_attack_4(event: Event):
 			if count == 7 || u == null:
 				break
 
-			SFX.sfx_at_unit("BoltImpact.mdl", u)
+			SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_DOWN, u)
 			tower.do_spell_damage(u, (3000 + tower.get_level() * 60) * (1 + ((0.5 + tower.get_level() * 0.01) * (tower.user_int - 1))), tower.calc_spell_crit_no_bonus())
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, u)
 			lightning.modulate = Color.LIGHT_BLUE

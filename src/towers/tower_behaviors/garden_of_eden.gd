@@ -84,7 +84,7 @@ func on_kill(event: Event):
 		return
 
 	lifeforce_stored += 1
-	SFX.sfx_at_unit("NEDeath.mdl", tower)
+	SFX.sfx_at_unit(SfxPaths.WARP, tower)
 
 
 func on_autocast(_event: Event):

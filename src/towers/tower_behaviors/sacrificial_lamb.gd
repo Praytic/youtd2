@@ -156,7 +156,7 @@ func on_attack(_event: Event):
 
 	CombatLog.log_ability(tower, null, "Blood Spill")
 
-	SFX.sfx_at_unit("HumanBloodKnight.mdl", tower)
+	SFX.sfx_at_unit(SfxPaths.WATER_SLASH, tower)
 
 	while true:
 		var target: Unit = it.next()

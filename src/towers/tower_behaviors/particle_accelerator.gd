@@ -71,7 +71,7 @@ func on_attack(_event: Event):
 
 
 func on_kill(event: Event):
-	SFX.sfx_at_unit("feralspiritdone.mdl", event.get_target())
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUZZ, event.get_target())
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -tower.user_real)
 	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -tower.user_real)
 	stun_bt.apply_only_timed(tower, tower, STUN_DURATION)

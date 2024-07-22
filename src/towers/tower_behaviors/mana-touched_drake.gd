@@ -64,7 +64,7 @@ func drake_aura_manaburn(event: Event):
 		var damage: float = mana_burned_actual * damage_per_mana_burned
 		
 		buffed_tower.do_spell_damage(target, damage, buffed_tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit("DeathandDecayDamage.dml", target)
+		SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, target)
 
 
 func tower_init():
@@ -113,4 +113,4 @@ func on_damage(event: Event):
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
 	tower.subtract_mana(mana_spent, true)
-	SFX.sfx_at_unit("AlmaTarget.dml", target)
+	SFX.sfx_at_unit(SfxPaths.ZAP_HIGH_PITCH, target)

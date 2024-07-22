@@ -37,6 +37,6 @@ func on_kill(event: Event):
 	var tower: Tower = item.get_carrier()
 
 	if tower.get_buff_of_type(enraged_bt) == null:
-		SFX.sfx_at_unit("StampedMissileDeath.mdl", event.get_target())
+		SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, event.get_target())
 		enraged_bt.apply_custom_timed(tower, tower, tower.get_level(), 3.0)
 

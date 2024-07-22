@@ -39,5 +39,5 @@ func on_damage(event: Event):
 	if event.is_main_target() && tower.calc_chance(0.15) && !event.get_target().is_immune():
 		CombatLog.log_ability(tower, event.get_target(), "Frozen Thorn")
 
-		SFX.sfx_at_unit("Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl", event.get_target())
+		SFX.sfx_at_unit(SfxPaths.POW, event.get_target())
 		tower.do_spell_damage(event.get_target(), _stats.damage + _stats.damage_add * tower.get_level(), tower.calc_spell_crit_no_bonus())

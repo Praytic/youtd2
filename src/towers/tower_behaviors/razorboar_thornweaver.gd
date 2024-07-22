@@ -148,6 +148,8 @@ func do_thornspray_series():
 
 	thornspray(1350)
 
+	SFX.sfx_at_unit(SfxPaths.ARCHERS_SHOOTING, tower)
+
 	if level == 25:
 		if tower.calc_chance(_stats.triple_chance):
 			CombatLog.log_ability(tower, null, "Tripple Thornspray")

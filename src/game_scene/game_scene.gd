@@ -598,7 +598,7 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
 	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
-	SFX.play_sfx(SfxPaths.PICKUP_ITEM, -10.0, random_pitch)
+	SFX.play_sfx(SfxPaths.PICKUP_ITEM, 0.0, random_pitch)
 	
 	var local_player: Player = PlayerManager.get_local_player()
 	
@@ -637,7 +637,7 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 
 func _on_player_requested_transmute():
 	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
-	SFX.play_sfx(SfxPaths.PICKUP_ITEM, -10.0, random_pitch)
+	SFX.play_sfx(SfxPaths.PICKUP_ITEM, 0.0, random_pitch)
 	
 	var action: Action = ActionTransmute.make()
 	_game_client.add_action(action)

@@ -81,4 +81,4 @@ func on_damage(event: Event):
 
 	var damage: float = _stats.aoe_damage + _stats.aoe_damage_add * tower.get_level()
 	tower.do_spell_damage_aoe_unit(target, _stats.aoe_range, damage, tower.calc_spell_crit(EXTRA_CRIT_CHANCE, 0.0), 0)
-	SFX.sfx_at_unit("FrostNovaTarget.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, target)

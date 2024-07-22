@@ -105,7 +105,7 @@ func phoenix_fire_bt_on_cleanup(event: Event):
 
 	if !buff_was_purged:
 		tower.do_attack_damage_aoe_unit(target, ERUPT_RANGE, eruption_damage, tower.calc_attack_multicrit(0, 0, 0), 0.5)
-		SFX.sfx_at_unit("FireLordDeathExplode.mdl", target)
+		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, target)
 
 	target.modify_property(Modification.Type.MOD_ARMOR, armor_regain)
 

@@ -24,3 +24,5 @@ func on_attacked(event: Event):
 	var stun_success: bool = creep.calc_chance(0.3)
 	if stun_success:
 		stun_bt.apply_only_timed(creep, attacker, 3.0)
+
+		SFX.sfx_at_unit(SfxPaths.MAGIC_FIZZLE, attacker)

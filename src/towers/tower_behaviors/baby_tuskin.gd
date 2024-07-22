@@ -63,7 +63,7 @@ func snowball_pt_on_hit(p: Projectile, target: Unit):
 	else:
 		t.do_spell_damage(target, p.user_real, t.calc_spell_crit_no_bonus())
 		stun_bt.apply_only_timed(t, target, p.user_real2)
-		SFX.sfx_at_unit("FrostBoltMissile.mdl", target)
+		SFX.sfx_at_unit(SfxPaths.POW, target)
 
 		if p.user_int2 == 1:
 			CombatLog.log_ability(t, target, "Snow Ball Temple Crusher")

@@ -56,5 +56,5 @@ func on_damage(event: Event):
 	if tower.user_int == 1 && Utils.unit_is_valid(creep):
 		CombatLog.log_ability(tower, creep, "Lightning Strike")
 
-		SFX.sfx_at_unit("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", creep)
+		SFX.sfx_at_unit(SfxPaths.MAGIC_FAIL, creep)
 		tower.do_attack_damage(creep, _stats.lightning_dmg + (_stats.lightning_dmg_add * tower.get_level()), tower.calc_attack_multicrit(0.0, 0.0, 0.0))

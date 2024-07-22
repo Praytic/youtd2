@@ -111,7 +111,7 @@ func on_damage(event: Event):
 
 	tower.do_spell_damage(target, wrath_damage, tower.calc_spell_crit_no_bonus())
 	wrath_bt.apply_custom_timed(tower, target, slow_power, 2.0)
-	SFX.sfx_at_unit("ZigguratFrostMissile.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.WARP_LONG, target)
 
 
 func on_tower_details() -> MultiboardValues:

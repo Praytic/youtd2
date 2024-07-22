@@ -48,7 +48,7 @@ func junction_on_damage(event: Event):
 
 	buffee.do_spell_damage(creep, damage, buffee.calc_spell_crit_no_bonus())
 	buffee.do_attack_damage(creep, damage, buffee.calc_attack_multicrit(0, 0, 0))
-	SFX.sfx_at_unit("PurgeBuffTarget.mdl", creep)
+	SFX.sfx_at_unit(SfxPaths.ELECTRIC_SPRING, creep)
 
 
 func junction_on_cleanup(event: Event):

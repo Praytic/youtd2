@@ -84,4 +84,4 @@ func on_attack(event: Event):
 		CombatLog.log_ability(tower, creep, "Shadowstrike")
 		
 		tower.do_spell_damage(creep, _stats.damage + tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_on_unit("Abilities\\Spells\\Undead\\DeathPact\\DeathPactTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+		SFX.sfx_on_unit(SfxPaths.CURSE_NOISE, creep, Unit.BodyPart.ORIGIN)

@@ -106,7 +106,7 @@ func periodic(_event: Event):
 		return
 
 	random_tower.add_exp(2 + lvl * 0.2)
-	SFX.sfx_at_unit("InvisibilityTarget.mdl", random_tower)
+	SFX.sfx_at_unit(SfxPaths.HEAL, random_tower)
 
 
 func on_autocast(event: Event):

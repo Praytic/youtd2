@@ -34,3 +34,6 @@ func on_damaged(event: Event):
 		attacker.purge_buff(true)
 	
 	slow_attack.apply(creep, attacker, 1)
+
+	SFX.sfx_at_unit(SfxPaths.MAGIC_CONFUSE, attacker)
+	

@@ -85,4 +85,4 @@ func on_autocast(event: Event):
 		slow_bt.apply(tower, next, level)
 		tower.do_spell_damage(next, spelldmg, tower.calc_spell_crit_no_bonus())
 
-	SFX.sfx_at_unit("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.MAGIC_CONFUSE, target)

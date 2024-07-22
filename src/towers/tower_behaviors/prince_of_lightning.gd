@@ -92,4 +92,4 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, creep, "Lightning Strike")
 
 	tower.do_spell_damage(creep, strike_damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_on_unit("MonsoonBoltTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+	SFX.sfx_on_unit(SfxPaths.ZAP_LOW, creep, Unit.BodyPart.ORIGIN)

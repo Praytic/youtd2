@@ -134,7 +134,7 @@ func on_damage(event: Event):
 		else:
 			CombatLog.log_ability(tower, event.get_target(), "Soul Split")
 
-		SFX.sfx_at_unit("UndeadDissipate.mdl", tower)
+		SFX.sfx_at_unit(SfxPaths.ZAP_LOW, tower)
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())
 		var soul_split_buff: Buff = soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease

@@ -125,5 +125,5 @@ func aura_bt_on_death(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Heat Stroke")
 
-	SFX.sfx_at_unit("FireLordDeathExplode.mdl", creep)
+	SFX.sfx_at_unit(SfxPaths.FIRE_BALL, creep)
 	tower.do_spell_damage_aoe_unit(creep, aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.33)

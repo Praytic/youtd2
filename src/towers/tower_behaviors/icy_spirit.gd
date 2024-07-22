@@ -100,7 +100,7 @@ func on_attack(_event: Event):
 
 		if main_target != null:
 			tower.do_spell_damage_aoe_unit(main_target, NOVA_AOE_RADIUS, _stats.nova_dmg + (level * _stats.nova_dmg_add), tower.calc_spell_crit_no_bonus(), 0.5)
-			SFX.sfx_on_unit("FrostNovaTarget.mdl", main_target, Unit.BodyPart.ORIGIN)
+			SFX.sfx_on_unit(SfxPaths.ICE_CRACKLE, main_target, Unit.BodyPart.ORIGIN)
 
 			var creeps_near_target: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), main_target, NOVA_AOE_RADIUS)
 

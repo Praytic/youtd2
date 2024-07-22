@@ -188,7 +188,7 @@ func periodic(_event: Event):
 			storm_bt.apply(tower, target, 1)
 			var damage: float = tower.get_mana() * (0.5 + 0.02 * tower.get_level())
 			tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-			SFX.sfx_at_unit("MonsoonBoltTarget.mdl", target)
+			SFX.sfx_at_unit(SfxPaths.ZAP_LOW, target)
 		else:
 			storm_timeout_counter += 1
 	else:

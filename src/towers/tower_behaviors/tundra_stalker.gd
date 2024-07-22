@@ -48,7 +48,7 @@ func on_autocast(event: Event):
 		var stack_count: int = tower.user_int
 		frenzy_buff.set_displayed_stacks(stack_count)
 
-	SFX.sfx_at_unit("FrostBoltMissile.mdl", event.get_target())
+	SFX.sfx_at_unit(SfxPaths.POW, event.get_target())
 	event.get_target().set_sprite_color(Color8(100, 100, 255, 255))
 	ice_claw_bt.apply_custom_timed(tower, event.get_target(), _stats.buff_level, 5 + 0.2 * tower.get_level()).user_real = _stats.spell_damage + _stats.spell_damage_add * tower.get_level()
 

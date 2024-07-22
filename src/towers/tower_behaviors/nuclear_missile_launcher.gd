@@ -69,7 +69,7 @@ func on_damage(event: Event):
 		else:
 			target_buff.user_int -= 1
 
-	SFX.sfx_on_unit("BottleMissile.mdl", target, Unit.BodyPart.ORIGIN)
+	SFX.sfx_on_unit(SfxPaths.TELEPORT_BASS, target, Unit.BodyPart.ORIGIN)
 
 
 func periodic(_event: Event):

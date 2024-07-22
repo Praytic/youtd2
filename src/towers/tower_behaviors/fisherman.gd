@@ -151,7 +151,7 @@ func slow_bt_on_expire(event: Event):
 		tower.kill_instantly(target)
 
 	fresh_fish()
-	SFX.sfx_on_unit("HumanLargeDeathExplode.mdl", target, Unit.BodyPart.ORIGIN)
+	SFX.sfx_on_unit(SfxPaths.HUMAN_DEATH_EXPLODE, target, Unit.BodyPart.ORIGIN)
 	strangle_count += 1
 
 

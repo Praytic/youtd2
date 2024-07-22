@@ -87,7 +87,7 @@ func on_autocast(event: Event):
 		CombatLog.log_ability(tower, creep, "Thunder Shock recast!")
 		
 		tower.do_spell_damage(creep, thunder_shock_damage, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit("MonsoonBoltTarget.mdl", creep)
+		SFX.sfx_at_unit(SfxPaths.ZAP_LOW, creep)
 
 		cast_count -= 1
 

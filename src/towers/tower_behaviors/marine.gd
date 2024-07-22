@@ -130,7 +130,7 @@ func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 	var grenade_damage: float = _stats.grenade_damage + _stats.grenade_damage_add * level
 	projectile.do_spell_damage(target, grenade_damage)
 
-	SFX.sfx_at_unit("FragBoomSpawn.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.EXPLOSION, target)
 
 	if buff != null:
 		var buff_level: int = int(min(480, buff.get_level() + 20 + level))

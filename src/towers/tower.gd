@@ -535,7 +535,7 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	var element: Element.enm = get_element()
 	var sfx_path: String = SfxPaths.TOWER_ATTACK_MAP[element]
 	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
-	SFX.sfx_at_unit(sfx_path, self, -20.0, random_pitch)
+	SFX.sfx_at_unit(sfx_path, self, 0.0, random_pitch)
 
 	return target
 

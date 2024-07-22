@@ -44,4 +44,4 @@ func on_damage(event: Event):
 
 	if category_match:
 		tower.do_spell_damage(creep, event.damage * (_stats.damage + (_stats.damage_add * tower.get_level())), tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit("Abilities\\Spells\\NightElf\\ManaBurn\\ManaBurnTarget.mdl", creep)
+		SFX.sfx_at_unit(SfxPaths.EXPLOSION, creep)

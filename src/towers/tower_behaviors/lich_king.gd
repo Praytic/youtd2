@@ -144,7 +144,7 @@ func aura_bt_on_cleanup(event: Event):
 			damage += caster.user_real * stored_damage_ratio
 			caster.user_real = 0.0
 
-		SFX.sfx_at_unit("FrostNovaTarget.mdl", target)
+		SFX.sfx_at_unit(SfxPaths.ICE_CRACKLE, target)
 		caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 		caster.get_player().display_floating_text(Utils.format_float(damage, 0), caster, Color8(15, 15, 200))
 	else:

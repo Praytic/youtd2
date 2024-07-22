@@ -97,7 +97,7 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, target, "Protectress's Wrath")
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250)
-	SFX.sfx_at_unit("NECancelDeath.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, target)
 	tower.do_attack_damage_aoe_unit(target, 250, wrath_damage, tower.calc_attack_multicrit_no_bonus(), 0.0)
 
 	while true:

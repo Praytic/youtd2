@@ -139,7 +139,7 @@ func on_kill(event: Event):
 
 	soul_count += 1
 
-	SFX.sfx_at_unit("AIsoTarget.mdl", target)
+	SFX.sfx_at_unit(SfxPaths.EXPLOSION_MUFFLED_BOUNCING, target)
 
 	while true:
 		var next: Unit = it.next()
@@ -208,7 +208,7 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	SFX.sfx_on_unit("DeathCoilSpecialArt.mdl", target, Unit.BodyPart.CHEST)
+	SFX.sfx_on_unit(SfxPaths.BAM_ECHO, target, Unit.BodyPart.CHEST)
 
 	var damage: float = p.user_real
 	p.do_spell_damage(target, damage)
