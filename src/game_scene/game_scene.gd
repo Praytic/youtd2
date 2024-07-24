@@ -490,7 +490,7 @@ func _on_player_requested_start_game():
 			local_player_has_towers = true
 
 	if !local_player_has_towers:
-		Messages.add_error(local_player, "You have to build some towers before you can start the game!")
+		Utils.add_ui_error(local_player, "You have to build some towers before you can start the game!")
 
 		return
 
@@ -622,7 +622,7 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 	var can_autofill: bool = !autofill_list.is_empty()
 	
 	if !can_autofill:
-		Messages.add_error(local_player, "Not enough items for recipe!")
+		Utils.add_ui_error(local_player, "Not enough items for recipe!")
 		
 		return
 

@@ -19,7 +19,7 @@ const TOWER_ATTACK_MAP: Dictionary = {
 	Element.enm.IRON: "res://assets/sfx/unknown_iron_attack1.ogg",
 }
 
-const THUD_SMALL: String = "res://assets/sfx/665082__sunflora__thud.ogg"
+const UI_ERROR: String = "res://assets/sfx/665082__sunflora__thud.ogg"
 const ORC_GRUNT: String = "res://assets/sfx/738438__qubodup__orc-grunt-2.ogg"
 const ARCHERS_SHOOTING: String = "res://assets/sfx/copyc4t_Archers-shooting.ogg"
 const FLIES_BUZZING: String = "res://assets/sfx/p0ss_pestilence.ogg"

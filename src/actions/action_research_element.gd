@@ -26,14 +26,14 @@ static func verify(player: Player, element: Element.enm) -> bool:
 	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
 
 	if element_at_max:
-		Messages.add_error(player, "Can't research element. Element is at max level.")
+		Utils.add_ui_error(player, "Can't research element. Element is at max level.")
 
 		return false
 
 	var can_afford_research: bool = player.can_afford_research(element)
 
 	if !can_afford_research:
-		Messages.add_error(player, "Can't research element. You do not have enough tomes.")
+		Utils.add_ui_error(player, "Can't research element. You do not have enough tomes.")
 
 		return false
 

@@ -15,6 +15,8 @@ const NORMAL_FADE_DURATION: float = 2.0
 
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
+# NOTE: try to use Utils.add_ui_error() instead of this f-n
+# because it also plays an error sound.
 func add_error(player: Player, text: String):
 	var player_match: bool = player == PlayerManager.get_local_player() || player == null
 	

@@ -28,7 +28,7 @@ func finish(hovered_unit: Unit):
 	var target_error_message: String = _autocast.get_target_error_message(target)
 
 	if !target_is_ok:
-		Messages.add_error(PlayerManager.get_local_player(), target_error_message)
+		Utils.add_ui_error(PlayerManager.get_local_player(), target_error_message)
 
 		return
 		

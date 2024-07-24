@@ -14,13 +14,13 @@ static func make(tower_uid: int, buff_group: int, new_mode: BuffGroupMode.enm) -
 
 static func verify(player: Player, tower: Tower) -> bool:
 	if tower == null:
-		Messages.add_error(player, "Failed to change buffgroup")
+		Utils.add_ui_error(player, "Failed to change buffgroup")
 
 		return false
 
 	var player_match: bool = tower.get_player() == player
 	if !player_match:
-		Messages.add_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, "You don't own this tower")
 
 		return false
 

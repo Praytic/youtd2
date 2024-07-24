@@ -63,14 +63,14 @@ static func verify(player: Player, build_space: BuildSpace, tower_id: int, mouse
 	var tower_stash: TowerStash = player.get_tower_stash()
 	var tower_exists_in_stash: bool = tower_stash.has_tower(tower_id)
 	if !tower_exists_in_stash:
-		Messages.add_error(player, "You don't have this tower")
+		Utils.add_ui_error(player, "You don't have this tower")
 
 		return false
 
 	var can_build: bool = build_space.can_build_at_pos(mouse_pos)
 
 	if !can_build:
-		Messages.add_error(player, "Can't build here")
+		Utils.add_ui_error(player, "Can't build here")
 
 		return false
 

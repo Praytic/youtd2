@@ -96,7 +96,7 @@ func coco_pt_on_impact(p: Projectile):
 	var dmg: float = _stats.coconut_damage + _stats.coconut_damage_add * caster.get_level()
 
 	var pos_canvas: Vector2 = VectorUtils.wc3_2d_to_canvas(pos)
-	SFX.sfx_at_pos(SfxPaths.THUD_SMALL, pos_canvas)
+	SFX.sfx_at_pos(SfxPaths.CLOUD_POOF, pos_canvas)
 	
 	var effect: int = Effect.add_special_effect("WarStompCaster.mdl", pos)
 	Effect.destroy_effect_after_its_over(effect)

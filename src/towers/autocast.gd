@@ -265,7 +265,7 @@ func add_cast_error_message():
 
 	if !cast_error.is_empty():
 		var player: Player = _caster.get_player()
-		Messages.add_error(player, cast_error)
+		Utils.add_ui_error(player, cast_error)
 
 
 func type_is_immediate() -> bool:

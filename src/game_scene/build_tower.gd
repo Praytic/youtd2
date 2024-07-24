@@ -54,7 +54,7 @@ func try_to_finish(player: Player):
 		else:
 			error = "Can't build here."
 
-		Messages.add_error(player, error)
+		Utils.add_ui_error(player, error)
 	elif !enough_resources:
 		BuildTower.add_error_about_building_tower(tower_id, player)
 	elif can_transform:
@@ -89,11 +89,11 @@ static func add_error_about_building_tower(tower_id: int, player: Player):
 	var enough_food: bool = player.enough_food_for_tower(tower_id)
 
 	if !enough_gold:
-		Messages.add_error(player, "Not enough gold.")
+		Utils.add_ui_error(player, "Not enough gold.")
 	elif !enough_tomes:
-		Messages.add_error(player, "Not enough tomes.")
+		Utils.add_ui_error(player, "Not enough tomes.")
 	elif !enough_food:
-		Messages.add_error(player, "Not enough food.")
+		Utils.add_ui_error(player, "Not enough food.")
 
 
 #########################

@@ -12,25 +12,25 @@ static func make(autocast_uid_arg: int) -> Action:
 
 static func verify(player: Player, autocast: Autocast) -> bool:
 	if autocast == null:
-		Messages.add_error(player, "Failed to toggle autocast")
+		Utils.add_ui_error(player, "Failed to toggle autocast")
 
 		return false
 
 	var caster: Unit = autocast.get_caster()
 	if caster == null:
-		Messages.add_error(player, "Can't toggle autocast right now")
+		Utils.add_ui_error(player, "Can't toggle autocast right now")
 
 		return false
 
 	var player_match: bool = caster.get_player() == player
 	if !player_match:
-		Messages.add_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, "You don't own this tower")
 		
 		return false
 
 	var can_use_auto: bool = autocast.can_use_auto_mode()
 	if !can_use_auto:
-		Messages.add_error(player, "This ability cannot be casted automatically")
+		Utils.add_ui_error(player, "This ability cannot be casted automatically")
 
 		return false
 

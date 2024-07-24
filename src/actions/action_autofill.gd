@@ -26,7 +26,7 @@ static func execute(action: Dictionary, player: Player):
 		var item: Item = item_node as Item
 
 		if item == null:
-			Messages.add_error(player, "Failed to autofill.")
+			Utils.add_ui_error(player, "Failed to autofill.")
 
 			return
 

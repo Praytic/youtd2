@@ -12,13 +12,13 @@ static func make(tower_unit_id_arg: int) -> Action:
 
 static func verify(player: Player, tower: Tower) -> bool:
 	if tower == null:
-		Messages.add_error(player, "Failed to sell tower")
+		Utils.add_ui_error(player, "Failed to sell tower")
 
 		return false
 
 	var player_match: bool = tower.get_player() == player
 	if !player_match:
-		Messages.add_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, "You don't own this tower")
 
 		return false
 

@@ -1,6 +1,13 @@
 class_name UtilsStatic extends Node
 
 
+# Adds a red color error text in the middle of the screen
+# and plays an error sound.
+func add_ui_error(player: Player, text: String):
+	Messages.add_error(player, text)
+	SFX.play_sfx_for_player(player, SfxPaths.UI_ERROR)
+
+
 func get_polygon_bounding_box(poly: Polygon2D) -> Rect2:
 	var float_max: float = pow(2, 31) - 1
 	var float_min: float = -float_max

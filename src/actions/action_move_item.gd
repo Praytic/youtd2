@@ -37,32 +37,32 @@ static func execute(action: Dictionary, player: Player):
 # Returns true if can move.
 static func verify(player: Player, item: Item, src_container: ItemContainer, dest_container: ItemContainer, clicked_index: int) -> bool:
 	if item == null || src_container == null || dest_container == null:
-		Messages.add_error(player, "Failed to move item")
+		Utils.add_ui_error(player, "Failed to move item")
 		
 		return false
 
 	var item_player_match: bool = item.get_player() == player
 	if !item_player_match:
-		Messages.add_error(player, "You don't own this item")
+		Utils.add_ui_error(player, "You don't own this item")
 		
 		return false
 
 	var container_player_match: bool = src_container.get_player() == player && dest_container.get_player() == player
 	if !container_player_match:
-		Messages.add_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, "You don't own this tower")
 		
 		return false
 
 	var item_exists_in_src_container: bool = src_container.has(item)
 	if !item_exists_in_src_container:
-		Messages.add_error(player, "Failed to move item")
+		Utils.add_ui_error(player, "Failed to move item")
 		
 		return false
 
 	var capacity: int = dest_container.get_capacity()
 
 	if clicked_index != -1 && clicked_index >= capacity:
-		Messages.add_error(player, "Invalid slot index")
+		Utils.add_ui_error(player, "Invalid slot index")
 
 		return false
 
@@ -71,14 +71,14 @@ static func verify(player: Player, item: Item, src_container: ItemContainer, des
 	var dest_has_space: bool = dest_container.can_add_item(item)
 
 	if !dest_has_space:
-		Messages.add_error(player, "No space for item")
+		Utils.add_ui_error(player, "No space for item")
 
 		return false
 
 	var trying_to_move_consumable_to_tower: bool = item.is_consumable() && dest_container is TowerItemContainer
 
 	if trying_to_move_consumable_to_tower:
-		Messages.add_error(player, "Can't place consumables into towers")
+		Utils.add_ui_error(player, "Can't place consumables into towers")
 		
 		return false
 
