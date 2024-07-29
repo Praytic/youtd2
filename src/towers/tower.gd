@@ -45,6 +45,7 @@ var _hide_attack_projectiles: bool = false
 var _current_crit_count: int = 0
 var _current_crit_damage: float = 0
 var _transform_is_allowed: bool = true
+var _is_attacking: bool = false
 
 
 @export var _mana_bar: ProgressBar
@@ -208,6 +209,22 @@ func _ready():
 func update(delta: float):
 	super.update(delta)
 
+#	NOTE: need to calculate creeps_in_range here one time
+#	and reuse it because get_units_in_range is an expensive
+#	f-n.
+# 
+# 	NOTE: need to extend attack range by "tower radius".
+# 	This is how it works in the original game.
+	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
+	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
+
+# 	NOTE: need to consider tower as attacking if there are
+# 	*any* creeps in attack range, even if the tower is not
+# 	able to attack for whatever reason. This is so that
+# 	towers use their offensive abilities and items as
+# 	expected.
+	_is_attacking = !creeps_in_range.is_empty()
+
 	var attack_enabled: bool = get_attack_enabled()
 	if !attack_enabled:
 		return
@@ -234,7 +251,7 @@ func update(delta: float):
 		_current_attack_cooldown -= delta
 
 	if _current_attack_cooldown <= 0.0:
-		var attack_success: bool = _try_to_attack()
+		var attack_success: bool = _try_to_attack(creeps_in_range)
 
 # 		NOTE: important to add, not set! So that if game is
 # 		lagging, all of the attacks fire instead of skipping.
@@ -395,8 +412,8 @@ func _make_projectile(from_pos_base: Vector3, target: Unit) -> Projectile:
 	return projectile
 
 
-func _try_to_attack() -> bool:
-	_update_target_list()
+func _try_to_attack(creeps_in_range: Array) -> bool:
+	_update_target_list(creeps_in_range)
 
 # 	NOTE: have to do this weird stuff instead of just
 # 	iterating over target list because attacks can modify
@@ -540,7 +557,9 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	return target
 
 
-func _update_target_list():
+func _update_target_list(creeps_in_range_arg: Array):
+	var creeps_in_range: Array = creeps_in_range_arg.duplicate()
+
 #	Remove targets that have become invalid. Targets can
 #	become invalid by moving out of range, becoming
 #	invisible
@@ -563,11 +582,6 @@ func _update_target_list():
 		_remove_target(target)
 
 # 	Add new targets that have entered into range
-# 	NOTE: need to extend attack range by "tower radius".
-# 	This is how it works in the original game.
-	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
-	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
-
 	Utils.sort_creep_list_for_targeting(creeps_in_range, get_position_wc3_2d())
 
 	for target in _target_list:
@@ -841,15 +855,7 @@ func get_target_count() -> int:
 # This is to ensure that items with offensive autocasts
 # still get triggered when equipped on such towers.
 func is_attacking() -> bool:
-	var attack_enabled: bool = TowerProperties.get_attack_enabled(get_id())
-
-	var attacking: bool
-	if attack_enabled:
-		attacking = !_target_list.is_empty()
-	else:
-		attacking = true
-
-	return attacking
+	return _is_attacking
 
 
 # NOTE: tower.countFreeSlots() in JASS
