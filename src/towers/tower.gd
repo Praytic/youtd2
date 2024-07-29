@@ -45,7 +45,7 @@ var _hide_attack_projectiles: bool = false
 var _current_crit_count: int = 0
 var _current_crit_damage: float = 0
 var _transform_is_allowed: bool = true
-var _is_attacking: bool = false
+var _is_in_combat: bool = false
 
 
 @export var _mana_bar: ProgressBar
@@ -218,12 +218,12 @@ func update(delta: float):
 	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
 
-# 	NOTE: need to consider tower as attacking if there are
-# 	*any* creeps in attack range, even if the tower is not
-# 	able to attack for whatever reason. This is so that
+# 	NOTE: need to consider tower to be in combat if there
+# 	are *any* creeps in attack range, even if the tower is
+# 	not able to attack for whatever reason. This is so that
 # 	towers use their offensive abilities and items as
 # 	expected.
-	_is_attacking = !creeps_in_range.is_empty()
+	_is_in_combat = !creeps_in_range.is_empty()
 
 	var attack_enabled: bool = get_attack_enabled()
 	if !attack_enabled:
@@ -854,8 +854,8 @@ func get_target_count() -> int:
 # always empty, so treat such towers as always attacking.
 # This is to ensure that items with offensive autocasts
 # still get triggered when equipped on such towers.
-func is_attacking() -> bool:
-	return _is_attacking
+func is_in_combat() -> bool:
+	return _is_in_combat
 
 
 # NOTE: tower.countFreeSlots() in JASS

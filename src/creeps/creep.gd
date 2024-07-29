@@ -489,9 +489,9 @@ func get_log_name() -> String:
 	return log_name
 
 
-# NOTE: creeps are always considered to be attacking for the
+# NOTE: creeps are always considered to be in combat for the
 # purposes of their autocasts.
-func is_attacking() -> bool:
+func is_in_combat() -> bool:
 	return true
 
 

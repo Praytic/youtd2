@@ -1538,7 +1538,7 @@ func is_ethereal() -> bool:
 	return _ethereal_count > 0
 
 # NOTE: overriden in Tower and Creep subclasses
-func is_attacking() -> bool:
+func is_in_combat() -> bool:
 	return false
 
 # NOTE: unit.getBuffOfType() in JASS

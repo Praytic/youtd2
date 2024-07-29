@@ -455,13 +455,14 @@ func _on_auto_timer_timeout():
 	if !can_cast():
 		return
 	
-# 	NOTE: if auto mode is off, do not prevent player from
-# 	starting a cast while tower is not attacking. For
-# 	example, player needs to be able to start the cast to
-# 	pick the target before tower starts attacking.
-	var cant_cast_because_not_attacking: bool = type_is_offensive() && !_caster.is_attacking()
+# 	NOTE: need to do combat check in here instead of in
+# 	can_cast() so that if auto mode is disabled, autocast
+# 	can still be casted manually by player. For example,
+# 	player needs to be able to start the cast to pick the
+# 	target before tower starts attacking.
+	var cant_cast_because_not_in_combat: bool = type_is_offensive() && !_caster.is_in_combat()
 
-	if cant_cast_because_not_attacking:
+	if cant_cast_because_not_in_combat:
 		return
 
 	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
