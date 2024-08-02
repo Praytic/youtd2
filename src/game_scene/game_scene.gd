@@ -195,6 +195,9 @@ func _ready():
 	if Config.run_test_tower_sprite_size():
 		TestTowerSpriteSize.run()
 
+	if Config.run_test_item_drop_chances():
+		TestItemDropChances.run()
+
 #	NOTE: need to send ready message for multiplayer at this
 #	point because the end of GameScene._ready() is when the
 #	whole game is ready.
