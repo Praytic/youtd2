@@ -1,4 +1,4 @@
-class_name Packet
+class_name RoomPacket
 
 
 # Functions and constants which are used to create network
@@ -34,37 +34,37 @@ func convert_to_bytes() -> PackedByteArray:
 	return bytes
 
 
-static func convert_from_bytes(bytes: PackedByteArray) -> Packet:
-	var packet: Packet = Packet.new()
+static func convert_from_bytes(bytes: PackedByteArray) -> RoomPacket:
+	var packet: RoomPacket = RoomPacket.new()
 	packet._data = Utils.convert_bytes_to_dict(bytes)
 	
 	return packet
 
 
-func get_type() -> Packet.Type:
-	var type: Packet.Type = _data.get(Packet.Field.TYPE, Packet.Type.UNKNOWN)
+func get_type() -> RoomPacket.Type:
+	var type: RoomPacket.Type = _data.get(RoomPacket.Field.TYPE, RoomPacket.Type.UNKNOWN)
 	
 	return type
 
 
-static func make_scan_room() -> Packet:
-	var packet: Packet = Packet.new()
-	packet._data[Packet.Field.TYPE] = Packet.Type.SCAN_ROOM
+static func make_scan_room() -> RoomPacket:
+	var packet: RoomPacket = RoomPacket.new()
+	packet._data[RoomPacket.Field.TYPE] = RoomPacket.Type.SCAN_ROOM
 	
 	return packet
 
 
-static func make_advertise_room(room_info: RoomInfo) -> Packet:
-	var packet: Packet = Packet.new()
-	packet._data[Packet.Field.TYPE] = Packet.Type.ADVERTISE_ROOM
+static func make_advertise_room(room_info: RoomInfo) -> RoomPacket:
+	var packet: RoomPacket = RoomPacket.new()
+	packet._data[RoomPacket.Field.TYPE] = RoomPacket.Type.ADVERTISE_ROOM
 	var room_info_bytes: PackedByteArray = room_info.convert_to_bytes()
-	packet._data[Packet.Field.ROOM_INFO] = room_info_bytes
+	packet._data[RoomPacket.Field.ROOM_INFO] = room_info_bytes
 	
 	return packet
 
 
 func get_room_info() -> RoomInfo:
-	var room_info_bytes: PackedByteArray = _data.get(Packet.Field.ROOM_INFO, PackedByteArray())
+	var room_info_bytes: PackedByteArray = _data.get(RoomPacket.Field.ROOM_INFO, PackedByteArray())
 	var room_info: RoomInfo = RoomInfo.convert_from_bytes(room_info_bytes)
 	
 	return room_info

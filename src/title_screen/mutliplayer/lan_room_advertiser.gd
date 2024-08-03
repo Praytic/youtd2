@@ -34,19 +34,19 @@ func _process(_delta: float):
 		if !have_room_to_advertise:
 			continue
 		
-		var packet: Packet = Packet.convert_from_bytes(packet_bytes)
-		var packet_type: Packet.Type = packet.get_type()
-		var packet_type_match: bool = packet_type == Packet.Type.SCAN_ROOM
+		var packet: RoomPacket = RoomPacket.convert_from_bytes(packet_bytes)
+		var packet_type: RoomPacket.Type = packet.get_type()
+		var packet_type_match: bool = packet_type == RoomPacket.Type.SCAN_ROOM
 		
 		if !packet_type_match:
-			push_error("Packet has wrong type: %s" % packet_type)
+			push_error("RoomPacket has wrong type: %s" % packet_type)
 
 			continue
 		
 		var scanner_address: String = _peer.get_packet_ip()
 		_peer.set_dest_address(scanner_address, Constants.ROOM_ADVERTISER_SEND_PORT)
 		
-		var response_packet: Packet = Packet.make_advertise_room(_room_info)
+		var response_packet: RoomPacket = RoomPacket.make_advertise_room(_room_info)
 		var response_packet_bytes: PackedByteArray = response_packet.convert_to_bytes()
 		_peer.put_packet(response_packet_bytes)
 

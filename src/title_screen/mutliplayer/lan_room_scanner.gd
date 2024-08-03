@@ -39,10 +39,10 @@ func _ready():
 func _process(_delta: float):
 	while _peer.get_available_packet_count() > 0:
 		var packet_bytes: PackedByteArray = _peer.get_packet()
-		var packet: Packet = Packet.convert_from_bytes(packet_bytes)
-		var packet_type: Packet.Type = packet.get_type()
+		var packet: RoomPacket = RoomPacket.convert_from_bytes(packet_bytes)
+		var packet_type: RoomPacket.Type = packet.get_type()
 		
-		var packet_type_match: bool = packet_type == Packet.Type.ADVERTISE_ROOM
+		var packet_type_match: bool = packet_type == RoomPacket.Type.ADVERTISE_ROOM
 		if !packet_type_match:
 			continue
 		
@@ -122,6 +122,6 @@ func _on_scan_timer_timeout():
 	if !_enabled:
 		return
 	
-	var packet: Packet = Packet.make_scan_room()
+	var packet: RoomPacket = RoomPacket.make_scan_room()
 	var packet_bytes: PackedByteArray = packet.convert_to_bytes()
 	_peer.put_packet(packet_bytes)
