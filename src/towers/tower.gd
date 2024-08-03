@@ -32,8 +32,10 @@ var _was_ordered_to_stop_attack: bool = false
 var _was_ordered_to_change_target: bool = false
 var _new_target_from_order: Unit
 var _item_container: TowerItemContainer
-# NOTE: preceding tower reference is valid only during
-# creation. It is also always null for first tier towers.
+# NOTE: preceding tower reference is used only during
+# Tower._ready() and TowerBehavior.init(). It becomes null
+# forever after that and it is also always null for first
+# tier towers.
 var _temp_preceding_tower: Tower = null
 # This attack type determines which targets will be picked
 # for attacking.
@@ -149,10 +151,6 @@ func _ready():
 		
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
-
-#		Reset preceding tower var to avoid having dangling
-#		reference
-		_temp_preceding_tower = null
 	else:
 #		NOTE: only apply builder tower lvl bonus if tower is
 #		"fresh". When tower is transformed or upgraded, it
@@ -201,6 +199,10 @@ func _ready():
 #	dimensions here like for creeps.
 	_set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
 
+#	Reset preceding tower var to avoid having dangling
+#	reference
+#	NOTE: need to reset this reference at this point and not
+#	any earlier because it's used in previous operations.
 	_temp_preceding_tower = null
 	
 
@@ -269,10 +271,6 @@ func set_transform_is_allowed(value: bool):
 
 func get_transform_is_allowed() -> bool:
 	return _transform_is_allowed
-
-
-func get_preceding_tower() -> Tower:
-	return _temp_preceding_tower
 
 
 # NOTE: resetAttackCrits() in JASS
