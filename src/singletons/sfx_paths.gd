@@ -11,7 +11,7 @@ const LEVEL_UP: String = "res://assets/sfx/kevl_level_up.ogg"
 
 const TOWER_ATTACK_MAP: Dictionary = {
 	Element.enm.NATURE: "res://assets/sfx/unknown_swosh-08.ogg",
-	Element.enm.STORM: "res://assets/sfx/opengameart/bart/foom_0.ogg",
+	Element.enm.STORM: "res://assets/sfx/bart_foom_0.ogg",
 	Element.enm.FIRE: "res://assets/sfx/unknown_fire_attack1.ogg",
 	Element.enm.ICE: "res://assets/sfx/unknown_iceball.ogg",
 	Element.enm.ASTRAL: "res://assets/sfx/unknown_attack_sound1.ogg",
