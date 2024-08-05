@@ -30,9 +30,10 @@ static func verify(player: Player, prev_tower: Tower, new_tower_id: int) -> bool
 
 		return false
 
-	var enough_resources: bool = BuildTower.enough_resources_for_tower(new_tower_id, player)
+	var prev_tower_id: int = prev_tower.get_id()
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(new_tower_id, player, prev_tower_id)
 	if !enough_resources:
-		BuildTower.add_error_about_building_tower(new_tower_id, player)
+		BuildTower.add_error_about_building_tower(new_tower_id, player, prev_tower_id)
 
 		return false
 

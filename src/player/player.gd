@@ -451,9 +451,15 @@ func enough_tomes_for_tower(tower_id: int) -> bool:
 	return enough_tomes
 
 
-func enough_food_for_tower(tower_id: int) -> bool:
+func enough_food_for_tower(tower_id: int, preceding_tower_id: int = -1) -> bool:
+	var preceding_food_cost: int
+	if preceding_tower_id != -1:
+		preceding_food_cost = TowerProperties.get_food_cost(preceding_tower_id)
+	else:
+		preceding_food_cost = 0
+
 	var food_cost: int = TowerProperties.get_food_cost(tower_id)
-	var food_after_add: int = _food + food_cost
+	var food_after_add: int = _food + food_cost - preceding_food_cost
 	var enough_food: bool = food_after_add <= _food_cap
 
 	return enough_food

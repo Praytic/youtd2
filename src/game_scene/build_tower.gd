@@ -15,10 +15,15 @@ class_name BuildTower extends Node
 #########################
 
 func start(tower_id: int, player: Player):
-	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
+#	NOTE: check only gold and tomes before starting to build
+#	tower. Ignore food, so that it's possible to transform a
+#	tower in cases where player is already at food cap.
+#	Transforming removes preceding tower so if final food
+#	usage is under cap, it's acceptable.
+	var enough_resources: bool = BuildTower.enough_resources_for_tower_only_gold_and_tomes(tower_id, player)
 
 	if !enough_resources:
-		BuildTower.add_error_about_building_tower(tower_id, player)
+		BuildTower.add_error_about_tower_only_gold_and_tomes(tower_id, player)
 
 		return
 
@@ -45,7 +50,14 @@ func try_to_finish(player: Player):
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var transform_is_allowed: bool = Globals.game_mode_allows_transform()
 	var can_transform: bool = attempting_to_transform && transform_is_allowed
-	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
+	var enough_resources_for_build: bool = BuildTower.enough_resources_for_tower(tower_id, player)
+
+	var preceding_tower_id: int
+	if tower_under_mouse != null:
+		preceding_tower_id = tower_under_mouse.get_id()
+	else:
+		preceding_tower_id = -1
+	var enough_resources_for_transform: bool = BuildTower.enough_resources_for_tower(tower_id, player, preceding_tower_id)
 
 	if !can_build && !can_transform:
 		var error: String
@@ -55,14 +67,18 @@ func try_to_finish(player: Player):
 			error = "Can't build here."
 
 		Utils.add_ui_error(player, error)
-	elif !enough_resources:
-		BuildTower.add_error_about_building_tower(tower_id, player)
 	elif can_transform:
-		_transform_tower(tower_under_mouse, tower_id)
-		cancel()
+		if enough_resources_for_transform:
+			_transform_tower(tower_under_mouse, tower_id)
+			cancel()
+		else:
+			BuildTower.add_error_about_building_tower(tower_id, player, preceding_tower_id)
 	else:
-		_build_tower(tower_id)
-		cancel()
+		if enough_resources_for_build:
+			_build_tower(tower_id)
+			cancel()
+		else:
+			BuildTower.add_error_about_building_tower(tower_id, player)
 
 
 func cancel():
@@ -74,19 +90,43 @@ func cancel():
 	_map.set_buildable_area_visible(false)
 
 
-static func enough_resources_for_tower(tower_id: int, player: Player) -> bool:
+static func enough_resources_for_tower_only_gold_and_tomes(tower_id: int, player: Player) -> bool:
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = player.enough_food_for_tower(tower_id)
+	var enough_resources: bool = enough_gold && enough_tomes
+
+	return enough_resources
+
+
+# NOTE: if preceding_tower_id is given, then this f-n will
+# consider the food cost of the preceding tower. For
+# example, if player is 1 away from food cap (54/55) and is
+# transforming tower which costs 4 food into another tower
+# which also costs 4 food, then food check will be okay
+# because end result will still be under food cap.
+static func enough_resources_for_tower(tower_id: int, player: Player, preceding_tower_id: int = -1) -> bool:
+	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = player.enough_food_for_tower(tower_id, preceding_tower_id)
 	var enough_resources: bool = enough_gold && enough_tomes && enough_food
 
 	return enough_resources
 
 
-static func add_error_about_building_tower(tower_id: int, player: Player):
+static func add_error_about_tower_only_gold_and_tomes(tower_id: int, player: Player):
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = player.enough_food_for_tower(tower_id)
+
+	if !enough_gold:
+		Utils.add_ui_error(player, "Not enough gold.")
+	elif !enough_tomes:
+		Utils.add_ui_error(player, "Not enough tomes.")
+
+
+static func add_error_about_building_tower(tower_id: int, player: Player, preceding_tower_id: int = -1):
+	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = player.enough_food_for_tower(tower_id, preceding_tower_id)
 
 	if !enough_gold:
 		Utils.add_ui_error(player, "Not enough gold.")
