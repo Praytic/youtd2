@@ -117,7 +117,8 @@ func _transform_tower(prev_tower: Tower, new_tower_id: int):
 		return
 
 	var global_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, global_pos)
+	var random_pitch: float = Globals.local_rng.randf_range(1.0, 1.1)
+	SFX.sfx_at_pos(SfxPaths.BUILD_TOWER, global_pos, 0.0, random_pitch)
 	
 	var prev_tower_uid: int = prev_tower.get_uid()
 	var action: Action = ActionTransformTower.make(prev_tower_uid, new_tower_id)
