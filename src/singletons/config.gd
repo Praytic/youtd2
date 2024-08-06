@@ -85,9 +85,6 @@ func override_creep_armor() -> String:
 func override_creep_race() -> String:
 	return ProjectSettings.get_setting("application/config/override_creep_race") as String
 
-func print_sfx_errors() -> bool:
-	return ProjectSettings.get_setting("application/config/print_sfx_errors") as bool
-
 func cheat_food_cap() -> int:
 	return ProjectSettings.get_setting("application/config/cheat_food_cap") as int
 

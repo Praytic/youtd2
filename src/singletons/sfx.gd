@@ -47,8 +47,8 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	var invalid_sfx: bool = sfx_stream == null || sfx_stream.get_length() == 0
 
 	if invalid_sfx:
-		if Config.print_sfx_errors():
-			push_error("SFX [%s] doesn't exist." % sfx_path)
+		push_error("SFX [%s] doesn't exist." % sfx_path)
+		
 		return
 
 	sfx_player.set_stream(sfx_stream)
@@ -95,16 +95,14 @@ func _get_sfx(sfx_path: String) -> AudioStream:
 		return _loaded_sfx_map[sfx_path]
 
 	if !sfx_path.ends_with(".mp3") && !sfx_path.ends_with(".wav") && !sfx_path.ends_with(".ogg"):
-		if Config.print_sfx_errors():
-			push_error("Sfx must be mp3, wav or ogg:", sfx_path)
+		push_error("Sfx must be mp3, wav or ogg:", sfx_path)
 
 		return AudioStreamMP3.new()
 
 	var file_exists: bool = ResourceLoader.exists(sfx_path)
 
 	if !file_exists:
-		if Config.print_sfx_errors():
-			push_error("Failed to find sfx at:", sfx_path)
+		push_error("Failed to find sfx at:", sfx_path)
 
 		return AudioStreamMP3.new()
 
