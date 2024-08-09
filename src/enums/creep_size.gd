@@ -68,8 +68,8 @@ static var _score_multiplier: Dictionary = {
 #	NOTE: these values were derived values from JASS code.
 # 	for challenge mass: 20 = WU[1] * 10 = 2 * 10
 # 	for challenge boss: 200 = WU[7] * 10 = 20 * 10
-	CreepSize.enm.CHALLENGE_MASS: 4,
-	CreepSize.enm.CHALLENGE_BOSS: 40,
+	CreepSize.enm.CHALLENGE_MASS: 20,
+	CreepSize.enm.CHALLENGE_BOSS: 200,
 }
 
 static var _experience_map: Dictionary = {
