@@ -132,6 +132,7 @@ const SCORE_TO_EXP: float = 0.002
 # NOTE: picked 1 upgrade every 4 levels so that it takes 7h
 # to unlock all upgrades.
 const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 4.0
+const LEVEL_REQUIREMENT_FOR_ONLINE: int = 10
 
 const TOMES_WARNING_THRESHOLD: int = 50
 const WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP: int = 100
@@ -154,3 +155,7 @@ const ROOM_SCANNER_SEND_PORT: int = 8911
 const ROOM_ADVERTISER_SEND_PORT: int = 8912
 
 const PLAYER_COUNT_MAX: int = 2
+
+const NAKAMA_ADDRESS: String = "161.35.244.122"
+const NAKAMA_PORT: int = 7350
+const NAKAMA_PROTOCOL: String = "http"

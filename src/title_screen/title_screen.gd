@@ -6,6 +6,7 @@ class_name TitleScreen extends Node
 enum Tab {
 	MAIN,
 	CONFIGURE_SINGLEPLAYER,
+	ONLINE_ROOM_LIST,
 	ROOM_LIST,
 	CREATE_ROOM,
 	MULTIPLAYER_ROOM,
@@ -142,3 +143,15 @@ func _on_profile_menu_close_pressed():
 
 func _on_auth_menu_finished():
 	_switch_to_main_tab()
+
+
+func _on_online_button_pressed():
+	var player_level: int = Utils.get_local_player_level()
+	var player_level_is_ok: bool = player_level > Constants.LEVEL_REQUIREMENT_FOR_ONLINE || Config.ignore_player_req_for_online()
+	
+	if !player_level_is_ok:
+		Utils.show_popup_message(self, "Error", "You must be at least level 10 to play Online!\n \nPlay some singleplayer games to level up.\n")
+		
+		return
+	
+	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
