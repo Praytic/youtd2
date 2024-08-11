@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bran1c08eptno"]
+
+[ext_resource type="Script" path="res://src/title_screen/online/setup_online_game.gd" id="1_alk5r"]
+
+[node name="SetupOnlineGame" type="Node"]
+script = ExtResource("1_alk5r")
+
+[node name="RefreshMatchListTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="RefreshMatchListTimer" to="." method="_on_refresh_match_list_timer_timeout"]

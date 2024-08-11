@@ -8,7 +8,9 @@ enum Tab {
 	CONFIGURE_SINGLEPLAYER,
 	ONLINE_ROOM_LIST,
 	ROOM_LIST,
+	CREATE_ONLINE_ROOM,
 	CREATE_ROOM,
+	ONLINE_ROOM,
 	MULTIPLAYER_ROOM,
 	PROFILE,
 	SETTINGS,
@@ -154,4 +156,8 @@ func _on_online_button_pressed():
 		
 		return
 	
+	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
+
+
+func _on_create_online_room_menu_cancel_pressed():
 	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
