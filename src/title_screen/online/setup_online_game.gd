@@ -2,6 +2,7 @@ class_name SetupOnlineGame extends Node
 
 
 var _current_room_config: RoomConfig = null
+var _match_id: String = ""
 
 
 @export var _title_screen: TitleScreen
@@ -15,6 +16,8 @@ var _current_room_config: RoomConfig = null
 var client: NakamaClient = null
 var session: NakamaSession = null
 var socket: NakamaSocket = null
+
+const NAKAMA_OP_CODE_READY: int = 1
 
 
 func test_nakama():
@@ -59,6 +62,7 @@ func test_nakama():
 		return
 	
 	socket.received_match_presence.connect(_on_nakama_received_match_presence)
+	socket.received_match_state.connect(_on_nakama_received_match_state)
 
 
 func _ready():
@@ -96,7 +100,9 @@ func _on_create_online_room_menu_create_pressed():
 
 		return
 	
-	print("Joined match!")
+	print("Created and joined match!")
+	
+	_match_id = match_id
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 #	_online_room_menu.display_room_config(_current_room_config)
@@ -105,6 +111,25 @@ func _on_create_online_room_menu_create_pressed():
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
 	_online_room_menu.add_presences(presence_event.joins)
 	_online_room_menu.remove_presences(presence_event.leaves)
+
+
+# TODO: update UI to show that user is ready
+func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
+	print(" \n")
+	print("-------------------------------------")
+	print("_on_nakama_received_match_state")
+	
+	if match_state.op_code == NAKAMA_OP_CODE_READY:
+		print("received ready op code")
+		var state_data: Dictionary = JSON.parse_string(match_state.data)
+		var user_id: String = state_data.get("user_id", "")
+		print("user_id=%s" % user_id)
+
+		_online_room_menu.set_ready_for_player(user_id)
+	else:
+		print("received op code %d" % match_state.op_code)
+		var state_data = JSON.parse_string(match_state.data)
+		print("state_data = %s" % state_data)
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -134,6 +159,12 @@ func _on_online_room_list_menu_join_pressed():
 		
 		return
 	
+	print(" \n")
+	print(" \n")
+	print("----------------------------")
+	print("_on_online_room_list_menu_join_pressed")
+	print(" \n")
+	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(selected_match_id)
 	if join_match_result.is_exception():
 		print("Error in join_match_async rpc(): %s" % join_match_result)
@@ -143,6 +174,42 @@ func _on_online_room_list_menu_join_pressed():
 
 	var joined_match: NakamaRTAPI.Match = join_match_result
 	_online_room_menu.add_presences(joined_match.presences)
+
+
+	_match_id = selected_match_id
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 #	_lan_room_menu.display_room_config(_current_room_config)
+
+
+func _on_online_room_menu_leave_pressed():
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	if leave_match_result.is_exception():
+		print("Error in leave_match_async(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Error in leave_match_async(): %s" % leave_match_result)
+
+		return
+	
+	_match_id = ""
+	
+#	Re-enable ready button, in case it was disabled. This is so that when player
+#	enters another room, they can ready up again.
+	_online_room_menu.set_ready_button_disabled(false)
+	
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM_LIST)
+
+
+func _on_online_room_menu_ready_pressed():
+#	NOTE: need to disable button before running async function, because async
+#	takes time. Disabling button is needed because player can ready up only one time.
+	_online_room_menu.set_ready_button_disabled(true)
+	
+	var data: String = ""
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_READY, data)
+	if send_match_state_result.is_exception():
+		print("Error in send_match_state_async(): %s" % send_match_state_result)
+		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+
+		return
+	
+

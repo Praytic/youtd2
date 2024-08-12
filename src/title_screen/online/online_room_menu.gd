@@ -5,33 +5,37 @@ class_name OnlineRoomMenu extends PanelContainer
 # Displays players in the room.
 
 
-signal start_pressed()
-signal back_pressed()
+signal ready_pressed()
+signal leave_pressed()
+
+
+const READY_TEXT_NO: String = "- Not Ready"
+const READY_TEXT_YES: String = "- Ready!"
 
 
 @export var _player_list: ItemList
 @export var _room_config_label: RichTextLabel
+@export var _ready_button: Button
 
 
 #########################
 ###       Public      ###
 #########################
 
-#func set_player_list(player_list: Array[String]):
-#	_player_list.clear()
-#
-#	for player in player_list:
-#		_player_list.add_item(player)
-#
-#	for i in range(0, _player_list.item_count):
-#		_player_list.set_item_selectable(i, false)
+func set_ready_for_player(user_id: String):
+	var index: int = _find_item_in_item_list_by_metadata(_player_list, user_id)
+	var current_text: String = _player_list.get_item_text(index)
+	var new_text: String = current_text.replace(READY_TEXT_NO, READY_TEXT_YES)
+
+	_player_list.set_item_text(index, new_text)
 
 
 func add_presences(presence_list: Array):
 	for e in presence_list:
 		var presence: NakamaRTAPI.UserPresence = e
-		
-		_player_list.add_item(presence.username)
+
+		var item_text: String = "%s %s" % [presence.username, READY_TEXT_NO] 
+		_player_list.add_item(item_text)
 		
 		var new_item_index: int = _player_list.get_item_count() - 1
 		_player_list.set_item_metadata(new_item_index, presence.user_id)
@@ -42,7 +46,6 @@ func remove_presences(presence_list: Array):
 	for e in presence_list:
 		var presence: NakamaRTAPI.UserPresence = e
 		
-		_player_list.add_item(presence.username)
 		var found_index: int = _find_item_in_item_list_by_metadata(_player_list, presence.user_id)
 		
 		if found_index == -1:
@@ -58,6 +61,10 @@ func display_room_config(room_config: RoomConfig):
 	
 	_room_config_label.clear()
 	_room_config_label.append_text(room_config_string)
+
+
+func set_ready_button_disabled(value: bool):
+	_ready_button.set_disabled(value)
 
 
 func _find_item_in_item_list_by_metadata(item_list: ItemList, metadata: Variant) -> int:
@@ -79,9 +86,9 @@ func _find_item_in_item_list_by_metadata(item_list: ItemList, metadata: Variant)
 ###     Callbacks     ###
 #########################
 
-func _on_back_button_pressed():
-	back_pressed.emit()
+func _on_ready_button_pressed():
+	ready_pressed.emit()
 
 
-func _on_start_button_pressed():
-	start_pressed.emit()
+func _on_leave_button_pressed():
+	leave_pressed.emit()
