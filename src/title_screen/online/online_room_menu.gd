@@ -24,6 +24,12 @@ const READY_TEXT_YES: String = "- Ready!"
 
 func set_ready_for_player(user_id: String):
 	var index: int = _find_item_in_item_list_by_metadata(_player_list, user_id)
+
+	if index == -1:
+		push_error("Failed to find item list index. user_id: %s" % user_id)
+
+		return
+
 	var current_text: String = _player_list.get_item_text(index)
 	var new_text: String = current_text.replace(READY_TEXT_NO, READY_TEXT_YES)
 

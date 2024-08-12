@@ -3,6 +3,7 @@ class_name SetupOnlineGame extends Node
 
 var _current_room_config: RoomConfig = null
 var _match_id: String = ""
+var _ready_state_buffer: Dictionary = {}
 
 
 @export var _title_screen: TitleScreen
@@ -31,11 +32,9 @@ func test_nakama():
 	session = await client.authenticate_device_async(device_id)
 
 	if session.is_exception():
-		print("Error in authenticate_device_async(): %s" % session)
+		push_error("Error in authenticate_device_async(): %s" % session)
 		
 		return
-
-	print("Success for authenticate_device_async(): %s" % session)
 
 	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var new_username: String = player_name
@@ -47,17 +46,15 @@ func test_nakama():
 	var update_account_async_result: NakamaAsyncResult = await client.update_account_async(session, new_username, new_display_name, new_avatar_url, new_lang_tag, new_location, new_timezone)
 
 	if update_account_async_result.is_exception():
-		print("Error in update_account_async(): %s" % update_account_async_result)
+		push_error("Error in update_account_async(): %s" % update_account_async_result)
 		
 		return
-
-	print("Success for update_account_async(): %s" % update_account_async_result)
 
 	socket = Nakama.create_socket_from(client)
 
 	var connect_async_result: NakamaAsyncResult = await socket.connect_async(session)
 	if connect_async_result.is_exception():
-		print("Error in connect_async(): %s" % update_account_async_result)
+		push_error("Error in connect_async(): %s" % update_account_async_result)
 		
 		return
 	
@@ -81,26 +78,20 @@ func _on_create_online_room_menu_create_pressed():
 	var input_payload: String = "placeholder payload"
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", input_payload)
 	if create_match_result.is_exception():
-		print("Error in create_match rpc(): %s" % create_match_result)
+		push_error("Error in create_match rpc(): %s" % create_match_result)
 		Utils.show_popup_message(self, "Error", "Error in create_match rpc(): %s" % create_match_result)
 
 		return
 	
-	print("Created match!")
-	
 	var result_payload: Dictionary = JSON.parse_string(create_match_result.payload)
 	var match_id: String = result_payload["match_id"]
-	print("result_payload=%s" % result_payload)
-	print("match_id=%s" % match_id)
 	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(match_id)
 	if join_match_result.is_exception():
-		print("Error in join_match_async rpc(): %s" % join_match_result)
+		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
 
 		return
-	
-	print("Created and joined match!")
 	
 	_match_id = match_id
 	
@@ -113,23 +104,22 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 	_online_room_menu.remove_presences(presence_event.leaves)
 
 
-# TODO: update UI to show that user is ready
+# NOTE: need to save ready state in a buffer instead
+# of applying it to UI immediately because this
+# callback will get called in the middle of the
+# process of joining the match. At that point, players
+# haven't been added to UI yet, so setting ready
+# status would fail.
+# 
+# Instead, save this state into a buffer and then apply it
+# after players have been added to UI.
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
-	print(" \n")
-	print("-------------------------------------")
-	print("_on_nakama_received_match_state")
-	
 	if match_state.op_code == NAKAMA_OP_CODE_READY:
-		print("received ready op code")
 		var state_data: Dictionary = JSON.parse_string(match_state.data)
 		var user_id: String = state_data.get("user_id", "")
-		print("user_id=%s" % user_id)
 
-		_online_room_menu.set_ready_for_player(user_id)
-	else:
-		print("received op code %d" % match_state.op_code)
-		var state_data = JSON.parse_string(match_state.data)
-		print("state_data = %s" % state_data)
+
+		_ready_state_buffer[user_id] = true
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -159,15 +149,11 @@ func _on_online_room_list_menu_join_pressed():
 		
 		return
 	
-	print(" \n")
-	print(" \n")
-	print("----------------------------")
-	print("_on_online_room_list_menu_join_pressed")
-	print(" \n")
+	_ready_state_buffer.clear()
 	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(selected_match_id)
 	if join_match_result.is_exception():
-		print("Error in join_match_async rpc(): %s" % join_match_result)
+		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
 
 		return
@@ -175,6 +161,14 @@ func _on_online_room_list_menu_join_pressed():
 	var joined_match: NakamaRTAPI.Match = join_match_result
 	_online_room_menu.add_presences(joined_match.presences)
 
+#	NOTE: update ready status of players in lobby.
+	for e in joined_match.presences:
+		var presence: NakamaRTAPI.UserPresence = e
+
+		var player_is_ready: bool = _ready_state_buffer.has(presence.user_id)
+
+		if player_is_ready:
+			_online_room_menu.set_ready_for_player(presence.user_id)
 
 	_match_id = selected_match_id
 	
@@ -185,7 +179,7 @@ func _on_online_room_list_menu_join_pressed():
 func _on_online_room_menu_leave_pressed():
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
-		print("Error in leave_match_async(): %s" % leave_match_result)
+		push_error("Error in leave_match_async(): %s" % leave_match_result)
 		Utils.show_popup_message(self, "Error", "Error in leave_match_async(): %s" % leave_match_result)
 
 		return
@@ -204,10 +198,10 @@ func _on_online_room_menu_ready_pressed():
 #	takes time. Disabling button is needed because player can ready up only one time.
 	_online_room_menu.set_ready_button_disabled(true)
 	
-	var data: String = ""
+	var data: String = "{}"
 	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_READY, data)
 	if send_match_state_result.is_exception():
-		print("Error in send_match_state_async(): %s" % send_match_state_result)
+		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
 
 		return
