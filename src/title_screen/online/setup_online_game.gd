@@ -4,7 +4,8 @@ class_name SetupOnlineGame extends Node
 var _current_room_config: RoomConfig = null
 var _match_id: String = ""
 var _ready_state_buffer: Dictionary = {}
-
+# TODO: store this state on server
+var _is_host: bool = false
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -20,6 +21,7 @@ var socket: NakamaSocket = null
 var _hole_puncher: Node = null
 
 const NAKAMA_OP_CODE_READY: int = 1
+const NAKAMA_OP_CODE_GAME_STARTING: int = 2
 
 
 func test_nakama():
@@ -104,6 +106,8 @@ func _on_create_online_room_menu_create_pressed():
 		return
 	
 	_match_id = match_id
+
+	_is_host = true
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 #	_online_room_menu.display_room_config(_current_room_config)
@@ -130,6 +134,31 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 
 
 		_ready_state_buffer[user_id] = true
+	elif match_state.op_code == NAKAMA_OP_CODE_GAME_STARTING:
+		print("NAKAMA_OP_CODE_GAME_STARTING")
+		
+		_punch_hole()
+
+
+func _punch_hole():
+	var player_id: String = OS.get_unique_id()
+	_hole_puncher.start_traversal(_match_id, _is_host, player_id)
+	print("waiting for hole puncher")
+	var result = await _hole_puncher.hole_punched()
+	print("hole puncher finished")
+
+	if result == null || result.size() != 3:
+		print("something is wrong with hole punch result")
+
+		return
+
+	var my_port = result[0]
+	var host_port = result[1]
+	var host_address = result[2]
+
+	print("my_port=%s" % my_port)
+	print("host_port=%s" % host_port)
+	print("host_address=%s" % host_address)
 
 
 func _on_refresh_match_list_timer_timeout():
