@@ -144,7 +144,7 @@ func _punch_hole():
 	var player_id: String = OS.get_unique_id()
 	_hole_puncher.start_traversal(_match_id, _is_host, player_id)
 	print("waiting for hole puncher")
-	var result = await _hole_puncher.hole_punched()
+	var result = await _hole_puncher.hole_punched
 	print("hole puncher finished")
 
 	if result == null || result.size() != 3:
