@@ -17,6 +17,7 @@ var _ready_state_buffer: Dictionary = {}
 var client: NakamaClient = null
 var session: NakamaSession = null
 var socket: NakamaSocket = null
+var _hole_puncher: Node = null
 
 const NAKAMA_OP_CODE_READY: int = 1
 
@@ -64,6 +65,15 @@ func test_nakama():
 
 func _ready():
 	test_nakama()
+	_setup_hole_puncher()
+
+
+func _setup_hole_puncher():
+	var hole_puncher_script: Script = preload("res://addons/Holepunch/holepunch_node.gd")
+	_hole_puncher = hole_puncher_script.new()
+	_hole_puncher.rendevouz_address = Constants.NAKAMA_ADDRESS
+	_hole_puncher.rendevouz_port = Constants.HOLE_PUNCHER_PORT
+	add_child(_hole_puncher)
 
 
 func _on_online_room_list_menu_create_room_pressed():

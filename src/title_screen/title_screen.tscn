@@ -8,14 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://src/game_menu/credits_menu.tscn" id="4_rdxi7"]
 [ext_resource type="PackedScene" uid="uid://cnnkyqysqqyar" path="res://src/title_screen/mutliplayer/lan_room_list_menu.tscn" id="5_pc1mj"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/game_menu/settings_menu.tscn" id="5_q0hc3"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/online/online_room_menu.tscn" id="6_65btw"]
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://src/title_screen/configure_singleplayer_menu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://d0m1fiwnsk3tf" path="res://src/title_screen/mutliplayer/create_lan_room_menu.tscn" id="7_8vssb"]
 [ext_resource type="PackedScene" uid="uid://csg2abpgju1ay" path="res://src/title_screen/online/online_room_list_menu.tscn" id="7_ggn0o"]
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://src/title_screen/profile_menu.tscn" id="8_7qboh"]
 [ext_resource type="PackedScene" uid="uid://ddpf0wt3rp57k" path="res://src/title_screen/online/create_online_room_menu.tscn" id="9_f0p2i"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://src/title_screen/auth_menu.tscn" id="9_v765v"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="12_wvura"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="12_5panv"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/online/online_room_menu.tscn" id="12_wvura"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
@@ -156,11 +156,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="OnlineRoomMenu" parent="UI/TabContainer" instance=ExtResource("6_65btw")]
+[node name="OnlineRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_wvura")]
 visible = false
 layout_mode = 2
 
-[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_wvura")]
+[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_5panv")]
 visible = false
 layout_mode = 2
 
