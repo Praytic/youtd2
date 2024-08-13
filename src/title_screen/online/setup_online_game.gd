@@ -142,6 +142,11 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 
 func _punch_hole():
 	var player_id: String = OS.get_unique_id()
+
+	print("_hole_puncher.start_traversal()")
+	print("_match_id = %s" % _match_id)
+	print("_is_host = %s" % _is_host)
+	print("player_id = %s" % player_id)
 	_hole_puncher.start_traversal(_match_id, _is_host, player_id)
 	print("waiting for hole puncher")
 	var result = await _hole_puncher.hole_punched
@@ -162,6 +167,11 @@ func _punch_hole():
 
 
 func _on_refresh_match_list_timer_timeout():
+#	NOTE: refresh match list only when the corresponding UI
+#	is visible
+	if !_online_room_list_menu.is_visible():
+		return
+
 	var min_players: int = 0
 	var max_players: int = 10
 	var limit: int = 10
