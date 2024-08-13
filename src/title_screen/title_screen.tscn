@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://src/title_screen/profile_menu.tscn" id="8_7qboh"]
 [ext_resource type="PackedScene" uid="uid://ddpf0wt3rp57k" path="res://src/title_screen/online/create_online_room_menu.tscn" id="9_f0p2i"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://src/title_screen/auth_menu.tscn" id="9_v765v"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="12_5panv"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/online/online_room_menu.tscn" id="12_wvura"]
+[ext_resource type="PackedScene" uid="uid://dkxudlev66vnr" path="res://src/title_screen/online/online_room_menu.tscn" id="11_b1t0j"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="12_3m802"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
@@ -156,11 +156,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="OnlineRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_wvura")]
+[node name="OnlineRoomMenu" parent="UI/TabContainer" instance=ExtResource("11_b1t0j")]
 visible = false
 layout_mode = 2
 
-[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_5panv")]
+[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_3m802")]
 visible = false
 layout_mode = 2
 
