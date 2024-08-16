@@ -22,6 +22,7 @@ var _hole_puncher: Node = null
 
 const NAKAMA_OP_CODE_READY: int = 1
 const NAKAMA_OP_CODE_GAME_STARTING: int = 2
+const NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY: int = 3
 
 
 func test_nakama():
@@ -67,7 +68,7 @@ func test_nakama():
 
 func _ready():
 	test_nakama()
-	_setup_hole_puncher()
+	# _setup_hole_puncher()
 
 
 func _setup_hole_puncher():
@@ -137,7 +138,24 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 	elif match_state.op_code == NAKAMA_OP_CODE_GAME_STARTING:
 		print("NAKAMA_OP_CODE_GAME_STARTING")
 		
-		_punch_hole()
+		# _punch_hole()
+
+		if _is_host:
+			var match = await socket.create_match_async();
+			print("Created transfer match with id %s." % match.match_id);
+
+			var data_dict: Dictionary = {"match_id": match.match_id}
+			var data: String = JSON.stringify(data_dict)
+			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY, data)
+			if send_match_state_result.is_exception():
+				push_error("Error in send_match_state_async(): %s" % send_match_state_result)
+				Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+
+				return
+			
+			
+	elif match_state.op_code == NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY:
+		print("NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY")
 
 
 func _punch_hole():
