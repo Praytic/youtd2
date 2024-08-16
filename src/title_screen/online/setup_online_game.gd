@@ -23,6 +23,7 @@ var _hole_puncher: Node = null
 const NAKAMA_OP_CODE_READY: int = 1
 const NAKAMA_OP_CODE_GAME_STARTING: int = 2
 const NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY: int = 3
+const NAKAMA_OP_CODE_HELLO_SAILOR: int = 11
 
 
 func test_nakama():
@@ -152,10 +153,41 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 				Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
 
 				return
-			
-			
 	elif match_state.op_code == NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY:
 		print("NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY")
+
+		var state_data: Dictionary = JSON.parse_string(match_state.data)
+		var new_match_id: String = state_data.get("match_id", "")
+
+		print("new_match_id = %s" % new_match_id)
+
+		var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+		if leave_match_result.is_exception():
+			push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
+			Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+
+			return
+
+		var join_match_result: NakamaAsyncResult = await socket.join_match_async(new_match_id)
+		if join_match_result.is_exception():
+			push_error("Error in join_match_async rpc(): %s" % join_match_result)
+			Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
+
+			return
+
+		_match_id = new_match_id
+
+		await get_tree().create_timer(4.0).timeout
+
+		var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_HELLO_SAILOR, "{}")
+		if send_match_state_result.is_exception():
+				push_error("Error in send_match_state_async(): %s" % send_match_state_result)
+				Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+
+				return
+
+	elif match_state.op_code == NAKAMA_OP_CODE_HELLO_SAILOR:
+		print("NAKAMA_OP_CODE_HELLO_SAILOR")
 
 
 func _punch_hole():
