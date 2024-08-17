@@ -314,7 +314,7 @@ static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> flo
 		Difficulty.enm.HARD:
 			a = 6
 			b = 0.32
-			c = 0.004
+			c = 0.0004
 		Difficulty.enm.EXTREME:
 			a = 8
 			b = 0.34
