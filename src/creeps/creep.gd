@@ -180,7 +180,9 @@ func get_damage_to_portal() -> float:
 	if is_final_wave:
 		return 100.0
 
-	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
+	var size_is_challenge: bool = CreepSize.is_challenge(_size)
+
+	if size_is_challenge:
 		return 0
 
 	var damage_done: float = get_damage_done()

@@ -333,7 +333,7 @@ static func _generate_creep_race(creep_size: CreepSize.enm) -> CreepCategory.enm
 
 		return override_creep_race
 
-	var size_is_challenge: bool = creep_size == CreepSize.enm.CHALLENGE_MASS || creep_size == CreepSize.enm.CHALLENGE_BOSS
+	var size_is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if size_is_challenge:
 		return CreepCategory.enm.CHALLENGE
