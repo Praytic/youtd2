@@ -129,9 +129,16 @@ const WISDOM_UPGRADE_MAX_DEFAULT: int = 8
 # 
 # 411xp / (60,000score * 0.002) ~= 3.5h
 const SCORE_TO_EXP: float = 0.002
-# NOTE: picked 1 upgrade every 4 levels so that it takes 7h
-# to unlock all upgrades.
-const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 4.0
+# NOTE: picked 1 upgrade every 6 levels so that it takes
+# around ~20 ingame hours to unlock all upgrades:
+# - 10upgrades * 6level/upgrade = 60 levels for all upgrades
+# - need 2431 exp to reach level 60
+# - 60000score/hour * 0.002exp/score = 120exp/hour
+# - 2431exp / 120exp/hour ~= 20 hours
+# 
+# In addition, this is 20 *ingame* hours. IRL time can be
+# half as much because of ability to speed up the game.
+const PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT: float = 1 / 6.0
 
 const TOMES_WARNING_THRESHOLD: int = 50
 const WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP: int = 100
