@@ -137,6 +137,3 @@ func enable_dev_commands() -> bool:
 
 func print_wave_info() -> bool:
 	return ProjectSettings.get_setting("application/config/print_wave_info") as bool
-
-func ignore_player_req_for_online() -> bool:
-	return ProjectSettings.get_setting("application/config/ignore_player_req_for_online") as bool
