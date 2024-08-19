@@ -106,7 +106,7 @@ func _on_create_online_room_menu_create_pressed():
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 	_online_room_menu.set_start_button_visible(true)
-#	_online_room_menu.display_room_config(_current_room_config)
+	_online_room_menu.display_room_config(_current_room_config)
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
@@ -183,12 +183,31 @@ func _on_online_room_list_menu_join_pressed():
 	_online_room_menu.add_presences(joined_match.presences)
 
 	_match_id = selected_match_id
+
+	var match_label: String = joined_match.label
+	var match_config = _get_match_config_from_label(match_label)
+
+#	TODO: make it possible to recover from this error state
+	if match_config == null:
+		Utils.show_popup_message(self, "Error", "Failed to load match properties!")
+
+		return
+
+	_current_room_config = match_config
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 #	NOTE: hide start button if client is not host because only the host
 #	should be able to start the game
 	_online_room_menu.set_start_button_visible(false)
-#	_lan_room_menu.display_room_config(_current_room_config)
+	_online_room_menu.display_room_config(_current_room_config)
+
+
+func _get_match_config_from_label(match_label: String) -> RoomConfig:
+	var label_dict: Dictionary = JSON.parse_string(match_label)
+	var match_config_string: String = label_dict.get("match_config", "")
+	var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
+	
+	return match_config
 
 
 func _on_online_room_menu_leave_pressed():
