@@ -118,9 +118,9 @@ static func convert_from_string(string: String) -> RoomConfig:
 	
 	var game_mode_string: String = dict.get(KEY_GAME_MODE, "")
 	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
-	var difficulty_string: String = dict.get(KEY_GAME_MODE, "")
+	var difficulty_string: String = dict.get(KEY_DIFFICULTY, "")
 	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
-	var game_length: int = dict.get(KEY_GAME_MODE, Constants.WAVE_COUNT_TRIAL) as int
+	var game_length: int = dict.get(KEY_GAME_LENGTH, Constants.WAVE_COUNT_TRIAL) as int
 	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
 	
 	return room_config
