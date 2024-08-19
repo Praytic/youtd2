@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/title_screen/online/online_room_list_menu.gd" id="2_inhau"]
 
 [node name="OnlineRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list")]
-custom_minimum_size = Vector2(900, 400)
+custom_minimum_size = Vector2(1200, 400)
 theme = ExtResource("1_0djlm")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_inhau")
