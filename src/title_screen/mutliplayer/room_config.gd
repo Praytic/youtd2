@@ -108,11 +108,13 @@ func convert_to_string() -> String:
 
 
 static func convert_from_string(string: String) -> RoomConfig:
-	var dict: Dictionary = JSON.parse_string(string)
+	var parse_result = JSON.parse_string(string)
 	
-	var parse_failed: bool = dict == null
+	var parse_failed: bool = parse_result == null
 	if parse_failed:
 		return null
+	
+	var dict: Dictionary = parse_result
 	
 	var game_mode: GameMode.enm = int(dict[Field.GAME_MODE]) as GameMode.enm
 	var difficulty: Difficulty.enm = int(dict[Field.DIFFICULTY]) as Difficulty.enm

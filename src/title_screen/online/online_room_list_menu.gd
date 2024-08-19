@@ -38,7 +38,9 @@ func update_match_list(match_list: Array):
 	
 	for match_ in match_list:
 		var label_string: String = match_.label
+		print("label_string = %s" % label_string)
 		var label_dict: Dictionary = JSON.parse_string(label_string)
+		print("label_dict = %s" % label_dict)
 		var match_config_string: String = label_dict.get("match_config", "")
 		var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
 
