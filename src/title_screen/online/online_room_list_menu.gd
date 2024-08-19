@@ -37,35 +37,40 @@ func update_match_list(match_list: Array):
 	_item_list.clear()
 	
 	for match_ in match_list:
-		var label_string: String = match_.label
-		print("label_string = %s" % label_string)
-		var label_dict: Dictionary = JSON.parse_string(label_string)
-		print("label_dict = %s" % label_dict)
-		var match_config_string: String = label_dict.get("match_config", "")
-		var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
+		var match_display_string: String = _get_match_text(match_)
 
-		if match_config == null:
-			push_error("Received room with invalid match_config: %s" % label_string)
-
+		var match_is_invalid: bool = match_display_string.is_empty()
+		if match_is_invalid:
 			continue
 
-		var difficulty: Difficulty.enm = match_config.get_difficulty()
-		var difficulty_string: String = Difficulty.convert_to_string(difficulty).capitalize()
-		var game_length: int = match_config.get_game_length()
-		var game_length_string: String = str(game_length)
-		var game_mode: GameMode.enm = match_config.get_game_mode()
-		var game_mode_string: String = GameMode.convert_to_string(game_mode).capitalize()
-
-		print("----------match_config:")
-		print("match_config.get_difficulty() = %s" % match_config.get_difficulty())
-		print("match_config.get_game_length() = %s" % match_config.get_game_length())
-		print("match_config.get_game_mode() = %s" % match_config.get_game_mode())
-		
-		var match_display_string: String = "%d/2 players - %s, %s, %s waves" % [match_.size, difficulty_string, game_mode_string, game_length_string]
 		_item_list.add_item(match_display_string)
 		
 		var item_index: int = _item_list.get_item_count() - 1
 		_item_list.set_item_metadata(item_index, match_.match_id)
+
+
+func _get_match_text(match_: NakamaAPI.ApiMatch) -> String:
+	var label_string: String = match_.label
+	var label_dict: Dictionary = JSON.parse_string(label_string)
+	var match_config_string: String = label_dict.get("match_config", "")
+	var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
+
+	if match_config == null:
+		push_error("Received room with invalid match_config: %s" % label_string)
+
+		return ""
+
+	var player_count: int = match_.size
+	var difficulty: Difficulty.enm = match_config.get_difficulty()
+	var difficulty_string: String = Difficulty.convert_to_string(difficulty).capitalize()
+	var game_length: int = match_config.get_game_length()
+	var game_length_string: String = str(game_length)
+	var game_mode: GameMode.enm = match_config.get_game_mode()
+	var game_mode_string: String = GameMode.convert_to_string(game_mode).capitalize()
+
+	var text: String = "%d/2 players\n %s, %s, %s waves" % [player_count, difficulty_string, game_mode_string, game_length_string]
+
+	return text
 
 
 #########################
