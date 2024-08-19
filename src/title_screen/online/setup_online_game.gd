@@ -3,7 +3,6 @@ class_name SetupOnlineGame extends Node
 
 var _current_room_config: RoomConfig = null
 var _match_id: String = ""
-var _ready_state_buffer: Dictionary = {}
 # TODO: store this state on server
 var _is_host: bool = false
 
@@ -18,12 +17,8 @@ var _is_host: bool = false
 var client: NakamaClient = null
 var session: NakamaSession = null
 var socket: NakamaSocket = null
-var _hole_puncher: Node = null
 
-const NAKAMA_OP_CODE_READY: int = 1
-const NAKAMA_OP_CODE_GAME_STARTING: int = 2
 const NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY: int = 3
-const NAKAMA_OP_CODE_HELLO_SAILOR: int = 11
 
 
 func test_nakama():
@@ -69,15 +64,6 @@ func test_nakama():
 
 func _ready():
 	test_nakama()
-	# _setup_hole_puncher()
-
-
-func _setup_hole_puncher():
-	var hole_puncher_script: Script = preload("res://addons/Holepunch/holepunch_node.gd")
-	_hole_puncher = hole_puncher_script.new()
-	_hole_puncher.rendevouz_address = Constants.NAKAMA_ADDRESS
-	_hole_puncher.rendevouz_port = Constants.HOLE_PUNCHER_PORT
-	add_child(_hole_puncher)
 
 
 func _on_online_room_list_menu_create_room_pressed():
@@ -112,6 +98,7 @@ func _on_create_online_room_menu_create_pressed():
 	_is_host = true
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
+	_online_room_menu.set_start_button_visible(true)
 #	_online_room_menu.display_room_config(_current_room_config)
 
 
@@ -120,41 +107,9 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 	_online_room_menu.remove_presences(presence_event.leaves)
 
 
-# NOTE: need to save ready state in a buffer instead
-# of applying it to UI immediately because this
-# callback will get called in the middle of the
-# process of joining the match. At that point, players
-# haven't been added to UI yet, so setting ready
-# status would fail.
-# 
-# Instead, save this state into a buffer and then apply it
-# after players have been added to UI.
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
-	if match_state.op_code == NAKAMA_OP_CODE_READY:
-		var state_data: Dictionary = JSON.parse_string(match_state.data)
-		var user_id: String = state_data.get("user_id", "")
-
-
-		_ready_state_buffer[user_id] = true
-	elif match_state.op_code == NAKAMA_OP_CODE_GAME_STARTING:
-		print("NAKAMA_OP_CODE_GAME_STARTING")
-		
-		# _punch_hole()
-
-		if _is_host:
-			var match = await socket.create_match_async();
-			print("Created transfer match with id %s." % match.match_id);
-
-			var data_dict: Dictionary = {"match_id": match.match_id}
-			var data: String = JSON.stringify(data_dict)
-			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY, data)
-			if send_match_state_result.is_exception():
-				push_error("Error in send_match_state_async(): %s" % send_match_state_result)
-				Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
-
-				return
-	elif match_state.op_code == NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY:
-		print("NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY")
+	if match_state.op_code == NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY:
+		print("received NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY")
 
 		var state_data: Dictionary = JSON.parse_string(match_state.data)
 		var new_match_id: String = state_data.get("match_id", "")
@@ -176,44 +131,6 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 			return
 
 		_match_id = new_match_id
-
-		await get_tree().create_timer(4.0).timeout
-
-		var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_HELLO_SAILOR, "{}")
-		if send_match_state_result.is_exception():
-				push_error("Error in send_match_state_async(): %s" % send_match_state_result)
-				Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
-
-				return
-
-	elif match_state.op_code == NAKAMA_OP_CODE_HELLO_SAILOR:
-		print("NAKAMA_OP_CODE_HELLO_SAILOR")
-
-
-func _punch_hole():
-	var player_id: String = OS.get_unique_id()
-
-	print("_hole_puncher.start_traversal()")
-	print("_match_id = %s" % _match_id)
-	print("_is_host = %s" % _is_host)
-	print("player_id = %s" % player_id)
-	_hole_puncher.start_traversal(_match_id, _is_host, player_id)
-	print("waiting for hole puncher")
-	var result = await _hole_puncher.hole_punched
-	print("hole puncher finished")
-
-	if result == null || result.size() != 3:
-		print("something is wrong with hole punch result")
-
-		return
-
-	var my_port = result[0]
-	var host_port = result[1]
-	var host_address = result[2]
-
-	print("my_port=%s" % my_port)
-	print("host_port=%s" % host_port)
-	print("host_address=%s" % host_address)
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -248,8 +165,6 @@ func _on_online_room_list_menu_join_pressed():
 		
 		return
 	
-	_ready_state_buffer.clear()
-	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(selected_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
@@ -260,18 +175,12 @@ func _on_online_room_list_menu_join_pressed():
 	var joined_match: NakamaRTAPI.Match = join_match_result
 	_online_room_menu.add_presences(joined_match.presences)
 
-#	NOTE: update ready status of players in lobby.
-	for e in joined_match.presences:
-		var presence: NakamaRTAPI.UserPresence = e
-
-		var player_is_ready: bool = _ready_state_buffer.has(presence.user_id)
-
-		if player_is_ready:
-			_online_room_menu.set_ready_for_player(presence.user_id)
-
 	_match_id = selected_match_id
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
+#	NOTE: hide start button if client is not host because only the host
+#	should be able to start the game
+	_online_room_menu.set_start_button_visible(false)
 #	_lan_room_menu.display_room_config(_current_room_config)
 
 
@@ -285,24 +194,20 @@ func _on_online_room_menu_leave_pressed():
 	
 	_match_id = ""
 	
-#	Re-enable ready button, in case it was disabled. This is so that when player
-#	enters another room, they can ready up again.
-	_online_room_menu.set_ready_button_disabled(false)
-	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM_LIST)
 
 
-func _on_online_room_menu_ready_pressed():
-#	NOTE: need to disable button before running async function, because async
-#	takes time. Disabling button is needed because player can ready up only one time.
-	_online_room_menu.set_ready_button_disabled(true)
-	
-	var data: String = "{}"
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_READY, data)
+func _on_online_room_menu_start_pressed():
+	print("_on_online_room_menu_start_pressed")
+		
+	var match = await socket.create_match_async();
+	print("Created transfer match with id %s." % match.match_id);
+
+	var data_dict: Dictionary = {"match_id": match.match_id}
+	var data: String = JSON.stringify(data_dict)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
 
 		return
-	
-

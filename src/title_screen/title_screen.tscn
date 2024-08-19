@@ -219,7 +219,7 @@ fit_content = true
 [connection signal="cancel_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="." method="_on_create_lan_room_menu_cancel_pressed"]
 [connection signal="create_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="SetupLanGame" method="_on_create_lan_room_menu_create_pressed"]
 [connection signal="leave_pressed" from="UI/TabContainer/OnlineRoomMenu" to="SetupOnlineGame" method="_on_online_room_menu_leave_pressed"]
-[connection signal="ready_pressed" from="UI/TabContainer/OnlineRoomMenu" to="SetupOnlineGame" method="_on_online_room_menu_ready_pressed"]
+[connection signal="start_pressed" from="UI/TabContainer/OnlineRoomMenu" to="SetupOnlineGame" method="_on_online_room_menu_start_pressed"]
 [connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="." method="_on_lan_room_menu_back_pressed"]
 [connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_back_pressed"]
 [connection signal="start_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_start_pressed"]
