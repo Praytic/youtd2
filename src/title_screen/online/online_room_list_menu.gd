@@ -60,6 +60,8 @@ func _get_match_text(match_: NakamaAPI.ApiMatch) -> String:
 
 		return ""
 
+	var host_username: String = label_dict.get("host_username", "UNKNOWN")
+
 	var player_count: int = match_.size
 	var difficulty: Difficulty.enm = match_config.get_difficulty()
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).capitalize()
@@ -68,7 +70,7 @@ func _get_match_text(match_: NakamaAPI.ApiMatch) -> String:
 	var game_mode: GameMode.enm = match_config.get_game_mode()
 	var game_mode_string: String = GameMode.convert_to_string(game_mode).capitalize()
 
-	var text: String = "%d/2 players\n %s, %s, %s waves" % [player_count, difficulty_string, game_mode_string, game_length_string]
+	var text: String = "%d/2 players\n %s, %s, %s waves - by %s" % [player_count, difficulty_string, game_mode_string, game_length_string, host_username]
 
 	return text
 

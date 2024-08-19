@@ -75,10 +75,12 @@ func _on_create_online_room_menu_create_pressed():
 	_current_room_config = _create_online_room_menu.get_room_config()
 
 	var match_config_string: String = _current_room_config.convert_to_string()
+	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
 
 #	TODO: send room config as JSON
 	var payload_dict: Dictionary = {
-		"match_config": match_config_string
+		"match_config": match_config_string,
+		"host_username": host_username
 	}
 	var payload_string: String = JSON.stringify(payload_dict)
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", payload_string)
