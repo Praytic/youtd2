@@ -113,12 +113,14 @@ static func convert_from_string(string: String) -> RoomConfig:
 	var parse_failed: bool = parse_result == null
 	if parse_failed:
 		return null
-	
+
 	var dict: Dictionary = parse_result
 	
-	var game_mode: GameMode.enm = int(dict[Field.GAME_MODE]) as GameMode.enm
-	var difficulty: Difficulty.enm = int(dict[Field.DIFFICULTY]) as Difficulty.enm
-	var game_length: int = int(dict[Field.GAME_LENGTH])
+	var game_mode_string: String = dict.get(KEY_GAME_MODE, "")
+	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
+	var difficulty_string: String = dict.get(KEY_GAME_MODE, "")
+	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
+	var game_length: int = dict.get(KEY_GAME_MODE, Constants.WAVE_COUNT_TRIAL) as int
 	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
 	
 	return room_config

@@ -49,12 +49,19 @@ func update_match_list(match_list: Array):
 
 			continue
 
+		var difficulty: Difficulty.enm = match_config.get_difficulty()
+		var difficulty_string: String = Difficulty.convert_to_string(difficulty).capitalize()
+		var game_length: int = match_config.get_game_length()
+		var game_length_string: String = str(game_length)
+		var game_mode: GameMode.enm = match_config.get_game_mode()
+		var game_mode_string: String = GameMode.convert_to_string(game_mode).capitalize()
+
 		print("----------match_config:")
 		print("match_config.get_difficulty() = %s" % match_config.get_difficulty())
 		print("match_config.get_game_length() = %s" % match_config.get_game_length())
 		print("match_config.get_game_mode() = %s" % match_config.get_game_mode())
 		
-		var match_display_string: String = "\n%s %d/2 players" % [match_.match_id, match_.size]
+		var match_display_string: String = "%d/2 players - %s, %s, %s waves" % [match_.size, difficulty_string, game_mode_string, game_length_string]
 		_item_list.add_item(match_display_string)
 		
 		var item_index: int = _item_list.get_item_count() - 1
