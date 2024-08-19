@@ -37,7 +37,22 @@ func update_match_list(match_list: Array):
 	_item_list.clear()
 	
 	for match_ in match_list:
-		var match_display_string: String = "%s %d/2 players" % [match_.match_id, match_.size]
+		var label_string: String = match_.label
+		var label_dict: Dictionary = JSON.parse_string(label_string)
+		var match_config_string: String = label_dict.get("match_config", "")
+		var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
+
+		if match_config == null:
+			push_error("Received room with invalid match_config: %s" % label_string)
+
+			continue
+
+		print("----------match_config:")
+		print("match_config.get_difficulty() = %s" % match_config.get_difficulty())
+		print("match_config.get_game_length() = %s" % match_config.get_game_length())
+		print("match_config.get_game_mode() = %s" % match_config.get_game_mode())
+		
+		var match_display_string: String = "\n%s %d/2 players" % [match_.match_id, match_.size]
 		_item_list.add_item(match_display_string)
 		
 		var item_index: int = _item_list.get_item_count() - 1

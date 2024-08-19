@@ -74,9 +74,14 @@ func _on_online_room_list_menu_create_room_pressed():
 func _on_create_online_room_menu_create_pressed():
 	_current_room_config = _create_online_room_menu.get_room_config()
 
+	var match_config_string: String = _current_room_config.convert_to_string()
+
 #	TODO: send room config as JSON
-	var input_payload: String = "placeholder payload"
-	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", input_payload)
+	var payload_dict: Dictionary = {
+		"match_config": match_config_string
+	}
+	var payload_string: String = JSON.stringify(payload_dict)
+	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", payload_string)
 	if create_match_result.is_exception():
 		push_error("Error in create_match rpc(): %s" % create_match_result)
 		Utils.show_popup_message(self, "Error", "Error in create_match rpc(): %s" % create_match_result)

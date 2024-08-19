@@ -16,6 +16,11 @@ var _difficulty: Difficulty.enm = Difficulty.enm.BEGINNER
 var _game_length: int = Constants.WAVE_COUNT_FULL
 
 
+const KEY_DIFFICULTY: String = "difficulty"
+const KEY_GAME_MODE: String = "game_mode"
+const KEY_GAME_LENGTH: String = "game_length"
+
+
 #########################
 ###     Built-in      ###
 #########################
@@ -87,6 +92,34 @@ static func convert_from_bytes(bytes: PackedByteArray) -> RoomConfig:
 	
 	return room_config
 
+
+func convert_to_string() -> String:
+	var dict: Dictionary = {}
+	var difficulty_string: String = Difficulty.convert_to_string(_difficulty)
+	var game_mode_string: String = GameMode.convert_to_string(_game_mode)
+	var game_length_string: String = str(_game_length)
+	dict[KEY_DIFFICULTY] = difficulty_string
+	dict[KEY_GAME_MODE] = game_mode_string
+	dict[KEY_GAME_LENGTH] = game_length_string
+
+	var string: String = JSON.stringify(dict)
+	
+	return string
+
+
+static func convert_from_string(string: String) -> RoomConfig:
+	var dict: Dictionary = JSON.parse_string(string)
+	
+	var parse_failed: bool = dict == null
+	if parse_failed:
+		return null
+	
+	var game_mode: GameMode.enm = int(dict[Field.GAME_MODE]) as GameMode.enm
+	var difficulty: Difficulty.enm = int(dict[Field.DIFFICULTY]) as Difficulty.enm
+	var game_length: int = int(dict[Field.GAME_LENGTH])
+	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
+	
+	return room_config
 
 #########################
 ###      Private      ###
