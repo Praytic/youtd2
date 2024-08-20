@@ -8,11 +8,15 @@ enum State {
 }
 
 
+const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
+
+
 var _current_room_config: RoomConfig = null
 var _match_id: String = ""
 # TODO: store this state on server
 var _is_host: bool = false
 var _state: State = State.IDLE
+var _presence_map: Dictionary = {}
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -82,22 +86,25 @@ func _on_create_online_room_menu_create_pressed():
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
-	if !_online_room_menu.visible:
-		return
-	
-	_online_room_menu.add_presences(presence_event.joins)
-	_online_room_menu.remove_presences(presence_event.leaves)
+	if _online_room_menu.visible:
+		_online_room_menu.add_presences(presence_event.joins)
+		_online_room_menu.remove_presences(presence_event.leaves)
+
+	for presence in presence_event.leaves:
+		_presence_map.erase(presence.user_id)
+
+	for presence in presence_event.joins:
+		_presence_map[presence.user_id] = presence
 
 
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
-	if match_state.op_code == NakamaOpCode.TRANSFER_FROM_LOBBY:
-		print("received NakamaOpCode.TRANSFER_FROM_LOBBY")
+	if match_state.op_code == NakamaOpCode.enm.TRANSFER_FROM_LOBBY:
+		print("received NakamaOpCode.enm.TRANSFER_FROM_LOBBY")
 		
 		_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 		
 		var state_data: Dictionary = JSON.parse_string(match_state.data)
 		var new_match_id: String = state_data.get("match_id", "")
-		var origin_seed: int = state_data.get("match_seed", 0)
 
 		print("new_match_id = %s" % new_match_id)
 		
@@ -109,6 +116,11 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 
 			return
 
+#		NOTE: clear presence map which contains presences
+#		collected for lobby. We're entering the real game
+#		match now so need to re-obtain presences.
+		_presence_map.clear()
+
 		var join_match_result: NakamaAsyncResult = await socket.join_match_async(new_match_id)
 		if join_match_result.is_exception():
 			push_error("Error in join_match_async rpc(): %s" % join_match_result)
@@ -117,15 +129,50 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 			return
 
 		_match_id = new_match_id
+
+#		NOTE: load existing presences right after joining
+#		the match. The rest will be added in the presence
+#		callback when they join the match.
+		var match: NakamaRTAPI.Match = join_match_result
+		for presence in match.presences:
+			_presence_map[presence.user_id] = presence
+
+#		Host waits a short period for all players to
+#		transfer from lobby match to game match, then
+#		initiates start of the game
+		if _is_host:
+			await get_tree().create_timer(TIMEOUT_FOR_TRANSFER_FROM_LOBBY).timeout
+
+			_send_start_game_message()
+	elif match_state.op_code == NakamaOpCode.enm.START_GAME:
+		print("received NakamaOpCode.enm.START_GAME")
 		
-		# TODO: get a list of match presences here
-		
+		var state_data: Dictionary = JSON.parse_string(match_state.data)
+		var match_seed: int = state_data.get("match_seed", 0)
+
 		var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
 		var game_length: int = _current_room_config.get_game_length()
 		var game_mode: GameMode.enm = _current_room_config.get_game_mode()
-#		_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
-	
-		print("this is where start_game() would get called")
+		_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, match_seed, Globals.ConnectionType.NAKAMA)
+
+
+func _send_start_game_message():
+#	NOTE: match seed is generated once on host and shared
+#	with clients so that everyone in match has same
+#	randomness
+	var match_seed: int = randi()
+
+	var data_dict: Dictionary = {
+		"match_seed": match_seed,
+	}
+	var data: String = JSON.stringify(data_dict)
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.START_GAME, data)
+	if send_match_state_result.is_exception():
+		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
+		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+
+		return
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -226,15 +273,11 @@ func _on_online_room_menu_start_pressed():
 	var match_ = await socket.create_match_async();
 	print("Created transfer match with id %s." % match_.match_id);
 	
-#	NOTE: match seed is generated once on host and shared with clients so that everyone in match has same randomness
-	var match_seed: int = randi()
-
 	var data_dict: Dictionary = {
 		"match_id": match_.match_id,
-		"match_seed": match_seed,
 	}
 	var data: String = JSON.stringify(data_dict)
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)

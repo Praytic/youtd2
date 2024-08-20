@@ -6,4 +6,5 @@ class_name NakamaOpCode extends Node
 
 enum enm {
 	TRANSFER_FROM_LOBBY = 1,
+	START_GAME = 2,
 }
