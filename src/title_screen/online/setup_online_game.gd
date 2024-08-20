@@ -1,10 +1,18 @@
 class_name SetupOnlineGame extends Node
 
 
+enum State {
+	IDLE,
+	LOBBY,
+	TRANSFER_FROM_LOBBY,
+}
+
+
 var _current_room_config: RoomConfig = null
 var _match_id: String = ""
 # TODO: store this state on server
 var _is_host: bool = false
+var _state: State = State.IDLE
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -12,58 +20,14 @@ var _is_host: bool = false
 @export var _create_online_room_menu: CreateOnlineRoomMenu
 
 
-# TODO: Client/session may become invalid at any time - can't rely on them
-# staying alive forever. Need to detect when it disconnects and reconnect.
-var client: NakamaClient = null
-var session: NakamaSession = null
-var socket: NakamaSocket = null
-
-const NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY: int = 3
+func _ready():
+	NakamaConnection.connected.connect(_on_nakama_connected)
 
 
-func test_nakama():
-	var server_key: String = Globals.get_nakama_server_key()
-	client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL)
-
-#	TODO: OS.get_unique_id() can't be called on Web. Need to
-#	disable online completely for web build or find another way to generate
-#	a unique id.
-	var device_id: String = OS.get_unique_id()
-	session = await client.authenticate_device_async(device_id)
-
-	if session.is_exception():
-		push_error("Error in authenticate_device_async(): %s" % session)
-		
-		return
-
-	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
-	var new_username: String = player_name
-	var new_display_name: String = player_name
-	var new_avatar_url: String = ""
-	var new_lang_tag: String = "en"
-	var new_location: String = ""
-	var new_timezone: String = "UTC"
-	var update_account_async_result: NakamaAsyncResult = await client.update_account_async(session, new_username, new_display_name, new_avatar_url, new_lang_tag, new_location, new_timezone)
-
-	if update_account_async_result.is_exception():
-		push_error("Error in update_account_async(): %s" % update_account_async_result)
-		
-		return
-
-	socket = Nakama.create_socket_from(client)
-
-	var connect_async_result: NakamaAsyncResult = await socket.connect_async(session)
-	if connect_async_result.is_exception():
-		push_error("Error in connect_async(): %s" % update_account_async_result)
-		
-		return
-	
+func _on_nakama_connected():
+	var socket: NakamaSocket = NakamaConnection.get_socket()
 	socket.received_match_presence.connect(_on_nakama_received_match_presence)
 	socket.received_match_state.connect(_on_nakama_received_match_state)
-
-
-func _ready():
-	test_nakama()
 
 
 func _on_online_room_list_menu_create_room_pressed():
@@ -87,6 +51,9 @@ func _on_create_online_room_menu_create_pressed():
 	match_params_dict.merge(match_config_dict)
 
 	var match_params_string: String = JSON.stringify(match_params_dict)
+	var session: NakamaSession = NakamaConnection.get_session()
+	var client: NakamaClient = NakamaConnection.get_client()
+	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", match_params_string)
 	if create_match_result.is_exception():
 		push_error("Error in create_match rpc(): %s" % create_match_result)
@@ -105,6 +72,7 @@ func _on_create_online_room_menu_create_pressed():
 		return
 	
 	_match_id = match_id
+	_state = State.LOBBY
 
 	_is_host = true
 	
@@ -114,19 +82,26 @@ func _on_create_online_room_menu_create_pressed():
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
+	if !_online_room_menu.visible:
+		return
+	
 	_online_room_menu.add_presences(presence_event.joins)
 	_online_room_menu.remove_presences(presence_event.leaves)
 
 
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
-	if match_state.op_code == NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY:
-		print("received NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY")
-
+	if match_state.op_code == NakamaOpCode.TRANSFER_FROM_LOBBY:
+		print("received NakamaOpCode.TRANSFER_FROM_LOBBY")
+		
+		_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
+		
 		var state_data: Dictionary = JSON.parse_string(match_state.data)
 		var new_match_id: String = state_data.get("match_id", "")
+		var origin_seed: int = state_data.get("match_seed", 0)
 
 		print("new_match_id = %s" % new_match_id)
-
+		
+		var socket: NakamaSocket = NakamaConnection.get_socket()
 		var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 		if leave_match_result.is_exception():
 			push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
@@ -142,6 +117,15 @@ func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 			return
 
 		_match_id = new_match_id
+		
+		# TODO: get a list of match presences here
+		
+		var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
+		var game_length: int = _current_room_config.get_game_length()
+		var game_mode: GameMode.enm = _current_room_config.get_game_mode()
+#		_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
+	
+		print("this is where start_game() would get called")
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -149,6 +133,9 @@ func _on_refresh_match_list_timer_timeout():
 #	is visible
 	if !_online_room_list_menu.is_visible():
 		return
+
+	var client: NakamaClient = NakamaConnection.get_client()
+	var session: NakamaSession = NakamaConnection.get_session()
 
 	var min_players: int = 0
 	var max_players: int = 10
@@ -176,6 +163,8 @@ func _on_online_room_list_menu_join_pressed():
 		
 		return
 	
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(selected_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
@@ -198,7 +187,8 @@ func _on_online_room_list_menu_join_pressed():
 		return
 
 	_current_room_config = match_config
-	
+	_state = State.LOBBY
+
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
 #	NOTE: hide start button if client is not host because only the host
 #	should be able to start the game
@@ -215,6 +205,7 @@ func _get_match_config_from_label(match_label: String) -> RoomConfig:
 
 
 func _on_online_room_menu_leave_pressed():
+	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async(): %s" % leave_match_result)
@@ -223,19 +214,27 @@ func _on_online_room_menu_leave_pressed():
 		return
 	
 	_match_id = ""
-	
+	_state = State.IDLE
+
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM_LIST)
 
 
 func _on_online_room_menu_start_pressed():
 	print("_on_online_room_menu_start_pressed")
 		
-	var match = await socket.create_match_async();
-	print("Created transfer match with id %s." % match.match_id);
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	var match_ = await socket.create_match_async();
+	print("Created transfer match with id %s." % match_.match_id);
+	
+#	NOTE: match seed is generated once on host and shared with clients so that everyone in match has same randomness
+	var match_seed: int = randi()
 
-	var data_dict: Dictionary = {"match_id": match.match_id}
+	var data_dict: Dictionary = {
+		"match_id": match_.match_id,
+		"match_seed": match_seed,
+	}
 	var data: String = JSON.stringify(data_dict)
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NAKAMA_OP_CODE_TRANSFER_FROM_LOBBY, data)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)

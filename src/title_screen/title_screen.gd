@@ -57,7 +57,7 @@ func _switch_to_main_tab():
 
 # NOTE: this function transitions the game from title screen to game scene. Can be called either by client itself or the host if the game is in multiplayer mode.
 @rpc("any_peer", "call_local", "reliable")
-func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
+func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int, connection_type: Globals.ConnectionType):
 #	NOTE: save game settings into globals so that GameScene
 #	can access them
 	Globals._player_mode = player_mode
@@ -65,6 +65,7 @@ func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMod
 	Globals._wave_count = wave_count
 	Globals._game_mode = game_mode
 	Globals._origin_seed = origin_seed
+	Globals._connection_type = connection_type
 	
 #	NOTE: need to add a delay so that the game properly
 #	switches to displaying LOADING tab before starting

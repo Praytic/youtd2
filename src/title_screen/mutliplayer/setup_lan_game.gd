@@ -198,6 +198,8 @@ func _on_lan_room_menu_start_pressed():
 		
 		return
 	
+	Globals.set_connection_type(Globals.ConnectionType.ENET)
+	
 	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
 	var game_length: int = _current_room_config.get_game_length()
 	var game_mode: GameMode.enm = _current_room_config.get_game_mode()
