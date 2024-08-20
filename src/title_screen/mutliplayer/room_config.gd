@@ -93,7 +93,7 @@ static func convert_from_bytes(bytes: PackedByteArray) -> RoomConfig:
 	return room_config
 
 
-func convert_to_string() -> String:
+func convert_to_dict() -> Dictionary:
 	var dict: Dictionary = {}
 	var difficulty_string: String = Difficulty.convert_to_string(_difficulty)
 	var game_mode_string: String = GameMode.convert_to_string(_game_mode)
@@ -101,21 +101,11 @@ func convert_to_string() -> String:
 	dict[KEY_DIFFICULTY] = difficulty_string
 	dict[KEY_GAME_MODE] = game_mode_string
 	dict[KEY_GAME_LENGTH] = game_length_string
-
-	var string: String = JSON.stringify(dict)
 	
-	return string
+	return dict
 
 
-static func convert_from_string(string: String) -> RoomConfig:
-	var parse_result = JSON.parse_string(string)
-	
-	var parse_failed: bool = parse_result == null
-	if parse_failed:
-		return null
-
-	var dict: Dictionary = parse_result
-	
+static func convert_from_dict(dict: Dictionary) -> RoomConfig:
 	var game_mode_string: String = dict.get(KEY_GAME_MODE, "")
 	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
 	var difficulty_string: String = dict.get(KEY_DIFFICULTY, "")
@@ -124,6 +114,7 @@ static func convert_from_string(string: String) -> RoomConfig:
 	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
 	
 	return room_config
+
 
 #########################
 ###      Private      ###
