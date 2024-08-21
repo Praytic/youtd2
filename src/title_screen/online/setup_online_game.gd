@@ -215,8 +215,7 @@ func _on_online_room_list_menu_join_pressed():
 
 func _get_match_config_from_label(match_label: String) -> RoomConfig:
 	var label_dict: Dictionary = JSON.parse_string(match_label)
-	var match_config_string: String = label_dict.get("match_config", "")
-	var match_config: RoomConfig = RoomConfig.convert_from_string(match_config_string)
+	var match_config: RoomConfig = RoomConfig.convert_from_dict(label_dict)
 	
 	return match_config
 
