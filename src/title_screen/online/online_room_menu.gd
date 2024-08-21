@@ -22,29 +22,19 @@ func set_start_button_visible(value: bool):
 	_start_button.visible = value
 
 
-func add_presences(presence_list: Array):
+func set_presences(presence_list: Array):
+	_player_list.clear()
+
 	for e in presence_list:
 		var presence: NakamaRTAPI.UserPresence = e
+		var user_id: String = presence.user_id
+		var username: String = presence.username
 
-		_player_list.add_item(presence.username)
+		_player_list.add_item(username)
 		
 		var new_item_index: int = _player_list.get_item_count() - 1
-		_player_list.set_item_metadata(new_item_index, presence.user_id)
+		_player_list.set_item_metadata(new_item_index, user_id)
 		_player_list.set_item_selectable(new_item_index, false)
-
-
-func remove_presences(presence_list: Array):
-	for e in presence_list:
-		var presence: NakamaRTAPI.UserPresence = e
-		
-		var found_index: int = _find_item_in_item_list_by_metadata(_player_list, presence.user_id)
-		
-		if found_index == -1:
-			push_error("Failed to find leaver in player list.")
-			
-			continue
-		
-		_player_list.remove_item(found_index)
 
 
 func display_room_config(room_config: RoomConfig):
@@ -52,21 +42,6 @@ func display_room_config(room_config: RoomConfig):
 	
 	_room_config_label.clear()
 	_room_config_label.append_text(room_config_string)
-
-
-func _find_item_in_item_list_by_metadata(item_list: ItemList, metadata: Variant) -> int:
-	var index: int = -1
-	
-	for i in item_list.get_item_count():
-		var this_metadata: Variant = item_list.get_item_metadata(i)
-		var metadata_matches: bool = this_metadata == metadata
-		
-		if metadata_matches:
-			index = i
-			
-			break
-	
-	return index
 
 
 #########################

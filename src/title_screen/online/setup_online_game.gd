@@ -17,6 +17,7 @@ var _match_id: String = ""
 var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
+var _presence_order_list: Array = []
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -79,26 +80,40 @@ func _on_create_online_room_menu_create_pressed():
 
 		return
 	
+	var lobby_match: NakamaRTAPI.Match = join_match_result
+	_save_presences(lobby_match.presences)
+	_save_presences([lobby_match.self_user])
+	
 	_match_id = match_id
 	_state = State.LOBBY
 
 	_is_host = true
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
+	_update_online_room_menu_presences()
 	_online_room_menu.set_start_button_visible(true)
 	_online_room_menu.display_room_config(_current_room_config)
 
 
-func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
-	if _online_room_menu.visible:
-		_online_room_menu.add_presences(presence_event.joins)
-		_online_room_menu.remove_presences(presence_event.leaves)
+func _update_online_room_menu_presences():
+	var presence_list: Array = []
 
+	for user_id in _presence_order_list:
+		var presence: NakamaRTAPI.UserPresence = _presence_map[user_id]
+		presence_list.append(presence)
+
+	_online_room_menu.set_presences(presence_list)
+
+
+func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
 	for presence in presence_event.leaves:
 		_presence_map.erase(presence.user_id)
+		_presence_order_list.erase(presence.user_id)
 
-	for presence in presence_event.joins:
-		_presence_map[presence.user_id] = presence
+	_save_presences(presence_event.joins)
+
+	if _online_room_menu.visible:
+		_update_online_room_menu_presences()
 
 
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
@@ -168,15 +183,17 @@ func _on_online_room_list_menu_join_pressed():
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
+		_match_id = ""
 
 		return
 
-	var joined_match: NakamaRTAPI.Match = join_match_result
-	_online_room_menu.add_presences(joined_match.presences)
-
 	_match_id = selected_match_id
 
-	var match_label: String = joined_match.label
+	var game_match: NakamaRTAPI.Match = join_match_result
+	_save_presences(game_match.presences)
+	_save_presences([game_match.self_user])
+
+	var match_label: String = game_match.label
 	var match_config = _get_match_config_from_label(match_label)
 
 #	TODO: make it possible to recover from this error state
@@ -189,6 +206,7 @@ func _on_online_room_list_menu_join_pressed():
 	_state = State.LOBBY
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
+	_update_online_room_menu_presences()
 #	NOTE: hide start button if client is not host because only the host
 #	should be able to start the game
 	_online_room_menu.set_start_button_visible(false)
@@ -241,16 +259,22 @@ func _on_online_room_menu_start_pressed():
 ###      Private      ###
 #########################
 
+func _save_presences(presence_list: Array):
+	for presence in presence_list:
+		_presence_map[presence.user_id] = presence
+
+		if !_presence_order_list.has(presence.user_id):
+			_presence_order_list.append(presence.user_id)
+
+
 func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchData):
 	print("_process_nakama_message_transfer_from_lobby")
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 	
 	var state_data: Dictionary = JSON.parse_string(match_state.data)
-	var new_match_id: String = state_data.get("match_id", "")
+	var game_match_id: String = state_data.get("match_id", "")
 
-	print("new_match_id = %s" % new_match_id)
-	
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
@@ -259,30 +283,33 @@ func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchD
 
 		return
 
-#		NOTE: clear presence map which contains presences
-#		collected for lobby. We're entering the real game
-#		match now so need to re-obtain presences.
-	_presence_map.clear()
+	_match_id = ""
 
-	var join_match_result: NakamaAsyncResult = await socket.join_match_async(new_match_id)
+#	NOTE: clear presence map which contains presences
+#	collected for lobby. We're entering the real game match
+#	now so need to re-obtain presences.
+	_presence_map.clear()
+	_presence_order_list.clear()
+
+	var join_match_result: NakamaAsyncResult = await socket.join_match_async(game_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
 
 		return
 
-	_match_id = new_match_id
+	_match_id = game_match_id
 
-#		NOTE: load existing presences right after joining
-#		the match. The rest will be added in the presence
-#		callback when they join the match.
-	var match: NakamaRTAPI.Match = join_match_result
-	for presence in match.presences:
-		_presence_map[presence.user_id] = presence
+#	NOTE: load existing presences right after joining the
+#	match. The rest will be added in the presence callback
+#	when they join the match.
+	var game_match: NakamaRTAPI.Match = join_match_result
+	_save_presences(game_match.presences)
+	_save_presences([game_match.self_user])
 
-#		Host waits a short period for all players to
-#		transfer from lobby match to game match, then
-#		initiates start of the game
+#	Host waits a short period for all players to transfer
+#	from lobby match to game match, then initiates start of
+#	the game
 	if _is_host:
 		await get_tree().create_timer(TIMEOUT_FOR_TRANSFER_FROM_LOBBY).timeout
 
