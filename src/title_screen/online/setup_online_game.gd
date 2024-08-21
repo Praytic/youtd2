@@ -24,6 +24,10 @@ var _presence_map: Dictionary = {}
 @export var _create_online_room_menu: CreateOnlineRoomMenu
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	NakamaConnection.connected.connect(_on_nakama_connected)
 
@@ -99,61 +103,9 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
 	if match_state.op_code == NakamaOpCode.enm.TRANSFER_FROM_LOBBY:
-		print("received NakamaOpCode.enm.TRANSFER_FROM_LOBBY")
-		
-		_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
-		
-		var state_data: Dictionary = JSON.parse_string(match_state.data)
-		var new_match_id: String = state_data.get("match_id", "")
-
-		print("new_match_id = %s" % new_match_id)
-		
-		var socket: NakamaSocket = NakamaConnection.get_socket()
-		var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
-		if leave_match_result.is_exception():
-			push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
-			Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
-
-			return
-
-#		NOTE: clear presence map which contains presences
-#		collected for lobby. We're entering the real game
-#		match now so need to re-obtain presences.
-		_presence_map.clear()
-
-		var join_match_result: NakamaAsyncResult = await socket.join_match_async(new_match_id)
-		if join_match_result.is_exception():
-			push_error("Error in join_match_async rpc(): %s" % join_match_result)
-			Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
-
-			return
-
-		_match_id = new_match_id
-
-#		NOTE: load existing presences right after joining
-#		the match. The rest will be added in the presence
-#		callback when they join the match.
-		var match: NakamaRTAPI.Match = join_match_result
-		for presence in match.presences:
-			_presence_map[presence.user_id] = presence
-
-#		Host waits a short period for all players to
-#		transfer from lobby match to game match, then
-#		initiates start of the game
-		if _is_host:
-			await get_tree().create_timer(TIMEOUT_FOR_TRANSFER_FROM_LOBBY).timeout
-
-			_send_start_game_message()
+		_process_nakama_message_transfer_from_lobby(match_state)
 	elif match_state.op_code == NakamaOpCode.enm.START_GAME:
-		print("received NakamaOpCode.enm.START_GAME")
-		
-		var state_data: Dictionary = JSON.parse_string(match_state.data)
-		var match_seed: int = state_data.get("match_seed", 0)
-
-		var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
-		var game_length: int = _current_room_config.get_game_length()
-		var game_mode: GameMode.enm = _current_room_config.get_game_mode()
-		_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, match_seed, Globals.ConnectionType.NAKAMA)
+		_process_nakama_message_start_game(match_state)
 
 
 func _send_start_game_message():
@@ -283,3 +235,72 @@ func _on_online_room_menu_start_pressed():
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
 
 		return
+
+
+#########################
+###      Private      ###
+#########################
+
+func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchData):
+	print("_process_nakama_message_transfer_from_lobby")
+	
+	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
+	
+	var state_data: Dictionary = JSON.parse_string(match_state.data)
+	var new_match_id: String = state_data.get("match_id", "")
+
+	print("new_match_id = %s" % new_match_id)
+	
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	if leave_match_result.is_exception():
+		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+
+		return
+
+#		NOTE: clear presence map which contains presences
+#		collected for lobby. We're entering the real game
+#		match now so need to re-obtain presences.
+	_presence_map.clear()
+
+	var join_match_result: NakamaAsyncResult = await socket.join_match_async(new_match_id)
+	if join_match_result.is_exception():
+		push_error("Error in join_match_async rpc(): %s" % join_match_result)
+		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
+
+		return
+
+	_match_id = new_match_id
+
+#		NOTE: load existing presences right after joining
+#		the match. The rest will be added in the presence
+#		callback when they join the match.
+	var match: NakamaRTAPI.Match = join_match_result
+	for presence in match.presences:
+		_presence_map[presence.user_id] = presence
+
+#		Host waits a short period for all players to
+#		transfer from lobby match to game match, then
+#		initiates start of the game
+	if _is_host:
+		await get_tree().create_timer(TIMEOUT_FOR_TRANSFER_FROM_LOBBY).timeout
+
+		_send_start_game_message()
+
+
+func _process_nakama_message_start_game(match_state: NakamaRTAPI.MatchData):
+	print("received NakamaOpCode.enm.START_GAME")
+	
+	var state_data: Dictionary = JSON.parse_string(match_state.data)
+	var match_seed: int = state_data.get("match_seed", 0)
+
+	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
+	var game_length: int = _current_room_config.get_game_length()
+	var game_mode: GameMode.enm = _current_room_config.get_game_mode()
+	_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, match_seed, Globals.ConnectionType.NAKAMA)
+
+
+#########################
+###     Callbacks     ###
+#########################
