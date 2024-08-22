@@ -1,8 +1,9 @@
 extends Node
 
 
+# NOTE: singleplayer is also treated as ENET type so there's
+# no "NONE" connection
 enum ConnectionType {
-	NONE,
 	ENET,
 	NAKAMA
 }
@@ -18,7 +19,7 @@ var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _origin_seed: int = 0
 var _update_ticks_per_physics_tick: int = 1
 var _nakama_server_key: String = ""
-var _connection_type: ConnectionType = ConnectionType.NONE
+var _connection_type: ConnectionType = ConnectionType.ENET
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
