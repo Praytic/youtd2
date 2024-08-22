@@ -88,13 +88,13 @@ focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Singleplayer"
 
-[node name="OnlineButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
+[node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Online"
+text = "Multiplayer"
 
-[node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
+[node name="LANButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
@@ -197,8 +197,8 @@ text = "[center][font_size=60]LOADING[/font_size][/center]"
 fit_content = true
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/AuthButton" to="." method="_on_auth_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

@@ -88,7 +88,7 @@ func _on_singleplayer_button_pressed():
 	_tab_container.current_tab = Tab.CONFIGURE_SINGLEPLAYER
 
 
-func _on_multiplayer_button_pressed():
+func _on_lan_button_pressed():
 	_tab_container.current_tab = Tab.ROOM_LIST
 
 
@@ -148,7 +148,7 @@ func _on_auth_menu_finished():
 	_switch_to_main_tab()
 
 
-func _on_online_button_pressed():
+func _on_multiplayer_button_pressed():
 	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
 
 
