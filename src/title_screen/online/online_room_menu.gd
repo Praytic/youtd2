@@ -30,7 +30,15 @@ func set_presences(presence_list: Array):
 		var user_id: String = presence.user_id
 		var username: String = presence.username
 
-		_player_list.add_item(username)
+		var host_user_id: String = NakamaConnection.get_host_user_id()
+		var user_is_host: bool = user_id == host_user_id
+
+		var item_text: String = username
+
+		if user_is_host:
+			item_text += " (Host)"
+
+		_player_list.add_item(item_text)
 		
 		var new_item_index: int = _player_list.get_item_count() - 1
 		_player_list.set_item_metadata(new_item_index, user_id)
