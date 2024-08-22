@@ -18,7 +18,6 @@ var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
-var _host_user_id: String = ""
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -91,7 +90,9 @@ func _on_create_online_room_menu_create_pressed():
 	
 	_match_id = match_id
 	_state = State.LOBBY
-	_host_user_id = _get_host_user_id_for_match(lobby_match)
+
+	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
+	NakamaConnection.set_host_user_id(host_user_id)
 
 	_is_host = true
 	
@@ -123,6 +124,10 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 
 
 func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
+	var sender_is_valid: bool = NakamaOpCode.validate_message_sender(match_state)
+	if !sender_is_valid:
+		return
+
 	if match_state.op_code == NakamaOpCode.enm.TRANSFER_FROM_LOBBY:
 		_process_nakama_message_transfer_from_lobby(match_state)
 	elif match_state.op_code == NakamaOpCode.enm.START_GAME:
@@ -197,7 +202,9 @@ func _on_online_room_list_menu_join_pressed():
 	var lobby_match: NakamaRTAPI.Match = join_match_result
 
 	_match_id = selected_match_id
-	_host_user_id = _get_host_user_id_for_match(lobby_match)
+
+	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
+	NakamaConnection.set_host_user_id(host_user_id)
 
 	_save_presences(lobby_match.presences)
 	_save_presences([lobby_match.self_user])

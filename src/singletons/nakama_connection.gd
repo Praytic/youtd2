@@ -10,6 +10,7 @@ signal connected()
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
+var _host_user_id: String = ""
 
 
 func _ready():
@@ -66,3 +67,11 @@ func get_session() -> NakamaSession:
 
 func get_socket() -> NakamaSocket:
 	return _socket
+
+
+func set_host_user_id(value: String):
+	_host_user_id = value
+
+
+func get_host_user_id() -> String:
+	return _host_user_id
