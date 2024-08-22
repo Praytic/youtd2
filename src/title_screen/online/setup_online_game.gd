@@ -18,6 +18,7 @@ var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
+var _host_user_id: String = ""
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -50,9 +51,14 @@ func _on_create_online_room_menu_create_pressed():
 	var match_config_dict: Dictionary = _current_room_config.convert_to_dict()
 	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
+	
+	var session: NakamaSession = NakamaConnection.get_session()
+	
+	var my_user_id: String = session.user_id
 
 	var match_params_dict: Dictionary = {
 		"host_username": host_username,
+		"host_user_id": my_user_id,
 		"player_count_max": 2,
 		"is_private": false,
 		"creation_time": creation_time,
@@ -60,7 +66,6 @@ func _on_create_online_room_menu_create_pressed():
 	match_params_dict.merge(match_config_dict)
 
 	var match_params_string: String = JSON.stringify(match_params_dict)
-	var session: NakamaSession = NakamaConnection.get_session()
 	var client: NakamaClient = NakamaConnection.get_client()
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", match_params_string)
@@ -86,6 +91,7 @@ func _on_create_online_room_menu_create_pressed():
 	
 	_match_id = match_id
 	_state = State.LOBBY
+	_host_user_id = _get_host_user_id_for_match(lobby_match)
 
 	_is_host = true
 	
@@ -165,6 +171,7 @@ func _on_refresh_match_list_timer_timeout():
 		return
 	
 	var match_list: Array = list_matches_result.matches
+
 	_online_room_list_menu.update_match_list(match_list)
 
 
@@ -187,13 +194,15 @@ func _on_online_room_list_menu_join_pressed():
 
 		return
 
+	var lobby_match: NakamaRTAPI.Match = join_match_result
+
 	_match_id = selected_match_id
+	_host_user_id = _get_host_user_id_for_match(lobby_match)
 
-	var game_match: NakamaRTAPI.Match = join_match_result
-	_save_presences(game_match.presences)
-	_save_presences([game_match.self_user])
+	_save_presences(lobby_match.presences)
+	_save_presences([lobby_match.self_user])
 
-	var match_label: String = game_match.label
+	var match_label: String = lobby_match.label
 	var match_config = _get_match_config_from_label(match_label)
 
 #	TODO: make it possible to recover from this error state
@@ -257,6 +266,20 @@ func _on_online_room_menu_start_pressed():
 #########################
 ###      Private      ###
 #########################
+
+func _get_host_user_id_for_match(match_: NakamaRTAPI.Match) -> String:
+	var label_string: String = match_.label
+
+	var parse_result = JSON.parse_string(label_string)
+	var parse_failed: bool = parse_result == null
+	if parse_failed:
+		return ""
+
+	var label_dict: Dictionary = parse_result
+	var host_user_id: String = label_dict.get("host_user_id", "")
+
+	return host_user_id
+
 
 func _save_presences(presence_list: Array):
 	for presence in presence_list:
