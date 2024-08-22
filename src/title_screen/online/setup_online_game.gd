@@ -50,14 +50,12 @@ func _on_create_online_room_menu_create_pressed():
 	var match_config_dict: Dictionary = _current_room_config.convert_to_dict()
 	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
-	
-	var session: NakamaSession = NakamaConnection.get_session()
-	
-	var my_user_id: String = session.user_id
+		
+	var local_user_id: String = NakamaConnection.get_local_user_id()
 
 	var match_params_dict: Dictionary = {
 		"host_username": host_username,
-		"host_user_id": my_user_id,
+		"host_user_id": local_user_id,
 		"player_count_max": 2,
 		"is_private": false,
 		"creation_time": creation_time,
@@ -67,6 +65,7 @@ func _on_create_online_room_menu_create_pressed():
 	var match_params_string: String = JSON.stringify(match_params_dict)
 	var client: NakamaClient = NakamaConnection.get_client()
 	var socket: NakamaSocket = NakamaConnection.get_socket()
+	var session: NakamaSession = NakamaConnection.get_session()
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", match_params_string)
 	if create_match_result.is_exception():
 		push_error("Error in create_match rpc(): %s" % create_match_result)
@@ -145,7 +144,9 @@ func _send_start_game_message():
 	}
 	var data: String = JSON.stringify(data_dict)
 	var socket: NakamaSocket = NakamaConnection.get_socket()
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.START_GAME, data)
+#	NOTE: pass presence list explicitly to send match state
+#	to the host itself as well
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.START_GAME, data, _presence_map.values())
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
@@ -345,11 +346,25 @@ func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchD
 		_send_start_game_message()
 
 
+# TODO: it is theoretically possible to get a desync
+# scenario during game start because of mismatched presence
+# list. If one player disconnects exactly during the start
+# of the game, then the clients will receive disconnect
+# message at different times. This will result in clients
+# having different presence lists.
+# 
+# Can passing presence list from host before starting the
+# game. All clients will then set their presence lists to be
+# same as host's.
 func _process_nakama_message_start_game(match_state: NakamaRTAPI.MatchData):
 	print("received NakamaOpCode.enm.START_GAME")
 	
 	var state_data: Dictionary = JSON.parse_string(match_state.data)
 	var match_seed: int = state_data.get("match_seed", 0)
+
+#	NOTE: save presence map in NakamaConnection singleton so
+#	that it can be accessed in game scene
+	NakamaConnection._presence_map = _presence_map
 
 	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
 	var game_length: int = _current_room_config.get_game_length()

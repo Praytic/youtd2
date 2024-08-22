@@ -85,36 +85,12 @@ func _ready():
 		print_verbose("Host set origin seed to: ", origin_seed)
 	else:
 		print_verbose("Peer received origin seed from host: ", origin_seed)
+
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+	match connection_type:
+		Globals.ConnectionType.NAKAMA: _setup_players_nakama()
+		Globals.ConnectionType.ENET: _setup_players_enet()
 	
-#	Create local player and remote players
-	var peer_id_list: Array[int] = []
-	var local_peer_id: int = multiplayer.get_unique_id()
-	peer_id_list.append(local_peer_id)
-	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
-	for peer_id in remote_peer_id_list:
-		peer_id_list.append(peer_id)
-
-#	NOTE: create players in the order of peer id's to ensure determinism
-	peer_id_list.sort()
-	
-	if peer_id_list.size() > 2:
-		push_error("Too many players. Game supports at most 2.")
-
-		return
-	
-#	Create teams
-#	TODO: create an amount of teams which is appropriate for
-#	the amount of players and selected team mode
-	var team: Team = Team.make(1)
-	_team_container.add_team(team)
-
-#	TODO: implement different team modes and assign teams
-#	based on selected team mode
-	for peer_id in peer_id_list:
-		var player_id: int = peer_id_list.find(peer_id)
-		var player: Player = team.create_player(player_id, peer_id)
-		PlayerManager.add_player(player)
-
 	PlayerManager.send_players_created_signal()
 
 	var local_player: Player = PlayerManager.get_local_player()
@@ -148,11 +124,12 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-#	Share name of local player to others in multiplayer
-#	game
-	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
-	var player_name_action: Action = ActionSetPlayerName.make(local_player_name)
-	_game_client.add_action(player_name_action)
+#	Share name of local player to others in multiplayer game
+#	(only needed for Enet connection, not needed for Nakama)
+	if connection_type == Globals.ConnectionType.ENET:
+		var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+		var player_name_action: Action = ActionSetPlayerName.make(local_player_name)
+		_game_client.add_action(player_name_action)
 
 	var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
 	builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
@@ -279,6 +256,71 @@ func get_build_space() -> BuildSpace:
 #########################
 ###      Private      ###
 #########################
+
+func _setup_players_enet():
+	var peer_id_list: Array[int] = []
+	var local_peer_id: int = multiplayer.get_unique_id()
+	peer_id_list.append(local_peer_id)
+	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	for peer_id in remote_peer_id_list:
+		peer_id_list.append(peer_id)
+
+#	NOTE: create players in the order of peer id's to ensure determinism
+	peer_id_list.sort()
+	
+	if peer_id_list.size() > 2:
+		push_error("Too many players. Game supports at most 2.")
+
+		return
+	
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for
+#	the amount of players and selected team mode
+	var team: Team = Team.make(1)
+	_team_container.add_team(team)
+
+#	TODO: implement different team modes and assign teams
+#	based on selected team mode
+	for peer_id in peer_id_list:
+		var player_id: int = peer_id_list.find(peer_id)
+		var user_id: String = ""
+		var player: Player = team.create_player(player_id, peer_id, user_id)
+		PlayerManager.add_player(player)
+
+
+func _setup_players_nakama():
+	var presence_map: Dictionary = NakamaConnection.get_presence_map()
+	var user_id_list: Array = presence_map.keys()
+
+#	NOTE: create players in sorted order to ensure determinism
+	user_id_list.sort()
+	
+	if user_id_list.size() > 2:
+		push_error("Too many players. Game supports at most 2.")
+
+		return
+	
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for
+#	the amount of players and selected team mode
+	var team: Team = Team.make(1)
+	_team_container.add_team(team)
+
+#	TODO: implement different team modes and assign teams
+#	based on selected team mode
+	for user_id in user_id_list:
+		var player_id: int = user_id_list.find(user_id)
+		var presence: NakamaRTAPI.UserPresence = presence_map[user_id]
+		var username: String = presence.username
+		var peer_id: int = -1
+		var player: Player = team.create_player(player_id, peer_id, user_id)
+		PlayerManager.add_player(player)
+
+#		NOTE: unlike Enet connection where we need to
+#		exchange player names, for Nakama connection we have access to
+#		username right here so set it here.
+		player.set_player_name(username)
+
 
 func _start_game():
 	_game_start_timer.stop()

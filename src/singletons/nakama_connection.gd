@@ -11,6 +11,7 @@ var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
 var _host_user_id: String = ""
+var _presence_map: Dictionary = {}
 
 
 func _ready():
@@ -75,3 +76,13 @@ func set_host_user_id(value: String):
 
 func get_host_user_id() -> String:
 	return _host_user_id
+
+
+func get_presence_map() -> Dictionary:
+	return _presence_map
+
+
+func get_local_user_id() -> String:
+	var local_user_id: String = _session.user_id
+
+	return local_user_id
