@@ -41,6 +41,9 @@ var _time_when_sent_ping: int = 0
 #########################
 
 func _ready():
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	socket.received_match_state.connect(_on_nakama_received_match_state)
+
 	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 	if tick_rate != 30:
@@ -68,25 +71,24 @@ func _physics_process(_delta: float):
 ###       Public      ###
 #########################
 
-func send_ready_message():
-	_game_host.receive_player_ready.rpc_id(1)
+func send_message_PLAYER_LOADED_GAME_SCENE():
+	var op_code: int = NakamaOpCode.enm.PLAYER_LOADED_GAME_SCENE
+	var data: Dictionary = {}
+	_send_message_to_host(op_code, data)
+
+
+@rpc("authority", "call_local", "reliable")
+func receive_enet_message(op_code: NakamaOpCode.enm, data: Dictionary):
+	_process_message_generic(op_code, data)
 
 
 # Send action from client to host
 func add_action(action: Action):
 	var serialized_action: Dictionary = action.serialize()
-	_game_host.receive_action.rpc_id(1, serialized_action)
 
-
-# Receive timeslot sent by host to this client and receive
-# turn length
-@rpc("authority", "call_local", "reliable")
-func receive_timeslot(timeslot: Array, current_turn_length: int):
-	var tick_for_this_timeslot: int = _timeslot_tick_queue.back()
-	_timeslot_map[tick_for_this_timeslot] = timeslot
-	var tick_for_next_timeslot: int = tick_for_this_timeslot + current_turn_length
-	_timeslot_tick_queue.append(tick_for_next_timeslot)
-	_current_turn_length = current_turn_length
+	var op_code: int = NakamaOpCode.enm.PLAYER_ACTION
+	var data: Dictionary = {"action": serialized_action}
+	_send_message_to_host(op_code, data)
 
 
 @rpc("authority", "call_local", "reliable")
@@ -114,6 +116,48 @@ func exit_waiting_for_lagging_players_state():
 #########################
 ###      Private      ###
 #########################
+
+# This f-n handles messages sent both through Enet and
+# Nakama connections.
+func _process_message_generic(op_code: int, data: Dictionary):
+	match op_code:
+		NakamaOpCode.enm.TIMESLOT: _process_message_TIMESLOT(data)
+		_: pass
+
+
+# Receive timeslot sent by host to this client and receive
+# turn length
+func _process_message_TIMESLOT(data: Dictionary):
+	var timeslot: Array = data.get("timeslot", [])
+	var current_turn_length: int = data.get("current_turn_length", 0)
+
+	var tick_for_this_timeslot: int = _timeslot_tick_queue.back()
+	_timeslot_map[tick_for_this_timeslot] = timeslot
+	var tick_for_next_timeslot: int = tick_for_this_timeslot + current_turn_length
+	_timeslot_tick_queue.append(tick_for_next_timeslot)
+	_current_turn_length = current_turn_length
+
+
+
+# NOTE: data dict must be serializable to JSON. It must
+# contain only built-in Godot types, no custom
+# types/classes.
+func _send_message_to_host(op_code: NakamaOpCode.enm, data: Dictionary):
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+
+	match connection_type:
+		Globals.ConnectionType.NAKAMA:
+			var data_string: String = JSON.stringify(data)
+			var socket: NakamaSocket = NakamaConnection.get_socket()
+			var match_id: String = NakamaConnection.get_match_id()
+			var host_presence: NakamaRTAPI.UserPresence = NakamaConnection.get_host_presence()
+			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(match_id, op_code, data_string, [host_presence])
+
+			if send_match_state_result.is_exception():
+				push_error("_send_message_to_host() failed. Error: %s" % send_match_state_result)
+		Globals.ConnectionType.ENET:
+			_game_host.receive_enet_message.rpc_id(1, op_code, data)
+
 
 func _should_tick(ticks_during_this_process: int) -> bool:
 # 	NOTE: need to limit ticks per process to not disrupt
@@ -156,10 +200,14 @@ func _do_tick():
 		_timeslot_map.erase(timeslot_tick)
 		_timeslot_tick_queue.pop_front()
 
+#		TODO: disabled call to receive_timeslot_ack() while
+#		integrating nakama. Make this work with nakama or
+#		get rid of this.
+
 #		Tell host that this client has processed this
 #		timeslot. Send checksum to check for desyncs.
-		var checksum: PackedByteArray = _calculate_game_state_checksum()
-		_game_host.receive_timeslot_ack.rpc_id(1, checksum)
+		# var checksum: PackedByteArray = _calculate_game_state_checksum()
+		# _game_host.receive_timeslot_ack.rpc_id(1, checksum)
 
 		for action in timeslot:
 			_execute_action(action)
@@ -205,7 +253,7 @@ func _calculate_game_state_checksum():
 # execute()'s require extra args like "map" which is a
 # further obstruction.
 func _execute_action(action: Dictionary):
-	var player_id: int = action[Action.Field.PLAYER_ID]
+	var player_id: int = action[Action.Field.PLAYER_ID] as int
 	var player: Player = PlayerManager.get_player(player_id)
 
 	if player == null:
@@ -277,4 +325,26 @@ func _update_state():
 
 func _on_ping_timer_timeout():
 	_time_when_sent_ping = Time.get_ticks_msec()
-	_game_host.receive_ping.rpc_id(1)
+	# TODO: disabled this while integrating nakama
+	# _game_host.receive_ping.rpc_id(1)
+
+
+# TODO: remove duplication of code here and same f-n in
+# GameHost.
+func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
+	var sender_is_valid: bool = NakamaOpCode.validate_message_sender(message)
+	if !sender_is_valid:
+		return
+
+	var op_code: int = message.op_code
+
+	var data_dict: Dictionary
+	var data_string: String = message.data
+	var parse_result = JSON.parse_string(data_string)
+	var parse_success: bool = parse_result != null
+	if parse_success:
+		data_dict = parse_result
+	else:
+		data_dict = {}
+
+	_process_message_generic(op_code, data_dict)

@@ -1,8 +1,11 @@
 extends Node
 
 
-# Stores Nakama objects which need to be persisted between title screen and
-# game scene.
+# Stores Nakama objects which need to be persisted between
+# title screen and game scene. This class is used if
+# connection type is Nakama - it is completely unused
+# otherwise, if connection is Enet - for singleplayer or
+# LAN.
 
 signal connected()
 
@@ -10,6 +13,7 @@ signal connected()
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
+var _match_id: String = ""
 var _host_user_id: String = ""
 var _presence_map: Dictionary = {}
 
@@ -78,8 +82,18 @@ func get_host_user_id() -> String:
 	return _host_user_id
 
 
+func get_host_presence() -> NakamaRTAPI.UserPresence:
+	var host_presence: NakamaRTAPI.UserPresence = _presence_map.get(_host_user_id, null)
+	
+	return host_presence
+
+
 func get_presence_map() -> Dictionary:
 	return _presence_map
+
+
+func get_match_id() -> String:
+	return _match_id
 
 
 func get_local_user_id() -> String:

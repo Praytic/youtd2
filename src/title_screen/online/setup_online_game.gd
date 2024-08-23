@@ -366,6 +366,8 @@ func _process_nakama_message_start_game(match_state: NakamaRTAPI.MatchData):
 #	that it can be accessed in game scene
 	NakamaConnection._presence_map = _presence_map
 
+	NakamaConnection._match_id = _match_id
+
 	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
 	var game_length: int = _current_room_config.get_game_length()
 	var game_mode: GameMode.enm = _current_room_config.get_game_mode()

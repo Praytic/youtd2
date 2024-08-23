@@ -7,12 +7,16 @@ class_name NakamaOpCode extends Node
 enum enm {
 	TRANSFER_FROM_LOBBY = 1,
 	START_GAME = 2,
+	PLAYER_LOADED_GAME_SCENE = 3,
+	TIMESLOT = 4,
+	PLAYER_ACTION = 5,
 }
 
 
 const _op_codes_reserved_for_host: Array = [
 	NakamaOpCode.enm.TRANSFER_FROM_LOBBY,
 	NakamaOpCode.enm.START_GAME,
+	NakamaOpCode.enm.TIMESLOT,
 ]
 
 

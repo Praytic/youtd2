@@ -66,8 +66,12 @@ var _player_ready_map: Dictionary = {}
 #########################
 
 func _ready():
-	if !multiplayer.is_server():
+	var is_host: bool = _get_client_is_host()
+	if !is_host:
 		return
+
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	socket.received_match_state.connect(_on_nakama_received_match_state)
 
 	PlayerManager.players_created.connect(_on_players_created)
 	
@@ -79,7 +83,8 @@ func _ready():
 
 
 func _physics_process(_delta: float):
-	if !multiplayer.is_server():
+	var is_host: bool = _get_client_is_host()
+	if !is_host:
 		return
 
 	match _state:
@@ -92,21 +97,12 @@ func _physics_process(_delta: float):
 ###       Public      ###
 #########################
 
-# Receive action sent from client to host. Actions are
-# compiled into timeslots - a group of actions from all
-# clients.
 @rpc("any_peer", "call_local", "reliable")
-func receive_action(action: Dictionary):
-#	NOTE: need to attach player id to action in this host
-#	function to ensure safety. If we were to let clients
-#	attach player_id to actions, then clients could attach
-#	any value.
+func receive_enet_message(op_code: NakamaOpCode.enm, data: Dictionary):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
-	var player_id: int = player.get_id()
-	action[Action.Field.PLAYER_ID] = player_id
 
-	_in_progress_timeslot.append(action)
+	_process_message_generic(op_code, data, player)
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -122,19 +118,59 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 	_player_checksum_map[player_id].append(checksum)
 
 
+@rpc("any_peer", "call_local", "reliable")
+func receive_ping():
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	_game_client.receive_pong.rpc_id(peer_id)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func receive_ping_time_for_player(ping_time: int):
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	_player_ping_time_map[player_id] = ping_time
+
+
+#########################
+###      Private      ###
+#########################
+
+# NOTE: data dict must be serializable to JSON. It must
+# contain only built-in Godot types, no custom
+# types/classes.
+func _send_message_to_clients(op_code: NakamaOpCode.enm, data: Dictionary):
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+
+	match connection_type:
+		Globals.ConnectionType.NAKAMA:
+			var data_string: String = JSON.stringify(data)
+			var socket: NakamaSocket = NakamaConnection.get_socket()
+			var match_id: String = NakamaConnection.get_match_id()
+			var host_presence: NakamaRTAPI.UserPresence = NakamaConnection.get_host_presence()
+			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(match_id, op_code, data_string, [host_presence])
+
+			if send_match_state_result.is_exception():
+				push_error("_send_message_to_host() failed. Error: %s" % send_match_state_result)
+		Globals.ConnectionType.ENET:
+			_game_client.receive_enet_message.rpc(op_code, data)
+
+
+# This f-n handles messages sent both through Enet and
+# Nakama connections.
+func _process_message_generic(op_code: int, data: Dictionary, player: Player):
+	match op_code:
+		NakamaOpCode.enm.PLAYER_LOADED_GAME_SCENE: _process_message_PLAYER_LOADED_GAME_SCENE(data, player)
+		NakamaOpCode.enm.PLAYER_ACTION: _process_message_PLAYER_ACTION(data, player)
+		_: pass
+
+
 # TODO: handle case where some player is not ready. Need to
 # show this as message to all players as "Waiting for
 # players...". Also need to add an option to leave the game
 # if the wait is too long.
-
-# Called by players to let the host know that player is
-# loaded and ready to start simulating the game. Host will
-# not start incrementing simulation ticks until all players
-# are ready.
-@rpc("any_peer", "call_local", "reliable")
-func receive_player_ready():
-	var peer_id: int = multiplayer.get_remote_sender_id()
-	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+func _process_message_PLAYER_LOADED_GAME_SCENE(_data: Dictionary, player: Player):
 	var player_id: int = player.get_id()
 
 	_player_ready_map[player_id] = true
@@ -157,24 +193,21 @@ func receive_player_ready():
 		_send_timeslot()
 
 
-@rpc("any_peer", "call_local", "reliable")
-func receive_ping():
-	var peer_id: int = multiplayer.get_remote_sender_id()
-	_game_client.receive_pong.rpc_id(peer_id)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func receive_ping_time_for_player(ping_time: int):
-	var peer_id: int = multiplayer.get_remote_sender_id()
-	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+# Receive action sent from client to host. Actions are
+# compiled into timeslots - a group of actions from all
+# clients.
+# 
+# NOTE: need to attach player id to action in this host
+# function to ensure safety. If we were to let clients
+# attach player_id to actions, then clients could attach any
+# value.
+func _process_message_PLAYER_ACTION(data: Dictionary, player: Player):
+	var action: Dictionary = data.get("action", {})
 	var player_id: int = player.get_id()
+	action[Action.Field.PLAYER_ID] = player_id
 
-	_player_ping_time_map[player_id] = ping_time
+	_in_progress_timeslot.append(action)
 
-
-#########################
-###      Private      ###
-#########################
 
 func _update_state_running():
 	var lagging_player_list: Array[Player] = _get_lagging_players()
@@ -221,7 +254,14 @@ func _send_timeslot():
 
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_game_client.receive_timeslot.rpc(timeslot, _current_turn_length)
+	
+	var op_code: NakamaOpCode.enm = NakamaOpCode.enm.TIMESLOT
+	var data: Dictionary = {
+		"timeslot": timeslot,
+		"current_turn_length": _current_turn_length,
+	}
+	_send_message_to_clients(op_code, data)
+
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
 
@@ -269,6 +309,10 @@ func _get_highest_ping() -> int:
 # NOTE: player is considered to be lagging if the last
 # timeslot ACK is too old.
 func _get_lagging_players() -> Array[Player]:
+#	TODO: disabled this while integrating nakama. Make this
+#	work with nakama or get rid of this.
+	return []
+
 	var lagging_player_list: Array[Player] = []
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
@@ -337,6 +381,21 @@ func get_player_name_list(player_list: Array[Player]) -> Array[String]:
 	return result
 
 
+func _get_client_is_host() -> bool:
+	var is_host: bool = false
+
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+
+	match connection_type:
+		Globals.ConnectionType.NAKAMA:
+			var local_user_id: String = NakamaConnection.get_local_user_id()
+			var host_user_id: String = NakamaConnection.get_host_user_id()
+			is_host = local_user_id == host_user_id
+		Globals.ConnectionType.ENET: is_host = multiplayer.is_server()
+
+	return is_host
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -350,3 +409,29 @@ func _on_players_created():
 		_player_ack_count_map[player_id] = 0
 		_player_checksum_map[player_id] = []
 		_player_ping_time_map[player_id] = 0
+
+
+# NOTE: don't need to check that client is host here because
+# if client is not host, then this callback is not connected
+# and this callback will never get called.
+func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
+	var sender_is_valid: bool = NakamaOpCode.validate_message_sender(message)
+	if !sender_is_valid:
+		return
+
+	var op_code: int = message.op_code
+
+	var data_dict: Dictionary
+	var data_string: String = message.data
+	var parse_result = JSON.parse_string(data_string)
+	var parse_success: bool = parse_result != null
+	if parse_success:
+		data_dict = parse_result
+	else:
+		data_dict = {}
+
+	var sender_presence: NakamaRTAPI.UserPresence = message.presence
+	var sender_user_id: String = sender_presence.user_id
+	var player: Player = PlayerManager.get_player_by_nakama_user_id(sender_user_id)
+
+	_process_message_generic(op_code, data_dict, player)

@@ -81,10 +81,7 @@ func _ready():
 # 	on this game client is the same as on all other clients.
 	Globals.synced_rng.set_seed(origin_seed)
 	
-	if multiplayer.is_server():
-		print_verbose("Host set origin seed to: ", origin_seed)
-	else:
-		print_verbose("Peer received origin seed from host: ", origin_seed)
+	print_verbose("Origin seed to: ", origin_seed)
 
 	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
 	match connection_type:
@@ -175,10 +172,10 @@ func _ready():
 	if Config.run_test_item_drop_chances():
 		TestItemDropChances.run()
 
-#	NOTE: need to send ready message for multiplayer at this
-#	point because the end of GameScene._ready() is when the
-#	whole game is ready.
-	_game_client.send_ready_message()
+#	NOTE: need to send PLAYER_LOADED_GAME_SCENE message for
+#	multiplayer at this point because the end of
+#	GameScene._ready() is when the whole game is ready.
+	_game_client.send_message_PLAYER_LOADED_GAME_SCENE()
 
 
 func _unhandled_input(event: InputEvent):
