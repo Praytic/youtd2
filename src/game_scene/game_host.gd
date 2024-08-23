@@ -140,12 +140,18 @@ func receive_ping_time_for_player(ping_time: int):
 # NOTE: data dict must be serializable to JSON. It must
 # contain only built-in Godot types, no custom
 # types/classes.
+# 
+# NOTE: In case of Nakama connection, data must be converted
+# to string via Marshalls.variant_to_base64() instead of
+# converting to JSON string. JSON causes problems because it
+# messes with types of keys and values (all keys to string,
+# all number values to float).
 func _send_message_to_clients(op_code: NakamaOpCode.enm, data: Dictionary):
 	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
 
 	match connection_type:
 		Globals.ConnectionType.NAKAMA:
-			var data_string: String = JSON.stringify(data)
+			var data_string: String = Marshalls.variant_to_base64(data)
 			var socket: NakamaSocket = NakamaConnection.get_socket()
 			var match_id: String = NakamaConnection.get_match_id()
 			var host_presence: NakamaRTAPI.UserPresence = NakamaConnection.get_host_presence()
@@ -421,17 +427,18 @@ func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
 
 	var op_code: int = message.op_code
 
-	var data_dict: Dictionary
 	var data_string: String = message.data
-	var parse_result = JSON.parse_string(data_string)
-	var parse_success: bool = parse_result != null
-	if parse_success:
-		data_dict = parse_result
-	else:
-		data_dict = {}
+
+	var base64_to_raw_result = Marshalls.base64_to_variant(data_string)
+	if base64_to_raw_result == null || !base64_to_raw_result is Dictionary:
+		push_error("Received message with invalid data: \"%s\"" % data_string)
+
+		return
+
+	var data: Dictionary = base64_to_raw_result
 
 	var sender_presence: NakamaRTAPI.UserPresence = message.presence
 	var sender_user_id: String = sender_presence.user_id
 	var player: Player = PlayerManager.get_player_by_nakama_user_id(sender_user_id)
 
-	_process_message_generic(op_code, data_dict, player)
+	_process_message_generic(op_code, data, player)

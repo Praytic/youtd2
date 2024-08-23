@@ -147,7 +147,7 @@ func _send_message_to_host(op_code: NakamaOpCode.enm, data: Dictionary):
 
 	match connection_type:
 		Globals.ConnectionType.NAKAMA:
-			var data_string: String = JSON.stringify(data)
+			var data_string: String = Marshalls.variant_to_base64(data)
 			var socket: NakamaSocket = NakamaConnection.get_socket()
 			var match_id: String = NakamaConnection.get_match_id()
 			var host_presence: NakamaRTAPI.UserPresence = NakamaConnection.get_host_presence()
@@ -338,13 +338,13 @@ func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
 
 	var op_code: int = message.op_code
 
-	var data_dict: Dictionary
 	var data_string: String = message.data
-	var parse_result = JSON.parse_string(data_string)
-	var parse_success: bool = parse_result != null
-	if parse_success:
-		data_dict = parse_result
-	else:
-		data_dict = {}
+	var base64_to_raw_result = Marshalls.base64_to_variant(data_string)
+	if base64_to_raw_result == null || !base64_to_raw_result is Dictionary:
+		push_error("Received message with invalid data: \"%s\"" % data_string)
 
-	_process_message_generic(op_code, data_dict)
+		return
+
+	var data: Dictionary = base64_to_raw_result
+
+	_process_message_generic(op_code, data)
