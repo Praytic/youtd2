@@ -154,8 +154,9 @@ func _send_message_to_clients(op_code: NakamaOpCode.enm, data: Dictionary):
 			var data_string: String = Marshalls.variant_to_base64(data)
 			var socket: NakamaSocket = NakamaConnection.get_socket()
 			var match_id: String = NakamaConnection.get_match_id()
-			var host_presence: NakamaRTAPI.UserPresence = NakamaConnection.get_host_presence()
-			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(match_id, op_code, data_string, [host_presence])
+			var presence_map: Dictionary = NakamaConnection.get_presence_map()
+			var presence_list: Array = presence_map.values()
+			var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(match_id, op_code, data_string, presence_list)
 
 			if send_match_state_result.is_exception():
 				push_error("_send_message_to_host() failed. Error: %s" % send_match_state_result)
