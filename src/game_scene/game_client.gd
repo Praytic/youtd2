@@ -16,6 +16,15 @@ class_name GameClient extends Node
 # The end result is that clients are synchronized.
 
 
+# NOTE: these values determine the "catch up" window. When
+# the client falls behind latest timeslot by "start" value,
+# it will start to catch up by fast forwarding (multiple
+# game ticks per physics tick). Client will keep fast
+# forwarding until reaching the "stop" value. Start and stop
+# values are multiples of current turn length.
+const CATCH_UP_STOP: float = 0.25
+const CATCH_UP_START: float = 1.5
+
 var _tick_delta: float
 var _current_tick: int = 0
 var _current_turn_length: int = 0
@@ -26,6 +35,7 @@ var _current_turn_length: int = 0
 var _timeslot_map: Dictionary = {}
 var _timeslot_tick_queue: Array = [0]
 var _time_when_sent_ping: int = 0
+var _catch_up_in_progress: bool = false
 
 
 @export var _game_host: GameHost
@@ -129,13 +139,31 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 	var have_timeslot: bool = _timeslot_map.has(timeslot_tick)
 	if need_timeslot && !have_timeslot:
 		return false
-	
+
 #	If client tick is behind host tick, catch up by fast
-#	forwarding
-	var latest_timeslot_tick: int = _timeslot_tick_queue.back()
-	var need_to_fast_forward: bool = latest_timeslot_tick - _current_tick > 2 * _current_turn_length
-	if need_to_fast_forward:
-		return true
+#	forwarding. Trigger fast forward by returning true which
+#	causes extra ticks.
+	if !_timeslot_map.is_empty():
+		var timeslot_tick_list: Array = _timeslot_map.keys()
+		timeslot_tick_list.sort()
+		var latest_timeslot_tick: int = timeslot_tick_list.back()
+
+		var catch_up_stop: int = ceili(_current_turn_length * CATCH_UP_STOP)
+		var catch_up_start: int = ceili(_current_turn_length * CATCH_UP_START)
+		var current_lag: int = latest_timeslot_tick - _current_tick
+		var should_start_catch_up: bool = current_lag > catch_up_start
+		var should_stop_catch_up: bool = current_lag <= catch_up_stop
+
+		if _catch_up_in_progress:
+			if should_stop_catch_up:
+				_catch_up_in_progress = false
+			else:
+				return true
+		else:
+			if should_start_catch_up:
+				_catch_up_in_progress = true
+
+				return true
 
 #	Tick once per process if don't need to fast forward
 	var is_first_tick_during_process: bool = ticks_during_this_process == 0
