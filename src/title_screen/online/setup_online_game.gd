@@ -8,6 +8,10 @@ enum State {
 }
 
 
+enum NakamaOpCode {
+	TRANSFER_FROM_LOBBY = 1,
+}
+
 const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
 
 
@@ -18,6 +22,7 @@ var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
+var _expected_player_count: int = -1
 
 @export var _title_screen: TitleScreen
 @export var _online_room_list_menu: OnlineRoomListMenu
@@ -122,36 +127,12 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 		_update_online_room_menu_presences()
 
 
-func _on_nakama_received_match_state(match_state: NakamaRTAPI.MatchData):
-	var sender_is_valid: bool = NakamaOpCode.validate_message_sender(match_state)
-	if !sender_is_valid:
-		return
-
-	if match_state.op_code == NakamaOpCode.enm.TRANSFER_FROM_LOBBY:
-		_process_nakama_message_transfer_from_lobby(match_state)
-	elif match_state.op_code == NakamaOpCode.enm.START_GAME:
-		_process_nakama_message_start_game(match_state)
-
-
-func _send_start_game_message():
-#	NOTE: match seed is generated once on host and shared
-#	with clients so that everyone in match has same
-#	randomness
-	var match_seed: int = randi()
-
-	var data_dict: Dictionary = {
-		"match_seed": match_seed,
-	}
-	var data: String = JSON.stringify(data_dict)
-	var socket: NakamaSocket = NakamaConnection.get_socket()
-#	NOTE: pass presence list explicitly to send match state
-#	to the host itself as well
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.START_GAME, data, _presence_map.values())
-	if send_match_state_result.is_exception():
-		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
-		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
-
-		return
+func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
+	var op_code: int = message.op_code
+	
+	match op_code:
+		NakamaOpCode.TRANSFER_FROM_LOBBY: _process_nakama_message_transfer_from_lobby(message)
+		_: pass
 
 
 func _on_refresh_match_list_timer_timeout():
@@ -252,12 +233,51 @@ func _on_online_room_menu_leave_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM_LIST)
 
 
+# NOTE: host doesn't leave the lobby match here, so that
+# host can send message to other peers to tell them to leave
+# the lobby match and go to game match.
+# 
+# Note that bridge.create_match() also automatically makes
+# the host joins the game match so host will be in 2 matches
+# at the same time. This is expected.
 func _on_online_room_menu_start_pressed():
 	print("_on_online_room_menu_start_pressed")
+	
+	_expected_player_count = _presence_map.size()
+
+	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 		
 	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
 	bridge.match_joined.connect(_on_bridge_match_joined)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+
+#	NOTE: continued in _on_bridge_match_joined()
 	bridge.create_match()
+
+
+# NOTE: subtract 1 from player count because get_peers() doesn't include local peer
+func _on_peer_connected(_peer_id: int):
+	print("_on_peer_connected")
+	var peer_id_list: Array = multiplayer.get_peers()
+	var peer_count: int = peer_id_list.size()
+	var all_peers_connected: bool = peer_count == _expected_player_count - 1
+
+	print("peer_id_list=", peer_id_list)
+	print("all_peers_connected=", all_peers_connected)
+	if all_peers_connected:
+		await get_tree().create_timer(1.0).timeout
+		
+#		NOTE: save presence map in NakamaConnection singleton so
+#		that it can be accessed in game scene
+		NakamaConnection._presence_map = _presence_map
+		NakamaConnection._match_id = _match_id
+
+		var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
+		var game_length: int = _current_room_config.get_game_length()
+		var game_mode: GameMode.enm = _current_room_config.get_game_mode()
+		var origin_seed: int = randi()
+
+		_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
 
 
 func _on_bridge_match_joined():
@@ -277,12 +297,25 @@ func _on_bridge_match_joined():
 	}
 
 	var data: String = JSON.stringify(data_dict)
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.TRANSFER_FROM_LOBBY, data)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
  
 		return
+
+#	Host sent the TRANSFER_FROM_LOBBY message so now it's
+#	okay to leave the lobby match
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	if leave_match_result.is_exception():
+		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+
+		return
+	
+	print("_expected_player_count=", _expected_player_count)
+	if _expected_player_count == 1:
+		_on_peer_connected(1)
 
 
 #########################
@@ -311,17 +344,17 @@ func _save_presences(presence_list: Array):
 			_presence_order_list.append(presence.user_id)
 
 
-func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchData):
+func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData):
+	if _is_host:
+		return
+
 	print("_process_nakama_message_transfer_from_lobby")
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 	
-	var state_data: Dictionary = JSON.parse_string(match_state.data)
+	var state_data: Dictionary = JSON.parse_string(message.data)
 	var game_match_id: String = state_data.get("match_id", "")
 
-#	NOTE: host also needs to leave the lobby match because
-#	NakamaMultiplayerBridge.create_match() automatically
-#	joins new match but doesn't leave old match.
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
@@ -338,47 +371,10 @@ func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchD
 	_presence_map.clear()
 	_presence_order_list.clear()
 
-	if !_is_host:
-		var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
-		await bridge.join_match(game_match_id)
+	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
+	await bridge.join_match(game_match_id)
 
 	_match_id = game_match_id
-	
-#	Host waits a short period for all players to transfer
-#	from lobby match to game match, then initiates start of
-#	the game
-	if _is_host:
-		await get_tree().create_timer(TIMEOUT_FOR_TRANSFER_FROM_LOBBY).timeout
-
-		_send_start_game_message()
-
-
-# TODO: it is theoretically possible to get a desync
-# scenario during game start because of mismatched presence
-# list. If one player disconnects exactly during the start
-# of the game, then the clients will receive disconnect
-# message at different times. This will result in clients
-# having different presence lists.
-# 
-# Can passing presence list from host before starting the
-# game. All clients will then set their presence lists to be
-# same as host's.
-func _process_nakama_message_start_game(match_state: NakamaRTAPI.MatchData):
-	print("received NakamaOpCode.enm.START_GAME")
-	
-	var state_data: Dictionary = JSON.parse_string(match_state.data)
-	var match_seed: int = state_data.get("match_seed", 0)
-
-#	NOTE: save presence map in NakamaConnection singleton so
-#	that it can be accessed in game scene
-	NakamaConnection._presence_map = _presence_map
-
-	NakamaConnection._match_id = _match_id
-
-	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
-	var game_length: int = _current_room_config.get_game_length()
-	var game_mode: GameMode.enm = _current_room_config.get_game_mode()
-	_title_screen.start_game(PlayerMode.enm.COOP, game_length, game_mode, difficulty, match_seed, Globals.ConnectionType.NAKAMA)
 
 
 #########################

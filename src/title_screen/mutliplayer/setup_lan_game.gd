@@ -35,9 +35,11 @@ var _peer_id_to_player_name_map: Dictionary = {}
 #########################
 
 func _ready():
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	multiplayer.peer_connected.connect(_on_peer_connected)
-	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+#	TODO: disabled because this gets called during online game setup
+#	multiplayer.connected_to_server.connect(_on_connected_to_server)
+#	multiplayer.peer_connected.connect(_on_peer_connected)
+#	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+	pass
 
 
 #########################

@@ -22,16 +22,8 @@ var _player_list: Array[Player] = []
 # game client has it's own player instance.
 # NOTE: "GetLocalPlayer()" in JASS
 func get_local_player() -> Player:
-	var local_player: Player = null
-
-	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
-	match connection_type:
-		Globals.ConnectionType.NAKAMA:
-			var local_user_id: String = NakamaConnection.get_local_user_id()
-			local_player = get_player_by_nakama_user_id(local_user_id)
-		Globals.ConnectionType.ENET:
-			var local_peer_id: int = multiplayer.get_unique_id()
-			local_player = get_player_by_peer_id(local_peer_id)
+	var local_peer_id: int = multiplayer.get_unique_id()
+	var local_player: Player = get_player_by_peer_id(local_peer_id)
 
 	return local_player
 
@@ -84,15 +76,9 @@ func reset():
 func add_player(player: Player):
 	var id: int = player.get_id()
 	_id_to_player_map[id] = player
-
-	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
-	match connection_type:
-		Globals.ConnectionType.NAKAMA:
-			var user_id: String = player.get_user_id()
-			_nakama_user_id_to_player_map[user_id] = player
-		Globals.ConnectionType.ENET:
-			var peer_id: int = player.get_peer_id()
-			_enet_peer_id_to_player_map[peer_id] = player
+	
+	var peer_id: int = player.get_peer_id()
+	_enet_peer_id_to_player_map[peer_id] = player
 
 	add_child(player)
 
