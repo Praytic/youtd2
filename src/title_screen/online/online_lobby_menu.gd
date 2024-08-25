@@ -1,8 +1,8 @@
 class_name OnlineLobbyMenu extends PanelContainer
 
 
-# Menu for an open LAN room, before the game begins.
-# Displays players in the room.
+# Menu for an online match lobby, which is shown before
+# starting the match. Displays connected players.
 
 
 signal start_pressed()
@@ -10,7 +10,7 @@ signal leave_pressed()
 
 
 @export var _player_list: ItemList
-@export var _room_config_label: RichTextLabel
+@export var _match_config_label: RichTextLabel
 @export var _start_button: Button
 
 
@@ -45,11 +45,11 @@ func set_presences(presence_list: Array):
 		_player_list.set_item_selectable(new_item_index, false)
 
 
-func display_room_config(room_config: RoomConfig):
-	var room_config_string: String = room_config.get_display_string_rich()
+func display_match_config(match_config: RoomConfig):
+	var match_config_string: String = match_config.get_display_string_rich()
 	
-	_room_config_label.clear()
-	_room_config_label.append_text(room_config_string)
+	_match_config_label.clear()
+	_match_config_label.append_text(match_config_string)
 
 
 #########################

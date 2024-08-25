@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://src/title_screen/online/online_lobby_menu.gd" id="1_gou4l"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_sgqs1"]
 
-[node name="OnlineLobbyMenu" type="PanelContainer" node_paths=PackedStringArray("_player_list", "_room_config_label", "_start_button")]
+[node name="OnlineLobbyMenu" type="PanelContainer" node_paths=PackedStringArray("_player_list", "_match_config_label", "_start_button")]
 theme = ExtResource("1_sgqs1")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("1_gou4l")
 _player_list = NodePath("VBoxContainer/PlayerList")
-_room_config_label = NodePath("VBoxContainer/RoomConfigLabel")
+_match_config_label = NodePath("VBoxContainer/MatchConfigLabel")
 _start_button = NodePath("VBoxContainer/HBoxContainer/StartButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -18,10 +18,10 @@ theme_override_constants/separation = 5
 [node name="Header" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Multiplayer room"
+text = "Match Lobby"
 horizontal_alignment = 1
 
-[node name="RoomConfigLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="MatchConfigLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 fit_content = true
 

@@ -3,12 +3,12 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_0djlm"]
 [ext_resource type="Script" path="res://src/title_screen/online/online_match_list_menu.gd" id="2_inhau"]
 
-[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list")]
+[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_matches_found_label", "_item_list")]
 custom_minimum_size = Vector2(1200, 400)
 theme = ExtResource("1_0djlm")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_inhau")
-_no_rooms_found_label = NodePath("VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer/NoRoomsFoundLabel")
+_no_matches_found_label = NodePath("VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer/NoMatchesFoundLabel")
 _item_list = NodePath("VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer/ItemList")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -18,7 +18,7 @@ theme_override_constants/separation = 5
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Online Rooms"
+text = "Online Matches"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
@@ -43,9 +43,9 @@ theme_override_constants/margin_bottom = 10
 [node name="RoomButtonContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="NoRoomsFoundLabel" type="Label" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
+[node name="NoMatchesFoundLabel" type="Label" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
 layout_mode = 2
-text = "No rooms found"
+text = "No matches found"
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer/RoomButtonContainer"]
 layout_mode = 2
@@ -54,19 +54,19 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="JoinRoomButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
+[node name="JoinMatchButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
-text = "Join room"
+text = "Join match"
 
-[node name="CreateRoomButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
+[node name="CreateMatchButton" type="Button" parent="VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
-text = "Create room"
+text = "Create match"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Cancel"
 
-[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/JoinRoomButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/CreateRoomButton" to="." method="_on_create_room_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/JoinMatchButton" to="." method="_on_join_match_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/VBoxContainer/CreateMatchButton" to="." method="_on_create_match_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

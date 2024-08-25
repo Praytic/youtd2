@@ -12,10 +12,10 @@ signal create_pressed()
 ###       Public      ###
 #########################
 
-func get_room_config() -> RoomConfig:
-	var room_config: RoomConfig = _game_mode_ui.get_room_config()
+func get_match_config() -> RoomConfig:
+	var match_config: RoomConfig = _game_mode_ui.get_room_config()
 	
-	return room_config
+	return match_config
 
 
 #########################

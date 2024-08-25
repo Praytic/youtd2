@@ -3,10 +3,10 @@ class_name OnlineMatchListMenu extends PanelContainer
 
 signal join_pressed()
 signal cancel_pressed()
-signal create_room_pressed()
+signal create_match_pressed()
 
 
-@export var _no_rooms_found_label: Label
+@export var _no_matches_found_label: Label
 @export var _item_list: ItemList
 
 
@@ -29,10 +29,10 @@ func get_selected_match_id() -> String:
 # TODO: maybe sort matches by creation time? But that is not available by
 # default in nakama. Need to add this data to label.
 func update_match_list(match_list: Array):
-	var found_rooms: bool = !match_list.is_empty()
+	var found_matches: bool = !match_list.is_empty()
 	
-	_no_rooms_found_label.visible = !found_rooms
-	_item_list.visible = found_rooms
+	_no_matches_found_label.visible = !found_matches
+	_item_list.visible = found_matches
 	
 	_item_list.clear()
 	
@@ -95,7 +95,7 @@ func _get_match_age_minutes(label_dict: Dictionary) -> int:
 ###     Callbacks     ###
 #########################
 
-func _on_join_button_pressed():
+func _on_join_match_button_pressed():
 	join_pressed.emit()
 
 
@@ -103,5 +103,5 @@ func _on_cancel_button_pressed():
 	cancel_pressed.emit()
 
 
-func _on_create_room_button_pressed():
-	create_room_pressed.emit()
+func _on_create_match_button_pressed():
+	create_match_pressed.emit()

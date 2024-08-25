@@ -15,7 +15,7 @@ enum NakamaOpCode {
 const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
 
 
-var _current_room_config: RoomConfig = null
+var _current_match_config: RoomConfig = null
 var _match_id: String = ""
 # TODO: store this state on server
 var _is_host: bool = false
@@ -44,15 +44,15 @@ func _on_nakama_connected():
 	socket.received_match_state.connect(_on_nakama_received_match_state)
 
 
-func _on_online_match_list_menu_create_room_pressed():
+func _on_online_match_list_menu_create_match_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ONLINE_MATCH)
 
 
 # TODO: disable UI interactions while waiting for async result, show a progress popup
 func _on_create_online_match_menu_create_pressed():
-	_current_room_config = _create_online_match_menu.get_room_config()
+	_current_match_config = _create_online_match_menu.get_match_config()
 
-	var match_config_dict: Dictionary = _current_room_config.convert_to_dict()
+	var match_config_dict: Dictionary = _current_match_config.convert_to_dict()
 	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
 		
@@ -103,7 +103,7 @@ func _on_create_online_match_menu_create_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_LOBBY)
 	_update_online_lobby_menu_presences()
 	_online_lobby_menu.set_start_button_visible(true)
-	_online_lobby_menu.display_room_config(_current_room_config)
+	_online_lobby_menu.display_match_config(_current_match_config)
 
 
 func _update_online_lobby_menu_presences():
@@ -167,7 +167,7 @@ func _on_online_match_list_menu_join_pressed():
 	
 	var no_match_selected: bool = selected_match_id.is_empty()
 	if no_match_selected:
-		Utils.show_popup_message(self, "Error", "You must select a room first.")
+		Utils.show_popup_message(self, "Error", "You must select a match first.")
 		
 		return
 	
@@ -200,7 +200,7 @@ func _on_online_match_list_menu_join_pressed():
 
 		return
 
-	_current_room_config = match_config
+	_current_match_config = match_config
 	_state = State.LOBBY
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_LOBBY)
@@ -208,7 +208,7 @@ func _on_online_match_list_menu_join_pressed():
 #	NOTE: hide start button if client is not host because only the host
 #	should be able to start the game
 	_online_lobby_menu.set_start_button_visible(false)
-	_online_lobby_menu.display_room_config(_current_room_config)
+	_online_lobby_menu.display_match_config(_current_match_config)
 
 
 func _get_match_config_from_label(match_label: String) -> RoomConfig:
@@ -272,9 +272,9 @@ func _on_peer_connected(_peer_id: int):
 		NakamaConnection._presence_map = _presence_map
 		NakamaConnection._match_id = _match_id
 
-		var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
-		var game_length: int = _current_room_config.get_game_length()
-		var game_mode: GameMode.enm = _current_room_config.get_game_mode()
+		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
+		var game_length: int = _current_match_config.get_game_length()
+		var game_mode: GameMode.enm = _current_match_config.get_game_mode()
 		var origin_seed: int = randi()
 
 		_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)

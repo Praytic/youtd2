@@ -207,7 +207,7 @@ fit_content = true
 [connection signal="cancel_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="start_button_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_configure_singleplayer_menu_start_button_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="." method="_on_generic_tab_cancel_pressed"]
-[connection signal="create_room_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_create_room_pressed"]
+[connection signal="create_match_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_create_match_pressed"]
 [connection signal="join_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_join_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/LanRoomListMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="create_room_pressed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_create_room_pressed"]

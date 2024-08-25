@@ -6,8 +6,6 @@ extends Node
 # normally would require a long chain of connections.
 
 
-signal player_requested_to_join_room()
-signal player_requested_to_host_room()
 signal player_requested_transmute()
 signal player_requested_return_from_horadric_cube()
 signal player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array)
