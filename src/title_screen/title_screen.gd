@@ -6,12 +6,12 @@ class_name TitleScreen extends Node
 enum Tab {
 	MAIN,
 	CONFIGURE_SINGLEPLAYER,
-	ONLINE_ROOM_LIST,
-	ROOM_LIST,
-	CREATE_ONLINE_ROOM,
-	CREATE_ROOM,
-	ONLINE_ROOM,
-	MULTIPLAYER_ROOM,
+	ONLINE_MATCH_LIST,
+	LAN_MATCH_LIST,
+	CREATE_ONLINE_MATCH,
+	CREATE_LAN_MATCH,
+	ONLINE_LOBBY,
+	LAN_LOBBY,
 	PROFILE,
 	SETTINGS,
 	CREDITS,
@@ -89,7 +89,7 @@ func _on_singleplayer_button_pressed():
 
 
 func _on_lan_button_pressed():
-	_tab_container.current_tab = Tab.ROOM_LIST
+	_tab_container.current_tab = Tab.LAN_MATCH_LIST
 
 
 func _on_settings_button_pressed():
@@ -129,11 +129,11 @@ func _on_settings_menu_ok_pressed():
 
 
 func _on_lan_room_menu_back_pressed():
-	_tab_container.current_tab = Tab.ROOM_LIST
+	_tab_container.current_tab = Tab.LAN_MATCH_LIST
 
 
 func _on_create_lan_room_menu_cancel_pressed():
-	_tab_container.current_tab = Tab.ROOM_LIST
+	_tab_container.current_tab = Tab.LAN_MATCH_LIST
 
 
 func _on_profile_button_pressed():
@@ -149,8 +149,8 @@ func _on_auth_menu_finished():
 
 
 func _on_multiplayer_button_pressed():
-	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
+	_tab_container.current_tab = Tab.ONLINE_MATCH_LIST
 
 
-func _on_create_online_room_menu_cancel_pressed():
-	_tab_container.current_tab = Tab.ONLINE_ROOM_LIST
+func _on_create_online_match_menu_cancel_pressed():
+	_tab_container.current_tab = Tab.ONLINE_MATCH_LIST

@@ -1,4 +1,4 @@
-class_name CreateOnlineRoomMenu extends PanelContainer
+class_name CreateOnlineMatchMenu extends PanelContainer
 
 
 signal cancel_pressed()

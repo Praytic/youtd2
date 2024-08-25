@@ -1,4 +1,4 @@
-class_name OnlineRoomListMenu extends PanelContainer
+class_name OnlineMatchListMenu extends PanelContainer
 
 
 signal join_pressed()

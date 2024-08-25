@@ -25,9 +25,9 @@ var _presence_order_list: Array = []
 var _expected_player_count: int = -1
 
 @export var _title_screen: TitleScreen
-@export var _online_room_list_menu: OnlineRoomListMenu
-@export var _online_room_menu: OnlineRoomMenu
-@export var _create_online_room_menu: CreateOnlineRoomMenu
+@export var _online_match_list_menu: OnlineMatchListMenu
+@export var _online_lobby_menu: OnlineLobbyMenu
+@export var _create_online_match_menu: CreateOnlineMatchMenu
 
 
 #########################
@@ -44,13 +44,13 @@ func _on_nakama_connected():
 	socket.received_match_state.connect(_on_nakama_received_match_state)
 
 
-func _on_online_room_list_menu_create_room_pressed():
-	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ONLINE_ROOM)
+func _on_online_match_list_menu_create_room_pressed():
+	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ONLINE_MATCH)
 
 
 # TODO: disable UI interactions while waiting for async result, show a progress popup
-func _on_create_online_room_menu_create_pressed():
-	_current_room_config = _create_online_room_menu.get_room_config()
+func _on_create_online_match_menu_create_pressed():
+	_current_room_config = _create_online_match_menu.get_room_config()
 
 	var match_config_dict: Dictionary = _current_room_config.convert_to_dict()
 	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
@@ -100,20 +100,20 @@ func _on_create_online_room_menu_create_pressed():
 
 	_is_host = true
 	
-	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
-	_update_online_room_menu_presences()
-	_online_room_menu.set_start_button_visible(true)
-	_online_room_menu.display_room_config(_current_room_config)
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_LOBBY)
+	_update_online_lobby_menu_presences()
+	_online_lobby_menu.set_start_button_visible(true)
+	_online_lobby_menu.display_room_config(_current_room_config)
 
 
-func _update_online_room_menu_presences():
+func _update_online_lobby_menu_presences():
 	var presence_list: Array = []
 
 	for user_id in _presence_order_list:
 		var presence: NakamaRTAPI.UserPresence = _presence_map[user_id]
 		presence_list.append(presence)
 
-	_online_room_menu.set_presences(presence_list)
+	_online_lobby_menu.set_presences(presence_list)
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
@@ -123,8 +123,8 @@ func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenc
 
 	_save_presences(presence_event.joins)
 
-	if _online_room_menu.visible:
-		_update_online_room_menu_presences()
+	if _online_lobby_menu.visible:
+		_update_online_lobby_menu_presences()
 
 
 func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
@@ -138,7 +138,7 @@ func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
 func _on_refresh_match_list_timer_timeout():
 #	NOTE: refresh match list only when the corresponding UI
 #	is visible
-	if !_online_room_list_menu.is_visible():
+	if !_online_match_list_menu.is_visible():
 		return
 
 	var client: NakamaClient = NakamaConnection.get_client()
@@ -159,11 +159,11 @@ func _on_refresh_match_list_timer_timeout():
 	
 	var match_list: Array = list_matches_result.matches
 
-	_online_room_list_menu.update_match_list(match_list)
+	_online_match_list_menu.update_match_list(match_list)
 
 
-func _on_online_room_list_menu_join_pressed():
-	var selected_match_id: String = _online_room_list_menu.get_selected_match_id()
+func _on_online_match_list_menu_join_pressed():
+	var selected_match_id: String = _online_match_list_menu.get_selected_match_id()
 	
 	var no_match_selected: bool = selected_match_id.is_empty()
 	if no_match_selected:
@@ -203,12 +203,12 @@ func _on_online_room_list_menu_join_pressed():
 	_current_room_config = match_config
 	_state = State.LOBBY
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM)
-	_update_online_room_menu_presences()
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_LOBBY)
+	_update_online_lobby_menu_presences()
 #	NOTE: hide start button if client is not host because only the host
 #	should be able to start the game
-	_online_room_menu.set_start_button_visible(false)
-	_online_room_menu.display_room_config(_current_room_config)
+	_online_lobby_menu.set_start_button_visible(false)
+	_online_lobby_menu.display_room_config(_current_room_config)
 
 
 func _get_match_config_from_label(match_label: String) -> RoomConfig:
@@ -218,7 +218,7 @@ func _get_match_config_from_label(match_label: String) -> RoomConfig:
 	return match_config
 
 
-func _on_online_room_menu_leave_pressed():
+func _on_online_lobby_menu_leave_pressed():
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
@@ -230,7 +230,7 @@ func _on_online_room_menu_leave_pressed():
 	_match_id = ""
 	_state = State.IDLE
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_ROOM_LIST)
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
 
 
 # NOTE: host doesn't leave the lobby match here, so that
@@ -240,8 +240,8 @@ func _on_online_room_menu_leave_pressed():
 # Note that bridge.create_match() also automatically makes
 # the host joins the game match so host will be in 2 matches
 # at the same time. This is expected.
-func _on_online_room_menu_start_pressed():
-	print("_on_online_room_menu_start_pressed")
+func _on_online_lobby_menu_start_pressed():
+	print("_on_online_lobby_menu_start_pressed")
 	
 	_expected_player_count = _presence_map.size()
 

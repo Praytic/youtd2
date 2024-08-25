@@ -153,7 +153,7 @@ func _on_create_lan_room_menu_create_pressed():
 #	Start advertising the room
 	_lan_room_advertiser.set_room_config(_current_room_config)
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_room_menu.display_room_config(_current_room_config)
 
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
@@ -171,7 +171,7 @@ func _on_lan_room_list_menu_visibility_changed():
 
 
 func _on_lan_room_list_menu_create_room_pressed():
-	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_LAN_MATCH)
 
 
 func _on_lan_room_list_menu_join_pressed():
@@ -189,7 +189,7 @@ func _on_lan_room_list_menu_join_pressed():
 	var room_info: RoomInfo = room_map[selected_room_address]
 	_current_room_config = room_info.get_room_config()
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_room_menu.display_room_config(_current_room_config)
 
 
@@ -220,7 +220,7 @@ func _on_lan_room_list_menu_join_address_pressed():
 	
 	_connect_to_room(room_address)
 	
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 
 
 func _on_lan_room_menu_back_pressed():

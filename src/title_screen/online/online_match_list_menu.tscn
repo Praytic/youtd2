@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://csg2abpgju1ay"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_0djlm"]
-[ext_resource type="Script" path="res://src/title_screen/online/online_room_list_menu.gd" id="2_inhau"]
+[ext_resource type="Script" path="res://src/title_screen/online/online_match_list_menu.gd" id="2_inhau"]
 
-[node name="OnlineRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list")]
+[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list")]
 custom_minimum_size = Vector2(1200, 400)
 theme = ExtResource("1_0djlm")
 theme_type_variation = &"MainPanelContainer"

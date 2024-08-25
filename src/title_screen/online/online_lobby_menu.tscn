@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkxudlev66vnr"]
 
-[ext_resource type="Script" path="res://src/title_screen/online/online_room_menu.gd" id="1_gou4l"]
+[ext_resource type="Script" path="res://src/title_screen/online/online_lobby_menu.gd" id="1_gou4l"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_sgqs1"]
 
-[node name="OnlineRoomMenu" type="PanelContainer" node_paths=PackedStringArray("_player_list", "_room_config_label", "_start_button")]
+[node name="OnlineLobbyMenu" type="PanelContainer" node_paths=PackedStringArray("_player_list", "_room_config_label", "_start_button")]
 theme = ExtResource("1_sgqs1")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("1_gou4l")

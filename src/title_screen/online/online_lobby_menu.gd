@@ -1,4 +1,4 @@
-class_name OnlineRoomMenu extends PanelContainer
+class_name OnlineLobbyMenu extends PanelContainer
 
 
 # Menu for an open LAN room, before the game begins.
