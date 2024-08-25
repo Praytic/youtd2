@@ -16,7 +16,7 @@ const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
 
 
 var _current_match_config: RoomConfig = null
-var _match_id: String = ""
+var _lobby_match_id: String = ""
 # TODO: store this state on server
 var _is_host: bool = false
 var _state: State = State.IDLE
@@ -79,9 +79,9 @@ func _on_create_online_match_menu_create_pressed():
 		return
 	
 	var result_payload: Dictionary = JSON.parse_string(create_match_result.payload)
-	var match_id: String = result_payload["match_id"]
+	var lobby_match_id: String = result_payload["match_id"]
 	
-	var join_match_result: NakamaAsyncResult = await socket.join_match_async(match_id)
+	var join_match_result: NakamaAsyncResult = await socket.join_match_async(lobby_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
@@ -92,7 +92,7 @@ func _on_create_online_match_menu_create_pressed():
 	_save_presences(lobby_match.presences)
 	_save_presences([lobby_match.self_user])
 	
-	_match_id = match_id
+	_lobby_match_id = lobby_match_id
 	_state = State.LOBBY
 
 	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
@@ -177,13 +177,12 @@ func _on_online_match_list_menu_join_pressed():
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
 		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
-		_match_id = ""
 
 		return
 
 	var lobby_match: NakamaRTAPI.Match = join_match_result
 
-	_match_id = selected_match_id
+	_lobby_match_id = selected_match_id
 
 	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
 	NakamaConnection.set_host_user_id(host_user_id)
@@ -220,14 +219,14 @@ func _get_match_config_from_label(match_label: String) -> RoomConfig:
 
 func _on_online_lobby_menu_leave_pressed():
 	var socket: NakamaSocket = NakamaConnection.get_socket()
-	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async(): %s" % leave_match_result)
 		Utils.show_popup_message(self, "Error", "Error in leave_match_async(): %s" % leave_match_result)
 
 		return
 	
-	_match_id = ""
+	_lobby_match_id = ""
 	_state = State.IDLE
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
@@ -270,7 +269,6 @@ func _on_peer_connected(_peer_id: int):
 #		NOTE: save presence map in NakamaConnection singleton so
 #		that it can be accessed in game scene
 		NakamaConnection._presence_map = _presence_map
-		NakamaConnection._match_id = _match_id
 
 		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 		var game_length: int = _current_match_config.get_game_length()
@@ -297,7 +295,7 @@ func _on_bridge_match_joined():
 	}
 
 	var data: String = JSON.stringify(data_dict)
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_lobby_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
@@ -306,13 +304,15 @@ func _on_bridge_match_joined():
 
 #	Host sent the TRANSFER_FROM_LOBBY message so now it's
 #	okay to leave the lobby match
-	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
 		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
 
 		return
 	
+	_lobby_match_id = ""
+
 	print("_expected_player_count=", _expected_player_count)
 	if _expected_player_count == 1:
 		_on_peer_connected(1)
@@ -356,14 +356,14 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 	var game_match_id: String = state_data.get("match_id", "")
 
 	var socket: NakamaSocket = NakamaConnection.get_socket()
-	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
 		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
 
 		return
 
-	_match_id = ""
+	_lobby_match_id = ""
 
 #	NOTE: clear presence map which contains presences
 #	collected for lobby. We're entering the real game match
@@ -373,8 +373,6 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 
 	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
 	await bridge.join_match(game_match_id)
-
-	_match_id = game_match_id
 
 
 #########################

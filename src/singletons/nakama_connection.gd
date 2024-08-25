@@ -14,7 +14,6 @@ var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
 var _bridge: NakamaMultiplayerBridge = null
-var _match_id: String = ""
 var _host_user_id: String = ""
 var _presence_map: Dictionary = {}
 
@@ -98,10 +97,6 @@ func get_host_presence() -> NakamaRTAPI.UserPresence:
 
 func get_presence_map() -> Dictionary:
 	return _presence_map
-
-
-func get_match_id() -> String:
-	return _match_id
 
 
 func get_local_user_id() -> String:
