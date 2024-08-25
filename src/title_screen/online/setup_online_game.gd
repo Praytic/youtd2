@@ -255,19 +255,33 @@ func _on_online_room_menu_leave_pressed():
 func _on_online_room_menu_start_pressed():
 	print("_on_online_room_menu_start_pressed")
 		
+	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
+	bridge.match_joined.connect(_on_bridge_match_joined)
+	bridge.create_match()
+
+
+func _on_bridge_match_joined():
+	print("_on_bridge_match_joined")
+
+	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
+	bridge.match_joined.disconnect(_on_bridge_match_joined)
+
 	var socket: NakamaSocket = NakamaConnection.get_socket()
-	var match_ = await socket.create_match_async();
-	print("Created transfer match with id %s." % match_.match_id);
-	
+
+	var game_match_id: String = bridge.match_id
+
+	print("Created game match with id %s." % game_match_id);
+
 	var data_dict: Dictionary = {
-		"match_id": match_.match_id,
+		"match_id": game_match_id,
 	}
+
 	var data: String = JSON.stringify(data_dict)
 	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_match_id, NakamaOpCode.enm.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
 		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
-
+ 
 		return
 
 
@@ -305,6 +319,9 @@ func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchD
 	var state_data: Dictionary = JSON.parse_string(match_state.data)
 	var game_match_id: String = state_data.get("match_id", "")
 
+#	NOTE: host also needs to leave the lobby match because
+#	NakamaMultiplayerBridge.create_match() automatically
+#	joins new match but doesn't leave old match.
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_match_id)
 	if leave_match_result.is_exception():
@@ -321,22 +338,12 @@ func _process_nakama_message_transfer_from_lobby(match_state: NakamaRTAPI.MatchD
 	_presence_map.clear()
 	_presence_order_list.clear()
 
-	var join_match_result: NakamaAsyncResult = await socket.join_match_async(game_match_id)
-	if join_match_result.is_exception():
-		push_error("Error in join_match_async rpc(): %s" % join_match_result)
-		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
-
-		return
+	if !_is_host:
+		var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
+		await bridge.join_match(game_match_id)
 
 	_match_id = game_match_id
-
-#	NOTE: load existing presences right after joining the
-#	match. The rest will be added in the presence callback
-#	when they join the match.
-	var game_match: NakamaRTAPI.Match = join_match_result
-	_save_presences(game_match.presences)
-	_save_presences([game_match.self_user])
-
+	
 #	Host waits a short period for all players to transfer
 #	from lobby match to game match, then initiates start of
 #	the game

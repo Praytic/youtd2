@@ -13,6 +13,7 @@ signal connected()
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
+var _bridge: NakamaMultiplayerBridge = null
 var _match_id: String = ""
 var _host_user_id: String = ""
 var _presence_map: Dictionary = {}
@@ -24,7 +25,7 @@ func _ready():
 
 func _connect_to_server():
 	var server_key: String = Globals.get_nakama_server_key()
-	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL)
+	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL, Nakama.DEFAULT_TIMEOUT, NakamaLogger.LOG_LEVEL.INFO)
 
 #	TODO: OS.get_unique_id() can't be called on Web. Need to
 #	disable online completely for web build or find another way to generate
@@ -58,7 +59,10 @@ func _connect_to_server():
 		push_error("Error in connect_async(): %s" % update_account_async_result)
 		
 		return
-	
+
+	_bridge = NakamaMultiplayerBridge.new(_socket)
+	multiplayer.set_multiplayer_peer(_bridge.multiplayer_peer)
+
 	connected.emit()
 
 
@@ -72,6 +76,10 @@ func get_session() -> NakamaSession:
 
 func get_socket() -> NakamaSocket:
 	return _socket
+
+
+func get_bridge() -> NakamaMultiplayerBridge:
+	return _bridge
 
 
 func set_host_user_id(value: String):
