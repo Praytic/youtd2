@@ -35,11 +35,9 @@ var _peer_id_to_player_name_map: Dictionary = {}
 #########################
 
 func _ready():
-#	TODO: disabled because this gets called during online game setup
-#	multiplayer.connected_to_server.connect(_on_connected_to_server)
-#	multiplayer.peer_connected.connect(_on_peer_connected)
-#	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	pass
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 
 #########################
@@ -112,11 +110,17 @@ func _connect_to_room(room_address: String) -> bool:
 #########################
 
 func _on_connected_to_server():
+	if !_multiplayer_peer_is_enet():
+		return
+
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
 
 
 func _on_peer_connected(peer_id: int):
+	if !_multiplayer_peer_is_enet():
+		return
+
 # 	When a new peer connects, host(server) will tell the
 # 	newly connected peer the names of all of the players.
 	if multiplayer.is_server():
@@ -128,6 +132,9 @@ func _on_peer_connected(peer_id: int):
 
 
 func _on_peer_disconnected(_id: int):
+	if !_multiplayer_peer_is_enet():
+		return
+
 	_update_player_list_in_room_menu()
 
 
@@ -233,3 +240,13 @@ func _on_lan_room_menu_back_pressed():
 #	NOTE: both server and clients need to close the
 #	connection when leaving room menu
 	multiplayer.multiplayer_peer.close()
+
+
+# This check is needed in case current MultiplayerPeer is
+# set to NakamaMultiplayerPeer, which means that all signals
+# should be ignored.
+func _multiplayer_peer_is_enet() -> bool:
+	var multiplayer_peer: MultiplayerPeer = multiplayer.get_multiplayer_peer()
+	var peer_is_enet: bool = multiplayer_peer is ENetMultiplayerPeer
+
+	return peer_is_enet
