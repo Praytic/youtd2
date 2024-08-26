@@ -196,7 +196,8 @@ func _update_state_running():
 	for i in range(0, update_tick_count):
 		_current_tick += 1
 
-		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_turn_length
+		var next_timeslot_tick: int = _last_sent_timeslot_tick + _current_turn_length
+		var need_to_send_timeslot: bool = _current_tick == next_timeslot_tick
 
 		if need_to_send_timeslot:
 			_send_timeslot()
@@ -221,7 +222,7 @@ func _send_timeslot():
 
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_game_client.receive_timeslot.rpc(timeslot, _current_turn_length)
+	_game_client.receive_timeslot.rpc(timeslot, _current_tick, _current_turn_length)
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
 

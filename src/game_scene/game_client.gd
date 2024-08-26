@@ -33,7 +33,9 @@ var _current_turn_length: int = 0
 # future timeslots before we processed current one.
 # {tick -> timeslot}
 var _timeslot_map: Dictionary = {}
-var _timeslot_tick_queue: Array = [0]
+# A list of timeslot ticks which are scheduled to be sent by
+# host.
+var _scheduled_timeslot_list: Array = [0]
 var _time_when_sent_ping: int = 0
 var _catch_up_in_progress: bool = false
 
@@ -90,13 +92,19 @@ func add_action(action: Action):
 
 # Receive timeslot sent by host to this client and receive
 # turn length
+# 
+# NOTE: this f-n needs to handle cases where timeslots
+# are received out of order.
 @rpc("authority", "call_local", "reliable")
-func receive_timeslot(timeslot: Array, current_turn_length: int):
-	var tick_for_this_timeslot: int = _timeslot_tick_queue.back()
-	_timeslot_map[tick_for_this_timeslot] = timeslot
-	var tick_for_next_timeslot: int = tick_for_this_timeslot + current_turn_length
-	_timeslot_tick_queue.append(tick_for_next_timeslot)
+func receive_timeslot(timeslot: Array, timeslot_tick: int, current_turn_length: int):
+	_timeslot_map[timeslot_tick] = timeslot
 	_current_turn_length = current_turn_length
+
+#	Save next_timeslot_tick in _scheduled_timeslot_list
+#	to know when the next timeslot is expected to arrive.
+	var next_timeslot_tick: int = timeslot_tick + current_turn_length
+	if !_scheduled_timeslot_list.has(next_timeslot_tick):
+		_scheduled_timeslot_list.append(next_timeslot_tick)
 
 
 @rpc("authority", "call_local", "reliable")
@@ -134,9 +142,8 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 	
 #	If current tick needs a timeslot and client hasn't
 #	received timeslot from host yet, client has to wait
-	var timeslot_tick: int = _timeslot_tick_queue.front()
-	var need_timeslot: bool = _current_tick == timeslot_tick
-	var have_timeslot: bool = _timeslot_map.has(timeslot_tick)
+	var need_timeslot: bool = _scheduled_timeslot_list.has(_current_tick)
+	var have_timeslot: bool = _timeslot_map.has(_current_tick)
 	if need_timeslot && !have_timeslot:
 		return false
 
@@ -144,9 +151,8 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 #	forwarding. Trigger fast forward by returning true which
 #	causes extra ticks.
 	if !_timeslot_map.is_empty():
-		var timeslot_tick_list: Array = _timeslot_map.keys()
-		timeslot_tick_list.sort()
-		var latest_timeslot_tick: int = timeslot_tick_list.back()
+		_scheduled_timeslot_list.sort()
+		var latest_timeslot_tick: int = _scheduled_timeslot_list.back()
 
 		var catch_up_stop: int = ceili(_current_turn_length * CATCH_UP_STOP)
 		var catch_up_start: int = ceili(_current_turn_length * CATCH_UP_START)
@@ -172,17 +178,16 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 
 
 func _do_tick():
-	var timeslot_tick: int = _timeslot_tick_queue.front()
-	var need_timeslot: bool = _current_tick == timeslot_tick
-	var have_timeslot: bool = _timeslot_map.has(timeslot_tick)
+	var need_timeslot: bool = _scheduled_timeslot_list.has(_current_tick)
+	var have_timeslot: bool = _timeslot_map.has(_current_tick)
 	
 	if need_timeslot && !have_timeslot:
 		return
 
 	if need_timeslot:
-		var timeslot: Array = _timeslot_map[timeslot_tick]
-		_timeslot_map.erase(timeslot_tick)
-		_timeslot_tick_queue.pop_front()
+		var timeslot: Array = _timeslot_map[_current_tick]
+		_timeslot_map.erase(_current_tick)
+		_scheduled_timeslot_list.erase(_current_tick)
 
 #		Tell host that this client has processed this
 #		timeslot. Send checksum to check for desyncs.
