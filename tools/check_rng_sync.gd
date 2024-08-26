@@ -15,7 +15,6 @@ const RANDOM_FUNC_LIST: Array = [
 	[GOOD_PREFIX, "randf"],
 	[GOOD_PREFIX, "randfn"],
 	[GOOD_PREFIX, "randf_range"],
-	[GOOD_PREFIX, "randf_range"],
 	[GOOD_PREFIX, "randi"],
 	[GOOD_PREFIX, "randi_range"],
 #	NOTE: pick_random() and shuffle() are attached to Utils
