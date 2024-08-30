@@ -37,6 +37,12 @@ var _expected_player_count: int = -1
 func _ready():
 	NakamaConnection.connected.connect(_on_nakama_connected)
 
+	OnlineMatch.error.connect(_on_webrtc_error)
+
+
+func _on_webrtc_error(message: String):
+	push_error("webrtc error: %s" % message)
+
 
 func _on_nakama_connected():
 	var socket: NakamaSocket = NakamaConnection.get_socket()
@@ -235,28 +241,37 @@ func _on_online_lobby_menu_leave_pressed():
 # NOTE: host doesn't leave the lobby match here, so that
 # host can send message to other peers to tell them to leave
 # the lobby match and go to game match.
-# 
 func _on_online_lobby_menu_start_pressed():
 	print("_on_online_lobby_menu_start_pressed")
 	
 	_expected_player_count = _presence_map.size()
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
-		
-	# TODO: create match here
-	# then tell players in lobby about it
+
+	OnlineMatch.match_created.connect(_on_host_created_game_match)
+
+#	NOTE: Set leave_prev_match flag to false so that host
+#	stays in lobby match. This is so that host can tell
+#	peers in lobby about new match id.
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	var leave_prev_match: bool = false
+	OnlineMatch.create_match(socket, leave_prev_match)
 
 
-# NOTE: subtract 1 from player count because get_peers() doesn't include local peer
 func _on_peer_connected(_peer_id: int):
-	print("_on_peer_connected")
 	var peer_id_list: Array = multiplayer.get_peers()
 	var peer_count: int = peer_id_list.size()
-	var all_peers_connected: bool = peer_count == _expected_player_count - 1
+# 	NOTE: need to add 1 to peer count to include local peer
+	var player_count: int = peer_count + 1
+	var all_players_connected: bool = player_count == _expected_player_count
 
-	print("peer_id_list=", peer_id_list)
-	print("all_peers_connected=", all_peers_connected)
-	if all_peers_connected:
+	print("_on_peer_connected: peer_count=%s, player_count=%s, all_players_connected=%s" % [peer_count, player_count, all_players_connected])
+
+	if all_players_connected:
+		print("all players connected! player count: %s" % player_count)
+
+#		NOTE: wait a bit just in case (is this really
+#		needed?)
 		await get_tree().create_timer(1.0).timeout
 		
 #		NOTE: save presence map in NakamaConnection singleton so
@@ -269,6 +284,44 @@ func _on_peer_connected(_peer_id: int):
 		var origin_seed: int = randi()
 
 		_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
+
+
+func _on_host_created_game_match(game_match_id: String):
+	print("_on_host_joined_game_match")
+
+	var socket: NakamaSocket = NakamaConnection.get_socket()
+	
+	OnlineMatch.match_created.disconnect(_on_host_created_game_match)
+	multiplayer.multiplayer_peer.peer_connected.connect(_on_peer_connected)
+
+	print("Created game match with id %s." % game_match_id);
+
+	var data_dict: Dictionary = {
+		"match_id": game_match_id,
+	}
+
+	var data: String = JSON.stringify(data_dict)
+	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_lobby_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
+	if send_match_state_result.is_exception():
+		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
+		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+ 
+		return
+
+#	Host sent the TRANSFER_FROM_LOBBY message so now it's
+#	okay to leave the lobby match
+	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
+	if leave_match_result.is_exception():
+		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+
+		return
+	
+	_lobby_match_id = ""
+
+	print("_expected_player_count=", _expected_player_count)
+	if _expected_player_count == 1:
+		_on_peer_connected(1)
 
 
 #########################
@@ -324,7 +377,7 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 	_presence_map.clear()
 	_presence_order_list.clear()
 
-#	TODO: join match here
+	OnlineMatch.join_match(socket, game_match_id)
 
 
 #########################
