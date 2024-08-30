@@ -13,7 +13,6 @@ signal connected()
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
-var _bridge: NakamaMultiplayerBridge = null
 var _host_user_id: String = ""
 var _presence_map: Dictionary = {}
 
@@ -59,9 +58,6 @@ func _connect_to_server():
 		
 		return
 
-	_bridge = NakamaMultiplayerBridge.new(_socket)
-	multiplayer.set_multiplayer_peer(_bridge.multiplayer_peer)
-
 	connected.emit()
 
 
@@ -75,10 +71,6 @@ func get_session() -> NakamaSession:
 
 func get_socket() -> NakamaSocket:
 	return _socket
-
-
-func get_bridge() -> NakamaMultiplayerBridge:
-	return _bridge
 
 
 func set_host_user_id(value: String):

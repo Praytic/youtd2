@@ -236,9 +236,6 @@ func _on_online_lobby_menu_leave_pressed():
 # host can send message to other peers to tell them to leave
 # the lobby match and go to game match.
 # 
-# Note that bridge.create_match() also automatically makes
-# the host joins the game match so host will be in 2 matches
-# at the same time. This is expected.
 func _on_online_lobby_menu_start_pressed():
 	print("_on_online_lobby_menu_start_pressed")
 	
@@ -246,12 +243,8 @@ func _on_online_lobby_menu_start_pressed():
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 		
-	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
-	bridge.match_joined.connect(_on_bridge_match_joined)
-	multiplayer.peer_connected.connect(_on_peer_connected)
-
-#	NOTE: continued in _on_bridge_match_joined()
-	bridge.create_match()
+	# TODO: create match here
+	# then tell players in lobby about it
 
 
 # NOTE: subtract 1 from player count because get_peers() doesn't include local peer
@@ -276,46 +269,6 @@ func _on_peer_connected(_peer_id: int):
 		var origin_seed: int = randi()
 
 		_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
-
-
-func _on_bridge_match_joined():
-	print("_on_bridge_match_joined")
-
-	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
-	bridge.match_joined.disconnect(_on_bridge_match_joined)
-
-	var socket: NakamaSocket = NakamaConnection.get_socket()
-
-	var game_match_id: String = bridge.match_id
-
-	print("Created game match with id %s." % game_match_id);
-
-	var data_dict: Dictionary = {
-		"match_id": game_match_id,
-	}
-
-	var data: String = JSON.stringify(data_dict)
-	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_lobby_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
-	if send_match_state_result.is_exception():
-		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
-		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
- 
-		return
-
-#	Host sent the TRANSFER_FROM_LOBBY message so now it's
-#	okay to leave the lobby match
-	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
-	if leave_match_result.is_exception():
-		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
-		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
-
-		return
-	
-	_lobby_match_id = ""
-
-	print("_expected_player_count=", _expected_player_count)
-	if _expected_player_count == 1:
-		_on_peer_connected(1)
 
 
 #########################
@@ -371,8 +324,7 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 	_presence_map.clear()
 	_presence_order_list.clear()
 
-	var bridge: NakamaMultiplayerBridge = NakamaConnection.get_bridge()
-	await bridge.join_match(game_match_id)
+#	TODO: join match here
 
 
 #########################
