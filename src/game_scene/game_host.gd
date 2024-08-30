@@ -225,10 +225,6 @@ func _get_highest_ping() -> int:
 # NOTE: player is considered to be lagging if the last
 # timeslot ACK is too old.
 func _get_lagging_players() -> Array[Player]:
-#	TODO: disabled this while integrating nakama. Make this
-#	work with nakama or get rid of this.
-	return []
-
 	var lagging_player_list: Array[Player] = []
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
