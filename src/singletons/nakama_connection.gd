@@ -22,7 +22,7 @@ func _ready():
 
 
 func _connect_to_server():
-	var server_key: String = Globals.get_nakama_server_key()
+	var server_key: String = Secrets.get_secret(Secrets.Key.SERVER_KEY)
 	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL, Nakama.DEFAULT_TIMEOUT, NakamaLogger.LOG_LEVEL.INFO)
 
 #	TODO: OS.get_unique_id() can't be called on Web. Need to

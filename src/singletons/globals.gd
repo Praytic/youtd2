@@ -18,7 +18,6 @@ var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _origin_seed: int = 0
 var _update_ticks_per_physics_tick: int = 1
-var _nakama_server_key: String = ""
 var _connection_type: ConnectionType = ConnectionType.ENET
 
 # NOTE: you must use random functions via one of the
@@ -40,10 +39,6 @@ var _connection_type: ConnectionType = ConnectionType.ENET
 # (CPUParticles2D) use global rng and corrupt it.
 var synced_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var local_rng: RandomNumberGenerator = RandomNumberGenerator.new()
-
-
-func _ready():
-	_nakama_server_key = _load_nakama_server_key()
 
 
 # NOTE: current variables don't need to be reset. If you add
@@ -90,30 +85,6 @@ func get_update_ticks_per_physics_tick() -> int:
 
 func set_update_ticks_per_physics_tick(value: int):
 	_update_ticks_per_physics_tick = value
-
-
-func get_nakama_server_key() -> String:
-	return _nakama_server_key
-
-
-func _load_nakama_server_key() -> String:
-	var nakama_secrets: Array[PackedStringArray] = UtilsStatic.load_csv("res://assets/secrets/secrets.csv")
-
-	if nakama_secrets.is_empty():
-		push_error("nakama secrets file is empty")
-		
-		return ""
-	
-	var first_line: Array = nakama_secrets[0]
-	
-	if first_line.size() != 2:
-		push_error("nakama secrets file doesn't have correct column count")
-
-		return ""
-
-	var server_key: String = first_line[1]
-
-	return server_key
 
 
 func get_connect_type() -> ConnectionType:
