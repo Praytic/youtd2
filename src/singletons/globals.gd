@@ -97,7 +97,7 @@ func get_nakama_server_key() -> String:
 
 
 func _load_nakama_server_key() -> String:
-	var nakama_secrets: Array[PackedStringArray] = UtilsStatic.load_csv("res://assets/secrets/nakama.csv")
+	var nakama_secrets: Array[PackedStringArray] = UtilsStatic.load_csv("res://assets/secrets/secrets.csv")
 
 	if nakama_secrets.is_empty():
 		push_error("nakama secrets file is empty")
