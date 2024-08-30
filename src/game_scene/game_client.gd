@@ -27,7 +27,7 @@ const CATCH_UP_START: float = 1.5
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _current_turn_length: int = 0
+var _turn_length: int = 0
 
 # A map of timeslots. Need to keep a map in case we receive
 # future timeslots before we processed current one.
@@ -63,6 +63,8 @@ func _ready():
 #	use the same delta value.
 	_tick_delta = 1.0 / tick_rate
 
+	_turn_length = Utils.get_turn_length()
+
 
 # NOTE: using _physics_process() because it provides a
 # built-in way to do consistent tickrate, independent of
@@ -96,13 +98,11 @@ func add_action(action: Action):
 # NOTE: this f-n needs to handle cases where timeslots
 # are received out of order.
 @rpc("authority", "call_local", "reliable")
-func receive_timeslot(timeslot: Array, timeslot_tick: int, current_turn_length: int):
+func receive_timeslot(timeslot: Array, timeslot_tick: int):
 	_timeslot_map[timeslot_tick] = timeslot
-	_current_turn_length = current_turn_length
-
 #	Save next_timeslot_tick in _scheduled_timeslot_list
 #	to know when the next timeslot is expected to arrive.
-	var next_timeslot_tick: int = timeslot_tick + current_turn_length
+	var next_timeslot_tick: int = timeslot_tick + _turn_length
 	if !_scheduled_timeslot_list.has(next_timeslot_tick):
 		_scheduled_timeslot_list.append(next_timeslot_tick)
 
@@ -154,8 +154,8 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 		_scheduled_timeslot_list.sort()
 		var latest_timeslot_tick: int = _scheduled_timeslot_list.back()
 
-		var catch_up_stop: int = ceili(_current_turn_length * CATCH_UP_STOP)
-		var catch_up_start: int = ceili(_current_turn_length * CATCH_UP_START)
+		var catch_up_stop: int = ceili(_turn_length * CATCH_UP_STOP)
+		var catch_up_start: int = ceili(_turn_length * CATCH_UP_START)
 		var current_lag: int = latest_timeslot_tick - _current_tick
 		var should_start_catch_up: bool = current_lag > catch_up_start
 		var should_stop_catch_up: bool = current_lag <= catch_up_stop
