@@ -22,7 +22,7 @@ class_name GameClient extends Node
 # game ticks per physics tick). Client will keep fast
 # forwarding until reaching the "stop" value. Start and stop
 # values are multiples of current turn length.
-const CATCH_UP_STOP: float = 0.25
+const CATCH_UP_STOP: float = 0.5
 const CATCH_UP_START: float = 1.5
 
 var _tick_delta: float
