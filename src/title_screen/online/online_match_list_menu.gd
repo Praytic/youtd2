@@ -59,7 +59,7 @@ func _get_match_text(match_: NakamaAPI.ApiMatch) -> String:
 
 	var label_dict: Dictionary = parse_result
 
-	var match_config: RoomConfig = RoomConfig.convert_from_dict(label_dict)
+	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
 
 	var host_username: String = label_dict.get("host_username", "UNKNOWN")
 

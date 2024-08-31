@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dc67simk1xfp4"]
 
-[ext_resource type="Script" path="res://src/title_screen/game_mode_ui.gd" id="1_wksi8"]
+[ext_resource type="Script" path="res://src/title_screen/match_config_panel.gd" id="1_wksi8"]
 
-[node name="GameModeUI" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo")]
+[node name="MatchConfigPanel" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo")]
 columns = 2
 script = ExtResource("1_wksi8")
 _difficulty_combo = NodePath("DifficultyCombo")

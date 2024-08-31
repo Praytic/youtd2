@@ -10,7 +10,7 @@ signal back_pressed()
 
 
 @export var _player_list: ItemList
-@export var _room_config_label: RichTextLabel
+@export var _match_config_label: RichTextLabel
 
 
 #########################
@@ -27,11 +27,11 @@ func set_player_list(player_list: Array[String]):
 		_player_list.set_item_selectable(i, false)
 
 
-func display_room_config(room_config: RoomConfig):
-	var room_config_string: String = room_config.get_display_string_rich()
+func display_match_config(match_config: MatchConfig):
+	var match_config_string: String = match_config.get_display_string_rich()
 	
-	_room_config_label.clear()
-	_room_config_label.append_text(room_config_string)
+	_match_config_label.clear()
+	_match_config_label.append_text(match_config_string)
 
 
 #########################

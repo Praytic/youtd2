@@ -5,17 +5,17 @@ signal cancel_pressed()
 signal create_pressed()
 
 
-@export var _game_mode_ui: GameModeUI
+@export var _match_config_panel: MatchConfigPanel
 
 
 #########################
 ###       Public      ###
 #########################
 
-func get_room_config() -> RoomConfig:
-	var room_config: RoomConfig = _game_mode_ui.get_room_config()
+func get_match_config() -> MatchConfig:
+	var match_config: MatchConfig = _match_config_panel.get_match_config()
 	
-	return room_config
+	return match_config
 
 
 #########################

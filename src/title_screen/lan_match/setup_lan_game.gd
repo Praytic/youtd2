@@ -1,23 +1,18 @@
 class_name SetupLanGame extends Node
 
 
-# Handles logic for creating and joining rooms for LAN games.
+# Handles logic for creating and joining LAN matches.
 
+# TODO: restore. This got broken when adding Online matches.
 
-# TODO: handle player count. Need to let in 2 ppl max, and
-# display player count in room list.
-
-# TODO: add "ready" system. All players in room must ready
-# up before host can start the game.
-
-# TODO: handle room closure. When host leaves the game, room
-# is closed and should disappear from room list.
+# TODO: fix sharing player names. Currently only works in
+# Online matches.
 
 
 const SERVER_PEER_ID: int = 1
 
 
-var _current_room_config: RoomConfig = null
+var _current_match_config: MatchConfig = null
 
 
 @export var _title_screen: TitleScreen
@@ -42,7 +37,7 @@ func _ready():
 ###      Private      ###
 #########################
 
-func _update_player_list_in_room_menu():
+func _update_player_list_in_lobby_menu():
 	var peer_id_list: Array = multiplayer.get_peers()
 	var local_peer_id: int = multiplayer.get_unique_id()
 	peer_id_list.append(local_peer_id)
@@ -74,18 +69,13 @@ func _receive_player_name_map_from_host(player_name_map: Dictionary):
 	
 #	NOTE: need to update displayed player list to show
 #	updated player names
-	_update_player_list_in_room_menu()
+	_update_player_list_in_lobby_menu()
 
 
-# NOTE: this functionality is currently duplicated here and
-# in _on_lan_connect_menu_join_pressed(). This is to
-# handle case where player connects via entered address. In
-# that case, room config is not available on client and has
-# to be obtained from host.
 @rpc("authority", "call_local", "reliable")
-func _receive_room_config_from_host(room_config_bytes: PackedByteArray):
-	_current_room_config = RoomConfig.convert_from_bytes(room_config_bytes)
-	_lan_lobby_menu.display_room_config(_current_room_config)
+func _receive_match_config_from_host(room_config_bytes: PackedByteArray):
+	_current_match_config = MatchConfig.convert_from_bytes(room_config_bytes)
+	_lan_lobby_menu.display_match_config(_current_match_config)
 
 
 func _connect_to_room(room_address: String) -> bool:
@@ -123,21 +113,21 @@ func _on_peer_connected(peer_id: int):
 # 	newly connected peer the names of all of the players.
 	if multiplayer.is_server():
 		_receive_player_name_map_from_host.rpc_id(peer_id, _peer_id_to_player_name_map)
-		var room_config_bytes: PackedByteArray = _current_room_config.convert_to_bytes()
-		_receive_room_config_from_host.rpc_id(peer_id, room_config_bytes)
+		var room_config_bytes: PackedByteArray = _current_match_config.convert_to_bytes()
+		_receive_match_config_from_host.rpc_id(peer_id, room_config_bytes)
 	
-	_update_player_list_in_room_menu()
+	_update_player_list_in_lobby_menu()
 
 
 func _on_peer_disconnected(_id: int):
 	if !_multiplayer_peer_is_enet():
 		return
 
-	_update_player_list_in_room_menu()
+	_update_player_list_in_lobby_menu()
 
 
 func _on_create_lan_match_menu_create_pressed():
-	_current_room_config = _create_lan_match_menu.get_room_config()
+	_current_match_config = _create_lan_match_menu.get_match_config()
 
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	# Maximum of 1 peer, since it's a 2-player co-op.
@@ -151,12 +141,12 @@ func _on_create_lan_match_menu_create_pressed():
 	multiplayer.set_multiplayer_peer(peer)
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
-	_lan_lobby_menu.display_room_config(_current_room_config)
+	_lan_lobby_menu.display_match_config(_current_match_config)
 
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
 
-	_update_player_list_in_room_menu()
+	_update_player_list_in_lobby_menu()
 
 
 func _on_lan_connect_menu_create_room_pressed():
@@ -172,9 +162,9 @@ func _on_lan_lobby_menu_start_pressed():
 	
 	Globals.set_connection_type(Globals.ConnectionType.ENET)
 	
-	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
-	var game_length: int = _current_room_config.get_game_length()
-	var game_mode: GameMode.enm = _current_room_config.get_game_mode()
+	var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
+	var game_length: int = _current_match_config.get_game_length()
+	var game_mode: GameMode.enm = _current_match_config.get_game_mode()
 	var origin_seed: int = randi()
 	
 	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)

@@ -15,7 +15,7 @@ enum NakamaOpCode {
 const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
 
 
-var _current_match_config: RoomConfig = null
+var _current_match_config: MatchConfig = null
 var _lobby_match_id: String = ""
 # TODO: store this state on server
 var _is_host: bool = false
@@ -216,9 +216,9 @@ func _on_online_match_list_menu_join_pressed():
 	_online_lobby_menu.display_match_config(_current_match_config)
 
 
-func _get_match_config_from_label(match_label: String) -> RoomConfig:
+func _get_match_config_from_label(match_label: String) -> MatchConfig:
 	var label_dict: Dictionary = JSON.parse_string(match_label)
-	var match_config: RoomConfig = RoomConfig.convert_from_dict(label_dict)
+	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
 	
 	return match_config
 

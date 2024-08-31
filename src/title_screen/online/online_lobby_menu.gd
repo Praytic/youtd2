@@ -45,7 +45,7 @@ func set_presences(presence_list: Array):
 		_player_list.set_item_selectable(new_item_index, false)
 
 
-func display_match_config(match_config: RoomConfig):
+func display_match_config(match_config: MatchConfig):
 	var match_config_string: String = match_config.get_display_string_rich()
 	
 	_match_config_label.clear()

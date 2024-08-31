@@ -1,4 +1,4 @@
-class_name RoomConfig
+class_name MatchConfig
 
 
 enum Field {
@@ -8,7 +8,7 @@ enum Field {
 	COUNT,
 }
 
-# Stores config values for a game room.
+# Stores config values for a game match.
 
 
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
@@ -78,7 +78,7 @@ func convert_to_bytes() -> PackedByteArray:
 	return bytes
 
 
-static func convert_from_bytes(bytes: PackedByteArray) -> RoomConfig:
+static func convert_from_bytes(bytes: PackedByteArray) -> MatchConfig:
 	var dict: Dictionary = Utils.convert_bytes_to_dict(bytes)
 	
 	var dict_is_valid: bool = Utils.check_dict_has_fields(dict, Field.COUNT)
@@ -88,9 +88,9 @@ static func convert_from_bytes(bytes: PackedByteArray) -> RoomConfig:
 	var game_mode: GameMode.enm = int(dict[Field.GAME_MODE]) as GameMode.enm
 	var difficulty: Difficulty.enm = int(dict[Field.DIFFICULTY]) as Difficulty.enm
 	var game_length: int = int(dict[Field.GAME_LENGTH])
-	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
+	var match_config: MatchConfig = MatchConfig.new(game_mode, difficulty, game_length)
 	
-	return room_config
+	return match_config
 
 
 func convert_to_dict() -> Dictionary:
@@ -105,15 +105,15 @@ func convert_to_dict() -> Dictionary:
 	return dict
 
 
-static func convert_from_dict(dict: Dictionary) -> RoomConfig:
+static func convert_from_dict(dict: Dictionary) -> MatchConfig:
 	var game_mode_string: String = dict.get(KEY_GAME_MODE, "")
 	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
 	var difficulty_string: String = dict.get(KEY_DIFFICULTY, "")
 	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
 	var game_length: int = dict.get(KEY_GAME_LENGTH, Constants.WAVE_COUNT_TRIAL) as int
-	var room_config: RoomConfig = RoomConfig.new(game_mode, difficulty, game_length)
+	var match_config: MatchConfig = MatchConfig.new(game_mode, difficulty, game_length)
 	
-	return room_config
+	return match_config
 
 
 #########################
