@@ -70,6 +70,28 @@ func _on_name_edit_text_changed(new_text: String):
 func _on_close_button_pressed():
 	close_pressed.emit()
 
+#	NOTE: update display_name for account only when profile
+#	menu is closed, not every time when name edit text
+#	changes. This is to avoid too frequent updates.
+	var running_on_desktop: bool = OS.has_feature("pc")
+	if !running_on_desktop:
+		return
+	
+	var client: NakamaClient = NakamaConnection.get_client()
+	var session: NakamaSession = NakamaConnection.get_session()
+	var username = null
+	var display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+	var avatar_url = null
+	var lang_tag = null
+	var location = null
+	var timezone = null
+	var update_account_async_result: NakamaAsyncResult = await client.update_account_async(session, username, display_name, avatar_url, lang_tag, location, timezone)
+
+	if update_account_async_result.is_exception():
+		push_error("Error in update_account_async(): %s" % update_account_async_result)
+		
+		return
+
 
 func _on_import_exp_button_pressed():
 	_import_exp_menu.show()
