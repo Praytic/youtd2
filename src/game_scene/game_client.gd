@@ -21,6 +21,7 @@ class_name GameClient extends Node
 # lowering.
 const TIMESLOT_BUFFER_SIZE_LOWERING_FACTOR: float = 0.4
 const PING_HISTORY_SIZE: int = 10
+const CHECKSUM_PERIOD_TICKS: int = 30 * GameHost.MULTIPLAYER_TURN_LENGTH
 
 
 var _tick_delta: float
@@ -203,13 +204,14 @@ func _do_tick():
 		var timeslot: Array = _timeslot_map[_current_tick]
 		_timeslot_map.erase(_current_tick)
 
-#		Send checksum to host check for desyncs
-		var checksum: PackedByteArray = _calculate_game_state_checksum()
-		_game_host.receive_timeslot_checksum.rpc_id(1, checksum)
-
 		for action in timeslot:
 			_execute_action(action)
-	
+
+		var time_to_send_checksum: bool = _current_tick % CHECKSUM_PERIOD_TICKS == 0
+		if time_to_send_checksum:
+			var checksum: PackedByteArray = _calculate_game_state_checksum()
+			_game_host.receive_timeslot_checksum.rpc_id(1, _current_tick, checksum)
+
 	_update_state()
 	_current_tick += 1
 

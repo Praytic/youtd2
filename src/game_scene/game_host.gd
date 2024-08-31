@@ -57,7 +57,8 @@ var _turn_length: int
 var _in_progress_timeslot: Array = []
 var _player_ping_time_map: Dictionary = {}
 var _player_last_contact_time: Dictionary = {}
-var _player_checksum_map: Dictionary = {}
+# {tick -> {player_id -> checksum}}
+var _checksum_map: Dictionary = {}
 var _showed_desync_message: bool = false
 # Stores timeslots which should be sent to players and
 # haven't been ack'ed yet.
@@ -148,15 +149,27 @@ func receive_action(action: Dictionary):
 	_in_progress_timeslot.append(action)
 
 
+# TODO: handle disconnections here. If player is
+# disconnected, then need to not count him when determining
+# whether host has collected checksums from all players.
 @rpc("any_peer", "call_local", "reliable")
-func receive_timeslot_checksum(checksum: PackedByteArray):
+func receive_timeslot_checksum(tick: int, checksum: PackedByteArray):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
 
-	if !_player_checksum_map.has(player_id):
-		_player_checksum_map[player_id] = []
-	_player_checksum_map[player_id].append(checksum)
+	if !_checksum_map.has(tick):
+		_checksum_map[tick] = {}
+
+	_checksum_map[tick][player_id] = checksum
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	var player_count: int = player_list.size()
+	var collected_all_checksums_for_tick: bool = _checksum_map[tick].size() == player_count
+
+	if collected_all_checksums_for_tick:
+		_verify_checksums(tick)
+		_checksum_map.erase(tick)
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -200,8 +213,6 @@ func _update_state_running():
 		_game_client.set_lagging_players.rpc(lagging_player_name_list)
 
 		return
-
-	_check_desynced_players()
 
 #	Advance ticks on host and save completed timeslots
 	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
@@ -280,34 +291,21 @@ func _get_lagging_players() -> Array[Player]:
 
 
 # TODO: kick desynced players from the game
-func _check_desynced_players():
+func _verify_checksums(tick: int):
 	var desync_detected: bool = false
 
-	var player_list: Array[Player] = PlayerManager.get_player_list()
-
-	var have_checksums_for_all_players: bool = true
-	for player in player_list:
-		var player_id: int = player.get_id()
-
-		if !_player_checksum_map.has(player_id) || _player_checksum_map[player_id].is_empty():
-			have_checksums_for_all_players = false
-
-	if !have_checksums_for_all_players:
-		return
+	var player_to_checksum: Dictionary = _checksum_map[tick]
 
 	var authority_player: Player = PlayerManager.get_player_by_peer_id(1)
 	var authority_player_id: int = authority_player.get_id()
 
-	var have_authority_checksum: bool = _player_checksum_map.has(authority_player_id) && !_player_checksum_map[authority_player_id].is_empty()
+	var authority_checksum: PackedByteArray = player_to_checksum[authority_player_id]
 
-	if !have_authority_checksum:
-		return
-
-	var authority_checksum: PackedByteArray = _player_checksum_map[authority_player_id].front()
+	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	for player in player_list:
 		var player_id: int = player.get_id()
-		var checksum: PackedByteArray = _player_checksum_map[player_id].pop_front()
+		var checksum: PackedByteArray = player_to_checksum[player_id]
 		var checksum_match: bool = checksum == authority_checksum
 
 		if !checksum_match:
@@ -341,7 +339,6 @@ func _on_players_created():
 	for player in player_list:
 		var player_id: int = player.get_id()
 
-		_player_checksum_map[player_id] = []
 		_player_ping_time_map[player_id] = 0
 		_player_last_contact_time[player_id] = 0
 		_player_timeslot_send_queue[player_id] = {}
