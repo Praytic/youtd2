@@ -22,18 +22,22 @@ func set_start_button_visible(value: bool):
 	_start_button.visible = value
 
 
-func set_presences(presence_list: Array):
+# NOTE: skips presences without display names yet
+func set_presences(presence_list: Array, user_id_to_display_name_map: Dictionary):
 	_player_list.clear()
 
 	for e in presence_list:
 		var presence: NakamaRTAPI.UserPresence = e
 		var user_id: String = presence.user_id
-		var username: String = presence.username
+		var display_name: String = user_id_to_display_name_map.get(user_id, "")
+
+		if display_name.is_empty():
+			continue
 
 		var host_user_id: String = NakamaConnection.get_host_user_id()
 		var user_is_host: bool = user_id == host_user_id
 
-		var item_text: String = username
+		var item_text: String = display_name
 
 		if user_is_host:
 			item_text += " (Host)"

@@ -22,6 +22,7 @@ var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
+var _user_id_to_display_name_map: Dictionary = {}
 var _expected_player_count: int = -1
 
 @export var _title_screen: TitleScreen
@@ -119,7 +120,7 @@ func _update_online_lobby_menu_presences():
 		var presence: NakamaRTAPI.UserPresence = _presence_map[user_id]
 		presence_list.append(presence)
 
-	_online_lobby_menu.set_presences(presence_list)
+	_online_lobby_menu.set_presences(presence_list, _user_id_to_display_name_map)
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
@@ -277,6 +278,7 @@ func _on_peer_connected(_peer_id: int):
 #		NOTE: save presence map in NakamaConnection singleton so
 #		that it can be accessed in game scene
 		NakamaConnection._presence_map = _presence_map
+		NakamaConnection._user_id_to_display_name_map = _user_id_to_display_name_map
 
 		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 		var game_length: int = _current_match_config.get_game_length()
@@ -348,6 +350,33 @@ func _save_presences(presence_list: Array):
 
 		if !_presence_order_list.has(presence.user_id):
 			_presence_order_list.append(presence.user_id)
+
+#	Request display names of new joiners from server
+	var user_id_list: Array = []
+	for presence in presence_list:
+		var user_id: String = presence.user_id
+		user_id_list.append(user_id)
+
+	var client: NakamaClient = NakamaConnection.get_client()
+	var session: NakamaSession = NakamaConnection.get_session()
+
+	var get_users_async_result: NakamaAsyncResult = await client.get_users_async(session, user_id_list)
+
+	if get_users_async_result.is_exception():
+		push_error("Error in get_users_async_result rpc(): %s" % get_users_async_result)
+
+		return
+
+	var api_users: NakamaAPI.ApiUsers = get_users_async_result as NakamaAPI.ApiUsers
+
+	for user in api_users.users:
+		var user_id: String = user.id
+		var display_name: String = user.display_name
+
+		_user_id_to_display_name_map[user_id] = display_name
+
+#	NOTE: update online lobby again to show player names
+	_update_online_lobby_menu_presences()
 
 
 func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData):

@@ -15,6 +15,7 @@ var _session: NakamaSession = null
 var _socket: NakamaSocket = null
 var _host_user_id: String = ""
 var _presence_map: Dictionary = {}
+var _user_id_to_display_name_map: Dictionary = {}
 
 
 func _ready():
@@ -28,22 +29,27 @@ func _connect_to_server():
 #	TODO: OS.get_unique_id() can't be called on Web. Need to
 #	disable online completely for web build or find another way to generate
 #	a unique id.
+# 
+# 	NOTE: set username to null to let Nakama automatically
+# 	generate a unique username. This way, we don't need to
+# 	care about username conflicts.
 	var device_id: String = OS.get_unique_id()
-	_session = await _client.authenticate_device_async(device_id)
+	var username = null
+	var create_user: bool = true
+	_session = await _client.authenticate_device_async(device_id, username, create_user)
 
 	if _session.is_exception():
 		push_error("Error in authenticate_device_async(): %s" % _session)
 		
 		return
 
-	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
-	var new_username: String = player_name
-	var new_display_name: String = player_name
-	var new_avatar_url: String = ""
-	var new_lang_tag: String = "en"
-	var new_location: String = ""
-	var new_timezone: String = "UTC"
-	var update_account_async_result: NakamaAsyncResult = await _client.update_account_async(_session, new_username, new_display_name, new_avatar_url, new_lang_tag, new_location, new_timezone)
+#	Set display name of user
+	var display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+	var avatar_url = null
+	var lang_tag = null
+	var location = null
+	var timezone = null
+	var update_account_async_result: NakamaAsyncResult = await _client.update_account_async(_session, username, display_name, avatar_url, lang_tag, location, timezone)
 
 	if update_account_async_result.is_exception():
 		push_error("Error in update_account_async(): %s" % update_account_async_result)
@@ -54,7 +60,7 @@ func _connect_to_server():
 
 	var connect_async_result: NakamaAsyncResult = await _socket.connect_async(_session)
 	if connect_async_result.is_exception():
-		push_error("Error in connect_async(): %s" % update_account_async_result)
+		push_error("Error in connect_async(): %s" % connect_async_result)
 		
 		return
 
@@ -89,6 +95,10 @@ func get_host_presence() -> NakamaRTAPI.UserPresence:
 
 func get_presence_map() -> Dictionary:
 	return _presence_map
+
+
+func get_display_name_of_user(user_id: String) -> String:
+	return _user_id_to_display_name_map.get(user_id, "")
 
 
 func get_local_user_id() -> String:

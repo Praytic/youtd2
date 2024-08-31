@@ -68,7 +68,6 @@ var _player_timeslot_send_queue: Dictionary = {}
 # host confirms that all players have connected successfully
 # and finished loading game scene.
 var _state: HostState = HostState.WAITING_FOR_LAGGING_PLAYERS
-var _player_ready_map: Dictionary = {}
 
 
 #########################

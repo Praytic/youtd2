@@ -19,6 +19,7 @@ var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _origin_seed: int = 0
 var _update_ticks_per_physics_tick: int = 1
 var _connection_type: ConnectionType = ConnectionType.ENET
+var _enet_peer_id_to_player_name: Dictionary = {}
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
@@ -89,3 +90,9 @@ func set_update_ticks_per_physics_tick(value: int):
 
 func get_connect_type() -> ConnectionType:
 	return _connection_type
+
+
+func get_player_name_from_peer_id(peer_id: int):
+	var player_name: String = _enet_peer_id_to_player_name.get(peer_id, "")
+
+	return player_name

@@ -160,14 +160,14 @@ func _on_lan_lobby_menu_start_pressed():
 		
 		return
 	
-	Globals.set_connection_type(Globals.ConnectionType.ENET)
+	Globals._enet_peer_id_to_player_name = _peer_id_to_player_name_map
 	
 	var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 	var game_length: int = _current_match_config.get_game_length()
 	var game_mode: GameMode.enm = _current_match_config.get_game_mode()
 	var origin_seed: int = randi()
 	
-	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
+	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.ENET)
 
 
 func _on_lan_connect_menu_join_pressed():

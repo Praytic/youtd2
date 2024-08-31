@@ -351,15 +351,21 @@ func _on_ping_timer_timeout():
 func _on_players_created():
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
-	for player in player_list:
-		var peer_id: int = player.get_peer_id()
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
 
+	for player in player_list:
 		var player_name: String
 		var player_is_local: bool = player == PlayerManager.get_local_player()
+
 		if player_is_local:
 			player_name = Settings.get_setting(Settings.PLAYER_NAME)
 		else:
-			var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
-			player_name = webrtc_player.username
+			match connection_type:
+				Globals.ConnectionType.ENET:
+					var peer_id: int = player.get_peer_id()
+					player_name = Globals.get_player_name_from_peer_id(peer_id)
+				Globals.ConnectionType.NAKAMA:
+					var user_id: String = player.get_user_id()
+					player_name = NakamaConnection.get_display_name_of_user(user_id)
 		
 		player.set_player_name(player_name)
