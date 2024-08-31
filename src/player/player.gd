@@ -250,7 +250,7 @@ func set_player_name(value: String):
 
 
 func get_player_name() -> String:
-	return _player_name
+	return Utils.escape_bbcode(_player_name)
 
 
 func get_color() -> Color:
@@ -261,7 +261,7 @@ func get_color() -> Color:
 
 func get_player_name_with_color() -> String:
 	var player_color: Color = get_color()
-	var player_name_with_color: String = Utils.get_colored_string(_player_name, player_color)
+	var player_name_with_color: String = Utils.get_colored_string(Utils.escape_bbcode(_player_name), player_color)
 
 	return player_name_with_color
 

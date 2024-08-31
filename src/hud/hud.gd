@@ -98,6 +98,9 @@ func get_chat_edit_text() -> String:
 func add_chat_message(player: Player, message: String):
 	var player_color: Color = player.get_color()
 	var player_name: String = player.get_player_name()
+	player_name = Utils.escape_bbcode(player_name)
+
+	message = Utils.escape_bbcode(message)
 
 	var complete_message: String = "[color=%s]%s:[/color] %s" % [player_color.to_html(), player_name, message]
 	

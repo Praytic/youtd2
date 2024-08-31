@@ -2,6 +2,16 @@ class_name UtilsStatic extends Node
 
 
 
+# This function is needed to prevent user inputted strings
+# from being parsed. Should be applied to all strings coming
+# from players: user names, chat messages, etc.
+# 
+# If this is not done, then players can do stuff like send
+# giant full screen chat messages.
+func escape_bbcode(string: String) -> String:
+	return string.replace("[", "[lb]")
+
+
 func get_turn_length() -> int:
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	
