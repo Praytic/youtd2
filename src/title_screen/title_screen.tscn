@@ -18,12 +18,13 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button", "_lan_button")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
+_lan_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/LANButton")
 
 [node name="SetupLanGame" parent="." node_paths=PackedStringArray("_title_screen", "_lan_room_list_menu", "_lan_room_menu", "_create_lan_room_menu") instance=ExtResource("2_2qgi3")]
 _title_screen = NodePath("..")

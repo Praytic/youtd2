@@ -134,3 +134,6 @@ func enable_dev_commands() -> bool:
 
 func print_wave_info() -> bool:
 	return ProjectSettings.get_setting("application/config/print_wave_info") as bool
+
+func feature_lan_matches() -> bool:
+	return ProjectSettings.get_setting("application/config/feature_lan_matches") as bool

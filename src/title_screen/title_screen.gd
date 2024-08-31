@@ -22,6 +22,7 @@ enum Tab {
 @export var _configure_singleplayer_menu: ConfigureSinglePlayerMenu
 @export var _spacer_before_quit_button: VBoxContainer
 @export var _quit_button: Button
+@export var _lan_button: Button
 
 
 #########################
@@ -37,6 +38,8 @@ func _ready():
 #	function is not needed on web
 	_quit_button.visible = OS.has_feature("pc")
 	_spacer_before_quit_button.visible = OS.has_feature("pc")
+	
+	_lan_button.visible = Config.feature_lan_matches()
 
 
 #########################
