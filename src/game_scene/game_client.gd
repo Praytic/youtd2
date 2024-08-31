@@ -96,6 +96,11 @@ func add_action(action: Action):
 	_game_host.receive_action.rpc_id(1, serialized_action)
 
 
+@rpc("authority", "call_local", "reliable")
+func receive_alive_check():
+	_game_host.receive_alive_check_response.rpc_id(1)
+
+
 # Receive timeslot sent by host to this client and receive
 # turn length
 # 
@@ -150,14 +155,11 @@ func _update_timeslot_buffer_size(ping_time_ms: float):
 # NOTE: arg must be Array instead of Array[String]. RPC
 # calls have typing issues
 @rpc("authority", "call_local", "reliable")
-func enter_waiting_for_lagging_players_state(lagging_player_list: Array):
+func set_lagging_players(lagging_player_list: Array):
+	var players_are_lagging: bool = lagging_player_list.size() > 0
+
 	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
-	_hud.set_waiting_for_lagging_players_indicator_visible(true)
-
-
-@rpc("authority", "call_local", "reliable")
-func exit_waiting_for_lagging_players_state():
-	_hud.set_waiting_for_lagging_players_indicator_visible(false)
+	_hud.set_waiting_for_lagging_players_indicator_visible(players_are_lagging)
 
 
 #########################

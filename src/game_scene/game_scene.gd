@@ -166,8 +166,6 @@ func _ready():
 	if Config.run_test_item_drop_chances():
 		TestItemDropChances.run()
 
-	_game_client.send_ready_message()
-
 
 func _unhandled_input(event: InputEvent):
 	var enter_pressed: bool = event.is_action_released("ui_text_newline")

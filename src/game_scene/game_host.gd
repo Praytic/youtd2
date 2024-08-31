@@ -17,7 +17,6 @@ class_name GameHost extends Node
 
 
 enum HostState {
-	WAITING_BEFORE_START,
 	RUNNING,
 	WAITING_FOR_LAGGING_PLAYERS,
 }
@@ -32,10 +31,11 @@ enum HostState {
 const MULTIPLAYER_TURN_LENGTH: int = 3
 const SINGLEPLAYER_TURN_LENGTH: int = 1
 const TICK_DELTA: float = 1000 / 30.0
-# MAX_LAG_AMOUNT is the max difference in timeslots between
-# host and client. A client is considered to be lagging if
-# it falls behind by more timeslots than this value.
-const MAX_LAG_AMOUNT: int = 10
+# LAG_TIME_MSEC is the max time since last contact from
+# player. If host hasn't received any responses from player
+# for this long, host will start considering that player to
+# be lagging and will pause game turns.
+const LAG_TIME_MSEC: float = 2000.0
 
 @export var _game_client: GameClient
 @export var _hud: HUD
@@ -44,13 +44,15 @@ const MAX_LAG_AMOUNT: int = 10
 var _current_tick: int = 0
 var _turn_length: int
 var _in_progress_timeslot: Array = []
-var _last_sent_timeslot_tick: int = 0
-var _timeslot_sent_count: int = 0
+var _last_timeslot_tick: int = 0
 var _player_ping_time_map: Dictionary = {}
-var _player_ack_count_map: Dictionary = {}
+var _player_last_contact_time: Dictionary = {}
 var _player_checksum_map: Dictionary = {}
 var _showed_desync_message: bool = false
-var _state: HostState = HostState.WAITING_BEFORE_START
+# NOTE: initial state is WAITING_FOR_LAGGING_PLAYERS until
+# host confirms that all players have connected successfully
+# and finished loading game scene.
+var _state: HostState = HostState.WAITING_FOR_LAGGING_PLAYERS
 var _player_ready_map: Dictionary = {}
 
 
@@ -66,26 +68,46 @@ func _ready():
 	
 	_turn_length = Utils.get_turn_length()
 
+#	TODO: move this timer to scene (need to create game host
+#	scene first)
+	var alive_check_timer: Timer = Timer.new()
+	alive_check_timer.wait_time = 1.0
+	alive_check_timer.autostart = true
+	alive_check_timer.one_shot = false
+	alive_check_timer.timeout.connect(_on_alive_check_timer_timeout)
+	add_child(alive_check_timer)
+
 
 func _physics_process(_delta: float):
 	if !multiplayer.is_server():
 		return
 
 	match _state:
-		HostState.WAITING_BEFORE_START: return
 		HostState.RUNNING: _update_state_running()
-		HostState.WAITING_FOR_LAGGING_PLAYERS: _update_state_waiting_for_lagging_players()
+		HostState.WAITING_FOR_LAGGING_PLAYERS: pass
 
 
 #########################
 ###       Public      ###
 #########################
 
+@rpc("any_peer", "call_local", "reliable")
+func receive_alive_check_response():
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	_update_last_contact_time_for_player(player_id)
+
+
 # Receive action sent from client to host. Actions are
 # compiled into timeslots - a group of actions from all
 # clients.
 @rpc("any_peer", "call_local", "reliable")
 func receive_action(action: Dictionary):
+	if _state != HostState.RUNNING:
+		return
+
 #	NOTE: need to attach player id to action in this host
 #	function to ensure safety. If we were to let clients
 #	attach player_id to actions, then clients could attach
@@ -103,8 +125,6 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
-
-	_player_ack_count_map[player_id] += 1
 
 	if !_player_checksum_map.has(player_id):
 		_player_checksum_map[player_id] = []
@@ -149,6 +169,11 @@ func receive_player_ready():
 @rpc("any_peer", "call_local", "reliable")
 func receive_ping():
 	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	_update_last_contact_time_for_player(player_id)
+
 	_game_client.receive_pong.rpc_id(peer_id)
 
 
@@ -165,6 +190,11 @@ func receive_ping_time_for_player(ping_time: int):
 ###      Private      ###
 #########################
 
+func _update_last_contact_time_for_player(player_id: int):
+	var ticks_msec: int = Time.get_ticks_msec()
+	_player_last_contact_time[player_id] = ticks_msec
+
+
 func _update_state_running():
 	var lagging_player_list: Array[Player] = _get_lagging_players()
 	var players_are_lagging: bool = lagging_player_list.size() > 0
@@ -174,7 +204,7 @@ func _update_state_running():
 
 		var lagging_player_name_list: Array = get_player_name_list(lagging_player_list)
 
-		_game_client.enter_waiting_for_lagging_players_state.rpc(lagging_player_name_list)
+		_game_client.set_lagging_players.rpc(lagging_player_name_list)
 
 		return
 
@@ -183,31 +213,21 @@ func _update_state_running():
 	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
 
 	for i in range(0, update_tick_count):
-		_current_tick += 1
-
-		var next_timeslot_tick: int = _last_sent_timeslot_tick + _turn_length
-		var need_to_send_timeslot: bool = _current_tick == next_timeslot_tick
+		var timeslot_tick: int = _last_timeslot_tick + _turn_length
+		var need_to_send_timeslot: bool = _current_tick == timeslot_tick || _current_tick == 0
 
 		if need_to_send_timeslot:
 			_send_timeslot()
+		
+		_current_tick += 1
 
-
-func _update_state_waiting_for_lagging_players():
-	var lagging_player_list: Array[Player] = _get_lagging_players()
-	var players_are_lagging: bool = lagging_player_list.size() > 0
-
-	if !players_are_lagging:
-		_state = HostState.RUNNING
-
-		_game_client.exit_waiting_for_lagging_players_state.rpc()
 
 
 func _send_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
 	_game_client.receive_timeslot.rpc(timeslot, _current_tick)
-	_last_sent_timeslot_tick = _current_tick
-	_timeslot_sent_count += 1
+	_last_timeslot_tick = _current_tick
 
 
 # Returns highest ping of all players, in msec. Ping is
@@ -234,11 +254,13 @@ func _get_lagging_players() -> Array[Player]:
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
+	var ticks_msec: int = Time.get_ticks_msec()
+
 	for player in player_list:
 		var player_id: int = player.get_id()
-		var ack_count: int = _player_ack_count_map[player_id]
-		var lag_amount: int = _timeslot_sent_count - ack_count
-		var player_is_lagging: bool = lag_amount > MAX_LAG_AMOUNT
+		var last_contact_time: float = _player_last_contact_time[player_id]
+		var time_since_last_contact: float = ticks_msec - last_contact_time
+		var player_is_lagging: bool = time_since_last_contact > LAG_TIME_MSEC
 
 		if player_is_lagging:
 			lagging_player_list.append(player)
@@ -308,6 +330,32 @@ func _on_players_created():
 	for player in player_list:
 		var player_id: int = player.get_id()
 
-		_player_ack_count_map[player_id] = 0
 		_player_checksum_map[player_id] = []
 		_player_ping_time_map[player_id] = 0
+		_player_last_contact_time[player_id] = 0
+
+
+# While waiting for lagging players, periodically send a
+# message to check if lagging players respond. If there's a
+# response, host will stop considering those players to be
+# lagging.
+# 
+# Also in this timeout, tell clients about which players are
+# lagging.
+func _on_alive_check_timer_timeout():
+	if _state != HostState.WAITING_FOR_LAGGING_PLAYERS:
+		return
+
+	var lagging_players: Array[Player] = _get_lagging_players()
+	var players_are_lagging: bool = lagging_players.size() > 0
+
+	if players_are_lagging:
+		for player in lagging_players:
+			var peer_id: int = player.get_peer_id()
+
+			_game_client.receive_alive_check.rpc_id(peer_id)
+	else:
+		_state = HostState.RUNNING
+
+	var lagging_player_name_list: Array[String] = get_player_name_list(lagging_players)
+	_game_client.set_lagging_players.rpc(lagging_player_name_list)
