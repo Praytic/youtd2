@@ -23,13 +23,13 @@ func set_start_button_visible(value: bool):
 
 
 # NOTE: skips presences without display names yet
-func set_presences(presence_list: Array, user_id_to_display_name_map: Dictionary):
+func set_presences(presence_list: Array):
 	_player_list.clear()
 
 	for e in presence_list:
 		var presence: NakamaRTAPI.UserPresence = e
 		var user_id: String = presence.user_id
-		var display_name: String = user_id_to_display_name_map.get(user_id, "")
+		var display_name: String = NakamaConnection.get_display_name_of_user(user_id)
 
 		if display_name.is_empty():
 			continue

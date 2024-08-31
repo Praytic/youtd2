@@ -22,7 +22,6 @@ var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
-var _user_id_to_display_name_map: Dictionary = {}
 var _expected_player_count: int = -1
 
 @export var _title_screen: TitleScreen
@@ -120,7 +119,7 @@ func _update_online_lobby_menu_presences():
 		var presence: NakamaRTAPI.UserPresence = _presence_map[user_id]
 		presence_list.append(presence)
 
-	_online_lobby_menu.set_presences(presence_list, _user_id_to_display_name_map)
+	_online_lobby_menu.set_presences(presence_list)
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
@@ -278,7 +277,6 @@ func _on_peer_connected(_peer_id: int):
 #		NOTE: save presence map in NakamaConnection singleton so
 #		that it can be accessed in game scene
 		NakamaConnection._presence_map = _presence_map
-		NakamaConnection._user_id_to_display_name_map = _user_id_to_display_name_map
 
 		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 		var game_length: int = _current_match_config.get_game_length()
@@ -373,7 +371,7 @@ func _save_presences(presence_list: Array):
 		var user_id: String = user.id
 		var display_name: String = user.display_name
 
-		_user_id_to_display_name_map[user_id] = display_name
+		NakamaConnection.set_display_name_of_user(user_id, display_name)
 
 #	NOTE: update online lobby again to show player names
 	_update_online_lobby_menu_presences()
