@@ -36,9 +36,6 @@ var _timeslot_buffer_size: float
 # future timeslots before we processed current one.
 # {tick -> timeslot}
 var _timeslot_map: Dictionary = {}
-# A list of timeslot ticks which are scheduled to be sent by
-# host.
-var _scheduled_timeslot_list: Array = [0]
 var _time_when_sent_ping: int = 0
 var _ping_history: Array = [0]
 
@@ -88,10 +85,6 @@ func _physics_process(_delta: float):
 ###       Public      ###
 #########################
 
-func send_ready_message():
-	_game_host.receive_player_ready.rpc_id(1)
-
-
 # Send action from client to host
 func add_action(action: Action):
 	var serialized_action: Dictionary = action.serialize()
@@ -109,14 +102,12 @@ func receive_alive_check():
 # NOTE: this f-n needs to handle cases where timeslots
 # are received out of order.
 @rpc("authority", "call_local", "reliable")
-func receive_timeslot(timeslot: Array, timeslot_tick: int):
-	_timeslot_map[timeslot_tick] = timeslot
-#	Save next_timeslot_tick in _scheduled_timeslot_list
-#	to know when the next timeslot is expected to arrive.
-	var next_timeslot_tick: int = timeslot_tick + _turn_length
-	if !_scheduled_timeslot_list.has(next_timeslot_tick):
-		_scheduled_timeslot_list.append(next_timeslot_tick)
-		_scheduled_timeslot_list.sort()
+func receive_timeslots(timeslot_list: Dictionary):
+	for tick in timeslot_list.keys():
+		_timeslot_map[tick] = timeslot_list[tick]
+
+	var tick_list: Array = timeslot_list.keys()
+	_game_host.receive_timeslots_ack.rpc_id(1, tick_list)
 
 
 @rpc("authority", "call_local", "reliable")
@@ -177,7 +168,7 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 	
 #	If current tick needs a timeslot and client hasn't
 #	received timeslot from host yet, client has to wait
-	var need_timeslot: bool = _scheduled_timeslot_list.has(_current_tick)
+	var need_timeslot: bool = _current_tick % _turn_length == 0
 	var have_timeslot: bool = _timeslot_map.has(_current_tick)
 	if need_timeslot && !have_timeslot:
 		return false
@@ -185,10 +176,12 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 #	NOTE: keep size of timeslot buffer within certain value.
 #	If too many timeslots are buffered, client fast forward
 #	to catch up to host.
-	if !_timeslot_map.is_empty():		
-		var latest_timeslot_tick: int = _scheduled_timeslot_list.back()
-		var ticks_to_newest_timeslot: int = latest_timeslot_tick - _current_tick
-		var buffer_is_too_big: bool = ticks_to_newest_timeslot > _timeslot_buffer_size
+	if !_timeslot_map.is_empty():
+		var timeslot_ticks: Array = _timeslot_map.keys()
+		timeslot_ticks.sort()
+		var latest_timeslot_tick: int = timeslot_ticks.back()
+		var ticks_to_latest_timeslot: int = latest_timeslot_tick - _current_tick
+		var buffer_is_too_big: bool = ticks_to_latest_timeslot > _timeslot_buffer_size
 		
 		if buffer_is_too_big:
 			return true
@@ -200,7 +193,7 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 
 
 func _do_tick():
-	var need_timeslot: bool = _scheduled_timeslot_list.has(_current_tick)
+	var need_timeslot: bool = _current_tick % _turn_length == 0
 	var have_timeslot: bool = _timeslot_map.has(_current_tick)
 	
 	if need_timeslot && !have_timeslot:
@@ -209,12 +202,10 @@ func _do_tick():
 	if need_timeslot:
 		var timeslot: Array = _timeslot_map[_current_tick]
 		_timeslot_map.erase(_current_tick)
-		_scheduled_timeslot_list.erase(_current_tick)
 
-#		Tell host that this client has processed this
-#		timeslot. Send checksum to check for desyncs.
+#		Send checksum to host check for desyncs
 		var checksum: PackedByteArray = _calculate_game_state_checksum()
-		_game_host.receive_timeslot_ack.rpc_id(1, checksum)
+		_game_host.receive_timeslot_checksum.rpc_id(1, checksum)
 
 		for action in timeslot:
 			_execute_action(action)

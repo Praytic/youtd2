@@ -10,6 +10,13 @@ class_name GameHost extends Node
 # 
 # Note that server peer acts as a host and a peer at the
 # same time.
+# 
+# There's an ACK system for timeslots. Host keeps track of
+# which timeslots have been ack'ed by clients. Each message
+# sent from host to a client contains all timeslots which
+# haven't been ack'ed by that client yet. This ensures that
+# if some client temporarily disconnects, they will not miss
+# any timeslots and will be able to continue the game.
 
 # NOTE: GameHost node needs to be positioned before
 # GameClient node in the tree, so that it is processed
@@ -21,13 +28,17 @@ enum HostState {
 	WAITING_FOR_LAGGING_PLAYERS,
 }
 
-# NOTE: these values determine the "catch up" window. When
-# the client falls behind latest timeslot by "start" value,
-# it will start to catch up by fast forwarding (multiple
-# game ticks per physics tick). Client will keep fast
-# forwarding until reaching the "stop" value. Start and stop
-# values are multiples of current turn length.
 # NOTE: 3 ticks at 30ticks/second = 100ms
+# 100ms was chosen so that turn length is short enough to
+# minimize input lag but not too often keep bandwidth usage
+# reasonable.
+# 
+# Turn length affects input lag because when a player sends
+# an action to host, the action will be stored for a random
+# amount of time from 0ms to _turn_length before turn ends
+# and action is sent inside timeslot. Therefore, 100ms adds
+# on average 50ms of input lag, in addition to transmission
+# time and timeslot buffering on client.
 const MULTIPLAYER_TURN_LENGTH: int = 3
 const SINGLEPLAYER_TURN_LENGTH: int = 1
 const TICK_DELTA: float = 1000 / 30.0
@@ -44,11 +55,14 @@ const LAG_TIME_MSEC: float = 2000.0
 var _current_tick: int = 0
 var _turn_length: int
 var _in_progress_timeslot: Array = []
-var _last_timeslot_tick: int = 0
 var _player_ping_time_map: Dictionary = {}
 var _player_last_contact_time: Dictionary = {}
 var _player_checksum_map: Dictionary = {}
 var _showed_desync_message: bool = false
+# Stores timeslots which should be sent to players and
+# haven't been ack'ed yet.
+# {player_id -> {tick -> timeslot}}
+var _player_timeslot_send_queue: Dictionary = {}
 # NOTE: initial state is WAITING_FOR_LAGGING_PLAYERS until
 # host confirms that all players have connected successfully
 # and finished loading game scene.
@@ -91,6 +105,20 @@ func _physics_process(_delta: float):
 ###       Public      ###
 #########################
 
+# When player ack's timeslots, host erases ack'd timeslots
+# from queue and stops sending them.
+@rpc("any_peer", "call_local", "reliable")
+func receive_timeslots_ack(tick_list: Array):
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	var timeslots_to_send: Dictionary = _player_timeslot_send_queue[player_id]
+
+	for tick in tick_list:
+		timeslots_to_send.erase(tick)
+
+
 @rpc("any_peer", "call_local", "reliable")
 func receive_alive_check_response():
 	var peer_id: int = multiplayer.get_remote_sender_id()
@@ -121,7 +149,7 @@ func receive_action(action: Dictionary):
 
 
 @rpc("any_peer", "call_local", "reliable")
-func receive_timeslot_ack(checksum: PackedByteArray):
+func receive_timeslot_checksum(checksum: PackedByteArray):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
@@ -129,41 +157,6 @@ func receive_timeslot_ack(checksum: PackedByteArray):
 	if !_player_checksum_map.has(player_id):
 		_player_checksum_map[player_id] = []
 	_player_checksum_map[player_id].append(checksum)
-
-
-# TODO: handle case where some player is not ready. Need to
-# show this as message to all players as "Waiting for
-# players...". Also need to add an option to leave the game
-# if the wait is too long.
-
-# Called by players to let the host know that player is
-# loaded and ready to start simulating the game. Host will
-# not start incrementing simulation ticks until all players
-# are ready.
-@rpc("any_peer", "call_local", "reliable")
-func receive_player_ready():
-	var peer_id: int = multiplayer.get_remote_sender_id()
-	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
-	var player_id: int = player.get_id()
-
-	_player_ready_map[player_id] = true
-
-	var all_players_are_ready: bool = true
-	var player_list: Array[Player] = PlayerManager.get_player_list()
-	for this_player in player_list:
-		var this_player_id: int = this_player.get_id()
-		var this_player_is_ready: bool = _player_ready_map.has(this_player_id)
-
-		if !this_player_is_ready:
-			all_players_are_ready = false
-
-			break
-
-	if all_players_are_ready:
-		_state = HostState.RUNNING
-
-#		Send timeslot for 0 tick
-		_send_timeslot()
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -210,24 +203,42 @@ func _update_state_running():
 
 	_check_desynced_players()
 
+#	Advance ticks on host and save completed timeslots
 	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
 
 	for i in range(0, update_tick_count):
-		var timeslot_tick: int = _last_timeslot_tick + _turn_length
-		var need_to_send_timeslot: bool = _current_tick == timeslot_tick || _current_tick == 0
+		var turn_ended: int = _current_tick % _turn_length == 0
 
-		if need_to_send_timeslot:
-			_send_timeslot()
+		if turn_ended:
+			_save_timeslot()
 		
 		_current_tick += 1
 
+#	Send timeslots
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
+		var peer_id: int = player.get_peer_id()
+		var timeslots_to_send: Dictionary = _player_timeslot_send_queue[player_id]
+
+		if timeslots_to_send.is_empty():
+			continue
+
+		_game_client.receive_timeslots.rpc_id(peer_id, timeslots_to_send)
 
 
-func _send_timeslot():
+func _save_timeslot():
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_game_client.receive_timeslot.rpc(timeslot, _current_tick)
-	_last_timeslot_tick = _current_tick
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var player_id: int = player.get_id()
+		var timeslots_to_send: Dictionary = _player_timeslot_send_queue[player_id]
+
+		timeslots_to_send[_current_tick] = timeslot
 
 
 # Returns highest ping of all players, in msec. Ping is
@@ -333,6 +344,7 @@ func _on_players_created():
 		_player_checksum_map[player_id] = []
 		_player_ping_time_map[player_id] = 0
 		_player_last_contact_time[player_id] = 0
+		_player_timeslot_send_queue[player_id] = {}
 
 
 # While waiting for lagging players, periodically send a
