@@ -23,6 +23,12 @@ func _ready():
 
 
 func _connect_to_server():
+	var running_on_desktop: bool = OS.has_feature("pc")
+	if !running_on_desktop:
+		print_verbose("Skipping Nakama connection because running in browser.")
+		
+		return
+	
 	var server_key: String = Secrets.get_secret(Secrets.Key.SERVER_KEY)
 	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL, Nakama.DEFAULT_TIMEOUT, NakamaLogger.LOG_LEVEL.INFO)
 
