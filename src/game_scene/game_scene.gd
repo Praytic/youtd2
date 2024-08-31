@@ -109,11 +109,6 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-#	Share name of local player to others in multiplayer game
-	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
-	var player_name_action: Action = ActionSetPlayerName.make(local_player_name)
-	_game_client.add_action(player_name_action)
-
 	var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
 	builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		

@@ -29,7 +29,6 @@ enum Field {
 	BUFFGROUP_MODE,
 	ELEMENT,
 	WISDOM_UPGRADES,
-	PLAYER_NAME,
 }
 
 enum Type {

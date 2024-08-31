@@ -56,6 +56,8 @@ var _ping_history: Array = [0]
 #########################
 
 func _ready():
+	PlayerManager.players_created.connect(_on_players_created)
+
 	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 	if tick_rate != 30:
@@ -270,7 +272,6 @@ func _execute_action(action: Dictionary):
 
 	match action_type:
 		Action.Type.IDLE: return
-		Action.Type.SET_PLAYER_NAME: ActionSetPlayerName.execute(action, player)
 		Action.Type.CHAT: ActionChat.execute(action, player, _hud, _chat_commands)
 		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _build_space)
 		Action.Type.UPGRADE_TOWER: ActionUpgradeTower.execute(action, player, _select_unit)
@@ -352,3 +353,20 @@ func _get_ping_max() -> float:
 func _on_ping_timer_timeout():
 	_time_when_sent_ping = Time.get_ticks_msec()
 	_game_host.receive_ping.rpc_id(1)
+
+
+func _on_players_created():
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for player in player_list:
+		var peer_id: int = player.get_peer_id()
+
+		var player_name: String
+		var player_is_local: bool = player == PlayerManager.get_local_player()
+		if player_is_local:
+			player_name = Settings.get_setting(Settings.PLAYER_NAME)
+		else:
+			var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
+			player_name = webrtc_player.username
+		
+		player.set_player_name(player_name)
