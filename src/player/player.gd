@@ -52,6 +52,7 @@ var _gold_farmed: float = 0
 var _tomes: int = INITIAL_TOMES
 var _id: int = -1
 var _peer_id: int = -1
+var _user_id: String = ""
 var _builder: Builder = null
 var _have_placeholder_builder: bool = true
 var _score: float = 0.0
@@ -271,6 +272,10 @@ func get_id() -> int:
 
 func get_peer_id() -> int:
 	return _peer_id
+
+
+func get_user_id() -> String:
+	return _user_id
 
 
 func get_score() -> float:

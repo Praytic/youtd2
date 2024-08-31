@@ -8,7 +8,8 @@ signal players_created()
 
 
 var _id_to_player_map: Dictionary = {}
-var _peer_id_to_player_map: Dictionary = {}
+var _enet_peer_id_to_player_map: Dictionary = {}
+var _nakama_user_id_to_player_map: Dictionary = {}
 var _player_list: Array[Player] = []
 
 
@@ -23,7 +24,7 @@ var _player_list: Array[Player] = []
 func get_local_player() -> Player:
 	var local_peer_id: int = multiplayer.get_unique_id()
 	var local_player: Player = get_player_by_peer_id(local_peer_id)
-	
+
 	return local_player
 
 
@@ -40,12 +41,23 @@ func get_player(id: int) -> Player:
 
 
 func get_player_by_peer_id(peer_id: int) -> Player:
-	if !_peer_id_to_player_map.has(peer_id):
+	if !_enet_peer_id_to_player_map.has(peer_id):
 		push_error("Failed to find player for peer id ", peer_id)
 
 		return null
 
-	var player: Player = _peer_id_to_player_map[peer_id]
+	var player: Player = _enet_peer_id_to_player_map[peer_id]
+
+	return player
+
+
+func get_player_by_nakama_user_id(user_id: String) -> Player:
+	if !_nakama_user_id_to_player_map.has(user_id):
+		push_error("Failed to find player for nakama user id ", user_id)
+
+		return null
+
+	var player: Player = _nakama_user_id_to_player_map[user_id]
 
 	return player
 
@@ -56,15 +68,18 @@ func get_player_list() -> Array[Player]:
 
 func reset():
 	_id_to_player_map = {}
-	_peer_id_to_player_map = {}
+	_enet_peer_id_to_player_map = {}
+	_nakama_user_id_to_player_map = {}
 	_player_list = []
 
 
 func add_player(player: Player):
 	var id: int = player.get_id()
 	_id_to_player_map[id] = player
+	
 	var peer_id: int = player.get_peer_id()
-	_peer_id_to_player_map[peer_id] = player
+	_enet_peer_id_to_player_map[peer_id] = player
+
 	add_child(player)
 
 # 	NOTE: need to sort player id list to ensure determinism in multiplayer

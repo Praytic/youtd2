@@ -1,17 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=18 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://src/title_screen/title_screen.gd" id="1_dx8oa"]
 [ext_resource type="PackedScene" uid="uid://cusqgcgg37fj7" path="res://src/title_screen/mutliplayer/setup_lan_game.tscn" id="2_2qgi3"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_ec3wj"]
+[ext_resource type="PackedScene" uid="uid://bran1c08eptno" path="res://src/title_screen/online/setup_online_game.tscn" id="3_mias5"]
 [ext_resource type="Texture2D" uid="uid://bpfx0lg44dqkv" path="res://assets/misc/icob_ultra_wide.png" id="3_uvrn4"]
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://src/game_menu/credits_menu.tscn" id="4_rdxi7"]
 [ext_resource type="PackedScene" uid="uid://cnnkyqysqqyar" path="res://src/title_screen/mutliplayer/lan_room_list_menu.tscn" id="5_pc1mj"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/game_menu/settings_menu.tscn" id="5_q0hc3"]
-[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="6_65btw"]
 [ext_resource type="PackedScene" uid="uid://eies0lnegrf6" path="res://src/title_screen/configure_singleplayer_menu.tscn" id="6_nj3u5"]
 [ext_resource type="PackedScene" uid="uid://d0m1fiwnsk3tf" path="res://src/title_screen/mutliplayer/create_lan_room_menu.tscn" id="7_8vssb"]
+[ext_resource type="PackedScene" uid="uid://csg2abpgju1ay" path="res://src/title_screen/online/online_match_list_menu.tscn" id="7_ggn0o"]
 [ext_resource type="PackedScene" uid="uid://ch6cw5m8w8r7j" path="res://src/title_screen/profile_menu.tscn" id="8_7qboh"]
+[ext_resource type="PackedScene" uid="uid://ddpf0wt3rp57k" path="res://src/title_screen/online/create_online_match_menu.tscn" id="9_f0p2i"]
 [ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://src/title_screen/auth_menu.tscn" id="9_v765v"]
+[ext_resource type="PackedScene" uid="uid://dkxudlev66vnr" path="res://src/title_screen/online/online_lobby_menu.tscn" id="11_b1t0j"]
+[ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/mutliplayer/lan_room_menu.tscn" id="12_3m802"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
@@ -28,6 +32,12 @@ _title_screen = NodePath("..")
 _lan_room_list_menu = NodePath("../UI/TabContainer/LanRoomListMenu")
 _lan_room_menu = NodePath("../UI/TabContainer/LanRoomMenu")
 _create_lan_room_menu = NodePath("../UI/TabContainer/CreateLanRoomMenu")
+
+[node name="SetupOnlineGame" parent="." node_paths=PackedStringArray("_title_screen", "_online_match_list_menu", "_online_lobby_menu", "_create_online_match_menu") instance=ExtResource("3_mias5")]
+_title_screen = NodePath("..")
+_online_match_list_menu = NodePath("../UI/TabContainer/OnlineMatchListMenu")
+_online_lobby_menu = NodePath("../UI/TabContainer/OnlineLobbyMenu")
+_create_online_match_menu = NodePath("../UI/TabContainer/CreateOnlineMatchMenu")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -84,6 +94,12 @@ focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
 
+[node name="LANButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonLarge"
+text = "LAN"
+
 [node name="AuthButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -124,7 +140,15 @@ text = "Quit"
 visible = false
 layout_mode = 2
 
+[node name="OnlineMatchListMenu" parent="UI/TabContainer" instance=ExtResource("7_ggn0o")]
+visible = false
+layout_mode = 2
+
 [node name="LanRoomListMenu" parent="UI/TabContainer" instance=ExtResource("5_pc1mj")]
+visible = false
+layout_mode = 2
+
+[node name="CreateOnlineMatchMenu" parent="UI/TabContainer" instance=ExtResource("9_f0p2i")]
 visible = false
 layout_mode = 2
 
@@ -132,7 +156,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("6_65btw")]
+[node name="OnlineLobbyMenu" parent="UI/TabContainer" instance=ExtResource("11_b1t0j")]
+visible = false
+layout_mode = 2
+
+[node name="LanRoomMenu" parent="UI/TabContainer" instance=ExtResource("12_3m802")]
 visible = false
 layout_mode = 2
 
@@ -170,6 +198,7 @@ fit_content = true
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/AuthButton" to="." method="_on_auth_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -177,13 +206,20 @@ fit_content = true
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="start_button_pressed" from="UI/TabContainer/ConfigureSingleplayerMenu" to="." method="_on_configure_singleplayer_menu_start_button_pressed"]
+[connection signal="cancel_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="." method="_on_generic_tab_cancel_pressed"]
+[connection signal="create_match_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_create_match_pressed"]
+[connection signal="join_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_join_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/LanRoomListMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="create_room_pressed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_create_room_pressed"]
 [connection signal="join_address_pressed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_join_address_pressed"]
 [connection signal="join_pressed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_join_pressed"]
 [connection signal="visibility_changed" from="UI/TabContainer/LanRoomListMenu" to="SetupLanGame" method="_on_lan_room_list_menu_visibility_changed"]
+[connection signal="cancel_pressed" from="UI/TabContainer/CreateOnlineMatchMenu" to="." method="_on_create_online_match_menu_cancel_pressed"]
+[connection signal="create_pressed" from="UI/TabContainer/CreateOnlineMatchMenu" to="SetupOnlineGame" method="_on_create_online_match_menu_create_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="." method="_on_create_lan_room_menu_cancel_pressed"]
 [connection signal="create_pressed" from="UI/TabContainer/CreateLanRoomMenu" to="SetupLanGame" method="_on_create_lan_room_menu_create_pressed"]
+[connection signal="leave_pressed" from="UI/TabContainer/OnlineLobbyMenu" to="SetupOnlineGame" method="_on_online_lobby_menu_leave_pressed"]
+[connection signal="start_pressed" from="UI/TabContainer/OnlineLobbyMenu" to="SetupOnlineGame" method="_on_online_lobby_menu_start_pressed"]
 [connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="." method="_on_lan_room_menu_back_pressed"]
 [connection signal="back_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_back_pressed"]
 [connection signal="start_pressed" from="UI/TabContainer/LanRoomMenu" to="SetupLanGame" method="_on_lan_room_menu_start_pressed"]

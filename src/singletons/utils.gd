@@ -1,6 +1,16 @@
 class_name UtilsStatic extends Node
 
 
+
+func get_turn_length() -> int:
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	
+	if player_mode == PlayerMode.enm.SINGLE:
+		return GameHost.SINGLEPLAYER_TURN_LENGTH
+	else:
+		return GameHost.MULTIPLAYER_TURN_LENGTH
+
+
 # Adds a red color error text in the middle of the screen
 # and plays an error sound.
 func add_ui_error(player: Player, text: String):

@@ -1,6 +1,14 @@
 extends Node
 
 
+# NOTE: singleplayer is also treated as ENET type so there's
+# no "NONE" connection
+enum ConnectionType {
+	ENET,
+	NAKAMA
+}
+
+
 # NOTE: these settings are selected during game start. If
 # they are accessed before that point, you will get these
 # placeholders.
@@ -10,6 +18,7 @@ var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _origin_seed: int = 0
 var _update_ticks_per_physics_tick: int = 1
+var _connection_type: ConnectionType = ConnectionType.ENET
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
@@ -76,3 +85,7 @@ func get_update_ticks_per_physics_tick() -> int:
 
 func set_update_ticks_per_physics_tick(value: int):
 	_update_ticks_per_physics_tick = value
+
+
+func get_connect_type() -> ConnectionType:
+	return _connection_type

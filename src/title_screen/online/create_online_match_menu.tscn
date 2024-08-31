@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddpf0wt3rp57k"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_6c5n7"]
+[ext_resource type="Script" path="res://src/title_screen/online/create_online_match_menu.gd" id="2_cct1s"]
+[ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://src/title_screen/game_mode_ui.tscn" id="3_cxmya"]
+
+[node name="CreateOnlineMatchMenu" type="PanelContainer" node_paths=PackedStringArray("_game_mode_ui")]
+theme = ExtResource("1_6c5n7")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_cct1s")
+_game_mode_ui = NodePath("VBoxContainer/GameModeUI")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Choose game settings:"
+
+[node name="GameModeUI" parent="VBoxContainer" instance=ExtResource("3_cxmya")]
+layout_mode = 2
+
+[node name="Spacer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Create
+"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]

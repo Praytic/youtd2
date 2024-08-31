@@ -90,6 +90,10 @@ VectorUtils="*res://src/singletons/vector_utils.gd"
 TutorialProperties="*res://src/singletons/properties/tutorial_properties.gd"
 ButtonSounds="*res://src/singletons/button_sounds.gd"
 SfxPaths="*res://src/singletons/sfx_paths.gd"
+Secrets="*res://src/singletons/secrets.gd"
+Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
+NakamaConnection="*res://src/singletons/nakama_connection.gd"
+OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
 
 [debug]
 
@@ -106,10 +110,6 @@ window/size/viewport_height=1440
 window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/w4gd/plugin/plugin.cfg")
 
 [gui]
 

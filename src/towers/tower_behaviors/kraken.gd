@@ -204,7 +204,7 @@ func fire_tentacles():
 		if target == null:
 			break
 		
-		var random_offset: Vector2 = Vector2(Globals.synced_rng. randf_range(-35, 35), Globals.synced_rng.randf_range(-35, 35))
+		var random_offset: Vector2 = Vector2(Globals.synced_rng.randf_range(-35, 35), Globals.synced_rng.randf_range(-35, 35))
 		var effect_pos: Vector2 = target.get_position_wc3_2d() + random_offset
 		var effect: int = Effect.add_special_effect("ImpaleHitTarget.mdl", effect_pos)
 		Effect.destroy_effect_after_its_over(effect)

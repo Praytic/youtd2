@@ -110,11 +110,17 @@ func _connect_to_room(room_address: String) -> bool:
 #########################
 
 func _on_connected_to_server():
+	if !_multiplayer_peer_is_enet():
+		return
+
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
 
 
 func _on_peer_connected(peer_id: int):
+	if !_multiplayer_peer_is_enet():
+		return
+
 # 	When a new peer connects, host(server) will tell the
 # 	newly connected peer the names of all of the players.
 	if multiplayer.is_server():
@@ -126,6 +132,9 @@ func _on_peer_connected(peer_id: int):
 
 
 func _on_peer_disconnected(_id: int):
+	if !_multiplayer_peer_is_enet():
+		return
+
 	_update_player_list_in_room_menu()
 
 
@@ -151,7 +160,7 @@ func _on_create_lan_room_menu_create_pressed():
 #	Start advertising the room
 	_lan_room_advertiser.set_room_config(_current_room_config)
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_room_menu.display_room_config(_current_room_config)
 
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
@@ -169,7 +178,7 @@ func _on_lan_room_list_menu_visibility_changed():
 
 
 func _on_lan_room_list_menu_create_room_pressed():
-	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_LAN_MATCH)
 
 
 func _on_lan_room_list_menu_join_pressed():
@@ -187,7 +196,7 @@ func _on_lan_room_list_menu_join_pressed():
 	var room_info: RoomInfo = room_map[selected_room_address]
 	_current_room_config = room_info.get_room_config()
 
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_room_menu.display_room_config(_current_room_config)
 
 
@@ -197,6 +206,8 @@ func _on_lan_room_menu_start_pressed():
 		Utils.show_popup_message(self, "Error", "Only the host can start the game.")
 		
 		return
+	
+	Globals.set_connection_type(Globals.ConnectionType.ENET)
 	
 	var difficulty: Difficulty.enm = _current_room_config.get_difficulty()
 	var game_length: int = _current_room_config.get_game_length()
@@ -216,7 +227,7 @@ func _on_lan_room_list_menu_join_address_pressed():
 	
 	_connect_to_room(room_address)
 	
-	_title_screen.switch_to_tab(TitleScreen.Tab.MULTIPLAYER_ROOM)
+	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 
 
 func _on_lan_room_menu_back_pressed():
@@ -229,3 +240,13 @@ func _on_lan_room_menu_back_pressed():
 #	NOTE: both server and clients need to close the
 #	connection when leaving room menu
 	multiplayer.multiplayer_peer.close()
+
+
+# This check is needed in case current MultiplayerPeer is
+# set to NakamaMultiplayerPeer, which means that all signals
+# should be ignored.
+func _multiplayer_peer_is_enet() -> bool:
+	var multiplayer_peer: MultiplayerPeer = multiplayer.get_multiplayer_peer()
+	var peer_is_enet: bool = multiplayer_peer is ENetMultiplayerPeer
+
+	return peer_is_enet

@@ -64,11 +64,14 @@ func start_next_wave():
 	_start_wave()
 
 
-func create_player(player_id: int, peer_id: int) -> Player:
+# NOTE: either peer_id or user_id has to be defined,
+# depending on if connection is Nakama or Enet
+func create_player(player_id: int, peer_id: int, user_id: String) -> Player:
 	var player: Player = Preloads.player_scene.instantiate()
 	player._id = player_id
-	player._peer_id = peer_id
 	player._team = self
+	player._peer_id = peer_id
+	player._user_id = user_id
 
 	_player_list.append(player)
 

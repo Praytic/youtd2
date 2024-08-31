@@ -81,40 +81,9 @@ func _ready():
 # 	on this game client is the same as on all other clients.
 	Globals.synced_rng.set_seed(origin_seed)
 	
-	if multiplayer.is_server():
-		print_verbose("Host set origin seed to: ", origin_seed)
-	else:
-		print_verbose("Peer received origin seed from host: ", origin_seed)
-	
-#	Create local player and remote players
-	var peer_id_list: Array[int] = []
-	var local_peer_id: int = multiplayer.get_unique_id()
-	peer_id_list.append(local_peer_id)
-	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
-	for peer_id in remote_peer_id_list:
-		peer_id_list.append(peer_id)
+	print_verbose("Origin seed to: ", origin_seed)
 
-#	NOTE: create players in the order of peer id's to ensure determinism
-	peer_id_list.sort()
-	
-	if peer_id_list.size() > 2:
-		push_error("Too many players. Game supports at most 2.")
-
-		return
-	
-#	Create teams
-#	TODO: create an amount of teams which is appropriate for
-#	the amount of players and selected team mode
-	var team: Team = Team.make(1)
-	_team_container.add_team(team)
-
-#	TODO: implement different team modes and assign teams
-#	based on selected team mode
-	for peer_id in peer_id_list:
-		var player_id: int = peer_id_list.find(peer_id)
-		var player: Player = team.create_player(player_id, peer_id)
-		PlayerManager.add_player(player)
-
+	_setup_players()
 	PlayerManager.send_players_created_signal()
 
 	var local_player: Player = PlayerManager.get_local_player()
@@ -148,8 +117,7 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-#	Share name of local player to others in multiplayer
-#	game
+#	Share name of local player to others in multiplayer game
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var player_name_action: Action = ActionSetPlayerName.make(local_player_name)
 	_game_client.add_action(player_name_action)
@@ -198,9 +166,6 @@ func _ready():
 	if Config.run_test_item_drop_chances():
 		TestItemDropChances.run()
 
-#	NOTE: need to send ready message for multiplayer at this
-#	point because the end of GameScene._ready() is when the
-#	whole game is ready.
 	_game_client.send_ready_message()
 
 
@@ -279,6 +244,37 @@ func get_build_space() -> BuildSpace:
 #########################
 ###      Private      ###
 #########################
+
+func _setup_players():
+	var peer_id_list: Array[int] = []
+	var local_peer_id: int = multiplayer.get_unique_id()
+	peer_id_list.append(local_peer_id)
+	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	for peer_id in remote_peer_id_list:
+		peer_id_list.append(peer_id)
+
+#	NOTE: create players in the order of peer id's to ensure determinism
+	peer_id_list.sort()
+	
+	if peer_id_list.size() > 2:
+		push_error("Too many players. Game supports at most 2.")
+
+		return
+	
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for
+#	the amount of players and selected team mode
+	var team: Team = Team.make(1)
+	_team_container.add_team(team)
+
+#	TODO: implement different team modes and assign teams
+#	based on selected team mode
+	for peer_id in peer_id_list:
+		var player_id: int = peer_id_list.find(peer_id)
+		var user_id: String = ""
+		var player: Player = team.create_player(player_id, peer_id, user_id)
+		PlayerManager.add_player(player)
+
 
 func _start_game():
 	_game_start_timer.stop()

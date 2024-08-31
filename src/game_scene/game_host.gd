@@ -22,22 +22,10 @@ enum HostState {
 	WAITING_FOR_LAGGING_PLAYERS,
 }
 
-# MULTIPLAYER_TURN_LENGTH needs to be bigger than worst case
-# roundtrip time between client and host.
+
 # NOTE: 6 ticks at 30ticks/second = 200ms.
 const MULTIPLAYER_TURN_LENGTH: int = 6
 const SINGLEPLAYER_TURN_LENGTH: int = 1
-# NOTE: picked 3 because 3ticks = 100ms - nice number
-const TURN_LENGTH_STEP: int = 3
-# NOTE: 1 tick = 33ms
-const TURN_LENGTH_MIN: int = 1
-# NOTE: 30 ticks = 1000ms
-const TURN_LENGTH_MAX: int = 30
-# NOTE: this multiplier is x1.5 to give some leeway. If it
-# was exactly x1 then that would make turn length too close
-# to ping which could cause stutters in case of ping
-# variations.
-const PING_TO_TURN_LENGTH_MULTIPLIER: float = 1.5
 const TICK_DELTA: float = 1000 / 30.0
 # MAX_LAG_AMOUNT is the max difference in timeslots between
 # host and client. A client is considered to be lagging if
@@ -49,7 +37,7 @@ const MAX_LAG_AMOUNT: int = 10
 
 
 var _current_tick: int = 0
-var _current_turn_length: int = -1
+var _turn_length: int = -1
 var _in_progress_timeslot: Array = []
 var _last_sent_timeslot_tick: int = 0
 var _timeslot_sent_count: int = 0
@@ -71,11 +59,7 @@ func _ready():
 
 	PlayerManager.players_created.connect(_on_players_created)
 	
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	if player_mode == PlayerMode.enm.SINGLE:
-		_current_turn_length = GameHost.SINGLEPLAYER_TURN_LENGTH
-	else:
-		_current_turn_length = GameHost.MULTIPLAYER_TURN_LENGTH
+	_turn_length = Utils.get_turn_length()
 
 
 func _physics_process(_delta: float):
@@ -196,7 +180,8 @@ func _update_state_running():
 	for i in range(0, update_tick_count):
 		_current_tick += 1
 
-		var need_to_send_timeslot: bool = _current_tick - _last_sent_timeslot_tick == _current_turn_length
+		var next_timeslot_tick: int = _last_sent_timeslot_tick + _turn_length
+		var need_to_send_timeslot: bool = _current_tick == next_timeslot_tick
 
 		if need_to_send_timeslot:
 			_send_timeslot()
@@ -213,40 +198,11 @@ func _update_state_waiting_for_lagging_players():
 
 
 func _send_timeslot():
-#	NOTE: need to adjust turn length *before* sending
-#	timeslot, so that clients will get the latest turn
-#	length value. Otherwise, clients and host would start
-#	having mismatched timeslot ticks.
-	_current_turn_length = _get_optimal_turn_length()
-
 	var timeslot: Array = _in_progress_timeslot.duplicate()
 	_in_progress_timeslot.clear()
-	_game_client.receive_timeslot.rpc(timeslot, _current_turn_length)
+	_game_client.receive_timeslot.rpc(timeslot, _current_tick)
 	_last_sent_timeslot_tick = _current_tick
 	_timeslot_sent_count += 1
-
-
-func _get_optimal_turn_length() -> int:
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	if player_mode == PlayerMode.enm.SINGLE:
-		return 1
-
-	var highest_ping: int = _get_highest_ping()
-	var optimal_turn_length: int = ceil(highest_ping / TICK_DELTA * PING_TO_TURN_LENGTH_MULTIPLIER)
-
-#	NOTE: restrict turn length values to multiples of
-#	TURN_LENGTH_STEP.
-# 	3 = 100ms
-# 	6 = 200ms
-# 	9 = 300ms
-# 	etc
-#	If this is not done, the turn length can vary constantly
-#	as the ping changes.
-	optimal_turn_length = ceili(float(optimal_turn_length) / TURN_LENGTH_STEP) * TURN_LENGTH_STEP
-
-	optimal_turn_length = clampi(optimal_turn_length, TURN_LENGTH_MIN, TURN_LENGTH_MAX)
-
-	return optimal_turn_length
 
 
 # Returns highest ping of all players, in msec. Ping is
