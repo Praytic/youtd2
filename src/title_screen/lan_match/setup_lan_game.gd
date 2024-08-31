@@ -73,14 +73,14 @@ func _receive_player_name_map_from_host(player_name_map: Dictionary):
 
 
 @rpc("authority", "call_local", "reliable")
-func _receive_match_config_from_host(room_config_bytes: PackedByteArray):
-	_current_match_config = MatchConfig.convert_from_bytes(room_config_bytes)
+func _receive_match_config_from_host(match_config_bytes: PackedByteArray):
+	_current_match_config = MatchConfig.convert_from_bytes(match_config_bytes)
 	_lan_lobby_menu.display_match_config(_current_match_config)
 
 
-func _connect_to_room(room_address: String) -> bool:
+func _connect_to_lobby(address: String) -> bool:
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	var create_client_result: Error = peer.create_client(room_address, Constants.SERVER_PORT)
+	var create_client_result: Error = peer.create_client(address, Constants.SERVER_PORT)
 
 	if create_client_result != OK:
 		Utils.show_popup_message(self, "Error", "Failed to create client. Details:" % error_string(create_client_result))
@@ -113,8 +113,8 @@ func _on_peer_connected(peer_id: int):
 # 	newly connected peer the names of all of the players.
 	if multiplayer.is_server():
 		_receive_player_name_map_from_host.rpc_id(peer_id, _peer_id_to_player_name_map)
-		var room_config_bytes: PackedByteArray = _current_match_config.convert_to_bytes()
-		_receive_match_config_from_host.rpc_id(peer_id, room_config_bytes)
+		var match_config_bytes: PackedByteArray = _current_match_config.convert_to_bytes()
+		_receive_match_config_from_host.rpc_id(peer_id, match_config_bytes)
 	
 	_update_player_list_in_lobby_menu()
 
@@ -149,7 +149,7 @@ func _on_create_lan_match_menu_create_pressed():
 	_update_player_list_in_lobby_menu()
 
 
-func _on_lan_connect_menu_create_room_pressed():
+func _on_lan_connect_menu_create_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_LAN_MATCH)
 
 
@@ -171,20 +171,20 @@ func _on_lan_lobby_menu_start_pressed():
 
 
 func _on_lan_connect_menu_join_pressed():
-	var room_address: String = _lan_connect_menu.get_entered_address()
+	var address: String = _lan_connect_menu.get_entered_address()
 	
-	if room_address.is_empty():
+	if address.is_empty():
 		Utils.show_popup_message(self, "Error", "You must enter an address first.")
 		
 		return
 	
-	_connect_to_room(room_address)
+	_connect_to_lobby(address)
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 
 
 # NOTE: both server and clients need to close the
-# connection when leaving room menu
+# connection when leaving lobby menu
 func _on_lan_lobby_menu_back_pressed():
 	multiplayer.multiplayer_peer.close()
 

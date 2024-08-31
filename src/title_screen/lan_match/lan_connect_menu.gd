@@ -3,7 +3,7 @@ class_name LanConnectMenu extends PanelContainer
 
 signal join_pressed()
 signal cancel_pressed()
-signal create_room_pressed()
+signal create_pressed()
 
 
 @export var _address_edit: LineEdit
@@ -26,7 +26,7 @@ func _on_cancel_button_pressed():
 
 
 func _on_create_button_pressed():
-	create_room_pressed.emit()
+	create_pressed.emit()
 
 
 func _on_join_button_pressed():
