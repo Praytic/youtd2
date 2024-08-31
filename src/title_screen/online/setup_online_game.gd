@@ -23,6 +23,7 @@ var _state: State = State.IDLE
 var _presence_map: Dictionary = {}
 var _presence_order_list: Array = []
 var _expected_player_count: int = -1
+var _host_user_id: String = ""
 
 @export var _title_screen: TitleScreen
 @export var _online_match_list_menu: OnlineMatchListMenu
@@ -101,8 +102,7 @@ func _on_create_online_match_menu_create_pressed():
 	_lobby_match_id = lobby_match_id
 	_state = State.LOBBY
 
-	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
-	NakamaConnection.set_host_user_id(host_user_id)
+	_host_user_id = _get_host_user_id_for_match(lobby_match)
 
 	_is_host = true
 	
@@ -119,7 +119,7 @@ func _update_online_lobby_menu_presences():
 		var presence: NakamaRTAPI.UserPresence = _presence_map[user_id]
 		presence_list.append(presence)
 
-	_online_lobby_menu.set_presences(presence_list)
+	_online_lobby_menu.set_presences(presence_list, _host_user_id)
 
 
 func _on_nakama_received_match_presence(presence_event: NakamaRTAPI.MatchPresenceEvent):
@@ -190,8 +190,7 @@ func _on_online_match_list_menu_join_pressed():
 
 	_lobby_match_id = selected_match_id
 
-	var host_user_id: String = _get_host_user_id_for_match(lobby_match)
-	NakamaConnection.set_host_user_id(host_user_id)
+	_host_user_id = _get_host_user_id_for_match(lobby_match)
 
 	_save_presences(lobby_match.presences)
 	_save_presences([lobby_match.self_user])

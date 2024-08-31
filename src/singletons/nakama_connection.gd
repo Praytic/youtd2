@@ -13,7 +13,6 @@ signal connected()
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
-var _host_user_id: String = ""
 var _user_id_to_display_name_map: Dictionary = {}
 
 
@@ -82,14 +81,6 @@ func get_session() -> NakamaSession:
 
 func get_socket() -> NakamaSocket:
 	return _socket
-
-
-func set_host_user_id(value: String):
-	_host_user_id = value
-
-
-func get_host_user_id() -> String:
-	return _host_user_id
 
 
 func get_display_name_of_user(user_id: String) -> String:
