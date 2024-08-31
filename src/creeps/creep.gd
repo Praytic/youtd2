@@ -198,6 +198,12 @@ func get_damage_to_portal() -> float:
 	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
 	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio * _portal_damage_multiplier
 
+	var player: Player = get_player()
+	var team: Team = player.get_team()
+	var team_size: int = team.get_players().size()
+
+	damage_to_portal = Utils.divide_safe(damage_to_portal, team_size, damage_to_portal)
+
 	return damage_to_portal
 
 
