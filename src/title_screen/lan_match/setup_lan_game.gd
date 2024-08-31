@@ -21,9 +21,9 @@ var _current_room_config: RoomConfig = null
 
 
 @export var _title_screen: TitleScreen
-@export var _lan_room_list_menu: LanRoomListMenu
-@export var _lan_room_menu: LanRoomMenu
-@export var _create_lan_room_menu: CreateLanRoomMenu
+@export var _lan_connect_menu: LanConnectMenu
+@export var _lan_lobby_menu: LanLobbyMenu
+@export var _create_lan_match_menu: CreateLanMatchMenu
 
 var _peer_id_to_player_name_map: Dictionary = {}
 
@@ -54,7 +54,7 @@ func _update_player_list_in_room_menu():
 		var player_name: String = _peer_id_to_player_name_map.get(peer_id, fallback_string)
 		player_list.append(player_name)
 	
-	_lan_room_menu.set_player_list(player_list)
+	_lan_lobby_menu.set_player_list(player_list)
 
 
 # All peers (including the host itself) call this f-n to
@@ -78,14 +78,14 @@ func _receive_player_name_map_from_host(player_name_map: Dictionary):
 
 
 # NOTE: this functionality is currently duplicated here and
-# in _on_lan_room_list_menu_join_pressed(). This is to
+# in _on_lan_connect_menu_join_pressed(). This is to
 # handle case where player connects via entered address. In
 # that case, room config is not available on client and has
 # to be obtained from host.
 @rpc("authority", "call_local", "reliable")
 func _receive_room_config_from_host(room_config_bytes: PackedByteArray):
 	_current_room_config = RoomConfig.convert_from_bytes(room_config_bytes)
-	_lan_room_menu.display_room_config(_current_room_config)
+	_lan_lobby_menu.display_room_config(_current_room_config)
 
 
 func _connect_to_room(room_address: String) -> bool:
@@ -136,8 +136,8 @@ func _on_peer_disconnected(_id: int):
 	_update_player_list_in_room_menu()
 
 
-func _on_create_lan_room_menu_create_pressed():
-	_current_room_config = _create_lan_room_menu.get_room_config()
+func _on_create_lan_match_menu_create_pressed():
+	_current_room_config = _create_lan_match_menu.get_room_config()
 
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	# Maximum of 1 peer, since it's a 2-player co-op.
@@ -151,7 +151,7 @@ func _on_create_lan_room_menu_create_pressed():
 	multiplayer.set_multiplayer_peer(peer)
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
-	_lan_room_menu.display_room_config(_current_room_config)
+	_lan_lobby_menu.display_room_config(_current_room_config)
 
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
@@ -159,11 +159,11 @@ func _on_create_lan_room_menu_create_pressed():
 	_update_player_list_in_room_menu()
 
 
-func _on_lan_room_list_menu_create_room_pressed():
+func _on_lan_connect_menu_create_room_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_LAN_MATCH)
 
 
-func _on_lan_room_menu_start_pressed():
+func _on_lan_lobby_menu_start_pressed():
 	var is_host: bool = multiplayer.is_server()
 	if !is_host:
 		Utils.show_popup_message(self, "Error", "Only the host can start the game.")
@@ -180,8 +180,8 @@ func _on_lan_room_menu_start_pressed():
 	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
 
 
-func _on_lan_room_list_menu_join_pressed():
-	var room_address: String = _lan_room_list_menu.get_entered_address()
+func _on_lan_connect_menu_join_pressed():
+	var room_address: String = _lan_connect_menu.get_entered_address()
 	
 	if room_address.is_empty():
 		Utils.show_popup_message(self, "Error", "You must enter an address first.")
@@ -195,7 +195,7 @@ func _on_lan_room_list_menu_join_pressed():
 
 # NOTE: both server and clients need to close the
 # connection when leaving room menu
-func _on_lan_room_menu_back_pressed():
+func _on_lan_lobby_menu_back_pressed():
 	multiplayer.multiplayer_peer.close()
 
 

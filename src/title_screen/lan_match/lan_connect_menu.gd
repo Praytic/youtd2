@@ -1,4 +1,4 @@
-class_name LanRoomListMenu extends PanelContainer
+class_name LanConnectMenu extends PanelContainer
 
 
 signal join_pressed()

@@ -1,4 +1,4 @@
-class_name CreateLanRoomMenu extends PanelContainer
+class_name CreateLanMatchMenu extends PanelContainer
 
 
 signal cancel_pressed()

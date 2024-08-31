@@ -1,8 +1,8 @@
-class_name LanRoomMenu extends PanelContainer
+class_name LanLobbyMenu extends PanelContainer
 
 
-# Menu for an open LAN room, before the game begins.
-# Displays players in the room.
+# Menu for an open LAN lobby, before the game begins.
+# Displays players in the lobby.
 
 
 signal start_pressed()

@@ -2,7 +2,5 @@
 
 [ext_resource type="Script" path="res://src/title_screen/lan_match/setup_lan_game.gd" id="1_02dc7"]
 
-[node name="SetupLanGame" type="Node" node_paths=PackedStringArray("_lan_room_scanner", "_lan_room_advertiser")]
+[node name="SetupLanGame" type="Node"]
 script = ExtResource("1_02dc7")
-_lan_room_scanner = NodePath("")
-_lan_room_advertiser = NodePath("")
