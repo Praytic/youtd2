@@ -10,25 +10,20 @@ var max_players := 4
 var client_version := 'dev'
 var ice_servers = [
 	{
-	"urls": "stun:stun.relay.metered.ca:80",
+	"urls": "stun:161.35.244.122:3478",
 	},
 	{
-	"urls": "turn:global.relay.metered.ca:80",
+	"urls": "turn:161.35.244.122:3478",
 	"username": "placeholder",
 	"credential": "placeholder",
 	},
 	{
-	"urls": "turn:global.relay.metered.ca:80?transport=tcp",
+	"urls": "turn:161.35.244.122:3478?transport=tcp",
 	"username": "placeholder",
 	"credential": "placeholder",
 	},
 	{
-	"urls": "turn:global.relay.metered.ca:443",
-	"username": "placeholder",
-	"credential": "placeholder",
-	},
-	{
-	"urls": "turns:global.relay.metered.ca:443?transport=tcp",
+	"urls": "turns:161.35.244.122:3478?transport=tcp",
 	"username": "placeholder",
 	"credential": "placeholder",
 	},
