@@ -24,8 +24,6 @@ var _current_room_config: RoomConfig = null
 @export var _lan_room_list_menu: LanRoomListMenu
 @export var _lan_room_menu: LanRoomMenu
 @export var _create_lan_room_menu: CreateLanRoomMenu
-@export var _lan_room_scanner: LanRoomScanner
-@export var _lan_room_advertiser: LanRoomAdvertiser
 
 var _peer_id_to_player_name_map: Dictionary = {}
 
@@ -138,11 +136,6 @@ func _on_peer_disconnected(_id: int):
 	_update_player_list_in_room_menu()
 
 
-func _on_lan_room_scanner_room_list_changed():
-	var room_map: Dictionary = _lan_room_scanner.get_room_map()
-	_lan_room_list_menu.update_room_display(room_map)
-
-
 func _on_create_lan_room_menu_create_pressed():
 	_current_room_config = _create_lan_room_menu.get_room_config()
 
@@ -157,9 +150,6 @@ func _on_create_lan_room_menu_create_pressed():
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
 
-#	Start advertising the room
-	_lan_room_advertiser.set_room_config(_current_room_config)
-
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_room_menu.display_room_config(_current_room_config)
 
@@ -169,35 +159,8 @@ func _on_create_lan_room_menu_create_pressed():
 	_update_player_list_in_room_menu()
 
 
-# NOTE: need to scan for rooms only while room list menu is
-# visible. Otherwise, will run into problems if the client
-# is scanning for rooms and advertising at the same time.
-func _on_lan_room_list_menu_visibility_changed():
-	var room_scanner_enabled: bool = _lan_room_list_menu.visible
-	_lan_room_scanner.set_enabled(room_scanner_enabled)
-
-
 func _on_lan_room_list_menu_create_room_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_LAN_MATCH)
-
-
-func _on_lan_room_list_menu_join_pressed():
-	var selected_room_address: String = _lan_room_list_menu.get_selected_room_address()
-	
-	var nothing_selected: bool = selected_room_address.is_empty()
-	if nothing_selected:
-		Utils.show_popup_message(self, "Error", "You must select a room first.")
-		
-		return
-	
-	_connect_to_room(selected_room_address)
-
-	var room_map: Dictionary = _lan_room_scanner.get_room_map()
-	var room_info: RoomInfo = room_map[selected_room_address]
-	_current_room_config = room_info.get_room_config()
-
-	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
-	_lan_room_menu.display_room_config(_current_room_config)
 
 
 func _on_lan_room_menu_start_pressed():
@@ -217,7 +180,7 @@ func _on_lan_room_menu_start_pressed():
 	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed)
 
 
-func _on_lan_room_list_menu_join_address_pressed():
+func _on_lan_room_list_menu_join_pressed():
 	var room_address: String = _lan_room_list_menu.get_entered_address()
 	
 	if room_address.is_empty():
@@ -230,15 +193,9 @@ func _on_lan_room_list_menu_join_address_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 
 
+# NOTE: both server and clients need to close the
+# connection when leaving room menu
 func _on_lan_room_menu_back_pressed():
-# 	NOTE: when host closes the room menu, set room config to
-# 	null to stop advertising
-	var is_server: bool = multiplayer.is_server()
-	if is_server:
-		_lan_room_advertiser.set_room_config(null)
-	
-#	NOTE: both server and clients need to close the
-#	connection when leaving room menu
 	multiplayer.multiplayer_peer.close()
 
 
