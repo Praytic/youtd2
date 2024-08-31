@@ -274,10 +274,6 @@ func _on_peer_connected(_peer_id: int):
 #		needed?)
 		await get_tree().create_timer(1.0).timeout
 		
-#		NOTE: save presence map in NakamaConnection singleton so
-#		that it can be accessed in game scene
-		NakamaConnection._presence_map = _presence_map
-
 		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 		var game_length: int = _current_match_config.get_game_length()
 		var game_mode: GameMode.enm = _current_match_config.get_game_mode()

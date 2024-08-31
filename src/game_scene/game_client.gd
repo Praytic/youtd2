@@ -143,8 +143,6 @@ func _update_timeslot_buffer_size(ping_time_ms: float):
 	if _timeslot_buffer_size < _turn_length:
 		_timeslot_buffer_size = _turn_length
 
-	print("_update_timeslot_buffer_size, ping_time_ms=%sms, _timeslot_buffer_size=%s" % [ping_time_ms, _timeslot_buffer_size])
-
 
 # NOTE: arg must be Array instead of Array[String]. RPC
 # calls have typing issues
