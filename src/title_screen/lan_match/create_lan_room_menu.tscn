@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_fm3ja"]
 [ext_resource type="PackedScene" uid="uid://dc67simk1xfp4" path="res://src/title_screen/game_mode_ui.tscn" id="2_g0u3e"]
-[ext_resource type="Script" path="res://src/title_screen/mutliplayer/create_lan_room_menu.gd" id="2_tb3dy"]
+[ext_resource type="Script" path="res://src/title_screen/lan_match/create_lan_room_menu.gd" id="2_tb3dy"]
 
 [node name="CreateLanRoomMenu" type="PanelContainer" node_paths=PackedStringArray("_game_mode_ui")]
 theme = ExtResource("1_fm3ja")

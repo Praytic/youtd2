@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnnkyqysqqyar"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_vaewn"]
-[ext_resource type="Script" path="res://src/title_screen/mutliplayer/lan_room_list_menu.gd" id="2_82rep"]
+[ext_resource type="Script" path="res://src/title_screen/lan_match/lan_room_list_menu.gd" id="2_82rep"]
 
 [node name="LanRoomListMenu" type="PanelContainer" node_paths=PackedStringArray("_no_rooms_found_label", "_item_list", "_address_edit")]
 custom_minimum_size = Vector2(900, 400)
