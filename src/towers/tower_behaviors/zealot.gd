@@ -160,7 +160,7 @@ func on_attack(_event: Event):
 	else:
 		active_stacks = 0
 
-	var new_stacks: int = min(active_stacks + 1, 5)
+	var new_stacks: int = min(active_stacks + 1, max_stacks)
 	var new_buff_level: int = leech_power * new_stacks
 
 #	now apply zeal
