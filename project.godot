@@ -49,7 +49,6 @@ config/run_save_tooltips_tool=false
 config/run_save_ranges_tool=false
 config/unlimited_portal_lives=false
 config/show_hidden_buffs=false
-config/enable_auth=false
 config/update_ticks_per_physics_tick=1
 config/enable_dev_commands=false
 
@@ -81,8 +80,6 @@ UnitIcons="*res://src/singletons/unit_icons.gd"
 TowerSprites="*res://src/singletons/tower_sprites.gd"
 PlayerManager="*res://src/singletons/player_manager.gd"
 GroupManager="*res://src/singletons/group_manager.gd"
-W4GD="*res://addons/w4gd/w4gd.gd"
-W4Manager="*res://src/singletons/w4_manager.gd"
 PlayerExperience="*res://src/singletons/player_experience.gd"
 ExperiencePassword="*res://src/singletons/experience_password.gd"
 WisdomUpgradeProperties="*res://src/singletons/properties/wisdom_upgrade_properties.gd"
@@ -192,8 +189,3 @@ common/enable_pause_aware_picking=true
 
 vram_compression/import_etc=true
 quality/filters/msaa=1
-
-[w4games]
-
-w4rm/url="https://youtd2.beta-01.w4games.cloud/"
-w4rm/key="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU2ODYwMDAsImlhdCI6MTY0MDk5MTYwMCwicm9sZSI6ImFub24ifQ.LNGvMkhGFyHn2uv2KItKw9Ue9_0CSufO1zOhdMR1otg"

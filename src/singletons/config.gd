@@ -124,9 +124,6 @@ func unlimited_portal_lives() -> bool:
 func show_hidden_buffs() -> bool:
 	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool
 
-func enable_auth() -> bool:
-	return ProjectSettings.get_setting("application/config/enable_auth") as bool
-
 # NOTE: increasing this valid makes the game run at super
 # speed
 func update_ticks_per_physics_tick() -> int:

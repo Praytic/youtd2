@@ -165,5 +165,3 @@ const PLAYER_COUNT_MAX: int = 2
 const NAKAMA_ADDRESS: String = "161.35.244.122"
 const NAKAMA_PORT: int = 7350
 const NAKAMA_PROTOCOL: String = "http"
-
-const HOLE_PUNCHER_PORT: int = 7330

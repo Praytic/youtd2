@@ -23,9 +23,6 @@ class_name GameScene extends Node
 @export var _tutorial_controller: TutorialController
 
 
-var _room_code: int = 0
-
-
 #########################
 ###     Built-in      ###
 #########################
@@ -67,11 +64,6 @@ func _ready():
 	Settings.changed.connect(_on_settings_changed)
 	_on_settings_changed()
 	
-	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
-		_room_code = _get_cmdline_value("room_code")
-		assert(_room_code, "Room code wasn't provided with headless mode enabled.")
-		print("Room code: %s" % _room_code)
-
 #	NOTE: load game settings which were selected during TitleScreen. They are passed via Globals.
 	var origin_seed: int = Globals.get_origin_seed()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
