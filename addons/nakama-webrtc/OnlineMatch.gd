@@ -135,23 +135,26 @@ signal webrtc_peer_removed (webrtc_peer, player)
 
 class WebrtcPlayer:
 	var session_id: String
+	var user_id: String
 	var peer_id: int
 	var username: String
 
-	func _init(_session_id: String, _username: String, _peer_id: int) -> void:
+	func _init(_session_id: String, _user_id: String, _username: String, _peer_id: int) -> void:
 		session_id = _session_id
+		user_id = _user_id
 		username = _username
 		peer_id = _peer_id
 
 	static func from_presence(presence, _peer_id: int) -> WebrtcPlayer:
-		return WebrtcPlayer.new(presence.session_id, presence.username, _peer_id)
+		return WebrtcPlayer.new(presence.session_id, presence.user_id, presence.username, _peer_id)
 
 	static func from_dict(data: Dictionary) -> WebrtcPlayer:
-		return WebrtcPlayer.new(data['session_id'], data['username'], int(data['peer_id']))
+		return WebrtcPlayer.new(data['session_id'], data['user_id'], data['username'], int(data['peer_id']))
 
 	func to_dict() -> Dictionary:
 		return {
 			session_id = session_id,
+			user_id = user_id,
 			username = username,
 			peer_id = peer_id,
 		}

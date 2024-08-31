@@ -252,11 +252,21 @@ func _setup_players():
 	var team: Team = Team.make(1)
 	_team_container.add_team(team)
 
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+
 #	TODO: implement different team modes and assign teams
 #	based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
-		var user_id: String = ""
+		
+		var user_id: String
+		match connection_type:
+			Globals.ConnectionType.ENET:
+				user_id = ""
+			Globals.ConnectionType.NAKAMA:
+				var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
+				user_id = webrtc_player.user_id
+
 		var player: Player = team.create_player(player_id, peer_id, user_id)
 		PlayerManager.add_player(player)
 
