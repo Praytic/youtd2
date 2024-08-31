@@ -16,18 +16,21 @@ class_name GameClient extends Node
 # The end result is that clients are synchronized.
 
 
-# NOTE: these values determine the "catch up" window. When
-# the client falls behind latest timeslot by "start" value,
-# it will start to catch up by fast forwarding (multiple
-# game ticks per physics tick). Client will keep fast
-# forwarding until reaching the "stop" value. Start and stop
-# values are multiples of current turn length.
-const CATCH_UP_STOP: float = 0.5
-const CATCH_UP_START: float = 1.5
+# NOTE: this value determines how fast timeslot buffer
+# lowers when ping decreases. Higher value = faster
+# lowering.
+const TIMESLOT_BUFFER_SIZE_LOWERING_FACTOR: float = 0.4
+const PING_HISTORY_SIZE: int = 10
+
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _turn_length: int = 0
+var _turn_length: int
+# Timeslot buffer determines how many timeslots to keep in
+# buffer. Turns are buffered to avoid getting into
+# situations where client runs out of timeslots and has to
+# stall until next one arrives.
+var _timeslot_buffer_size: float
 
 # A map of timeslots. Need to keep a map in case we receive
 # future timeslots before we processed current one.
@@ -37,7 +40,7 @@ var _timeslot_map: Dictionary = {}
 # host.
 var _scheduled_timeslot_list: Array = [0]
 var _time_when_sent_ping: int = 0
-var _catch_up_in_progress: bool = false
+var _ping_history: Array = [0]
 
 
 @export var _game_host: GameHost
@@ -64,6 +67,7 @@ func _ready():
 	_tick_delta = 1.0 / tick_rate
 
 	_turn_length = Utils.get_turn_length()
+	_timeslot_buffer_size = _turn_length
 
 
 # NOTE: using _physics_process() because it provides a
@@ -105,15 +109,42 @@ func receive_timeslot(timeslot: Array, timeslot_tick: int):
 	var next_timeslot_tick: int = timeslot_tick + _turn_length
 	if !_scheduled_timeslot_list.has(next_timeslot_tick):
 		_scheduled_timeslot_list.append(next_timeslot_tick)
+		_scheduled_timeslot_list.sort()
 
 
 @rpc("authority", "call_local", "reliable")
 func receive_pong():
 	var time_when_received_pong: int = Time.get_ticks_msec()
 	var ping_time: int = time_when_received_pong - _time_when_sent_ping
-	_hud.set_ping_time(ping_time)
+
+	_ping_history.append(ping_time)
+	if _ping_history.size() > PING_HISTORY_SIZE:
+		_ping_history.pop_front()
+
+	var ping_average: float = _get_ping_average()
+	_hud.set_ping_time(ping_average)
+
+	var ping_max: float = _get_ping_max()
+	_update_timeslot_buffer_size(ping_max)
 
 	_game_host.receive_ping_time_for_player.rpc_id(1, ping_time)
+
+
+# NOTE: buffer value rises instantly but lowers gradually.
+# This is to prevent abrupt changes in input latency.
+func _update_timeslot_buffer_size(ping_time_ms: float):
+	var ping_time_sec: float = ping_time_ms / 1000.0
+	var new_size: float = ping_time_sec / _tick_delta
+
+	if new_size < _timeslot_buffer_size:
+		_timeslot_buffer_size = lerp(_timeslot_buffer_size, new_size, TIMESLOT_BUFFER_SIZE_LOWERING_FACTOR)
+	else:
+		_timeslot_buffer_size = new_size
+
+	if _timeslot_buffer_size < _turn_length:
+		_timeslot_buffer_size = _turn_length
+
+	print("_update_timeslot_buffer_size, ping_time_ms=%sms, _timeslot_buffer_size=%s" % [ping_time_ms, _timeslot_buffer_size])
 
 
 # NOTE: arg must be Array instead of Array[String]. RPC
@@ -147,29 +178,16 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 	if need_timeslot && !have_timeslot:
 		return false
 
-#	If client tick is behind host tick, catch up by fast
-#	forwarding. Trigger fast forward by returning true which
-#	causes extra ticks.
-	if !_timeslot_map.is_empty():
-		_scheduled_timeslot_list.sort()
+#	NOTE: keep size of timeslot buffer within certain value.
+#	If too many timeslots are buffered, client fast forward
+#	to catch up to host.
+	if !_timeslot_map.is_empty():		
 		var latest_timeslot_tick: int = _scheduled_timeslot_list.back()
-
-		var catch_up_stop: int = ceili(_turn_length * CATCH_UP_STOP)
-		var catch_up_start: int = ceili(_turn_length * CATCH_UP_START)
-		var current_lag: int = latest_timeslot_tick - _current_tick
-		var should_start_catch_up: bool = current_lag > catch_up_start
-		var should_stop_catch_up: bool = current_lag <= catch_up_stop
-
-		if _catch_up_in_progress:
-			if should_stop_catch_up:
-				_catch_up_in_progress = false
-			else:
-				return true
-		else:
-			if should_start_catch_up:
-				_catch_up_in_progress = true
-
-				return true
+		var ticks_to_newest_timeslot: int = latest_timeslot_tick - _current_tick
+		var buffer_is_too_big: bool = ticks_to_newest_timeslot > _timeslot_buffer_size
+		
+		if buffer_is_too_big:
+			return true
 
 #	Tick once per process if don't need to fast forward
 	var is_first_tick_during_process: bool = ticks_during_this_process == 0
@@ -302,6 +320,27 @@ func _update_state():
 			continue
 
 		node.update(_tick_delta)
+
+
+func _get_ping_average() -> float:
+	var sum: float = 0
+
+	for ping in _ping_history:
+		sum += ping
+
+	var ping_average: float = sum / _ping_history.size()
+
+	return ping_average
+
+
+func _get_ping_max() -> float:
+	var ping_max: float = 0
+
+	for ping in _ping_history:
+		ping_max = max(ping_max, ping)
+
+	return ping_max
+
 
 
 #########################

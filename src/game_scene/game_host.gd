@@ -22,9 +22,14 @@ enum HostState {
 	WAITING_FOR_LAGGING_PLAYERS,
 }
 
-
-# NOTE: 6 ticks at 30ticks/second = 200ms.
-const MULTIPLAYER_TURN_LENGTH: int = 6
+# NOTE: these values determine the "catch up" window. When
+# the client falls behind latest timeslot by "start" value,
+# it will start to catch up by fast forwarding (multiple
+# game ticks per physics tick). Client will keep fast
+# forwarding until reaching the "stop" value. Start and stop
+# values are multiples of current turn length.
+# NOTE: 3 ticks at 30ticks/second = 100ms
+const MULTIPLAYER_TURN_LENGTH: int = 3
 const SINGLEPLAYER_TURN_LENGTH: int = 1
 const TICK_DELTA: float = 1000 / 30.0
 # MAX_LAG_AMOUNT is the max difference in timeslots between
@@ -37,7 +42,7 @@ const MAX_LAG_AMOUNT: int = 10
 
 
 var _current_tick: int = 0
-var _turn_length: int = -1
+var _turn_length: int
 var _in_progress_timeslot: Array = []
 var _last_sent_timeslot_tick: int = 0
 var _timeslot_sent_count: int = 0
