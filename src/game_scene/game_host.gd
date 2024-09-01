@@ -272,6 +272,12 @@ func _get_highest_ping() -> int:
 # timeslot ACK is too old.
 func _get_lagging_players() -> Array[Player]:
 	var lagging_player_list: Array[Player] = []
+	
+#	NOTE: skip lag check in singleplayer, to avoid the popup
+#	showing at the start of the game.
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	if player_mode == PlayerMode.enm.SINGLE:
+		return lagging_player_list
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 

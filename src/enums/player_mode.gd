@@ -4,16 +4,12 @@ class_name PlayerMode extends Node
 enum enm {
 	SINGLE,
 	COOP,
-	# This mode will be automatically chosen when game is 
-	# running in headless mode.
-	SERVER,
 }
 
 
 static var _string_map: Dictionary = {
 	PlayerMode.enm.SINGLE: "single",
 	PlayerMode.enm.COOP: "coop",
-	PlayerMode.enm.SERVER: "server",
 }
 
 
