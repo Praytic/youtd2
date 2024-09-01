@@ -16,6 +16,9 @@ class_name GameClient extends Node
 # The end result is that clients are synchronized.
 
 
+signal received_first_timeslot()
+
+
 # NOTE: this value determines how fast timeslot buffer
 # lowers when ping decreases. Higher value = faster
 # lowering.
@@ -39,6 +42,7 @@ var _timeslot_buffer_size: float
 var _timeslot_map: Dictionary = {}
 var _time_when_sent_ping: int = 0
 var _ping_history: Array = [0]
+var _received_any_timeslots: bool = false
 
 
 @export var _game_host: GameHost
@@ -102,6 +106,10 @@ func receive_alive_check():
 # are received out of order.
 @rpc("authority", "call_local", "reliable")
 func receive_timeslots(timeslot_list: Dictionary):
+	if !_received_any_timeslots:
+		_received_any_timeslots = true
+		received_first_timeslot.emit()
+	
 	for tick in timeslot_list.keys():
 		_timeslot_map[tick] = timeslot_list[tick]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://src/game_scene/game_scene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_gestc"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://src/hud/hud.tscn" id="25_m068l"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://src/game_menu/game_menu.tscn" id="26_xukvx"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://src/hud/tutorial_menu.tscn" id="27_vroom"]
+[ext_resource type="PackedScene" uid="uid://bk4ihcri8qqyy" path="res://src/game_scene/waiting_for_players_indicator.tscn" id="28_mekfw"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -63,7 +64,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller", "_waiting_for_players_indicator")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
@@ -86,6 +87,7 @@ _object_container = NodePath("World/ObjectContainer")
 _build_space = NodePath("Gameplay/BuildSpace")
 _tutorial_menu = NodePath("UI/VBoxContainer/TutorialMenu")
 _tutorial_controller = NodePath("Gameplay/TutorialController")
+_waiting_for_players_indicator = NodePath("UI/WaitingForPlayersIndicator")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -260,6 +262,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
+[node name="WaitingForPlayersIndicator" parent="UI" instance=ExtResource("28_mekfw")]
+visible = false
+
 [node name="GameMenu" parent="UI" instance=ExtResource("26_xukvx")]
 visible = false
 anchors_preset = 8
@@ -293,6 +298,7 @@ visible = false
 layout_mode = 2
 
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
+[connection signal="received_first_timeslot" from="Gameplay/GameClient" to="." method="_on_game_client_received_first_timeslot"]
 [connection signal="tutorial_triggered" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_tutorial_triggered"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
 [connection signal="quit_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_pressed"]

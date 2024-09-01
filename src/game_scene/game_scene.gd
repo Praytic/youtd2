@@ -21,6 +21,10 @@ class_name GameScene extends Node
 @export var _build_space: BuildSpace
 @export var _tutorial_menu: TutorialMenu
 @export var _tutorial_controller: TutorialController
+@export var _waiting_for_players_indicator: Control
+
+
+var _builder_menu: BuilderMenu = null
 
 
 #########################
@@ -34,6 +38,15 @@ func _ready():
 	PlayerManager.reset()
 	GroupManager.reset()
 
+#	NOTE: in multiplayer, we have to block UI input via the
+#	"waiting for players indicator", until client receives
+#	first communication from host. Firsts communication from
+#	host means that all clients are ready and the game can
+#	start.
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	if player_mode == PlayerMode.enm.COOP:
+		_waiting_for_players_indicator.show()
+
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
 	
@@ -41,7 +54,8 @@ func _ready():
 	_build_space.set_buildable_cells(buildable_cells)
 
 	_hud.set_game_start_timer(_game_start_timer)
-
+	
+	EventBus.player_selected_builder.connect(_on_player_selected_builder)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
@@ -92,13 +106,6 @@ func _ready():
 			var tower_stash: TowerStash = player.get_tower_stash()
 			tower_stash.add_all_towers()
 	
-	var difficulty_string: String = Difficulty.convert_to_colored_string(Globals.get_difficulty())
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
-
-	Messages.add_normal(local_player, "Welcome to You TD 2!")
-	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
-
 	for player in player_list:
 		player.generate_waves()
 
@@ -109,18 +116,6 @@ func _ready():
 			var item_stash: ItemContainer = player.get_item_stash()
 			item_stash.add_item(item)
 
-	var builder_menu: BuilderMenu = preload("res://src/hud/builder_menu.tscn").instantiate()
-	builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
-		
-#	NOTE: add builder menu below game menu so that game
-#	can show the game menu on top of tutorial
-	_ui_layer.add_child(builder_menu)
-	var game_menu_index: int = _game_menu.get_index()
-	_ui_layer.move_child(builder_menu, game_menu_index)
-
-	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
-	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
-	
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	
 	_camera.position = _get_camera_origin_pos()
@@ -344,11 +339,6 @@ func _submit_chat_message():
 
 	var chat_action: Action = ActionChat.make(chat_message)
 	_game_client.add_action(chat_action)
-
-
-func _set_builder_for_local_player(builder_id: int):
-	var action: Action = ActionSelectBuilder.make(builder_id)
-	_game_client.add_action(action)
 
 
 func _cancel_current_mouse_action():
@@ -653,17 +643,35 @@ func _on_player_requested_return_from_horadric_cube():
 		_game_client.add_action(action)
 
 
-func _on_builder_menu_finished(builder_menu: BuilderMenu):
-	var builder_id: int = builder_menu.get_builder_id()
-	builder_menu.queue_free()
-	_set_builder_for_local_player(builder_id)
+func _on_builder_menu_finished():
+	var builder_id: int = _builder_menu.get_builder_id()
 
-#	NOTE: need to do action for wisdom upgrades after
-#	setting builders because some builders affect wisdom
-#	upgrades.
+	var action: Action = ActionSelectBuilder.make(builder_id)
+	_game_client.add_action(action)
+
+
+# NOTE: need to do action for wisdom upgrades after setting
+# builders because some builders affect wisdom upgrades.
+func _on_player_selected_builder():
+	_builder_menu.queue_free()
+	_builder_menu = null
+	
 	var wisdom_upgrades: Dictionary = Settings.get_wisdom_upgrades()
 	var action: Action = ActionSelectWisdomUpgrades.make(wisdom_upgrades)
 	_game_client.add_action(action)
+
+	var wave_count: int = Globals.get_wave_count()
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+	var local_player: Player = PlayerManager.get_local_player()
+
+	Messages.add_normal(local_player, "Welcome to You TD 2!")
+	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
+	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
+	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
+	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 
 
 func _on_player_voted_ready():
@@ -765,3 +773,16 @@ func _on_tutorial_controller_tutorial_triggered(tutorial_id):
 
 func _on_tutorial_menu_hidden():
 	_set_game_paused(false)
+
+
+func _on_game_client_received_first_timeslot():
+	_waiting_for_players_indicator.hide()
+
+	_builder_menu = preload("res://src/hud/builder_menu.tscn").instantiate()
+	_builder_menu.finished.connect(_on_builder_menu_finished)
+		
+#	NOTE: add builder menu below game menu so that game
+#	can show the game menu on top of tutorial
+	_ui_layer.add_child(_builder_menu)
+	var game_menu_index: int = _game_menu.get_index()
+	_ui_layer.move_child(_builder_menu, game_menu_index)
