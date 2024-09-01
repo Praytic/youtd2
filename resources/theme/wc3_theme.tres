@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=93 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=95 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://resources/theme/common/rect_container_l.tres" id="1_7apqd"]
 [ext_resource type="StyleBox" uid="uid://11b5t8jsfbdk" path="res://resources/theme/tower_actions/button_disabled.tres" id="1_vdqn7"]
@@ -13,6 +13,8 @@
 [ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://resources/theme/player_resource_display/stash_panel_background.tres" id="5_uofvg"]
 [ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://resources/theme/unit_button/rare_rarity_panel_container.tres" id="6_unpbn"]
 [ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://resources/ui_textures/rect_container_s.tres" id="7_7y0mp"]
+[ext_resource type="Texture2D" uid="uid://bxfq60uwqny4m" path="res://assets/hud/checkbox.png" id="7_31in1"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://assets/hud/hud_atlas.png" id="7_ga1ni"]
 [ext_resource type="StyleBox" uid="uid://rhsusiehbqjb" path="res://resources/theme/unit_button/small_button_disabled.tres" id="7_mn43h"]
 [ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://resources/theme/item_button_hover.tres" id="8_332gl"]
 [ext_resource type="StyleBox" uid="uid://k235emid2ajj" path="res://resources/theme/unit_button/small_button_hover.tres" id="8_pql3q"]
@@ -70,9 +72,11 @@ content_margin_bottom = 2.0
 texture = ExtResource("7_7y0mp")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2ior"]
+atlas = ExtResource("7_31in1")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1tbsw"]
+atlas = ExtResource("7_31in1")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axp0f"]
@@ -88,6 +92,7 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b7i3v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
+atlas = ExtResource("7_ga1ni")
 region = Rect2(790, 74, 48, 48)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03gih"]
@@ -99,6 +104,7 @@ texture = SubResource("AtlasTexture_fjpfd")
 modulate_color = Color(0.466667, 0.466667, 0.466667, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wfurf"]
+atlas = ExtResource("7_ga1ni")
 region = Rect2(790, 74, 48, 48)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ts633"]
@@ -109,6 +115,7 @@ content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_wfurf")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_us0y7"]
+atlas = ExtResource("7_ga1ni")
 region = Rect2(790, 74, 48, 48)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eyvb8"]
@@ -440,6 +447,7 @@ CircleButton/styles/normal = SubResource("StyleBoxTexture_eyvb8")
 CircleButton/styles/pressed = SubResource("StyleBoxTexture_6ua8f")
 CommonRarityPanelContainer/base_type = &"PanelContainer"
 CommonRarityPanelContainer/styles/panel = ExtResource("4_28e2h")
+CounterLabel/base_type = &"Label"
 CounterLabel/styles/normal = ExtResource("5_rng1l")
 CustomTextureButton/base_type = &"Button"
 CustomTextureButton/colors/icon_hover_color = Color(0, 0, 0, 1)
@@ -543,6 +551,7 @@ TinyUnitButton/styles/disabled = SubResource("StyleBoxFlat_wdruh")
 TinyUnitButton/styles/hover = SubResource("StyleBoxFlat_6ub3i")
 TinyUnitButton/styles/normal = SubResource("StyleBoxFlat_afavw")
 TinyUnitButton/styles/pressed = SubResource("StyleBoxFlat_o8qqj")
+TooltipPanel/base_type = &"TooltipPanel"
 TooltipPanel/styles/panel = SubResource("StyleBoxTexture_sa26r")
 TowerActions/base_type = &"Button"
 TowerActions/styles/disabled = ExtResource("1_vdqn7")
