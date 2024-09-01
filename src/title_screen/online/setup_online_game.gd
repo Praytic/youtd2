@@ -60,13 +60,13 @@ func _on_create_online_match_menu_create_pressed():
 	_current_match_config = _create_online_match_menu.get_match_config()
 
 	var match_config_dict: Dictionary = _current_match_config.convert_to_dict()
-	var host_username: String = Settings.get_setting(Settings.PLAYER_NAME)
+	var host_display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
 		
 	var local_user_id: String = NakamaConnection.get_local_user_id()
 
 	var match_params_dict: Dictionary = {
-		"host_username": host_username,
+		"host_display_name": host_display_name,
 		"host_user_id": local_user_id,
 		"player_count_max": 2,
 		"is_private": false,

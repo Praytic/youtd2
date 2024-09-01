@@ -87,8 +87,10 @@ func get_display_name_of_user(user_id: String) -> String:
 	return _user_id_to_display_name_map.get(user_id, "")
 
 
-func set_display_name_of_user(user_id: String, display_name: String):
-	_user_id_to_display_name_map[user_id] = display_name
+func set_display_name_of_user(user_id: String, display_name_raw: String):
+	var display_name_sanitized: String = SanitizeText.sanitize_player_name(display_name_raw)
+	
+	_user_id_to_display_name_map[user_id] = display_name_sanitized
 
 
 func get_local_user_id() -> String:

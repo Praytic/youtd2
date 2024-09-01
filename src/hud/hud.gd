@@ -102,9 +102,10 @@ func add_chat_message(player: Player, message: String):
 
 		return
 
+#	NOTE: don't need to sanitize player name here because it
+#	already is sanitized.
 	var player_color: Color = player.get_color()
 	var player_name: String = player.get_player_name()
-	player_name = Utils.escape_bbcode(player_name)
 
 #	NOTE: chat message input field has a length limit but we
 #	still need to limit the length here as well just in

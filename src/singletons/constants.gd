@@ -167,3 +167,7 @@ const NAKAMA_PORT: int = 7350
 const NAKAMA_PROTOCOL: String = "http"
 
 const MAX_CHAT_MESSAGE_LENGTH: int = 200
+
+const PLAYER_NAME_ALLOWED_CHARS: String = "[A-Za-z]"
+const PLAYER_NAME_LENGTH_MIN: int = 2
+const PLAYER_NAME_LENGTH_MAX: int = 15

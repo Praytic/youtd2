@@ -257,7 +257,7 @@ func is_able_to_research(element: Element.enm) -> bool:
 
 
 func get_player_name() -> String:
-	return Utils.escape_bbcode(_player_name)
+	return _player_name
 
 
 func get_color() -> Color:

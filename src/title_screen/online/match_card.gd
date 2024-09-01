@@ -2,6 +2,9 @@
 class_name MatchCard extends PanelContainer
 
 
+# Displays info about a match
+
+
 signal join_pressed()
 
 var _match_id: String = ""
@@ -46,7 +49,8 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 
 	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
 
-	var host_username: String = label_dict.get("host_username", "UNKNOWN")
+	var host_display_name: String = label_dict.get("host_display_name", "UNKNOWN")
+	host_display_name = SanitizeText.sanitize_player_name(host_display_name)
 
 	var difficulty: Difficulty.enm = match_config.get_difficulty()
 	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
@@ -60,7 +64,7 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	+ "%s waves\n" % game_length_string \
 	+ "%s\n" % game_mode_string \
 	+ " \n" \
-	+ "[color=ROYAL_BLUE]Host: %s[/color]" % host_username \
+	+ "[color=ROYAL_BLUE]Creator: %s[/color]" % host_display_name \
 	+ ""
 
 	return text

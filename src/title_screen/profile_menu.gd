@@ -6,6 +6,8 @@ signal close_pressed()
 
 var _setup_error_list: Array[String] = []
 
+var _regex_allowed_chars: RegEx
+
 
 @export var _name_edit: LineEdit
 @export var _export_exp_menu: ExportExpMenu
@@ -22,6 +24,9 @@ var _setup_error_list: Array[String] = []
 #########################
 
 func _ready():
+	_regex_allowed_chars = RegEx.new()
+	_regex_allowed_chars.compile(Constants.PLAYER_NAME_ALLOWED_CHARS)
+
 	var player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_name_edit.text = player_name
 	
@@ -63,24 +68,44 @@ func _load_player_exp(player_exp: int):
 #########################
 
 func _on_name_edit_text_changed(new_text: String):
-	Settings.set_setting(Settings.PLAYER_NAME, new_text)
-	Settings.flush()
+	var old_caret_column: int = _name_edit.get_caret_column()
+
+	var regexed_text: String = ""
+	for valid_character in _regex_allowed_chars.search_all(new_text):
+		regexed_text += valid_character.get_string()
+	
+	_name_edit.set_text(regexed_text)
+
+	_name_edit.set_caret_column(old_caret_column)
 
 
+# NOTE: update display_name for account only when profile
+# menu is closed, not every time when name edit text
+# changes. This is to avoid too frequent updates.
 func _on_close_button_pressed():
+	var player_name: String = _name_edit.get_text()
+
+	var name_is_too_short: bool = player_name.length() < Constants.PLAYER_NAME_LENGTH_MIN
+	if name_is_too_short:
+		Utils.show_popup_message(self, "Error", "Player name is too short.")
+
+		return
+
 	close_pressed.emit()
 
-#	NOTE: update display_name for account only when profile
-#	menu is closed, not every time when name edit text
-#	changes. This is to avoid too frequent updates.
+	Settings.set_setting(Settings.PLAYER_NAME, player_name)
+	Settings.flush()
+
 	var running_on_desktop: bool = OS.has_feature("pc")
-	if !running_on_desktop:
-		return
-	
+	if running_on_desktop:
+		_update_player_name_for_nakama_account()
+
+
+func _update_player_name_for_nakama_account():
 	var client: NakamaClient = NakamaConnection.get_client()
 	var session: NakamaSession = NakamaConnection.get_session()
 	var username = null
-	var display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
+	var display_name: String = _name_edit.get_text()
 	var avatar_url = null
 	var lang_tag = null
 	var location = null
