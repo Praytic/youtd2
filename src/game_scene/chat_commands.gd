@@ -16,6 +16,8 @@ const AUTOOIL: Array[String] = ["/autooil", "/ao"]
 const GAMESPEED: Array[String] = ["/gamespeed", "/gs"]
 const DAMAGE_METERS: Array[String] = ["/damage-meters", "/dm"]
 const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
+const IGNORE: Array[String] = ["/ignore"]
+const UNIGNORE: Array[String] = ["/unignore"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE: Array[String] = ["/pause", "/p"]
@@ -111,6 +113,10 @@ func process_command(player: Player, command: String):
 		_command_damage_meters(player, command_args)
 	elif DAMAGE_METERS_RECENT.has(command_main):
 		_command_damage_meters_recent(player, command_args)
+	elif IGNORE.has(command_main):
+		_command_ignore(player, command_args)
+	elif UNIGNORE.has(command_main):
+		_command_unignore(player, command_args)
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -398,6 +404,43 @@ func _command_damage_meters_recent(player: Player, _args: Array):
 		Messages.add_normal(player, "%s: [color=GOLD]%s[/color]" % [tower_name, damage_string])
 
 		count += 1
+
+
+func _command_ignore(player: Player, args: Array):
+	_command_ignore_helper(player, args, true)
+
+
+func _command_unignore(player: Player, args: Array):
+	_command_ignore_helper(player, args, false)
+
+
+# NOTE: ignore command has a flaw where it ingores all
+# players who have the target name.
+func _command_ignore_helper(player: Player, args: Array, ignored_value: bool):
+	if args.size() != 1:
+		_add_error(player, "Invalid command args. Must specify player name.")
+
+		return
+
+	var target_name: String = args[0]
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+
+	for p in player_list:
+		var this_name: String = p.get_player_name()
+		var name_match: bool = this_name == target_name
+
+		if name_match:
+			p.set_chat_ignored(ignored_value)
+
+			var player_name_with_color: String = p.get_player_name_with_color()
+			var status_string: String
+			if ignored_value == true:
+				status_string = "Ignoring player %s."
+			else:
+				status_string = "Stopped ignoring player %s."
+
+			_add_status(player, status_string % player_name_with_color)
 
 
 # NOTE: oil counts are based on average oil counts obtained

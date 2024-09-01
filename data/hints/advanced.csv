@@ -56,6 +56,9 @@ For a tower with 0.5 second attack speed, the ability will trigger [color=GOLD][
  
 [color=GOLD]/ready[/color] - Starts the first level early.
  
+[color=GOLD]/ignore <PLAYER NAME>[/color] - Ignores chat messages from player.
+[color=GOLD]/unignore <PLAYER NAME>[/color] - Stops ignoring chat messages from player.
+ 
 [color=GOLD]/autospawn <TIME>[/color] or [color=GOLD]/as[/color] - Sets up an additional timer which will automatically start the next level <TIME> seconds after the current level has finished spawning. Use [color=GOLD]/autospawn off[/color] to disable autospawn.
  
 [color=GOLD]/autooil[/color] or [color=GOLD]/ao[/color] - Sets up automatic oiling of towers. When an assigned oil drops from a creep, it will be automatically applied on a tower.
@@ -64,8 +67,7 @@ Available variations:
 [color=GOLD]/autooil <OILTYPE>[/color] - this will set autooiling for selected tower. You can type short versions of oiltypes - sharpness, sharp, sh.
 [color=GOLD]/autooil show[/color] - shows all current autooil assignments.
 [color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
-[color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
- 
+
 [color=GOLD]/gamespeed <SPEED>[/color] or [color=GOLD]/gs[/color] - Changes game speed. This command allows changing game speed beyond the values available in the UI controls.
  
 [color=GOLD]/damage-meters[/color] or [color=GOLD]/dm[/color] - Prints a list of towers which dealt the most damage.

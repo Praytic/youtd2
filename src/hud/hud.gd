@@ -96,6 +96,12 @@ func get_chat_edit_text() -> String:
 
 
 func add_chat_message(player: Player, message: String):
+	var player_is_ignored: bool = player.get_chat_ignored()
+	if player_is_ignored:
+		print_verbose("Skipping chat message from ignored player %s: %s" % [player.get_player_name(), message])
+
+		return
+
 	var player_color: Color = player.get_color()
 	var player_name: String = player.get_player_name()
 	player_name = Utils.escape_bbcode(player_name)

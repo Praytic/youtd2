@@ -63,6 +63,7 @@ var _wisdom_modifier: Modifier = Modifier.new()
 var _selected_unit: Unit = null
 var _autooil: AutoOil = AutoOil.new()
 var _player_name: String = "Player"
+var _chat_ignored: bool = false
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -95,6 +96,14 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_chat_ignored(value: bool):
+	_chat_ignored = value
+
+
+func get_chat_ignored() -> bool:
+	return _chat_ignored
+
 
 func get_autooil_status() -> String:
 	return _autooil.get_status()
