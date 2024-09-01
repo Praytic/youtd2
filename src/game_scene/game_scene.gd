@@ -671,7 +671,7 @@ func _on_player_selected_builder():
 	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
 	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
 	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
-	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start game[/color].")
 
 
 func _on_player_voted_ready():
