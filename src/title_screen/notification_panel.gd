@@ -17,9 +17,6 @@ func display_text(text: String):
 	
 	modulate = Color.WHITE
 	_fadeout_timer.start(VISIBLE_DURATION)
-	
-	print(modulate)
-	print(visible)
 
 
 func _on_fadeout_timer_timeout():

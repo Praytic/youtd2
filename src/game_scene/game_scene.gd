@@ -33,7 +33,7 @@ var _builder_menu: BuilderMenu = null
 
 func _ready():
 	print_verbose("GameScene has loaded.")
-
+	
 	Globals.reset()
 	PlayerManager.reset()
 	GroupManager.reset()
@@ -223,6 +223,19 @@ func get_build_space() -> BuildSpace:
 #########################
 ###      Private      ###
 #########################
+
+func _save_player_exp_on_quit():
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_team: Team = local_player.get_team()
+
+#	NOTE: if finished the game, then don't save exp because
+#	exp was already saved during win/lose process.
+	var finished_the_game: bool = local_team.finished_the_game()
+	if finished_the_game:
+		return
+
+	local_team.convert_local_player_score_to_exp()
+
 
 func _setup_players():
 	var peer_id_list: Array[int] = []
@@ -738,11 +751,13 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 
 
 func _on_game_menu_quit_pressed():
+	_save_player_exp_on_quit()
 	_cleanup_all_objects()
 	get_tree().quit()
 
 
 func _on_game_menu_quit_to_title_pressed():
+	_save_player_exp_on_quit()
 	_cleanup_all_objects()
 	get_tree().set_pause(false)
 	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
