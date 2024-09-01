@@ -100,6 +100,10 @@ func add_chat_message(player: Player, message: String):
 	var player_name: String = player.get_player_name()
 	player_name = Utils.escape_bbcode(player_name)
 
+#	NOTE: chat message input field has a length limit but we
+#	still need to limit the length here as well just in
+#	case.
+	message = message.substr(0, Constants.MAX_CHAT_MESSAGE_LENGTH)
 	message = Utils.escape_bbcode(message)
 
 	var complete_message: String = "[color=%s]%s:[/color] %s" % [player_color.to_html(), player_name, message]
