@@ -19,12 +19,6 @@ static func execute(action: Dictionary, player: Player):
 	
 	player.set_builder(builder_id)
 
-	var player_name: String = player.get_player_name_with_color()
-	var builder: Builder = player.get_builder()
-	var builder_name: String = builder.get_display_name()
-	var message: String = "%s selected builder: %s" % [player_name, builder_name]
-	Messages.add_normal(null, message)
-	
 	var is_local_player: bool = player == PlayerManager.get_local_player()
 	if is_local_player:
 		EventBus.player_selected_builder.emit()
