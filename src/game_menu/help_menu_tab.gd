@@ -1,4 +1,4 @@
-class_name HintsMenuTab extends VBoxContainer
+class_name HelpMenuTab extends VBoxContainer
 
 
 signal closed()
@@ -13,7 +13,7 @@ var _text_list: Array[String] = []
 
 @export var csv_path: String
 @export var _tree: Tree
-@export var _hints_text_label: RichTextLabel
+@export var _text_label: RichTextLabel
 
 var _properties: Dictionary = {}
 
@@ -60,8 +60,8 @@ func _on_tree_item_selected():
 	
 	var combined_text: String = "[center][color=GOLD]%s[/color][/center]\n \n%s" % [title, text]
 
-	_hints_text_label.clear()
-	_hints_text_label.append_text(combined_text)
+	_text_label.clear()
+	_text_label.append_text(combined_text)
 
 
 func _on_close_button_pressed():

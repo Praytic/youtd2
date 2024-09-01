@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbrryq35rxvkv"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_njctg"]
-[ext_resource type="Script" path="res://src/game_menu/hints_menu.gd" id="2_jpay6"]
-[ext_resource type="PackedScene" uid="uid://dqb37g0dwa4o2" path="res://src/game_menu/hints_menu_tab.tscn" id="3_iygdm"]
+[ext_resource type="Script" path="res://src/game_menu/help_menu.gd" id="2_jpay6"]
+[ext_resource type="PackedScene" uid="uid://dqb37g0dwa4o2" path="res://src/game_menu/help_menu_tab.tscn" id="3_iygdm"]
 
-[node name="HintsMenu" type="TabContainer"]
+[node name="HelpMenu" type="TabContainer"]
 custom_minimum_size = Vector2(1100, 700)
 offset_right = 900.0
 offset_bottom = 705.0

@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqb37g0dwa4o2"]
 
-[ext_resource type="Script" path="res://src/game_menu/hints_menu_tab.gd" id="1_q2uv5"]
+[ext_resource type="Script" path="res://src/game_menu/help_menu_tab.gd" id="1_q2uv5"]
 
-[node name="HintsMenuTab" type="VBoxContainer" node_paths=PackedStringArray("_tree", "_hints_text_label")]
+[node name="HelpMenuTab" type="VBoxContainer" node_paths=PackedStringArray("_tree", "_text_label")]
 custom_minimum_size = Vector2(1000, 900)
 theme_override_constants/separation = 10
 script = ExtResource("1_q2uv5")
 _tree = NodePath("HBoxContainer/Tree")
-_hints_text_label = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/HintsTextLabel")
+_text_label = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/TextLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -35,7 +35,7 @@ theme_override_constants/margin_bottom = 10
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HintsTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="TextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6

@@ -3,7 +3,7 @@ extends VBoxContainer
 
 enum Tab {
 	MAIN = 0,
-	HINTS,
+	HELP,
 	SETTINGS,
 	QUIT,
 }
@@ -21,8 +21,8 @@ func _on_close_button_pressed():
 	close_pressed.emit()
 
 
-func _on_hints_button_pressed():
-	_tab_container.current_tab = Tab.HINTS
+func _on_help_button_pressed():
+	_tab_container.current_tab = Tab.HELP
 
 
 func _on_settings_button_pressed():
@@ -33,7 +33,7 @@ func _on_hidden():
 	_tab_container.current_tab = Tab.MAIN
 
 
-func _on_hints_menu_closed():
+func _on_help_menu_closed():
 	_tab_container.current_tab = Tab.MAIN
 
 
