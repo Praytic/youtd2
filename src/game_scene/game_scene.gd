@@ -768,6 +768,7 @@ func _on_player_requested_quit_to_title():
 func _quit_to_title():
 	_save_player_exp_on_quit()
 	_cleanup_all_objects()
+	OnlineMatch.leave()
 	get_tree().set_pause(false)
 	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
 
