@@ -139,15 +139,5 @@ func _on_profile_menu_close_pressed():
 	_tab_container.current_tab = Tab.MAIN
 
 
-func _on_multiplayer_button_pressed():
-	var running_on_desktop: bool = OS.has_feature("pc")
-	if !running_on_desktop:
-		Utils.show_popup_message(self, "Error", "Multiplayer is not available in browser. Please download the game.")
-	
-		return
-	
-	_tab_container.current_tab = Tab.ONLINE_MATCH_LIST
-
-
 func _on_create_online_match_menu_cancel_pressed():
 	_tab_container.current_tab = Tab.ONLINE_MATCH_LIST

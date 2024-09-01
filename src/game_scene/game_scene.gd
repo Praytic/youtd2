@@ -81,7 +81,6 @@ func _ready():
 #	NOTE: load game settings which were selected during TitleScreen. They are passed via Globals.
 	var origin_seed: int = Globals.get_origin_seed()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var wave_count: int = Globals.get_wave_count()
 
 # 	Save the seed which host gave to this client so that rng
 # 	on this game client is the same as on all other clients.

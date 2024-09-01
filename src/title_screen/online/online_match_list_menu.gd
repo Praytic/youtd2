@@ -1,102 +1,124 @@
+@tool
 class_name OnlineMatchListMenu extends PanelContainer
 
 
-signal join_pressed()
+# Displays a list of online matches.
+
+
+enum State {
+	SEARCHING,
+	NO_MATCHES_FOUND,
+	SHOW_MATCHES,
+}
+
+# TODO: support showing matches beyond 40 match limit. Add pages.
+
+signal join_pressed(match_id: int)
+signal refresh_pressed()
 signal cancel_pressed()
 signal create_match_pressed()
 
 
+const MATCH_CARD_COUNT_MAX: int = 50
+
+@export var _searching_label: Label
 @export var _no_matches_found_label: Label
-@export var _item_list: ItemList
+@export var _match_card_grid: GridContainer
+@export var _refresh_button: Button
+
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready():
+	for i in range(0, MATCH_CARD_COUNT_MAX):
+#		var match_id: String = match_.match_id
+		var match_card: MatchCard = MatchCard.make()
+		match_card.join_pressed.connect(_on_match_card_join_pressed.bind(match_card))
+		_match_card_grid.add_child(match_card)
+		match_card.hide()
+	
+	if Engine.is_editor_hint():
+		_searching_label.hide()
+		
+		var card_list: Array = _match_card_grid.get_children()
+		for card in card_list:
+			card.show()
 
 
 #########################
 ###       Public      ###
 #########################
 
-func get_selected_match_id() -> String:
-	var selected_index_list: Array = _item_list.get_selected_items()
+func set_state(new_state: OnlineMatchListMenu.State):
+	match new_state:
+		State.SEARCHING:
+			clear_match_list()
+			
+			_searching_label.show()
+			_no_matches_found_label.hide()
+			_refresh_button.set_disabled(true)
+		State.NO_MATCHES_FOUND:
+			clear_match_list()
+			
+			_searching_label.hide()
+			_no_matches_found_label.show()
+			_refresh_button.set_disabled(false)
+		State.SHOW_MATCHES:
+			_searching_label.hide()
+			_no_matches_found_label.hide()
+			_refresh_button.set_disabled(false)
+
+
+func clear_match_list():
+	var card_list: Array = _match_card_grid.get_children()
 	
-	if selected_index_list.is_empty():
-		return ""
-	
-	var selected_index: int = selected_index_list[0]
-	var selected_match_id: String = _item_list.get_item_metadata(selected_index)
-	
-	return selected_match_id
+	for card in card_list:
+		card.hide()
+		
+	_no_matches_found_label.show()
 
 
 # TODO: maybe sort matches by creation time? But that is not available by
 # default in nakama. Need to add this data to label.
 func update_match_list(match_list: Array):
 	var found_matches: bool = !match_list.is_empty()
-	
-	_no_matches_found_label.visible = !found_matches
-	_item_list.visible = found_matches
-	
-	_item_list.clear()
-	
-	for match_ in match_list:
-		var match_display_string: String = _get_match_text(match_)
 
-		var match_is_invalid: bool = match_display_string.is_empty()
-		if match_is_invalid:
-			continue
+	_searching_label.visible = !found_matches
+	_match_card_grid.visible = found_matches
+	
+	var card_list: Array = _match_card_grid.get_children()
 
-		_item_list.add_item(match_display_string)
+	for i in range(0, MATCH_CARD_COUNT_MAX):
+		var match_: NakamaAPI.ApiMatch
+		if i < match_list.size():
+			match_ = match_list[i]
+		else:
+			match_ = null
 		
-		var item_index: int = _item_list.get_item_count() - 1
-		_item_list.set_item_metadata(item_index, match_.match_id)
+		var match_card: MatchCard = card_list[i]
+		
+		if match_ != null:
+			match_card.load_match(match_)
 
-
-func _get_match_text(match_: NakamaAPI.ApiMatch) -> String:
-	var label_string: String = match_.label
-
-	var parse_result = JSON.parse_string(label_string)
-	var parse_failed: bool = parse_result == null
-	if parse_failed:
-		return ""
-
-	var label_dict: Dictionary = parse_result
-
-	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
-
-	var host_username: String = label_dict.get("host_username", "UNKNOWN")
-
-	var player_count: int = match_.size
-	var difficulty: Difficulty.enm = match_config.get_difficulty()
-	var difficulty_string: String = Difficulty.convert_to_string(difficulty).capitalize()
-	var game_length: int = match_config.get_game_length()
-	var game_length_string: String = str(game_length)
-	var game_mode: GameMode.enm = match_config.get_game_mode()
-	var game_mode_string: String = GameMode.convert_to_string(game_mode).capitalize()
-
-	var match_age: int = _get_match_age_minutes(label_dict)
-
-	var text: String = "%d/2 players\n %s, %s, %s waves - by %s. Created %d min ago" % [player_count, difficulty_string, game_mode_string, game_length_string, host_username, match_age]
-
-	return text
-
-
-func _get_match_age_minutes(label_dict: Dictionary) -> int:
-	var creation_time: float = label_dict.get("creation_time", -1)
-
-	if creation_time == -1:
-		return -1
-
-	var current_time: float = Time.get_unix_time_from_system()
-	var age_seconds: float = current_time - creation_time
-	var age_minutes: int = ceil(age_seconds / 60.0)
-
-	return age_minutes
+		match_card.visible = match_ != null
+	
+	var matches_found: bool = match_list.size() > 0
+	
+	if matches_found:
+		set_state(State.SHOW_MATCHES)
+	else:
+		set_state(State.NO_MATCHES_FOUND)
 
 
 #########################
 ###     Callbacks     ###
 #########################
 
-func _on_join_match_button_pressed():
-	join_pressed.emit()
+func _on_match_card_join_pressed(match_card: MatchCard):
+	var match_id: String = match_card.get_match_id()
+	join_pressed.emit(match_id)
 
 
 func _on_cancel_button_pressed():
@@ -105,3 +127,7 @@ func _on_cancel_button_pressed():
 
 func _on_create_match_button_pressed():
 	create_match_pressed.emit()
+
+
+func _on_refresh_button_pressed():
+	refresh_pressed.emit()

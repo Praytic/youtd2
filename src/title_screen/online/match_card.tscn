@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://d27if5hnovvmj"]
+
+[ext_resource type="Script" path="res://src/title_screen/online/match_card.gd" id="1_4ej3x"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_pd78y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w73c3"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.0823529, 0.0823529, 0.129412, 0.392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.533333, 0.533333, 0.533333, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MatchCard" type="PanelContainer" node_paths=PackedStringArray("_match_info_label", "_player_count_label")]
+custom_minimum_size = Vector2(500, 140)
+theme = ExtResource("1_pd78y")
+theme_type_variation = &"RightSidePanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_w73c3")
+script = ExtResource("1_4ej3x")
+_match_info_label = NodePath("HBoxContainer/MatchInfoLabel")
+_player_count_label = NodePath("HBoxContainer/VBoxContainer/PlayerCountLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MatchInfoLabel" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Normal
+120 waves
+Random with upgrades
+ 
+[color=ROYAL_BLUE]Host: kevl[/color]"
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerCountLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+bbcode_enabled = true
+text = "[center]1/2[/center]"
+fit_content = true
+
+[node name="JoinButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Join"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

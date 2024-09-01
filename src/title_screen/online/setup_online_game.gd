@@ -141,12 +141,9 @@ func _on_nakama_received_match_state(message: NakamaRTAPI.MatchData):
 		_: pass
 
 
-func _on_refresh_match_list_timer_timeout():
-#	NOTE: refresh match list only when the corresponding UI
-#	is visible
-	if !_online_match_list_menu.is_visible():
-		return
-
+func _refresh_match_list():
+	_online_match_list_menu.set_state(OnlineMatchListMenu.State.SEARCHING)
+	
 	var client: NakamaClient = NakamaConnection.get_client()
 	var session: NakamaSession = NakamaConnection.get_session()
 
@@ -168,9 +165,7 @@ func _on_refresh_match_list_timer_timeout():
 	_online_match_list_menu.update_match_list(match_list)
 
 
-func _on_online_match_list_menu_join_pressed():
-	var selected_match_id: String = _online_match_list_menu.get_selected_match_id()
-	
+func _on_online_match_list_menu_join_pressed(selected_match_id: String):
 	var no_match_selected: bool = selected_match_id.is_empty()
 	if no_match_selected:
 		Utils.show_popup_message(self, "Error", "You must select a match first.")
@@ -235,6 +230,7 @@ func _on_online_lobby_menu_leave_pressed():
 	_state = State.IDLE
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+	_refresh_match_list()
 
 
 # NOTE: host doesn't leave the lobby match here, so that
@@ -405,3 +401,17 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_online_match_list_menu_refresh_pressed():
+	_refresh_match_list()
+
+
+func _on_multiplayer_button_pressed():
+	var running_on_desktop: bool = OS.has_feature("pc")
+	if !running_on_desktop:
+		Utils.show_popup_message(self, "Error", "Multiplayer is not available in browser. Please download the game.")
+	
+		return
+	
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+	_refresh_match_list()

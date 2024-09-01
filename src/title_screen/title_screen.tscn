@@ -200,7 +200,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="SetupOnlineGame" method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -211,6 +211,7 @@ layout_mode = 2
 [connection signal="cancel_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="create_match_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_create_match_pressed"]
 [connection signal="join_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_join_pressed"]
+[connection signal="refresh_pressed" from="UI/TabContainer/OnlineMatchListMenu" to="SetupOnlineGame" method="_on_online_match_list_menu_refresh_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/LanConnectMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="create_pressed" from="UI/TabContainer/LanConnectMenu" to="SetupLanGame" method="_on_lan_connect_menu_create_pressed"]
 [connection signal="join_pressed" from="UI/TabContainer/LanConnectMenu" to="SetupLanGame" method="_on_lan_connect_menu_join_pressed"]
