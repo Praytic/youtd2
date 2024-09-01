@@ -21,6 +21,11 @@ visible = false
 layout_mode = 2
 csv_path = "res://data/hints/tutorial.csv"
 
+[node name="Chat Commands" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/chat_commands.csv"
+
 [node name="Towers" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2

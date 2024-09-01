@@ -1,0 +1,31 @@
+"Title","Text"
+"/ready","Starts the first level early.
+In multiplayer, all players must ready up together.
+"
+"/ignore","[color=GOLD]/ignore <PLAYER NAME>[/color] - Ignores chat messages from player.
+ 
+[color=GOLD]/unignore <PLAYER NAME>[/color] - Removes player from ignore list.
+"
+"/autospawn","[color=GOLD]/autospawn <TIME>[/color] or [color=GOLD]/as <TIME>[/color] - Sets up an additional timer which will automatically start the next level <TIME> seconds after the current level has finished spawning.
+ 
+[color=GOLD]/autospawn off[/color] - Disables autospawn.
+
+"
+"/autooil","[color=GOLD]/autooil list[/color] - shows available oil types.
+ 
+[color=GOLD]/autooil <OILTYPE>[/color] - Enables autooil for selected tower. You can type short versions of oiltypes - sharpness, sharp, sh.
+ 
+[color=GOLD]/autooil show[/color] - shows all current autooil assignments.
+ 
+[color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
+  
+[color=GOLD]/ao[/color] - short version.
+"
+"/gamespeed","[color=GOLD]/gamespeed <SPEED>[/color] or [color=GOLD]/gs  <SPEED>[/color] - Changes game speed. This command allows changing game speed beyond the values available in the UI controls.
+ 
+Not available in multiplayer
+"
+"/damage-meters","[color=GOLD]/damage-meters[/color] or [color=GOLD]/dm[/color] - Prints a list of towers which dealt the most damage.
+ 
+[color=GOLD]/damage-meters-recent[/color] or [color=GOLD]/dmr[/color] - Prints a list of towers which dealt the most damage during the last 5 waves.
+"
