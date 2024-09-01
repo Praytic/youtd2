@@ -229,7 +229,7 @@ func convert_local_player_score_to_exp():
 	var new_player_exp: int = old_player_exp + exp_gain
 	var new_exp_password: String = ExperiencePassword.encode(new_player_exp)
 	var new_player_level: int = PlayerExperience.get_level_at_exp(new_player_exp)
-	var level_changed: bool = new_player_level != old_player_level
+	var player_level_changed: bool = new_player_level != old_player_level
 	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
 	Settings.flush()
 
@@ -251,7 +251,7 @@ func convert_local_player_score_to_exp():
 	elif exp_gain < 0:
 		push_error("Exp gained is negative!")
 
-	if level_changed:
+	if player_level_changed:
 		Messages.add_normal(local_player, level_up_message)
 		title_screen_notification += " \n"
 		title_screen_notification += level_up_message
