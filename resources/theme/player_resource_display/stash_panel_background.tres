@@ -1,11 +1,7 @@
-[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://c4rv27uxbm00c"]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://c4rv27uxbm00c"]
 
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://assets/hud/hud_atlas.png" id="1_hq5m6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_58l2a"]
-atlas = ExtResource("1_hq5m6")
-region = Rect2(1, 136, 1087, 161)
+[ext_resource type="Texture2D" uid="uid://con8k4q85kahx" path="res://resources/ui_textures/stash_panel_background.tres" id="1_oalyk"]
 
 [resource]
-texture = SubResource("AtlasTexture_58l2a")
+texture = ExtResource("1_oalyk")
 axis_stretch_horizontal = 1
