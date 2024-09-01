@@ -207,9 +207,10 @@ func storm_bt_on_damaged(event: Event):
 	var caster: Tower = buff.get_caster()
 	var target: Creep = buff.get_buffed_unit()
 #	Calculate how much damage is really dealt
-	var dmg_taken: float = min(event.damage, target.get_health())
+	var target_health: float = target.get_health()
+	var dmg_taken: float = min(event.damage, target_health)
 	var target_size: CreepSize.enm = target.get_size_including_challenge_sizes()
-	var mana_loss: float = dmg_taken * 0.1 * storm_mana_reduction_values[target_size]
+	var mana_loss: float = dmg_taken * 0.1 * storm_mana_reduction_values[target_size] * Utils.divide_safe(dmg_taken, target_health)
 
 #	Remove mana from the tower according to the damage taken
 #	and the size of the creep
