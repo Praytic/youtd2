@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=18 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://src/title_screen/title_screen.gd" id="1_dx8oa"]
 [ext_resource type="PackedScene" uid="uid://cusqgcgg37fj7" path="res://src/title_screen/lan_match/setup_lan_game.tscn" id="2_2qgi3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ddpf0wt3rp57k" path="res://src/title_screen/online/create_online_match_menu.tscn" id="9_f0p2i"]
 [ext_resource type="PackedScene" uid="uid://dkxudlev66vnr" path="res://src/title_screen/online/online_lobby_menu.tscn" id="11_b1t0j"]
 [ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/lan_match/lan_lobby_menu.tscn" id="12_3m802"]
+[ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="16_xve8p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
@@ -183,6 +184,20 @@ layout_mode = 2
 bbcode_enabled = true
 text = "[center][font_size=60]LOADING[/font_size][/center]"
 fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 245.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BuildVersionLabel" parent="UI/MarginContainer" instance=ExtResource("16_xve8p")]
+layout_mode = 2
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]

@@ -184,6 +184,8 @@ func _ready():
 		if url_section.has("credential"):
 			url_section["credential"] = ice_credential
 
+	client_version = Config.build_version()
+
 
 func _set_readonly_variable(_value) -> void:
 	pass
