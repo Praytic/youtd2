@@ -89,6 +89,8 @@ func _ready():
 	_item_stash.set_player(self)
 	_horadric_stash.set_player(self)
 
+	_player_name = _determine_player_name()
+
 
 #########################
 ###       Public      ###
@@ -243,10 +245,6 @@ func is_able_to_research(element: Element.enm) -> bool:
 	var is_able: bool = can_afford && !reached_max_level
 
 	return is_able
-
-
-func set_player_name(value: String):
-	_player_name = value
 
 
 func get_player_name() -> String:
@@ -633,6 +631,23 @@ func _add_message_about_rolled_towers(rolled_towers: Array[int]):
 		var message: String = "    %s: %s" % [element_string, tower_name_colored]
 
 		Messages.add_normal(self, message)
+
+
+func _determine_player_name() -> String:
+	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
+	var player_is_local: bool = self == PlayerManager.get_local_player()
+
+	var player_name: String
+	if player_is_local:
+		player_name = Settings.get_setting(Settings.PLAYER_NAME)
+	else:
+		match connection_type:
+			Globals.ConnectionType.ENET:
+				player_name = Globals.get_player_name_from_peer_id(_peer_id)
+			Globals.ConnectionType.NAKAMA:
+				player_name = NakamaConnection.get_display_name_of_user(_user_id)
+
+	return player_name
 
 
 #########################

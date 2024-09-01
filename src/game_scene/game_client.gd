@@ -54,8 +54,6 @@ var _ping_history: Array = [0]
 #########################
 
 func _ready():
-	PlayerManager.players_created.connect(_on_players_created)
-
 	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 	if tick_rate != 30:
@@ -344,26 +342,3 @@ func _get_ping_max() -> float:
 func _on_ping_timer_timeout():
 	_time_when_sent_ping = Time.get_ticks_msec()
 	_game_host.receive_ping.rpc_id(1)
-
-
-func _on_players_created():
-	var player_list: Array[Player] = PlayerManager.get_player_list()
-
-	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
-
-	for player in player_list:
-		var player_name: String
-		var player_is_local: bool = player == PlayerManager.get_local_player()
-
-		if player_is_local:
-			player_name = Settings.get_setting(Settings.PLAYER_NAME)
-		else:
-			match connection_type:
-				Globals.ConnectionType.ENET:
-					var peer_id: int = player.get_peer_id()
-					player_name = Globals.get_player_name_from_peer_id(peer_id)
-				Globals.ConnectionType.NAKAMA:
-					var user_id: String = player.get_user_id()
-					player_name = NakamaConnection.get_display_name_of_user(user_id)
-		
-		player.set_player_name(player_name)
