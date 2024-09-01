@@ -48,7 +48,7 @@ _tower_details = NodePath("MarginContainer4/TowerDetails")
 _creep_details = NodePath("MarginContainer4/CreepDetails")
 _ping_label = NodePath("MarginContainer10/VBoxContainer/PingLabel")
 _players_are_lagging_indicator = NodePath("PlayersAreLaggingIndicator")
-_lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/LaggingPlayerListLabel")
+_lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2/LaggingPlayerListLabel")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -382,15 +382,23 @@ theme_type_variation = &"MainPanelContainer"
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayersAreLaggingIndicator/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Waiting for lagging players..."
 
-[node name="LaggingPlayerListLabel" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+[node name="LaggingPlayerListLabel" type="Label" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Dave
 Alice"
 horizontal_alignment = 1
 
+[node name="QuitButton" type="Button" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Title"
+
 [connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
+[connection signal="pressed" from="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

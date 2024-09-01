@@ -8,6 +8,7 @@ extends Node
 
 signal received_first_timeslot()
 signal player_selected_builder()
+signal player_requested_quit_to_title()
 signal player_requested_transmute()
 signal player_requested_return_from_horadric_cube()
 signal player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array)

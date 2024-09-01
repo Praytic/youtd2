@@ -48,7 +48,10 @@ layout_mode = 2
 theme = ExtResource("1_7qjar")
 theme_type_variation = &"MainPanelContainer"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center][font_size=60]WAITING FOR PLAYERS[/font_size][/center]"

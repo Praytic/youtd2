@@ -217,3 +217,7 @@ func _on_unit_menu_details_pressed():
 
 func _on_local_game_lose():
 	_game_over_label.show()
+
+
+func _on_quit_button_pressed():
+	EventBus.player_requested_quit_to_title.emit()

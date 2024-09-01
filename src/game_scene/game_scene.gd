@@ -55,6 +55,7 @@ func _ready():
 
 	_hud.set_game_start_timer(_game_start_timer)
 	
+	EventBus.player_requested_quit_to_title.connect(_on_player_requested_quit_to_title)
 	EventBus.player_selected_builder.connect(_on_player_selected_builder)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
@@ -757,6 +758,14 @@ func _on_game_menu_quit_pressed():
 
 
 func _on_game_menu_quit_to_title_pressed():
+	_quit_to_title()
+
+
+func _on_player_requested_quit_to_title():
+	_quit_to_title()
+
+
+func _quit_to_title():
 	_save_player_exp_on_quit()
 	_cleanup_all_objects()
 	get_tree().set_pause(false)
