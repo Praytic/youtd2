@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=19 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://src/title_screen/title_screen.gd" id="1_dx8oa"]
 [ext_resource type="PackedScene" uid="uid://cusqgcgg37fj7" path="res://src/title_screen/lan_match/setup_lan_game.tscn" id="2_2qgi3"]
@@ -16,16 +16,18 @@
 [ext_resource type="PackedScene" uid="uid://dkxudlev66vnr" path="res://src/title_screen/online/online_lobby_menu.tscn" id="11_b1t0j"]
 [ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/lan_match/lan_lobby_menu.tscn" id="12_3m802"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="16_xve8p"]
+[ext_resource type="PackedScene" uid="uid://bvc2yim85t7vs" path="res://src/title_screen/notification_panel.tscn" id="17_whg35"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button", "_lan_button")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button", "_lan_button", "_notification_panel")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
 _lan_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/LANButton")
+_notification_panel = NodePath("UI/MarginContainer2/NotificationPanel")
 
 [node name="SetupLanGame" parent="." node_paths=PackedStringArray("_title_screen", "_lan_connect_menu", "_lan_lobby_menu", "_create_lan_match_menu") instance=ExtResource("2_2qgi3")]
 _title_screen = NodePath("..")
@@ -197,6 +199,26 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="BuildVersionLabel" parent="UI/MarginContainer" instance=ExtResource("16_xve8p")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="NotificationPanel" parent="UI/MarginContainer2" instance=ExtResource("17_whg35")]
+visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]

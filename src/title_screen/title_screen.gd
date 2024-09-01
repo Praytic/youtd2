@@ -23,6 +23,7 @@ enum Tab {
 @export var _spacer_before_quit_button: VBoxContainer
 @export var _quit_button: Button
 @export var _lan_button: Button
+@export var _notification_panel: NotificationPanel
 
 
 #########################
@@ -40,6 +41,18 @@ func _ready():
 	_spacer_before_quit_button.visible = OS.has_feature("pc")
 	
 	_lan_button.visible = Config.feature_lan_matches()
+	
+#	TODO: handle multiple notifications. Currently onle one notification gets shown.
+	var notification_list: Array[String] = Globals.get_title_screen_notification_list()
+	
+	if !notification_list.is_empty():
+		var notification_text: String = notification_list[0]
+		
+		_notification_panel.display_text(notification_text)
+		_notification_panel.show()
+		
+		Globals.clear_title_screen_notification_list()
+		
 
 
 #########################
