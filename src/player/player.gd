@@ -642,9 +642,12 @@ func _add_message_about_rolled_towers(rolled_towers: Array[int]):
 		Messages.add_normal(self, message)
 
 
+# NOTE: can't use PlayerManager.get_local_player() in here
+# because this f-n is called during the process of creating
+# players.
 func _determine_player_name() -> String:
 	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
-	var player_is_local: bool = self == PlayerManager.get_local_player()
+	var player_is_local: bool = _peer_id == multiplayer.get_unique_id()
 
 	var player_name: String
 	if player_is_local:
