@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=7 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://src/game_menu/game_menu.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_v8b77"]
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://src/game_menu/hints_menu.tscn" id="3_vf4xx"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/game_menu/settings_menu.tscn" id="5_y1l7h"]
 [ext_resource type="PackedScene" uid="uid://vno2fc0bkyjw" path="res://src/game_menu/quit_menu.tscn" id="6_mcdyf"]
-[ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://src/game_menu/help_menu.tscn" id="6_q6xgl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6c4dp"]
 
@@ -27,15 +26,10 @@ theme_type_variation = &"MainPanelContainer"
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
 
-[node name="HelpButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Help"
-
 [node name="HintsButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Hints"
+text = "Help"
 
 [node name="SettingsButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
@@ -57,11 +51,6 @@ layout_mode = 2
 focus_mode = 0
 text = "Close"
 
-[node name="HelpMenu" parent="TabContainer" instance=ExtResource("6_q6xgl")]
-visible = false
-layout_mode = 2
-theme_type_variation = &"MainPanelContainer"
-
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false
 layout_mode = 2
@@ -75,12 +64,10 @@ visible = false
 layout_mode = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
-[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/HintsButton" to="." method="_on_hints_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="hidden" from="TabContainer/HelpMenu" to="." method="_on_help_menu_hidden"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]
 [connection signal="cancel_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_cancel_pressed"]
 [connection signal="ok_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]

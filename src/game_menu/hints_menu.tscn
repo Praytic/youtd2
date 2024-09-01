@@ -12,14 +12,14 @@ theme = ExtResource("1_njctg")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_jpay6")
 
-[node name="Tutorial" parent="." instance=ExtResource("3_iygdm")]
-layout_mode = 2
-csv_path = "res://data/hints/tutorial.csv"
-
 [node name="Basics" parent="." instance=ExtResource("3_iygdm")]
-visible = false
 layout_mode = 2
 csv_path = "res://data/hints/basics.csv"
+
+[node name="Tutorial" parent="." instance=ExtResource("3_iygdm")]
+visible = false
+layout_mode = 2
+csv_path = "res://data/hints/tutorial.csv"
 
 [node name="Towers" parent="." instance=ExtResource("3_iygdm")]
 visible = false

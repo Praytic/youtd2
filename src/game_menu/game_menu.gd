@@ -3,7 +3,6 @@ extends VBoxContainer
 
 enum Tab {
 	MAIN = 0,
-	HELP,
 	HINTS,
 	SETTINGS,
 	QUIT,
@@ -20,10 +19,6 @@ signal quit_pressed()
 
 func _on_close_button_pressed():
 	close_pressed.emit()
-
-
-func _on_help_button_pressed():
-	_tab_container.current_tab = Tab.HELP
 
 
 func _on_hints_button_pressed():
