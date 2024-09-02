@@ -26,7 +26,7 @@ func _connect_to_server():
 		print_verbose("Skipping Nakama connection because running in browser.")
 		
 		return
-	
+
 	var server_key: String = Secrets.get_secret(Secrets.Key.SERVER_KEY)
 	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL, Nakama.DEFAULT_TIMEOUT, NakamaLogger.LOG_LEVEL.INFO)
 
@@ -44,7 +44,8 @@ func _connect_to_server():
 
 	if _session.is_exception():
 		push_error("Error in authenticate_device_async(): %s" % _session)
-		
+		Utils.show_popup_message(self, "Error", "Failed to authenticate with server.\n%s" % _session.exception.message)
+
 		return
 
 #	Set display name of user
@@ -57,6 +58,7 @@ func _connect_to_server():
 
 	if update_account_async_result.is_exception():
 		push_error("Error in update_account_async(): %s" % update_account_async_result)
+		Utils.show_popup_message(self, "Error", "Failed to update display name on server.\n%s" % update_account_async_result.exception.message)
 		
 		return
 
@@ -65,6 +67,7 @@ func _connect_to_server():
 	var connect_async_result: NakamaAsyncResult = await _socket.connect_async(_session)
 	if connect_async_result.is_exception():
 		push_error("Error in connect_async(): %s" % connect_async_result)
+		Utils.show_popup_message(self, "Error", "Failed to connect to server.\n%s" % connect_async_result.exception.message)
 		
 		return
 
