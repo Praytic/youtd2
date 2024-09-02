@@ -55,7 +55,6 @@ func _on_online_match_list_menu_create_match_pressed():
 	_title_screen.switch_to_tab(TitleScreen.Tab.CREATE_ONLINE_MATCH)
 
 
-# TODO: disable UI interactions while waiting for async result, show a progress popup
 func _on_create_online_match_menu_create_pressed():
 	_current_match_config = _create_online_match_menu.get_match_config()
 
@@ -81,7 +80,7 @@ func _on_create_online_match_menu_create_pressed():
 	var create_match_result: NakamaAsyncResult = await client.rpc_async(session, "create_match", match_params_string)
 	if create_match_result.is_exception():
 		push_error("Error in create_match rpc(): %s" % create_match_result)
-		Utils.show_popup_message(self, "Error", "Error in create_match rpc(): %s" % create_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to create match.\n%s" % create_match_result.exception.message)
 
 		return
 	
@@ -91,7 +90,7 @@ func _on_create_online_match_menu_create_pressed():
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(lobby_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
-		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to join match.\n%s" % join_match_result.exception.message)
 
 		return
 	
@@ -166,18 +165,12 @@ func _refresh_match_list():
 
 
 func _on_online_match_list_menu_join_pressed(selected_match_id: String):
-	var no_match_selected: bool = selected_match_id.is_empty()
-	if no_match_selected:
-		Utils.show_popup_message(self, "Error", "You must select a match first.")
-		
-		return
-	
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	
 	var join_match_result: NakamaAsyncResult = await socket.join_match_async(selected_match_id)
 	if join_match_result.is_exception():
 		push_error("Error in join_match_async rpc(): %s" % join_match_result)
-		Utils.show_popup_message(self, "Error", "Error in join_match_async rpc(): %s" % join_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to join match.\n%s" % join_match_result.exception.message)
 
 		return
 
@@ -222,7 +215,7 @@ func _on_online_lobby_menu_leave_pressed():
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async(): %s" % leave_match_result)
-		Utils.show_popup_message(self, "Error", "Error in leave_match_async(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to leave match.\n%s" % leave_match_result.exception.message)
 
 		return
 	
@@ -295,7 +288,7 @@ func _on_host_created_game_match(game_match_id: String):
 	var send_match_state_result: NakamaAsyncResult = await socket.send_match_state_async(_lobby_match_id, NakamaOpCode.TRANSFER_FROM_LOBBY, data)
 	if send_match_state_result.is_exception():
 		push_error("Error in send_match_state_async(): %s" % send_match_state_result)
-		Utils.show_popup_message(self, "Error", "Error in send_match_state_async(): %s" % send_match_state_result)
+		Utils.show_popup_message(self, "Error", "Failed to communicate with players in lobby.\n%s" % send_match_state_result.exception.message)
  
 		return
 
@@ -304,7 +297,7 @@ func _on_host_created_game_match(game_match_id: String):
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
-		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to transfer from lobby to game match.\n%s" % leave_match_result.exception.message)
 
 		return
 	
@@ -383,7 +376,7 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 	var leave_match_result: NakamaAsyncResult = await socket.leave_match_async(_lobby_match_id)
 	if leave_match_result.is_exception():
 		push_error("Error in leave_match_async rpc(): %s" % leave_match_result)
-		Utils.show_popup_message(self, "Error", "Error in leave_match_async rpc(): %s" % leave_match_result)
+		Utils.show_popup_message(self, "Error", "Failed to transfer from lobby to game match.\n%s" % leave_match_result.exception.message)
 
 		return
 
