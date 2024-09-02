@@ -69,6 +69,7 @@ func tower_init():
 
 	soul_pt = ProjectileType.create("PossessionMissile.mdl", 6, 300, self)
 	soul_pt.enable_homing(soul_pt_on_hit, 4.0)
+	soul_pt.set_start_rotation(6.0)
 
 	soulstorm_pt = ProjectileType.create("PossessionMissile.mdl", 6, 300, self)
 	soulstorm_pt.set_acceleration(10)
@@ -273,3 +274,5 @@ func shoot_soul():
 		soul_count -= 1
 
 		Projectile.create_from_point_to_unit(soul_pt, tower, 1.0, 1.0, shoot_pos, next, true, false, false)
+		
+		break
