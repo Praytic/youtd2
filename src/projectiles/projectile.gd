@@ -37,6 +37,7 @@ var _homing_control_value: float
 var _speed: float = 50
 var _physics_z_speed: float = 0
 var _acceleration: float = 0
+var _rotation: float = 0
 var _gravity: float
 var _explode_on_hit: bool = true
 var _explode_on_expiration: bool = true
@@ -248,6 +249,10 @@ func _update_normal(delta: float):
 
 	if _is_homing:
 		_turn_towards_target(delta)
+		
+# 	Apply rotation
+	var new_direction: float = _direction + _rotation
+	set_direction(new_direction)
 
 # 	Apply acceleration
 	var new_speed: float = _speed + _acceleration * delta
@@ -629,6 +634,12 @@ func set_acceleration(new_acceleration: float):
 	_acceleration = new_acceleration
 
 
+# Changes the rate of change of projectile's rotation.
+# This value is defined in degrees/tick, 30ticks/second.
+func set_projectile_rotation(value: float):
+	_rotation = value
+
+
 func set_gravity(value: float):
 	_gravity = value
 
@@ -793,6 +804,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 
 	projectile.set_speed(type._speed)
 	projectile._acceleration = type._acceleration
+	projectile._rotation = type._start_rotation
 	projectile._gravity = type._gravity
 	projectile._physics_z_speed = type._initial_z_speed
 	projectile._physics_enabled = type._physics_enabled

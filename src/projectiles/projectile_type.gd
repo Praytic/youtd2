@@ -25,6 +25,7 @@ var _collision_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
 var _physics_enabled: bool = false
 var _use_lightning_visual: bool = false
+var _start_rotation: float = 0.0
 
 
 #########################
@@ -39,6 +40,13 @@ func _init():
 #########################
 ###       Public      ###
 #########################
+
+# Sets the rate of change for projectile's duration, in
+# degrees/tick, 30ticks/second.
+# NOTE: "ProjectileType.setStartRotation()" in JASS
+func set_start_rotation(value: float):
+	_start_rotation = value
+
 
 func set_speed(value: float):
 	_speed = value
