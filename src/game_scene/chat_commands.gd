@@ -42,8 +42,21 @@ const DEV_COMMAND_LIST_OF_LISTS: Array = [
 	SETUP_TEST_TOWER,
 ]
 
+# Comamnds in this list will be executed only for the player
+# which typed them.
+# NOTE: care must be taken to avoid desyncs for such commands
+const LOCAL_ONLY_COMMANDS_LIST_OF_LISTS: Array = [
+	HELP,
+	DAMAGE_METERS,
+	DAMAGE_METERS_RECENT,
+	IGNORE,
+	UNIGNORE,
+	PING,
+]
+
 var not_allowed_in_multiplayer: Array = []
 var dev_command_list: Array = []
+var local_only_command_list: Array = []
 
 @export var _team_container: TeamContainer
 @export var _hud: HUD
@@ -61,6 +74,9 @@ func _ready():
 
 	for list in DEV_COMMAND_LIST_OF_LISTS:
 		dev_command_list.append_array(list)
+
+	for list in LOCAL_ONLY_COMMANDS_LIST_OF_LISTS:
+		local_only_command_list.append_array(list)
 
 
 #########################
@@ -84,6 +100,13 @@ func process_command(player: Player, command: String):
 	var enable_dev_commands: bool = Config.enable_dev_commands()
 	if command_is_dev && !enable_dev_commands:
 		_add_error(player, "This command is only available in dev mode.")
+		
+		return
+
+	var command_is_local_only: bool = local_only_command_list.has(command_main)
+	var player_is_local: bool = player == PlayerManager.get_local_player()
+	if command_is_local_only && !player_is_local:
+		print_verbose("Skipping command %s because it's local only and was requested by another player." % command)
 		
 		return
 
