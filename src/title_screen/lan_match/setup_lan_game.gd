@@ -93,6 +93,16 @@ func _connect_to_lobby(address: String) -> bool:
 	return true
 
 
+# This check is needed in case current MultiplayerPeer is
+# set to NakamaMultiplayerPeer, which means that all signals
+# should be ignored.
+func _multiplayer_peer_is_enet() -> bool:
+	var multiplayer_peer: MultiplayerPeer = multiplayer.get_multiplayer_peer()
+	var peer_is_enet: bool = multiplayer_peer is ENetMultiplayerPeer
+
+	return peer_is_enet
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -187,13 +197,3 @@ func _on_lan_connect_menu_join_pressed():
 # connection when leaving lobby menu
 func _on_lan_lobby_menu_back_pressed():
 	multiplayer.multiplayer_peer.close()
-
-
-# This check is needed in case current MultiplayerPeer is
-# set to NakamaMultiplayerPeer, which means that all signals
-# should be ignored.
-func _multiplayer_peer_is_enet() -> bool:
-	var multiplayer_peer: MultiplayerPeer = multiplayer.get_multiplayer_peer()
-	var peer_is_enet: bool = multiplayer_peer is ENetMultiplayerPeer
-
-	return peer_is_enet

@@ -265,6 +265,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_buff_list() -> Array[Buff]:
+	return _buff_list
+
+
 func update(delta: float):
 	if is_stunned():
 		_total_stun_duration += delta
@@ -1174,10 +1178,6 @@ func _get_experience_for_target(target: Unit) -> float:
 	var experience: float = experience_base * granted_mod * received_mod
 
 	return experience
-
-
-func get_buff_list() -> Array[Buff]:
-	return _buff_list
 
 
 # Returns a prop value after applying diminishing returns to

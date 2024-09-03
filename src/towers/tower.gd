@@ -339,6 +339,49 @@ func issue_target_order(target: Unit):
 ###      Private      ###
 #########################
 
+# This function automatically generates a description for
+# specials that tower instance defined in load_specials().
+func _get_specials_description() -> String:
+	var text: String = ""
+
+	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
+	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
+	if attacks_ground_only:
+		text += "[color=RED]Attacks GROUND only[/color]\n"
+	elif attacks_air_only:
+		text += "[color=RED]Attacks AIR only[/color]\n"
+	
+	var specials_modifier: Modifier = _tower_behavior.get_specials_modifier()
+	var modifier_text: String = specials_modifier.get_tooltip_text()
+	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
+
+	if !modifier_text.is_empty():
+		if !text.is_empty():
+			text += " \n"
+		text += modifier_text
+
+	return text
+
+
+func _get_attack_ability_description() -> String:
+	var text: String = ""
+	
+	var tower_id: int = get_id()
+
+	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
+	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
+	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
+
+	text += "Attack type: %s.\n" % attack_type_string \
+	+ "Range: %s\n" % attack_range \
+	+ " \n" \
+	+ "Damage to:\n" \
+	+ "%s" % damage_dealt_string
+
+	return text
+
+
 func _do_damage_from_projectile(projectile: Projectile, target: Unit, damage: float, is_main_target: bool):
 	if !Utils.unit_is_valid(target):
 		return
@@ -909,50 +952,6 @@ func get_log_name() -> String:
 
 func get_item_container() -> ItemContainer:
 	return _item_container
-
-
-
-func _get_attack_ability_description() -> String:
-	var text: String = ""
-	
-	var tower_id: int = get_id()
-
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
-	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
-	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
-	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
-
-	text += "Attack type: %s.\n" % attack_type_string \
-	+ "Range: %s\n" % attack_range \
-	+ " \n" \
-	+ "Damage to:\n" \
-	+ "%s" % damage_dealt_string
-
-	return text
-
-
-# This function automatically generates a description for
-# specials that tower instance defined in load_specials().
-func _get_specials_description() -> String:
-	var text: String = ""
-
-	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
-	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
-	if attacks_ground_only:
-		text += "[color=RED]Attacks GROUND only[/color]\n"
-	elif attacks_air_only:
-		text += "[color=RED]Attacks AIR only[/color]\n"
-	
-	var specials_modifier: Modifier = _tower_behavior.get_specials_modifier()
-	var modifier_text: String = specials_modifier.get_tooltip_text()
-	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
-
-	if !modifier_text.is_empty():
-		if !text.is_empty():
-			text += " \n"
-		text += modifier_text
-
-	return text
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:

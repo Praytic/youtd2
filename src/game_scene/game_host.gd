@@ -207,7 +207,7 @@ func _update_state_running():
 	if players_are_lagging:
 		_state = HostState.WAITING_FOR_LAGGING_PLAYERS
 
-		var lagging_player_name_list: Array = get_player_name_list(lagging_player_list)
+		var lagging_player_name_list: Array = _get_player_name_list(lagging_player_list)
 
 		_game_client.set_lagging_players.rpc(lagging_player_name_list)
 
@@ -324,7 +324,7 @@ func _verify_checksums(tick: int):
 		_showed_desync_message = true
 
 
-func get_player_name_list(player_list: Array[Player]) -> Array[String]:
+func _get_player_name_list(player_list: Array[Player]) -> Array[String]:
 	var result: Array[String] = []
 
 	for player in player_list:
@@ -371,5 +371,5 @@ func _on_alive_check_timer_timeout():
 	else:
 		_state = HostState.RUNNING
 
-	var lagging_player_name_list: Array[String] = get_player_name_list(lagging_players)
+	var lagging_player_name_list: Array[String] = _get_player_name_list(lagging_players)
 	_game_client.set_lagging_players.rpc(lagging_player_name_list)

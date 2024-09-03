@@ -54,17 +54,12 @@ func _ready():
 		Globals.clear_title_screen_notification_list()
 		
 
-
 #########################
-###      Private      ###
+###       Public      ###
 #########################
 
 func switch_to_tab(tab: TitleScreen.Tab):
 	_tab_container.current_tab = tab
-
-
-func _switch_to_main_tab():
-	_tab_container.current_tab = Tab.MAIN
 
 
 # NOTE: this function transitions the game from title screen to game scene. Can be called either by client itself or the host if the game is in multiplayer mode.
@@ -129,11 +124,11 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 
 
 func _on_generic_tab_cancel_pressed():
-	_switch_to_main_tab()
+	switch_to_tab(TitleScreen.Tab.MAIN)
 
 
 func _on_settings_menu_ok_pressed():
-	_switch_to_main_tab()
+	switch_to_tab(TitleScreen.Tab.MAIN)
 
 
 func _on_lan_lobby_menu_back_pressed():

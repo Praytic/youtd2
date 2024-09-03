@@ -24,6 +24,10 @@ var _user_id_to_display_name_map: Dictionary = {}
 var _state: State = NakamaConnection.State.FAILED_TO_CONNECT
 
 
+#########################
+###     Built-in      ###
+#########################
+
 # NOTE: create_client() can be done here because it doesn't
 # require connecting to server
 func _ready():
@@ -32,6 +36,10 @@ func _ready():
 
 	connect_to_server()
 
+
+#########################
+###       Public      ###
+#########################
 
 func connect_to_server():
 	var running_on_desktop: bool = OS.has_feature("pc")
@@ -95,11 +103,6 @@ func connect_to_server():
 		_set_state(NakamaConnection.State.CONNECTED)
 
 
-func _set_state(value: State):
-	_state = value
-	state_changed.emit()
-
-
 func get_state() -> State:
 	return _state
 
@@ -130,3 +133,13 @@ func get_local_user_id() -> String:
 	var local_user_id: String = _session.user_id
 
 	return local_user_id
+
+
+#########################
+###      Private      ###
+#########################
+
+func _set_state(value: State):
+	_state = value
+	state_changed.emit()
+

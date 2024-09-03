@@ -135,6 +135,20 @@ func receive_pong():
 	_game_host.receive_ping_time_for_player.rpc_id(1, ping_time)
 
 
+# NOTE: arg must be Array instead of Array[String]. RPC
+# calls have typing issues
+@rpc("authority", "call_local", "reliable")
+func set_lagging_players(lagging_player_list: Array):
+	var players_are_lagging: bool = lagging_player_list.size() > 0
+
+	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
+	_hud.set_waiting_for_lagging_players_indicator_visible(players_are_lagging)
+
+
+#########################
+###      Private      ###
+#########################
+
 # NOTE: buffer value rises instantly but lowers gradually.
 # This is to prevent abrupt changes in input latency.
 func _update_timeslot_buffer_size(ping_time_ms: float):
@@ -149,20 +163,6 @@ func _update_timeslot_buffer_size(ping_time_ms: float):
 	if _timeslot_buffer_size < _turn_length:
 		_timeslot_buffer_size = _turn_length
 
-
-# NOTE: arg must be Array instead of Array[String]. RPC
-# calls have typing issues
-@rpc("authority", "call_local", "reliable")
-func set_lagging_players(lagging_player_list: Array):
-	var players_are_lagging: bool = lagging_player_list.size() > 0
-
-	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
-	_hud.set_waiting_for_lagging_players_indicator_visible(players_are_lagging)
-
-
-#########################
-###      Private      ###
-#########################
 
 func _should_tick(ticks_during_this_process: int) -> bool:
 # 	NOTE: need to limit ticks per process to not disrupt
@@ -340,7 +340,6 @@ func _get_ping_max() -> float:
 		ping_max = max(ping_max, ping)
 
 	return ping_max
-
 
 
 #########################

@@ -46,6 +46,23 @@ func _ready():
 ###      Private      ###
 #########################
 
+func _update_player_name_for_nakama_account():
+	var client: NakamaClient = NakamaConnection.get_client()
+	var session: NakamaSession = NakamaConnection.get_session()
+	var username = null
+	var display_name: String = _name_edit.get_text()
+	var avatar_url = null
+	var lang_tag = null
+	var location = null
+	var timezone = null
+	var update_account_async_result: NakamaAsyncResult = await client.update_account_async(session, username, display_name, avatar_url, lang_tag, location, timezone)
+
+	if update_account_async_result.is_exception():
+		push_error("Error in update_account_async(): %s" % update_account_async_result)
+		
+		return
+
+
 func _load_player_exp(player_exp: int):
 	_exp_label.text = str(player_exp)
 
@@ -100,23 +117,6 @@ func _on_close_button_pressed():
 	var connected_to_server: bool = NakamaConnection.get_state() == NakamaConnection.State.CONNECTED
 	if running_on_desktop && connected_to_server:
 		_update_player_name_for_nakama_account()
-
-
-func _update_player_name_for_nakama_account():
-	var client: NakamaClient = NakamaConnection.get_client()
-	var session: NakamaSession = NakamaConnection.get_session()
-	var username = null
-	var display_name: String = _name_edit.get_text()
-	var avatar_url = null
-	var lang_tag = null
-	var location = null
-	var timezone = null
-	var update_account_async_result: NakamaAsyncResult = await client.update_account_async(session, username, display_name, avatar_url, lang_tag, location, timezone)
-
-	if update_account_async_result.is_exception():
-		push_error("Error in update_account_async(): %s" % update_account_async_result)
-		
-		return
 
 
 func _on_import_exp_button_pressed():
