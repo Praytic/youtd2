@@ -1509,6 +1509,13 @@ func get_spell_crit_damage() -> float:
 # 
 # Changed it so that both displayed and actually used values
 # are clamped.
+# 
+# NOTE: in original youtd, this f-n returns a value which
+# starts from 0%. In youtd2, this f-n returns a value which
+# starts from 100%. Keep this in mind when
+# translating/comparing original JASS tower scripts.
+# 
+# NOTE: "getProp_Attackspeed()" in JASS
 func get_attack_speed_modifier() -> float:
 	var attack_speed_mod: float = _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
 	attack_speed_mod = clampf(attack_speed_mod, Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
