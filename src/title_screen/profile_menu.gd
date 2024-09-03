@@ -97,7 +97,8 @@ func _on_close_button_pressed():
 	Settings.flush()
 
 	var running_on_desktop: bool = OS.has_feature("pc")
-	if running_on_desktop:
+	var connected_to_server: bool = NakamaConnection.get_state() == NakamaConnection.State.CONNECTED
+	if running_on_desktop && connected_to_server:
 		_update_player_name_for_nakama_account()
 
 

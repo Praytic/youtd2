@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=20 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://src/title_screen/title_screen.gd" id="1_dx8oa"]
 [ext_resource type="PackedScene" uid="uid://cusqgcgg37fj7" path="res://src/title_screen/lan_match/setup_lan_game.tscn" id="2_2qgi3"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/title_screen/lan_match/lan_lobby_menu.tscn" id="12_3m802"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="16_xve8p"]
 [ext_resource type="PackedScene" uid="uid://bvc2yim85t7vs" path="res://src/title_screen/notification_panel.tscn" id="17_whg35"]
+[ext_resource type="PackedScene" uid="uid://chegdechhho3d" path="res://src/title_screen/connecting_to_server_indicator.tscn" id="18_5n8qn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
@@ -35,11 +36,12 @@ _lan_connect_menu = NodePath("../UI/TabContainer/LanConnectMenu")
 _lan_lobby_menu = NodePath("../UI/TabContainer/LanLobbyMenu")
 _create_lan_match_menu = NodePath("../UI/TabContainer/CreateLanMatchMenu")
 
-[node name="SetupOnlineGame" parent="." node_paths=PackedStringArray("_title_screen", "_online_match_list_menu", "_online_lobby_menu", "_create_online_match_menu") instance=ExtResource("3_mias5")]
+[node name="SetupOnlineGame" parent="." node_paths=PackedStringArray("_title_screen", "_online_match_list_menu", "_online_lobby_menu", "_create_online_match_menu", "_connecting_to_server_indicator") instance=ExtResource("3_mias5")]
 _title_screen = NodePath("..")
 _online_match_list_menu = NodePath("../UI/TabContainer/OnlineMatchListMenu")
 _online_lobby_menu = NodePath("../UI/TabContainer/OnlineLobbyMenu")
 _create_online_match_menu = NodePath("../UI/TabContainer/CreateOnlineMatchMenu")
+_connecting_to_server_indicator = NodePath("../UI/ConnectingToServerIndicator")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -220,6 +222,15 @@ theme_override_constants/margin_bottom = 20
 [node name="NotificationPanel" parent="UI/MarginContainer2" instance=ExtResource("17_whg35")]
 visible = false
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 4.0
+
+[node name="ConnectingToServerIndicator" parent="UI" instance=ExtResource("18_5n8qn")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="SetupOnlineGame" method="_on_multiplayer_button_pressed"]

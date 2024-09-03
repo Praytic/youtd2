@@ -7,48 +7,64 @@ extends Node
 # otherwise, if connection is Enet - for singleplayer or
 # LAN.
 
-signal connected()
+signal state_changed()
+
+
+enum State {
+	CONNECTING,
+	CONNECTED,
+	FAILED_TO_CONNECT
+}
 
 
 var _client: NakamaClient = null
 var _session: NakamaSession = null
 var _socket: NakamaSocket = null
 var _user_id_to_display_name_map: Dictionary = {}
+var _state: State = NakamaConnection.State.FAILED_TO_CONNECT
 
 
+# NOTE: create_client() can be done here because it doesn't
+# require connecting to server
 func _ready():
-	_connect_to_server()
-
-
-func _connect_to_server():
-	var running_on_desktop: bool = OS.has_feature("pc")
-	if !running_on_desktop:
-		print_verbose("Skipping Nakama connection because running in browser.")
-		
-		return
-
 	var server_key: String = Secrets.get_secret(Secrets.Key.SERVER_KEY)
 	_client = Nakama.create_client(server_key, Constants.NAKAMA_ADDRESS, Constants.NAKAMA_PORT, Constants.NAKAMA_PROTOCOL, Nakama.DEFAULT_TIMEOUT, NakamaLogger.LOG_LEVEL.INFO)
 
-#	TODO: OS.get_unique_id() can't be called on Web. Need to
-#	disable online completely for web build or find another way to generate
-#	a unique id.
+	connect_to_server()
+
+
+func connect_to_server():
+	var running_on_desktop: bool = OS.has_feature("pc")
+	if !running_on_desktop:
+		print_verbose("Skipping Nakama connection because running in browser.")
+		_set_state(NakamaConnection.State.FAILED_TO_CONNECT)
+		
+		return
+
+	_set_state(NakamaConnection.State.CONNECTING)
+
+# 	Create Nakama session by authenticating on the server
 # 
 # 	NOTE: set username to null to let Nakama automatically
 # 	generate a unique username. This way, we don't need to
 # 	care about username conflicts.
-	var device_id: String = OS.get_unique_id()
+	if _session == null:
+		var device_id: String = OS.get_unique_id()
+		var username = null
+		var create_user: bool = true
+		_session = await _client.authenticate_device_async(device_id, username, create_user)
+
+		if _session.is_exception():
+			push_error("Error in authenticate_device_async(): %s" % _session)
+			Utils.show_popup_message(self, "Error", "Failed to authenticate with server.\n%s" % _session.exception.message)
+			_set_state(NakamaConnection.State.FAILED_TO_CONNECT)
+			_session = null
+
+			return
+
+# 	Update display name of user on Nakama server, based on
+# 	value stored in settings (defined in Profile menu)
 	var username = null
-	var create_user: bool = true
-	_session = await _client.authenticate_device_async(device_id, username, create_user)
-
-	if _session.is_exception():
-		push_error("Error in authenticate_device_async(): %s" % _session)
-		Utils.show_popup_message(self, "Error", "Failed to authenticate with server.\n%s" % _session.exception.message)
-
-		return
-
-#	Set display name of user
 	var display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var avatar_url = null
 	var lang_tag = null
@@ -59,19 +75,33 @@ func _connect_to_server():
 	if update_account_async_result.is_exception():
 		push_error("Error in update_account_async(): %s" % update_account_async_result)
 		Utils.show_popup_message(self, "Error", "Failed to update display name on server.\n%s" % update_account_async_result.exception.message)
+		_set_state(NakamaConnection.State.FAILED_TO_CONNECT)
 		
 		return
 
-	_socket = Nakama.create_socket_from(_client)
+# 	Establish connection (socket)
+	if _socket == null:
+		_socket = Nakama.create_socket_from(_client)
 
-	var connect_async_result: NakamaAsyncResult = await _socket.connect_async(_session)
-	if connect_async_result.is_exception():
-		push_error("Error in connect_async(): %s" % connect_async_result)
-		Utils.show_popup_message(self, "Error", "Failed to connect to server.\n%s" % connect_async_result.exception.message)
-		
-		return
+		var connect_async_result: NakamaAsyncResult = await _socket.connect_async(_session)
+		if connect_async_result.is_exception():
+			push_error("Error in connect_async(): %s" % connect_async_result)
+			Utils.show_popup_message(self, "Error", "Failed to connect to server.\n%s" % connect_async_result.exception.message)
+			_set_state(NakamaConnection.State.FAILED_TO_CONNECT)
+			_socket = null
+			
+			return
 
-	connected.emit()
+		_set_state(NakamaConnection.State.CONNECTED)
+
+
+func _set_state(value: State):
+	_state = value
+	state_changed.emit()
+
+
+func get_state() -> State:
+	return _state
 
 
 func get_client() -> NakamaClient:

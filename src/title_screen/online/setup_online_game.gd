@@ -29,6 +29,7 @@ var _host_user_id: String = ""
 @export var _online_match_list_menu: OnlineMatchListMenu
 @export var _online_lobby_menu: OnlineLobbyMenu
 @export var _create_online_match_menu: CreateOnlineMatchMenu
+@export var _connecting_to_server_indicator: Control
 
 
 #########################
@@ -36,7 +37,7 @@ var _host_user_id: String = ""
 #########################
 
 func _ready():
-	NakamaConnection.connected.connect(_on_nakama_connected)
+	NakamaConnection.state_changed.connect(_on_nakama_connection_state_changed)
 
 	OnlineMatch.error.connect(_on_webrtc_error)
 
@@ -45,10 +46,13 @@ func _on_webrtc_error(message: String):
 	push_error("webrtc error: %s" % message)
 
 
-func _on_nakama_connected():
-	var socket: NakamaSocket = NakamaConnection.get_socket()
-	socket.received_match_presence.connect(_on_nakama_received_match_presence)
-	socket.received_match_state.connect(_on_nakama_received_match_state)
+func _on_nakama_connection_state_changed():
+	var connection_state: NakamaConnection.State = NakamaConnection.get_state()
+
+	if connection_state == NakamaConnection.State.CONNECTED:
+		var socket: NakamaSocket = NakamaConnection.get_socket()
+		socket.received_match_presence.connect(_on_nakama_received_match_presence)
+		socket.received_match_state.connect(_on_nakama_received_match_state)
 
 
 func _on_online_match_list_menu_create_match_pressed():
@@ -312,6 +316,25 @@ func _on_host_created_game_match(game_match_id: String):
 ###      Private      ###
 #########################
 
+# Delay opening multiplayer menu until client is connected
+# to server.
+func _switch_to_match_list_when_connected():
+	_connecting_to_server_indicator.show()
+
+#	NOTE: add an extra delay to avoid too quick UI
+#	switching, otherwise it looks bad
+	await NakamaConnection.state_changed
+	await get_tree().create_timer(0.3).timeout
+	
+	_connecting_to_server_indicator.hide()
+	
+	var connection_state: NakamaConnection.State = NakamaConnection.get_state()
+	
+	if connection_state == NakamaConnection.State.CONNECTED:
+		_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+		_refresh_match_list()
+
+
 func _get_host_user_id_for_match(match_: NakamaRTAPI.Match) -> String:
 	var label_string: String = match_.label
 
@@ -406,5 +429,16 @@ func _on_multiplayer_button_pressed():
 	
 		return
 	
-	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
-	_refresh_match_list()
+	var connection_state: NakamaConnection.State = NakamaConnection.get_state()
+	
+	match connection_state:
+		NakamaConnection.State.CONNECTING:
+			_switch_to_match_list_when_connected()
+		NakamaConnection.State.CONNECTED:
+			_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+			_refresh_match_list()
+		NakamaConnection.State.FAILED_TO_CONNECT:
+#			NOTE: if failed to connect previously, try again
+#			here
+			NakamaConnection.connect_to_server()
+			_switch_to_match_list_when_connected()
