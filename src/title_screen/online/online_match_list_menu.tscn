@@ -77,10 +77,12 @@ layout_mode = 2
 [node name="CreateMatchButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_mode = 0
 text = "Create match"
 
 [node name="RefreshButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Refresh"
 
 [node name="Spacer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
@@ -90,6 +92,7 @@ size_flags_horizontal = 3
 [node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 text = "Cancel"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CreateMatchButton" to="." method="_on_create_match_button_pressed"]

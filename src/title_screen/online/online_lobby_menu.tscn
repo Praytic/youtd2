@@ -49,6 +49,7 @@ size_flags_horizontal = 3
 
 [node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Start"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

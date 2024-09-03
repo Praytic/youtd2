@@ -162,9 +162,12 @@ func _refresh_match_list():
 		push_error("Error in list_matches_async(): %s" % list_matches_result)
 		
 		return
+
+# 	NOTE: add artificial delay to prevent UI feeling abrupt
+# 	and also as a way to throttle requests a bit.
+	await get_tree().create_timer(0.5).timeout
 	
 	var match_list: Array = list_matches_result.matches
-
 	_online_match_list_menu.update_match_list(match_list)
 
 

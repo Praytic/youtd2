@@ -55,6 +55,7 @@ fit_content = true
 [node name="JoinButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 text = "Join"
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
