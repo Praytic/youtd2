@@ -5,12 +5,10 @@ enum Tab {
 	MAIN = 0,
 	HELP,
 	SETTINGS,
-	QUIT,
 }
 
 
 signal close_pressed()
-signal quit_to_title_pressed()
 signal quit_pressed()
 
 
@@ -50,16 +48,4 @@ func _on_settings_menu_ok_pressed():
 
 
 func _on_quit_button_pressed():
-	_tab_container.current_tab = Tab.QUIT
-
-
-func _on_quit_menu_cancel_pressed():
-	_tab_container.current_tab = Tab.MAIN
-
-
-func _on_quit_menu_go_to_title_pressed():
-	quit_to_title_pressed.emit()
-
-
-func _on_quit_menu_quit_game_pressed():
 	quit_pressed.emit()

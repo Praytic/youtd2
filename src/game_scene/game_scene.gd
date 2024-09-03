@@ -752,12 +752,6 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 
 
 func _on_game_menu_quit_pressed():
-	_save_player_exp_on_quit()
-	_cleanup_all_objects()
-	get_tree().quit()
-
-
-func _on_game_menu_quit_to_title_pressed():
 	_quit_to_title()
 
 
