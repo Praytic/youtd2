@@ -18,6 +18,7 @@ const DAMAGE_METERS: Array[String] = ["/damage-meters", "/dm"]
 const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
 const IGNORE: Array[String] = ["/ignore"]
 const UNIGNORE: Array[String] = ["/unignore"]
+const PING: Array[String] = ["/ping"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE: Array[String] = ["/pause", "/p"]
@@ -45,6 +46,7 @@ var not_allowed_in_multiplayer: Array = []
 var dev_command_list: Array = []
 
 @export var _team_container: TeamContainer
+@export var _hud: HUD
 
 
 #########################
@@ -117,6 +119,8 @@ func process_command(player: Player, command: String):
 		_command_ignore(player, command_args)
 	elif UNIGNORE.has(command_main):
 		_command_unignore(player, command_args)
+	elif PING.has(command_main):
+		_command_ping()
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -441,6 +445,10 @@ func _command_ignore_helper(player: Player, args: Array, ignored_value: bool):
 				status_string = "Stopped ignoring player %s."
 
 			_add_status(player, status_string % player_name_with_color)
+
+
+func _command_ping():
+	_hud.toggle_ping_indicator_visibility()
 
 
 # NOTE: oil counts are based on average oil counts obtained

@@ -149,9 +149,10 @@ _build_space = NodePath("../BuildSpace")
 _chat_commands = NodePath("../ChatCommands")
 _select_unit = NodePath("../SelectUnit")
 
-[node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container")]
+[node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_team_container", "_hud")]
 script = ExtResource("16_amwbk")
 _team_container = NodePath("../TeamContainer")
+_hud = NodePath("../../UI/HUD")
 
 [node name="BuildSpace" type="Node" parent="Gameplay"]
 script = ExtResource("16_p1jwo")

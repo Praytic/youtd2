@@ -39,14 +39,14 @@ func _ready():
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
 
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
-	_ping_label.visible = is_multiplayer
-
 
 #########################
 ###       Public      ###
 #########################
+
+func toggle_ping_indicator_visibility():
+	_ping_label.visible = !_ping_label.visible
+
 
 func set_waiting_for_lagging_players_indicator_visible(indicator_visible: bool):
 	_players_are_lagging_indicator.visible = indicator_visible
