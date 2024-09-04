@@ -127,7 +127,10 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	else:
 		aoe_damage = damage * immune_damage_ratio * tower.get_prop_spell_damage_dealt()
 	
-	tower.do_spell_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
+	if !target.is_immune():
+		tower.do_spell_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
+	else:
+		tower.do_attack_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
 
 	var effect: int = Effect.create_colored("WispExplode.mdl", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 5, Color.BLUE)
 	Effect.set_lifetime(effect, 1.0)
