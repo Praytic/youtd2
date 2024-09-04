@@ -119,18 +119,21 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 
 	var aoe_range: float = 100 + 1 * tower.get_level()
 
-	var damage: float = _stats.energyball_dmg_base + min(_stats.energyball_dmg_exp_scale * tower.get_exp(), 150.0 * tower.get_player().get_team().get_level())
+	var wave_level: int = tower.get_player().get_team().get_level()
+	var damage_bonus_from_exp_max: float = 150.0 * wave_level
+	var damage_bonus_from_exp: float = min(_stats.energyball_dmg_exp_scale * tower.get_exp(), damage_bonus_from_exp_max)
 	var immune_damage_ratio: float = _stats.dmg_ratio_for_immune + _stats.dmg_ratio_for_immune_add * tower.get_level()
-	var aoe_damage: float
+	
+	var energyball_damage: float
 	if !target.is_immune():
-		aoe_damage = damage
+		energyball_damage = _stats.energyball_dmg_base + damage_bonus_from_exp
 	else:
-		aoe_damage = damage * immune_damage_ratio * tower.get_prop_spell_damage_dealt()
+		energyball_damage = (_stats.energyball_dmg_base + damage_bonus_from_exp) * immune_damage_ratio * tower.get_prop_spell_damage_dealt()
 	
 	if !target.is_immune():
-		tower.do_spell_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
+		tower.do_spell_damage_aoe_unit(target, aoe_range, energyball_damage, tower.calc_spell_crit_no_bonus(), 0)
 	else:
-		tower.do_attack_damage_aoe_unit(target, aoe_range, aoe_damage, tower.calc_spell_crit_no_bonus(), 0)
+		tower.do_attack_damage_aoe_unit(target, aoe_range, energyball_damage, tower.calc_spell_crit_no_bonus(), 0)
 
 	var effect: int = Effect.create_colored("WispExplode.mdl", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 5, Color.BLUE)
 	Effect.set_lifetime(effect, 1.0)
