@@ -25,6 +25,11 @@ theme_type_variation = &"MainPanelContainer"
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
 
+[node name="ContinueButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Continue"
+
 [node name="HelpButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -40,16 +45,6 @@ layout_mode = 2
 focus_mode = 0
 text = "Quit To Menu"
 
-[node name="Spacer" type="VBoxContainer" parent="TabContainer/MainTab/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CloseButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Close"
-
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false
 layout_mode = 2
@@ -59,10 +54,10 @@ visible = false
 layout_mode = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_help_menu_closed"]
 [connection signal="cancel_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_cancel_pressed"]
 [connection signal="ok_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]

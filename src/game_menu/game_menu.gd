@@ -8,15 +8,15 @@ enum Tab {
 }
 
 
-signal close_pressed()
+signal continue_pressed()
 signal quit_pressed()
 
 
 @export var _tab_container: TabContainer
 
 
-func _on_close_button_pressed():
-	close_pressed.emit()
+func _on_continue_button_pressed():
+	continue_pressed.emit()
 
 
 func _on_help_button_pressed():

@@ -465,7 +465,7 @@ func _cleanup_all_objects():
 ###     Callbacks     ###
 #########################
 
-func _on_game_menu_close_pressed():
+func _on_game_menu_continue_pressed():
 	_toggle_game_menu()
 
 

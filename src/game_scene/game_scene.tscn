@@ -301,6 +301,6 @@ layout_mode = 2
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="received_first_timeslot" from="Gameplay/GameClient" to="." method="_on_game_client_received_first_timeslot"]
 [connection signal="tutorial_triggered" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_tutorial_triggered"]
-[connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
+[connection signal="continue_pressed" from="UI/GameMenu" to="." method="_on_game_menu_continue_pressed"]
 [connection signal="quit_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_pressed"]
 [connection signal="hidden" from="UI/VBoxContainer/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
