@@ -195,7 +195,7 @@ func _get_dmg_against_right_text() -> String:
 	var dmg_to_mass: float = _tower.get_damage_to_mass()
 	var dmg_to_mass_string: String = Utils.format_percent(dmg_to_mass, 0)
 
-	var dmg_to_normal: float = _tower.get_damage_to_magic()
+	var dmg_to_normal: float = _tower.get_damage_to_normal()
 	var dmg_to_normal_string: String = Utils.format_percent(dmg_to_normal, 0)
 
 	var dmg_to_air: float = _tower.get_damage_to_air()
