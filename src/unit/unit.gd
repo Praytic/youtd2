@@ -840,17 +840,16 @@ func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: Damage
 	return crit_count
 
 
-# Generates a random crit count. Different number every
-# time.
+# Generates a random crit count for attack damage
 func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
-	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
+	var current_crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
 
 	var crit_count: int = 0
-	var current_crit_chance: float = min(crit_chance, Constants.ATK_CRIT_CHANCE_CAP)
 	
 	for _i in range(multicrit_count_max):
-		var is_critical: bool = Utils.rand_chance(Globals.synced_rng, current_crit_chance)
+		var capped_crit_chance: float = min(current_crit_chance, Constants.ATK_CRIT_CHANCE_CAP)
+		var is_critical: bool = Utils.rand_chance(Globals.synced_rng, capped_crit_chance)
 
 		if is_critical:
 			crit_count += 1
