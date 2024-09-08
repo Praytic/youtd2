@@ -1033,9 +1033,11 @@ func _accept_kill(target: Unit):
 	var experience_gained: float = _get_experience_for_target(target)
 	_change_experience(experience_gained)
 
+	var target_owner: Player = target.get_player()
+
 	var bounty_gained: int = _get_bounty_for_target(target)
 	if bounty_gained > 0:
-		get_player().give_gold(bounty_gained, target, false, true)
+		target_owner.give_gold(bounty_gained, target, false, true)
 
 	_kill_count += 1
 
