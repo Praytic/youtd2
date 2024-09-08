@@ -25,9 +25,9 @@
 [ext_resource type="Shader" path="res://resources/shaders/saturation_burn.gdshader" id="23_go3nh"]
 [ext_resource type="Shader" path="res://resources/shaders/foggy_camera.gdshader" id="24_omg4c"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://src/hud/hud.tscn" id="25_m068l"]
+[ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://src/hud/builder_menu.tscn" id="26_2bi2s"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://src/game_menu/game_menu.tscn" id="26_xukvx"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://src/hud/tutorial_menu.tscn" id="27_vroom"]
-[ext_resource type="PackedScene" uid="uid://bk4ihcri8qqyy" path="res://src/game_scene/waiting_for_players_indicator.tscn" id="28_mekfw"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -64,7 +64,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_game_client", "_game_time", "_pause_shadow_rect", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller", "_waiting_for_players_indicator")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_game_client", "_game_time", "_pause_shadow_rect", "_shadow_below_builder_menu", "_shadow_above_builder_menu", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller", "_builder_menu")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
@@ -79,15 +79,16 @@ _move_item = NodePath("Gameplay/MoveItem")
 _select_unit = NodePath("Gameplay/SelectUnit")
 _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
-_ui_layer = NodePath("UI")
 _game_client = NodePath("Gameplay/GameClient")
 _game_time = NodePath("Gameplay/GameTime")
 _pause_shadow_rect = NodePath("UI/PauseShadowRect")
+_shadow_below_builder_menu = NodePath("UI/ShadowBelowBuilderMenu")
+_shadow_above_builder_menu = NodePath("UI/ShadowAboveBuilderMenu")
 _object_container = NodePath("World/ObjectContainer")
 _build_space = NodePath("Gameplay/BuildSpace")
 _tutorial_menu = NodePath("UI/VBoxContainer/TutorialMenu")
 _tutorial_controller = NodePath("Gameplay/TutorialController")
-_waiting_for_players_indicator = NodePath("UI/WaitingForPlayersIndicator")
+_builder_menu = NodePath("UI/BuilderMenu")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -254,6 +255,23 @@ process_mode = 1
 size_flags_horizontal = 1
 mouse_filter = 2
 
+[node name="ShadowBelowBuilderMenu" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+color = Color(0, 0, 0, 0.392157)
+
+[node name="BuilderMenu" parent="UI" instance=ExtResource("26_2bi2s")]
+visible = false
+offset_left = -350.0
+offset_top = -300.0
+offset_right = 350.0
+offset_bottom = 300.0
+
 [node name="PauseShadowRect" type="ColorRect" parent="UI"]
 visible = false
 anchors_preset = 15
@@ -263,8 +281,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
-[node name="WaitingForPlayersIndicator" parent="UI" instance=ExtResource("28_mekfw")]
+[node name="ShadowAboveBuilderMenu" type="ColorRect" parent="UI"]
 visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+color = Color(0, 0, 0, 0.392157)
 
 [node name="GameMenu" parent="UI" instance=ExtResource("26_xukvx")]
 visible = false
@@ -301,6 +326,7 @@ layout_mode = 2
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="received_first_timeslot" from="Gameplay/GameClient" to="." method="_on_game_client_received_first_timeslot"]
 [connection signal="tutorial_triggered" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_tutorial_triggered"]
+[connection signal="finished" from="UI/BuilderMenu" to="." method="_on_builder_menu_finished"]
 [connection signal="continue_pressed" from="UI/GameMenu" to="." method="_on_game_menu_continue_pressed"]
 [connection signal="quit_pressed" from="UI/GameMenu" to="." method="_on_game_menu_quit_pressed"]
 [connection signal="hidden" from="UI/VBoxContainer/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]

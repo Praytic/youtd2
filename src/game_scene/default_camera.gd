@@ -18,6 +18,7 @@ signal camera_zoomed(zoom_value)
 var _zoom_multiplier: float = 1.0
 var _drag_origin: Vector2 = Vector2.INF
 var _keyboard_enabled: bool = true
+var _any_input_enabled: bool = true
 
 
 #########################
@@ -30,6 +31,9 @@ func _ready():
 
 
 func _process(delta):
+	if !_any_input_enabled:
+		return
+	
 	var game_window: Window = get_window()
 	var game_has_focus: bool = game_window.has_focus()
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
@@ -129,6 +133,9 @@ func _process(delta):
 # instead of directly modifying zoom because zoom needs to
 # also be divided by interface size. See update_zoom().
 func _unhandled_input(event: InputEvent):
+	if !_any_input_enabled:
+		return
+	
 	var new_zoom_multiplier: float = _get_new_zoom_multiplier(event)
 	var zoom_multiplier_changed: bool = new_zoom_multiplier != _zoom_multiplier
 
@@ -145,6 +152,11 @@ func _unhandled_input(event: InputEvent):
 # Enables/disables moving camera with keyboard
 func set_keyboard_enabled(value: bool):
 	_keyboard_enabled = value
+
+
+# Enables/disables performing any input on camera
+func set_any_input_enabled(value: bool):
+	_any_input_enabled = value
 
 
 # NOTE: need to divide zoom by interface size because

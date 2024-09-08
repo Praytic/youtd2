@@ -13,18 +13,18 @@ class_name GameScene extends Node
 @export var _select_unit: SelectUnit
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
-@export var _ui_layer: CanvasLayer
 @export var _game_client: GameClient
 @export var _game_time: GameTime
 @export var _pause_shadow_rect: ColorRect
+@export var _shadow_below_builder_menu: ColorRect
+@export var _shadow_above_builder_menu: ColorRect
 @export var _object_container: Node2D
 @export var _build_space: BuildSpace
 @export var _tutorial_menu: TutorialMenu
 @export var _tutorial_controller: TutorialController
-@export var _waiting_for_players_indicator: Control
+@export var _builder_menu: BuilderMenu
 
-
-var _builder_menu: BuilderMenu = null
+var _ui_input_is_enabled: bool = false
 
 
 #########################
@@ -37,15 +37,6 @@ func _ready():
 	Globals.reset()
 	PlayerManager.reset()
 	GroupManager.reset()
-
-#	NOTE: in multiplayer, we have to block UI input via the
-#	"waiting for players indicator", until client receives
-#	first communication from host. Firsts communication from
-#	host means that all clients are ready and the game can
-#	start.
-	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	if player_mode == PlayerMode.enm.COOP:
-		_waiting_for_players_indicator.show()
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
@@ -119,7 +110,12 @@ func _ready():
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	
 	_camera.position = _get_camera_origin_pos()
-
+	
+#	NOTE: when game initially starts, we need to wait a bit for client-host connection to be established. Until that point, show shadows to block input and indicate that input is not possible.
+	_builder_menu.show()
+	_shadow_above_builder_menu.show()
+	_set_ui_input_enabled(false)
+	
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
 	if Config.run_save_tooltips_tool():
@@ -160,6 +156,12 @@ func _unhandled_input(event: InputEvent):
 	var selected_unit: Unit = _select_unit.get_selected_unit()
 	var local_player: Player = PlayerManager.get_local_player()
 	var editing_chat: bool = _hud.editing_chat()
+	
+	if !_ui_input_is_enabled:
+		if cancel_pressed:
+			_toggle_game_menu()
+		
+		return
 	
 	if slash_pressed && !editing_chat:
 #		NOTE: when "/" is pressed, automatically open chat
@@ -224,6 +226,22 @@ func get_build_space() -> BuildSpace:
 #########################
 ###      Private      ###
 #########################
+
+# Disables/enables all input (except builder menu)
+func _set_ui_input_enabled(enabled: bool):
+	_shadow_below_builder_menu.visible = !enabled
+	
+	_ui_input_is_enabled = enabled
+	_camera.set_any_input_enabled(enabled)
+	
+	var hud_process_mode: ProcessMode
+	if enabled:
+		hud_process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
+	else:
+		hud_process_mode = ProcessMode.PROCESS_MODE_DISABLED
+		
+	_hud.set_process_mode(hud_process_mode)
+
 
 func _save_player_exp_on_quit():
 	var local_player: Player = PlayerManager.get_local_player()
@@ -666,8 +684,11 @@ func _on_builder_menu_finished():
 # NOTE: need to do action for wisdom upgrades after setting
 # builders because some builders affect wisdom upgrades.
 func _on_player_selected_builder():
+	_builder_menu.hide()
 	_builder_menu.queue_free()
 	_builder_menu = null
+	
+	_set_ui_input_enabled(true)
 	
 	var wisdom_upgrades: Dictionary = Settings.get_wisdom_upgrades()
 	var action: Action = ActionSelectWisdomUpgrades.make(wisdom_upgrades)
@@ -793,14 +814,6 @@ func _on_tutorial_menu_hidden():
 	_set_game_paused(false)
 
 
+# NOTE: when first timeslot is received, that means that client has connected to host and it is safe to send actions now. Hide shadow above builder menu to allow player to select builder.
 func _on_game_client_received_first_timeslot():
-	_waiting_for_players_indicator.hide()
-
-	_builder_menu = preload("res://src/hud/builder_menu.tscn").instantiate()
-	_builder_menu.finished.connect(_on_builder_menu_finished)
-		
-#	NOTE: add builder menu below game menu so that game
-#	can show the game menu on top of tutorial
-	_ui_layer.add_child(_builder_menu)
-	var game_menu_index: int = _game_menu.get_index()
-	_ui_layer.move_child(_builder_menu, game_menu_index)
+	_shadow_above_builder_menu.hide()
