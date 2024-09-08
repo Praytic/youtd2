@@ -90,26 +90,75 @@ func update_match_list(match_list: Array):
 	
 	var card_list: Array = _match_card_grid.get_children()
 
-	for i in range(0, MATCH_CARD_COUNT_MAX):
-		var match_: NakamaAPI.ApiMatch
-		if i < match_list.size():
-			match_ = match_list[i]
-		else:
-			match_ = null
-		
-		var match_card: MatchCard = card_list[i]
-		
-		if match_ != null:
-			match_card.load_match(match_)
+	var free_match_card_list: Array = card_list.duplicate()
 
-		match_card.visible = match_ != null
-	
-	var matches_found: bool = match_list.size() > 0
+#	Load match data into match card UI
+	for match_ in match_list:
+		var out_of_match_cards: bool = free_match_card_list.is_empty()
+		if out_of_match_cards:
+			break
+
+		var match_is_valid: bool = _check_match_is_valid(match_)
+		if !match_is_valid:
+			continue
+
+		var match_card: MatchCard = free_match_card_list.pop_front()
+		match_card.load_match(match_)
+		match_card.show()
+
+#	Hide unused match cards
+	for match_card in free_match_card_list:
+		match_card.hide()
+
+	var visible_match_count: int = _get_visible_match_count()
+	var matches_found: bool = visible_match_count > 0
 	
 	if matches_found:
 		set_state(State.SHOW_MATCHES)
 	else:
 		set_state(State.NO_MATCHES_FOUND)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_visible_match_count() -> int:
+	var count: int = 0
+	
+	var card_list: Array = _match_card_grid.get_children()
+	for match_card in card_list:
+		if match_card.visible:
+			count += 1
+
+	return count
+
+
+func _check_match_is_valid(match_: NakamaAPI.ApiMatch) -> bool:
+	var label_string: String = match_.label
+	var parse_result = JSON.parse_string(label_string)
+	var parse_failed: bool = parse_result == null
+	if parse_failed:
+		return false
+
+	var match_label: Dictionary = parse_result
+
+	var match_game_version: String = match_label.get("game_version", "UNKNOWN")
+	var local_game_version: String = Config.build_version()
+	var match_game_version_is_same: bool = match_game_version == local_game_version
+	if !match_game_version_is_same:
+		print_verbose("Found invalid match. Match has incompatible version.")
+
+		return false
+	
+	var player_count: int = match_label.get("player_count", 0)
+	var match_has_0_players: bool = player_count == 0
+	if match_has_0_players:
+		print_verbose("Found invalid match. Match has 0 players.")
+
+		return false
+	
+	return true
 
 
 #########################

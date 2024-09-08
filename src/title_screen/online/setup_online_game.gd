@@ -219,6 +219,7 @@ func _on_create_online_match_menu_create_pressed():
 	var match_config_dict: Dictionary = _current_match_config.convert_to_dict()
 	var host_display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
+	var game_version: String = Config.build_version()
 		
 	var local_user_id: String = NakamaConnection.get_local_user_id()
 
@@ -228,6 +229,7 @@ func _on_create_online_match_menu_create_pressed():
 		"player_count_max": 2,
 		"is_private": false,
 		"creation_time": creation_time,
+		"game_version": game_version,
 	}
 	match_params_dict.merge(match_config_dict)
 
