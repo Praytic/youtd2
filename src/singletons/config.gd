@@ -30,10 +30,6 @@ func test_item_list() -> Array:
 func preload_all_towers_on_startup() -> bool:
 	return ProjectSettings.get_setting("application/config/preload_all_towers_on_startup") as bool
 
-# NOTE: this version string is set to "dev" for development
-# builds. When the game is built via github actions, github
-# workflow sets version string to git tag version + commit
-# hash.
 func build_version() -> String:
 	return ProjectSettings.get_setting("application/config/version") as String
 
