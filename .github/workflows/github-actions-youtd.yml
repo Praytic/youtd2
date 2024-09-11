@@ -1,13 +1,19 @@
 name: build-and-publish
 
-on:
-  push:
-    # Sequence of patterns matched against refs/heads
-    # branches:
-    #   - workflow*
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - v*
+# NOTE: disabled this export job because it doesn't work
+# with webrtc lib. Webrtc lib files need to be included
+# together with the game but this job for some reason fails
+# to do it. It only adds executable and .pck file to the
+# zip.
+
+# on:
+#   push:
+#     # Sequence of patterns matched against refs/heads
+#     # branches:
+#     #   - workflow*
+#     # Sequence of patterns matched against refs/tags
+#     tags:
+#       - v*
 
 jobs:
   setup:
