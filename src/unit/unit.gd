@@ -1021,7 +1021,7 @@ func _killed_by_unit(caster: Unit):
 			var item_dropped: bool = Utils.rand_chance(Globals.synced_rng, item_chance)
 
 			if item_dropped:
-				creep.drop_item(caster, false)
+				creep.drop_item(caster, true)
 
 	remove_from_game()
 
