@@ -2,6 +2,28 @@ class_name UtilsStatic extends Node
 
 
 
+# NOTE: in original youtd, range checks for abilities are
+# extended slightly so that range check is done from the
+# edge of a small circle around the unit instead of the
+# center. For abilities casted on towers, the edge is
+# roughly at the "edge" of the average sprite. For creeps,
+# the extension is much smaller but it's still there in
+# original, so it's replicated here as well.
+func apply_unit_range_extension(range_original: float, target_type: TargetType) -> float:
+	var unit_type: TargetType.UnitType = target_type.get_unit_type()
+	var target_is_tower: bool = unit_type == TargetType.UnitType.TOWERS
+	
+	var range_bonus: float
+	if target_is_tower:
+		range_bonus = Constants.RANGE_CHECK_BONUS_FOR_TOWERS
+	else:
+		range_bonus = Constants.RANGE_CHECK_BONUS_FOR_OTHER_UNITS
+
+	var range_extended: float = range_original + range_bonus
+
+	return range_extended
+
+
 # This function is needed to prevent user inputted strings
 # from being parsed. Should be applied to all strings coming
 # from players: user names, chat messages, etc.
@@ -517,6 +539,8 @@ func rand_chance(rng: RandomNumberGenerator, chance: float) -> bool:
 	return chance_success
 
 
+# NOTE: this f-n extends the range slightly from the center
+# of target unit
 func get_units_in_range(type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
 	if type == null:
 		return []
@@ -530,24 +554,7 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float, includ
 
 	var node_list: Array[Node] = get_tree().get_nodes_in_group(group_name)
 
-#	NOTE: in original youtd, auras and abilities which
-#	affect towers in range are extended by half a tile so
-#	that the aura affects a tower if the range reaches the
-#	tile of the tower, not the center.
-# 
-#	If we don't extend the range, then towers like Skink
-# 	will affect less towers than in the original.
-# 
-#	Note that this doesn't apply to creeps - in that case,
-#	the default distance to unit position is used.
-	var radius_bonus: float
-	var target_is_tower: bool = type.get_unit_type() == TargetType.UnitType.TOWERS
-	if target_is_tower:
-		radius_bonus = Constants.RANGE_CHECK_BONUS_FOR_TOWERS
-	else:
-		radius_bonus = Constants.RANGE_CHECK_BONUS_FOR_OTHER_UNITS
-
-	radius += radius_bonus
+	radius = Utils.apply_unit_range_extension(radius, type)
 
 #	NOTE: not using Array.filter() here because it takes
 #	more time than for loop

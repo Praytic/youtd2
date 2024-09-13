@@ -300,7 +300,8 @@ func _make_autocast_event(target: Unit) -> Event:
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
-	var target_is_in_range: bool = VectorUtils.in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), auto_range)
+	var range_extended: float = Utils.apply_unit_range_extension(auto_range, target_type)
+	var target_is_in_range: bool = VectorUtils.in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), range_extended)
 
 	return target_is_in_range
 
