@@ -26,7 +26,6 @@ const _creep_delay_map: Dictionary = {
 var _player: Player = null
 var _ground_path: WavePath = null
 var _air_path: WavePath = null
-var _wave_queue: Array[Wave] = []
 var _current_wave: Wave
 var _creep_index: int = 0
 
@@ -49,23 +48,12 @@ func set_player(player: Player):
 		push_error("Failed to find paths for player %d, player index %d" % [player.get_id(), player.get_index()])
 
 
-# NOTE: need to save wave to queue in case another wave is
-# in progress so that current wave is properly finished.
-# Note that such behavior can only arise due to a bug -
-# normal behavior is that waves started after previous wave
-# is finished. One possible source of such a bug is the auto
-# wave timer on extreme difficulty (if auto delay is less
-# than the total sum of delays between creeps of current
-# wave).
+# NOTE: this f-n assumes that previous wave has finished
+# spawning.
 func start_spawning_wave(wave: Wave):
-	var wave_is_in_progress: bool = _current_wave != null
-
-	if !wave_is_in_progress:
-		_current_wave = wave
-		_creep_index = 0
-		_spawn_next_creep()
-	else:
-		_wave_queue.push_back(wave)
+	_current_wave = wave
+	_creep_index = 0
+	_spawn_next_creep()
 
 
 #########################
@@ -114,13 +102,6 @@ func _spawn_next_creep():
 		print_verbose("Finished spawning creeps for current wave.")
 		
 		all_creeps_spawned.emit()
-
-		if !_wave_queue.is_empty():
-			_current_wave = _wave_queue.pop_front()
-		else:
-			_current_wave = null
-
-		_creep_index = 0
 	else:
 #		NOTE: need to calculate delay based on the main
 #		creep size of the way, NOT the creep size of the
