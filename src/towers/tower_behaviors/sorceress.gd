@@ -62,7 +62,9 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Magic Missile"
 	ability.icon = "res://resources/icons/tower_icons/charged_obelisk.tres"
 	ability.description_short = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction.\n"
-	ability.description_full = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to the hit units. The missile travels 1200 units.\n" \
+	ability.description_full = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to hit units.\n" \
+	+ " \n" \
+	+ "[color=GOLD]Magic Missile[/color] can also apply debuffs to hit units. You can customize this effect with the [color=GOLD]Choose Modification[/color], [color=GOLD]Apply Modification[/color] and [color=GOLD]Remove Modification[/color] abilities.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+2% spell damage\n"
@@ -130,14 +132,17 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast_choose: Autocast = Autocast.make()
 	autocast_choose.title = "Choose Modification"
 	autocast_choose.icon = "res://resources/icons/trinkets/trinket_01.tres"
-	autocast_choose.description_short = "Cycle through the modifications.\n"
-	autocast_choose.description = "Cycle through the modifications:\n" \
-	+ "Slow: 8% for 5 seconds, -20% dmg\n" \
-	+ "Silence: 5 seconds, 50% chance, -40% dmg\n" \
-	+ "Health Regeneration: -10% for 5 seconds, -25% dmg\n" \
-	+ "Armor: -6% for 5 seconds, -25% dmg\n" \
-	+ "Spell Vulnerability: 12% for 5 seconds, -25% dmg\n" \
-	+ "AoE: 50, -15% dmg\n"
+	autocast_choose.description_short = "Cycle through modifications.\n"
+	autocast_choose.description = "Cycle through modifications. Selected modification will be used as target for [color=GOLD]Apply Modification[/color] and [color=GOLD]Remove Modification[/color] abilities. Note that you must apply modification after selection to make it active.\n" \
+	+ " \n" \
+	+ "[color=ROYAL_BLUE]Slow[/color]: 8% for 5 seconds; costs 20% missile dmg\n" \
+	+ "[color=DARK_SEA_GREEN]Silence[/color]: 5 seconds, 50% chance; costs 40% missile dmg\n" \
+	+ "[color=ORANGE_RED]Health Regeneration[/color]: -10% for 5 seconds; costs 25% missile dmg\n" \
+	+ "[color=TAN]Armor[/color]: -6% for 5 seconds; costs 25% missile dmg\n" \
+	+ "[color=MEDIUM_PURPLE]Spell Vulnerability[/color]: 12% for 5 seconds; costs 25% missile dmg\n" \
+	+ "[color=LIME_GREEN]AoE radius[/color]: +50; costs 15% missile dmg\n" \
+	+ " \n" \
+	+ "You can check current modification status in Tower Details.\n"
 	autocast_choose.caster_art = ""
 	autocast_choose.target_art = ""
 	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -154,10 +159,14 @@ func create_autocasts() -> Array[Autocast]:
 	list.append(autocast_choose)
 
 	var autocast_add: Autocast = Autocast.make()
-	autocast_add.title = "Add Modification"
+	autocast_add.title = "Apply Modification"
 	autocast_add.icon = "res://resources/icons/magic/claw_02.tres"
-	autocast_add.description_short = "Adds the bonus to the missile if the tower has enough damage left.\n"
-	autocast_add.description = "Adds the bonus to the missile if the tower has enough damage left.\n"
+	autocast_add.description_short = "Applies modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.\n"
+	autocast_add.description = "Applies currently selected modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.\n" \
+	+ " \n" \
+	+ "Multiple different modifications can be applied at the same time.\n" \
+	+ " \n" \
+	+ "You can check current modification status in Tower Details.\n"
 	autocast_add.caster_art = ""
 	autocast_add.target_art = ""
 	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -176,8 +185,10 @@ func create_autocasts() -> Array[Autocast]:
 	var autocast_remove: Autocast = Autocast.make()
 	autocast_remove.title = "Remove Modification"
 	autocast_remove.icon = "res://resources/icons/magic/claw_04.tres"
-	autocast_remove.description_short = "Removes the bonus to the missile and returns the damage used.\n"
-	autocast_remove.description = "Removes the bonus to the missile and returns the damage used.\n"
+	autocast_remove.description_short = "Removes modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.\n"
+	autocast_remove.description = "Removes currently selected modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.\n" \
+	+ " \n" \
+	+ "You can check current modification status in Tower Details.\n"
 	autocast_remove.caster_art = ""
 	autocast_remove.target_art = ""
 	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
@@ -240,32 +251,38 @@ func on_autocast_add(_event: Event):
 			if data.dmg >= 20:
 				data.slow += 8
 				data.dmg -= 20
+				tower.get_player().display_small_floating_text("+Slow", tower, Color8(255, 255, 255), 40)
 		MissileMod.SILENCE: 
 			if data.dmg >= 40:
 				data.silence += 5
 				data.dmg -= 40
+				tower.get_player().display_small_floating_text("+Silence", tower, Color8(255, 255, 255), 40)
 		MissileMod.REGEN: 
 			if data.dmg >= 25:
 				data.regen += 10
 				data.dmg -= 25
+				tower.get_player().display_small_floating_text("+Regen", tower, Color8(255, 255, 255), 40)
 		MissileMod.ARMOR:
 			if data.dmg >= 25:
 				data.armor += 6
 				data.dmg -= 25
+				tower.get_player().display_small_floating_text("+Armor", tower, Color8(255, 255, 255), 40)
 		MissileMod.SPELL:
 			if data.dmg >= 25:
 				data.spell += 12
 				data.dmg -= 25
+				tower.get_player().display_small_floating_text("+Spell Vuln", tower, Color8(255, 255, 255), 40)
 		MissileMod.AOE:
 			if data.dmg >= 15:
 				data.aoe += 50
 				data.dmg -= 15
+				tower.get_player().display_small_floating_text("+AoE", tower, Color8(255, 255, 255), 40)
 
 	var dmg_after: int = data.dmg
 	var dmg_changed: bool = dmg_before != dmg_after
 
 	if !dmg_changed:
-		tower.get_player().display_small_floating_text("Can't increase modification any further!", tower, Color8(255, 0, 0), 40)
+		tower.get_player().display_small_floating_text("Not enough missile damage to apply modification!", tower, Color8(255, 0, 0), 40)
 
 
 func on_autocast_remove(_event: Event):
@@ -276,26 +293,32 @@ func on_autocast_remove(_event: Event):
 			if data.slow >= 8:
 				data.slow -= 8
 				data.dmg += 20
+				tower.get_player().display_small_floating_text("-Slow", tower, Color8(255, 255, 255), 40)
 		MissileMod.SILENCE: 
 			if data.silence >= 5:
 				data.silence -= 5
 				data.dmg += 40
+				tower.get_player().display_small_floating_text("-Silence", tower, Color8(255, 255, 255), 40)
 		MissileMod.REGEN: 
 			if data.regen >= 10:
 				data.regen -= 10
 				data.dmg += 25
+				tower.get_player().display_small_floating_text("-Regen", tower, Color8(255, 255, 255), 40)
 		MissileMod.ARMOR:
 			if data.armor >= 6:
 				data.armor -= 6
 				data.dmg += 25
+				tower.get_player().display_small_floating_text("-Armor", tower, Color8(255, 255, 255), 40)
 		MissileMod.SPELL:
 			if data.spell >= 12:
 				data.spell -= 12
 				data.dmg += 25
+				tower.get_player().display_small_floating_text("-Spell Vuln", tower, Color8(255, 255, 255), 40)
 		MissileMod.AOE:
 			if data.aoe > 150:
 				data.aoe -= 50
 				data.dmg += 15
+				tower.get_player().display_small_floating_text("-AoE", tower, Color8(255, 255, 255), 40)
 
 	var dmg_after: int = data.dmg
 	var dmg_changed: bool = dmg_before != dmg_after
