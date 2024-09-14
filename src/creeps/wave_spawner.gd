@@ -60,18 +60,6 @@ func start_wave(level: int):
 	print_verbose("Wave has started [%s]." % wave)
 
 
-# NOTE: wave is considered in progress if it's spawning
-# creeps. If it has finished spawning creeps but creeps are
-# still alive, the wave is considered to not be in progress.
-func wave_is_in_progress() -> bool:
-	if _current_wave == null:
-		return false
-
-	var in_progress: bool = _current_wave.state == Wave.State.SPAWNING
-
-	return in_progress
-
-
 func current_wave_is_finished() -> bool:
 	if _current_wave == null:
 		return true

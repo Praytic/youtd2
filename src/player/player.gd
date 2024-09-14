@@ -161,8 +161,23 @@ func start_wave(level: int):
 	_wave_spawner.start_wave(level)
 
 
+# NOTE: wave is considered in progress if it's spawning
+# creeps or about to start spawning creeps. If it has
+# finished spawning creeps but creeps are still alive, the
+# wave is considered to not be in progress.
+# NOTE: include PENDING state to handle edge case of
+# multiplayer and 1 creep Boss waves.
 func wave_is_in_progress() -> bool:
-	return _wave_spawner.wave_is_in_progress()
+	var current_level: int = _team.get_level()
+	var current_wave: Wave = _wave_spawner.get_wave(current_level)
+
+	if current_wave == null:
+		return false
+
+	var current_wave_state: Wave.State = current_wave.state
+	var is_in_progress: bool = current_wave_state == Wave.State.PENDING || current_wave_state == Wave.State.SPAWNING 
+
+	return is_in_progress
 
 
 func current_wave_is_finished() -> bool:
