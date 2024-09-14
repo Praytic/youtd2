@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://wqmh2igy5bn4"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_nai01"]
+
+[node name="DesyncIndicator" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 0)
+offset_right = 400.0
+offset_bottom = 220.0
+theme = ExtResource("1_nai01")
+theme_type_variation = &"MainPanelContainer"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Desync bug detected!
+ 
+The worlds have diverged and you may encounter issues if you continue playing."
+autowrap_mode = 3

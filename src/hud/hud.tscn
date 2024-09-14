@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=20 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
@@ -17,9 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/hud/elements_menu.tscn" id="17_bxii1"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
+[ext_resource type="PackedScene" uid="uid://wqmh2igy5bn4" path="res://src/hud/desync_indicator.tscn" id="19_mcs2s"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_label", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +42,7 @@ _item_stash_button = NodePath("MarginContainer7/MarginContainer/VBoxContainer/It
 _top_left_menu = NodePath("MarginContainer2/TopLeftMenu")
 _unit_menu = NodePath("MarginContainer5/VBoxContainer2/UnitMenu")
 _chat_line_edit = NodePath("MarginContainer/VBoxContainer/MarginContainer/ChatLineEdit")
-_desync_label = NodePath("DesyncLabel")
+_desync_indicator = NodePath("DesyncIndicator")
 _button_tooltip_top = NodePath("MarginContainer7/MarginContainer2/HBoxContainer/MarginContainer/ButtonTooltipTop")
 _button_tooltip_bottom = NodePath("MarginContainer5/VBoxContainer2/ButtonTooltipBottom")
 _tower_details = NodePath("MarginContainer4/TowerDetails")
@@ -350,18 +351,20 @@ text = "[center][color=RED]GAME OVER[/color]
 [font_size=30][color=RED]Press Escape and Quit to Title to Restart[/color][/font_size][/center]"
 fit_content = true
 
-[node name="DesyncLabel" type="Label" parent="."]
+[node name="DesyncIndicator" parent="." instance=ExtResource("19_mcs2s")]
 visible = false
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.5
-offset_right = 60.5
-offset_bottom = 28.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "placeholder"
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -220.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="PlayersAreLaggingIndicator" type="MarginContainer" parent="."]
 visible = false

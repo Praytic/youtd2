@@ -59,7 +59,7 @@ var _player_ping_time_map: Dictionary = {}
 var _player_last_contact_time: Dictionary = {}
 # {tick -> {player_id -> checksum}}
 var _checksum_map: Dictionary = {}
-var _showed_desync_message: bool = false
+var _showed_desync_indicator: bool = false
 # Stores timeslots which should be sent to players and
 # haven't been ack'ed yet.
 # {player_id -> {tick -> timeslot}}
@@ -316,12 +316,9 @@ func _verify_checksums(tick: int):
 		if !checksum_match:
 			desync_detected = true
 
-	if desync_detected && !_showed_desync_message:
-		var game_time: float = Utils.get_time()
-		var game_time_string: String = Utils.convert_time_to_string(game_time)
-		var message: String = "Desync detected @ %s" % game_time_string
-		_hud.show_desync_message(message)
-		_showed_desync_message = true
+	if desync_detected && !_showed_desync_indicator:
+		_hud.show_desync_indicator()
+		_showed_desync_indicator = true
 
 
 func _get_player_name_list(player_list: Array[Player]) -> Array[String]:

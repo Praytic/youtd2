@@ -12,7 +12,7 @@ class_name HUD extends Control
 @export var _top_left_menu: TopLeftMenu
 @export var _unit_menu: UnitMenu
 @export var _chat_line_edit: LineEdit
-@export var _desync_label: Label
+@export var _desync_indicator: PanelContainer
 @export var _button_tooltip_top: ButtonTooltip
 @export var _button_tooltip_bottom: ButtonTooltip
 @export var _tower_details: TowerDetails
@@ -65,9 +65,8 @@ func set_ping_time(ping_time_ms: float):
 	_ping_label.text = "Ping: %dms" % ceil(ping_time_ms)
 
 
-func show_desync_message(message: String):
-	_desync_label.show()
-	_desync_label.text = message
+func show_desync_indicator():
+	_desync_indicator.show()
 
 
 func start_editing_chat():
