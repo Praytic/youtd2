@@ -50,6 +50,7 @@ func set_player(player: Player):
 # NOTE: this f-n assumes that previous wave has finished
 # spawning.
 func start_spawning_wave(wave: Wave):
+	_timer_between_creeps.stop()
 	_current_wave = wave
 	_creep_index = 0
 	_spawn_next_creep()

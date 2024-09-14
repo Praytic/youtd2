@@ -43,7 +43,7 @@ var _alive_creep_list: Array[Creep] = []
 var _level: int
 var _race: CreepCategory.enm
 var _armor_type: ArmorType.enm
-var state: int = Wave.State.PENDING
+var state: Wave.State = Wave.State.PENDING
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0
