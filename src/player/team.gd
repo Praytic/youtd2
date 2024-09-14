@@ -145,6 +145,55 @@ func play_portal_damage_sfx():
 		_portal_damage_sound_cooldown_timer.start(PORTAL_DAMAGE_SFX_COOLDOWN)
 
 
+func convert_local_player_score_to_exp():
+	var old_exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
+	var old_player_exp: int = ExperiencePassword.decode(old_exp_password)
+	var old_player_level: int = PlayerExperience.get_level_at_exp(old_player_exp)
+
+	var local_player: Player = PlayerManager.get_local_player()
+	var score: int = floori(local_player.get_score())
+	var exp_gain: int = floori(score * Constants.SCORE_TO_EXP)
+
+	var new_player_exp: int = old_player_exp + exp_gain
+	var new_exp_password: String = ExperiencePassword.encode(new_player_exp)
+	var new_player_level: int = PlayerExperience.get_level_at_exp(new_player_exp)
+	var player_level_changed: bool = new_player_level != old_player_level
+	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
+	Settings.flush()
+
+	var old_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(old_player_level)
+	var new_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(new_player_level)
+	var gained_new_wisdom_upgrade_slot: bool = new_upgrade_count > old_upgrade_count
+
+	var exp_gain_message: String = "You gained [color=GOLD]%d[/color] experience." % exp_gain
+	var level_up_message: String = "You leveled up! You are now level [color=GOLD]%d[/color]." % new_player_level
+	var wisdom_message: String = "You obtained a new wisdom upgrade slot! You can select wisdom upgrades in the [color=GOLD]Profile[/color] menu on the Title screen."
+
+	var title_screen_notification: String = ""
+
+	if exp_gain > 0:
+		Messages.add_normal(local_player, exp_gain_message)
+		title_screen_notification += exp_gain_message
+	elif exp_gain == 0:
+		Messages.add_normal(local_player, "Your score is too low! You gained no experience.")
+	elif exp_gain < 0:
+		push_error("Exp gained is negative!")
+
+	if player_level_changed:
+		Messages.add_normal(local_player, level_up_message)
+		title_screen_notification += " \n"
+		title_screen_notification += level_up_message
+
+	if gained_new_wisdom_upgrade_slot:
+		Messages.add_normal(local_player, wisdom_message)
+		title_screen_notification += " \n"
+		title_screen_notification += wisdom_message
+
+	if !title_screen_notification.is_empty():
+		title_screen_notification = "During last game:\n" +title_screen_notification
+		Globals.add_title_screen_notification(title_screen_notification)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -217,59 +266,9 @@ func _do_game_lose():
 	game_lose.emit()
 
 
-func convert_local_player_score_to_exp():
-	var old_exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
-	var old_player_exp: int = ExperiencePassword.decode(old_exp_password)
-	var old_player_level: int = PlayerExperience.get_level_at_exp(old_player_exp)
-
-	var local_player: Player = PlayerManager.get_local_player()
-	var score: int = floori(local_player.get_score())
-	var exp_gain: int = floori(score * Constants.SCORE_TO_EXP)
-
-	var new_player_exp: int = old_player_exp + exp_gain
-	var new_exp_password: String = ExperiencePassword.encode(new_player_exp)
-	var new_player_level: int = PlayerExperience.get_level_at_exp(new_player_exp)
-	var player_level_changed: bool = new_player_level != old_player_level
-	Settings.set_setting(Settings.EXP_PASSWORD, new_exp_password)
-	Settings.flush()
-
-	var old_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(old_player_level)
-	var new_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(new_player_level)
-	var gained_new_wisdom_upgrade_slot: bool = new_upgrade_count > old_upgrade_count
-
-	var exp_gain_message: String = "You gained [color=GOLD]%d[/color] experience." % exp_gain
-	var level_up_message: String = "You leveled up! You are now level [color=GOLD]%d[/color]." % new_player_level
-	var wisdom_message: String = "You obtained a new wisdom upgrade slot! You can select wisdom upgrades in the [color=GOLD]Profile[/color] menu on the Title screen."
-
-	var title_screen_notification: String = ""
-
-	if exp_gain > 0:
-		Messages.add_normal(local_player, exp_gain_message)
-		title_screen_notification += exp_gain_message
-	elif exp_gain == 0:
-		Messages.add_normal(local_player, "Your score is too low! You gained no experience.")
-	elif exp_gain < 0:
-		push_error("Exp gained is negative!")
-
-	if player_level_changed:
-		Messages.add_normal(local_player, level_up_message)
-		title_screen_notification += " \n"
-		title_screen_notification += level_up_message
-
-	if gained_new_wisdom_upgrade_slot:
-		Messages.add_normal(local_player, wisdom_message)
-		title_screen_notification += " \n"
-		title_screen_notification += wisdom_message
-
-	if !title_screen_notification.is_empty():
-		title_screen_notification = "During last game:\n" +title_screen_notification
-		Globals.add_title_screen_notification(title_screen_notification)
-
-
 # This function starts the timer only if it's not already
 # running or if new duration is shorter
-
-
+# 
 # NOTE: it's possible for timer to already be running if the
 # difficulty is extreme and the timer has been started
 # automatically. In such cases, start timer only if new

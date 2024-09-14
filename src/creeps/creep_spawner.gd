@@ -4,7 +4,6 @@ class_name CreepSpawner extends Node
 # Spawns creeps for creep waves.
 
 
-signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
 
@@ -69,7 +68,7 @@ func _spawn_next_creep():
 	var creep_level: int = _current_wave.get_level()
 	var creep_health: float = CreepSpawner.get_creep_health(_current_wave, creep_size)
 	var creep_specials: Array[int] = _current_wave.get_specials()
-	var creep_path: WavePath = get_creep_path(creep_size)
+	var creep_path: WavePath = _get_creep_path(creep_size)
 	var creep_scene_name: String = Wave.get_scene_name_for_creep_type(creep_size, creep_race)
 	
 	if !Preloads.creep_scenes.has(creep_scene_name):
@@ -113,7 +112,7 @@ func _spawn_next_creep():
 		print_verbose("Started creep spawn timer with delay [%f]." % delay_before_next_creep)
 
 
-func get_creep_path(creep_size: CreepSize.enm) -> Path2D:
+func _get_creep_path(creep_size: CreepSize.enm) -> Path2D:
 	if creep_size == CreepSize.enm.AIR:
 		return _air_path
 	else:

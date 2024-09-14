@@ -9,4 +9,4 @@ _creep_spawner = NodePath("CreepSpawner")
 
 [node name="CreepSpawner" parent="." instance=ExtResource("2_rvsq0")]
 
-[connection signal="all_creeps_spawned" from="CreepSpawner" to="." method="_on_CreepSpawner_all_creeps_spawned"]
+[connection signal="all_creeps_spawned" from="CreepSpawner" to="." method="_on_creep_spawner_all_creeps_spawned"]

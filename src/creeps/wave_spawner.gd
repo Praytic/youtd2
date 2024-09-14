@@ -16,6 +16,18 @@ var _player: Player = null
 ###       Public      ###
 #########################
 
+func get_wave(level: int) -> Wave:
+	var index: int = level - 1
+
+	var in_bounds: bool = 0 <= index && index < _wave_list.size()
+
+	if in_bounds:
+		var wave: Wave = _wave_list[index]
+
+		return wave
+	else:
+		return null
+
 
 func set_player(player: Player):
 	_player = player
@@ -24,21 +36,7 @@ func set_player(player: Player):
 
 func generate_waves():
 	var wave_count: int = Globals.get_wave_count()
-	_generate_waves_for(1, wave_count)
-
-
-func _generate_waves_for(level_start: int, wave_count: int):
-	var difficulty: Difficulty.enm = Globals.get_difficulty()
-
-	for wave_level in range(level_start, level_start + wave_count):
-		var wave: Wave = Wave.new(wave_level, difficulty)
-		_wave_list.append(wave)
-		wave.finished.connect(_on_wave_finished.bind(wave))
-		add_child(wave, true)
-
-	var should_print_wave_info: bool = Config.print_wave_info()
-	if should_print_wave_info:
-		_print_wave_info()
+	_generate_waves_for_level_range(1, wave_count)
 
 
 func start_wave(level: int):
@@ -72,6 +70,20 @@ func current_wave_is_finished() -> bool:
 #########################
 ###      Private      ###
 #########################
+
+func _generate_waves_for_level_range(level_start: int, wave_count: int):
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+
+	for wave_level in range(level_start, level_start + wave_count):
+		var wave: Wave = Wave.new(wave_level, difficulty)
+		_wave_list.append(wave)
+		wave.finished.connect(_on_wave_finished.bind(wave))
+		add_child(wave, true)
+
+	var should_print_wave_info: bool = Config.print_wave_info()
+	if should_print_wave_info:
+		_print_wave_info()
+
 
 func _print_wave_info():
 	for wave in _wave_list:
@@ -143,7 +155,7 @@ func _add_message_about_wave(wave: Wave):
 ###     Callbacks     ###
 #########################
 
-func _on_CreepSpawner_all_creeps_spawned():
+func _on_creep_spawner_all_creeps_spawned():
 	if _current_wave == null:
 		return
 
@@ -169,21 +181,4 @@ func _on_wave_finished(wave: Wave):
 		var distance_to_last_generated_wave: int = last_generated_level - level
 
 		if distance_to_last_generated_wave < 20:
-			_generate_waves_for(last_generated_level + 1, 20)
-
-
-#########################
-### Setters / Getters ###
-#########################
-
-func get_wave(level: int) -> Wave:
-	var index: int = level - 1
-
-	var in_bounds: bool = 0 <= index && index < _wave_list.size()
-
-	if in_bounds:
-		var wave: Wave = _wave_list[index]
-
-		return wave
-	else:
-		return null
+			_generate_waves_for_level_range(last_generated_level + 1, 20)
