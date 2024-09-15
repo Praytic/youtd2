@@ -31,7 +31,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var ability: AbilityInfo = AbilityInfo.new()
 	ability.name = "Coconut Rain"
 	ability.icon = "res://resources/icons/orbs/orb_green.tres"
-	ability.description_short = "Chance to drop coconuts on hit creeps, dealing AoE spell damage and stuning affected creeps.\n"
+	ability.description_short = "Chance to drop coconuts on hit creeps, dealing AoE spell damage and stunning affected creeps.\n"
 	ability.description_full = "Chance to drop coconuts on hit creeps. The chance to drop a coconut is 100%% for the 1st one and %s less for each additional one. Each coconut deals %s spell damage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
