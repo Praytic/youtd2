@@ -19,6 +19,8 @@ const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
 const IGNORE: Array[String] = ["/ignore"]
 const UNIGNORE: Array[String] = ["/unignore"]
 const PING: Array[String] = ["/ping"]
+const PAUSE: Array[String] = ["/pause"]
+const UNPAUSE: Array[String] = ["/unpause"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE_WAVES: Array[String] = ["/pause-waves", "/pw"]
@@ -30,6 +32,11 @@ const SETUP_TEST_TOWER: Array[String] = ["/setup-test-tower", "/stt"]
 
 const NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS: Array = [
 	GAMESPEED,
+]
+
+const HOST_COMMAND_LIST_OF_LISTS: Array = [
+	PAUSE,
+	UNPAUSE,
 ]
 
 const DEV_COMMAND_LIST_OF_LISTS: Array = [
@@ -57,9 +64,11 @@ const LOCAL_ONLY_COMMANDS_LIST_OF_LISTS: Array = [
 var not_allowed_in_multiplayer: Array = []
 var dev_command_list: Array = []
 var local_only_command_list: Array = []
+var host_command_list: Array = []
 
 @export var _team_container: TeamContainer
 @export var _hud: HUD
+@export var _game_client: GameClient
 
 
 #########################
@@ -71,6 +80,9 @@ var local_only_command_list: Array = []
 func _ready():
 	for list in NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS:
 		not_allowed_in_multiplayer.append_array(list)
+
+	for list in HOST_COMMAND_LIST_OF_LISTS:
+		host_command_list.append_array(list)
 
 	for list in DEV_COMMAND_LIST_OF_LISTS:
 		dev_command_list.append_array(list)
@@ -110,6 +122,13 @@ func process_command(player: Player, command: String):
 		
 		return
 
+	var command_is_host_only: bool = host_command_list.has(command_main)
+	var player_is_host: bool = player.get_peer_id() == 1
+	if command_is_host_only && !player_is_host:
+		_add_error(player, "This command is only available to host.")
+		
+		return
+
 	if HELP.has(command_main):
 		_command_help(player)
 	elif READY.has(command_main):
@@ -144,6 +163,10 @@ func process_command(player: Player, command: String):
 		_command_unignore(player, command_args)
 	elif PING.has(command_main):
 		_command_ping()
+	elif PAUSE.has(command_main):
+		_command_pause()
+	elif UNPAUSE.has(command_main):
+		_command_unpause()
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -472,6 +495,19 @@ func _command_ignore_helper(player: Player, args: Array, ignored_value: bool):
 
 func _command_ping():
 	_hud.toggle_ping_indicator_visibility()
+
+
+func _command_pause():
+	_command_pause_helper(true)
+
+
+func _command_unpause():
+	_command_pause_helper(false)
+
+
+func _command_pause_helper(value: bool):
+	_hud.set_multiplayer_pause_indicator_visible(value)
+	_game_client.set_paused_by_host(value)
 
 
 # NOTE: oil counts are based on average oil counts obtained

@@ -43,6 +43,7 @@ var _timeslot_map: Dictionary = {}
 var _time_when_sent_ping: int = 0
 var _ping_history: Array = [0]
 var _received_any_timeslots: bool = false
+var _paused_by_host: bool = false
 
 
 @export var _game_host: GameHost
@@ -87,6 +88,10 @@ func _physics_process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func set_paused_by_host(value: bool):
+	_paused_by_host = value
+
 
 # Send action from client to host
 func add_action(action: Action):
@@ -293,6 +298,14 @@ func _execute_action(action: Dictionary):
 
 
 func _update_state():
+#	NOTE: the pause is implemented this way so that all game
+#	objects/timers are paused but chat commands are still
+#	processed so that /unpause command can go through. Note
+#	that game host still continues to tick and send
+#	timeslots.
+	if _paused_by_host:
+		return
+
 	_game_time.update(_tick_delta)
 
 #	NOTE: use separate groups so that update() calls are

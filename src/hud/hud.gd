@@ -20,6 +20,7 @@ class_name HUD extends Control
 @export var _ping_label: Label
 @export var _players_are_lagging_indicator: MarginContainer
 @export var _lagging_player_list_label: Label
+@export var _multiplayer_pause_indicator: Control
 
 # NOTE: this list is ordered by priority of closure. If
 # multiple windows are open, then the first window in the
@@ -43,6 +44,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_multiplayer_pause_indicator_visible(value: bool):
+	_multiplayer_pause_indicator.visible = value
+
 
 func toggle_ping_indicator_visibility():
 	_ping_label.visible = !_ping_label.visible

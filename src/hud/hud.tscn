@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
@@ -18,9 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
 [ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://wqmh2igy5bn4" path="res://src/hud/desync_indicator.tscn" id="19_mcs2s"]
+[ext_resource type="PackedScene" uid="uid://c4jswu0s2yq2o" path="res://src/hud/multiplayer_pause_indicator.tscn" id="20_cbamn"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,6 +51,7 @@ _creep_details = NodePath("MarginContainer4/CreepDetails")
 _ping_label = NodePath("MarginContainer10/VBoxContainer/PingLabel")
 _players_are_lagging_indicator = NodePath("PlayersAreLaggingIndicator")
 _lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2/LaggingPlayerListLabel")
+_multiplayer_pause_indicator = NodePath("MultiplayerPauseIndicator")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -403,6 +405,10 @@ horizontal_alignment = 1
 [node name="QuitButton" type="Button" parent="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Title"
+
+[node name="MultiplayerPauseIndicator" parent="." instance=ExtResource("20_cbamn")]
+visible = false
+layout_mode = 1
 
 [connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
 [connection signal="pressed" from="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
