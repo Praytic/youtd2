@@ -21,8 +21,8 @@ const UNIGNORE: Array[String] = ["/unignore"]
 const PING: Array[String] = ["/ping"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
-const PAUSE: Array[String] = ["/pause", "/p"]
-const UNPAUSE: Array[String] = ["/unpause", "/up"]
+const PAUSE_WAVES: Array[String] = ["/pause-waves", "/pw"]
+const UNPAUSE_WAVES: Array[String] = ["/unpause-waves", "/upw"]
 const ADD_EXP: Array[String] = ["/add-exp", "/ae"]
 const ADD_TEST_OILS: Array[String] = ["/add-test-oils", "/ato"]
 const SPAWN_CHALLENGE: Array[String] = ["/spawn-challenge", "/sc"]
@@ -34,8 +34,8 @@ const NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS: Array = [
 
 const DEV_COMMAND_LIST_OF_LISTS: Array = [
 	CREATE_ITEM,
-	PAUSE,
-	UNPAUSE,
+	PAUSE_WAVES,
+	UNPAUSE_WAVES,
 	ADD_EXP,
 	ADD_TEST_OILS,
 	SPAWN_CHALLENGE,
@@ -122,10 +122,10 @@ func process_command(player: Player, command: String):
 		_command_gamespeed(player, command_args)
 	elif CREATE_ITEM.has(command_main):
 		_command_create_item(player, command_args)
-	elif PAUSE.has(command_main):
-		_command_pause(player)
-	elif UNPAUSE.has(command_main):
-		_command_unpause(player)
+	elif PAUSE_WAVES.has(command_main):
+		_command_pause_waves(player)
+	elif UNPAUSE_WAVES.has(command_main):
+		_command_unpause_waves(player)
 	elif ADD_EXP.has(command_main):
 		_command_add_exp(player, command_args)
 	elif ADD_TEST_OILS.has(command_main):
@@ -179,7 +179,7 @@ func _command_gamespeed(player: Player, args: Array):
 	_add_status(player, "Set gamespeed to %d." % value)
 
 
-func _command_pause(_player: Player):
+func _command_pause_waves(_player: Player):
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.set_waves_paused(true)
@@ -187,7 +187,7 @@ func _command_pause(_player: Player):
 	_add_status(null, "Paused the waves. Unpause by typing /unpause.")
 
 
-func _command_unpause(_player: Player):
+func _command_unpause_waves(_player: Player):
 	var team_list: Array[Team] = _team_container.get_team_list()
 	for team in team_list:
 		team.set_waves_paused(false)
