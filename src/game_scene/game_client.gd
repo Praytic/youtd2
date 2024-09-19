@@ -196,10 +196,13 @@ func _should_tick(ticks_during_this_process: int) -> bool:
 		if buffer_is_too_big:
 			return true
 
-#	Tick once per process if don't need to fast forward
-	var is_first_tick_during_process: bool = ticks_during_this_process == 0
+#	If don't need to fast forward, tick at regular pace (1
+#	tick per process() call or more if custom game speed is
+#	set)
+	var update_tick_count: int = min(Globals.get_update_ticks_per_physics_tick(), Constants.MAX_UPDATE_TICKS_PER_PHYSICS_TICK)
+	var should_tick: bool = ticks_during_this_process < update_tick_count
 
-	return is_first_tick_during_process
+	return should_tick
 
 
 func _do_tick():
