@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Friz Quadrata Std Medium.otf-03c51957373724d7
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
@@ -27,7 +28,12 @@ Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[]
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
 language_support={}
 script_support={}
 opentype_features={}
