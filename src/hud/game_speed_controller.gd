@@ -1,8 +1,10 @@
 extends HBoxContainer
 
 
-# NOTE: disable game speed controls in multiplayer because
-# all players need to play at same speed
+# NOTE: disable game speed controls in multiplayer.
+# Gamespeed can still be altered via /gamespeed command but
+# this UI should be hidden to prevent host from using it too
+# often.
 func _ready():
 	var game_player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var game_is_singleplayer: bool = game_player_mode == PlayerMode.enm.SINGLE

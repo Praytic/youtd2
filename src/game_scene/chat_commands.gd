@@ -30,13 +30,10 @@ const ADD_TEST_OILS: Array[String] = ["/add-test-oils", "/ato"]
 const SPAWN_CHALLENGE: Array[String] = ["/spawn-challenge", "/sc"]
 const SETUP_TEST_TOWER: Array[String] = ["/setup-test-tower", "/stt"]
 
-const NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS: Array = [
-	GAMESPEED,
-]
-
 const HOST_COMMAND_LIST_OF_LISTS: Array = [
 	PAUSE,
 	UNPAUSE,
+	GAMESPEED,
 ]
 
 const DEV_COMMAND_LIST_OF_LISTS: Array = [
@@ -78,9 +75,6 @@ var host_command_list: Array = []
 # NOTE: need to convert list of lists into list of strings
 # for easy "has()" calls
 func _ready():
-	for list in NOT_ALLOWED_IN_MULTIPLAYER_LIST_OF_LISTS:
-		not_allowed_in_multiplayer.append_array(list)
-
 	for list in HOST_COMMAND_LIST_OF_LISTS:
 		host_command_list.append_array(list)
 
