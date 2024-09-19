@@ -18,10 +18,13 @@ _game_stats = NodePath("TabContainer/Game Stats")
 self_modulate = Color(1, 1, 1, 0.705882)
 custom_minimum_size = Vector2(640, 250)
 layout_mode = 2
+current_tab = 0
 
 [node name="Wave Status" parent="TabContainer" instance=ExtResource("2_l18jy")]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Game Stats" parent="TabContainer" instance=ExtResource("3_k62ty")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1

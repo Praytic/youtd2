@@ -6,6 +6,7 @@
 [node name="CreepMiniDetails" type="TabContainer" node_paths=PackedStringArray("_stats_left_label", "_stats_right_label", "_dmg_left_label", "_dmg_right_label")]
 custom_minimum_size = Vector2(400, 300)
 size_flags_vertical = 8
+current_tab = 0
 script = ExtResource("1_0rr73")
 _stats_left_label = NodePath("Stats/StatsLeftLabel")
 _stats_right_label = NodePath("Stats/StatsRightLabel")
@@ -14,6 +15,7 @@ _dmg_right_label = NodePath("Dmg/DmgRightLabel")
 
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="StatsLeftLabel" parent="Stats" instance=ExtResource("2_swo34")]
 layout_mode = 2
@@ -24,6 +26,7 @@ layout_mode = 2
 [node name="Dmg" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="DmgLeftLabel" parent="Dmg" instance=ExtResource("2_swo34")]
 layout_mode = 2

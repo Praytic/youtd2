@@ -19,4 +19,3 @@ func _ready():
 
 func set_label_text(text: String):
 	_label.text = text
-

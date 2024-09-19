@@ -39,6 +39,7 @@ _transmute_button = NodePath("TabContainer/MarginContainer/VBoxContainer/Horadri
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
+current_tab = 0
 tabs_visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer"]
@@ -46,6 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 10
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer"]
 layout_mode = 2
@@ -282,11 +284,11 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
 theme_override_font_sizes/normal_font_size = 24
 theme_override_font_sizes/bold_font_size = 24
-theme_override_font_sizes/italics_font_size = 24
-theme_override_font_sizes/bold_italics_font_size = 24
-theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
 text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
 

@@ -15,12 +15,14 @@ _tab_container = NodePath("TabContainer")
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6c4dp")
+current_tab = 0
 tabs_visible = false
 
 [node name="MainTab" type="PanelContainer" parent="TabContainer"]
 layout_mode = 2
 theme = ExtResource("1_v8b77")
 theme_type_variation = &"MainPanelContainer"
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
@@ -48,10 +50,13 @@ text = "Quit To Menu"
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false
 layout_mode = 2
+current_tab = 0
+metadata/_tab_index = 1
 
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
 [connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
