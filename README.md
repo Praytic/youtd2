@@ -36,6 +36,10 @@ You can submit pull requests for any issues you may find.
 
 You can also play the game and submit bug reports to Github Issues.
 
+## Matchmaking server
+
+Repository for matchmaking server is [here](https://github.com/Kvel2D/youtd2-server)
+
 ## Credits
 
 Developed by [Dmitry Degtyarev](https://github.com/Kvel2D), [Praytic](https://github.com/Praytic) and every direct and indirect [contributors](https://github.com/Praytic/youtd2/graphs/contributors) to the GitHub.
@@ -47,7 +51,3 @@ Also thank you to everyone posting feedback and questions on YouTD2 Discord.
 ## License
 
 YouTD 2 code is licensed under the [MIT licence](https://github.com/Praytic/youtd2/tree/main?tab=MIT-1-ov-file#readme). The majority of content inside shared [assets](https://drive.google.com/drive/u/1/folders/1V9GN1uoX9-mu2J5IoWPaNJU2aC_ejGIA) folder is licensed under [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode). Please see the licence file inside assets folder for more information.
-
-## Matchmaking server
-
-Repository for matchmaking server is [here](https://github.com/Kvel2D/youtd2-server)
