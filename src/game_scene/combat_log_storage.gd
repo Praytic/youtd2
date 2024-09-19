@@ -38,7 +38,7 @@ class Entry:
 		return "[color=GOLD]%s[/color]" % Utils.format_float(_timestamp, 2)
 
 
-	func get_type_string() -> String:
+	func get_type_name() -> String:
 		match _type:
 			Type.DAMAGE: return "DAMAGE"
 			Type.KILL: return "KILL"
@@ -69,7 +69,7 @@ class DamageEntry extends Entry:
 		_crit_count = crit_count
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 		var crit_string: String = ""
 		if crit_count > 0:
 			for i in range(0, crit_count):
@@ -82,7 +82,7 @@ class DamageEntry extends Entry:
 			Unit.DamageSource.Spell: damage_color = Color.LIGHT_BLUE
 		var damage_string: String = Utils.get_colored_string(Utils.format_float(_damage, 0), damage_color)
 
-		_string = "%s: %s %s->%s [color=RED]%s %s[/color]" % [timestamp_string, type_string, _caster_name, _target_name, damage_string, crit_string]
+		_string = "%s: %s %s->%s [color=RED]%s %s[/color]" % [timestamp_string, type_name, _caster_name, _target_name, damage_string, crit_string]
 
 
 class KillEntry extends Entry:
@@ -96,9 +96,9 @@ class KillEntry extends Entry:
 		_target_name = target.get_log_name()
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 
-		_string = "%s: %s %s->%s" % [timestamp_string, type_string, _caster_name, _target_name]
+		_string = "%s: %s %s->%s" % [timestamp_string, type_name, _caster_name, _target_name]
 
 
 class BuffApplyEntry extends Entry:
@@ -114,9 +114,9 @@ class BuffApplyEntry extends Entry:
 		_buff_name = buff.get_buff_type_name()
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 
-		_string = "%s: %s %s->%s buff=\"%s\"" % [timestamp_string, type_string, _caster_name, _target_name, _buff_name]
+		_string = "%s: %s %s->%s buff=\"%s\"" % [timestamp_string, type_name, _caster_name, _target_name, _buff_name]
 
 
 class ExpEntry extends Entry:
@@ -130,7 +130,7 @@ class ExpEntry extends Entry:
 		_experience = experience
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 
 		var exp_color: Color
 		if experience >= 0.0:
@@ -142,7 +142,7 @@ class ExpEntry extends Entry:
 			exp_string = "+" + exp_string
 		exp_string = Utils.get_colored_string(exp_string, exp_color)
 
-		_string = "%s: %s %s %s" % [timestamp_string, type_string, _unit_name, exp_string]
+		_string = "%s: %s %s %s" % [timestamp_string, type_name, _unit_name, exp_string]
 
 
 class AbilityEntry extends Entry:
@@ -161,13 +161,13 @@ class AbilityEntry extends Entry:
 		_ability = ability
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 		var ability_string: String = "[color=LIGHT_BLUE]\"%s\"[/color]" % ability
 
 		if target != null:
-			_string = "%s: %s %s->%s %s" % [timestamp_string, type_string, _caster_name, _target_name, ability_string]
+			_string = "%s: %s %s->%s %s" % [timestamp_string, type_name, _caster_name, _target_name, ability_string]
 		else:
-			_string = "%s: %s %s %s" % [timestamp_string, type_string, _caster_name, ability_string]
+			_string = "%s: %s %s %s" % [timestamp_string, type_name, _caster_name, ability_string]
 
 
 class ItemAbilityEntry extends Entry:
@@ -189,15 +189,15 @@ class ItemAbilityEntry extends Entry:
 		_ability = ability
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 		var carrier_string: String = "[color=GREEN]\"%s\"[/color]" % _carrier_name
 		var item_string: String = "[color=ORANGE]\"%s\"[/color]" % _item_name
 		var ability_string: String = "[color=LIGHT_BLUE]\"%s\"[/color]" % ability
 
 		if target != null:
-			_string = "%s: %s %s %s->%s %s" % [timestamp_string, type_string, carrier_string, item_string, _target_name, ability_string]
+			_string = "%s: %s %s %s->%s %s" % [timestamp_string, type_name, carrier_string, item_string, _target_name, ability_string]
 		else:
-			_string = "%s: %s %s %s %s" % [timestamp_string, type_string, carrier_string, item_string, ability_string]
+			_string = "%s: %s %s %s %s" % [timestamp_string, type_name, carrier_string, item_string, ability_string]
 
 
 class AutocastEntry extends Entry:
@@ -216,13 +216,13 @@ class AutocastEntry extends Entry:
 		_autocast_name = autocast.title
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 		var autocast_name_string: String = "[color=LIGHT_BLUE]\"%s\"[/color]" % _autocast_name
 
 		if target != null:
-			_string = "%s: %s %s->%s %s" % [timestamp_string, type_string, _caster_name, _target_name, autocast_name_string]
+			_string = "%s: %s %s->%s %s" % [timestamp_string, type_name, _caster_name, _target_name, autocast_name_string]
 		else:
-			_string = "%s: %s %s %s" % [timestamp_string, type_string, _caster_name, autocast_name_string]
+			_string = "%s: %s %s %s" % [timestamp_string, type_name, _caster_name, autocast_name_string]
 
 
 class ItemChargeEntry extends Entry:
@@ -245,7 +245,7 @@ class ItemChargeEntry extends Entry:
 		_new_charge = new_charge
 
 		var timestamp_string: String = get_timestamp_string()
-		var type_string: String = get_type_string()
+		var type_name: String = get_type_name()
 
 		var change_color: Color
 		if new_charge > old_charge:
@@ -255,7 +255,7 @@ class ItemChargeEntry extends Entry:
 		var change_string: String = "%d->%d" % [old_charge, new_charge]
 		change_string = Utils.get_colored_string(change_string, change_color)
 
-		_string = "%s: %s %s item=\"%s\" %s" % [timestamp_string, type_string, _carrier_name, _item_name, change_string]
+		_string = "%s: %s %s item=\"%s\" %s" % [timestamp_string, type_name, _carrier_name, _item_name, change_string]
 
 
 const LOG_SIZE_MAX: int = 1000
