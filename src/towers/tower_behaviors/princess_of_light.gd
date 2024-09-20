@@ -97,7 +97,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.target_self = false
 	autocast.is_extended = false
 	autocast.buff_type = extract_bt
-	autocast.target_type = TargetType.new(TargetType.CREEPS)
+	autocast.buff_target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
 
 	return [autocast]

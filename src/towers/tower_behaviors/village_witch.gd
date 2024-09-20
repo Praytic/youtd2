@@ -115,7 +115,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 25
 	autocast.buff_type = love_bt
-	autocast.target_type = TargetType.new(TargetType.CREEPS)
+	autocast.buff_target_type = null
 	autocast.auto_range = 1100
 	autocast.handler = on_autocast
 

@@ -73,7 +73,7 @@ extends TowerBehavior
 # 	autocast.target_self = false
 # 	autocast.is_extended = false
 # 	autocast.buff_type = null
-# 	autocast.target_type = TargetType.new(TargetType.TOWERS)
+# 	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 # 	autocast.handler = on_autocast
 
 #	return [autocast]

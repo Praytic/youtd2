@@ -88,7 +88,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_concussive.target_self = true
 	autocast_concussive.is_extended = false
 	autocast_concussive.buff_type = concussive_tower_bt
-	autocast_concussive.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_concussive.buff_target_type = null
 	autocast_concussive.handler = on_autocast_concussive
 	list.append(autocast_concussive)
 
@@ -111,7 +111,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_acid.target_self = true
 	autocast_acid.is_extended = false
 	autocast_acid.buff_type = acid_tower_bt
-	autocast_acid.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_acid.buff_target_type = null
 	autocast_acid.handler = on_autocast_acid
 	list.append(autocast_acid)
 
@@ -134,7 +134,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_smoke.target_self = true
 	autocast_smoke.is_extended = false
 	autocast_smoke.buff_type = smoke_tower_bt
-	autocast_smoke.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_smoke.buff_target_type = null
 	autocast_smoke.handler = on_autocast_smoke
 	list.append(autocast_smoke)
 
@@ -208,5 +208,3 @@ func switch_bomb_type(new_bomb_bt: BuffType):
 # 	Switch to new bomb
 	if tower.get_buff_of_type(new_bomb_bt) == null:
 		new_bomb_bt.apply(tower, tower, tower.get_level())
-
-

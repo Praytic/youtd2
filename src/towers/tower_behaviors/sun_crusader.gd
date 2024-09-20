@@ -86,7 +86,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 	autocast.num_buffs_before_idle = 5
 	autocast.target_self = true
 	autocast.is_extended = false

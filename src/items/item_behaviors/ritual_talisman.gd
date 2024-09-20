@@ -42,7 +42,7 @@ func item_init():
 	autocast.is_extended = false
 	autocast.mana_cost = 0
 	autocast.buff_type = ritual_bt
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 	autocast.cast_range = 450
 	autocast.auto_range = 450
 	autocast.handler = Callable()

@@ -90,7 +90,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 15
 	autocast.buff_type = wind_shear_bt
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 	autocast.cast_range = 300
 	autocast.auto_range = 300
 	autocast.handler = on_autocast

@@ -93,7 +93,7 @@ var _point_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_NOAC_POINT,
 ]
 
-# NOTE: num_buffs_before_idle, target_type and buff_type are
+# NOTE: num_buffs_before_idle, buff_target_type and buff_type are
 # only relevant to "_BUFF" autocast types. For other
 # autocast types leave these values blank.
 
@@ -119,7 +119,7 @@ var mana_cost: int = 0
 var cast_range: float = 1000
 var buff_type: BuffType = null
 var target_self: bool = false
-var target_type: TargetType = null
+var buff_target_type: TargetType = null
 var target_art: String = ""
 var auto_range: float = 1000
 var handler: Callable = Callable()
@@ -127,6 +127,7 @@ var item_owner: Item = null
 var dont_cast_at_zero_charges: bool = false
 # NOTE: only used for POINT type autocasts
 var _target_pos: Vector2 = Vector2.ZERO
+var _target_type: TargetType = null
 
 var _caster: Unit = null
 var _is_item_autocast: bool = false
@@ -159,9 +160,9 @@ func _ready():
 	if !can_use_auto_mode():
 		_auto_timer.set_paused(true)
 
-	_check_target_type_setup()
+	_check_buff_target_type()
 
-	target_type = _get_real_target_type()
+	_target_type = _calculate_target_type()
 
 
 #########################
@@ -231,7 +232,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 		return false
 
 	var target_is_in_range: bool = _get_target_is_in_range(target)
-	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
 	var target_is_ok: bool = target_is_in_range && target_type_is_valid && !target_is_immune
 
@@ -296,12 +297,13 @@ func type_is_unit() -> bool:
 ###      Private      ###
 #########################
 
-func _check_target_type_setup():
-	var ac_type_requires_non_null_target_type: bool = [Autocast.Type.AC_TYPE_ALWAYS_BUFF, Autocast.Type.AC_TYPE_OFFENSIVE_BUFF].has(autocast_type)
-	var target_type_is_incorrect: bool = ac_type_requires_non_null_target_type && target_type == null
+func _check_buff_target_type():
+	var ac_type_is_buff: bool = type_is_buff()
 
-	if target_type_is_incorrect:
-		push_error("Autocast %s is setup incorrectly. Type requires non-null target type but target type is null." % title)
+	if ac_type_is_buff && buff_target_type == null:
+		push_error("Autocast %s has autocast type buff but doesn't have buff_target_type defined. You should define a non-null buff_target_type." % title)
+	elif !ac_type_is_buff && buff_target_type != null:
+		push_error("Autocast %s doesn't have autocast type buff but has non-null buff_target_type. You should change buff_target_type to null." % title)
 
 
 func _make_autocast_event(target: Unit) -> Event:
@@ -312,29 +314,23 @@ func _make_autocast_event(target: Unit) -> Event:
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
-	var range_extended: float = Utils.apply_unit_range_extension(auto_range, target_type)
+	var range_extended: float = Utils.apply_unit_range_extension(auto_range, _target_type)
 	var target_is_in_range: bool = VectorUtils.in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), range_extended)
 
 	return target_is_in_range
 
 
-func _get_target_type_is_valid_for_manual_cast(target: Unit) -> bool:
-	var type_is_ok: bool = target_type.match(target)
-
-	return type_is_ok
-
-
-func _get_real_target_type() -> TargetType:
+func _calculate_target_type() -> TargetType:
 	match autocast_type:
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF:
-			if target_type != null:
-				return target_type
+			if buff_target_type != null:
+				return buff_target_type
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE: return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF:
-			if target_type != null:
-				return target_type
+			if buff_target_type != null:
+				return buff_target_type
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
@@ -345,7 +341,7 @@ func _get_real_target_type() -> TargetType:
 		Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER: return TargetType.new(TargetType.PLAYER_TOWERS)
 		Autocast.Type.AC_TYPE_NOAC_POINT: return TargetType.new(0)
 
-	push_error("_get_real_target_type doesn't support type: ", autocast_type)
+	push_error("_calculate_target_type doesn't support type: ", autocast_type)
 
 	return TargetType.new(0)
 
@@ -376,11 +372,11 @@ func _get_target_for_unit_autocast() -> Unit:
 
 
 func _get_target_for_buff_autocast() -> Unit:
-	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.get_position_wc3_2d(), auto_range)
+	var unit_list: Array = Utils.get_units_in_range(_target_type, _caster.get_position_wc3_2d(), auto_range)
 
 # 	NOTE: should not filter targets by buff groups if
 # 	targets are creeps. Buff groups is a feature only for towers
-	var autocast_targets_towers: bool = target_type != null && (target_type.get_unit_type() == TargetType.UnitType.TOWERS || target_type.get_unit_type() == TargetType.UnitType.PLAYER_TOWERS)
+	var autocast_targets_towers: bool = _target_type != null && (_target_type.get_unit_type() == TargetType.UnitType.TOWERS || _target_type.get_unit_type() == TargetType.UnitType.PLAYER_TOWERS)
 	if autocast_targets_towers:
 		unit_list = _filter_target_units_for_caster_buff_group(_caster, unit_list)
 	
@@ -551,7 +547,7 @@ func get_target_error_message(target: Unit) -> String:
 		return "No target selected"
 
 	var target_is_in_range: bool = _get_target_is_in_range(target)
-	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
 
 	if !target_is_in_range:

@@ -117,7 +117,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_might.target_self = true
 	autocast_might.is_extended = false
 	autocast_might.buff_type = might_bt
-	autocast_might.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_might.buff_target_type = null
 	autocast_might.handler = on_autocast_might
 	list.append(autocast_might)
 
@@ -137,7 +137,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_swiftness.target_self = true
 	autocast_swiftness.is_extended = false
 	autocast_swiftness.buff_type = swiftness_bt
-	autocast_swiftness.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_swiftness.buff_target_type = null
 	autocast_swiftness.handler = on_autocast_swiftness
 	list.append(autocast_swiftness)
 
@@ -157,7 +157,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_adapt.target_self = true
 	autocast_adapt.is_extended = false
 	autocast_adapt.buff_type = adapt_bt
-	autocast_adapt.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_adapt.buff_target_type = null
 	autocast_adapt.handler = on_autocast_adapt
 	list.append(autocast_adapt)
 

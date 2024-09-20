@@ -65,7 +65,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 10
 	autocast.buff_type = charm_bt
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 200
 	autocast.handler = on_autocast
 

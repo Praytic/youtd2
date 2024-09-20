@@ -50,7 +50,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.target_self = false
 	autocast.is_extended = true
 	autocast.buff_type = freezing_bt
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
 
 	return [autocast]

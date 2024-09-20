@@ -45,7 +45,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s seconds duration\n" % slow_duration_add
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
-	autocast.target_type = null
+	autocast.buff_target_type = null
 	autocast.caster_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
 	autocast.is_extended = false

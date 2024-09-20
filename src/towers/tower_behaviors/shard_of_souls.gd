@@ -85,7 +85,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 50
 	autocast.buff_type = soul_link_bt
-	autocast.target_type = TargetType.new(TargetType.CREEPS)
+	autocast.buff_target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1000
 	autocast.handler = on_autocast
 

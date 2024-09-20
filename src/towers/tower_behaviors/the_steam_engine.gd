@@ -72,7 +72,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_speed_up.target_self = true
 	autocast_speed_up.is_extended = false
 	autocast_speed_up.buff_type = null
-	autocast_speed_up.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_speed_up.buff_target_type = null
 	autocast_speed_up.handler = on_autocast_speed_up
 	list.append(autocast_speed_up)
 
@@ -92,7 +92,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_speed_down.target_self = true
 	autocast_speed_down.is_extended = false
 	autocast_speed_down.buff_type = null
-	autocast_speed_down.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_speed_down.buff_target_type = null
 	autocast_speed_down.handler = on_autocast_speed_down
 	list.append(autocast_speed_down)
 

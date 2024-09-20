@@ -99,7 +99,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.target_self = false
 	autocast.is_extended = true
 	autocast.buff_type = null
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = null
 	autocast.handler = on_autocast
 
 	return [autocast]

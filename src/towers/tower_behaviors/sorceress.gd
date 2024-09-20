@@ -154,7 +154,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_choose.target_self = true
 	autocast_choose.is_extended = false
 	autocast_choose.buff_type = null
-	autocast_choose.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_choose.buff_target_type = null
 	autocast_choose.handler = on_autocast_choose
 	list.append(autocast_choose)
 
@@ -178,7 +178,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_add.target_self = 0
 	autocast_add.is_extended = false
 	autocast_add.buff_type = null
-	autocast_add.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_add.buff_target_type = null
 	autocast_add.handler = on_autocast_add
 	list.append(autocast_add)
 
@@ -200,7 +200,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_remove.target_self = 0
 	autocast_remove.is_extended = false
 	autocast_remove.buff_type = null
-	autocast_remove.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_remove.buff_target_type = null
 	autocast_remove.handler = on_autocast_remove
 	list.append(autocast_remove)
 

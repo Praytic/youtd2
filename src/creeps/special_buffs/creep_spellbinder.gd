@@ -27,7 +27,7 @@ func on_create(event: Event):
 	autocast.is_extended = false
 	autocast.mana_cost = 20
 	autocast.buff_type = null
-	autocast.target_type = null
+	autocast.buff_target_type = null
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
 

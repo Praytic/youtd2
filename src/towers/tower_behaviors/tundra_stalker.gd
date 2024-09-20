@@ -109,7 +109,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 10
 	autocast.buff_type = ice_claw_bt
-	autocast.target_type = TargetType.new(TargetType.CREEPS)
+	autocast.buff_target_type = null
 	autocast.auto_range = 850
 	autocast.handler = on_autocast
 

@@ -66,7 +66,7 @@ func on_create(event: Event):
 	autocast.target_self = false
 	autocast.is_extended = false
 	autocast.buff_type = null
-	autocast.target_type = TargetType.new(TargetType.TOWERS)
+	autocast.buff_target_type = null
 	autocast.handler = on_autocast
 	protector.add_autocast(autocast)
 

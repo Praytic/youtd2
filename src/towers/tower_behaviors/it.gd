@@ -105,7 +105,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_recreation.target_self = false
 	autocast_recreation.is_extended = true
 	autocast_recreation.buff_type = null
-	autocast_recreation.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_recreation.buff_target_type = null
 	autocast_recreation.handler = on_autocast_recreation
 	list.append(autocast_recreation)
 
@@ -125,7 +125,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_corruption.target_self = false
 	autocast_corruption.is_extended = true
 	autocast_corruption.buff_type = null
-	autocast_corruption.target_type = TargetType.new(TargetType.TOWERS)
+	autocast_corruption.buff_target_type = null
 	autocast_corruption.handler = on_autocast_corruption
 	list.append(autocast_corruption)
 

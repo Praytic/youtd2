@@ -123,7 +123,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.target_self = true
 	autocast.is_extended = false
 	autocast.buff_type = null
-	autocast.target_type = TargetType.new(TargetType.CREEPS)
+	autocast.buff_target_type = null
 	autocast.handler = on_autocast
 
 	return [autocast]

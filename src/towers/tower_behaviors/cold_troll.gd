@@ -102,7 +102,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.is_extended = false
 	autocast.mana_cost = 95
 	autocast.buff_type = null
-	autocast.target_type = null
+	autocast.buff_target_type = null
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
 

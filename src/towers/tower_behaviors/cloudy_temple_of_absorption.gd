@@ -85,7 +85,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast1.target_self = false
 	autocast1.is_extended = false
 	autocast1.buff_type = null
-	autocast1.target_type = TargetType.new(TargetType.CREEPS)
+	autocast1.buff_target_type = null
 	autocast1.handler = on_autocast_cloud_thunderstorm
 	list.append(autocast1)
 
@@ -107,7 +107,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast2.target_self = false
 	autocast2.is_extended = false
 	autocast2.buff_type = null
-	autocast2.target_type = TargetType.new(TargetType.TOWERS)
+	autocast2.buff_target_type = null
 	autocast2.handler = on_autocast_adjust_threshold
 	list.append(autocast2)
 

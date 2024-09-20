@@ -55,7 +55,7 @@ func item_init():
 	autocast.is_extended = true
 	autocast.mana_cost = 0
 	autocast.buff_type = null
-	autocast.target_type = null
+	autocast.buff_target_type = null
 	autocast.cast_range = 1500
 	autocast.auto_range = 1500
 	autocast.handler = on_autocast
