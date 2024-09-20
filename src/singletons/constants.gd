@@ -102,10 +102,11 @@ const INITIAL_TIME_OF_DAY: float = 12.0
 
 
 # NOTE: there was no damage max in original game. This is
-# just an arbitrary number to protect against bugs. This
-# value is well above the maximum possible creep hp.
+# just an arbitrary number to protect against bugs. Note
+# that it can't be lower than this because creep hp can go
+# up to billions in bonus waves.
 const DAMAGE_MIN: float = 0
-const DAMAGE_MAX: float = 1000000000
+const DAMAGE_MAX: float = 1000000000000
 
 const SIF_CREEP_HEALTH_MULTIPLIER: float = 0.48
 
