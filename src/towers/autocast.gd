@@ -159,6 +159,10 @@ func _ready():
 	if !can_use_auto_mode():
 		_auto_timer.set_paused(true)
 
+	_check_target_type_setup()
+
+	target_type = _get_real_target_type()
+
 
 #########################
 ###       Public      ###
@@ -292,6 +296,14 @@ func type_is_unit() -> bool:
 ###      Private      ###
 #########################
 
+func _check_target_type_setup():
+	var ac_type_requires_non_null_target_type: bool = [Autocast.Type.AC_TYPE_ALWAYS_BUFF, Autocast.Type.AC_TYPE_OFFENSIVE_BUFF].has(autocast_type)
+	var target_type_is_incorrect: bool = ac_type_requires_non_null_target_type && target_type == null
+
+	if target_type_is_incorrect:
+		push_error("Autocast %s is setup incorrectly. Type requires non-null target type but target type is null." % title)
+
+
 func _make_autocast_event(target: Unit) -> Event:
 	var event: Event = Event.new(target)
 	event._autocast = self
@@ -307,26 +319,33 @@ func _get_target_is_in_range(target: Unit) -> bool:
 
 
 func _get_target_type_is_valid_for_manual_cast(target: Unit) -> bool:
-	var manual_target_type: TargetType = _get_target_type_for_manual_cast()
-	var type_is_ok: bool = manual_target_type.match(target)
+	var type_is_ok: bool = target_type.match(target)
 
 	return type_is_ok
 
 
-func _get_target_type_for_manual_cast() -> TargetType:
+func _get_real_target_type() -> TargetType:
 	match autocast_type:
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF:
 			if target_type != null:
 				return target_type
+			else:
+				return TargetType.new(0)
+		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE: return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF:
 			if target_type != null:
 				return target_type
+			else:
+				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
+		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE: return TargetType.new(0)
+		Autocast.Type.AC_TYPE_NOAC_IMMEDIATE: return TargetType.new(0)
 		Autocast.Type.AC_TYPE_NOAC_CREEP: return TargetType.new(TargetType.CREEPS)
 		Autocast.Type.AC_TYPE_NOAC_TOWER: return TargetType.new(TargetType.TOWERS)
 		Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER: return TargetType.new(TargetType.PLAYER_TOWERS)
+		Autocast.Type.AC_TYPE_NOAC_POINT: return TargetType.new(0)
 
-	push_error("_get_target_type_for_manual_cast doesn't support type: ", autocast_type)
+	push_error("_get_real_target_type doesn't support type: ", autocast_type)
 
 	return TargetType.new(0)
 

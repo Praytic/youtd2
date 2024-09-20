@@ -10,6 +10,11 @@ class_name UtilsStatic extends Node
 # the extension is much smaller but it's still there in
 # original, so it's replicated here as well.
 func apply_unit_range_extension(range_original: float, target_type: TargetType) -> float:
+	if target_type == null:
+		push_error("apply_unit_range_extension() received null target_type")
+
+		return range_original
+
 	var unit_type: TargetType.UnitType = target_type.get_unit_type()
 	var target_is_tower: bool = unit_type == TargetType.UnitType.TOWERS
 	
