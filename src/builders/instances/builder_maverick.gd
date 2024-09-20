@@ -1,9 +1,8 @@
 extends Builder
 
 
-# TODO: the following bonus is not implemented:
-# "Unable to share build areas with allies" - need to
-# implement multiplier first
+# NOTE: the following builder effect from original game is
+# not implemented: "Unable to share build areas with allies"
 
 
 func _init():

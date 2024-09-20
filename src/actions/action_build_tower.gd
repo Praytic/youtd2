@@ -11,9 +11,6 @@ static func make(tower_id_arg: int, position_arg: Vector2) -> Action:
 	return action
 
 
-# TODO: build tower action looks very bad with the delay.
-# Need to add a temporary animation like a cloud of dust,
-# while the tower "builds".
 static func execute(action: Dictionary, player: Player, build_space: BuildSpace):
 	var tower_id: int = action[Action.Field.TOWER_ID]
 	var mouse_pos: Vector2 = action[Action.Field.POSITION]

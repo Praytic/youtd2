@@ -42,7 +42,6 @@ func _process(_delta: float):
 	if !visible:
 		return
 
-#	TODO: decouple CombatLogWindow from CombatLogStorage
 	var combat_log_storage: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/CombatLogStorage")
 
 	if combat_log_storage == null:
