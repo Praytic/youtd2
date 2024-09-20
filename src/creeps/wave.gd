@@ -273,13 +273,11 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm, armor_typ
 #	multiple locations.
 	var extra_hp_multiplier: float = (0.9 - (level * 0.002))
 	
-# 	TODO: tweak the values here, most important one is the
-# 	exponent	
-#	NOTE: this formula gradually reverse the direction of
+#	NOTE: this formula gradually reverses the direction of
 #	extra_hp_multiplier from decreasing to increasing and
 #	finally to exponential
 	if wave_is_bonus:
-		extra_hp_multiplier += pow(1.0001, pow((level - Constants.WAVE_COUNT_NEVERENDING) / 2.0, 2.7)) - 1.0
+		extra_hp_multiplier += pow(1.0001, pow((level - Constants.WAVE_COUNT_NEVERENDING) / 2.0, 2.6)) - 1.0
 
 	var j: int = level - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
