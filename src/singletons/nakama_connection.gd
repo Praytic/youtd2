@@ -58,9 +58,9 @@ func connect_to_server():
 # 	care about username conflicts.
 	if _session == null:
 		var device_id: String = OS.get_unique_id()
-		var username = null
+		var null_username = null
 		var create_user: bool = true
-		_session = await _client.authenticate_device_async(device_id, username, create_user)
+		_session = await _client.authenticate_device_async(device_id, null_username, create_user)
 
 		if _session.is_exception():
 			push_error("Error in authenticate_device_async(): %s" % _session)
@@ -142,4 +142,3 @@ func get_local_user_id() -> String:
 func _set_state(value: State):
 	_state = value
 	state_changed.emit()
-

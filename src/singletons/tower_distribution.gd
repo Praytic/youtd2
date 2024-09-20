@@ -263,9 +263,9 @@ func _generate_random_tower_for_element(player: Player, element: Element.enm) ->
 		var weight: float = floorf(100 * pow(cost, 0.8))
 		group_weights[tower] = weight
 
-	var tower: int = Utils.random_weighted_pick(Globals.synced_rng, group_weights)
+	var random_tower: int = Utils.random_weighted_pick(Globals.synced_rng, group_weights)
 
-	return tower
+	return random_tower
 
 
 # Returns max cost for rolling towers. All rolled towers

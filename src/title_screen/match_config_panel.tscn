@@ -16,10 +16,9 @@ text = "Difficulty:"
 [node name="DifficultyCombo" type="OptionButton" parent="."]
 layout_mode = 2
 focus_mode = 0
-item_count = 5
 selected = 2
+item_count = 5
 popup/item_0/text = "Beginner"
-popup/item_0/id = 0
 popup/item_1/text = "Easy"
 popup/item_1/id = 1
 popup/item_2/text = "Medium"
@@ -36,10 +35,9 @@ text = "Game length:"
 [node name="GameLengthCombo" type="OptionButton" parent="."]
 layout_mode = 2
 focus_mode = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "80 waves"
-popup/item_0/id = 0
 popup/item_1/text = "120 waves"
 popup/item_1/id = 1
 popup/item_2/text = "240+ waves"
@@ -60,10 +58,9 @@ Upgraded versions of towers are also randomly distributed.
 Build: you can build any tower which meets requirements.
 Not recommended - game is best played in random modes."
 focus_mode = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "Builld (lame)"
-popup/item_0/id = 0
 popup/item_1/text = "Random with upgrades"
 popup/item_1/id = 1
 popup/item_2/text = "Totally random"

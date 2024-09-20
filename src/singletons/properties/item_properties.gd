@@ -139,8 +139,8 @@ func get_tooltip_text(item_id: int) -> String:
 
 
 func get_type(item_id: int) -> ItemType.enm:
-	var type_string: String = _get_property(item_id, CsvProperty.TYPE)
-	var type: ItemType.enm = ItemType.from_string(type_string)
+	var type_name: String = _get_property(item_id, CsvProperty.TYPE)
+	var type: ItemType.enm = ItemType.from_string(type_name)
 
 	return type
 

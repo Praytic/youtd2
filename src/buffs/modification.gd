@@ -279,16 +279,16 @@ func get_tooltip_text() -> String:
 	var base_is_zero = abs(value_base) < 0.0001
 	var add_is_zero = abs(level_add) < 0.0001
 
-	var type_string: String = _get_type_string()
+	var type_name: String = _get_type_name()
 
 	var text: String
 	
 	if !base_is_zero && !add_is_zero:
-		text = "%s %s (%s/lvl)\n" % [_format_percentage(value_base), type_string, _format_percentage(level_add)]
+		text = "%s %s (%s/lvl)\n" % [_format_percentage(value_base), type_name, _format_percentage(level_add)]
 	elif !base_is_zero && add_is_zero:
-		text = "%s %s\n" % [_format_percentage(value_base), type_string]
+		text = "%s %s\n" % [_format_percentage(value_base), type_name]
 	elif base_is_zero && !add_is_zero:
-		text = "%s %s/lvl\n" % [_format_percentage(level_add), type_string]
+		text = "%s %s/lvl\n" % [_format_percentage(level_add), type_name]
 	else:
 		text = ""
 
@@ -329,7 +329,7 @@ func _format_percentage(value: float) -> String:
 	return base_string
 
 
-func _get_type_string() -> String:
+func _get_type_name() -> String:
 	match type:
 		Type.MOD_ARMOR: return "armor"
 		Type.MOD_ARMOR_PERC: return "armor"

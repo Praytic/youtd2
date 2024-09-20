@@ -284,9 +284,9 @@ func _command_autooil(player: Player, args: Array):
 		return
 	
 	var clear_tower: bool = option == "clear" && tower != null
+	var tower_name: String = tower.get_display_name()
 	if clear_tower:
 		player.clear_autooil_for_tower(tower)
-		var tower_name: String = tower.get_display_name()
 		_add_status(player, "Cleared autooils for %s." % tower_name)
 		
 		return
@@ -322,7 +322,6 @@ func _command_autooil(player: Player, args: Array):
 		return
 	
 	player.set_autooil_for_tower(oil_type, tower)
-	var tower_name: String = tower.get_display_name()
 	var full_oil_type: String = AutoOil.convert_short_type_to_full(oil_type)
 	_add_status(player, "Set autooil for tower [color=GOLD]%s[/color] to [color=GOLD]%s[/color] oils." % [tower_name, full_oil_type])
 
