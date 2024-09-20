@@ -5,10 +5,6 @@ class_name TargetType
 # 
 # TargetType.new(TargetType.CREEPS + TargetType.RACE_UNDEAD)
 
-
-# TODO: implement UnitType.PLAYER_TOWERS which should apply
-# to player towers and not apply to team towers.
-
 const CREEPS: int 			= 0x1
 const TOWERS: int 			= 0x2
 const PLAYER_TOWERS: int 	= 0x4
@@ -82,13 +78,13 @@ static var _tower_rarity_to_bit: Dictionary = {
 
 enum UnitType {
 	TOWERS,
-	PLAYER_TOWERS,
 	CREEPS,
 	CORPSES
 }
 
 var _unit_type: UnitType
 var _bitmask: int = 0
+var _player_towers_is_set: bool
 
 
 #########################
@@ -115,8 +111,13 @@ func _init(bitmask: int):
 		if no_filter_for_section:
 			_bitmask |= all_bitmask
 
-#	NOTE: treat PLAYER_TOWERS as TOWERS and vice versa. Will
-#	figure out how to deal with it properly later.
+	_player_towers_is_set = _bitmask & PLAYER_TOWERS == PLAYER_TOWERS
+
+#	NOTE: treat PLAYER_TOWERS as TOWERS and vice versa. The
+#	actual filtering for PLAYER_TOWERS cannot be implemented
+#	in TargetType itself because caster's player is not
+#	accessible here. This filtering is implemented in
+#	Utils.get_units_in_range().
 	if _bitmask & PLAYER_TOWERS == PLAYER_TOWERS:
 		_bitmask |= TOWERS
 	if _bitmask & TOWERS == TOWERS:
@@ -140,6 +141,10 @@ func get_unit_type() -> TargetType.UnitType:
 	return _unit_type
 
 
+func player_towers_is_set() -> bool:
+	return _player_towers_is_set
+
+
 #########################
 ###       Static      ###
 #########################
@@ -155,7 +160,7 @@ static func _get_unit_type(bitmask: int) -> UnitType:
 	elif towers_set:
 		return UnitType.TOWERS
 	elif player_towers_set:
-		return UnitType.PLAYER_TOWERS
+		return UnitType.TOWERS
 	elif corpses_set:
 		return UnitType.CORPSES
 	else:
@@ -173,6 +178,8 @@ static func make_unit_bitmask(unit: Unit) -> int:
 		var rarity: Rarity.enm = tower.get_rarity()
 		var rarity_bit: int = _tower_rarity_to_bit[rarity]
 		
+#		NOTE: need to set both TOWERS and PLAYER_TOWERS so
+#		that both type of bitmasks match with this unit
 		bitmask |= TargetType.TOWERS
 		bitmask |= TargetType.PLAYER_TOWERS
 		bitmask |= element_bit

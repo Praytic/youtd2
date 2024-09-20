@@ -397,7 +397,7 @@ func _update_interpolated(delta: float):
 
 # Returns true if projectile expired because of a collision
 func _collide_with_units() -> bool:
-	var units_in_range: Array[Unit] = Utils.get_units_in_range(_collision_target_type, get_position_wc3_2d(), _collision_radius)
+	var units_in_range: Array[Unit] = Utils.get_units_in_range(_caster, _collision_target_type, get_position_wc3_2d(), _collision_radius)
 
 # 	Remove units that have already collided. This way, we
 # 	collide only once per unit.

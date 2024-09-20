@@ -45,7 +45,7 @@ func _on_move_timer_timeout():
 
 # 	Deal damage
 	var current_radius: float = _get_current_radius()
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), _current_swarm_pos, current_radius)
+	var creep_list: Array = Utils.get_units_in_range(_caster, TargetType.new(TargetType.CREEPS), _current_swarm_pos, current_radius)
 
 #	Deal damage once to each creep in path
 	for already_damaged_creep in _already_damaged_list:

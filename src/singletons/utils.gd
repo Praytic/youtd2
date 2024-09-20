@@ -546,20 +546,22 @@ func rand_chance(rng: RandomNumberGenerator, chance: float) -> bool:
 
 # NOTE: this f-n extends the range slightly from the center
 # of target unit
-func get_units_in_range(type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
+func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
 	if type == null:
 		return []
 
 	var group_name: String
-	match type.get_unit_type():
+	var target_unit_type: TargetType.UnitType = type.get_unit_type()
+	match target_unit_type:
 		TargetType.UnitType.TOWERS: group_name = "towers"
-		TargetType.UnitType.PLAYER_TOWERS: group_name = "towers"
 		TargetType.UnitType.CREEPS: group_name = "creeps"
 		TargetType.UnitType.CORPSES: group_name = "corpses"
 
 	var node_list: Array[Node] = get_tree().get_nodes_in_group(group_name)
 
 	radius = Utils.apply_unit_range_extension(radius, type)
+
+	var player_towers_is_set: bool = type.player_towers_is_set()
 
 #	NOTE: not using Array.filter() here because it takes
 #	more time than for loop
@@ -585,6 +587,12 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float, includ
 			var creep: Creep = unit as Creep
 
 			if creep.is_invisible() && !include_invisible:
+				continue
+
+		if player_towers_is_set:
+			var player_match: bool = caster.get_player() == unit.get_player()
+
+			if !player_match:
 				continue
 
 		filtered_unit_list.append(unit)

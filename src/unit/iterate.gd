@@ -9,13 +9,13 @@ class_name Iterate
 var _next_list: Array[Unit] = []
 
 
-func _init(center_pos: Vector2, target_type: TargetType, radius: float):
-	_next_list = Utils.get_units_in_range(target_type, center_pos, radius)
+func _init(caster: Unit, center_pos: Vector2, target_type: TargetType, radius: float):
+	_next_list = Utils.get_units_in_range(caster, target_type, center_pos, radius)
 
 
 # NOTE: Iterate.overUnitsInRangeOf() in JASS
-static func over_units_in_range_of(_caster: Unit, target_type: TargetType, center_pos: Vector2, radius: float) -> Iterate:
-	var it: Iterate = Iterate.new(center_pos, target_type, radius)
+static func over_units_in_range_of(caster: Unit, target_type: TargetType, center_pos: Vector2, radius: float) -> Iterate:
+	var it: Iterate = Iterate.new(caster, center_pos, target_type, radius)
 
 	return it
 
@@ -23,21 +23,21 @@ static func over_units_in_range_of(_caster: Unit, target_type: TargetType, cente
 # NOTE: Iterate.overUnitsInRangeOfCaster() in JASS
 static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType, radius: float) -> Iterate:
 	var center_pos: Vector2 = caster.get_position_wc3_2d()
-	var it: Iterate = Iterate.new(center_pos, target_type, radius)
+	var it: Iterate = Iterate.new(caster, center_pos, target_type, radius)
 
 	return it
 
 
 # NOTE: Iterate.overUnitsInRangeOfUnit() in JASS
-static func over_units_in_range_of_unit(_caster: Unit, target_type: TargetType, center: Unit, radius: float) -> Iterate:
+static func over_units_in_range_of_unit(caster: Unit, target_type: TargetType, center: Unit, radius: float) -> Iterate:
 	var center_pos: Vector2 = center.get_position_wc3_2d()
-	var it: Iterate = Iterate.new(center_pos, target_type, radius)
+	var it: Iterate = Iterate.new(caster, center_pos, target_type, radius)
 
 	return it
 
 
-static func over_corpses_in_range(_caster: Unit, center_pos: Vector2, radius: float) -> Iterate:
-	var it: Iterate = Iterate.new(center_pos, TargetType.new(TargetType.CORPSES), radius)
+static func over_corpses_in_range(caster: Unit, center_pos: Vector2, radius: float) -> Iterate:
+	var it: Iterate = Iterate.new(caster, center_pos, TargetType.new(TargetType.CORPSES), radius)
 
 	return it
 

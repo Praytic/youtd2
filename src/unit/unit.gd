@@ -564,7 +564,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 # NOTE: unit.doAttackDamageAoEUnit() in JASS
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	var aoe_center: Vector2 = target.get_position_wc3_2d()
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
+	var creep_list: Array = Utils.get_units_in_range(self, TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = Utils.get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)
@@ -578,7 +578,7 @@ func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_r
 
 # NOTE: unit.doSpellDamageAoE() in JASS
 func do_spell_damage_aoe(aoe_center: Vector2, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
+	var creep_list: Array = Utils.get_units_in_range(self, TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = Utils.get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)

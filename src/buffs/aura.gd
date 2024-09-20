@@ -40,7 +40,7 @@ func _ready():
 # Triggers REFRESH event for buffs applied by this aura.
 func refresh():
 	var caster_position: Vector2 = _caster.get_position_wc3_2d()
-	var units_in_range: Array = Utils.get_units_in_range(_target_type, caster_position, _aura_range, _include_invisible)
+	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range, _include_invisible)
 
 	for unit in units_in_range:
 		var buff: Buff = unit.get_buff_of_type(_aura_effect)
@@ -104,7 +104,7 @@ func _on_manual_timer_timeout():
 	_remove_invalid_targets()
 
 	var caster_position: Vector2 = _caster.get_position_wc3_2d()
-	var units_in_range: Array = Utils.get_units_in_range(_target_type, caster_position, _aura_range, _include_invisible)
+	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range, _include_invisible)
 
 # 	Remove buff from units that have went out of range or
 # 	became invisible

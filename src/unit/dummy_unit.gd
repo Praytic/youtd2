@@ -103,7 +103,7 @@ func do_spell_damage(target: Unit, damage: float):
 
 # NOTE: dummyUnit.doSpellDamageAoE() in JASS
 func do_spell_damage_aoe(center: Vector2, radius: float, damage: float, sides_ratio: float):
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), center, radius)
+	var creep_list: Array = Utils.get_units_in_range(_caster, TargetType.new(TargetType.CREEPS), center, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = Utils.get_aoe_damage(center, creep, radius, damage, sides_ratio)

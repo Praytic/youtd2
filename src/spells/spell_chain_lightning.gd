@@ -47,7 +47,7 @@ func _get_hit_list() -> Array[Unit]:
 	var current_position: Vector2 = _target_position
 
 	for i in range(0, _chain_count):
-		var unit_list: Array[Unit] = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), current_position, CHAIN_DISTANCE)
+		var unit_list: Array[Unit] = Utils.get_units_in_range(_caster, TargetType.new(TargetType.CREEPS), current_position, CHAIN_DISTANCE)
 
 		for unit in hit_unit_list:
 			unit_list.erase(unit)

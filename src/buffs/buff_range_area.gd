@@ -25,8 +25,9 @@ func _on_manual_timer_timeout():
 	if buffed_unit == null:
 		return
 
+	var caster: Unit = _buff.get_caster()
 	var buffed_unit_pos: Vector2 = buffed_unit.get_position_wc3_2d()
-	var all_units_in_range: Array = Utils.get_units_in_range(_target_type, buffed_unit_pos, _radius)
+	var all_units_in_range: Array = Utils.get_units_in_range(caster, _target_type, buffed_unit_pos, _radius)
 
 	var matching_units: Array = []
 

@@ -218,7 +218,7 @@ func update(delta: float):
 # 	NOTE: need to extend attack range by "tower radius".
 # 	This is how it works in the original game.
 	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
-	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, get_position_wc3_2d(), attack_range)
+	var creeps_in_range: Array = Utils.get_units_in_range(self, _attack_target_type, get_position_wc3_2d(), attack_range)
 
 # 	NOTE: need to consider tower to be in combat if there
 # 	are *any* creeps in attack range, even if the tower is
@@ -685,7 +685,7 @@ func _get_bounce_attack_description() -> String:
 
 func _get_next_bounce_target(bounce_pos: Vector3, visited_list: Array[Unit]) -> Creep:
 	var bounce_pos_2d: Vector2 = Vector2(bounce_pos.x, bounce_pos.y)
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos_2d, Constants.BOUNCE_ATTACK_RANGE)
+	var creep_list: Array = Utils.get_units_in_range(self, _attack_target_type, bounce_pos_2d, Constants.BOUNCE_ATTACK_RANGE)
 
 	for visited_creep in visited_list:
 		if !Utils.unit_is_valid(visited_creep):
@@ -769,7 +769,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, main_target: Unit)
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, splash_pos, splash_range_max)
+	var creep_list: Array = Utils.get_units_in_range(self, _attack_target_type, splash_pos, splash_range_max)
 
 	if main_target != null:
 		creep_list.erase(main_target)
