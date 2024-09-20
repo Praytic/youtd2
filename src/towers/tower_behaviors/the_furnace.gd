@@ -119,7 +119,7 @@ func get_aura_types() -> Array[AuraType]:
 	+ "+2% stats\n"
 
 	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_FIRE + TargetType.RARITY_COMMON + TargetType.RARITY_UNCOMMON)
+	aura.target_type = TargetType.new(TargetType.PLAYER_TOWERS + TargetType.ELEMENT_FIRE + TargetType.RARITY_COMMON + TargetType.RARITY_UNCOMMON)
 	aura.target_self = true
 	aura.level = 0
 	aura.level_add = 1
