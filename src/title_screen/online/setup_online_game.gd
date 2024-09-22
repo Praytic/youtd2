@@ -37,7 +37,11 @@ var _host_user_id: String = ""
 #########################
 
 func _ready():
+#	NOTE: need to manually call the callback here in case
+#	nakama is already connected. This happens when player
+#	quits from match back to title screen.
 	NakamaConnection.state_changed.connect(_on_nakama_connection_state_changed)
+	_on_nakama_connection_state_changed()
 
 	OnlineMatch.error.connect(_on_webrtc_error)
 
