@@ -785,7 +785,11 @@ func _quit_to_title():
 	_cleanup_all_objects()
 	OnlineMatch.leave()
 	get_tree().set_pause(false)
-	get_tree().change_scene_to_packed(Preloads.title_screen_scene)
+#	NOTE: need to use load() here instead of preload()
+#	because preload() causes an error here since Godot
+#	4.1->4.3 migration, for unknown reason.
+	var title_screen_scene: PackedScene = load("res://src/title_screen/title_screen.tscn")
+	get_tree().change_scene_to_packed(title_screen_scene)
 
 
 func _on_tutorial_controller_tutorial_triggered(tutorial_id):
