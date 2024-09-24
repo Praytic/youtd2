@@ -84,8 +84,17 @@ func set_scale(effect_id: int, scale: float):
 	var effect: Node2D = _get_effect(effect_id)
 	if effect == null:
 		return
+	
+	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
+	
+	if effects_container == null:
+		push_warning("effects_container is null. You can ignore this warning during game restart.")
 
-	effect.scale = Vector2.ONE * scale
+		return
+
+	var original_scale: Vector2 = effects_container.get_effect_original_scale(effect_id)
+	
+	effect.scale = original_scale * scale
 
 
 func set_color(effect_id: int, color: Color):
@@ -153,6 +162,14 @@ func set_position(effect_id: int, pos_wc3: Vector2):
 	var pos_wc3_3d: Vector3 = Vector3(pos_wc3.x, pos_wc3.y, 0)
 	var pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(pos_wc3_3d)
 	effect.position = pos_canvas
+
+
+func set_z_index(effect_id: int, z_index):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
+		return
+
+	effect.z_index = z_index
 
 
 #########################

@@ -13,6 +13,7 @@ extends Node2D
 # initializing effect id vars to 0.
 var _id_max: int = 1
 var _effect_map: Dictionary = {}
+var _effect_original_scale_map: Dictionary = {}
 var _free_id_list: Array = []
 
 
@@ -74,6 +75,17 @@ func get_effect(effect_id: int) -> Node2D:
 	return effect
 
 
+func get_effect_original_scale(effect_id: int) -> Vector2:
+	if !_effect_original_scale_map.has(effect_id):
+		push_error("get_effect_original_scale() failed to find original effect scale")
+
+		return Vector2.ONE
+
+	var original_scale: Vector2 = _effect_original_scale_map[effect_id]
+
+	return original_scale
+
+
 #########################
 ###      Private      ###
 #########################
@@ -100,6 +112,7 @@ func _create_internal(effect_path: String) -> int:
 
 	var id: int = _make_effect_id()
 	_effect_map[id] = effect
+	_effect_original_scale_map[id] = effect.scale
 
 	return id
 
