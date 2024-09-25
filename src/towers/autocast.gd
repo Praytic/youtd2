@@ -105,6 +105,7 @@ var description: String = "Description"
 var description_short: String = "Description Short"
 var icon: String = "res://resources/icons/hud/gold.tres"
 var caster_art: String = ""
+var caster_art_scale: float = 1.0
 var cooldown: float = 0.1
 # NOTE: in original engine "num_buffs_before_idle"
 # determines how many times autocast is triggered before it
@@ -121,6 +122,7 @@ var buff_type: BuffType = null
 var target_self: bool = false
 var buff_target_type: TargetType = null
 var target_art: String = ""
+var target_art_scale: float = 1.0
 var auto_range: float = 1000
 var handler: Callable = Callable()
 var item_owner: Item = null
@@ -220,10 +222,12 @@ func do_cast(target: Unit):
 
 	if !caster_art.is_empty():
 		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
+		Effect.set_scale(effect, caster_art_scale)
 		Effect.destroy_effect_after_its_over(effect)
 
 	if !target_art.is_empty() && target != null:
 		var effect: int = Effect.create_simple_at_unit(target_art, target)
+		Effect.set_scale(effect, target_art_scale)
 		Effect.destroy_effect_after_its_over(effect)
 
 
