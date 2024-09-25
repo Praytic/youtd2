@@ -17,17 +17,21 @@ static func make(wisdom_upgrades: Dictionary) -> Action:
 static func execute(action: Dictionary, player: Player):
 	var wisdom_upgrades: Dictionary = action[Action.Field.WISDOM_UPGRADES]
 
-	var wisdom_modifier: Modifier = ActionSelectWisdomUpgrades.generate_wisdom_upgrades_modifier(wisdom_upgrades)
+	var builder_wisdom_multiplier: float = player.get_builder_wisdom_multiplier()
+
+	var wisdom_modifier: Modifier = ActionSelectWisdomUpgrades.generate_wisdom_upgrades_modifier(wisdom_upgrades, builder_wisdom_multiplier)
 	player.set_wisdom_modifier(wisdom_modifier)
 
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ELEMENT_MASTERY]:
-		player.add_tomes(40)
+		var tomes_bonus: int = floori(40 * builder_wisdom_multiplier)
+		player.add_tomes(tomes_bonus)
 
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.MASTERY_OF_LOGISTICS]:
-		player.modify_food_cap(16)
+		var food_cap_bonus: int = floori(16 * builder_wisdom_multiplier)
+		player.modify_food_cap(food_cap_bonus)
 
 
-static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary) -> Modifier:
+static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, builder_wisdom_multiplier: float) -> Modifier:
 	var modifier: Modifier = Modifier.new()
 
 	var upgrade_to_mod_value_map: Dictionary = {
@@ -69,6 +73,8 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary) -> Mo
 
 		for mod_type in mod_values.keys():
 			var mod_value: float = mod_values[mod_type]
+
+			mod_value *= builder_wisdom_multiplier
 
 			modifier.add_modification(mod_type, mod_value, 0)
 
