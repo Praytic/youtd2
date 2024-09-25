@@ -231,10 +231,10 @@ func line_damage(origin_pos: Vector2, direction: float):
 
 			deal_damage(next, damage)
 
-		var clap_effect: int = Effect.create_scaled("ThunderClapCaster", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 5)
-		Effect.set_lifetime(clap_effect, 1.5)
-		var bolt_effect: int = Effect.create_colored("MonsoonBoltTarget", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 5, Color8(0, 0, 0, 255))
-		Effect.set_lifetime(bolt_effect, 2.5)
+		var clap_effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 4)
+		Effect.destroy_effect_after_its_over(clap_effect)
+		var bolt_effect: int = Effect.create_colored("res://src/effects/bdragon_241_lightning_strike.tscn", Vector3(current_pos.x, current_pos.y, 0.0), 0.0, 4, Color.SILVER)
+		Effect.destroy_effect_after_its_over(bolt_effect)
 
 		damage *= dmg_multiplier
 		i += 1

@@ -108,7 +108,10 @@ func wind_bt_on_cleanup(event: Event):
 #	remove the cyclone
 	Effect.destroy_effect(b.user_int)
 # 	effects
-	var thunder_clap_effect: int = Effect.create_simple_at_unit("res://src/effects/ThunderClapCaster.tscn", c)
+	var creep_pos: Vector2 = c.get_position_wc3_2d()
+	var thunder_clap_effect: int = Effect.create_simple("res://src/effects/bdragon_466_thunderclap.tscn", creep_pos)
+	Effect.set_z_index(thunder_clap_effect, 9)
+	Effect.set_scale(thunder_clap_effect, 4)
 	Effect.destroy_effect_after_its_over(thunder_clap_effect)
 	var bolt_impact: int = Effect.create_simple_at_unit("res://src/effects/BoltImpact.tscn", c)
 	Effect.destroy_effect_after_its_over(bolt_impact)

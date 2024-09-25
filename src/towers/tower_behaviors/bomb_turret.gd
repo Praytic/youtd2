@@ -156,8 +156,8 @@ func on_damage(event: Event):
 				break
 			concussive_creep_bt.apply(tower, creep, level)
 	
-		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
-		Effect.set_lifetime(effect, 0.2)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
+		Effect.destroy_effect_after_its_over(effect)
 	elif is_acid:
 		while true:
 			var creep: Unit = creeps_in_range.next()
@@ -165,8 +165,9 @@ func on_damage(event: Event):
 				break
 			acid_creep_bt.apply(tower, creep, level)
 
-		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
-		Effect.set_lifetime(effect, 0.2)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
+		Effect.set_color(effect, Color.GREEN)
+		Effect.destroy_effect_after_its_over(effect)
 	elif is_smoke:
 		while true:
 			var creep: Unit = creeps_in_range.next()
