@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://bs40lw6xkpf0e"]
+
+[ext_resource type="Texture2D" uid="uid://bfnbtlckgbnfs" path="res://assets/effects/bdragon/bdragon_241_lightning_strike.png" id="1_vi0kc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnq3a"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcoco"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcp4e"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6b6h"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxs87"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u0j8"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iykam"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbr3d"]
+atlas = ExtResource("1_vi0kc")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ych44"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnq3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcoco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcp4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6b6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxs87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u0j8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iykam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbr3d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Bdragon241LightningStrike" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ych44")
+frame = 1
+frame_progress = 0.8654

@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://b74645564x2rj"]
+
+[ext_resource type="Texture2D" uid="uid://c4xwqnjdc1ipo" path="res://assets/effects/bdragon/bdragon_24_rotating_cross.png" id="1_vch2m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebq2y"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il6u3"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6rxe"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctskr"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js1is"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jngu"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjdwu"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj7ok"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxgp2"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5nbd"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46s1s"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpwh6"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tvd3"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xp0g5"]
+atlas = ExtResource("1_vch2m")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nl1h5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebq2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il6u3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6rxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctskr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js1is")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jngu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjdwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj7ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxgp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5nbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46s1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpwh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tvd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xp0g5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="BdragonRotatingCross" type="AnimatedSprite2D"]
+scale = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_nl1h5")

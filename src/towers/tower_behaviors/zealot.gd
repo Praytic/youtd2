@@ -176,7 +176,8 @@ func on_attack(_event: Event):
 
 			if b.user_int == max_stacks:
 				if b.user_int2 == 0:
-					b.user_int2 = Effect.create_scaled("ManaShieldCaster.mdl", tower.get_position_wc3(), 0, 5)
+					b.user_int2 = Effect.create_simple_at_unit("res://src/effects/bdragon_26_whirlpool_cycle.tscn", tower)
+					Effect.set_scale(b.user_int2, 2)
 
 		shield_bt.apply(tower, tower, _stats.shield_power * b.user_int)
 	else:
@@ -227,4 +228,3 @@ func on_damage(event: Event):
 
 	if event.damage < damage_base:
 		event.damage = damage_base * total_armor_pierce + event.damage * (1.0 - total_armor_pierce)
-

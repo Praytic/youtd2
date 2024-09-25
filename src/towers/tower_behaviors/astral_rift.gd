@@ -90,8 +90,8 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_position_wc3(), 0, 4)
-	Effect.set_lifetime(tower_effect, 1.0)
+	var tower_effect: int = Effect.create_scaled("res://src/effects/bdragon_334_falling_droplet.tscn", tower.get_position_wc3(), 0, 2)
+	Effect.destroy_effect_after_its_over(tower_effect)
 
 	var target_effect: int = Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))
 	Effect.destroy_effect_after_its_over(target_effect)

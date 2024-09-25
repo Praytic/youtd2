@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://djkt0t0jveoks"]
+
+[ext_resource type="Texture2D" uid="uid://c7lrwiqnwi2d6" path="res://assets/effects/bdragon/bdragon_15_pulsing_mandala.png" id="1_p26we"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dg3e"]
+atlas = ExtResource("1_p26we")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00if1"]
+atlas = ExtResource("1_p26we")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l44q"]
+atlas = ExtResource("1_p26we")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16i0s"]
+atlas = ExtResource("1_p26we")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy717"]
+atlas = ExtResource("1_p26we")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn0og"]
+atlas = ExtResource("1_p26we")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ky65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dg3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00if1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l44q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16i0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy717")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn0og")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BdragonPulsingMandala" type="AnimatedSprite2D"]
+scale = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_3ky65")
+frame_progress = 0.0246122

@@ -48,8 +48,10 @@ func create_autocasts() -> Array[Autocast]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s maximum mana\n" % replenish_mana_add
-	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
+	autocast.caster_art = "res://src/effects/bdragon_334_falling_droplet.tscn"
+	autocast.caster_art_scale = 2
 	autocast.target_art = ""
+	autocast.target_art_scale = 2
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
 	autocast.num_buffs_before_idle = 0
 	autocast.cast_range = REPLENISH_RANGE

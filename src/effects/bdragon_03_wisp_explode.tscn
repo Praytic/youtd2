@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://b7ro7b6a4lmh3"]
+
+[ext_resource type="Texture2D" uid="uid://pb01lu85dqby" path="res://assets/effects/bdragon/bdragon_03_wisp_explode.png" id="1_721t8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkrtr"]
+atlas = ExtResource("1_721t8")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkyy3"]
+atlas = ExtResource("1_721t8")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6srr"]
+atlas = ExtResource("1_721t8")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifryk"]
+atlas = ExtResource("1_721t8")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak4k0"]
+atlas = ExtResource("1_721t8")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dspwl"]
+atlas = ExtResource("1_721t8")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vaaq"]
+atlas = ExtResource("1_721t8")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r7q7"]
+atlas = ExtResource("1_721t8")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1t3p"]
+atlas = ExtResource("1_721t8")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quwo3"]
+atlas = ExtResource("1_721t8")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljenx"]
+atlas = ExtResource("1_721t8")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqh0s"]
+atlas = ExtResource("1_721t8")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3bld"]
+atlas = ExtResource("1_721t8")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_odeen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkrtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkyy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6srr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifryk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak4k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dspwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vaaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r7q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1t3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quwo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljenx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3bld")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="BdragonWispExplode" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_odeen")
+frame_progress = 0.00200237

@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0b5004kkobgi"]
+
+[ext_resource type="Texture2D" uid="uid://bfnbtlckgbnfs" path="res://assets/effects/bdragon/bdragon_241_lightning_strike.png" id="1_cbjmy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj0l4"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wchm"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p1ld"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lstya"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewwje"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ot7u"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwrrp"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_difnr"]
+atlas = ExtResource("1_cbjmy")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7b1us"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj0l4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wchm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3p1ld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lstya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewwje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ot7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwrrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_difnr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Bdragon241LightningStrikeGreen" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_7b1us")

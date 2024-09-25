@@ -136,8 +136,8 @@ func on_damage(event: Event):
 	if !creep.is_immune():
 		CombatLog.log_ability(tower, creep, "Lightning Burst")
 
-		var target_effect: int = Effect.create_scaled("ManaFlareBoltImpact.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
-		Effect.set_lifetime(target_effect, 1.0)
+		var target_effect: int = Effect.create_scaled("res://src/effects/bdragon_241_lightning_strike_green.tscn", Vector3(creep.get_x(), creep.get_y(), 50), 0, 4)
+		Effect.destroy_effect_after_its_over(target_effect)
 		tower.do_spell_damage(creep, tower.get_mana() * _stats.damage_from_mana_multiplier, tower.calc_spell_crit_no_bonus())
 		tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, - tower.user_real)
 		tower.user_real = 0.0

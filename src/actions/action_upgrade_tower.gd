@@ -71,3 +71,8 @@ static func execute(action: Dictionary, player: Player, select_unit: SelectUnit)
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
 	player.add_gold(refund_for_prev_tier)
 	player.spend_gold(upgrade_cost)
+
+	var effect: int = Effect.create_simple_on_unit("res://src/effects/bdragon_16_rotating_propeller.tscn", upgrade_tower, Unit.BodyPart.ORIGIN)
+	Effect.set_scale(effect, 1.5)
+	Effect.set_z_index(effect, -1)
+	Effect.destroy_effect_after_its_over(effect)

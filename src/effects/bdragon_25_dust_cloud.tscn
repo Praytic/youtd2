@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://bh7b62sgak2g"]
+
+[ext_resource type="Texture2D" uid="uid://brfqvsks7awtk" path="res://assets/effects/bdragon/bdragon_25_cloud.png" id="1_slj2k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ede5t"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsr3q"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(64, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ok14"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73bph"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hkwp"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50uyj"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(320, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajhbn"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(384, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y704"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(448, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iibh2"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(512, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf5nq"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(576, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4ofy"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(640, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yr4o7"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(704, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgpeu"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(768, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22yxg"]
+atlas = ExtResource("1_slj2k")
+region = Rect2(832, 384, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a1l7v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ede5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsr3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ok14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73bph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hkwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50uyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajhbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y704")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iibh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf5nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4ofy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yr4o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgpeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22yxg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="BdragonDustCloud" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_a1l7v")

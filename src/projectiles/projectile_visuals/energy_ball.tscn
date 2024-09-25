@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://c24kk0jdlwm2v"]
+
+[ext_resource type="Texture2D" uid="uid://b01ug8hkohe4a" path="res://assets/effects/bdragon/bdragon_26_whirlpool.png" id="1_3yfyf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8xak"]
+atlas = ExtResource("1_3yfyf")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70doe"]
+atlas = ExtResource("1_3yfyf")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa56r"]
+atlas = ExtResource("1_3yfyf")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7ak5"]
+atlas = ExtResource("1_3yfyf")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp1xw"]
+atlas = ExtResource("1_3yfyf")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhmsy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8xak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70doe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa56r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7ak5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp1xw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="EnergyBall" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.486275, 1, 1, 1)
+sprite_frames = SubResource("SpriteFrames_bhmsy")
+frame_progress = 0.670588

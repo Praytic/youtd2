@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://x0axb4onqksl"]
+
+[ext_resource type="Texture2D" uid="uid://b01ug8hkohe4a" path="res://assets/effects/bdragon/bdragon_26_whirlpool.png" id="1_5cwte"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvxvk"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhwt7"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08xtf"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1h5g"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_337aj"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdi41"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qygv2"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kmta"]
+atlas = ExtResource("1_5cwte")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfroj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvxvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhwt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08xtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1h5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_337aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdi41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qygv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kmta")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="BdragonWhirlpoolCycle" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_mfroj")
+frame_progress = 0.779479

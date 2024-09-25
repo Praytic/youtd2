@@ -135,8 +135,8 @@ func on_damage(event: Event):
 		return
 
 	tower.do_spell_damage(creep, crush_damage, tower.calc_spell_crit_no_bonus())
-	var effect: int = Effect.create_scaled("ImpaleTargetDust.mdl", Vector3(creep.get_x(), creep.get_y(), 0.0), 0, 5)
-	Effect.set_lifetime(effect, 3.0)
+	var effect: int = Effect.create_scaled("res://src/effects/bdragon_25_dust_cloud.tscn", Vector3(creep.get_x(), creep.get_y(), 0.0), 0, 2)
+	Effect.destroy_effect_after_its_over(effect)
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 500)
 

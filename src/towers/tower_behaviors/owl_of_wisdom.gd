@@ -74,7 +74,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	missile_pt = ProjectileType.create("DarkSummonMissile.mdl", 5.0, 950.0, self)
+	missile_pt = ProjectileType.create("res://src/projectiles/projectile_visuals/energy_ball.tscn", 5.0, 950.0, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 
@@ -135,5 +135,5 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	else:
 		tower.do_attack_damage_aoe_unit(target, aoe_range, energyball_damage, tower.calc_spell_crit_no_bonus(), 0)
 
-	var effect: int = Effect.create_colored("WispExplode.mdl", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 5, Color.BLUE)
-	Effect.set_lifetime(effect, 1.0)
+	var effect: int = Effect.create_colored("res://src/effects/bdragon_03_wisp_explode.tscn", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 2, Color.BLUE)
+	Effect.destroy_effect_after_its_over(effect)

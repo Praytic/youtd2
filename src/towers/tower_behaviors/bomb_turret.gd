@@ -176,8 +176,9 @@ func on_damage(event: Event):
 			var buff_duration: float = _stats.smoke_duration + _stats.smoke_duration_add * level
 			silence_bt.apply_only_timed(tower, creep, buff_duration)
 
-		var effect: int = Effect.create_scaled("CloudOfFog.mdl", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
-		Effect.set_lifetime(effect, 0.5)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_519_expanding_puff.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 2)
+		Effect.set_color(effect, Color.BROWN)
+		Effect.destroy_effect_after_its_over(effect)
 
 
 func on_autocast_concussive(_event: Event):

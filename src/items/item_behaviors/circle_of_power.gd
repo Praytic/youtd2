@@ -26,7 +26,9 @@ func periodic(_event: Event):
 	if cur_mana < item.user_real && u.calc_chance(0.25):
 		CombatLog.log_item_ability(item, null, "Circle of Power")
 		u.set_mana(item.user_real)
-		var effect: int = Effect.create_simple_at_unit("AImaTarget.mdl", u)
+		var effect: int = Effect.create_simple_on_unit("res://src/effects/bdragon_03_wisp_explode.tscn", u, Unit.BodyPart.ORIGIN)
+		Effect.set_scale(effect, 2)
+		Effect.set_color(effect, Color.GOLD)
 		Effect.destroy_effect_after_its_over(effect)
 	else:
 		item.user_real = cur_mana

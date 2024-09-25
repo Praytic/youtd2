@@ -1,0 +1,115 @@
+[gd_scene load_steps=17 format=3 uid="uid://cgi40xm7251x"]
+
+[ext_resource type="Texture2D" uid="uid://cpuu4w0gghqoe" path="res://assets/effects/bdragon/bdragon_16_rotating_propeller.png" id="1_hgj31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qeukh"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1atdd"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c48o0"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22fn6"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqh2x"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdjyx"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue87c"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqc6d"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d53ry"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0472"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pusj"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpk6n"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(704, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rifqg"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(768, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7vvb"]
+atlas = ExtResource("1_hgj31")
+region = Rect2(832, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7cwwu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qeukh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1atdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c48o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22fn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqh2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdjyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue87c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqc6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d53ry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0472")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pusj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpk6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rifqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7vvb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="BdragonRotatingPropeller" type="AnimatedSprite2D"]
+z_index = -1
+y_sort_enabled = true
+scale = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_7cwwu")

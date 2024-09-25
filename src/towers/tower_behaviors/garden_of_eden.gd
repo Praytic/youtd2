@@ -90,24 +90,30 @@ func on_kill(event: Event):
 func on_autocast(_event: Event):
 	var x: float = tower.get_x()
 	var y: float = tower.get_y()
+	var z: float = tower.get_z()
 
 	if lifeforce_stored == 0:
 		return
 
 	var boom: int
-	var effect_pos: Vector3 = Vector3(x, y, 0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
+	var effect_pos: Vector3 = Vector3(x, y, z + Constants.TILE_SIZE_WC3 / 2)
+	var effect_color: Color = Color(Color.CYAN, 0.3)
+	boom = Effect.create_animated_scaled("res://src/effects/bdragon_03_wisp_explode.tscn", effect_pos, 0, 5.0)
 	Effect.set_animation_speed(boom, 0.6)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
+	Effect.set_color(boom, effect_color)
+	boom = Effect.create_animated_scaled("res://src/effects/bdragon_03_wisp_explode.tscn", effect_pos, 0, 5.0)
 	Effect.set_animation_speed(boom, 0.7)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
+	Effect.set_color(boom, effect_color)
+	boom = Effect.create_animated_scaled("res://src/effects/bdragon_03_wisp_explode.tscn", effect_pos, 0, 5.0)
 	Effect.set_animation_speed(boom, 0.8)
 	Effect.set_lifetime(boom, 2.0)
-	boom = Effect.create_animated_scaled("WispExplode.mdl", effect_pos, 0, 8.0)
+	Effect.set_color(boom, effect_color)
+	boom = Effect.create_animated_scaled("res://src/effects/bdragon_03_wisp_explode.tscn", effect_pos, 0, 5.0)
 	Effect.set_animation_speed(boom, 0.9)
 	Effect.set_lifetime(boom, 2.0)
+	Effect.set_color(boom, effect_color)
 
 	await Utils.create_timer(0.5, self).timeout
 

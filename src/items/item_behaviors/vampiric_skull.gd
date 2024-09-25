@@ -17,5 +17,7 @@ func load_triggers(triggers: BuffType):
 func on_kill(_event: Event):
 	var tower: Tower = item.get_carrier()
 	tower.add_mana_perc(0.07)
-	var effect: int = Effect.create_simple_at_unit("VampPotionCaster.mdl", tower)
+	var effect: int = Effect.create_simple_at_unit("res://src/effects/bdragon_334_falling_droplet.tscn", tower)
+	Effect.set_color(effect, Color.RED)
+	Effect.set_scale(effect, 2)
 	Effect.destroy_effect_after_its_over(effect)

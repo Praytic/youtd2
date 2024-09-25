@@ -59,7 +59,6 @@ func necromancer_aura_bt_on_death(event: Event):
 	var creep_path_index: int = original_creep._current_path_index
 	
 	var necromancer: Creep = buff.get_caster()
-	var necromancer_pos: Vector2 = necromancer.get_position_wc3_2d()
 
 	await Utils.create_timer(RAISE_DELAY, self).timeout
 
@@ -110,10 +109,17 @@ func necromancer_aura_bt_on_death(event: Event):
 
 	Utils.add_object_to_world(raised_creep)
 
-	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/generic_magic.tscn", necromancer_pos)
-	Effect.set_lifetime(effect_on_necromancer, 0.5)
-	var effect_on_raised_creep: int = Effect.create_simple("res://src/effects/generic_magic.tscn", creep_pos)
-	Effect.set_lifetime(effect_on_raised_creep, 0.5)
+	var necromancer_pos: Vector2 = necromancer.get_position_wc3_2d()
+	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/bdragon_16_rotating_propeller.tscn", necromancer_pos)
+	Effect.set_color(effect_on_necromancer, Color.PURPLE)
+	Effect.set_scale(effect_on_necromancer, 2)
+	Effect.set_z_index(effect_on_necromancer, 9)
+	Effect.destroy_effect_after_its_over(effect_on_necromancer)
+	var effect_on_raised_creep: int = Effect.create_simple("res://src/effects/bdragon_519_expanding_puff.tscn", creep_pos)
+	Effect.set_color(effect_on_raised_creep, Color.PURPLE)
+	Effect.set_scale(effect_on_raised_creep, 2)
+	Effect.set_z_index(effect_on_raised_creep, 9)
+	Effect.destroy_effect_after_its_over(effect_on_raised_creep)
 
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, necromancer, raised_creep)
 	lightning.modulate = Color.PURPLE
