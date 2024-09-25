@@ -2,6 +2,9 @@ class_name ActionSelectWisdomUpgrades
 
 
 
+# NOTE: wisdom_upgrades must be a map of
+# {upgrade_id => boolean}
+# where boolean is TRUE if upgrade_id is enabled
 static func make(wisdom_upgrades: Dictionary) -> Action:
 	var action: Action = Action.new({
 		Action.Field.TYPE: Action.Type.SELECT_WISDOM_UPGRADES,
@@ -26,31 +29,47 @@ static func execute(action: Dictionary, player: Player):
 
 static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary) -> Modifier:
 	var modifier: Modifier = Modifier.new()
+
+	var upgrade_to_mod_value_map: Dictionary = {
+		WisdomUpgradeProperties.Id.ADVANCED_FORTUNE: {
+			Modification.Type.MOD_TRIGGER_CHANCES: 0.10,
+		},
+		WisdomUpgradeProperties.Id.SWIFTNESS_MASTERY: {
+			Modification.Type.MOD_ATTACKSPEED: 0.07,
+		},
+		WisdomUpgradeProperties.Id.COMBAT_MASTERY: {
+			Modification.Type.MOD_DAMAGE_BASE_PERC: 0.08,
+		},
+		WisdomUpgradeProperties.Id.MASTERY_OF_PAIN: {
+			Modification.Type.MOD_ATK_CRIT_CHANCE: 0.04,
+			Modification.Type.MOD_SPELL_CRIT_CHANCE: 0.04,
+		},
+		WisdomUpgradeProperties.Id.ADVANCED_SORCERY: {
+			Modification.Type.MOD_SPELL_DAMAGE_DEALT: 0.10,
+		},
+		WisdomUpgradeProperties.Id.MASTERY_OF_MAGIC: {
+			Modification.Type.MOD_MANA_PERC: 0.20,
+			Modification.Type.MOD_MANA_REGEN_PERC: 0.20,
+		},
+		WisdomUpgradeProperties.Id.LOOT_MASTERY: {
+			Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 0.12,
+		},
+		WisdomUpgradeProperties.Id.ADVANCED_WISDOM: {
+			Modification.Type.MOD_EXP_RECEIVED: 0.20,
+		},
+	}
 	
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_FORTUNE]:
-		modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.10, 0)
+	for upgrade_id in wisdom_upgrades.keys():
+		var upgrade_is_enabled: bool = wisdom_upgrades[upgrade_id] == true
 
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.SWIFTNESS_MASTERY]:
-		modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.07, 0)
+		if !upgrade_is_enabled:
+			continue
 
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.COMBAT_MASTERY]:
-		modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.08, 0)
+		var mod_values: Dictionary = upgrade_to_mod_value_map.get(upgrade_id, {})
 
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.MASTERY_OF_PAIN]:
-		modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.04, 0)
-		modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.04, 0)
+		for mod_type in mod_values.keys():
+			var mod_value: float = mod_values[mod_type]
 
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_SORCERY]:
-		modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0)
-
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.MASTERY_OF_MAGIC]:
-		modifier.add_modification(Modification.Type.MOD_MANA_PERC, 0.20, 0)
-		modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.20, 0)
-
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.LOOT_MASTERY]:
-		modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.12, 0)
-
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_WISDOM]:
-		modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.20, 0)
+			modifier.add_modification(mod_type, mod_value, 0)
 
 	return modifier
