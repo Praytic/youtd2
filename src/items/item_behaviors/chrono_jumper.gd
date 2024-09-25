@@ -109,7 +109,7 @@ func on_autocast(event: Event):
 	
 	SFX.sfx_at_unit(SfxPaths.WARP, tower)
 	tower.set_position_wc3_2d(dest_pos_wc3)
-	SFX.sfx_at_unit(SfxPaths.ABILITY_TELEPORT_BASS, tower)
+	SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, tower)
 	jumper_bt.apply(tower, tower, 0)
 
 	var effect: int = Effect.create_animated("res://src/effects/generic_magic.tscn", original_pos_3d, 0)
@@ -129,7 +129,7 @@ func jumper_bt_on_cleanup(_event: Event):
 	
 	SFX.sfx_at_unit(SfxPaths.WARP, tower)
 	tower.set_position_wc3_2d(original_pos)
-	SFX.sfx_at_unit(SfxPaths.ABILITY_TELEPORT_BASS, tower)
+	SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, tower)
 
 	tower.set_transform_is_allowed(true)
 
