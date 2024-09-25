@@ -23,8 +23,11 @@ func create_animated(effect_path: String, effect_pos: Vector3, facing: float) ->
 
 
 # NOTE: Effect.createAnimatedScaled() in JASS
-func create_animated_scaled(effect_path: String, effect_pos: Vector3, mystery1: float, _scale: float) -> int:
-	return create_animated(effect_path, effect_pos, mystery1)
+func create_animated_scaled(effect_path: String, effect_pos: Vector3, facing: float, scale: float) -> int:
+	var effect: int = create_animated(effect_path, effect_pos, facing)
+	Effect.set_scale(effect, scale)
+
+	return effect
 
 
 # NOTE: Effect.createSimple() in JASS
