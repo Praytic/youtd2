@@ -76,13 +76,13 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	sapper_pt = ProjectileType.create("GoblinSapper.mdl", 20, 700, self)
+	sapper_pt = ProjectileType.create("path_to_projectile_sprite", 20, 700, self)
 	sapper_pt.enable_homing(sapper_pt_on_hit, 0)
 
-	robot_pt = ProjectileType.create_interpolate("HeroTinkerRobot.mdl", 200, self)
+	robot_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 200, self)
 	robot_pt.set_event_on_interpolation_finished(robot_pt_on_hit)
 
-	emitter_pt = ProjectileType.create_interpolate("GoblinLandMine.mdl", 200, self)
+	emitter_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 200, self)
 	emitter_pt.set_event_on_interpolation_finished(emitter_pt_on_hit)
 
 	sapper_bt = BuffType.new("sapper_bt", 3, 0, false, self)

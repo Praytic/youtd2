@@ -76,7 +76,7 @@ func snowball_pt_on_hit(p: Projectile, target: Unit):
 
 
 func tower_init():
-	snowball_pt = ProjectileType.create("AIobTarget.mdl", 0.0, 2000, self)
+	snowball_pt = ProjectileType.create("path_to_projectile_sprite", 0.0, 2000, self)
 	snowball_pt.enable_homing(snowball_pt_on_hit, 0)
 
 	stun_bt = BuffType.new("stun_bt", 0, 0, false, self)

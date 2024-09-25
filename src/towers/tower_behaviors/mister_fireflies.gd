@@ -102,7 +102,7 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	tower.hide_attack_projectiles()
 
-	moth_pt = ProjectileType.create_interpolate("DevourMagicBirthMissile.mdl", 275, self)
+	moth_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 275, self)
 	moth_pt.set_event_on_interpolation_finished(moth_pt_on_interpolation_finished)
 	moth_pt.enable_periodic(moth_pt_periodic, MOTH_DAMAGE_PERIOD)
 

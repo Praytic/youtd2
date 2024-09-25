@@ -52,7 +52,7 @@ func rocket_hit(p: Projectile, _t: Unit):
 
 
 func tower_init():
-	rocket_pt = ProjectileType.create_interpolate("RocketMissile.mdl", 750, self)
+	rocket_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 750, self)
 	rocket_pt.set_event_on_interpolation_finished(rocket_hit)
 #	NOTE: -70% from tower specials +95% from this = 125%
 #	total damage to mass

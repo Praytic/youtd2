@@ -80,7 +80,7 @@ func tower_init():
 	frozen_bt.set_buff_modifier(slow)
 	frozen_bt.set_buff_tooltip("Frost\nReduces movement speed.")
 
-	missile_pt = ProjectileType.create("LichMissile.mdl", 10, 1200, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)
 
 

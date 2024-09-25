@@ -60,12 +60,12 @@ func tower_init():
 	splash_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
 
-	water_pt = ProjectileType.create_ranged("Waterfall.mdl", 1200, 700, self)
+	water_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 1200, 700, self)
 	water_pt.enable_collision(water_pt_on_hit, 200, TargetType.new(TargetType.CREEPS), false)
 	water_pt.enable_periodic(water_pt_periodic, 0.4)
 	water_pt.disable_explode_on_expiration()
 
-	stone_pt = ProjectileType.create_ranged("RockBoltMissile.mdl", 500, 800, self)
+	stone_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 500, 800, self)
 	stone_pt.enable_collision(stone_pt_on_hit, 64, TargetType.new(TargetType.CREEPS), true)
 
 

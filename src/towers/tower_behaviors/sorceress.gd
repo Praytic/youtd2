@@ -84,7 +84,7 @@ func tower_init():
 
 	silence_bt = CbSilence.new("sorceress_silence", 0, 0, false, self)
 
-	missile_pt = ProjectileType.create_ranged("FaerieDragonMissile.mdl", 1200, 1200, self)
+	missile_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 1200, 1200, self)
 	missile_pt.enable_collision(missile_pt_on_collision, 150, TargetType.new(TargetType.CREEPS), false)
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)

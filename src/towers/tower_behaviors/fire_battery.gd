@@ -91,7 +91,7 @@ func tower_init():
 	incinerate_bt.add_periodic_event(damage_periodic, 1)
 	incinerate_bt.set_buff_tooltip("Incinerate\nIncreases damage taken from Fire towers and deals damage over time.")
 
-	fireball_pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200, self)
+	fireball_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	fireball_pt.enable_homing(fireball_pt_on_hit, 0)
 
 

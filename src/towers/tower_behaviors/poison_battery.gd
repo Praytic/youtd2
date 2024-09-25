@@ -91,7 +91,7 @@ func tower_init():
 	poison_bt.set_buff_modifier(modifier)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time and reduces movement speed.")
 
-	orb_pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200, self)
+	orb_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	orb_pt.enable_homing(hit, 0)
 
 

@@ -54,7 +54,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	shard_pt = ProjectileType.create_interpolate("ThornyShieldTargetChestLeft.mdl", 5000, self)
+	shard_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 5000, self)
 	shard_pt.enable_collision(shard_pt_on_collide, 40, TargetType.new(TargetType.CREEPS), false)
 
 

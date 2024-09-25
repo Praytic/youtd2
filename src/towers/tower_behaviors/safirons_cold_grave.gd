@@ -41,7 +41,7 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	shard_pt = ProjectileType.create_ranged("LichMissile.mdl", 300, 400, self)
+	shard_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 300, 400, self)
 	shard_pt.set_event_on_expiration(shard_pt_on_expiration)
 	shard_pt.enable_collision(shard_pt_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 

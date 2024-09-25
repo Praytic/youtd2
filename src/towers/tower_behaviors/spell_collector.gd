@@ -72,7 +72,7 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	spell_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 1200, self)
+	spell_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1200, self)
 	spell_pt.set_event_on_interpolation_finished(spell_pt_on_hit)
 
 	spell_gathering_bt = BuffType.create_aura_effect_type("spell_gathering_bt", true, self)

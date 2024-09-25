@@ -68,10 +68,10 @@ func tower_init():
 #  	2. When the first projectiles expire, they transform
 #  	   into homing projectiles, which are now targeted at
 #  	   creeps.
-	wave_shadowbolt_pt = ProjectileType.create_ranged("BlackArrowMissile.mdl", 300, 600, self)
+	wave_shadowbolt_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 300, 600, self)
 	wave_shadowbolt_pt.set_event_on_expiration(wave_shadowbolt_pt_on_expire)
 
-	attack_shadowbolt_pt = ProjectileType.create("BlackArrowMissile.mdl", 4, 1000, self)
+	attack_shadowbolt_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1000, self)
 	attack_shadowbolt_pt.enable_homing(attack_shadowbolt_pt_on_hit, 0)
 
 

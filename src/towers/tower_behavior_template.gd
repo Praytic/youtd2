@@ -47,7 +47,7 @@ extends TowerBehavior
 # 	example_bt.set_buff_icon_color(Color.WHITE)
 # 	example_bt.set_buff_tooltip("Title\nDescription.")
 
-#	example_pt = ProjectileType.create("ProjectileModel.mdl", 0, 1000, self)
+#	example_pt = ProjectileType.create("path_to_projectile_sprite", 0, 1000, self)
 #	example_pt.enable_homing(example_pt_on_hit, 0)
 
 #	multiboard = MultiboardValues.new(2)

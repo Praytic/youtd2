@@ -67,10 +67,10 @@ func tower_init():
 	hammer_fall_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
 
-	stormbolt_pt = ProjectileType.create_interpolate("StormBoltMissile.mdl", 1100, self)
+	stormbolt_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1100, self)
 	stormbolt_pt.set_event_on_interpolation_finished(stormbolt_pt_on_hit)
 
-	hammer_pt = ProjectileType.create("StormBoltMissile.mdl", 90, 0, self)
+	hammer_pt = ProjectileType.create("path_to_projectile_sprite", 90, 0, self)
 	hammer_pt.enable_physics(hammer_pt_on_impact, -30)
 
 

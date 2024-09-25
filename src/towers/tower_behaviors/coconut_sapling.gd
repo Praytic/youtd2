@@ -51,7 +51,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	coco_pt = ProjectileType.create("catapultmissile.mdl", 4, 0, self)
+	coco_pt = ProjectileType.create("path_to_projectile_sprite", 4, 0, self)
 	coco_pt.enable_physics(coco_pt_on_impact, -15.0)
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)

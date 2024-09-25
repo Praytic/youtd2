@@ -47,7 +47,7 @@ func rock_hit(p: Projectile, _target: Unit):
 
 
 func tower_init():
-	rock_pt = ProjectileType.create_interpolate("RockBoltMissle.mdl", 750, self)
+	rock_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 750, self)
 	rock_pt.set_event_on_interpolation_finished(rock_hit)
 
 

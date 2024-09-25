@@ -83,7 +83,7 @@ func tower_init():
 	faerie_bt.set_buff_modifier(modifier)
 	faerie_bt.set_buff_tooltip("Faerie Fire\nIncreases vulnerability to spell damage and increases debuff duration.")
 
-	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 

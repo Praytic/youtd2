@@ -57,7 +57,7 @@ func tower_init():
 	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
 	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 
-	missile_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
+	missile_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 950, self)
 	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)
 
 

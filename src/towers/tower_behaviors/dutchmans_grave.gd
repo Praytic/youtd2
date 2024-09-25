@@ -60,18 +60,18 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	tower.hide_attack_projectiles()
 	
-	dutchman_pt = ProjectileType.create("UndeadDestroyerShip.mdl", 999999, 550, self)
+	dutchman_pt = ProjectileType.create("path_to_projectile_sprite", 999999, 550, self)
 	dutchman_pt.enable_periodic(dutchman_pt_periodic, 0.1)
 	dutchman_pt.enable_homing(dutchman_pt_on_hit, 4.0)
 
 	cannonball_pt = ProjectileType.create_interpolate("BoatMissile.mdl", 900, self)
 	cannonball_pt.set_event_on_interpolation_finished(cannonball_pt_on_hit)
 
-	soul_pt = ProjectileType.create("PossessionMissile.mdl", 6, 300, self)
+	soul_pt = ProjectileType.create("path_to_projectile_sprite", 6, 300, self)
 	soul_pt.enable_homing(soul_pt_on_hit, 4.0)
 	soul_pt.set_start_rotation(6.0)
 
-	soulstorm_pt = ProjectileType.create("PossessionMissile.mdl", 6, 300, self)
+	soulstorm_pt = ProjectileType.create("path_to_projectile_sprite", 6, 300, self)
 	soulstorm_pt.set_acceleration(10)
 	soulstorm_pt.enable_collision(soulstorm_pt_on_collision, 100, TargetType.new(TargetType.CREEPS), false)
 

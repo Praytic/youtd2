@@ -69,7 +69,7 @@ func tower_init():
 	icy_touch_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
 
-	frostbolt_pt = ProjectileType.create("FreezingBreathMissile.mdl", 4, 900, self)
+	frostbolt_pt = ProjectileType.create("path_to_projectile_sprite", 4, 900, self)
 	frostbolt_pt.enable_homing(frostbolt_pt_on_hit, 0)
 
 

@@ -53,7 +53,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	steal_pt = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000, self)
+	steal_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	steal_pt.set_event_on_interpolation_finished(steal)
 	
 	multiboard = MultiboardValues.new(1)

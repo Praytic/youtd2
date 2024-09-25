@@ -38,7 +38,7 @@ func hippo_pt_on_hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	hippo_pt = ProjectileType.create("Hippogryph.mdl", 20, 800, self)
+	hippo_pt = ProjectileType.create("path_to_projectile_sprite", 20, 800, self)
 	hippo_pt.disable_explode_on_hit()
 	hippo_pt.disable_explode_on_expiration()
 	hippo_pt.enable_homing(hippo_pt_on_hit, 0)

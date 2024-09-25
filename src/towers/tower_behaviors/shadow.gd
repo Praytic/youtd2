@@ -73,10 +73,10 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 
-	orb_pt = ProjectileType.create("OrbDarkness.mdl", 8, 200, self)
+	orb_pt = ProjectileType.create("path_to_projectile_sprite", 8, 200, self)
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
 
-	lesser_orb_pt = ProjectileType.create("OrbDarkness.mdl", 3, 0, self)
+	lesser_orb_pt = ProjectileType.create("path_to_projectile_sprite", 3, 0, self)
 	lesser_orb_pt.enable_periodic(lesser_orb_pt_periodic, 1.0)
 
 	multiboard = MultiboardValues.new(1)

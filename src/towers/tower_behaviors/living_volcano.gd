@@ -51,7 +51,7 @@ func tower_init():
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 	aura_bt.add_event_on_death(aura_bt_on_death)
 
-	lava_pt = ProjectileType.create_interpolate("BallsOfFireMissile.mdl", 650, self)
+	lava_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 650, self)
 	lava_pt.set_event_on_cleanup(lava_pt_on_cleanup)
 
 

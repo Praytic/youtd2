@@ -98,10 +98,10 @@ func tower_init():
 	spell_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
 	spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
 
-	red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)
+	red_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	red_pt.set_event_on_interpolation_finished(red_pt_on_hit)
 
-	green_pt = ProjectileType.create_interpolate("GreenDragonMissile.mdl", 1000, self)
+	green_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	green_pt.set_event_on_interpolation_finished(green_pt_on_hit)
 
 

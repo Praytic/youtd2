@@ -85,10 +85,10 @@ func tower_init():
 	lacerate_bt.add_periodic_event(lacerate_bt_periodic, 1.0)
 	lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 
-	storm_pt = ProjectileType.create_interpolate("SentinelMissile.mdl", 900, self)
+	storm_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	storm_pt.set_event_on_interpolation_finished(storm_pt_on_finished)
 
-	bounder_pt = ProjectileType.create_interpolate("GlaiveMissile.mdl", 2000, self)
+	bounder_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 2000, self)
 	bounder_pt.enable_collision(bounder_pt_on_collision, 100, TargetType.new(TargetType.CREEPS), false)
 	bounder_pt.set_event_on_interpolation_finished(bounder_pt_on_finished)
 

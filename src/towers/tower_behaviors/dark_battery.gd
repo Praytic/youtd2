@@ -82,7 +82,7 @@ func tower_init():
 	corruption_bt.set_buff_modifier(modifier)
 	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
 
-	missile_pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)
 
 

@@ -53,7 +53,7 @@ func frog_pt_on_hit(p: Projectile, target: Unit):
 
 
 func item_init():
-	frog_pt = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
+	frog_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 3700.0, 500.0, self)
 	frog_pt.enable_collision(frog_pt_on_collision, 190, TargetType.new(TargetType.CREEPS), false)
 	frog_pt.enable_homing(frog_pt_on_hit, 0)
 	frog_pt.enable_periodic(frog_pt_periodic, 0.60)

@@ -84,7 +84,7 @@ func tower_init():
 	soul_split_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
 
-	missile_pt = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 999.99, 1100, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 

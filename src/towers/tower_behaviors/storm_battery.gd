@@ -91,7 +91,7 @@ func tower_init():
 	electrified_bt.add_event_on_damaged(debuff_on_damaged)
 	electrified_bt.set_buff_tooltip("Electrified\nDeals extra damage when the creep is damaged by attacks or spells.")
 
-	missile_pt = ProjectileType.create("FarseerMissile.mdl", 10, 1200, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)
 
 

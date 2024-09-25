@@ -121,14 +121,14 @@ func tower_init():
 # 	is called here but this ProjectileType is later used as
 # 	an interpolated projectile. Changed to use
 # 	create_interpolate().
-	bombardment_pt = ProjectileType.create_interpolate("FrostWyrmMissile.mdl", 1650, self)
+	bombardment_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1650, self)
 	bombardment_pt.set_event_on_cleanup(bombardment_pt_on_hit)
 
-	icicle_prop_pt = ProjectileType.create_interpolate("FrostBoltMissile.mdl", 200, self)
+	icicle_prop_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 200, self)
 	icicle_prop_pt.set_event_on_interpolation_finished(icicle_prop_pt_on_finished)
 	icicle_prop_pt.disable_explode_on_expiration()
 
-	icicle_missile_pt = ProjectileType.create("FrostBoltMissile.mdl", 5, 1400, self)
+	icicle_missile_pt = ProjectileType.create("path_to_projectile_sprite", 5, 1400, self)
 	icicle_missile_pt.enable_homing(icicle_missile_pt_on_hit, 0)
 
 

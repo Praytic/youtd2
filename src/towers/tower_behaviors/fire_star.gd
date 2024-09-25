@@ -60,7 +60,7 @@ func tower_init():
 	ignite_bt.set_buff_tooltip("Ignite\nDeals damage over time and reduces movement speed.")
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 2.0)
 
-	firestar_pt = ProjectileType.create("LordofFlameMissile.mdl", 7.0, 1000, self)
+	firestar_pt = ProjectileType.create("path_to_projectile_sprite", 7.0, 1000, self)
 	firestar_pt.enable_homing(firestar_pt_on_hit, 0)
 
 

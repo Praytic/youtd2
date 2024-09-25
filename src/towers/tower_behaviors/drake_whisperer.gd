@@ -113,30 +113,30 @@ func tower_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
 	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
 
-	blue_drake_pt = ProjectileType.create_interpolate("AzureDragon.mdl", 1000, self)
+	blue_drake_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	blue_drake_pt.disable_explode_on_hit()
 	blue_drake_pt.disable_explode_on_expiration()
 	blue_drake_pt.set_event_on_interpolation_finished(generic_drake_pt_on_hit)
 	blue_drake_pt.enable_periodic(generic_drake_pt_periodic, 0.1)
 
-	red_drake_pt = ProjectileType.create_interpolate("RedDragon.mdl", 900, self)
+	red_drake_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	red_drake_pt.disable_explode_on_hit()
 	red_drake_pt.disable_explode_on_expiration()
 	red_drake_pt.set_event_on_interpolation_finished(generic_drake_pt_on_hit)
 	red_drake_pt.enable_periodic(generic_drake_pt_periodic, 0.1)
 
-	green_drake_pt = ProjectileType.create_interpolate("GreenDragon.mdl", 900, self)
+	green_drake_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	green_drake_pt.disable_explode_on_hit()
 	green_drake_pt.disable_explode_on_expiration()
 	green_drake_pt.set_event_on_interpolation_finished(generic_drake_pt_on_hit)
 	green_drake_pt.enable_periodic(generic_drake_pt_periodic, 0.1)
 
-	bronze_drake_pt = ProjectileType.create_interpolate("BronzeDragon.mdl", 900, self)
+	bronze_drake_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	bronze_drake_pt.disable_explode_on_hit()
 	bronze_drake_pt.disable_explode_on_expiration()
 	bronze_drake_pt.enable_periodic(bronze_drake_pt_periodic, 0.2)
 
-	bronze_drake_attack_pt = ProjectileType.create_interpolate("FireBallMissile.mdl", 900, self)
+	bronze_drake_attack_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	bronze_drake_attack_pt.set_event_on_interpolation_finished(bronze_drake_attack_pt_on_hit)
 
 

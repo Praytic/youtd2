@@ -74,7 +74,7 @@ func tower_init():
 	soulsteal_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	soulsteal_bt.set_buff_tooltip("Soulsteal\nIncreases spell damage taken.")
 
-	acid_skull_pt = ProjectileType.create("Hippogryph.mdl", 20, 700, self)
+	acid_skull_pt = ProjectileType.create("path_to_projectile_sprite", 20, 700, self)
 	acid_skull_pt.enable_homing(acid_skull_pt_on_hit, 0)
 
 

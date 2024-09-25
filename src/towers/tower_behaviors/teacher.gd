@@ -97,13 +97,13 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Xp Granted")
 
-	green_pt = ProjectileType.create("Objects\\InventoryItems\\tomeGreen\\tomeGreen.mdl", 20.0, 450.00, self)
+	green_pt = ProjectileType.create("path_to_projectile_sprite", 20.0, 450.00, self)
 	green_pt.disable_explode_on_hit()
 	green_pt.enable_homing(hit, 0)
-	blue_pt = ProjectileType.create("Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl", 20.0, 450.00, self)
+	blue_pt = ProjectileType.create("path_to_projectile_sprite", 20.0, 450.00, self)
 	blue_pt.disable_explode_on_hit()
 	blue_pt.enable_homing(hit, 0)
-	red_pt = ProjectileType.create("Objects\\InventoryItems\\tomeRed\\tomeRed.mdl", 20.0, 450.00, self)
+	red_pt = ProjectileType.create("path_to_projectile_sprite", 20.0, 450.00, self)
 	red_pt.disable_explode_on_hit()
 	red_pt.enable_homing(hit, 0)
 

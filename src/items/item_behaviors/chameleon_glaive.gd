@@ -30,7 +30,7 @@ func chameleon_pt_on_hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	chameleon_pt = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
+	chameleon_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1000, self)
 	chameleon_pt.enable_homing(chameleon_pt_on_hit, 0)
 
 

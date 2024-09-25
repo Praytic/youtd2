@@ -58,7 +58,7 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "DPS")
 
-	flux_pt = ProjectileType.create_interpolate("OrbOfDeathMissile.mdl", 1000, self)
+	flux_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	flux_pt.set_event_on_interpolation_finished(flux_pt_on_hit)
 
 

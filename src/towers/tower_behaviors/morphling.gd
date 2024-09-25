@@ -87,10 +87,10 @@ func tower_init():
 	swift_strike_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	swift_strike_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
-	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)
+	damage_pt = ProjectileType.create("path_to_projectile_sprite", 4, 800, self)
 	damage_pt.enable_homing(damage_pt_on_hit, 0)
 
-	speed_pt = ProjectileType.create("ChimaeraAcidMissile.mdl", 4, 800, self)
+	speed_pt = ProjectileType.create("path_to_projectile_sprite", 4, 800, self)
 	speed_pt.enable_homing(speed_pt_on_hit, 0)
 
 	multiboard = MultiboardValues.new(2)

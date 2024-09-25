@@ -54,7 +54,7 @@ func tower_init():
 	storm_bt.add_event_on_damaged(storm_bt_on_damaged)
 	storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nDeals damage over time.")
 
-	missile_pt = ProjectileType.create_ranged("FarserrMissile.mdl", 1000 + 100, 500, self)
+	missile_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 1000 + 100, 500, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 	multiboard = MultiboardValues.new(1)

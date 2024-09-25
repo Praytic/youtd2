@@ -72,7 +72,7 @@ func tower_init():
 	awaken_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
-	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)
+	soulflame_pt = ProjectileType.create("path_to_projectile_sprite", 5, 9000, self)
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Awaken Cast")

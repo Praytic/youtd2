@@ -56,7 +56,7 @@ func axe_pt_hit(_p: Projectile, target: Unit):
 
 
 func tower_init():
-	axe_pt = ProjectileType.create_interpolate("AxeMissile.mdl", 800, self)
+	axe_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 800, self)
 	axe_pt.set_event_on_interpolation_finished(axe_pt_hit)
 
 

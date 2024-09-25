@@ -72,7 +72,7 @@ func tower_init():
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
 	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 
-	missile_pt = ProjectileType.create("DemonHunterMissile.mdl", 4, 1300, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1300, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 

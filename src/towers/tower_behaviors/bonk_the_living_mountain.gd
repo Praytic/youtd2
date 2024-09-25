@@ -86,7 +86,7 @@ func tower_init():
 	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
 	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
 
-	rock_pt = ProjectileType.create("AncientProtectorMissile.mdl", 4, 700, self)
+	rock_pt = ProjectileType.create("path_to_projectile_sprite", 4, 700, self)
 	rock_pt.enable_homing(rock_pt_on_hit, 0)
 
 	multiboard = MultiboardValues.new(1)

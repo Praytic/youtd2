@@ -60,7 +60,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	ball_pt = ProjectileType.create("BoatMissile.mdl", 4, 1000, self)
+	ball_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1000, self)
 	ball_pt.enable_homing(ball_pt_on_hit, 0)
 
 	sentry_bt = BuffType.new("sentry_bt", 0, 0, true, self)

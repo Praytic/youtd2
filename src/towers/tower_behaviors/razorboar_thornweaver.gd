@@ -53,7 +53,7 @@ func tower_init():
 	thorns_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Thornspray.")
 
-	thornspray_pt = ProjectileType.create("ThornSprayMissile.mdl", 2, 1300, self)
+	thornspray_pt = ProjectileType.create("path_to_projectile_sprite", 2, 1300, self)
 	thornspray_pt.enable_homing(on_projectile_hit, 0)
 
 

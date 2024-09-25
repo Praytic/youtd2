@@ -68,7 +68,7 @@ func tower_init():
 	fragged_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
 	fragged_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
 
-	shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
+	shard_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 400, 500, self)
 	shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
 	shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 

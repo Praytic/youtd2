@@ -81,7 +81,7 @@ func tower_init():
 	fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	fatigue_bt.set_buff_tooltip("Ice Smashing Axe Fatigue\nReduces attack speed.")
 
-	axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)
+	axe_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	axe_pt.set_event_on_interpolation_finished(on_projectile_hit)
 
 

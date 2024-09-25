@@ -41,7 +41,7 @@ func rocket_pt_on_hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	rocket_pt = ProjectileType.create_interpolate("TinkerRocketMissile.mdl", 1000, self)
+	rocket_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	rocket_pt.set_event_on_interpolation_finished(rocket_pt_on_hit)
 
 	multiboard = MultiboardValues.new(1)

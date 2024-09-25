@@ -31,7 +31,7 @@ func overcharge_pt_on_collision(P: Projectile, U: Unit):
 
 
 func item_init():
-	overcharge_pt = ProjectileType.create_ranged("FireLordDeathExplode.mdl", 350.0, 1000.0, self)
+	overcharge_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 350.0, 1000.0, self)
 	overcharge_pt.enable_collision(overcharge_pt_on_collision, 75.0, TargetType.new(TargetType.CREEPS), false)
 
 

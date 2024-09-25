@@ -90,10 +90,10 @@ func ball_pt_on_hit(_p: Projectile, creep: Unit):
 
 
 func tower_init():
-	ball_pt = ProjectileType.create("AnnihilationMissile.mdl", 5, 500, self)
+	ball_pt = ProjectileType.create("path_to_projectile_sprite", 5, 500, self)
 	ball_pt.enable_homing(ball_pt_on_hit, 0)
 
-	meat_pt = ProjectileType.create_interpolate("T_MeatwagonMissile.mdl", 400, self)
+	meat_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 400, self)
 
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)

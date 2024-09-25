@@ -70,7 +70,7 @@ func lightning_pt_on_cleanup(ball: Projectile):
 
 
 func item_init():
-	lightning_pt = ProjectileType.create_interpolate("FarseerMissile.mdl", 300, self)
+	lightning_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 300, self)
 	lightning_pt.set_event_on_cleanup(lightning_pt_on_cleanup)
 
 

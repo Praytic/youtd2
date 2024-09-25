@@ -26,7 +26,7 @@ func staff_pt_on_hit(P: Projectile, targ: Unit):
 
 
 func item_init():
-	staff_pt = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00, self)
+	staff_pt = ProjectileType.create("path_to_projectile_sprite", 4.00, 1400.00, self)
 	staff_pt.enable_homing(staff_pt_on_hit, 0.0)
 
 

@@ -152,7 +152,7 @@ func tower_init():
 	copter_napalm_bt.add_periodic_event(copter_napalm_bt_periodic, 1.0)
 	copter_napalm_bt.add_event_on_create(copter_napalm_bt_on_create)
 
-	copter_pt = ProjectileType.create("Gyrocopter.mdl", 999999, 10, self)
+	copter_pt = ProjectileType.create("path_to_projectile_sprite", 999999, 10, self)
 	copter_pt.enable_periodic(copter_pt_periodic, 0.25)
 
 

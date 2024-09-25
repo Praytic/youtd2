@@ -36,7 +36,7 @@ func grenade_pt_on_hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	grenade_pt = ProjectileType.create("GoldBottleMissile.mdl", 50.0, 1000.0, self)
+	grenade_pt = ProjectileType.create("path_to_projectile_sprite", 50.0, 1000.0, self)
 	grenade_pt.enable_homing(grenade_pt_on_hit, 0.0)
 
 

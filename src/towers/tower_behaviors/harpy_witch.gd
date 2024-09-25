@@ -77,7 +77,7 @@ func tower_init():
 	twister_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	twister_bt.set_buff_tooltip("Twisted\nIncreases damage taken from Storm towers.")
 
-	missile_pt = ProjectileType.create("TornadoElementalSmall.mdl", 4, 1000, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1000, self)
 	missile_pt.enable_homing(harpy_missile_on_hit, 0)
 
 

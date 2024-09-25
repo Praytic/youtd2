@@ -51,7 +51,7 @@ func tower_init():
 	multiboard.set_key(1, "Bonus Damage")
 	multiboard.set_key(2, "Atks to Fireballs")
 
-	wyrm_pt = ProjectileType.create_interpolate("FireBallMissile.mdl", 700, self)
+	wyrm_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 700, self)
 	wyrm_pt.set_event_on_interpolation_finished(wyrm_pt_on_hit)
 
 

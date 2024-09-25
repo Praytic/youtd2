@@ -47,7 +47,7 @@ func frag_bt_on_damaged(event: Event):
 
 
 func item_init():
-	frag_pt = ProjectileType.create("BloodElfSpellThiefMISSILE.mdl", 0.0, 1000.0, self)
+	frag_pt = ProjectileType.create("path_to_projectile_sprite", 0.0, 1000.0, self)
 	frag_pt.enable_homing(frag_pt_on_hit, 0.1)
 
 	frag_bt = BuffType.new("frag_bt", 5.0, 0.0, false, self)

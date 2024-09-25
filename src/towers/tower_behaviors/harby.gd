@@ -61,7 +61,7 @@ func tower_init():
 	awaken_bt.add_event_on_create(awaken_bt_on_create)
 	awaken_bt.add_event_on_cleanup(awaken_bt_on_cleanup)
 
-	missile_pt = ProjectileType.create("AvengerMissile.mdl", 10, 1500, self)
+	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1500, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 

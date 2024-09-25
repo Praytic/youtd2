@@ -38,7 +38,7 @@ func tower_init():
 	parasite_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	parasite_bt.set_buff_tooltip("Parasite\nDeals damage over time.")
 
-	spider_pt = ProjectileType.create_interpolate("Spider.mdl", 500, self)
+	spider_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 500, self)
 	spider_pt.set_event_on_cleanup(spider_pt_on_cleanup)
 	spider_pt.disable_explode_on_hit()
 

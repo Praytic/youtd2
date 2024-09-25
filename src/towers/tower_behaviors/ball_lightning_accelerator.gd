@@ -60,7 +60,7 @@ func tower_init():
 	absorb_caster_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.04)
 	absorb_caster_bt.set_buff_modifier(absorb_caster_bt_mod)
 
-	energetic_weapon_pt = ProjectileType.create_ranged("FarseerMissile.mdl", 1000, 650, self)
+	energetic_weapon_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 1000, 650, self)
 	energetic_weapon_pt.enable_collision(energetic_weapon_pt_on_hit, 250, TargetType.new(TargetType.CREEPS), false)
 
 	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, false, self)

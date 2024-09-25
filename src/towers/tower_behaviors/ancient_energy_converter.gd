@@ -26,7 +26,7 @@ func tower_init():
 	chain_lightning_st.data.chain_lightning.damage_reduction = 0.25
 	chain_lightning_st.data.chain_lightning.chain_count = 4
 
-	orb_pt = ProjectileType.create("ManaFlareTarget.mdl", 12, 250, self)
+	orb_pt = ProjectileType.create("path_to_projectile_sprite", 12, 250, self)
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
 
 
