@@ -58,7 +58,7 @@ var _have_placeholder_builder: bool = true
 var _score: float = 0.0
 var _is_ready: bool = false
 var _focus_target_effect_id: int = 0
-var _wisdom_upgrade_effect_multiplier: float = 1.0
+var _builder_wisdom_multiplier: float = 1.0
 var _wisdom_modifier: Modifier = Modifier.new()
 var _selected_unit: Unit = null
 var _autooil: AutoOil = AutoOil.new()
@@ -561,12 +561,15 @@ func disable_rolling():
 	roll_was_disabled.emit()
 
 
-func set_wisdom_upgrade_effect_multiplier(value: float):
-	_wisdom_upgrade_effect_multiplier = value
+# Sets the multiplier for all wisdom upgrade effects. This
+# multiplier comes from some builders and for most it is
+# simply x1.0.
+func set_builder_wisdom_multiplier(value: float):
+	_builder_wisdom_multiplier = value
 
 
-func get_wisdom_upgrade_effect_multiplier() -> float:
-	return _wisdom_upgrade_effect_multiplier
+func get_builder_wisdom_multiplier() -> float:
+	return _builder_wisdom_multiplier
 
 
 func set_wisdom_modifier(value: Modifier):
