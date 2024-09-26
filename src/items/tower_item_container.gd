@@ -48,7 +48,6 @@ func add_item(item: Item, insert_index: int = -1):
 		var effect_pos: Vector3 = _tower.get_position_wc3()
 		effect_pos.z += Constants.TILE_SIZE_WC3 * 0.25	
 		var effect_id: int = Effect.create_animated("res://src/effects/bdragon_519_expanding_puff.tscn", effect_pos, 0)
-		Effect.set_scale(effect_id, 2)
 		Effect.destroy_effect_after_its_over(effect_id)
 
 		item._is_oil_and_was_applied_already = true

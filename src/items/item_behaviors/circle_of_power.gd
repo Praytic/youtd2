@@ -27,7 +27,6 @@ func periodic(_event: Event):
 		CombatLog.log_item_ability(item, null, "Circle of Power")
 		u.set_mana(item.user_real)
 		var effect: int = Effect.create_simple_on_unit("res://src/effects/bdragon_03_wisp_explode.tscn", u, Unit.BodyPart.ORIGIN)
-		Effect.set_scale(effect, 2)
 		Effect.set_color(effect, Color.GOLD)
 		Effect.destroy_effect_after_its_over(effect)
 	else:

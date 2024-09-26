@@ -104,7 +104,6 @@ func on_attack(event: Event):
 	CombatLog.log_ability(tower, creep, "Ain Soph Aur")
 
 	var effect: int = Effect.add_special_effect_target("res://src/effects/bdragon_241_lightning_strike.tscn", creep, Unit.BodyPart.CHEST)
-	Effect.set_scale(effect, 4)
 	Effect.set_color(effect, Color.GOLD)
 	Effect.destroy_effect_after_its_over(effect)
 	shockwave_st.point_cast_from_unit_on_point(tower, event.get_target(), Vector2(x, y), shockwave_damage, tower.calc_spell_crit_no_bonus())

@@ -156,7 +156,7 @@ func on_damage(event: Event):
 				break
 			concussive_creep_bt.apply(tower, creep, level)
 	
-		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 1.0)
 		Effect.destroy_effect_after_its_over(effect)
 	elif is_acid:
 		while true:
@@ -165,7 +165,7 @@ func on_damage(event: Event):
 				break
 			acid_creep_bt.apply(tower, creep, level)
 
-		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 5)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 0.8)
 		Effect.set_color(effect, Color.GREEN)
 		Effect.destroy_effect_after_its_over(effect)
 	elif is_smoke:
@@ -177,7 +177,7 @@ func on_damage(event: Event):
 			var buff_duration: float = _stats.smoke_duration + _stats.smoke_duration_add * level
 			silence_bt.apply_only_timed(tower, creep, buff_duration)
 
-		var effect: int = Effect.create_scaled("res://src/effects/bdragon_519_expanding_puff.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 2)
+		var effect: int = Effect.create_scaled("res://src/effects/bdragon_519_expanding_puff.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 0.8)
 		Effect.set_color(effect, Color.BROWN)
 		Effect.destroy_effect_after_its_over(effect)
 

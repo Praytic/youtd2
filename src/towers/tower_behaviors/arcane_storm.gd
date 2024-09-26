@@ -112,7 +112,6 @@ func on_damage(event: Event):
 	if mana >= 1:
 		manastorm_bt.apply(tower, tower, 1)
 		var effect: int = Effect.create_simple_at_unit("res://src/effects/bdragon_241_lightning_strike.tscn", tower)
-		Effect.set_scale(effect, 4)
 		Effect.set_color(effect, Color.AQUAMARINE)
 		Effect.set_lifetime(effect, 0.3)
 
@@ -208,7 +207,6 @@ func attraction_bt_on_death(event: Event):
 		tower.do_attack_damage(next, damage, tower.calc_attack_multicrit_no_bonus())
 		var effect: int = Effect.create_simple_on_unit("res://src/effects/bdragon_24_rotating_cross.tscn", next, Unit.BodyPart.ORIGIN)
 		Effect.set_color(effect, Color.AQUAMARINE)
-		Effect.set_scale(effect, 2)
 		Effect.destroy_effect_after_its_over(effect)
 
 

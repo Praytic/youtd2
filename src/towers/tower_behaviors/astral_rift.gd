@@ -90,7 +90,7 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_scaled("res://src/effects/bdragon_334_falling_droplet.tscn", tower.get_position_wc3(), 0, 2)
+	var tower_effect: int = Effect.create_animated("res://src/effects/bdragon_334_falling_droplet.tscn", tower.get_position_wc3(), 0)
 	Effect.destroy_effect_after_its_over(tower_effect)
 
 	var target_effect: int = Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))

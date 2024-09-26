@@ -135,5 +135,5 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	else:
 		tower.do_attack_damage_aoe_unit(target, aoe_range, energyball_damage, tower.calc_spell_crit_no_bonus(), 0)
 
-	var effect: int = Effect.create_colored("res://src/effects/bdragon_03_wisp_explode.tscn", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 2, Color.BLUE)
+	var effect: int = Effect.create_colored("res://src/effects/bdragon_03_wisp_explode.tscn", Vector3(projectile.get_x(), projectile.get_y(), 0.0), 0, 1, Color.BLUE)
 	Effect.destroy_effect_after_its_over(effect)

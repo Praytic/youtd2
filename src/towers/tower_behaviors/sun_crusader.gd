@@ -110,7 +110,6 @@ func on_damage(event: Event):
 	var mana_gain: float = BLESSED_WEAPON_MANA_GAIN + BLESSED_WEAPON_MANA_GAIN_ADD * tower.get_level()
 
 	var effect: int = Effect.add_special_effect_target("res://src/effects/bdragon_241_lightning_strike.tscn", event.get_target(), Unit.BodyPart.CHEST)
-	Effect.set_scale(effect, 4)
 	Effect.destroy_effect_after_its_over(effect)
 	tower.do_spell_damage(event.get_target(), damage, tower.calc_spell_crit_no_bonus())
 	tower.add_mana(mana_gain)

@@ -102,7 +102,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s spell critical strike chance\n" % sparks_spell_crit_chance_add \
 	+ "+%s seconds duration\n" % sparks_duration_add
 	autocast.caster_art = ""
-	autocast.target_art = "MonsoonBoltTarget.mdl"
+	autocast.target_art = "res://src/effects/bdragon_241_lightning_strike.tscn"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 1
 	autocast.cast_range = SPARKS_RANGE

@@ -152,7 +152,7 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var effect: int = Effect.create_scaled("res://src/effects/bdragon_428_cloud_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0, 6)
+	var effect: int = Effect.create_animated("res://src/effects/bdragon_428_cloud_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0)
 	Effect.set_lifetime(effect, 10.0)
 
 	lightmare_is_active = true
@@ -204,7 +204,6 @@ func overcharge_damage(target: Unit, level: int):
 			break
 
 		var effect: int = Effect.add_special_effect_target("res://src/effects/bdragon_241_lightning_strike.tscn", target, Unit.BodyPart.CHEST)
-		Effect.set_scale(effect, 4)
 		Effect.set_color(effect, Color.LIGHT_BLUE)
 		Effect.destroy_effect_after_its_over(effect)
 		

@@ -113,7 +113,6 @@ func on_autocast(event: Event):
 	jumper_bt.apply(tower, tower, 0)
 
 	var effect: int = Effect.create_animated("res://src/effects/bdragon_15_pulsing_mandala.tscn", original_pos_3d, 0)
-	Effect.set_scale(effect, 2)
 	Effect.set_color(effect, Color.ROYAL_BLUE)
 	Effect.set_lifetime(effect, JUMP_DURATION)
 

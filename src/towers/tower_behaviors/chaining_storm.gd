@@ -111,7 +111,6 @@ func on_attack(event: Event):
 
 #	do effects
 	var effect1: int = Effect.create_simple("res://src/effects/bdragon_466_thunderclap.tscn", Vector2(x, y))
-	Effect.set_scale(effect1, 4)
 	Effect.destroy_effect_after_its_over(effect1)
 	var effect2: int = Effect.create_simple("CycloneTarget.mdl", Vector2(x, y))
 	Effect.destroy_effect_after_its_over(effect2)
