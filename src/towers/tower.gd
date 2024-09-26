@@ -1111,8 +1111,8 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 	var damage_add: float = get_damage_add()
 	var damage_add_percent: float = get_damage_add_percent()
 	var dps_bonus: float = get_dps_bonus()
-	var attack_speed: float = get_current_attack_speed()
-	var dps_mod: float = dps_bonus * attack_speed
+	var base_attack_speed: float = get_base_attack_speed()
+	var dps_mod: float = dps_bonus * base_attack_speed
 
 	var overall_base_damage: float = (base_damage + base_bonus) * base_bonus_percent
 	var overall_damage: float = (overall_base_damage + damage_add) * damage_add_percent + dps_mod
