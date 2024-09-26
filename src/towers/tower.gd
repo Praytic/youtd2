@@ -1115,7 +1115,7 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 	var dps_mod: float = dps_bonus * base_attack_speed
 
 	var overall_base_damage: float = (base_damage + base_bonus) * base_bonus_percent
-	var overall_damage: float = (overall_base_damage + damage_add) * damage_add_percent + dps_mod
+	var overall_damage: float = (overall_base_damage + damage_add + dps_mod) * damage_add_percent
 
 	overall_damage = max(0, overall_damage)
 
