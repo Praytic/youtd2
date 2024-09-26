@@ -657,6 +657,7 @@ func add_stun():
 
 	if stun_started:
 		_stun_effect_id = Effect.create_simple_at_unit_attached("res://src/effects/stun_visual.tscn", self, Unit.BodyPart.HEAD)
+		Effect.set_auto_destroy_enabled(_stun_effect_id, false)
 
 
 func remove_stun():
@@ -774,7 +775,6 @@ func _change_experience(amount: float) -> float:
 		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/level_up.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
 		Effect.set_scale(effect_id, effect_scale)
-		Effect.destroy_effect_after_its_over(effect_id)
 
 		var level_up_text: String = "Level %d" % _level
 		get_player().display_floating_text(level_up_text, self, Color.GOLD)

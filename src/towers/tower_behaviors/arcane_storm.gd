@@ -207,7 +207,6 @@ func attraction_bt_on_death(event: Event):
 		tower.do_attack_damage(next, damage, tower.calc_attack_multicrit_no_bonus())
 		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_24_rotating_cross.tscn", next, Unit.BodyPart.ORIGIN)
 		Effect.set_color(effect, Color.AQUAMARINE)
-		Effect.destroy_effect_after_its_over(effect)
 
 
 func ashbringer_surge_start(target: Unit, mana: float):

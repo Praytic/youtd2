@@ -223,12 +223,10 @@ func do_cast(target: Unit):
 	if !caster_art.is_empty():
 		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
 		Effect.set_scale(effect, caster_art_scale)
-		Effect.destroy_effect_after_its_over(effect)
 
 	if !target_art.is_empty() && target != null:
 		var effect: int = Effect.create_simple_at_unit(target_art, target)
 		Effect.set_scale(effect, target_art_scale)
-		Effect.destroy_effect_after_its_over(effect)
 
 
 func check_target_for_unit_autocast(target: Unit) -> bool:

@@ -167,6 +167,7 @@ func _apply_internal(caster: Unit, target: Unit, level: int, time: float) -> Buf
 		if _special_effect_data != null:
 			var special_effect_pos: Vector3 = Vector3(target.get_x(), target.get_y(), _special_effect_data.z)
 			var special_effect_id: int = Effect.create_animated(_special_effect_data.path, special_effect_pos, 0.0)
+			Effect.set_auto_destroy_enabled(special_effect_id, false)
 			Effect.set_scale(special_effect_id, _special_effect_data.scale)
 			buff._special_effect_id = special_effect_id
 	else:

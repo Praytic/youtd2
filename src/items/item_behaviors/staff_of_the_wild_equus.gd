@@ -30,6 +30,7 @@ func ascended_bt_on_create(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
 	b.user_int = Effect.create_simple_at_unit_attached("res://src/effects/SpiritOfVengeanceMissile.tscn", c, Unit.BodyPart.ORIGIN)
+	Effect.set_auto_destroy_enabled(b.user_int, false)
 	c.adjust_height(300, 150)
 
 
@@ -47,8 +48,7 @@ func ascended_bt_on_cleanup(event: Event):
 	c.adjust_height(-300, 2500)
 	SFX.sfx_at_unit(SfxPaths.CLOUD_POOF, c)
 	Effect.destroy_effect(b.user_int)
-	var bolt_impact: int = Effect.create_simple_at_unit("res://src/effects/WarStompCaster.tscn", c)
-	Effect.destroy_effect_after_its_over(bolt_impact)
+	Effect.create_simple_at_unit("res://src/effects/WarStompCaster.tscn", c)
 
 
 func item_init():

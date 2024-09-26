@@ -145,6 +145,7 @@ func on_attack(event: Event):
 			var x: float = ward.position.x
 			var y: float = ward.position.y
 			ward.effect = Effect.create_animated("res://src/effects/witch_doctor_ward.tscn", Vector3(x, y, tower.get_z() - 70), -(45.0 + 90.0 * counter / 4))
+			Effect.set_auto_destroy_enabled(ward.effect, false)
 			Effect.set_scale(ward.effect, 0.3)
 			Effect.set_color(ward.effect, Color8(255, 255, 255, 200))
 

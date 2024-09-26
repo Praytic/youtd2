@@ -107,8 +107,7 @@ func periodic(_event: Event):
 	if corpse == null:
 		return
 
-	var effect: int = Effect.add_special_effect("RaiseSkeleton.mdl", Vector2(corpse.get_x(), corpse.get_y()))
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.add_special_effect("RaiseSkeleton.mdl", Vector2(corpse.get_x(), corpse.get_y()))
 
 	corpse.remove_from_game()
 

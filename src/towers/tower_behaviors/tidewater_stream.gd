@@ -132,8 +132,7 @@ func on_damage(event: Event):
 func water_pt_on_hit(p: Projectile, target: Unit):
 	SFX.sfx_at_unit(SfxPaths.WATER_SLASH, target)
 	
-	var effect: int = Effect.create_simple_at_unit_attached("CrushingWaveDamage.mdl", target, Unit.BodyPart.CHEST)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_simple_at_unit_attached("CrushingWaveDamage.mdl", target, Unit.BodyPart.CHEST)
 	var caster: Unit = p.get_caster()
 	var wave_damage: float = 2200 + 88 * caster.get_level()
 	caster.do_spell_damage(target, wave_damage, caster.calc_spell_crit_no_bonus())
@@ -151,8 +150,7 @@ func water_pt_periodic(p: Projectile):
 	var stone_facing: float = p.get_direction() + Globals.synced_rng.randf_range(-30, 30)
 	var stone_projectile: Projectile = Projectile.create(stone_pt, caster, 1.0, caster.calc_spell_crit_no_bonus(), Vector3(stone_x, stone_y, 0), stone_facing)
 
-	var effect: int = Effect.add_special_effect("res://src/effects/bdragon_25_dust_cloud.tscn", Vector2(stone_projectile.get_x(), stone_projectile.get_y()))
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.add_special_effect("res://src/effects/bdragon_25_dust_cloud.tscn", Vector2(stone_projectile.get_x(), stone_projectile.get_y()))
 
 
 func stone_pt_on_hit(p: Projectile, target: Unit):

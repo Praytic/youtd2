@@ -90,11 +90,8 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_animated("res://src/effects/bdragon_334_falling_droplet.tscn", tower.get_position_wc3(), 0)
-	Effect.destroy_effect_after_its_over(tower_effect)
-
-	var target_effect: int = Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))
-	Effect.destroy_effect_after_its_over(target_effect)
+	Effect.create_animated("res://src/effects/bdragon_334_falling_droplet.tscn", tower.get_position_wc3(), 0)
+	Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))
 
 	var move_aoe: bool = tower.calc_chance(0.15)
 

@@ -92,8 +92,7 @@ func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	var shock_damage: float = 1250 + 185 * tower.get_level()
 
-	var effect: int = Effect.create_simple_at_unit("res://src/effects/bdragon_466_thunderclap.tscn", target)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_simple_at_unit("res://src/effects/bdragon_466_thunderclap.tscn", target)
 
 	tower.do_spell_damage_aoe_unit(target, 250, shock_damage, tower.calc_spell_crit_no_bonus(), 0.5)
 

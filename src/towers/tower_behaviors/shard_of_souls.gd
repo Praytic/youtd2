@@ -138,8 +138,7 @@ func on_autocast(event: Event):
 		var buff: Buff = soul_link_bt.apply(tower, target, level)
 		buff.user_int = soul_link_id
 
-		var effect_id: int = Effect.create_simple_at_unit("FindSomeEffect.mdl", target)
-		Effect.destroy_effect_after_its_over(effect_id)
+		Effect.create_simple_at_unit("FindSomeEffect.mdl", target)
 
 
 func soul_link_on_damaged(event: Event):

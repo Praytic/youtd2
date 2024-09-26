@@ -205,7 +205,6 @@ func overcharge_damage(target: Unit, level: int):
 
 		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_241_lightning_strike.tscn", target, Unit.BodyPart.CHEST)
 		Effect.set_color(effect, Color.LIGHT_BLUE)
-		Effect.destroy_effect_after_its_over(effect)
 		
 		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus() )
 

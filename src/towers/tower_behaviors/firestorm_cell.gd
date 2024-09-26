@@ -39,8 +39,7 @@ func load_triggers(triggers: BuffType):
 
 
 func ashbringer_firestorm_damage(creep: Unit):
-	var effect: int = Effect.create_scaled("DoomDeath.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_scaled("DoomDeath.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
 	tower.do_spell_damage_aoe_unit(creep, 300, _stats.firestorm_damage + (_stats.firestorm_damage_add * tower.get_level()), tower.calc_spell_crit_no_bonus(), 0.0)
 
 
@@ -63,8 +62,7 @@ func firestorm(event: Event):
 	var stack_count: int = buff.user_int
 	var damage: float = damage_per_stack * stack_count
 
-	var effect: int = Effect.create_scaled("DoomDeath.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_scaled("DoomDeath.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
 
 	tower.do_spell_damage_aoe_unit(creep, 300, damage, tower.calc_spell_crit_no_bonus(), 0.0)
 

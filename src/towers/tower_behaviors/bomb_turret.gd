@@ -156,8 +156,7 @@ func on_damage(event: Event):
 				break
 			concussive_creep_bt.apply(tower, creep, level)
 	
-		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 1.0)
-		Effect.destroy_effect_after_its_over(effect)
+		Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 1.0)
 	elif is_acid:
 		while true:
 			var creep: Unit = creeps_in_range.next()
@@ -167,7 +166,6 @@ func on_damage(event: Event):
 
 		var effect: int = Effect.create_scaled("res://src/effects/bdragon_466_thunderclap.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 0.8)
 		Effect.set_color(effect, Color.GREEN)
-		Effect.destroy_effect_after_its_over(effect)
 	elif is_smoke:
 		while true:
 			var creep: Unit = creeps_in_range.next()
@@ -179,7 +177,6 @@ func on_damage(event: Event):
 
 		var effect: int = Effect.create_scaled("res://src/effects/bdragon_519_expanding_puff.tscn", Vector3(main_target.get_x(), main_target.get_y(), 0), 0, 0.8)
 		Effect.set_color(effect, Color.BROWN)
-		Effect.destroy_effect_after_its_over(effect)
 
 
 func on_autocast_concussive(_event: Event):

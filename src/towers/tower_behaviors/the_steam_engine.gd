@@ -119,6 +119,7 @@ func get_aura_types() -> Array[AuraType]:
 
 func on_create(_preceding_tower: Tower):
 	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", Vector3(tower.get_x() - 4, tower.get_y() + 41, tower.get_z()), 0, 0.55)
+	Effect.set_auto_destroy_enabled(permanent_effect_id, false)
 
 
 func on_destruct():
@@ -184,8 +185,7 @@ func steam_bt_on_attack(event: Event):
 
 	CombatLog.log_ability(caster, buffed_tower, "Power Surge")
 	caster.add_exp(1 + 0.04 * lvl)
-	var effect: int = Effect.create_scaled("FragBoomSpawn.mdl", Vector3(caster.get_x() + 11, caster.get_y() + 56, caster.get_z()), 0, 5)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_scaled("FragBoomSpawn.mdl", Vector3(caster.get_x() + 11, caster.get_y() + 56, caster.get_z()), 0, 5)
 
 
 # Update value of property mods based on current power level of Steam Engine

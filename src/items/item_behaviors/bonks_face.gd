@@ -28,4 +28,3 @@ func on_damage(event: Event):
 		twr.do_spell_damage_aoe_unit(creep, 250, twr.get_current_attack_damage_with_bonus() * 0.2, twr.calc_spell_crit_no_bonus(), 0)
 		target_effect = Effect.create_animated("res://src/effects/bdragon_25_dust_cloud.tscn", Vector3(creep.get_x(), creep.get_y(), 0.0), 0)
 		Effect.set_scale(target_effect, 0.5)
-		Effect.destroy_effect_after_its_over(target_effect)

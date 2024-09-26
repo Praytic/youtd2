@@ -173,6 +173,7 @@ func on_autocast(event: Event):
 	
 	var new_glaive: Glaivesaw = Glaivesaw.new()
 	var new_effect: int = Effect.create_animated_scaled("BloodElfSpellThiefMISSILE.mdl", Vector3(target_pos.x, target_pos.y, 40.0), 0.0, 1.45)
+	Effect.set_auto_destroy_enabled(new_effect, false)
 	Effect.set_animation_speed(new_effect, 2.0)
 	Effect.set_scale(new_effect, 5)
 	new_glaive.effect_id = new_effect

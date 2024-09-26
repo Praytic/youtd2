@@ -98,8 +98,7 @@ func coco_pt_on_impact(p: Projectile):
 	var pos_canvas: Vector2 = VectorUtils.wc3_2d_to_canvas(pos)
 	SFX.sfx_at_pos(SfxPaths.CLOUD_POOF, pos_canvas)
 	
-	var effect: int = Effect.add_special_effect("WarStompCaster.mdl", pos)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.add_special_effect("WarStompCaster.mdl", pos)
 
 	while true:
 		var target: Unit = it.next()

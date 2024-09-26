@@ -41,7 +41,6 @@ func _on_move_timer_timeout():
 	var effect: int = Effect.create_animated("res://src/effects/generic_magic.tscn", Vector3(_current_swarm_pos.x, _current_swarm_pos.y, 0.0), 0.0)
 	var effect_scale: float = _get_effect_scale()
 	Effect.set_scale(effect, effect_scale)
-	Effect.destroy_effect_after_its_over(effect)
 
 # 	Deal damage
 	var current_radius: float = _get_current_radius()

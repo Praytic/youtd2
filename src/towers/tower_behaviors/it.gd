@@ -159,8 +159,7 @@ func on_attack(_event: Event):
 	var aoe_dmg: float = FIELD_DAMAGE + FIELD_DAMAGE_ADD * tower.get_level()
 	tower.do_spell_damage_aoe(sum.from_pos, FIELD_RADIUS, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
 
-	var effect_at_from_pos: int = Effect.create_colored("res://src/effects/bdragon_24_rotating_cross.tscn", Vector3(sum.from_pos.x, sum.from_pos.y, 100.0), 270.0, 2, Color8(0, 0, 0, 255))
-	Effect.destroy_effect_after_its_over(effect_at_from_pos)
+	Effect.create_colored("res://src/effects/bdragon_24_rotating_cross.tscn", Vector3(sum.from_pos.x, sum.from_pos.y, 100.0), 270.0, 2, Color8(0, 0, 0, 255))
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos, FIELD_RADIUS)
 
@@ -190,8 +189,7 @@ func on_attack(_event: Event):
 		creep.move_to_point(dest_pos)
 
 	tower.do_spell_damage_aoe(sum.dest_pos, FIELD_RADIUS, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
-	var effect_at_dest_pos: int = Effect.create_colored("res://src/effects/bdragon_24_rotating_cross.tscn", Vector3(sum.dest_pos.x, sum.dest_pos.y, 100.0), 270.0, 2, Color8(0, 0, 0, 255))
-	Effect.destroy_effect_after_its_over(effect_at_dest_pos)
+	Effect.create_colored("res://src/effects/bdragon_24_rotating_cross.tscn", Vector3(sum.dest_pos.x, sum.dest_pos.y, 100.0), 270.0, 2, Color8(0, 0, 0, 255))
 
 
 func on_kill(_event: Event):
@@ -218,6 +216,7 @@ func on_autocast_recreation(event: Event):
 
 	if !recreation_field_exists:
 		sum.recreation_effect = Effect.create_animated("res://src/effects/bdragon_15_pulsing_mandala.tscn", Vector3(target_pos.x, target_pos.y, 0), 270.0)
+		Effect.set_auto_destroy_enabled(sum.recreation_effect, false)
 		Effect.set_color(sum.recreation_effect, Color8(255, 0, 0, 150))
 	else:
 		Effect.set_position(sum.recreation_effect, target_pos)
@@ -233,6 +232,7 @@ func on_autocast_corruption(event: Event):
 
 	if !corruption_field_exists:
 		sum.corruption_effect = Effect.create_animated("res://src/effects/bdragon_15_pulsing_mandala.tscn", Vector3(target_pos.x, target_pos.y, 0), 270.0)
+		Effect.set_auto_destroy_enabled(sum.corruption_effect, false)
 		Effect.set_color(sum.corruption_effect, Color8(0, 0, 255, 150))
 	else:
 		Effect.set_position(sum.corruption_effect, target_pos)

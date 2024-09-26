@@ -239,7 +239,6 @@ func _do_game_win():
 			var effect: int = Effect.create_simple("placeholder path", Vector2(x, y))
 			Effect.set_scale(effect, scale)
 			Effect.set_animation_speed(effect, speed)
-			Effect.destroy_effect_after_its_over(effect)
 
 		await Utils.create_timer(1.0, self).timeout
 

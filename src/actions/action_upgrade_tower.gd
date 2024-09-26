@@ -74,4 +74,3 @@ static func execute(action: Dictionary, player: Player, select_unit: SelectUnit)
 
 	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_16_rotating_propeller.tscn", upgrade_tower, Unit.BodyPart.ORIGIN)
 	Effect.set_z_index(effect, -1)
-	Effect.destroy_effect_after_its_over(effect)

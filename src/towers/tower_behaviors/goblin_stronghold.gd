@@ -169,8 +169,7 @@ func sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	var floating_text: String = "%d%% slow" % (slow_buff_level / 10) 
 	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 100, 255), 40)
 
-	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", Vector2(projectile.get_x(), projectile.get_y()))
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.add_special_effect("NeutralBuildingExplosion.mdl", Vector2(projectile.get_x(), projectile.get_y()))
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250)
 	

@@ -387,8 +387,7 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	add_gold(amount)
 
 	if show_effect:
-		var effect: int = Effect.create_simple_at_unit("gold effect path", unit)
-		Effect.destroy_effect_after_its_over(effect)
+		Effect.create_simple_at_unit("gold effect path", unit)
 
 	if show_text:
 		var text: String

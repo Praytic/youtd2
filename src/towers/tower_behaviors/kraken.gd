@@ -134,8 +134,7 @@ func on_kill(event: Event):
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_value)
 
 	var effect_pos: Vector2 = target.get_position_wc3_2d()
-	var effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", effect_pos)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.add_special_effect("OrcLargeDeathExplode.mdl", effect_pos)
 
 
 func on_damage(event: Event):
@@ -206,8 +205,7 @@ func fire_tentacles():
 		
 		var random_offset: Vector2 = Vector2(Globals.synced_rng.randf_range(-35, 35), Globals.synced_rng.randf_range(-35, 35))
 		var effect_pos: Vector2 = target.get_position_wc3_2d() + random_offset
-		var effect: int = Effect.add_special_effect("ImpaleHitTarget.mdl", effect_pos)
-		Effect.destroy_effect_after_its_over(effect)
+		Effect.add_special_effect("ImpaleHitTarget.mdl", effect_pos)
 
 		stun_bt.apply_only_timed(tower, target, TENTACLE_ATTACK_STUN_DURATION)
 

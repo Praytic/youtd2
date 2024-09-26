@@ -94,6 +94,7 @@ func gift_bt_on_create(event: Event):
 		buff.user_real2 = 0
 
 	var effect_id: int = Effect.create_scaled("KeeperGroveMissile.mdl", Vector3(target.get_x(), target.get_y(), 150), 0, 5)
+	Effect.set_auto_destroy_enabled(effect_id, false)
 	if secondary_effect_happened:
 		Effect.set_color(effect_id, Color8(255, 180, 180, 255))
 	buff.user_int3 = effect_id

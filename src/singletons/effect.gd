@@ -2,12 +2,11 @@ extends Node
 
 
 # Functions to create "effects" which are used to add visual
-# indicators of buffs and abilities. Functions which take a
-# Unit instead of a position will make the effect follow the
-# unit.
+# indicators of buffs and abilities.
+
+# NOTE: effect scene args must be AnimatedSprite2D
 
 
-# NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, effect_pos: Vector3, facing: float) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
@@ -18,6 +17,7 @@ func create_animated(effect_path: String, effect_pos: Vector3, facing: float) ->
 		return 0
 
 	var id: int = effects_container.create_animated(effect_path, effect_pos, facing)
+	set_auto_destroy_enabled(id, true)
 
 	return id
 
@@ -56,6 +56,7 @@ func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: 
 		return 0
 
 	var id: int = effects_container.create_simple_at_unit_attached(effect_path, unit, body_part)
+	set_auto_destroy_enabled(id, true)
 
 	return id
 
@@ -109,11 +110,15 @@ func set_color(effect_id: int, color: Color):
 	effect.modulate = color
 
 
+# This makes the effect be automatically destroyed after
+# given lifetime period.
 # NOTE: effect.setLifetime() in JASS()
 func set_lifetime(effect_id: int, lifetime: float):
 	var effect: Node2D = _get_effect(effect_id)
 	if effect == null:
 		return
+
+	set_auto_destroy_enabled(effect_id, false)
 
 	var timer: ManualTimer = Utils.create_timer(lifetime, self)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
@@ -129,6 +134,13 @@ func set_animation_speed(effect_id: int, speed: float):
 	effect_sprite.speed_scale = speed
 
 
+# NOTE: this f-n works differently than in original youtd.
+# In original youtd, calling destroy() would schedule effect
+# to be destroyed once the animation finished. In youtd2,
+# calling destroy_effect() will remove the effect instantly.
+# Also note that in youtd2 effects are by default scheduled
+# to be destroyed when animation finishes.
+# 
 # NOTE: Effect.destroy() and DestroyEffect() in JASS()
 func destroy_effect(effect_id: int):
 	var effect: Node2D = _get_effect(effect_id)
@@ -138,24 +150,23 @@ func destroy_effect(effect_id: int):
 	effect.queue_free()
 
 
-# NOTE: Effect.destroy() and DestroyEffect() in JASS()
-# 
-# Call this instead of destroy_effect() if the script calls
-# destroy f-n right after creating the effect.
-# 
-# NOTE: not sure how original JASS scripts determined
-# whether to destroy an effect immediately or after
-# animation has finished. All the scripts call the same f-n.
-func destroy_effect_after_its_over(effect_id: int):
+# Changes whether effect should be automatically destroyed
+# once it's animation ends. This is enabled by default.
+func set_auto_destroy_enabled(effect_id: int, enabled: bool):
 	var effect: Node2D = _get_effect(effect_id)
 	if effect == null:
 		return
 
-# 	NOTE: destroy effect after animation is finished so that
-# 	this function can be used to create an effect that is
-# 	destroyed after it's done animating
-	effect.animation_finished.connect(_on_effect_animation_finished.bind(effect_id))
-	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect_id))
+	if enabled:
+		if !effect.animation_finished.is_connected(_on_effect_animation_finished):
+			effect.animation_finished.connect(_on_effect_animation_finished.bind(effect_id))
+		if !effect.animation_looped.is_connected(_on_effect_animation_finished):
+			effect.animation_looped.connect(_on_effect_animation_finished.bind(effect_id))
+	else:
+		if effect.animation_finished.is_connected(_on_effect_animation_finished):
+			effect.animation_finished.disconnect(_on_effect_animation_finished)
+		if effect.animation_looped.is_connected(_on_effect_animation_finished):
+			effect.animation_looped.disconnect(_on_effect_animation_finished)
 
 
 func set_position(effect_id: int, pos_wc3: Vector2):

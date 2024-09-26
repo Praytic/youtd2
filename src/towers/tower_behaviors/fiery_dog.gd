@@ -71,8 +71,7 @@ func on_damage(_event: Event):
 	CombatLog.log_ability(tower, null, "Roar")
 
 	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
-	var effect: int = Effect.create_simple_at_unit_attached("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, Unit.BodyPart.ORIGIN)
-	Effect.destroy_effect_after_its_over(effect)
+	Effect.create_simple_at_unit_attached("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, Unit.BodyPart.ORIGIN)
 
 	while true:
 		var target: Unit = I.next()

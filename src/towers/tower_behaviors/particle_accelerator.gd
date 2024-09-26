@@ -81,6 +81,7 @@ func on_kill(event: Event):
 
 func on_create(_preceding: Tower):
 	var effect: int = Effect.create_animated_scaled("SpiritLinkTarget.mdl", tower.get_position_wc3(), 0, 1.5)
+	Effect.set_auto_destroy_enabled(effect, false)
 	tower.user_int2 = effect
 	tower.user_real = 0
 	update_effect_speed()

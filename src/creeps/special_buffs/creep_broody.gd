@@ -49,6 +49,7 @@ func on_autocast(event: Event):
 	var caster: Creep = autocast.get_caster()
 	var caster_pos: Vector2 = caster.get_position_wc3_2d()
 	var egg_effect: int = Effect.create_animated("res://src/effects/barrel.tscn", Vector3(caster_pos.x, caster_pos.y, 0), 0)
+	Effect.set_auto_destroy_enabled(egg_effect, false)
 	Effect.set_scale(egg_effect, EGG_SCALE_MIN)
 	Effect.set_color(egg_effect, Color.GREEN)
 

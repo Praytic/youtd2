@@ -224,6 +224,7 @@ func enable_storm():
 
 	storm_is_enabled = true
 	storm_effect = Effect.create_animated("res://src/effects/bdragon_428_cloud_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0.0)
+	Effect.set_auto_destroy_enabled(storm_effect, false)
 
 
 # --- Aura Buff + Projectile Handling ---

@@ -132,6 +132,7 @@ func on_autocast(_event: Event):
 
 	if thunder_effect == 0:
 		thunder_effect = Effect.create_animated("PurgeBuffTarget.mdl", Vector3(tower.get_x() - 16, tower.get_y() - 16, tower.get_z()), 0)
+		Effect.set_auto_destroy_enabled(thunder_effect, false)
 
 	thunder_is_enabled = true
 

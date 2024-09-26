@@ -113,11 +113,9 @@ func necromancer_aura_bt_on_death(event: Event):
 	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/bdragon_16_rotating_propeller.tscn", necromancer_pos)
 	Effect.set_color(effect_on_necromancer, Color.PURPLE)
 	Effect.set_z_index(effect_on_necromancer, 9)
-	Effect.destroy_effect_after_its_over(effect_on_necromancer)
 	var effect_on_raised_creep: int = Effect.create_simple("res://src/effects/bdragon_519_expanding_puff.tscn", creep_pos)
 	Effect.set_color(effect_on_raised_creep, Color.PURPLE)
 	Effect.set_z_index(effect_on_raised_creep, 9)
-	Effect.destroy_effect_after_its_over(effect_on_raised_creep)
 
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, necromancer, raised_creep)
 	lightning.modulate = Color.PURPLE
