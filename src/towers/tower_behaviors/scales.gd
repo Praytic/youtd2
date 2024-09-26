@@ -203,7 +203,7 @@ func overcharge_damage(target: Unit, level: int):
 		if !tower.calc_chance(overcharge_chance):
 			break
 
-		var effect: int = Effect.add_special_effect_target("res://src/effects/bdragon_241_lightning_strike.tscn", target, Unit.BodyPart.CHEST)
+		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_241_lightning_strike.tscn", target, Unit.BodyPart.CHEST)
 		Effect.set_color(effect, Color.LIGHT_BLUE)
 		Effect.destroy_effect_after_its_over(effect)
 		

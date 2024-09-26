@@ -67,7 +67,7 @@ func on_damage(_event: Event):
 	
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 
-	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\Taunt\\TauntCaster.mdl", tower, Unit.BodyPart.ORIGIN)
+	var effect: int = Effect.create_simple_at_unit_attached("Abilities\\Spells\\NightElf\\Taunt\\TauntCaster.mdl", tower, Unit.BodyPart.ORIGIN)
 	Effect.destroy_effect_after_its_over(effect)
 
 	while true:

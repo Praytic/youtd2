@@ -205,7 +205,7 @@ func attraction_bt_on_death(event: Event):
 		ashbringer_attraction_apply(next, applied)
 		var damage: float = applied * damage_per_stack
 		tower.do_attack_damage(next, damage, tower.calc_attack_multicrit_no_bonus())
-		var effect: int = Effect.create_simple_on_unit("res://src/effects/bdragon_24_rotating_cross.tscn", next, Unit.BodyPart.ORIGIN)
+		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_24_rotating_cross.tscn", next, Unit.BodyPart.ORIGIN)
 		Effect.set_color(effect, Color.AQUAMARINE)
 		Effect.destroy_effect_after_its_over(effect)
 

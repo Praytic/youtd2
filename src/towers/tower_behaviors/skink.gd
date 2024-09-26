@@ -58,7 +58,7 @@ func poison_bt_periodic(event: Event):
 	var damage: float = buff.user_real
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\CorrosiveBreath\\ChimaeraAcidTargetArt.mdl", tower, Unit.BodyPart.HEAD)
+	var effect: int = Effect.create_simple_at_unit_attached("Abilities\\Spells\\NightElf\\CorrosiveBreath\\ChimaeraAcidTargetArt.mdl", tower, Unit.BodyPart.HEAD)
 	Effect.destroy_effect_after_its_over(effect)
 
 

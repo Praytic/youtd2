@@ -65,7 +65,7 @@ func on_damage(event: Event):
 
 	var old_position: Vector2 = creep.get_position_wc3_2d()
 	var old_path_index: int = creep._current_path_index
-	var effect: int = Effect.add_special_effect_target("ManaDrainTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+	var effect: int = Effect.create_simple_at_unit_attached("ManaDrainTarget.mdl", creep, Unit.BodyPart.ORIGIN)
 
 	await Utils.create_timer(3.0, self).timeout
 

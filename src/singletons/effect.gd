@@ -47,7 +47,7 @@ func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 # Creates an effect on the Unit. Effect will follow the unit
 # if it moves. The effect will also go away if the unit dies.
 # NOTE: Effect.createSimpleOnUnit() in JASS
-func create_simple_on_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
+func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
@@ -55,14 +55,9 @@ func create_simple_on_unit(effect_path: String, unit: Unit, body_part: Unit.Body
 
 		return 0
 
-	var id: int = effects_container.create_simple_on_unit(effect_path, unit, body_part)
+	var id: int = effects_container.create_simple_at_unit_attached(effect_path, unit, body_part)
 
 	return id
-
-
-# NOTE: AddSpecialEffectTarget() in JASS()
-func add_special_effect_target(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
-	return create_simple_on_unit(effect_path, unit, body_part)
 
 
 # NOTE: AddSpecialEffect() in JASS()

@@ -40,7 +40,7 @@ func create_animated(effect_path: String, effect_pos: Vector3, _facing: float) -
 	return id
 
 
-func create_simple_on_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
+func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 

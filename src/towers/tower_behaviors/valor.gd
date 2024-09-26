@@ -191,5 +191,5 @@ func valor_light_bt_adjust_effect(buff: Buff):
 	buff.user_real *= 0.5
 
 #	Some sfx to pretty it up
-	var effect: int = Effect.add_special_effect_target("HealTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+	var effect: int = Effect.create_simple_at_unit_attached("HealTarget.mdl", creep, Unit.BodyPart.ORIGIN)
 	Effect.destroy_effect_after_its_over(effect)

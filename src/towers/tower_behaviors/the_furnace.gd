@@ -168,7 +168,7 @@ func on_autocast(_event: Event):
 		ashbringer_linger_apply(next)
 		var damage: float = (7 + 0.2 * tower.get_level()) * tower_mana
 		tower.do_spell_damage(next, damage, tower.calc_spell_crit_no_bonus())
-		var damage_effect: int = Effect.create_simple_on_unit("FireTrapUp.mdl", next, Unit.BodyPart.ORIGIN)
+		var damage_effect: int = Effect.create_simple_at_unit_attached("FireTrapUp.mdl", next, Unit.BodyPart.ORIGIN)
 		Effect.set_lifetime(damage_effect, 3.0)
 
 	while true:
