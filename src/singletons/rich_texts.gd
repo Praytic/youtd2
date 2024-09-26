@@ -82,34 +82,6 @@ func get_creep_info(creep: Creep) -> String:
 	return text
 
 
-func get_tower_info_short(tower: Tower) -> String:
-	var text: String = ""
-	
-	var tower_id: int = tower.get_id()
-
-	var element: Element.enm = TowerProperties.get_element(tower_id)
-	var element_string: String = Element.convert_to_colored_string(element)
-	var dps: int = floori(TowerProperties.get_dps(tower_id))
-	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
-	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
-	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
-	var damage_string: String = _get_tower_damage_string(tower)
-	var mana: int = floori(tower.get_mana())
-	var overall_mana: int = floori(tower.get_overall_mana())
-
-	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
-	if attack_enabled:
-		text += "[color=YELLOW]Attack type:[/color] %s\n" % [attack_type_string]
-		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] DPS, [color=GOLD]%d[/color] range\n" % [dps, attack_range]
-		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
-
-	if overall_mana != 0:
-		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d/%d[/color]\n" % [mana, overall_mana]
-
-	return text
-
-
 # NOTE: calling this function causes a lag spike so it
 # should not be used during runtime in production builds.
 # Lag spike happens because we need to create a temporary
@@ -487,43 +459,6 @@ func get_autocast_stats_text(autocast: Autocast) -> String:
 		text += stats_line
 
 	return text
-
-
-# Returns tower damage in this format:
-# "10-20 +3"
-func _get_tower_damage_string(tower: Tower) -> String:
-	var dmg_min_base: float = tower.get_damage_min()
-	var dmg_max_base: float = tower.get_damage_max()
-
-	var base_bonus_absolute: float = tower.get_base_damage_bonus()
-	var base_bonus_percent: float = tower.get_base_damage_bonus_percent()
-
-	var dmg_min: float = (dmg_min_base + base_bonus_absolute) * base_bonus_percent
-	var dmg_max: float = (dmg_max_base + base_bonus_absolute) * base_bonus_percent
-	var dmg_base: float = (dmg_min + dmg_max) / 2
-	
-	var damage_add_absolute: float = tower.get_damage_add()
-	var damage_add_percent: float = tower.get_damage_add_percent()
-
-	var dps_bonus: float = tower.get_dps_bonus()
-	var attack_speed: float = tower.get_current_attack_speed()
-	var dps_mod: float = dps_bonus * attack_speed
-
-	var damage_total: float = (dmg_base + damage_add_absolute) * damage_add_percent + dps_mod
-
-	var damage_add: int = roundi(damage_total - dmg_base)
-
-	var damage_add_string: String
-	if damage_add > 0:
-		damage_add_string = " [color=GREEN]+%d[/color]" % damage_add
-	elif damage_add < 0:
-		damage_add_string = " [color=RED]%d[/color]" % damage_add
-	else:
-		damage_add_string = ""
-
-	var string: String = "[color=GOLD]%d-%d[/color]%s" % [floori(dmg_min), floori(dmg_max), damage_add_string]
-
-	return string
 
 
 func _get_creep_health_string(creep: Creep) -> String:
