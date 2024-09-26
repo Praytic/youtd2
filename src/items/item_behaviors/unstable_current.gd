@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if T.get_armor_type() == ArmorType.enm.HEL:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit(SfxPaths.POW, T, Unit.BodyPart.CHEST)
+		SFX.sfx_at_unit(SfxPaths.POW, T)

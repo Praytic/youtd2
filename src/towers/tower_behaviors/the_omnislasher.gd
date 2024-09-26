@@ -58,7 +58,7 @@ func on_attack(event: Event):
 	var time_between_attacks: float = tower.get_current_attack_speed() / attack_count
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 1200)
 
-	SFX.sfx_on_unit(SfxPaths.MAGIC_FIZZLE, tower, Unit.BodyPart.ORIGIN)
+	SFX.sfx_at_unit(SfxPaths.MAGIC_FIZZLE, tower)
 	
 	tower.set_sprite_color(Color8(255, 255, 255, 100))
 

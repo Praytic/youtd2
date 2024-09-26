@@ -74,15 +74,13 @@ func sfx_at_pos(sfx_path: String, sfx_position: Vector2, volume_db: float = 0.0,
 	sfx_player.play()
 
 
-# NOTE: SFXAtUnit() in JASS
+# NOTE: this f-n is *not* the same thing as SFXAtUnit() in
+# JASS.
+# This function plays a sound effect.
+# SFXAtUnit() from JASS creates a "simple effect" (SFX),
+# where "effect" is visual, not sound.
 func sfx_at_unit(sfx_path: String, unit: Unit, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	var sfx_position: Vector2 = unit.get_visual_position()
-	sfx_at_pos(sfx_path, sfx_position, volume_db, pitch_scale)
-
-
-# NOTE: SFXOnUnit() in JASS
-func sfx_on_unit(sfx_path: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0, pitch_scale: float = 1.0):
-	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
 	sfx_at_pos(sfx_path, sfx_position, volume_db, pitch_scale)
 
 

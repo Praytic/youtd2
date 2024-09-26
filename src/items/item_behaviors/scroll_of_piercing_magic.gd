@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if t.get_armor_type() == ArmorType.enm.SIF:
 		item.get_carrier().do_spell_damage(t, event.damage * 0.25, item.get_carrier().calc_spell_crit_no_bonus())
-		SFX.sfx_on_unit(SfxPaths.TOWER_ATTACK_MAP[Element.enm.FIRE], t, Unit.BodyPart.ORIGIN)
+		SFX.sfx_at_unit(SfxPaths.TOWER_ATTACK_MAP[Element.enm.FIRE], t)

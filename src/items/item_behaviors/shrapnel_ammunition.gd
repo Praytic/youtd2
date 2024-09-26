@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if T.get_armor_type() == ArmorType.enm.LUA:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit(SfxPaths.CLOUD_POOF, T, Unit.BodyPart.CHEST)
+		SFX.sfx_at_unit(SfxPaths.CLOUD_POOF, T)

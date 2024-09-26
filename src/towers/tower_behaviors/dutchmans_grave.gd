@@ -209,7 +209,7 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	SFX.sfx_on_unit(SfxPaths.BAM_ECHO, target, Unit.BodyPart.CHEST)
+	SFX.sfx_at_unit(SfxPaths.BAM_ECHO, target)
 
 	var damage: float = p.user_real
 	p.do_spell_damage(target, damage)

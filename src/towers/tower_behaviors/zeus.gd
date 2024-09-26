@@ -118,7 +118,7 @@ func periodic(_event: Event):
 			if do_stun:
 				stun_bt.apply_only_timed(tower, bolt_target, 0.5)
 
-			SFX.sfx_on_unit(SfxPaths.ZAP_LOW, bolt_target, Unit.BodyPart.ORIGIN)
+			SFX.sfx_at_unit(SfxPaths.ZAP_LOW, bolt_target)
 
 		bolt_count -= 1
 	else:

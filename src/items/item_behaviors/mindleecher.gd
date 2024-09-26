@@ -46,5 +46,5 @@ func on_autocast(_event: Event):
 
 	if next != null:
 		tower.add_exp_flat(next.remove_exp_flat(Globals.synced_rng.randi_range(15, 60)))
-		SFX.sfx_on_unit(SfxPaths.ZAP_LONG, next, Unit.BodyPart.HEAD)
-		SFX.sfx_on_unit(SfxPaths.WARP, tower, Unit.BodyPart.HEAD)
+		SFX.sfx_at_unit(SfxPaths.ZAP_LONG, next)
+		SFX.sfx_at_unit(SfxPaths.WARP, tower)

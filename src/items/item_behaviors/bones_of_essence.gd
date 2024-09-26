@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.SIF:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit(SfxPaths.TOWER_ATTACK_MAP[Element.enm.DARKNESS], target, Unit.BodyPart.CHEST)
+		SFX.sfx_at_unit(SfxPaths.TOWER_ATTACK_MAP[Element.enm.DARKNESS], target)

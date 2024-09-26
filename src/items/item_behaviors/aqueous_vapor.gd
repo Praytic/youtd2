@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.MYT:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit(SfxPaths.WATER_SLASH, target, Unit.BodyPart.CHEST)
+		SFX.sfx_at_unit(SfxPaths.WATER_SLASH, target)
