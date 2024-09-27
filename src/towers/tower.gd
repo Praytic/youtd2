@@ -1081,6 +1081,19 @@ func get_base_damage() -> int:
 	return TowerProperties.get_base_damage(_id)
 
 
+# NOTE: this value is sum of MOD_DAMAGE_ADD and bonus
+# derived from MOD_DPS_ADD. Doesn't include
+# MOD_DAMAGE_ADD_PERC.
+func get_damage_add_overall() -> float:
+	var damage_add: float = get_damage_add()
+	var dps_bonus: float = get_dps_bonus()
+	var base_attack_speed: float = get_base_attack_speed()
+	var dps_mod: float = dps_bonus * base_attack_speed
+	var result: float = damage_add + dps_mod
+
+	return result
+
+
 # Returns base damage, including bonuses to base damage
 # NOTE: tower.getCurrentAttackDamageBase() in JASS
 func get_current_attack_damage_base() -> float:
@@ -1108,14 +1121,11 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()
-	var damage_add: float = get_damage_add()
+	var damage_add_total: float = get_damage_add_overall()
 	var damage_add_percent: float = get_damage_add_percent()
-	var dps_bonus: float = get_dps_bonus()
-	var base_attack_speed: float = get_base_attack_speed()
-	var dps_mod: float = dps_bonus * base_attack_speed
 
 	var overall_base_damage: float = (base_damage + base_bonus) * base_bonus_percent
-	var overall_damage: float = (overall_base_damage + damage_add + dps_mod) * damage_add_percent
+	var overall_damage: float = (overall_base_damage + damage_add_total) * damage_add_percent
 
 	overall_damage = max(0, overall_damage)
 

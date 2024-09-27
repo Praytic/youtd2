@@ -114,8 +114,11 @@ func update_text():
 	var base_damage_bonus_perc: float = _tower.get_base_damage_bonus_percent() - 1.0
 	_base_damage_bonus_perc.text = TowerDetails.percent_signed_format(base_damage_bonus_perc)
 
-	var damage_add: int = roundi(_tower.get_damage_add())
-	_damage_add.text = TowerDetails.int_format(damage_add)
+#	NOTE: it's intentional that damage_add shows "overall"
+#	damage_add, which includes bonus from MOD_DPS_ADD. This
+#	is how it works in original game.
+	var damage_add_overall: int = roundi(_tower.get_damage_add_overall())
+	_damage_add.text = TowerDetails.int_format(damage_add_overall)
 
 	var damage_add_perc: float = _tower.get_damage_add_percent() - 1.0
 	_damage_add_perc.text = TowerDetails.percent_signed_format(damage_add_perc)
