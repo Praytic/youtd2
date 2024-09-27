@@ -1361,26 +1361,29 @@ func set_z(z: float):
 # texture. Some sprites occupy only a small portion of the
 # total texture so using texture center/dimensions would
 # cause incorrect results.
-func get_body_part_position(body_part: Unit.BodyPart) -> Vector2:
+func get_body_part_position(body_part: Unit.BodyPart) -> Vector3:
+	var origin_pos: Vector3 = get_position_wc3()
+	
 	if _visual_node == null:
-		print_debug("No selection area2d defined")
+		print_debug("No visual node defined")
 
-		return get_visual_position()
+		return origin_pos
 
-	var sprite_center: Vector2 = get_visual_position()
-	var body_part_offset: Vector2 = get_body_part_offset(body_part)
-	var body_part_position: Vector2 = sprite_center + body_part_offset
+	var body_part_offset_canvas: Vector2 = get_body_part_offset(body_part)
+	var body_part_offset_z: float = -body_part_offset_canvas.y
+	var body_part_position: Vector3 = origin_pos + Vector3(0, 0, body_part_offset_z)
 
 	return body_part_position
 
 
+# NOTE: returns position in canvas coords
 func get_body_part_offset(body_part: Unit.BodyPart) -> Vector2:
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:
-		BodyPart.OVERHEAD: return Vector2(0, -sprite_height * 0.75)
-		BodyPart.HEAD: return Vector2(0, -sprite_height * 0.5)
-		BodyPart.CHEST: return Vector2(0, -sprite_height * 0.25)
+		BodyPart.OVERHEAD: return Vector2(0, -sprite_height * 1.0)
+		BodyPart.HEAD: return Vector2(0, -sprite_height * 0.75)
+		BodyPart.CHEST: return Vector2(0, -sprite_height * 0.5)
 		BodyPart.ORIGIN: return Vector2.ZERO
 	
 	return Vector2.ZERO

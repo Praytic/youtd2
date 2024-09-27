@@ -38,16 +38,16 @@ func create_simple(effect_path: String, effect_pos: Vector2) -> int:
 # Creates an effect at position of Unit. Effect will *not*
 # follow the unit if it moves.
 # NOTE: Effect.createSimpleAtUnit() in JASS
-func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
-	var unit_pos: Vector3 = unit.get_position_wc3()
+func create_simple_at_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST) -> int:
+	var effect_pos: Vector3 = unit.get_body_part_position(body_part)
 
-	return create_animated(effect_path, unit_pos, 0.0)
+	return create_animated(effect_path, effect_pos, 0.0)
 
 
 # Creates an effect on the Unit. Effect will follow the unit
 # if it moves. The effect will also go away if the unit dies.
 # NOTE: Effect.createSimpleOnUnit() in JASS
-func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
+func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
