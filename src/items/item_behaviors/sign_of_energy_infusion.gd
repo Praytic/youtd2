@@ -26,11 +26,11 @@ func on_damage(event: Event):
 #		NOTE: original script multiplies damage by (2.0 +
 #		regen). In original youtd, regen value starts at
 #		0.0. In youtd2 regen starts at 1.0. So in original
-#		game damage was multiplied by 2.0 as baseline?
-#		Changed it to mutiply by 1.0 or above, so that if
-#		regen is decreased below 100%, damage is not
-#		decreased.
-		event.damage *= max(1.0, regen)
+#		game damage was multiplied by 2.0 for a default tower.
+#		max(0.0, ...) allows for damage penalty when mana regen
+#		is reduced by i.e. mana drain aura creeps
+#		while preventing it from turning negative.
+		event.damage *= max(0.0, 1.0 + regen)
 		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		carrier.get_player().display_small_floating_text(damage_text, carrier, Color8(255, 0, 255), 40.0)
