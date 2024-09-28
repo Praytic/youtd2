@@ -40,11 +40,12 @@ func create_animated(effect_path: String, effect_pos: Vector3, _facing: float) -
 	return id
 
 
-func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
+func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart, z_offset: float) -> int:
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 
 	var body_part_offset: Vector2 = unit.get_body_part_offset(body_part)
+	body_part_offset.y -= z_offset
 	effect.offset += body_part_offset / effect.scale.y
 
 	var unit_visual: Node2D = unit.get_visual_node()

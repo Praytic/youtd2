@@ -22,6 +22,8 @@ class SpecialEffect:
 	var path: String = ""
 	var z: float = 0.0
 	var scale: float = 1.0
+	var color: Color = Color.WHITE
+	var draw_below_unit: bool = false
 
 class CommonHandlerData:
 	var handler: Callable
@@ -165,10 +167,12 @@ func _apply_internal(caster: Unit, target: Unit, level: int, time: float) -> Buf
 		target.add_child(buff)
 
 		if _special_effect_data != null:
-			var special_effect_pos: Vector3 = Vector3(target.get_x(), target.get_y(), _special_effect_data.z)
-			var special_effect_id: int = Effect.create_animated(_special_effect_data.path, special_effect_pos, 0.0)
+			var special_effect_id: int = Effect.create_simple_at_unit_attached(_special_effect_data.path, target, Unit.BodyPart.ORIGIN, _special_effect_data.z)
 			Effect.set_auto_destroy_enabled(special_effect_id, false)
 			Effect.set_scale(special_effect_id, _special_effect_data.scale)
+			Effect.set_color(special_effect_id, _special_effect_data.color)
+			if _special_effect_data.draw_below_unit:
+				Effect.set_z_index(special_effect_id, -1)
 			buff._special_effect_id = special_effect_id
 	else:
 #		NOTE: set _cleanup_done to true because no cleanup
@@ -473,11 +477,13 @@ func set_buff_icon_color(color: Color):
 # NOTE: effects created by this functions will not follow a
 # unit. Try to use this only for buffs applied to towers.
 # NOTE: buffType.setSpecialEffect() in JASS
-func set_special_effect(effect_path: String, z: float, scale: float):
+func set_special_effect(effect_path: String, z: float, scale: float, color: Color = Color.WHITE, draw_below_unit: bool = false):
 	_special_effect_data = SpecialEffect.new()
 	_special_effect_data.path = effect_path
 	_special_effect_data.z = z
 	_special_effect_data.scale = scale
+	_special_effect_data.color = color
+	_special_effect_data.draw_below_unit = draw_below_unit
 
 
 # NOTE: if a buff is hidden, it will not be displayed in the

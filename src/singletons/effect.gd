@@ -38,8 +38,9 @@ func create_simple(effect_path: String, effect_pos: Vector2) -> int:
 # Creates an effect at position of Unit. Effect will *not*
 # follow the unit if it moves.
 # NOTE: Effect.createSimpleAtUnit() in JASS
-func create_simple_at_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST) -> int:
+func create_simple_at_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST, z_offset: float = 0.0) -> int:
 	var effect_pos: Vector3 = unit.get_body_part_position(body_part)
+	effect_pos.z += z_offset
 
 	return create_animated(effect_path, effect_pos, 0.0)
 
@@ -47,7 +48,7 @@ func create_simple_at_unit(effect_path: String, unit: Unit, body_part: Unit.Body
 # Creates an effect on the Unit. Effect will follow the unit
 # if it moves. The effect will also go away if the unit dies.
 # NOTE: Effect.createSimpleOnUnit() in JASS
-func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST) -> int:
+func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: Unit.BodyPart = Unit.BodyPart.CHEST, z_offset: float = 0.0) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
@@ -55,7 +56,7 @@ func create_simple_at_unit_attached(effect_path: String, unit: Unit, body_part: 
 
 		return 0
 
-	var id: int = effects_container.create_simple_at_unit_attached(effect_path, unit, body_part)
+	var id: int = effects_container.create_simple_at_unit_attached(effect_path, unit, body_part, z_offset)
 	set_auto_destroy_enabled(id, true)
 
 	return id
