@@ -19,6 +19,10 @@ func create_animated(effect_path: String, effect_pos: Vector3, facing: float) ->
 	var id: int = effects_container.create_animated(effect_path, effect_pos, facing)
 	set_auto_destroy_enabled(id, true)
 
+#	NOTE: by default, set z_index of effect to 100 so that
+#	effect is drawn above all units
+	set_z_index(id, 100)
+
 	return id
 
 
