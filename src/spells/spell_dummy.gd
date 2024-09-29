@@ -48,6 +48,16 @@ func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.Spe
 	_crit_ratio = crit_ratio
 
 
+func get_lifetime() -> float:
+	return _lifetime
+
+
+func get_remaining_lifetime() -> float:
+	var remaining_lifetime: float = _lifetime_timer.get_time_left()
+
+	return remaining_lifetime
+
+
 #########################
 ###      Private      ###
 #########################

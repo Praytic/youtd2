@@ -87,6 +87,7 @@ func tower_init():
 	swarm_st.data.swarm.damage = 1.0
 	swarm_st.data.swarm.start_radius = SWARM_START_RADIUS
 	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS
+	swarm_st.data.swarm.travel_distance = 1200
 
 
 func create_autocasts() -> Array[Autocast]:

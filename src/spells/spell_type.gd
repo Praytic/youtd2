@@ -35,6 +35,7 @@ class SwarmData:
 	var damage: float = 0.0
 	var start_radius: float = 0.0
 	var end_radius: float = 0
+	var travel_distance: float = 0.0
 
 
 class SpellData:

@@ -100,6 +100,7 @@ func tower_init():
 	swarm_st.data.swarm.damage = 1.0
 	swarm_st.data.swarm.start_radius = 100
 	swarm_st.data.swarm.end_radius = 300
+	swarm_st.data.swarm.travel_distance = 1200
 
 
 func on_attack(event: Event):
