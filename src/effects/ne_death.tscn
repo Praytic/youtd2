@@ -1,0 +1,120 @@
+[gd_scene load_steps=18 format=3 uid="uid://cpnfir3ok371u"]
+
+[ext_resource type="Texture2D" uid="uid://dbjenjgmw6cgt" path="res://assets/effects/bdragon/ne_death_612.png" id="1_sn6bg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvbcr"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hfpy"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yslwb"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q1ta"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1axq"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mygy"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1b2b"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmrfa"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smeo8"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smxbi"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fwnb"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5lbb"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(704, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcnsb"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(768, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igs4k"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(832, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j0lf"]
+atlas = ExtResource("1_sn6bg")
+region = Rect2(896, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3parv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvbcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hfpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yslwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q1ta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1axq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mygy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1b2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmrfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smeo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smxbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fwnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5lbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcnsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igs4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2j0lf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="NeDeath" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_3parv")

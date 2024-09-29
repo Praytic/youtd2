@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://bupns1xva102c"]
+
+[ext_resource type="Texture2D" uid="uid://dtoev5csbiekv" path="res://assets/effects/bdragon/zombify_target_274.png" id="1_223i6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohb5x"]
+atlas = ExtResource("1_223i6")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgdls"]
+atlas = ExtResource("1_223i6")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c43rg"]
+atlas = ExtResource("1_223i6")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myluh"]
+atlas = ExtResource("1_223i6")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q24c7"]
+atlas = ExtResource("1_223i6")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brscb"]
+atlas = ExtResource("1_223i6")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v451y"]
+atlas = ExtResource("1_223i6")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykgiy"]
+atlas = ExtResource("1_223i6")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_goh3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohb5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgdls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c43rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myluh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q24c7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brscb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v451y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykgiy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="ZombifyTarget" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_goh3o")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://c2q5uy4lvqaru"]
+
+[ext_resource type="Texture2D" uid="uid://ewm7nac57wox" path="res://assets/effects/bdragon/mass_teleport_caster_335.png" id="1_xyfjw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3pid"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16py6"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kid6"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1rlp"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ypbf"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inseg"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka36p"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhiqo"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oieb4"]
+atlas = ExtResource("1_xyfjw")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vcynj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3pid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16py6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kid6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1rlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ypbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inseg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka36p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhiqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oieb4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="MassTeleportCaster" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vcynj")

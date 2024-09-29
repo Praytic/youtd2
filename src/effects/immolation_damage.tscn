@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfblikx15it53"]
+
+[ext_resource type="Texture2D" uid="uid://hyqt8yi512yh" path="res://assets/effects/bdragon/immolation_damage_541.png" id="1_fpn0k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv26w"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxnhq"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qyyr"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uf80b"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_punm6"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we3e1"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6fki"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmpcs"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t1rk"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xucrr"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pfbp"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ffxa"]
+atlas = ExtResource("1_fpn0k")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_abh3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv26w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxnhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qyyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uf80b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_punm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we3e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6fki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmpcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t1rk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xucrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pfbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ffxa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ImmolationDamage" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_abh3a")
+frame_progress = 0.660254
+offset = Vector2(0, -20)

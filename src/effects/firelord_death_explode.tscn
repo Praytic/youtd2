@@ -1,0 +1,104 @@
+[gd_scene load_steps=16 format=3 uid="uid://davhdbkgnhxpk"]
+
+[ext_resource type="Texture2D" uid="uid://bcgbhwc4vii7u" path="res://assets/effects/bdragon/firelord_death_explode_77.png" id="1_jg3f6"]
+[ext_resource type="AudioStream" uid="uid://b7lwjrggou2kv" path="res://assets/sfx/442827__qubodup__fireball.ogg" id="2_chcyt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7psvk"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k55ix"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdcmc"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sfa6"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy5s3"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vnjs"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ej7y"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix5y7"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daswo"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8b84"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nerj"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxy68"]
+atlas = ExtResource("1_jg3f6")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jup3m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7psvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k55ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdcmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sfa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy5s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vnjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ej7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ix5y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daswo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8b84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nerj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxy68")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="FirelordDeathExplode" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_jup3m")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_chcyt")
+autoplay = true

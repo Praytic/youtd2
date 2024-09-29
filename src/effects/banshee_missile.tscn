@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://bkpf10l0dy061"]
+
+[ext_resource type="Texture2D" uid="uid://c1q82fl7tji4e" path="res://assets/effects/bdragon/banshee_missile_487.png" id="1_m6kd1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4kjn"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2cak"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ujfg"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5jgl"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv5he"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4np4p"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r57wi"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8aak"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(448, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw6hk"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(512, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4wso"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(576, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va830"]
+atlas = ExtResource("1_m6kd1")
+region = Rect2(640, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwuiq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4kjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2cak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ujfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5jgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv5he")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4np4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r57wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8aak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw6hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4wso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va830")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="BansheeMissile" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dwuiq")
+offset = Vector2(0, 5)

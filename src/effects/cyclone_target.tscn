@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://bgdjeu5jssgol"]
+
+[ext_resource type="Texture2D" uid="uid://d4e4pstgsefwc" path="res://assets/effects/bdragon/cyclone_target_269.png" id="1_7d2tp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mw5a"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki783"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cit7g"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fibwm"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j35mx"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg7nk"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1vvc"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tak5"]
+atlas = ExtResource("1_7d2tp")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwxxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mw5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki783")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cit7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fibwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j35mx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg7nk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1vvc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tak5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="CycloneTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_dwxxm")

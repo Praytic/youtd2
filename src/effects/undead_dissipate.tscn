@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://46wd7wksxr61"]
+
+[ext_resource type="Texture2D" uid="uid://blekt36dlhmd2" path="res://assets/effects/bdragon/undead_dissipate_633.png" id="1_xooed"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhr13"]
+atlas = ExtResource("1_xooed")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmu88"]
+atlas = ExtResource("1_xooed")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjrrt"]
+atlas = ExtResource("1_xooed")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpwls"]
+atlas = ExtResource("1_xooed")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g05tm"]
+atlas = ExtResource("1_xooed")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snig3"]
+atlas = ExtResource("1_xooed")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ev0pm"]
+atlas = ExtResource("1_xooed")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knjrm"]
+atlas = ExtResource("1_xooed")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxtcl"]
+atlas = ExtResource("1_xooed")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yg2q8"]
+atlas = ExtResource("1_xooed")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61q44"]
+atlas = ExtResource("1_xooed")
+region = Rect2(640, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lmb4"]
+atlas = ExtResource("1_xooed")
+region = Rect2(704, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1hm8"]
+atlas = ExtResource("1_xooed")
+region = Rect2(768, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3ya0"]
+atlas = ExtResource("1_xooed")
+region = Rect2(832, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irkqr"]
+atlas = ExtResource("1_xooed")
+region = Rect2(896, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b324a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhr13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmu88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjrrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpwls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g05tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snig3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev0pm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knjrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxtcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yg2q8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61q44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lmb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1hm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3ya0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irkqr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="UndeadDissipate" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_b324a")
+frame = 1
+frame_progress = 0.5981

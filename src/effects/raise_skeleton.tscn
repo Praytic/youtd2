@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://d2hmx2qgpc7st"]
+
+[ext_resource type="Texture2D" uid="uid://dfwypnwsg3p3u" path="res://assets/effects/bdragon/raise_skeleton_624.png" id="1_p58au"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0745r"]
+atlas = ExtResource("1_p58au")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etnuk"]
+atlas = ExtResource("1_p58au")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw88i"]
+atlas = ExtResource("1_p58au")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpb0x"]
+atlas = ExtResource("1_p58au")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eepb"]
+atlas = ExtResource("1_p58au")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i53tw"]
+atlas = ExtResource("1_p58au")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6k8v"]
+atlas = ExtResource("1_p58au")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3onr7"]
+atlas = ExtResource("1_p58au")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pp3v"]
+atlas = ExtResource("1_p58au")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akoid"]
+atlas = ExtResource("1_p58au")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsvhr"]
+atlas = ExtResource("1_p58au")
+region = Rect2(640, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdtpk"]
+atlas = ExtResource("1_p58au")
+region = Rect2(704, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0g7s"]
+atlas = ExtResource("1_p58au")
+region = Rect2(768, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufkms"]
+atlas = ExtResource("1_p58au")
+region = Rect2(832, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1fdgw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0745r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etnuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw88i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpb0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eepb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i53tw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6k8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3onr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pp3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akoid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsvhr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdtpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0g7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufkms")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="RaiseSkeleton" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1fdgw")

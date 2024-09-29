@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://b1sjijjdpnr1r"]
+
+[ext_resource type="Texture2D" uid="uid://m4w03jglmnu1" path="res://assets/effects/bdragon/cloud_of_fog_428.png" id="1_p7gfr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twi64"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crqlk"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xn7ad"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yivmf"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqiy6"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vaqxf"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfueq"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3yvx"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28ir3"]
+atlas = ExtResource("1_p7gfr")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ocar1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twi64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crqlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xn7ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yivmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqiy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vaqxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3yvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28ir3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="CloudOfFogCycle" type="AnimatedSprite2D"]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_ocar1")

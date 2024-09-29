@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://dg2rixdb7aj6f"]
+
+[ext_resource type="Texture2D" uid="uid://cvu38ecsot0h2" path="res://assets/effects/bdragon/crypt_fiend_eggsack_528.png" id="1_h2p80"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgn62"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkubf"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu6ft"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cae27"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv873"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1cxe"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kormx"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reyo0"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icltg"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5683"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyt78"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubj1h"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(704, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc8jw"]
+atlas = ExtResource("1_h2p80")
+region = Rect2(768, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ejq8q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgn62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkubf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu6ft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cae27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv873")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1cxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kormx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reyo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icltg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5683")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyt78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubj1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc8jw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="CryptFiendEggsack" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ejq8q")
+offset = Vector2(0, -10)

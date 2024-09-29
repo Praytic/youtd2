@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bs40lw6xkpf0e"]
 
-[ext_resource type="Texture2D" uid="uid://bfnbtlckgbnfs" path="res://assets/effects/bdragon/bdragon_241_lightning_strike.png" id="1_vi0kc"]
+[ext_resource type="Texture2D" uid="uid://bfnbtlckgbnfs" path="res://assets/effects/bdragon/holy_bolt_241.png" id="1_vi0kc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gnq3a"]
 atlas = ExtResource("1_vi0kc")
@@ -66,7 +66,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Bdragon241LightningStrike" type="AnimatedSprite2D"]
+[node name="HolyBolt" type="AnimatedSprite2D"]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_ych44")
 offset = Vector2(5, -18)

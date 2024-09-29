@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://g0d3fiham0sk"]
+
+[ext_resource type="Texture2D" uid="uid://c4t5ody7wg6wa" path="res://assets/effects/bdragon/animated_dead_target_102.png" id="1_a2uqr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4ipg"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt6nb"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b00yj"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4cl5"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq865"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqbu1"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abyq1"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ne80"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(448, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8okl7"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(512, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8dlw"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(576, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm4ug"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(640, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a8p1"]
+atlas = ExtResource("1_a2uqr")
+region = Rect2(704, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3yei"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4ipg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt6nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b00yj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4cl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqbu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abyq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ne80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8okl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8dlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm4ug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a8p1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="AnimatedDeadTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_y3yei")
+offset = Vector2(0, -20)

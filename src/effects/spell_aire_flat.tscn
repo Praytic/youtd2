@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://bi67eqa114fqx"]
+
+[ext_resource type="Texture2D" uid="uid://ne67yotbsow" path="res://assets/effects/bdragon/spell_aire_174.png" id="1_r160i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1wma"]
+atlas = ExtResource("1_r160i")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yftmt"]
+atlas = ExtResource("1_r160i")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scvon"]
+atlas = ExtResource("1_r160i")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uef0"]
+atlas = ExtResource("1_r160i")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85xpx"]
+atlas = ExtResource("1_r160i")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1hwc"]
+atlas = ExtResource("1_r160i")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_locgo"]
+atlas = ExtResource("1_r160i")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2if0k"]
+atlas = ExtResource("1_r160i")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft0eg"]
+atlas = ExtResource("1_r160i")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8svuf"]
+atlas = ExtResource("1_r160i")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qkg6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1wma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yftmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scvon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uef0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85xpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1hwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_locgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2if0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft0eg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8svuf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="SpellAlreFlat" type="AnimatedSprite2D"]
+scale = Vector2(3, 1.5)
+sprite_frames = SubResource("SpriteFrames_qkg6m")

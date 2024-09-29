@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://b6wo728k513rb"]
+
+[ext_resource type="Texture2D" uid="uid://ijncv7mjaq1q" path="res://assets/effects/bdragon/frost_armor_damage_474.png" id="1_cmcqp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy0jx"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5t2d"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i7iy"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ecng"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy61w"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl0no"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egre0"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq0ny"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxth2"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r5t4"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxq5c"]
+atlas = ExtResource("1_cmcqp")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_usgri"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy0jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5t2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i7iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ecng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy61w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl0no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egre0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq0ny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxth2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r5t4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxq5c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="FrostArmorDamage" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_usgri")

@@ -1,0 +1,155 @@
+[gd_scene load_steps=23 format=3 uid="uid://bqwrfx4gm8ur7"]
+
+[ext_resource type="Texture2D" uid="uid://l77fhcp00n6l" path="res://assets/effects/bdragon/blink_target_720.png" id="1_0lj67"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w24ex"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_moks2"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w8gu"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spvuf"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk7fi"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ccp7"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wri8p"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkgck"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwe6x"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn8pu"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sevqp"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lau5y"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_203wg"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue1ew"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p14t"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(896, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s0ov"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(960, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48xt4"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(1024, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw7ak"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(1088, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mmns"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(1152, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6rjf"]
+atlas = ExtResource("1_0lj67")
+region = Rect2(1216, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_va45q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w24ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_moks2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w8gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spvuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk7fi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ccp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wri8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkgck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwe6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn8pu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sevqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lau5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_203wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue1ew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p14t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s0ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48xt4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw7ak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mmns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6rjf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="BlinkTarget" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_va45q")

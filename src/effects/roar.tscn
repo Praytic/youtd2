@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://uedbjov7gtur"]
+
+[ext_resource type="Texture2D" uid="uid://un4kd4n5xqem" path="res://assets/effects/bdragon/roar_506.png" id="1_rwphs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4siiv"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqxkb"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(64, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wui6q"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(128, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf4al"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(192, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybaac"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(256, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwhiw"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(320, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_feyq6"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(384, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgjry"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(448, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqaip"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(512, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hkuc"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(576, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78m81"]
+atlas = ExtResource("1_rwphs")
+region = Rect2(640, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_252lm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4siiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqxkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wui6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf4al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybaac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwhiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_feyq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgjry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqaip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hkuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78m81")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="Roar" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_252lm")
+frame_progress = 0.506272
+offset = Vector2(0, -20)

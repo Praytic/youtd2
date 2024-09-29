@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://cy4uhju281nqs"]
+
+[ext_resource type="Texture2D" uid="uid://dng7ptld4y130" path="res://assets/effects/bdragon/build_tower_648.png" id="1_2fucf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up3nf"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u83yy"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vq0c"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s0yj"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdv52"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jyxo"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0owr"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npx3t"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lxwn"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwmb2"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep27l"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xch5m"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8o0q"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(768, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okuyw"]
+atlas = ExtResource("1_2fucf")
+region = Rect2(832, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3tyis"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_up3nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u83yy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vq0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s0yj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdv52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jyxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0owr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npx3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lxwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwmb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep27l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xch5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8o0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okuyw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 40.0
+}]
+
+[node name="BuildTower" type="AnimatedSprite2D"]
+scale = Vector2(4, 2)
+sprite_frames = SubResource("SpriteFrames_3tyis")

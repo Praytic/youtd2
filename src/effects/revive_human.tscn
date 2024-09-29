@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://drjxuxfw4ygny"]
+
+[ext_resource type="Texture2D" uid="uid://c7ufux57uh5ua" path="res://assets/effects/bdragon/revive_human_623.png" id="1_kp0lo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po7ok"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxiik"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8b1o"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkvwr"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnvv1"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cygfb"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8b2j"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6knr2"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmckn"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2255t"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiuaj"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cllg"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouyty"]
+atlas = ExtResource("1_kp0lo")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r4sjv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po7ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxiik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8b1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkvwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnvv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cygfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8b2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6knr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmckn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2255t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiuaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cllg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouyty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ReviveHuman" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_r4sjv")

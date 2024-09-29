@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://bgciop3ybbla1"]
+
+[ext_resource type="Texture2D" uid="uid://c4xwqnjdc1ipo" path="res://assets/effects/bdragon/arcane_tower_attack_024.png" id="1_jh6a2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fat0"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrx5f"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tqu6"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbyh7"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eti3x"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7dm0"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ywcr"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfip6"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epp1p"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m7xa"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhpjs"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip4ja"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c28qr"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2boyy"]
+atlas = ExtResource("1_jh6a2")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c3hhn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fat0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrx5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tqu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbyh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eti3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7dm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ywcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfip6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epp1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m7xa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhpjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ip4ja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c28qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2boyy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="ArcaneTowerAttack" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_c3hhn")

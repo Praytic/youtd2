@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=3 uid="uid://ciisf2opa4msn"]
+
+[ext_resource type="Texture2D" uid="uid://bryrhw6t0k26o" path="res://assets/effects/bdragon/ne_cancel_death_672.png" id="1_1p2qi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t87lv"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hek8p"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_putiv"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pom6"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_865y1"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgh5y"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i310u"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7psay"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghfiw"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33tx1"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0gnk"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_danlk"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(704, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owonv"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(768, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbeyn"]
+atlas = ExtResource("1_1p2qi")
+region = Rect2(832, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rly65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t87lv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hek8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_putiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pom6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_865y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgh5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i310u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7psay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghfiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33tx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0gnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_danlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owonv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbeyn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="NeCancelDeath" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rly65")
+frame_progress = 0.206289

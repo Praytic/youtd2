@@ -1,49 +1,49 @@
 [gd_scene load_steps=14 format=3 uid="uid://b8p33d4fgjd0b"]
 
-[ext_resource type="Texture2D" uid="uid://2dquk1ppfku0" path="res://assets/effects/bdragon/bdragon_466_thunderclap.png" id="1_fa6hb"]
+[ext_resource type="Texture2D" uid="uid://2dquk1ppfku0" path="res://assets/effects/bdragon/thunder_clap_466.png" id="1_wmc7q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f6jgu"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(0, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8vlr"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(64, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkrkx"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(128, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylcdl"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(192, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_16dq2"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(256, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nk2pc"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(320, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7yx2w"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(384, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqvhb"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(448, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fksty"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(512, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xffd0"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(576, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0bkp"]
-atlas = ExtResource("1_fa6hb")
+atlas = ExtResource("1_wmc7q")
 region = Rect2(640, 128, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wuehe"]
@@ -87,7 +87,7 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Bdragon466Thunderclap" type="AnimatedSprite2D"]
+[node name="ThunderClap" type="AnimatedSprite2D"]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_wuehe")
 offset = Vector2(0, 5)

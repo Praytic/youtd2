@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://bcre0h05xu5kc"]
+
+[ext_resource type="Texture2D" uid="uid://di3fq4jkhoq4y" path="res://assets/effects/bdragon/warstomp_caster_536.png" id="1_h7f5o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fv5o"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt2d4"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_meshf"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kkls"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hf1s8"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nltb"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gut25"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx6xt"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek0rx"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi6w7"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmxsi"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih2n8"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10yek"]
+atlas = ExtResource("1_h7f5o")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ek7gu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fv5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt2d4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_meshf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kkls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hf1s8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nltb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gut25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx6xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ek0rx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi6w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmxsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih2n8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10yek")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="WarstompCaster" type="AnimatedSprite2D"]
+scale = Vector2(4, 2)
+sprite_frames = SubResource("SpriteFrames_ek7gu")

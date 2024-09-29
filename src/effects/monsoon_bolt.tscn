@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://co1383i1og7sk"]
+
+[ext_resource type="Texture2D" uid="uid://bfnbtlckgbnfs" path="res://assets/effects/bdragon/holy_bolt_241.png" id="1_pkj7h"]
+[ext_resource type="AudioStream" uid="uid://be4hv3ryg5pv" path="res://assets/sfx/745156__tigreplayz__blast-explosion.ogg" id="2_prinw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiqfb"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj5of"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c6p7"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dw4g"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugtig"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kson"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et2ma"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e8hm"]
+atlas = ExtResource("1_pkj7h")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_41x4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiqfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj5of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c6p7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dw4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugtig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kson")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et2ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e8hm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="MonsoonBolt" type="AnimatedSprite2D"]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_41x4i")
+offset = Vector2(5, -18)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_prinw")
+autoplay = true

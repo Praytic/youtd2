@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxaorr28bkf2e"]
+
+[ext_resource type="Texture2D" uid="uid://c1ilgmkvb3eiv" path="res://assets/effects/bdragon/dispel_magic_target_230.png" id="1_ofo0n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jim2m"]
+atlas = ExtResource("1_ofo0n")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tik7u"]
+atlas = ExtResource("1_ofo0n")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8inx"]
+atlas = ExtResource("1_ofo0n")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3uf2"]
+atlas = ExtResource("1_ofo0n")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgd6a"]
+atlas = ExtResource("1_ofo0n")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bgllu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jim2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tik7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8inx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3uf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgd6a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="DispelMagicTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_bgllu")

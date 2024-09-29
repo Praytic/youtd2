@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://di0emmxcceer4"]
+
+[ext_resource type="Texture2D" uid="uid://cujsekapgggit" path="res://assets/effects/bdragon/incinerate_76.png" id="1_08c6g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ieplg"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg2ce"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c88m6"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poc6b"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21h4t"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0qs1"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhcwl"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ik1v"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtk1g"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3jer"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l6ne"]
+atlas = ExtResource("1_08c6g")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgudu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ieplg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eg2ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c88m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poc6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21h4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0qs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhcwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ik1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtk1g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3jer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l6ne")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Incinerate" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fgudu")
+frame = 6
+frame_progress = 0.448093

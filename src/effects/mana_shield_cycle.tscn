@@ -1,37 +1,37 @@
 [gd_scene load_steps=11 format=3 uid="uid://x0axb4onqksl"]
 
-[ext_resource type="Texture2D" uid="uid://b01ug8hkohe4a" path="res://assets/effects/bdragon/bdragon_26_whirlpool.png" id="1_5cwte"]
+[ext_resource type="Texture2D" uid="uid://b01ug8hkohe4a" path="res://assets/effects/bdragon/mana_shield_026.png" id="1_duhg0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nvxvk"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(128, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhwt7"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(192, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_08xtf"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(256, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l1h5g"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(320, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_337aj"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(384, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jdi41"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(448, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qygv2"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(512, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kmta"]
-atlas = ExtResource("1_5cwte")
+atlas = ExtResource("1_duhg0")
 region = Rect2(576, 128, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mfroj"]
@@ -66,7 +66,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="BdragonWhirlpoolCycle" type="AnimatedSprite2D"]
+[node name="ManaShieldCycle" type="AnimatedSprite2D"]
+modulate = Color(0.784314, 1, 1, 0.854902)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_mfroj")
-frame_progress = 0.779479
+frame_progress = 0.821749

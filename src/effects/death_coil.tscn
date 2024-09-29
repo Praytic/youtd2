@@ -1,0 +1,177 @@
+[gd_scene load_steps=26 format=3 uid="uid://dgolqtowte6ol"]
+
+[ext_resource type="Texture2D" uid="uid://cbmu8xdosr3xw" path="res://assets/effects/bdragon/death_coil_special_728.png" id="1_t04v8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2e0n"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uokek"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4p6x"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epb70"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o0o6"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1vgt"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt4ey"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2yny"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(448, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3lk1"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(512, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck2vq"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(576, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6mm4"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(640, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmm02"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(704, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnnoh"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(768, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ink0m"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(832, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r6f2"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(896, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mol63"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(960, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7c21s"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1024, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh8hr"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1088, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk6lb"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1152, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ojw0"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1216, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jnyc"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1280, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u8r6"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1344, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp8pb"]
+atlas = ExtResource("1_t04v8")
+region = Rect2(1408, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nojri"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2e0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uokek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4p6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epb70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o0o6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1vgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt4ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2yny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3lk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck2vq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6mm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmm02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnnoh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ink0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r6f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mol63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7c21s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh8hr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk6lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ojw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jnyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u8r6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp8pb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="DeathCoil" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_nojri")
+offset = Vector2(0, -30)

@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7caj5bx5chdf"]
+
+[ext_resource type="Texture2D" uid="uid://dwdvvm6bwoxfw" path="res://assets/effects/bdragon/ancient_protector_missile_293.png" id="1_dtt27"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d71op"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkfj8"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_161ok"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omscn"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8behb"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2joj"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7c86"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbpsi"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqmbo"]
+atlas = ExtResource("1_dtt27")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pupj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d71op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkfj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_161ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omscn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8behb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2joj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7c86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbpsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqmbo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="AncientProtectorMissile" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_pupj3")
+frame_progress = 0.185146

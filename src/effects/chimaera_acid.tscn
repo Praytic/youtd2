@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=3 uid="uid://c6i4cmhc3c8my"]
+
+[ext_resource type="Texture2D" uid="uid://c22lkk5uieshi" path="res://assets/effects/bdragon/freezing_breath_519.png" id="1_c6rpb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7tvl"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obaoj"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sktu"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d3c3"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7px3"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhike"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy2kp"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48fcq"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gal16"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft1iu"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4usnv"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0atpr"]
+atlas = ExtResource("1_c6rpb")
+region = Rect2(704, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6qi7j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7tvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obaoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sktu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d3c3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7px3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhike")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy2kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48fcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gal16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft1iu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4usnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0atpr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="ChimaeraAcid" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_6qi7j")

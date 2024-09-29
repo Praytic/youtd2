@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://dlpk5wbhmrcvu"]
+
+[ext_resource type="Texture2D" uid="uid://cgakg4s2ct3ru" path="res://assets/effects/bdragon/mana_burn_target_388.png" id="1_6my7g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdwi8"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2jin"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lmwo"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mafl"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjbvw"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4wkj"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0vbd"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjljj"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ibcw"]
+atlas = ExtResource("1_6my7g")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58ioh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdwi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2jin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lmwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mafl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjbvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4wkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0vbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjljj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ibcw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ManaBurnTarget" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_58ioh")

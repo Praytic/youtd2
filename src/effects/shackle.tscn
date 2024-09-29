@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cp5uqi81yn7m7"]
+
+[ext_resource type="Texture2D" uid="uid://cv8vncnltc5ta" path="res://assets/effects/bdragon/shackle_439.png" id="1_yevyk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xxru"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y34wu"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7geo0"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr268"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyv7y"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uahmr"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf04h"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfw3a"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6oy3"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr5qa"]
+atlas = ExtResource("1_yevyk")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1u6qh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xxru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y34wu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7geo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr268")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyv7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uahmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf04h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfw3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6oy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr5qa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Shackle" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_1u6qh")
+frame_progress = 0.168769

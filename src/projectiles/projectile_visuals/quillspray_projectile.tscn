@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw3ls6usukieu"]
+
+[ext_resource type="PackedScene" uid="uid://ceephrn4p3nbi" path="res://src/projectiles/projectile_visuals/default_projectile.tscn" id="1_yocls"]
+[ext_resource type="Texture2D" uid="uid://cknypfqkfkgiq" path="res://assets/effects/bdragon/quillspray_747.png" id="2_dopv7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqlyj"]
+atlas = ExtResource("2_dopv7")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xymab"]
+atlas = ExtResource("2_dopv7")
+region = Rect2(64, 256, 64, 64)
+
+[node name="DefaultProjectile" instance=ExtResource("1_yocls")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_jqlyj")
+
+[node name="CPUParticles2D" parent="." index="1"]
+texture = SubResource("AtlasTexture_xymab")

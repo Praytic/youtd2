@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://5hsslpdsg4ih"]
+
+[ext_resource type="Texture2D" uid="uid://bbmm2xf32v0tx" path="res://assets/effects/bdragon/stampede_missile_death_63.png" id="1_37gi2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqp0h"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xwu0"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(64, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71hw0"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(128, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv7y0"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(192, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_610tc"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(256, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qda3v"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(320, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjjie"]
+atlas = ExtResource("1_37gi2")
+region = Rect2(384, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ylhj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqp0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xwu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71hw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv7y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_610tc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qda3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjjie")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="StampedeMissileDeath" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_6ylhj")

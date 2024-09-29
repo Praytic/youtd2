@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3g5avmjs6mxh"]
+
+[ext_resource type="Texture2D" uid="uid://ne67yotbsow" path="res://assets/effects/bdragon/spell_aire_174.png" id="1_fai2d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq4j7"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwxds"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do3h2"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht5u5"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aawb4"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdw1b"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfj1k"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4cuj"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41wl1"]
+atlas = ExtResource("1_fai2d")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsbxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq4j7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwxds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_do3h2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht5u5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aawb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdw1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfj1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4cuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41wl1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SpellAlre" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_vsbxm")

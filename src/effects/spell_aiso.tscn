@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://tofwa3vfsvni"]
+
+[ext_resource type="Texture2D" uid="uid://carq8d0wtr1pl" path="res://assets/effects/bdragon/spell_aiso_295.png" id="1_w2ehe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ytw6"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wphw"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn4bx"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4bxt"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ye6h"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo4od"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7c6e"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38wle"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hk7l"]
+atlas = ExtResource("1_w2ehe")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebrdp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ytw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wphw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bn4bx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4bxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ye6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo4od")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7c6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38wle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hk7l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SpellAlso" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ebrdp")
+frame_progress = 0.275066

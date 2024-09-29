@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://dsffc5jrrdshf"]
+
+[ext_resource type="Texture2D" uid="uid://c8w3beqtm72u" path="res://assets/effects/bdragon/death_and_decay_71.png" id="1_872xf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynnvo"]
+atlas = ExtResource("1_872xf")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctu4a"]
+atlas = ExtResource("1_872xf")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nlbp"]
+atlas = ExtResource("1_872xf")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blb5m"]
+atlas = ExtResource("1_872xf")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dloox"]
+atlas = ExtResource("1_872xf")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql04f"]
+atlas = ExtResource("1_872xf")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0jbw"]
+atlas = ExtResource("1_872xf")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o1eh"]
+atlas = ExtResource("1_872xf")
+region = Rect2(448, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tdll"]
+atlas = ExtResource("1_872xf")
+region = Rect2(512, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnoj0"]
+atlas = ExtResource("1_872xf")
+region = Rect2(576, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb34n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynnvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctu4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nlbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blb5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dloox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql04f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0jbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3o1eh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tdll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnoj0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="DeathAndDecay" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_lb34n")

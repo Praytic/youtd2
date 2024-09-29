@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://djkt0t0jveoks"]
 
-[ext_resource type="Texture2D" uid="uid://c7lrwiqnwi2d6" path="res://assets/effects/bdragon/bdragon_15_pulsing_mandala.png" id="1_p26we"]
+[ext_resource type="Texture2D" uid="uid://c7lrwiqnwi2d6" path="res://assets/effects/bdragon/vampiric_aura_015.png" id="1_p26we"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dg3e"]
 atlas = ExtResource("1_p26we")
@@ -52,7 +52,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BdragonPulsingMandala" type="AnimatedSprite2D"]
+[node name="VampiricAura" type="AnimatedSprite2D"]
 scale = Vector2(4, 2)
 sprite_frames = SubResource("SpriteFrames_3ky65")
 frame_progress = 0.0246122

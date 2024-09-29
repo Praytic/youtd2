@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://clwe4ffen5bjf"]
+
+[ext_resource type="Texture2D" uid="uid://cxr4c28mmw4nn" path="res://assets/effects/bdragon/spell_alim_136.png" id="1_vlsed"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uxpu"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1slmi"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a7er"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1gem"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oigba"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccu77"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bif4"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wkxn"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3t4d"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eceaj"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7h42"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpjx5"]
+atlas = ExtResource("1_vlsed")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4d0i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8uxpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1slmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a7er")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1gem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oigba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccu77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bif4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wkxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3t4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eceaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpjx5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SpellAlim" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_t4d0i")
+frame_progress = 0.044775

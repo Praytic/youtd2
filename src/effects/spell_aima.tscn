@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://k65fnntkfoas"]
+
+[ext_resource type="Texture2D" uid="uid://csiqjph81rdq8" path="res://assets/effects/bdragon/spell_aima_194.png" id="1_tdyfe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbxrm"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfm1a"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2nyb"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyhs7"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u525"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78ljt"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrkim"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyu2x"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfpmn"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px7dh"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(640, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81x5x"]
+atlas = ExtResource("1_tdyfe")
+region = Rect2(704, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q3fr7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbxrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfm1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2nyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyhs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u525")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78ljt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrkim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyu2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfpmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px7dh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81x5x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SpellAlma" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_q3fr7")

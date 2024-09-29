@@ -1,57 +1,57 @@
 [gd_scene load_steps=16 format=3 uid="uid://b7ro7b6a4lmh3"]
 
-[ext_resource type="Texture2D" uid="uid://pb01lu85dqby" path="res://assets/effects/bdragon/bdragon_03_wisp_explode.png" id="1_721t8"]
+[ext_resource type="Texture2D" uid="uid://pb01lu85dqby" path="res://assets/effects/bdragon/wisp_explode_003.png" id="1_svy12"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tkrtr"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(0, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tkyy3"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(64, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6srr"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(128, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ifryk"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(192, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ak4k0"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(256, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dspwl"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(320, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vaaq"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(384, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1r7q7"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(448, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q1t3p"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(512, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_quwo3"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(576, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ljenx"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(640, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqh0s"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(704, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3bld"]
-atlas = ExtResource("1_721t8")
+atlas = ExtResource("1_svy12")
 region = Rect2(768, 320, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_odeen"]
@@ -101,6 +101,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="BdragonWispExplode" type="AnimatedSprite2D"]
+[node name="WispExplode" type="AnimatedSprite2D"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_odeen")
