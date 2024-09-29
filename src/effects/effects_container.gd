@@ -17,13 +17,6 @@ var _effect_original_scale_map: Dictionary = {}
 var _free_id_list: Array = []
 
 
-# NOTE: Enable to check if any effects do not have scenes.
-# This is currently disabled because at this point most
-# effects won't have scenes and you will get hundreds of
-# errors.
-const PRINT_INVALID_PATH_ERROR: bool = false
-
-
 #########################
 ###       Public      ###
 #########################
@@ -100,8 +93,7 @@ func _create_internal(effect_path: String) -> int:
 	else:
 		effect_scene = Preloads.placeholder_effect_scene
 
-		if PRINT_INVALID_PATH_ERROR:
-			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
+		push_error("Invalid effect path:", effect_path, ". Using placeholder effect.")
 
 	var effect: Node2D = effect_scene.instantiate()
 
