@@ -10,5 +10,7 @@ _move_timer = NodePath("MoveTimer")
 
 [node name="MoveTimer" type="Node" parent="." index="2"]
 script = ExtResource("3_kjb2g")
+wait_time = 0.2
+autostart = true
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
