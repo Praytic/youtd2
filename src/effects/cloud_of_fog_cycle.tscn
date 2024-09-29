@@ -1,72 +1,65 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1sjijjdpnr1r"]
+[gd_scene load_steps=11 format=3 uid="uid://b1sjijjdpnr1r"]
 
-[ext_resource type="Texture2D" uid="uid://m4w03jglmnu1" path="res://assets/effects/bdragon/cloud_of_fog_428.png" id="1_p7gfr"]
+[ext_resource type="Texture2D" uid="uid://dhm5njivfgxpo" path="res://assets/effects/bdragon/cloud_of_fog_382.png" id="1_pr31m"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_twi64"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1f4r"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(0, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_crqlk"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkcgb"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(64, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xn7ad"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv5dv"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(128, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yivmf"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vprnd"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(192, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iqiy6"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ign78"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(256, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vaqxf"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_scbr7"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(320, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mfueq"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3468"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(384, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3yvx"]
-atlas = ExtResource("1_p7gfr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cpke"]
+atlas = ExtResource("1_pr31m")
 region = Rect2(448, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_28ir3"]
-atlas = ExtResource("1_p7gfr")
-region = Rect2(512, 320, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ocar1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_twi64")
+"texture": SubResource("AtlasTexture_c1f4r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_crqlk")
+"texture": SubResource("AtlasTexture_nkcgb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xn7ad")
+"texture": SubResource("AtlasTexture_hv5dv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yivmf")
+"texture": SubResource("AtlasTexture_vprnd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iqiy6")
+"texture": SubResource("AtlasTexture_ign78")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vaqxf")
+"texture": SubResource("AtlasTexture_scbr7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mfueq")
+"texture": SubResource("AtlasTexture_y3468")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r3yvx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_28ir3")
+"texture": SubResource("AtlasTexture_4cpke")
 }],
 "loop": true,
 "name": &"default",
@@ -74,5 +67,7 @@ animations = [{
 }]
 
 [node name="CloudOfFogCycle" type="AnimatedSprite2D"]
-scale = Vector2(6, 6)
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_ocar1")
+frame_progress = 0.540459

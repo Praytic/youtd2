@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://bbf1c5ci54rq7"]
+
+[ext_resource type="Texture2D" uid="uid://bvcsmcf7c2lf8" path="res://assets/effects/bdragon/apply_potion_537.png" id="1_f5a57"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n06j"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byw1w"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awbl5"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_672yt"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g7kt"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1173"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhkp8"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c47g"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o33j3"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7466c"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbi70"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixtki"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5hu1"]
+atlas = ExtResource("1_f5a57")
+region = Rect2(768, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_evfuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n06j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byw1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awbl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_672yt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7g7kt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1173")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhkp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0c47g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o33j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7466c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbi70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixtki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5hu1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="ApplyPotion" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_evfuv")
+offset = Vector2(0, -10)

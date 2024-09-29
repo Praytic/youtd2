@@ -1,58 +1,113 @@
-[gd_scene load_steps=9 format=3 uid="uid://djkt0t0jveoks"]
+[gd_scene load_steps=17 format=3 uid="uid://djkt0t0jveoks"]
 
-[ext_resource type="Texture2D" uid="uid://c7lrwiqnwi2d6" path="res://assets/effects/bdragon/vampiric_aura_015.png" id="1_p26we"]
+[ext_resource type="Texture2D" uid="uid://b2nm17eb4jt7" path="res://assets/effects/bdragon/vampiric_aura_199.png" id="1_gexlj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2dg3e"]
-atlas = ExtResource("1_p26we")
+[sub_resource type="AtlasTexture" id="AtlasTexture_iklf1"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djwsp"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvymw"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0che"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o34c"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi1yn"]
+atlas = ExtResource("1_gexlj")
 region = Rect2(320, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_00if1"]
-atlas = ExtResource("1_p26we")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqc4e"]
+atlas = ExtResource("1_gexlj")
 region = Rect2(384, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3l44q"]
-atlas = ExtResource("1_p26we")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gyqi"]
+atlas = ExtResource("1_gexlj")
 region = Rect2(448, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_16i0s"]
-atlas = ExtResource("1_p26we")
-region = Rect2(448, 320, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub3l0"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(512, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy717"]
-atlas = ExtResource("1_p26we")
-region = Rect2(384, 320, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_busr1"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(576, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tn0og"]
-atlas = ExtResource("1_p26we")
-region = Rect2(320, 320, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lh30p"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oakg"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqfkd"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_030uv"]
+atlas = ExtResource("1_gexlj")
+region = Rect2(832, 320, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3ky65"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2dg3e")
+"texture": SubResource("AtlasTexture_iklf1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_00if1")
+"texture": SubResource("AtlasTexture_djwsp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3l44q")
+"texture": SubResource("AtlasTexture_mvymw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_16i0s")
+"texture": SubResource("AtlasTexture_x0che")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vy717")
+"texture": SubResource("AtlasTexture_7o34c")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tn0og")
+"texture": SubResource("AtlasTexture_wi1yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqc4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gyqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub3l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_busr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lh30p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oakg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqfkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_030uv")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [node name="VampiricAura" type="AnimatedSprite2D"]
 scale = Vector2(4, 2)
 sprite_frames = SubResource("SpriteFrames_3ky65")
-frame_progress = 0.0246122

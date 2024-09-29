@@ -47,7 +47,7 @@ func add_item(item: Item, insert_index: int = -1):
 	if is_oil && !item._is_oil_and_was_applied_already:
 		var effect_pos: Vector3 = _tower.get_position_wc3()
 		effect_pos.z += Constants.TILE_SIZE_WC3 * 0.25	
-		Effect.create_animated("res://src/effects/freezing_breath.tscn", effect_pos, 0)
+		Effect.create_animated("res://src/effects/apply_potion.tscn", effect_pos, 0)
 
 		item._is_oil_and_was_applied_already = true
 
