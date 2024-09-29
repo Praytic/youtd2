@@ -145,4 +145,4 @@ func on_projectile_hit(projectile: Projectile, creep: Unit):
 		if purged_count > PURGE_COUNT_FOR_STUN:
 			stun_bt.apply_only_timed(tower, creep, stun_duration)
 
-	SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, creep)
+	Effect.create_simple_at_unit_attached("res://src/effects/frost_armor_damage.tscn", creep)

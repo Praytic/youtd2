@@ -152,7 +152,7 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var effect: int = Effect.create_animated("res://src/effects/bdragon_428_cloud_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0)
+	var effect: int = Effect.create_animated("res://src/effects/cloud_of_fog_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0)
 	Effect.set_lifetime(effect, 10.0)
 
 	lightmare_is_active = true
@@ -203,7 +203,7 @@ func overcharge_damage(target: Unit, level: int):
 		if !tower.calc_chance(overcharge_chance):
 			break
 
-		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_241_lightning_strike.tscn", target, Unit.BodyPart.CHEST)
+		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/holy_bolt.tscn", target, Unit.BodyPart.CHEST)
 		Effect.set_color(effect, Color.LIGHT_BLUE)
 		
 		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus() )

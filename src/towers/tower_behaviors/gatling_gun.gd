@@ -154,8 +154,7 @@ func ball_pt_on_hit(projectile: Projectile, creep: Unit):
 	var damage: float = projectile.user_real * tower.get_current_attack_damage_with_bonus()
 
 	if exploded:
-		var effect: int = Effect.create_scaled("FireLordDeathExplode.mdl", Vector3(projectile.get_x(), projectile.get_y(), 30.0), 0, 5)
-		Effect.set_lifetime(effect, 1.0)
+		Effect.create_scaled("res://src/effects/firelord_death_explode.tscn", Vector3(projectile.get_x(), projectile.get_y(), 30.0), 0, 2)
 
 		tower.do_attack_damage_aoe_unit(creep, 200, damage, tower.calc_attack_multicrit_no_bonus(), 0.0)
 	else:

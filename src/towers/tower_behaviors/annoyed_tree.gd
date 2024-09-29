@@ -41,7 +41,7 @@ func load_triggers(triggers: BuffType):
 
 func rock_hit(p: Projectile, _target: Unit):
 	p.do_spell_damage_pb_aoe(_stats.rock_range, _stats.damage + _stats.damage_add * tower.get_level(), 0)
-	Effect.add_special_effect("res://src/effects/bdragon_25_dust_cloud.tscn", Vector2(p.get_x(), p.get_y()))
+	Effect.add_special_effect("res://src/effects/impale_target_dust.tscn", Vector2(p.get_x(), p.get_y()))
 
 
 func tower_init():

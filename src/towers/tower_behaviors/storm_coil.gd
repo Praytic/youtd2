@@ -126,7 +126,7 @@ func surge_bt_periodic(event: Event):
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
 	tower.get_player().display_floating_text_x(str(int(damage)), target, Color8(150, 150, 255, 255), 0.05, 0.0, 2.0)
-	SFX.sfx_at_unit(SfxPaths.GHOST_EXHALE, target)
+	Effect.create_simple_at_unit("res://src/effects/spell_ailb.tscn", target)
 
 
 func aura_bt_on_damaged(event: Event):

@@ -63,7 +63,7 @@ func on_autocast(_event: Event):
 			break
 
 		tower.do_spell_damage(next, (_stats.damage + lvl * _stats.damage_add) * counter, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit(SfxPaths.EXPLOSION_MUFFLED_BOUNCING, next)
+		Effect.create_simple_at_unit("res://src/effects/spell_aire.tscn", next)
 		counter = counter + 1
 
 		if loop_counter == 0:

@@ -42,7 +42,7 @@ func periodic(_event: Event):
 					break
 
 				next.add_exp_flat(experience)
-				SFX.sfx_at_unit(SfxPaths.ENCHANT_SHORT, next)
+				Effect.create_simple_at_unit("res://src/effects/polymorph_target.tscn", next)
 				count = count - 1
 
 				if count == 0:

@@ -18,7 +18,7 @@ func item_init():
 	autocast.description = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
-	autocast.target_art = "AlimTarget.mdl"
+	autocast.target_art = "res://src/effects/spell_alim.tscn"
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
 	autocast.target_self = true

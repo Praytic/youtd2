@@ -109,4 +109,4 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, event.get_target(), "Star Glaive")
 
 	tower.do_spell_damage(event.get_target(), stair_glaive_damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit(SfxPaths.MAGIC_CONFUSE, event.get_target())
+	Effect.create_simple_at_unit("res://src/effects/starfall_target.tscn", event.get_target())

@@ -82,7 +82,7 @@ func aura_bt_on_death(event: Event):
 	var target: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(target, TargetType.new(TargetType.TOWERS), 1000)
 
-	SFX.sfx_at_unit(SfxPaths.EXPLOSION_MUFFLED_BOUNCING, target)
+	Effect.create_simple_at_unit("res://src/effects/spell_aiso.tscn", target)
 
 	while true:
 		var next: Unit = it.next()

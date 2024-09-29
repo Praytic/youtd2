@@ -31,6 +31,7 @@ func on_damage(event: Event):
 
 	if item.user_real >= 100.0:
 		event.damage = event.damage / AttackType.get_damage_against(T.get_attack_type(), C.get_armor_type()) * AttackType.get_damage_against(AttackType.enm.DECAY, C.get_armor_type())
+		Effect.create_simple_at_unit("res://src/effects/death_and_decay.tscn", C)
 		SFX.sfx_at_unit(SfxPaths.GHOST_EXHALE, C)
 		item.user_real = item.user_real - 100.0
 		item.set_charges(int(item.user_real))

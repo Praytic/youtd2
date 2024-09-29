@@ -65,7 +65,6 @@ func on_damage(event: Event):
 	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance(transmute_chance):
 		CombatLog.log_ability(tower, creep, "Transmute")
 
-		SFX.sfx_at_unit(SfxPaths.PICKUP_GOLD, creep)
 		tower.kill_instantly(creep)
 		tower.get_player().give_gold(_stats.transmute_gold, tower, true, true)
 	else:

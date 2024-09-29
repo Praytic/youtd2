@@ -72,5 +72,5 @@ static func execute(action: Dictionary, player: Player, select_unit: SelectUnit)
 	player.add_gold(refund_for_prev_tier)
 	player.spend_gold(upgrade_cost)
 
-	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_16_rotating_propeller.tscn", upgrade_tower, Unit.BodyPart.ORIGIN)
+	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/upgrade_tower.tscn", upgrade_tower, Unit.BodyPart.ORIGIN)
 	Effect.set_z_index(effect, -1)

@@ -188,7 +188,7 @@ func periodic(_event: Event):
 			storm_bt.apply(tower, target, 1)
 			var damage: float = tower.get_mana() * (0.5 + 0.02 * tower.get_level())
 			tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-			SFX.sfx_at_unit(SfxPaths.ZAP_LOW, target)
+			Effect.create_simple_at_unit("res://src/effects/monsoon_bolt.tscn", target)
 		else:
 			storm_timeout_counter += 1
 	else:
@@ -223,7 +223,7 @@ func enable_storm():
 		return
 
 	storm_is_enabled = true
-	storm_effect = Effect.create_animated("res://src/effects/bdragon_428_cloud_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0.0)
+	storm_effect = Effect.create_animated("res://src/effects/cloud_of_fog_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + Constants.TILE_SIZE_WC3), 0.0)
 	Effect.set_auto_destroy_enabled(storm_effect, false)
 
 

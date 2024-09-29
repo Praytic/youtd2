@@ -115,4 +115,4 @@ func on_damage(event: Event):
 		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
 
 		slow_bt.apply(tower, target, level)
-		SFX.sfx_at_unit(SfxPaths.MAGIC_FAIL, target)
+		Effect.create_simple_at_unit("res://src/effects/spell_aima.tscn", target)

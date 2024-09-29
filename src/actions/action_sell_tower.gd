@@ -44,7 +44,7 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 
 	var tower_id: int = tower.get_id()
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	player.give_gold(sell_price, tower, false, true)
+	player.give_gold(sell_price, tower, true, true)
 	player.remove_food_for_tower(tower_id)
 
 	build_space.set_occupied_by_tower(tower, false)

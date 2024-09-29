@@ -107,7 +107,7 @@ func periodic(_event: Event):
 	if corpse == null:
 		return
 
-	Effect.add_special_effect("RaiseSkeleton.mdl", Vector2(corpse.get_x(), corpse.get_y()))
+	Effect.add_special_effect("res://src/effects/raise_skeleton.tscn", Vector2(corpse.get_x(), corpse.get_y()))
 
 	corpse.remove_from_game()
 

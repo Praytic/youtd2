@@ -32,6 +32,7 @@ func on_damage(event: Event):
 	if item.user_real >= 100.0:
 		event.damage = event.damage / AttackType.get_damage_against(T.get_attack_type(), C.get_armor_type()) * AttackType.get_damage_against(AttackType.enm.ELEMENTAL, C.get_armor_type())
 		SFX.sfx_at_unit(SfxPaths.FIRE_BALL, C)
+		Effect.create_simple_at_unit("res://src/effects/incinerate.tscn", C)
 		item.user_real = item.user_real - 100.0
 		item.set_charges(int(item.user_real))
 

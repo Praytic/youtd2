@@ -91,8 +91,7 @@ func on_kill(event: Event):
 
 	if value != 0:
 		sir_update(value)
-		tower.get_player().give_gold(-value, tower, false, false)
-		SFX.sfx_at_unit(SfxPaths.PICKUP_GOLD, tower)
+		tower.get_player().give_gold(-value, tower, true, false)
 
 
 func on_create(preceding: Tower):

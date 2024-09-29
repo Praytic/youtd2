@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.MYT:
 		event.damage = event.damage * 1.25
-		SFX.sfx_at_unit(SfxPaths.WATER_SLASH, target)
+		Effect.create_simple_at_unit_attached("res://src/effects/crushing_wave.tscn", target)

@@ -84,7 +84,7 @@ func on_autocast(event: Event):
 	var damage: float = _stats.release_energy_dmg + _stats.release_energy_dmg_add * tower.get_level()
 
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_SPRING, creep)
+	Effect.create_simple_at_unit("res://src/effects/revive_human.tscn", creep, Unit.BodyPart.CHEST)
 
 	var stun_duration: float
 	if creep_size < CreepSize.enm.BOSS:

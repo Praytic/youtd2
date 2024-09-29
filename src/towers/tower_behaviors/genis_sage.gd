@@ -152,7 +152,7 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(40, false)
 
-	SFX.sfx_at_unit(SfxPaths.MAGIC_FIZZLE, creep)
+	Effect.create_simple_at_unit("res://src/effects/naga_death.tscn", creep)
 
 #	NOTE: call calc_spell_crit_no_bonus() one time so that
 #	all AoE has same crit value

@@ -110,12 +110,11 @@ func necromancer_aura_bt_on_death(event: Event):
 	Utils.add_object_to_world(raised_creep)
 
 	var necromancer_pos: Vector2 = necromancer.get_position_wc3_2d()
-	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/bdragon_16_rotating_propeller.tscn", necromancer_pos)
+	var effect_on_necromancer: int = Effect.create_simple("res://src/effects/upgrade_tower.tscn", necromancer_pos)
 	Effect.set_color(effect_on_necromancer, Color.PURPLE)
-	Effect.set_z_index(effect_on_necromancer, 9)
-	var effect_on_raised_creep: int = Effect.create_simple("res://src/effects/bdragon_519_expanding_puff.tscn", creep_pos)
-	Effect.set_color(effect_on_raised_creep, Color.PURPLE)
-	Effect.set_z_index(effect_on_raised_creep, 9)
+	Effect.set_z_index(effect_on_necromancer, Effect.Z_INDEX_BELOW_CREEPS)
+	var effect_on_raised_creep: int = Effect.create_simple("res://src/effects/freezing_breath_purple.tscn", creep_pos)
+	Effect.set_z_index(effect_on_raised_creep, Effect.Z_INDEX_BELOW_CREEPS)
 
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, necromancer, raised_creep)
 	lightning.modulate = Color.PURPLE

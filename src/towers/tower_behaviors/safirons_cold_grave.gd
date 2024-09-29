@@ -78,7 +78,7 @@ func shard_pt_on_collide(p: Projectile, target: Unit):
 	var damage: float = 2280 + 85 * caster.get_level()
 
 	caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit(SfxPaths.POW, target)
+	Effect.create_simple_at_unit("res://src/effects/frost_bolt_missile.tscn", target)
 	target.modify_property(Modification.Type.MOD_DMG_FROM_ICE, dmg_from_ice_add)
 
 	if buff == null:

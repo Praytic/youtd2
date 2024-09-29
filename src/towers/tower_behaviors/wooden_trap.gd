@@ -65,7 +65,7 @@ func trap(event: Event, cooldown: float, base_damage: float, damage_add: float, 
 		num_targets = num_targets + 1
 		stun_bt.apply_only_timed(tower, next, stun_duration)
 		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit(SfxPaths.SAND_RUB, next)
+		Effect.create_simple_at_unit_attached("res://src/effects/shackle.tscn", next, Unit.BodyPart.CHEST)
 
 		if num_targets >= max_targets:
 			break

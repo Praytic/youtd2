@@ -121,7 +121,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s bonus damage\n" % sacrifice_dmg_ratio_add
 	autocast.caster_art = "CarrionSwarmDamage.mdl"
-	autocast.target_art = "DeathPactCaster.mdl"
+	autocast.target_art = "res://src/effects/frost_armor_damage_purple.tscn"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 1
 	autocast.cast_range = SACRIFICE_RANGE
@@ -156,7 +156,7 @@ func on_attack(_event: Event):
 
 	CombatLog.log_ability(tower, null, "Blood Spill")
 
-	SFX.sfx_at_unit(SfxPaths.WATER_SLASH, tower)
+	Effect.create_simple_at_unit("res://src/effects/blood_splatter.tscn", tower)
 
 	while true:
 		var target: Unit = it.next()

@@ -46,5 +46,5 @@ func on_autocast(_event: Event):
 
 	if next != null:
 		tower.add_exp_flat(next.remove_exp_flat(Globals.synced_rng.randi_range(15, 60)))
-		SFX.sfx_at_unit(SfxPaths.ZAP_LONG, next)
-		SFX.sfx_at_unit(SfxPaths.WARP, tower)
+		Effect.create_simple_at_unit("res://src/effects/animated_dead_target.tscn", next, Unit.BodyPart.HEAD)
+		Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", next, Unit.BodyPart.HEAD)

@@ -45,4 +45,4 @@ func on_damage(event: Event):
 	if size < CreepSize.enm.CHAMPION:
 		CombatLog.log_ability(tower, creep, "Tomb's Curse")
 		tower.kill_instantly(creep)
-		SFX.sfx_at_unit(SfxPaths.WATER_SLASH, creep)
+		Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", creep)

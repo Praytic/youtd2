@@ -387,7 +387,7 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	add_gold(amount)
 
 	if show_effect:
-		Effect.create_simple_at_unit("gold effect path", unit)
+		Effect.create_simple_at_unit("res://src/effects/gold_credit.tscn", unit)
 
 	if show_text:
 		var text: String

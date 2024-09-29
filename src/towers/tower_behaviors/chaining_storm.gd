@@ -110,8 +110,8 @@ func on_attack(event: Event):
 	var creep_count: int = it_for_count.count()
 
 #	do effects
-	Effect.create_simple("res://src/effects/bdragon_466_thunderclap.tscn", Vector2(x, y))
-	Effect.create_simple("CycloneTarget.mdl", Vector2(x, y))
+	Effect.create_simple("res://src/effects/thunder_clap.tscn", Vector2(x, y))
+	Effect.create_simple("res://src/effects/cyclone_target.tscn", Vector2(x, y))
 	var effect3: int = Effect.create_simple("ManaDrainTarget.mdl", Vector2(x, y))
 	Effect.set_lifetime(effect3, 1.0)
 

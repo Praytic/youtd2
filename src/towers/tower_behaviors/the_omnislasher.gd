@@ -98,6 +98,8 @@ func on_attack(event: Event):
 		if target == null:
 			break
 
+		Effect.create_simple_at_unit("res://src/effects/blood_splatter.tscn", target)
+
 		var random_angle: float = deg_to_rad(Globals.synced_rng.randf_range(0, 360))
 		var random_offset: Vector2 = Vector2(80, 0).rotated(random_angle)
 		var projectile_pos: Vector3 = Vector3(

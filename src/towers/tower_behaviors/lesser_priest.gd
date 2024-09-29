@@ -51,10 +51,10 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 
-	CombatLog.log_ability(tower, creep, "Shadowstrike")
+	CombatLog.log_ability(tower, creep, "Smite")
 
 	tower.do_spell_damage(creep, _stats.smite_damage + (level * _stats.smite_damage_add), tower.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit(SfxPaths.SPARKLE_SHORT, creep)
+	Effect.create_simple_at_unit("res://src/effects/holy_bolt.tscn", creep)
 
 	if level == 25:
 		if creep.get_size() < CreepSize.enm.BOSS:

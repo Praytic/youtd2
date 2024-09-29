@@ -8,6 +8,7 @@ func _init(parent: Node):
 	super("creep_stun_revenge", 0, 0, true, parent)
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
+	stun_bt.set_special_effect("res://src/effects/shackle.tscn", 50, 1.0, Color(Color.GOLD, 0.75))
 
 	add_event_on_attacked(on_attacked)
 

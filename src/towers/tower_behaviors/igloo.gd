@@ -78,4 +78,4 @@ func on_unit_in_range(event: Event):
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
 	extreme_cold_bt.apply(tower, creep, level)
 
-	Effect.create_scaled("FrostArmorDamage.mdl", Vector3(creep.get_x(), creep.get_y(), 30), 0, 5)
+	Effect.create_scaled("res://src/effects/frost_armor_damage.tscn", Vector3(creep.get_x(), creep.get_y(), 30), 0, 3)

@@ -53,11 +53,13 @@ func on_damage(event: Event):
 	var target: Unit = event.get_target()
 
 	if !event.is_main_target():
+		Effect.create_simple_at_unit("res://src/effects/frag_boom_spawn.tscn", target)
+
 		return
 
-	var target_effect: int = Effect.create_animated_scaled("MortarMissile.mdl", Vector3(target.get_x(), target.get_y(), 0), 0, 3.0)
-	Effect.set_animation_speed(target_effect, 0.5)
-	Effect.set_lifetime(target_effect, 0.05)
+	var main_target_effect: int = Effect.create_simple_at_unit("res://src/effects/mortar_missile.tscn", target)
+	Effect.set_scale(main_target_effect, 3.0)
+	Effect.set_animation_speed(main_target_effect, 0.5)
 
 	var target_buff: Buff = target.get_buff_of_type(targeted_pt)
 
@@ -68,8 +70,6 @@ func on_damage(event: Event):
 			target_buff.remove_buff()
 		else:
 			target_buff.user_int -= 1
-
-	SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, target)
 
 
 func periodic(_event: Event):

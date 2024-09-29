@@ -66,5 +66,5 @@ func on_damage(event: Event):
 
 	if Utils.unit_is_valid(target):
 		tower.do_custom_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0), AttackType.enm.DECAY)
-		SFX.sfx_at_unit(SfxPaths.SPIT, target)
+		Effect.create_simple_at_unit("res://src/effects/crypt_fiend_eggsack.tscn", target)
 		target.modify_property(Modification.Type.MOD_DMG_FROM_NATURE, -_stats.vuln_value - level * _stats.vuln_value_add)

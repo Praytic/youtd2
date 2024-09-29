@@ -44,4 +44,4 @@ func create_autocasts() -> Array[Autocast]:
 func on_autocast(event: Event):
 	var creep: Unit = event.get_target()
 	tower.do_spell_damage(creep, _stats.damage + (tower.get_level() * _stats.damage_add), tower.calc_spell_crit_no_bonus())
-	SFX.sfx_at_unit(SfxPaths.ZAP_LOW, creep)
+	Effect.create_simple_at_unit("res://src/effects/monsoon_bolt.tscn", creep, Unit.BodyPart.ORIGIN)

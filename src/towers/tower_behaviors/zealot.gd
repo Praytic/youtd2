@@ -176,7 +176,7 @@ func on_attack(_event: Event):
 
 			if b.user_int == max_stacks:
 				if b.user_int2 == 0:
-					b.user_int2 = Effect.create_simple_at_unit("res://src/effects/bdragon_26_whirlpool_cycle.tscn", tower)
+					b.user_int2 = Effect.create_simple_at_unit("res://src/effects/mana_shield_cycle.tscn", tower)
 					Effect.set_auto_destroy_enabled(b.user_int2, false)
 
 		shield_bt.apply(tower, tower, _stats.shield_power * b.user_int)

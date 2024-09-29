@@ -123,10 +123,10 @@ func periodic(_event: Event):
 		tower.remove_exp_flat(50)
 		exp_exchanged += 50
 		tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.05)
-		SFX.sfx_at_unit(SfxPaths.ENCHANT_DRONE, tower)
+		Effect.create_simple_at_unit("res://src/effects/charm_target.tscn", tower, Unit.BodyPart.OVERHEAD)
 	else:
 		tower.add_exp(2)
-		SFX.sfx_at_unit(SfxPaths.MAGIC_FIZZLE, tower)
+		Effect.create_simple_at_unit("res://src/effects/blink_target.tscn", tower, Unit.BodyPart.CHEST)
 
 
 func on_autocast(_event: Event):

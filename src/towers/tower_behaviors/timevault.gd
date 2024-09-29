@@ -79,4 +79,4 @@ func on_damage(event: Event):
 	if Utils.unit_is_valid(creep):
 		creep.set_position_wc3_2d(old_position)
 		creep._current_path_index = old_path_index
-		SFX.sfx_at_unit(SfxPaths.WARP, creep)
+		Effect.create_simple_at_unit("res://src/effects/mass_teleport_caster.tscn", creep)

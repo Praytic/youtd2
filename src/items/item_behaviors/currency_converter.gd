@@ -23,7 +23,6 @@ func on_periodic(event: Event):
 	event.enable_advanced(15 - lvl * 0.3, false)
 	if tower.get_exp() >= 2.0:
 		CombatLog.log_item_ability(item, null, "Exchange")
-		SFX.sfx_at_unit(SfxPaths.PICKUP_GOLD, tower)
 		tower.remove_exp_flat(2)
 		tower.get_player().give_gold(7, tower, true, true)
 	else:

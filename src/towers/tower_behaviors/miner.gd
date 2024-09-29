@@ -117,8 +117,7 @@ func on_tower_details() -> MultiboardValues:
 func periodic(_event: Event):
 	var gold_bonus: float = _stats.excavation_gold + tower.get_level() * _stats.excavation_gold_add
 
-	var target_effect: int = Effect.create_scaled("AncientProtectorMissile.mdl", tower.get_position_wc3(), 0, 5)
-	Effect.set_lifetime(target_effect, 0.1)
+	Effect.create_scaled("res://src/effects/ancient_protector_missile.tscn", tower.get_position_wc3(), 0, 2)
 
 	if tower.calc_chance(0.25):
 		CombatLog.log_ability(tower, null, "Excavation")

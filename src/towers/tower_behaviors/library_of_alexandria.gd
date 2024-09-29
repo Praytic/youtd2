@@ -60,8 +60,8 @@ func create_autocasts() -> Array[Autocast]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2 seconds duration \n" \
 	+ "+2% experience gain.\n"
-	autocast.caster_art = "AIimTarget.mdl"
-	autocast.target_art = "CharmTarget.mdl"
+	autocast.caster_art = "res://src/effects/spell_aire.tscn"
+	autocast.target_art = "res://src/effects/charm_target.tscn"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
 	autocast.num_buffs_before_idle = 0
 	autocast.cast_range = 500
@@ -106,7 +106,7 @@ func periodic(_event: Event):
 		return
 
 	random_tower.add_exp(2 + lvl * 0.2)
-	SFX.sfx_at_unit(SfxPaths.HEAL, random_tower)
+	Effect.create_simple_at_unit("res://src/effects/spell_alim.tscn", random_tower)
 
 
 func on_autocast(event: Event):

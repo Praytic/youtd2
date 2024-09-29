@@ -56,7 +56,7 @@ func drol_tentacleDamage(event: Event):
 
 	if !b.get_buffed_unit().is_immune():
 		b.get_caster().do_spell_damage(b.get_buffed_unit(), b.user_real, b.get_caster().calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit(SfxPaths.HUMAN_DEATH_EXPLODE, b.get_buffed_unit())
+		Effect.create_simple_at_unit("res://src/effects/blood_splatter.tscn", b.get_buffed_unit(), Unit.BodyPart.CHEST)
 
 
 func on_damage(event: Event):

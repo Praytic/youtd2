@@ -36,7 +36,7 @@ func on_damage(_event: Event):
 					break
 
 				next.add_exp_flat(1)
-				SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_DOWN, next)
+				Effect.create_simple_at_unit("res://src/effects/animated_dead_target.tscn", next)
 				count = count - 1
 
 				if count == 0:

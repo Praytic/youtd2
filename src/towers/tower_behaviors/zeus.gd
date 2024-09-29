@@ -118,7 +118,7 @@ func periodic(_event: Event):
 			if do_stun:
 				stun_bt.apply_only_timed(tower, bolt_target, 0.5)
 
-			SFX.sfx_at_unit(SfxPaths.ZAP_LOW, bolt_target)
+			Effect.create_simple_at_unit("res://src/effects/monsoon_bolt.tscn", bolt_target)
 
 		bolt_count -= 1
 	else:
@@ -131,7 +131,7 @@ func on_autocast(_event: Event):
 	bolt_count = 20 + int(0.2 * tower.get_level())
 
 	if thunder_effect == 0:
-		thunder_effect = Effect.create_animated("PurgeBuffTarget.mdl", Vector3(tower.get_x() - 16, tower.get_y() - 16, tower.get_z()), 0)
+		thunder_effect = Effect.create_simple_at_unit("res://src/effects/purge_buff_target.tscn", tower)
 		Effect.set_auto_destroy_enabled(thunder_effect, false)
 
 	thunder_is_enabled = true

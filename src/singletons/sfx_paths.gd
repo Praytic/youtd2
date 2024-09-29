@@ -43,7 +43,6 @@ const MAGIC_HIGH_TONE: String = "res://assets/sfx/420676__sypherzent__spell-cast
 const MAGIC_CHANNEL: String = "res://assets/sfx/little_robot_Spell_00.ogg"
 const MAGIC_FIZZLE: String = "res://assets/sfx/little_robot_Spell_01.ogg"
 const MAGIC_CONFUSE: String = "res://assets/sfx/p0ss_confusion.ogg"
-const MAGIC_FAIL: String = "res://assets/sfx/p0ss_magicfail.ogg"
 
 const TELEPORT: String = "res://assets/sfx/p0ss_teleport.ogg"
 const TELEPORT_BASS: String = "res://assets/sfx/michel_baradari_teleport.ogg"
@@ -53,7 +52,6 @@ const WARP_LONG: String = "res://assets/sfx/p0ss_warp2.ogg"
 
 const ELECTRIC_BUZZ: String = "res://assets/sfx/little_robot_UI_Electric_00.ogg"
 const ELECTRIC_BUMP: String = "res://assets/sfx/little_robot_Whoosh_Electric_01.ogg"
-const ELECTRIC_SPRING: String = "res://assets/sfx/p0ss_spring.ogg"
 const ELECTRIC_WHOOSH: String = "res://assets/sfx/little_robot_Whoosh_Electric_00.ogg"
 const ELECTRIC_WHOOSH_UP: String = "res://assets/sfx/little_robot_Whoosh_Electric_02.ogg"
 const ELECTRIC_WHOOSH_DOWN: String = "res://assets/sfx/little_robot_Whoosh_Electric_03.ogg"

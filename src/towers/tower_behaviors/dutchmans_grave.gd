@@ -140,7 +140,7 @@ func on_kill(event: Event):
 
 	soul_count += 1
 
-	SFX.sfx_at_unit(SfxPaths.EXPLOSION_MUFFLED_BOUNCING, target)
+	Effect.create_simple_at_unit("res://src/effects/spell_aiso.tscn", target)
 
 	while true:
 		var next: Unit = it.next()
@@ -209,7 +209,7 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	SFX.sfx_at_unit(SfxPaths.BAM_ECHO, target)
+	Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", target)
 
 	var damage: float = p.user_real
 	p.do_spell_damage(target, damage)

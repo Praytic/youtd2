@@ -41,7 +41,7 @@ func on_attack(_event: Event):
 		CombatLog.log_item_ability(item, null, "Attack!")
 		
 		spieler.display_floating_text("Attack!", tower, Color8(255, 0, 0))
-		SFX.sfx_at_unit(SfxPaths.ORC_GRUNT, tower)
+		Effect.create_simple_at_unit_attached("res://src/effects/roar.tscn", tower, Unit.BodyPart.ORIGIN)
 		in_range = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 350)
 
 		while true:

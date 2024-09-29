@@ -143,8 +143,12 @@ func on_attack(event: Event):
 
 			tower.do_spell_damage(creep, pulse_damage, tower.calc_spell_crit_no_bonus())
 			SFX.sfx_at_unit(SfxPaths.FIRE_BALL, creep)
-			var effect: int = Effect.create_colored("ZombifyTarget.mdl", Vector3(tower.get_x() - 48, tower.get_y() + 48, tower.get_z()), 0.0, 5, Color.RED)
-			Effect.set_lifetime(effect, 0.5)
+
+			var effect_target: int = Effect.create_simple_at_unit_attached("res://src/effects/immolation_damage.tscn", creep, Unit.BodyPart.CHEST)
+			Effect.set_color(effect_target, Color.RED)
+
+			var effect_caster: int = Effect.create_colored("res://src/effects/zombify_target.tscn", Vector3(tower.get_x() - 48, tower.get_y() + 48, tower.get_z() + 80), 0.0, 1, Color.RED)
+			Effect.set_lifetime(effect_caster, 0.5)
 
 	if do_green_pulse:
 		CombatLog.log_ability(tower, null, "Green Pulse")
@@ -161,8 +165,12 @@ func on_attack(event: Event):
 
 			tower.do_attack_damage(creep, pulse_damage, tower.calc_attack_multicrit_no_bonus())
 			SFX.sfx_at_unit(SfxPaths.FIRE_SPLASH, creep)
-			var effect: int = Effect.create_colored("ZombifyTarget.mdl", Vector3(tower.get_x() + 48, tower.get_y() + 48, tower.get_z()), 0.0, 5, Color.GREEN)
-			Effect.set_lifetime(effect, 0.5)
+			
+			var effect_target: int = Effect.create_simple_at_unit_attached("res://src/effects/flame_strike_embers.tscn", creep, Unit.BodyPart.CHEST)
+			Effect.set_color(effect_target, Color.GREEN)
+
+			var effect_caster: int = Effect.create_colored("res://src/effects/zombify_target.tscn", Vector3(tower.get_x() + 48, tower.get_y() + 48, tower.get_z() + 80), 0.0, 1, Color.GREEN)
+			Effect.set_lifetime(effect_caster, 0.5)
 
 
 func on_damage(event: Event):

@@ -27,6 +27,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
+	stun_bt.set_special_effect("res://src/effects/purge_buff_target.tscn", 50, 1.0, Color(Color.GREEN, 0.75))
 
 
 func periodic(_event: Event):
@@ -48,8 +49,6 @@ func periodic(_event: Event):
 			stun_bt.apply_only_timed(tower, creep, 1.0)
 		else:
 			stun_bt.apply_only_timed(tower, creep, 0.5)
-
-		SFX.sfx_at_unit(SfxPaths.MAGIC_FAIL, creep)
 
 		if loop_counter == 0:
 			break

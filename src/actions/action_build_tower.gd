@@ -41,10 +41,13 @@ static func execute(action: Dictionary, player: Player, build_space: BuildSpace)
 	build_position_canvas.y += Constants.TILE_SIZE.y
 	var build_position: Vector2 = VectorUtils.canvas_to_wc3_2d(build_position_canvas)
 	new_tower.set_position_wc3_2d(build_position)
-	
+
 	Utils.add_object_to_world(new_tower)
 
 	build_space.set_occupied_by_tower(new_tower, true)
+
+	var effect: int = Effect.create_simple_at_unit("res://src/effects/build_tower.tscn", new_tower, Unit.BodyPart.ORIGIN)
+	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_TOWERS)
 
 	EventBus.built_a_tower.emit()
 

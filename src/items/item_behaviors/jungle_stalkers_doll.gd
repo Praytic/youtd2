@@ -38,5 +38,5 @@ func on_kill(event: Event):
 
 	if tower.get_buff_of_type(enraged_bt) == null:
 		SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, event.get_target())
+		Effect.create_simple_at_unit("res://src/effects/stampede_missile_death.tscn", event.get_target())
 		enraged_bt.apply_custom_timed(tower, tower, tower.get_level(), 3.0)
-

@@ -39,5 +39,5 @@ func on_spell_cast(event: Event):
 			CombatLog.log_item_ability(item, null, "Magical Greed")
 
 			t.set_mana(t.get_mana() + t.get_overall_mana() * (0.15 + T.get_level() * 0.006))
-			Effect.create_simple_at_unit("res://src/effects/bdragon_334_falling_droplet.tscn", T)
+			Effect.create_simple_at_unit("res://src/effects/replenish_mana.tscn", T)
 			item.user_int = roundi(Utils.get_time())

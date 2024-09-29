@@ -85,7 +85,7 @@ func parasite_bt_on_death(event: Event):
 	var creep: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), creep, 500)
 
-	Effect.create_simple("UndeadBloodCryptFiend.mdl", Vector2(creep.get_x(), creep.get_y()))
+	Effect.create_simple("res://src/effects/crypt_fiend_eggsack.tscn", Vector2(creep.get_x(), creep.get_y()))
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0075)
 	tower.user_real += 0.0075

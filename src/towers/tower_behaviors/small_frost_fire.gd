@@ -52,7 +52,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.auto_range = 900
 	autocast.cast_range = 900
 	autocast.num_buffs_before_idle = 0
-	autocast.target_art = "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl"
+	autocast.target_art = "res://src/effects/raise_skeleton.tscn"
 	autocast.buff_type = null
 	autocast.target_self = false
 	autocast.handler = on_autocast
@@ -85,4 +85,4 @@ func on_autocast(event: Event):
 		slow_bt.apply(tower, next, level)
 		tower.do_spell_damage(next, spelldmg, tower.calc_spell_crit_no_bonus())
 
-	SFX.sfx_at_unit(SfxPaths.MAGIC_CONFUSE, target)
+	Effect.create_simple_at_unit("res://src/effects/raise_skeleton.tscn", target)

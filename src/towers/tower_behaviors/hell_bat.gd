@@ -98,7 +98,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.icon = "res://resources/icons/orbs/orb_shadow.tres"
 	autocast.description_short = "This tower engulfs itself in darkness, gaining power as if it's night.\n"
 	autocast.description = "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
-	autocast.caster_art = "AnimateDeadTarget.mdl"
+	autocast.caster_art = "res://src/effects/animated_dead_target.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 1

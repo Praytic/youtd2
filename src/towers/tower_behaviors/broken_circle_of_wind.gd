@@ -79,8 +79,9 @@ func wind_bt_on_create(event: Event):
 
 	var c: Unit = b.get_buffed_unit()
 #	(start) cyclone animation
-	b.user_int = Effect.create_animated("res://src/effects/CycloneTarget.tscn", Vector3(c.get_x(), c.get_y(), 0.0), 0.0)
+	b.user_int = Effect.create_simple_at_unit_attached("res://src/effects/cyclone_target.tscn", c)
 	Effect.set_auto_destroy_enabled(b.user_int, false)
+	Effect.set_z_index(b.user_int, -1)
 #   move creep up
 	c.adjust_height(300, 1000)
 
@@ -109,10 +110,11 @@ func wind_bt_on_cleanup(event: Event):
 #	remove the cyclone
 	Effect.destroy_effect(b.user_int)
 # 	effects
+	SFX.sfx_at_unit(SfxPaths.CLOUD_POOF, c)
 	var creep_pos: Vector2 = c.get_position_wc3_2d()
-	var thunder_clap_effect: int = Effect.create_simple("res://src/effects/bdragon_466_thunderclap.tscn", creep_pos)
-	Effect.set_z_index(thunder_clap_effect, 9)
-	Effect.create_simple_at_unit("res://src/effects/BoltImpact.tscn", c)
+	var thunder_clap_effect: int = Effect.create_simple("res://src/effects/thunder_clap.tscn", creep_pos)
+	Effect.set_z_index(thunder_clap_effect, Effect.Z_INDEX_BELOW_CREEPS)
+	Effect.create_simple("res://src/effects/monsoon_bolt.tscn", creep_pos)
 #   do damage
 	if c.get_size() == CreepSize.enm.CHAMPION:
 		ratio = 1.25

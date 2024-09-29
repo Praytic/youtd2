@@ -116,7 +116,7 @@ func on_damage(event: Event):
 
 	if target.is_silenced():
 		event.damage *= silenced_damage_multiplier
-		Effect.create_scaled("SpellBreakerAttack.mdl", Vector3(target.get_x(), target.get_x(), 30), 0, 5)
+		Effect.create_scaled("res://src/effects/spell_breaker_target.tscn", Vector3(target.get_x(), target.get_x(), 30), 0, 1)
 
 
 func periodic(_event: Event):
@@ -144,7 +144,7 @@ func glaive_pt_on_hit(_p: Projectile, target: Unit):
 
 	if target.is_silenced():
 		damage *= silenced_damage_multiplier
-		Effect.create_scaled("SpellBreakerAttack.mdl", Vector3(target.get_x(), target.get_x(), 30), 0, 5)
+		Effect.create_scaled("res://src/effects/spell_breaker_target.tscn", Vector3(target.get_x(), target.get_x(), 30), 0, 1)
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
 

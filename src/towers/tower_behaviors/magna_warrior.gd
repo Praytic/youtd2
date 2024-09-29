@@ -56,7 +56,7 @@ func on_damage(event: Event):
 
 	if event.is_main_target():
 		event.damage = event.damage * (1.5 + (_stats.damage_add * level))
-		SFX.sfx_at_unit(SfxPaths.ELECTRIC_SPRING, creep)
+		Effect.create_simple_at_unit("res://src/effects/blood_splatter.tscn", creep)
 		stun_bt.apply_only_timed(tower, creep, 0.5 + tower.get_level() * 0.01)
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		tower.get_player().display_small_floating_text(damage_text, tower, Color8(255, 150, 150), 0)

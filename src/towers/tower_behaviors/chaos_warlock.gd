@@ -207,7 +207,7 @@ func aura_bt_periodic(event: Event):
 
 	if is_low_health && is_less_than_boss:
 		caster.kill_instantly(target)
-		SFX.sfx_at_unit(SfxPaths.MAGIC_HIGH_TONE, target)
+		Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", target)
 
 
 func wave_shadowbolt_pt_on_expire(projectile: Projectile):

@@ -97,7 +97,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+0.2 sec duration\n" \
 	+ "+1% spell damage\n" \
 	+ "+1% trigger chances\n"
-	autocast.caster_art = "AIreTarget.mdl"
+	autocast.caster_art = "res://src/effects/spell_aire.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 1

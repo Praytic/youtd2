@@ -43,5 +43,5 @@ func create_autocasts() -> Array[Autocast]:
 
 
 func on_autocast(event: Event):
-	SFX.sfx_at_unit(SfxPaths.FIRE_BALL, event.get_target())
+	Effect.create_simple_at_unit("res://src/effects/firelord_death_explode.tscn", event.get_target())
 	tower.do_spell_damage_aoe_unit(event.get_target(), 200, _stats.damage + _stats.damage_add * tower.get_level(), tower.calc_spell_crit_no_bonus(), 0.0)

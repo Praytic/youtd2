@@ -71,7 +71,8 @@ func on_attack(_event: Event):
 
 
 func on_kill(event: Event):
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUZZ, event.get_target())
+	var effect: int = Effect.create_simple_at_unit("res://src/effects/ancient_protector_missile.tscn", event.get_target())
+	Effect.set_color(effect, Color.ORANGE)
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -tower.user_real)
 	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -tower.user_real)
 	stun_bt.apply_only_timed(tower, tower, STUN_DURATION)
@@ -80,7 +81,9 @@ func on_kill(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var effect: int = Effect.create_animated_scaled("SpiritLinkTarget.mdl", tower.get_position_wc3(), 0, 1.5)
+	var effect_pos: Vector3 = tower.get_position_wc3()
+	effect_pos.z += 50
+	var effect: int = Effect.create_animated_scaled("res://src/effects/spirit_link_target.tscn", effect_pos, 0, 1.5)
 	Effect.set_auto_destroy_enabled(effect, false)
 	tower.user_int2 = effect
 	tower.user_real = 0

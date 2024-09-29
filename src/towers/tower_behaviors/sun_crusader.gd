@@ -109,7 +109,7 @@ func on_damage(event: Event):
 	var damage: float = _stats.blessed_weapon_damage + BLESSED_WEAPON_DAMAGE_ADD * tower.get_level()
 	var mana_gain: float = BLESSED_WEAPON_MANA_GAIN + BLESSED_WEAPON_MANA_GAIN_ADD * tower.get_level()
 
-	Effect.create_simple_at_unit_attached("res://src/effects/bdragon_241_lightning_strike.tscn", event.get_target(), Unit.BodyPart.CHEST)
+	Effect.create_simple_at_unit_attached("res://src/effects/holy_bolt.tscn", event.get_target(), Unit.BodyPart.CHEST)
 	tower.do_spell_damage(event.get_target(), damage, tower.calc_spell_crit_no_bonus())
 	tower.add_mana(mana_gain)
 

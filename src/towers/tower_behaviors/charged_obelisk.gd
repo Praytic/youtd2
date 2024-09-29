@@ -85,7 +85,7 @@ func on_attack(_event: Event):
 	if random_creep.get_size() < CreepSize.enm.BOSS:
 		stun_bt.apply_only_timed(tower, random_creep, 0.2)
 
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_DOWN, random_creep)
+	Effect.create_simple_at_unit("res://src/effects/monsoon_bolt.tscn", random_creep)
 
 
 func on_autocast(event: Event):

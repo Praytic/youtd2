@@ -109,7 +109,6 @@ func on_attack(event: Event):
 		var floating_text: String = "+%s" % Utils.format_float(damage, 0)
 		tower.get_player().display_floating_text_x(floating_text, tower, Color8(255, 0, 255, 255), 0.05, 2, 3)
 		p.user_real = damage
-		# p.set_model("IllidanMissile.mdl")
 	else:
 		p.user_real = 0
 
@@ -165,14 +164,12 @@ func aura_bt_on_spell_casted(event: Event):
 
 
 func arcane_mana_replenish(target: Tower):
-	Effect.create_colored("ReplenishHealthCasterOverhead.mdl", Vector3(target.get_x(), target.get_y(), 80), 0.0, 5, Color8(100, 100, 255, 255))
+	Effect.create_colored("res://src/effects/replenish_mana.tscn", Vector3(target.get_x(), target.get_y(), 80), 0.0, 5, Color8(100, 100, 255, 255))
 	var mana_gain: float = 0.1 + 0.002 * target.get_level()
 	target.add_mana_perc(mana_gain)
 
 
 func awaken_bt_on_create(_event: Event):
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUMP, tower)
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_WHOOSH_UP, tower)
 	# AddUnitAnimationProperties(u, "stand alternate", true)
 	# SetUnitFlyHeight(u, 100, 2000)
 
@@ -182,7 +179,6 @@ func awaken_bt_on_create(_event: Event):
 
 
 func awaken_bt_on_cleanup(_event: Event):
-	SFX.sfx_at_unit(SfxPaths.ELECTRIC_BUMP, tower)
 	# AddUnitAnimationProperties(u, "stand alternate", false)
 	# SetUnitFlyHeight(u, 40, 2000)
 

@@ -33,6 +33,7 @@ func on_attack(event: Event):
 		CombatLog.log_item_ability(item, null, "Curse of the Grave")
 
 		tower.kill_instantly(creep)
+		Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", creep)
 		SFX.sfx_at_unit(SfxPaths.WATER_SLASH, creep)
 		item.user_int = item.user_int + 1
 

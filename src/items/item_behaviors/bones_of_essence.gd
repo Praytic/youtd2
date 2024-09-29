@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.SIF:
 		event.damage = event.damage * 1.25
-		SFX.sfx_at_unit(SfxPaths.TOWER_ATTACK_MAP[Element.enm.DARKNESS], target)
+		Effect.create_simple_at_unit("res://src/effects/banshee_missile.tscn", target, Unit.BodyPart.CHEST)

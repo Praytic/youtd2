@@ -70,7 +70,7 @@ func lightning_pt_on_cleanup(ball: Projectile):
 
 
 func item_init():
-	lightning_pt = ProjectileType.create_interpolate("res://src/projectiles/projectile_visuals/lightning_ball.tscn", 300, self)
+	lightning_pt = ProjectileType.create_interpolate("res://src/projectiles/projectile_visuals/ball_lightning_projectile.tscn", 300, self)
 	lightning_pt.set_event_on_cleanup(lightning_pt_on_cleanup)
 
 

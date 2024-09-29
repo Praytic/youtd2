@@ -227,7 +227,7 @@ func soulfire_bt_on_death(event: Event):
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), buffed_unit, 200)
 
-	Effect.create_simple_at_unit("DeathCoilSpecialArt.mdl", buffed_unit)
+	Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", buffed_unit)
 
 	ashbringer_consumption_missile(buffed_unit)
 

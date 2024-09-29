@@ -44,7 +44,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+75 orb damage\n" \
 	+ "+1 orb spawned per 5 levels\n"
 
-	autocast.caster_art = "MassTeleportCaster.mdl"
+	autocast.caster_art = "res://src/effects/mass_teleport_caster.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 0

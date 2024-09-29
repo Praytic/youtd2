@@ -95,10 +95,8 @@ func coco_pt_on_impact(p: Projectile):
 	var it: Iterate = Iterate.over_units_in_range_of(caster, TargetType.new(TargetType.CREEPS), Vector2(pos.x, pos.y), 150)
 	var dmg: float = _stats.coconut_damage + _stats.coconut_damage_add * caster.get_level()
 
-	var pos_canvas: Vector2 = VectorUtils.wc3_2d_to_canvas(pos)
-	SFX.sfx_at_pos(SfxPaths.CLOUD_POOF, pos_canvas)
-	
-	Effect.add_special_effect("WarStompCaster.mdl", pos)
+	var effect: int = Effect.add_special_effect("res://src/effects/warstomp_caster.tscn", pos)
+	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 
 	while true:
 		var target: Unit = it.next()

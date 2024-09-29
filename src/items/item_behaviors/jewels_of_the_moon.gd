@@ -37,7 +37,7 @@ func periodic(_event: Event):
 	var target_effect: int
 	var tower: Unit = item.get_carrier()
 
-	target_effect = Effect.create_scaled("DispelMagicTarget.mdl", tower.get_position_wc3(), 0, 5)
+	target_effect = Effect.create_scaled("res://src/effects/dispel_magic_target.tscn", tower.get_position_wc3(), 0, 2)
 	Effect.set_lifetime(target_effect, 2.0)
 
 	CombatLog.log_item_ability(item, null, "Celestial Wisdom")

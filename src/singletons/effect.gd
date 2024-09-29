@@ -8,6 +8,7 @@ extends Node
 
 
 const Z_INDEX_BELOW_CREEPS: int = 9
+const Z_INDEX_BELOW_TOWERS: int = 19
 
 
 # NOTE: Effect.createAnimated() in JASS

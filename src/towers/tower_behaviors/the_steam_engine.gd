@@ -185,7 +185,7 @@ func steam_bt_on_attack(event: Event):
 
 	CombatLog.log_ability(caster, buffed_tower, "Power Surge")
 	caster.add_exp(1 + 0.04 * lvl)
-	Effect.create_scaled("FragBoomSpawn.mdl", Vector3(caster.get_x() + 11, caster.get_y() + 56, caster.get_z()), 0, 5)
+	Effect.create_scaled("res://src/effects/frag_boom_spawn.tscn", Vector3(caster.get_x() + 11, caster.get_y() + 56, caster.get_z()), 0, 2)
 
 
 # Update value of property mods based on current power level of Steam Engine

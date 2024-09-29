@@ -103,6 +103,6 @@ func on_attack(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Ain Soph Aur")
 
-	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/bdragon_241_lightning_strike.tscn", creep, Unit.BodyPart.CHEST)
+	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/holy_bolt.tscn", creep, Unit.BodyPart.CHEST)
 	Effect.set_color(effect, Color.GOLD)
 	shockwave_st.point_cast_from_unit_on_point(tower, event.get_target(), Vector2(x, y), shockwave_damage, tower.calc_spell_crit_no_bonus())

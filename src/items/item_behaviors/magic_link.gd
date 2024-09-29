@@ -14,7 +14,7 @@ func item_init():
 	autocast.title = "Transfer Experience"
 	autocast.description = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
-	autocast.caster_art = "DispelMagicTarget.mdl"
+	autocast.caster_art = "res://src/effects/dispel_magic_target.tscn"
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF

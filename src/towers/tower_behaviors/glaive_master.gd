@@ -156,7 +156,7 @@ func periodic(_event: Event):
 			if next == null:
 				break
 
-			var effect: int = Effect.create_simple_at_unit_attached("StampedeMissileDeath.mdl", next, Unit.BodyPart.ORIGIN)
+			var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/stampede_missile_death.tscn", next, Unit.BodyPart.ORIGIN)
 			ashbringer_lacerate_damage(next, damage, tower.calc_attack_multicrit_no_bonus())
 			Effect.set_lifetime(effect, 2.0)
 

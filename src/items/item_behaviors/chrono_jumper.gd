@@ -107,12 +107,14 @@ func on_autocast(event: Event):
 	dest_pos_canvas.y += Constants.TILE_SIZE.y
 	var dest_pos_wc3: Vector2 = VectorUtils.canvas_to_wc3_2d(dest_pos_canvas)
 	
+	Effect.create_simple_at_unit("res://src/effects/mass_teleport_caster.tscn", tower)
 	SFX.sfx_at_unit(SfxPaths.WARP, tower)
 	tower.set_position_wc3_2d(dest_pos_wc3)
+	Effect.create_simple_at_unit("res://src/effects/mass_teleport_target.tscn", tower)
 	SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, tower)
 	jumper_bt.apply(tower, tower, 0)
 
-	var effect: int = Effect.create_animated("res://src/effects/bdragon_15_pulsing_mandala.tscn", original_pos_3d, 0)
+	var effect: int = Effect.create_animated("res://src/effects/vampiric_aura.tscn", original_pos_3d, 0)
 	Effect.set_color(effect, Color.ROYAL_BLUE)
 	Effect.set_lifetime(effect, JUMP_DURATION)
 
@@ -128,8 +130,10 @@ func jumper_bt_on_create(_event: Event):
 func jumper_bt_on_cleanup(_event: Event):
 	var tower: Tower = item.get_carrier()
 	
+	Effect.create_simple_at_unit("res://src/effects/mass_teleport_caster.tscn", tower)
 	SFX.sfx_at_unit(SfxPaths.WARP, tower)
 	tower.set_position_wc3_2d(original_pos)
+	Effect.create_simple_at_unit("res://src/effects/mass_teleport_target.tscn", tower)
 	SFX.sfx_at_unit(SfxPaths.TELEPORT_BASS, tower)
 
 	tower.set_transform_is_allowed(true)

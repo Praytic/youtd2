@@ -84,4 +84,5 @@ func on_attack(event: Event):
 		CombatLog.log_ability(tower, creep, "Shadowstrike")
 		
 		tower.do_spell_damage(creep, _stats.damage + tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit(SfxPaths.CURSE_NOISE, creep)
+		var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/frost_armor_damage.tscn", creep)
+		Effect.set_color(effect, Color.PURPLE)

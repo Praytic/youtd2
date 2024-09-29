@@ -28,4 +28,5 @@ func on_damage(event: Event):
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
 			lightning.modulate = Color.LIGHT_GREEN
 			lightning.set_lifetime(0.1)
-			SFX.sfx_at_unit(SfxPaths.ZAP_LOW, creep)
+			var effect: int = Effect.create_simple_at_unit("res://src/effects/arcane_tower_attack.tscn", creep)
+			Effect.set_color(effect, Color.LIGHT_BLUE)

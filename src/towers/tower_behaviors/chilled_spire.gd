@@ -90,4 +90,4 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, creep, "Cold")
 
 	frozen_bt.apply_custom_timed(tower, creep, buff_level, buff_duration)
-	SFX.sfx_at_unit(SfxPaths.ICE_HISS, creep)
+	Effect.create_simple_at_unit("res://src/effects/freezing_breath.tscn", creep)

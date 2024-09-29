@@ -46,9 +46,12 @@ func ascended_bt_on_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
 	c.adjust_height(-300, 2500)
-	SFX.sfx_at_unit(SfxPaths.CLOUD_POOF, c)
 	Effect.destroy_effect(b.user_int)
-	Effect.create_simple_at_unit("res://src/effects/WarStompCaster.tscn", c)
+	
+	SFX.sfx_at_unit(SfxPaths.CLOUD_POOF, c)
+	var creep_pos: Vector2 = c.get_position_wc3_2d()
+	var effect: int = Effect.create_simple("res://src/effects/warstomp_caster.tscn", creep_pos)
+	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 
 
 func item_init():

@@ -37,7 +37,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s base spell damage\n" % base_damage_add \
 	+ "+%s spell damage per player tower\n" % damage_per_tower_add \
 	+ "+1 extra cast at levels 15 and 25\n"
-	autocast.caster_art = "PurgeBuffTarget.mdl"
+	autocast.caster_art = "res://src/effects/purge_buff_target.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
 	autocast.num_buffs_before_idle = 1
@@ -86,8 +86,9 @@ func on_autocast(event: Event):
 
 		CombatLog.log_ability(tower, creep, "Thunder Shock recast!")
 		
+		Effect.create_simple_at_unit("res://src/effects/monsoon_bolt.tscn", creep)
+		
 		tower.do_spell_damage(creep, thunder_shock_damage, tower.calc_spell_crit_no_bonus())
-		SFX.sfx_at_unit(SfxPaths.ZAP_LOW, creep)
 
 		cast_count -= 1
 

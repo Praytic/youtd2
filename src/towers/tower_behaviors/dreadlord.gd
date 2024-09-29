@@ -95,7 +95,7 @@ func on_damage(event: Event):
 	if mana >= 80:
 		tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
 		tower.subtract_mana(80, 0)
-		Effect.create_scaled("DevourEffectArt.mdl", Vector3(creep.get_x(), creep.get_y(), 30), 0, 5)
+		Effect.create_scaled("res://src/effects/devour.tscn", Vector3(creep.get_x(), creep.get_y(), 30), 0, 2)
 
 
 func on_kill(_event: Event):

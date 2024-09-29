@@ -33,7 +33,7 @@ func hippo_pt_on_hit(p: Projectile, creep: Unit):
 
 	if creep.is_immune() == false:
 		caster.do_spell_damage_aoe(Vector2(p.get_x(), p.get_y()), 200, 1250 + caster.get_level() * 50, caster.calc_spell_crit_no_bonus(), 1.0)
-		Effect.create_scaled("AncientProtectorMissile", p.get_position_wc3(), 0, 5)
+		Effect.create_scaled("res://src/effects/ancient_protector_missile.tscn", p.get_position_wc3(), 0, 2)
 
 
 func item_init():

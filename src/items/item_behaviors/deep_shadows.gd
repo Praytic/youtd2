@@ -21,4 +21,6 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.SOL:
 		event.damage = event.damage * 1.25
-		SFX.sfx_at_unit(SfxPaths.GHOST_EXHALE, target)
+	
+		var effect: int = Effect.create_simple_at_unit("res://src/effects/frag_boom_spawn.tscn", target)
+		Effect.set_color(effect, Color.DARK_BLUE)

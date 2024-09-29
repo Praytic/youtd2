@@ -158,7 +158,7 @@ func aura_bt_on_spell_casted(event: Event):
 	
 	CombatLog.log_ability(tower, target, "Demonic Edict on spell casted")
 	
-	SFX.sfx_at_unit(SfxPaths.MAGIC_HIGH_TONE, caster)
+	Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", target)
 	var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, caster, target, true, false, true)
 	p.user_real = projectile_damage
 	demonic_mana_bt.apply(tower, caster, tower.get_level())
@@ -185,6 +185,7 @@ func dave_council_maledict_on_spell_targeted(event: Event):
 	CombatLog.log_ability(tower, target, "Impenetrable Darkness periodic")
 	
 	tower.do_spell_damage(target, maledict_damage, tower.calc_spell_crit_no_bonus())
+	Effect.create_simple_at_unit("res://src/effects/death_and_decay.tscn", target)
 	SFX.sfx_at_unit(SfxPaths.GHOST_EXHALE, target)
 
 
@@ -216,7 +217,7 @@ func dave_council_darkness_on_expire(event: Event):
 	CombatLog.log_ability(tower, target, "Impenetrable Darkness on expire")
 
 	tower.do_spell_damage(target, final_damage, 1)
-	SFX.sfx_at_unit(SfxPaths.WARP, target)
+	Effect.create_simple_at_unit("res://src/effects/death_coil.tscn", target)
 
 	var floating_text: String = Utils.format_float(final_damage, 0)
 	tower.get_player().display_floating_text(floating_text, target, Color8(50, 50, 50))
