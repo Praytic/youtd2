@@ -1,8 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://cb5ai7fde6sb6"]
+[gd_scene load_steps=11 format=3 uid="uid://cb5ai7fde6sb6"]
 
 [ext_resource type="Texture2D" uid="uid://d3owsny3kybdo" path="res://assets/effects/explosion.png" id="1_y0kmf"]
-[ext_resource type="Script" path="res://src/effects/explosion.gd" id="4"]
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8sjbl"]
 atlas = ExtResource("1_y0kmf")
@@ -72,6 +70,5 @@ animations = [{
 modulate = Color(0.0784314, 0.121569, 0.584314, 1)
 scale = Vector2(5, 3)
 sprite_frames = SubResource("SpriteFrames_53jl0")
-script = ExtResource("4")
 
 [connection signal="animation_finished" from="." to="." method="_on_AnimatedSprite_animation_finished"]
