@@ -775,6 +775,9 @@ func _change_experience(amount: float) -> float:
 		var effect_id: int = Effect.create_simple_at_unit("res://src/effects/level_up.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
 		Effect.set_scale(effect_id, effect_scale)
+		var stomp_effect: int = Effect.create_simple_at_unit("res://src/effects/warstomp_caster.tscn", self, Unit.BodyPart.ORIGIN)
+		Effect.set_z_index(stomp_effect, Effect.Z_INDEX_BELOW_TOWERS)
+		Effect.set_color(stomp_effect, Color.BROWN)
 
 		var level_up_text: String = "Level %d" % _level
 		get_player().display_floating_text(level_up_text, self, Color.GOLD)

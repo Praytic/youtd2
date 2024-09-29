@@ -35,7 +35,7 @@ const RANGE_CHECK_BONUS_FOR_TOWERS: float = 72
 const RANGE_CHECK_BONUS_FOR_OTHER_UNITS: float = 8
 
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
-const LEVEL_UP_EFFECT_SIZE: float = 32.0
+const LEVEL_UP_EFFECT_SIZE: float = 64.0
 
 const SPELL_DAMAGE_RATIO: float = 0.9
 const SPELL_DAMAGE_RATIO_FOR_SIF: float = 0.4
