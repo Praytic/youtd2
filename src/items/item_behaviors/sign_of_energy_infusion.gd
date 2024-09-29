@@ -24,12 +24,18 @@ func on_damage(event: Event):
 		CombatLog.log_item_ability(item, null, "Infuse with Regeneration")
 		
 #		NOTE: original script multiplies damage by (2.0 +
-#		regen). In original youtd, regen value starts at
-#		0.0. In youtd2 regen starts at 1.0. So in original
-#		game damage was multiplied by 2.0 for a default tower.
-#		max(0.0, ...) allows for damage penalty when mana regen
-#		is reduced by i.e. mana drain aura creeps
-#		while preventing it from turning negative.
+#		regen). Changed it to (1.0 + regen) because of
+#		differences in how
+#		get_base_mana_regen_bonus_percent() works.
+#		- In original youtd, that f-n returns 0.0 by
+#		  default.
+#		- In youtd2, it returns 1.0 by default.
+#		
+#		So in original game damage was multiplied by 2.0 for
+#		a default tower. max(0.0, ...) allows for damage
+#		penalty when mana regen is reduced by i.e. mana
+#		drain aura creeps while preventing it from turning
+#		negative.
 		event.damage *= max(0.0, 1.0 + regen)
 		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
