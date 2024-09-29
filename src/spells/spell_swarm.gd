@@ -20,6 +20,7 @@ var _damage: float
 var _start_radius: float
 var _end_radius: float
 var _travel_distance: float
+var _effect_path: String
 var _move_vector: Vector2
 
 @export var _move_timer: ManualTimer
@@ -42,7 +43,7 @@ func _on_move_timer_timeout():
 	_current_swarm_pos = _current_swarm_pos + _move_vector * MOVE_PERIOD
 
 # 	Add visual effect
-	var effect: int = Effect.create_animated("res://src/effects/generic_magic.tscn", Vector3(_current_swarm_pos.x, _current_swarm_pos.y, 0.0), 0.0)
+	var effect: int = Effect.create_animated(_effect_path, Vector3(_current_swarm_pos.x, _current_swarm_pos.y, 0.0), 0.0)
 	var effect_scale: float = _get_effect_scale()
 	Effect.set_scale(effect, effect_scale)
 
@@ -80,7 +81,7 @@ func _get_effect_scale() -> float:
 	var lifetime: float = get_lifetime()
 	var remaining_lifetime: float = get_remaining_lifetime()
 	var move_progress: float = 1.0 - Utils.divide_safe(remaining_lifetime, lifetime, 0.0)
-	var effect_scale: float = lerp(0.5, 2.5, move_progress)
+	var effect_scale: float = lerp(0.5, 2.0, move_progress)
 
 	return effect_scale
 
@@ -99,3 +100,4 @@ func _set_subclass_data(data: SpellType.SpellData):
 	_start_radius = data.swarm.start_radius
 	_end_radius = data.swarm.end_radius
 	_travel_distance = data.swarm.travel_distance
+	_effect_path = data.swarm.effect_path

@@ -101,6 +101,7 @@ func tower_init():
 	swarm_st.data.swarm.start_radius = 100
 	swarm_st.data.swarm.end_radius = 300
 	swarm_st.data.swarm.travel_distance = 1200
+	swarm_st.data.swarm.effect_path = "res://src/effects/moonwell_target.tscn"
 
 
 func on_attack(event: Event):

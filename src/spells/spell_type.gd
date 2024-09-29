@@ -36,6 +36,7 @@ class SwarmData:
 	var start_radius: float = 0.0
 	var end_radius: float = 0
 	var travel_distance: float = 0.0
+	var effect_path: String = ""
 
 
 class SpellData:

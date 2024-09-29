@@ -63,6 +63,7 @@ func tower_init():
 	shockwave_st.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
 	shockwave_st.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
 	shockwave_st.data.swarm.travel_distance = SHOCKWAVE_RANGE_FROM_TARGET
+	shockwave_st.data.swarm.effect_path = "res://src/effects/shockwave_missile.tscn"
 
 
 func get_aura_types() -> Array[AuraType]:

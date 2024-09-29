@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=3 uid="uid://cw4w7l3u0of54"]
+
+[ext_resource type="Texture2D" uid="uid://cxngu4anhtvk6" path="res://assets/effects/bdragon/moonwell_target_584.png" id="1_ettex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0xp7"]
+atlas = ExtResource("1_ettex")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co048"]
+atlas = ExtResource("1_ettex")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbce4"]
+atlas = ExtResource("1_ettex")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5cty"]
+atlas = ExtResource("1_ettex")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vekqs"]
+atlas = ExtResource("1_ettex")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmevc"]
+atlas = ExtResource("1_ettex")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84eu4"]
+atlas = ExtResource("1_ettex")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7xjj"]
+atlas = ExtResource("1_ettex")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkrov"]
+atlas = ExtResource("1_ettex")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hp00"]
+atlas = ExtResource("1_ettex")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngvrm"]
+atlas = ExtResource("1_ettex")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1ejp"]
+atlas = ExtResource("1_ettex")
+region = Rect2(704, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33en7"]
+atlas = ExtResource("1_ettex")
+region = Rect2(768, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0chml"]
+atlas = ExtResource("1_ettex")
+region = Rect2(832, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ws73d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0xp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co048")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbce4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5cty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vekqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmevc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84eu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7xjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkrov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hp00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngvrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1ejp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33en7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0chml")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="MoonwellTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ws73d")
+offset = Vector2(0, -20)

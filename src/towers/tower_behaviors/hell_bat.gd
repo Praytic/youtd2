@@ -88,6 +88,7 @@ func tower_init():
 	swarm_st.data.swarm.start_radius = SWARM_START_RADIUS
 	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS
 	swarm_st.data.swarm.travel_distance = 1200
+	swarm_st.data.swarm.effect_path = "res://src/effects/death_coil.tscn"
 
 
 func create_autocasts() -> Array[Autocast]:

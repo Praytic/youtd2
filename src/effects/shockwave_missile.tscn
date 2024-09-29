@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://xfwkgsuv57gr"]
+
+[ext_resource type="Texture2D" uid="uid://btlx0a8g4015b" path="res://assets/effects/bdragon/shockwave_missile_440.png" id="1_mdh2s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft0rd"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggsov"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxfqk"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fojbe"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfgag"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb8id"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2w44q"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3k1r"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tfn1"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phok3"]
+atlas = ExtResource("1_mdh2s")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_be41r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft0rd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggsov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxfqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fojbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfgag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tb8id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2w44q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3k1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tfn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phok3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ShockwaveMissile" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_be41r")
+offset = Vector2(0, -20)
