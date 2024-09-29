@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=3 uid="uid://bp0yq6h8y1fpr"]
+
+[ext_resource type="Script" path="res://src/projectiles/projectile_visuals/default_projectile.gd" id="1_ue3pq"]
+[ext_resource type="Texture2D" uid="uid://dsvu05xjwic5g" path="res://assets/effects/bdragon/purge_buff_target_195.png" id="2_pqld0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bseim"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c7jd"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n81s5"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20pis"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8vh7"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wm3vs"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g1x8"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s61us"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0xxf"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldh17"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvdyb"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_881du"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(704, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsj1i"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(768, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbt3t"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(832, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxonc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bseim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5c7jd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n81s5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20pis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8vh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wm3vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g1x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s61us")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0xxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldh17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvdyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_881du")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsj1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbt3t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53xhx"]
+atlas = ExtResource("2_pqld0")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="Curve" id="Curve_rkf74"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.533708, 182.418), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_pdi52"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="BallLightningProjectile" type="Node2D"]
+script = ExtResource("1_ue3pq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mxonc")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+lifetime = 0.1
+texture = SubResource("AtlasTexture_53xhx")
+gravity = Vector2(0, 0)
+radial_accel_curve = SubResource("Curve_rkf74")
+scale_amount_min = 0.8
+scale_amount_max = 0.9
+color_ramp = SubResource("Gradient_pdi52")
