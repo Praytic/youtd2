@@ -7,6 +7,9 @@ extends Node
 # NOTE: effect scene args must be AnimatedSprite2D
 
 
+const Z_INDEX_BELOW_CREEPS: int = 9
+
+
 # NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, effect_pos: Vector3, facing: float) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")

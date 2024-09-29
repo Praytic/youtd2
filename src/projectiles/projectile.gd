@@ -536,11 +536,9 @@ func _do_explosion_visual():
 	if !visible:
 		return
 
-	var explosion = Preloads.explosion_scene.instantiate()
-	var projectile_pos: Vector3 = get_position_wc3()
-	var projectile_pos_canvas: Vector2 = VectorUtils.wc3_to_canvas(projectile_pos)
-	explosion.position = projectile_pos_canvas
-	Utils.add_object_to_world(explosion)
+	var projectile_pos: Vector2 = get_position_wc3_2d()
+	var effect: int = Effect.create_simple("res://src/effects/explosion.tscn", projectile_pos)
+	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 
 
 #########################
