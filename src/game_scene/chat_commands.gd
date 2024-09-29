@@ -29,6 +29,7 @@ const ADD_EXP: Array[String] = ["/add-exp", "/ae"]
 const ADD_TEST_OILS: Array[String] = ["/add-test-oils", "/ato"]
 const SPAWN_CHALLENGE: Array[String] = ["/spawn-challenge", "/sc"]
 const SETUP_TEST_TOWER: Array[String] = ["/setup-test-tower", "/stt"]
+const FULL_MANA: Array[String] = ["/full-mana", "/fm"]
 
 const HOST_COMMAND_LIST_OF_LISTS: Array = [
 	PAUSE,
@@ -44,6 +45,7 @@ const DEV_COMMAND_LIST_OF_LISTS: Array = [
 	ADD_TEST_OILS,
 	SPAWN_CHALLENGE,
 	SETUP_TEST_TOWER,
+	FULL_MANA,
 ]
 
 # Comamnds in this list will be executed only for the player
@@ -147,6 +149,8 @@ func process_command(player: Player, command: String):
 		_command_spawn_challenge(player, command_args)
 	elif SETUP_TEST_TOWER.has(command_main):
 		_command_setup_test_tower(player, command_args)
+	elif FULL_MANA.has(command_main):
+		_command_full_mana(player, command_args)
 	elif DAMAGE_METERS.has(command_main):
 		_command_damage_meters(player, command_args)
 	elif DAMAGE_METERS_RECENT.has(command_main):
@@ -393,6 +397,17 @@ func _command_setup_test_tower(player: Player, _args: Array):
 	selected_tower.add_exp(1000)
 	_add_test_oils(player, selected_tower)
 	_add_status(player, "Test tower is ready")
+
+
+func _command_full_mana(player: Player, _args: Array):
+	var selected_tower: Unit = player.get_selected_unit()
+
+	if selected_tower == null:
+		_add_error(player, "You must selected a tower before executing this command.")
+
+		return
+
+	selected_tower.add_mana_perc(1.0)
 
 
 func _command_damage_meters(player: Player, _args: Array):
