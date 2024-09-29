@@ -36,6 +36,12 @@ func on_damage(event: Event):
 #		penalty when mana regen is reduced by i.e. mana
 #		drain aura creeps while preventing it from turning
 #		negative.
+#		
+#		NOTE: damage is multiplied by 2.0 for a default
+#		tower because by default, towers have 100%
+#		"percentual mana regeneration". This is different
+#		from "percentual mana regeneration bonus" stat which
+#		starts at +0%.
 		event.damage *= max(0.0, 1.0 + regen)
 		item.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
