@@ -23,8 +23,8 @@ var is_soul_link_damage: bool = false
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {link_damage_ratio = 0.125, link_damage_ratio_add = 0.003},
-		2: {link_damage_ratio = 0.15, link_damage_ratio_add = 0.003},
+		1: {link_damage_ratio = 0.125, link_damage_ratio_add = 0.003, link_distance = 600},
+		2: {link_damage_ratio = 0.15, link_damage_ratio_add = 0.003, link_distance = 700},
 	}
 
 const SOUL_LINK_DURATION: float = 2.5
@@ -94,6 +94,7 @@ func create_autocasts() -> Array[Autocast]:
 
 func on_autocast(event: Event):
 	var level: int = tower.get_level()
+	var main_target: Unit = event.get_target()
 	var current_target: Unit = event.get_target()
 	var counter: int = 0
 	var target_list: Array[Unit] = []
@@ -114,7 +115,7 @@ func on_autocast(event: Event):
 		if counter == max_targets:
 			break
 
-		var creeps_in_range: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), current_target, 600)
+		var creeps_in_range: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), current_target, _stats.link_distance)
 		
 		var next: Unit = null
 
@@ -138,7 +139,10 @@ func on_autocast(event: Event):
 		var buff: Buff = soul_link_bt.apply(tower, target, level)
 		buff.user_int = soul_link_id
 
-		Effect.create_simple_at_unit("FindSomeEffect.mdl", target)
+		if target != main_target:
+			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, target, main_target)
+			lightning.modulate = Color.PURPLE
+			lightning.set_lifetime(0.4)
 
 
 func soul_link_on_damaged(event: Event):
