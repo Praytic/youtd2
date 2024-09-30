@@ -11,6 +11,17 @@ enum AttackStyle {
 	BOUNCE,
 }
 
+const ELEMENT_TO_EXPLOSION_ART: Dictionary = {
+	Element.enm.ICE: "res://src/effects/projectile_explosion_ice.tscn",
+	Element.enm.NATURE: "res://src/effects/projectile_explosion_nature.tscn",
+	Element.enm.FIRE: "res://src/effects/projectile_explosion_fire.tscn",
+	Element.enm.ASTRAL: "res://src/effects/projectile_explosion_astral.tscn",
+	Element.enm.DARKNESS: "res://src/effects/projectile_explosion_darkness.tscn",
+	Element.enm.IRON: "res://src/effects/projectile_explosion_iron.tscn",
+	Element.enm.STORM: "res://src/effects/projectile_explosion_storm.tscn",
+	Element.enm.NONE: "res://src/effects/projectile_explosion_storm.tscn",
+}
+
 
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
@@ -102,6 +113,8 @@ func _ready():
 	var missile_speed: int = TowerProperties.get_missile_speed(get_id())
 	_default_projectile_type = ProjectileType.create_interpolate("", missile_speed, self)
 	_default_projectile_type.set_event_on_interpolation_finished(_on_projectile_target_hit)
+	var explosion_art: String = ELEMENT_TO_EXPLOSION_ART[get_element()]
+	_default_projectile_type.set_explosion_art(explosion_art)
 
 	var missile_uses_lightning_visual: bool = TowerProperties.get_missile_use_lightning_visual(get_id())
 	if missile_uses_lightning_visual:

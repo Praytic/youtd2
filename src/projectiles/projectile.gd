@@ -66,6 +66,7 @@ var _periodic_timer: ManualTimer = null
 var _spawn_time: float
 var _visual_path: String
 var _use_lightning_visual: bool
+var _explosion_art: String
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -536,9 +537,14 @@ func _do_explosion_visual():
 	if !visible:
 		return
 
-	var projectile_pos: Vector2 = get_position_wc3_2d()
-	var effect: int = Effect.create_simple("res://src/effects/explosion.tscn", projectile_pos)
-	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
+	if _explosion_art.is_empty():
+		return
+
+	if _target_unit != null:
+		Effect.create_simple_at_unit(_explosion_art, _target_unit)
+	else:
+		var explosion_pos: Vector3 = get_position_wc3()
+		Effect.create_animated(_explosion_art, explosion_pos, 0)
 
 
 #########################
@@ -840,6 +846,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 	projectile.set_position_wc3(initial_pos)
 	projectile._initial_pos = initial_pos
 	projectile._visual_path = type._visual_path
+	projectile._explosion_art = type._explosion_art
 
 	projectile.set_direction(facing)
 

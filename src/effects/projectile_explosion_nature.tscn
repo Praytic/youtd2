@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://cigprvusdkmrd"]
+
+[ext_resource type="Texture2D" uid="uid://cyyax4tkjt7au" path="res://assets/effects/bdragon/projectile_explosion_299.png" id="1_u45n8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfxg7"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0204"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk8vl"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i88ye"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntyvt"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rey2"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rkn7"]
+atlas = ExtResource("1_u45n8")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqa54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfxg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0204")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nk8vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i88ye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntyvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rey2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rkn7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="ProjectileExplosionNature" type="AnimatedSprite2D"]
+modulate = Color(0.823529, 0.92549, 0.890196, 0.784314)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_oqa54")

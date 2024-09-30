@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://bf4smllvm8luj"]
+
+[ext_resource type="Texture2D" uid="uid://cyyax4tkjt7au" path="res://assets/effects/bdragon/projectile_explosion_299.png" id="1_40fio"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5brdp"]
+atlas = ExtResource("1_40fio")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svbkk"]
+atlas = ExtResource("1_40fio")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5w56"]
+atlas = ExtResource("1_40fio")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv0jc"]
+atlas = ExtResource("1_40fio")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uifn4"]
+atlas = ExtResource("1_40fio")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4smn"]
+atlas = ExtResource("1_40fio")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwr0y"]
+atlas = ExtResource("1_40fio")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjjqh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5brdp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svbkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5w56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv0jc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uifn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4smn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwr0y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="ProjectileExplosionShadow" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qjjqh")

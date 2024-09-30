@@ -9,6 +9,7 @@ var _homing_control_value: float
 var _range: float = 0.0
 var _lifetime: float = 0.0
 var _visual_path: String = ""
+var _explosion_art: String = ""
 var _explode_on_hit: bool = true
 var _explode_on_expiration: bool = true
 var _cleanup_handler: Callable = Callable()
@@ -40,6 +41,10 @@ func _init():
 #########################
 ###       Public      ###
 #########################
+
+func set_explosion_art(path: String):
+	_explosion_art = path
+
 
 # Sets the rate of change for projectile's duration, in
 # degrees/tick, 30ticks/second.
