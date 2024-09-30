@@ -12,7 +12,6 @@ const game_scene_scene: PackedScene = preload("res://src/game_scene/game_scene.t
 const item_button_scene: PackedScene = preload("res://src/hud/buttons/item_button.tscn")
 const tower_button_scene: PackedScene = preload("res://src/hud/buttons/tower_button.tscn")
 const floating_text_scene: PackedScene = preload("res://src/hud/floating_text.tscn")
-const explosion_scene: PackedScene = preload("res://src/effects/explosion.tscn")
 const projectile_scene: PackedScene = preload("res://src/projectiles/projectile.tscn")
 const aura_scene: PackedScene = preload("res://src/buffs/aura.tscn")
 const buff_range_area_scene: PackedScene = preload("res://src/buffs/buff_range_area.tscn")

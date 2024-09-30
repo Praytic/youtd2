@@ -333,9 +333,8 @@ func copter_ability_shoot_one_missile(copter: Copter, target_pos: Vector2):
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), target_pos, missile_radius)
 
-	var effect: int = Effect.add_special_effect("res://src/effects/explosion.tscn", target_pos)
+	var effect: int = Effect.add_special_effect("res://src/effects/warstomp_caster.tscn", target_pos)
 	Effect.set_scale(effect, 0.5)
-	Effect.set_lifetime(effect, 0.5)
 
 	var attack_damage: float = tower.get_current_attack_damage_with_bonus()
 
