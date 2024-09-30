@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://djr2oy8i57ega"]
+
+[ext_resource type="Texture2D" uid="uid://4vi0ba0hi12o" path="res://assets/effects/bdragon/wind_shear_559.png" id="1_bsx24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgcmv"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbm0t"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjusf"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqs7s"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31aak"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogc3i"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seoag"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c37lb"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7sxu"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42nry"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l778i"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lmeq"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etnem"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1ueq"]
+atlas = ExtResource("1_bsx24")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_webp7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgcmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbm0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjusf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqs7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31aak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogc3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seoag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c37lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7sxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42nry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l778i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lmeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etnem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1ueq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="WindShear" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_webp7")

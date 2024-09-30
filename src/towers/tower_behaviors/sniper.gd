@@ -47,7 +47,8 @@ func load_specials(modifier: Modifier):
 
 func rocket_hit(p: Projectile, _t: Unit):
 	p.do_spell_damage_pb_aoe(_stats.aoe_radius, _stats.rocket_damage + _stats.rocket_damage_add * tower.get_level(), 0)
-	Effect.add_special_effect("NeutralBuildingExplosion.mdl", Vector2(p.get_x(), p.get_y()))
+	var effect: int = Effect.add_special_effect("res://src/effects/frag_boom_spawn.tscn", Vector2(p.get_x(), p.get_y()))
+	Effect.set_scale(effect, 2)
 
 
 func tower_init():

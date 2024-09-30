@@ -27,12 +27,10 @@ func grenade_pt_on_hit(P: Projectile, U: Unit):
 	if U == null:
 		return
 
-	var e: int
 	var C: Tower = P.get_caster()
 
 	C.do_spell_damage_aoe_unit(U, 400, P.user_real, C.calc_spell_crit_no_bonus(), 0)
-	e = Effect.create_scaled("FaerieDragonMissile.mdl", Vector3(U.get_x(), U.get_y(), 8), 0, 5)
-	Effect.set_lifetime(e, 0.01)
+	Effect.create_scaled("res://src/effects/faerie_dragon_missile.tscn", Vector3(U.get_x(), U.get_y(), 8), 0, 1)
 
 
 func item_init():

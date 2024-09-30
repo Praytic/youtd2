@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=3 uid="uid://ckc75bhlxyjjd"]
+
+[ext_resource type="Texture2D" uid="uid://cuavhpswhvx4s" path="res://assets/effects/bdragon/faerie_dragon_missile_482.png" id="1_ipone"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv4pb"]
+atlas = ExtResource("1_ipone")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rypq6"]
+atlas = ExtResource("1_ipone")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrcw2"]
+atlas = ExtResource("1_ipone")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpyjc"]
+atlas = ExtResource("1_ipone")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7efe"]
+atlas = ExtResource("1_ipone")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rauqc"]
+atlas = ExtResource("1_ipone")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti8vg"]
+atlas = ExtResource("1_ipone")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oflan"]
+atlas = ExtResource("1_ipone")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvcc0"]
+atlas = ExtResource("1_ipone")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw8qb"]
+atlas = ExtResource("1_ipone")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_haipm"]
+atlas = ExtResource("1_ipone")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi1ll"]
+atlas = ExtResource("1_ipone")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vxulq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv4pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rypq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrcw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpyjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7efe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rauqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti8vg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oflan")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvcc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw8qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haipm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi1ll")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="FaerieDragonMissile" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_vxulq")

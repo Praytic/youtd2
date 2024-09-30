@@ -34,7 +34,7 @@ func item_init():
 	autocast.description = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
-	autocast.target_art = "HealingWaveTarget.mdl"
+	autocast.target_art = "res://src/effects/healing_wave_target.tscn"
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.target_self = false

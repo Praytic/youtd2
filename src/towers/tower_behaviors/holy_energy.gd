@@ -57,7 +57,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds\n" % sunlight_duration_add
-	autocast.caster_art = "Awaken.mdl"
+	autocast.caster_art = "res://src/effects/silence_area.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 0

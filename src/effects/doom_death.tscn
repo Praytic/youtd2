@@ -1,0 +1,104 @@
+[gd_scene load_steps=16 format=3 uid="uid://bxoxandj44hx6"]
+
+[ext_resource type="Texture2D" uid="uid://b7j12e3p73bqd" path="res://assets/effects/bdragon/doom_death_451.png" id="1_pq4kx"]
+[ext_resource type="AudioStream" uid="uid://cpc66xggsayen" path="res://assets/sfx/michel_baradari_lava.ogg" id="2_1ae74"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t06c"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q2yw"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp0c6"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chmld"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kftar"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alvjn"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr8q1"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28xev"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v43d"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7asw"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bit6o"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xokin"]
+atlas = ExtResource("1_pq4kx")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xsd1p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5t06c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q2yw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp0c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chmld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kftar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alvjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr8q1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28xev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v43d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7asw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bit6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xokin")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="DoomDeath" type="AnimatedSprite2D"]
+scale = Vector2(6, 3)
+sprite_frames = SubResource("SpriteFrames_xsd1p")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_1ae74")
+autoplay = true

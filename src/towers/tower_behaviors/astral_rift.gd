@@ -91,7 +91,7 @@ func on_damage(event: Event):
 	tower.subtract_mana(30, false)
 
 	Effect.create_animated("res://src/effects/replenish_mana.tscn", tower.get_position_wc3(), 0)
-	Effect.create_simple("AIilTarget.mdl", Vector2(target.get_x(), target.get_y()))
+	Effect.create_simple("res://src/effects/spell_aiil.tscn", Vector2(target.get_x(), target.get_y()))
 
 	var move_aoe: bool = tower.calc_chance(0.15)
 
@@ -112,8 +112,7 @@ func on_damage(event: Event):
 
 		move_creep_back(target)
 
-	var slow_effect: int = Effect.create_simple("SilenceAreaBirth.mdl", Vector2(target.get_x(), target.get_y()))
-	Effect.set_lifetime(slow_effect, 1.0)
+	Effect.create_simple("res://src/effects/silence_area.tscn", Vector2(target.get_x(), target.get_y()))
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
 

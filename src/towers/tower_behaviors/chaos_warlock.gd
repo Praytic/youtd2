@@ -189,12 +189,12 @@ func siphon_bt_on_attack(event: Event):
 #	purpose?
 	warlock.do_attack_damage(target, dmg, warlock.calc_spell_crit_no_bonus())
 
-	Effect.create_simple("ImpaleHitTarget.mdl", Vector2(attacker.get_x(), attacker.get_y()))
+	Effect.create_simple("res://src/effects/impale_hit_target.tscn", Vector2(attacker.get_x(), attacker.get_y()))
 
 	var floating_text: String = Utils.format_float(dmg, 0)
 	warlock.get_player().display_floating_text_x(floating_text, target, Color8(255, 0, 150, 255), 0.05, 0.0, 2.0)
 
-	Effect.create_simple("ImpaleHitTarget.mdl", Vector2(target.get_x(), target.get_y()))
+	Effect.create_simple("res://src/effects/impale_hit_target.tscn", Vector2(target.get_x(), target.get_y()))
 
 
 func aura_bt_periodic(event: Event):

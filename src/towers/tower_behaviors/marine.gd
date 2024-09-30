@@ -88,7 +88,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s seconds duration\n" % stim_duration_add
-	autocast.caster_art = "AvatarCaster.mdl"
+	autocast.caster_art = "res://src/effects/avatar_caster.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 0

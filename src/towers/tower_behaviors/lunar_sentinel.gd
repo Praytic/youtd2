@@ -43,7 +43,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
 	autocast.cast_range = 1200
 	autocast.target_self = false
-	autocast.target_art = "Abilities/Spells/Items/AIil/AIilTarget.mdl"
+	autocast.target_art = "res://src/effects/spell_aiil.tscn"
 	autocast.cooldown = 2
 	autocast.is_extended = true
 	autocast.mana_cost = 0

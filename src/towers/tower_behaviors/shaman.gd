@@ -61,7 +61,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.cast_range = 500
 	autocast.target_self = true
-	autocast.target_art = "BloodlustTarget.mdl"
+	autocast.target_art = "res://src/effects/roar.tscn"
 	autocast.cooldown = 5
 	autocast.is_extended = false
 	autocast.mana_cost = 15

@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://o2tead45rrea"]
+
+[ext_resource type="Texture2D" uid="uid://cktvui85usgvp" path="res://assets/effects/bdragon/voodoo_aura_182.png" id="1_3b14v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc8tg"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d52x5"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecciw"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_euong"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8h0tm"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al8g0"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykbhp"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rn20h"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojq45"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa2mo"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l4qs"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jksv7"]
+atlas = ExtResource("1_3b14v")
+region = Rect2(704, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i8hdn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qc8tg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d52x5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecciw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_euong")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8h0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al8g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykbhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rn20h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojq45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa2mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l4qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jksv7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="VoodooAura" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(4, 2)
+sprite_frames = SubResource("SpriteFrames_i8hdn")

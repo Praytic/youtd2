@@ -82,7 +82,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% damage absorbed\n"
-	autocast.caster_art = "HowlCaster.mdl"
+	autocast.caster_art = "res://src/effects/howl_caster.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 0

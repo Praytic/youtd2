@@ -82,7 +82,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+1 target at level 20\n" \
 	+ "+0.1 sec duration\n"
 	autocast.caster_art = ""
-	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
+	autocast.target_art = "res://src/effects/wind_shear.tscn"
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
 	autocast.target_self = true

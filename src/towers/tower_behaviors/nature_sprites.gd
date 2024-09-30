@@ -67,7 +67,7 @@ func gift_bt_on_create(event: Event):
 	buff.user_int = main_mod_type
 	buff.user_real = main_mod_value
 
-	var secondary_effect_happened: bool = tower.calc_chance(SECONDARY_EFFECT_CHANCE)
+	var secondary_effect_happened: bool = true
 
 	if secondary_effect_happened:
 #		NOTE: for secondary effect, do not include IRON in
@@ -93,10 +93,11 @@ func gift_bt_on_create(event: Event):
 		buff.user_int2 = 0
 		buff.user_real2 = 0
 
-	var effect_id: int = Effect.create_scaled("KeeperGroveMissile.mdl", Vector3(target.get_x(), target.get_y(), 150), 0, 5)
+	var effect_id: int = Effect.create_simple_at_unit("res://src/effects/keeper_grove_missile.tscn", target, Unit.BodyPart.OVERHEAD)
 	Effect.set_auto_destroy_enabled(effect_id, false)
 	if secondary_effect_happened:
-		Effect.set_color(effect_id, Color8(255, 180, 180, 255))
+		Effect.set_color(effect_id, Color8(255, 180, 180))
+		Effect.set_scale(effect_id, 1.5)
 	buff.user_int3 = effect_id
 
 
@@ -133,7 +134,7 @@ func tower_init():
 	gift_bt.add_event_on_cleanup(gift_bt_on_cleanup)
 	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
 
-	sprite_pt = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
+	sprite_pt = ProjectileType.create("res://src/effects/keeper_grove_missile.tscn", 4, 400, self)
 	sprite_pt.enable_homing(sprite_hit, 0)
 
 

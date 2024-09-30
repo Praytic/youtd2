@@ -311,7 +311,8 @@ func generic_boar_pt_on_hit(p: Projectile, target: Unit):
 	if target != null || target_is_air:
 		if target != null:
 			tower.do_attack_damage(target, pig_data.dmg, pig_data.crit)
-			Effect.create_simple_at_unit_attached("DemolisherFireMissile.mdl", target, Unit.BodyPart.ORIGIN)
+			var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/doom_death.tscn", target, Unit.BodyPart.ORIGIN)
+			Effect.set_z_index(effect, -1)
 
 		var pig_pos: Vector2 = p.get_position_wc3_2d()
 		var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), pig_pos, SPLASH_RADIUS)

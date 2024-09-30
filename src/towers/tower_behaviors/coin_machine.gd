@@ -59,7 +59,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+%s seconds duration\n" % buff_duration_add \
 	+ "+%s bounty gain\n" % mod_bounty_gain_add
 	autocast.caster_art = ""
-	autocast.target_art = "ResourceEffectTarget.mdl"
+	autocast.target_art = "res://src/effects/gold_credit.tscn"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 3
 	autocast.cast_range = AUTOCAST_RANGE

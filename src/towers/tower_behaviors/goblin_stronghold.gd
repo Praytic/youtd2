@@ -98,7 +98,7 @@ func tower_init():
 	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
 	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
 	robot_bt.set_buff_icon("res://resources/icons/generic_icons/cog.tres")
-	robot_bt.set_special_effect("HeroTinkerRobot.mdl", 200, 5.0)
+	robot_bt.set_special_effect("res://src/effects/holy_bolt.tscn", 200, 5.0)
 	robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
 
 	emitter_bt = BuffType.new("emitter_bt", 5, 0, true, self)
@@ -106,7 +106,7 @@ func tower_init():
 	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
 	emitter_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	emitter_bt.set_special_effect("GoblinLandMine.mdl", 200, 5.0)
+	emitter_bt.set_special_effect("res://src/effects/frost_bolt_missile.tscn", 200, 5.0)
 	emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
 
 
@@ -169,7 +169,7 @@ func sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	var floating_text: String = "%d%% slow" % (slow_buff_level / 10) 
 	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 100, 255), 40)
 
-	Effect.add_special_effect("NeutralBuildingExplosion.mdl", Vector2(projectile.get_x(), projectile.get_y()))
+	Effect.add_special_effect("res://src/effects/frag_boom_spawn.tscn", Vector2(projectile.get_x(), projectile.get_y()))
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250)
 	

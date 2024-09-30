@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://dligwgua1y7i"]
+
+[ext_resource type="Texture2D" uid="uid://c56ujjaxdg1my" path="res://assets/effects/bdragon/healing_wave_target_453.png" id="1_vsvcm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfxu3"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ly6yu"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5ca6"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qulq6"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jrtc"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kynm"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pbe1"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sr6i"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgprc"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpeum"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rctxn"]
+atlas = ExtResource("1_vsvcm")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_22wvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfxu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ly6yu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5ca6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qulq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jrtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kynm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pbe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sr6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgprc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpeum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rctxn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="HealingWaveTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_22wvr")

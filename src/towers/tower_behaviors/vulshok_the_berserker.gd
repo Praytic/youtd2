@@ -110,10 +110,12 @@ func on_attack(event: Event):
 #		Splashed bonus damage (every 84th)
 		if attack_count % 12 == 0:
 			tower.do_attack_damage_aoe_unit(target, 200, 3000 + 200 * level, tower.calc_attack_multicrit(0, 0, crit), 0)
-			Effect.create_scaled("DoomDeath.mdl", Vector3(target.get_x(), target.get_y(), 0), 0, 5)
+			var effect: int = Effect.create_scaled("res://src/effects/doom_death.tscn", Vector3(target.get_x(), target.get_y(), 0), 0, 1)
+			Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 		else:
 			tower.do_attack_damage(target, 3000 + 200 * level, tower.calc_attack_multicrit(0, 0, crit), 0)
-			Effect.create_scaled("DoomDeath.mdl", Vector3(target.get_x(), target.get_y(), 0), 0, 5)
+			var effect: int = Effect.create_scaled("res://src/effects/doom_death.tscn", Vector3(target.get_x(), target.get_y(), 0), 0, 1)
+			Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 
 #	Splash (every 12th)
 	if attack_count % 12 == 0:

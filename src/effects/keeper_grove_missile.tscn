@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4gfpjag8c6oi"]
+
+[ext_resource type="Texture2D" uid="uid://ch2peil7lqosf" path="res://assets/effects/bdragon/keeper_grove_missile_297.png" id="1_ebc0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlkd4"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqrom"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uoaxc"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8h2b"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l3pq"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhrju"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nuil"]
+atlas = ExtResource("1_ebc0o")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0763r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlkd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqrom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uoaxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8h2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4l3pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhrju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nuil")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="KeeperGroveMissile" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_0763r")

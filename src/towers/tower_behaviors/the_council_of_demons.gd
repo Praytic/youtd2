@@ -89,7 +89,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+1% damage on expire \n" \
 	+ "+0.8% slow\n"
 	autocast.caster_art = ""
-	autocast.target_art = "AvengerMissile.mdl"
+	autocast.target_art = "res://src/effects/frag_boom_spawn.tscn"
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 1
 	autocast.cast_range = 850

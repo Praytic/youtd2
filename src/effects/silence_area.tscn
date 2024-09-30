@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=3 uid="uid://uh0ny0hofn0o"]
+
+[ext_resource type="Texture2D" uid="uid://cetfk6yto1khh" path="res://assets/effects/bdragon/silence_area_611.png" id="1_4m5lt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xcwp"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8imd"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3t61"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r7hw"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_330bw"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hrtn"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbpiv"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0231q"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0mpb"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v52m6"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ggup"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1xvb"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yajk0"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1ae6"]
+atlas = ExtResource("1_4m5lt")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c5ih8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xcwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8imd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3t61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r7hw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_330bw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hrtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbpiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0231q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0mpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v52m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ggup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1xvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yajk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1ae6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SilenceArea" type="AnimatedSprite2D"]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_c5ih8")
+offset = Vector2(0, -20)

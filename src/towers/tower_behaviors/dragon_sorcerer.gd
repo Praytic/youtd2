@@ -33,7 +33,8 @@ func create_autocasts() -> Array[Autocast]:
 	+ "+0.6% attack speed\n" \
 	+ "+0.2% crit chance\n"
 	autocast.caster_art = ""
-	autocast.target_art = "DoomDeath.mdl"
+	autocast.target_art = "res://src/effects/doom_death.tscn"
+	autocast.target_art_z_index = Effect.Z_INDEX_BELOW_TOWERS
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
 	autocast.num_buffs_before_idle = 3
 	autocast.cast_range = 500

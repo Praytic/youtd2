@@ -112,7 +112,8 @@ func on_attack(event: Event):
 #	do effects
 	Effect.create_simple("res://src/effects/thunder_clap.tscn", Vector2(x, y))
 	Effect.create_simple("res://src/effects/cyclone_target.tscn", Vector2(x, y))
-	var effect3: int = Effect.create_simple("ManaDrainTarget.mdl", Vector2(x, y))
+	var effect3: int = Effect.create_simple("res://src/effects/voodoo_aura.tscn", Vector2(x, y))
+	Effect.set_z_index(effect3, Effect.Z_INDEX_BELOW_CREEPS)
 	Effect.set_lifetime(effect3, 1.0)
 
 # 	Adjust ratios against air

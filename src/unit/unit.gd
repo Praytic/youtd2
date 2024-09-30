@@ -656,7 +656,7 @@ func add_stun():
 	_stun_count += 1
 
 	if stun_started:
-		_stun_effect_id = Effect.create_simple_at_unit_attached("res://src/effects/stun_visual.tscn", self, Unit.BodyPart.HEAD)
+		_stun_effect_id = Effect.create_simple_at_unit_attached("res://src/effects/stun_visual.tscn", self, Unit.BodyPart.OVERHEAD)
 		Effect.set_auto_destroy_enabled(_stun_effect_id, false)
 
 

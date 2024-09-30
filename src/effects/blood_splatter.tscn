@@ -1,72 +1,65 @@
-[gd_scene load_steps=12 format=3 uid="uid://djhj3tmsnmjua"]
+[gd_scene load_steps=11 format=3 uid="uid://djhj3tmsnmjua"]
 
-[ext_resource type="Texture2D" uid="uid://brpkkxm01sj6u" path="res://assets/effects/bdragon/blood_splatter_526.png" id="1_h4bhf"]
+[ext_resource type="Texture2D" uid="uid://cueu6nx32scn" path="res://assets/effects/bdragon/blood_splatter_376.png" id="1_7dy51"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jl21y"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffvbt"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(0, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxcbo"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn3wr"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(64, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_onr7t"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3o23"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(128, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o41pm"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwiir"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(192, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8kiw7"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxi3f"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(256, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5wx28"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx6op"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(320, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lunuv"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4su3"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(384, 320, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vo7pf"]
-atlas = ExtResource("1_h4bhf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jv0sx"]
+atlas = ExtResource("1_7dy51")
 region = Rect2(448, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0k8ds"]
-atlas = ExtResource("1_h4bhf")
-region = Rect2(512, 320, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fhqgd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jl21y")
+"texture": SubResource("AtlasTexture_ffvbt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fxcbo")
+"texture": SubResource("AtlasTexture_nn3wr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_onr7t")
+"texture": SubResource("AtlasTexture_u3o23")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o41pm")
+"texture": SubResource("AtlasTexture_jwiir")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8kiw7")
+"texture": SubResource("AtlasTexture_rxi3f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5wx28")
+"texture": SubResource("AtlasTexture_fx6op")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lunuv")
+"texture": SubResource("AtlasTexture_w4su3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vo7pf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0k8ds")
+"texture": SubResource("AtlasTexture_jv0sx")
 }],
 "loop": true,
 "name": &"default",
@@ -75,8 +68,5 @@ animations = [{
 
 [node name="BloodSplatter" type="AnimatedSprite2D"]
 modulate = Color(1, 0.06, 0.06, 1)
-rotation = 1.0472
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fhqgd")
-frame_progress = 0.27275
-offset = Vector2(20, 5)

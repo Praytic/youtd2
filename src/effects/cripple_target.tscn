@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=3 uid="uid://ccodrffahp8tj"]
+
+[ext_resource type="Texture2D" uid="uid://crdvk0hy3x3px" path="res://assets/effects/bdragon/cripple_target_198.png" id="1_cpj8v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgq3s"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfulb"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(64, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boenl"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(128, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74dha"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(192, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soji6"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(256, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52am6"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(320, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv0v4"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(384, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gemns"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(448, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24754"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(512, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1q7ng"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(576, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1uu5"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(640, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvq1y"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(704, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwuid"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(768, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k5bo"]
+atlas = ExtResource("1_cpj8v")
+region = Rect2(832, 512, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_muy4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgq3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfulb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boenl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74dha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soji6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52am6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv0v4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gemns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24754")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1q7ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1uu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvq1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwuid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k5bo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="CrippleTarget" type="AnimatedSprite2D"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_muy4r")
+frame_progress = 0.218859
