@@ -67,7 +67,7 @@ func on_damage(_event: Event):
 	
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 
-	Effect.create_simple_at_unit_attached("Abilities\\Spells\\NightElf\\Taunt\\TauntCaster.mdl", tower, Unit.BodyPart.ORIGIN)
+	Effect.create_simple_at_unit_attached("res://src/effects/roar.tscn", tower, Unit.BodyPart.ORIGIN)
 
 	while true:
 		var target: Unit = it.next()

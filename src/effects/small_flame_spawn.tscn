@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://busiae8sbe32o"]
+
+[ext_resource type="Texture2D" uid="uid://caisjfsu3fyap" path="res://assets/effects/bdragon/small_flame_spawn_240.png" id="1_gw2xe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0y6a"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idga5"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6j3d"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5txn2"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwdt1"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_juv2b"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a2g7"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y133k"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j35pc"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dton"]
+atlas = ExtResource("1_gw2xe")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_akq2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0y6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idga5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6j3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5txn2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwdt1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_juv2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7a2g7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y133k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j35pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dton")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="SmallFlameSpawn" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_akq2p")
+offset = Vector2(0, -25)

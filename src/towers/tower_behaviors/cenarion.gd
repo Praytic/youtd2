@@ -185,7 +185,7 @@ func roots_pt_on_hit(p: Projectile, target: Unit):
 
 # NOTE: WWPeriodic() in original script
 func roots_pt_periodic(p: Projectile):
-	var effect: int = Effect.create_scaled("EntanglingRootsTarget.mdl", Vector3(p.get_x(), p.get_y(), 0), 0, 4.0)
+	var effect: int = Effect.create_scaled("res://src/effects/roots.tscn", Vector3(p.get_x(), p.get_y(), 0), 0, 0.5)
 	Effect.set_lifetime(effect, 2.0)
 
 

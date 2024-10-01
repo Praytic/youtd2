@@ -191,4 +191,4 @@ func valor_light_bt_adjust_effect(buff: Buff):
 	buff.user_real *= 0.5
 
 #	Some sfx to pretty it up
-	Effect.create_simple_at_unit_attached("HealTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+	Effect.create_simple_at_unit_attached("res://src/effects/spell_aiil.tscn", creep, Unit.BodyPart.CHEST)

@@ -65,7 +65,7 @@ func on_damage(event: Event):
 
 	var old_position: Vector2 = creep.get_position_wc3_2d()
 	var old_path_index: int = creep._current_path_index
-	var effect: int = Effect.create_simple_at_unit_attached("ManaDrainTarget.mdl", creep, Unit.BodyPart.ORIGIN)
+	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/mass_teleport_caster.tscn", creep, Unit.BodyPart.ORIGIN)
 	Effect.set_auto_destroy_enabled(effect, false)
 
 	await Utils.create_timer(3.0, self).timeout
@@ -79,4 +79,4 @@ func on_damage(event: Event):
 	if Utils.unit_is_valid(creep):
 		creep.set_position_wc3_2d(old_position)
 		creep._current_path_index = old_path_index
-		Effect.create_simple_at_unit("res://src/effects/mass_teleport_caster.tscn", creep)
+		Effect.create_simple_at_unit("res://src/effects/silence_area.tscn", creep)

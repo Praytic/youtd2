@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://cedj7k4jvh5ya"]
+
+[ext_resource type="Texture2D" uid="uid://ddh33dc161220" path="res://assets/effects/bdragon/roots_235.png" id="1_356b7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaly8"]
+atlas = ExtResource("1_356b7")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4waa"]
+atlas = ExtResource("1_356b7")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_talhc"]
+atlas = ExtResource("1_356b7")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnnho"]
+atlas = ExtResource("1_356b7")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgrlk"]
+atlas = ExtResource("1_356b7")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2vxf"]
+atlas = ExtResource("1_356b7")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q80j8"]
+atlas = ExtResource("1_356b7")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohfr5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaly8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4waa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_talhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnnho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgrlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2vxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q80j8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Roots" type="AnimatedSprite2D"]
+modulate = Color(0.621833, 0.91, 0, 0.788235)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ohfr5")

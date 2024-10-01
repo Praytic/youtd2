@@ -39,7 +39,7 @@ func create_autocasts() -> Array[Autocast]:
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.05 seconds duration\n" \
 	+ "+0.8% damage against air\n"
-	autocast.caster_art = "PolyMorphDoneGround.mdl"
+	autocast.caster_art = "res://src/effects/ancient_protector_missile.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
 	autocast.num_buffs_before_idle = 0

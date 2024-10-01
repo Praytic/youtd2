@@ -32,7 +32,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	time_field_bt = BuffType.new("time_field_bt", 10, 0, true, self)
-	time_field_bt.set_special_effect("EnergyField.mdl", 150, 5.0)
+	time_field_bt.set_special_effect("res://src/effects/spell_aire.tscn", 150, 1.0)
 	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
 	time_field_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
@@ -58,7 +58,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.icon = "res://resources/icons/mechanical/compass.tres"
 	autocast.description_short = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him."
 	autocast.description = "The Manipulator creates a field of time that inflicts future spell damage upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
-	autocast.caster_art = "DrainCaster.mdl"
+	autocast.caster_art = "res://src/effects/spell_ailb.tscn"
 	autocast.target_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.num_buffs_before_idle = 1

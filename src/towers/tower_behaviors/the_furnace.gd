@@ -153,10 +153,7 @@ func on_autocast(_event: Event):
 	var tower_mana: float = tower.get_mana()
 	var fxscale: float = 0.8 + min(tower_mana, 3000) / 3000 * 0.9
 
-#	NOTE: increase scale because original one is too small
-	fxscale *= 5
-
-	var effect: int = Effect.create_scaled("SmallFlameSpawn.mdl", tower.get_position_wc3(), 270, fxscale)
+	var effect: int = Effect.create_scaled("res://src/effects/small_flame_spawn.tscn", tower.get_position_wc3(), 270, fxscale)
 	Effect.set_lifetime(effect, 6.6)
 
 	while true:
@@ -168,8 +165,7 @@ func on_autocast(_event: Event):
 		ashbringer_linger_apply(next)
 		var damage: float = (7 + 0.2 * tower.get_level()) * tower_mana
 		tower.do_spell_damage(next, damage, tower.calc_spell_crit_no_bonus())
-		var damage_effect: int = Effect.create_simple_at_unit_attached("FireTrapUp.mdl", next, Unit.BodyPart.ORIGIN)
-		Effect.set_lifetime(damage_effect, 3.0)
+		Effect.create_simple_at_unit_attached("res://src/effects/small_flame_spawn.tscn", next, Unit.BodyPart.ORIGIN)
 
 	while true:
 		var next: Unit = buffcast.next()

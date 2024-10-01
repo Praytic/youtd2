@@ -160,7 +160,7 @@ func periodic(_event: Event):
 	if reached_max_growth:
 		return
 
-	var effect: int = Effect.create_scaled("EntanglingRootsTarget.mdl", tower.get_position_wc3(), 0, 5)
+	var effect: int = Effect.create_simple_at_unit("res://src/effects/roots.tscn", tower)
 	Effect.set_lifetime(effect, 1.0)
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.03 + 0.001 * level)

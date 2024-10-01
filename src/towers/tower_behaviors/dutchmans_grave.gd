@@ -64,7 +64,7 @@ func tower_init():
 	dutchman_pt.enable_periodic(dutchman_pt_periodic, 0.1)
 	dutchman_pt.enable_homing(dutchman_pt_on_hit, 4.0)
 
-	cannonball_pt = ProjectileType.create_interpolate("BoatMissile.mdl", 900, self)
+	cannonball_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	cannonball_pt.set_event_on_interpolation_finished(cannonball_pt_on_hit)
 
 	soul_pt = ProjectileType.create("path_to_projectile_sprite", 6, 300, self)

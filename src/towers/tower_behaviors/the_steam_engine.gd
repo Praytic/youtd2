@@ -118,7 +118,8 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_create(_preceding_tower: Tower):
-	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", Vector3(tower.get_x() - 4, tower.get_y() + 41, tower.get_z()), 0, 0.55)
+	permanent_effect_id = Effect.create_animated_scaled("res://src/effects/cloud_of_fog_cycle.tscn", Vector3(tower.get_x(), tower.get_y(), tower.get_z() + 60), 0, 0.7)
+	Effect.set_color(permanent_effect_id, Color8(150, 150, 150, 100))
 	Effect.set_auto_destroy_enabled(permanent_effect_id, false)
 
 

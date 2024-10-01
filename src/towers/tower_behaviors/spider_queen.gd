@@ -106,7 +106,7 @@ func parasite_bt_on_death(event: Event):
 	if new_host == null:
 		if temp == null:
 #			No one to jump to! parasite dies :(
-			Effect.create_scaled("Spider.mdl", Vector3(creep.get_x(), creep.get_y(), 0), 0, 5)
+			Effect.create_scaled("res://src/effects/frost_armor_damage_purple.tscn", Vector3(creep.get_x(), creep.get_y(), 0), 0, 1)
 			
 			return
 		else:
