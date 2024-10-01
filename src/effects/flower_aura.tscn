@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://cbbhsyg5lx04c"]
+
+[ext_resource type="Texture2D" uid="uid://c78vkmjgqto8v" path="res://assets/effects/bdragon/flower_aura_655.png" id="1_24vkn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cybiw"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqdfj"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyynp"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku0fk"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrjgs"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7clxc"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04tg6"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3caqb"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13n50"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71tfj"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7x3n"]
+atlas = ExtResource("1_24vkn")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4vsi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cybiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqdfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyynp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ku0fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrjgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7clxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04tg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3caqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13n50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71tfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7x3n")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="FlowerAura" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.784314)
+scale = Vector2(4, 2)
+sprite_frames = SubResource("SpriteFrames_t4vsi")

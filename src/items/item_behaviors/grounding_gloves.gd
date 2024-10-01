@@ -49,6 +49,9 @@ func item_init():
 
 	blizzard_st = SpellType.new(SpellType.Name.BLIZZARD, 4.0, self)
 	blizzard_st.set_damage_event(blizzard_st_on_damage)
+	blizzard_st.data.blizzard.damage = 0
+	blizzard_st.data.blizzard.radius = 200
+	blizzard_st.data.blizzard.wave_count = 3
 	
 
 func on_damage(event: Event):
@@ -59,5 +62,7 @@ func on_damage(event: Event):
 		CombatLog.log_item_ability(item, null, "Entangling Roots")
 	
 		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
-		var effect: int = Effect.create_colored("Roots.mdl", Vector3(target.get_x(), target.get_y(), 0), 270.0, 5, Color8(210, 255, 180, 255))
+		var effect: int = Effect.create_animated("res://src/effects/flower_aura.tscn", Vector3(target.get_x(), target.get_y(), 0), 0)
+		Effect.set_scale(effect, 1.5)
+		Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 		Effect.set_lifetime(effect, 2.5)
