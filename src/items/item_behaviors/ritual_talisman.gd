@@ -1,10 +1,6 @@
 extends ItemBehavior
 
 
-# NOTE: changed autocast.target_self to false. Original
-# script sets it to true but according to description
-# autocast is performed "on a nearby tower".
-
 var ritual_bt: BuffType
 
 
@@ -37,7 +33,7 @@ func item_init():
 	autocast.target_art = "res://src/effects/healing_wave_target.tscn"
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.target_self = false
+	autocast.target_self = true
 	autocast.cooldown = 10
 	autocast.is_extended = false
 	autocast.mana_cost = 0
