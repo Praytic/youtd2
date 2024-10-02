@@ -18,6 +18,10 @@ const OIL_TYPE_MAP: Dictionary = {
 	"wizard": [1024],
 }
 
+const OIL_TYPE_SYNONYMS: Dictionary = {
+	"accuracy": ["critical"],
+}
+
 var _data: Dictionary = {}
 
 
@@ -154,6 +158,9 @@ static func get_oil_type_is_valid(given_oil_type: String) -> bool:
 
 # Returns empty string if conversion is not possible
 static func convert_short_type_to_full(short_oil_type: String) -> String:
+	if short_oil_type in OIL_TYPE_MAP:
+		return short_oil_type
+	
 	var matching_type_count: int = 0
 	var matching_oil_type: String = ""
 	
@@ -161,6 +168,12 @@ static func convert_short_type_to_full(short_oil_type: String) -> String:
 	
 	for oil_type in oil_type_list:
 		var matches: bool = oil_type.begins_with(short_oil_type)
+		
+		if not matches and oil_type in OIL_TYPE_SYNONYMS:
+			for synonym in OIL_TYPE_SYNONYMS[oil_type]:
+				if synonym.begins_with(short_oil_type):
+					matches = true
+					break
 		
 		if matches:
 			matching_type_count += 1
