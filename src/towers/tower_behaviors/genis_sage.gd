@@ -1,16 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: original script did the "Aqua Edge" spell by casting
-# it from tower to a point 25 distance units away from
-# tower. Not sure if original engine made carrionswarm spell
-# continue after reaching the end point. In youtd2 engine
-# swarm spell stops at end point so casting 25 distance
-# units away would make the aqua edges not reach any creeps.
-# Changed it to cast 900 distance units away. Can look into
-# it more later.
-
-
 var swarm_st: SpellType
 var speedcast_bt: BuffType
 var spread_bt: BuffType
@@ -132,7 +122,7 @@ func on_attack(event: Event):
 
 		var edge_angle: float = deg_to_rad(facing + angle)
 
-		swarm_st.point_cast_from_caster_on_point(tower, Vector2(x + 900 * cos(edge_angle), y + 900 * sin(edge_angle)), edge_damage, tower.calc_spell_crit_no_bonus())
+		swarm_st.point_cast_from_caster_on_point(tower, Vector2(x + 25 * cos(edge_angle), y + 25 * sin(edge_angle)), edge_damage, tower.calc_spell_crit_no_bonus())
 
 		angle += 20
 
