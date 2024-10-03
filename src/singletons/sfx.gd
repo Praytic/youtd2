@@ -80,6 +80,11 @@ func sfx_at_pos(sfx_path: String, sfx_position: Vector2, volume_db: float = 0.0,
 # SFXAtUnit() from JASS creates a "simple effect" (SFX),
 # where "effect" is visual, not sound.
 func sfx_at_unit(sfx_path: String, unit: Unit, volume_db: float = 0.0, pitch_scale: float = 1.0):
+	if unit == null:
+		push_error("null unit passed to SFX.sfx_at_unit()")
+		
+		return
+
 	var sfx_position: Vector2 = unit.get_visual_position()
 	sfx_at_pos(sfx_path, sfx_position, volume_db, pitch_scale)
 

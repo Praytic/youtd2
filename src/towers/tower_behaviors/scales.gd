@@ -173,13 +173,6 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-# func example_pt_on_hit(p: Projectile, target: Unit):
-# 	if target == null:
-# 		return
-
-# 	tower.do_spell_damage(target, 123, tower.calc_spell_crit_no_bonus())
-
-
 # NOTE: "overchargeA()" in original script
 func mock_eye_glare_st_on_damage(event: Event, _dummy: SpellDummy):
 	var target: Unit = event.get_target()
