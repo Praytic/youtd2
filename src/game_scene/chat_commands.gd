@@ -286,7 +286,6 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 	var tower: Tower = null
 	var tower_name = null
 	var is_tower = _is_tower(unit)
-	var is_owner = null
 	if is_tower:
 		tower = unit as Tower
 		tower_name = tower.get_display_name()
@@ -304,7 +303,7 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 			_add_status(player, "Autooil status:")
 			Messages.add_normal(player, status_text)
 		"clear":
-			if not _is_tower(unit):
+			if not is_tower:
 				player.clear_all_autooil()
 				_add_status(player, "Cleared all autooils.")
 			else:
@@ -319,7 +318,7 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 	if matched:
 		return true
 	
-	if _require_unit(unit, player) and _require_tower(unit, player):
+	if _require_unit(unit, player) and _require_tower(unit, player) and _require_owner(tower, player):
 		var oil_type: String = option
 		var oil_type_is_valid: bool = AutoOil.get_oil_type_is_valid(oil_type)
 		
