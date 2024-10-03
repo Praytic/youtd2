@@ -115,8 +115,9 @@ func missile_pt_on_hit(projectile: Projectile, target: Unit):
 	var buffed_tower: Tower = projectile.get_caster()
 	buffed_tower.do_spell_damage_aoe(Vector2(projectile.get_x(), projectile.get_y()), 220, projectile.user_int, buffed_tower.calc_spell_crit_no_bonus(), 0)
 	
-	var effect: int = Effect.create_simple_at_unit("res://src/effects/doom_death.tscn", target, Unit.BodyPart.ORIGIN)
-	Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
+	if target != null:
+		var effect: int = Effect.create_simple_at_unit("res://src/effects/doom_death.tscn", target, Unit.BodyPart.ORIGIN)
+		Effect.set_z_index(effect, Effect.Z_INDEX_BELOW_CREEPS)
 
 
 func attraction_bt_on_attack(event: Event):
