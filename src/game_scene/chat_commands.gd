@@ -258,7 +258,7 @@ func _command_autospawn(player: Player, args: Array):
 	_add_status_for_team(team, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
 
 func _is_tower(unit: Unit) -> bool:
-	# return null if non-tower is selected or unit is null
+	# return false if non-tower is selected or unit is null
 	return unit != null and unit is Tower
 
 func _require_unit(unit: Unit, player: Player) -> bool:
