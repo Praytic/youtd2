@@ -7,8 +7,8 @@ extends TowerBehavior
 # comes in range". Not necessary because can update this in
 # periodic callback.
 
-# NOTE: added moth periodic damage. Original script is
-# missing it.
+# NOTE: [ORIGINAL_GAME_BUG] Added moth periodic damage.
+# Original script is missing it.
 
 # NOTE: removed weird code for moth spell crit. Not needed
 # because moth damage is dealt via tower.

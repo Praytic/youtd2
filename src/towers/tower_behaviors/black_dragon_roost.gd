@@ -1,14 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: original script appears to be completely broken? It
-# uses addEventOnDamage() which means that the handler will
-# be called when creep *deals damage* and that's clearly not
-# what's supposed to happen. Might be only a typo on
-# youtd.best website. Fixed it by switching to
-# addEventOnDamaged()/add_event_on_damaged() so that the
-# handler which increases damage take by creep is called
-# when creep takes damage.
+# NOTE: [ORIGINAL_GAME_BUG] Original script appears to be
+# completely broken? It uses addEventOnDamage() which means
+# that the handler will be called when creep *deals damage*
+# and that's clearly not what's supposed to happen. Fixed it
+# by switching to addEventOnDamaged()/add_event_on_damaged()
+# so that the handler which increases damage taken by creep
+# is called when creep takes damage.
 
 # NOTE: the trigger chance for Fear the Dark ability appears
 # to have been changed often. Used 20% which is the value on

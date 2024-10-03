@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: original script has a bug where slow debuff is
-# applied to the main target instead of all damaged units.
-# Fixed it.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed a bug where slow debuff
+# was applied to the main target instead of all damaged
+# units.
 
 
 var slow_bt: BuffType

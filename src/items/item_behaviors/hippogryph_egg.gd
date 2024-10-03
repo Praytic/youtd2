@@ -1,8 +1,10 @@
 extends ItemBehavior
 
 
-# NOTE: fixed bug in original script where it used incorrect
-# order of args for do_spell_damage_aoe()
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where
+# do_spell_damage_aoe() received args in incorrect order.
+# "crit_ratio" and "sides_ratio" were swapped. This caused
+# the damage from this item to always crit.
 
 
 var hippo_pt: ProjectileType

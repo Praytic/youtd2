@@ -1,12 +1,14 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Eredar Warlock" in original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Eredar Warlock"=>"Chaos Warlock"
 
 
-# NOTE: changed autocast.buff_type (null->siphon_bt). This
-# fixes an issue where autocast would rebuff the unit which
-# is already buffed. Now, the autocast will buff only units
-# which don't already have the buff.
+# NOTE: [ORIGINAL_GAME_DEVIATION] changed autocast.buff_type
+# (null->siphon_bt). This fixes an issue where autocast
+# would rebuff the unit which is already buffed. Now, the
+# autocast will buff only units which don't already have the
+# buff.
 
 
 var stun_bt: BuffType

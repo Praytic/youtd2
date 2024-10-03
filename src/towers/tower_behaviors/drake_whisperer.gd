@@ -8,7 +8,8 @@ extends TowerBehavior
 # ProjectileType.create() - normal
 # ProjectileType.setEventOnInterpolationFinished() - interpolated
 # Switched to using exclusively interpolated API.
-# Fixed slow buff being friendly.
+
+# NOTE: [ORIGINAL_GAME_BUG] Fixed slow buff being friendly.
 
 
 enum DrakeState {

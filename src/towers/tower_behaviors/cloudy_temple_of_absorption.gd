@@ -5,11 +5,12 @@ extends TowerBehavior
 # script it's done using PeriodicEvent. In this script it's
 # done using "storm_is_enabled" flag.
 
-# NOTE: original script has a bug where it defines special
-# values for challenge sizes in storm_mana_reduction_values
-# map but fails to use them because it uses creep.get_size()
-# which returns BOSS instead of CHALLENGE_BOSS. Fixed this
-# bug by calling creep.get_size_including_challenge_sizes().
+# NOTE: [ORIGINAL_GAME_BUG] original script has a bug where
+# it defines special values for challenge sizes in
+# storm_mana_reduction_values map but fails to use them
+# because it uses creep.get_size() which returns BOSS
+# instead of CHALLENGE_BOSS. Fixed this bug by calling
+# creep.get_size_including_challenge_sizes().
 
 
 var aura_bt: BuffType

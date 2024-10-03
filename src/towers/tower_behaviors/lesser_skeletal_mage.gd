@@ -1,9 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script where buff duration
-# level bonus was equal to 0.6s instead of 0.1s. This
-# happened becase apply() was called with "6 * lvl".
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug in original script
+# where buff duration level bonus was equal to 0.6s instead
+# of 0.1s. This happened becase apply() was called with "6 *
+# lvl".
 
 
 var curse_bt: BuffType

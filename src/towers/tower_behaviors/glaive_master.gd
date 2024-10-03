@@ -6,10 +6,10 @@ extends TowerBehavior
 # autocast. Guessed the parameters for the autocast and
 # implemented it.
 
-# NOTE: original script has a bug where movement speed does
-# not affect damage dealt by dot even though the ability
-# description says that movement speed does affect damage.
-# Preserved this bug.
+# NOTE: [ORIGINAL_GAME_BUG] (NOT FIXED) Original script has
+# a bug where movement speed does not affect damage dealt by
+# dot even though the ability description says that movement
+# speed does affect damage. Preserved this bug.
 
 # NOTE: every time this tower deals damage, it will show up
 # as 0 damage in combat log and then non-zero damage from

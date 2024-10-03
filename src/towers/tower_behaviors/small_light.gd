@@ -1,8 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: commented out sections relevant to invisibility
-# because invisible waves are currently disabled.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Commented out sections
+# relevant to invisibility because invisible waves are
+# not implemented.
 
 
 var holy_weak_bt: BuffType

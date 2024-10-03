@@ -3,6 +3,14 @@ extends BuffType
 
 # NOTE: analog of globally available cb_stun in JASS
 
+# NOTE: [ORIGINAL_GAME_DEVIATION] In original game, stuns
+# cannot stack. If you have two towers try to apply two
+# different variations of stuns, then one will cancel
+# another. In original game, total duration of stun will be
+# time before cancel + duration of cancelling buff. In
+# youtd2, both stuns will be applied and total duration will
+# be equal to the max of durations of two stuns.
+
 
 # These values calibrate diminishing returns for stuns on
 # creeps. Stuns will start to randomly cancel after the
@@ -35,7 +43,10 @@ func on_create(event: Event):
 	target.add_stun()
 
 
-# This function implements Diminishing Returns for stuns.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Implemented Diminishing
+# Returns. Original game didn't have explicit Diminishing
+# Returns for stuns but it may have inherited some hidden
+# functionality from wc3 engine.
 func periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target = buff.get_buffed_unit()

@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: original script did not allow placing Corruption
-# Field before placing Recreation Field. Removed this
-# restriction.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Original script did not
+# allow placing Corruption Field before placing Recreation
+# Field. Removed this restriction.
 
 
 class Summoner:

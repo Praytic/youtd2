@@ -1,11 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: changed value for tier 1 stats:
-# 15% + 0.15%/lvl -> 10% + 0.10%/lvl
-# Changed because it didn't make sense, the values went down
-# when upgrading to tier 2. Pretty sure this is a typo in
-# original script.
+# NOTE: [ORIGINAL_GAME_BUG] Changed value for tier 1 stats:
+# 15% + 0.15%/lvl -> 10% + 0.10%/lvl Changed because it
+# didn't make sense, the values went down when upgrading to
+# tier 2. Pretty sure this is a typo in original script.
 
 
 var slow_bt: BuffType

@@ -369,6 +369,11 @@ func disable_stacking_behavior():
 # NOTE: the stacking logic has to be in the exact way as
 # defined here. Changing this logic will break tower and
 # item scripts.
+# 
+# [ORIGINAL_GAME_DEVIATION] The comparison of tower tiers
+# didn't exist in original game. If lower tier tower applied
+# a buff and a higher tier tower tried to overwrite it, the
+# buff from higher tier tower would get rejected.
 func _do_stacking_behavior(target: Unit, new_level: int):
 	var active_buff: Buff = target.get_buff_of_type(self)
 

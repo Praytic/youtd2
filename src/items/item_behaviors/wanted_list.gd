@@ -1,4 +1,3 @@
-# Wanted List
 extends ItemBehavior
 
 

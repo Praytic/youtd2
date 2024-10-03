@@ -1,7 +1,8 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Sapphiron's Cold Grave" in
-# original youtd
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# ""Sapphiron's Cold Grave"="Safiron's Cold Grave
 
 
 var liquid_ice_bt: BuffType

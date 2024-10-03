@@ -1,19 +1,19 @@
 extends TowerBehavior
 
 
-# NOTE: original script appears to have a bug. Twin
-# Disciplines is supposed to give 1% per stack for tier 1
-# and 2% per stack for tier 2. The script adds +1 to buff
-# level per stack for both tiers, so both tiers add 1% per
-# stack. Fixed this bug by changing the of buff modification
-# to 0.02 for tier 2.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where Twin Disciplines
+# gave 1% per stack for tier 2 tower, even though it's
+# supposed to be 2% according to ability description. Fixed
+# this bug by changing the level_add part of buff
+# modification to 0.02 for tier 2.
 # 
 # Also fixed color of pulse effects. They were swapped (red
 # vs green).
 
-# NOTE: fixed small bug in original script where "Twin
-# Disciplines" would not trigger if attack crit chance is
-# exactly equal to spell crit chance. Rare, but possible.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed small bug in original
+# script where "Twin Disciplines" would not trigger if
+# attack crit chance is exactly equal to spell crit chance.
+# Rare, but possible.
 
 # NOTE: green = attack damage
 # 		red = spell damage

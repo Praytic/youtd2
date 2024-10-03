@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-# NOTE: the autocast target_self in original script is set
+# NOTE: [ORIGINAL_GAME_DEVIATION] The autocast target_self in original script is set
 # to true BUT the autocast callback does a check "if target
 # != tower:", so the final behavior is Meteor Totem does NOT
 # apply the Attraction buff to itself.
@@ -9,7 +9,7 @@ extends TowerBehavior
 # I set autocast target_self to false to make it less
 # confusing.
 
-# NOTE: changed autocast type
+# NOTE: [ORIGINAL_GAME_DEVIATION] Changed autocast type
 # AC_TYPE_ALWAYS_BUFF->AC_TYPE_ALWAYS_IMMEDIATE because it
 # buffs multiple towers.
 

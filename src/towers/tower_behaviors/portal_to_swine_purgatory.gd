@@ -1,13 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script where it had special
-# values for challenge creep sizes but failed to use them
-# because it used Creep.getSize() function which substitues
-# challenge sizes into mass/boss.
+# NOTE: [ORIGINAL_GAME_BUG] fixed bug in original script
+# where it had special values for challenge creep sizes but
+# failed to use them because it used Creep.getSize()
+# function which substitues challenge sizes into mass/boss.
 
-# NOTE: fixed bug in original script where pig speed was the
-# same for all tower tiers.
+# NOTE: [ORIGINAL_GAME_BUG] fixed bug in original script
+# where pig speed was the same for all tower tiers.
 
 # NOTE: changed Initiative stacks from ints to floats. This
 # way, the total can be 16 instead of confusing 48.

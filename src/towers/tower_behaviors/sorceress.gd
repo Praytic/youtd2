@@ -9,8 +9,9 @@ extends TowerBehavior
 # modifications is limited by missile damage - it cannot go
 # below 0.
 
-# NOTE: changed cd of autocasts to 0.25s because 0s cooldown
-# is not supported by youtd2 engine.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Changed cd of autocasts to
+# 0.25s because 0s cooldown is not supported by youtd2
+# engine.
 
 
 enum MissileMod {

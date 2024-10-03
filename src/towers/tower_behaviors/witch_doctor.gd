@@ -1,11 +1,13 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Vol'jin the Witch Doctor" in
-# original youtd
 
-# NOTE: time constants have been divided by 25 to account
-# for original Game.getGameTime() returning seconds
-# multiplied by 25.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Vol'jin the Witch Doctor"=>"Witch Doctor"
+
+# NOTE: time constants in original script were divided by 25
+# to account for original Game.getGameTime() returning
+# seconds multiplied by 25. Don't need to divide by 25 in
+# youtd2.
 
 # NOTE: changed how wards are stored
 # Original script: hashtable with ints and reals

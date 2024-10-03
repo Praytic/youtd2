@@ -1,9 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: removed floating text for ability chance because it
-# popped up on every attack and was annoying. Added display
-# of this chance in tower details instead.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Removed floating text for
+# ability chance because it popped up on every attack and
+# was annoying. Added display of this chance in tower
+# details instead.
 
 
 var slow_bt: BuffType

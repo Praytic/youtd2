@@ -1,6 +1,11 @@
 extends TowerBehavior
 
 
+# NOTE: [ORIGINAL_GAME_DEVIATION] Stats for this tower got
+# changed in the last released versions of original game.
+# Decided to use values from youtd.best website.
+
+
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {item_chance_add = 0.005, item_quality_add = -0.005},

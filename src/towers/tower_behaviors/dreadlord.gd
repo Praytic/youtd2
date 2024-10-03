@@ -1,9 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: original script sets level of buff to 1 for some
-# reason, so the effect doesn't scale with tower level.
-# Fixed it.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed Awakening buff being
+# applied with level 1 always. Use tower's level.
 
 # NOTE: original script uses "frenzy" spell as a visual
 # effect. Didn't implement that. Can implement using an

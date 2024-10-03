@@ -4,11 +4,14 @@ extends TowerBehavior
 # NOTE: rewrote script a bit. Instead of enabling/disabling
 # periodic event I added a flag.
 
-# NOTE: original script has a bug where it refunds the cost
-# of autocast but the refund doesn't work if tower mana is
-# close to max. This is because set_mana() cannot set mana
-# above max value. Left this bug unfixed because it's not
-# critical.
+# NOTE: [ORIGINAL_GAME_BUG] (NOT FIXED) Original script has
+# a bug where it refunds the cost of autocast in
+# on_autocast(). It refunds the cost by calling set_mana()
+# but the problem is that at the time when on_autocast() is
+# called, the mana cost has not been spent yet. Therefore,
+# refund fails if tower is at max mana because set_mana()
+# can't go above max mana. Not critical - don't need to fix.
+
 
 var corruption_bt: BuffType
 var missile_pt: ProjectileType

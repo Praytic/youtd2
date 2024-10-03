@@ -1,10 +1,7 @@
 extends TowerBehavior
 
 
-# NOTE: changed values for growth scale a bit.
-
-
-# NOTE: SCALE_MIN should match the value in tower sprite
+# NOTE: SCALE_MIN must match the value in tower sprite
 # scene
 const SCALE_MIN: float = 0.5
 const SCALE_MAX: float = 1.0

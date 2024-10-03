@@ -1,6 +1,8 @@
 extends ItemBehavior
 
-# NOTE: this item was named "Mur'gul Slave" in original youtd
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Mur'gul Slave"=>"Morgul Slave"
 
 
 func load_modifier(modifier: Modifier):

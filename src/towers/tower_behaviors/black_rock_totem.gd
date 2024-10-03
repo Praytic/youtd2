@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: this tower was named "Blackrock's Totem" in original
-# youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Blackrock's Totem"=>"Black Rock Totem"
 
 
 var fighter_totem_bt: BuffType

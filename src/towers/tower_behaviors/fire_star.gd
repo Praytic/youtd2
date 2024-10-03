@@ -1,13 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script. Ignite stacks did not
-# get increased damage because that was implemented in
-# REFRESH callback, which never got called. REFRESH callback
-# gets called if buff is applied with same level and less or
-# lower power. Everytime Ignite is reapplied, it gets
-# increased power, so therefore it always triggers UPGRADE
-# instead of REFRESH.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where Ignite stacks
+# did not get increased damage because that was implemented
+# in REFRESH callback, which never got called. REFRESH
+# callback gets called if buff is applied with same level
+# and less or lower power. Everytime Ignite is reapplied, it
+# gets increased power, so therefore it always triggers
+# UPGRADE instead of REFRESH.
 # 
 # Instead, multiplier is calculated right before it's needed.
 

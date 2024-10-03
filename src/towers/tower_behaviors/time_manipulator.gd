@@ -1,8 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: fixed error in original script where "Time Field"
-# buff was unfriendly.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed error in original script
+# where "Time Field" buff was "unfriendly" even though it's
+# applied on a tower. Changed it to "friendly".
 
 
 var aura_bt: BuffType

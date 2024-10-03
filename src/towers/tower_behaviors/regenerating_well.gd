@@ -1,10 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: changed autocast type
+# NOTE: [ORIGINAL_GAME_BUG] changed autocast type
 # AC_TYPE_ALWAYS_BUFF->AC_TYPE_ALWAYS_IMMEDIATE because the
-# autocast is an AoE effect. Not sure why the original
-# script used AC_TYPE_ALWAYS_BUFF, typo?
+# autocast is an AoE effect. Original script must have used
+# AC_TYPE_ALWAYS_BUFF by mistake.
 
 
 var aura_bt: BuffType

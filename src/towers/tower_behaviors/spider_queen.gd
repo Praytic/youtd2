@@ -1,6 +1,9 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Nerubian Queen"
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Nerubian Queen"=>"Spider Queen"
+
 
 var multiboard: MultiboardValues
 var parasite_bt: BuffType

@@ -1,8 +1,9 @@
 extends Builder
 
 
-# NOTE: the following builder effect from original game is
-# not implemented: "Unable to share build areas with allies"
+# NOTE: [ORIGINAL_GAME_DEVIATION] the following builder
+# effect from original game is not implemented: "Unable to
+# share build areas with allies"
 
 
 func _init():

@@ -1,13 +1,14 @@
 class_name CreepNecromancer extends BuffType
 
 
-# NOTE: in original game, Necromancers raise skeletons.
-# Don't have sprites for skeletons so raising creeps using
-# their original sprites.
+# NOTE: [ORIGINAL_GAME_DEVIATION] in original game,
+# Necromancers raise skeletons. Don't have sprites for
+# skeletons so raising creeps using their original sprites.
 
-# NOTE: original script appears to set health of revived
-# creep to double of the original amount. Not sure if this
-# is correct? Left at 100% of original health for now.
+# NOTE: [ORIGINAL_GAME_DEVIATION] original script
+# appears to set health of revived creep to double of the
+# original amount. Not sure if this is correct? Left at 100%
+# of original health for now.
 
 
 const RAISE_DELAY: float = 2

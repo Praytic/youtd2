@@ -4,17 +4,18 @@ extends TowerBehavior
 var lunar_energy_bt: BuffType
 var stun_bt: BuffType
 
-# NOTE: I think there's a typo in tier 4 because for all
-# other tiers spell_damage_chance_add is the same as
-# spell_damage_add, but for tier 4 it's 1000 instead of 100.
-# Leaving as in original.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug for tier 4 tower. In
+# original game, the "lunar_energy_dmg_add" value for tier 4
+# was 1000 even though ability description says it's should
+# be 100.
+
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {spell_damage = 50, spell_damage_15 = 70, spell_damage_add = 2, spell_damage_chance_add = 2, buff_level = 120, buff_level_15 = 150},
-		2: {spell_damage = 500, spell_damage_15 = 700, spell_damage_add = 20, spell_damage_chance_add = 20, buff_level = 160, buff_level_15 = 200},
-		3: {spell_damage = 1500, spell_damage_15 = 2100, spell_damage_add = 60, spell_damage_chance_add = 60, buff_level = 200, buff_level_15 = 250},
-		4: {spell_damage = 2500, spell_damage_15 = 3500, spell_damage_add = 100, spell_damage_chance_add = 1000, buff_level = 240, buff_level_15 = 300},
+		1: {spell_damage = 50, spell_damage_15 = 70, spell_damage_add = 2, lunar_energy_dmg_add = 2, buff_level = 120, buff_level_15 = 150},
+		2: {spell_damage = 500, spell_damage_15 = 700, spell_damage_add = 20, lunar_energy_dmg_add = 20, buff_level = 160, buff_level_15 = 200},
+		3: {spell_damage = 1500, spell_damage_15 = 2100, spell_damage_add = 60, lunar_energy_dmg_add = 60, buff_level = 200, buff_level_15 = 250},
+		4: {spell_damage = 2500, spell_damage_15 = 3500, spell_damage_add = 100, lunar_energy_dmg_add = 100, buff_level = 240, buff_level_15 = 300},
 	}
 
 
@@ -78,7 +79,7 @@ func on_autocast(event: Event):
 	if tower.calc_chance(0.125 + level * 0.005) == true:
 		CombatLog.log_ability(tower, target, "Lunar Grace Bonus")
 
-		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
+		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.lunar_energy_dmg_add, tower.calc_spell_crit_no_bonus())
 
 		if level < 25:
 			stun_bt.apply_only_timed(tower, target, 0.3)

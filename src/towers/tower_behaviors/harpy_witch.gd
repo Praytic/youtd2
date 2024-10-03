@@ -1,13 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script, where twister debuff
-# from Harpy Queen (tier 2) was not causing creeps to suffer
-# 18% extra dmg from storm towers, as described in the
-# tooltip. The bug was caused by twister_level_base value
-# being equal to 20 which caused the mod value to be 12%
-# instead of 18%. Fixed by changing twister_level_base for
-# tier 2 to 80.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug in original script,
+# where twister debuff from Harpy Queen (tier 2) was not
+# causing creeps to suffer 18% extra dmg from storm towers,
+# as described in the tooltip. The bug was caused by
+# twister_level_base value being equal to 20 which caused
+# the mod value to be 12% instead of 18%. Fixed by changing
+# twister_level_base for tier 2 to 80.
 
 
 var sparks_bt: BuffType

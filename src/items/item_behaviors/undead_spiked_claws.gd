@@ -1,4 +1,3 @@
-# Undead Spiked Claws
 extends ItemBehavior
 
 

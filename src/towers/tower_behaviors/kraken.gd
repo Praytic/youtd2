@@ -1,6 +1,10 @@
 extends TowerBehavior
 
 
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where Kraken
+# would crash the game. Not sure what caused the crash in
+# original game, it got fixed naturally in youtd2.
+
 # NOTE: changed how cooldown for tentacles is implemented.
 # Original script keeps a reference to periodic timer and
 # modifies it. Changed it to get rid of the need for

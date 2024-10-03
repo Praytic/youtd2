@@ -1,9 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: the original script sets "timeLevelAdd" parameter
-# for stun debuff to 0.75 but then also passes 0 for "level"
-# so duration never changes. Leaving it as in original.
+# NOTE: The original script uses time_level_add value to
+# change duration of entangle based on tower tier. Don't
+# need to do this in youtd2, can directly define different
+# durations.
 
 
 var entangle_bt: BuffType
@@ -59,7 +60,6 @@ func on_damage(event: Event):
 		return
 
 	var target: Creep = event.get_target()
-
 
 	if target.get_size() < CreepSize.enm.BOSS && target.get_size() != CreepSize.enm.AIR:
 		CombatLog.log_ability(tower, target, "Entangle")

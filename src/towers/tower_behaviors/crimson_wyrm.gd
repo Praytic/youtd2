@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script. Tower details
-# displayed dmg bonus from gold hoarded incorrectly, it was
-# dividing by 100 instead of 5000.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed tower details displaying
+# dmg bonus from gold hoarded incorrectly. It was dividing
+# by 100 instead of 5000.
 
 
 var wyrm_pt: ProjectileType

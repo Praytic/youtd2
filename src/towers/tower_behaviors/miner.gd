@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# Original script has a typo. The third tier makes duration
-# of goldrush buff increase by 1s per level instead of 0.1s.
-# Decided to fix the typo.
+# [ORIGINAL_GAME_BUG] Fixed Goldrush duration for tier
+# 3 tower. +1sec/lvl => +0.1sec/lvl - how it is in ability
+# description.
 
 
 var goldrush_bt: BuffType

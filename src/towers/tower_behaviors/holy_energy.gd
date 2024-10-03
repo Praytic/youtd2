@@ -1,9 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script where glimmer aura's
-# initial level was set to 1 which caused the initial
-# effect value to be 15% + 0.2%. Fixed so it's 15%.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug in original script
+# where glimmer aura's initial level was set to 1 which
+# caused the initial effect value to be 15% + 0.2%. Fixed so
+# it's 15%.
 
 
 var glimmer_bt: BuffType

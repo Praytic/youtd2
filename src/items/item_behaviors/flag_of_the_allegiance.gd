@@ -1,7 +1,7 @@
 extends ItemBehavior
 
-# NOTE: this item was named "Flag of the Alliance" in
-# original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Flag of the Alliance"=>"Flag of the Allegiance"
 
 var motivation_bt: BuffType
 

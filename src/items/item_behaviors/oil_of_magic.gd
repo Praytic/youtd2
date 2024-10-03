@@ -1,4 +1,3 @@
-# Oil of Magic
 extends ItemBehavior
 
 

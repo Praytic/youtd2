@@ -1,6 +1,8 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Quillboard" in original youtd
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Quillboar Thornweaver"=>"Razorboar Thornweaver"
 
 
 var thornspray_pt: ProjectileType

@@ -1,7 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: this tower was named "Furbolg" in original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Furbolg"=>"Forest Troll"
 
 
 var rage_0_bt: BuffType

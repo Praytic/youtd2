@@ -1,10 +1,11 @@
 extends TowerBehavior
 
 
-# NOTE: original script implemented progress bar as text
-# with bars like "|||||...". Implemented it as an actual
-# ProgressBar instead. Also changed how current cooldown
-# ratio is calculated to be more straightforward.
+# NOTE: [ORIGINAL_GAME_DEVIATION] original script
+# implemented progress bar as text with bars like
+# "|||||...". Implemented it as an actual ProgressBar
+# instead. Also changed how current cooldown ratio is
+# calculated to be more straightforward.
 
 
 var targeted_pt: BuffType

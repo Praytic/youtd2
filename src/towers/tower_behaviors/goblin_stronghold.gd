@@ -1,12 +1,12 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script. If robot ability
-# failed to find a target then it would do an early return
-# and stop emitter from happening. It was not actually
-# critical because robot ability almost always finds a
-# target because there are many towers nearby - fixed it
-# anyway.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug which happened if
+# robot ability failed to find a target. It would do an
+# early return and stop emitter from happening. Note that
+# this bug is not critical because robot ability almost
+# always finds a target because there are many towers
+# nearby.
 
 # NOTE: original script used same ProjectileType for robot
 # and emitter. Created separate PT for emitter.

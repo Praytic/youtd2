@@ -1,11 +1,11 @@
 extends ItemBehavior
 
 
-# NOTE: changed the 2nd "one_shot" arg passed to
-# enable_advanced(). Original script passes "true" but this
-# causes the tower to not fire projectiles in youtd2 engine.
-# Not sure if the JASS engine processes the "one_shot" arg
-# in some weird way.
+# NOTE: [ORIGINAL_GAME_DEVIATION] changed the 2nd "one_shot"
+# arg passed to enable_advanced(). Original script passes
+# "true" but this causes the tower to not fire projectiles
+# in youtd2 engine. Not sure if the JASS engine processes
+# the "one_shot" arg in some weird way.
 
 
 var rocket_pt: ProjectileType

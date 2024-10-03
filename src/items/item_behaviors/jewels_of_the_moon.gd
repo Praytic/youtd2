@@ -1,9 +1,10 @@
 extends ItemBehavior
 
 
-# NOTE: changed this item to remove day/night mechanic.
-# Original script gives 2 during day and 4 at night, so
-# average it down to 3.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Day/night mechanic is not
+# implemented so changed this item effect to be average
+# between day and night. Original script gives 2 during day
+# and 4 at night, so average it down to 3.
 
 
 # Original description:

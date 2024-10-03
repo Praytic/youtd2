@@ -1,12 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: the fact that this tower hits 8 creeps is stated in
-# original tooltip for "Soulfire" ability. Usually it's
-# stated more explicitly than that. Check if this tower in
-# original game actually attacked 8 creeps or not.
-
-
 var evil_device_bt: BuffType
 var soulfire_bt: BuffType
 var awaken_bt: BuffType

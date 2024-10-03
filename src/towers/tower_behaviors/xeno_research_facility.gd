@@ -1,16 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: made made changes to original script but overall
+# NOTE: made changes to original script but overall
 # it's the same logic.
 
-# NOTE: original script doesn't behave according to
-# description. It only applies the "mod dmg to category"
-# buff to neighbor towers for the current attack category.
-# This means that when category changes and the 6.5s buff
-# duration expires, neighbor towers will only have bonus for
-# current category. Reimplemented as is but should think
-# about maybe fixing this.
+
+# NOTE: tower increases dmg against only one category at a
+# time (for other towers). This is intentional and works
+# like this in original game.
 
 
 var aura_bt: BuffType
@@ -242,6 +239,9 @@ func xeno_buff_towers(is_type_change: bool):
 		var tower_is_in_aura: bool = next_tower.get_buff_of_type(aura_bt) != null
 
 		if tower_is_in_aura:
-#			always 8.5 secs (comment from original script, no idea what it means)
+#			NOTE: divide by tower buff duration to force
+#			duration to always be 6.5 seconds. (duration is
+#			multiplied by tower buff duration during
+#			apply()).
 			var buff_duration: float = 6.5 / tower.get_prop_buff_duration()
 			selected_buff.apply_custom_timed(tower, next_tower, buff_level, buff_duration)

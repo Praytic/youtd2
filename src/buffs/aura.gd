@@ -128,11 +128,17 @@ func _on_manual_timer_timeout():
 
 		var active_buff: Buff = unit.get_buff_of_type(_aura_effect)
 
-#		NOTE: if there's an active buff and it's from a
+#		NOTE: If there's an active buff and it's from a
 #		tower of same family but lower tier - remove it.
 #		This is to always prio auras from higher tier
 #		towers. Doesn't affect buffs defined outside tower
 #		scripts, in items for example.
+#
+#		[ORIGINAL_GAME_DEVIATION] The mechanic of comparing
+#		tower tiers didn't exist in original game. Aura
+#		which was entered first would stay on the creep,
+#		even if creep entered a stronger version of same
+#		aura.
 # 
 #		NOTE: this code section needs to be duplicated from
 #		BuffType._do_stacking_behavior() because for auras

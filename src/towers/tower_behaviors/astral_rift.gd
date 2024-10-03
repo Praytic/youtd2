@@ -1,11 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: original script appears to have a bug where it
-# doesn't check if tower has enough mana to do rift ability.
-# So it will spend 20 mana and do nothing. Fixed it.
-
-
 var aura_bt: BuffType
 var slow_bt: BuffType
 

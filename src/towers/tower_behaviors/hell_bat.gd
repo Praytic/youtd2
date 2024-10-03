@@ -1,13 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: this tower is disabled because there's no day/night
-# cycle (disabled by removing lines from tower props csv)
-
-# CSV lines:
-# "Hell Bat",1,259,259,"DaveMatthews","rare","darkness","TRUE","decay",900,1.2,910,910,50,1.5,900,1500,0,"FALSE","Like a bat out of hell I'll be gone when the morning comes! "
-# "Nightmarish Bat",2,260,259,"DaveMatthews","rare","darkness","TRUE","decay",900,1.2,1861,1861,50,1.5,1900,1500,0,"FALSE","Like a bat out of hell I'll be gone when the morning comes! "
-# "Infernal Bat",3,261,259,"DaveMatthews","rare","darkness","TRUE","decay",900,1.2,2701,2701,50,1.5,2850,1500,0,"FALSE","Like a bat out of hell I'll be gone when the morning comes! "
+# NOTE: [ORIGINAL_GAME_DEVIATION] Day/night mechanic is not
+# implemented so this tower is disabled. Disabled by
+# removing lines from tower props csv.
 
 
 var darkness_bt: BuffType

@@ -8,10 +8,11 @@ extends TowerBehavior
 # load_triggers() instead of to EventTypeList in
 # tower_init().
 
-# NOTE: changed script to not make corpse invisible when
-# exploding coprses. It looks weird because it can interrupt
-# the death animation. Working around this problem also
-# caused desync issues so removed work arounds.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Changed script to not make
+# corpse invisible when exploding coprses. It looks weird
+# because it can interrupt the death animation. Working
+# around this problem also caused desync issues so removed
+# work arounds.
 
 
 var ball_pt: ProjectileType

@@ -1,5 +1,11 @@
 class_name AttackType extends Node
 
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] renamed "Magic"
+# attack type from original game to "Arcane". Original
+# "Magic" name for attack type was confusing because it
+# sounded like it was related to "spell damage".
+
 enum enm {
 	PHYSICAL,
 	DECAY,

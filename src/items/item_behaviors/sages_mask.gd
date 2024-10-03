@@ -1,6 +1,8 @@
 extends ItemBehavior
 
-# NOTE: this item was named "Sobi Mask" in original youtd
+
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Sobi Mask"=>"Sage's Mask"
 
 
 func load_modifier(modifier: Modifier):

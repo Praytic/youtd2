@@ -5,12 +5,12 @@ extends TowerBehavior
 # "on_damage" event handler. Changed script to add handler
 # directly to tower.
 
-# NOTE: removed mechanic of Poison getting replaced when a
-# tower with higher "spell damage dealt" applies it. It's
-# not good because a lower tier Spider could randomly get a
-# big boost to "spell damage dealt" from some ability or
-# item, which would incorrectly replace the more powerful
-# Poison.
+# NOTE: [ORIGINAL_GAME_DEVIATION] removed mechanic of Poison
+# getting replaced when a tower with higher "spell damage
+# dealt" applies it. It's not good because a lower tier
+# Spider could randomly get a big boost to "spell damage
+# dealt" from some ability or item, which would incorrectly
+# replace the more powerful Poison.
 
 
 var poison_bt: BuffType

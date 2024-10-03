@@ -1,9 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: changed autocast.buff_type (null->charm_bt). This
-# fixes issue where tower would rebuff a unit which is
-# already buffed.
+# NOTE: [ORIGINAL_GAME_BUFF] Changed autocast.buff_type
+# (null->charm_bt). This fixes issue where tower would
+# rebuff a unit which is already buffed.
 
 
 var charm_bt: BuffType

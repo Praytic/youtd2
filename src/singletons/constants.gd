@@ -101,10 +101,11 @@ const IRL_SECONDS_TO_GAME_WORLD_HOURS: float = 24.0 / 480.0
 const INITIAL_TIME_OF_DAY: float = 12.0
 
 
-# NOTE: there was no damage max in original game. This is
-# just an arbitrary number to protect against bugs. Note
-# that it can't be lower than this because creep hp can go
-# up to billions in bonus waves.
+# NOTE: [ORIGINAL_GAME_DEVIATION] there was no damage
+# max in original game. This is just an arbitrary number to
+# protect against bugs. Note that it can't be lower than
+# this because creep hp can go up to billions in bonus
+# waves.
 const DAMAGE_MIN: float = 0
 const DAMAGE_MAX: float = 1000000000000
 

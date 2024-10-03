@@ -1,8 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: this tower was named "Wild Kodo Beast" in original
-# youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Wild Kodo Beast"=>"Wild Warbeast"
 
 
 var aura_bt: BuffType

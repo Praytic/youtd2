@@ -1,7 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: this tower was named "Tuskar" in original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Baby Tuskar"=>"Baby Tuskin"
 
 
 var snowball_pt: ProjectileType

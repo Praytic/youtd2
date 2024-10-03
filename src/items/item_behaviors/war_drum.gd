@@ -1,7 +1,8 @@
 extends ItemBehavior
 
-# NOTE: this item was named "Warsong Double Bass" in
-# original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Warsong Double Bass"=>"War Drum"
+
 
 var drum_bt: BuffType
 

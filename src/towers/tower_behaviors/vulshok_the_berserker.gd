@@ -1,7 +1,7 @@
 extends TowerBehavior
 
 
-# NOTE: this is the fizzbuzz tower
+# NOTE: this is the "fizzbuzz tower" ;)
 
 
 # NOTE: SCALE_MIN should match the value in tower sprite

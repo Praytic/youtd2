@@ -8,7 +8,8 @@ extends TowerBehavior
 
 # NOTE: the multishot count is a bit confusing. Description
 # says tower "gains a 5 target multishot". This means that
-# bonus is +4 so that total is 5. Not that bonus is +5.
+# bonus is +4 so that total is 5. Doesn't mean that bonus is
+# +5.
 
 
 var hellfire_bt: BuffType

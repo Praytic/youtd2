@@ -1,8 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: commented out sections relevant to invisibility
-# because invisible waves are currently disabled.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Commented out sections
+# relevant to invisibility because invisible waves are not
+# implemented.
 
 
 # func get_tier_stats() -> Dictionary:

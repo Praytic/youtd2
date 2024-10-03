@@ -1,10 +1,11 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script. The buffs which tower
-# applied onto itself were unfriendly, changed them to
-# friendly. These buffs are permanent though so they are
-# invisible so doesn't matter much.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed minor bug in original
+# script. The buffs which tower applied onto itself were
+# unfriendly. Fixed them to be friendly. This bug doesn't
+# matter that much because the buffs are permanent and
+# invisible.
 
 # NOTE: had to adjust how buff levels are calculated a bit
 # to account for differences in how stats start from 0.0 vs

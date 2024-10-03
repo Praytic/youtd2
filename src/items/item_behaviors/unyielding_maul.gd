@@ -1,14 +1,14 @@
 extends ItemBehavior
 
 
-# NOTE: original script implemented miss effect via "attack"
-# event. Not sure how that's supposed to work because
-# setting event.damage to 0 in attack event should have no
-# effect. At least it has no effect in the godot engine, so
-# I changed to this script to use "damage" event. Maybe it
-# does work in JASS engine that way, need to test this item
-# in original game and change how attack event is handled in
-# godot engine if needed.
+# NOTE: [ORIGINAL_GAME_DEVIATION] original script
+# implemented miss effect via "attack" event. Not sure how
+# that's supposed to work because setting event.damage to 0
+# in attack event should have no effect. At least it has no
+# effect in the godot engine, so I changed to this script to
+# use "damage" event. Maybe it does work in JASS engine that
+# way, need to test this item in original game and change
+# how attack event is handled in godot engine if needed.
 
 
 func get_ability_description() -> String:

@@ -1,11 +1,7 @@
 extends TowerBehavior
 
-# NOTE: this tower was named "Cenarius" in original youtd
-
-
-# NOTE: original script makes the roots projectiles make
-# root effect every 0.2s. Didn't implement periodic events
-# for Projectiles yet so didn't do this effect.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Cenarius"=>"Cenarion"
 
 # NOTE: deduced the wave count of leaf storm cast like this:
 # 1. tooltip says it deals 2100dmg over time.

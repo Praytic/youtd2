@@ -1,13 +1,13 @@
 extends TowerBehavior
 
 
-# NOTE: original script has a bug where the projectile
-# created by aura deals 2 damage because do_spell_damage()
-# is called on tower instead of projectile. It was intended
-# that projectile stores damage ratio and then deals damage
-# using that ratio. Fixed bug by not using damage ratio (not
-# needed really) and storing damage in user_real of
-# projectile.
+# NOTE: [ORIGINAL_GAME_BUG] Original script has a bug where
+# the projectile created by aura deals 2 damage because
+# do_spell_damage() is called on tower instead of
+# projectile. It was intended that projectile stores damage
+# ratio and then deals damage using that ratio. Fixed bug by
+# not using damage ratio (not needed really) and storing
+# damage in user_real of projectile.
 
 
 var aura_bt: BuffType

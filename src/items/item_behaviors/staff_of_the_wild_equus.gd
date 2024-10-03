@@ -1,9 +1,10 @@
 extends ItemBehavior
 
 
-# NOTE: original script moves lifted creeps a little by
-# random offset. Removed it because youtd2 creeps are
-# supposed to always be "on rails", on creep path.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Original script moves
+# lifted creeps a little by random offset. Removed it
+# because youtd2 creeps are supposed to always be "on
+# rails", on creep path.
 
 
 var ascended_bt: BuffType

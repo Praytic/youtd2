@@ -1,14 +1,15 @@
 extends TowerBehavior
 
 
-# NOTE: original script has a bug where if multiple towers
-# from Spell Collectors family are built, then only one
-# tower will receive bonuses when other towers cast spells.
-# Didn't fix this bug, translated version also behaves like
-# this. If you want to fix this, search for other towers
-# with a similar effect - they also use an aura to detect
-# some event but share the bonuses correctly with all towers
-# of the family.
+# NOTE: [ORIGINAL_GAME_DEVIATION] (NOT FIXED) Original
+# script has a bug where if multiple towers from Spell
+# Collectors family are built, then only one tower will
+# receive bonuses when other towers cast spells. Didn't fix
+# this bug, translated version also behaves like this. If
+# you want to fix this, check other tower scripts for an
+# example fix. There are other towers with a similar effect
+# - they also use an aura to detect some event but share the
+# bonuses correctly with all towers of the family.
 
 # NOTE: reworked how delay between missiles is implemented.
 # Original script uses JASS timer and Launch() function.

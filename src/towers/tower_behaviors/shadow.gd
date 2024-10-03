@@ -8,22 +8,6 @@ extends TowerBehavior
 # NOTE: added display of DPS for Dark Shroud ability in
 # tower details.
 
-# NOTE: this tower's abilities are setup in such a way that
-# it will very often steal kills. Here's how it works:
-# 1. Tower applies Dark Shroud Aura to tower Foo.
-# 2. Tower Foo is about to deal damage.
-# 3. Tower Foo emits DAMAGE event.
-# 4. Shadow's DAMAGE event handler deals 10% of Foo's damage.
-# 5. Shadow has a high chance to deal the killing blow,
-#    unless 10% was not enough and the rest 90% of the Foo
-#    tower is the killing blow.
-# 
-# Note sure if this is intentional, or if original youtd
-# engine works in a different way so that issue doesn't come
-# up. Need to investigate. For example, can build same setup
-# of towers in original vs youtd2 and compare the amount of
-# kills that Shadow tower gets.
-
 
 var multiboard: MultiboardValues
 var aura_bt: BuffType

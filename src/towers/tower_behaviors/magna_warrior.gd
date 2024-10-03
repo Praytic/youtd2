@@ -1,7 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: this tower was named "Magnataur Warrior" in original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Magnataur Warrior"=>"Magna Warrior"
 
 
 var stun_bt: BuffType

@@ -5,15 +5,15 @@ extends TowerBehavior
 # manipulating Icicle structs. Changed to a different method
 # which is less complex.
 
-# NOTE: fixed bug in original script where if you
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where if you
 # transformed another tower into Ebonfrost, it would not
 # adjust the max icicle count based on tower level. The max
 # icicle count would only get adjusted when the tower
 # leveled up or down, which is bad if the tower is already
 # max level.
 
-# NOTE: fixed bug in original script where the effect of
-# Shattering Barrage scaled by tower level when it
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where the effect
+# of Shattering Barrage scaled by tower level when it
 # shouldn't. According to ability description, the debuff
 # "increases damage taken by 100%". The actual value was
 # 100% * [tower level], because the Modifier for shatter_bt

@@ -1,14 +1,15 @@
 extends TowerBehavior
 
 
-# NOTE: original script uses "acidbomb" cast for the acid
-# skull ability. Implemented it using regular projectile
-# instead.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Original script uses
+# "acidbomb" cast for the acid skull ability. Implemented it
+# using regular projectile instead. Final behavior is the
+# same.
 
-# NOTE: also, original script applies armor debuffs before
-# acid skull hits the targets. That is weird, changed it so
-# that debuffs are applied after the projectile hits the
-# target.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Original script applies
+# armor debuffs before acid skull hits the targets. That is
+# weird, changed it so that debuffs are applied after the
+# projectile hits the target.
 
 
 var acid_skull_bt: BuffType

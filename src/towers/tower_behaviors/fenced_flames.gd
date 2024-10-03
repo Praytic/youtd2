@@ -1,8 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script where dmg ratio didn't
-# scale with tower level
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug in original script
+# where periodic() didn't multiply dmg_ratio_add value by
+# tower level.
 
 
 const EMBER_RADIUS: float = 300

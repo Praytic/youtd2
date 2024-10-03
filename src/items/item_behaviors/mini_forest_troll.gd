@@ -1,7 +1,8 @@
 extends ItemBehavior
 
 
-# NOTE: this item was named "Mini Furbolg" in original youtd
+# NOTE: [ORIGINAL_GAME_DEVIATION] Renamed
+# "Mini Furbolg"=>"Mini Forest Troll"
 
 
 var rampage_bt: BuffType

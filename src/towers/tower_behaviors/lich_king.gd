@@ -1,14 +1,6 @@
 extends TowerBehavior
 
 
-# NOTE: original script multiplies game time delta by 0.04,
-# not sure why. It has a comment saying:
-# "multply by 0.04 to get seconds"
-# but i thought that JASS getGameTime() returns seconds already?
-# Whatever, removed the multiplication so that tower deals
-# 500dmg per second spent in aura, same as in ability description.
-
-
 var curse_bt: BuffType
 var aura_bt: BuffType
 var multiboard: MultiboardValues
@@ -134,6 +126,9 @@ func aura_bt_on_cleanup(event: Event):
 	var max_dps: int = buff.user_int2
 	var buff_stored_damage: float = buff.user_real
 
+#	NOTE: original script multiplies time value by 0.04 here
+#	because in youtd1 getGameTime() returns time multiplied
+#	by 25. Not needed in youtd2, time is simply seconds.
 	var damage: float = (Utils.get_time() - apply_time) * max_dps
 	damage += buff_stored_damage
 

@@ -1,10 +1,14 @@
 extends TowerBehavior
 
 
-# NOTE: fixed bug in original script where lower tier tower
-# could temporarily reduce damage of the Ignite. This
-# happened because DAMAGE callback always changed user_real
-# without checking if it's a downgrade.
+# NOTE: [ORIGINAL_GAME_DEVIATION] Changed behavior when
+# multiple copies of this tower try to apply Ignite buff on
+# same unit.
+# 
+# Original game: lower tier tower could temporarily reduce
+# damage of Ignite.
+#
+# YouTD2: Lower tier tower can't reduce damage of Ignite.
 
 
 var ignite_bt: BuffType

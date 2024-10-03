@@ -3,7 +3,8 @@ extends TowerBehavior
 # NOTE: too many differences between tiers. Had to make
 # separate code paths for each tier.
 
-# NOTE: original script has typos. Fixed them.
+# NOTE: [ORIGINAL_GAME_BUG] Original script has typos. Fixed
+# them.
 # 
 # 1. 50 dmg for Frost Nova of 2nd tier. Fixed it to 250.
 # 

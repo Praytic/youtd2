@@ -1,10 +1,11 @@
 extends ItemBehavior
 
 
-# NOTE: fixed an error in original script. Slow modifier
-# wasn't added to aura effect type.
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where slow debuff
+# wasn't attached to aura. This caused the item to not slow
+# the creeps.
 
-# thanks to Gex "ice core" aura
+
 var fright_bt: BuffType
 
 

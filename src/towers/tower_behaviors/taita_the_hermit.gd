@@ -1,8 +1,9 @@
 extends TowerBehavior
 
 
-# NOTE: this tower will deal 0 damage if frost bolt hits a
-# creep with no Icy Touch stacks. Kind of weird.
+# NOTE: [ORIGINAL_GAME_BUG] (NOT FIXED) this tower will deal
+# 0 damage if Frost Bolt ability hits a creep with no Icy
+# Touch stacks. Kind of weird.
 
 
 var cold_blood_bt: BuffType

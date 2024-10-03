@@ -1,7 +1,8 @@
 extends TowerBehavior
 
 
-# NOTE: fixed two bugs which were present in original script.
+# NOTE: [ORIGINAL_GAME_BUG] fixed two bugs which were
+# present in original script.
 # 
 # 1. Health regen values were same for tier 1 and tier 2.
 #    They should be different according to the tooltip.

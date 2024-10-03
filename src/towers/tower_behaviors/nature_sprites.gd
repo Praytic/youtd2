@@ -1,9 +1,10 @@
 extends TowerBehavior
 
 
-# NOTE: in original game there's a discrepancy between value
-# in description vs script. In description, item chance
-# level bonus = 0.14%. In script it is 0.16%.
+# NOTE: [ORIGINAL_GAME_BUG] in original game there's a
+# discrepancy between value in description vs script. In
+# description, item chance level bonus = 0.14%. In script it
+# is 0.16%.
 
 
 const SECONDARY_EFFECT_CHANCE: float = 0.25
