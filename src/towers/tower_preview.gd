@@ -40,6 +40,23 @@ func set_tower(tower_id: int):
 	Utils.setup_range_indicators(range_data_list, _range_indicator_container, local_player)
 
 
+func set_range_manual(radius: int, friendly: bool):
+	for old_range_indicator in _range_indicator_container.get_children():
+		old_range_indicator.queue_free()
+
+	var target_type: TargetType
+	if friendly:
+		target_type = TargetType.new(TargetType.TOWERS)
+	else:
+		target_type = TargetType.new(TargetType.CREEPS)
+
+	var range_data: RangeData = RangeData.new("", radius, target_type)
+	var range_data_list: Array[RangeData] = [range_data]
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	Utils.setup_range_indicators(range_data_list, _range_indicator_container, local_player)
+
+
 func get_tower_id() -> int:
 	return _tower_id
 

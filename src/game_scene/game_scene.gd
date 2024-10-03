@@ -23,6 +23,7 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _tutorial_controller: TutorialController
 @export var _builder_menu: BuilderMenu
+@export var _range_checker: TowerPreview
 
 var _ui_input_is_enabled: bool = false
 
@@ -115,6 +116,9 @@ func _ready():
 	_builder_menu.show()
 	_shadow_above_builder_menu.show()
 	_set_ui_input_enabled(false)
+	
+#	NOTE: 515 is Lesser Iron Defender, average placeholder looking tower
+	_range_checker.set_tower(515)
 	
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.

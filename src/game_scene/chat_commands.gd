@@ -21,6 +21,8 @@ const UNIGNORE: Array[String] = ["/unignore"]
 const PING: Array[String] = ["/ping"]
 const PAUSE: Array[String] = ["/pause"]
 const UNPAUSE: Array[String] = ["/unpause"]
+const CHECK_RANGE_FRIENDLY: Array[String] = ["/check-range-friendly", "/crf"]
+const CHECK_RANGE_ATTACK: Array[String] = ["/check-range-attack", "/cra"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE_WAVES: Array[String] = ["/pause-waves", "/pw"]
@@ -58,6 +60,8 @@ const LOCAL_ONLY_COMMANDS_LIST_OF_LISTS: Array = [
 	IGNORE,
 	UNIGNORE,
 	PING,
+	CHECK_RANGE_FRIENDLY,
+	CHECK_RANGE_ATTACK,
 ]
 
 var not_allowed_in_multiplayer: Array = []
@@ -68,6 +72,7 @@ var host_command_list: Array = []
 @export var _team_container: TeamContainer
 @export var _hud: HUD
 @export var _game_client: GameClient
+@export var _range_checker: TowerPreview
 
 
 #########################
@@ -165,6 +170,10 @@ func process_command(player: Player, command: String):
 		_command_pause()
 	elif UNPAUSE.has(command_main):
 		_command_unpause()
+	elif CHECK_RANGE_FRIENDLY.has(command_main):
+		_command_check_range_friendly(player, command_args)
+	elif CHECK_RANGE_ATTACK.has(command_main):
+		_command_check_range_attack(player, command_args)
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -512,10 +521,38 @@ func _command_pause():
 func _command_unpause():
 	_command_pause_helper(false)
 
-
 func _command_pause_helper(value: bool):
 	_hud.set_multiplayer_pause_indicator_visible(value)
 	_game_client.set_paused_by_host(value)
+
+
+func _command_check_range_friendly(player: Player, args: Array):
+	var friendly: bool = true
+	_command_check_range_helper(player, args, friendly)
+
+
+func _command_check_range_attack(player: Player, args: Array):
+	var friendly: bool = false
+	_command_check_range_helper(player, args, friendly)
+
+
+func _command_check_range_helper(player: Player, args: Array, friendly: bool):
+	if args.size() != 1:
+		_add_error(player, "Invalid command args. Must specify range value or \"off\" to disable range checker.")
+
+		return
+	
+	var arg_string: String = args[0]
+	
+	if arg_string == "OFF":
+		_range_checker.hide()
+		_add_status(player, "Disabled range checker.")
+		
+		return
+	
+	var radius: int = arg_string.to_int()
+	_range_checker.set_range_manual(radius, friendly)
+	_range_checker.show()
 
 
 # NOTE: oil counts are based on average oil counts obtained
