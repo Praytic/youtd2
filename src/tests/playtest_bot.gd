@@ -8,22 +8,31 @@ class_name PlaytestBot extends Node
 # Increase config/update_ticks_per_physics_tick to run the
 # playtest at faster speed.
 
+enum TowerSelectType {
+	RANDOM,
+	MANUAL,
+}
+
+const TOWER_SELECT_TYPE: TowerSelectType = TowerSelectType.RANDOM
+const RANDOM_TOWER_COUNT: int = 30
+const MANUAL_TOWER_LIST: Array[int] = [391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266, 279, 304, 307, 391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266, 279, 391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266, 279, 304, 307, 391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266, 279, 391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266, 279, 304, 307, 391, 115, 120, 360, 135, 149, 162, 269, 186, 192, 198, 209, 286, 233, 266]
+
+const ADD_RANDOM_ITEMS: bool = true
 const TIME_PER_SET: float = 5 * 60
-const TOWER_SET_SIZE: int = 20
 # NOTE: (2,2) is the tip of the corner of buildable area
 const POSITIONS_ORIGIN: Vector2 = Vector2(500, 200)
 const POSITIONS_X_RANGE: Array = [-10, 10]
-const POSITIONS_Y_RANGE: Array = [-20, 5]
-# NOTE: add tower ids to this list to force build them
-# together with other random towers
-const FORCE_TOWER_LIST: Array[int] = []
+const POSITIONS_Y_RANGE: Array = [-20, 15]
 
 static var item_id_list: Array
 static var oil_id_list: Array
+static var built_tower_list: Array[Tower] = []
+static var all_tower_id_list: Array
+static var position_list: Array
 
 
 static func run(build_space: BuildSpace):
-	var tower_id_list: Array = TowerProperties.get_tower_id_list()
+	all_tower_id_list = TowerProperties.get_tower_id_list()
 	
 	var regular_type_string: String = ItemType.convert_to_string(ItemType.enm.REGULAR)
 	PlaytestBot.item_id_list = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, regular_type_string)
@@ -31,44 +40,54 @@ static func run(build_space: BuildSpace):
 	var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
 	oil_id_list = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, oil_type_string)
 
-	var built_tower_list: Array[Tower] = []
+	var position_count: int
+	match TOWER_SELECT_TYPE:
+		TowerSelectType.RANDOM: position_count = RANDOM_TOWER_COUNT
+		TowerSelectType.MANUAL: position_count = MANUAL_TOWER_LIST.size()
 
-	var position_list: Array[Vector2] = PlaytestBot._generate_position_list(build_space)
-
-	if position_list.size() != TOWER_SET_SIZE:
-		push_error("Not enough build positions, position_list.size() =", position_list.size())
-		
-		return
-
-	var player: Player = PlayerManager.get_local_player()
-	var item_stash: ItemContainer = player.get_item_stash()
+	position_list = PlaytestBot._generate_position_list(build_space, position_count)
 
 	while true:
-		for tower in built_tower_list:
-			tower.remove_from_game()
-		built_tower_list.clear()
-
-#		NOTE: empty item stash to prevent overflow during testing
-		var item_list: Array[Item] = item_stash.get_item_list()
-		for item in item_list:
-			item_stash.remove_item(item)
-			item.queue_free()
-
-		var random_tower_id_list: Array = FORCE_TOWER_LIST.duplicate()
-
-		while random_tower_id_list.size() < TOWER_SET_SIZE:
-			var random_tower_id: int = tower_id_list.pick_random()
-			random_tower_id_list.append(random_tower_id)
-
-		random_tower_id_list.shuffle()
-
-		for i in range(0, TOWER_SET_SIZE):
-			var random_tower_id: int = random_tower_id_list[i]
-			var build_pos: Vector2 = position_list[i]
-			var tower: Tower = PlaytestBot._build_random_tower(random_tower_id, build_pos)
-			built_tower_list.append(tower)
-
+		run_cycle()
+		
 		await Utils.create_timer(TIME_PER_SET, build_space).timeout
+
+
+static func run_cycle():
+	for tower in built_tower_list:
+		tower.remove_from_game()
+	built_tower_list.clear()
+
+#	NOTE: empty item stash to prevent overflow during testing
+	var player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = player.get_item_stash()
+	var item_list: Array[Item] = item_stash.get_item_list()
+	for item in item_list:
+		item_stash.remove_item(item)
+		item.queue_free()
+
+	var tower_id_list: Array
+	match TOWER_SELECT_TYPE:
+		TowerSelectType.RANDOM:
+			tower_id_list = _generate_random_tower_list()
+			MANUAL_TOWER_LIST.duplicate()
+		TowerSelectType.MANUAL: tower_id_list = MANUAL_TOWER_LIST.duplicate()
+
+	for i in range(0, tower_id_list.size()):
+		var tower_id: int = tower_id_list[i]
+		var build_pos: Vector2 = position_list[i]
+		var tower: Tower = PlaytestBot._build_random_tower(tower_id, build_pos)
+		built_tower_list.append(tower)
+
+
+static func _generate_random_tower_list() -> Array[int]:
+	var result: Array[int] = []
+
+	for i in range(0, RANDOM_TOWER_COUNT):
+		var tower_id: int = all_tower_id_list.pick_random()
+		result.append(tower_id)
+
+	return result
 
 
 static func _build_random_tower(tower_id: int, unclamped_pos: Vector2) -> Tower:
@@ -80,11 +99,18 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2) -> Tower:
 	var build_pos: Vector2 = VectorUtils.canvas_to_wc3_2d(build_pos_1st_floor_canvas)
 	tower.set_position_wc3_2d(build_pos)
 	Utils.add_object_to_world(tower)
+
+	if ADD_RANDOM_ITEMS:
+		_add_random_items_to_tower(tower)
 	
-#	Add random items and oils to tower
-#	NOTE: need to sometimes leave empty space in
-#	tower inventory to test some abilities which
-#	require non-full inventory
+	return tower
+
+
+# NOTE: need to sometimes leave empty space in
+# tower inventory to test some abilities which
+# require non-full inventory
+static func _add_random_items_to_tower(tower: Tower):
+	var player: Player = PlayerManager.get_local_player()
 	var free_slots: int = tower.count_free_slots()
 	var item_count: int = randi_range(0, free_slots)
 
@@ -99,10 +125,8 @@ static func _build_random_tower(tower_id: int, unclamped_pos: Vector2) -> Tower:
 		var random_oil: Item = Item.create(player, random_oil_id, Vector3.ZERO)
 		random_oil.pickup(tower)
 
-	return tower
 
-
-static func _generate_position_list(build_space: BuildSpace) -> Array[Vector2]:
+static func _generate_position_list(build_space: BuildSpace, count: int) -> Array[Vector2]:
 	var result: Array[Vector2] = []
 
 	var origin: Vector2 = POSITIONS_ORIGIN
@@ -125,9 +149,9 @@ static func _generate_position_list(build_space: BuildSpace) -> Array[Vector2]:
 		return dist_a < dist_b
 		)
 	
-	print("Found %d positions. Reducing to %d closest positions." % [result.size(), TOWER_SET_SIZE])
+	print("Found %d positions. Reducing to %d closest positions." % [result.size(), count])
 	
-	if result.size() > TOWER_SET_SIZE:
-		result.resize(TOWER_SET_SIZE)
+	if result.size() > count:
+		result.resize(count)
 
 	return result
