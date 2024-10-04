@@ -19,7 +19,14 @@ const OIL_TYPE_MAP: Dictionary = {
 }
 
 const OIL_TYPE_SYNONYMS: Dictionary = {
+	"sharpness": ["damage", "dmg"],
+	"magic": ["mana"],
 	"accuracy": ["critical"],
+	"swiftness": ["speed"],
+	"sorcery": ["spell"],
+	"exuberance": ["bounty"],
+	"seeker": ["item"],
+	"lore": ["experience"],
 }
 
 var _data: Dictionary = {}
