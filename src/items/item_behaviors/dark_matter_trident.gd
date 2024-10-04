@@ -26,14 +26,14 @@ func item_init():
 	boost_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	boost_bt.set_buff_tooltip("Boost Physical Energy\nIncreases attack speed.")
 	var boost_bt_mod: Modifier = Modifier.new()
-	boost_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
+	boost_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
 	boost_bt.set_buff_modifier(boost_bt_mod)
 
 	drain_bt = BuffType.new("drain_bt", 2.5, 0.0, true, self)
 	drain_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
 	drain_bt.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
 	var drain_bt_mod: Modifier = Modifier.new()
-	drain_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
+	drain_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
 	drain_bt.set_buff_modifier(drain_bt_mod)
 
 
