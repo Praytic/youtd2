@@ -274,17 +274,17 @@ func _require_owner(tower: Tower, player: Player) -> bool:
 		return false
 	return true
 
-func _resolve_autooil_arg(player: Player, option: String) -> bool:
-	var unit = player.get_selected_unit()
+func _resolve_autooil_arg(player: Player, option: String):
+	var unit: Unit = player.get_selected_unit()
 	
 	var tower: Tower = null
-	var tower_name = null
-	var is_tower = _is_tower(unit)
+	var tower_name: String = ""
+	var is_tower: bool = _is_tower(unit)
 	if is_tower:
 		tower = unit as Tower
 		tower_name = tower.get_display_name()
 		
-	var matched = true
+	var matched: bool = true
 	
 	match option:
 		"list":
@@ -305,12 +305,12 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 					player.clear_autooil_for_tower(tower)
 					_add_status(player, "Cleared autooils for %s." % tower_name)
 				else:
-					return false
+					return
 		_:
 			matched = false
 	
 	if matched:
-		return true
+		return
 	
 	if _require_tower(unit, player) and _require_owner(tower, player):
 		var oil_type: String = option
@@ -318,15 +318,15 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 		
 		if not oil_type_is_valid:
 			_add_error(player, "Invalid oil type: \"%s\"." % oil_type)
-			return false
+			return
 		
 		var full_oil_type: String = AutoOil.convert_short_type_to_full(oil_type)
 		player.set_autooil_for_tower(full_oil_type, tower)
 		_add_status(player, "Set autooil for tower [color=GOLD]%s[/color] to [color=GOLD]%s[/color] oils." % [tower_name, full_oil_type])
 	
-		return true
+		return
 	else:
-		return false
+		return
 
 
 func _command_autooil(player: Player, args: Array):
