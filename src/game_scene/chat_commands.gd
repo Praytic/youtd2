@@ -261,15 +261,9 @@ func _is_tower(unit: Unit) -> bool:
 	# return false if non-tower is selected or unit is null
 	return unit != null and unit is Tower
 
-func _require_unit(unit: Unit, player: Player) -> bool:
-	if unit == null:
-		_add_error(player, "You must select a tower to execute this mode of autooil command.")
-		return false
-	return true
-
 func _require_tower(unit: Unit, player: Player) -> bool:
 	if not unit is Tower:
-		_add_error(player, "Cannot autooil while selecting non-tower units.")
+		_add_error(player, "You must select a tower to execute this mode of autooil command.")
 		return false
 	return true
 
@@ -318,7 +312,7 @@ func _resolve_autooil_arg(player: Player, option: String) -> bool:
 	if matched:
 		return true
 	
-	if _require_unit(unit, player) and _require_tower(unit, player) and _require_owner(tower, player):
+	if _require_tower(unit, player) and _require_owner(tower, player):
 		var oil_type: String = option
 		var oil_type_is_valid: bool = AutoOil.get_oil_type_is_valid(oil_type)
 		
