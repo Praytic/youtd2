@@ -220,6 +220,7 @@ func get_item_text(item: Item) -> String:
 	var rarity_color: Color = Rarity.get_color(rarity)
 	var display_name_colored: String = Utils.get_colored_string(display_name, rarity_color)
 	var description: String = ItemProperties.get_description(item_id)
+	var level: int = ItemProperties.get_required_wave_level(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 	var is_consumable: bool = ItemProperties.is_consumable(item_id)
@@ -232,6 +233,7 @@ func get_item_text(item: Item) -> String:
 
 	text += "[b]%s[/b]\n" % display_name_colored
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += "[color=YELLOW]Level:[/color] %s\n" % level
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 
 	if !specials_text.is_empty():
