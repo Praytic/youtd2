@@ -114,7 +114,7 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, target, "Splash")
 
-	var effect: int = Effect.create_scaled("res://src/effects/naga_death.tscn", Vector3(target.get_x(), target.get_y(), 0), 0, 5)
+	var effect: int = Effect.create_scaled("res://src/effects/naga_death.tscn", Vector3(target.get_x(), target.get_y(), 0), 0, 3)
 	Effect.set_lifetime(effect, 3.0)
 	var splash_damage: float = 4000 + 160 * lvl
 	tower.do_spell_damage_aoe_unit(target, 175, splash_damage, tower.calc_spell_crit_no_bonus(), 0)

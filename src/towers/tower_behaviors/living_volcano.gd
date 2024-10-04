@@ -93,7 +93,7 @@ func on_attack(event: Event):
 func lava_pt_on_cleanup(p: Projectile):
 	var aoe_radius: float = p.user_real
 	var aoe_damage: float = p.user_real2
-	Effect.add_special_effect("NeutralBuildingExplosion", Vector2(p.get_x(), p.get_y()))
+	Effect.add_special_effect("res://src/effects/incinerate.tscn", Vector2(p.get_x(), p.get_y()))
 	tower.do_spell_damage_aoe(Vector2(p.get_x(), p.get_y()), aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.25)
 
 
