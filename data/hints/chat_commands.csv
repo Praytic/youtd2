@@ -15,15 +15,27 @@ Use [color=GOLD]/unpause[/color] to resume.
 [color=GOLD]/autospawn off[/color] - Disables autospawn.
 
 "
-"/autooil","[color=GOLD]/autooil list[/color] - shows available oil types.
+"/autooil","
+[color=GOLD]/ao[/color] - short version.
  
-[color=GOLD]/autooil <OILTYPE>[/color] - Enables autooil for selected tower. You can type short versions of oiltypes - sharpness, sharp, sh.
+[color=GOLD]/autooil list[/color] - shows available oil types.
+ 
+[color=GOLD]/autooil <OILTYPE>[/color] - Enables autooil for selected tower.
+[color=GOLD]/autooil <OILTYPE 1> <OILTYPE 2>[/color] - Enables multiple oils.
+ 
+Accepted oil types:
+[color=GOLD]sharpness, sharp, dmg[/color]
+[color=GOLD]magic, mana[/color]
+[color=GOLD]accuracy, acc, critical[/color]
+[color=GOLD]swiftness, swift, speed[/color]
+[color=GOLD]sorcery, sorc, spell[/color]
+[color=GOLD]exuberance, exub, bounty[/color]
+[color=GOLD]seeker, item[/color]
+[color=GOLD]lore, exp[/color]
  
 [color=GOLD]/autooil show[/color] - shows all current autooil assignments.
  
 [color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
-  
-[color=GOLD]/ao[/color] - short version.
 "
 "/gamespeed","[color=GOLD]/gamespeed <SPEED>[/color] or [color=GOLD]/gs  <SPEED>[/color] - Changes game speed. This command allows changing game speed beyond the values available in the UI controls.
 "
