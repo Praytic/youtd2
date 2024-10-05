@@ -548,7 +548,7 @@ func _command_check_range_helper(player: Player, args: Array, friendly: bool):
 	
 	var arg_string: String = args[0]
 	
-	if arg_string == "OFF":
+	if arg_string == "off":
 		_range_checker.hide()
 		_add_status(player, "Disabled range checker.")
 		
