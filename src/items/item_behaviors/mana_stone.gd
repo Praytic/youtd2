@@ -56,5 +56,5 @@ func on_pickup():
 
 func on_kill(_event: Event):
 	var tower: Tower = item.get_carrier()
-	Effect.create_scaled("res://src/effects/replenish_mana.tscn", tower.get_position_wc3(), 0.0, 5)
+	Effect.create_scaled("res://src/effects/replenish_mana.tscn", tower.get_position_wc3(), 0.0, 1)
 
