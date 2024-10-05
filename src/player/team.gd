@@ -227,20 +227,25 @@ func _do_game_win():
 
 	game_win.emit()
 
+	var COLOR_LIST: Array[Color] = [Color.WHITE, Color.FOREST_GREEN, Color.CYAN, Color.VIOLET, Color.GOLD, Color.PINK, Color.ORANGE]
+
 	for i in range(10):
 		var effect_count: int = 100 + i * 20
+		effect_count = ceili(randf_range(0.5, 1.0) * effect_count)
 		
 		for j in range(effect_count):
 			var x: float = Globals.synced_rng.randf_range(-4000, 4000)
 			var y: float = Globals.synced_rng.randf_range(-4000, 4000)
-			var scale: float = Globals.synced_rng.randf_range(5.0, 10.0)
-			var speed: float = Globals.synced_rng.randf_range(0.3, 1.0)
+			var scale: float = Globals.synced_rng.randf_range(1.0, 2.0)
+			var speed: float = Globals.synced_rng.randf_range(0.7, 1.0)
+			var color: Color = COLOR_LIST.pick_random()
 
-			var effect: int = Effect.create_simple("placeholder path", Vector2(x, y))
+			var effect: int = Effect.create_simple("res://src/effects/placeholder.tscn", Vector2(x, y))
 			Effect.set_scale(effect, scale)
+			Effect.set_color(effect, color)
 			Effect.set_animation_speed(effect, speed)
 
-		await Utils.create_timer(1.0, self).timeout
+		await Utils.create_timer(0.5, self).timeout
 
 
 func _do_game_lose():
