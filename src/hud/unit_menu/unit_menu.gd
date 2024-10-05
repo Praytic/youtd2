@@ -265,6 +265,9 @@ func _update_level_label():
 	_level_label.text = str(_tower.get_level())
 
 
+# NOTE: upgrade button is disabled when wave/research
+# requirements are not satisfied. Gold/tomes/food costs are
+# not considered and this is on purpose.
 func _update_upgrade_button():
 	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(_tower.get_id())
 
@@ -272,9 +275,7 @@ func _update_upgrade_button():
 	if upgrade_id != -1:
 		var local_player: Player = PlayerManager.get_local_player()
 		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, local_player)
-		var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
-		var enough_tomes: bool = local_player.enough_tomes_for_tower(upgrade_id)
-		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes
+		can_upgrade = requirements_are_satisfied
 	else:
 		can_upgrade = false
 
