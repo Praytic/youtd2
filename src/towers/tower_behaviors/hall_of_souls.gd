@@ -6,8 +6,12 @@ extends TowerBehavior
 # user_real's. Instead, tower will apply changes appropriate
 # for it's tier in apply_soul_bonus().
 
+# [ORIGINAL_GAME_DEVIATION] Added display of damage
+# accumulated from Revenge of Souls to tower details.
+
 
 var aura_bt: BuffType
+var multiboard: MultiboardValues
 
 
 func get_tier_stats() -> Dictionary:
@@ -21,11 +25,21 @@ const AURA_RANGE: float = 1000
 
 
 func tower_init():
+	multiboard = MultiboardValues.new(1)
+	multiboard.set_key(0, "Revenge damage")
+
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_death(aura_bt_on_death)
 	aura_bt.set_hidden()
+
+
+func on_tower_details() -> MultiboardValues:
+	var damage_bonus_text: String = TowerDetails.int_format(tower.user_real3)
+	multiboard.set_value(0, damage_bonus_text)
+
+	return multiboard
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -65,6 +79,7 @@ func on_create(preceding: Tower):
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_bonus)
 	else:
 		tower.user_real3 = 0.0
+
 
 # NOTE: setFamID() in original script
 func aura_bt_on_create(event: Event):
