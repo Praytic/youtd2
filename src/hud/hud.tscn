@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=25 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
@@ -20,6 +20,20 @@
 [ext_resource type="PackedScene" uid="uid://wqmh2igy5bn4" path="res://src/hud/desync_indicator.tscn" id="19_mcs2s"]
 [ext_resource type="PackedScene" uid="uid://c4jswu0s2yq2o" path="res://src/hud/multiplayer_pause_indicator.tscn" id="20_cbamn"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/hud/build_version.tscn" id="21_ko2ou"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hfkwl"]
+physical_keycode = 84
+
+[sub_resource type="Shortcut" id="Shortcut_ejtke"]
+events = [SubResource("InputEventKey_hfkwl")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_cgjl0"]
+device = -1
+physical_keycode = 73
+unicode = 105
+
+[sub_resource type="Shortcut" id="Shortcut_ree63"]
+events = [SubResource("InputEventKey_cgjl0")]
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator")]
 layout_mode = 3
@@ -222,12 +236,14 @@ _menu = NodePath("../../../MarginContainer2/HBoxContainer/ElementsMenu")
 layout_mode = 2
 tooltip_text = "Open Tower Stash"
 button_group = ExtResource("7_8m5sl")
+shortcut = SubResource("Shortcut_ejtke")
 _menu = NodePath("../../../MarginContainer2/HBoxContainer/TowerStashMenu")
 
 [node name="ItemStashButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
 tooltip_text = "Open Item Stash"
 button_group = ExtResource("7_8m5sl")
+shortcut = SubResource("Shortcut_ree63")
 icon = ExtResource("12_vixmf")
 _menu = NodePath("../../../MarginContainer2/HBoxContainer/ItemStashMenu")
 
