@@ -1,6 +1,20 @@
 extends ItemBehavior
 
 
+# [ORIGINAL_GAME_DEVIATION] Removed auto-dropping behavior
+# to make Strange Item usable during bonus waves.
+# 
+# In youtd1, Strange Item would automatically drop from
+# towers during bonus waves. Note that in youtd1, bonus
+# waves did not have individual wave numbers - they were all
+# part of wave "241". So Strange Item would not work during
+# bonus waves, even if it didn't get auto-removed from
+# towers.
+# 
+# In youtd2, bonus waves have their own wave numbers so
+# Strange Item can work during bonus waves.
+
+
 func get_ability_description() -> String:
 	var text: String = ""
 
@@ -70,7 +84,3 @@ func periodic(_event: Event):
 				new.fly_to_stash(0.0)
 
 		item.set_charges(item.user_int)
-
-	if cur_level > Utils.get_max_level():
-		item.drop()
-		item.fly_to_stash(0.0)
