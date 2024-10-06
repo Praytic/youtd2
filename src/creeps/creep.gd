@@ -368,6 +368,10 @@ func _deal_damage_to_portal():
 	team.modify_lives(-damage_to_portal)
 	team.play_portal_damage_sfx()
 
+	var effect: int = Effect.create_simple_at_unit("res://src/effects/silence_area.tscn", self)
+	Effect.set_color(effect, Color8(90, 180, 250))
+	Effect.set_scale(effect, 1.5)
+
 	EventBus.portal_received_damage.emit()
 
 
