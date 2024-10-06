@@ -32,6 +32,8 @@ func _ready():
 		button.pressed.connect(_on_item_button_pressed.bind(button))
 		button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(button))
 		button.right_clicked.connect(_on_item_button_right_clicked.bind(button))
+		var item_button = button as ItemButton
+		item_button.ctrl_right_clicked.connect(_on_item_button_ctrl_right_clicked.bind(item_button))
 
 	var slot_button_list: Array[Node] = _slot_grid.get_children()
 	for button in slot_button_list:
@@ -69,6 +71,11 @@ func set_item_container(item_container: ItemContainer):
 #########################
 ###      Private      ###
 #########################
+
+func _on_item_button_ctrl_right_clicked(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	item.toggle_horadric_lock()
+
 
 func _update_buttons():
 	var inventory_capacity: int
