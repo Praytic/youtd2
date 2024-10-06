@@ -71,6 +71,6 @@ func periodic(_event: Event):
 
 		item.set_charges(item.user_int)
 
-	if cur_level > Utils.get_max_level():
-		item.drop()
-		item.fly_to_stash(0.0)
+	#if cur_level > Utils.get_max_level():
+		#item.drop()
+		#item.fly_to_stash(0.0)
