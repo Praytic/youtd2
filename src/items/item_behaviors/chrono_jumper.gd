@@ -126,9 +126,42 @@ func jumper_bt_on_create(_event: Event):
 	tower.set_transform_is_allowed(false)
 
 
+# NOTE: need 0.1s delay to handle Distorted Idol + Chrono
+# Jumper interaction. The intended interaction is that
+# player can:
+# - Equip 5 items on tower with 6 inventory slots
+# - Equip Chrono Jumper
+# - Use Chrono Jumper to a corner
+# - While tower is on corner, swap Distorted Idol and Chrono Jumper
+# - Result is that Distorted Idol copied 5 items
+# 
+# If there's no delay, then sequence would be:
+# - Chrono Jumper is removed from tower
+# - Chrono Jump buff is removed
+# - Tower is moved to original position
+# - Distorted Idol is equipped
+# - Distorted Idol is uneqipped because tower is not on corner!
+# 
+# This problem happens because in youtd2 engine, when items
+# are unequipped, all item buffs are removed. In youtd1,
+# item buffs stay until expiry. Item buffs are removed in
+# youtd2 to ensure null reference safety. In youtd1, null
+# reference safety can be disregarded because JASS scripts
+# can handle them without crashes.
+# 
+# Thanks to this delay, Distorted Idol is equipped
+# successfully and stays on tower.
+# 
 # NOTE: chrono_jumper_onCleanup() in original script
 func jumper_bt_on_cleanup(_event: Event):
 	var tower: Tower = item.get_carrier()
+
+#	NOTE: need to call get_tree() on tower because item is
+#	outside tree during CLEANUP callback
+	await tower.get_tree().create_timer(0.1).timeout
+
+	if !Utils.unit_is_valid(tower):
+		return
 	
 	Effect.create_simple_at_unit("res://src/effects/mass_teleport_caster.tscn", tower)
 	SFX.sfx_at_unit(SfxPaths.WARP, tower)
