@@ -11,25 +11,23 @@ func get_ability_description() -> String:
 	text += "[color=GOLD]Imitation[/color]\n"
 	text += "On pick up, this item copies effects of other items in tower inventory, except active abilities and other Distorted Idols.\n" \
 	+ " \n" \
-	+ "The effects are lost when this item is dropped or the carrier is upgraded or transformed.\n"
-
+	+ "The effects are lost when this item is dropped or the carrier is upgraded or transformed.\n" \
+	+ " \n" \
+	+ "[color=GOLD]Restriction[/color]\n" \
+	+ "This item can only be picked up by a tower in a corner with cliffs on two sides."
 	return text
 
 
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.60, 0.0)
 
+func create_multiboard(size: int):
+	multiboard = MultiboardValues.new(size)
+	for i in range(size):
+		multiboard.set_key(i, "Distorted #%s" % i)
 
-# NOTE: 5 lines in multiboard because at most 5 items can be
-# copied by Distorted Idol
 func item_init():
-	multiboard = MultiboardValues.new(3)
-	multiboard.set_key(0, "Distorted #1")
-	multiboard.set_key(1, "Distorted #2")
-	multiboard.set_key(2, "Distorted #3")
-	multiboard.set_key(3, "Distorted #4")
-	multiboard.set_key(4, "Distorted #5")
-
+	create_multiboard(1)
 
 func on_pickup():
 	var carrier: Tower = item.get_carrier()
@@ -71,6 +69,8 @@ func on_pickup():
 		copied_item.disable_autocast()
 		item.add_child(copied_item)
 		copied_item_list.append(copied_item)
+	
+	create_multiboard(len(copied_item_list))
 
 
 func on_drop():
@@ -83,9 +83,6 @@ func on_drop():
 
 
 func on_tower_details() -> MultiboardValues:
-	for i in range(0, multiboard.size()):
-		multiboard.set_value(i, "")
-
 	var index: int = 0
 
 	for copied_item in copied_item_list:
