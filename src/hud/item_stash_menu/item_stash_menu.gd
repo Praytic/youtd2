@@ -350,5 +350,5 @@ func _on_item_grid_gui_input(event):
 func _on_sort_button_pressed():
 	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
-	item_stash.sort_items_by_rarity_and_levels()
+	item_stash.sort_items_by_type_rarity_and_levels()
 	

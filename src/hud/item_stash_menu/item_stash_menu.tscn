@@ -52,7 +52,8 @@ metadata/_tab_index = 0
 [node name="SortButton" type="Button" parent="TabContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-tooltip_text = "Sorts all items in item stash according to item rarity and level."
+tooltip_text = "Sorts all items in item stash according to item type, rarity and level."
+focus_mode = 0
 text = "SORT"
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer"]

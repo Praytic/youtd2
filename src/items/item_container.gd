@@ -168,37 +168,37 @@ func get_highest_index() -> int:
 	return _highest_index
 
 
-func sort_items_by_rarity_and_levels():
+func sort_items_by_type_rarity_and_levels():
 	var new_item_list: Array[Item] = []
 	var new_item_list_with_slots: Array[Item] = []
 	new_item_list_with_slots.resize(_item_list_with_slots.size())
 	var new_item_to_index_map: Dictionary = {}
 	
 	var _sorting_func = func(item1: Item, item2: Item):
+		var type1: ItemType.enm = item1.get_item_type()
+		var type2: ItemType.enm = item2.get_item_type()
+		
+		# on purpose order of comparison is '>' for types
+		# and '<' below for rarities and levels
+		if type1 != type2:
+			return type1 > type2
+		
 		var rarity1: int = item1.get_rarity()
 		var rarity2: int = item2.get_rarity()
 		
-		if rarity1 < rarity2:
-			return true
-		if rarity2 < rarity1:
-			return false
+		if rarity1 != rarity2:
+			return rarity1 < rarity2
 		
-		# == case:
 		var level1: int = item1.get_required_wave_level()
 		var level2: int = item2.get_required_wave_level()
 		
-		if level1 < level2:
-			return true
-		if level2 < level1:
-			return false
+		if level1 != level2:
+			return level1 < level2
 			
-		# == case:
 		var id1: int = item1.get_id()
 		var id2: int = item2.get_id()
 		
-		if id1 <= id2:
-			return true
-		return false
+		return id1 <= id2
 	
 	_item_list.sort_custom(_sorting_func)
 	
