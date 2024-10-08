@@ -168,6 +168,50 @@ func get_highest_index() -> int:
 	return _highest_index
 
 
+func sort_items_by_rarity_and_levels():
+	var new_item_list: Array[Item] = []
+	var new_item_list_with_slots: Array[Item] = []
+	new_item_list_with_slots.resize(_item_list_with_slots.size())
+	var new_item_to_index_map: Dictionary = {}
+	
+	var _sorting_func = func(item1: Item, item2: Item):
+		var rarity1: int = item1.get_rarity()
+		var rarity2: int = item2.get_rarity()
+		
+		if rarity1 < rarity2:
+			return true
+		if rarity2 < rarity1:
+			return false
+		
+		# == case:
+		var level1: int = item1.get_required_wave_level()
+		var level2: int = item2.get_required_wave_level()
+		
+		if level1 < level2:
+			return true
+		if level2 < level1:
+			return false
+			
+		# == case:
+		var id1: int = item1.get_id()
+		var id2: int = item2.get_id()
+		
+		if id1 <= id2:
+			return true
+		return false
+	
+	_item_list.sort_custom(_sorting_func)
+	
+	var index: int = 0
+	for item in _item_list:
+		new_item_list_with_slots[index] = item
+		new_item_to_index_map[item] = index
+		index += 1
+		
+	_item_list_with_slots = new_item_list_with_slots
+	_item_to_index_map = new_item_to_index_map
+	items_changed.emit()
+
 #########################
 ###     Callbacks     ###
 #########################

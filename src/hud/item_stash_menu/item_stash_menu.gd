@@ -22,7 +22,8 @@ const COLUMN_COUNT: int = 6
 @export var _horadric_item_container_panel: ItemContainerPanel
 @export var _transmute_button: Button
 
-var _horadric_cube_avg_item_level_label: Label
+@export var _sort_button: Button
+@export var _horadric_cube_avg_item_level_label: Label
 
 #########################
 ### Code starts here  ###
@@ -50,8 +51,6 @@ func _ready():
 #		are added to item stash
 		recipe_button.disabled = true
 	
-	_horadric_cube_avg_item_level_label = get_tree().get_nodes_in_group("horadric_avg_item_level_label")[0]
-
 
 #########################
 ###       Public      ###
@@ -196,7 +195,6 @@ func _set_horadric_cube_average_level():
 	text += "%s" % avg_level
 	
 	_horadric_cube_avg_item_level_label.text = text
-	
 	
 
 #########################
@@ -347,3 +345,10 @@ func _on_item_grid_gui_input(event):
 		var item_stash: ItemContainer = local_player.get_item_stash()
 
 		EventBus.player_clicked_in_item_container.emit(item_stash, -1)
+
+
+func _on_sort_button_pressed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	item_stash.sort_items_by_rarity_and_levels()
+	

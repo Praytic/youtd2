@@ -21,7 +21,7 @@
 atlas = ExtResource("17_ba6s8")
 region = Rect2(896, 0, 128, 128)
 
-[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter", "_item_type_filter_container", "_background_grid", "_item_grid", "_item_scroll_container", "_backpacker_recipes", "_horadric_item_container_panel", "_transmute_button")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter", "_item_type_filter_container", "_background_grid", "_item_grid", "_item_scroll_container", "_backpacker_recipes", "_horadric_item_container_panel", "_transmute_button", "_sort_button", "_horadric_cube_avg_item_level_label")]
 custom_minimum_size = Vector2(630, 850)
 offset_right = 630.0
 offset_bottom = 850.0
@@ -30,49 +30,61 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_od67h")
 script = ExtResource("2_7jmcp")
 _rarity_filter = NodePath("MarginContainer/VBoxContainer2/RarityFilter")
 _item_type_filter_container = NodePath("MarginContainer/VBoxContainer2/ItemTypeFilter")
-_background_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid")
-_item_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid")
-_item_scroll_container = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
-_backpacker_recipes = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
-_horadric_item_container_panel = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricItemContainerPanel")
-_transmute_button = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton")
+_background_grid = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid")
+_item_grid = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid")
+_item_scroll_container = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
+_backpacker_recipes = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
+_horadric_item_container_panel = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricItemContainerPanel")
+_transmute_button = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton")
+_sort_button = NodePath("TabContainer/VBoxContainer/SortButton")
+_horadric_cube_avg_item_level_label = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricAvgItemLevelLabel")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 current_tab = 0
 tabs_visible = false
+tab_focus_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SortButton" type="Button" parent="TabContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "Sorts all items in item stash according to item rarity and level."
+text = "SORT"
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 10
-metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="ItemsPanel" type="PanelContainer" parent="TabContainer/MarginContainer/VBoxContainer"]
+[node name="ItemsPanel" type="PanelContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="Label" type="Label" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer"]
+[node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelSectionTitle"
 text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel"]
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/margin_left = 10
@@ -80,197 +92,197 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = -1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/margin_bottom = 10
 
-[node name="BackgroundGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="BackgroundGrid" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 6
 
-[node name="ItemGrid" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 6
 
-[node name="HoradricPanel" type="PanelContainer" parent="TabContainer/MarginContainer/VBoxContainer"]
+[node name="HoradricPanel" type="PanelContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 280)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="Label" type="Label" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/MarginContainer"]
+[node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/MarginContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelSectionTitle"
 text = "Horadric Cube"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 alignment_vertical = 2
 
-[node name="RebrewButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer" instance=ExtResource("7_4dttm")]
+[node name="RebrewButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("8_aeibv")
 recipe = 1
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 2
 
-[node name="DistillButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
+[node name="DistillButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("9_nqpec")
 recipe = 2
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 alignment_vertical = 0
 
-[node name="ReassembleButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
+[node name="ReassembleButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("10_yki42")
 recipe = 3
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="PerfectButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4" instance=ExtResource("7_4dttm")]
+[node name="PerfectButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("11_vtu31")
 recipe = 4
 
-[node name="BackpackerRecipes" type="GridContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="BackpackerRecipes" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 columns = 3
 
-[node name="AspectRatioContainer1" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+[node name="AspectRatioContainer1" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="LiquefyButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1" instance=ExtResource("7_4dttm")]
+[node name="LiquefyButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("11_vmis2")
 recipe = 5
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="PrecipitateButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
+[node name="PrecipitateButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("12_b1vp8")
 recipe = 6
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="ImbueButton" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
+[node name="ImbueButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
 layout_mode = 2
 icon = ExtResource("13_hyx2e")
 recipe = 7
 
-[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="TransmuteButton" type="Button" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="TransmuteButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Convert ingredients into a new item. This button will become enabled when it's possible to convert ingredients."
 focus_mode = 0
 text = "MERGE"
 
-[node name="ReturnButton" type="Button" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Returns all items in Horadric Cube to item stash."
 focus_mode = 0
 text = "RETURN"
 
-[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
@@ -279,7 +291,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="InfoLabel" type="RichTextLabel" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="InfoLabel" type="RichTextLabel" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -296,16 +308,16 @@ text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and
 fit_content = true
 scroll_active = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="HoradricItemContainerPanel" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" instance=ExtResource("12_f1ua4")]
+[node name="HoradricItemContainerPanel" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" instance=ExtResource("12_f1ua4")]
 layout_mode = 2
 size_flags_vertical = 3
 _button_tooltip_location = 0
 show_slot_borders = false
 
-[node name="HoradricAvgItemLevelLabel" type="Label" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" groups=["horadric_avg_item_level_label"]]
+[node name="HoradricAvgItemLevelLabel" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Average item level: 0"
@@ -356,9 +368,10 @@ theme_override_styles/normal = ExtResource("3_tvpws")
 text = "Item Stash"
 horizontal_alignment = 1
 
-[connection signal="gui_input" from="TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid" to="." method="_on_item_grid_gui_input"]
-[connection signal="pressed" from="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
-[connection signal="pressed" from="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/SortButton" to="." method="_on_sort_button_pressed"]
+[connection signal="gui_input" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid" to="." method="_on_item_grid_gui_input"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="filter_changed" from="MarginContainer/VBoxContainer2/ItemTypeFilter" to="." method="_on_item_type_filter_container_filter_changed"]
 [connection signal="filter_changed" from="MarginContainer/VBoxContainer2/RarityFilter" to="." method="_on_rarity_filter_filter_changed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
