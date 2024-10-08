@@ -24,6 +24,7 @@ const COLUMN_COUNT: int = 6
 
 @export var _sort_button: Button
 @export var _horadric_cube_avg_item_level_label: Label
+@export var _lock_filter_button: Button
 
 #########################
 ### Code starts here  ###
@@ -98,8 +99,11 @@ func _make_item_button(item: Item) -> ItemButton:
 func _get_filter_is_none() -> bool:
 	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
+	var lock_filter: bool = _lock_filter_button.is_pressed()
 	
-	var filter_is_none: bool = rarity_filter.size() == Rarity.get_list().size() && item_type_filter.size() == ItemType.get_list().size()
+	var filter_is_none: bool = rarity_filter.size() == Rarity.get_list().size() \
+	 && item_type_filter.size() == ItemType.get_list().size() && \
+	!lock_filter
 
 	return filter_is_none
 
@@ -123,6 +127,7 @@ func _load_current_filter():
 #	current filter
 	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
+	var lock_filter: bool = _lock_filter_button.is_pressed()
 	
 #	When there's a filter, hide all empty slots and show
 #	item buttons which match the filter
@@ -140,9 +145,13 @@ func _load_current_filter():
 
 		var rarity: Rarity.enm = item.get_rarity()
 		var item_type: ItemType.enm = item.get_item_type()
+		var lock_enabled: bool = item.get_horadric_lock_is_enabled()
+		
 		var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
 		var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
-		var filter_match: bool = rarity_match && item_type_match
+		var lock_match: bool = lock_enabled || !lock_filter
+		
+		var filter_match: bool = rarity_match && item_type_match && lock_match
 
 		button.visible = filter_match
 
@@ -352,3 +361,8 @@ func _on_sort_button_pressed():
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	item_stash.sort_items_by_type_rarity_and_levels()
 	
+
+
+func _on_lock_filter_button_toggled(toggled_on: bool):
+	_load_current_filter()
+	_update_autofill_buttons()
