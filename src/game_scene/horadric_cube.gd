@@ -277,29 +277,29 @@ static func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
 	return rarity
 
 
+# NOTE: only check level of permanent items. Skip oils and
+# consumables. This is needed because Imbue recipe uses a
+# mix of permanent items and oils as ingredients.
 static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	if item_list.is_empty():
 		return 0
 
+	var permanent_item_list: Array[Item] = item_list.filter(
+		func(item: Item) -> bool:
+			var item_id: int = item.get_id()
+			var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+			var item_is_permanent: bool = item_type == ItemType.enm.REGULAR
+
+			return item_is_permanent
+	)
+
 	var sum: float = 0.0
-	var item_count: int = 0
-	
-	for item in item_list:
-#		NOTE: only check level of permanent items. Skip oils
-#		and consumables. Important for Imbue recipe.
-		var item_is_permanent: bool = ItemProperties.get_type(item.get_id()) == ItemType.enm.REGULAR
-
-		if !item_is_permanent:
-			continue
-
+	for item in permanent_item_list:
 		var item_id: int = item.get_id()
 		var level: int = ItemProperties.get_required_wave_level(item_id)
 		sum += level
-		item_count += 1
 
-	if item_count == 0:
-		return 0
-		
+	var item_count: int = permanent_item_list.size()
 	var average_level: int = floori(sum / item_count)
 
 	return average_level
