@@ -280,7 +280,8 @@ static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 		return 0
 
 	var sum: float = 0.0
-
+	var item_count: int = 0
+	
 	for item in item_list:
 #		NOTE: only check level of permanent items. Skip oils
 #		and consumables. Important for Imbue recipe.
@@ -292,8 +293,11 @@ static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 		var item_id: int = item.get_id()
 		var level: int = ItemProperties.get_required_wave_level(item_id)
 		sum += level
+		item_count += 1
 
-	var item_count: int = item_list.size()
+	if item_count == 0:
+		return 0
+		
 	var average_level: int = floori(sum / item_count)
 
 	return average_level
