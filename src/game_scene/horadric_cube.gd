@@ -194,16 +194,18 @@ static func get_result_item_for_recipe(player: Player, recipe: Recipe, item_list
 		elif recipe_is_regular:
 			var result_item: int = HoradricCube._get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
 			result_item_list.append(result_item)
+	
+	# luck only influences regular recipes and specifically not PRECIPITATE
+	if recipe_is_regular and recipe != Recipe.PRECIPITATE:
+		var luck_message: String
+		match random_bonus_mod:
+			LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_NORMAL: luck_message = ""
+			LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
 
-	var luck_message: String
-	match random_bonus_mod:
-		LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
-		LEVEL_MOD_NORMAL: luck_message = ""
-		LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
-		LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
-
-	if !luck_message.is_empty():
-		Messages.add_normal(player, luck_message)
+		if !luck_message.is_empty():
+			Messages.add_normal(player, luck_message)
 
 	return result_item_list
 
@@ -275,25 +277,29 @@ static func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
 	return rarity
 
 
+# NOTE: only check level of permanent items. Skip oils and
+# consumables. This is needed because Imbue recipe uses a
+# mix of permanent items and oils as ingredients.
 static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	if item_list.is_empty():
 		return 0
 
+	var permanent_item_list: Array[Item] = item_list.filter(
+		func(item: Item) -> bool:
+			var item_id: int = item.get_id()
+			var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+			var item_is_permanent: bool = item_type == ItemType.enm.REGULAR
+
+			return item_is_permanent
+	)
+
 	var sum: float = 0.0
-
-	for item in item_list:
-#		NOTE: only check level of permanent items. Skip oils
-#		and consumables. Important for Imbue recipe.
-		var item_is_permanent: bool = ItemProperties.get_type(item.get_id()) == ItemType.enm.REGULAR
-
-		if !item_is_permanent:
-			continue
-
+	for item in permanent_item_list:
 		var item_id: int = item.get_id()
 		var level: int = ItemProperties.get_required_wave_level(item_id)
 		sum += level
 
-	var item_count: int = item_list.size()
+	var item_count: int = permanent_item_list.size()
 	var average_level: int = floori(sum / item_count)
 
 	return average_level
