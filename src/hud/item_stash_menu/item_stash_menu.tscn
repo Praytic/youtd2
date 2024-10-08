@@ -34,7 +34,7 @@ _background_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPan
 _item_grid = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid")
 _item_scroll_container = NodePath("TabContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
 _backpacker_recipes = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
-_horadric_item_container_panel = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/HoradricItemContainerPanel")
+_horadric_item_container_panel = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricItemContainerPanel")
 _transmute_button = NodePath("TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton")
 
 [node name="TabContainer" type="TabContainer" parent="."]
@@ -296,11 +296,20 @@ text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and
 fit_content = true
 scroll_active = false
 
-[node name="HoradricItemContainerPanel" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2" instance=ExtResource("12_f1ua4")]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
+
+[node name="HoradricItemContainerPanel" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" instance=ExtResource("12_f1ua4")]
+layout_mode = 2
+size_flags_vertical = 3
 _button_tooltip_location = 0
 show_slot_borders = false
-_show_horadric_lock = true
+
+[node name="HoradricAvgItemLevelLabel" type="Label" parent="TabContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" groups=["horadric_avg_item_level_label"]]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Average item level: 0"
+vertical_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

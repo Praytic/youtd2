@@ -22,6 +22,7 @@ const COLUMN_COUNT: int = 6
 @export var _horadric_item_container_panel: ItemContainerPanel
 @export var _transmute_button: Button
 
+var _horadric_cube_avg_item_level_label: Label
 
 #########################
 ### Code starts here  ###
@@ -48,6 +49,8 @@ func _ready():
 #		NOTE: recipe buttons start out disabled until items
 #		are added to item stash
 		recipe_button.disabled = true
+	
+	_horadric_cube_avg_item_level_label = get_tree().get_nodes_in_group("horadric_avg_item_level_label")[0]
 
 
 #########################
@@ -181,6 +184,21 @@ func _get_visible_item_list() -> Array[Item]:
 	return list
 
 
+func _set_horadric_cube_average_level():
+	var text: String = 'Average item level: '
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var items_in_horadric_stash: Array[Item] = horadric_stash.get_item_list()
+	
+	var avg_level: int = HoradricCube._get_average_ingredient_level(items_in_horadric_stash)
+	
+	text += "%s" % avg_level
+	
+	_horadric_cube_avg_item_level_label.text = text
+	
+	
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -304,6 +322,7 @@ func _on_horadric_stash_items_changed():
 #	temporarily be unavailable during the move process, so
 #	updating only after item stash change is not enough.
 	_update_autofill_buttons()
+	_set_horadric_cube_average_level()
 
 
 # NOTE: this callback is needed to implement "move item from
