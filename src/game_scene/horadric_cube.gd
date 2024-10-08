@@ -194,16 +194,18 @@ static func get_result_item_for_recipe(player: Player, recipe: Recipe, item_list
 		elif recipe_is_regular:
 			var result_item: int = HoradricCube._get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
 			result_item_list.append(result_item)
+	
+	# luck only influences regular recipes and specifically not PRECIPITATE
+	if recipe_is_regular and recipe != Recipe.PRECIPITATE:
+		var luck_message: String
+		match random_bonus_mod:
+			LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_NORMAL: luck_message = ""
+			LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
 
-	var luck_message: String
-	match random_bonus_mod:
-		LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
-		LEVEL_MOD_NORMAL: luck_message = ""
-		LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
-		LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
-
-	if !luck_message.is_empty():
-		Messages.add_normal(player, luck_message)
+		if !luck_message.is_empty():
+			Messages.add_normal(player, luck_message)
 
 	return result_item_list
 
