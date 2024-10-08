@@ -9,6 +9,17 @@ extends TowerBehavior
 # so that the handler which increases damage taken by creep
 # is called when creep takes damage.
 
+# NOTE: [ORIGINAL_GAME_BUG] Fixed Fear the Dark behavior:
+# "each creep in range decreases the effect by 25%, creeps
+# with this buff don't count".
+# - Ability description states that "creeps with this buff
+#   don't count".
+# - Tower behavior in original game is the opposite - creeps
+#   with the buff count and creeps without buff don't count.
+# 
+# Assume that ability description is the correct behavior,
+# so made the behavior work like in description.
+
 # NOTE: the trigger chance for Fear the Dark ability appears
 # to have been changed often. Used 20% which is the value on
 # youtd.best and appears to be the most recent.
@@ -95,7 +106,11 @@ func fear_dark_bt_on_damaged(event: Event):
 		if creep == null:
 			break
 
-		if creep.get_buff_of_type(fear_dark_bt) != null:
-			damage_increase *= 0.75
+		var creep_has_buff: bool = creep.get_buff_of_type(fear_dark_bt) != null
+
+		if creep_has_buff:
+			continue
+
+		damage_increase *= 0.75
 
 	event.damage *= (1.0 + damage_increase)
