@@ -26,7 +26,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Burning Mark"
 	autocast.icon = "res://resources/icons/tower_icons/small_fire_sprayer.tres"
 	autocast.description_short = "This tower adds a buff to a tower in range. The buff increases multicrit, crit chance and attack speed.\n"
-	autocast.description = "This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases the multicrit count by 1,  the crit chance by 7.5% and the attack speed by 25%.\n" \
+	autocast.description = "This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases multicrit count by 1, crit chance by 7.5% and attack speed by 25%.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4 seconds duration\n" \

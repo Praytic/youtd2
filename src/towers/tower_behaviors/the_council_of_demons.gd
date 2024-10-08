@@ -25,7 +25,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var maledict: AbilityInfo = AbilityInfo.new()
 	maledict.name = "Maledict"
 	maledict.icon = "res://resources/icons/orbs/orb_shadow.tres"
-	maledict.description_short = "Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster."
+	maledict.description_short = "Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n"
 	maledict.description_full = "20% chance to increase spell vulnerability of hit creeps by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
@@ -82,7 +82,9 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Impenetrable Darkness"
 	autocast.icon = "res://resources/icons/orbs/orb_molten_dull.tres"
 	autocast.description_short = "Shrouds a creep in darkness, slowing it and converting attack damage it takes into spell damage.\n"
-	autocast.description = "Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. The affected unit takes 1000 spell damage per second and additional spell damage equal to 75% of the damage it received during the effect when the buff expires. This damage can't be a critical hit.\n" \
+	autocast.description = "Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. [color=GOLD]Impenetrable Darkness[/color] also deals 1000 spell damage per second.\n" \
+	+ " \n" \
+	+ "When [color=GOLD]Impenetrable Darkness[/color] expires, it will deal spell damage equal to 75% of all the damage it received during the effect. This damage can't be a critical hit.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+40 damage per second\n" \

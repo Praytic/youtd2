@@ -41,8 +41,8 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var lightning_shield: AbilityInfo = AbilityInfo.new()
 	lightning_shield.name = "Lightning Shield"
 	lightning_shield.icon = "res://resources/icons/tower_icons/lightning_generator.tres"
-	lightning_shield.description_short = "As the zealot gets pumped up debuff durations are reduced.\n"
-	lightning_shield.description_full = "As the zealot gets pumped up debuff durations are reduced by %s with each stack of [color=GOLD]Zeal[/color].\n" % shield_power
+	lightning_shield.description_short = "As the zealot gets pumped up, debuff durations are reduced.\n"
+	lightning_shield.description_full = "Each stack of [color=GOLD]Zeal[/color] reduces debuff durations by %s.\n" % shield_power
 	list.append(lightning_shield)
 
 	var phase_blade: AbilityInfo = AbilityInfo.new()

@@ -742,7 +742,7 @@ Upon casting [color=GOLD]Demonic Fire[/color] there is a chance to buff towers i
 Whenever this tower attacks, it has a chance to buff towers in range, increasing their attack damage dealt, crit chance and crit damage.
  
 [color=GOLD]Demonic Fire[/color]
-Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from [color=ff4500ff]Fire[/color] towers.
+Places a debuff on a creep. When a tower damages the creep, there is a chance to permanently increase the damage it takes from [color=ff4500ff]Fire[/color] towers.
 
  
 [color=GOLD]1200[/color] range, [color=GOLD]4s[/color] cooldown
@@ -2081,7 +2081,7 @@ Towers in range have their attack damage increased when attacking immune creeps.
 Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus attack damage.
  
 [color=GOLD]Extract Experience[/color]
-Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.
+Applies a debuff on a creep. Towers that damage this creep have a chance to extract extra experience.
 
  
 Mana cost: [color=GOLD]20[/color], [color=GOLD]1000[/color] range, [color=GOLD]5s[/color] cooldown
@@ -2395,7 +2395,7 @@ The Owl of Wisdom sometimes randomly casts [color=GOLD]Energyball[/color].
 Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.
  
 [color=GOLD]Lightning Shield[/color]
-As the zealot gets pumped up debuff durations are reduced.
+As the zealot gets pumped up, debuff durations are reduced.
  
 [color=GOLD]Phase Blade[/color]
 Each hit on the same creep penetrates deeper through its armor.
@@ -2409,7 +2409,7 @@ Each hit on the same creep penetrates deeper through its armor.
 Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.
  
 [color=GOLD]Lightning Shield[/color]
-As the zealot gets pumped up debuff durations are reduced.
+As the zealot gets pumped up, debuff durations are reduced.
  
 [color=GOLD]Phase Blade[/color]
 Each hit on the same creep penetrates deeper through its armor.
@@ -2423,7 +2423,7 @@ Each hit on the same creep penetrates deeper through its armor.
 Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.
  
 [color=GOLD]Lightning Shield[/color]
-As the zealot gets pumped up debuff durations are reduced.
+As the zealot gets pumped up, debuff durations are reduced.
  
 [color=GOLD]Phase Blade[/color]
 Each hit on the same creep penetrates deeper through its armor.
@@ -2437,7 +2437,7 @@ Each hit on the same creep penetrates deeper through its armor.
 Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.
  
 [color=GOLD]Lightning Shield[/color]
-As the zealot gets pumped up debuff durations are reduced.
+As the zealot gets pumped up, debuff durations are reduced.
  
 [color=GOLD]Phase Blade[/color]
 Each hit on the same creep penetrates deeper through its armor.
@@ -3179,7 +3179,7 @@ Every second, this unit loses experience. This tower will not lose levels in thi
 [color=GOLD]+10%[/color] damage to humanoids ([color=GOLD]+0.2%[/color]/lvl)
  
 [color=GOLD]Ice Smashing Axe[/color]
-Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs from the creep and deals [color=6495edff]Elemental[/color] damage.
+Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs and debuffs from the creep and deals [color=6495edff]Elemental[/color] damage.
  
 [color=GOLD]Ice Coated Axes[/color]
 Whenever the Troll hits a slowed creep, it deals bonus damage.
@@ -3194,7 +3194,7 @@ Whenever the Troll hits a slowed creep, it deals bonus damage.
 [color=GOLD]+15%[/color] damage to humanoids ([color=GOLD]+0.3%[/color]/lvl)
  
 [color=GOLD]Ice Smashing Axe[/color]
-Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs from the creep and deals [color=6495edff]Elemental[/color] damage.
+Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs and debuffs from the creep and deals [color=6495edff]Elemental[/color] damage.
  
 [color=GOLD]Ice Coated Axes[/color]
 Whenever the Troll hits a slowed creep, it deals bonus damage.
@@ -3209,7 +3209,7 @@ Whenever the Troll hits a slowed creep, it deals bonus damage.
 [color=GOLD]+20%[/color] damage to humanoids ([color=GOLD]+0.4%[/color]/lvl)
  
 [color=GOLD]Ice Smashing Axe[/color]
-Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs from the creep and deals [color=6495edff]Elemental[/color] damage.
+Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs and debuffs from the creep and deals [color=6495edff]Elemental[/color] damage.
  
 [color=GOLD]Ice Coated Axes[/color]
 Whenever the Troll hits a slowed creep, it deals bonus damage.
@@ -3713,7 +3713,8 @@ Mana cost: [color=GOLD]25[/color], [color=GOLD]1200[/color] range, [color=GOLD]1
 [color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]100[/color] ([color=CORNFLOWER_BLUE]+2[/color]/sec)
  
 [color=GOLD]Maledict[/color]
-Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to [color=GOLD]3[/color] times the goldcost of the caster. 
+Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to [color=GOLD]3[/color] times the goldcost of the caster.
+ 
 [color=GOLD]Demonic Edict - Aura[/color]
 Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower. Doesn't include AoE spells
  
@@ -6892,7 +6893,7 @@ On kill, this tower gains increased crit chance.
 Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus attack damage.
  
 [color=GOLD]Extract Experience[/color]
-Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.
+Applies a debuff on a creep. Towers that damage this creep have a chance to extract extra experience.
 
  
 Mana cost: [color=GOLD]20[/color], [color=GOLD]1000[/color] range, [color=GOLD]5s[/color] cooldown
@@ -7931,7 +7932,7 @@ Create a huge explosion.
 [color=GOLD]+60%[/color] damage to nature ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Toxic Vapor[/color]
-On attack, this tower has a chance to apply a buff to the main target, dealing spell damage over time.
+On attack, this tower has a chance to apply a debuff to the main target, dealing spell damage over time.
 "
 655,"[color=LIGHT_BLUE]A pipeline which transports poisonous substances. Toxic vapors and other dangerous things are leaking out at the broken spot.[/color]
 [color=YELLOW]Author:[/color] D1000
@@ -7943,7 +7944,7 @@ On attack, this tower has a chance to apply a buff to the main target, dealing s
 [color=GOLD]+60%[/color] damage to nature ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Toxic Vapor[/color]
-On attack, this tower has a chance to apply a buff to the main target, dealing spell damage over time.
+On attack, this tower has a chance to apply a debuff to the main target, dealing spell damage over time.
 "
 656,"[color=LIGHT_BLUE]An assembly point for a lot of pipelines. Not less leaky spots were formed during the years. Everything is contaminated by toxic substances.[/color]
 [color=YELLOW]Author:[/color] D1000
@@ -7955,7 +7956,7 @@ On attack, this tower has a chance to apply a buff to the main target, dealing s
 [color=GOLD]+60%[/color] damage to nature ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Toxic Vapor[/color]
-On attack, this tower has a chance to apply a buff to the main target, dealing spell damage over time.
+On attack, this tower has a chance to apply a debuff to the main target, dealing spell damage over time.
 "
 657,"[color=LIGHT_BLUE]An extremely inhospitable place. Stinking and toxic fluids and gases are everywhere. It seems that somewhere in the middle of the construct something is glowing....[/color]
 [color=YELLOW]Author:[/color] D1000
@@ -7967,7 +7968,7 @@ On attack, this tower has a chance to apply a buff to the main target, dealing s
 [color=GOLD]+60%[/color] damage to nature ([color=GOLD]+2%[/color]/lvl)
  
 [color=GOLD]Toxic Vapor[/color]
-On attack, this tower has a chance to apply a buff to the main target, dealing spell damage over time.
+On attack, this tower has a chance to apply a debuff to the main target, dealing spell damage over time.
 "
 658,"[color=LIGHT_BLUE]Burning structure with a small synergetic effect for its element.[/color]
 [color=YELLOW]Author:[/color] Natac

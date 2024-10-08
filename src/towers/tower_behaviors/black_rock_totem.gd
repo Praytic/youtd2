@@ -81,8 +81,8 @@ func create_autocasts() -> Array[Autocast]:
 	
 	autocast.title = "Demonic Fire"
 	autocast.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	autocast.description_short = "Places a buff on a creep. When a tower damages the buffed creep, there is a chance to permanently increase the damage it takes from %s towers.\n" % fire_string
-	autocast.description = "Places a buff on a creep for 7 seconds. When a tower damages the buffed creep, there is a 20%% chance to permanently increase the damage it takes from %s towers by 3%% (1%% for bosses).\n" % fire_string\
+	autocast.description_short = "Places a debuff on a creep. When a tower damages the creep, there is a chance to permanently increase the damage it takes from %s towers.\n" % fire_string
+	autocast.description = "Places a debuff on a creep for 7 seconds. When a tower damages the creep, there is a 20%% chance to permanently increase the damage it takes from %s towers by 3%% (1%% for bosses).\n" % fire_string\
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.08% damage (on non boss)\n" \

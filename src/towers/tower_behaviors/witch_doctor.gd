@@ -42,7 +42,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	serpent_ward.name = "Serpent Ward"
 	serpent_ward.icon = "res://resources/icons/tower_icons/small_serpent_ward.tres"
 	serpent_ward.description_short = "Whenever Witch Doctor attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
-	serpent_ward.description_full = "Whenever Witch Doctor attacks, he has a 18%% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration, deals 20%% of Witch Doctor's attack damage and has Witch Doctor's current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a %s chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" % stack_maledict_from_ward_chance \
+	serpent_ward.description_full = "Whenever Witch Doctor attacks, he has a 18%% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration stat, deals 20%% of Witch Doctor's attack damage and has Witch Doctor's current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a %s chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" % stack_maledict_from_ward_chance \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.2% attack damage\n" \

@@ -35,7 +35,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	ability.name = "Fear the Dark"
 	ability.icon = "res://resources/icons/undead/skull_06.tres"
 	ability.description_short = "Chance to debuff hit creeps, increasing damage received from all sources.\n"
-	ability.description_full = "20% chance to debuff hit creeps for 7 seconds. Debuffed creeps take 30% more damage (from all sources). Each creep in 500 range decreases the effect by 25%, creeps with this buff don't count. The effect on bosses is 50% weaker.\n" \
+	ability.description_full = "20% chance to debuff hit creeps for 7 seconds. Debuffed creeps take 30% more damage (from all sources). Each creep in 500 range decreases the effect by 25%, creeps with this debuff don't count. The effect on bosses is 50% weaker.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+0.4% chance\n" \

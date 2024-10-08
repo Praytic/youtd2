@@ -80,8 +80,8 @@ func create_autocasts() -> Array[Autocast]:
 
 	autocast.title = "Extract Experience"
 	autocast.icon = "res://resources/icons/fire/fire_in_cup.tres"
-	autocast.description_short = "Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
-	autocast.description = "Casts a buff on a creep. Towers that damage this creep have a %s chance to extract %s experience. Buff lasts %s seconds or until %s extractions occur.\n" % [extract_chance, extract_exp, extract_duration, extract_count] \
+	autocast.description_short = "Applies a debuff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
+	autocast.description = "Applies a debuff on a creep. Towers that damage this creep have a %s chance to extract %s experience. Lasts %s seconds or until %s extractions occur.\n" % [extract_chance, extract_exp, extract_duration, extract_count] \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+%s experience\n" % extract_exp_add \

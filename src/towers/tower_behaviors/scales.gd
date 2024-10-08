@@ -79,7 +79,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast.title = "Lightmare"
 	autocast.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
 	autocast.description_short = "Summons a storm cloud which attacks units in range, dealing spell damage.\n"
-	autocast.description = "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration.\n" \
+	autocast.description = "Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration stat.\n" \
 	+ " \n" \
 	+ "[color=ORANGE]Level Bonus:[/color]\n" \
 	+ "+52 spell damage\n"
