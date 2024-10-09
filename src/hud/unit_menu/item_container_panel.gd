@@ -11,7 +11,7 @@ var _item_container: ItemContainer = null
 
 @export var _button_tooltip_location: ButtonTooltip.Location = ButtonTooltip.Location.BOTTOM
 @export var show_slot_borders: bool = true
-@export var _show_horadric_lock: bool = false
+@export var _show_horadric_lock: bool = true
 @export var _background_grid: GridContainer
 @export var _slot_grid: GridContainer
 @export var _item_grid: GridContainer
@@ -32,6 +32,8 @@ func _ready():
 		button.pressed.connect(_on_item_button_pressed.bind(button))
 		button.shift_right_clicked.connect(_on_item_button_shift_right_clicked.bind(button))
 		button.right_clicked.connect(_on_item_button_right_clicked.bind(button))
+		var item_button = button as ItemButton
+		item_button.ctrl_right_clicked.connect(_on_item_button_ctrl_right_clicked.bind(item_button))
 
 	var slot_button_list: Array[Node] = _slot_grid.get_children()
 	for button in slot_button_list:
@@ -53,9 +55,9 @@ func set_item_container(item_container: ItemContainer):
 	
 	var item_button_list: Array = _item_grid.get_children()
 	for button in item_button_list:
-		button.set_cooldown_indicator_visible(item_container_is_tower_inventory)
+		button.set_cooldown_indicator_visible(true)
 		button.set_auto_mode_indicator_visible(item_container_is_tower_inventory)
-		button.set_charges_visible(item_container_is_tower_inventory)
+		button.set_charges_visible(true)
 	
 	if prev_item_container != null:
 		prev_item_container.items_changed.disconnect(_on_items_changed)
@@ -69,6 +71,11 @@ func set_item_container(item_container: ItemContainer):
 #########################
 ###      Private      ###
 #########################
+
+func _on_item_button_ctrl_right_clicked(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	item.toggle_horadric_lock()
+
 
 func _update_buttons():
 	var inventory_capacity: int
@@ -138,4 +145,3 @@ func _on_item_button_right_clicked(item_button: ItemButton):
 func _on_item_button_shift_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	EventBus.player_shift_right_clicked_item.emit(item)
-
