@@ -244,7 +244,9 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 	var target_is_in_range: bool = _get_target_is_in_range(target)
 	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
-	var target_is_ok: bool = target_is_in_range && target_type_is_valid && !target_is_immune
+	var target_is_self: bool = target == _caster
+	var targetting_self_when_forbidden: bool = !target_self && target_is_self
+	var target_is_ok: bool = target_is_in_range && target_type_is_valid && !target_is_immune && !targetting_self_when_forbidden
 
 	return target_is_ok
 
@@ -559,6 +561,8 @@ func get_target_error_message(target: Unit) -> String:
 	var target_is_in_range: bool = _get_target_is_in_range(target)
 	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
+	var target_is_self: bool = target != null && target == _caster
+	var targetting_self_when_forbidden: bool = !target_self && target_is_self
 
 	if !target_is_in_range:
 		return "Target is out of range"
@@ -568,6 +572,9 @@ func get_target_error_message(target: Unit) -> String:
 
 	if target_is_immune:
 		return "Target is immune"
+
+	if targetting_self_when_forbidden:
+		return "Can't cast this ability on self"
 
 	return "Target is valid"
 
