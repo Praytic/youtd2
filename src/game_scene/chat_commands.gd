@@ -23,6 +23,7 @@ const PAUSE: Array[String] = ["/pause"]
 const UNPAUSE: Array[String] = ["/unpause"]
 const CHECK_RANGE_FRIENDLY: Array[String] = ["/check-range-friendly", "/crf"]
 const CHECK_RANGE_ATTACK: Array[String] = ["/check-range-attack", "/cra"]
+const PRINT_RANGES_TO_TOWERS: Array[String] = ["/print-ranges-to-towers", "/prtt"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE_WAVES: Array[String] = ["/pause-waves", "/pw"]
@@ -62,6 +63,7 @@ const LOCAL_ONLY_COMMANDS_LIST_OF_LISTS: Array = [
 	PING,
 	CHECK_RANGE_FRIENDLY,
 	CHECK_RANGE_ATTACK,
+	PRINT_RANGES_TO_TOWERS,
 ]
 
 var not_allowed_in_multiplayer: Array = []
@@ -174,6 +176,8 @@ func process_command(player: Player, command: String):
 		_command_check_range_friendly(player, command_args)
 	elif CHECK_RANGE_ATTACK.has(command_main):
 		_command_check_range_attack(player, command_args)
+	elif PRINT_RANGES_TO_TOWERS.has(command_main):
+		_command_print_ranges_to_towers(player)
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -538,6 +542,41 @@ func _command_check_range_friendly(player: Player, args: Array):
 func _command_check_range_attack(player: Player, args: Array):
 	var friendly: bool = false
 	_command_check_range_helper(player, args, friendly)
+
+
+func _command_print_ranges_to_towers(player: Player):
+	var selected_unit: Unit = player.get_selected_unit()
+	
+	if selected_unit == null || !selected_unit is Tower:
+		_add_error(player, "Select a tower first.")
+
+		return
+
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	var selected_tower_pos: Vector2 = selected_unit.get_position_wc3_2d()
+
+	var message_list: Array[String] = []
+
+	for other_tower in tower_list:
+		var other_tower_name: String = other_tower.get_display_name()
+		var other_tower_pos: Vector2 = other_tower.get_position_wc3_2d()
+		var range_to_tower: float = selected_tower_pos.distance_to(other_tower_pos)
+		range_to_tower -= Constants.RANGE_CHECK_BONUS_FOR_TOWERS
+		range_to_tower = round(range_to_tower)
+		var message: String = "Range to %s = %s" % [other_tower_name, range_to_tower]
+		message_list.append(message)
+
+	for message in message_list:
+		print(message)
+
+#	NOTE: display message on screen with a delay so that all
+#	of the messages can be read, in case they don't fit on
+#	screen if shown at the same time.
+	for message in message_list:
+		_add_status(player, message)
+
+		await Utils.create_timer(1.0, self).timeout
 
 
 func _command_check_range_helper(player: Player, args: Array, friendly: bool):
