@@ -69,7 +69,7 @@ func create_autocasts() -> Array[Autocast]:
 	autocast_speed_up.auto_range = 0
 	autocast_speed_up.cooldown = 0.5
 	autocast_speed_up.mana_cost = 0
-	autocast_speed_up.target_self = false
+	autocast_speed_up.target_self = true
 	autocast_speed_up.is_extended = false
 	autocast_speed_up.buff_type = null
 	autocast_speed_up.buff_target_type = null
@@ -109,7 +109,7 @@ func get_aura_types() -> Array[AuraType]:
 	
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
+	aura.target_self = false
 	aura.level = 0
 	aura.level_add = 1
 	aura.aura_effect = steam_bt
