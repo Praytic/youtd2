@@ -301,10 +301,7 @@ static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 
 	var item_count: int = permanent_item_list.size()
 	
-	if item_count == 0:
-		return 0
-	
-	var average_level: int = floori(sum / item_count)
+	var average_level: int = floori(Utils.divide_safe(sum, item_count, 0))
 
 	return average_level
 
