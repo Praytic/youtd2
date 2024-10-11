@@ -416,7 +416,7 @@ func _target_is_valid(target) -> bool:
 	var attack_range: float = get_range() + Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 	
 	# suggested change to fix
-	#attack_range += Utils.apply_unit_range_extension(attack_range, _attack_target_type)
+	# attack_range = Utils.apply_unit_range_extension(attack_range, _attack_target_type)
 	
 	var in_range = VectorUtils.in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
 
