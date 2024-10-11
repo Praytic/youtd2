@@ -28,7 +28,7 @@ const CHECKSUM_PERIOD_TICKS: int = 30 * GameHost.MULTIPLAYER_TURN_LENGTH
 
 
 var _tick_delta: float
-var _current_tick: int = 0
+static var _current_tick: int = 0
 var _turn_length: int
 # Timeslot buffer determines how many timeslots to keep in
 # buffer. Turns are buffered to avoid getting into

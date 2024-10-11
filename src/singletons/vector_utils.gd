@@ -46,7 +46,9 @@ func in_range(start: Vector2, end: Vector2, radius: float) -> bool:
 	var distance_squared: float = start.distance_squared_to(end)
 	var radius_squared: float = radius * radius
 	var result: bool = distance_squared <= radius_squared
-
+	
+	Messages.add_normal(owner, ('Game tick: %s' % GameClient._current_tick) + '\nRadius: %s' % radius + '\nDistance: %s' % distance_squared ** 0.5)
+	
 	return result
 
 

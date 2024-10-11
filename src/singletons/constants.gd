@@ -91,9 +91,9 @@ const BASE_ITEM_DROP_CHANCE: float = 0.0475
 # NOTE: MOVE_SPEED_MIN is 100 because this appears to be the
 # minimum limit applied internaly inside the WC3
 # SetUnitMoveSpeed() function.
-const MOVE_SPEED_MIN: float = 100.0
+const MOVE_SPEED_MIN: float = 50.0
 const MOVE_SPEED_MAX: float = 522.0
-const DEFAULT_MOVE_SPEED: float = 222.0
+const DEFAULT_MOVE_SPEED: float = 50.0
 
 # 24h = 480 irl seconds
 const IRL_SECONDS_TO_GAME_WORLD_HOURS: float = 24.0 / 480.0
