@@ -35,9 +35,10 @@ static func verify(player: Player) -> bool:
 		Utils.add_ui_error(player, "There are no more waves.")
 
 		return false
-
+	
+	var start_wave_action_is_on_cooldown: bool = team.get_start_wave_action_is_on_cooldown()
 	var wave_is_in_progress: bool = team.get_wave_is_in_progress()
-	if wave_is_in_progress:
+	if wave_is_in_progress || start_wave_action_is_on_cooldown:
 		Utils.add_ui_error(player, "Can't start next wave because a wave is in progress.")
 		
 		return false

@@ -12,6 +12,7 @@ signal level_changed()
 
 
 const PORTAL_DAMAGE_SFX_COOLDOWN: float = 0.5
+const START_WAVE_ACTION_COOLDOWN: float = 2.0
 
 
 var _id: int = -1
@@ -23,6 +24,7 @@ var _player_defined_autospawn_time: float = -1
 
 @export var _next_wave_timer: ManualTimer
 @export var _portal_damage_sound_cooldown_timer: Timer
+@export var _start_wave_action_cooldown_timer: ManualTimer
 
 
 #########################
@@ -137,7 +139,7 @@ func set_autospawn_time(time: float):
 
 
 func play_portal_damage_sfx():
-	var portal_damage_sfx_on_cooldown: bool = !_portal_damage_sound_cooldown_timer.is_stopped()
+	var portal_damage_sfx_on_cooldown: bool = _portal_damage_sound_cooldown_timer.is_stopped()
 	
 	if !portal_damage_sfx_on_cooldown:
 		SFX.play_sfx_for_team(self, SfxPaths.HUMAN_DEATH_EXPLODE)
@@ -194,6 +196,12 @@ func convert_local_player_score_to_exp():
 		Globals.add_title_screen_notification(title_screen_notification)
 
 
+func get_start_wave_action_is_on_cooldown() -> bool:
+	var is_on_cooldown: bool = !_start_wave_action_cooldown_timer.is_stopped()
+	
+	return is_on_cooldown
+
+
 #########################
 ###      Private      ###
 #########################
@@ -205,6 +213,15 @@ func _start_wave():
 		player.start_wave(_level)
 	
 	SFX.play_sfx_for_team(self, SfxPaths.START_WAVE)
+
+# 	NOTE: "start wave action cooldown" is a cooldown for
+# 	player manually starting next wave by clicking on the
+# 	button. Need this cooldown for cases where it's possible
+# 	for player to accidentally spawn two waves in a row. For
+# 	example, if there are two boss waves back to back and
+# 	player double clicks. Or if natural timer times out at
+# 	the same time as player clicks on the button.
+	_start_wave_action_cooldown_timer.start(START_WAVE_ACTION_COOLDOWN)
 
 
 func _do_game_win():
