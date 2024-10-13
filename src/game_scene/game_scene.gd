@@ -41,9 +41,6 @@ func _ready():
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
-	
-	var buildable_cells: Array[Vector2i] = _map.get_buildable_cells()
-	_build_space.set_buildable_cells(buildable_cells)
 
 	_hud.set_game_start_timer(_game_start_timer)
 	
@@ -92,6 +89,10 @@ func _ready():
 
 	for player in player_list:
 		player.voted_ready.connect(_on_player_voted_ready)
+	
+	for player in player_list:
+		var buildable_cells: Array[Vector2i] = _map.get_buildable_cells(player)
+		_build_space.set_buildable_cells(player, buildable_cells)
 	
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:

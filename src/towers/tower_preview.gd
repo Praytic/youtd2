@@ -82,7 +82,8 @@ func _process(_delta: float):
 	
 	_transform_label.visible = can_transform
 
-	var build_info: Array = _build_space.get_build_info_for_pos(mouse_pos)
+	var local_player: Player = PlayerManager.get_local_player()
+	var build_info: Array = _build_space.get_build_info_for_pos(local_player, mouse_pos)
 	var polygon_list: Array = [
 		_pedestal_up,
 		_pedestal_right,

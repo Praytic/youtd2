@@ -54,6 +54,9 @@ const QUARTER_OFFSET_LIST_BIG: Array[Vector2i] = [
 ]
 
 var _occupied_map: Dictionary = {}
+# Map of {Vector2i pos => player id}
+# If a position is buildable for player X then this map will
+# contain position mapped to "X" id.
 var _buildable_cells: Dictionary = {}
 
 
@@ -61,9 +64,11 @@ var _buildable_cells: Dictionary = {}
 ###       Public      ###
 #########################
 
-func set_buildable_cells(buildable_cells: Array[Vector2i]):
+func set_buildable_cells(player: Player, buildable_cells: Array[Vector2i]):
+	var player_id: int = player.get_id()
+
 	for cell in buildable_cells:
-		_buildable_cells[cell] = true
+		_buildable_cells[cell] = player_id
 
 
 # NOTE: must be called while tower is in scene tree
@@ -77,7 +82,8 @@ func set_occupied_by_tower(tower: Tower, value: bool):
 # Returns an array of 4 bools, one per quarter tile. True if
 # the quarter is buildable tile and is not occupied by a
 # tower. Order: [up, right, down, left]
-func get_build_info_for_pos(pos_canvas: Vector2) -> Array:
+func get_build_info_for_pos(player: Player, pos_canvas: Vector2) -> Array:
+	var player_id: int = player.get_id()
 	var pos_map: Vector2i = _convert_pos_canvas_to_map(pos_canvas)
 	var quarter_list: Array[Vector2i] = []
 
@@ -90,15 +96,16 @@ func get_build_info_for_pos(pos_canvas: Vector2) -> Array:
 	for i in range(0, 4):
 		var quarter_pos: Vector2i = quarter_list[i]
 		var quarter_pos_is_occupied: bool = _occupied_map.get(quarter_pos, false)
-		var quarter_is_buildable: bool = _buildable_cells.has(quarter_pos)
+		var player_id_at_quarter_pos: int = _buildable_cells.get(quarter_pos, -1)
+		var quarter_is_buildable: bool = player_id_at_quarter_pos == player_id 
 
 		build_info[i] = !quarter_pos_is_occupied && quarter_is_buildable
 
 	return build_info
 
 
-func can_build_at_pos(global_pos: Vector2) -> bool:
-	var build_info: Array = get_build_info_for_pos(global_pos)
+func can_build_at_pos(player: Player, global_pos: Vector2) -> bool:
+	var build_info: Array = get_build_info_for_pos(player, global_pos)
 	var can_build: bool = !build_info.has(false)
 
 	return can_build
@@ -114,8 +121,10 @@ func can_transform_at_pos(pos_mouse: Vector2) -> bool:
 	return can_transform
 
 
-func buildable_cell_exists_at_pos(pos_map: Vector2i) -> bool:
-	var result: bool = _buildable_cells.has(pos_map)
+func buildable_cell_exists_at_pos(player: Player, pos_map: Vector2i) -> bool:
+	var player_id: int = player.get_id()
+	var player_id_at_pos: int = _buildable_cells.get(pos_map, -1)
+	var result: bool = player_id_at_pos == player_id
 
 	return result
 

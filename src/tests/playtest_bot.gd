@@ -132,12 +132,14 @@ static func _generate_position_list(build_space: BuildSpace, count: int) -> Arra
 	var origin: Vector2 = POSITIONS_ORIGIN
 
 	var offset_list: Array[Vector2] = [Vector2(0, 0), Vector2(-0.5, -0.5)]
+	
+	var local_player: Player = PlayerManager.get_local_player()
 
 	for x in range(POSITIONS_X_RANGE[0], POSITIONS_X_RANGE[1]):
 		for y in range(POSITIONS_Y_RANGE[0], POSITIONS_Y_RANGE[1]):
 			for offset in offset_list:
 				var position: Vector2 = origin + Constants.TILE_SIZE * (Vector2(x, y) + offset)
-				var can_build: bool = build_space.can_build_at_pos(position)
+				var can_build: bool = build_space.can_build_at_pos(local_player, position)
 
 				if can_build:
 					result.append(position)
