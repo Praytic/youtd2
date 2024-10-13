@@ -47,6 +47,7 @@ func _ready():
 
 	_hud.set_game_start_timer(_game_start_timer)
 	
+	EventBus.player_requested_help.connect(_on_player_requested_help)
 	EventBus.player_requested_quit_to_title.connect(_on_player_requested_quit_to_title)
 	EventBus.player_selected_builder.connect(_on_player_selected_builder)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -711,9 +712,7 @@ func _on_player_selected_builder():
 
 	Messages.add_normal(local_player, "Welcome to You TD 2!")
 	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
-	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
-	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start game[/color].")
+	Messages.add_normal(local_player, "Type [color=GOLD]/help[/color] to see helpful information about the game.")
 
 
 func _on_player_voted_ready():
@@ -778,6 +777,11 @@ func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
 	
 	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
 	_game_client.add_action(action)
+
+
+func _on_player_requested_help():
+	_toggle_game_menu()
+	_game_menu.switch_to_help_menu()
 
 
 func _on_game_menu_quit_pressed():

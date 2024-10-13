@@ -186,8 +186,8 @@ func process_command(player: Player, command: String):
 ###      Private      ###
 #########################
 
-func _command_help(player: Player):
-	_add_status(player, "You can read about chat commands in the [color=GOLD]Advanced[/color] tab of the [color=GOLD]Hints[/color] menu.")
+func _command_help(_player: Player):
+	EventBus.player_requested_help.emit()
 
 
 func _command_ready(player: Player):
