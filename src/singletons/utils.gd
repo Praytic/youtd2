@@ -42,7 +42,7 @@ func escape_bbcode(string: String) -> String:
 func get_turn_length() -> int:
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	
-	if player_mode == PlayerMode.enm.SINGLE:
+	if player_mode == PlayerMode.enm.SINGLEPLAYER:
 		return GameHost.SINGLEPLAYER_TURN_LENGTH
 	else:
 		return GameHost.MULTIPLAYER_TURN_LENGTH

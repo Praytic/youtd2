@@ -38,7 +38,7 @@ func _process(_delta: float):
 	_stats_label.append_text("[color=GOLD]Your best towers[/color]\n")
 	_stats_label.append_text(your_best_towers_text)
 	
-	if Globals.get_player_mode() == PlayerMode.enm.COOP:
+	if Globals.get_player_mode() == PlayerMode.enm.MULTIPLAYER:
 		_stats_label.append_text("\n")
 		_stats_label.append_text("[color=GOLD]Overall best towers[/color]\n")
 		_stats_label.append_text(overall_best_towers_text)

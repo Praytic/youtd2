@@ -392,7 +392,7 @@ func _on_peer_connected(_peer_id: int):
 		var game_mode: GameMode.enm = _current_match_config.get_game_mode()
 		var origin_seed: int = randi()
 
-		_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
+		_title_screen.start_game.rpc(PlayerMode.enm.MULTIPLAYER, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
 
 
 func _on_host_created_game_match(game_match_id: String):

@@ -120,7 +120,7 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	Settings.set_setting(Settings.CACHED_GAME_LENGTH, game_length)
 	Settings.flush()
 	
-	start_game(PlayerMode.enm.SINGLE, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.ENET)
+	start_game(PlayerMode.enm.SINGLEPLAYER, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.ENET)
 
 
 func _on_generic_tab_cancel_pressed():

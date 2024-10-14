@@ -104,7 +104,7 @@ func process_command(player: Player, command: String):
 	var command_args: Array = command_split.slice(1)
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var is_multiplayer: bool = player_mode == PlayerMode.enm.COOP
+	var is_multiplayer: bool = player_mode == PlayerMode.enm.MULTIPLAYER
 	var command_not_allowed_in_multiplayer: bool = not_allowed_in_multiplayer.has(command_main)
 	if is_multiplayer && command_not_allowed_in_multiplayer:
 		_add_error(player, "This command is not allowed in multiplayer.")

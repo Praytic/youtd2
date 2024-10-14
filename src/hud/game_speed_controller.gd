@@ -7,7 +7,7 @@ extends HBoxContainer
 # often.
 func _ready():
 	var game_player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var game_is_singleplayer: bool = game_player_mode == PlayerMode.enm.SINGLE
+	var game_is_singleplayer: bool = game_player_mode == PlayerMode.enm.SINGLEPLAYER
 
 	if !game_is_singleplayer:
 		hide()

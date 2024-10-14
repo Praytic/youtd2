@@ -473,7 +473,7 @@ func _toggle_game_menu():
 	_game_menu.visible = !_game_menu.visible
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	if player_mode == PlayerMode.enm.SINGLE:
+	if player_mode == PlayerMode.enm.SINGLEPLAYER:
 		var toggled_paused_value: bool = !get_tree().paused
 		_set_game_paused(toggled_paused_value)
 
@@ -871,7 +871,7 @@ func _on_tutorial_controller_tutorial_triggered(tutorial_id):
 		return
 	
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var player_mode_is_single: bool = player_mode == PlayerMode.enm.SINGLE
+	var player_mode_is_single: bool = player_mode == PlayerMode.enm.SINGLEPLAYER
 	if !player_mode_is_single:
 		return
 

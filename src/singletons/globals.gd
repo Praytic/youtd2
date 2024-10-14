@@ -12,7 +12,7 @@ enum ConnectionType {
 # NOTE: these settings are selected during game start. If
 # they are accessed before that point, you will get these
 # placeholders.
-var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
+var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLEPLAYER
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
