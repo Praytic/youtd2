@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://src/game_scene/tutorial_controller.gd" id="17_5cvlj"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://src/creeps/wave_path.gd" id="18_m2fcq"]
-[ext_resource type="Script" path="res://src/player/camera_origin.gd" id="19_jib72"]
+[ext_resource type="PackedScene" uid="uid://ccrjj36jwy707" path="res://src/player/camera_origin.tscn" id="19_icnp7"]
 [ext_resource type="Script" path="res://src/effects/effects_container.gd" id="20_rnpn6"]
 [ext_resource type="PackedScene" uid="uid://djkt0t0jveoks" path="res://src/effects/vampiric_aura.tscn" id="21_5ytv3"]
 [ext_resource type="Script" path="res://src/game_scene/default_camera.gd" id="21_8op63"]
@@ -337,13 +337,11 @@ player_id = 7
 
 [node name="CameraOriginContainer" type="Node2D" parent="World"]
 
-[node name="CameraOrigin0" type="Node2D" parent="World/CameraOriginContainer"]
+[node name="CameraOrigin0" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
 position = Vector2(900, -1300)
-script = ExtResource("19_jib72")
 
-[node name="CameraOrigin1" type="Node2D" parent="World/CameraOriginContainer"]
-position = Vector2(4011, 372)
-script = ExtResource("19_jib72")
+[node name="CameraOrigin1" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(4000, 400)
 player_id = 1
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
