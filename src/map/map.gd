@@ -72,12 +72,7 @@ class_name Map extends Node2D
 
 
 @export var _camera_limits: Polygon2D
-@export var _buildable_area: TileMap
 @export var _ground_indicator_map: TileMap
-
-const BUILDABLE_PULSE_ALPHA_MIN = 0.1
-const BUILDABLE_PULSE_ALPHA_MAX = 0.5
-const BUILDABLE_PULSE_PERIOD = 1.0
 
 
 #########################
@@ -93,25 +88,15 @@ func _ready():
 	camera.limit_right = int(camera_limits_rect.end.x)
 	
 	print_verbose("Set camera limits to [bottom: %s, top: %s, left: %s, right: %s]" % [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right])
-	
-#	Make buildable area pulse by tweening it's alpha between
-#	min and max
-	var buildable_area_tween = create_tween()
-	buildable_area_tween.tween_property(_buildable_area, "modulate",
-		Color(1.0, 1.0, 1.0, BUILDABLE_PULSE_ALPHA_MIN),
-		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR)
-	buildable_area_tween.tween_property(_buildable_area, "modulate",
-		Color(1.0, 1.0, 1.0, BUILDABLE_PULSE_ALPHA_MAX),
-		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR).set_delay(0.5 * BUILDABLE_PULSE_PERIOD)
-	buildable_area_tween.set_loops()
 
 
 #########################
 ###       Public      ###
 #########################
 
-func get_buildable_cells() -> Array[Vector2i]:
-	var buildable_cells: Array[Vector2i] = _buildable_area.get_used_cells(0)
+func get_buildable_cells(player: Player) -> Array[Vector2i]:
+	var buildable_area: BuildableArea = _get_buildable_area(player)
+	var buildable_cells: Array[Vector2i] = buildable_area.get_used_cells()
 
 	return buildable_cells
 
@@ -125,4 +110,23 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 
 
 func set_buildable_area_visible(value: bool):
-	_buildable_area.visible = value
+	var local_player: Player = PlayerManager.get_local_player()
+	var buildable_area: BuildableArea = _get_buildable_area(local_player)
+	
+	buildable_area.visible = value
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_buildable_area(player: Player) -> BuildableArea:
+	var buildable_area_list: Array = get_tree().get_nodes_in_group("buildable_areas")
+
+	for buildable_area in buildable_area_list:
+		var player_match: bool = buildable_area.player_id == player.get_id()
+
+		if player_match:
+			return buildable_area
+
+	return null

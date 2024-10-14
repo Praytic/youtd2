@@ -45,7 +45,8 @@ func start(tower_id: int, player: Player):
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	var can_build: bool = _build_space.can_build_at_pos(mouse_pos)
+	var local_player: Player = PlayerManager.get_local_player()
+	var can_build: bool = _build_space.can_build_at_pos(local_player, mouse_pos)
 	var tower_under_mouse: Tower = Utils.get_tower_at_canvas_pos(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var transform_is_allowed: bool = Globals.game_mode_allows_transform()

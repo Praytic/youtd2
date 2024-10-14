@@ -41,9 +41,6 @@ func _ready():
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
-	
-	var buildable_cells: Array[Vector2i] = _map.get_buildable_cells()
-	_build_space.set_buildable_cells(buildable_cells)
 
 	_hud.set_game_start_timer(_game_start_timer)
 	
@@ -94,6 +91,10 @@ func _ready():
 	for player in player_list:
 		player.voted_ready.connect(_on_player_voted_ready)
 	
+	for player in player_list:
+		var buildable_cells: Array[Vector2i] = _map.get_buildable_cells(player)
+		_build_space.set_buildable_cells(player, buildable_cells)
+	
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:
 			var tower_stash: TowerStash = player.get_tower_stash()
@@ -110,7 +111,9 @@ func _ready():
 			item_stash.add_item(item)
 
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	
+
+	_check_nodes_mapped_to_players()
+
 	_camera.position = _get_camera_origin_pos()
 	
 #	NOTE: when game initially starts, we need to wait a bit for client-host connection to be established. Until that point, show shadows to block input and indicate that input is not possible.
@@ -289,7 +292,7 @@ func _setup_players():
 #	based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
-		
+
 		var user_id: String
 		match connection_type:
 			Globals.ConnectionType.ENET:
@@ -324,6 +327,59 @@ func _toggle_autocast(autocast: Autocast):
 
 	var action: Action = ActionToggleAutocast.make(autocast_uid)
 	_game_client.add_action(action)
+
+
+# NOTE: this f-n checks nodes that are mapped to player
+# id's. If any of the players are not mapped, this will
+# print an error. For example, each of the 8 players must
+# have a camera origin node mapped to it.
+func _check_nodes_mapped_to_players():
+#	Collect all mapped nodes
+	var camera_origin_check_list: Array[int] = []
+	var camera_origin_list: Array[Node] = get_tree().get_nodes_in_group("camera_origins")
+	for node in camera_origin_list:
+		var camera_origin: CameraOrigin = node as CameraOrigin
+		var player_id: int = camera_origin.player_id
+		camera_origin_check_list.append(player_id)
+
+	var air_wave_path_check_list: Array[int] = []
+	var ground_wave_path_check_list: Array[int] = []
+	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
+	for node in wave_path_list:
+		var wave_path: WavePath = node as WavePath
+		var path_is_air: int = wave_path.is_air
+		var player_id: int = wave_path.player_id
+
+		if path_is_air:
+			air_wave_path_check_list.append(player_id)
+		else:
+			ground_wave_path_check_list.append(player_id)
+
+	var buildable_area_check_list: Array[int] = []
+	var buildable_area_list: Array = get_tree().get_nodes_in_group("buildable_areas")
+	for node in buildable_area_list:
+		var buildable_area: BuildableArea = node as BuildableArea
+		var player_id: int = buildable_area.player_id
+
+		buildable_area_check_list.append(player_id)
+
+#	Check that all players have correct sets of mapped nodes
+	for player_id in range(0, Constants.PLAYER_COUNT_MAX):
+		var player_has_camera_origin: bool = camera_origin_check_list.has(player_id)
+		if !player_has_camera_origin:
+			push_error("Camera origin is not setup for player %d!" % player_id)
+
+		var player_has_ground_wave_path: bool = ground_wave_path_check_list.has(player_id)
+		if !player_has_ground_wave_path:
+			push_error("Ground path is not setup for player %d!" % player_id)
+
+		var player_has_air_wave_path: bool = air_wave_path_check_list.has(player_id)
+		if !player_has_air_wave_path:
+			push_error("Air path is not setup for player %d!" % player_id)
+
+		var player_has_buildable_area: bool = buildable_area_check_list.has(player_id)
+		if !player_has_buildable_area:
+			push_error("Buildable area is not setup for player %d!" % player_id)
 
 
 func _get_camera_origin_pos() -> Vector2:

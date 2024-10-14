@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsaarf0j6pf6g"]
+
+[ext_resource type="TileSet" uid="uid://bo62tf3gtehiu" path="res://resources/tilesets/buildable_area_tiles.tres" id="1_161yt"]
+[ext_resource type="Script" path="res://src/map/buildable_area.gd" id="1_tjjut"]
+
+[node name="BuildableArea" type="TileMapLayer"]
+modulate = Color(0, 1, 1, 0.211765)
+z_index = 22
+tile_set = ExtResource("1_161yt")
+script = ExtResource("1_tjjut")

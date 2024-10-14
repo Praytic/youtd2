@@ -67,7 +67,7 @@ static func verify(player: Player, build_space: BuildSpace, tower_id: int, mouse
 
 		return false
 
-	var can_build: bool = build_space.can_build_at_pos(mouse_pos)
+	var can_build: bool = build_space.can_build_at_pos(player, mouse_pos)
 
 	if !can_build:
 		Utils.add_ui_error(player, "Can't build here")

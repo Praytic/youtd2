@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=48 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://src/game_scene/game_scene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_gestc"]
@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://src/game_scene/tutorial_controller.gd" id="17_5cvlj"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://src/creeps/wave_path.gd" id="18_m2fcq"]
-[ext_resource type="Script" path="res://src/player/camera_origin.gd" id="19_jib72"]
+[ext_resource type="PackedScene" uid="uid://ccrjj36jwy707" path="res://src/player/camera_origin.tscn" id="19_icnp7"]
 [ext_resource type="Script" path="res://src/effects/effects_container.gd" id="20_rnpn6"]
 [ext_resource type="PackedScene" uid="uid://djkt0t0jveoks" path="res://src/effects/vampiric_aura.tscn" id="21_5ytv3"]
 [ext_resource type="Script" path="res://src/game_scene/default_camera.gd" id="21_8op63"]
@@ -51,6 +51,78 @@ point_count = 26
 [sub_resource type="Curve2D" id="Curve2D_gtbgo"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 6658, -328, 0, 0, 0, 0, 5637, 189, 0, 0, 0, 0, 1535, 202, 0, 0, 0, 0, 1540, 1729, 0, 0, 0, 0, -1149, 1537, 0, 0, 0, 0, -3203, 2561)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_cq3y7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 6656, 5447, 0, 0, 0, 0, 3709, 3975, 127.961, -62.2966, -127.961, 62.2966, 3457, 3976, 0, 0, 0, 0, 2688, 4357, -127.356, -61.4306, 127.356, 61.4306, 2689, 4489, 0, 0, 0, 0, 3966, 5131, 122.053, -63.6993, -122.053, 63.6993, 3969, 5257, 0, 0, 0, 0, 3199, 5642, 125.865, 63.6396, -125.865, -63.6396, 2946, 5640, 0, 0, 0, 0, 639, 4490, -123.648, 66.0712, 123.648, -66.0712, 640, 4360, 0, 0, 0, 0, 1918, 3720, 130.767, 63.4191, -130.767, -63.4191, 1916, 3593, 0, 0, 0, 0, 1153, 3208, 127.423, -62.7676, -127.423, 62.7676, 897, 3209, 0, 0, 0, 0, -384, 3850, 128.195, 66.7462, -128.195, -66.7462, -640, 3848, 0, 0, 0, 0, -3201, 2563)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_46yp1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 6656, 5451, 0, 0, 0, 0, 5631, 4937, 0, 0, 0, 0, 1536, 4937, 0, 0, 0, 0, 1539, 3403, 0, 0, 0, 0, -1152, 3592, 0, 0, 0, 0, -3202, 2563)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_pp4lg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2562, 7498, 0, 0, 0, 0, -383, 6026, -131.328, 67.909, 131.328, -67.909, -380, 5895, 0, 0, 0, 0, 379, 5511, -125.155, -62.8579, 125.155, 62.8579, 636, 5513, 0, 0, 0, 0, 1921, 6154, -130.5, 64, 130.5, -64, 2178, 6154, 0, 0, 0, 0, 2941, 5770, 124.487, 63.5678, -124.487, -63.5678, 2945, 5641, 0, 0, 0, 0, 639, 4492, 128.812, -66.742, -128.812, 66.742, 381, 4492, 0, 0, 0, 0, -897, 5130, 126.5, 66, -126.5, -66, -1152, 5129, 0, 0, 0, 0, -1922, 4745, -126.81, 65.4072, 126.81, -65.4072, -1921, 4618, 0, 0, 0, 0, -639, 3977, 123.5, 66, -123.5, -66, -638, 3848, 0, 0, 0, 0, -3200, 2563)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_rkhsb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2562, 7497, 0, 0, 0, 0, 1532, 6986, 0, 0, 0, 0, 1535, 4938, 0, 0, 0, 0, -1537, 4938, 0, 0, 0, 0, -1152, 3593, 0, 0, 0, 0, -3201, 2562)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_bg1uo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8959, 7496, 0, 0, 0, 0, -6018, 6026, 131, 64.5, -131, -64.5, -6019, 5898, 0, 0, 0, 0, -6783, 5515, 130.813, -63.028, -130.813, 63.028, -7041, 5514, 0, 0, 0, 0, -8448, 6218, 127.961, 65.1028, -127.961, -65.1028, -8705, 6217, 0, 0, 0, 0, -9473, 5835, -124.032, 65.664, 124.032, -65.664, -9474, 5705, 0, 0, 0, 0, -7040, 4487, -132.548, -65.0834, 132.548, 65.0834, -6780, 4489, 0, 0, 0, 0, -5507, 5129, -130.727, 62.2957, 130.727, -62.2957, -5251, 5128, 0, 0, 0, 0, -4483, 4747, 123.957, 64.0975, -123.957, -64.0975, -4478, 4617, 0, 0, 0, 0, -5762, 3975, -124.102, 66.1459, 124.102, -66.1459, -5761, 3849, 0, 0, 0, 0, -3202, 2562)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_6lk1i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8958, 7494, 0, 0, 0, 0, -7933, 6984, 0, 0, 0, 0, -7940, 4935, 0, 0, 0, 0, -4864, 4935, 0, 0, 0, 0, -5252, 3592, 0, 0, 0, 0, -3203, 2561)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_mksiu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -13060, 5441, 0, 0, 0, 0, -10114, 3978, -129.029, -64.8118, 129.029, 64.8118, -9855, 3978, 0, 0, 0, 0, -9087, 4359, 124.102, -61.7361, -124.102, 61.7361, -9088, 4488, 0, 0, 0, 0, -10498, 5192, -124.451, -62.9325, 124.451, 62.9325, -10497, 5321, 0, 0, 0, 0, -9730, 5704, -131.903, 64.0975, 131.903, -64.0975, -9470, 5706, 0, 0, 0, 0, -7040, 4487, 126.595, 63.8929, -126.595, -63.8929, -7043, 4363, 0, 0, 0, 0, -8321, 3721, -127, 67, 127, -67, -8320, 3592, 0, 0, 0, 0, -7552, 3208, -126.5, -63, 126.5, 63, -7297, 3207, 0, 0, 0, 0, -6016, 3849, -125, 62, 125, -62, -5761, 3851, 0, 0, 0, 0, -3201, 2563)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_niioj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -13059, 5446, 0, 0, 0, 0, -12033, 4936, 0, 0, 0, 0, -7939, 4934, 0, 0, 0, 0, -7940, 3403, 0, 0, 0, 0, -5252, 3593, 0, 0, 0, 0, -3201, 2565)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_l5rss"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -13053, -317, 0, 0, 0, 0, -10110, 1160, -126.277, 64.5416, 126.277, -64.5416, -9858, 1160, 0, 0, 0, 0, -9088, 777, 122.138, 66.0746, -122.138, -66.0746, -9086, 649, 0, 0, 0, 0, -10370, 11, -125.865, 65.0538, 125.865, -65.0538, -10365, -120, 0, 0, 0, 0, -9602, -505, -126.076, -70.984, 126.076, 70.984, -9348, -503, 0, 0, 0, 0, -7039, 647, 112.246, -67.3477, -112.246, 67.3477, -7040, 775, 0, 0, 0, 0, -8322, 1414, -129.18, -59.6902, 129.18, 59.6902, -8320, 1544, 0, 0, 0, 0, -7551, 1928, -125.158, 65.0538, 125.158, -65.0538, -7298, 1929, 0, 0, 0, 0, -6016, 1286, -125.617, -63.2538, 125.617, 63.2538, -5759, 1286, 0, 0, 0, 0, -3201, 2560)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_xs7e3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -13054, -312, 0, 0, 0, 0, -12026, 203, 0, 0, 0, 0, -7937, 201, 0, 0, 0, 0, -7933, 1736, 0, 0, 0, 0, -5251, 1546, 0, 0, 0, 0, -3201, 2559)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_8wjuw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8959, -2358, 0, 0, 0, 0, -6017, -886, 126.572, -60.1041, -126.572, 60.1041, -6020, -762, 0, 0, 0, 0, -6780, -372, 129.784, 65.157, -129.784, -65.157, -7038, -375, 0, 0, 0, 0, -8321, -1014, 132.292, -64.8859, -132.292, 64.8859, -8577, -1014, 0, 0, 0, 0, -9343, -630, -120.11, -61.8388, 120.11, 61.8388, -9346, -503, 0, 0, 0, 0, -7037, 648, -132.292, 64.256, 132.292, -64.256, -6780, 648, 0, 0, 0, 0, -5504, 8, -123.037, -64.3467, 123.037, 64.3467, -5250, 10, 0, 0, 0, 0, -4479, 392, 122.805, -60.7352, -122.805, 60.7352, -4479, 519, 0, 0, 0, 0, -5764, 1161, -116.097, -61.3518, 116.097, 61.3518, -5762, 1285, 0, 0, 0, 0, -3206, 2557)
+}
+point_count = 18
+
+[sub_resource type="Curve2D" id="Curve2D_sd1kw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8958, -2360, 0, 0, 0, 0, -7936, -1847, 0, 0, 0, 0, -7938, 201, 0, 0, 0, 0, -4863, 199, 0, 0, 0, 0, -5243, 1545, 0, 0, 0, 0, -3205, 2562)
 }
 point_count = 6
 
@@ -197,16 +269,104 @@ script = ExtResource("18_m2fcq")
 is_air = true
 player_id = 1
 
+[node name="Ground2" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_cq3y7")
+script = ExtResource("18_m2fcq")
+player_id = 2
+
+[node name="Air2" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_46yp1")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 2
+
+[node name="Ground3" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_pp4lg")
+script = ExtResource("18_m2fcq")
+player_id = 3
+
+[node name="Air3" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_rkhsb")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 3
+
+[node name="Ground4" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_bg1uo")
+script = ExtResource("18_m2fcq")
+player_id = 4
+
+[node name="Air4" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_6lk1i")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 4
+
+[node name="Ground5" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_mksiu")
+script = ExtResource("18_m2fcq")
+player_id = 5
+
+[node name="Air5" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_niioj")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 5
+
+[node name="Ground6" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_l5rss")
+script = ExtResource("18_m2fcq")
+player_id = 6
+
+[node name="Air6" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_xs7e3")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 6
+
+[node name="Ground7" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_8wjuw")
+script = ExtResource("18_m2fcq")
+player_id = 7
+
+[node name="Air7" type="Path2D" parent="World/PathContainer"]
+curve = SubResource("Curve2D_sd1kw")
+script = ExtResource("18_m2fcq")
+is_air = true
+player_id = 7
+
 [node name="CameraOriginContainer" type="Node2D" parent="World"]
 
-[node name="CameraOrigin0" type="Node2D" parent="World/CameraOriginContainer"]
+[node name="CameraOrigin0" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
 position = Vector2(900, -1300)
-script = ExtResource("19_jib72")
 
-[node name="CameraOrigin1" type="Node2D" parent="World/CameraOriginContainer"]
-position = Vector2(4011, 372)
-script = ExtResource("19_jib72")
+[node name="CameraOrigin1" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(4000, 400)
 player_id = 1
+
+[node name="CameraOrigin2" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(3957, 4454)
+player_id = 2
+
+[node name="CameraOrigin3" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(817, 5984)
+player_id = 3
+
+[node name="CameraOrigin4" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(-10394, 4491)
+player_id = 4
+
+[node name="CameraOrigin5" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(-7407, 6060)
+player_id = 5
+
+[node name="CameraOrigin6" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(-7335, -1204)
+player_id = 6
+
+[node name="CameraOrigin7" parent="World/CameraOriginContainer" instance=ExtResource("19_icnp7")]
+position = Vector2(-10254, 438)
+player_id = 7
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
 y_sort_enabled = true

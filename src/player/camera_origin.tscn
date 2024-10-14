@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccrjj36jwy707"]
+
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://assets/misc/icon.png" id="1_kf6ae"]
+[ext_resource type="Script" path="res://src/player/camera_origin.gd" id="2_uigp7"]
+
+[node name="CameraOrigin" type="Sprite2D"]
+z_index = 100
+texture = ExtResource("1_kf6ae")
+script = ExtResource("2_uigp7")
