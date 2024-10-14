@@ -162,7 +162,7 @@ const SERVER_PORT: int = 8910
 const ROOM_SCANNER_SEND_PORT: int = 8911
 const ROOM_ADVERTISER_SEND_PORT: int = 8912
 
-const PLAYER_COUNT_MAX: int = 2
+const PLAYER_COUNT_MAX: int = 8
 
 const NAKAMA_ADDRESS: String = "161.35.244.122"
 const NAKAMA_PORT: int = 7350
