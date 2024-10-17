@@ -37,6 +37,7 @@ func get_match_id() -> String:
 ###      Private      ###
 #########################
 
+# TODO: fix duplication of loading match_config
 func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	var label_string: String = match_.label
 
@@ -58,11 +59,13 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	var game_length_string: String = str(game_length)
 	var game_mode: GameMode.enm = match_config.get_game_mode()
 	var game_mode_string: String = GameMode.convert_to_long_display_string(game_mode).capitalize()
+	var team_mode: TeamMode.enm = match_config.get_team_mode()
+	var team_mode_string: String = TeamMode.convert_to_display_string(team_mode)
 
 	var text: String = "" \
 	+ "%s\n" % difficulty_string \
 	+ "%s waves\n" % game_length_string \
-	+ "%s\n" % game_mode_string \
+	+ "%s %s\n" % [game_mode_string, team_mode_string] \
 	+ " \n" \
 	+ "[color=ROYAL_BLUE]Creator: %s[/color]" % host_display_name \
 	+ ""
@@ -70,9 +73,23 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	return text
 
 
+# TODO: fix duplication of loading match_config
 func _get_player_count_text(match_: NakamaAPI.ApiMatch) -> String:
+	var label_string: String = match_.label
+
+	var parse_result = JSON.parse_string(label_string)
+	var parse_failed: bool = parse_result == null
+	if parse_failed:
+		return ""
+
+	var label_dict: Dictionary = parse_result
+
+	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
+	var team_mode: TeamMode.enm = match_config.get_team_mode()
+	var player_count_max: int = TeamMode.get_player_count_max(team_mode)
+
 	var player_count: int = match_.size
-	var text: String = "%d/2" % player_count
+	var text: String = "%d/%d" % [player_count, player_count_max]
 	
 	return text
 
