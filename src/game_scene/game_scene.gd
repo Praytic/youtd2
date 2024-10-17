@@ -281,15 +281,17 @@ func _setup_players():
 		return
 	
 #	Create teams
-#	TODO: create an amount of teams which is appropriate for
-#	the amount of players and selected team mode
-	var team: Team = Team.make(1)
-	_team_container.add_team(team)
+	var team_mode: TeamMode.enm = Globals.get_team_mode()
+	var player_count_per_team: int = TeamMode.get_player_count_per_team(team_mode)
+	var player_count: int = peer_id_list.size()
+	var team_count: int = ceili(player_count * 1.0 / player_count_per_team)
+
+	for i in range(0, team_count):
+		var team: Team = Team.make(i)
+		_team_container.add_team(team)
 
 	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
 
-#	TODO: implement different team modes and assign teams
-#	based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
 
@@ -300,6 +302,9 @@ func _setup_players():
 			Globals.ConnectionType.NAKAMA:
 				var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
 				user_id = webrtc_player.user_id
+
+		var team_id_for_player: int = floori(player_id * 1.0 / player_count_per_team)
+		var team: Team = _team_container.get_team(team_id_for_player)
 
 		var player: Player = team.create_player(player_id, peer_id, user_id)
 		PlayerManager.add_player(player)
