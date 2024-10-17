@@ -16,6 +16,7 @@ var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLEPLAYER
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
+var _team_mode: TeamMode.enm = TeamMode.enm.ONE_PLAYER_PER_TEAM
 var _origin_seed: int = 0
 var _update_ticks_per_physics_tick: int = 1
 var _connection_type: ConnectionType = ConnectionType.ENET
@@ -63,6 +64,10 @@ func get_game_mode() -> GameMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty
+
+
+func get_team_mode() -> TeamMode.enm:
+	return _team_mode
 
 
 func get_origin_seed() -> int:

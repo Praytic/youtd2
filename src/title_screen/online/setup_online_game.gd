@@ -224,13 +224,15 @@ func _on_create_online_match_menu_create_pressed():
 	var host_display_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	var creation_time: float = Time.get_unix_time_from_system()
 	var game_version: String = Config.build_version()
+	var team_mode: TeamMode.enm = _current_match_config.get_team_mode()
+	var player_count_max: int = TeamMode.get_player_count_max(team_mode)
 		
 	var local_user_id: String = NakamaConnection.get_local_user_id()
 
 	var match_params_dict: Dictionary = {
 		"host_display_name": host_display_name,
 		"host_user_id": local_user_id,
-		"player_count_max": 2,
+		"player_count_max": player_count_max,
 		"is_private": false,
 		"creation_time": creation_time,
 		"game_version": game_version,
@@ -390,9 +392,10 @@ func _on_peer_connected(_peer_id: int):
 		var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 		var game_length: int = _current_match_config.get_game_length()
 		var game_mode: GameMode.enm = _current_match_config.get_game_mode()
+		var team_mode: TeamMode.enm = _current_match_config.get_team_mode()
 		var origin_seed: int = randi()
 
-		_title_screen.start_game.rpc(PlayerMode.enm.MULTIPLAYER, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.NAKAMA)
+		_title_screen.start_game.rpc(PlayerMode.enm.MULTIPLAYER, game_length, game_mode, difficulty, team_mode, origin_seed, Globals.ConnectionType.NAKAMA)
 
 
 func _on_host_created_game_match(game_match_id: String):
