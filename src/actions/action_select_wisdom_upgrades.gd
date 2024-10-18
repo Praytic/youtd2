@@ -61,6 +61,9 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 		WisdomUpgradeProperties.Id.ADVANCED_WISDOM: {
 			ModificationType.enm.MOD_EXP_RECEIVED: 0.20,
 		},
+		WisdomUpgradeProperties.Id.PILLAGE_MASTERY: {
+			Modification.Type.MOD_BOUNTY_RECEIVED: 0.20,
+		},
 	}
 	
 	for upgrade_id in wisdom_upgrades.keys():
