@@ -18,7 +18,15 @@ static func execute(action: Dictionary, player: Player):
 	var wisdom_upgrades: Dictionary = action[Action.Field.WISDOM_UPGRADES]
 
 	var builder_wisdom_multiplier: float = player.get_builder_wisdom_multiplier()
-
+	
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_SYNERGY]:
+		builder_wisdom_multiplier += 0.06
+	
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.THE_ART_OF_ASCENSION]:
+		var levels_spent = wisdom_upgrades.values().count(true) / Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT
+		var levels_left: int = int(Utils.get_local_player_level() - levels_spent)
+		builder_wisdom_multiplier += 0.001 * levels_left
+	
 	var wisdom_modifier: Modifier = ActionSelectWisdomUpgrades.generate_wisdom_upgrades_modifier(wisdom_upgrades, builder_wisdom_multiplier)
 	player.set_wisdom_modifier(wisdom_modifier)
 
@@ -62,7 +70,7 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 			ModificationType.enm.MOD_EXP_RECEIVED: 0.20,
 		},
 		WisdomUpgradeProperties.Id.PILLAGE_MASTERY: {
-			Modification.Type.MOD_BOUNTY_RECEIVED: 0.20,
+			Modification.Type.MOD_BOUNTY_RECEIVED: 0.18,
 		},
 	}
 	
