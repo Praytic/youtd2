@@ -37,6 +37,10 @@ static func execute(action: Dictionary, player: Player):
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.MASTERY_OF_LOGISTICS]:
 		var food_cap_bonus: int = floori(16 * builder_wisdom_multiplier)
 		player.modify_food_cap(food_cap_bonus)
+		
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.POWER_OF_FRIENDSHIP]:
+		var lives_bonus = 20 * builder_wisdom_multiplier
+		player.get_team().modify_lives(lives_bonus)
 
 
 static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, builder_wisdom_multiplier: float) -> Modifier:
@@ -71,6 +75,12 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 		},
 		WisdomUpgradeProperties.Id.PILLAGE_MASTERY: {
 			Modification.Type.MOD_BOUNTY_RECEIVED: 0.18,
+		},
+		WisdomUpgradeProperties.Id.RESILIENCE: {
+			Modification.Type.MOD_DEBUFF_DURATION: -0.075,
+		},
+		WisdomUpgradeProperties.Id.LONGEVITY: {
+			Modification.Type.MOD_BUFF_DURATION: 0.06,
 		},
 	}
 	
