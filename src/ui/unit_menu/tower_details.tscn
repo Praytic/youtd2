@@ -10,7 +10,7 @@
 atlas = ExtResource("3_3n5aj")
 region = Rect2(896, 0, 128, 128)
 
-[node name="TowerDetails" type="PanelContainer" node_paths=PackedStringArray("_tower_name_label", "_base_damage", "_base_damage_bonus", "_base_damage_bonus_perc", "_damage_add", "_damage_add_perc", "_overall_damage", "_base_attack_speed", "_attack_speed_modifier", "_overall_attack_speed", "_overall_dps", "_crit_chance", "_crit_damage", "_multicrit", "_dps_with_crit", "_spell_damage", "_spell_crit_chance", "_spell_crit_damage", "_total_damage", "_total_damage_recent", "_best_hit", "_kills", "_experience", "_level_x_at_left", "_level_x_at_right", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_trigger_chances", "_buff_duration", "_debuff_duration", "_dmg_to_undead", "_dmg_to_magical", "_dmg_to_nature", "_dmg_to_orc", "_dmg_to_humanoid", "_dmg_to_mass", "_dmg_to_normal", "_dmg_to_air", "_dmg_to_champion", "_dmg_to_boss", "_tower_details_label")]
+[node name="TowerDetails" type="PanelContainer" node_paths=PackedStringArray("_tower_name_label", "_base_damage", "_base_damage_bonus", "_base_damage_bonus_perc", "_damage_add", "_damage_add_perc", "_overall_damage", "_base_attack_speed", "_attack_speed_modifier", "_overall_attack_speed", "_overall_dps", "_crit_chance", "_crit_damage", "_multicrit", "_dps_with_crit", "_spell_damage", "_spell_crit_chance", "_spell_crit_damage", "_total_damage", "_total_damage_recent", "_best_hit", "_kills", "_experience", "_level_x_at_left", "_level_x_at_right", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_trigger_chances", "_buff_duration", "_debuff_duration", "_dmg_to_undead", "_dmg_to_magical", "_dmg_to_nature", "_dmg_to_orc", "_dmg_to_humanoid", "_dmg_to_challenge", "_dmg_to_mass", "_dmg_to_normal", "_dmg_to_air", "_dmg_to_champion", "_dmg_to_boss", "_tower_details_label")]
 offset_right = 1219.0
 offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_w837r")
@@ -60,6 +60,7 @@ _dmg_to_magical = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelCont
 _dmg_to_nature = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToNature")
 _dmg_to_orc = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToOrc")
 _dmg_to_humanoid = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToHumanoid")
+_dmg_to_challenge = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToChallenge")
 _dmg_to_mass = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToMass")
 _dmg_to_normal = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToNormal")
 _dmg_to_air = NodePath("PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToAir")
@@ -864,6 +865,19 @@ mouse_filter = 1
 text = "RACE_HUMANOID"
 
 [node name="DamageToHumanoid" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Label33" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+text = "Challenge"
+
+[node name="DamageToChallenge" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1

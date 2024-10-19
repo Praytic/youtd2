@@ -1416,6 +1416,9 @@ func get_damage_to_undead() -> float:
 func get_damage_to_humanoid() -> float:
 	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_HUMANOID])
 
+func get_damage_to_challenge() -> float:
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_CHALLENGE])
+
 func get_damage_to_nature() -> float:
 	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_NATURE])
 

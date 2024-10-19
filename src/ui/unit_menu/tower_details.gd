@@ -62,6 +62,7 @@ class_name TowerDetails extends PanelContainer
 @export var _dmg_to_nature: Label
 @export var _dmg_to_orc: Label
 @export var _dmg_to_humanoid: Label
+@export var _dmg_to_challenge: Label
 
 # Damage to size
 @export var _dmg_to_mass: Label
@@ -248,7 +249,10 @@ func update_text():
 
 	var dmg_to_humanoid: float = _tower.get_damage_to_humanoid()
 	_dmg_to_humanoid.text = Utils.format_percent(dmg_to_humanoid, 0)
-
+	
+	var dmg_to_challenge: float = _tower.get_damage_to_challenge()
+	_dmg_to_challenge.text = Utils.format_percent(dmg_to_challenge, 0)
+	
 #	Damage to size
 	var dmg_to_mass: float = _tower.get_damage_to_mass()
 	_dmg_to_mass.text = Utils.format_percent(dmg_to_mass, 0)
