@@ -8,8 +8,9 @@ signal camera_zoomed(zoom_value)
 @export var cam_move_speed_base: float = 1500.0
 @export var zoom_min: float = 0.7
 @export var zoom_max: float = 1.1
-@export var zoom_sensitivity: float = 1.0
-@export var mousewheel_zoom_speed: float = 0.4
+@export var ZOOM_SPEED_FOR_TOUCHPAD_WINDOWS: float = 1.0
+@export var ZOOM_SPEED_FOR_TOUCHPAD_MAC: float = 0.1
+@export var ZOOM_SPEED_FOR_MOUSEWHEEL: float = 0.4
 @export var SLOW_SCROLL_MARGIN: float = 0.010
 @export var FAST_SCROLL_MARGIN: float = 0.002
 @export var SLOW_SCROLL_MULTIPLIER: float = 0.5
@@ -19,6 +20,7 @@ var _zoom_multiplier: float = 1.0
 var _drag_origin: Vector2 = Vector2.INF
 var _keyboard_enabled: bool = true
 var _any_input_enabled: bool = true
+var _zoom_speed_for_touchpad: float
 
 
 #########################
@@ -27,7 +29,9 @@ var _any_input_enabled: bool = true
 
 func _ready():
 	if OS.get_name() == "macOS":
-		zoom_sensitivity = 0.1
+		_zoom_speed_for_touchpad = ZOOM_SPEED_FOR_TOUCHPAD_MAC
+	else:
+		_zoom_speed_for_touchpad = ZOOM_SPEED_FOR_TOUCHPAD_WINDOWS
 
 
 func _process(delta):
@@ -177,7 +181,7 @@ func _get_new_zoom_multiplier(event: InputEvent) -> float:
 	var zoom_change: float
 
 	if event is InputEventMagnifyGesture && Config.enable_zoom_by_touchpad():
-		zoom_change = -(event.factor - 1.0) * zoom_sensitivity
+		zoom_change = -(event.factor - 1.0) * _zoom_speed_for_touchpad
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
 #		Make zoom change slower as the camera gets more zoomed in
 		var slow_down_multiplier: float = _zoom_multiplier / zoom_max
@@ -190,7 +194,7 @@ func _get_new_zoom_multiplier(event: InputEvent) -> float:
 			_:
 				zoom_change_direction = 0
 
-		zoom_change = zoom_change_direction * mousewheel_zoom_speed * slow_down_multiplier
+		zoom_change = zoom_change_direction * ZOOM_SPEED_FOR_MOUSEWHEEL * slow_down_multiplier
 	else:
 		zoom_change = 0.0
 
