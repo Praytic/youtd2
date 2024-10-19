@@ -295,6 +295,12 @@ func _setup_players():
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
 
+#		NOTE: multiply player id in "1 player per team" mode
+#		by 2 because the second slot in teams is not
+#		occupied
+		if team_mode == TeamMode.enm.ONE_PLAYER_PER_TEAM:
+			player_id *= 2
+
 		var user_id: String
 		match connection_type:
 			Globals.ConnectionType.ENET:
@@ -303,11 +309,20 @@ func _setup_players():
 				var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
 				user_id = webrtc_player.user_id
 
-		var team_id_for_player: int = floori(player_id * 1.0 / player_count_per_team)
-		var team: Team = _team_container.get_team(team_id_for_player)
-
-		var player: Player = team.create_player(player_id, peer_id, user_id)
+		var player: Player = Player.make(player_id, peer_id, user_id)
 		PlayerManager.add_player(player)
+
+#	Assign players to teams
+	var remaining_player_list: Array[Player] = PlayerManager.get_player_list()
+	var team_list: Array[Team] = _team_container.get_team_list()
+
+	for team in team_list:
+		for i in range(0, player_count_per_team):
+			if remaining_player_list.is_empty():
+				break
+
+			var player: Player = remaining_player_list.pop_front()
+			team.add_player(player)
 
 
 func _start_game():

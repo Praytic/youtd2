@@ -12,6 +12,7 @@ signal selected_builder()
 signal voted_ready()
 signal roll_was_disabled()
 signal rolled_starting_towers()
+signal game_lose()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -625,6 +626,10 @@ func roll_starting_towers():
 	rolled_starting_towers.emit()
 
 
+func emit_game_lose_signal():
+	game_lose.emit()
+
+
 #########################
 ###      Private      ###
 #########################
@@ -731,3 +736,20 @@ func _on_selected_unit_tree_exited(unit: Unit):
 	var selected_unit_is_being_removed: bool = _selected_unit == unit
 	if selected_unit_is_being_removed:
 		set_selected_unit(null)
+
+
+# NOTE: either peer_id or user_id has to be defined,
+# depending on if connection is Nakama or Enet
+static func make(player_id: int, peer_id: int, user_id: String) -> Player:
+	var player: Player = Preloads.player_scene.instantiate()
+	player._id = player_id
+	player._peer_id = peer_id
+	player._user_id = user_id
+
+#	Add base class Builder as placeholder until the real
+#	builder is assigned. This builder will have no effects.
+	var placeholder_builder: Builder = Builder.new()
+	player._builder = placeholder_builder
+	player.add_child(placeholder_builder)
+
+	return player

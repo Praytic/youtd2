@@ -66,27 +66,11 @@ func start_next_wave():
 	_start_wave()
 
 
-# NOTE: either peer_id or user_id has to be defined,
-# depending on if connection is Nakama or Enet
-func create_player(player_id: int, peer_id: int, user_id: String) -> Player:
-	var player: Player = Preloads.player_scene.instantiate()
-	player._id = player_id
+func add_player(player: Player):
 	player._team = self
-	player._peer_id = peer_id
-	player._user_id = user_id
-
 	_player_list.append(player)
-
-#	Add base class Builder as placeholder until the real
-#	builder is assigned. This builder will have no effects.
-	var placeholder_builder: Builder = Builder.new()
-	player._builder = placeholder_builder
-	player.add_child(placeholder_builder)
-	
 	player.wave_spawned.connect(_on_player_wave_spawned)
 	player.wave_finished.connect(_on_player_wave_finished)
-
-	return player
 
 
 func get_id() -> int:
@@ -285,6 +269,9 @@ func _do_game_lose():
 		convert_local_player_score_to_exp()
 
 	game_lose.emit()
+
+	for player in _player_list:
+		player.emit_game_lose_signal()
 
 
 # This function starts the timer only if it's not already

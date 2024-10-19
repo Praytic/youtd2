@@ -38,7 +38,7 @@ var _creep_index: int = 0
 func set_player(player: Player):
 	_player = player
 
-	_player.get_team().game_lose.connect(_on_game_lose)
+	_player.game_lose.connect(_on_game_lose)
 
 	_ground_path = Utils.find_creep_path(player, false)
 	_air_path = Utils.find_creep_path(player, true)
