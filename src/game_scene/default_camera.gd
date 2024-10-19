@@ -6,11 +6,11 @@ signal camera_zoomed(zoom_value)
 
 
 const MOVE_SPEED_BASE: float = 1500.0
-const ZOOM_MIN: float = 0.7
+const ZOOM_MIN: float = 0.5
 const ZOOM_MAX: float = 1.1
 const ZOOM_SPEED_FOR_TOUCHPAD_WINDOWS: float = 1.0
 const ZOOM_SPEED_FOR_TOUCHPAD_MAC: float = 0.1
-const ZOOM_SPEED_FOR_MOUSEWHEEL: float = 0.4
+const ZOOM_SPEED_FOR_MOUSEWHEEL: float = 0.2
 const SLOW_SCROLL_MARGIN: float = 0.010
 const FAST_SCROLL_MARGIN: float = 0.002
 const SLOW_SCROLL_MULTIPLIER: float = 0.5
