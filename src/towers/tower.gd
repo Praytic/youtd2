@@ -171,11 +171,16 @@ func _ready():
 #		lvl bonus can't be applied.
 		var builder: Builder = get_player().get_builder()
 		var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
-
-		if tower_lvl_bonus > 0:
-			set_level(tower_lvl_bonus)
-			var experience_for_level: int = Experience.get_exp_for_level(tower_lvl_bonus)
-			_experience = experience_for_level
+		var tower_exp_bonus: float = builder.get_tower_exp_bonus()
+		
+		var current_lvl: int = Experience.get_level_at_exp(tower_exp_bonus)
+		var experience_for_current_level: int = Experience.get_exp_for_level(current_lvl)
+		var increased_lvl: int = current_lvl + tower_lvl_bonus
+		var experience_for_increased_level: int = Experience.get_exp_for_level(increased_lvl)
+		var added_exp: float = float(experience_for_increased_level - experience_for_current_level)
+		
+		set_level(increased_lvl)
+		_experience = tower_exp_bonus + added_exp
 
 	var wisdom_modifier: Modifier = get_player().get_wisdom_modifier()
 	add_modifier(wisdom_modifier)

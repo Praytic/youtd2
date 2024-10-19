@@ -19,6 +19,7 @@ var _tower_lvl_bonus: int = 0
 var _range_bonus: float = 0.0
 var _item_slots_bonus: int = 0
 var _adds_extra_recipes: bool = false
+var _tower_exp_bonus: float = 0.0
 
 
 #########################
@@ -75,6 +76,8 @@ func get_item_slots_bonus() -> int:
 func get_adds_extra_recipes() -> bool:
 	return _adds_extra_recipes
 
+func get_tower_exp_bonus() -> float:
+	return _tower_exp_bonus
 
 func apply_effects(unit: Unit):
 	var buff: BuffType

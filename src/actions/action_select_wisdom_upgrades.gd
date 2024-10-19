@@ -38,9 +38,13 @@ static func execute(action: Dictionary, player: Player):
 		var food_cap_bonus: int = floori(16 * builder_wisdom_multiplier)
 		player.modify_food_cap(food_cap_bonus)
 		
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.POWER_OF_FRIENDSHIP]:
-		var lives_bonus = 20 * builder_wisdom_multiplier
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.BOND_OF_UNITY]:
+		var lives_bonus: float = 20 * builder_wisdom_multiplier
 		player.get_team().modify_lives(lives_bonus)
+	
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.FOUNDATION_OF_KNOWLEDGE]:
+		var tower_bonus_exp: float = 30 * builder_wisdom_multiplier
+		player.get_builder()._tower_exp_bonus += tower_bonus_exp
 
 
 static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, builder_wisdom_multiplier: float) -> Modifier:
@@ -74,13 +78,23 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 			ModificationType.enm.MOD_EXP_RECEIVED: 0.20,
 		},
 		WisdomUpgradeProperties.Id.PILLAGE_MASTERY: {
-			Modification.Type.MOD_BOUNTY_RECEIVED: 0.18,
+			Modification.Type.MOD_BOUNTY_RECEIVED: 0.16,
 		},
-		WisdomUpgradeProperties.Id.RESILIENCE: {
+		WisdomUpgradeProperties.Id.FORTIFIED_WILL: {
 			Modification.Type.MOD_DEBUFF_DURATION: -0.075,
 		},
-		WisdomUpgradeProperties.Id.LONGEVITY: {
+		WisdomUpgradeProperties.Id.INNER_FOCUS: {
 			Modification.Type.MOD_BUFF_DURATION: 0.06,
+		},
+		WisdomUpgradeProperties.Id.DEADLY_STRIKES: {
+			Modification.Type.MOD_ATK_CRIT_DAMAGE: 0.175,
+			Modification.Type.MOD_SPELL_CRIT_DAMAGE: 0.175,
+		},
+		WisdomUpgradeProperties.Id.FORTUNES_FAVOR: {
+			Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 0.065,
+		},
+		WisdomUpgradeProperties.Id.CHALLENGE_CONQUEROR: {
+			Modification.Type.MOD_DMG_TO_CHALLENGE: 0.08,
 		},
 	}
 	
