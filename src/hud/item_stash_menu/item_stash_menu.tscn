@@ -60,7 +60,10 @@ layout_mode = 2
 [node name="LockFilterButton" type="Button" parent="TabContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-tooltip_text = "Show only locked items"
+tooltip_text = "Show only locked items.
+ 
+Items can be locked by Ctrl-right-clicking on them.
+Locked items won't be pulled by Horadric Cube autofill."
 focus_mode = 0
 theme_type_variation = &"FilterButton"
 toggle_mode = true
