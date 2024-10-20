@@ -96,6 +96,9 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 		WisdomUpgradeProperties.Id.CHALLENGE_CONQUEROR: {
 			Modification.Type.MOD_DMG_TO_CHALLENGE: 0.08,
 		},
+		WisdomUpgradeProperties.Id.MASTER_OF_DESTRUCTION: {
+			Modification.Type.MOD_DMG_TOTAL_MULTIPLIER: 0.02,
+		},
 	}
 	
 	for upgrade_id in wisdom_upgrades.keys():
