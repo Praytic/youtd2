@@ -173,9 +173,9 @@ func _ready():
 		var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
 		var tower_exp_bonus: float = builder.get_tower_exp_bonus()
 		
-		var current_lvl: int = Experience.get_level_at_exp(tower_exp_bonus)
+		var current_lvl: int = min(get_player().get_max_tower_level(), Experience.get_level_at_exp(tower_exp_bonus))
 		var experience_for_current_level: int = Experience.get_exp_for_level(current_lvl)
-		var increased_lvl: int = current_lvl + tower_lvl_bonus
+		var increased_lvl: int = min(get_player().get_max_tower_level(), current_lvl + tower_lvl_bonus)
 		var experience_for_increased_level: int = Experience.get_exp_for_level(increased_lvl)
 		var added_exp: float = float(experience_for_increased_level - experience_for_current_level)
 		

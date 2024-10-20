@@ -49,7 +49,7 @@ func _load_exp_for_level_map() -> Dictionary:
 func make_level_at_exp_map(exp_for_level: Dictionary) -> Dictionary:
 	var map: Dictionary = {}
 	
-	for current_level in range(0, Constants.MAX_LEVEL):
+	for current_level in range(0, Constants.MAX_LEVEL_WITH_BONUS):
 		var current_level_experience: int = exp_for_level[current_level]
 		var next_level: int = current_level + 1
 		var next_level_experience: int = exp_for_level[next_level]
@@ -57,8 +57,8 @@ func make_level_at_exp_map(exp_for_level: Dictionary) -> Dictionary:
 		for i in range(current_level_experience, next_level_experience):
 			map[i] = current_level
 
-	var max_level_exp: int = exp_for_level[Constants.MAX_LEVEL]
-	map[max_level_exp] = Constants.MAX_LEVEL
+	var max_level_exp: int = exp_for_level[Constants.MAX_LEVEL_WITH_BONUS]
+	map[max_level_exp] = Constants.MAX_LEVEL_WITH_BONUS
 
 	return map
 
@@ -83,7 +83,6 @@ func get_level_at_exp(experience_float: float) -> int:
 
 			return level
 		else:
-			return Constants.MAX_LEVEL
+			return Constants.MAX_LEVEL_WITH_BONUS
 	else:
 		return 0
-

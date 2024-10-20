@@ -706,7 +706,7 @@ func _change_experience(amount: float) -> float:
 	var new_exp: float = max(0.0, _experience + amount)
 	var actual_change = new_exp - old_exp
 	var old_level: int = _level
-	var new_level: int = Experience.get_level_at_exp(new_exp)
+	var new_level: int = min(get_player().get_max_tower_level(), Experience.get_level_at_exp(new_exp))
 
 	_experience = new_exp
 
@@ -1814,7 +1814,12 @@ func get_exp() -> float:
 
 
 func reached_max_level() -> bool:
-	var is_max_level: bool = _level == Constants.MAX_LEVEL
+	var max_level: int = Constants.MAX_LEVEL
+	var player: Player = get_player()
+	if player != null:
+		max_level = player.get_max_tower_level()
+		
+	var is_max_level: bool = _level == max_level
 
 	return is_max_level
 
