@@ -179,6 +179,9 @@ func _item_value_func(item: Item):
 	return value
 
 
+# NOTE: this function MUST be called only by
+# ActionSortItemStash.execute(). Otherwise, desyncs in
+# multiplayer are possible.
 func sort_items_by_type_rarity_and_levels():
 	var new_item_list_with_slots: Array[Item] = []
 	new_item_list_with_slots.resize(_item_list_with_slots.size())
