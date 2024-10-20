@@ -53,6 +53,10 @@ static func execute(action: Dictionary, player: Player):
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ELEMENTAL_OVERLOAD]:
 		var max_element_level_bonus: int = 3
 		player._max_element_level_bonus += max_element_level_bonus
+		
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.PINNACLE_OF_POWER]:
+		var max_tower_level_bonus: int = 2
+		player._max_tower_level_bonus += max_tower_level_bonus
 
 
 static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, builder_wisdom_multiplier: float) -> Modifier:
