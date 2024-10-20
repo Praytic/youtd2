@@ -12,7 +12,7 @@ func on_damage(event: Event):
 	# var l: Lightning
 
 	if event.is_main_target():
-		if creep.subtract_mana((8 + 0.6 * tower.get_level() * tower.get_base_attack_speed()) * (55 / pow(tower.get_range(), 0.6)), true) > 0:
+		if creep.subtract_mana((8 + 0.6 * tower.get_level() * tower.get_base_attack_speed()) * (55 / pow(tower.get_base_range(), 0.6)), true) > 0:
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
 			lightning.modulate = Color.LIGHT_GREEN
 			lightning.set_lifetime(0.1)

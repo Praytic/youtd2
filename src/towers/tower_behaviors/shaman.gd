@@ -45,6 +45,5 @@ func bloody_exp_aura_on_damage(event: Event):
 	var max_level_for_gain: int = _stats.bloody_experience_level_cap + caster.get_level() / 5
 
 	if event.get_number_of_crits() > 0 && (buffed_tower.get_level() < max_level_for_gain || buffed_tower == caster):
-		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * buffed_tower.get_base_attack_speed() * (800.0 / buffed_tower.get_range())
+		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * buffed_tower.get_base_attack_speed() * (800.0 / buffed_tower.get_base_range())
 		buffed_tower.add_exp(exp_gained)
-
