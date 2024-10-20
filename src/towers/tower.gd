@@ -369,12 +369,17 @@ func issue_target_order(target: Unit):
 func _get_attack_ability_description() -> String:
 	var tower_id: int = get_id()
 
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var base_attack_range: int = floor(get_base_range())
+	var bonus_attack_range: int = floor(get_range() - base_attack_range)
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
-
-	var text: String = tr("TOWER_ATTACK_ABILITY_TEXT").format({ATTACK_TYPE = attack_type_string, RANGE = attack_range, DAMAGE_TO_TEXT = damage_dealt_string})
+	
+	var attack_range_str: String = "%s" % base_attack_range
+	if bonus_attack_range != 0:
+		attack_range_str += " + %s" % bonus_attack_range
+	
+	var text: String = tr("TOWER_ATTACK_ABILITY_TEXT").format({ATTACK_TYPE = attack_type_string, RANGE = attack_range_str, DAMAGE_TO_TEXT = damage_dealt_string})
 
 	return text
 
