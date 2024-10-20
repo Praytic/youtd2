@@ -24,6 +24,8 @@ func _ready():
 	_match_config_panel.set_difficulty(cached_difficulty)
 	_match_config_panel.set_game_mode(cached_game_mode)
 	_match_config_panel.set_game_length(cached_game_length)
+	
+	_match_config_panel.hide_team_mode_selector()
 
 
 #########################

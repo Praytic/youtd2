@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://src/title_screen/match_config_panel.gd" id="1_wksi8"]
 
-[node name="MatchConfigPanel" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo")]
+[node name="MatchConfigPanel" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo", "_team_mode_label", "_team_mode_combo")]
 columns = 2
 script = ExtResource("1_wksi8")
 _difficulty_combo = NodePath("DifficultyCombo")
 _game_length_combo = NodePath("GameLengthCombo")
 _game_mode_combo = NodePath("GameModeCombo")
+_team_mode_label = NodePath("TeamModeLabel")
+_team_mode_combo = NodePath("TeamModeCombo")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -65,3 +67,17 @@ popup/item_1/text = "Random with upgrades"
 popup/item_1/id = 1
 popup/item_2/text = "Totally random"
 popup/item_2/id = 2
+
+[node name="TeamModeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Team mode:"
+
+[node name="TeamModeCombo" type="OptionButton" parent="."]
+layout_mode = 2
+tooltip_text = "Co-op - 2 players per team
+FFA - 1 player per team"
+selected = 0
+item_count = 2
+popup/item_0/text = "FFA"
+popup/item_1/text = "Co-op"
+popup/item_1/id = 1

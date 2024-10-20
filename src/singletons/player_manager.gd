@@ -63,7 +63,7 @@ func get_player_by_nakama_user_id(user_id: String) -> Player:
 
 
 func get_player_list() -> Array[Player]:
-	return _player_list
+	return _player_list.duplicate()
 
 
 func reset():

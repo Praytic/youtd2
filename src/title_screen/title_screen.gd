@@ -64,13 +64,14 @@ func switch_to_tab(tab: TitleScreen.Tab):
 
 # NOTE: this function transitions the game from title screen to game scene. Can be called either by client itself or the host if the game is in multiplayer mode.
 @rpc("any_peer", "call_local", "reliable")
-func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int, connection_type: Globals.ConnectionType):
+func start_game(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, team_mode: TeamMode.enm, origin_seed: int, connection_type: Globals.ConnectionType):
 #	NOTE: save game settings into globals so that GameScene
 #	can access them
 	Globals._player_mode = player_mode
 	Globals._difficulty = difficulty
 	Globals._wave_count = wave_count
 	Globals._game_mode = game_mode
+	Globals._team_mode = team_mode
 	Globals._origin_seed = origin_seed
 	Globals._connection_type = connection_type
 	
@@ -111,6 +112,7 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	var difficulty: Difficulty.enm = _configure_singleplayer_menu.get_difficulty()
 	var game_length: int = _configure_singleplayer_menu.get_game_length()
 	var game_mode: GameMode.enm = _configure_singleplayer_menu.get_game_mode()
+	var team_mode: TeamMode.enm = TeamMode.enm.ONE_PLAYER_PER_TEAM
 	var origin_seed: int = randi()
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
@@ -120,7 +122,7 @@ func _on_configure_singleplayer_menu_start_button_pressed():
 	Settings.set_setting(Settings.CACHED_GAME_LENGTH, game_length)
 	Settings.flush()
 	
-	start_game(PlayerMode.enm.SINGLEPLAYER, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.ENET)
+	start_game(PlayerMode.enm.SINGLEPLAYER, game_length, game_mode, difficulty, team_mode, origin_seed, Globals.ConnectionType.ENET)
 
 
 func _on_generic_tab_cancel_pressed():
