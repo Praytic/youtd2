@@ -255,7 +255,7 @@ func get_max_tower_level_bonus() -> int:
 	return _max_tower_level_bonus
 
 func get_max_tower_level() -> int:
-	return Constants.MAX_LEVEL + get_max_element_level_bonus()
+	return Constants.MAX_LEVEL + get_max_tower_level_bonus()
 
 func get_research_cost(element: Element.enm) -> int:
 	var level: int = get_element_level(element)
