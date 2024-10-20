@@ -5,6 +5,14 @@ class_name MoveItem extends Node
 # sources in the UI via EventBus. Note that while an item is
 # being moved, it will be parented to this node.
 
+enum InstantMoveType {
+	NONE,
+	FROM_ANY_TO_ITEM_STASH,
+	FROM_ANY_TO_TOWER,
+	FROM_TOWER_TO_HORADRIC_CUBE,
+	FROM_ITEM_STASH_TO_HORADRIC_CUBE,
+}
+
 
 # Container from which currently moved item came from. Item
 # will return to this container if the player cancels item
@@ -140,6 +148,10 @@ func _move_in_progress() -> bool:
 # 
 # 3. If player shift clicked, item is instantly moved from
 #    current stash to item stash.
+# 
+# 4. If player ctrl clicked, item is instantly moved:
+#	- a) from item stash to selected tower
+# 	- b) from tower to horadric cube
 func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item: Item):
 	if !_can_start_moving():
 		return
@@ -163,60 +175,57 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	var shift_click: bool = Input.is_action_pressed("shift")
 	var ctrl_click: bool = Input.is_action_pressed("ctrl")
 	
-	# TODO: confirm that using get_local_player() is more clean way to get the player - this change wasn't tested in multiplayer!
-	#var player: Player = clicked_item.get_player()
-	var player: Player = PlayerManager.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	
-	var item_stash: ItemContainer = player.get_item_stash()
-	var horadric_cube: ItemContainer = player.get_horadric_stash()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var horadric_cube: ItemContainer = local_player.get_horadric_stash()
 	var tower_inventory: ItemContainer = null
 	
-	var selected_unit: Unit = player.get_selected_unit()
-	var has_selected_unit: bool = selected_unit != null 
+	var selected_unit: Unit = local_player.get_selected_unit()
 	
-	if has_selected_unit:
-		var has_selected_tower: bool = selected_unit is Tower
-		if has_selected_tower:
-			var selected_tower: Tower = selected_unit as Tower
-			var is_owner: bool = selected_tower.get_player() == player
-			
-			# do not allow instant move to other players' towers regardless if it allowed otherwise
-			if is_owner:
-				tower_inventory = selected_tower.get_item_container()
+	if selected_unit is Tower:
+		var selected_tower: Tower = selected_unit as Tower
+		var tower_belongs_to_local_player: bool = selected_tower.belongs_to_local_player()
+		
+		# do not allow instant move to other players' towers regardless if it allowed otherwise
+		if tower_belongs_to_local_player:
+			tower_inventory = selected_tower.get_item_container()
 	
 	var item_is_in_item_stash: bool = container == item_stash
 	var item_is_in_selected_tower: bool = container == tower_inventory
 	
-	var instantly_move_item_to_item_stash: bool = shift_click && !item_is_in_item_stash && !ctrl_click
-	var instantly_move_item_to_horadric_cube_from_stash: bool = shift_click && item_is_in_item_stash && !ctrl_click
-	var instantly_move_item_to_horadric_cube_from_tower: bool = !shift_click && item_is_in_selected_tower && ctrl_click
-	var instantly_move_item_to_tower: bool = !shift_click && !item_is_in_selected_tower && ctrl_click && tower_inventory != null
-	
-	var instant_move: bool = instantly_move_item_to_item_stash or instantly_move_item_to_horadric_cube_from_stash \
-		or instantly_move_item_to_horadric_cube_from_tower or instantly_move_item_to_tower
-	
-	if instant_move:
-		var target_container: ItemContainer = null
-	
-		if instantly_move_item_to_item_stash:
-			target_container = item_stash
-		elif instantly_move_item_to_horadric_cube_from_stash or instantly_move_item_to_horadric_cube_from_tower:
-			target_container = horadric_cube
-		elif instantly_move_item_to_tower:
-			target_container = tower_inventory
+	var instant_move_type: InstantMoveType = InstantMoveType.NONE
+	if shift_click:
+		if item_is_in_item_stash:
+			instant_move_type = InstantMoveType.FROM_ITEM_STASH_TO_HORADRIC_CUBE
 		else:
+			instant_move_type = InstantMoveType.FROM_ANY_TO_ITEM_STASH
+	elif ctrl_click:
+		if item_is_in_selected_tower:
+			instant_move_type = InstantMoveType.FROM_TOWER_TO_HORADRIC_CUBE
+		elif tower_inventory != null:
+			instant_move_type = InstantMoveType.FROM_ANY_TO_TOWER
+
+	if instant_move_type != InstantMoveType.NONE:
+		var target_container: ItemContainer
+		match instant_move_type:
+			InstantMoveType.NONE: target_container = null
+			InstantMoveType.FROM_ANY_TO_ITEM_STASH: target_container = item_stash
+			InstantMoveType.FROM_ANY_TO_TOWER: target_container = tower_inventory
+			InstantMoveType.FROM_TOWER_TO_HORADRIC_CUBE: target_container = horadric_cube
+			InstantMoveType.FROM_ITEM_STASH_TO_HORADRIC_CUBE: target_container = horadric_cube
+
+		if target_container == null:
 			return
 		
 		# instant move forces swap with the last slot if target_container is at capacity
 		var dest_has_space: bool = target_container.can_add_item(clicked_item)
 		var dest_idx: int = -1
-		if not dest_has_space:
+		if dest_has_space:
+			_add_move_action(clicked_item, container, target_container)
+		else:
 			var dest_item: Item = target_container.get_item_at_index(dest_idx)
 			_add_swap_action(clicked_item, dest_item, container, target_container)
-			
-			return
-			
-		_add_move_action(clicked_item, container, target_container)
 		
 		return
 	
