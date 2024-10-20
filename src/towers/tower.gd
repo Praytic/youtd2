@@ -1107,8 +1107,8 @@ func get_dps_with_crit() -> float:
 	var current_dmg_multiplier: float = 1.0
 
 	while multicrit_current > 0:
-		if current_crit_chance > Constants.ATK_MULTICRIT_DIMISHING:
-			current_dmg_multiplier *= Constants.ATK_MULTICRIT_DIMISHING
+		if current_crit_chance > Constants.ATK_CRIT_CHANCE_CAP:
+			current_dmg_multiplier *= Constants.ATK_CRIT_CHANCE_CAP
 		else:
 			current_dmg_multiplier *= current_crit_chance
 
