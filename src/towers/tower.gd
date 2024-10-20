@@ -1170,7 +1170,8 @@ func get_range() -> float:
 	var original_range: float = TowerProperties.get_range(_id)
 	var builder: Builder = get_player().get_builder()
 	var builder_range_bonus: float = builder.get_range_bonus()
-	var total_range: float = original_range + builder_range_bonus
+	var builder_attack_range_bonus: float = builder.get_attack_range_bonus()
+	var total_range: float = original_range + builder_range_bonus + builder_attack_range_bonus
 
 	return total_range
 

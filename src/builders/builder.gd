@@ -17,6 +17,7 @@ var _creep_modifier: Modifier
 var _allow_adjacent_towers: bool = true
 var _tower_lvl_bonus: int = 0
 var _range_bonus: float = 0.0
+var _attack_range_bonus: float = 0.0
 var _item_slots_bonus: int = 0
 var _adds_extra_recipes: bool = false
 var _tower_exp_bonus: float = 0.0
@@ -68,6 +69,8 @@ func get_tower_lvl_bonus() -> int:
 func get_range_bonus() -> float:
 	return _range_bonus
 
+func get_attack_range_bonus() -> float:
+	return _attack_range_bonus
 
 func get_item_slots_bonus() -> int:
 	return _item_slots_bonus
