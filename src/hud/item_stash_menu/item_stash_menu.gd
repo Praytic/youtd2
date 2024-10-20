@@ -22,7 +22,6 @@ const COLUMN_COUNT: int = 6
 @export var _horadric_item_container_panel: ItemContainerPanel
 @export var _transmute_button: Button
 
-@export var _sort_button: Button
 @export var _horadric_cube_avg_item_level_label: Label
 @export var _lock_filter_button: Button
 
@@ -363,6 +362,6 @@ func _on_sort_button_pressed():
 	
 
 
-func _on_lock_filter_button_toggled(toggled_on: bool):
+func _on_lock_filter_button_toggled(_toggled_on: bool):
 	_load_current_filter()
 	_update_autofill_buttons()
