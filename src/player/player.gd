@@ -44,6 +44,8 @@ var _team: Team = null
 var _total_damage: float = 0
 var _tower_count_for_starting_roll: int = INITIAL_TOWER_ROLL_COUNT
 var _element_level_map: Dictionary = {}
+var _max_element_level_bonus: int = 0
+var _max_tower_level_bonus: int = 0
 var _food: int = 0
 var _food_cap: int = INITIAL_FOOD_CAP
 var _income_rate: float = 1.0
@@ -243,6 +245,17 @@ func get_element_level(element: Element.enm) -> int:
 func get_element_level_map() -> Dictionary:
 	return _element_level_map
 
+func get_max_element_level_bonus() -> int:
+	return _max_element_level_bonus
+
+func get_max_element_level() -> int:
+	return Constants.MAX_ELEMENT_LEVEL + get_max_element_level_bonus()
+
+func get_max_tower_level_bonus() -> int:
+	return _max_tower_level_bonus
+
+func get_max_tower_level() -> int:
+	return Constants.MAX_LEVEL + get_max_element_level_bonus()
 
 func get_research_cost(element: Element.enm) -> int:
 	var level: int = get_element_level(element)
@@ -266,7 +279,7 @@ func can_afford_research(element: Element.enm) -> bool:
 func is_able_to_research(element: Element.enm) -> bool:
 	var can_afford: bool = can_afford_research(element)
 	var current_level: int = get_element_level(element)
-	var reached_max_level: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+	var reached_max_level: bool = current_level == get_max_element_level()
 	var is_able: bool = can_afford && !reached_max_level
 
 	return is_able

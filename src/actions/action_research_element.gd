@@ -23,7 +23,7 @@ static func execute(action: Dictionary, player: Player):
 
 static func verify(player: Player, element: Element.enm) -> bool:
 	var current_level: int = player.get_element_level(element)
-	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+	var element_at_max: bool = current_level == player.get_max_element_level()
 
 	if element_at_max:
 		Utils.add_ui_error(player, Utils.tr("MESSAGE_ELEMENT_AT_MAX_LEVEL"))
