@@ -59,10 +59,14 @@ func _generate_random_towers(player: Player) -> Array[int]:
 #	likely to not result in any towers at low element
 #	levels.
 	for element in element_list:
-		var tower: int = _generate_random_tower_for_element(player, element)
+		var chance_for_element: float = _get_chance_for_element(player, element)
+		while chance_for_element > 0:
+			var tower: int = _generate_random_tower_for_element(player, element, chance_for_element)
 
-		if tower != 0:
-			tower_list.append(tower)
+			if tower != 0:
+				tower_list.append(tower)
+			
+			chance_for_element -= 1.0
 
 #	If first pass rolled 0 towers, we do a second pass where
 #	we roll 1 tower by brute force. This pass will happen
@@ -209,8 +213,9 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 
 
 # Returns 0 if failed to generate
-func _generate_random_tower_for_element(player: Player, element: Element.enm) -> int:
-	var chance_for_element: float = _get_chance_for_element(player, element)
+func _generate_random_tower_for_element(player: Player, element: Element.enm, chance_for_element: float = -2.0) -> int:
+	if chance_for_element == -2.0:
+		chance_for_element = _get_chance_for_element(player, element)
 	
 	var roll_success: bool = Utils.rand_chance(Globals.synced_rng, chance_for_element)
 	if !roll_success:
