@@ -103,6 +103,16 @@ func _create_internal(effect_path: String) -> int:
 		effect.queue_free()
 		effect = Preloads.placeholder_effect_scene.instantiate()
 
+#	Silence SFX children of effect node, if SFX are disabled
+#	in settings
+	var sfx_are_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_SFX)
+	if !sfx_are_enabled:
+		var effect_child_list: Array[Node] = effect.get_children()
+
+		for effect_child in effect_child_list:
+			if effect_child is AudioStreamPlayer2D || effect_child is AudioStreamPlayer:
+				effect_child.autoplay = false
+
 	var id: int = _make_effect_id()
 	_effect_map[id] = effect
 	_effect_original_scale_map[id] = effect.scale

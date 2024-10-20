@@ -87,14 +87,14 @@ func on_autocast(event: Event):
 	
 	var game_scene: GameScene = get_tree().get_root().get_node("GameScene")
 	var build_space: BuildSpace = game_scene.get_build_space()
-	var can_build_at_pos: bool = build_space.can_build_at_pos(target_pos_canvas_snapped)
+	var can_build_at_pos: bool = build_space.can_build_at_pos(player, target_pos_canvas_snapped)
 
 	var dest_pos_canvas: Vector2
 
 	if can_build_at_pos:
 		dest_pos_canvas = target_pos_canvas_snapped
 	else:
-		var nearby_buildable_pos: Vector2 = find_nearby_buildable_pos(target_pos_wc3)
+		var nearby_buildable_pos: Vector2 = find_nearby_buildable_pos(player, target_pos_wc3)
 		var found_buildable_pos: bool = nearby_buildable_pos != Vector2.INF
 
 		if found_buildable_pos:
@@ -172,7 +172,7 @@ func jumper_bt_on_cleanup(_event: Event):
 	tower.set_transform_is_allowed(true)
 
 
-func find_nearby_buildable_pos(target_pos: Vector2):
+func find_nearby_buildable_pos(player: Player, target_pos: Vector2):
 	var game_scene: GameScene = get_tree().get_root().get_node("GameScene")
 	var build_space: BuildSpace = game_scene.get_build_space()
 
@@ -198,7 +198,7 @@ func find_nearby_buildable_pos(target_pos: Vector2):
 
 	for neighbor in neighbor_list:
 		var neighbor_canvas: Vector2 = VectorUtils.wc3_2d_to_canvas(neighbor)
-		var can_build_at_neighbor: bool = build_space.can_build_at_pos(neighbor_canvas)
+		var can_build_at_neighbor: bool = build_space.can_build_at_pos(player, neighbor_canvas)
 
 		if can_build_at_neighbor:
 			return neighbor_canvas

@@ -1,4 +1,4 @@
-class_name GameScene extends Node
+iclass_name GameScene extends Node
 
 
 @export var _game_menu: Control
@@ -41,12 +41,10 @@ func _ready():
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
-	
-	var buildable_cells: Array[Vector2i] = _map.get_buildable_cells()
-	_build_space.set_buildable_cells(buildable_cells)
 
 	_hud.set_game_start_timer(_game_start_timer)
 	
+	EventBus.player_requested_help.connect(_on_player_requested_help)
 	EventBus.player_requested_quit_to_title.connect(_on_player_requested_quit_to_title)
 	EventBus.player_selected_builder.connect(_on_player_selected_builder)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -94,6 +92,10 @@ func _ready():
 	for player in player_list:
 		player.voted_ready.connect(_on_player_voted_ready)
 	
+	for player in player_list:
+		var buildable_cells: Array[Vector2i] = _map.get_buildable_cells(player)
+		_build_space.set_buildable_cells(player, buildable_cells)
+	
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:
 			var tower_stash: TowerStash = player.get_tower_stash()
@@ -110,7 +112,9 @@ func _ready():
 			item_stash.add_item(item)
 
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	
+
+	_check_nodes_mapped_to_players()
+
 	_camera.position = _get_camera_origin_pos()
 	
 #	NOTE: when game initially starts, we need to wait a bit for client-host connection to be established. Until that point, show shadows to block input and indicate that input is not possible.
@@ -278,18 +282,26 @@ func _setup_players():
 		return
 	
 #	Create teams
-#	TODO: create an amount of teams which is appropriate for
-#	the amount of players and selected team mode
-	var team: Team = Team.make(1)
-	_team_container.add_team(team)
+	var team_mode: TeamMode.enm = Globals.get_team_mode()
+	var player_count_per_team: int = TeamMode.get_player_count_per_team(team_mode)
+	var player_count: int = peer_id_list.size()
+	var team_count: int = ceili(player_count * 1.0 / player_count_per_team)
+
+	for i in range(0, team_count):
+		var team: Team = Team.make(i)
+		_team_container.add_team(team)
 
 	var connection_type: Globals.ConnectionType = Globals.get_connect_type()
 
-#	TODO: implement different team modes and assign teams
-#	based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
-		
+
+#		NOTE: multiply player id in "1 player per team" mode
+#		by 2 because the second slot in teams is not
+#		occupied
+		if team_mode == TeamMode.enm.ONE_PLAYER_PER_TEAM:
+			player_id *= 2
+
 		var user_id: String
 		match connection_type:
 			Globals.ConnectionType.ENET:
@@ -298,8 +310,20 @@ func _setup_players():
 				var webrtc_player: OnlineMatch.WebrtcPlayer = OnlineMatch.get_player_by_peer_id(peer_id)
 				user_id = webrtc_player.user_id
 
-		var player: Player = team.create_player(player_id, peer_id, user_id)
+		var player: Player = Player.make(player_id, peer_id, user_id)
 		PlayerManager.add_player(player)
+
+#	Assign players to teams
+	var remaining_player_list: Array[Player] = PlayerManager.get_player_list()
+	var team_list: Array[Team] = _team_container.get_team_list()
+
+	for team in team_list:
+		for i in range(0, player_count_per_team):
+			if remaining_player_list.is_empty():
+				break
+
+			var player: Player = remaining_player_list.pop_front()
+			team.add_player(player)
 
 
 func _start_game():
@@ -324,6 +348,59 @@ func _toggle_autocast(autocast: Autocast):
 
 	var action: Action = ActionToggleAutocast.make(autocast_uid)
 	_game_client.add_action(action)
+
+
+# NOTE: this f-n checks nodes that are mapped to player
+# id's. If any of the players are not mapped, this will
+# print an error. For example, each of the 8 players must
+# have a camera origin node mapped to it.
+func _check_nodes_mapped_to_players():
+#	Collect all mapped nodes
+	var camera_origin_check_list: Array[int] = []
+	var camera_origin_list: Array[Node] = get_tree().get_nodes_in_group("camera_origins")
+	for node in camera_origin_list:
+		var camera_origin: CameraOrigin = node as CameraOrigin
+		var player_id: int = camera_origin.player_id
+		camera_origin_check_list.append(player_id)
+
+	var air_wave_path_check_list: Array[int] = []
+	var ground_wave_path_check_list: Array[int] = []
+	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
+	for node in wave_path_list:
+		var wave_path: WavePath = node as WavePath
+		var path_is_air: int = wave_path.is_air
+		var player_id: int = wave_path.player_id
+
+		if path_is_air:
+			air_wave_path_check_list.append(player_id)
+		else:
+			ground_wave_path_check_list.append(player_id)
+
+	var buildable_area_check_list: Array[int] = []
+	var buildable_area_list: Array = get_tree().get_nodes_in_group("buildable_areas")
+	for node in buildable_area_list:
+		var buildable_area: BuildableArea = node as BuildableArea
+		var player_id: int = buildable_area.player_id
+
+		buildable_area_check_list.append(player_id)
+
+#	Check that all players have correct sets of mapped nodes
+	for player_id in range(0, Constants.PLAYER_COUNT_MAX):
+		var player_has_camera_origin: bool = camera_origin_check_list.has(player_id)
+		if !player_has_camera_origin:
+			push_error("Camera origin is not setup for player %d!" % player_id)
+
+		var player_has_ground_wave_path: bool = ground_wave_path_check_list.has(player_id)
+		if !player_has_ground_wave_path:
+			push_error("Ground path is not setup for player %d!" % player_id)
+
+		var player_has_air_wave_path: bool = air_wave_path_check_list.has(player_id)
+		if !player_has_air_wave_path:
+			push_error("Air path is not setup for player %d!" % player_id)
+
+		var player_has_buildable_area: bool = buildable_area_check_list.has(player_id)
+		if !player_has_buildable_area:
+			push_error("Buildable area is not setup for player %d!" % player_id)
 
 
 func _get_camera_origin_pos() -> Vector2:
@@ -417,7 +494,7 @@ func _toggle_game_menu():
 	_game_menu.visible = !_game_menu.visible
 
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	if player_mode == PlayerMode.enm.SINGLE:
+	if player_mode == PlayerMode.enm.SINGLEPLAYER:
 		var toggled_paused_value: bool = !get_tree().paused
 		_set_game_paused(toggled_paused_value)
 
@@ -712,9 +789,7 @@ func _on_player_selected_builder():
 
 	Messages.add_normal(local_player, "Welcome to You TD 2!")
 	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
-	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
-	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start game[/color].")
+	Messages.add_normal(local_player, "Type [color=GOLD]/help[/color] to see helpful information about the game.")
 
 
 func _on_player_voted_ready():
@@ -786,6 +861,11 @@ func _on_player_requested_to_sort_item_stash():
 	_game_client.add_action(action)
 
 
+func _on_player_requested_help():
+	_toggle_game_menu()
+	_game_menu.switch_to_help_menu()
+
+
 func _on_game_menu_quit_pressed():
 	_quit_to_title()
 
@@ -817,7 +897,7 @@ func _on_tutorial_controller_tutorial_triggered(tutorial_id):
 		return
 	
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
-	var player_mode_is_single: bool = player_mode == PlayerMode.enm.SINGLE
+	var player_mode_is_single: bool = player_mode == PlayerMode.enm.SINGLEPLAYER
 	if !player_mode_is_single:
 		return
 

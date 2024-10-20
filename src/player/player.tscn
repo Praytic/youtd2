@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc5f84ah71fsh"]
+[gd_scene load_steps=6 format=3 uid="uid://cc5f84ah71fsh"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_qsf5w"]
 [ext_resource type="Script" path="res://src/items/item_container.gd" id="2_ietwb"]
 [ext_resource type="Script" path="res://src/player/tower_stash.gd" id="3_rmd8h"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://src/creeps/wave_spawner.tscn" id="4_7cd82"]
+[ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="5_146xb"]
 
 [node name="Player" type="Node" node_paths=PackedStringArray("_item_stash", "_horadric_stash", "_tower_stash", "_wave_spawner")]
 script = ExtResource("1_qsf5w")
@@ -24,6 +25,9 @@ _capacity = 6
 script = ExtResource("3_rmd8h")
 
 [node name="WaveSpawner" parent="." instance=ExtResource("4_7cd82")]
+
+[node name="StartWaveCooldownTimer" type="Node" parent="."]
+script = ExtResource("5_146xb")
 
 [connection signal="wave_finished" from="WaveSpawner" to="." method="_on_wave_spawner_wave_finished"]
 [connection signal="wave_spawned" from="WaveSpawner" to="." method="_on_wave_spawner_wave_spawned"]

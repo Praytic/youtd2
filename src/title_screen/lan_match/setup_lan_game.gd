@@ -175,9 +175,10 @@ func _on_lan_lobby_menu_start_pressed():
 	var difficulty: Difficulty.enm = _current_match_config.get_difficulty()
 	var game_length: int = _current_match_config.get_game_length()
 	var game_mode: GameMode.enm = _current_match_config.get_game_mode()
+	var team_mode: TeamMode.enm = _current_match_config.get_team_mode()
 	var origin_seed: int = randi()
 	
-	_title_screen.start_game.rpc(PlayerMode.enm.COOP, game_length, game_mode, difficulty, origin_seed, Globals.ConnectionType.ENET)
+	_title_screen.start_game.rpc(PlayerMode.enm.MULTIPLAYER, game_length, game_mode, difficulty, team_mode, origin_seed, Globals.ConnectionType.ENET)
 
 
 func _on_lan_connect_menu_join_pressed():

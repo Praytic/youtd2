@@ -5,20 +5,22 @@ signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
 
-@export var cam_move_speed_base: float = 1500.0
-@export var zoom_min: float = 0.7
-@export var zoom_max: float = 1.1
-@export var zoom_sensitivity: float = 1.0
-@export var mousewheel_zoom_speed: float = 0.4
-@export var SLOW_SCROLL_MARGIN: float = 0.010
-@export var FAST_SCROLL_MARGIN: float = 0.002
-@export var SLOW_SCROLL_MULTIPLIER: float = 0.5
+const MOVE_SPEED_BASE: float = 1500.0
+const ZOOM_MIN: float = 0.5
+const ZOOM_MAX: float = 1.1
+const ZOOM_SPEED_FOR_TOUCHPAD_WINDOWS: float = 1.0
+const ZOOM_SPEED_FOR_TOUCHPAD_MAC: float = 0.1
+const ZOOM_SPEED_FOR_MOUSEWHEEL: float = 0.2
+const SLOW_SCROLL_MARGIN: float = 0.010
+const FAST_SCROLL_MARGIN: float = 0.002
+const SLOW_SCROLL_MULTIPLIER: float = 0.5
 
 
-var _zoom_multiplier: float = 1.0
+var _current_zoom_value: float = 1.0
 var _drag_origin: Vector2 = Vector2.INF
 var _keyboard_enabled: bool = true
 var _any_input_enabled: bool = true
+var _zoom_speed_for_touchpad: float
 
 
 #########################
@@ -27,7 +29,9 @@ var _any_input_enabled: bool = true
 
 func _ready():
 	if OS.get_name() == "macOS":
-		zoom_sensitivity = 0.1
+		_zoom_speed_for_touchpad = ZOOM_SPEED_FOR_TOUCHPAD_MAC
+	else:
+		_zoom_speed_for_touchpad = ZOOM_SPEED_FOR_TOUCHPAD_WINDOWS
 
 
 func _process(delta):
@@ -136,12 +140,12 @@ func _unhandled_input(event: InputEvent):
 	if !_any_input_enabled:
 		return
 	
-	var new_zoom_multiplier: float = _get_new_zoom_multiplier(event)
-	var zoom_multiplier_changed: bool = new_zoom_multiplier != _zoom_multiplier
+	var new_zoom_value: float = _calculate_new_zoom_value(event)
+	var zoom_multiplier_changed: bool = new_zoom_value != _current_zoom_value
 
 	if zoom_multiplier_changed:
-		_zoom_multiplier = new_zoom_multiplier
-		camera_zoomed.emit(_zoom_multiplier)
+		_current_zoom_value = new_zoom_value
+		camera_zoomed.emit(_current_zoom_value)
 		update_zoom()
 
 
@@ -165,7 +169,7 @@ func set_any_input_enabled(value: bool):
 # renders.
 func update_zoom():
 	var interface_size: float = Settings.get_interface_size()
-	zoom = Vector2.ONE * _zoom_multiplier / interface_size
+	zoom = Vector2.ONE * _current_zoom_value / interface_size
 
 
 #########################
@@ -173,14 +177,14 @@ func update_zoom():
 #########################
 
 # Gets modified zoom multiplier after applying player input
-func _get_new_zoom_multiplier(event: InputEvent) -> float:
+func _calculate_new_zoom_value(event: InputEvent) -> float:
 	var zoom_change: float
 
 	if event is InputEventMagnifyGesture && Config.enable_zoom_by_touchpad():
-		zoom_change = -(event.factor - 1.0) * zoom_sensitivity
+		zoom_change = -(event.factor - 1.0) * _zoom_speed_for_touchpad
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
 #		Make zoom change slower as the camera gets more zoomed in
-		var slow_down_multiplier: float = _zoom_multiplier / zoom_max
+		var slow_down_multiplier: float = _current_zoom_value / ZOOM_MAX
 		var zoom_change_direction: int
 		match event.get_button_index():
 			MOUSE_BUTTON_WHEEL_DOWN:
@@ -190,12 +194,12 @@ func _get_new_zoom_multiplier(event: InputEvent) -> float:
 			_:
 				zoom_change_direction = 0
 
-		zoom_change = zoom_change_direction * mousewheel_zoom_speed * slow_down_multiplier
+		zoom_change = zoom_change_direction * ZOOM_SPEED_FOR_MOUSEWHEEL * slow_down_multiplier
 	else:
 		zoom_change = 0.0
 
-	var new_zoom: float = _zoom_multiplier + zoom_change
-	new_zoom = clampf(new_zoom, zoom_min, zoom_max)
+	var new_zoom: float = _current_zoom_value + zoom_change
+	new_zoom = clampf(new_zoom, ZOOM_MIN, ZOOM_MAX)
 
 	return new_zoom
 
@@ -205,7 +209,7 @@ func _get_new_zoom_multiplier(event: InputEvent) -> float:
 func _get_cam_speed_from_setting(setting: String) -> float:
 	var setting_value: float = Settings.get_setting(setting) as float
 	var speed_ratio: float = 1.0 + 2.0 * setting_value
-	var speed: float = cam_move_speed_base * speed_ratio
+	var speed: float = MOVE_SPEED_BASE * speed_ratio
 
 	return speed
 

@@ -10,6 +10,13 @@ var _combo_index_to_game_length: Dictionary = {
 @export var _difficulty_combo: OptionButton
 @export var _game_length_combo: OptionButton
 @export var _game_mode_combo: OptionButton
+@export var _team_mode_label: Label
+@export var _team_mode_combo: OptionButton
+
+
+func hide_team_mode_selector():
+	_team_mode_label.hide()
+	_team_mode_combo.hide()
 
 
 func set_difficulty(difficulty: Difficulty.enm):
@@ -58,10 +65,18 @@ func get_game_mode() -> GameMode.enm:
 	return game_mode
 
 
+func get_team_mode() -> TeamMode.enm:
+	var selected_index: int = _team_mode_combo.get_selected()
+	var team_mode: TeamMode.enm = selected_index as TeamMode.enm
+	
+	return team_mode
+
+
 func get_match_config() -> MatchConfig:
 	var game_mode: GameMode.enm = get_game_mode()
 	var difficulty: Difficulty.enm = get_difficulty()
 	var game_length: int = get_game_length()
-	var match_config: MatchConfig = MatchConfig.new(game_mode, difficulty, game_length)
+	var team_mode: TeamMode.enm = get_team_mode()
+	var match_config: MatchConfig = MatchConfig.new(game_mode, difficulty, game_length, team_mode)
 	
 	return match_config

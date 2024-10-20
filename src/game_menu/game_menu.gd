@@ -15,6 +15,10 @@ signal quit_pressed()
 @export var _tab_container: TabContainer
 
 
+func switch_to_help_menu():
+	_tab_container.current_tab = Tab.HELP
+
+
 func _on_continue_button_pressed():
 	continue_pressed.emit()
 

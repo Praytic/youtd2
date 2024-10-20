@@ -3,16 +3,21 @@
 [ext_resource type="Script" path="res://src/player/team.gd" id="1_58bum"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_r2jva"]
 
-[node name="Team" type="Node" node_paths=PackedStringArray("_next_wave_timer", "_portal_damage_sound_cooldown_timer")]
+[node name="Team" type="Node" node_paths=PackedStringArray("_next_wave_timer", "_portal_damage_sound_cooldown_timer", "_start_wave_action_cooldown_timer")]
 script = ExtResource("1_58bum")
 _next_wave_timer = NodePath("NextWaveTimer")
 _portal_damage_sound_cooldown_timer = NodePath("PortalDamageSoundCooldownTimer")
+_start_wave_action_cooldown_timer = NodePath("StartWaveActionCooldownTimer")
 
 [node name="NextWaveTimer" type="Node" parent="."]
 script = ExtResource("2_r2jva")
 one_shot = true
 
 [node name="PortalDamageSoundCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StartWaveActionCooldownTimer" type="Node" parent="."]
+script = ExtResource("2_r2jva")
 one_shot = true
 
 [connection signal="timeout" from="NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
