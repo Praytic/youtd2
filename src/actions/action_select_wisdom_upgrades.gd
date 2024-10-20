@@ -51,7 +51,7 @@ static func execute(action: Dictionary, player: Player):
 		player.get_builder()._attack_range_bonus += bonus_attack_range
 	
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ELEMENTAL_OVERLOAD]:
-		var max_element_level_bonus: int = 3
+		var max_element_level_bonus: int = 2
 		player._max_element_level_bonus += max_element_level_bonus
 		
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.PINNACLE_OF_POWER]:
