@@ -45,6 +45,10 @@ static func execute(action: Dictionary, player: Player):
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.FOUNDATION_OF_KNOWLEDGE]:
 		var tower_bonus_exp: float = 30 * builder_wisdom_multiplier
 		player.get_builder()._tower_exp_bonus += tower_bonus_exp
+	
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_OPTICS]:
+		var bonus_attack_range: float = 20 * builder_wisdom_multiplier
+		player.get_builder()._attack_range_bonus += bonus_attack_range
 
 
 static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, builder_wisdom_multiplier: float) -> Modifier:
