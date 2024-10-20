@@ -28,8 +28,10 @@ func _init(name_english_arg: String, radius_arg: float, target_type: TargetType 
 
 func get_radius_with_builder_bonus(player: Player):
 	var builder: Builder = player.get_builder()
-	var radius_bonus: float = builder.get_range_bonus()
-	var with_bonus: float = radius + radius_bonus
+	var with_bonus: float = radius
+	if affected_by_builder or is_attack_range:
+		var radius_bonus: float = builder.get_range_bonus()
+		with_bonus += radius_bonus
 	
 	if is_attack_range:
 		with_bonus += builder.get_attack_range_bonus()
