@@ -1,4 +1,4 @@
-iclass_name GameScene extends Node
+class_name GameScene extends Node
 
 
 @export var _game_menu: Control
