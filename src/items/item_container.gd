@@ -168,6 +168,44 @@ func get_highest_index() -> int:
 	return _highest_index
 
 
+func _item_value_func(item: Item):
+	var value: int = 0
+	
+	value += item.get_id()
+	# below assumes max values of ids, level and rarity with safe margins
+	value += item.get_required_wave_level() * int(1e+6)
+	value += item.get_rarity() * int(1e+10)
+	value += int(item.get_item_type() == ItemType.enm.REGULAR) * int(1e+12)
+	return value
+
+
+# NOTE: this function MUST be called only by
+# ActionSortItemStash.execute(). Otherwise, desyncs in
+# multiplayer are possible.
+func sort_items_by_type_rarity_and_levels():
+	var new_item_list_with_slots: Array[Item] = []
+	new_item_list_with_slots.resize(_item_list_with_slots.size())
+	var new_item_to_index_map: Dictionary = {}
+	
+	var item_values: Dictionary = {}
+	for item in _item_list:
+		item_values[item] = _item_value_func(item)
+	
+	var _sorting_func = func(item1: Item, item2: Item):
+		return item_values[item1] < item_values[item2]
+		
+	_item_list.sort_custom(_sorting_func)
+	
+	var index: int = 0
+	for item in _item_list:
+		new_item_list_with_slots[index] = item
+		new_item_to_index_map[item] = index
+		index += 1
+		
+	_item_list_with_slots = new_item_list_with_slots
+	_item_to_index_map = new_item_to_index_map
+	items_changed.emit()
+
 #########################
 ###     Callbacks     ###
 #########################

@@ -22,6 +22,8 @@ const COLUMN_COUNT: int = 6
 @export var _horadric_item_container_panel: ItemContainerPanel
 @export var _transmute_button: Button
 
+@export var _horadric_cube_avg_item_level_label: Label
+@export var _lock_filter_button: Button
 
 #########################
 ### Code starts here  ###
@@ -48,7 +50,7 @@ func _ready():
 #		NOTE: recipe buttons start out disabled until items
 #		are added to item stash
 		recipe_button.disabled = true
-
+	
 
 #########################
 ###       Public      ###
@@ -96,8 +98,11 @@ func _make_item_button(item: Item) -> ItemButton:
 func _get_filter_is_none() -> bool:
 	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
+	var lock_filter: bool = _lock_filter_button.is_pressed()
 	
-	var filter_is_none: bool = rarity_filter.size() == Rarity.get_list().size() && item_type_filter.size() == ItemType.get_list().size()
+	var filter_is_none: bool = rarity_filter.size() == Rarity.get_list().size() \
+	 && item_type_filter.size() == ItemType.get_list().size() && \
+	!lock_filter
 
 	return filter_is_none
 
@@ -121,6 +126,7 @@ func _load_current_filter():
 #	current filter
 	var rarity_filter: Array[Rarity.enm] = _rarity_filter.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
+	var lock_filter: bool = _lock_filter_button.is_pressed()
 	
 #	When there's a filter, hide all empty slots and show
 #	item buttons which match the filter
@@ -138,9 +144,13 @@ func _load_current_filter():
 
 		var rarity: Rarity.enm = item.get_rarity()
 		var item_type: ItemType.enm = item.get_item_type()
+		var lock_enabled: bool = item.get_horadric_lock_is_enabled()
+		
 		var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
 		var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
-		var filter_match: bool = rarity_match && item_type_match
+		var lock_match: bool = lock_enabled || !lock_filter
+		
+		var filter_match: bool = rarity_match && item_type_match && lock_match
 
 		button.visible = filter_match
 
@@ -180,6 +190,20 @@ func _get_visible_item_list() -> Array[Item]:
 
 	return list
 
+
+func _set_horadric_cube_average_level():
+	var text: String = 'Average item level: '
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var items_in_horadric_stash: Array[Item] = horadric_stash.get_item_list()
+	
+	var avg_level: int = HoradricCube._get_average_ingredient_level(items_in_horadric_stash)
+	
+	text += "%s" % avg_level
+	
+	_horadric_cube_avg_item_level_label.text = text
+	
 
 #########################
 ###     Callbacks     ###
@@ -304,6 +328,7 @@ func _on_horadric_stash_items_changed():
 #	temporarily be unavailable during the move process, so
 #	updating only after item stash change is not enough.
 	_update_autofill_buttons()
+	_set_horadric_cube_average_level()
 
 
 # NOTE: this callback is needed to implement "move item from
@@ -328,3 +353,12 @@ func _on_item_grid_gui_input(event):
 		var item_stash: ItemContainer = local_player.get_item_stash()
 
 		EventBus.player_clicked_in_item_container.emit(item_stash, -1)
+
+
+func _on_sort_button_pressed():
+	EventBus.player_requested_to_sort_item_stash.emit()
+
+
+func _on_lock_filter_button_toggled(_toggled_on: bool):
+	_load_current_filter()
+	_update_autofill_buttons()
