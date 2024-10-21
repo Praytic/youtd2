@@ -123,12 +123,14 @@ func set_autospawn_time(time: float):
 
 
 func play_portal_damage_sfx():
-	var portal_damage_sfx_on_cooldown: bool = _portal_damage_sound_cooldown_timer.is_stopped()
+	var portal_damage_sfx_on_cooldown: bool = !_portal_damage_sound_cooldown_timer.is_stopped()
 	
-	if !portal_damage_sfx_on_cooldown:
-		SFX.play_sfx_for_team(self, SfxPaths.HUMAN_DEATH_EXPLODE)
+	if portal_damage_sfx_on_cooldown:
+		return
+	
+	SFX.play_sfx_for_team(self, SfxPaths.HUMAN_DEATH_EXPLODE)
 
-		_portal_damage_sound_cooldown_timer.start(PORTAL_DAMAGE_SFX_COOLDOWN)
+	_portal_damage_sound_cooldown_timer.start(PORTAL_DAMAGE_SFX_COOLDOWN)
 
 
 func convert_local_player_score_to_exp():
