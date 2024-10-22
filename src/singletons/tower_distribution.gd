@@ -224,10 +224,17 @@ func _generate_random_tower_for_element(player: Player, element: Element.enm) ->
 	max_cost *= cost_multiplier_for_rarity
 
 	var group_map: Dictionary
+	var weight_cost_power: float
 	match Globals.get_game_mode():
-		GameMode.enm.RANDOM_WITH_UPGRADES: group_map = _tower_groups_first_tier_only
-		GameMode.enm.TOTALLY_RANDOM: group_map = _tower_groups_all_tiers
-		_: group_map = {}
+		GameMode.enm.RANDOM_WITH_UPGRADES: 
+			group_map = _tower_groups_first_tier_only
+			weight_cost_power = 0.25
+		GameMode.enm.TOTALLY_RANDOM: 
+			group_map = _tower_groups_all_tiers
+			weight_cost_power = 0.8
+		_: 
+			group_map = {}
+			weight_cost_power = 0.0
 
 #	Remove all towers which are above max cost. If group
 #	ends up being empty, reduce rarity.
@@ -252,15 +259,21 @@ func _generate_random_tower_for_element(player: Player, element: Element.enm) ->
 
 #	NOTE: adjust chance of picking a tower based on it's
 #	cost
-#	- if cost is 50, then weight is ~2287
-#	- if cost is 100, then weight is ~8000
+#	for total random:
+#	- if cost is 50, then weight is ~22.87
+#	- if cost is 100, then weight is ~39.81
+#	- that means for if tower is 2x more expensive it is x1.741 likelier to appear
+#	for random with upgrade:
+#	- if cost is 50, then weight is ~2.659
+#	- if cost is 100, then weight is ~3.162
+#	- that means for if tower is 2x more expensive it is x1.189 likelier to appear
 #	This means that we will pick towers with higher costs
 #	more often. This way, the player will get the most
 #	powerful towers available at the moment.
 	var group_weights: Dictionary = {}
 	for tower in group:
 		var cost: int = TowerProperties.get_cost(tower)
-		var weight: float = floorf(100 * pow(cost, 0.8))
+		var weight: float = pow(cost, weight_cost_power)
 		group_weights[tower] = weight
 
 	var random_tower: int = Utils.random_weighted_pick(Globals.synced_rng, group_weights)
