@@ -126,8 +126,7 @@ func on_create(preceding_tower: Tower):
 		return
 
 	var preceding_kills: int = preceding_tower.get_kills()
-	# AddUnitAnimationProperties(tower.getUnit(), "stand alternate", false)
-	tower.add_mana(preceding_kills)
+	tower.modify_property(Modification.Type.MOD_MANA, preceding_kills)
 
 
 func aura_bt_on_create(event: Event):
