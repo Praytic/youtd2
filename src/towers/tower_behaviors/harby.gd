@@ -114,7 +114,7 @@ func on_attack(event: Event):
 
 
 func on_kill(_event: Event):
-	tower.add_mana(1)
+	tower.modify_property(Modification.Type.MOD_MANA, 1)
 
 
 func on_spell_targeted(_event: Event):
