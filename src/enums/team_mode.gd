@@ -21,10 +21,10 @@ static var _display_string_map: Dictionary = {
 }
 
 
-static var _player_count_max_map: Dictionary = {
-	TeamMode.enm.ONE_PLAYER_PER_TEAM: 4,
-	TeamMode.enm.TWO_PLAYERS_PER_TEAM: 8,
-}
+#static var _player_count_max_map: Dictionary = {
+	#TeamMode.enm.ONE_PLAYER_PER_TEAM: 4,
+	#TeamMode.enm.TWO_PLAYERS_PER_TEAM: 8,
+#}
 
 
 static var _player_count_per_team_map: Dictionary = {
@@ -52,8 +52,12 @@ static func convert_to_display_string(type: TeamMode.enm):
 	return _display_string_map[type]
 
 
-static func get_player_count_max(type: TeamMode.enm):
-	return _player_count_max_map[type]
+# NOTE: always returning 2 because 8player map is
+# disabled/not implemented
+static func get_player_count_max(_type: TeamMode.enm):
+	# return _player_count_max_map[type]
+
+	return 1
 
 
 static func get_player_count_per_team(type: TeamMode.enm):

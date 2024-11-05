@@ -69,10 +69,12 @@ popup/item_2/text = "Totally random"
 popup/item_2/id = 2
 
 [node name="TeamModeLabel" type="Label" parent="."]
+visible = false
 layout_mode = 2
 text = "Team mode:"
 
 [node name="TeamModeCombo" type="OptionButton" parent="."]
+visible = false
 layout_mode = 2
 tooltip_text = "Co-op - 2 players per team
 FFA - 1 player per team"
