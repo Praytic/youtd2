@@ -280,7 +280,9 @@ func leave(close_socket: bool = false, leave_match: bool = true) -> void:
 	# WebRTC disconnect.
 	if _webrtc_multiplayer:
 		_webrtc_multiplayer.close()
-		get_tree().get_multiplayer().set_multiplayer_peer(null)
+
+		var default_peer: OfflineMultiplayerPeer = OfflineMultiplayerPeer.new()
+		get_tree().get_multiplayer().set_multiplayer_peer(default_peer)
 
 	# Nakama disconnect.
 	if _nakama_socket:
