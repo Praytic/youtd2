@@ -57,7 +57,7 @@ static func convert_to_display_string(type: TeamMode.enm):
 static func get_player_count_max(_type: TeamMode.enm):
 	# return _player_count_max_map[type]
 
-	return 1
+	return 2
 
 
 static func get_player_count_per_team(type: TeamMode.enm):
