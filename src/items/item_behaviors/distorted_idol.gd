@@ -101,6 +101,7 @@ func get_carrier_is_on_corner() -> bool:
 	var carrier: Tower = item.get_carrier()
 	var carrier_pos_canvas: Vector2 = carrier.get_visual_position()
 	var carrier_pos_map: Vector2i = build_space._convert_pos_canvas_to_map(carrier_pos_canvas)
+	var player: Player = carrier.get_player()
 	
 	var offset_list: Array[Vector2i] = [
 		Vector2i(2, 0),
@@ -113,7 +114,7 @@ func get_carrier_is_on_corner() -> bool:
 
 	for offset in offset_list:
 		var neighbor_pos: Vector2i = carrier_pos_map + offset
-		var is_buildable: bool = build_space.buildable_cell_exists_at_pos(neighbor_pos)
+		var is_buildable: bool = build_space.buildable_cell_exists_at_pos(player, neighbor_pos)
 
 		if !is_buildable:
 			non_buildable_count += 1
