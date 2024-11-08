@@ -36,16 +36,23 @@ var _map: Map = null
 func _ready():
 	print_verbose("GameScene has loaded.")
 	
+	Globals.reset()
+	PlayerManager.reset()
+	GroupManager.reset()
+
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	match player_mode:
 		PlayerMode.enm.SINGLEPLAYER:
 			_map = _map_small
 		PlayerMode.enm.MULTIPLAYER:
-			_map = _map_small
+			var map_big_scene: PackedScene = load("res://src/map/map_big.tscn")
+			var map_big: Map = map_big_scene.instantiate()
+			_map_small.add_sibling(map_big)
+			_map = map_big
+			_map_small.get_parent().remove_child(_map_small)
+			_map_small.queue_free()
 	
-	Globals.reset()
-	PlayerManager.reset()
-	GroupManager.reset()
+	Globals._map = _map
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)

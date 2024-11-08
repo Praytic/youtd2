@@ -8,8 +8,6 @@ extends Control
 @onready var item_ids: Array = []
 @export var position_info_label: Label
 
-@onready var _map = get_tree().get_root().get_node("GameScene/World/Map")
-
 func _ready():
 	for dev_control in dev_controls:
 		dev_control.close_requested.connect(func (): dev_control.hide())

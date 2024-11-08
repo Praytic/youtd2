@@ -22,6 +22,8 @@ var _update_ticks_per_physics_tick: int = 1
 var _connection_type: ConnectionType = ConnectionType.ENET
 var _enet_peer_id_to_player_name: Dictionary = {}
 var _title_screen_notification_list: Array[String] = []
+var _map: Map = null
+
 
 # NOTE: you must use random functions via one of the
 # RandomNumberGenerator instances below. This is to prevent
@@ -102,6 +104,10 @@ func get_player_name_from_peer_id(peer_id: int):
 	var player_name: String = _enet_peer_id_to_player_name.get(peer_id, "")
 
 	return player_name
+
+
+func get_map() -> Map:
+	return _map
 
 
 func add_title_screen_notification(text: String):

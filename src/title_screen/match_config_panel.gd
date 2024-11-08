@@ -65,15 +65,11 @@ func get_game_mode() -> GameMode.enm:
 	return game_mode
 
 
-# NOTE: always returning TWO_PLAYERS_PER_TEAM team mode
-# because 8player map is disabled/not implemented
 func get_team_mode() -> TeamMode.enm:
-	# var selected_index: int = _team_mode_combo.get_selected()
-	# var team_mode: TeamMode.enm = selected_index as TeamMode.enm
+	var selected_index: int = _team_mode_combo.get_selected()
+	var team_mode: TeamMode.enm = selected_index as TeamMode.enm
 	
-	# return team_mode
-
-	return TeamMode.enm.TWO_PLAYERS_PER_TEAM
+	return team_mode
 
 
 func get_match_config() -> MatchConfig:

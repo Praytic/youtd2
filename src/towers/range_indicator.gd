@@ -9,7 +9,6 @@ const POINT_COUNT: int = 100
 @export var radius: float
 @export var enable_floor_collisions: bool = true
 @export var color: Color
-@onready var _map = get_tree().get_root().get_node("GameScene/World/Map")
 
 # NOTE: y_offset is used by TowerPreview to draw range
 # indicator at an offset so that it's at same y coord as the
@@ -79,7 +78,8 @@ func _draw_circle_arc(center: Vector2, angle_from: float, angle_to: float):
 		var point_canvas: Vector2 = VectorUtils.top_down_to_canvas(point_top_down) + Vector2(0, y_offset)
 		
 		var global_point_pos: Vector2 = point_canvas + global_position
-		var pos_is_on_ground: bool = _map.pos_is_on_ground(global_point_pos)
+		var map: Map = Globals.get_map()
+		var pos_is_on_ground: bool = map.pos_is_on_ground(global_point_pos)
 		
 		if pos_is_on_ground && !on_ground:
 			on_ground_start_angle = prev_angle
