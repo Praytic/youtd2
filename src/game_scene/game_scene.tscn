@@ -191,16 +191,15 @@ script = ExtResource("8_n5fu4")
 _mouse_state = NodePath("../MouseState")
 _game_client = NodePath("../GameClient")
 
-[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_game_client")]
+[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_world", "_game_client")]
 script = ExtResource("9_tujdk")
 _mouse_state = NodePath("../MouseState")
-_map = NodePath("../../World/Map")
+_world = NodePath("../../World")
 _game_client = NodePath("../GameClient")
 
-[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_build_space", "_tower_preview", "_game_client")]
+[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_build_space", "_tower_preview", "_game_client")]
 script = ExtResource("10_tkjjb")
 _mouse_state = NodePath("../MouseState")
-_map = NodePath("../../World/Map")
 _build_space = NodePath("../BuildSpace")
 _tower_preview = NodePath("../../World/TowerPreview")
 _game_client = NodePath("../GameClient")

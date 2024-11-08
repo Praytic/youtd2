@@ -22,7 +22,7 @@ var _moved_item: Item = null
 
 
 @export var _mouse_state: MouseState
-@export var _map: Map
+@export var _world: Node2D
 @export var _game_client: GameClient
 
 
@@ -55,7 +55,7 @@ func process_click_on_nothing():
 	
 	var local_player: Player = PlayerManager.get_local_player()
 	var item_uid: int = _moved_item.get_uid()
-	var drop_pos: Vector2 = _map.get_global_mouse_position()
+	var drop_pos: Vector2 = _world.get_global_mouse_position()
 	var src_container_uid: int = _source_container.get_uid()
 
 	var verify_ok: bool = ActionDropItem.verify(local_player, _moved_item, _source_container)

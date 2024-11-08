@@ -4,7 +4,6 @@ class_name BuildTower extends Node
 # implement the process of building towers.
 
 @export var _mouse_state: MouseState
-@export var _map: Map
 @export var _build_space: BuildSpace
 @export var _tower_preview: TowerPreview
 @export var _game_client: GameClient
@@ -36,7 +35,7 @@ func start(tower_id: int, player: Player):
 	_tower_preview.set_tower(tower_id)
 	_tower_preview.show()
 
-	_map.set_buildable_area_visible(true)
+	EventBus.player_started_build_process.emit()
 
 
 # NOTE: it would've been better to use Action verify() f-ns
@@ -88,7 +87,7 @@ func cancel():
 
 	_mouse_state.set_state(MouseState.enm.NONE)
 	_tower_preview.hide()
-	_map.set_buildable_area_visible(false)
+	EventBus.player_stopped_build_process.emit()
 
 
 static func enough_resources_for_tower_only_gold_and_tomes(tower_id: int, player: Player) -> bool:

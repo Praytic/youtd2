@@ -89,6 +89,9 @@ func _ready():
 	
 	print_verbose("Set camera limits to [bottom: %s, top: %s, left: %s, right: %s]" % [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right])
 
+	EventBus.player_started_build_process.connect(_on_player_started_build_process)
+	EventBus.player_stopped_build_process.connect(_on_player_stopped_build_process)
+
 
 #########################
 ###       Public      ###
@@ -109,7 +112,7 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 	return tile_exists
 
 
-func set_buildable_area_visible(value: bool):
+func _set_buildable_area_visible(value: bool):
 	var local_player: Player = PlayerManager.get_local_player()
 	var buildable_area: BuildableArea = _get_buildable_area(local_player)
 	
@@ -130,3 +133,15 @@ func _get_buildable_area(player: Player) -> BuildableArea:
 			return buildable_area
 
 	return null
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_player_started_build_process():
+	_set_buildable_area_visible(true)
+
+
+func _on_player_stopped_build_process():
+	_set_buildable_area_visible(false)
