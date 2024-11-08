@@ -17,6 +17,7 @@ signal join_pressed(match_id: int)
 signal refresh_pressed()
 signal cancel_pressed()
 signal create_match_pressed()
+signal lan_pressed()
 
 
 const MATCH_CARD_COUNT_MAX: int = 50
@@ -180,3 +181,7 @@ func _on_create_match_button_pressed():
 
 func _on_refresh_button_pressed():
 	refresh_pressed.emit()
+
+
+func _on_lan_button_pressed() -> void:
+	lan_pressed.emit()

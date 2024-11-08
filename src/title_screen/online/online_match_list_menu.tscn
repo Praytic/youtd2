@@ -73,6 +73,7 @@ columns = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="CreateMatchButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -84,6 +85,10 @@ text = "Create match"
 layout_mode = 2
 focus_mode = 0
 text = "Refresh"
+
+[node name="LANButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "LAN Multiplayer"
 
 [node name="Spacer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -97,4 +102,5 @@ text = "Cancel"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CreateMatchButton" to="." method="_on_create_match_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

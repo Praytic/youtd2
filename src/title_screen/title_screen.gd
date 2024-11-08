@@ -151,3 +151,7 @@ func _on_profile_menu_close_pressed():
 
 func _on_create_online_match_menu_cancel_pressed():
 	_tab_container.current_tab = Tab.ONLINE_MATCH_LIST
+
+
+func _on_online_match_list_menu_lan_pressed() -> void:
+	_tab_container.current_tab = Tab.LAN_MATCH_LIST
