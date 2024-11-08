@@ -26,6 +26,7 @@ metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="ContinueButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
@@ -50,7 +51,6 @@ text = "Quit To Menu"
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false
 layout_mode = 2
-current_tab = 0
 metadata/_tab_index = 1
 
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]

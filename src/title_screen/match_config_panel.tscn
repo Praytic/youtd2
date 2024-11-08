@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/title_screen/match_config_panel.gd" id="1_wksi8"]
 
 [node name="MatchConfigPanel" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo", "_team_mode_label", "_team_mode_combo")]
+theme_override_constants/v_separation = 5
 columns = 2
 script = ExtResource("1_wksi8")
 _difficulty_combo = NodePath("DifficultyCombo")
