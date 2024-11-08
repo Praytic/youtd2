@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://src/game_scene/chat_commands.gd" id="16_amwbk"]
 [ext_resource type="Script" path="res://src/game_scene/build_space.gd" id="16_p1jwo"]
 [ext_resource type="Script" path="res://src/game_scene/tutorial_controller.gd" id="17_5cvlj"]
-[ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map.tscn" id="17_td8cv"]
+[ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map_small.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://src/creeps/wave_path.gd" id="18_m2fcq"]
 [ext_resource type="PackedScene" uid="uid://ccrjj36jwy707" path="res://src/player/camera_origin.tscn" id="19_icnp7"]
 [ext_resource type="Script" path="res://src/effects/effects_container.gd" id="20_rnpn6"]
@@ -137,12 +137,12 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_game_client", "_game_time", "_pause_shadow_rect", "_shadow_below_builder_menu", "_shadow_above_builder_menu", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller", "_builder_menu", "_range_checker")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map_small", "_camera", "_team_container", "_game_start_timer", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_game_client", "_game_time", "_pause_shadow_rect", "_shadow_below_builder_menu", "_shadow_above_builder_menu", "_object_container", "_build_space", "_tutorial_menu", "_tutorial_controller", "_builder_menu", "_range_checker")]
 process_mode = 3
 script = ExtResource("1_0wd1b")
 _game_menu = NodePath("UI/GameMenu")
 _hud = NodePath("UI/HUD")
-_map = NodePath("World/Map")
+_map_small = NodePath("World/MapSmall")
 _camera = NodePath("World/Camera2D")
 _team_container = NodePath("Gameplay/TeamContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
@@ -240,8 +240,7 @@ script = ExtResource("17_5cvlj")
 process_mode = 1
 y_sort_enabled = true
 
-[node name="Map" parent="World" instance=ExtResource("17_td8cv")]
-unique_name_in_owner = true
+[node name="MapSmall" parent="World" instance=ExtResource("17_td8cv")]
 
 [node name="PathContainer" type="Node2D" parent="World"]
 z_index = 999
@@ -385,7 +384,6 @@ frame_progress = 0.0
 z_index = 1000
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-unique_name_in_owner = true
 z_index = 1000
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.31481, 0.5)

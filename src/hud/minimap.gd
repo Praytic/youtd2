@@ -4,12 +4,10 @@ extends Control
 # NOTE: this file is unused
 
 
-@onready var default_camera = get_node("%Camera2D")
 @export var minimap_camera: Camera2D
 @export var minimap_texture: TextureRect
 @export var camera_projection: CameraProjection
 @export var creeps_projection: CreepsProjection
-@onready var map = get_node("%Map")
 @onready var minimap_scale: float
 
 
@@ -31,16 +29,17 @@ func _on_Camera_camera_zoomed(_zoom_value):
 	_update_view_rect()
 
 func _update_view_rect():
-	var ctrans = default_camera.get_canvas_transform()
-	var view_size = default_camera.get_viewport_rect().size / ctrans.get_scale()
-	var view_pos = -ctrans.get_origin() / ctrans.get_scale()
-#
-	var projection_size = view_size * minimap_scale
-	var projection_pos = view_pos * minimap_scale
+	return
+# 	var ctrans = default_camera.get_canvas_transform()
+# 	var view_size = default_camera.get_viewport_rect().size / ctrans.get_scale()
+# 	var view_pos = -ctrans.get_origin() / ctrans.get_scale()
+# #
+# 	var projection_size = view_size * minimap_scale
+# 	var projection_pos = view_pos * minimap_scale
 	
-	camera_projection.position = projection_pos
-	camera_projection.set_size(projection_size)
-	camera_projection.queue_redraw()
+# 	camera_projection.position = projection_pos
+# 	camera_projection.set_size(projection_size)
+# 	camera_projection.queue_redraw()
 
 
 func _on_ObjectContainer_child_entered_tree(child: Node):

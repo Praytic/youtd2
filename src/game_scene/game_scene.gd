@@ -3,7 +3,7 @@ class_name GameScene extends Node
 
 @export var _game_menu: Control
 @export var _hud: HUD
-@export var _map: Map
+@export var _map_small: Map
 @export var _camera: Camera2D
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
@@ -26,6 +26,7 @@ class_name GameScene extends Node
 @export var _range_checker: TowerPreview
 
 var _ui_input_is_enabled: bool = false
+var _map: Map = null
 
 
 #########################
@@ -34,6 +35,13 @@ var _ui_input_is_enabled: bool = false
 
 func _ready():
 	print_verbose("GameScene has loaded.")
+	
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	match player_mode:
+		PlayerMode.enm.SINGLEPLAYER:
+			_map = _map_small
+		PlayerMode.enm.MULTIPLAYER:
+			_map = _map_small
 	
 	Globals.reset()
 	PlayerManager.reset()
