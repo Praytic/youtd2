@@ -103,6 +103,25 @@ func _multiplayer_peer_is_enet() -> bool:
 	return peer_is_enet
 
 
+func _determine_host_address() -> String:
+	var address: String = ""
+
+	if OS.has_feature("windows"):
+		if OS.has_environment("COMPUTERNAME"):
+			address = IP.resolve_hostname(OS.get_environment("COMPUTERNAME"), 1)
+	elif OS.has_feature("x11"):
+		if OS.has_environment("HOSTNAME"):
+			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), 1)
+	elif OS.has_feature("OSX"):
+		if OS.has_environment("HOSTNAME"):
+			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), 1)
+
+	if !address.is_empty():
+		return address
+	else:
+		return "UNKNOWN"
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -152,6 +171,10 @@ func _on_create_lan_match_menu_create_pressed():
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
 	_lan_lobby_menu.display_match_config(_current_match_config)
+	var host_address: String = _determine_host_address()
+	_lan_lobby_menu.set_host_address(host_address)
+	_lan_lobby_menu.set_host_address_visible(true)
+	_lan_lobby_menu.set_start_button_visible(true)
 
 	var local_player_name: String = Settings.get_setting(Settings.PLAYER_NAME)
 	_give_local_player_name_to_host.rpc_id(SERVER_PEER_ID, local_player_name)
@@ -192,6 +215,9 @@ func _on_lan_connect_menu_join_pressed():
 	_connect_to_lobby(address)
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.LAN_LOBBY)
+
+	_lan_lobby_menu.set_host_address_visible(false)
+	_lan_lobby_menu.set_start_button_visible(false)
 
 
 # NOTE: both server and clients need to close the

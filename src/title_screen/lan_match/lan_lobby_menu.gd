@@ -11,6 +11,9 @@ signal back_pressed()
 
 @export var _player_list: ItemList
 @export var _match_config_label: RichTextLabel
+@export var _host_address_container: HBoxContainer
+@export var _host_address_line_edit: LineEdit
+@export var _start_button: Button
 
 
 #########################
@@ -32,6 +35,18 @@ func display_match_config(match_config: MatchConfig):
 	
 	_match_config_label.clear()
 	_match_config_label.append_text(match_config_string)
+
+
+func set_host_address(value: String):
+	_host_address_line_edit.text = value
+
+
+func set_host_address_visible(value: bool):
+	_host_address_container.visible = value
+
+
+func set_start_button_visible(value: bool):
+	_start_button.visible = value
 
 
 #########################
