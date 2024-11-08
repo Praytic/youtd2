@@ -108,13 +108,13 @@ func _determine_host_address() -> String:
 
 	if OS.has_feature("windows"):
 		if OS.has_environment("COMPUTERNAME"):
-			address = IP.resolve_hostname(OS.get_environment("COMPUTERNAME"), 1)
+			address = IP.resolve_hostname(OS.get_environment("COMPUTERNAME"), IP.Type.TYPE_IPV4)
 	elif OS.has_feature("x11"):
 		if OS.has_environment("HOSTNAME"):
-			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), 1)
+			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), IP.Type.TYPE_IPV4)
 	elif OS.has_feature("OSX"):
 		if OS.has_environment("HOSTNAME"):
-			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), 1)
+			address = IP.resolve_hostname(OS.get_environment("HOSTNAME"), IP.Type.TYPE_IPV4)
 
 	if !address.is_empty():
 		return address
