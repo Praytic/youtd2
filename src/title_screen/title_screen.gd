@@ -42,7 +42,6 @@ func _ready():
 	
 	_lan_button.visible = Config.feature_lan_matches()
 	
-#	TODO: handle multiple notifications. Currently onle one notification gets shown.
 	var notification_list: Array[String] = Globals.get_title_screen_notification_list()
 	
 	if !notification_list.is_empty():

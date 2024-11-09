@@ -349,7 +349,6 @@ static func _generate_creep_race(creep_size: CreepSize.enm) -> CreepCategory.enm
 	return random_race
 
 
-# TODO: handle final wave, should be final boss
 static func _generate_creep_size(level: int) -> CreepSize.enm:
 	var override_creep_size_string: String = Config.override_creep_size()
 	if !override_creep_size_string.is_empty():

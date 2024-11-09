@@ -3,11 +3,6 @@ class_name SetupLanGame extends Node
 
 # Handles logic for creating and joining LAN matches.
 
-# TODO: restore. This got broken when adding Online matches.
-
-# TODO: fix sharing player names. Currently only works in
-# Online matches.
-
 
 const SERVER_PEER_ID: int = 1
 

@@ -17,7 +17,6 @@ const TIMEOUT_FOR_TRANSFER_FROM_LOBBY: float = 2.0
 
 var _current_match_config: MatchConfig = null
 var _lobby_match_id: String = ""
-# TODO: store this state on server
 var _is_host: bool = false
 var _state: State = State.IDLE
 var _presence_map: Dictionary = {}

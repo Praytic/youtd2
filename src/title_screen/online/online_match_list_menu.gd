@@ -81,8 +81,6 @@ func clear_match_list():
 	_no_matches_found_label.show()
 
 
-# TODO: maybe sort matches by creation time? But that is not available by
-# default in nakama. Need to add this data to label.
 func update_match_list(match_list: Array):
 	var found_matches: bool = !match_list.is_empty()
 

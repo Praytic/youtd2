@@ -638,10 +638,6 @@ func remove_invisible_watcher():
 		became_invisible.emit()
 
 
-# TODO: silence visual. When silence_count changes from 0 to
-# 1, create it and schedule to destroy it once animation
-# finishes. Idea for how it should look:
-# https://youtu.be/zUCL-_6YOT8?t=46
 func add_silence():
 	_silence_count += 1
 
