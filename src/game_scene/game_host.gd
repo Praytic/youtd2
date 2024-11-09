@@ -82,15 +82,6 @@ func _ready():
 	
 	_turn_length = Utils.get_turn_length()
 
-#	TODO: move this timer to scene (need to create game host
-#	scene first)
-	var alive_check_timer: Timer = Timer.new()
-	alive_check_timer.wait_time = 1.0
-	alive_check_timer.autostart = true
-	alive_check_timer.one_shot = false
-	alive_check_timer.timeout.connect(_on_alive_check_timer_timeout)
-	add_child(alive_check_timer)
-
 
 func _physics_process(_delta: float):
 	if !multiplayer.is_server():

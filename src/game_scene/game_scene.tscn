@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://src/game_scene/build_tower.gd" id="10_tkjjb"]
 [ext_resource type="Script" path="res://src/game_scene/mouse_state.gd" id="11_e0bvs"]
 [ext_resource type="Script" path="res://src/game_scene/combat_log_storage.gd" id="12_8gb75"]
-[ext_resource type="Script" path="res://src/game_scene/game_host.gd" id="14_y26vd"]
+[ext_resource type="PackedScene" uid="uid://b8hcppig3r5q6" path="res://src/game_scene/game_host.tscn" id="12_sbijg"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://src/game_scene/game_client.tscn" id="15_a5l86"]
 [ext_resource type="Script" path="res://src/game_scene/chat_commands.gd" id="16_amwbk"]
 [ext_resource type="Script" path="res://src/game_scene/build_space.gd" id="16_p1jwo"]
@@ -210,8 +210,7 @@ script = ExtResource("11_e0bvs")
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
 script = ExtResource("12_8gb75")
 
-[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud")]
-script = ExtResource("14_y26vd")
+[node name="GameHost" parent="Gameplay" node_paths=PackedStringArray("_game_client", "_hud") instance=ExtResource("12_sbijg")]
 _game_client = NodePath("../GameClient")
 _hud = NodePath("../../UI/HUD")
 

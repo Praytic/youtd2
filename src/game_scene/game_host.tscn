@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8hcppig3r5q6"]
+
+[ext_resource type="Script" path="res://src/game_scene/game_host.gd" id="1_c320g"]
+
+[node name="GameHost" type="Node"]
+script = ExtResource("1_c320g")
+
+[node name="AliveCheckTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="AliveCheckTimer" to="." method="_on_alive_check_timer_timeout"]
