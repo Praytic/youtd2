@@ -5,25 +5,19 @@ var multiboard: MultiboardValues
 var steal_pt: ProjectileType
 
 
-# NOTE: "gold" value is 10 times greater than actual because
-# its divided later by 10 when doing actual calculations.
-# This is NOT a typo
-# TODO: make it not multiplied by 10. I think original
-# script does this because it's saved in user_int, so save
-# it in user_float instead.
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {bounty_add = 0.0050, item_bonus = 0.05, item_bonus_add = 0.0020, gold = 3},
-		2: {bounty_add = 0.0075, item_bonus = 0.06, item_bonus_add = 0.0024, gold = 9},
-		3: {bounty_add = 0.0100, item_bonus = 0.07, item_bonus_add = 0.0028, gold = 27},
-		4: {bounty_add = 0.0125, item_bonus = 0.08, item_bonus_add = 0.0032, gold = 60},
-		5: {bounty_add = 0.0150, item_bonus = 0.09, item_bonus_add = 0.0036, gold = 120},
+		1: {bounty_add = 0.0050, item_bonus = 0.05, item_bonus_add = 0.0020, gold = 0.3, gold_add = 0.012},
+		2: {bounty_add = 0.0075, item_bonus = 0.06, item_bonus_add = 0.0024, gold = 0.9, gold_add = 0.036},
+		3: {bounty_add = 0.0100, item_bonus = 0.07, item_bonus_add = 0.0028, gold = 2.7, gold_add = 0.108},
+		4: {bounty_add = 0.0125, item_bonus = 0.08, item_bonus_add = 0.0032, gold = 6.0, gold_add = 0.240},
+		5: {bounty_add = 0.0150, item_bonus = 0.09, item_bonus_add = 0.0036, gold = 12.0, gold_add = 0.480},
 	}
 
 
 func get_ability_info_list() -> Array[AbilityInfo]:
-	var gold: String = Utils.format_float(_stats.gold / 10.0, 2)
-	var gold_add: String = Utils.format_float(_stats.gold * 0.04 / 10.0, 3)
+	var gold: String = Utils.format_float(_stats.gold, 2)
+	var gold_add: String = Utils.format_float(_stats.gold_add, 3)
 
 	var list: Array[AbilityInfo] = []
 	
@@ -60,9 +54,11 @@ func tower_init():
 	multiboard.set_key(0, "Gold Stolen")
 
 
-func on_create(_preceding_tower: Tower):
-	tower.user_real = 0.0
-	tower.user_int = _stats.gold
+func on_create(preceding_tower: Tower):
+	if preceding_tower != null && preceding_tower.get_family() == tower.get_family():
+		tower.user_real = preceding_tower.user_real
+	else:
+		tower.user_real = 0.0
 
 
 func on_tower_details() -> MultiboardValues:
@@ -82,6 +78,7 @@ func on_damage(event: Event):
 
 
 func steal(_p: Projectile, _creep: Unit):
-	var gold_granted: float = (tower.user_int + (tower.get_level() * tower.user_int * 0.04)) / 10
+	var level: int = tower.get_level()
+	var gold_granted: float = _stats.gold + _stats.gold_add * level
 	tower.get_player().give_gold(gold_granted, tower, false, true)
-	tower.user_real = tower.user_real + gold_granted
+	tower.user_real += gold_granted
