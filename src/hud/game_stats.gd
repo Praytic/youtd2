@@ -14,17 +14,12 @@ class_name GameStats extends VBoxContainer
 
 func _ready():
 	var wave_count: int = Globals.get_wave_count()
-	var game_length_string: String = _get_game_length_string(wave_count)
-
 	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
-
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
-	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
-	
-	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
+	var team_mode: TeamMode.enm = Globals.get_team_mode()
+	var match_config_string: String = MatchConfig.convert_configs_to_string(wave_count, game_mode, difficulty, team_mode)
 
-	_settings_label.text = settings_string
+	_settings_label.text = match_config_string
 
 
 func _process(_delta: float):
@@ -161,18 +156,6 @@ func _get_tower_stats_text_generic(tower_list: Array[Tower]) -> String:
 #########################
 ###      Private      ###
 #########################
-
-func _get_game_length_string(wave_count: int) -> String:
-	var game_length_string: String
-
-	match wave_count:
-		Constants.WAVE_COUNT_TRIAL: game_length_string = "Trial"
-		Constants.WAVE_COUNT_FULL: game_length_string = "Full"
-		Constants.WAVE_COUNT_NEVERENDING: game_length_string = "Neverending"
-		_: "Unknown"
-
-	return game_length_string
-
 
 func _get_most_total_damage_tower(tower_list: Array[Tower]) -> Tower:
 	var best_tower: Tower = _get_best_tower_by_criteria(tower_list,

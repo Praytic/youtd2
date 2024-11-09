@@ -55,25 +55,8 @@ func get_team_mode() -> TeamMode.enm:
 	return _team_mode
 
 
-# TODO: fix this code being duplicated here and in GameStats
-func get_display_string() -> String:
-	var game_length_string: String = _get_game_length_string(_game_length)
-	var game_mode_string: String = GameMode.convert_to_display_string(_game_mode).capitalize()
-	var difficulty_string: String = Difficulty.convert_to_string(_difficulty).capitalize()
-	var team_mode_string: String = TeamMode.convert_to_display_string(_team_mode)
-	
-	var display_string: String = "%s, %s, %s, %s\n" % [game_length_string, game_mode_string, difficulty_string, team_mode_string]
-	
-	return display_string
-
-
 func get_display_string_rich() -> String:
-	var game_length_string: String = _get_game_length_string(_game_length)
-	var game_mode_string: String = GameMode.convert_to_display_string(_game_mode).capitalize()
-	var difficulty_string: String = Difficulty.convert_to_colored_string(_difficulty)
-	var team_mode_string: String = TeamMode.convert_to_display_string(_team_mode)
-	
-	var display_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s, %s\n" % [game_length_string, game_mode_string, difficulty_string, team_mode_string]
+	var display_string: String = MatchConfig.convert_configs_to_string(_game_length, _game_mode, _difficulty, _team_mode)
 	
 	return display_string
 
@@ -132,12 +115,18 @@ static func convert_from_dict(dict: Dictionary) -> MatchConfig:
 	return match_config
 
 
-#########################
-###      Private      ###
-#########################
+static func convert_configs_to_string(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, team_mode: TeamMode.enm) -> String:
+	var game_length_string: String = _get_game_length_string(game_length)
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
+	var team_mode_string: String = TeamMode.convert_to_display_string(team_mode)
+	
+	var display_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s, %s\n" % [game_length_string, game_mode_string, difficulty_string, team_mode_string]
+	
+	return display_string
 
 
-func _get_game_length_string(wave_count: int) -> String:
+static func _get_game_length_string(wave_count: int) -> String:
 	var game_length_string: String
 
 	match wave_count:
