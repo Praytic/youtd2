@@ -40,6 +40,10 @@ func _ready():
 	PlayerManager.reset()
 	GroupManager.reset()
 
+#	Replace small map with big map if playing in multiplayer
+#	NOTE: need to swap instead of using big map for both
+#	cases because big map makes the framerate worse,
+#	especially when playing in browser.
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	match player_mode:
 		PlayerMode.enm.SINGLEPLAYER:

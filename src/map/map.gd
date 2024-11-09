@@ -13,6 +13,12 @@ class_name Map extends Node2D
 # free positioning. This TileMap has a smaller grid size
 # (64x32). Contains things like vegetation, barrels, etc.
 
+# There are two variants of the map: small and big. Small
+# contains 2 lanes and is used for singleplayer. Big
+# contains 8 lanes and is used for multiplayer. Small
+# variant is used to get the best performance on browser
+# build. Swapping is done in GameScene._ready().
+
 # NOTE: explanation of z_index values for tilemap layers and units:
 # - 0 = lvl1-flat tilemap layer, this is for floor tiles on
 #   lvl1 elevation
