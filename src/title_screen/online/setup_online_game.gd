@@ -170,7 +170,7 @@ func _process_nakama_message_transfer_from_lobby(message: NakamaRTAPI.MatchData)
 	if _is_host:
 		return
 
-	print("_process_nakama_message_transfer_from_lobby")
+	print_verbose("Received signal from host about transferring from lobby match to game match")
 	
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
 	
@@ -357,8 +357,6 @@ func _on_online_lobby_menu_leave_pressed():
 # host can send message to other peers to tell them to leave
 # the lobby match and go to game match.
 func _on_online_lobby_menu_start_pressed():
-	print("_on_online_lobby_menu_start_pressed")
-	
 	_expected_player_count = _presence_map.size()
 
 	_title_screen.switch_to_tab(TitleScreen.Tab.LOADING)
@@ -380,10 +378,10 @@ func _on_peer_connected(_peer_id: int):
 	var player_count: int = peer_count + 1
 	var all_players_connected: bool = player_count == _expected_player_count
 
-	print("_on_peer_connected: peer_count=%s, player_count=%s, all_players_connected=%s" % [peer_count, player_count, all_players_connected])
+	print_verbose("New peer connected to game match. peer_count=%s, player_count=%s, all_players_connected=%s" % [peer_count, player_count, all_players_connected])
 
 	if all_players_connected:
-		print("all players connected! player count: %s" % player_count)
+		print_verbose("All players connected to game match! Player count: %s. Starting the game." % player_count)
 
 #		NOTE: wait a bit just in case (is this really
 #		needed?)
@@ -399,14 +397,12 @@ func _on_peer_connected(_peer_id: int):
 
 
 func _on_host_created_game_match(game_match_id: String):
-	print("_on_host_joined_game_match")
-
 	var socket: NakamaSocket = NakamaConnection.get_socket()
 	
 	OnlineMatch.match_created.disconnect(_on_host_created_game_match)
 	multiplayer.multiplayer_peer.peer_connected.connect(_on_peer_connected)
 
-	print("Created game match with id %s." % game_match_id);
+	print_verbose("Created game match with id %s." % game_match_id);
 
 	var data_dict: Dictionary = {
 		"match_id": game_match_id,
@@ -431,7 +427,6 @@ func _on_host_created_game_match(game_match_id: String):
 	
 	_lobby_match_id = ""
 
-	print("_expected_player_count=", _expected_player_count)
 	if _expected_player_count == 1:
 		_on_peer_connected(1)
 

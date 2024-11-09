@@ -211,7 +211,6 @@ func _set_nakama_socket(p_nakama_socket: NakamaSocket) -> void:
 
 
 func create_match(p_nakama_socket: NakamaSocket, leave_prev_match: bool = true) -> void:
-	print("create_match")
 	var close_socket: bool = false
 	leave(close_socket, leave_prev_match)
 	_set_nakama_socket(p_nakama_socket)
@@ -220,10 +219,8 @@ func create_match(p_nakama_socket: NakamaSocket, leave_prev_match: bool = true) 
 	var data = await _nakama_socket.create_match_async()
 	if data.is_exception():
 		leave()
-		print("Failed to create match")
 		error.emit("Failed to create match: " + str(data.get_exception().message))
 	else:
-		print("create_match success")
 		_on_nakama_match_created(data)
 
 func join_match(p_nakama_socket: NakamaSocket, p_match_id: String) -> void:
@@ -367,7 +364,7 @@ func get_webrtc_peer_by_peer_id(peer_id: int) -> WebRTCPeerConnection:
 	return null
 
 func _on_nakama_error(data) -> void:
-	print ("ERROR:")
+	print("Nakama error in OnlineMatch.gd:")
 	print(data)
 	leave()
 	error.emit("Websocket connection error")
