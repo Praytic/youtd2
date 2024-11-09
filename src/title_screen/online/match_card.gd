@@ -37,16 +37,24 @@ func get_match_id() -> String:
 ###      Private      ###
 #########################
 
-# TODO: fix duplication of loading match_config
-func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
+func _get_match_label_dict(match_: NakamaAPI.ApiMatch) -> Dictionary:
 	var label_string: String = match_.label
 
 	var parse_result = JSON.parse_string(label_string)
 	var parse_failed: bool = parse_result == null
 	if parse_failed:
-		return ""
+		return {}
 
 	var label_dict: Dictionary = parse_result
+
+	return label_dict
+
+
+func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
+	var label_dict: Dictionary = _get_match_label_dict(match_)
+
+	if label_dict.is_empty():
+		return ""
 
 	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
 
@@ -73,16 +81,11 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	return text
 
 
-# TODO: fix duplication of loading match_config
 func _get_player_count_text(match_: NakamaAPI.ApiMatch) -> String:
-	var label_string: String = match_.label
+	var label_dict: Dictionary = _get_match_label_dict(match_)
 
-	var parse_result = JSON.parse_string(label_string)
-	var parse_failed: bool = parse_result == null
-	if parse_failed:
+	if label_dict.is_empty():
 		return ""
-
-	var label_dict: Dictionary = parse_result
 
 	var match_config: MatchConfig = MatchConfig.convert_from_dict(label_dict)
 	var team_mode: TeamMode.enm = match_config.get_team_mode()
