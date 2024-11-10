@@ -17,6 +17,9 @@ _types_left_label = NodePath("Types/TypesLeftLabel")
 _types_right_label = NodePath("Types/TypesRightLabel")
 _oils_label = NodePath("Oils/ScrollContainer/OilsLabel")
 
+[node name="UpdateTimer" type="Timer" parent="."]
+autostart = true
+
 [node name="Dmg" type="HBoxContainer" parent="."]
 layout_mode = 2
 metadata/_tab_index = 0
@@ -62,3 +65,6 @@ size_flags_vertical = 3
 layout_mode = 2
 mouse_force_pass_scroll_events = false
 scroll_active = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

@@ -15,7 +15,10 @@ var _creep: Creep = null
 ###     Built-in      ###
 #########################
 
-func _process(_delta: float):
+# NOTE: this code consumes a lot of frametime so it needs to
+# be called sparingly. That's why it's not called every
+# frame in _process().
+func _update_labels():
 	if _creep == null:
 		return
 	
@@ -137,3 +140,15 @@ func _get_dmg_right_text() -> String:
 	+ ""
 	
 	return text
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_update_timer_timeout() -> void:
+	_update_labels()
+
+
+func _on_visibility_changed() -> void:
+	_update_labels()

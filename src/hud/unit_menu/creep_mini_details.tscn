@@ -14,6 +14,8 @@ _stats_right_label = NodePath("Stats/StatsRightLabel")
 _dmg_left_label = NodePath("Dmg/DmgLeftLabel")
 _dmg_right_label = NodePath("Dmg/DmgRightLabel")
 
+[node name="UpdateTimer" type="Timer" parent="."]
+
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2
 metadata/_tab_index = 0
@@ -34,3 +36,6 @@ layout_mode = 2
 
 [node name="DmgRightLabel" parent="Dmg" instance=ExtResource("2_swo34")]
 layout_mode = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

@@ -19,14 +19,17 @@ var _tower: Tower = null
 ###     Built-in      ###
 #########################
 
-func _process(_delta: float):
+# NOTE: this code consumes a lot of frametime so it needs to
+# be called sparingly. That's why it's not called every
+# frame in _process().
+func _update_labels():
 	if _tower == null:
 		return
-
+	
 	var dmg_stats_left_text: String = _get_dmg_stats_left_text()
 	_dmg_left_label.clear()
 	_dmg_left_label.append_text(dmg_stats_left_text)
-	
+
 	var dmg_stats_right_text: String = _get_dmg_stats_right_text()
 	_dmg_right_label.clear()
 	_dmg_right_label.append_text(dmg_stats_right_text)
@@ -255,3 +258,15 @@ func _get_oil_count_map() -> Dictionary:
 		oil_count_map[oil_name_colored] += 1
 
 	return oil_count_map
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_update_timer_timeout() -> void:
+	_update_labels()
+
+
+func _on_visibility_changed() -> void:
+	_update_labels()
