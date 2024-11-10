@@ -327,6 +327,9 @@ func _get_player_name_list(player_list: Array[Player]) -> Array[String]:
 #########################
 
 func _on_players_created():
+	if !multiplayer.is_server():
+		return
+	
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	for player in player_list:
@@ -345,6 +348,9 @@ func _on_players_created():
 # Also in this timeout, tell clients about which players are
 # lagging.
 func _on_alive_check_timer_timeout():
+	if !multiplayer.is_server():
+		return
+	
 	if _state != HostState.WAITING_FOR_LAGGING_PLAYERS:
 		return
 
