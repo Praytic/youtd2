@@ -44,6 +44,7 @@ var _time_when_sent_ping: int = 0
 var _ping_history: Array = [0]
 var _received_any_timeslots: bool = false
 var _paused_by_host: bool = false
+var _last_received_timeslot_list: Array = []
 
 
 @export var _game_host: GameHost
@@ -118,8 +119,7 @@ func receive_timeslots(timeslot_list: Dictionary):
 	for tick in timeslot_list.keys():
 		_timeslot_map[tick] = timeslot_list[tick]
 
-	var tick_list: Array = timeslot_list.keys()
-	_game_host.receive_timeslots_ack.rpc_id(1, tick_list)
+	_last_received_timeslot_list = timeslot_list.keys()
 
 
 @rpc("authority", "call_local", "reliable")
@@ -363,6 +363,10 @@ func _get_ping_max() -> float:
 ###     Callbacks     ###
 #########################
 
+# Periodically send a ping from client to host. This ping is
+# used to calculate ping time. It also includes a list of
+# last received timeslots to ack receival of those timeslots
+# and let the host know which timeslots it can stop sending.
 func _on_ping_timer_timeout():
 	_time_when_sent_ping = Time.get_ticks_msec()
-	_game_host.receive_ping.rpc_id(1)
+	_game_host.receive_ping.rpc_id(1, _last_received_timeslot_list)

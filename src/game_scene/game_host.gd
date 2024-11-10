@@ -46,7 +46,7 @@ const TICK_DELTA: float = 1000 / 30.0
 # player. If host hasn't received any responses from player
 # for this long, host will start considering that player to
 # be lagging and will pause game turns.
-const LAG_TIME_MSEC: float = 2000.0
+const LAG_TIME_MSEC: float = 3000.0
 
 @export var _game_client: GameClient
 @export var _hud: HUD
@@ -95,20 +95,6 @@ func _physics_process(_delta: float):
 #########################
 ###       Public      ###
 #########################
-
-# When player ack's timeslots, host erases ack'd timeslots
-# from queue and stops sending them.
-@rpc("any_peer", "call_local", "reliable")
-func receive_timeslots_ack(tick_list: Array):
-	var peer_id: int = multiplayer.get_remote_sender_id()
-	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
-	var player_id: int = player.get_id()
-
-	var timeslots_to_send: Dictionary = _player_timeslot_send_queue[player_id]
-
-	for tick in tick_list:
-		timeslots_to_send.erase(tick)
-
 
 @rpc("any_peer", "call_local", "reliable")
 func receive_alive_check_response():
@@ -163,12 +149,18 @@ func receive_timeslot_checksum(tick: int, checksum: PackedByteArray):
 
 
 @rpc("any_peer", "call_local", "reliable")
-func receive_ping():
+func receive_ping(last_received_timeslot_list: Array):
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
 	var player_id: int = player.get_id()
 
 	_update_last_contact_time_for_player(player_id)
+
+#	When player ack's timeslots, host erases ack'd timeslots
+#	from queue and stops sending them.
+	var timeslots_to_send: Dictionary = _player_timeslot_send_queue[player_id]
+	for tick in last_received_timeslot_list:
+		timeslots_to_send.erase(tick)
 
 	_game_client.receive_pong.rpc_id(peer_id)
 
