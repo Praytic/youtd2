@@ -679,7 +679,7 @@ tile_layout = 5
 tile_size = Vector2i(256, 128)
 sources/1 = SubResource("TileSetAtlasSource_2k3qd")
 
-[node name="MapSmall" type="Node2D" node_paths=PackedStringArray("_camera_limits", "_ground_indicator_map")]
+[node name="MapBig" type="Node2D" node_paths=PackedStringArray("_camera_limits", "_ground_indicator_map")]
 y_sort_enabled = true
 script = ExtResource("1_c4qbl")
 _camera_limits = NodePath("CameraLimits")
