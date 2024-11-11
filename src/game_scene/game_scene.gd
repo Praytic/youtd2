@@ -295,11 +295,6 @@ func _setup_players():
 #	NOTE: create players in the order of peer id's to ensure determinism
 	peer_id_list.sort()
 	
-	if peer_id_list.size() > 2:
-		push_error("Too many players. Game supports at most 2.")
-
-		return
-	
 #	Create teams
 	var team_mode: TeamMode.enm = Globals.get_team_mode()
 	var player_count_per_team: int = TeamMode.get_player_count_per_team(team_mode)
