@@ -211,6 +211,13 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 	var speed_ratio: float = 1.0 + 2.0 * setting_value
 	var speed: float = MOVE_SPEED_BASE * speed_ratio
 
+#	TODO: temp hackfix to make moving camera at min zoom
+#	(zoomed out fully) not that slow. Figure out a better
+#	formula to make the speed ramp up consistently as camera
+#	zooms out.
+	if _current_zoom_value == ZOOM_MIN:
+		speed *= 3
+
 	return speed
 
 
