@@ -6,7 +6,7 @@ extends Node
 #   OnlineMatch.ice_servers = [ ... ]
 #   OnlineMatch.use_network_relay = OnlineMatch.NetworkRelay.FORCED
 var min_players := 2
-var max_players := 4
+var max_players := 8
 var client_version := 'dev'
 var ice_servers = [
 	{
