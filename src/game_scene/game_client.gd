@@ -115,8 +115,15 @@ func receive_timeslots(timeslot_list: Dictionary):
 	if !_received_any_timeslots:
 		_received_any_timeslots = true
 		received_first_timeslot.emit()
-	
+
+#	NOTE: it's important to skip old ticks, host can send
+#	old ticks if it hasn't received ack from client yet due
+#	to network/logic delay. If we don't skip old ticks, then
+#	_timeslot_map would grow forever.
 	for tick in timeslot_list.keys():
+		if tick < _current_tick:
+			continue
+
 		_timeslot_map[tick] = timeslot_list[tick]
 
 	_last_received_timeslot_list = timeslot_list.keys()
