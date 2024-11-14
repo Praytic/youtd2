@@ -21,13 +21,12 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbfm6"]
 
-[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button", "_lan_button", "_notification_panel")]
+[node name="TitleScreen" type="Node" node_paths=PackedStringArray("_tab_container", "_configure_singleplayer_menu", "_spacer_before_quit_button", "_quit_button", "_notification_panel")]
 script = ExtResource("1_dx8oa")
 _tab_container = NodePath("UI/TabContainer")
 _configure_singleplayer_menu = NodePath("UI/TabContainer/ConfigureSingleplayerMenu")
 _spacer_before_quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/Spacer")
 _quit_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/QuitButton")
-_lan_button = NodePath("UI/TabContainer/MainTab/VBoxContainer/LANButton")
 _notification_panel = NodePath("UI/MarginContainer2/NotificationPanel")
 
 [node name="SetupLanGame" parent="." node_paths=PackedStringArray("_title_screen", "_lan_connect_menu", "_lan_lobby_menu", "_create_lan_match_menu") instance=ExtResource("2_2qgi3")]
@@ -100,12 +99,6 @@ layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Multiplayer"
-
-[node name="LANButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-theme_type_variation = &"ButtonLarge"
-text = "LAN"
 
 [node name="ProfileButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
@@ -248,7 +241,6 @@ layout_mode = 1
 
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="SetupOnlineGame" method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
