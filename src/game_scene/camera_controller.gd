@@ -1,4 +1,7 @@
-extends Camera2D
+class_name CameraController extends Node
+
+
+# Controls camera movement and zoom level based on player input.
 
 
 signal camera_moved(shift_vector)
@@ -21,6 +24,8 @@ var _drag_origin: Vector2 = Vector2.INF
 var _keyboard_enabled: bool = true
 var _any_input_enabled: bool = true
 var _zoom_speed_for_touchpad: float
+
+@export var _camera: Camera2D
 
 
 #########################
@@ -47,7 +52,7 @@ func _process(delta):
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-	var screen_size: Vector2 = get_viewport_rect().size
+	var screen_size: Vector2 = _camera.get_viewport_rect().size
 
 	var mouse_ratio: Vector2 = mouse_pos / screen_size
 
@@ -124,11 +129,11 @@ func _process(delta):
 #	exclusive. Do not allow moving by keyboard/scroll during
 #	drag.
 	if drag_in_progress:
-		position = get_screen_center_position() + move_offset_from_drag
+		_camera.position = _camera.get_screen_center_position() + move_offset_from_drag
 	elif move_direction != Vector2.ZERO:
-		var zoom_ratio = sqrt(zoom.x)
+		var zoom_ratio = sqrt(_camera.zoom.x)
 		var shift_vector: Vector2 = move_direction * delta * move_speed * zoom_ratio
-		position = get_screen_center_position() + shift_vector
+		_camera.position = _camera.get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
 
@@ -153,6 +158,14 @@ func _unhandled_input(event: InputEvent):
 ###       Public      ###
 #########################
 
+func set_camera_limits(camera_limits_polygon: Polygon2D):
+	var camera_limits_rect: Rect2 = Utils.get_polygon_bounding_box(camera_limits_polygon)
+	_camera.limit_bottom = int(camera_limits_rect.end.y)
+	_camera.limit_top = int(camera_limits_rect.position.y)
+	_camera.limit_left = int(camera_limits_rect.position.x)
+	_camera.limit_right = int(camera_limits_rect.end.x)
+
+
 # Enables/disables moving camera with keyboard
 func set_keyboard_enabled(value: bool):
 	_keyboard_enabled = value
@@ -169,7 +182,7 @@ func set_any_input_enabled(value: bool):
 # renders.
 func update_zoom():
 	var interface_size: float = Settings.get_interface_size()
-	zoom = Vector2.ONE * _current_zoom_value / interface_size
+	_camera.zoom = Vector2.ONE * _current_zoom_value / interface_size
 
 
 #########################
@@ -225,4 +238,5 @@ func _get_viewport_scale_factor() -> float:
 	var factor = min(
 		(float(get_viewport().size.x) / get_viewport().get_visible_rect().size.x),
 		(float(get_viewport().size.y) / get_viewport().get_visible_rect().size.y))
+	
 	return factor

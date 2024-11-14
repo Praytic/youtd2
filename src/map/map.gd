@@ -86,15 +86,6 @@ class_name Map extends Node2D
 #########################
 
 func _ready():
-	var camera: Camera2D = get_viewport().get_camera_2d()
-	var camera_limits_rect: Rect2 = Utils.get_polygon_bounding_box(_camera_limits)
-	camera.limit_bottom = int(camera_limits_rect.end.y)
-	camera.limit_top = int(camera_limits_rect.position.y)
-	camera.limit_left = int(camera_limits_rect.position.x)
-	camera.limit_right = int(camera_limits_rect.end.x)
-	
-	print_verbose("Set camera limits to [bottom: %s, top: %s, left: %s, right: %s]" % [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right])
-
 	EventBus.player_started_build_process.connect(_on_player_started_build_process)
 	EventBus.player_stopped_build_process.connect(_on_player_stopped_build_process)
 
@@ -102,6 +93,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_camera_limits() -> Polygon2D:
+	return _camera_limits
+
 
 func get_buildable_cells(player: Player) -> Array[Vector2i]:
 	var buildable_area: BuildableArea = _get_buildable_area(player)

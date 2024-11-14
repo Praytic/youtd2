@@ -5,6 +5,7 @@ class_name GameScene extends Node
 @export var _hud: HUD
 @export var _map_small: Map
 @export var _camera: Camera2D
+@export var _camera_controller: CameraController
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
 @export var _select_point_for_cast: SelectPointForCast
@@ -57,6 +58,9 @@ func _ready():
 			_map_small.queue_free()
 	
 	Globals._map = _map
+	
+	var camera_limits_polygon: Polygon2D = _map.get_camera_limits()
+	_camera_controller.set_camera_limits(camera_limits_polygon)
 
 	var default_update_ticks_per_physics_tick: int = Config.update_ticks_per_physics_tick()
 	Globals.set_update_ticks_per_physics_tick(default_update_ticks_per_physics_tick)
@@ -260,7 +264,7 @@ func _set_ui_input_enabled(enabled: bool):
 	_shadow_below_builder_menu.visible = !enabled
 	
 	_ui_input_is_enabled = enabled
-	_camera.set_any_input_enabled(enabled)
+	_camera_controller.set_any_input_enabled(enabled)
 	
 	var hud_process_mode: ProcessMode
 	if enabled:
@@ -452,12 +456,12 @@ func _get_camera_origin_pos() -> Vector2:
 
 func _start_editing_chat():
 	_hud.start_editing_chat()
-	_camera.set_keyboard_enabled(false)
+	_camera_controller.set_keyboard_enabled(false)
 
 
 func _finish_editing_chat():
 	_hud.finish_editing_chat()
-	_camera.set_keyboard_enabled(true)
+	_camera_controller.set_keyboard_enabled(true)
 
 
 func _submit_chat_message():
@@ -589,7 +593,7 @@ func _on_settings_changed():
 #	update_zoom() inside Camera script via callback does not
 #	work because the game is paused while the settings menu
 #	is open.
-	_camera.update_zoom()
+	_camera_controller.update_zoom()
 
 
 func _on_player_requested_start_game():
