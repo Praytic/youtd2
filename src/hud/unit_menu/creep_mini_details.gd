@@ -12,7 +12,15 @@ var _creep: Creep = null
 
 
 #########################
-###     Built-in      ###
+###       Public      ###
+#########################
+
+func set_creep(creep: Creep):
+	_creep = creep
+
+
+#########################
+###      Private      ###
 #########################
 
 # NOTE: this code consumes a lot of frametime so it needs to
@@ -38,18 +46,6 @@ func _update_labels():
 	_dmg_right_label.clear()
 	_dmg_right_label.append_text(dmg_right_text)
 
-
-#########################
-###       Public      ###
-#########################
-
-func set_creep(creep: Creep):
-	_creep = creep
-
-
-#########################
-###      Private      ###
-#########################
 
 func _get_stats_left_text() -> String:
 	var slow_amount: float = _creep.get_prop_move_speed() - 1.0

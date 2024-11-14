@@ -16,7 +16,15 @@ var _tower: Tower = null
 
 
 #########################
-###     Built-in      ###
+###       Public      ###
+#########################
+
+func set_tower(tower: Tower):
+	_tower = tower
+
+
+#########################
+###      Private      ###
 #########################
 
 # NOTE: this code consumes a lot of frametime so it needs to
@@ -54,18 +62,6 @@ func _update_labels():
 	_oils_label.clear()
 	_oils_label.append_text(oils_text)
 
-
-#########################
-###       Public      ###
-#########################
-
-func set_tower(tower: Tower):
-	_tower = tower
-
-
-#########################
-###      Private      ###
-#########################
 
 func _get_dmg_stats_left_text() -> String:
 	var base_damage: int = roundi(_tower.get_current_attack_damage_base())
