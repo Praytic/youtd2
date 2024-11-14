@@ -7,7 +7,7 @@ enum Tab {
 	MAIN,
 	CONFIGURE_SINGLEPLAYER,
 	ONLINE_MATCH_LIST,
-	LAN_MATCH_LIST,
+	LAN_CONNECT_MENU,
 	CREATE_ONLINE_MATCH,
 	CREATE_LAN_MATCH,
 	ONLINE_LOBBY,
@@ -126,11 +126,11 @@ func _on_settings_menu_ok_pressed():
 
 
 func _on_lan_lobby_menu_back_pressed():
-	_tab_container.current_tab = Tab.LAN_MATCH_LIST
+	_tab_container.current_tab = Tab.LAN_CONNECT_MENU
 
 
 func _on_create_lan_match_menu_cancel_pressed():
-	_tab_container.current_tab = Tab.LAN_MATCH_LIST
+	_tab_container.current_tab = Tab.LAN_CONNECT_MENU
 
 
 func _on_profile_button_pressed():
@@ -146,4 +146,4 @@ func _on_create_online_match_menu_cancel_pressed():
 
 
 func _on_online_match_list_menu_lan_pressed() -> void:
-	_tab_container.current_tab = Tab.LAN_MATCH_LIST
+	_tab_container.current_tab = Tab.LAN_CONNECT_MENU
