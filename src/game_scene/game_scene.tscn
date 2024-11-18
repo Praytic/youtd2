@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=49 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://src/game_scene/game_scene.gd" id="1_0wd1b"]
 [ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_gestc"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://src/game_scene/camera_controller.gd" id="17_imw8o"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://src/map/map_small.tscn" id="17_td8cv"]
 [ext_resource type="Script" path="res://src/creeps/wave_path.gd" id="18_m2fcq"]
+[ext_resource type="PackedScene" uid="uid://u567sx64fpwa" path="res://src/missions/mission_manager.tscn" id="18_ujbrx"]
 [ext_resource type="PackedScene" uid="uid://ccrjj36jwy707" path="res://src/player/camera_origin.tscn" id="19_icnp7"]
 [ext_resource type="Script" path="res://src/effects/effects_container.gd" id="20_rnpn6"]
 [ext_resource type="PackedScene" uid="uid://djkt0t0jveoks" path="res://src/effects/vampiric_aura.tscn" id="21_5ytv3"]
@@ -239,6 +240,8 @@ script = ExtResource("17_5cvlj")
 [node name="CameraController" type="Node" parent="Gameplay" node_paths=PackedStringArray("_camera")]
 script = ExtResource("17_imw8o")
 _camera = NodePath("../../World/Camera2D")
+
+[node name="MissionManager" parent="Gameplay" instance=ExtResource("18_ujbrx")]
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

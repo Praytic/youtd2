@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://u567sx64fpwa"]
+
+[ext_resource type="Script" path="res://src/missions/mission_manager.gd" id="1_itmvt"]
+[ext_resource type="Script" path="res://src/game_scene/manual_timer.gd" id="2_6cnfp"]
+
+[node name="MissionManager" type="Node"]
+script = ExtResource("1_itmvt")
+
+[node name="FailCheckTimer" type="Node" parent="."]
+script = ExtResource("2_6cnfp")
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="FailCheckTimer" to="." method="_on_fail_check_timer_timeout"]

@@ -121,6 +121,10 @@ func string_to_id(string: String) -> int:
 		return 0
 
 
+func string_is_valid_builder(string: String) -> bool:
+	return _string_to_id_map.has(string)
+
+
 #########################
 ###      Private      ###
 #########################
