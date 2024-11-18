@@ -13,6 +13,7 @@ enum Tab {
 	ONLINE_LOBBY,
 	LAN_LOBBY,
 	PROFILE,
+	MISSIONS,
 	SETTINGS,
 	CREDITS,
 	LOADING,
@@ -147,3 +148,11 @@ func _on_create_online_match_menu_cancel_pressed():
 
 func _on_online_match_list_menu_lan_pressed() -> void:
 	_tab_container.current_tab = Tab.LAN_CONNECT_MENU
+
+
+func _on_missions_button_pressed() -> void:
+	_tab_container.current_tab = Tab.MISSIONS
+
+
+func _on_missions_menu_close_pressed() -> void:
+	_tab_container.current_tab = Tab.MAIN
