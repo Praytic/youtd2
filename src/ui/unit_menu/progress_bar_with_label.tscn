@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bscc3lifv4bx4"]
+
+[ext_resource type="Script" path="res://src/ui/unit_menu/progress_bar_with_label.gd" id="1_cdogi"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="2_78qlh"]
+[ext_resource type="StyleBox" uid="uid://cefr72vfj04ja" path="res://resources/theme/unit_menu/mana_bar_background.tres" id="2_dcp3a"]
+[ext_resource type="StyleBox" uid="uid://rku7yxxl0iit" path="res://resources/theme/unit_menu/mana_bar_fill.tres" id="3_dyv6x"]
+
+
+[node name="ProgressBarWithLabel" type="ProgressBar" node_paths=PackedStringArray("_label")]
+custom_minimum_size = Vector2(100, 25)
+tooltip_text = "Mana"
+theme = ExtResource("2_78qlh")
+theme_override_styles/background = ExtResource("2_dcp3a")
+theme_override_styles/fill = ExtResource("3_dyv6x")
+value = 30.0
+show_percentage = false
+script = ExtResource("1_cdogi")
+_label = NodePath("MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 5
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_78qlh")
+theme_type_variation = &"LabelSmall"
+text = "30/100"
+horizontal_alignment = 1
+vertical_alignment = 1

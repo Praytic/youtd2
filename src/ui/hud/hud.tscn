@@ -2,26 +2,25 @@
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://bakuxdbe6a7f0" path="res://src/ui/hud/mission_tracker_container.tscn" id="5_n7x4d"]
-[ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/ui/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
+[ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/ui/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
 [ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
 [ext_resource type="PackedScene" uid="uid://n8326r4m33s3" path="res://src/ui/hud/game_speed_controller.tscn" id="9_ilyra"]
-[ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/ui/hud/top_left_menu.tscn" id="10_agdn3"]
+[ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://src/ui/top_left_menu/top_left_menu.tscn" id="10_agdn3"]
 [ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://resources/icons/hud/research_elements.tres" id="10_ylm6g"]
 [ext_resource type="Script" path="res://src/ui/hud/hud.gd" id="11"]
-[ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://src/ui/hud/item_stash_menu/item_stash_menu.tscn" id="11_5i6a2"]
-[ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://src/ui/hud/button_tooltip.tscn" id="11_ka7k1"]
+[ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://src/ui/item_stash_menu/item_stash_menu.tscn" id="11_5i6a2"]
+[ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://src/ui/buttons/button_tooltip.tscn" id="11_ka7k1"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://resources/icons/hud/item_stash.tres" id="12_vixmf"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://src/ui/hud/combat_log_window.tscn" id="14_g64vx"]
-[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/ui/hud/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
-[ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/ui/hud/player_resource_display.tscn" id="15_ir4hq"]
-[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://src/ui/hud/unit_menu/tower_details.tscn" id="17_12w0v"]
+[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://src/ui/tower_stash_menu/tower_stash_menu.tscn" id="15_eivr8"]
+[ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://src/ui/player_resource_display/player_resource_display.tscn" id="15_ir4hq"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://src/ui/unit_menu/tower_details.tscn" id="17_12w0v"]
 [ext_resource type="PackedScene" uid="uid://bg77tobjy7jgy" path="res://src/ui/hud/elements_menu.tscn" id="17_bxii1"]
-[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/ui/hud/unit_menu/creep_details.tscn" id="18_acgvt"]
-[ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/ui/hud/unit_menu/unit_menu.tscn" id="19_bqmfs"]
+[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://src/ui/unit_menu/creep_details.tscn" id="18_acgvt"]
+[ext_resource type="PackedScene" uid="uid://dcqjart40vpjy" path="res://src/ui/unit_menu/unit_menu.tscn" id="19_bqmfs"]
 [ext_resource type="PackedScene" uid="uid://wqmh2igy5bn4" path="res://src/ui/hud/desync_indicator.tscn" id="19_mcs2s"]
 [ext_resource type="PackedScene" uid="uid://c4jswu0s2yq2o" path="res://src/ui/hud/multiplayer_pause_indicator.tscn" id="20_cbamn"]
-[ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/ui/hud/build_version.tscn" id="21_ko2ou"]
-
+[ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/ui/hud/build_version_label.tscn" id="21_ko2ou"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_hfkwl"]
 physical_keycode = 84
@@ -320,7 +319,7 @@ layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
-[node name="DevControls" parent="." instance_placeholder="res://src/ui/hud/dev_controls.tscn"]
+[node name="DevControls" parent="." instance_placeholder="res://src/ui/dev_controls/dev_controls.tscn"]
 visible = false
 layout_mode = 1
 mouse_filter = 2

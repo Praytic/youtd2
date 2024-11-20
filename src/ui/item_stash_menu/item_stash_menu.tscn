@@ -1,0 +1,401 @@
+[gd_scene load_steps=19 format=3 uid="uid://ino0lr2m12uh"]
+
+[ext_resource type="Script" path="res://src/ui/item_stash_menu/item_stash_menu.gd" id="2_7jmcp"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://assets/hud/hud_atlas.png" id="3_8ah5h"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://resources/theme/common/rect_container_m.tres" id="3_tvpws"]
+[ext_resource type="PackedScene" uid="uid://c1ccsqvpyqd4i" path="res://src/ui/buttons/recipe_button.tscn" id="7_4dttm"]
+[ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://resources/icons/hud/recipe_rebrew.tres" id="8_aeibv"]
+[ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://resources/icons/hud/recipe_distill.tres" id="9_nqpec"]
+[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://resources/icons/hud/recipe_reassemble.tres" id="10_yki42"]
+[ext_resource type="Texture2D" uid="uid://bqsnuywmbb5c1" path="res://resources/icons/mechanical/alchemy_kit_03.tres" id="11_vmis2"]
+[ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://resources/icons/hud/recipe_perfect.tres" id="11_vtu31"]
+[ext_resource type="Texture2D" uid="uid://b30yt0bkbmhsj" path="res://resources/icons/mechanical/alchemy_kit_01.tres" id="12_b1vp8"]
+[ext_resource type="PackedScene" uid="uid://beu73m131qhyk" path="res://src/ui/unit_menu/item_container_panel.tscn" id="12_f1ua4"]
+[ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://src/ui/filter_buttons/item_type_filter.tscn" id="13_1dykx"]
+[ext_resource type="Texture2D" uid="uid://bkmyw11w5jqjw" path="res://resources/icons/magic/magic_stone.tres" id="13_hyx2e"]
+[ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://src/ui/filter_buttons/rarity_filter.tscn" id="14_bh43e"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="17_ba6s8"]
+
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_od67h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiyn0"]
+atlas = ExtResource("3_8ah5h")
+region = Rect2(10, 11, 110, 109)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
+atlas = ExtResource("17_ba6s8")
+region = Rect2(896, 0, 128, 128)
+
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter", "_item_type_filter_container", "_background_grid", "_item_grid", "_item_scroll_container", "_backpacker_recipes", "_horadric_item_container_panel", "_transmute_button", "_horadric_cube_avg_item_level_label", "_lock_filter_button")]
+custom_minimum_size = Vector2(630, 850)
+offset_right = 630.0
+offset_bottom = 850.0
+mouse_force_pass_scroll_events = false
+theme_override_styles/panel = SubResource("StyleBoxEmpty_od67h")
+script = ExtResource("2_7jmcp")
+_rarity_filter = NodePath("MarginContainer/VBoxContainer2/RarityFilter")
+_item_type_filter_container = NodePath("MarginContainer/VBoxContainer2/ItemTypeFilter")
+_background_grid = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BackgroundGrid")
+_item_grid = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid")
+_item_scroll_container = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
+_backpacker_recipes = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
+_horadric_item_container_panel = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricItemContainerPanel")
+_transmute_button = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton")
+_horadric_cube_avg_item_level_label = NodePath("TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer/HoradricAvgItemLevelLabel")
+_lock_filter_button = NodePath("TabContainer/VBoxContainer/HBoxContainer/LockFilterButton")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+current_tab = 0
+tabs_visible = false
+tab_focus_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LockFilterButton" type="Button" parent="TabContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Show only locked items.
+ 
+Items can be locked by Ctrl-right-clicking on them.
+Locked items won't be pulled by Horadric Cube autofill."
+focus_mode = 0
+theme_type_variation = &"FilterButton"
+toggle_mode = true
+icon = SubResource("AtlasTexture_qiyn0")
+expand_icon = true
+
+[node name="SortButton" type="Button" parent="TabContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "Sorts all items in item stash according to item type, rarity and level."
+focus_mode = 0
+text = "SORT"
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ItemsPanel" type="PanelContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelSectionTitle"
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 420)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/margin_bottom = 10
+
+[node name="BackgroundGrid" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemGrid" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="HoradricPanel" type="PanelContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 280)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelSectionTitle"
+text = "Horadric Cube"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 2
+alignment_vertical = 2
+
+[node name="RebrewButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("8_aeibv")
+recipe = 1
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 2
+
+[node name="DistillButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("9_nqpec")
+recipe = 2
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 2
+alignment_vertical = 0
+
+[node name="ReassembleButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("10_yki42")
+recipe = 3
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="PerfectButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("11_vtu31")
+recipe = 4
+
+[node name="BackpackerRecipes" type="GridContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+columns = 3
+
+[node name="AspectRatioContainer1" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="LiquefyButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("11_vmis2")
+recipe = 5
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="PrecipitateButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("12_b1vp8")
+recipe = 6
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="ImbueButton" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3" instance=ExtResource("7_4dttm")]
+layout_mode = 2
+icon = ExtResource("13_hyx2e")
+recipe = 7
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="TransmuteButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Convert ingredients into a new item. This button will become enabled when it's possible to convert ingredients."
+focus_mode = 0
+text = "MERGE"
+
+[node name="ReturnButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Returns all items in Horadric Cube to item stash."
+focus_mode = 0
+text = "RETURN"
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InfoLabel" type="RichTextLabel" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
+
+[color=GOLD]Main attack types:[/color] Elemental, Energy"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HoradricItemContainerPanel" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer" instance=ExtResource("12_f1ua4")]
+layout_mode = 2
+size_flags_vertical = 3
+_button_tooltip_location = 0
+show_slot_borders = false
+
+[node name="HoradricAvgItemLevelLabel" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Average item level: 0"
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = -30
+theme_override_constants/margin_top = 40
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 40
+
+[node name="ItemTypeFilter" parent="MarginContainer/VBoxContainer2" instance=ExtResource("13_1dykx")]
+layout_mode = 2
+
+[node name="RarityFilter" parent="MarginContainer/VBoxContainer2" instance=ExtResource("14_bh43e")]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+icon = SubResource("AtlasTexture_wh5fy")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -15
+
+[node name="TitleLabel" type="Label" parent="MarginContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("3_tvpws")
+text = "Item Stash"
+horizontal_alignment = 1
+
+[connection signal="toggled" from="TabContainer/VBoxContainer/HBoxContainer/LockFilterButton" to="." method="_on_lock_filter_button_toggled"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/HBoxContainer/SortButton" to="." method="_on_sort_button_pressed"]
+[connection signal="gui_input" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemGrid" to="." method="_on_item_grid_gui_input"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="filter_changed" from="MarginContainer/VBoxContainer2/ItemTypeFilter" to="." method="_on_item_type_filter_container_filter_changed"]
+[connection signal="filter_changed" from="MarginContainer/VBoxContainer2/RarityFilter" to="." method="_on_rarity_filter_filter_changed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

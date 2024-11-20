@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1ccsqvpyqd4i"]
-
-[ext_resource type="Script" path="res://src/ui/hud/buttons/recipe_button.gd" id="1_3j7jj"]
-
-[node name="RecipeButton" type="Button" groups=["recipe_buttons"]]
-focus_mode = 0
-theme_type_variation = &"TinyUnitButton"
-expand_icon = true
-script = ExtResource("1_3j7jj")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://8xsklkw4jhlw"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_lv050"]
+[ext_resource type="Script" path="res://src/ui/buttons/empty_unit_button.gd" id="2_0vien"]
+
+
+[node name="EmptyUnitButton" type="Button"]
+custom_minimum_size = Vector2(120, 120)
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("1_lv050")
+theme_type_variation = &"EmptySlot"
+script = ExtResource("2_0vien")

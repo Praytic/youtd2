@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://1a6qmxkrspc8"]
+
+[ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://resources/theme/player_resource_display/resource_status_panel.tres" id="1_ri1eg"]
+[ext_resource type="Script" path="res://src/ui/player_resource_display/resource_status_panel.gd" id="2_y71mw"]
+
+[node name="ResourceStatusPanel" type="Panel" node_paths=PackedStringArray("_label", "_icon")]
+custom_minimum_size = Vector2(130, 38)
+offset_right = 120.0
+offset_bottom = 28.0
+size_flags_horizontal = 3
+theme_type_variation = &"ResourceTab"
+theme_override_styles/panel = ExtResource("1_ri1eg")
+script = ExtResource("2_y71mw")
+_label = NodePath("HBoxContainer/MarginContainer/Label")
+_icon = NodePath("HBoxContainer/Icon")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 2
+vertical_alignment = 2

@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://src/ui/hud/flying_item.gd" id="1_5ump5"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="3_vx2oo"]
 [ext_resource type="Texture2D" uid="uid://bbax2xlr25ajb" path="res://resources/icons/mechanical/compass.tres" id="4_42i2u"]
-[ext_resource type="PackedScene" uid="uid://8mjwtvwfpjf5" path="res://src/ui/hud/buttons/rarity_background.tscn" id="4_jqp1b"]
-
+[ext_resource type="PackedScene" uid="uid://8mjwtvwfpjf5" path="res://src/ui/buttons/rarity_background.tscn" id="4_jqp1b"]
 
 [node name="FlyingItem" type="Control" node_paths=PackedStringArray("_button", "_rarity_background")]
 layout_mode = 3
