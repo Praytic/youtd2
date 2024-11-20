@@ -61,6 +61,12 @@ func start_first_wave():
 
 
 func start_next_wave():
+	var reached_last_wave: bool = _level == Globals.get_wave_count()
+	var game_is_neverending: bool = Globals.game_is_neverending()
+
+	if reached_last_wave && !game_is_neverending:
+		return
+
 	_level += 1
 	level_changed.emit()
 	_start_wave()
@@ -333,7 +339,6 @@ func _on_player_wave_spawned(level: int):
 	if wave_is_in_progress:
 		return
 
-	var started_last_wave: bool = level == Globals.get_wave_count()
 	var difficulty_is_extreme: bool = Globals.get_difficulty() == Difficulty.enm.EXTREME
 	var game_is_neverending: bool = Globals.game_is_neverending()
 	var bonus_waves_in_progress: bool = Utils.wave_is_bonus(level)
@@ -345,7 +350,7 @@ func _on_player_wave_spawned(level: int):
 	var autospawn_time_list: Array[float] = []
 	if autospawn_time_is_defined:
 		autospawn_time_list.append(_player_defined_autospawn_time)
-	if difficulty_is_extreme && !started_last_wave:
+	if difficulty_is_extreme:
 		autospawn_time_list.append(extreme_autospawn_time)
 	if game_is_neverending && bonus_waves_in_progress:
 		var bonus_wave_autospawn_time: float = _get_bonus_wave_autospawn_time(level)
@@ -374,7 +379,7 @@ func _on_player_wave_finished(level: int):
 	for player in _player_list:
 		if !player.current_wave_is_finished():
 			all_players_finished = false
-		
+	
 	var player_finished_last_level: bool = level == Utils.get_max_level()
 	var team_achieved_victory: bool = player_finished_last_level && all_players_finished
 
