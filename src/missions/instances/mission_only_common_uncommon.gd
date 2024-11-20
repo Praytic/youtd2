@@ -6,7 +6,6 @@ const VALID_RARITY_LIST: Array = [Rarity.enm.COMMON, Rarity.enm.UNCOMMON]
 
 func check_for_fail():
 	var tower_list: Array = Utils.get_tower_list()
-	var tower_count: int = tower_list.size()
 	
 	for tower in tower_list:
 		var rarity: Rarity.enm = tower.get_rarity()
