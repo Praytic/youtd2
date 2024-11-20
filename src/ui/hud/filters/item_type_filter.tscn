@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ib3y0a6h0v46"]
+
+[ext_resource type="Script" path="res://src/ui/hud/filters/item_type_filter.gd" id="1_jj4ac"]
+[ext_resource type="PackedScene" uid="uid://8rqr6mlftwrx" path="res://src/ui/hud/filters/filter_button_item_type.tscn" id="2_dcwgy"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://resources/icons/hud/item_stash.tres" id="2_ftq7a"]
+[ext_resource type="ButtonGroup" uid="uid://cycas5vk7h2lw" path="res://resources/button_groups/item_type_filter_button_group.tres" id="3_254a3"]
+[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://resources/icons/hud/recipe_reassemble.tres" id="4_0ptir"]
+[ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://resources/icons/hud/oils.tres" id="5_fd3uu"]
+
+[node name="ItemTypeFilter" type="VBoxContainer"]
+size_flags_horizontal = 10
+alignment = 2
+script = ExtResource("1_jj4ac")
+
+[node name="FilterButtonItemType" parent="." instance=ExtResource("2_dcwgy")]
+layout_mode = 2
+tooltip_text = "All item types"
+theme = null
+button_pressed = true
+button_group = ExtResource("3_254a3")
+icon = ExtResource("2_ftq7a")
+filter_value = Array[int]([0, 1, 2])
+
+[node name="FilterButtonItemType2" parent="." instance=ExtResource("2_dcwgy")]
+layout_mode = 2
+tooltip_text = "Permanent items"
+theme = null
+button_group = ExtResource("3_254a3")
+icon = ExtResource("4_0ptir")
+filter_value = Array[int]([0])
+
+[node name="FilterButtonItemType3" parent="." instance=ExtResource("2_dcwgy")]
+layout_mode = 2
+tooltip_text = "Oils and consumables"
+theme = null
+button_group = ExtResource("3_254a3")
+icon = ExtResource("5_fd3uu")
+filter_value = Array[int]([1, 2])
+
+[connection signal="toggled" from="FilterButtonItemType" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="FilterButtonItemType2" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="FilterButtonItemType3" to="." method="_on_filter_button_pressed"]

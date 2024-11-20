@@ -1,0 +1,122 @@
+[gd_scene load_steps=9 format=3 uid="uid://ni34yd5liwbj"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_gjufa"]
+[ext_resource type="Texture2D" uid="uid://b0cvl7ota8rxq" path="res://resources/icons/tower_icons/lesser_iron_defender.tres" id="2_5y7kf"]
+[ext_resource type="PackedScene" uid="uid://8mjwtvwfpjf5" path="res://src/ui/hud/buttons/rarity_background.tscn" id="2_sd6cs"]
+[ext_resource type="Script" path="res://src/ui/hud/buttons/tower_button.gd" id="3_ht2cb"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://assets/icons/tier_icons_m.png" id="3_n04co"]
+[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://resources/ui_textures/unit_button_disabled.tres" id="4_kwp58"]
+[ext_resource type="PackedScene" uid="uid://dpsfkaoappjpe" path="res://src/ui/hud/buttons/freshness_indicator.tscn" id="5_tame2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80ypy"]
+atlas = ExtResource("3_n04co")
+region = Rect2(0, 0, 64, 64)
+
+[node name="TowerButton" type="Button" node_paths=PackedStringArray("_disabled_lock", "_tier_icon", "_freshness_timer", "_freshness_indicator", "_rarity_background", "_counter_label")]
+custom_minimum_size = Vector2(120, 120)
+focus_mode = 0
+theme = ExtResource("1_gjufa")
+theme_type_variation = &"UnitButton"
+icon = ExtResource("2_5y7kf")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_ht2cb")
+_disabled_lock = NodePath("LockTexture")
+_tier_icon = NodePath("TierContainer/TierIcon")
+_freshness_timer = NodePath("FreshnessTimer")
+_freshness_indicator = NodePath("MarginContainer3/FreshnessIndicator")
+_rarity_background = NodePath("RarityBackground")
+_counter_label = NodePath("MarginContainer2/AspectRatioContainer/CounterLabel")
+
+[node name="RarityBackground" parent="." instance=ExtResource("2_sd6cs")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TierContainer" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_bottom = 43.0
+grow_horizontal = 0
+theme_override_constants/margin_top = -15
+theme_override_constants/margin_right = -15
+
+[node name="TierIcon" type="TextureRect" parent="TierContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = SubResource("AtlasTexture_80ypy")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="LockTexture" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kwp58")
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="FreshnessIndicator" parent="MarginContainer3" instance=ExtResource("5_tame2")]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -38.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="CounterLabel" type="Label" parent="MarginContainer2/AspectRatioContainer"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 1
+theme_type_variation = &"CounterLabel"
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FreshnessTimer" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="FreshnessTimer" to="." method="_on_freshness_timer_timeout"]

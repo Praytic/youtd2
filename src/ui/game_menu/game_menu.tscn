@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://hiex318b5cvk"]
+
+[ext_resource type="Script" path="res://src/ui/game_menu/game_menu.gd" id="1_8lyul"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_v8b77"]
+[ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://src/ui/game_menu/help_menu.tscn" id="3_vf4xx"]
+[ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/ui/game_menu/settings_menu.tscn" id="5_y1l7h"]
+
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6c4dp"]
+
+[node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
+theme = ExtResource("1_v8b77")
+script = ExtResource("1_8lyul")
+_tab_container = NodePath("TabContainer")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6c4dp")
+current_tab = 0
+tabs_visible = false
+
+[node name="MainTab" type="PanelContainer" parent="TabContainer"]
+layout_mode = 2
+theme = ExtResource("1_v8b77")
+theme_type_variation = &"MainPanelContainer"
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MainTab"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ContinueButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Continue"
+
+[node name="HelpButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Help"
+
+[node name="SettingsButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Quit To Menu"
+
+[node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_help_menu_closed"]
+[connection signal="cancel_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_cancel_pressed"]
+[connection signal="ok_pressed" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://jm3vhrboca8b"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_fcvcc"]
+[ext_resource type="Script" path="res://src/ui/hud/game_stats.gd" id="2_yyjiq"]
+[ext_resource type="Script" path="res://src/ui/hud/label_with_rich_tooltip.gd" id="3_r8spy"]
+
+[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_stats_label")]
+offset_right = 621.0
+offset_bottom = 348.0
+size_flags_horizontal = 0
+size_flags_vertical = 2
+theme = ExtResource("1_fcvcc")
+script = ExtResource("2_yyjiq")
+_settings_label = NodePath("SettingsLabel")
+_builder_label = NodePath("GridContainer/BuilderLabel")
+_stats_label = NodePath("StatsLabel")
+
+[node name="SettingsLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+theme_override_constants/table_h_separation = 20
+bbcode_enabled = true
+text = "[color=GOLD]Neverending[/color], [color=GOLD]Build[/color], [color=4169e1ff]Beginner[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Builder:"
+
+[node name="BuilderLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+mouse_filter = 0
+text = "Farseer"
+script = ExtResource("3_r8spy")
+
+[node name="StatsLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme_override_constants/table_h_separation = 20
+text = "stats go here"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3

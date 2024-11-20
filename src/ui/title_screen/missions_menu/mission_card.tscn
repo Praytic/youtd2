@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://crkei1pbrqxta"]
+
+[ext_resource type="StyleBox" uid="uid://cjho6n8sw5utc" path="res://resources/theme/mission_complete_indicator.tres" id="1_cof1l"]
+[ext_resource type="Script" path="res://src/ui/title_screen/missions_menu/mission_card.gd" id="1_l76ty"]
+
+
+[node name="MissionCard" type="PanelContainer" node_paths=PackedStringArray("_description_label", "_completed_indicator", "_track_label", "_track_checkbox")]
+custom_minimum_size = Vector2(550, 110)
+size_flags_horizontal = 3
+theme_type_variation = &"UncommonRarityPanelContainer"
+script = ExtResource("1_l76ty")
+_description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/DescriptionLabel")
+_completed_indicator = NodePath("MarginContainer2/CompletedIndicator")
+_track_label = NodePath("MarginContainer/HBoxContainer/HBoxContainer/TrackLabel")
+_track_checkbox = NodePath("MarginContainer/HBoxContainer/HBoxContainer/TrackCheckBox")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Beat 240 Medium Upgrade with Master of Encyclopedic Wisdom builder"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="TrackLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Track:"
+
+[node name="TrackCheckBox" type="CheckBox" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = -35
+
+[node name="CompletedIndicator" type="PanelContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("1_cof1l")
+
+[node name="CompletedLabel" type="Label" parent="MarginContainer2/CompletedIndicator"]
+layout_mode = 2
+text = "COMPLETED"
+
+[connection signal="toggled" from="MarginContainer/HBoxContainer/HBoxContainer/TrackCheckBox" to="." method="_on_track_check_box_toggled"]

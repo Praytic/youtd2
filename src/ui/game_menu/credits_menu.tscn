@@ -1,0 +1,202 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx0xth6bthpon"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_phxvu"]
+[ext_resource type="Script" path="res://src/ui/game_menu/credits_menu.gd" id="2_u7bhi"]
+
+
+[node name="CreditsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(800, 900)
+theme = ExtResource("1_phxvu")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_u7bhi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "YouTD2 was made by:
+ 
+[color=GOLD]Praytic[/color]
+[color=GOLD]Dmitry Degtyarev[/color]
+ 
+With contributions from:
+ 
+[color=GOLD]Sea[/color]
+[color=GOLD]G3s[/color]
+[color=GOLD]Smeto[/color]
+[color=GOLD]Anufis[/color]
+[color=GOLD]vbogach[/color]
+[color=GOLD]TiGPyLLle4kA[/color]
+[color=GOLD]Lizreu[/color]
+[color=GOLD]jdbuenol[/color]
+[color=GOLD]jhoijhoi[/color]
+[color=GOLD]Patcharoo[/color]
+[color=GOLD]Garrett[/color]
+[color=GOLD]AlexHuni[/color]
+[color=GOLD]hka[/color]
+[color=GOLD]Alex Isobaev[/color]
+[color=GOLD]mittig[/color]
+ 
+This game was made with the [color=LIGHTBLUE]Godot Engine[/color].
+[url]https://godotengine.org/license/[/url]
+ 
+This game uses the [color=BURLYWOOD]Isometric Dungeon Tiles[/color] tileset created by [color=ORANGE]Kenney[/color].
+ 
+This game uses the [color=BURLYWOOD]RTS Mega Pack[/color] created by [color=ORANGE]Bitgem[/color].
+ 
+This game uses the [color=BURLYWOOD]Effect and FX Pixel All[/color] asset pack created by [color=ORANGE]BDragon1727[/color]. [url]https://bdragon1727.itch.io/effect-and-fx-pixel-all[/url]
+ 
+Many thanks to [color=RED]Garrett[/color] for operating the [color=LIGHTBLUE]youtd.best[/color] website. It contains a database of YouTD towers and items which was a lot of help during the development of this game!
+ 
+YouTD2 is based on [color=RED]geX[/color]'s [color=SILVER]YouTD[/color] - a custom map for Warcraft 3 made with the help of many contributors:
+ 
+[color=FORESTGREEN]boekie[/color]
+[color=GOLD]drol[/color]
+[color=FORESTGREEN]cedi[/color]
+[color=GOLD]SirCoqaLot[/color]
+[color=GOLD]Natac[/color]
+[color=RED]geX[/color]
+[color=FORESTGREEN]m0ck[/color]
+[color=GOLD]Majildian[/color]
+[color=GOLD]SternBogen[/color]
+[color=FORESTGREEN]tolleder[/color]
+[color=GOLD]DaveMatthews[/color]
+[color=GOLD]Velex[/color]
+[color=FORESTGREEN]der_kleine_Tomy[/color]
+[color=DARKRED]MasterCassim[/color]
+[color=GOLD]Neotopia[/color]
+[color=GOLD]Palandu[/color]
+[color=GOLD]Chronos[/color]
+[color=GOLD]Lapsus[/color]
+[color=GOLD]poussix[/color]
+[color=GOLD]IamanEvilMan[/color]
+[color=GOLD]Cyony[/color]
+[color=GOLD]ShyGnome[/color]
+[color=GOLD]Monolith[/color]
+[color=FORESTGREEN]Glowackos[/color]
+[color=FORESTGREEN]KublaiKhan1[/color]
+[color=GOLD]BetrayedKnight[/color]
+[color=GOLD]Killamasta[/color]
+[color=GOLD]Ashbringer[/color]
+[color=GOLD]His_Shadow[/color]
+[color=FORESTGREEN]Deemzul[/color]
+[color=GOLD]Shaddow[/color]
+[color=GOLD]Joe[/color]
+[color=GOLD]D10000[/color]
+[color=GOLD]👉👉👉[/color]
+[color=GOLD]the-red-terror[/color]
+[color=GOLD]Coldrocker[/color]
+[color=GOLD]McDoNaldGaNgStA[/color]
+[color=GOLD]SymphonyX[/color]
+[color=GOLD]F12ight[/color]
+[color=GOLD]hokkei[/color]
+[color=GOLD]axllow[/color]
+[color=GOLD]TopBanana[/color]
+[color=GOLD]Guennter[/color]
+[color=GOLD]Nubz[/color]
+[color=GOLD]Ely[/color]
+[color=GOLD]Kricz[/color]
+[color=GOLD]Sunken[/color]
+[color=GOLD]Cyrganth[/color]
+[color=GOLD]lumfa[/color]
+[color=GOLD]Ranakastrasz[/color]
+[color=GOLD]Khlox-NL-[/color]
+[color=GOLD]LordHellHunter[/color]
+[color=GOLD]Bartuck[/color]
+[color=GOLD]YouJizzTD[/color]
+[color=GOLD]Zloj[/color]
+[color=GOLD]KySoto[/color]
+[color=GOLD]zed[/color]
+ 
+YouTD2 contains icons from [color=GOLD]game-icons.net[/color], used under CC BY 3.0. Icon authors:
+[color=GOLD]Lorc[/color]
+[color=GOLD]Delapouite[/color]
+[color=GOLD]Wildabeast[/color]
+[color=GOLD]Caro Asercion[/color]
+[color=GOLD]sbed[/color]
+ 
+YouTD2 contains sound effects made by multiple people:
+ 
+Slash by qubodup -- https://freesound.org/s/442903/ -- License: Creative Commons 0  splat.ogg by gprosser -- https://freesound.org/s/360942/ -- License: Creative Commons 0  Bloody Blade 2.wav by Kreastricon62 -- https://freesound.org/s/323526/ -- License: Creative Commons 0
+ 
+War Game Battle Level Up by qubodup -- https://freesound.org/s/161654/ -- License: Creative Commons 0  timp_rolls.flac by spt3125 -- https://freesound.org/s/24810/ -- License: Creative Commons 0
+ 
+Enchant.flac by qubodup - https://freesound.org/people/qubodup/sounds/202147/ - License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+ 
+Fireball by qubodup -- https://freesound.org/s/442827/ -- License: Attribution 4.0  Short-Fireball-Woosh.flac by wjl -- https://freesound.org/s/267887/ -- License: Creative Commons 0  Match by qubodup -- https://freesound.org/s/171693/ -- License: Attribution 4.0  23 FIACCOLA PASS.aiff by lollosound -- https://freesound.org/s/124372/ -- License: Creative Commons 0  Dull Decompression Punch Impact Explodes 96kHz by qubodup -- https://freesound.org/s/71274/ -- License: Creative Commons 0
+ 
+Cloud Poof by qubodup -- https://freesound.org/s/714258/ -- License: Attribution 4.0  cloud-punch.wav by CaptainYulef -- https://freesound.org/s/641241/ -- License: Creative Commons 0  Gas Cloud.wav by puppetmaster685719 -- https://freesound.org/s/627733/ -- License: Creative Commons 0  Poof in cloud by Mateusz_Chenc -- https://freesound.org/s/512217/ -- License: Creative Commons 0  Poof.wav by ryansitz -- https://freesound.org/s/387834/ -- License: Creative Commons 0  explosionsfx.wav by OtisJames -- https://freesound.org/s/249613/ -- License: Creative Commons 0
+ 
+Orc Grunt 2 by qubodup -- https://freesound.org/s/738438/ - License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+ 
+Blast / Explosion by TigrePlayz_ -- https://freesound.org/s/745156/ - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Coins3 by NoisyRedFox -- https://freesound.org/s/734247/ -- License: Creative Commons 0
+ 
+Stomp Soft by brettrader -- https://freesound.org/s/683044/ -- License: Creative Commons 0
+ 
+Pick up Item 1.wav by SilverIllusionist -- https://freesound.org/s/411177/ -- License: Attribution 4.0
+ 
+Spell Cast / Buff / High Tone by SypherZent - https://freesound.org/people/SypherZent/sounds/420676/ - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Magic Fire Spell Impact & Punch by EminYILDIRIM - freesound.org/people/EminYILDIRIM/sounds/541478 – License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+ 
+Heal - Rpg by colorsCrimsonTears - https://freesound.org/s/562292/ - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Sword_Water01.wav by SonoFxAudio - https://freesound.org/people/SonoFxAudio/sounds/649359/ - License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+ 
+thud.mp3 by sunflora -- https://freesound.org/s/665082/ - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Magic spell by Bastianhallo -- https://freesound.org/s/682635/ - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Spell 4 (FIRE) by Bart K. -- https://opengameart.org/content/spell-4-fire -- License: Creative Commons 3
+ 
+3 Item sounds by Michel Baradari -- https://opengameart.org/content/3-item-sounds -- License: Creative Commons 3
+ 
+Lava splash by Michel Baradari -  https://opengameart.org/content/lava-splash - License: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+ 
+teleport by Q009 - https://opengameart.org/content/q009s-weapon-sounds - License: CC BY SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)
+ 
+Fantasy Sound Effects Library by Little Robot Sound Factory -  https://opengameart.org/content/fantasy-sound-effects-library - License: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+ 
+Archers shooting by copyc4t (Paolo D'Emilio) - https://opengameart.org/content/archers-shooting - License: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/) This work is an adaption of other works below: bow_sound.wav by Anton -- https://freesound.org/s/54/ -- License: Attribution 4.0 Swosh / Whoosh / Air Cut by qubodup -- https://freesound.org/s/60030/ -- License: Creative Commons 0 Bow Releases.wav by Benboncan -- https://freesound.org/s/85019/ -- License: Attribution 4.0
+ 
+3 Heal Spells by DoKashiteru - https://opengameart.org/content/3-heal-spells - License: CC BY (https://creativecommons.org/licenses/by/3.0/)
+ 
+Freeze Spell by artisticdude - https://opengameart.org/content/freeze-spell-0 - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+ 
+Spell Sounds Starter Pack by p0ss - https://opengameart.org/content/spell-sounds-starter-pack - License: CC BY SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)
+ 
+80 CC0 creature SFX by rubberduck - https://opengameart.org/content/80-cc0-creature-sfx - License: CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+"
+fit_content = true
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "Close"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

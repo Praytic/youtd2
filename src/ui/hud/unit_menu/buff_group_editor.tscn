@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccys3jpdwu3ft"]
+
+[ext_resource type="Script" path="res://src/ui/hud/unit_menu/buff_group_editor.gd" id="1_8s3be"]
+[ext_resource type="PackedScene" uid="uid://dfid7khpwu0i8" path="res://src/ui/hud/buttons/buff_group_button.tscn" id="1_c3k71"]
+
+[node name="BuffGroupEditor" type="HBoxContainer"]
+script = ExtResource("1_8s3be")
+
+[node name="BuffGroupButton1" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 1
+
+[node name="BuffGroupButton2" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 2
+
+[node name="BuffGroupButton3" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 3
+
+[node name="BuffGroupButton4" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 4
+
+[node name="BuffGroupButton5" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 5
+
+[node name="BuffGroupButton6" parent="." instance=ExtResource("1_c3k71")]
+layout_mode = 2
+_buff_group_number = 6

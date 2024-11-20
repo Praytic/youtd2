@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://vgeirnu7ramn"]
+
+[ext_resource type="Script" path="res://src/ui/hud/floating_text.gd" id="2"]
+
+
+[node name="FloatingText" type="Node2D" node_paths=PackedStringArray("label")]
+script = ExtResource("2")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 14.0
+theme_override_font_sizes/font_size = 40
+text = "TEST"

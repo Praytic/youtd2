@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://8mjwtvwfpjf5"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_h8l7j"]
+[ext_resource type="Script" path="res://src/ui/hud/buttons/rarity_background.gd" id="2_6a5cr"]
+
+
+[node name="RarityBackground" type="PanelContainer"]
+show_behind_parent = true
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme = ExtResource("1_h8l7j")
+theme_type_variation = &"CommonRarityPanelContainer"
+script = ExtResource("2_6a5cr")

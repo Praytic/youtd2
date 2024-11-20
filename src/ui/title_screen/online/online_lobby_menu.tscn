@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkxudlev66vnr"]
+
+[ext_resource type="Script" path="res://src/ui/title_screen/online/online_lobby_menu.gd" id="1_gou4l"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_sgqs1"]
+
+[node name="OnlineLobbyMenu" type="PanelContainer" node_paths=PackedStringArray("_player_list", "_match_config_label", "_start_button")]
+theme = ExtResource("1_sgqs1")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("1_gou4l")
+_player_list = NodePath("VBoxContainer/PlayerList")
+_match_config_label = NodePath("VBoxContainer/MatchConfigLabel")
+_start_button = NodePath("VBoxContainer/HBoxContainer/StartButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Match Lobby"
+horizontal_alignment = 1
+
+[node name="MatchConfigLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+fit_content = true
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Connected players:"
+
+[node name="PlayerList" type="ItemList" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+allow_search = false
+auto_height = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LeaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Leave"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Start"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://7hnklay7gedu"]
+
+[ext_resource type="Script" path="res://src/ui/hud/unit_menu/buff_container.gd" id="1_5eut6"]
+[ext_resource type="PackedScene" uid="uid://d4mgo5v7j01kj" path="res://src/ui/hud/unit_menu/buff_display.tscn" id="2_nldtx"]
+
+[node name="BuffContainer" type="VBoxContainer" node_paths=PackedStringArray("_row_top", "_row_bottom")]
+offset_right = 412.0
+offset_bottom = 100.0
+script = ExtResource("1_5eut6")
+_row_top = NodePath("RowTop")
+_row_bottom = NodePath("RowBottom")
+
+[node name="RowTop" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+columns = 8
+
+[node name="BuffDisplay9" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay10" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay11" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay12" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay13" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay14" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay15" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay16" parent="RowTop" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="RowBottom" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+columns = 8
+
+[node name="BuffDisplay" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay2" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay3" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay4" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay5" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay6" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay7" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2
+
+[node name="BuffDisplay8" parent="RowBottom" instance=ExtResource("2_nldtx")]
+layout_mode = 2

@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy7728ew6n4n"]
+
+[ext_resource type="Script" path="res://src/ui/hud/unit_menu/tower_mini_details.gd" id="1_nxq0b"]
+[ext_resource type="PackedScene" uid="uid://b5kapr6gujqbt" path="res://src/ui/hud/unit_menu/mini_details_label.tscn" id="2_tifx3"]
+
+
+[node name="TowerMiniDetails" type="TabContainer" node_paths=PackedStringArray("_dmg_left_label", "_dmg_right_label", "_misc_left_label", "_misc_right_label", "_types_left_label", "_types_right_label", "_oils_label")]
+custom_minimum_size = Vector2(400, 300)
+size_flags_vertical = 8
+current_tab = 0
+tab_focus_mode = 0
+script = ExtResource("1_nxq0b")
+_dmg_left_label = NodePath("Dmg/DmgLeftLabel")
+_dmg_right_label = NodePath("Dmg/DmgRightLabel")
+_misc_left_label = NodePath("Misc/MiscLeftLabel")
+_misc_right_label = NodePath("Misc/MiscRightLabel")
+_types_left_label = NodePath("Types/TypesLeftLabel")
+_types_right_label = NodePath("Types/TypesRightLabel")
+_oils_label = NodePath("Oils/ScrollContainer/OilsLabel")
+
+[node name="UpdateTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Dmg" type="HBoxContainer" parent="."]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="DmgLeftLabel" parent="Dmg" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="DmgRightLabel" parent="Dmg" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="Misc" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MiscLeftLabel" parent="Misc" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="MiscRightLabel" parent="Misc" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="Types" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="TypesLeftLabel" parent="Types" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="TypesRightLabel" parent="Types" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+
+[node name="Oils" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Oils"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OilsLabel" parent="Oils/ScrollContainer" instance=ExtResource("2_tifx3")]
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+scroll_active = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

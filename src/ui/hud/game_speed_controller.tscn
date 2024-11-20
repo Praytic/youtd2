@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://n8326r4m33s3"]
+
+[ext_resource type="Script" path="res://src/ui/hud/game_speed_controller.gd" id="1_ak56x"]
+[ext_resource type="PackedScene" uid="uid://dq1y6eowvvl45" path="res://src/ui/hud/buttons/speed_button.tscn" id="1_vx7on"]
+[ext_resource type="ButtonGroup" uid="uid://5mj7ntug0txa" path="res://resources/button_groups/speed_button_group.tres" id="2_3te4o"]
+[ext_resource type="Texture2D" uid="uid://cny5e3y68r18y" path="res://resources/ui_textures/speed_fast.tres" id="3_co8ko"]
+[ext_resource type="Texture2D" uid="uid://c1cbjc01sbgsu" path="res://resources/ui_textures/speed_fastest.tres" id="4_5fx06"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6ubjv"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_8c3lr"]
+events = [SubResource("InputEventKey_6ubjv")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6jvxc"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_5psg1"]
+events = [SubResource("InputEventKey_6jvxc")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_26jvu"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_uebri"]
+events = [SubResource("InputEventKey_26jvu")]
+
+[node name="GameSpeedController" type="HBoxContainer"]
+script = ExtResource("1_ak56x")
+
+[node name="SpeedNormal" parent="." instance=ExtResource("1_vx7on")]
+layout_mode = 2
+tooltip_text = "Set game speed to normal"
+button_pressed = true
+button_group = ExtResource("2_3te4o")
+shortcut = SubResource("Shortcut_8c3lr")
+
+[node name="SpeedFast" parent="." instance=ExtResource("1_vx7on")]
+layout_mode = 2
+tooltip_text = "Set game speed to fast"
+button_group = ExtResource("2_3te4o")
+shortcut = SubResource("Shortcut_5psg1")
+icon = ExtResource("3_co8ko")
+
+[node name="SpeedFastest" parent="." instance=ExtResource("1_vx7on")]
+layout_mode = 2
+tooltip_text = "Set game speed to fastest"
+button_group = ExtResource("2_3te4o")
+shortcut = SubResource("Shortcut_uebri")
+icon = ExtResource("4_5fx06")
+
+[connection signal="toggled" from="SpeedNormal" to="." method="_on_speed_normal_toggled"]
+[connection signal="toggled" from="SpeedFast" to="." method="_on_speed_fast_toggled"]
+[connection signal="toggled" from="SpeedFastest" to="." method="_on_speed_fastest_toggled"]

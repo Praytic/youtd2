@@ -1,0 +1,207 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx86ea3loo8a2"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_73d58"]
+[ext_resource type="Script" path="res://src/ui/game_menu/settings_menu.gd" id="2_2dtmk"]
+[ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
+
+
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
+custom_minimum_size = Vector2(800, 600)
+theme = ExtResource("1_73d58")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_2dtmk")
+_damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DamageNumbers")
+_enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
+_enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/EnableMouseScroll")
+_show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/ShowCombatLog")
+_show_tutorial_on_start = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8/ShowTutorialOnStart")
+_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
+_keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
+_interface_size_button_group = ExtResource("2_fh8ol")
+_apply_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ApplyButton")
+_display_mode_combo = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/DisplayModeCombo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Display Mode"
+
+[node name="DisplayModeCombo" type="OptionButton" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Full Screen"
+popup/item_1/text = "Borderless Full Screen"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageNumbers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Show all damage numbers"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Enable sound effects"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Enable mouse scroll"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Show combat log"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+text = "Display tutorial"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mouse scroll:"
+
+[node name="MouseScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+max_value = 1.0
+step = 0.25
+value = 0.5
+scrollable = false
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keyboard scroll:"
+
+[node name="KeyboardScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+max_value = 1.0
+step = 0.25
+value = 0.5
+scrollable = false
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Interface size:"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SmallInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_group = ExtResource("2_fh8ol")
+text = "Small"
+flat = true
+
+[node name="MediumInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("2_fh8ol")
+text = "Medium"
+flat = true
+
+[node name="LargeInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_group = ExtResource("2_fh8ol")
+text = "Large"
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="OkButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "OK"
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "Cancel"
+
+[node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+disabled = true
+text = "Apply"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/DisplayModeCombo" to="." method="_on_display_mode_combo_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]

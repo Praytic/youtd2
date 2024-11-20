@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://csg2abpgju1ay"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_0djlm"]
+[ext_resource type="Script" path="res://src/ui/title_screen/online/online_match_list_menu.gd" id="2_inhau"]
+
+
+[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_searching_label", "_no_matches_found_label", "_match_card_grid", "_refresh_button")]
+custom_minimum_size = Vector2(1122, 600)
+theme = ExtResource("1_0djlm")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_inhau")
+_searching_label = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/SearchingLabel")
+_no_matches_found_label = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/NoMatchesFoundLabel")
+_match_card_grid = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MatchCardGrid")
+_refresh_button = NodePath("VBoxContainer/HBoxContainer/RefreshButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Online Matches"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_0djlm")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SearchingLabel" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Searching for matches..."
+
+[node name="NoMatchesFoundLabel" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "No matches found"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MatchCardGrid" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CreateMatchButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Create match"
+
+[node name="RefreshButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Refresh"
+
+[node name="LANButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "LAN Multiplayer"
+
+[node name="Spacer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CreateMatchButton" to="." method="_on_create_match_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/LANButton" to="." method="_on_lan_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
