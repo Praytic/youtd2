@@ -1,9 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://1a6qmxkrspc8"]
+[gd_scene load_steps=3 format=3 uid="uid://1a6qmxkrspc8"]
 
 [ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://resources/theme/player_resource_display/resource_status_panel.tres" id="1_ri1eg"]
 [ext_resource type="Script" path="res://src/ui/hud/status_panel/resource_status_panel.gd" id="2_y71mw"]
-[ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://resources/icons/hud/gold.tres" id="3_gvog0"]
-
 
 [node name="ResourceStatusPanel" type="Panel" node_paths=PackedStringArray("_label", "_icon")]
 custom_minimum_size = Vector2(130, 38)
@@ -27,7 +25,6 @@ grow_vertical = 2
 [node name="Icon" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-texture = ExtResource("3_gvog0")
 expand_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
@@ -40,6 +37,5 @@ theme_override_constants/margin_right = 10
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "123"
 horizontal_alignment = 2
 vertical_alignment = 2

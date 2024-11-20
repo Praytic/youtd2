@@ -3,7 +3,7 @@ class_name ResourceStatusPanel
 extends Panel
 
 
-# NOTE: this file is unused
+# Displays a player resource as icon+number. Used in the resource panel to show gold, tomes, food.
 
 
 @export var icon_texture: Texture2D
