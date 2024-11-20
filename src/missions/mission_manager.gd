@@ -41,6 +41,9 @@ func _ready() -> void:
 #########################
 
 func _remove_mission(mission: Mission):
+	var mission_id: int = mission.get_id()
+	EventBus.mission_was_failed.emit(mission_id)
+
 	_mission_list.erase(mission)
 	remove_child(mission)
 	mission.queue_free()
@@ -106,6 +109,8 @@ func _on_game_win():
 			var mission_id: int = mission.get_id()
 			var mission_description: String = MissionProperties.get_description(mission_id)
 			
+			EventBus.mission_was_completed.emit(mission_id)
+
 			MissionStatus.set_mission_is_complete(mission_id, true)
 			Messages.add_normal(null, "Mission was COMPLETED: %s!" % mission_description)
 			print_verbose("Mission was completed: %s" % mission_description)

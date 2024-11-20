@@ -34,6 +34,8 @@ signal player_stopped_build_process()
 signal mouse_entered_unit(unit: Unit)
 signal mouse_exited_unit(unit: Unit)
 signal item_started_flying_to_item_stash(item: Item, canvas_pos: Vector2)
+signal mission_was_failed(mission_id: int)
+signal mission_was_completed(mission_id: int)
 
 # NOTE: signals for triggering tutorials
 signal finished_tutorial_section(tutorial_id: int)

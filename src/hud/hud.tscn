@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=26 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
+[ext_resource type="PackedScene" uid="uid://bakuxdbe6a7f0" path="res://src/hud/mission_tracker_container.tscn" id="5_n7x4d"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/hud/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
 [ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
 [ext_resource type="PackedScene" uid="uid://n8326r4m33s3" path="res://src/hud/game_speed_controller.tscn" id="9_ilyra"]
@@ -131,10 +132,20 @@ offset_bottom = 61.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 15
 
-[node name="PlayerResourceDisplay" parent="MarginContainer3" instance=ExtResource("15_ir4hq")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+
+[node name="PlayerResourceDisplay" parent="MarginContainer3/VBoxContainer" instance=ExtResource("15_ir4hq")]
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_edit_vertical_guides_ = []
+
+[node name="Spacer" type="VBoxContainer" parent="MarginContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MissionTrackerContainer" parent="MarginContainer3/VBoxContainer" instance=ExtResource("5_n7x4d")]
+layout_mode = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="."]
 layout_mode = 2
