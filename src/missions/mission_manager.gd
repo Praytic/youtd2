@@ -151,3 +151,22 @@ func _check_missions_for_fail():
 	
 	for mission in mission_list:
 		mission.check_for_fail()
+
+
+# NOTE: need to check fails for tracked missions more often so that there's
+# not a large visual delay between doing a fail condition and tracking turning to FAILED
+func _on_fast_fail_check_timer_timeout():
+	var mission_list: Array = _mission_list.duplicate()
+	
+	var tracked_mission_list: Array = []
+	
+	for mission in mission_list:
+		var mission_id: int = mission.get_id()
+		var mission_is_tracked: bool = MissionTracking.get_mission_is_tracked(mission_id)
+		
+		if mission_is_tracked:
+			tracked_mission_list.append(mission)
+	
+	for mission in tracked_mission_list:
+		mission.check_for_fail()
+	
