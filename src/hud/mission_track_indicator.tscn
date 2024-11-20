@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://src/hud/mission_track_indicator.gd" id="1_5faqm"]
 
 [node name="MissionTrackIndicator" type="HBoxContainer" node_paths=PackedStringArray("_description_label", "_in_progress_label", "_failed_label", "_completed_label")]
+custom_minimum_size = Vector2(800, 0)
+mouse_filter = 2
 script = ExtResource("1_5faqm")
 _description_label = NodePath("DescriptionLabel")
 _in_progress_label = NodePath("InProgressLabel")
@@ -11,8 +13,10 @@ _completed_label = NodePath("CompletedLabel")
 
 [node name="DescriptionLabel" type="Label" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"LabelLarge"
-text = "Beat 240 Medium Upgrade with only Ice towers"
+text = "Beat 240 Medium Upgrade while never going above 35 food"
+autowrap_mode = 2
 
 [node name="BarCharacterLabel" type="Label" parent="."]
 layout_mode = 2
