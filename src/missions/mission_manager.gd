@@ -82,6 +82,7 @@ func _on_players_created():
 	var local_player: Player = PlayerManager.get_local_player()
 	var local_team: Team = local_player.get_team()
 	
+	local_team.game_lose.connect(_on_game_lose)
 	local_team.game_win.connect(_on_game_win)
 
 
@@ -102,8 +103,14 @@ func _on_player_selected_builder():
 
 
 func _on_game_win():
+#	NOTE: need to check missions for fail one last time
+#	before processing game win because the fail check runs
+#	periodically and may have missed a fail condition which
+#	happened since last check
+	_check_missions_for_fail()
+
 	for mission in _mission_list:
-		var mission_was_completed: bool = mission.process_wave_finish()
+		var mission_was_completed: bool = mission.process_game_win()
 
 		if mission_was_completed:
 			var mission_id: int = mission.get_id()
@@ -114,6 +121,14 @@ func _on_game_win():
 			MissionStatus.set_mission_is_complete(mission_id, true)
 			Messages.add_normal(null, "Mission was COMPLETED: %s!" % mission_description)
 			print_verbose("Mission was completed: %s" % mission_description)
+
+
+# All in progress missions are failed on game over
+func _on_game_lose():
+	var mission_list: Array = _mission_list.duplicate()
+	
+	for mission in mission_list:
+		_remove_mission(mission)
 
 
 func _on_mission_was_failed(mission: Mission):
@@ -128,6 +143,10 @@ func _on_mission_was_failed(mission: Mission):
 
 # NOTE: need to duplicate because _mission_list may get modified when mission is failed and gets removed from list
 func _on_fail_check_timer_timeout() -> void:
+	_check_missions_for_fail()
+
+
+func _check_missions_for_fail():
 	var mission_list: Array = _mission_list.duplicate()
 	
 	for mission in mission_list:
