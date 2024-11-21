@@ -36,7 +36,7 @@ unicode = 105
 [sub_resource type="Shortcut" id="Shortcut_ree63"]
 events = [SubResource("InputEventKey_cgjl0")]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator", "_mission_tracker_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,6 +67,7 @@ _ping_label = NodePath("MarginContainer10/VBoxContainer/PingLabel")
 _players_are_lagging_indicator = NodePath("PlayersAreLaggingIndicator")
 _lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2/LaggingPlayerListLabel")
 _multiplayer_pause_indicator = NodePath("MultiplayerPauseIndicator")
+_mission_tracker_container = NodePath("MarginContainer3/VBoxContainer/MissionTrackerContainer")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

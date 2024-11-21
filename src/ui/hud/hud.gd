@@ -21,6 +21,7 @@ class_name HUD extends Control
 @export var _players_are_lagging_indicator: MarginContainer
 @export var _lagging_player_list_label: Label
 @export var _multiplayer_pause_indicator: Control
+@export var _mission_tracker_container: MissionTrackerContainer
 
 # NOTE: this list is ordered by priority of closure. If
 # multiple windows are open, then the first window in the
@@ -161,6 +162,10 @@ func close_one_window():
 		if window.visible:
 			window.hide()
 			break
+
+
+func set_mission_track_state(mission_id: int, state: MissionTrackIndicator.State):
+	_mission_tracker_container.set_mission_track_state(mission_id, state)
 
 
 #########################

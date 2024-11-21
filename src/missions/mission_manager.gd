@@ -5,6 +5,8 @@ class_name MissionManager extends Node
 
 var _mission_list: Array[Mission] = []
 
+@export var _hud: HUD
+
 
 #########################
 ###     Built-in      ###
@@ -42,7 +44,7 @@ func _ready() -> void:
 
 func _remove_mission(mission: Mission):
 	var mission_id: int = mission.get_id()
-	EventBus.mission_was_failed.emit(mission_id)
+	_hud.set_mission_track_state(mission_id, MissionTrackIndicator.State.FAILED)
 
 	_mission_list.erase(mission)
 	remove_child(mission)
@@ -116,7 +118,7 @@ func _on_game_win():
 			var mission_id: int = mission.get_id()
 			var mission_description: String = MissionProperties.get_description(mission_id)
 			
-			EventBus.mission_was_completed.emit(mission_id)
+			_hud.set_mission_track_state(mission_id, MissionTrackIndicator.State.COMPLETED)
 
 			MissionStatus.set_mission_is_complete(mission_id, true)
 			Messages.add_normal(null, "Mission was COMPLETED: %s!" % mission_description)

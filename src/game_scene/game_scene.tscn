@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://src/ui/game_menu/game_menu.tscn" id="26_xukvx"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://src/ui/hud/tutorial_menu.tscn" id="27_vroom"]
 
-
 [sub_resource type="Curve2D" id="1"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 2555, -2374, 0, 0, 0, 0, -376, -882, 3.76354, -42.3398, -3.76354, 42.3398, -426, -827, 0, 0, 0, 0, -386, -759, 0, 0, 0, 0, 384, -373, -36.6945, -0.470442, 36.6945, 0.470442, 500, -341, 0, 0, 0, 0, 643, -372, 0, 0, 0, 0, 2050, -1077, -45.8031, 3.23768, 45.8031, -3.23768, 2174, -1124, 0, 0, 0, 0, 2309, -1077, 0, 0, 0, 0, 3071, -689, 1.40535, -33.4014, -1.40535, 33.4014, 3131, -625, 0, 0, 0, 0, 3075, -562, 0, 0, 0, 0, 642, 647, 40.458, 0.470442, -40.458, -0.470442, 515, 695, 0, 0, 0, 0, 388, 648, 0, 0, 0, 0, -897, 9, 45.1023, 0.136732, -45.1023, -0.136732, -1022, -33, 0, 0, 0, 0, -1152, 8, 0, 0, 0, 0, -1920, 394, -0.840896, -31.3902, 0.840896, 31.3902, -1961, 459, 0, 0, 0, 0, -1919, 521, 0, 0, 0, 0, -640, 1163, 0.379654, -32.8072, -0.379654, 32.8072, -603, 1228, 0, 0, 0, 0, -641, 1290, 0, 0, 0, 0, -3200, 2558)
@@ -242,7 +241,8 @@ script = ExtResource("17_5cvlj")
 script = ExtResource("17_imw8o")
 _camera = NodePath("../../World/Camera2D")
 
-[node name="MissionManager" parent="Gameplay" instance=ExtResource("18_ujbrx")]
+[node name="MissionManager" parent="Gameplay" node_paths=PackedStringArray("_hud") instance=ExtResource("18_ujbrx")]
+_hud = NodePath("../../UI/HUD")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1
