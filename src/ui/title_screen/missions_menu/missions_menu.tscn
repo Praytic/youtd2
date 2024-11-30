@@ -3,9 +3,8 @@
 [ext_resource type="Script" path="res://src/ui/title_screen/missions_menu/missions_menu.gd" id="1_jybt1"]
 [ext_resource type="PackedScene" uid="uid://ddobckupfnl1y" path="res://src/ui/title_screen/missions_menu/missions_menu_tab.tscn" id="2_u6yfm"]
 
-
 [node name="MissionsMenu" type="PanelContainer"]
-custom_minimum_size = Vector2(800, 0)
+custom_minimum_size = Vector2(870, 0)
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("1_jybt1")
 
@@ -29,16 +28,16 @@ layout_mode = 2
 _section_name = "general"
 metadata/_tab_index = 0
 
-[node name="Builders" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
-visible = false
-layout_mode = 2
-_section_name = "builders"
-metadata/_tab_index = 1
-
 [node name="Elements" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
 visible = false
 layout_mode = 2
 _section_name = "elements"
+metadata/_tab_index = 1
+
+[node name="Builders" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
+visible = false
+layout_mode = 2
+_section_name = "builders"
 metadata/_tab_index = 2
 
 [node name="Special" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]

@@ -1,6 +1,7 @@
 class_name MissionCard extends PanelContainer
 
 
+@export var _number_label: Label
 @export var _description_label: Label
 @export var _completed_indicator: PanelContainer
 @export var _track_label: Label
@@ -11,6 +12,9 @@ var _mission_id: int
 
 
 func _ready():
+	var number_text: String = "#%d" % _mission_id
+	_number_label.text = number_text
+	
 	var description: String = MissionProperties.get_description(_mission_id)
 	_description_label.text = description
 	
