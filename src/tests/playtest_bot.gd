@@ -50,7 +50,7 @@ static func run(build_space: BuildSpace):
 	while true:
 		run_cycle()
 		
-		await Utils.create_timer(TIME_PER_SET, build_space).timeout
+		await Utils.create_manual_timer(TIME_PER_SET, build_space).timeout
 
 
 static func run_cycle():

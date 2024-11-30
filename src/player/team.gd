@@ -254,7 +254,7 @@ func _do_game_win():
 			Effect.set_color(effect, color)
 			Effect.set_animation_speed(effect, speed)
 
-		await Utils.create_timer(0.5, self).timeout
+		await Utils.create_manual_timer(0.5, self).timeout
 
 
 func _do_game_lose():

@@ -187,16 +187,35 @@ func convert_time_to_string(time_total_seconds: float):
 	return time_string
 
 
-# NOTE: you must use this instead of
-# get_tree().create_timer() because timers created using
-# get_tree().create_timer() do not handle game pause and
-# game restart.
+# NOTE: you MUST use create_manual_timer() instead of
+# get_tree().create_timer() for gameplay code.
 # 
-# NOTE: you must not use this for things which are not part
-# of the synchronized multiplayer client. If you
-# create_timer() for one player but not the others, you will
-# mess up the order of updating timers and cause desync.
-func create_timer(duration: float, parent: Node) -> ManualTimer:
+# - create_timer() uses Godot Timer class which runs based
+#   on real life time.
+# - create_manual_timer() uses ManualTimer runs based on
+#   game time which takes into account game pause and
+#   adjusting game speed.
+# 
+# Using Godot Timers in gameplay code also causes desyncs
+# in multiplayer.
+#
+# Example: if you were to mistakenly use Godot Timer from
+# create_timer() to add delay to a tower spell, then the
+# spell would not function as expected and would cause
+# desyncs in multiplayer.
+#  
+# NOTE: another caveat is that you MUST NOT use
+# create_manual_timer() for things which are not part of the
+# synchronized multiplayer client. If you
+# create_manual_timer() for one player but not the others,
+# you will mess up the order of updating timers and cause a
+# multiplayer desync.
+# - Use create_manual_timer() only for code which runs for
+#   all players in multiplayer.
+# - Use create_timer() for UI and visual code. Also for code
+#   which specifically doesn't run in multiplayer, for
+#   example title screen code.
+func create_manual_timer(duration: float, parent: Node) -> ManualTimer:
 	var timer: ManualTimer = ManualTimer.new()
 
 	var parent_is_active: bool = parent.is_inside_tree() && !parent.is_queued_for_deletion()

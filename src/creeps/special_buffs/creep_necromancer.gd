@@ -61,7 +61,7 @@ func necromancer_aura_bt_on_death(event: Event):
 	
 	var necromancer: Creep = buff.get_caster()
 
-	await Utils.create_timer(RAISE_DELAY, self).timeout
+	await Utils.create_manual_timer(RAISE_DELAY, self).timeout
 
 	if !Utils.unit_is_valid(necromancer):
 		return

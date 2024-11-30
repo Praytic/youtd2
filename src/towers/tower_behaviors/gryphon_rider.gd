@@ -238,4 +238,4 @@ func line_damage(origin_pos: Vector2, direction: float):
 
 		damage *= dmg_multiplier
 		i += 1
-		await Utils.create_timer(0.15, self).timeout
+		await Utils.create_manual_timer(0.15, self).timeout

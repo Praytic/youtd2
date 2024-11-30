@@ -87,7 +87,7 @@ func on_attack(event: Event):
 	p.set_speed(5000)
 
 	for i in range(0, attack_count):
-		await Utils.create_timer(time_between_attacks, self).timeout
+		await Utils.create_manual_timer(time_between_attacks, self).timeout
 
 		if !Utils.unit_is_valid(tower):
 			break

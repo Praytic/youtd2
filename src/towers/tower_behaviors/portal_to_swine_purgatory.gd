@@ -278,7 +278,7 @@ func do_rampage_of_pigs(target: Creep, target_pos_3d: Vector3, target_is_air, re
 	remaining_pig_count -= 1
 
 	if remaining_pig_count > 0:
-		await Utils.create_timer(0.25, self).timeout
+		await Utils.create_manual_timer(0.25, self).timeout
 		
 		var update_target_pos_3d: Vector3
 		if Utils.unit_is_valid(target):

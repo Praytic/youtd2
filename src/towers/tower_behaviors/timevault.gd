@@ -68,7 +68,7 @@ func on_damage(event: Event):
 	var effect: int = Effect.create_simple_at_unit_attached("res://src/effects/mass_teleport_caster.tscn", creep, Unit.BodyPart.ORIGIN)
 	Effect.set_auto_destroy_enabled(effect, false)
 
-	await Utils.create_timer(3.0, self).timeout
+	await Utils.create_manual_timer(3.0, self).timeout
 
 	Effect.destroy_effect(effect)
 

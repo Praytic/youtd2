@@ -139,7 +139,7 @@ func set_lifetime(effect_id: int, lifetime: float):
 
 	set_auto_destroy_enabled(effect_id, false)
 
-	var timer: ManualTimer = Utils.create_timer(lifetime, self)
+	var timer: ManualTimer = Utils.create_manual_timer(lifetime, self)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 

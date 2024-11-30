@@ -128,7 +128,7 @@ func on_spell_target(event: Event):
 		buff.set_level(buff.get_level() + buff_level)
 		buff.set_displayed_stacks(buff.user_int)
 
-	await Utils.create_timer(stack_duration, self).timeout
+	await Utils.create_manual_timer(stack_duration, self).timeout
 
 	if Utils.unit_is_valid(tower):
 		buff = tower.get_buff_of_type(channel_bt)

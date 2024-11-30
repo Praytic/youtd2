@@ -158,7 +158,7 @@ func jumper_bt_on_cleanup(_event: Event):
 
 #	NOTE: need to call get_tree() on tower because item is
 #	outside tree during CLEANUP callback
-	await Utils.create_timer(0.1, self).timeout
+	await Utils.create_manual_timer(0.1, self).timeout
 
 	if !Utils.unit_is_valid(tower):
 		return

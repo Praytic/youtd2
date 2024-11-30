@@ -576,7 +576,7 @@ func _command_print_ranges_to_towers(player: Player):
 	for message in message_list:
 		_add_status(player, message)
 
-		await Utils.create_timer(1.0, self).timeout
+		await Utils.create_manual_timer(1.0, self).timeout
 
 
 func _command_check_range_helper(player: Player, args: Array, friendly: bool):

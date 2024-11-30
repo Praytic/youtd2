@@ -68,7 +68,7 @@ func on_autocast(_event: Event):
 		item.user_int = item.user_int - 1
 
 	item.set_charges(item.user_int)
-	await Utils.create_timer(0.1, self).timeout
+	await Utils.create_manual_timer(0.1, self).timeout
 	item.set_charges(item.user_int)
 
 
@@ -85,5 +85,5 @@ func periodic(_event: Event):
 		item.user_int = 10
 
 	item.set_charges(item.user_int)
-	await Utils.create_timer(0.1, self).timeout
+	await Utils.create_manual_timer(0.1, self).timeout
 	item.set_charges(item.user_int)

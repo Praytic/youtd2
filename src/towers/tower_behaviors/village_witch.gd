@@ -143,7 +143,7 @@ func on_damage(event: Event):
 
 		soul_split_buff.set_displayed_stacks(current_soul_split_stacks)
 
-		await Utils.create_timer(10.0 * multiplier, self).timeout
+		await Utils.create_manual_timer(10.0 * multiplier, self).timeout
 
 		if Utils.unit_is_valid(tower):
 			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attack_speed * multiplier)

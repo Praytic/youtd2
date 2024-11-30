@@ -202,7 +202,7 @@ func on_damage(event: Event):
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 
-	await Utils.create_timer(1.0, self).timeout
+	await Utils.create_manual_timer(1.0, self).timeout
 
 	if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(target):
 		return

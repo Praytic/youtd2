@@ -70,7 +70,7 @@ func on_autocast(event: Event):
 #	while waiting.
 	for i in range(0, 5):
 		var sleep_time: float = EGG_GROW_TIME / 6
-		await Utils.create_timer(sleep_time, self).timeout
+		await Utils.create_manual_timer(sleep_time, self).timeout
 
 		var egg_grow_progress: float = i / 6.0
 		var egg_scale: float = EGG_SCALE_MIN + egg_grow_progress * (EGG_SCALE_MAX - EGG_SCALE_MIN)

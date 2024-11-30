@@ -129,12 +129,12 @@ func on_autocast(_event: Event):
 	var effect1: int = Effect.create_colored("res://src/effects/voodoo_aura.tscn", effect_pos, 0, 1, Color8(1, 255, 255, 255))
 	Effect.set_z_index(effect1, Effect.Z_INDEX_BELOW_TOWERS)
 
-	await Utils.create_timer(0.3, self).timeout
+	await Utils.create_manual_timer(0.3, self).timeout
 
 	var effect2: int = Effect.create_colored("res://src/effects/voodoo_aura.tscn", effect_pos, 0, 2, Color8(1, 255, 255, 255))
 	Effect.set_z_index(effect2, Effect.Z_INDEX_BELOW_TOWERS)
 	
-	await Utils.create_timer(0.3, self).timeout
+	await Utils.create_manual_timer(0.3, self).timeout
 	
 	var effect3: int = Effect.create_colored("res://src/effects/voodoo_aura.tscn", effect_pos, 0, 3, Color8(1, 255, 255, 255))
 	Effect.set_z_index(effect3, Effect.Z_INDEX_BELOW_TOWERS)

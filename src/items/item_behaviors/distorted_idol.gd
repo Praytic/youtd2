@@ -41,7 +41,7 @@ func on_pickup():
 	if !carrier_is_on_corner:
 		player.display_floating_text("Distorted Idol carrier must be on corner!", carrier, Color.PURPLE)
 
-		await Utils.create_timer(0.1, self).timeout
+		await Utils.create_manual_timer(0.1, self).timeout
 		
 		item.drop()
 		item.fly_to_stash(0.0)

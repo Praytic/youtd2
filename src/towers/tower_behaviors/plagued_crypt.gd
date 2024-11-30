@@ -122,7 +122,7 @@ func periodic(_event: Event):
 	buff.set_displayed_stacks(buff.get_level())
 
 	var stack_duration: float = (20.0 + 0.4 * tower.get_level()) * tower.get_prop_buff_duration()
-	await Utils.create_timer(stack_duration, self).timeout
+	await Utils.create_manual_timer(stack_duration, self).timeout
 
 #	NOTE: after sleep
 	if !Utils.unit_is_valid(tower):

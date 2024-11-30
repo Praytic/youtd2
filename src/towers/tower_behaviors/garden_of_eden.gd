@@ -115,7 +115,7 @@ func on_autocast(_event: Event):
 	Effect.set_lifetime(boom, 2.0)
 	Effect.set_color(boom, effect_color)
 
-	await Utils.create_timer(0.5, self).timeout
+	await Utils.create_manual_timer(0.5, self).timeout
 
 	if Utils.unit_is_valid(tower):
 		var aoe_damage: float = 15 * lifeforce_stored * current_spawn_level

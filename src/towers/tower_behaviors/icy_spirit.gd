@@ -112,4 +112,4 @@ func on_attack(_event: Event):
 
 				slow_bt.apply(tower, aoe_target, level)
 
-		await Utils.create_timer(0.1, self).timeout
+		await Utils.create_manual_timer(0.1, self).timeout

@@ -136,7 +136,7 @@ func on_attack(event: Event):
 		projectile.user_real = missile_crit_chance * missile_number
 		projectile.user_real2 = missile_crit_dmg * missile_number
 
-		await Utils.create_timer(delay_between_missiles, self).timeout
+		await Utils.create_manual_timer(delay_between_missiles, self).timeout
 
 
 func on_tower_details() -> MultiboardValues:
@@ -169,7 +169,7 @@ func spell_gathering_bt_on_spell_casted(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
 	var autocast_cooldown: float = autocast.get_cooldown()
 
-	await Utils.create_timer(autocast_cooldown, self).timeout
+	await Utils.create_manual_timer(autocast_cooldown, self).timeout
 
 	if Utils.unit_is_valid(caster):
 		stacks_buff = caster.get_buff_of_type(missile_stacks_bt)

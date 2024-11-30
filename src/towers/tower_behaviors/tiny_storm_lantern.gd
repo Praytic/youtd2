@@ -51,7 +51,7 @@ func new_attack(num_shots: int, creep: Creep):
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), creep, 300)
 	var next: Creep
 
-	await Utils.create_timer(0.2, self).timeout
+	await Utils.create_manual_timer(0.2, self).timeout
 
 	next = it.next_random()
 
@@ -70,7 +70,7 @@ func new_attack(num_shots: int, creep: Creep):
 		if num_shots == 0:
 			return
 
-		await Utils.create_timer(0.2, self).timeout
+		await Utils.create_manual_timer(0.2, self).timeout
 
 
 func tower_init():
