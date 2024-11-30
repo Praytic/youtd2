@@ -150,9 +150,9 @@ func _on_online_match_list_menu_lan_pressed() -> void:
 	_tab_container.current_tab = Tab.LAN_CONNECT_MENU
 
 
-func _on_missions_button_pressed() -> void:
+func _on_profile_menu_missions_button_pressed() -> void:
 	_tab_container.current_tab = Tab.MISSIONS
 
 
 func _on_missions_menu_close_pressed() -> void:
-	_tab_container.current_tab = Tab.MAIN
+	_tab_container.current_tab = Tab.PROFILE

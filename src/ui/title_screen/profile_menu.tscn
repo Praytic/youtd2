@@ -89,23 +89,28 @@ theme_type_variation = &"LabelLarge"
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "12"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ExportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="ExportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
 text = "Export experience"
 
-[node name="ImportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="ImportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
 text = "Import experience"
+
+[node name="MissionsButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Missions"
 
 [node name="Spacer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
@@ -130,7 +135,8 @@ layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ExportExpButton" to="." method="_on_export_exp_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ImportExpButton" to="." method="_on_import_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2/ExportExpButton" to="." method="_on_export_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2/ImportExpButton" to="." method="_on_import_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/MissionsButton" to="." method="_on_missions_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="import_pressed" from="ImportExpMenu" to="." method="_on_import_exp_menu_import_pressed"]

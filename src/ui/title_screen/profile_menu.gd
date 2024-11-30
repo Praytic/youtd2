@@ -2,6 +2,7 @@ extends PanelContainer
 
 
 signal close_pressed()
+signal missions_button_pressed()
 
 
 var _setup_error_list: Array[String] = []
@@ -169,3 +170,7 @@ func _on_visibility_changed():
 				Utils.show_popup_message(self, "Error", error)
 
 			_setup_error_list.clear()
+
+
+func _on_missions_button_pressed() -> void:
+	missions_button_pressed.emit()

@@ -107,12 +107,6 @@ focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "Profile"
 
-[node name="MissionsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-theme_type_variation = &"ButtonLarge"
-text = "Missions"
-
 [node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -254,7 +248,6 @@ layout_mode = 1
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="SetupOnlineGame" method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MissionsButton" to="." method="_on_missions_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
@@ -278,6 +271,7 @@ layout_mode = 1
 [connection signal="back_pressed" from="UI/TabContainer/LanLobbyMenu" to="SetupLanGame" method="_on_lan_lobby_menu_back_pressed"]
 [connection signal="start_pressed" from="UI/TabContainer/LanLobbyMenu" to="SetupLanGame" method="_on_lan_lobby_menu_start_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_close_pressed"]
+[connection signal="missions_button_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_missions_button_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/MissionsMenu" to="." method="_on_missions_menu_close_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="ok_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]
