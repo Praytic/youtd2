@@ -24,6 +24,7 @@ const UNPAUSE: Array[String] = ["/unpause"]
 const CHECK_RANGE_FRIENDLY: Array[String] = ["/check-range-friendly", "/crf"]
 const CHECK_RANGE_ATTACK: Array[String] = ["/check-range-attack", "/cra"]
 const PRINT_RANGES_TO_TOWERS: Array[String] = ["/print-ranges-to-towers", "/prtt"]
+const ALLOW_ALL: Array[String] = ["/allow-all"]
 
 const CREATE_ITEM: Array[String] = ["/createitem", "/ci"]
 const PAUSE_WAVES: Array[String] = ["/pause-waves", "/pw"]
@@ -178,6 +179,8 @@ func process_command(player: Player, command: String):
 		_command_check_range_attack(player, command_args)
 	elif PRINT_RANGES_TO_TOWERS.has(command_main):
 		_command_print_ranges_to_towers(player)
+	elif ALLOW_ALL.has(command_main):
+		_command_allow_all(player)
 	else:
 		_add_error(player, "Unknown command: %s" % command_main)
 
@@ -581,6 +584,14 @@ func _command_print_ranges_to_towers(player: Player):
 #		executed only for local player (command is local
 #		only)
 		await get_tree().create_timer(1.0).timeout
+
+
+func _command_allow_all(player: Player):
+	var team: Team = player.get_team()
+
+	team.enable_allow_shared_build_space()
+
+	_add_status_for_team(team, "Players in  this team can now build towers in each other's area.")
 
 
 func _command_check_range_helper(player: Player, args: Array, friendly: bool):

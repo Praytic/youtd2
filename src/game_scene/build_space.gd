@@ -91,13 +91,29 @@ func get_build_info_for_pos(player: Player, pos_canvas: Vector2) -> Array:
 		var quarter_pos: Vector2i = pos_map + offset
 		quarter_list.append(quarter_pos)
 
+	var team: Team = player.get_team()
+	var allow_shared_build_space: bool = team.get_allow_shared_build_space()
+
+# 	NOTE: normally players can only build in their own areas
+# 	but if this option is enabled, then players can build in
+# 	teammate areas as well
+	var matching_player_id_list: Array[int] = []
+	if allow_shared_build_space:
+		var player_list: Array[Player] = team.get_players()
+
+		for team_player in player_list:
+			var team_player_id: int = team_player.get_id()
+			matching_player_id_list.append(team_player_id)
+	else:
+		matching_player_id_list.append(player_id)
+
 	var build_info: Array = [false, false, false, false]
 
 	for i in range(0, 4):
 		var quarter_pos: Vector2i = quarter_list[i]
 		var quarter_pos_is_occupied: bool = _occupied_map.get(quarter_pos, false)
 		var player_id_at_quarter_pos: int = _buildable_cells.get(quarter_pos, -1)
-		var quarter_is_buildable: bool = player_id_at_quarter_pos == player_id 
+		var quarter_is_buildable: bool = matching_player_id_list.has(player_id_at_quarter_pos)
 
 		build_info[i] = !quarter_pos_is_occupied && quarter_is_buildable
 

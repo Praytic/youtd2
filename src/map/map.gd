@@ -113,11 +113,23 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 	return tile_exists
 
 
+# NOTE: if "allow_shared_build_space" option is enabled,
+# then need to make all local team's players buildable areas
+# visible.
 func _set_buildable_area_visible(value: bool):
 	var local_player: Player = PlayerManager.get_local_player()
-	var buildable_area: BuildableArea = _get_buildable_area(local_player)
-	
-	buildable_area.visible = value
+	var local_team: Team = local_player.get_team()
+	var allow_shared_build_space: bool = local_team.get_allow_shared_build_space()
+
+	var player_list: Array[Player] = []
+	if allow_shared_build_space:
+		player_list = local_team.get_players()
+	else:
+		player_list.append(local_player)
+
+	for the_player in player_list:
+		var buildable_area: BuildableArea = _get_buildable_area(the_player)
+		buildable_area.visible = value
 
 
 #########################

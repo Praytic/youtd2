@@ -21,6 +21,7 @@ var _level: int = 1
 var _player_list: Array[Player] = []
 var _finished_the_game: bool = false
 var _player_defined_autospawn_time: float = -1
+var _allow_shared_build_space: bool = false
 
 @export var _next_wave_timer: ManualTimer
 @export var _portal_damage_sound_cooldown_timer: Timer
@@ -192,6 +193,14 @@ func get_start_wave_action_is_on_cooldown() -> bool:
 	var is_on_cooldown: bool = !_start_wave_action_cooldown_timer.is_stopped()
 	
 	return is_on_cooldown
+
+
+func enable_allow_shared_build_space():
+	_allow_shared_build_space = true
+
+
+func get_allow_shared_build_space() -> bool:
+	return _allow_shared_build_space
 
 
 #########################
