@@ -37,6 +37,7 @@ const EXP_PASSWORD: String = "EXP_PASSWORD"
 const WISDOM_UPGRADES_CACHED: String = "WISDOM_UPGRADES_CACHED"
 const DISPLAY_MODE: String = "DISPLAY_MODE"
 const MISSION_STATUS: String = "MISSION_STATUS"
+const SHOWED_ONE_TIME_HELP_POPUP: String = "SHOWED_ONE_TIME_HELP_POPUP"
 
 
 var _cache: Dictionary = {}
@@ -64,6 +65,7 @@ var _default_value_map: Dictionary = {
 	WISDOM_UPGRADES_CACHED: {},
 	DISPLAY_MODE: DisplayMode.enm.FULLSCREEN as float,
 	MISSION_STATUS: {},
+	SHOWED_ONE_TIME_HELP_POPUP: false,
 }
 
 

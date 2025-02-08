@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbp7l1tdfvept"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_elidx"]
+[ext_resource type="Script" path="res://src/ui/hud/one_time_help_popup.gd" id="2_3qpff"]
+
+[node name="OneTimeHelpPopup" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 0)
+theme = ExtResource("1_elidx")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("2_3qpff")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Press [color=GOLD]ESCAPE[/color] key to pause the game.
+ 
+Check [color=GOLD]Help[/color] menu for useful info about the game!"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -807,7 +807,6 @@ func _on_player_selected_builder():
 
 	Messages.add_normal(local_player, "Welcome to You TD 2!")
 	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal(local_player, "Type [color=GOLD]/help[/color] to see helpful information about the game.")
 
 
 func _on_player_voted_ready():

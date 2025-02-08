@@ -22,6 +22,7 @@ class_name HUD extends Control
 @export var _lagging_player_list_label: Label
 @export var _multiplayer_pause_indicator: Control
 @export var _mission_tracker_container: MissionTrackerContainer
+@export var _one_time_help_popup: OneTimeHelpPopup
 
 # NOTE: this list is ordered by priority of closure. If
 # multiple windows are open, then the first window in the
@@ -40,6 +41,9 @@ func _ready():
 	EventBus.item_started_flying_to_item_stash.connect(_on_item_started_flying_to_item_stash)
 
 	ButtonTooltip.setup_tooltip_instances(_button_tooltip_top, _button_tooltip_bottom)
+
+	var showed_one_time_help_popup: bool = Settings.get_bool_setting(Settings.SHOWED_ONE_TIME_HELP_POPUP)
+	_one_time_help_popup.visible = !showed_one_time_help_popup
 
 
 #########################
@@ -230,3 +234,8 @@ func _on_local_game_lose():
 
 func _on_quit_button_pressed():
 	EventBus.player_requested_quit_to_title.emit()
+
+
+func _on_one_time_help_popup_close_pressed() -> void:
+	_one_time_help_popup.visible = false
+	Settings.set_setting(Settings.SHOWED_ONE_TIME_HELP_POPUP, true)

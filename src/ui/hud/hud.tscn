@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=27 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://bakuxdbe6a7f0" path="res://src/ui/hud/mission_tracker_container.tscn" id="5_n7x4d"]
+[ext_resource type="PackedScene" uid="uid://cbp7l1tdfvept" path="res://src/ui/hud/OneTimeHelpPopup.tscn" id="6_05w81"]
 [ext_resource type="PackedScene" uid="uid://dwexxkjguqohm" path="res://src/ui/buttons/menu_expanding_button.tscn" id="7_2qbjb"]
 [ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://resources/button_groups/menu_cards_button_group.tres" id="7_8m5sl"]
 [ext_resource type="PackedScene" uid="uid://n8326r4m33s3" path="res://src/ui/hud/game_speed_controller.tscn" id="9_ilyra"]
@@ -36,7 +37,7 @@ unicode = 105
 [sub_resource type="Shortcut" id="Shortcut_ree63"]
 events = [SubResource("InputEventKey_cgjl0")]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator", "_mission_tracker_container")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_menu", "_tower_stash_menu", "_item_stash_menu", "_tower_stash_button", "_item_stash_button", "_top_left_menu", "_unit_menu", "_chat_line_edit", "_desync_indicator", "_button_tooltip_top", "_button_tooltip_bottom", "_tower_details", "_creep_details", "_ping_label", "_players_are_lagging_indicator", "_lagging_player_list_label", "_multiplayer_pause_indicator", "_mission_tracker_container", "_one_time_help_popup")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +69,7 @@ _players_are_lagging_indicator = NodePath("PlayersAreLaggingIndicator")
 _lagging_player_list_label = NodePath("PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/VBoxContainer2/LaggingPlayerListLabel")
 _multiplayer_pause_indicator = NodePath("MultiplayerPauseIndicator")
 _mission_tracker_container = NodePath("MarginContainer3/VBoxContainer/MissionTrackerContainer")
+_one_time_help_popup = NodePath("MarginContainer3/VBoxContainer/OneTimeHelpPopup")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -147,6 +149,10 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="MissionTrackerContainer" parent="MarginContainer3/VBoxContainer" instance=ExtResource("5_n7x4d")]
+layout_mode = 2
+
+[node name="OneTimeHelpPopup" parent="MarginContainer3/VBoxContainer" instance=ExtResource("6_05w81")]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="."]
@@ -439,5 +445,6 @@ text = "Quit to Title"
 visible = false
 layout_mode = 1
 
+[connection signal="close_pressed" from="MarginContainer3/VBoxContainer/OneTimeHelpPopup" to="." method="_on_one_time_help_popup_close_pressed"]
 [connection signal="details_pressed" from="MarginContainer5/VBoxContainer2/UnitMenu" to="." method="_on_unit_menu_details_pressed"]
 [connection signal="pressed" from="PlayersAreLaggingIndicator/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
