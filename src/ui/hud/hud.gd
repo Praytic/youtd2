@@ -239,3 +239,4 @@ func _on_quit_button_pressed():
 func _on_one_time_help_popup_close_pressed() -> void:
 	_one_time_help_popup.visible = false
 	Settings.set_setting(Settings.SHOWED_ONE_TIME_HELP_POPUP, true)
+	Settings.flush()
