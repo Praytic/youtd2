@@ -4,19 +4,6 @@ extends ItemBehavior
 var attack_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Attack![/color]\n"
-	text += "Every attack there is a 2% attack speed adjusted chance to issue an attack order. When this happens, all towers in 350 range gain +50% attack speed for 4 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.01% chance\n"
-	text += "+0.1 seconds duration\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Essence Attack[/color]\n"
-	text += "Carrier's attacks deal 100% attack damage against all armor types.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

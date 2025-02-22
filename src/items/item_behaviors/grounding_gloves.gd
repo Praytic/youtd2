@@ -6,15 +6,6 @@ var cooldown_bt: BuffType
 var blizzard_st: SpellType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Entangling Roots[/color]\n"
-	text += "Whenever the carrier hits the main target, it has an 6% attack speed adjusted chance to create a field of overgrowth in 200 AoE around the target. Creeps entering the overgrowth will become entangled for 1.8 seconds, taking 4500 spell damage per second. Cannot entangle the same creep for 3 seconds afterwards. Bosses can only be hit once.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

@@ -8,19 +8,6 @@ extends ItemBehavior
 var rampage_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rampage[/color]\n"
-	text += "Whenever the carrier attacks, it has a 14% attack speed adjusted chance to go into a [color=GOLD]Rampage[/color]. [color=GOLD]Rampage[/color] increases carrier's attack speed by 25%, multicrit count by 1, crit damage by x0.40 and crit chance by 5% for 4 seconds. Can't retrigger during while active.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08 seconds duration\n"
-	text += "+0.4% attack speed\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

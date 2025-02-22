@@ -6,18 +6,6 @@ extends ItemBehavior
 var motivation_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Motivation - Aura[/color]\n"
-	text += "Increases attack speed of towers in 1000 range by 5%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1% attack speed\n"
-
-	return text
-
-
 func item_init():
 	motivation_bt = BuffType.create_aura_effect_type("motivation_bt", true, self) 
 	motivation_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")

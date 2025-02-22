@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]High Knowledge[/color]\n"
-	text += "Whenever the carrier hits the main target, it gains 0.2 experience. The amount of experience gained is range and base attack speed adjusted.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

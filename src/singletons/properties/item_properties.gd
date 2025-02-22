@@ -12,6 +12,7 @@ enum CsvProperty {
 	DESCRIPTION,
 	REQUIRED_WAVE_LEVEL,
 	ICON,
+	ABILITY_TEXT,
 }
 
 const PROPERTIES_PATH = "res://data/item_properties.csv"
@@ -91,6 +92,13 @@ func get_icon(item_id: int) -> Texture2D:
 	var item_icon: Texture2D = load(icon_path)
 
 	return item_icon
+
+
+func get_ability_text(item_id: int) -> String:
+	var ability_text_id: String = _get_property(item_id, CsvProperty.ABILITY_TEXT)
+	var ability_text: String = tr(ability_text_id)
+
+	return ability_text
 
 
 func get_item_name(item_id: int) -> String:

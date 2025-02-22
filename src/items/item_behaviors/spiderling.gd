@@ -4,15 +4,6 @@ extends ItemBehavior
 var slow_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Spiderling Poison[/color]\n"
-	text += "Whenever the carrier attacks, there is a 25% attack speed adjusted chance to slow the main target by 5% for 4 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

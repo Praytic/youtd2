@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Elune's Grace[/color]\n"
-	text += "Whenever the carrier hits the main target, the damage dealt to the target cannot be reduced below the tower's base damage.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

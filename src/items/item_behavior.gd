@@ -35,14 +35,6 @@ func load_modifier(_modifier_arg: Modifier):
 	pass
 
 
-# Override in subclass to define the description of item
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
-func get_ability_description() -> String:
-	return ""
-
-
 # Override in subclass to initialize subclass item
 # NOTE: item.init() in JASS
 func item_init():

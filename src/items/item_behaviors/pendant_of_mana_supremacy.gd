@@ -6,18 +6,6 @@ func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.01)
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magical Greed[/color]\n"
-	text += "Whenever the carrier casts a spell, it has a 20% chance to replenish 15% of maximum mana. This ability has 10 seconds cooldown.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% mana replenish\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_casted(on_spell_cast)
 

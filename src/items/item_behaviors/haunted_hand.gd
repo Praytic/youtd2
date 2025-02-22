@@ -6,15 +6,6 @@ extends ItemBehavior
 # targets.
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Haunted![/color]\n"
-	text += "This item makes its carrier attack random targets.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.08, 0.002)
 

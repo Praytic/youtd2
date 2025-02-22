@@ -228,7 +228,7 @@ func get_item_text(item: Item) -> String:
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = item.get_ability_description()
+	var extra_text: String = ItemProperties.get_ability_text(item_id)
 	extra_text = add_color_to_numbers(extra_text)
 
 	text += "[b]%s[/b]\n" % display_name_colored

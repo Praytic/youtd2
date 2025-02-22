@@ -4,20 +4,6 @@ extends ItemBehavior
 var grenade_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
-
-	var text: String = ""
-
-	text += "[color=GOLD]Big Badaboom[/color]\n"
-	text += "Whenever the carrier hits the main target, it has a 15%% chance to launch a holy missile which deals 75%% of the damage the last attack dealt as spell damage in 400 AoE around the main target. Deals 50%% more damage against %s.\n" % undead_string
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% damage\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

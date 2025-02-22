@@ -4,15 +4,6 @@ extends ItemBehavior
 var divine_wings_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]The Divine Wings of Tragedy - Aura[/color]\n"
-	text += "Increases attack damage and attack speed of towers in 250 range by 15%.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.37, 0)
 

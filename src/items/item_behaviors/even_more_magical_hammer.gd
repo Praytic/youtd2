@@ -5,15 +5,6 @@ var mark_bt: BuffType
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Even More Magical Weapon[/color]\n"
-	text += "Every 5th instance of spell damage is a critical hit.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 2000, TargetType.new(TargetType.CREEPS))
 

@@ -4,15 +4,6 @@ extends ItemBehavior
 var playtime_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Play With Me![/color]\n"
-	text += "Every 10 seconds the Toy Boy forces the tower to play with him, slowing attack speed of the tower by 50% for 2 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 10)
 

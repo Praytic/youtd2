@@ -4,18 +4,6 @@ extends ItemBehavior
 var flames_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Flames of Fury - Aura[/color]\n"
-	text += "Increases crit chance of towers in 300 range by 3.5%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.08% chance\n"
-
-	return text
-
-
 func item_init():
 	flames_bt = BuffType.create_aura_effect_type("flames_bt", true, self)
 	flames_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")

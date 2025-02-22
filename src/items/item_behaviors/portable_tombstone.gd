@@ -4,18 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Curse of the Grave[/color]\n"
-	text += "Whenever the carrier attacks, it has a 0.25% attack speed adjusted chance to instantly kill the main target. Doesn't work on bosses and champions.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.01% chance\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

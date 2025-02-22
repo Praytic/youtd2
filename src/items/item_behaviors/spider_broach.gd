@@ -4,19 +4,6 @@ extends ItemBehavior
 var threads_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Silver Threads[/color]\n"
-	text += "Whenever the carrier hits a creep, it has a 15% attack speed adjusted chance to cover the creep in a silvered web, increasing its item quality by 40% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% item quality\n"
-	text += "+0.1 seconds duration\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

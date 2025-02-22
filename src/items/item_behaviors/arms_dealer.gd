@@ -4,19 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]The Customer Is Boss[/color]\n"
-	text += "Bosses coming within 600 range of the carrier have a 25% chance to grant [color=GOLD][25 + wave level][/color] gold. Cannot trigger on the same boss twice.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1 gold\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.20, 0)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -0.20, 0.0)

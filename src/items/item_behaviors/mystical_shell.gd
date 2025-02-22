@@ -4,15 +4,6 @@ extends ItemBehavior
 var resonance_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Resonance[/color]\n"
-	text += "Whenever the carrier attacks, it has a 10% attack speed adjusted chance to debuff the main target, increasing all spell damage dealt to it by 15% for 5 seconds\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

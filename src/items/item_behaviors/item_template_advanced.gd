@@ -4,19 +4,6 @@ extends ItemBehavior
 # scripts. Use for advanced items that have special effects.
 
 
-# func get_ability_description() -> String:
-# 	var text: String = ""
-
-# 	text += "[color=GOLD]Title[/color]\n"
-# 	text += "Description\n"
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "foo\n"
-# 	text += "bar\n"
-
-# 	return text
-
-
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
 # 	triggers.add_periodic_event(periodic, 5)

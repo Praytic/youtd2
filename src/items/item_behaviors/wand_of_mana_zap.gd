@@ -1,18 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Mana Zap[/color]\n"
-	text += "Whenever the carrier hits the main target, it zaps away 8 mana from the target. Amount zapped is adjusted by attack speed and range.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6 mana\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

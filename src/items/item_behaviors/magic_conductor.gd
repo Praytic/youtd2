@@ -2,17 +2,6 @@ extends ItemBehavior
 
 var conduction_bt: BuffType
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Conduct Magic[/color]\n"
-	text += "Whenever the carrier is targeted by a spell, it gains +20% attack speed for 10 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.5% attack speed\n"
-
-	return text
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_targeted(on_spell_target)

@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Crush[/color]\n"
-	text += "Whenever the carrier hits a stunned creep, it deals 20% of its current attack damage as spell damage in 250 AoE around the target.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.0)
 

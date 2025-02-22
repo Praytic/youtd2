@@ -4,15 +4,6 @@ extends ItemBehavior
 var stun_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Stunning Souls[/color]\n"
-	text += "Gains 2 charges on kill. Spends 1 charge on attack damage to stun for 1.5 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_kill(on_kill)

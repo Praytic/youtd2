@@ -4,14 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "Any time the carrier manages to attack the next creep wave within 12 seconds of attacking the current one, it receives bonus exp and gold as a [color=GOLD]Speed Award[/color]. The gold award is equal to 12 minus the time interval between attacking the different creep waves. The exp award is half of the gold award.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

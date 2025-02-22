@@ -4,18 +4,6 @@ extends ItemBehavior
 var earth_and_moon_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Earth and Moon[/color]\n"
-	text += "Every 15 seconds, the carrier has its trigger chances increased by 25% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1% trigger chance\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 15)
 

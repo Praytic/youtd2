@@ -4,18 +4,6 @@ extends ItemBehavior
 var overcharge_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Overcharge Shot[/color]\n"
-	text += "Whenever the carrier hits the main target, the attack continues for 350 units through the main target, dealing 35% of the tower's attack damage to any creep in its path.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6% damage\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

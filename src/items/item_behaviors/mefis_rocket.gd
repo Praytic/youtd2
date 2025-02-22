@@ -12,21 +12,6 @@ var rocket_pt: ProjectileType
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var arcane_string: String = AttackType.convert_to_colored_string(AttackType.enm.ARCANE)
-	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
-	
-	var text: String = ""
-
-	text += "[color=GOLD]Anti-Immunity Missile[/color]\n"
-	text += "Fires immune-seeking missiles. The attack range, speed, damage and type is the same as the carrier's, unless the attack type is %s, which is dealt as %s damage. Damage is scaled by 20%% of the tower's spell damage.\n" % [arcane_string, essence_string]
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.8% scaling\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 0.1)
 

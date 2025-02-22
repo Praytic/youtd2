@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Old Hunter[/color]\n"
-	text += "After each kill, the carrier transfers 1 flat experience to up to 5 random towers in 500 range. The carrier must be at least level 5 to trigger this ability.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_damage)
 

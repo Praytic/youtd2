@@ -10,17 +10,6 @@ extends ItemBehavior
 var stun_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Activate Trap[/color]\n"
-	text += "Every 8 seconds this trap stuns 3 creeps in 1000 range for 0.5 seconds.\n"
-	text += " \n"
-	text += "Level Bonus:\n"
-	text += "+0.5 seconds stun at level 25"
-
-	return text
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 8)
 

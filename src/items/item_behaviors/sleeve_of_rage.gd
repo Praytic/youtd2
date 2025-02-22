@@ -4,15 +4,6 @@ extends ItemBehavior
 var enraged_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ancient Rage[/color]\n"
-	text += "On attack, this tower will enrage for 1.5 seconds gaining 0.5% increased attack speed 1% attack damage and 0.25% spell damage. This effect stacks up to 120 times.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

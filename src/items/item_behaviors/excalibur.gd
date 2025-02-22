@@ -4,18 +4,6 @@ extends ItemBehavior
 var power_bt: BuffType
 
 
-func get_ability_description() -> String:
-    var text: String = ""
-
-    text += "[color=GOLD]Power of the Sword[/color]\n"
-    text += "Whenever the carrier hits the main target, it decreases the armor of the target by 5 or 10 for 5 seconds, with equal chances for both values.\n"
-    text += " \n"
-    text += "[color=ORANGE]Level Bonus:[/color]\n"
-    text += "+0.2 armor reduction.\n"
-
-    return text
-
-
 func load_triggers(triggers: BuffType):
     triggers.add_event_on_damage(on_damage)
 

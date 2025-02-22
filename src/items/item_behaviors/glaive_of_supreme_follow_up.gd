@@ -12,20 +12,6 @@ extends ItemBehavior
 var followup_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Follow Up[/color]\n"
-	text += "Whenever this tower attacks, it has a 10% chance to gain 300% attack speed until next attack. The next attack will crit for sure but deals 50% less crit damage.\n"
-	text += "\n"
-	text += "[color=GOLD]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+4% attack speed\n"
-	text += "+1% crit damage\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

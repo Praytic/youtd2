@@ -4,15 +4,6 @@ extends ItemBehavior
 var magnetic_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magnetic Field - Aura[/color]\n"
-	text += "Grants +10% buff duration and -15% debuff duration to all towers within 200 range.\n"
-
-	return text
-
-
 func item_init():
 	magnetic_bt = BuffType.create_aura_effect_type("magnetic_bt", true, self)
 	magnetic_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")

@@ -4,18 +4,6 @@ extends ItemBehavior
 var enraged_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Bloodthirst[/color]\n"
-	text += "When the carrier kills a unit it becomes enraged for 3 seconds. While enraged, it has 20% bonus attack speed. Cannot retrigger while active!"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% attack speed\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

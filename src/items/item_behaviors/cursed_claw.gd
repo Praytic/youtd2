@@ -4,18 +4,6 @@ extends ItemBehavior
 var cripple_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cripple[/color]\n"
-	text += "This artifact slows the attacked creep by 10% for 5 seconds.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% slow\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

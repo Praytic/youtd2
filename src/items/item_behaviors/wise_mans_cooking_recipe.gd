@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Learning to Kill[/color]\n"
-	text += "The tower gains 1 additional experience for each kill.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.05, 0.0)
 

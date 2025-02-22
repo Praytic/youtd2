@@ -9,15 +9,6 @@ extends ItemBehavior
 var poison_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Deadly Poison[/color]\n"
-	text += "Whenever the carrier hits the main target, it applies a deadly poison. Each second the poison deals 15% of the tower's base damage as spell damage to the target. The spell damage is always critical. Lasts 4 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

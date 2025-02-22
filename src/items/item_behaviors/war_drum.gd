@@ -7,18 +7,6 @@ extends ItemBehavior
 var drum_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]War Drum - Aura[/color]\n"
-	text += "The catchy rhythm of the drum increases attack speed of towers in 200 range by 7.5%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1% attack speed\n"
-
-	return text
-
-
 func item_init():
 	drum_bt = BuffType.create_aura_effect_type("drum_bt", true, self)
 	drum_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")

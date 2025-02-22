@@ -4,20 +4,6 @@ extends ItemBehavior
 var charitable_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Charity Aura - Aura[/color]\n"
-	text += "Increases maximum mana, spell damage and trigger chances for all towers in 300 range by 2%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% maximum mana\n"
-	text += "+0.4% spell damage\n"
-	text += "+0.4% trigger chances\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.20, 0.0)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -0.20, 0.0)

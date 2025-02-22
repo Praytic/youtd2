@@ -5,19 +5,6 @@ var presence_tower_bt: BuffType
 var presence_creep_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Putrescent Presence - Aura[/color]\n"
-	text += "Decreases the attack speed of towers in 350 range by 20% and increases the attack damage and spell damage taken by creeps in 800 range by 20%.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% damage taken\n"
-	text += "+0.2% attack speed\n"
-
-	return text
-
-
 func item_init():
 	presence_tower_bt = BuffType.create_aura_effect_type("presence_tower_bt", false, self)
 	presence_tower_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")

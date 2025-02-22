@@ -6,20 +6,6 @@ var slow_bt: BuffType
 var armor_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Luck![/color]\n"
-	text += "Whenever the carrier hits the main target, it has a 20% attack speed adjusted chance to get a random effect:\n"
-	text += " Gain 1 experience\n"
-	text += " Gain 10 gold\n"
-	text += " Stun for 0.5 seconds\n"
-	text += " Slow by 10% for 3 seconds\n"
-	text += " Decrease armor by 5 for 3 seconds\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

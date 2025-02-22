@@ -15,15 +15,6 @@ extends ItemBehavior
 # Strange Item can work during bonus waves.
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Duplication[/color]\n"
-	text += "This item duplicates after being carried for 12 waves. The duplicate will be 6 waves slower to duplicate.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 5)
 

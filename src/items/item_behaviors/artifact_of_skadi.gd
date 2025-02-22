@@ -4,15 +4,6 @@ extends ItemBehavior
 var slow_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Skadi's Influence - Aura[/color]\n"
-	text += "Slows movement speed of creeps in 800 range by 14%.\n"
-
-	return text
-
-
 func item_init():
 	slow_bt = BuffType.create_aura_effect_type("slow_bt", false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")

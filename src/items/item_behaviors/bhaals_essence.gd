@@ -9,19 +9,6 @@ extends ItemBehavior
 var fright_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fright Aura - Aura[/color]\n"
-	text += "Slows movement speed of enemies in 650 range by 10% and decreases their armor by 4.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.2% slow\n"
-	text += "+0.2 armor\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.60, 0.0)
 

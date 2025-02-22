@@ -4,22 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Cast a Spell[/color]\n"
-	text += "Casts one of these spells on attack:\n"
-	text += "-Target drops a very high quality item\n"
-	text += "-Two high quality items\n"
-	text += "-Three normal quality items\n"
-	text += "-Two low quality items and spellbook gains +10% item chance and item quality\n"
-	text += "-Spellbook gains +25% item quality or item chance\n"
-	text += " \n"
-	text += "Cooldown of 15 waves.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 5)

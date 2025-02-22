@@ -4,21 +4,6 @@ extends ItemBehavior
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Mana Charge[/color]\n"
-	text += "On every 3rd attack the carrier regenerates 1% of its maximum mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Absorb[/color]\n"
-	text += "Whenever the carrier kills a creep it regenerates 3% of its maximum mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Mana Aura - Aura[/color]\n"
-	text += "Increases mana regeneration of all towers in 200 range of the carrier by 7.5%.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
