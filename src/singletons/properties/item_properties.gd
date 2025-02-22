@@ -121,7 +121,10 @@ func get_cost(item_id: int) -> int:
 
 
 func get_description(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(item_id, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
+
+	return description
 
 
 func get_required_wave_level(item_id: int) -> int:
@@ -181,4 +184,3 @@ func _get_property(item: int, property: CsvProperty) -> String:
 	var property_value: String = map[property]
 
 	return property_value
-
