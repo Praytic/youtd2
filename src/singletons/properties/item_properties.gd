@@ -3,7 +3,7 @@ extends Node
 
 enum CsvProperty {
 	ID,
-	NAME,
+	NAME_ENGLISH,
 	SCRIPT_NAME,
 	TYPE,
 	AUTHOR,
@@ -12,6 +12,7 @@ enum CsvProperty {
 	DESCRIPTION,
 	REQUIRED_WAVE_LEVEL,
 	ICON,
+	NAME,
 	ABILITY_TEXT,
 }
 
@@ -51,7 +52,7 @@ func _ready():
 #########################
 
 func get_script_path(item_id: int):
-	var item_name: String = ItemProperties.get_display_name(item_id)
+	var item_name: String = _get_property(item_id, CsvProperty.NAME_ENGLISH)
 	item_name = item_name.replace("'", "")
 	item_name = item_name.replace(".", "")
 	item_name = item_name.replace(",", "")
@@ -102,7 +103,10 @@ func get_ability_text(item_id: int) -> String:
 
 
 func get_item_name(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.NAME)
+	var name_text_id: String = _get_property(item_id, CsvProperty.NAME)
+	var name: String = tr(name_text_id)
+
+	return name
 
 
 func get_author(item_id: int) -> String:
@@ -138,7 +142,7 @@ func get_icon_path(item_id: int) -> String:
 
 
 func get_display_name(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.NAME)
+	return get_item_name(item_id)
 
 
 func get_tooltip_text(item_id: int) -> String:
