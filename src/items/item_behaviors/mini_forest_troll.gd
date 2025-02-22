@@ -15,7 +15,7 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	rampage_bt = BuffType.new("rampage_bt", 4, 0, true, self)
 	rampage_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	rampage_bt.set_buff_tooltip("Rampage\nIncreases attack speed, multicrit, critical damage and critical chance.")
+	rampage_bt.set_buff_tooltip(tr("R5MU"))
 	var mod: Modifier = Modifier.new() 
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.00, 0.0) 
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.0) 

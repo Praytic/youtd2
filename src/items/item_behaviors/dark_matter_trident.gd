@@ -12,14 +12,14 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	boost_bt = BuffType.new("boost_bt", 2.5, 0.0, true, self)
 	boost_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	boost_bt.set_buff_tooltip("Boost Physical Energy\nIncreases attack speed.")
+	boost_bt.set_buff_tooltip(tr("2MER"))
 	var boost_bt_mod: Modifier = Modifier.new()
 	boost_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
 	boost_bt.set_buff_modifier(boost_bt_mod)
 
 	drain_bt = BuffType.new("drain_bt", 2.5, 0.0, false, self)
 	drain_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
-	drain_bt.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
+	drain_bt.set_buff_tooltip(tr("3KMZ"))
 	var drain_bt_mod: Modifier = Modifier.new()
 	drain_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
 	drain_bt.set_buff_modifier(drain_bt_mod)

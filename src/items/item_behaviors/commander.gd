@@ -11,7 +11,7 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	attack_bt = BuffType.new("attack_bt", 4, 0.1, true, self)
 	attack_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
-	attack_bt.set_buff_tooltip("Attack!\nIncreases attack speed.")
+	attack_bt.set_buff_tooltip(tr("W1NC"))
 	var mod: Modifier = Modifier.new() 
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
 	attack_bt.set_buff_modifier(mod) 

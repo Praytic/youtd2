@@ -46,7 +46,7 @@ func ascended_bt_on_cleanup(event: Event):
 func item_init():
 	ascended_bt = CbStun.new("ascended_bt", 2.0, 0, false, self)
 	ascended_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
-	ascended_bt.set_buff_tooltip("Ascended\nStuns and increases experience granted if killed while in the air.")
+	ascended_bt.set_buff_tooltip(tr("MJ83"))
 	ascended_bt.add_event_on_create(ascended_bt_on_create)
 	ascended_bt.add_periodic_event(ascended_bt_periodic, 0.1)
 	ascended_bt.add_event_on_cleanup(ascended_bt_on_cleanup)

@@ -45,7 +45,7 @@ func item_init():
 
 	backpack_bt = BuffType.new("backpack_bt", 0, 0, true, self)
 	backpack_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
-	backpack_bt.set_buff_tooltip("Search For Item\nGuarantees an item drop on next kill.")
+	backpack_bt.set_buff_tooltip(tr("XNNT"))
 	backpack_bt.add_event_on_kill(backpack_bt_on_kill)
 	
 	multiboard = MultiboardValues.new(1)

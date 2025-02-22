@@ -30,7 +30,7 @@ func item_init():
 	jumper_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, ATTACKSPEED_BONUS, 0.0)
 	jumper_bt.set_buff_modifier(jumper_bt_mod)
 	jumper_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-	jumper_bt.set_buff_tooltip("Chrono Jump\nThis tower has performed a Chrono Jump.")
+	jumper_bt.set_buff_tooltip(tr("1UM5"))
 	jumper_bt.add_event_on_create(jumper_bt_on_create)
 	jumper_bt.add_event_on_cleanup(jumper_bt_on_cleanup)
 

@@ -15,7 +15,7 @@ func load_modifier(modifier: Modifier):
 func item_init():
 	enraged_bt = BuffType.new("enraged_bt", 0, 0, true, self)
 	enraged_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	enraged_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
+	enraged_bt.set_buff_tooltip(tr("JE2F"))
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.20, 0.004)
 	enraged_bt.set_buff_modifier(mod)

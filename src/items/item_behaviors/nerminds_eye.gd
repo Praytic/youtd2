@@ -6,7 +6,7 @@ var nermind_bt: BuffType
 
 func item_init():
 	nermind_bt = MagicalSightBuff.new("nermind_bt", 750, self)
-	nermind_bt.set_buff_tooltip("Nermind's Eye\nReveals invisible units in range.")
+	nermind_bt.set_buff_tooltip(tr("L2EN"))
 
 
 func on_pickup():

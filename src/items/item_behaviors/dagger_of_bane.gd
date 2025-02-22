@@ -28,7 +28,7 @@ func item_init():
 #	+ 0.01 seconds is a dirty hack to make damage tick 4 times with 100% duration
 	poison_bt = BuffType.new("poison_bt", 4.01, 0, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
-	poison_bt.set_buff_tooltip("Deadly Poison\nDeals damage over time.")
+	poison_bt.set_buff_tooltip(tr("IF2L"))
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 
 

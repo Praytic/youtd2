@@ -6,7 +6,7 @@ var true_sight_bt: BuffType
 
 func item_init():
 	true_sight_bt = MagicalSightBuff.new("true_sight_bt", 900, self)
-	true_sight_bt.set_buff_tooltip("Eye of True Sight\nReveals invisible units in range.")
+	true_sight_bt.set_buff_tooltip(tr("SH63"))
 
 
 func load_triggers(triggers: BuffType):

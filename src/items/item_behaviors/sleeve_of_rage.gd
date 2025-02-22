@@ -11,7 +11,7 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	enraged_bt = BuffType.new("enraged_bt", 1.5, 0, true, self)
 	enraged_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	enraged_bt.set_buff_tooltip("Enraged\nIncreases attack speed, spell damage and attack damage.")
+	enraged_bt.set_buff_tooltip(tr("0JUJ"))
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.005)
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.0025)

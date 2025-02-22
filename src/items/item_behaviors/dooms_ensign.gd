@@ -11,7 +11,7 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	ensign_bt = BuffType.new("ensign_bt", 5, 0, false, self)
 	ensign_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
-	ensign_bt.set_buff_tooltip("Ensign's Touch\nReduces armor.")
+	ensign_bt.set_buff_tooltip(tr("QCSJ"))
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
 	ensign_bt.set_buff_modifier(mod)

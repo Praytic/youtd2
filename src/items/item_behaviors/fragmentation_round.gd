@@ -43,7 +43,7 @@ func item_init():
 
 	frag_bt = BuffType.new("frag_bt", 5.0, 0.0, false, self)
 	frag_bt.set_buff_icon("res://resources/icons/generic_icons/mine_explosion.tres")
-	frag_bt.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
+	frag_bt.set_buff_tooltip(tr("7ZPH"))
 	frag_bt.add_event_on_damaged(frag_bt_on_damaged)
 
 
