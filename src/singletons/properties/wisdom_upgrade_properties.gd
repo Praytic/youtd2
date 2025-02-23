@@ -3,6 +3,7 @@ extends Node
 
 enum CsvProperty {
 	ID,
+	NAME_ENGLISH,
 	TOOLTIP,
 	ICON,
 }
@@ -52,7 +53,8 @@ func get_id_list() -> Array:
 
 
 func get_tooltip(tower_id: int) -> String:
-	var tooltip: String = _get_property(tower_id, CsvProperty.TOOLTIP)
+	var tooltip_text_id: String = _get_property(tower_id, CsvProperty.TOOLTIP)
+	var tooltip: String = tr(tooltip_text_id)
 
 	return tooltip
 
