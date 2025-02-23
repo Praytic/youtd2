@@ -4,7 +4,7 @@ extends Node
 # NOTE: order of CsvProperty enums must match the order of
 # the columns in tower_properties.csv
 enum CsvProperty {
-	NAME,
+	NAME_ENGLISH,
 	TIER,
 	ID,
 	FAMILY_ID,
@@ -23,7 +23,9 @@ enum CsvProperty {
 	MISSILE_SPEED,
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
+	NAME,
 	DESCRIPTION,
+	ABILITY_TEXT,
 }
 
 
@@ -37,7 +39,6 @@ enum RangeColumn {
 }
 
 const PROPERTIES_PATH = "res://data/tower_properties.csv"
-const TOWER_TOOLTIPS_PATH = "res://data/tower_tooltips.csv"
 const TOWER_RANGES_PATH: String = "res://data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://src/towers/tower_sprites"
 const TOWER_BEHAVIORS_DIR: String = "res://src/towers/tower_behaviors"
@@ -54,7 +55,6 @@ var _min_required_wave_for_build_mode = {
 }
 
 var _properties: Dictionary = {}
-var _tower_tooltips: Dictionary = {}
 var _tower_ranges: Dictionary = {}
 var _element_map: Dictionary = {}
 var _attack_type_map: Dictionary = {}
@@ -69,7 +69,6 @@ var _rarity_map: Dictionary = {}
 # so that we avoid this overhead during runtime.
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
-	UtilsStatic.load_csv_properties(TOWER_TOOLTIPS_PATH, _tower_tooltips, 0)
 
 	_tower_ranges = _load_tower_ranges_map()
 	
@@ -169,14 +168,10 @@ func get_rarity(tower_id: int) -> Rarity.enm:
 	
 
 func get_display_name(tower_id: int) -> String:
-	return _get_property(tower_id, CsvProperty.NAME)
+	var name_text_id: String = _get_property(tower_id, CsvProperty.NAME)
+	var display_name: String = tr(name_text_id)
 
-
-func get_tooltip_text(tower_id: int) -> String:
-	var display_name: String = get_display_name(tower_id)
-	var tooltip: String = "%s, %s" % [display_name, tower_id]
-
-	return tooltip
+	return display_name
 
 
 func get_cost(tower_id: int) -> int:
@@ -228,7 +223,8 @@ func get_sell_price(tower_id: int) -> int:
 
 
 func get_description(tower_id: int) -> String:
-	var description: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
 
 	return description
 
@@ -490,13 +486,11 @@ func get_inventory_capacity(tower_id: int) -> int:
 	return result_capacity
 
 
-func get_generated_tooltip(tower_id: int) -> String:
-	if !_tower_tooltips.has(tower_id) || !_tower_tooltips[tower_id].has(1):
-		return "[missing tooltip]"
+func get_ability_text(tower_id: int) -> String:
+	var ability_text_id: String = _get_property(tower_id, CsvProperty.ABILITY_TEXT)
+	var ability_text: String = tr(ability_text_id)
 
-	var tooltip: String = _tower_tooltips[tower_id][1]
-
-	return tooltip
+	return ability_text
 
 
 func get_dps(tower_id: int) -> float:

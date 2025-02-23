@@ -82,22 +82,7 @@ func get_creep_info(creep: Creep) -> String:
 	return text
 
 
-# NOTE: calling this function causes a lag spike so it
-# should not be used during runtime in production builds.
-# Lag spike happens because we need to create a temporary
-# tower instance to get all the information needed for the
-# tooltip. We work around that by using SaveTooltipsTool to
-# run this function for all towers and save results to file.
-# Then we load that file and use tooltips from the file.
-# 
-# NOTE: this generated part of the tooltip doesn't include
-# text which needs to dynamically change color. That is, the
-# requirements text and gold, tome and food costs. These
-# parts are prepended in
-# get_generated_tower_tooltip_with_tower_requirements().
-func generate_tower_tooltip(tower_id: int, player: Player) -> String:
-	var text: String = ""
-	
+func get_tower_text(tower_id: int, player: Player) -> String:
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
 	var element: Element.enm = TowerProperties.get_element(tower_id)
@@ -110,51 +95,7 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	var mana: int = floor(TowerProperties.get_mana(tower_id))
 	var mana_regen: int = floor(TowerProperties.get_mana_regen(tower_id))
 
-# 	NOTE: creating a tower instance just to get the tooltip
-# 	text is weird, but the alternatives are worse. Need to
-# 	add tower to tree so that tower is fully initialized and
-# 	has all of the info needed for tooltip.
-	var tower: Tower = Tower.make(tower_id, player)
-	player.add_child(tower)
-	tower.queue_free()
-
-	var abilities_text: String = RichTexts.get_abilities_text_short(tower)
-
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
-	text += "[color=YELLOW]Author:[/color] %s\n" % author
-	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
-	if attack_enabled:
-		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] DPS, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
-
-	if mana > 0:
-		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]
-
-	if !abilities_text.is_empty():
-		text += " \n"
-		text += abilities_text
-
-	for aura in tower.get_aura_types():
-		if aura.is_hidden:
-			continue
-
-		var aura_text: String = get_aura_text_short(aura)
-		text += " \n"
-		text += aura_text
-
-	for autocast in tower.get_autocast_list():
-		var autocast_text: String = get_autocast_text_short(autocast)
-		text += " \n"
-		text += autocast_text
-
-	return text
-
-
-# NOTE: TowerProperties.get_generated_tooltip returns cached tooltips
-# with no dynamic info such as colored wave/research requirements text. This
-# function combines cached tower description with such dynamic information
-# from get_tower_requirements_text.
-func get_tower_text(tower_id: int, player: Player) -> String:
-	var generated_tooltip_text = TowerProperties.get_generated_tooltip(tower_id)
+	var ability_text = TowerProperties.get_ability_text(tower_id)
 	var requirements_text = get_tower_requirements_text(tower_id, player)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
@@ -180,7 +121,18 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	else:
 		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 	
-	text += generated_tooltip_text
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += "[color=YELLOW]Author:[/color] %s\n" % author
+	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
+	if attack_enabled:
+		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] DPS, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+
+	if mana > 0:
+		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]
+
+	if !ability_text.is_empty():
+		text += " \n"
+		text += ability_text
 	
 	return text
 	

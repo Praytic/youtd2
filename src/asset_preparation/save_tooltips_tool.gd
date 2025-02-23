@@ -11,8 +11,6 @@ class_name SaveTooltipsTool extends Node
 # tower scripts, to update saved tooltips.
 
 
-const RESULT_FILENAME: String = "Data/tower_tooltips.csv"
-
 
 static func run(player: Player):
 	print("Saving tooltips...")
@@ -23,13 +21,13 @@ static func run(player: Player):
 #	messy
 	tower_id_list.sort()
 
-	var result_file: FileAccess = FileAccess.open(RESULT_FILENAME, FileAccess.WRITE)
+	var result_file: FileAccess = FileAccess.open("", FileAccess.WRITE)
 
 	var header_line: Array[String] = ["id", "tooltip"]
 	result_file.store_csv_line(header_line)
 
 	for tower_id in tower_id_list:
-		var tooltip: String = RichTexts.generate_tower_tooltip(tower_id, player)
+		var tooltip: String = ""
 		var csv_line: Array[String] = [str(tower_id), tooltip]
 		result_file.store_csv_line(csv_line)
 	
