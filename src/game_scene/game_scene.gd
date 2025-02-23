@@ -150,9 +150,6 @@ func _ready():
 	
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run(local_player)
-	
 	if Config.run_save_ranges_tool():
 		SaveTowerRangesTool.run(local_player)
 

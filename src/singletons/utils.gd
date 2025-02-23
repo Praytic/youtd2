@@ -2,6 +2,72 @@ class_name UtilsStatic extends Node
 
 
 
+func generate_texts():
+	print(" ")
+	print(" ")
+	print("generate_item_texts:")
+	print("item_id,text_id,text:")
+	
+	var tower_id_list: Array = TowerProperties.get_tower_id_list()
+	tower_id_list.sort()
+
+	var translation_id_list: Array = Utils.generate_new_translation_ids(tower_id_list.size())
+	
+	for tower_id in tower_id_list:
+		if tower_id < 394:
+			continue
+
+		var text: String = TowerProperties.get_description(tower_id)
+
+		var translation_id: String
+		if text != "":
+			translation_id = translation_id_list.pop_front()
+		else:
+			translation_id = ""
+
+		print("\"%s\",\"%s\",\"%s\"" % [tower_id, translation_id, text])
+
+
+func generate_new_translation_ids(amount: int):
+	var chars_for_id: Array = []
+	
+#	Digits
+	for char_int in range(48, 57 + 1):
+		var char_str: String = String.chr(char_int)
+		chars_for_id.append(char_str)
+
+#	Upper-case letters
+	for char_int in range(65, 90 + 1):
+		var char_str: String = String.chr(char_int)
+		chars_for_id.append(char_str)
+	
+	var existing_key_list: Array[String] = []
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv("res://data/texts.csv")
+	for csv_line in csv:
+		var key: String = csv_line[0]
+		existing_key_list.append(key)
+	
+	var generated_key_list: Array[String] = []
+
+#	NOTE: repeat multiple times in case there are too many collisions with existing keys
+	for i in range(0, 10):
+		for j in range(0, amount):
+			var generated_key: String = ""
+			for k in range(0, 4):
+				var random_char: String = chars_for_id.pick_random()
+				generated_key += random_char
+			
+			generated_key_list.append(generated_key)
+	
+		for existing_key in existing_key_list:
+			generated_key_list.erase(existing_key)
+			
+		if generated_key_list.size() >= amount:
+			break
+	
+	return generated_key_list
+
+
 # NOTE: in original youtd, range checks for abilities are
 # extended slightly so that range check is done from the
 # edge of a small circle around the unit instead of the
