@@ -7,12 +7,13 @@ const BACKPACKER_BUILDER_ID: int = 19
 
 enum CsvProperty {
 	ID,
-	DISPLAY_NAME,
+	NAME_ENGLISH,
 	SHORT_NAME,
 	TIER,
 	REQUIRED_LEVEL,
 	SCRIPT_NAME,
 	ICON,
+	DISPLAY_NAME,
 	DESCRIPTION,
 }
 
@@ -63,7 +64,8 @@ func get_id_list() -> Array:
 
 
 func get_display_name(builder: int) -> String:
-	var string: String = _get_property(builder, CsvProperty.DISPLAY_NAME)
+	var string_text_id: String = _get_property(builder, CsvProperty.DISPLAY_NAME)
+	var string: String = tr(string_text_id)
 
 	return string
 
@@ -107,7 +109,8 @@ func get_icon_path(builder: int) -> String:
 
 
 func get_description(builder: int) -> String:
-	var string: String = _get_property(builder, CsvProperty.DESCRIPTION)
+	var string_text_id: String = _get_property(builder, CsvProperty.DESCRIPTION)
+	var string: String = tr(string_text_id)
 
 	return string
 
