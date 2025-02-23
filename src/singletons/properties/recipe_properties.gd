@@ -5,7 +5,7 @@ const PROPERTIES_PATH: String = "res://data/recipe_properties.csv"
 
 enum CsvProperty {
 	ID,
-	DISPLAY_NAME,
+	NAME_ENGLISH,
 	PERMANENT_COUNT,
 	USABLE_COUNT,
 	RESULT_ITEM_TYPE,
@@ -14,6 +14,7 @@ enum CsvProperty {
 	LVL_BONUS_MIN,
 	LVL_BONUS_MAX,
 	UNLOCKED_BY_BACKPACKER,
+	DISPLAY_NAME,
 	DESCRIPTION,
 }
 
@@ -46,7 +47,8 @@ func get_id_list() -> Array:
 
 
 func get_display_name(recipe: int) -> String:
-	var string: String = _get_property(recipe, CsvProperty.DISPLAY_NAME)
+	var string_text_id: String = _get_property(recipe, CsvProperty.DISPLAY_NAME)
+	var string: String = tr(string_text_id)
 
 	return string
 
@@ -107,7 +109,8 @@ func get_unlocked_by_backpacker(recipe: int) -> bool:
 
 
 func get_description(recipe: int) -> String:
-	var description: String = _get_property(recipe, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(recipe, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
 
 	return description
 
