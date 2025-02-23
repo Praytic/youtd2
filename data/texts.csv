@@ -7507,3 +7507,620 @@ Increases item chance of all towers by [color=GOLD]12%[/color]."
 "9JVP","Advanced Wisdom
  
 Increases experience gain of all towers by [color=GOLD]20%[/color]."
+"KY9C","Diminishing Returns"
+"02CH","Stacking buffs"
+"HRF7","Distribute experience"
+"26NV","Carry towers"
+"A1G7","Support towers"
+"987U","On attack abilities"
+"VQV4","On hit abilities"
+"1RPM","On spell cast abilities"
+"27NS","Attack speed adjusted chance"
+"JSAY","Multiplicative stats"
+"3XT5","Some tower stats are affected by [color=GOLD]diminishing returns[/color]. These stats will get less effect from items, auras and other modifications once the stat goes above 170% or below 60%. This means that you should avoid stacking all of the bonuses for these stats on a single tower and try to spread the power around evenly to all of your towers.
+ 
+All of the stats in the [color=GOLD]Misc[/color] section in [color=GOLD]Tower Details[/color] are affected by [color=GOLD]diminishing returns[/color]:
+- Bounty ratio
+- Exp ratio
+- Item drop ratio
+- Item quality ratio
+- Trigger chances
+- Buff duration
+- Debuff duration
+"
+"ENAD","In general, when two copies of the same tower attempt to apply the same buff on a unit, the buffs will not stack. For example, if you got two copies of the same tower which slows creeps by 10%, then total effect will be 10%, not 20%! Buffs from towers at different upgrade levels but in same family will also not stack.
+ 
+There are exceptions, in which case the ability tooltip will mention that buffs stacks.
+ 
+Note that this also applies to items with abilities.
+"
+"WH6F","Towers continue to get experience from kills even after reaching the max level. There are items which transfer experience from one tower to another. Try to use such items on max level towers to distribute the extra experience.
+"
+"PUPD","It is a good idea to focus on improving the damage output of a few towers - such towers are called [color=GOLD]Carry[/color] towers. You should apply all oils on [color=GOLD]Carry[/color] towers and equip them with the best items. This way, all of the power bonuses will combine and complement each other.
+ 
+Not all towers are well suited to be [color=GOLD]Carry[/color] tower. For example, a tower with only one aura ability and no damage enhancing abilities is most likely a bad [color=GOLD]Carry[/color].
+"
+"K19J","[color=GOLD]Support[/color] towers are towers which do not deal as much damage as [color=GOLD]Carry[/color] towers but have valuable abilities which empower other towers.
+ 
+Such towers should be built strategically next to [color=GOLD]Carry[/color] towers to make them even more powerful.
+"
+"JAJI","[color=GOLD]On attack[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower attacks...][/color] or [color=GOLD][On attack, this tower...][/color]. Such abilities are triggered when the tower attacks, at the moment when the tower launches the projectile.
+ 
+[color=GOLD]On attack[/color] abilities trigger only once per attack, even if the tower has [color=GOLD]splash attack[/color], [color=GOLD]bounce attack[/color] or [color=GOLD]multishot attack[/color].
+ 
+[color=GOLD]On attack[/color] abilities will trigger even if the attack misses or somehow deals 0 damage.
+"
+"R82O","[color=GOLD]On hit[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower hits a creep...][/color] or [color=GOLD][On hit, this tower...][/color]. Such abilities are triggered when the tower hits a creep with an attack projectile.
+ 
+[color=GOLD]On hit[/color] abilities trigger for every hit of the attack unless otherwise stated in the tooltip. If the ability tooltip says that the ability affects only the [color=GOLD]main target[/color], then this ability will not trigger for secondary targets of a [color=GOLD]splash attack[/color] for example.
+ 
+For [color=GOLD]splash attacks[/color], the main creep is considered to be the [color=GOLD]main target[/color]. For [color=GOLD]multishot attacks[/color], one of the targets is considered to be the [color=GOLD]main target[/color]. For [color=GOLD]bounce attacks[/color], the first hit creep is considered to be the [color=GOLD]main target[/color].
+ 
+[color=GOLD]On hit[/color] abilities will trigger even if the attack projectile somehow deals 0 damage.
+ 
+[color=GOLD]On hit[/color] abilities will not trigger from damage dealt by tower abilities or item abilities. For example, if a tower is carrying an item which sometimes shoots a projectile at a creep, the hits from this projectile will not trigger [color=GOLD]On hit[/color] abilities.
+"
+"3ZTG","[color=GOLD]On spell cast[/color] abilities are abilities which contain text like [color=GOLD][Whenever this tower casts a spell...][/color]. Such abilities are triggered when the tower uses an [color=GOLD]active ability[/color]. Passive abilities don't count even if they have a cooldown.
+ 
+[color=GOLD]On spell cast[/color] abilities sometimes include more specific conditions like [color=GOLD][Whenever this tower casts a spell on a friendly tower...][/color]. In such cases, the ability will trigger only when the tower uses an active [color=GOLD]targeted[/color] ability on a friendly tower. You can check if the ability is targeted by trying to cast it yourself and seeing if there's a targeting cursor.
+"
+"34UQ","Some abilities will mention that they have an [color=GOLD]Attack speed adjusted chance[/color] to trigger. What this means is that if the ability has a base 10% chance to trigger on attack, then this ability will trigger at the same rate for towers with different attack speeds.
+ 
+For a tower with 1.0 second attack speed, the ability will trigger [color=GOLD][0.10 * 1.0 = 0.10 = 10%][/color] of the time. In a 10 second period, the ability will on average trigger one time.
+ 
+For a tower with 0.5 second attack speed, the ability will trigger [color=GOLD][0.10 * 0.5 = 0.05 = 5%][/color] of the time. In a 10 second period, the ability will on average trigger one time.
+"
+"258N","Not all damage increasing stats are the same, some can increase total damage by more than others because they are [color=GOLD]multiplicative[/color].
+ 
+Here's an example:
+ 
+You have a tower with 100 base damage, 1s attack speed, 0% crit chance. The tower has 2 inventory slots and you have 3 items:
+Item A gives +40% attack damage
+Item B gives +40% attack damage
+Item C gives +40% damage to bosses
+ 
+Let's say that the next wave will be a boss.
+ 
+If you equip Item A and Item B, the tower will deal:
+[color=GOLD]100 * (1.0 + 0.4 + 0.4) = 180[/color] damage.
+ 
+If you equip Item A and Item C, the tower will deal:
+[color=GOLD]100 * (1.0 + 0.4) * (1.0 + 0.4) = 196[/color] damage.
+ 
+As you can see, Item C looks like it should provide the same increase as other items but in reality the actual bonus is greater.
+ 
+In general, stats are broken down into categories. Stats within one category are additive while stats between categories multiply with each other. Here's a list of all categories which can affect damage:
+ 
+- Base attack damage flat
+- Base attack damage %
+- Attack damage flat
+- Attack damage %
+- Attack speed
+- Spell damage %
+- Damage against creep armor type
+- Damage against creep category
+- Attack damage received % (on creep)
+- Spell damage received % (on creep)
+- Damage received from element % (on creep)
+- Damage reduction from armor (on creep)
+
+Note that crit chance, crit damage and multicrit can also be considered multiplicative with other categories.
+"
+"AT2N","Welcome"
+"T375","Controls"
+"RCI6","Protect the portal"
+"KYOA","Income"
+"RLYE","Choosing Elements"
+"MIZU","Game Modes"
+"Y9M4","Researching"
+"EHPT","
+This is the [color=GOLD]Help[/color] menu. This menu contains basic and advanced information about the game.
+ 
+See the [color=GOLD]Chat Commands[/color] tab for a list of available chat commands.
+"
+"IVZ3","[color=GOLD]Left Click[/color]
+Left click on a unit to select it.
+Left click on a tower ability to cast it.
+ 
+[color=GOLD]Shift + Left Click[/color]
+Shift left click on an item to quickly move it between item stash and horadric cube, and from tower inventory to item stash.
+ 
+[color=GOLD]Ctrl + Left Click[/color]
+Ctrl left click on an item to quickly move it to tower inventory, and from tower inventory to horadric cube.
+ 
+If the target container is full: quick move will swap clicked item with the last slot of the target container.
+ 
+[color=GOLD]Right Click[/color]
+Right click on creeps to give an attack order to towers.
+Right click on tower abilities to toggle automatic casting.
+ 
+[color=GOLD]Ctrl Right Click[/color]
+Ctrl Right click on an item to lock it. Locked items will be ignored during autofill.
+ 
+[color=GOLD]Mouse Wheel[/color]
+Zoom in and zoom out the camera.
+ 
+[color=GOLD]WASD or arrow keys[/color]
+Move the camera.
+ 
+[color=GOLD]Escape[/color]
+Close menus.
+Deselect units.
+Pause the game.
+ 
+[color=GOLD]I[/color]
+Open item stash.
+ 
+[color=GOLD]T[/color]
+Open tower stash.
+ 
+[color=GOLD]N[/color]
+Start next wave.
+ 
+[color=GOLD]U[/color]
+Upgrade currently selected tower.
+ 
+[color=GOLD]R[/color]
+Sell currently selected tower. Must be pressed twice.
+ 
+[color=GOLD]1, 2, 3[/color]
+Change game speed."
+"TATP","The main point of the game is to [color=GOLD]protect the portal[/color]. If a creep reaches the portal it will deal damage to it. Once portal health reaches 0 the game is over. To prevent that, build towers so that they kill creeps before they reach the portal."
+"SGT4","After finishing a wave you will gain a gold bonus called [color=GOLD]Income[/color]. This extra gold amount is made up of two components: [color=GOLD]upkeep[/color] and [color=GOLD]interest[/color]. 
+ 
+[color=GOLD]Upkeep[/color] depends on current wave level and will increase as the game progresses.
+ 
+[color=GOLD]Interest[/color] is equal to [color=GOLD][0.05 * current gold][/color].
+ 
+Both [color=GOLD]upkeep[/color] and [color=GOLD]interest[/color] rates can be increased with some rare items and abilities.
+ 
+The amount of upkeep and interest gained will be displayed on the left side of the screen after a wave."
+"KNIV","A particular element can be strong or weak against a creep type. Try to choose [color=GOLD]a diverse set of elements[/color] to make sure that your towers can deal well with all types of creeps.
+ 
+It's a good idea to focus on 2-3 elements.
+"
+"76JP","YouTD can be played in three game modes:
+ 
+[color=GOLD]Build Mode[/color]. Build towers and upgrade them. This mode is most similar to other Tower Defense games. It's recommended to play this mode only to learn the game because random modes are more fun.
+ 
+[color=GOLD]Random with upgrade[/color]. You receive random towers after each wave, based on the elements that you have researched. Note that all towers you receive will be from the first tier and need to be upgraded. You can replace towers to carry over permanent bonuses.
+ 
+[color=GOLD]Totally random[/color]. You receive totally random towers. Towers cannot be upgraded but you can replace towers to carry over permanent bonuses."
+"PNLC","Always use your [color=GOLD]knowledge tomes[/color] as early as possible to increase the chances of getting more powerful towers."
+"6LQ9","How to type"
+"0BC0","/ready"
+"BE53","/pause"
+"11QW","/ignore"
+"9TEO","/autospawn"
+"SNW8","/autooil"
+"BVOE","/gamespeed"
+"09BD","/damage-meters"
+"9DW3","/ping"
+"5HPS","/check-range-attack"
+"PYZB","/print-ranges-to-towers"
+"X4NJ","/allow-all"
+"BK24","Press ENTER to start typing a command. Then press ENTER again to submit the command.
+"
+"2YZ3","Starts the first level early.
+In multiplayer, all players must ready up together.
+"
+"39J6","Pauses a multiplayer game. Only the host can use this command.
+ 
+Use [color=GOLD]/unpause[/color] to resume.
+"
+"1VP7","[color=GOLD]/ignore <PLAYER NAME>[/color] - Ignores chat messages from player.
+ 
+[color=GOLD]/unignore <PLAYER NAME>[/color] - Removes player from ignore list.
+"
+"J4EI","[color=GOLD]/autospawn <TIME>[/color] or [color=GOLD]/as <TIME>[/color] - Sets up an additional timer which will automatically start the next level <TIME> seconds after the current level has finished spawning.
+ 
+[color=GOLD]/autospawn off[/color] - Disables autospawn.
+
+"
+"I8D1","
+[color=GOLD]/ao[/color] - short version.
+ 
+[color=GOLD]/autooil list[/color] - shows available oil types.
+ 
+[color=GOLD]/autooil <OILTYPE>[/color] - Enables autooil for selected tower.
+[color=GOLD]/autooil <OILTYPE 1> <OILTYPE 2>[/color] - Enables multiple oils.
+ 
+Accepted oil types:
+[color=GOLD]sharpness, sharp, dmg[/color]
+[color=GOLD]magic, mana[/color]
+[color=GOLD]accuracy, acc, critical[/color]
+[color=GOLD]swiftness, swift, speed[/color]
+[color=GOLD]sorcery, sorc, spell[/color]
+[color=GOLD]exuberance, exub, bounty[/color]
+[color=GOLD]seeker, item[/color]
+[color=GOLD]lore, exp[/color]
+ 
+[color=GOLD]/autooil show[/color] - shows all current autooil assignments.
+ 
+[color=GOLD]/autooil clear[/color] - clears autooil assignments. If a tower is selected, then this command clears assignments only for selected tower. If no tower is selected, then all assignments are cleared.
+"
+"1QB0","[color=GOLD]/gamespeed <SPEED>[/color] or [color=GOLD]/gs  <SPEED>[/color] - Changes game speed. This command allows changing game speed beyond the values available in the UI controls.
+"
+"5PJ5","[color=GOLD]/damage-meters[/color] or [color=GOLD]/dm[/color] - Prints a list of towers which dealt the most damage.
+ 
+[color=GOLD]/damage-meters-recent[/color] or [color=GOLD]/dmr[/color] - Prints a list of towers which dealt the most damage during the last 5 waves.
+"
+"4FGG","Show/hide your ping."
+"NYNW","[color=GOLD]/check-range-attack <RADIUS>[/color] or [color=GOLD]/cra <RADIUS>[/color]
+ 
+[color=GOLD]/check-range-friendly <RADIUS>[/color] or [color=GOLD]/crf <RADIUS>[/color]
+ 
+Displays a range checker with a given radius.
+ 
+The different versions [color=GOLD]attack[/color] vs [color=GOLD]friendly[/color] are used to check for range on creeps vs towers.
+ 
+[color=GOLD]/check-range-attack off[/color] to hide range checker.
+"
+"8HQ7","Print ranges between selected tower and all other towers."
+"5WNE","Enables shared build space for teammates so that they can build towers in each other's areas."
+"Z4S1","Speed"
+"QDDQ","Greater Speed"
+"VR83","Xtreme Speed"
+"0OJK","Slow"
+"DKP4","Strong"
+"LQ4E","Rich"
+"FYQ0","Relic Raider"
+"KGXE","Ultra Wisdom"
+"LTN2","Armored"
+"4U2J","Heavy Armored"
+"BKNH","Xtreme Armor"
+"KWYF","Evasion"
+"BMCE","Xtreme Evasion"
+"X810","Ghost"
+"TVP7","Spell Resistance"
+"75BM","Greater Spell Resistance"
+"A65S","Magic Immunity"
+"9CZH","Ethereal"
+"YECG","Slow Aura"
+"93LW","Mana Drain Aura"
+"E0AD","Spellbinder"
+"50I1","Stun Revenge"
+"UWXG","Regeneration"
+"QMRH","Xtreme Regeneration"
+"Y0VF","Second Chance"
+"HIHB","Semi-Mechanical"
+"7HYR","Mechanical"
+"I9SK","Meaty"
+"HWF3","Evolving"
+"EJWU","Unlucky"
+"MUGE","Flock"
+"GCZ3","Protector"
+"ZJP2","Manashield"
+"3N95","Manashield+"
+"JFM5","Purge Revenge"
+"4UHS","Dart"
+"X7NZ","Necromancer"
+"B8YY","Gravid"
+"PUOE","These creeps have 25% increased movement speed."
+"H4ZU","These creeps have 60% increased movement speed."
+"HAC3","These creeps always move at maximum speed.
+ 
+[color=GOLD]Hint:[/color] Slowing abilities will not work on these creeps!"
+"CFVO","These creeps have only 66% of their normal movement speed."
+"6RME","These creeps have 20% more HP, but grant 50% more exp and 25% more bounty."
+"EOQQ","These creeps grant 60% more bounty but no experience."
+"X79J","These creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality."
+"NG49","These creeps give no bounty and do not drop items but grant 300% experience."
+"RMVG","These creeps have increased armor.
+ 
+[color=GOLD]Hint:[/color] Spell damage ignores armor so try to build some towers which deal spell damage."
+"TKF9","These creeps have greatly increased armor.
+ 
+[color=GOLD]Hint:[/color] Spell damage ignores armor so try to build some towers which deal spell damage."
+"YBGJ","These creeps have extremely high armor but 25% decreased movement speed.
+ 
+[color=GOLD]Hint:[/color] Spell damage ignores armor so try to build some towers which deal spell damage."
+"I2AS","These creeps evade 25% of all attacks.
+ 
+[color=GOLD]Hint:[/color] Active abilities will bypass creep evasion!"
+"UVBG","These creeps evade 66% of all attack.
+ 
+[color=GOLD]Hint:[/color] Active abilities will bypass creep evasion!"
+"D7VR","These creeps have a 90% chance to ignore damage if it's not spell damage or Arcane attack damage.
+ 
+[color=GOLD]Hint:[/color] Always have some towers which deal spell damage or Arcane damage at later levels."
+"ZRSG","These creeps receive -50% spell damage.
+ 
+[color=GOLD]Hint:[/color] Raw attack damage will help against these creeps, so don't really only on spell damage!"
+"3J3H","These creeps receive -80% spell damage.
+ 
+[color=GOLD]Hint:[/color] Raw attack damage will help against thes creeps, so don't really only on spell damage!"
+"BIBQ","As long as these creeps have at least 10 mana, they are immune to all spell damage, Arcane attack damage and targeted active abilities.
+ 
+[color=GOLD]Hint:[/color] Raw attack damage will help against these creeps, so don't really only on spell damage! You can also use mana burn to deal with these creeps."
+"2INL","These creeps periodically become ethereal, gaining immunity against attack damage, but taking 40% more Arcane attack damage and spell damage.
+ 
+[color=GOLD]Hint:[/color] Towers that can deal heavy spell damage will be very useful against these creeps!
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"S59I","These creeps slow the attack speed of towers in 800 range by 50%."
+"RY9O","These creeps decrease the mana regeneration of towers in 1200 range by 200%."
+"TV6K","These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap.
+ 
+[color=GOLD]Hint:[/color] Try to burn their mana before they burn yours!
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"CJ17","Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds.
+ 
+[color=GOLD]Hint:[/color] Abilities will not trigger the stun, only attacks!
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"KSH8","These creeps regenerate hitpoints over time.
+ 
+[color=GOLD]Hint:[/color] Kill these creeps fast!"
+"CTCE","These creeps regenerate a large amount of hitpoints over time.
+ 
+[color=GOLD]Hint:[/color] Kill these creeps fast!"
+"3K6C","Whenever these creeps receive mortal damage, they have a 50% chance to heal themselves if they have 1/3 of their mana left.
+ 
+[color=GOLD]Hint:[/color] Use mana burn!"
+"KA2W","These creeps have -50% debuff duration.
+ 
+[color=GOLD]Hint:[/color] Auras and raw damage are useful against these creeps because they are not affected by reduced debuff duration."
+"ACUS","These creeps have -90% debuff duration.
+ 
+[color=GOLD]Hint:[/color] Auras and raw damage are useful against these creeps because they are not affected by reduced debuff duration."
+"SIQM","Champions and bosses with this ability drop additional food upon death."
+"6TXG","Any instance of damage above 5% of the creep's max hp will grant it 40% resistance against the attacking element, with halved effect on successive procs.
+ 
+[color=GOLD]Hint:[/color] If you have multiple carry towers, try to use different elements!"
+"QQLY","When attacked, these creeps have a 30% chance to reduce their attacker's trigger chances by 10% for 8 seconds. This ability stacks.
+ 
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"ZQ56","Birds are migrating from the winter countries! Double the usual amount will spawn.
+ 
+[color=GOLD]Hint:[/color] If you can't kill them all fast enough, be sure to have some towers that can slow them down."
+"5NSZ","When a nearby creep dies, champions will channel a curse on the killing tower, reducing its attack and spell damage by 130% and its multicrit count by 2.
+ 
+[color=GOLD]Hint:[/color] Be sure to kill the champions first!
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"8HSS","These creeps reduce damage they take by up to 80% by using mana. Less mana, less damage reduction. These creeps will explode when out of mana, leaving no corpse.
+ 
+[color=GOLD]Hint:[/color] Mana burn is extremely useful against these creeps."
+"YFLA","These creeps reduce damage they take by up to 80% based on how much mana they have left. These creeps will explode when out of mana, leaving no corpse.
+ 
+[color=GOLD]Hint:[/color] Mana burn is extremely useful against these creeps."
+"BJ6B","These creeps have a 15% chance to purge their attacker of 2 purgeable buffs and slow its attack speed by 150% for 4 seconds.
+ 
+[color=GOLD]Hint:[/color] This ability can be stopped by silencing the creep."
+"IAW4","These creeps have only 40% of their normal movement speed, but have a 5% chance to dart forward when damaged. 6 second cooldown.
+ 
+[color=GOLD]Hint:[/color] Relying solely on slows and stuns will be less effective on this boss!"
+"M206","When a lesser creep dies, a nearby champion with this ability will use mana to raise the creep back to life!
+
+[color=GOLD]Hint:[/color] Kill the champion or destroy the corpses to stop the dead from rising!"
+"JRM2","The children of these creeps will jump out when their parents die. They mature quickly...
+
+[color=GOLD]Hint:[/color] Be sure to focus the children quickly, else they will mature and spawn more children upon death!"
+"K5GY","Creep Info"
+"LS4N","Creep Specials"
+"GUCR","Challenge creeps"
+"QP00","Sif creeps"
+"3NNL","You can select creeps just like towers. Creep menu will display some useful info.
+"
+"3SFD","Each wave of creeps can have special abilities. You can see names of wave specials in the Wave Status in the top right corner. Mouse over a wave special to see a description of it.
+"
+"L7L0","[color=GOLD]Challenge[/color] creeps appear every 8 waves. They are made to test your tower setup. It's okay if you fail to clear [color=GOLD]Challenge[/color] waves because they don't deal any damage to portal.
+"
+"PU56","Creeps with [color=MEDIUM_PURPLE]Sif[/color] armor type are resistant to most [color=GOLD]attack types[/color] except [color=AQUAMARINE]Essence[/color] and spell damage. Try to always have some towers which are strong against [color=MEDIUM_PURPLE]Sif[/color] creeps.
+"
+"0THT","Item drops"
+"A74M","Equip Items"
+"8H84","Oil Items"
+"ITTZ","Consumable Items"
+"YB2E","Item rarity"
+"NIBC","Horadric Cube"
+"FY9Y","Locking Items"
+"SO7S","Tactical Items"
+"ELV8","Creeps will occasionally drop items. When this happens, the item will automatically fly to your [color=GOLD]Item Stash[/color]."
+"X8SZ","To equip an item, click on an item in [color=GOLD]Item Stash[/color] to start moving it. Then, click on a tower to equip the item to that tower. You can also select a tower and move the item directly to the tower inventory.
+ 
+Towers can carry a limited amount of items. More powerful towers have more item slots.
+"
+"DWL4","[color=GOLD]Oil items[/color] apply permanent effects to towers and cannot be removed after application. To apply an oil item on a tower, click on the oil and then click on a tower. The oil will be consumed after it's applied.
+ 
+Note that oils will be lost if the tower is sold! Upgrading and transforming towers preserves oils so try to avoid selling when possible.
+ 
+You can check all of the oils which were applied to the tower in [color=GOLD]Tower Details[/color].
+"
+"5KEK","[color=GOLD]Consumable items[/color] give bonuses to the player and disappear after use, like Oil items. Right click on a [color=GOLD]consumable item[/color] to use it."
+"PWTZ","Items can have different rarities:
+ 
+- [color=00ff00]Common[/color]
+- [color=4169e1]Uncommon[/color]
+- [color=9370db]Rare[/color]
+- [color=ffd700]Unique[/color]
+ 
+In general, higher rarity items will be more powerful but note that there are exceptions. A [color=00ff00]Common[/color] item can be more powerful than an [color=4169e1]Uncommon[/color] item so make sure to read item descriptions!
+ 
+The rarity of dropped items depends on the current wave level and [color=GOLD]item quality[/color] stats of the tower and creep. More powerful items will drop more often as you progress through the waves.
+"
+"RXL6","[color=GOLD]Horadric Cube[/color] is a section in [color=GOLD]Item Stash[/color] where you can transmute items into new items. Check the recipe buttons to see what you need to complete a recipe.
+ 
+Once you got enough items, a recipe button will become available. Click on the recipe button to prepare items in [color=GOLD]Horadric Cube[/color] and then press the [color=GOLD]merge[/color] button to transmute items."
+"ED47","Items can be locked to prevent accidental transmutation. Recipe buttons in the [color=GOLD]Horadric Cube[/color] will ignore locked items. To lock an item, [color=GOLD]right click[/color] on it while holding [color=GOLD]Ctrl[/color]. Repeat this action to unlock the item. Locking items is useful to protect powerful items."
+"VMKY","Some items can be used [color=GOLD]tactically[/color] to give you a temporary advantage. For example, you can check the [color=GOLD]armor type[/color] of a future wave and swap in items which give a bonus against that [color=GOLD]armor type[/color]."
+"7YI4","Tower Stats"
+"Y53I","Upgrading"
+"CAVN","Transforming"
+"L97B","Tower Positioning"
+"URMS","Attack damage vs Spell damage"
+"FBML","Critical hit"
+"7P9S","Multicrit"
+"IPQP","Tower Level"
+"4L37","Attack Types"
+"40N7","Killing Blows"
+"8ETV","Buff groups"
+"TDO8","Towers in YouTD have some uncommon stats. Their mechanics will be explained here:
+ 
+[color=GOLD]Buff duration:[/color] Modifies the duration of buffs cast by this tower. For example, if a tower has 200% buff duration and uses an ability which buffs another tower for 6 seconds, the buff will last 12 sec.
+ 
+[color=GOLD]Debuff duration:[/color] Same as Buff duration but affects the duration of debuffs.
+ 
+[color=GOLD]Trigger chances:[/color] Modifies the chances of chanced abilities. Example: Tower ability grants 10% chance to deal extra damage and the tower has +20% trigger chances. The actual chance of ability will be [color=GOLD]10% * 1.2[/color] = 12%.
+ 
+[color=GOLD]Item drop ratio:[/color] Creeps killed by this tower have a modified chance to drop an item. Example: Creep killed by a tower with 50% item drop ratio => creep is 50% more likely to drop an item.
+ 
+[color=GOLD]Item quality ratio:[/color] Creeps killed by this tower have a modified chance to drop items with higher rarity.
+ 
+[color=GOLD]Bounty ratio:[/color] Modifies the amount of bounty received for kills done by this tower.
+"
+"XDM6","You can [color=GOLD]upgrade[/color] a tower to make it stronger. Select a tower and you will see the [color=GOLD]Upgrade[/color] button on the left side of the tower menu.
+
+Note that you cannot [color=GOLD]upgrade[/color] in [color=GOLD]Totally random[/color] game mode.
+"
+"5RTO","You can [color=GOLD]transform[/color] a tower into a different one by building a tower on top of another tower. Experience, items and oils will carry over.
+ 
+Transforming refunds the cost of the previous tower. 100% if towers are in the same family and 75% if they are from different families.
+ 
+Note that you cannot [color=GOLD]transform[/color] in [color=GOLD]Build[/color] game mode.
+"
+"836J","Many towers have aura's which provide benefits to other towers nearby. You should try to build towers [color=GOLD]next to each other[/color] to maximize the benefits of aura's.
+"
+"8TLT","Towers can deal different types of damage.
+ 
+Normal tower attacks and some abilities will deal [color=GOLD]attack damage[/color]. Attack damage is dealt as the [color=GOLD]attack type[/color] of the tower ([color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], etc). Attack damage is reduced by creep armor and deals different ratios of damage depending on the [color=GOLD]armor type[/color] of the creep.
+ 
+Some tower abilities will deal [color=GOLD]spell damage[/color]. Spell damage ignores creep armor but some creeps are 100% immune to spell damage.
+ 
+Make sure to equip your towers appropriately based on their main damage source. For example, towers which deal primarily [color=GOLD]attack damage[/color] will not get any benefit from oils which increase [color=GOLD]spell damage[/color].
+"
+"UECA","When towers make a critical hit, the attack will deal more damage than unusual. The base bonus is 50% more damage. Note that both normal attacks and spell damage can be critical.
+"
+"QQTB","Towers can crit multiple times in the same attack which will cause the attack to deal extra damage. The maximum number of multicrits is determined by the tower's [color=GOLD]Multicrit[/color] stat.
+
+Note that each subsequent multicrit has a reduced chance (80% of previous).
+ 
+Example: A tower has 10% critical chance, 50% critical damage bonus and multicrit of 3.
+- The tower has a [color=GOLD]10%[/color] chance to crit the first time and deal 1.5x damage
+- If the tower has critted once, then it has a [color=GOLD]10%*0.8=8%[/color] chance to crit again, for the second time, and deal [color=GOLD]1.5+0.5=2x[/color] normal damage.
+- If the tower has critted twice, then it has a [color=GOLD]10%*0.8*0.8=6.4%[/color] chance to crit again, for the third time, and deal [color=GOLD]1.5+0.5+0.5=2.5x[/color] normal damage.
+ 
+Each subsequent multicrit requires that previous crit succeeded.
+ 
+Only [color=GOLD]attack damage[/color] can multicrit, [color=GOLD]spell damage[/color] can only crit once.
+"
+"TQUN","Towers gain experience when they kill creeps and once they get enough experience, their level increases. Leveling up increases the power of tower abilities and some items.
+ 
+In addition, all towers gain bonuses to the following stats when they level up:
+ 
++0.15% crit chance
++2% crit damage
++0.15% spell crit chance
++2% spell crit damage
++4% base damage
++1% attack speed"
+"VRQV","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
+ 
+[color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], [color=DODGER_BLUE]Energy[/color], [color=AQUAMARINE]Essence[/color], [color=CORNFLOWER_BLUE]Elemental[/color] and [color=DEEP_SKY_BLUE]Arcane[/color].
+ 
+Each [color=GOLD]attack type[/color] deals different amounts of damage to [color=GOLD]armor types[/color]. Most [color=GOLD]attack types[/color] deal extra damage to some armor while dealing less to others. The exceptions are [color=AQUAMARINE]Essence[/color] and [color=DEEP_SKY_BLUE]Arcane[/color] [color=GOLD]attack types[/color]. In general, it is a good idea to build towers with diverse [color=GOLD]attack types[/color].
+ 
+You can check the stats of a tower's [color=GOLD]attack type[/color] by selecting the tower and then mousing over the [color=GOLD]attack type[/color] in the tower menu.
+"
+"7H17","Towers gain experience only when they deal [color=GOLD]killing blows[/color]. This means that even if some tower attacked a creep many times, it will not get any experience if the creep was killed by another tower. In general, towers with highest damage will tend to deal the majority of [color=GOLD]killing blows[/color] and therefore will gain the most experience.
+ 
+The dealer of the [color=GOLD]killing blow[/color] is also important because that tower's stats will be used to calculate bounty, item chance and item quality. Make sure that you equip items which affect these stats on towers which actually get kills. Equipping such items on towers which never get kills will give you almost no benefit. You can see which tower has the most kills in the [color=GOLD]Game Stats[/color] panel. You can also check each tower's kill counts in the tower details panel."
+"6R2P","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on top of the tower menu.
+ 
+Mouse over the [color=GOLD]buff group[/color] buttons to read more details.
+ 
+[color=GOLD]Buff groups[/color] can be used to create powerful setups between [color=GOLD]Buffing[/color] towers and [color=GOLD]Carry[/color] towers. An example setup could be:
+- [color=GOLD]Buffing[/color] tower is assigned to CASTER [color=GOLD]buff group[/color] 1
+- [color=GOLD]Carry[/color] tower is assigned to RECEIVER [color=GOLD]buff group[/color] 1
+
+As a result, the buffing tower will only cast buffs on the [color=GOLD]Carry[/color] tower. Normally, buffing towers will choose targets randomly but with this setup you will maximize the gain from the buffs.
+"
+"LF36","Tutorial intro for random mode"
+"0NNW","Tutorial intro for build mode"
+"1BOW","Research Elements"
+"67KG","Roll towers"
+"HDCP","Tower Stash"
+"UH5S","Build a tower"
+"0MRM","Resources"
+"Q1F1","Tower Info"
+"FYWE","Items"
+"88YG","Tower levels"
+"FJOB","Portal damage"
+"ENNR","Wave finish"
+"8CCS","Challenge wave"
+"FITA","Upgrading towers"
+"CAIK","Transforming towers"
+"294U","Welcome to [color=GOLD]YouTD2[/color]! This is the tutorial window. It will sometimes popup to teach you about the game.
+ 
+You can always reread the tutorials in the [color=GOLD]Help[/color] menu. You can open the [color=GOLD]Help[/color] menu by pausing the game with the [color=GOLD]Escape[/color] button."
+"FIJK","Welcome to YouTD2! This is the tutorial window.
+ 
+You have selected [color=GOLD]Build[/color] mode which doesn't have a dedicated tutorial. Restart the game and select [color=GOLD]Random[/color] mode to do the tutorial."
+"FTNN","[center][img]res://assets/tutorial_pictures/research_element.png[/img][/center]
+ 
+Before you can start building towers, you need to research elements. You can research elements in the [color=GOLD]Elements menu[/color].
+ 
+Researching elements unlocks more powerful towers."
+"KI8B","[center][img]res://assets/tutorial_pictures/roll_towers.png[/img][/center]
+ 
+After you have researched some elements, press on the [color=GOLD]roll towers[/color] button. This will add a random set of towers to the [color=GOLD]Tower Stash[/color]."
+"2RYT","[center][img]res://assets/tutorial_pictures/tower_stash.png[/img][/center]
+ 
+After rolling towers, you will see new towers appear in the [color=GOLD]Tower Stash[/color]. [color=GOLD]Tower Stash[/color] is the storage for all of the towers you have. You can mouse over a tower to learn more about it."
+"OONE","[center][img]res://assets/tutorial_pictures/build_tower.png[/img][/center]
+ 
+To [color=GOLD]build a tower[/color], click on a tower in the stash. Then move your mouse to the game world and click on where you want to build. The tower cursor will turn green when your mouse over a valid build position.
+ 
+Note that building a tower removes it from the [color=GOLD]Tower stash[/color].
+"
+"QETK","[center][img]res://assets/tutorial_pictures/resource_panel.png[/img][/center]
+ 
+Building a tower costs [color=GOLD]resources[/color]. You can see your current [color=GOLD]resources[/color] at the top of the screen. Mouse over them to learn more.
+"
+"0BC9","[center][img]res://assets/tutorial_pictures/tower_info.png[/img][/center]
+ 
+After building a tower, try clicking on it. This will open the tower menu where you can learn more about what the tower does.
+ 
+Mouse over tower abilities to learn more about them.
+"
+"DRLX","[center][img]res://assets/tutorial_pictures/item_drop.png[/img][/center]
+ 
+An item dropped! Creeps sometimes drop items. You can see the items you have in the [color=GOLD]Item Stash[/color].
+ 
+Items empower towers and provide other bonuses. Check out [color=GOLD]Help[/color] for more info about items and how to use them.
+"
+"NCLA","[center][img]res://assets/tutorial_pictures/tower_level.png[/img][/center]
+ 
+One of your towers has leveled up! You can see the current tower level in the top left corner of the tower menu.
+ 
+Towers become more powerful as they level up. You can read more about level bonuses in [color=GOLD]Help[/color].
+"
+"AZYT","A creep has reached the [color=GOLD]portal[/color]! When creeps reach the [color=GOLD]portal[/color] they deal damage to it. When portal lives reach [color=GOLD]0%[/color] it's game over!
+ 
+Note that [color=GOLD]Challenge[/color] waves don't deal damage to the [color=GOLD]portal[/color]."
+"141E","[center][img]res://assets/tutorial_pictures/wave_finish.png[/img][/center]
+ 
+You have finished a wave! Finishing a wave grants multiple rewards:
+ 
+You get new random towers. Check your [color=GOLD]Tower stash[/color]!
+ 
+You get a gold bonus called [color=GOLD]Income[/color].
+ 
+You get new [color=GOLD]Knowledge tomes[/color], which are used for researching elements."
+"49AV","The next wave will be a [color=GOLD]Challenge[/color] wave. These waves are harder than normal and it's very likely that you won't be able to kill the creep. That's ok because [color=GOLD]Challenge[/color] waves deal no portal damage. Use these waves to test the power of your towers."
+"LL83","[center][img]res://assets/tutorial_pictures/upgrade.png[/img][/center]
+ 
+At this point, you might be able to [color=GOLD]upgrade[/color] one of your towers. Try selecting different towers and checking if you can [color=GOLD]upgrade[/color] them.
+ 
+[color=GOLD]Upgrading[/color] changes a tower into a more powerful version with improved stats and abilities.
+ 
+It's a good idea to [color=GOLD]upgrade[/color] towers with highest levels first.
+"
+"HZB1","[center][img]res://assets/tutorial_pictures/transform.png[/img][/center]
+ 
+Another way build powerful defenses is by [color=GOLD]transforming[/color] towers.
+ 
+To [color=GOLD]transform[/color] a tower, start building a tower like you normally would but move the mouse to an existing tower. The tower cursor will turn blue to indicate that you can [color=GOLD]transform[/color] it. Click to complete the process.
+ 
+[color=GOLD]Transforming[/color] replaces a tower with a new tower, keeps the level of the previous tower and also refunds the cost of the previous tower!
+ 
+If you built a tower long time ago and it's not as powerful anymore, [color=GOLD]transforming[/color] it into a more powerful tower is a good strategy.
+"

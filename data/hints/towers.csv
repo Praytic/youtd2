@@ -1,81 +1,12 @@
-"Title","Text"
-"Tower Stats","Towers in YouTD have some uncommon stats. Their mechanics will be explained here:
- 
-[color=GOLD]Buff duration:[/color] Modifies the duration of buffs cast by this tower. For example, if a tower has 200% buff duration and uses an ability which buffs another tower for 6 seconds, the buff will last 12 sec.
- 
-[color=GOLD]Debuff duration:[/color] Same as Buff duration but affects the duration of debuffs.
- 
-[color=GOLD]Trigger chances:[/color] Modifies the chances of chanced abilities. Example: Tower ability grants 10% chance to deal extra damage and the tower has +20% trigger chances. The actual chance of ability will be [color=GOLD]10% * 1.2[/color] = 12%.
- 
-[color=GOLD]Item drop ratio:[/color] Creeps killed by this tower have a modified chance to drop an item. Example: Creep killed by a tower with 50% item drop ratio => creep is 50% more likely to drop an item.
- 
-[color=GOLD]Item quality ratio:[/color] Creeps killed by this tower have a modified chance to drop items with higher rarity.
- 
-[color=GOLD]Bounty ratio:[/color] Modifies the amount of bounty received for kills done by this tower.
-"
-"Upgrading","You can [color=GOLD]upgrade[/color] a tower to make it stronger. Select a tower and you will see the [color=GOLD]Upgrade[/color] button on the left side of the tower menu.
-
-Note that you cannot [color=GOLD]upgrade[/color] in [color=GOLD]Totally random[/color] game mode.
-"
-"Transforming","You can [color=GOLD]transform[/color] a tower into a different one by building a tower on top of another tower. Experience, items and oils will carry over.
- 
-Transforming refunds the cost of the previous tower. 100% if towers are in the same family and 75% if they are from different families.
- 
-Note that you cannot [color=GOLD]transform[/color] in [color=GOLD]Build[/color] game mode.
-"
-"Tower Positioning","Many towers have aura's which provide benefits to other towers nearby. You should try to build towers [color=GOLD]next to each other[/color] to maximize the benefits of aura's.
-"
-"Attack damage vs Spell damage","Towers can deal different types of damage.
- 
-Normal tower attacks and some abilities will deal [color=GOLD]attack damage[/color]. Attack damage is dealt as the [color=GOLD]attack type[/color] of the tower ([color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], etc). Attack damage is reduced by creep armor and deals different ratios of damage depending on the [color=GOLD]armor type[/color] of the creep.
- 
-Some tower abilities will deal [color=GOLD]spell damage[/color]. Spell damage ignores creep armor but some creeps are 100% immune to spell damage.
- 
-Make sure to equip your towers appropriately based on their main damage source. For example, towers which deal primarily [color=GOLD]attack damage[/color] will not get any benefit from oils which increase [color=GOLD]spell damage[/color].
-"
-"Critical hit","When towers make a critical hit, the attack will deal more damage than unusual. The base bonus is 50% more damage. Note that both normal attacks and spell damage can be critical.
-"
-"Multicrit","Towers can crit multiple times in the same attack which will cause the attack to deal extra damage. The maximum number of multicrits is determined by the tower's [color=GOLD]Multicrit[/color] stat.
-
-Note that each subsequent multicrit has a reduced chance (80% of previous).
- 
-Example: A tower has 10% critical chance, 50% critical damage bonus and multicrit of 3.
-- The tower has a [color=GOLD]10%[/color] chance to crit the first time and deal 1.5x damage
-- If the tower has critted once, then it has a [color=GOLD]10%*0.8=8%[/color] chance to crit again, for the second time, and deal [color=GOLD]1.5+0.5=2x[/color] normal damage.
-- If the tower has critted twice, then it has a [color=GOLD]10%*0.8*0.8=6.4%[/color] chance to crit again, for the third time, and deal [color=GOLD]1.5+0.5+0.5=2.5x[/color] normal damage.
- 
-Each subsequent multicrit requires that previous crit succeeded.
- 
-Only [color=GOLD]attack damage[/color] can multicrit, [color=GOLD]spell damage[/color] can only crit once.
-"
-"Tower Level","Towers gain experience when they kill creeps and once they get enough experience, their level increases. Leveling up increases the power of tower abilities and some items.
- 
-In addition, all towers gain bonuses to the following stats when they level up:
- 
-+0.15% crit chance
-+2% crit damage
-+0.15% spell crit chance
-+2% spell crit damage
-+4% base damage
-+1% attack speed"
-"Attack Types","Towers have different [color=GOLD]attack types[/color]. Possible [color=GOLD]attack types[/color] are:
- 
-[color=TAN]Physical[/color], [color=MEDIUM_PURPLE]Decay[/color], [color=DODGER_BLUE]Energy[/color], [color=AQUAMARINE]Essence[/color], [color=CORNFLOWER_BLUE]Elemental[/color] and [color=DEEP_SKY_BLUE]Arcane[/color].
- 
-Each [color=GOLD]attack type[/color] deals different amounts of damage to [color=GOLD]armor types[/color]. Most [color=GOLD]attack types[/color] deal extra damage to some armor while dealing less to others. The exceptions are [color=AQUAMARINE]Essence[/color] and [color=DEEP_SKY_BLUE]Arcane[/color] [color=GOLD]attack types[/color]. In general, it is a good idea to build towers with diverse [color=GOLD]attack types[/color].
- 
-You can check the stats of a tower's [color=GOLD]attack type[/color] by selecting the tower and then mousing over the [color=GOLD]attack type[/color] in the tower menu.
-"
-"Killing Blows","Towers gain experience only when they deal [color=GOLD]killing blows[/color]. This means that even if some tower attacked a creep many times, it will not get any experience if the creep was killed by another tower. In general, towers with highest damage will tend to deal the majority of [color=GOLD]killing blows[/color] and therefore will gain the most experience.
- 
-The dealer of the [color=GOLD]killing blow[/color] is also important because that tower's stats will be used to calculate bounty, item chance and item quality. Make sure that you equip items which affect these stats on towers which actually get kills. Equipping such items on towers which never get kills will give you almost no benefit. You can see which tower has the most kills in the [color=GOLD]Game Stats[/color] panel. You can also check each tower's kill counts in the tower details panel."
-"Buff groups","Towers can be assigned to [color=GOLD]buff groups[/color]. Select a tower and you will see buttons for [color=GOLD]buff groups[/color] on top of the tower menu.
- 
-Mouse over the [color=GOLD]buff group[/color] buttons to read more details.
- 
-[color=GOLD]Buff groups[/color] can be used to create powerful setups between [color=GOLD]Buffing[/color] towers and [color=GOLD]Carry[/color] towers. An example setup could be:
-- [color=GOLD]Buffing[/color] tower is assigned to CASTER [color=GOLD]buff group[/color] 1
-- [color=GOLD]Carry[/color] tower is assigned to RECEIVER [color=GOLD]buff group[/color] 1
-
-As a result, the buffing tower will only cast buffs on the [color=GOLD]Carry[/color] tower. Normally, buffing towers will choose targets randomly but with this setup you will maximize the gain from the buffs.
-"
+"Title English","Title","Text"
+"Tower Stats","7YI4","TDO8"
+"Upgrading","Y53I","XDM6"
+"Transforming","CAVN","5RTO"
+"Tower Positioning","L97B","836J"
+"Attack damage vs Spell damage","URMS","8TLT"
+"Critical hit","FBML","UECA"
+"Multicrit","7P9S","QQTB"
+"Tower Level","IPQP","TQUN"
+"Attack Types","4L37","VRQV"
+"Killing Blows","40N7","7H17"
+"Buff groups","8ETV","6R2P"

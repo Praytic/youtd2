@@ -22,6 +22,7 @@ enum TutorialId {
 }
 
 enum CsvProperty {
+	TITLE_ENGLISH,
 	TITLE,
 	TEXT,
 }
@@ -50,11 +51,17 @@ func _ready():
 #########################
 
 func get_title(id: int) -> String:
-	return _get_property(id, CsvProperty.TITLE)
+	var title_text_id: String = _get_property(id, CsvProperty.TITLE)
+	var title: String = tr(title_text_id)
+	
+	return title
 
 
 func get_text(id: int) -> String:
-	return _get_property(id, CsvProperty.TEXT)
+	var text_text_id: String = _get_property(id, CsvProperty.TEXT)
+	var text: String = tr(text_text_id)
+	
+	return text
 
 
 #########################
