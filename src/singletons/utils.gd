@@ -1,31 +1,11 @@
 class_name UtilsStatic extends Node
 
 
+func print_new_translation_ids(amount: int):
+	var id_list = Utils.generate_new_translation_ids(amount)
 
-func generate_texts():
-	print(" ")
-	print(" ")
-	print("generate_item_texts:")
-	print("item_id,text_id,text:")
-	
-	var tower_id_list: Array = TowerProperties.get_tower_id_list()
-	tower_id_list.sort()
-
-	var translation_id_list: Array = Utils.generate_new_translation_ids(tower_id_list.size())
-	
-	for tower_id in tower_id_list:
-		if tower_id < 394:
-			continue
-
-		var text: String = TowerProperties.get_description(tower_id)
-
-		var translation_id: String
-		if text != "":
-			translation_id = translation_id_list.pop_front()
-		else:
-			translation_id = ""
-
-		print("\"%s\",\"%s\",\"%s\"" % [tower_id, translation_id, text])
+	for id in id_list:
+		print(id)
 
 
 func generate_new_translation_ids(amount: int):
