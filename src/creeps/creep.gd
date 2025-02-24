@@ -279,7 +279,7 @@ func drop_item_by_id(caster: Tower, use_creep_player: bool, item_id: int):
 	var item_position: Vector3 = get_position_wc3()
 	var item: Item = Item.create(player_for_item, item_id, item_position)
 
-	var item_name: String = ItemProperties.get_item_name(item_id)
+	var item_name: String = ItemProperties.get_display_name(item_id)
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 

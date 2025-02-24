@@ -102,11 +102,11 @@ func get_ability_text(item_id: int) -> String:
 	return ability_text
 
 
-func get_item_name(item_id: int) -> String:
-	var name_text_id: String = _get_property(item_id, CsvProperty.NAME)
-	var name: String = tr(name_text_id)
+func get_display_name(item_id: int) -> String:
+	var display_name_text_id: String = _get_property(item_id, CsvProperty.NAME)
+	var display_name: String = tr(display_name_text_id)
 
-	return name
+	return display_name
 
 
 func get_author(item_id: int) -> String:
@@ -141,12 +141,8 @@ func get_icon_path(item_id: int) -> String:
 	return icon_path
 
 
-func get_display_name(item_id: int) -> String:
-	return get_item_name(item_id)
-
-
 func get_tooltip_text(item_id: int) -> String:
-	var item_name: String = get_item_name(item_id)
+	var item_name: String = get_display_name(item_id)
 	var item_description: String = get_description(item_id)
 	var text: String = "%s\n%s" % [item_name, item_description]
 

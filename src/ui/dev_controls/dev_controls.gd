@@ -54,11 +54,11 @@ func _init_oils_and_items_controls():
 	positional_control.add_child(item_submenu)
 	
 	for oil_id in oil_ids:
-		var oil_name = ItemProperties.get_item_name(oil_id)
+		var oil_name = ItemProperties.get_display_name(oil_id)
 		oil_submenu.add_item(oil_name, oil_id)
 	
 	for item_id in item_ids:
-		var item_name = ItemProperties.get_item_name(item_id)
+		var item_name = ItemProperties.get_display_name(item_id)
 		item_submenu.add_item(item_name, item_id)
 	
 	positional_control.add_submenu_item("Spawn Oil", "oil_submenu")

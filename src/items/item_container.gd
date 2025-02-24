@@ -107,7 +107,7 @@ func remove_item(item: Item):
 	var item_not_found: bool = item_index == -1
 
 	if item_not_found:
-		var item_name: String = ItemProperties.get_item_name(item.get_id())
+		var item_name: String = ItemProperties.get_display_name(item.get_id())
 		push_error("Attempted to remove item from item container but it is not in container. Item: ", item_name)
 
 		return
