@@ -10,6 +10,7 @@ enum CsvProperty {
 	RARITY,
 	COST,
 	REQUIRED_WAVE_LEVEL,
+	SCRIPT_PATH,
 	ICON,
 	NAME,
 	DESCRIPTION,
@@ -52,14 +53,9 @@ func _ready():
 #########################
 
 func get_script_path(item_id: int):
-	var item_name: String = _get_property(item_id, CsvProperty.NAME_ENGLISH)
-	item_name = item_name.replace("'", "")
-	item_name = item_name.replace(".", "")
-	item_name = item_name.replace(",", "")
-	item_name = item_name.to_snake_case()
-	var path: String = "res://src/items/item_behaviors/%s.gd" % [item_name]
+	var script_path: String = _get_property(item_id, CsvProperty.SCRIPT_PATH)
 
-	return path
+	return script_path
 
 
 func get_item_id_list() -> Array:

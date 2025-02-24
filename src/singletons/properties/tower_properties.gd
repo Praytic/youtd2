@@ -23,6 +23,9 @@ enum CsvProperty {
 	MISSILE_SPEED,
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
+	SCRIPT_PATH,
+	ICON_PATH,
+	SPRITE_PATH,
 	NAME,
 	DESCRIPTION,
 	ABILITY_TEXT,
@@ -134,9 +137,8 @@ func get_tier(tower_id: int) -> int:
 	return _get_property(tower_id, CsvProperty.TIER).to_int()
 
 
-func get_icon_path(id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(id)
-	var icon_path: String = "%s/%s.tres" % [TOWER_ICON_DIR, family_name]
+func get_icon_path(tower_id: int) -> String:
+	var icon_path: String = _get_property(tower_id, CsvProperty.ICON_PATH)
 
 	return icon_path
 
@@ -538,41 +540,14 @@ func get_range_data_list(tower_id: int) -> Array[RangeData]:
 	return range_data_list
 
 
-# Family name is the name of the first tier tower in the
-# family, converted to snake case. Used to construct filenames
-# for tower scenes and scripts.
-func get_family_name(tower_id: int) -> String:
-	var family_id: int = TowerProperties.get_family(tower_id)
-	var towers_in_family: Array = TowerProperties.get_towers_in_family(family_id)
-
-	if towers_in_family.is_empty():
-		return ""
-
-	var first_tier_id: int = towers_in_family.front()
-	var first_tier_name: String = TowerProperties.get_display_name(first_tier_id)
-
-#	NOTE: remove weird chars because family name is used for
-#	filenames
-	var family_name: String = first_tier_name
-	family_name = family_name.replace("'", "")
-	family_name = family_name.replace(".", "")
-	family_name = family_name.replace(",", "")
-	family_name = family_name.to_snake_case()
-
-	return family_name
-
-
 func get_sprite_path(tower_id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(tower_id)
-	var tier: int = TowerProperties.get_tier(tower_id)
-	var sprite_path: String = "%s/%s_%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
+	var sprite_path: String = _get_property(tower_id, CsvProperty.SPRITE_PATH)
 	
 	return sprite_path
 
 
-func get_script_path(id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(id)
-	var script_path: String = "%s/%s.gd" % [TOWER_BEHAVIORS_DIR, family_name]
+func get_script_path(tower_id: int) -> String:
+	var script_path: String = _get_property(tower_id, CsvProperty.SCRIPT_PATH)
 
 	return script_path
 
