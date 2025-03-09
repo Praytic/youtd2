@@ -4,17 +4,16 @@
 [ext_resource type="Script" path="res://src/ui/game_menu/settings_menu.gd" id="2_2dtmk"]
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
 
-
 [node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
 custom_minimum_size = Vector2(800, 600)
 theme = ExtResource("1_73d58")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_2dtmk")
-_damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DamageNumbers")
-_enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
-_enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/EnableMouseScroll")
-_show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/ShowCombatLog")
-_show_tutorial_on_start = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8/ShowTutorialOnStart")
+_damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DamageNumbers")
+_enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EnableSfx")
+_enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EnableMouseScroll")
+_show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShowCombatLog")
+_show_tutorial_on_start = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShowTutorialOnStart")
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
 _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
 _interface_size_button_group = ExtResource("2_fh8ol")
@@ -64,59 +63,29 @@ popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DamageNumbers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+[node name="DamageNumbers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
 text = "Show all damage numbers"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
 text = "Enable sound effects"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+[node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
 text = "Enable mouse scroll"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
-layout_mode = 2
 text = "Show combat log"
 
-[node name="HBoxContainer8" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
+[node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer8"]
-layout_mode = 2
 text = "Display tutorial"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
