@@ -857,4 +857,8 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 
 	Utils.add_object_to_world(projectile)
 
+	var projectile_density: float = Settings.get_setting(Settings.PROJECTILE_DENSITY)
+	var projectile_should_be_visible: bool = Utils.rand_chance(Globals.synced_rng, projectile_density)
+	projectile.visible = projectile_should_be_visible
+
 	return projectile

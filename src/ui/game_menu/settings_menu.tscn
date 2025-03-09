@@ -4,16 +4,19 @@
 [ext_resource type="Script" path="res://src/ui/game_menu/settings_menu.gd" id="2_2dtmk"]
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
-custom_minimum_size = Vector2(800, 600)
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
+custom_minimum_size = Vector2(800, 700)
 theme = ExtResource("1_73d58")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_2dtmk")
 _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DamageNumbers")
+_enable_floating_text = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/FloatingText")
+_enable_vfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EnableVfx")
 _enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EnableSfx")
 _enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EnableMouseScroll")
 _show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShowCombatLog")
 _show_tutorial_on_start = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShowTutorialOnStart")
+_projectile_density = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ProjectileDensity")
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
 _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
 _interface_size_button_group = ExtResource("2_fh8ol")
@@ -68,6 +71,14 @@ layout_mode = 2
 focus_mode = 0
 text = "Show all damage numbers"
 
+[node name="FloatingText" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enable floating text"
+
+[node name="EnableVfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enable visual effects"
+
 [node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -87,6 +98,17 @@ text = "Show combat log"
 layout_mode = 2
 focus_mode = 0
 text = "Display tutorial"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Decreasing this setting can reduce lag in late game."
+text = "Projectile Density:"
+
+[node name="ProjectileDensity" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Decreasing this setting can reduce lag in late game."
+max_value = 1.0
+step = 0.1
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
