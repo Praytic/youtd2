@@ -31,7 +31,6 @@ enum CsvProperty {
 	SPRITE_PATH,
 	NAME,
 	DESCRIPTION,
-	ABILITY_TEXT,
 }
 
 
@@ -489,13 +488,6 @@ func get_inventory_capacity(tower_id: int) -> int:
 	result_capacity = min(result_capacity, Constants.INVENTORY_CAPACITY_MAX)
 
 	return result_capacity
-
-
-func get_ability_text(tower_id: int) -> String:
-	var ability_text_id: String = _get_property(tower_id, CsvProperty.ABILITY_TEXT)
-	var ability_text: String = tr(ability_text_id)
-
-	return ability_text
 
 
 func get_dps(tower_id: int) -> float:
