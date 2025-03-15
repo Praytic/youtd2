@@ -292,7 +292,7 @@ func set_range_indicator_visible(ability_name: String, value: bool):
 
 
 func get_aura_types() -> Array[AuraType]:
-	return _tower_behavior.get_aura_types()
+	return _tower_behavior.get_aura_types_NEW()
 
 
 func on_tower_details() -> MultiboardValues:
@@ -1025,7 +1025,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		multishot.description_full = multishot_tooltip
 		list.append(multishot)
 	
-	var extra_abilities: Array[AbilityInfo] = _tower_behavior.get_ability_info_list()
+	var extra_abilities: Array[AbilityInfo] = _tower_behavior.get_ability_info_list_NEW()
 	list.append_array(extra_abilities)
 	
 	return list

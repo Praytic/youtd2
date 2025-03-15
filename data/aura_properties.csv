@@ -1,0 +1,532 @@
+"id","name_english","aura_bt","target_self","range","target_type","is_hidden","level","level_add","icon","name","description_short","description_full"
+"1","Mana Distortion Field","aura_bt","FALSE","200","TOWERS","FALSE","0","1","res://resources/icons/magic/magic_stone.tres","Mana Distortion Field","Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.
+","Whenever a tower in 200 range attacks, it burns 2 mana from the main target. The mana burn costs the Drake 7 mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals 50 spell damage per mana point burned.
+ 
+[color=ORANGE]Level Bonus:[/color]
++4 spell damage per mana point burned
+"
+"2","Mana Distortion Field","aura_bt","FALSE","200","TOWERS","FALSE","0","1","res://resources/icons/magic/magic_stone.tres","Mana Distortion Field","Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.
+","Whenever a tower in 200 range attacks, it burns 3 mana from the main target. The mana burn costs the Drake 14 mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals 75 spell damage per mana point burned.
+ 
+[color=ORANGE]Level Bonus:[/color]
++6 spell damage per mana point burned
+"
+"3","Mana Distortion Field","aura_bt","FALSE","200","TOWERS","FALSE","0","1","res://resources/icons/magic/magic_stone.tres","Mana Distortion Field","Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.
+","Whenever a tower in 200 range attacks, it burns 4 mana from the main target. The mana burn costs the Drake 24 mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals 100 spell damage per mana point burned.
+ 
+[color=ORANGE]Level Bonus:[/color]
++8 spell damage per mana point burned
+"
+"4","Mana Distortion Field","aura_bt","FALSE","200","TOWERS","FALSE","0","1","res://resources/icons/magic/magic_stone.tres","Mana Distortion Field","Whenever a nearby tower attacks, it burns mana from the main target and deals spell damage to it. The mana burn costs the Drake some mana.
+","Whenever a tower in 200 range attacks, it burns 5 mana from the main target. The mana burn costs the Drake 35 mana. The mana burned and spent is attack speed and range adjusted and the buffed tower deals 125 spell damage per mana point burned.
+ 
+[color=ORANGE]Level Bonus:[/color]
++10 spell damage per mana point burned
+"
+"5","Time Twist","aura_bt","TRUE","240","TOWERS","FALSE","0","1","res://resources/icons/mechanical/mech_badge.tres","Time Twist","The Manipulator reaches into the timestream and brings bonuses to nearby towers.
+","The Manipulator reaches into the timestream and twists it causing future and past events to occur in the present, granting towers in 240 range:
++10% experience gain
++10% attack speed
++5% mana regen
++12.5% buff duration 
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.6% exp gain
++1% attack speed
++2% mana regen
++1.5% buff duration
+"
+"6","Timesurge","aura_bt","FALSE","600","TOWERS","FALSE","0","1","res://resources/icons/mechanical/lamp.tres","Timesurge","Increases triggerchance of nearby towers.
+","Increases triggerchance of towers in 600 range by 30%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% chance
+"
+"7","Cloud of Absorption","aura_bt","FALSE","1000","CREEPS","FALSE","0","1","res://resources/icons/trinkets/trinket_01.tres","Cloud of Absorption","Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.
+","Creates a lightning ball if a creep in 1000 range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.05 mana per absorbed damage
+"
+"8","Presence of the Rift","aura_bt","FALSE","750","CREEPS","FALSE","0","1","res://resources/icons/clubs/club_glowing.tres","Presence of the Rift","Deals periodic spell damage to creeps in range, scaled by their movement speed.
+","The Astral Rift's presence is so powerful that it deals spell damage to creeps equal to 200% of their movement speed every second in an area of 750.
+ 
+[color=ORANGE]Level Bonus:[/color]
++16% damage increase
+"
+"9","Earthquake Aura","aura_bt","TRUE","150","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/fire_battery.tres","Earthquake Aura","Towers in range have a chance to trigger [color=GOLD]Ground Smash[/color].
+","Towers in 150 range around the Mud Golem have a 3% attack speed adjusted chance on attack to trigger [color=GOLD]Ground Smash[/color].
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.04% chance
+"
+"10","Sunshine","aura_bt","FALSE","800","CREEPS","FALSE","0","1","res://resources/icons/staves/wand_glowing.tres","Sunshine","Reduces the armor of creeps in range and makes them more vulnerable to damage from [color=66cdaaff]Astral[/color], [color=ff4500ff]Fire[/color], [color=d2b48cff]Iron[/color] and [color=32cd32ff]Nature[/color] towers.
+","Reduces the armor of creeps in 800 range by 10 and increases the vulnerability to damage from [color=66cdaaff]Astral[/color], [color=ff4500ff]Fire[/color], [color=d2b48cff]Iron[/color] and [color=32cd32ff]Nature[/color] towers by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.3 armor reduction
++0.3% vulnerability
+"
+"11","Sunshine","aura_bt","FALSE","1100","CREEPS","FALSE","0","1","res://resources/icons/staves/wand_glowing.tres","Sunshine","Reduces the armor of creeps in range and makes them more vulnerable to damage from [color=66cdaaff]Astral[/color], [color=ff4500ff]Fire[/color], [color=d2b48cff]Iron[/color] and [color=32cd32ff]Nature[/color] towers.
+","Reduces the armor of creeps in 1100 range by 15 and increases the vulnerability to damage from [color=66cdaaff]Astral[/color], [color=ff4500ff]Fire[/color], [color=d2b48cff]Iron[/color] and [color=32cd32ff]Nature[/color] towers by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.5 armor reduction
++0.5% vulnerability
+"
+"12","Aura of Light","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/gloves/heal.tres","Aura of Light","Nearby towers deal more damage to undead creeps.
+","Towers in 300 range deal 15% more damage to undead creeps.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% damage
+"
+"13","Aura of Light","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/gloves/heal.tres","Aura of Light","Nearby towers deal more damage to undead creeps.
+","Towers in 300 range deal 20% more damage to undead creeps.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% damage
+"
+"14","Aura of Light","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/gloves/heal.tres","Aura of Light","Nearby towers deal more damage to undead creeps.
+","Towers in 300 range deal 25% more damage to undead creeps.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% damage
+"
+"15","Flowing Frost","aura_bt","TRUE","500","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/ice_battery.tres","Flowing Frost","Increases buff duration of towers in range.
+","Increases the buff duration of towers in 500 range by 25%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% buff duration
+"
+"16","Global Silence","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/tiny_storm_lantern.tres","Global Silence","Nearby towers have a small chance to silence creeps.
+","All towers within 350 range of Nortrom have a 3% attack speed adjusted chance to silence attacked creeps for 1 second. Duration is halved against bosses.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08% chance
++0.04 silence duration
+"
+"17","Calming Noises","aura_bt","TRUE","250","TOWERS","FALSE","0","1","res://resources/icons/dioramas/church.tres","Calming Noises","Increases the spell crit chance of nearby towers.
+","Increases the spell crit chance of towers in 250 range by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% spell crit chance
+"
+"18","Spell Absorb","spell_gathering_bt","TRUE","650","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/magic_battery.tres","Spell Absorb","Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by 1.
+","Whenever a tower in 650 range casts a spell, the amount of missiles for [color=GOLD]Magical Barrage[/color] is increased by 1. The missile is stored for a duration equal to the spell cooldown.
+"
+"19","Spell Absorb","spell_gathering_bt","TRUE","650","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/magic_battery.tres","Spell Absorb","Whenever a tower in range casts a spell, the amount of missile for [color=GOLD]Magical Barrage[/color] is increased by 1.
+","Whenever a tower in 650 range casts a spell, the amount of missiles for [color=GOLD]Magical Barrage[/color] is increased by 1. The missile is stored for a duration equal to the spell cooldown.
+"
+"20","Gust","aura_bt","TRUE","800","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/ice_battery.tres","Gust","Towers in range around the Storm Focus gain additional attack damage scaled by their bonus damage against air.
+","Towers in 800 range around the Storm Focus gain additional attack damage equal to 50% of the bonus damage against air they have.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% of bonus damage against air as additional attack damage
+"
+"21","Slow Decay","aura_bt","FALSE","750","CREEPS","FALSE","0","1","res://resources/icons/faces/green_demon.tres","Slow Decay","Chaos Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.
+","Creeps in 750 range around the Chaos Diabolist with less then 5.5% of their healthpoints will be killed. Doesn't work on bosses.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.06% healthpoints needed for instantkill
+"
+"22","Xeno Vulnerability Research","aura_bt","TRUE","280","TOWERS","FALSE","0","1","res://resources/icons/orbs/orb_green.tres","Xeno Vulnerability Research","Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.
+","Improves damage vs various creep races for all towers in 280 range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.
+ 
+[color=GOLD]Note:[/color] For this tower, research overrides any and all other race modifications. So the race bonuses of this tower reflect the bonuses given by this aura.
+"
+"23","Static Field","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/dioramas/book_display.tres","Static Field","Towers in range have their attack damage increased when attacking immune creeps.
+","Towers within 350 range of this tower have their attack damage increased by 20% when attacking immune creeps.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% damage
+"
+"24","Beast Dung","aura_bt","TRUE","400","TOWERS","FALSE","100","2","res://resources/icons/trinkets/trinket_03.tres","Beast Dung","The dung of this Warbeast gives attack bonuses to nearby towers.
+","The dung of this Warbeast grants towers in 400 range:
+  +10% attack damage
+  +10% attack speed
+  +3% critical strike chance
+  +15% critical strike damage
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% attack damage
++0.2% attack speed
++0.06% critical strike chance
++0.3% critical strike damage
+"
+"25","Melt","melt_bt","FALSE","900","CREEPS","FALSE","0","1","res://resources/icons/tower_variations/mossy_acid_sprayer_red.tres","Melt","The enormous heat of the Caged Fire decreases armor of nearby creeps and deals spell damage.
+","The enormous heat of the Caged Fire decreases armor of all creeps in 900 range by 1 and deals 20 spell damage. Each second creeps in 900 range around the caged fire lose 0.5 extra armor and the spell damage will increase by 20.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.04 start armor reduction
++0.02 armor reduction
++0.8 spell damage
+"
+"26","Melt","melt_bt","FALSE","900","CREEPS","FALSE","0","1","res://resources/icons/tower_variations/mossy_acid_sprayer_red.tres","Melt","The enormous heat of the Caged Fire decreases armor of nearby creeps and deals spell damage.
+","The enormous heat of the Caged Fire decreases armor of all creeps in 900 range by 2 and deals 40 spell damage. Each second creeps in 900 range around the caged fire lose 1 extra armor and the spell damage will increase by 40.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08 start armor reduction
++0.04 armor reduction
++1.6 spell damage
+"
+"27","Glimmer of Hope","glimmer_bt","TRUE","500","TOWERS","FALSE","0","1","res://resources/icons/holy/orb.tres","Glimmer of Hope","Reduces debuff duration of all towers in range.
+","Reduces the debuff duration of all towers in 500 range by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% debuff duration reduction
+"
+"28","Thermal Boost","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_variations/mossy_acid_sprayer_red.tres","Thermal Boost","Increases attack damage of nearby towers.
+","Increases attack damage of towers in 200 range by 18%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.5% damage
+"
+"29","Thermal Boost","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_variations/mossy_acid_sprayer_red.tres","Thermal Boost","Increases attack damage of nearby towers.
+","Increases attack damage of towers in 200 range by 30%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% damage
+"
+"30","Tranquility","tranquility_bt","TRUE","450","TOWERS","FALSE","0","1","res://resources/icons/misc/flag_03.tres","Tranquility","Decreases the attack speed of all nearby towers and increases their attack damage.
+","Decreases the attack speed of all towers in a 450 AoE by 20% and increases their attack damage by 40%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% attack damage
++0.4% attack speed
+"
+"31","Poisonous Skin","poison_skin_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/poison_battery.tres","Poisonous Skin","This and nearby towers gain a poisonous attack, which deals spell damage.
+","This and any towers in 200 range gain a poisonous attack. The poison applies to the main target and deals 3 spell damage per second for 5 seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.12 spell damage per second"
+"32","Poisonous Skin","poison_skin_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/poison_battery.tres","Poisonous Skin","This and nearby towers gain a poisonous attack, which deals spell damage.
+","This and any towers in 200 range gain a poisonous attack. The poison applies to the main target and deals 10 spell damage per second for 5 seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4 spell damage per second"
+"33","Poisonous Skin","poison_skin_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/poison_battery.tres","Poisonous Skin","This and nearby towers gain a poisonous attack, which deals spell damage.
+","This and any towers in 200 range gain a poisonous attack. The poison applies to the main target and deals 30 spell damage per second for 5 seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.2 spell damage per second"
+"34","Poisonous Skin","poison_skin_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/poison_battery.tres","Poisonous Skin","This and nearby towers gain a poisonous attack, which deals spell damage.
+","This and any towers in 200 range gain a poisonous attack. The poison applies to the main target and deals 76.5 spell damage per second for 5 seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++3.06 spell damage per second"
+"35","Poisonous Skin","poison_skin_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/poison_battery.tres","Poisonous Skin","This and nearby towers gain a poisonous attack, which deals spell damage.
+","This and any towers in 200 range gain a poisonous attack. The poison applies to the main target and deals 127.5 spell damage per second for 5 seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++5.1 spell damage per second"
+"36","We Will Not Fall!","wewillnotfall_bt","FALSE","400","TOWERS","FALSE","0","1","res://resources/icons/animals/rooster_warrior.tres","We Will Not Fall!","Increases the attack damage and spell damage of all towers in range.
+","Increases the attack damage and spell damage of all towers in 400 range by 0.5% for each percent of lost lives. If the team has more than 100% lives, towers will deal less damage!
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.02% more spell and attack damage
+"
+"37","Dark Shroud","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/shadow.tres","Dark Shroud","Towers in range have 10% of their attack damage output stolen by Shadow. Shadow deals stolen damage as [color=9370dbff]Decay[/color] damage.
+","Towers within 300 range have 10% of their attack damage output stolen by Shadow. This tower then deals that damage back at its original targets in the form of [color=9370dbff]Decay[/color] damage. This damage cannot crit.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.5% damage dealt
+"
+"38","Arcane Aura","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/astral_rift.tres","Arcane Aura","Towers in range have a chance to replenish their mana.
+","Towers in 350 range have a 10% chance to replenish 10% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's [color=GOLD]Arcane Orb[/color] attacks, without the retrigger restriction.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% chance
++0.2% maximum mana replenished
+"
+"39","Lightning Charge","aura_bt","TRUE","250","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/ball_lightning_accelerator.tres","Lightning Charge","Towers in range have their spell damage increased.
+","Towers in 250 range have their spell damage increased by 20%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% spell damage
+"
+"40","Lightning Charge","aura_bt","TRUE","250","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/ball_lightning_accelerator.tres","Lightning Charge","Towers in range have their spell damage increased.
+","Towers in 250 range have their spell damage increased by 35%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% spell damage
+"
+"41","Demonic Edict","aura_bt","TRUE","400","TOWERS","FALSE","0","1","res://resources/icons/misc/flag_02.tres","Demonic Edict","Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower. Doesn't include AoE spells
+","Whenever a tower in 400 range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100% for 3 seconds. Doesn't include AoE spells.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% mana regeneration
+"
+"42","Moonlight","aura_bt","FALSE","800","CREEPS","FALSE","0","1","res://resources/icons/orbs/moon.tres","Moonlight","Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from [color=66cdaaff]Astral[/color], [color=9370dbff]Darkness[/color], [color=6495edff]Ice[/color] and [color=ffffe0ff]Storm[/color] towers.
+","Reduces the spell resistance of enemies in 800 range by 15% and increases the vulnerability to damage from [color=66cdaaff]Astral[/color], [color=9370dbff]Darkness[/color], [color=6495edff]Ice[/color] and [color=ffffe0ff]Storm[/color] towers by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.45% spell resistance reduction
++0.3% vulnerability
+"
+"43","Moonlight","aura_bt","FALSE","1100","CREEPS","FALSE","0","1","res://resources/icons/orbs/moon.tres","Moonlight","Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from [color=66cdaaff]Astral[/color], [color=9370dbff]Darkness[/color], [color=6495edff]Ice[/color] and [color=ffffe0ff]Storm[/color] towers.
+","Reduces the spell resistance of enemies in 1100 range by 22.5% and increases the vulnerability to damage from [color=66cdaaff]Astral[/color], [color=9370dbff]Darkness[/color], [color=6495edff]Ice[/color] and [color=ffffe0ff]Storm[/color] towers by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.75% spell resistance reduction
++0.5% vulnerability
+"
+"44","Strong Wind","strong_wind_bt","FALSE","900","CREEPS","FALSE","0","1","res://resources/icons/electricity/lightning_circle_cyan.tres","Strong Wind","All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.
+","All creeps in 900 range are affected by [color=GOLD]Strong Winds[/color]. Every second a creep is under this effect, it loses 3% of its movement speed and it is dealt 10% of towers attack damage for every 1% of movement speed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08% slow
++5 damage per 1% slow
+"
+"45","Distortion Flux Collector hidden aura","aura_bt","FALSE","2150","CREEPS","TRUE","0","1","res://resources/icons/electricity/lightning_circle_cyan.tres","Distortion Flux Collector hidden aura","hidden","hidden"
+"46","Flesh of Ymir","aura_bt","TRUE","0","TOWERS","FALSE","0","1","res://resources/icons/scrolls/scroll_01.tres","Flesh of Ymir","The ancient Flesh of Ymir grants him reduced debuff duration.
+","The ancient Flesh of Ymir grants him -25% debuff duration.
+ 
+[color=ORANGE]Level Bonus:[/color]
+-0.6% debuff duration
+"
+"47","Strike the Unprepared","aura_bt","TRUE","175","TOWERS","FALSE","0","1","res://resources/icons/daggers/dagger_07.tres","Strike the Unprepared","Increases the attack critical chance of towers in range based on hp of attacked creeps.
+","Increases the attack critical chance of towers in 175 range by 0.25% for each 1% hp the attacked creep has left.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.01% attack crit chance
+"
+"48","Steam Power","steam_bt","FALSE","450","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/cloudy_temple_of_absorption.tres","Steam Power","Increases attack damage and attack speed of towers in range. Consumes mana.
+","Increases attack damage of towers in 450 AoE by [color=GOLD][6 x power level]%[/color] and attack speed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!
+"
+"49","Bloody Experience","aura_bt","TRUE","250","TOWERS","FALSE","0","1","res://resources/icons/gems/gem_07.tres","Bloody Experience","Nearby towers receive experience every time they crit with an attack.
+","Every tower below 10 level in 250 range receives 1 experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1 level cap every 5 levels
+"
+"50","Bloody Experience","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/gems/gem_07.tres","Bloody Experience","Nearby towers receive experience every time they crit with an attack.
+","Every tower below 15 level in 300 range receives 1 experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1 level cap every 5 levels
+"
+"51","Bloody Experience","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/gems/gem_07.tres","Bloody Experience","Nearby towers receive experience every time they crit with an attack.
+","Every tower below 20 level in 350 range receives 1 experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1 level cap every 5 levels
+"
+"52","Conduit","aura_bt","FALSE","350","TOWERS,ELEMENT_STORM,RARITY_COMMON,RARITY_UNCOMMON","FALSE","0","1","res://resources/icons/trinkets/trinket_06.tres","Conduit","Half of attack bonuses on this tower are applied to nearby Common and Uncommon [color=ffffe0ff]Storm[/color] towers.
+","Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon [color=ffffe0ff]Storm[/color] towers in 350 range at a rate of 50%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% stats
+"
+"53","Realm of Thunder","aura_bt","TRUE","1300","CREEPS","FALSE","0","1","res://resources/icons/tower_icons/lightning_generator.tres","Realm of Thunder","Increases the vulnerability of enemies in range to damage from [color=ffffe0ff]Storm[/color] towers.
+","Increases the vulnerability of enemies in 1300 range to damage from [color=ffffe0ff]Storm[/color] towers by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% vulnerability
+"
+"54","Realm of Thunder","aura_bt","TRUE","1300","CREEPS","FALSE","0","1","res://resources/icons/tower_icons/lightning_generator.tres","Realm of Thunder","Increases the vulnerability of enemies in range to damage from [color=ffffe0ff]Storm[/color] towers.
+","Increases the vulnerability of enemies in 1300 range to damage from [color=ffffe0ff]Storm[/color] towers by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% vulnerability
+"
+"55","Evil Device","evil_device_bt","FALSE","350","TOWERS,ELEMENT_DARKNESS,RARITY_COMMON,RARITY_UNCOMMON","FALSE","0","1","res://resources/icons/mechanical/battery.tres","Evil Device","Increases attack stats of nearby Common and Uncommon [color=9370dbff]Darkness[/color] towers.
+","Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon [color=9370dbff]Darkness[/color] towers in 350 range at a rate of 50%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% stats
+"
+"56","Flames of the Forge","aura_bt","TRUE","350","PLAYER_TOWERS,ELEMENT_FIRE,RARITY_COMMON,RARITY_UNCOMMON","FALSE","0","1","res://resources/icons/tower_icons/cruel_fire.tres","Flames of the Forge","A portion of attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to nearby Common and Uncommon [color=ff4500ff]Fire[/color] towers.
+","Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses of this tower are applied to Common and Uncommon [color=ff4500ff]Fire[/color] towers in 350 range at a rate of 50%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% stats
+"
+"57","Vault's Presence","aura_bt","FALSE","775","CREEPS","FALSE","0","1","res://resources/icons/tower_icons/small_frost_fire.tres","Vault's Presence","Units in range have their armor reduced.
+","Units in 775 range have their armor reduced by 25%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% armor reduction
+"
+"58","Fire of Fury","fire_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/burning_watchtower.tres","Fire of Fury","Increases attack crit chance of nearby towers.
+","Increases attack crit chance of towers in 300 range by 5%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% chance
+"
+"59","Fire of Fury","fire_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/burning_watchtower.tres","Fire of Fury","Increases attack crit chance of nearby towers.
+","Increases attack crit chance of towers in 300 range by 7.5%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.3% chance
+"
+"60","Fire of Fury","fire_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/burning_watchtower.tres","Fire of Fury","Increases attack crit chance of nearby towers.
+","Increases attack crit chance of towers in 300 range by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% chance
+"
+"61","Heat Aura","aura_bt","FALSE","700","CREEPS","FALSE","0","1","res://resources/icons/tower_icons/fire_battery.tres","Heat Aura","Burns every enemy in range, making them lose life every second.
+","Burns every enemy in 700 range, making them lose 3% of their current life every second.
+"
+"62","Dwarven Polish","aura_bt","TRUE","550","TOWERS","FALSE","0","1","res://resources/icons/swords/greatsword_04.tres","Dwarven Polish","Increases item quality of towers in range.
+","Increases the item quality of friendly towers in 550 range including itself by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% item quality
+"
+"63","Wolven Tenacity","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/faces/orc_01.tres","Wolven Tenacity","The strong physical presence of the wolves increases attack speed of nearby towers.
+","The strong physical presence of the wolves encourages nearby towers within a 200 radius, to increase their attack speed by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.5% attack speed
+"
+"64","Wolven Tenacity","aura_bt","TRUE","250","TOWERS","FALSE","0","1","res://resources/icons/faces/orc_01.tres","Wolven Tenacity","The strong physical presence of the wolves increases attack speed of nearby towers.
+","The strong physical presence of the wolves encourages nearby towers within a 250 radius, to increase their attack speed by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.75% attack speed
+"
+"65","Wolven Tenacity","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/faces/orc_01.tres","Wolven Tenacity","The strong physical presence of the wolves increases attack speed of nearby towers.
+","The strong physical presence of the wolves encourages nearby towers within a 300 radius, to increase their attack speed by 20%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
+"
+"66","Divine Research","aura_bt","FALSE","900","CREEPS","FALSE","0","1","res://resources/icons/books/book_08.tres","Divine Research","Increases experience gain from creeps in range.
+","Increases the experience gain from creeps in 900 range by 30%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% experience
+"
+"67","Green Dragon Force","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/animals/dragon_02.tres","Green Dragon Force","Increases multicrit of towers in range.
+","Increases the multicrit of towers in 200 range by 2.
+"
+"68","Frost","aura_bt","FALSE","800","CREEPS","FALSE","0","1","res://resources/icons/orbs/orb_ice.tres","Frost","Slows nearby creeps.
+","Slows creeps in 800 range by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% slow
+"
+"69","Frost","aura_bt","FALSE","1100","CREEPS","FALSE","0","1","res://resources/icons/orbs/orb_ice.tres","Frost","Slows nearby creeps.
+","Slows creeps in 1100 range by 25%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% slow
+"
+"70","Mortal Coil","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/undead/demon_emblem.tres","Mortal Coil","Grants bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to nearby towers.
+","Grants 10% bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to all towers within 350 range.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% damage
+"
+"71","Mortal Coil","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/undead/demon_emblem.tres","Mortal Coil","Grants bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to nearby towers.
+","Grants 15% bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to all towers within 350 range.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% damage
+"
+"72","Mortal Coil","aura_bt","TRUE","350","TOWERS","FALSE","0","1","res://resources/icons/undead/demon_emblem.tres","Mortal Coil","Grants bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to nearby towers.
+","Grants 20% bonus damage against [color=d2b48cff]Humanoid[/color], [color=8fbc8fff]Orc[/color] and [color=32cd32ff]Nature[/color] creeps to all towers within 350 range.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% damage
+"
+"73","Energetic Field","aura_bt","TRUE","1000","CREEPS","FALSE","0","1","res://resources/icons/tower_icons/magic_battery.tres","Energetic Field","Units in range receive extra damage from [color=ffffe0ff]Storm[/color] towers. Effect is stronger for creeps far away.
+","Units in 1000 range around this tower are dealt up to 20% bonus damage by [color=ffffe0ff]Storm[/color] towers. The further away creeps are from tower, the more damage is dealt.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% maximum damage
+"
+"74","Cleansing Water","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/orbs/orb_ice.tres","Cleansing Water","Increases spell damage dealt by nearby towers.
+","Increases the spell damage dealt by all towers in 200 range by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% spell damage
+"
+"75","Cleansing Water","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/orbs/orb_ice.tres","Cleansing Water","Increases spell damage dealt by nearby towers.
+","Increases the spell damage dealt by all towers in 200 range by 20%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% spell damage
+"
+"76","Cleansing Water","aura_bt","TRUE","200","TOWERS","FALSE","0","1","res://resources/icons/orbs/orb_ice.tres","Cleansing Water","Increases spell damage dealt by nearby towers.
+","Increases the spell damage dealt by all towers in 200 range by 25%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% spell damage
+"
+"77","Ancient Magic","aura_bt","FALSE","500","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/lightning_eye.tres","Ancient Magic","Increases spell crit chance of nearby towers.
+","Increases spell crit chance of towers in 500 range by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% spell crit chance
+"
+"78","Ancient Magic","aura_bt","FALSE","500","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/lightning_eye.tres","Ancient Magic","Increases spell crit chance of nearby towers.
+","Increases spell crit chance of towers in 500 range by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% spell crit chance
+"
+"79","Ancient Magic","aura_bt","FALSE","500","TOWERS","FALSE","0","1","res://resources/icons/tower_icons/lightning_eye.tres","Ancient Magic","Increases spell crit chance of nearby towers.
+","Increases spell crit chance of towers in 500 range by 20%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% spell crit chance
+"
+"80","Gift of Nature","aura_bt","TRUE","175","TOWERS","FALSE","0","1","res://resources/icons/plants/leaf_03.tres","Gift of Nature","All nearby towers have a chance to entangle creeps. Entangled creeps are immobile and suffer spell damage over time.
+","All towers in 175 range will receive a [color=GOLD]Gift of Nature[/color]. When a gifted tower attacks a creep there is a 10% attack speed adjusted chance to entangle that creep for 1.2 seconds, dealing 700 spell damage per second. Does not work on air units or bosses!
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% chance 
++35 additional spell damage
+"
+"81","Treasure Seeker","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/trinkets/trinket_05.tres","Treasure Seeker","Increases the bounty gain of nearby towers.
+","Increases the bounty gain of towers in 300 range by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.5% bounty
+"
+"82","Treasure Seeker","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/trinkets/trinket_05.tres","Treasure Seeker","Increases the bounty gain of nearby towers.
+","Increases the bounty gain of towers in 300 range by 10%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% bounty
+"
+"83","Treasure Seeker","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/trinkets/trinket_05.tres","Treasure Seeker","Increases the bounty gain of nearby towers.
+","Increases the bounty gain of towers in 300 range by 15%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% bounty
+"
+"84","Treasure Seeker","aura_bt","TRUE","300","TOWERS","FALSE","0","1","res://resources/icons/trinkets/trinket_05.tres","Treasure Seeker","Increases the bounty gain of nearby towers.
+","Increases the bounty gain of towers in 300 range by 20%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% bounty
+"
+"85","Revenge of Souls","aura_bt","FALSE","1000","CREEPS","FALSE","0","1","res://resources/icons/masks/mask_06.tres","Revenge of Souls","This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.
+","This tower gains 6 permanent bonus attack damage and 1 experience every time a creep in 1000 range dies.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.3 damage per kill
+"
+"86","Revenge of Souls","aura_bt","FALSE","1000","CREEPS","FALSE","0","1","res://resources/icons/masks/mask_06.tres","Revenge of Souls","This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.
+","This tower gains 12 permanent bonus attack damage and 2 experience every time a creep in 1000 range dies.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6 damage per kill
+"
+"87","Revenge of Souls","aura_bt","FALSE","1000","CREEPS","FALSE","0","1","res://resources/icons/masks/mask_06.tres","Revenge of Souls","This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.
+","This tower gains 18 permanent bonus attack damage and 3 experience every time a creep in 1000 range dies.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.9 damage per kill
+"
+"88","King's Authority","aura_bt","FALSE","900","CREEPS","FALSE","500","20","res://resources/icons/helmets/helmet_07.tres","King's Authority","The Lich King rules over every creep in range. Every creep leaving this range will be punished and suffer spell damage.
+","The Lich King rules over every creep in 900 range. Every creep leaving this range will be punished with 500 spell damage for every second it was under this aura's effect.
+If a creep dies in this area of authority, the spell damage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++20 damage per second
+[color=GOLD]+[stored damage x 0.04][/color] spell damage
+"

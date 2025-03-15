@@ -1,0 +1,1139 @@
+"id","name_english","handler_function","autocast_type","cooldown","mana_cost","cast_range","auto_range","target_self","is_extended","buff_type","buff_target_type","num_buffs_before_idle","caster_art","target_art","icon","name","description_short","description_full"
+"1","Soul Revenge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","20","875","875","FALSE","FALSE",,,"0",,,"res://resources/icons/orbs/orb_shadow.tres","Soul Revenge","Hits 3 random creeps with dark powers, dealing spell damage.
+","Hits 3 random creeps in 875 range, the first one suffers 200 spell damage, the second one suffers 400 spell damage and the third one suffers 600 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12/24/36 spell damage
+"
+"2","Soul Revenge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","20","875","875","FALSE","FALSE",,,"0",,,"res://resources/icons/orbs/orb_shadow.tres","Soul Revenge","Hits 3 random creeps with dark powers, dealing spell damage.
+","Hits 3 random creeps in 875 range, the first one suffers 400 spell damage, the second one suffers 800 spell damage and the third one suffers 1200 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++24/48/72 spell damage
+"
+"3","Soul Revenge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","20","875","875","FALSE","FALSE",,,"0",,,"res://resources/icons/orbs/orb_shadow.tres","Soul Revenge","Hits 3 random creeps with dark powers, dealing spell damage.
+","Hits 3 random creeps in 875 range, the first one suffers 800 spell damage, the second one suffers 1600 spell damage and the third one suffers 2400 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++48/96/144 spell damage
+"
+"4","Soul Revenge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","20","875","875","FALSE","FALSE",,,"0",,,"res://resources/icons/orbs/orb_shadow.tres","Soul Revenge","Hits 3 random creeps with dark powers, dealing spell damage.
+","Hits 3 random creeps in 875 range, the first one suffers 1700 spell damage, the second one suffers 3400 spell damage and the third one suffers 5100 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++100/200/300 spell damage
+"
+"5","Lunar Grace","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","0","1200","1200","FALSE","TRUE",,,"0",,"res://src/effects/spell_aiil.tscn","res://resources/icons/orbs/moon.tres","Lunar Grace","Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.
+","Smites a target creep dealing 50 spell damage to it. There is also a 12.5% chance to empower the smite with lunar energy dealing 50 additional spell damage, stunning the target for 0.3 seconds and making it receive 12% more damage from spells for 2.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2 inital and chanced spell damage
++0.5% chance
++20 initial damage at level 15
++3% spell damage received at level 15
++0.1 seconds stun at level 25"
+"6","Lunar Grace","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","0","1200","1200","FALSE","TRUE",,,"0",,"res://src/effects/spell_aiil.tscn","res://resources/icons/orbs/moon.tres","Lunar Grace","Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.
+","Smites a target creep dealing 500 spell damage to it. There is also a 12.5% chance to empower the smite with lunar energy dealing 500 additional spell damage, stunning the target for 0.3 seconds and making it receive 16% more damage from spells for 2.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++20 inital and chanced spell damage
++0.5% chance
++200 initial damage at level 15
++4% spell damage received at level 15
++0.1 seconds stun at level 25"
+"7","Lunar Grace","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","0","1200","1200","FALSE","TRUE",,,"0",,"res://src/effects/spell_aiil.tscn","res://resources/icons/orbs/moon.tres","Lunar Grace","Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.
+","Smites a target creep dealing 1500 spell damage to it. There is also a 12.5% chance to empower the smite with lunar energy dealing 1500 additional spell damage, stunning the target for 0.3 seconds and making it receive 20% more damage from spells for 2.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++60 inital and chanced spell damage
++0.5% chance
++600 initial damage at level 15
++5% spell damage received at level 15
++0.1 seconds stun at level 25"
+"8","Lunar Grace","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","0","1200","1200","FALSE","TRUE",,,"0",,"res://src/effects/spell_aiil.tscn","res://resources/icons/orbs/moon.tres","Lunar Grace","Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.
+","Smites a target creep dealing 2500 spell damage to it. There is also a 12.5% chance to empower the smite with lunar energy dealing 2500 additional spell damage, stunning the target for 0.3 seconds and making it receive 24% more damage from spells for 2.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++100 inital and chanced spell damage
++0.5% chance
++1000 initial damage at level 15
++6% spell damage received at level 15
++0.1 seconds stun at level 25"
+"9","Time Field","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","30","500","950","925","TRUE","FALSE","time_field_bt",,"1","res://src/effects/spell_ailb.tscn",,"res://resources/icons/mechanical/compass.tres","Time Field","The Manipulator creates a field of time that inflicts future spell damage upon creatures around him.","The Manipulator creates a field of time that inflicts future spell damage upon creatures around him dealing 1500 damage every second for 10 seconds. This ability benefits from the buff duration bonus of [color=GOLD]Time Twist[/color]."
+"10","Shock","on_autocast","AC_TYPE_OFFENSIVE_UNIT","15","50","900","900","TRUE","FALSE",,,"1",,,"res://resources/icons/electricity/electricity_blue.tres","Shock","Slams all creeps around the target, dealing spell damage and stunning them.
+","Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++185 damage
+"
+"11","Cloudy Thunderstorm","on_autocast_cloud_thunderstorm","AC_TYPE_NOAC_IMMEDIATE","0.01","1000","1000","0","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Cloudy Thunderstorm","Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range, dealing spell damage.
+","Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.
+ 
+This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.02 damage per current mana
+"
+"12","Adjust Thunderstorm Threshold","on_autocast_adjust_threshold","AC_TYPE_NOAC_IMMEDIATE","0.01","0","0","0","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/compass.tres","Adjust Thunderstorm Threshold","Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].
+","Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].
+ 
+You can check current threshold in Tower Details.
+"
+"13","Thornspray","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","0.2","5","800","700","TRUE","TRUE",,,"0",,,"res://resources/icons/spears/many_spears_01.tres","Thornspray","This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
+","This tower deals 30% of its attack damage as [color=d2b48cff]Physical[/color] damage to every unit in 800 range around it. A creep hit by [color=GOLD]Thornspray[/color] receives 11% more damage than it did from the previous [color=GOLD]Thornspray[/color], if hit again within 1.5 seconds. This effect stacks up to 40 times.
+ 
+[color=GOLD]Hint:[/color] Save mana to amplify the effect of this ability.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% base damage
+5% chance to doublecast [color=GOLD]Thornsprays[/color] at level 15
+3% chance to triplecast [color=GOLD]Thornsprays[/color] at level 25
+"
+"14","Thornspray","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","0.2","5","800","700","TRUE","TRUE",,,"0",,,"res://resources/icons/spears/many_spears_01.tres","Thornspray","This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
+","This tower deals 30% of its attack damage as [color=d2b48cff]Physical[/color] damage to every unit in 800 range around it. A creep hit by [color=GOLD]Thornspray[/color] receives 11% more damage than it did from the previous [color=GOLD]Thornspray[/color], if hit again within 1.5 seconds. This effect stacks up to 40 times.
+ 
+[color=GOLD]Hint:[/color] Save mana to amplify the effect of this ability.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% base damage
+7% chance to doublecast [color=GOLD]Thornsprays[/color] at level 15
+5% chance to triplecast [color=GOLD]Thornsprays[/color] at level 25
+"
+"15","Thornspray","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","0.2","5","800","700","TRUE","TRUE",,,"0",,,"res://resources/icons/spears/many_spears_01.tres","Thornspray","This tower releases thorns from its back, dealing [color=d2b48cff]Physical[/color] damage to every unit in range.
+","This tower deals 30% of its attack damage as [color=d2b48cff]Physical[/color] damage to every unit in 800 range around it. A creep hit by [color=GOLD]Thornspray[/color] receives 11% more damage than it did from the previous [color=GOLD]Thornspray[/color], if hit again within 1.5 seconds. This effect stacks up to 40 times.
+ 
+[color=GOLD]Hint:[/color] Save mana to amplify the effect of this ability.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% base damage
+9% chance to doublecast [color=GOLD]Thornsprays[/color] at level 15
+7% chance to triplecast [color=GOLD]Thornsprays[/color] at level 25
+"
+"16","Charge","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","20","1200","1200","TRUE","FALSE","charge_bt","TOWERS","3",,,"res://resources/icons/electricity/electricity_yellow.tres","Charge","Applies a buff to target tower which increases attack speed.
+","Applies a buff to target tower which lasts 10 seconds, it increases the attack speed of the tower by 25%. Every second this buff will grant an additional 5% bonus attack speed.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% base attack speed
++0.1% bonus attack speed
+"
+"17","Demonic Fire","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","0","1200","1200","FALSE","FALSE","demonic_fire_bt","CREEPS","3",,,"res://resources/icons/fire/fire_bowl_02.tres","Demonic Fire","Places a debuff on a creep. When a tower damages the creep, there is a chance to permanently increase the damage it takes from [color=ff4500ff]Fire[/color] towers.
+","Places a debuff on a creep for 7 seconds. When a tower damages the creep, there is a 20% chance to permanently increase the damage it takes from [color=ff4500ff]Fire[/color] towers by 3% (1% for bosses).
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08% damage (on non boss)
++0.04% damage (on bosses)
+"
+"18","Wind Shear","on_autocast","AC_TYPE_ALWAYS_BUFF","3","15","300","300","TRUE","FALSE","wind_shear_bt","TOWERS","0",,"res://src/effects/wind_shear.tscn","res://resources/icons/plants/leaf_02.tres","Wind Shear","Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.
+","Increases the attack speed of a tower in 300 range by 10% and gives it a 25% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals 100 initial spell damage and hits up to 3 targets dealing 25% less damage each bounce. Effect lasts for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
++4 spell damage
++1 target at level 20
++0.1 sec duration
+"
+"19","Wind Shear","on_autocast","AC_TYPE_ALWAYS_BUFF","3","15","300","300","TRUE","FALSE","wind_shear_bt","TOWERS","0",,"res://src/effects/wind_shear.tscn","res://resources/icons/plants/leaf_02.tres","Wind Shear","Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.
+","Increases the attack speed of a tower in 300 range by 15% and gives it a 25% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals 300 initial spell damage and hits up to 3 targets dealing 25% less damage each bounce. Effect lasts for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
++12 spell damage
++1 target at level 20
++0.1 sec duration
+"
+"20","Wind Shear","on_autocast","AC_TYPE_ALWAYS_BUFF","3","15","300","300","TRUE","FALSE","wind_shear_bt","TOWERS","0",,"res://src/effects/wind_shear.tscn","res://resources/icons/plants/leaf_02.tres","Wind Shear","Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.
+","Increases the attack speed of a tower in 300 range by 20% and gives it a 25% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals 600 initial spell damage and hits up to 3 targets dealing 25% less damage each bounce. Effect lasts for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
++24 spell damage
++1 target at level 20
++0.1 sec duration
+"
+"21","Wind Shear","on_autocast","AC_TYPE_ALWAYS_BUFF","3","15","300","300","TRUE","FALSE","wind_shear_bt","TOWERS","0",,"res://src/effects/wind_shear.tscn","res://resources/icons/plants/leaf_02.tres","Wind Shear","Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.
+","Increases the attack speed of a tower in 300 range by 25% and gives it a 25% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals 1000 initial spell damage and hits up to 3 targets dealing 25% less damage each bounce. Effect lasts for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
++40 spell damage
++1 target at level 20
++0.1 sec duration
+"
+"22","Wind Shear","on_autocast","AC_TYPE_ALWAYS_BUFF","3","15","300","300","TRUE","FALSE","wind_shear_bt","TOWERS","0",,"res://src/effects/wind_shear.tscn","res://resources/icons/plants/leaf_02.tres","Wind Shear","Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.
+","Increases the attack speed of a tower in 300 range by 30% and gives it a 25% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals 1800 initial spell damage and hits up to 3 targets dealing 25% less damage each bounce. Effect lasts for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% attack speed
++72 spell damage
++1 target at level 20
++0.1 sec duration
+"
+"23","Snake Charm","on_autocast","AC_TYPE_ALWAYS_BUFF","5","10","200","200","FALSE","FALSE","charm_bt","TOWERS","1",,,"res://resources/icons/undead/skull_wand_03.tres","Snake Charm","This unit will increase nearby towers' mana, mana regeneration and spell damage.
+","Increases the target's maximum mana by 10%, its mana regeneration by 10% and its spell damage by 5%. The buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% mana 
++0.6% mana regeneration
++0.3% spell damage
++5 seconds duration at level 25
+"
+"24","Snake Charm","on_autocast","AC_TYPE_ALWAYS_BUFF","5","10","200","200","FALSE","FALSE","charm_bt","TOWERS","1",,,"res://resources/icons/undead/skull_wand_03.tres","Snake Charm","This unit will increase nearby towers' mana, mana regeneration and spell damage.
+","Increases the target's maximum mana by 20%, its mana regeneration by 20% and its spell damage by 10%. The buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.2% mana 
++1.2% mana regeneration
++0.6% spell damage
++5 seconds duration at level 25
+"
+"25","Snake Charm","on_autocast","AC_TYPE_ALWAYS_BUFF","5","10","200","200","FALSE","FALSE","charm_bt","TOWERS","1",,,"res://resources/icons/undead/skull_wand_03.tres","Snake Charm","This unit will increase nearby towers' mana, mana regeneration and spell damage.
+","Increases the target's maximum mana by 30%, its mana regeneration by 30% and its spell damage by 15%. The buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.8% mana 
++1.8% mana regeneration
++0.9% spell damage
++5 seconds duration at level 25
+"
+"26","Snake Charm","on_autocast","AC_TYPE_ALWAYS_BUFF","5","10","200","200","FALSE","FALSE","charm_bt","TOWERS","1",,,"res://resources/icons/undead/skull_wand_03.tres","Snake Charm","This unit will increase nearby towers' mana, mana regeneration and spell damage.
+","Increases the target's maximum mana by 40%, its mana regeneration by 40% and its spell damage by 20%. The buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2.4% mana 
++2.4% mana regeneration
++1.2% spell damage
++5 seconds duration at level 25
+"
+"27","Ice Claw","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","10","850","850","FALSE","FALSE","ice_claw_bt",,"1",,,"res://resources/icons/magic/claw_02.tres","Ice Claw","Causes the target creep to be slowed and suffer spell damage over time.
+","Ravages a target creep in 850 range, causing it to be slowed by 20% and suffer 50 spell damage per second. Effect lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2 spell damage per second
++0.2 second duration
+"
+"28","Ice Claw","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","10","850","850","FALSE","FALSE","ice_claw_bt",,"1",,,"res://resources/icons/magic/claw_02.tres","Ice Claw","Causes the target creep to be slowed and suffer spell damage over time.
+","Ravages a target creep in 850 range, causing it to be slowed by 25% and suffer 100 spell damage per second. Effect lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++4 spell damage per second
++0.2 second duration
+"
+"29","Ice Claw","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","10","850","850","FALSE","FALSE","ice_claw_bt",,"1",,,"res://resources/icons/magic/claw_02.tres","Ice Claw","Causes the target creep to be slowed and suffer spell damage over time.
+","Ravages a target creep in 850 range, causing it to be slowed by 30% and suffer 200 spell damage per second. Effect lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++8 spell damage per second
++0.2 second duration
+"
+"30","Ice Claw","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","10","850","850","FALSE","FALSE","ice_claw_bt",,"1",,,"res://resources/icons/magic/claw_02.tres","Ice Claw","Causes the target creep to be slowed and suffer spell damage over time.
+","Ravages a target creep in 850 range, causing it to be slowed by 35% and suffer 400 spell damage per second. Effect lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++16 spell damage per second
++0.2 second duration
+"
+"31","Ice Claw","on_autocast","AC_TYPE_OFFENSIVE_UNIT","2","10","850","850","FALSE","FALSE","ice_claw_bt",,"1",,,"res://resources/icons/magic/claw_02.tres","Ice Claw","Causes the target creep to be slowed and suffer spell damage over time.
+","Ravages a target creep in 850 range, causing it to be slowed by 40% and suffer 600 spell damage per second. Effect lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++24 spell damage per second
++0.2 second duration
+"
+"32","Jolt",,"AC_TYPE_ALWAYS_BUFF","8","15","500","500","TRUE","FALSE","jolt_bt","TOWERS","0",,,"res://resources/icons/electricity/electricity_yellow.tres","Jolt","Buffs a tower in range increasing its attack speed. The buffed tower deals extra attack damage and spell damage.
+","Buffs a tower in 500 range for 10 seconds increasing its attack speed by 20%. The buffed tower deals 150 attack damage and 150 spell damage on attack multiplied with its base attack speed.
+ 
+[color=ORANGE]Level Bonus:[/color]
++6 attack and spell damage
++0.2% attack speed
+"
+"33","Jolt",,"AC_TYPE_ALWAYS_BUFF","8","15","500","500","TRUE","FALSE","jolt_bt","TOWERS","0",,,"res://resources/icons/electricity/electricity_yellow.tres","Jolt","Buffs a tower in range increasing its attack speed. The buffed tower deals extra attack damage and spell damage.
+","Buffs a tower in 500 range for 10 seconds increasing its attack speed by 25%. The buffed tower deals 320 attack damage and 320 spell damage on attack multiplied with its base attack speed.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12.8 attack and spell damage
++0.4% attack speed
+"
+"34","Jolt",,"AC_TYPE_ALWAYS_BUFF","8","15","500","500","TRUE","FALSE","jolt_bt","TOWERS","0",,,"res://resources/icons/electricity/electricity_yellow.tres","Jolt","Buffs a tower in range increasing its attack speed. The buffed tower deals extra attack damage and spell damage.
+","Buffs a tower in 500 range for 10 seconds increasing its attack speed by 32%. The buffed tower deals 500 attack damage and 500 spell damage on attack multiplied with its base attack speed.
+ 
+[color=ORANGE]Level Bonus:[/color]
++20 attack and spell damage
++0.52% attack speed
+"
+"35","Maledict","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","5","30","800","800","FALSE","TRUE",,,"0",,,"res://resources/icons/undead/monster_hand.tres","Maledict","Witch Doctor jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.
+","Witch Doctor jinxes all units in 800 range with [color=GOLD]Maledict[/color] which will deal spell damage to the target after 8 seconds. The damage is equal to 15% of the total damage received by the target while [color=GOLD]Maledict[/color] was active. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.14% damage per stack
+"
+"36","Energy Absorb","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","40","0","1000","1000","FALSE","FALSE",,,"0",,,"res://resources/icons/rings/ring_06.tres","Energy Absorb","Decreases attack speed of all towers in range. Increases mana regeneration of the Accelerator.
+","Decreases the attack speed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds
+ 
+[color=ORANGE]Level Bonus:[/color]
+-0.1% attack speed weakening
++0.04 mana per second
+"
+"37","Energy Absorb","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","40","0","1000","1000","FALSE","FALSE",,,"0",,,"res://resources/icons/rings/ring_06.tres","Energy Absorb","Decreases attack speed of all towers in range. Increases mana regeneration of the Accelerator.
+","Decreases the attack speed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds
+ 
+[color=ORANGE]Level Bonus:[/color]
+-0.1% attack speed weakening
++0.04 mana per second
+"
+"38","Freezing Gust",,"AC_TYPE_ALWAYS_BUFF","0.1","15","800","800","FALSE","TRUE","freezing_bt","TOWERS","0","res://src/effects/ancient_protector_missile.tscn",,"res://resources/icons/fire/flame_blue.tres","Freezing Gust","Casts a buff on a tower in range, doubling the effect of [color=GOLD]Gust Aura[/color].","Casts a buff on a tower in 800 range, doubling the effect of [color=GOLD]Gust Aura[/color] and increasing that tower's damage against air units by 10% for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.05 seconds duration
++0.8% damage against air
+"
+"39","Siphon Essence","on_autocast","AC_TYPE_ALWAYS_BUFF","2.5","0","400","400","FALSE","TRUE","siphon_bt","TOWERS","1",,,"res://resources/icons/fire/flame_purple.tres","Siphon Essence","Stuns nearby towers and steals their damage.
+","Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as [color=7fffd4ff]Essence[/color] damage to the target of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
+-0.02 seconds stun duration
+"
+"40","Siphon Essence","on_autocast","AC_TYPE_ALWAYS_BUFF","1.5","0","400","400","FALSE","TRUE","siphon_bt","TOWERS","1",,,"res://resources/icons/fire/flame_purple.tres","Siphon Essence","Stuns nearby towers and steals their damage.
+","Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as [color=7fffd4ff]Essence[/color] damage to the target of the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
+-0.02 seconds stun duration
+"
+"41","Sparks","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","22","500","500","FALSE","FALSE","twister_bt","TOWERS","1",,"res://src/effects/monsoon_bolt.tscn","res://resources/icons/electricity/electricity_blue.tres","Sparks","Increases spell damage and spell crit chance of a nearby tower.
+","Increases the spell damage for a tower in 500 range by 15% and it's spell critical strike chance by 10%. Lasts 7.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% spell damage
++0.1% spell critical strike chance
++0.3 seconds duration
+"
+"42","Sparks","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","22","500","500","FALSE","FALSE","twister_bt","TOWERS","1",,"res://src/effects/monsoon_bolt.tscn","res://resources/icons/electricity/electricity_blue.tres","Sparks","Increases spell damage and spell crit chance of a nearby tower.
+","Increases the spell damage for a tower in 500 range by 20% and it's spell critical strike chance by 12.5%. Lasts 7.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% spell damage
++0.2% spell critical strike chance
++0.3 seconds duration
+"
+"43","Eruption","on_autocast","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/fire/fire_bowl_02.tres","Eruption","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].
+","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.
+"
+"44","Eruption","on_autocast","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/fire/fire_bowl_02.tres","Eruption","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].
+","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.
+"
+"45","Eruption","on_autocast","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/fire/fire_bowl_02.tres","Eruption","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].
+","Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.
+"
+"46","Hammer Fall","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","50","900","900","TRUE","FALSE",,,"0",,,"res://resources/icons/blunt_weapons/hammer_02.tres","Hammer Fall","Summons a hammer which falls from the sky and deals AoE spell damage.
+","Summons a hammer which falls from the sky. The hammer deals 10000 spell damage to all units in 600 AoE and stuns them for 1 second. Each of the player's storm tower in 2500 range loses 10% attack damage for 6 seconds but increases the spell damage of the hammer by 5%. Can gain a maximum of 100% bonus damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% damage from towers
+"
+"47","Choose Modification","on_autocast_choose","AC_TYPE_NOAC_IMMEDIATE","0.25","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/trinkets/trinket_01.tres","Choose Modification","Cycle through modifications.
+","Cycle through modifications. Selected modification will be used as target for [color=GOLD]Apply Modification[/color] and [color=GOLD]Remove Modification[/color] abilities. Note that you must apply modification after selection to make it active.
+ 
+[color=ROYAL_BLUE]Slow[/color]: 8% for 5 seconds; costs 20% missile dmg
+[color=DARK_SEA_GREEN]Silence[/color]: 5 seconds, 50% chance; costs 40% missile dmg
+[color=ORANGE_RED]Health Regeneration[/color]: -10% for 5 seconds; costs 25% missile dmg
+[color=TAN]Armor[/color]: -6% for 5 seconds; costs 25% missile dmg
+[color=MEDIUM_PURPLE]Spell Vulnerability[/color]: 12% for 5 seconds; costs 25% missile dmg
+[color=LIME_GREEN]AoE radius[/color]: +50; costs 15% missile dmg
+ 
+You can check current modification status in Tower Details.
+"
+"48","Apply Modification","on_autocast_add","AC_TYPE_NOAC_IMMEDIATE","0.25","0","0","0","FALSE","FALSE",,,"0",,,"res://resources/icons/magic/claw_02.tres","Apply Modification","Applies modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.
+","Applies currently selected modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.
+ 
+Multiple different modifications can be applied at the same time.
+ 
+You can check current modification status in Tower Details.
+"
+"49","Remove Modification","on_autocast_remove","AC_TYPE_NOAC_IMMEDIATE","0.25","0","0","0","FALSE","FALSE",,,"0",,,"res://resources/icons/magic/claw_04.tres","Remove Modification","Removes modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.
+","Removes currently selected modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.
+ 
+You can check current modification status in Tower Details.
+"
+"50","Love Potion","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","25","1100","1100","FALSE","FALSE","love_bt",,"1",,,"res://resources/icons/potions/potion_heart_02.tres","Love Potion","The Witch throws a love potion on the target, applying a slow and increasing target's item chance.
+","The Witch throws a love potion on the target, slowing it by 25% and increasing its item chance by 20%. The potion lasts 7 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.38% slow
++0.3% item drop chance
+"
+"51","Love Potion","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","25","1100","1100","FALSE","FALSE","love_bt",,"1",,,"res://resources/icons/potions/potion_heart_02.tres","Love Potion","The Witch throws a love potion on the target, applying a slow and increasing target's item chance.
+","The Witch throws a love potion on the target, slowing it by 32% and increasing its item chance by 25.6%. The potion lasts 7 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.38% slow
++0.3% item drop chance
+"
+"52","Love Potion","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","25","1100","1100","FALSE","FALSE","love_bt",,"1",,,"res://resources/icons/potions/potion_heart_02.tres","Love Potion","The Witch throws a love potion on the target, applying a slow and increasing target's item chance.
+","The Witch throws a love potion on the target, slowing it by 36% and increasing its item chance by 28.8%. The potion lasts 7 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.38% slow
++0.3% item drop chance
+"
+"53","Love Potion","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","25","1100","1100","FALSE","FALSE","love_bt",,"1",,,"res://resources/icons/potions/potion_heart_02.tres","Love Potion","The Witch throws a love potion on the target, applying a slow and increasing target's item chance.
+","The Witch throws a love potion on the target, slowing it by 42% and increasing its item chance by 33.6%. The potion lasts 7 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.38% slow
++0.3% item drop chance
+"
+"54","Release Energy","on_autocast","AC_TYPE_OFFENSIVE_UNIT","5","15","800","800","TRUE","FALSE",,,"0",,,"res://resources/icons/electricity/electricity_yellow.tres","Release Energy","Deals damage to the target and stuns it.
+","Deals 4000 damage to the attacked creep and stuns it for 3 seconds (1 seconds on bosses).
+ 
+[color=ORANGE]Level Bonus:[/color]
++150 damage
+"
+"55","Release Energy","on_autocast","AC_TYPE_OFFENSIVE_UNIT","5","15","800","800","TRUE","FALSE",,,"0",,,"res://resources/icons/electricity/electricity_yellow.tres","Release Energy","Deals damage to the target and stuns it.
+","Deals 12000 damage to the attacked creep and stuns it for 5 seconds (1.75 seconds on bosses).
+ 
+[color=ORANGE]Level Bonus:[/color]
++450 damage
+"
+"56","Thunderstorm","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","10","90","1000","1000","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/ruined_monolith.tres","Thunderstorm","Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in range and stuns them.
+","Zeus releases a mighty thunderstorm, this thunder storm strikes creeps in 1000 range for 2500 spell damage and stuns them for 0.5 seconds (20% chance on bosses). There is a maximum of 20 lightning strikes.
+ 
+[color=ORANGE]Level Bonus:[/color]
++125 damage
++1 lightning strike per 5 levels
+"
+"57","Stim","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","25","1200","1200","TRUE","FALSE",,,"0","res://src/effects/avatar_caster.tscn",,"res://resources/icons/rockets/rocket_06.tres","Stim","This marine uses a stim, increasing its attack speed and decreasing its attack damage.
+","This marine uses a stim, increasing its attack speed by 150% and decreasing its attack damage by 50%. This buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08 seconds duration
+"
+"58","Stim","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","1","25","1200","1200","TRUE","FALSE",,,"0","res://src/effects/avatar_caster.tscn",,"res://resources/icons/rockets/rocket_06.tres","Stim","This marine uses a stim, increasing its attack speed and decreasing its attack damage.
+","This marine uses a stim, increasing its attack speed by 150% and decreasing its attack damage by 50%. This buff lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.08 seconds duration
+"
+"59","Energy Conversion","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","12","1200","0","650","FALSE","TRUE",,,"0","res://src/effects/mass_teleport_caster.tscn",,"res://resources/icons/mechanical/battery.tres","Energy Conversion","Spawns 3 chain lightning orbs that fly around the Converter. Orbs deal spell damage and stun nearby units.
+","Spawns 3 orbs that last 12 seconds flying around the Converter. Each orb deals 1500 spell damage per second to random units in 650 range. Additionally, the orbs have a 25% chance every second to cast a [color=GOLD]Chain Lightning[/color] that deals 1500 initial spell damage and hits up to 4 targets dealing 25% less damage with each bounce.
+ 
+Units hit by the [color=GOLD]Chain Lightning[/color] are stunned for 0.8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++75 orb damage
++1 orb spawned per 5 levels
+"
+"60","Lightmare","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","10.5","1000","1500","1500","TRUE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Lightmare","Summons a storm cloud which attacks units in range, dealing spell damage.
+","Summons a storm cloud which attacks units in 1500 range. Every 0.33 seconds the cloud attacks up to 3 targets with forked lightning. Each lightning deals 1300 spell damage. [color=GOLD]Lightmare[/color] lasts 10 seconds and does not benefit from buff duration stat.
+ 
+[color=ORANGE]Level Bonus:[/color]
++52 spell damage
+"
+"61","Sunlight Burst","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","90","1000","850","FALSE","FALSE",,,"0","res://src/effects/silence_area.tscn",,"res://resources/icons/electricity/electricity_yellow.tres","Sunlight Burst","Stuns all towers and creeps in range.
+","Stuns all towers and all enemies in 1000 range for 1.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.02 seconds
+"
+"62","Recreation Field","on_autocast_recreation","AC_TYPE_NOAC_POINT","5","0","800","0","FALSE","TRUE",,,"0",,,"res://resources/icons/magic/magic_stone.tres","Recreation Field","Set up [color=GOLD]Recreation Field[/color] at a chosen location.
+","Set up [color=GOLD]Recreation Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has 250 AoE.
+"
+"63","Corruption Field","on_autocast_corruption","AC_TYPE_NOAC_POINT","5","0","800","0","FALSE","TRUE",,,"0",,,"res://resources/icons/misc/poison_02.tres","Corruption Field","Set up [color=GOLD]Corruption Field[/color] at a chosen location.
+","Set up [color=GOLD]Corruption Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has 250 AoE.
+"
+"64","Concussive Bombs","on_autocast_concussive","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","concussive_tower_bt",,"1",,,"res://resources/icons/orbs/orb_molten_dull.tres","Concussive Bombs","Equips the tower with concussive bombs.
+","Equips the tower with concussive bombs. Each attack slows all the creeps in a 250 area around the target by 15% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% slow
+"
+"65","Acid Bombs","on_autocast_acid","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","acid_tower_bt",,"1",,,"res://resources/icons/fire/fire_bowl_03.tres","Acid Bombs","Equips the tower with acid bombs.
+","Equips the tower with acid bombs. Each attack reduces the armor of all the creeps in a 250 area around the target by 10% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% armor reduction
+"
+"66","Smoke Bombs","on_autocast_smoke","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","smoke_tower_bt",,"1",,,"res://resources/icons/misc/balls_02.tres","Smoke Bombs","Equips the tower with smoke bombs.
+","Equips the tower with smoke bombs. Each attack silences all the creeps in a 250 area around the target for 1 second.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.04 seconds duration
+"
+"67","Concussive Bombs","on_autocast_concussive","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","concussive_tower_bt",,"1",,,"res://resources/icons/orbs/orb_molten_dull.tres","Concussive Bombs","Equips the tower with concussive bombs.
+","Equips the tower with concussive bombs. Each attack slows all the creeps in a 300 area around the target by 25% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% slow
+"
+"68","Acid Bombs","on_autocast_acid","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","acid_tower_bt",,"1",,,"res://resources/icons/fire/fire_bowl_03.tres","Acid Bombs","Equips the tower with acid bombs.
+","Equips the tower with acid bombs. Each attack reduces the armor of all the creeps in a 300 area around the target by 15% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% armor reduction
+"
+"69","Smoke Bombs","on_autocast_smoke","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE","smoke_tower_bt",,"1",,,"res://resources/icons/misc/balls_02.tres","Smoke Bombs","Equips the tower with smoke bombs.
+","Equips the tower with smoke bombs. Each attack silences all the creeps in a 300 area around the target for 1.5 second.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.06 seconds duration
+"
+"70","Soul Link","on_autocast","AC_TYPE_ALWAYS_BUFF","5","50","1000","1000","FALSE","FALSE","soul_link_bt","CREEPS","1",,,"res://resources/icons/undead/skull_phazing.tres","Soul Link","Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.
+","Links 3 enemies' souls together for 2.5 seconds. If a linked unit takes damage all other linked units will take 12.5% of this damage. This tower does not benefit from damage increasing items or oils.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.3% damage
++1 target at level 15 and 25
+"
+"71","Soul Link","on_autocast","AC_TYPE_ALWAYS_BUFF","5","50","1000","1000","FALSE","FALSE","soul_link_bt","CREEPS","1",,,"res://resources/icons/undead/skull_phazing.tres","Soul Link","Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.
+","Links 3 enemies' souls together for 2.5 seconds. If a linked unit takes damage all other linked units will take 15% of this damage. This tower does not benefit from damage increasing items or oils.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.3% damage
++1 target at level 15 and 25
+"
+"72","Fire Blast","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,,"res://resources/icons/elements/fire.tres","Fire Blast","Deals spell damage in a small area with magical flames.
+","Releases a blast of fire that strikes all targets in 200 AoE around the main target for 60 damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++3 damage
+"
+"73","Fire Blast","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,,"res://resources/icons/elements/fire.tres","Fire Blast","Deals spell damage in a small area with magical flames.
+","Releases a blast of fire that strikes all targets in 200 AoE around the main target for 215 damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++11 damage
+"
+"74","Fire Blast","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,,"res://resources/icons/elements/fire.tres","Fire Blast","Deals spell damage in a small area with magical flames.
+","Releases a blast of fire that strikes all targets in 200 AoE around the main target for 600 damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 damage
+"
+"75","Fire Blast","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,,"res://resources/icons/elements/fire.tres","Fire Blast","Deals spell damage in a small area with magical flames.
+","Releases a blast of fire that strikes all targets in 200 AoE around the main target for 1200 damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++60 damage
+"
+"76","Fire Blast","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,,"res://resources/icons/elements/fire.tres","Fire Blast","Deals spell damage in a small area with magical flames.
+","Releases a blast of fire that strikes all targets in 200 AoE around the main target for 2150 damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++107 damage
+"
+"77","Release Lightning","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_glowing.tres","Release Lightning","Releases a lightning bolt.","Releases a lightning bolt that strikes the target for 70 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++3.5 spell damage
+"
+"78","Release Lightning","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_glowing.tres","Release Lightning","Releases a lightning bolt.","Releases a lightning bolt that strikes the target for 250 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12.5 spell damage
+"
+"79","Release Lightning","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_glowing.tres","Release Lightning","Releases a lightning bolt.","Releases a lightning bolt that strikes the target for 700 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++35 spell damage
+"
+"80","Release Lightning","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_glowing.tres","Release Lightning","Releases a lightning bolt.","Releases a lightning bolt that strikes the target for 1400 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++70 spell damage
+"
+"81","Release Lightning","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_glowing.tres","Release Lightning","Releases a lightning bolt.","Releases a lightning bolt that strikes the target for 2500 spell damage.
+ 
+[color=ORANGE]Level Bonus:[/color]
++125 spell damage
+"
+"82","Entangling Roots","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","90","950","950","TRUE","FALSE",,,"0",,,"res://resources/icons/plants/branch_01.tres","Entangling Roots","Launches roots towards the target which will entangle creeps and deal spell damage.
+","Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.
+ 
+[color=ORANGE]Level Bonus:[/color]
++44 spell damage
++0.02 seconds
+"
+"83","Impenetrable Darkness","on_autocast","AC_TYPE_OFFENSIVE_BUFF","8","90","850","850","FALSE","FALSE","darkness_bt","CREEPS","1",,"res://src/effects/frag_boom_spawn.tscn","res://resources/icons/orbs/orb_molten_dull.tres","Impenetrable Darkness","Shrouds a creep in darkness, slowing it and converting attack damage it takes into spell damage.
+","Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. [color=GOLD]Impenetrable Darkness[/color] also deals 1000 spell damage per second.
+ 
+When [color=GOLD]Impenetrable Darkness[/color] expires, it will deal spell damage equal to 75% of all the damage it received during the effect. This damage can't be a critical hit.
+ 
+[color=ORANGE]Level Bonus:[/color]
++40 damage per second
++1% damage on expire 
++0.8% slow
+"
+"84","Dimensional Link","on_autocast","AC_TYPE_NOAC_PLAYER_TOWER","1","0","800","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/circuit_board.tres","Dimensional Link","Creates a link between this tower and the target tower.
+","Creates a link between this tower and the target tower. This tower will now monitor any spell damage dealt by the linked tower to creeps within 2000 range of this tower. If the linked tower is sold, replaced or upgraded the link will dissolve.
+"
+"85","Will of the Undying","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","10","50","900","900","FALSE","FALSE",,,"0","res://src/effects/howl_caster.tscn",,"res://resources/icons/undead/skull_01.tres","Will of the Undying","The death knight empowers himself by draining the power of nearby towers.
+","The Death Knight decreases the base attack damage of all towers in 200 range by 10% and loses 50% of his remaining mana to increase his base damage by 15% for each tower affected for 5 seconds. Only towers that cost at least 1300 gold are affected by this spell.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2% damage absorbed
+"
+"86","Morph: Might","on_autocast_might","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE","might_bt",,"1",,,"res://resources/icons/trinkets/trinket_07.tres","Morph: Might","Activates [color=GOLD]Morph: Might[/color].
+","Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.
+"
+"87","Morph: Swiftness","on_autocast_swiftness","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE","swiftness_bt",,"1",,,"res://resources/icons/trinkets/trinket_08.tres","Morph: Swiftness","Activates [color=GOLD]Morph: Swiftness[/color].
+","Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated.
+"
+"88","Adapt","on_autocast_adapt","AC_TYPE_NOAC_IMMEDIATE","1","0","0","0","TRUE","FALSE","adapt_bt",,"0",,,"res://resources/icons/trinkets/trinket_01.tres","Adapt","Stops the effect of morphs.
+","Stops the effect of [color=GOLD]Morphs[/color], leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].
+"
+"89","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Frost[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Frost[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"90","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Frost[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Frost[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"91","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Frost[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Frost[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"92","Thunder Shock","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","12","1200","1200","TRUE","FALSE",,,"1","res://src/effects/purge_buff_target.tscn",,"res://resources/icons/electricity/lightning_glowing.tres","Thunder Shock","Releases a strong lightning on the target, dealing spell damage.","Deals [1450 + (435 x amount of player towers)] spell damage to a target creep. This ability has a 25% chance to recast itself when cast. Maximum of 1 extra cast.
+ 
+[color=ORANGE]Level Bonus:[/color]
++58 base spell damage
++17.4 spell damage per player tower
++1 extra cast at levels 15 and 25
+"
+"93","Thunder Shock","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","12","1200","1200","TRUE","FALSE",,,"1","res://src/effects/purge_buff_target.tscn",,"res://resources/icons/electricity/lightning_glowing.tres","Thunder Shock","Releases a strong lightning on the target, dealing spell damage.","Deals [2900 + (870 x amount of player towers)] spell damage to a target creep. This ability has a 25% chance to recast itself when cast. Maximum of 1 extra cast.
+ 
+[color=ORANGE]Level Bonus:[/color]
++116 base spell damage
++34.8 spell damage per player tower
++1 extra cast at levels 15 and 25
+"
+"94","Thunder Shock","on_autocast","AC_TYPE_OFFENSIVE_UNIT","3","12","1200","1200","TRUE","FALSE",,,"1","res://src/effects/purge_buff_target.tscn",,"res://resources/icons/electricity/lightning_glowing.tres","Thunder Shock","Releases a strong lightning on the target, dealing spell damage.","Deals [4350 + (1305 x amount of player towers)] spell damage to a target creep. This ability has a 25% chance to recast itself when cast. Maximum of 1 extra cast.
+ 
+[color=ORANGE]Level Bonus:[/color]
++174 base spell damage
++52.2 spell damage per player tower
++1 extra cast at levels 15 and 25
+"
+"95","Lightning Surge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","6","60","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Lightning Surge","Increases the attack speed of this tower for next few attacks.
+","Increases the attack speed of this tower by 100% for the next 5 attacks. The surge fades after 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
++1 attack per 5 levels
+"
+"96","Lightning Surge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","6","60","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Lightning Surge","Increases the attack speed of this tower for next few attacks.
+","Increases the attack speed of this tower by 150% for the next 5 attacks. The surge fades after 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
++1 attack per 5 levels
+"
+"97","Lightning Surge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","6","60","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Lightning Surge","Increases the attack speed of this tower for next few attacks.
+","Increases the attack speed of this tower by 200% for the next 5 attacks. The surge fades after 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
++1 attack per 5 levels
+"
+"98","Lightning Surge","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","6","60","1200","1200","FALSE","FALSE",,,"0",,,"res://resources/icons/electricity/lightning_circle_white.tres","Lightning Surge","Increases the attack speed of this tower for next few attacks.
+","Increases the attack speed of this tower by 250% for the next 5 attacks. The surge fades after 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
++1 attack per 5 levels
+"
+"99","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Faerie Fire[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Faerie Fire[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"100","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Faerie Fire[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Faerie Fire[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"101","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Faerie Fire[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or attempt) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Faerie Fire[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"102","Sacrifice","on_autocast","AC_TYPE_OFFENSIVE_BUFF","6","90","500","500","FALSE","FALSE","sacrifice_boost_bt","TOWERS","1","res://src/effects/faerie_dragon_missile.tscn","res://src/effects/frost_armor_damage_purple.tscn","res://resources/icons/furniture/artifact_on_pedestal.tres","Sacrifice","This tower loses a portion of its attack damage to boost the DPS of a nearby tower.
+","This tower loses 100% of its attack damage to boost the DPS of a tower in 500 range by 30% of its total attack damage for 6 seconds. This buff has no effect on towers of the same family.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonus damage
+"
+"103","Sacrifice","on_autocast","AC_TYPE_OFFENSIVE_BUFF","6","90","500","500","FALSE","FALSE","sacrifice_boost_bt","TOWERS","1","res://src/effects/faerie_dragon_missile.tscn","res://src/effects/frost_armor_damage_purple.tscn","res://resources/icons/furniture/artifact_on_pedestal.tres","Sacrifice","This tower loses a portion of its attack damage to boost the DPS of a nearby tower.
+","This tower loses 100% of its attack damage to boost the DPS of a tower in 500 range by 45% of its total attack damage for 6 seconds. This buff has no effect on towers of the same family.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonus damage
+"
+"104","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Corruption[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"105","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Corruption[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"106","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Corruption[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"107","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/poison_battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Poison[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"108","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/poison_battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Poison[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"109","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/poison_battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Poison[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"110","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/fire_battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Incinerate[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Incinerate[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"111","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/fire_battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Incinerate[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Incinerate[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"112","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/tower_icons/fire_battery.tres","Battery Overload","Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Incinerate[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Incinerate[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"113","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Electrify[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 300 spell damage and applies [color=GOLD]Electrify[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
+"
+"114","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Electrify[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 750 spell damage and applies [color=GOLD]Electrify[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++30 spell damage
+"
+"115","Battery Overload","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","20","100","1200","800","FALSE","FALSE",,,"0",,,"res://resources/icons/mechanical/battery.tres","Battery Overload","Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Electrify[/color].
+","The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals 1800 spell damage and applies [color=GOLD]Electrify[/color].
+ 
+[color=GOLD]Note:[/color] this ability does not trigger any 'on hit' effects.
+ 
+[color=ORANGE]Level Bonus:[/color]
++72 spell damage
+"
+"116","Soul Chill","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,"res://src/effects/raise_skeleton.tscn","res://resources/icons/fire/flame_blue_glowing.tres","Soul Chill","Deals spell damage and slows units in a small area.
+","Chills the souls of all creeps in 250 AoE of the target, dealing 50 spell damage and slowing them by 5% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2 damage
++0.2% slow
++0.02 seconds duration
+"
+"117","Soul Chill","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,"res://src/effects/raise_skeleton.tscn","res://resources/icons/fire/flame_blue_glowing.tres","Soul Chill","Deals spell damage and slows units in a small area.
+","Chills the souls of all creeps in 250 AoE of the target, dealing 200 spell damage and slowing them by 6% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++8 damage
++0.4% slow
++0.04 seconds duration
+"
+"118","Soul Chill","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,"res://src/effects/raise_skeleton.tscn","res://resources/icons/fire/flame_blue_glowing.tres","Soul Chill","Deals spell damage and slows units in a small area.
+","Chills the souls of all creeps in 250 AoE of the target, dealing 550 spell damage and slowing them by 8% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++24 damage
++0.6% slow
++0.06 seconds duration
+"
+"119","Soul Chill","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,"res://src/effects/raise_skeleton.tscn","res://resources/icons/fire/flame_blue_glowing.tres","Soul Chill","Deals spell damage and slows units in a small area.
+","Chills the souls of all creeps in 250 AoE of the target, dealing 1000 spell damage and slowing them by 10% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++48 damage
++0.8% slow
++0.08 seconds duration
+"
+"120","Soul Chill","on_autocast","AC_TYPE_OFFENSIVE_UNIT","1","20","900","900","FALSE","FALSE",,,"0",,"res://src/effects/raise_skeleton.tscn","res://resources/icons/fire/flame_blue_glowing.tres","Soul Chill","Deals spell damage and slows units in a small area.
+","Chills the souls of all creeps in 250 AoE of the target, dealing 1800 spell damage and slowing them by 12% for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++96 damage
++1% slow
++0.1 seconds duration
+"
+"121","Mystical Trance","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","50","500","500","TRUE","FALSE","trance_bt","TOWERS","1","res://src/effects/spell_aire.tscn",,"res://resources/icons/masks/mask_05.tres","Mystical Trance","Buffs a tower in range, increasing its spell damage and trigger chances.
+","Buffs a tower in 500 range, increasing its spell damage and trigger chances by 25%. Lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2 sec duration
++1% spell damage
++1% trigger chances
+"
+"122","Speed Up","on_autocast_speed_up","AC_TYPE_NOAC_IMMEDIATE","0.5","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/magic/claw_03.tres","Speed Up","Increases the power level of the engine.
+","Increases the power level of the engine by 1. Maximum power level is 50.
+"
+"123","Speed Down","on_autocast_speed_down","AC_TYPE_NOAC_IMMEDIATE","5","0","0","0","TRUE","FALSE",,,"0",,,"res://resources/icons/magic/claw_04.tres","Speed Down","Decreases the power level of the engine.
+","Decreases the power level of the engine by 1.
+"
+"124","Bloodlust","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","15","500","500","TRUE","FALSE","bloodlust_bt","TOWERS","1",,"res://src/effects/roar.tscn","res://resources/icons/masks/mask_07.tres","Bloodlust","The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.
+","The Shaman makes a friendly tower lust for blood, increasing its crit damage by x0.45 and attack speed by 15% for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++x0.004 crit damage
++0.2% attack speed
++0.12 seconds duration
+"
+"125","Bloodlust","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","15","500","500","TRUE","FALSE","bloodlust_bt","TOWERS","1",,"res://src/effects/roar.tscn","res://resources/icons/masks/mask_07.tres","Bloodlust","The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.
+","The Shaman makes a friendly tower lust for blood, increasing its crit damage by x0.55 and attack speed by 20% for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++x0.006 crit damage
++0.3% attack speed
++0.12 seconds duration
+"
+"126","Bloodlust","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","15","500","500","TRUE","FALSE","bloodlust_bt","TOWERS","1",,"res://src/effects/roar.tscn","res://resources/icons/masks/mask_07.tres","Bloodlust","The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.
+","The Shaman makes a friendly tower lust for blood, increasing its crit damage by x0.65 and attack speed by 25% for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++x0.008 crit damage
++0.4% attack speed
++0.12 seconds duration
+"
+"127","Nature's Gift","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","45","500","500","FALSE","FALSE",,"TOWERS","5",,,"res://resources/icons/plants/leaf_03.tres","Nature's Gift","Buffs a tower, increasing stats depending on tower's element.
+","One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:
++28% experience for [color=66cdaaff]Astral[/color]
++16% spell damage for [color=9370dbff]Darkness[/color]
++4% crit chance for [color=32cd32ff]Nature[/color]
++16% attack damage for [color=ff4500ff]Fire[/color]
++20% buff duration for [color=6495edff]Ice[/color]
++8% attack speed for [color=ffffe0ff]Storm[/color]
++6% item chance for [color=d2b48cff]Iron[/color]
+The buffed tower has a 25% chance to receive another random effect in addition to the first one.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% experience
++0.4% spell damage
++0.1% crit chance
++0.4% attack damage
++0.6% buff duration
++0.2% attack speed
++0.14% item chance
+"
+"128","Nature's Gift","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","45","500","500","FALSE","FALSE",,"TOWERS","5",,,"res://resources/icons/plants/leaf_03.tres","Nature's Gift","Buffs a tower, increasing stats depending on tower's element.
+","One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:
++42% experience for [color=66cdaaff]Astral[/color]
++24% spell damage for [color=9370dbff]Darkness[/color]
++6% crit chance for [color=32cd32ff]Nature[/color]
++24% attack damage for [color=ff4500ff]Fire[/color]
++30% buff duration for [color=6495edff]Ice[/color]
++12% attack speed for [color=ffffe0ff]Storm[/color]
++9% item chance for [color=d2b48cff]Iron[/color]
+The buffed tower has a 25% chance to receive another random effect in addition to the first one.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.2% experience
++0.6% spell damage
++0.15% crit chance
++0.6% attack damage
++0.9% buff duration
++0.3% attack speed
++0.21% item chance
+"
+"129","Nature's Gift","on_autocast","AC_TYPE_OFFENSIVE_BUFF","2","45","500","500","FALSE","FALSE",,"TOWERS","5",,,"res://resources/icons/plants/leaf_03.tres","Nature's Gift","Buffs a tower, increasing stats depending on tower's element.
+","One of the spirits flies towards a tower in 500 range and buffs it for 5 seconds. The buff has a different effect depending on the tower's element:
++56% experience for [color=66cdaaff]Astral[/color]
++32% spell damage for [color=9370dbff]Darkness[/color]
++8% crit chance for [color=32cd32ff]Nature[/color]
++32% attack damage for [color=ff4500ff]Fire[/color]
++40% buff duration for [color=6495edff]Ice[/color]
++16% attack speed for [color=ffffe0ff]Storm[/color]
++12% item chance for [color=d2b48cff]Iron[/color]
+The buffed tower has a 25% chance to receive another random effect in addition to the first one.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1.6% experience
++0.8% spell damage
++0.2% crit chance
++0.8% attack damage
++1.2% buff duration
++0.4% attack speed
++0.28% item chance
+"
+"130","Unleash","on_autocast","AC_TYPE_OFFENSIVE_BUFF","0.5","400","1200","1200","FALSE","FALSE",,"CREEPS","1",,,"res://resources/icons/electricity/electricity_blue.tres","Unleash","Unleashes built up energy, dealing spell damage to a single creep and increasing the spell crit damage of nearby towers.
+","Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single creep and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++8 spell damage per wave
++x0.03 spell crit damage
+"
+"131","Targeted Run","on_autocast","AC_TYPE_OFFENSIVE_UNIT","15","0","1000","1000","FALSE","FALSE",,,"0",,,"res://resources/icons/rings/ring_06.tres","Targeted Run","Copter #1 will teleport behind the target after a delay.
+","Copter #1 will teleport behind the target after a delay of 1 second.
+"
+"132","Soul Storm","on_autocast","AC_TYPE_NOAC_IMMEDIATE","5","0","600","600","TRUE","FALSE",,,"0",,,"res://resources/icons/misc/flag_02.tres","Soul Storm","When this spell is activated 2 souls will be periodically released.
+","When this spell is activated 2 souls will be released every 0.3 seconds. When a soul collides with a creep it deals 14000 spell damage. When a soul damages a creep, its damage is reduced by 50%.
+"
+"133","Awaken","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","4","50","900","900","FALSE","TRUE",,,"0","res://src/effects/incinerate.tscn",,"res://resources/icons/magic/fire.tres","Awaken","Increases the attack speed of nearby towers and permanently increases the attack speed of this tower.
+","Increases the attack speed of towers within 350 range by 50% for 3 seconds and permanently increases the attack speed of this tower by 1%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
+"
+"134","Intense Heat","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","5","100","1000","1000","FALSE","TRUE",,,"0",,,"res://resources/icons/orbs/orb_fire.tres","Intense Heat","Expends all mana to unleash a wave of heat, dealing spell damage.
+","Expends all mana to unleash a wave of heat, dealing [color=GOLD][mana x 7][/color] spell damage and applying [color=GOLD]Lingering Flame[/color] to all creeps in 1000 range. Increases the attack and spell crit chance of nearby towers within 350 range by [color=GOLD][mana / 300]%[/color] for 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2 spell damage per mana
+"
+"135","Glaivesaw","on_autocast","AC_TYPE_NOAC_POINT","1","0","1000","1000","FALSE","FALSE",,,"0",,,"res://resources/icons/clubs/club_02.tres","Glaivesaw","Create a [color=GOLD]Glaivesaw[/color] at the target location.
+","Create a [color=GOLD]Glaivesaw[/color] at the target location. [color=GOLD]Glaivesaws[/color] deal 50% of attack damage as [color=GOLD]Lacerate[/color] damage per second to enemies within 150 range. Limited to 3 [color=GOLD]Glaivesaws[/color].
+ 
+[color=ORANGE]Level Bonus:[/color]
++1% damage
+"
+"136","Shattering Barrage","on_autocast","AC_TYPE_OFFENSIVE_UNIT","30","300","1000","750","FALSE","TRUE",,,"0",,,"res://resources/icons/tower_variations/meteor_totem_blue.tres","Shattering Barrage","Spends all mana to encase the target in ice.
+","Spends all mana to encase the target in ice, stunning it and increasing all damage taken by 100% for up to [color=GOLD][mana / 150][/color] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
+-1 mana divisor
+"
+"137","Blizzard","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","95","900","900","TRUE","FALSE",,,"0",,,"res://resources/icons/tower_variations/meteor_totem_blue.tres","Blizzard","Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.
+","Summons 5 waves of icy spikes which fall down to earth. Each wave deals 60 spell damage in an AoE of 200.
+ 
+Each time a creep is damaged by [color=GOLD]Blizzard[/color] there is a 30% chance to slow the creep by 7% for 4 seconds and a 10% chance to stun the creep for 0.25 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++6 spell damage
++0.1% slow
++1% chance for slow
++0.1% chance for stun
+"
+"138","Blizzard","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","95","900","900","TRUE","FALSE",,,"0",,,"res://resources/icons/tower_variations/meteor_totem_blue.tres","Blizzard","Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.
+","Summons 6 waves of icy spikes which fall down to earth. Each wave deals 333 spell damage in an AoE of 300.
+ 
+Each time a creep is damaged by [color=GOLD]Blizzard[/color] there is a 35% chance to slow the creep by 9% for 4.5 seconds and a 15% chance to stun the creep for 0.5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++12 spell damage
++0.01% slow
++1% chance for slow
++0.1% chance for stun
+"
+"139","Blizzard","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","95","900","900","TRUE","FALSE",,,"0",,,"res://resources/icons/tower_variations/meteor_totem_blue.tres","Blizzard","Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.
+","Summons 7 waves of icy spikes which fall down to earth. Each wave deals 572 spell damage in an AoE of 400.
+ 
+Each time a creep is damaged by [color=GOLD]Blizzard[/color] there is a 40% chance to slow the creep by 11% for 5 seconds and a 20% chance to stun the creep for 0.75 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++19 spell damage
++0.01% slow
++1% chance for slow
++0.1% chance for stun
+"
+"140","Blizzard","on_autocast","AC_TYPE_OFFENSIVE_UNIT","10","95","900","900","TRUE","FALSE",,,"0",,,"res://resources/icons/tower_variations/meteor_totem_blue.tres","Blizzard","Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.
+","Summons 8 waves of icy spikes which fall down to earth. Each wave deals 1000 spell damage in an AoE of 500.
+ 
+Each time a creep is damaged by [color=GOLD]Blizzard[/color] there is a 45% chance to slow the creep by 14% for 5.5 seconds and a 25% chance to stun the creep for 1 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++50 spell damage
++0.01% slow
++1% chance for slow
++0.1% chance for stun
+"
+"141","Divine Teachings","on_autocast","AC_TYPE_ALWAYS_BUFF","5","30","500","500","FALSE","FALSE","teachings_bt","TOWERS","0","res://src/effects/spell_aire.tscn","res://src/effects/charm_target.tscn","res://resources/icons/books/book_02.tres","Divine Teachings","Adds a buff to the target tower which increases the amount of experience the tower gains.
+","Adds a buff to the targeted tower which lasts 10 seconds. The buff increases the amount of experience the tower gains by 100%. This tower gains 2 experience every time it casts this buff.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.2 seconds duration 
++2% experience gain.
+"
+"142","Burning Mark",,"AC_TYPE_OFFENSIVE_BUFF","2","20","500","500","TRUE","FALSE","mark_bt","TOWERS","3",,"res://src/effects/doom_death.tscn","res://resources/icons/tower_icons/small_fire_sprayer.tres","Burning Mark","This tower adds a buff to a tower in range. The buff increases multicrit, crit chance and attack speed.
+","This tower adds a buff to a tower in 500 range that lasts 10 seconds. The buff increases multicrit count by 1, crit chance by 7.5% and attack speed by 25%.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4 seconds duration
++0.6% attack speed
++0.2% crit chance
+"
+"143","Dark Curse","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","30","900","900","FALSE","FALSE","curse_bt","CREEPS","3",,,"res://resources/icons/fire/flame_purple.tres","Dark Curse","Causes the target creep to receive more attack damage.
+","Increases the attack damage target creep receives by 15%, the curse lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonusdamage
++0.1 second duration
+"
+"144","Dark Curse","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","30","900","900","FALSE","FALSE","curse_bt","CREEPS","3",,,"res://resources/icons/fire/flame_purple.tres","Dark Curse","Causes the target creep to receive more attack damage.
+","Increases the attack damage target creep receives by 22%, the curse lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonusdamage
++0.1 second duration
+"
+"145","Dark Curse","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","30","900","900","FALSE","FALSE","curse_bt","CREEPS","3",,,"res://resources/icons/fire/flame_purple.tres","Dark Curse","Causes the target creep to receive more attack damage.
+","Increases the attack damage target creep receives by 29%, the curse lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonusdamage
++0.1 second duration
+"
+"146","Dark Curse","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","30","900","900","FALSE","FALSE","curse_bt","CREEPS","3",,,"res://resources/icons/fire/flame_purple.tres","Dark Curse","Causes the target creep to receive more attack damage.
+","Increases the attack damage target creep receives by 36%, the curse lasts 5 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% bonusdamage
++0.1 second duration
+"
+"147","Golden Influence","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","20","400","400","TRUE","FALSE","golden_bt","TOWERS","3",,"res://src/effects/gold_credit.tscn","res://resources/icons/hud/gold.tres","Golden Influence","Increases bounty gain of a nearby tower and gives gold to player.
+","This tower adds a buff to a tower in 400 range that lasts 10 seconds. The buff increases bounty gain by 40%. Everytime this spell is cast you gain 5 gold.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4 seconds duration
++0.6% bounty gain
+"
+"148","Golden Influence","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","20","400","400","TRUE","FALSE","golden_bt","TOWERS","3",,"res://src/effects/gold_credit.tscn","res://resources/icons/hud/gold.tres","Golden Influence","Increases bounty gain of a nearby tower and gives gold to player.
+","This tower adds a buff to a tower in 400 range that lasts 12 seconds. The buff increases bounty gain by 60%. Everytime this spell is cast you gain 7 gold.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4 seconds duration
++0.6% bounty gain
+"
+"149","Extract Experience","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","20","1000","1000","FALSE","FALSE","extract_bt","CREEPS","3",,,"res://resources/icons/fire/fire_in_cup.tres","Extract Experience","Applies a debuff on a creep. Towers that damage this creep have a chance to extract extra experience.
+","Applies a debuff on a creep. Towers that damage this creep have a 33% chance to extract 1 experience. Lasts 10 seconds or until 10 extractions occur.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.05 experience
++1 extraction
+"
+"150","Extract Experience","on_autocast","AC_TYPE_OFFENSIVE_BUFF","5","20","1000","1000","FALSE","FALSE","extract_bt","CREEPS","3",,,"res://resources/icons/fire/fire_in_cup.tres","Extract Experience","Applies a debuff on a creep. Towers that damage this creep have a chance to extract extra experience.
+","Applies a debuff on a creep. Towers that damage this creep have a 33% chance to extract 2 experience. Lasts 10 seconds or until 10 extractions occur.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.1 experience
++1 extraction
+"
+"151","Attraction","on_autocast","AC_TYPE_ALWAYS_IMMEDIATE","4","0","500","500","FALSE","TRUE",,,"0",,,"res://resources/icons/fire/fire_bowl_02.tres","Attraction","This tower buffs 4 towers in range and gives them a chance to release a meteor when attacking or casting spells.
+","This tower buffs 4 towers in 500 range and gives them a 35% attack speed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released. Meteor damage is dealt by the buffed tower.
+ 
+[color=ORANGE]Level Bonus:[/color]
++1 tower buffed every 5 levels
++8 spell damage on attack
++20 spell damage on cast
+"
+"152","Magnetic Surge","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","40","1000","1000","FALSE","FALSE",,"CREEPS","1",,,"res://resources/icons/electricity/electricity_blue.tres","Magnetic Surge","This tower creates a [color=GOLD]Magnetic Surge[/color] at its target's current location. Target will take periodic damage.
+","This tower creates a [color=GOLD]Magnetic Surge[/color] at the target's current location. The creep will suffer spell damage equal to 4 times the distance to the spot where the surge was created every 0.4 seconds. This effect lasts 4 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% spell damage
++0.1 seconds duration
+"
+"153","Replenish","on_autocast","AC_TYPE_ALWAYS_IMMEDIATE","5","200","500","500","TRUE","FALSE",,,"0","res://src/effects/replenish_mana.tscn","res://src/effects/spell_aima.tscn","res://resources/icons/plants/flower_01.tres","Replenish","Restores mana of nearby towers.
+","Restores 10% of each towers maximum mana for towers in 500 range. Restores only half the amount for towers of the same family.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.4% maximum mana
+"
+"154","Replenish","on_autocast","AC_TYPE_ALWAYS_IMMEDIATE","5","200","500","500","TRUE","FALSE",,,"0","res://src/effects/replenish_mana.tscn","res://src/effects/spell_aima.tscn","res://resources/icons/plants/flower_01.tres","Replenish","Restores mana of nearby towers.
+","Restores 15% of each towers maximum mana for towers in 500 range. Restores only half the amount for towers of the same family.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.6% maximum mana
+"
+"155","Replenish","on_autocast","AC_TYPE_ALWAYS_IMMEDIATE","5","200","500","500","TRUE","FALSE",,,"0","res://src/effects/replenish_mana.tscn","res://src/effects/spell_aima.tscn","res://resources/icons/plants/flower_01.tres","Replenish","Restores mana of nearby towers.
+","Restores 20% of each towers maximum mana for towers in 500 range. Restores only half the amount for towers of the same family.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.8% maximum mana
+"
+"156","Dreadlord's Awakening","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","80","0","0","900","TRUE","FALSE",,,"0",,,"res://resources/icons/undead/skull_03.tres","Dreadlord's Awakening","When activated, Dreadlord empowers himself with darkness.
+","When activated, Dreadlord empowers himself with darkness for 10 seconds, increasing own attack speed by 50% and mana regeneration by 20 per second.
+ 
+[color=ORANGE]Level Bonus:[/color]
++2% attack speed
++0.8 mana per second
+"
+"157","Astral Eruption","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","35","1000","0","700","TRUE","FALSE","eruption_bt",,"0",,,"res://resources/icons/magic/magic_stone.tres","Astral Eruption","Releases a huge wave of astral power through the gate. This empowers falcons.
+","Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from [color=66cdaaff]Astral[/color] towers by 1% of the falcon's current damage ratio.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.18 seconds
+"
+"158","Eden's Wrath","on_autocast","AC_TYPE_OFFENSIVE_IMMEDIATE","10","0","800","800","FALSE","FALSE",,,"0",,,"res://resources/icons/trinkets/trinket_03.tres","Eden's Wrath","Create a huge explosion.
+","The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.
+"
+"159","For the God","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","10","600","600","TRUE","FALSE","crusader_bt","TOWERS","5",,,"res://resources/icons/holy/altar.tres","For the God","This tower casts a buff on a tower that increases attack damage and experience gain.
+","This tower casts a buff on a friendly tower that increases attack damage and experience gain by 40%. The buff lasts 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.1 seconds duration
++1% attack damage and experience gain
+"
+"160","For the God","on_autocast","AC_TYPE_OFFENSIVE_BUFF","4","10","600","600","TRUE","FALSE","crusader_bt","TOWERS","5",,,"res://resources/icons/holy/altar.tres","For the God","This tower casts a buff on a tower that increases attack damage and experience gain.
+","This tower casts a buff on a friendly tower that increases attack damage and experience gain by 80%. The buff lasts 8 seconds.
+ 
+[color=ORANGE]Level Bonus:[/color]
++0.1 seconds duration
++2% attack damage and experience gain
+"

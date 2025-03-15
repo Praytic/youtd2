@@ -23,6 +23,9 @@ enum CsvProperty {
 	MISSILE_SPEED,
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
+	ABILITY_LIST,
+	AURA_LIST,
+	AUTOCAST_LIST,
 	SCRIPT_PATH,
 	ICON_PATH,
 	SPRITE_PATH,
@@ -546,6 +549,27 @@ func get_sprite_path(tower_id: int) -> String:
 	return sprite_path
 
 
+func get_ability_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.ABILITY_LIST)
+	var ability_id_list: Array[int] = _convert_string_to_id_list(string)
+
+	return ability_id_list
+
+
+func get_aura_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.AURA_LIST)
+	var aura_id_list: Array[int] = _convert_string_to_id_list(string)
+
+	return aura_id_list
+
+
+func get_autocast_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.AUTOCAST_LIST)
+	var autocast_id_list: Array[int] = _convert_string_to_id_list(string)
+
+	return autocast_id_list
+
+
 func get_script_path(tower_id: int) -> String:
 	var script_path: String = _get_property(tower_id, CsvProperty.SCRIPT_PATH)
 
@@ -595,3 +619,18 @@ func _load_tower_ranges_map() -> Dictionary:
 		result[tower_id].append(range_data)
 
 	return result
+
+
+func _convert_string_to_id_list(string: String) -> Array[int]:
+	var id_list: Array[int] = []
+
+	if string.is_empty():
+		return id_list
+
+	var id_string_list: Array = string.split(",")
+	id_string_list.erase("")
+	for id_string in id_string_list:
+		var id: int = id_string.to_int()
+		id_list.append(id)
+
+	return id_list

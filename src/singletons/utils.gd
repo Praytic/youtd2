@@ -1,6 +1,26 @@
 class_name UtilsStatic extends Node
 
 
+func bool_to_string(value: bool) -> String:
+	var result: String
+	if value == true:
+		result = "TRUE"
+	else:
+		result = "FALSE"
+	
+	return result
+
+
+func string_to_bool(bool_string: String) -> bool:
+	var result: bool
+	if bool_string == "TRUE":
+		result = true
+	else:
+		result = false
+	
+	return result
+
+
 func print_new_translation_ids(amount: int):
 	var id_list = Utils.generate_new_translation_ids(amount)
 

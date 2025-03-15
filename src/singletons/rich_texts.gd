@@ -95,7 +95,7 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	var mana: int = floor(TowerProperties.get_mana(tower_id))
 	var mana_regen: int = floor(TowerProperties.get_mana_regen(tower_id))
 
-	var ability_text = TowerProperties.get_ability_text(tower_id)
+	var ability_text = get_tower_ability_text_short(tower_id)
 	var requirements_text = get_tower_requirements_text(tower_id, player)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
@@ -135,7 +135,40 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 		text += ability_text
 	
 	return text
+
+
+func get_tower_ability_text_short(tower_id: int) -> String:
+	var text: String = ""
+
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var ability_name: String = AbilityProperties.get_ability_name(ability_id)
+		var ability_description_short: String = AbilityProperties.get_description_short(ability_id)
+
+		text += "[color=GOLD]%s[/color]\n" % ability_name \
+		+ "%s" % ability_description_short \
+		+ " \n"
+
+	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
+	for aura_id in aura_id_list:
+		var aura_name: String = AuraProperties.get_aura_name(aura_id)
+		var aura_description_short: String = AuraProperties.get_description_short(aura_id)
+
+		text += "[color=GOLD]%s[/color]\n" % aura_name \
+		+ "%s" % aura_description_short \
+		+ " \n"
+
+	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
+	for autocast_id in autocast_id_list:
+		var autocast_text: String = get_autocast_text_short(autocast_id)
+
+		text += autocast_text
+		text += " \n"
+
+	text = text.trim_suffix(" \n")
 	
+	return text
+
 
 func get_tower_requirements_text(tower_id: int, player: Player) -> String:
 	var text: String = ""
@@ -362,11 +395,11 @@ func get_autocast_text(autocast: Autocast) -> String:
 	return text
 
 
-func get_autocast_text_short(autocast: Autocast) -> String:
-	var title: String = autocast.title
-	var autocast_description_short: String = autocast.description_short
+func get_autocast_text_short(autocast_id: int) -> String:
+	var title: String = AutocastProperties.get_autocast_name(autocast_id)
+	var autocast_description_short: String = AutocastProperties.get_description_short(autocast_id)
 	autocast_description_short = add_color_to_numbers(autocast_description_short)
-	var stats_text: String = get_autocast_stats_text(autocast)
+	var stats_text: String = get_autocast_stats_text_from_autocast_id(autocast_id)
 
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % title
@@ -392,19 +425,37 @@ func get_autocast_tooltip(autocast: Autocast) -> String:
 
 
 func get_autocast_stats_text(autocast: Autocast) -> String:
-	var mana_cost: String = "Mana cost: %s" % str(autocast.mana_cost)
-	var cast_range: String = "%s range" % str(autocast.cast_range)
-	var autocast_cooldown: String = "%ss cooldown" % str(autocast.cooldown)
+	var mana_cost: int = autocast.mana_cost
+	var cast_range: float = autocast.cast_range
+	var cooldown: float = autocast.cooldown
+	var text: String = get_autocast_stats_text_helper(mana_cost, cast_range, cooldown)
+
+	return text
+
+
+func get_autocast_stats_text_from_autocast_id(autocast_id: int) -> String:
+	var mana_cost: int = AutocastProperties.get_mana_cost(autocast_id)
+	var cast_range: float = AutocastProperties.get_cast_range(autocast_id)
+	var cooldown: float = AutocastProperties.get_cooldown(autocast_id)
+	var text: String = get_autocast_stats_text_helper(mana_cost, cast_range, cooldown)
+
+	return text
+
+
+func get_autocast_stats_text_helper(mana_cost: int, cast_range: float, cooldown: float) -> String:
+	var mana_cost_string: String = "Mana cost: %s" % str(mana_cost)
+	var cast_range_string: String = "%s range" % str(cast_range)
+	var cooldown_string: String = "%ss cooldown" % str(cooldown)
 
 	var text: String = ""
 
 	var stats_list: Array[String] = []
-	if autocast.mana_cost > 0:
-		stats_list.append(mana_cost)
-	if autocast.cast_range > 0:
-		stats_list.append(cast_range)
-	if autocast.cooldown > 0:
-		stats_list.append(autocast_cooldown)
+	if mana_cost > 0:
+		stats_list.append(mana_cost_string)
+	if cast_range > 0:
+		stats_list.append(cast_range_string)
+	if cooldown > 0:
+		stats_list.append(cooldown_string)
 
 	if !stats_list.is_empty():
 		var stats_line: String = ", ".join(stats_list) + "\n";
