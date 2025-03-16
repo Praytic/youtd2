@@ -1,6 +1,51 @@
 class_name UtilsStatic extends Node
 
 
+# Takes in a "x_properties" csv and outputs modified version
+# of columns + translation map of id->text. 
+func setup_translation_map_from_csv(csv_path: String, column_list: Array):
+	var csv_contents: Array[PackedStringArray] = UtilsStatic.load_csv(csv_path)
+	
+	var modified_csv_contents: String = ""
+	var translation_map_contents: String = ""
+
+	var column_count: int = column_list.size()
+	var row_count: int = csv_contents.size()
+	var translation_id_count: int = column_count * row_count
+	var new_translation_ids: Array = Utils.generate_new_translation_ids(translation_id_count)
+
+	for line in csv_contents:
+		var source_text_list: Array[String] = []
+
+		for column in column_list:
+			var source_text: String = line[column]
+			source_text_list.append(source_text)
+
+		var text_id_list: Array = []
+		for i in range(column_list.size()):
+			var text_id: String = new_translation_ids.pop_front()
+			text_id_list.append(text_id)
+
+#		Add new lines to texts csv
+		for i in range(column_list.size()):
+			var text_id: String = text_id_list[i]
+			var source_text: String = source_text_list[i]
+			translation_map_contents += "\"%s\",\"%s\"\n" % [text_id, source_text]
+
+#		Add new line to props csv
+		var modified_csv_line: String 
+		for text_id in text_id_list:
+			modified_csv_contents += "\"%s\"," % text_id
+		modified_csv_contents.trim_suffix(",")
+		modified_csv_contents += "\n"
+
+	var modified_csv: FileAccess = FileAccess.open("user://modified_csv.csv", FileAccess.WRITE)
+	modified_csv.store_string(modified_csv_contents)
+
+	var translation_map_csv: FileAccess = FileAccess.open("user://translation_map_csv.csv", FileAccess.WRITE)
+	translation_map_csv.store_string(translation_map_contents)
+
+
 func bool_to_string(value: bool) -> String:
 	var result: String
 	if value == true:
