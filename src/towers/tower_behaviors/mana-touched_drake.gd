@@ -74,7 +74,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mana_burn_amount: String = Utils.format_float(_stats.mana_burn_amount, 2)

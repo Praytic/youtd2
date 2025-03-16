@@ -42,7 +42,7 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 2)

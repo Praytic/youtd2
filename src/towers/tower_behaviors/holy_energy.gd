@@ -75,7 +75,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 	return [autocast]
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var glimmer_mod_debuff_duration: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION, 2)

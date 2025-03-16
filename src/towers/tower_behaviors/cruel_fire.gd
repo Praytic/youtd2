@@ -24,7 +24,7 @@ func tower_init():
 	fire_bt.set_buff_tooltip("Fire of Fury\nIncreases attack crit chance.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)

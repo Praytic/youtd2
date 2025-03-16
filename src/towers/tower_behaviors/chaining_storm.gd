@@ -60,7 +60,7 @@ func tower_init():
 	multiboard.set_key(0, "Storm Power")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Strong Wind"

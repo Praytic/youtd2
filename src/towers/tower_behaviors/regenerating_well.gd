@@ -65,7 +65,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 	return [autocast]
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)

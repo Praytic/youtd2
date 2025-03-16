@@ -79,7 +79,7 @@ func tower_init():
 	acid_skull_pt.enable_homing(acid_skull_pt_on_hit, 0)
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Vault's Presence"

@@ -106,7 +106,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 	return [autocast]
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 #	NOTE: only tier 2 of this family has the aura
 	if tower.get_tier() == 1:
 		return []

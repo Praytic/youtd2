@@ -73,7 +73,7 @@ func tower_init():
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
 
 	
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var dmg: String = Utils.format_float(_stats.dmg, 2)

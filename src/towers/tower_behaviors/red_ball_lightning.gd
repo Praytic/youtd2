@@ -58,7 +58,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Lightning Charge Aura\nIncreases spell damage.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)

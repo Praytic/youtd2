@@ -25,7 +25,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Ancient Magic\nIncreases spell crit chance.")
 
 	
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_spell_crit: String = Utils.format_percent(_stats.mod_spell_crit, 2)

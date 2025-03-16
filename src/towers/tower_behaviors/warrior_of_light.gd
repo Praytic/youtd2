@@ -66,7 +66,7 @@ func tower_init():
 	shockwave_st.data.swarm.effect_path = "res://src/effects/shockwave_missile.tscn"
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_dmg_to_undead: String = Utils.format_percent(_stats.mod_dmg_to_undead, 2)

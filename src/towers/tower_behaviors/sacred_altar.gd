@@ -19,7 +19,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Gift of Nature\nChance to entangle creeps.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Gift of Nature"

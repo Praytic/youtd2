@@ -69,7 +69,7 @@ func tower_init():
 	valor_light_bt.add_periodic_event(valor_light_bt_periodic, 1.0)
 	valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "We Will Not Fall!"

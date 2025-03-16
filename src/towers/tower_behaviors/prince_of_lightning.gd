@@ -57,7 +57,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Realm of Thunder Aura\nIncreases damage taken from Storm towers.")
 
 	
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)

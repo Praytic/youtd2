@@ -55,7 +55,7 @@ func tower_init():
 	lava_pt.set_event_on_cleanup(lava_pt_on_cleanup)
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Heat Aura"

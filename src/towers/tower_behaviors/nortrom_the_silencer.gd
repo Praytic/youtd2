@@ -63,7 +63,7 @@ func tower_init():
 	glaive_pt.set_event_on_interpolation_finished(glaive_pt_on_hit)
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Global Silence"

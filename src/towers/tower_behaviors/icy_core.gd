@@ -20,7 +20,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Frost Aura\nReduces movement speed.")
 
 	
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)

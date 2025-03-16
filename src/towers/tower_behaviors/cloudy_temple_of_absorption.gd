@@ -115,7 +115,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 	return list
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Cloud of Absorption"

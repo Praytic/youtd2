@@ -65,7 +65,7 @@ func tower_init():
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Arcane Aura"

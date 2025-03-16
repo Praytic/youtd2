@@ -50,7 +50,7 @@ func tower_init():
 	mist_bt.set_buff_tooltip("Freezing Mist\nReduces movement speed.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Flowing Frost"

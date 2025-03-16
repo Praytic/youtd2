@@ -22,7 +22,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var damage_increase: String = Utils.format_percent(_stats.damage_increase, 2)

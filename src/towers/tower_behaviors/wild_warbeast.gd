@@ -45,7 +45,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Beast Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Beast Dung"

@@ -27,7 +27,7 @@ func tower_init():
 	melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)

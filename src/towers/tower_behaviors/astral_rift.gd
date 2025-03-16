@@ -46,7 +46,7 @@ func tower_init():
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Presence of the Rift"

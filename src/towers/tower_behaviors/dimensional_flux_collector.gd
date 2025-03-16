@@ -90,7 +90,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 # keep track of spell damage dealt by tower linked via
 # Dimensional Link. Wouldn't make sense to show it to the
 # player.
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.is_hidden = true

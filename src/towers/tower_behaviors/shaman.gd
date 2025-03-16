@@ -73,7 +73,7 @@ func create_autocasts_DELETEME() -> Array[Autocast]:
 	return [autocast]
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var bloody_experience_level_cap: String = Utils.format_float(_stats.bloody_experience_level_cap, 2)

@@ -21,7 +21,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	var mod_attack_speed: String = Utils.format_percent(_stats.mod_attack_speed, 2)

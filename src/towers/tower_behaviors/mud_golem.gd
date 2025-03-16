@@ -53,7 +53,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Earthquake Aura\nChance to trigger Ground Smash.")
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Earthquake Aura"

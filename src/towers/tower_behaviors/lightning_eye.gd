@@ -42,7 +42,7 @@ func tower_init():
 	forklight_st.data.forked_lightning.target_count = 3
 
 
-func get_aura_types() -> Array[AuraType]:
+func get_aura_types_DELETEME() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 
 	aura.name = "Static Field"
