@@ -332,42 +332,6 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	return string
 
 
-func get_abilities_text(tower: Tower) -> String:
-	var ability_info_list: Array[AbilityInfo] = tower.get_ability_info_list()
-	var ability_text_list: Array[String] = []
-
-	for ability_info in ability_info_list:
-		var description: String = ability_info.description_full
-		description = RichTexts.add_color_to_numbers(description)
-		var ability_text: String = "[color=GOLD]%s[/color]\n \n%s" % [ability_info.name, description]
-
-		ability_text_list.append(ability_text)
-
-	var abilities_text: String = " \n".join(ability_text_list)
-
-	return abilities_text
-
-
-func get_abilities_text_short(tower: Tower) -> String:
-	var ability_info_list: Array[AbilityInfo] = tower.get_ability_info_list()
-	var ability_text_list: Array[String] = []
-
-	for ability_info in ability_info_list:
-		var description: String = ability_info.description_short
-
-		if description.is_empty():
-			continue
-
-		description = RichTexts.add_color_to_numbers(description)
-		var ability_text: String = "[color=GOLD]%s[/color]\n%s" % [ability_info.name, description]
-
-		ability_text_list.append(ability_text)
-
-	var abilities_text: String = " \n".join(ability_text_list)
-
-	return abilities_text
-
-
 func get_aura_text_short(aura_type: AuraType) -> String:
 	var aura_name: String = aura_type.name
 	var description: String = aura_type.description_short

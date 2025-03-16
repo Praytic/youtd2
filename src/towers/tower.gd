@@ -291,10 +291,6 @@ func set_range_indicator_visible(ability_name_english: String, value: bool):
 			range_indicator.visible = value
 
 
-func get_aura_types() -> Array[AuraType]:
-	return _tower_behavior.get_aura_types_NEW()
-
-
 func on_tower_details() -> MultiboardValues:
 	return _tower_behavior.on_tower_details()
 
@@ -972,7 +968,7 @@ func get_item_container() -> ItemContainer:
 	return _item_container
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	var attack_enabled: bool = TowerProperties.get_attack_enabled(get_id())
@@ -1026,9 +1022,12 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		multishot.description_full = multishot_tooltip
 		list.append(multishot)
 	
-	var extra_abilities: Array[AbilityInfo] = _tower_behavior.get_ability_info_list_NEW()
-	list.append_array(extra_abilities)
-	
+	var tower_id: int = get_id()
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var ability: AbilityInfo = AbilityInfo.make(ability_id)
+		list.append(ability)
+
 	return list
 
 

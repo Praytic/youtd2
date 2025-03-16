@@ -10,9 +10,7 @@ class_name TowerBehavior extends Node
 var tower: Tower
 var _stats: Dictionary = {}
 var _specials_modifier: Modifier = Modifier.new()
-var _new_aura_type_list: Array[AuraType] = []
-var _new_autocast_list: Array[Autocast] = []
-var _new_ability_info_list: Array[AbilityInfo] = []
+var _ability_info_list: Array[AbilityInfo] = []
 
 
 #########################
@@ -51,20 +49,18 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 	var tower_id: int = tower.get_id()
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:
-		var ability: AbilityInfo = _make_ability(ability_id)
-		_new_ability_info_list.append(ability)
+		var ability: AbilityInfo = AbilityInfo.make(ability_id)
+		_ability_info_list.append(ability)
 
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
 		var aura_type: AuraType = _make_aura_type(aura_id)
 		tower.add_aura(aura_type)
-		_new_aura_type_list.append(aura_type)
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
 		var autocast: Autocast = _make_autocast(autocast_id)
 		tower.add_autocast(autocast)
-		_new_autocast_list.append(autocast)
 
 	on_create(preceding_tower)
 
@@ -77,20 +73,6 @@ func get_specials_modifier() -> Modifier:
 # tier. Access as _stats.
 func get_tier_stats() -> Dictionary:
 	return {}
-
-
-# TODO: remove this f-n and all get_ability_info_list() from
-# tower scripts
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	return list
-
-
-func get_ability_info_list_NEW() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	return list
 
 
 # Override in subclass to attach trigger handlers to
@@ -113,19 +95,6 @@ func load_specials(_modifier: Modifier):
 # NOTE: tower.init() in JASS
 func tower_init():
 	pass
-
-
-# TODO: remove this f-n and implementations in tower scripts
-# Override in subclass to define auras.
-# NOTE: must be called after tower_init()
-func get_aura_types() -> Array[AuraType]:
-	var empty_list: Array[AuraType] = []
-
-	return empty_list
-
-
-func get_aura_types_NEW() -> Array[AuraType]:
-	return _new_aura_type_list
 
 
 # TODO: remove this f-n and implementations in tower scripts
@@ -161,20 +130,6 @@ func get_tower() -> Tower:
 #########################
 ###      Private      ###
 #########################
-
-func _make_ability(ability_id: int) -> AbilityInfo:
-	var ability: AbilityInfo = AbilityInfo.new()
-
-	ability.name_english = AbilityProperties.get_name_english(ability_id)
-	ability.name = AbilityProperties.get_ability_name(ability_id)
-	ability.radius = AbilityProperties.get_ability_range(ability_id)
-	ability.target_type = AbilityProperties.get_target_type(ability_id)
-	ability.icon = AbilityProperties.get_icon_path(ability_id)
-	ability.description_short = AbilityProperties.get_description_short(ability_id)
-	ability.description_full = AbilityProperties.get_description_full(ability_id)
-
-	return ability
-
 
 func _make_autocast(autocast_id: int) -> Autocast:
 	var autocast: Autocast = Autocast.make()

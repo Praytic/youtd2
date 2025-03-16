@@ -204,19 +204,21 @@ func _connect_to_autocast_button(button: AutocastButton):
 
 
 func _setup_tower_ability_buttons():	
-	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list()
+	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list_for_buttons()
 	
 	for ability_info in ability_info_list:
 		var button: AbilityButton = AbilityButton.make(ability_info)
 		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
-	var aura_type_list: Array[AuraType] = _tower.get_aura_types()
-	for aura_type in aura_type_list:
-		if aura_type.is_hidden:
+	var tower_id: int = _tower.get_id()
+	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
+	for aura_id in aura_id_list:
+		var aura_is_hidden: bool = AuraProperties.get_is_hidden(aura_id)
+		if aura_is_hidden:
 			continue
 
-		var button: AbilityButton = AbilityButton.make_from_aura_type(aura_type)
+		var button: AbilityButton = AbilityButton.make_from_aura_id(aura_id)
 		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 

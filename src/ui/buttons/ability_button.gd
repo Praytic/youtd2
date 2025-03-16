@@ -55,15 +55,16 @@ static func make(ability_info: AbilityInfo) -> AbilityButton:
 	return button
 
 
-static func make_from_aura_type(aura_type: AuraType) -> AbilityButton:
+static func make_from_aura_id(aura_id: int) -> AbilityButton:
 	var button: AbilityButton = Preloads.ability_button_scene.instantiate()
-	button._icon_path = aura_type.icon
-	
-	var description: String = aura_type.description_full
+	button._icon_path = AuraProperties.get_icon_path(aura_id)
+
+	var aura_name: String = AuraProperties.get_aura_name(aura_id)
+	var description: String = AuraProperties.get_description_full(aura_id)
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
-	button._tooltip_text = "[color=GOLD]%s - Aura[/color]\n \n%s" % [aura_type.name, description_colored]
+	button._tooltip_text = "[color=GOLD]%s - Aura[/color]\n \n%s" % [aura_name, description_colored]
 	
-	button._ability_name_english = aura_type.name_english
+	button._ability_name_english = AuraProperties.get_name_english(aura_id)
 
 	return button
 
