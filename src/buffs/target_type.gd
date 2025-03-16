@@ -73,6 +73,39 @@ const string_to_bit_map: Dictionary = {
 	"RARITY_UNIQUE": RARITY_UNIQUE,
 }
 
+const bit_to_string_map: Dictionary = {
+	CREEPS: "CREEPS",
+	TOWERS: "TOWERS",
+	PLAYER_TOWERS: "PLAYER_TOWERS",
+	CORPSES: "CORPSES",
+
+	RACE_UNDEAD: "RACE_UNDEAD",
+	RACE_MAGIC: "RACE_MAGIC",
+	RACE_NATURE: "RACE_NATURE",
+	RACE_ORC: "RACE_ORC",
+	RACE_HUMANOID: "RACE_HUMANOID",
+	RACE_CHALLENGE: "RACE_CHALLENGE",
+
+	SIZE_MASS: "SIZE_MASS",
+	SIZE_NORMAL: "SIZE_NORMAL",
+	SIZE_CHAMPION: "SIZE_CHAMPION",
+	SIZE_BOSS: "SIZE_BOSS",
+	SIZE_AIR: "SIZE_AIR",
+
+	ELEMENT_ASTRAL: "ELEMENT_ASTRAL",
+	ELEMENT_DARKNESS: "ELEMENT_DARKNESS",
+	ELEMENT_NATURE: "ELEMENT_NATURE",
+	ELEMENT_FIRE: "ELEMENT_FIRE",
+	ELEMENT_ICE: "ELEMENT_ICE",
+	ELEMENT_STORM: "ELEMENT_STORM",
+	ELEMENT_IRON: "ELEMENT_IRON",
+
+	RARITY_COMMON: "RARITY_COMMON",
+	RARITY_UNCOMMON: "RARITY_UNCOMMON",
+	RARITY_RARE: "RARITY_RARE",
+	RARITY_UNIQUE: "RARITY_UNIQUE",
+}
+
 static var _tower_element_to_bit: Dictionary = {
 	Element.enm.ASTRAL: TargetType.ELEMENT_ASTRAL,
 	Element.enm.DARKNESS: TargetType.ELEMENT_DARKNESS,
@@ -116,6 +149,7 @@ enum UnitType {
 }
 
 var _unit_type: UnitType
+var _original_bitmask: int = 0
 var _bitmask: int = 0
 var _player_towers_is_set: bool
 
@@ -125,6 +159,7 @@ var _player_towers_is_set: bool
 #########################
 
 func _init(bitmask: int):
+	_original_bitmask = bitmask
 	_bitmask = bitmask
 	_unit_type = TargetType._get_unit_type(bitmask)
 
@@ -255,3 +290,33 @@ static func convert_from_string(string: String) -> TargetType:
 		target_type = null
 
 	return target_type
+
+
+static func convert_to_string(target_type: TargetType) -> String:
+	if target_type == null:
+		return ""
+
+	var bit_list: Array = bit_to_string_map.keys()
+	bit_list.sort()
+
+#	NOTE: using original bitmask because the full "bitmask"
+#	contains redundant bits
+	var bitmask: int = target_type._original_bitmask
+
+	var set_bit_list: Array[int] = []
+	for bit in bit_list:
+		var bit_is_set: int = Utils.bit_is_set(bitmask, bit)
+
+		if bit_is_set:
+			set_bit_list.append(bit)
+
+	var set_bit_string_list: Array = []
+
+	for bit in set_bit_list:
+		var set_bit_string: String = bit_to_string_map[bit]
+
+		set_bit_string_list.append(set_bit_string)
+
+	var result: String = ",".join(set_bit_string_list)
+
+	return result
