@@ -100,6 +100,7 @@ var _point_type_list: Array[Autocast.Type] = [
 # NOTE: cast_range is the range used when autocast is
 # manually triggered by the user, auto_range is the range
 # used for regular autocasts that cast automatically.
+var name_english: String = "Placeholder Title"
 var title: String = "Placeholder Title"
 var description: String = "Description"
 var description_short: String = "Description Short"

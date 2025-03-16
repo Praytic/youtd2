@@ -283,9 +283,9 @@ func reset_attack_crits():
 	_current_crit_damage = 0.0
 
 
-func set_range_indicator_visible(ability_name: String, value: bool):
+func set_range_indicator_visible(ability_name_english: String, value: bool):
 	for range_indicator in _range_indicator_list:
-		var name_match: bool = range_indicator.ability_name == ability_name
+		var name_match: bool = range_indicator.ability_name_english == ability_name_english
 		
 		if name_match:
 			range_indicator.visible = value
@@ -980,6 +980,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var attack_ability: AbilityInfo = AbilityInfo.new()
 		var attack_description: String = _get_attack_ability_description()
 		var attack_range: float = get_range()
+		attack_ability.name_english = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.name = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
 		attack_ability.description_full = attack_description

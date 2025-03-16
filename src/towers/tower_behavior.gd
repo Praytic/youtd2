@@ -165,6 +165,7 @@ func get_tower() -> Tower:
 func _make_ability(ability_id: int) -> AbilityInfo:
 	var ability: AbilityInfo = AbilityInfo.new()
 
+	ability.name_english = AbilityProperties.get_name_english(ability_id)
 	ability.name = AbilityProperties.get_ability_name(ability_id)
 	ability.radius = AbilityProperties.get_ability_range(ability_id)
 	ability.target_type = AbilityProperties.get_target_type(ability_id)
@@ -178,6 +179,7 @@ func _make_ability(ability_id: int) -> AbilityInfo:
 func _make_autocast(autocast_id: int) -> Autocast:
 	var autocast: Autocast = Autocast.make()
 
+	autocast.name_english = AutocastProperties.get_name_english(autocast_id)
 	autocast.title = AutocastProperties.get_autocast_name(autocast_id)
 	autocast.icon = AutocastProperties.get_icon_path(autocast_id)
 	autocast.description_short = AutocastProperties.get_description_short(autocast_id)
@@ -225,6 +227,7 @@ func _make_autocast(autocast_id: int) -> Autocast:
 func _make_aura_type(aura_id: int) -> AuraType:
 	var aura: AuraType = AuraType.new()
 
+	aura.name_english = AuraProperties.get_name_english(aura_id)
 	aura.name = AuraProperties.get_aura_name(aura_id)
 	aura.icon = AuraProperties.get_icon_path(aura_id)
 	aura.description_short = AuraProperties.get_description_short(aura_id)

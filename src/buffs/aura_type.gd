@@ -15,6 +15,7 @@ class_name AuraType
 #   level.
 
 
+var name_english: String = ""
 var name: String = ""
 var icon: String = ""
 var description_short: String = ""

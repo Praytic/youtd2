@@ -7,7 +7,7 @@ class_name RangeData
 # when setting up range indicators.
 
 
-var name: String = "placeholder"
+var name_english: String = "placeholder"
 var radius: float = 100
 var targets_creeps: bool = true
 var affected_by_builder: bool = false
@@ -17,8 +17,8 @@ var affected_by_builder: bool = false
 const COLOR_LIST: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
 
 
-func _init(name_arg: String, radius_arg: float, target_type: TargetType = null):
-	name = name_arg
+func _init(name_english_arg: String, radius_arg: float, target_type: TargetType = null):
+	name_english = name_english_arg
 	radius = radius_arg
 	
 	if target_type != null:

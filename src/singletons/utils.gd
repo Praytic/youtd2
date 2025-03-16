@@ -925,7 +925,7 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 #		indicators, like tower auras, we should not do
 #		floor collisions because the range indicator may be
 #		fully located on the second floor.
-		range_indicator.ability_name = range_data.name
+		range_indicator.ability_name_english = range_data.name_english
 		range_indicator.enable_floor_collisions = range_data.targets_creeps
 		range_indicator.set_radius(indicator_radius)
 		var range_color: Color = RangeData.get_color_for_index(i)

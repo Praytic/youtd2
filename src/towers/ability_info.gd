@@ -1,5 +1,6 @@
 class_name AbilityInfo
 
+var name_english: String = "PLACEHOLDER name"
 var name: String = "PLACEHOLDER name"
 var icon: String = "PLACEHOLDER icon"
 var description_short: String = "PLACEHOLDER description_short"

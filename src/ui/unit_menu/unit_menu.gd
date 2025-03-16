@@ -312,16 +312,16 @@ func _set_autocast_range_visible(button: AutocastButton, value: bool):
 		return
 
 	var autocast: Autocast = button.get_autocast()
-	var autocast_name: String = autocast.title
-	_tower.set_range_indicator_visible(autocast_name, value)
+	var autocast_name_english: String = autocast.name_english
+	_tower.set_range_indicator_visible(autocast_name_english, value)
 
 
 func _set_ability_range_visible(button: AbilityButton, value: bool):
 	if _tower == null:
 		return
 
-	var ability_name: String = button.get_ability_name()
-	_tower.set_range_indicator_visible(ability_name, value)
+	var ability_name_english: String = button.get_ability_name_english()
+	_tower.set_range_indicator_visible(ability_name_english, value)
 
 #########################
 ###     Callbacks     ###
