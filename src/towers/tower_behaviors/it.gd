@@ -33,7 +33,7 @@ var summoner_units: Dictionary = {}
 var time_when_last_transported: float = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	var transport_cd: String = Utils.format_float(TRANSPORT_CD, 2)
@@ -84,7 +84,7 @@ func tower_init():
 	multiboard.set_key(0, "Spelldamage Bonus")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var field_radius: String = Utils.format_float(FIELD_RADIUS, 2)

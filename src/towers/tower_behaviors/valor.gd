@@ -9,7 +9,7 @@ var lastline_dummy_bt: BuffType
 const AURA_RANGE: int = 400
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var valors_light: AbilityInfo = AbilityInfo.new()

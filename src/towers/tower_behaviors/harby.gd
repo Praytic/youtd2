@@ -9,7 +9,7 @@ var is_awake: bool = false
 const AURA_RANGE: int = 350
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var arcane_orb: AbilityInfo = AbilityInfo.new()

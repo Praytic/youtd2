@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var smite_damage: String = Utils.format_float(_stats.smite_damage, 2)
 	var smite_damage_add: String = Utils.format_float(_stats.smite_damage_add, 2)
 	var armor_reduce: String = Utils.format_float(_stats.armor_reduce, 2)

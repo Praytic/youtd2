@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var mod_crit_chance: String = Utils.format_percent(_stats.mod_crit_chance, 2)
 	var mod_crit_chance_add: String = Utils.format_percent(MOD_CRIT_CHANCE_ADD, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)

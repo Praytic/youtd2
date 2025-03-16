@@ -6,7 +6,7 @@ var army_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var plague: AbilityInfo = AbilityInfo.new()

@@ -8,7 +8,7 @@ var slow_bt: BuffType
 const AURA_RANGE: int = 750
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var spacial_rift: AbilityInfo = AbilityInfo.new()

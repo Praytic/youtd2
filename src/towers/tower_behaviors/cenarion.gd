@@ -20,7 +20,7 @@ var leaf_storm_st: SpellType
 const AURA_RANGE: int = 450
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
 	
 	var list: Array[AbilityInfo] = []
@@ -97,7 +97,7 @@ func tower_init():
 	thorned_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Entangling Roots"

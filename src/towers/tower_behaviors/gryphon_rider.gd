@@ -17,7 +17,7 @@ var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 
 	var list: Array[AbilityInfo] = []
@@ -74,7 +74,7 @@ func tower_init():
 	hammer_pt.enable_physics(hammer_pt_on_impact, -30)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Hammer Fall"

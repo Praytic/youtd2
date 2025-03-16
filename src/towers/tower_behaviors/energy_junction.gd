@@ -72,7 +72,7 @@ func tower_init():
 	jolt_bt.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
 
 	
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var attack_speed: String = Utils.format_percent(_stats.attack_speed, 2)

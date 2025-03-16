@@ -39,7 +39,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)

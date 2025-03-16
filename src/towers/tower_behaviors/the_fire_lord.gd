@@ -16,7 +16,7 @@ var hellfire_bt: BuffType
 var liquid_fire_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
 
 	var list: Array[AbilityInfo] = []

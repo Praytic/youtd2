@@ -21,7 +21,7 @@ const STAR_GLAIVE_CHANCE_ADD: float = 0.004
 const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var shadow_glaive_chance: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE, 2)
 	var shadow_glaive_chance_add: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE_ADD, 2)
 	var shadow_glaive_attack_speed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACK_SPEED, 2)

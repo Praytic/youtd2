@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var miss_chance_base: String = Utils.format_percent(_stats.miss_chance_base, 2)
 	
 	var list: Array[AbilityInfo] = []

@@ -28,7 +28,7 @@ var bounder_pt: ProjectileType
 var glaivesaw_list: Array[Glaivesaw] = []
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
 
@@ -93,7 +93,7 @@ func tower_init():
 	bounder_pt.set_event_on_interpolation_finished(bounder_pt_on_finished)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Glaivesaw"

@@ -20,7 +20,7 @@ var link_time: float = 0.0
 var logged_link_ability: bool = false
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
 
 	var list: Array[AbilityInfo] = []
@@ -62,7 +62,7 @@ func tower_init():
 	flux_pt.set_event_on_interpolation_finished(flux_pt_on_hit)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Dimensional Link"

@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var dmg_ratio_for_immune: String = Utils.format_percent(_stats.dmg_ratio_for_immune, 2)
 	var dmg_ratio_for_immune_add: String = Utils.format_percent(_stats.dmg_ratio_for_immune_add, 2)
 	var periodic_event_period: String = Utils.format_float(_stats.periodic_event_period, 2)

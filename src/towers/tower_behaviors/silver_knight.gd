@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 const TRANSMUTE_CHANCE_ADD: float = 0.0004
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var transmute_chance: String = Utils.format_percent(_stats.transmute_chance, 2)
 	var transmute_chance_add: String = Utils.format_percent(TRANSMUTE_CHANCE_ADD, 2)
 	var transmute_gold: String = Utils.format_float(_stats.transmute_gold, 2)

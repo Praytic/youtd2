@@ -25,7 +25,7 @@ const QUILLSPRAY_DEBUFF_DURATION: float = 1.5
 const QUILLSPRAY_RANGE: float = 800
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var occasional_thornspray_chance: String = Utils.format_percent(_stats.occasional_thornspray_chance, 2)
 	var occasional_thornspray_chance_add: String = Utils.format_percent(_stats.occasional_thornspray_chance_add, 2)
 
@@ -59,7 +59,7 @@ func tower_init():
 	thornspray_pt.enable_homing(on_projectile_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var thornspray_stacks_max: String = Utils.format_float(QUILLSPRAY_STACKS_MAX, 2)

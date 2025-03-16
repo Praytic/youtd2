@@ -16,7 +16,7 @@ const BUFF_DURATION_ADD: float = 0.4
 const MOD_BOUNTY_GAIN_ADD: float = 0.006
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var mod_income: String = Utils.format_percent(_stats.mod_income, 2)
 	
 	var list: Array[AbilityInfo] = []
@@ -40,7 +40,7 @@ func tower_init():
 	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var autocast_range: String = Utils.format_float(AUTOCAST_RANGE, 2)

@@ -22,7 +22,7 @@ const CHANNEL_STACK_COUNT: int = 15
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var channel_exp: String = Utils.format_float(_stats.channel_exp, 2)
 	var channel_mod_dmg: String = Utils.format_percent(_stats.channel_mod_dmg, 2)
 	var channel_mod_dmg_add: String = Utils.format_percent(CHANNEL_MOD_DMG_ADD, 2)
@@ -68,7 +68,7 @@ func tower_init():
 	channel_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var extract_chance: String = Utils.format_percent(EXTRACT_CHANCE, 2)

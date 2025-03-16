@@ -22,7 +22,7 @@ var surge_st: SpellType
 var manastorm_st: SpellType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	var arcane_attraction: AbilityInfo = AbilityInfo.new()

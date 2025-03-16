@@ -18,7 +18,7 @@ const DEBUFF_DURATION: float = 5.0
 const ERUPT_RANGE: float = 200
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var target_count: String = Utils.format_float(_stats.target_count, 2)
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 3)
@@ -127,7 +127,7 @@ func tower_init():
 	phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Eruption"

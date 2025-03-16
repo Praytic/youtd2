@@ -64,7 +64,7 @@ func tower_init():
 	chainlightning_st_2.data.chain_lightning.chain_count = 4
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var attack_speed: String = Utils.format_percent(_stats.attack_speed, 2)

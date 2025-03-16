@@ -34,7 +34,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var replenish_range: String = Utils.format_float(REPLENISH_RANGE, 2)

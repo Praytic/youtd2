@@ -19,7 +19,7 @@ func tower_init():
 	multiboard.set_key(0, "Thunder Shock Dmg")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var recast_chance: String = Utils.format_percent(RECAST_CHANCE, 2)

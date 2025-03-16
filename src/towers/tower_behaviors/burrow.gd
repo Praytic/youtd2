@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var armor_ignored: String = Utils.format_percent(_stats.armor_ignored, 2)
 	var armor_ignored_add: String = Utils.format_percent(_stats.armor_ignored_add, 2)
 

@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
 
 	var list: Array[AbilityInfo] = []

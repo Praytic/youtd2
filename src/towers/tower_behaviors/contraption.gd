@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var mana_burned: String = Utils.format_float(_stats.mana_burned, 2)
 	var mana_burned_add: String = Utils.format_float(_stats.mana_burned_add, 2)
 	var dmg_bonus_per_mana: String = Utils.format_percent(_stats.dmg_bonus_per_mana, 2)

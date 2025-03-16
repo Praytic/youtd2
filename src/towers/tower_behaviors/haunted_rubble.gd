@@ -24,7 +24,7 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var chance: String = Utils.format_percent(_stats.chance, 2)
 	var chance_for_bosses: String = Utils.format_percent(_stats.chance * MULTIPLIER_FOR_BOSSES, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)

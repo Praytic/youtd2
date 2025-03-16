@@ -26,7 +26,7 @@ const SWARM_START_RADIUS: float = 100
 const SWARM_END_RADIUS: float = 300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
 	var on_attack_chance_add: String = Utils.format_percent(ON_ATTACK_CHANCE_ADD, 2)
 	var swarm_damage_night: String = Utils.format_float(_stats.swarm_damage_night, 2)
@@ -87,7 +87,7 @@ func tower_init():
 	swarm_st.data.swarm.effect_path = "res://src/effects/death_coil.tscn"
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)

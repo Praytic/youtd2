@@ -14,7 +14,7 @@ var exp_exchanged: int
 const AURA_RANGE: int = 240
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var future: AbilityInfo = AbilityInfo.new()
@@ -52,7 +52,7 @@ func tower_init():
 	multiboard.set_key(0, "Exp Exchanged")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Time Field"

@@ -20,7 +20,7 @@ var acid_skull_pt: ProjectileType
 const AURA_RANGE: int = 775
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var acid_skull: AbilityInfo = AbilityInfo.new()

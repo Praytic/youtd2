@@ -18,7 +18,7 @@ const BLOODTHIRST_ATTACKSPEED_ADD: float = 0.01
 const BLOODTHIRST_DURATION_ADD: float = 0.05
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var feral_dmg_gain: String = Utils.format_percent(_stats.feral_dmg_gain, 2)
 	var feral_dmg_max: String = Utils.format_percent(_stats.feral_dmg_max, 2)
 	var bloodthirst_attack_speed: String = Utils.format_percent(_stats.bloodthirst_attack_speed, 2)

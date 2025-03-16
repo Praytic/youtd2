@@ -13,7 +13,7 @@ var chanlightning_st: SpellType
 const AURA_RANGE: int = 350
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var absorb: AbilityInfo = AbilityInfo.new()
@@ -68,7 +68,7 @@ func tower_init():
 	chanlightning_st.data.chain_lightning.chain_count = 1
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Unleash"

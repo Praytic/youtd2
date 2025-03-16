@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
 
@@ -71,7 +71,7 @@ func tower_init():
 	slow_bt.set_buff_modifier(slow_bt_mod)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Energy Absorb"

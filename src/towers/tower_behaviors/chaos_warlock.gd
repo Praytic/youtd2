@@ -29,7 +29,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bolt_count: String = Utils.format_float(_stats.bolt_count, 2)
 	var bolt_damage: String = Utils.format_float(_stats.bolt_damage, 2)
 	var bolt_damage_add: String = Utils.format_float(_stats.bolt_damage_add, 2)
@@ -77,7 +77,7 @@ func tower_init():
 	attack_shadowbolt_pt.enable_homing(attack_shadowbolt_pt_on_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)

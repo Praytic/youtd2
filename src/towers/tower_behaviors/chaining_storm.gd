@@ -9,7 +9,7 @@ var storm_power: int = 0
 const AURA_RANGE: int = 900
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
 	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
 	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)

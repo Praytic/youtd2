@@ -21,7 +21,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
 	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
@@ -88,7 +88,7 @@ func tower_init():
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var potion_duration: String = Utils.format_float(POTION_DURATION, 2)

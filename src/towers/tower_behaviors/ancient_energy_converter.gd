@@ -30,7 +30,7 @@ func tower_init():
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Energy Conversion"

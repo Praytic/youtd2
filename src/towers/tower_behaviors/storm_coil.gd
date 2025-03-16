@@ -8,7 +8,7 @@ var aura_bt: BuffType
 const AURA_RANGE: int = 1000
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
 
 	var list: Array[AbilityInfo] = []
@@ -46,7 +46,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Energetic Field Aura\nIncreases damage taken from Storm towers.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Magnetic Surge"

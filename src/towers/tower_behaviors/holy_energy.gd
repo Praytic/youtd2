@@ -44,7 +44,7 @@ func tower_init():
 	sunlight_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var sunlight_range: String = Utils.format_float(SUNLIGHT_RANGE, 2)

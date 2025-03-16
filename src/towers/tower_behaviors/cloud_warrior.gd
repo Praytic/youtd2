@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var lightning_dmg: String = Utils.format_float(_stats.lightning_dmg, 2)
 	var lightning_dmg_add: String = Utils.format_float(_stats.lightning_dmg_add, 2)
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)

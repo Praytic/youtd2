@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase, 2)
 	var dmg_increase_add: String = Utils.format_percent(_stats.dmg_increase_add, 2)
 	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)

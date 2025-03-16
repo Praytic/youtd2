@@ -62,7 +62,7 @@ func tower_init():
 	multiboard.set_key(0, "Mana required")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var autocast1: Autocast = Autocast.make()

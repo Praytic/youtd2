@@ -19,7 +19,7 @@ func get_tier_stats() -> Dictionary:
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var spell_crit: String = Utils.format_percent(_stats.spell_crit, 2)
 	var spell_crit_add: String = Utils.format_percent(_stats.spell_crit_add, 2)
 	var damage_from_mana_multiplier: String = Utils.format_float(_stats.damage_from_mana_multiplier, 2)
@@ -88,7 +88,7 @@ func tower_init():
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)

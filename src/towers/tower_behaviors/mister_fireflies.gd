@@ -40,7 +40,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var moth_count: String = Utils.format_float(_stats.moth_count, 2)
 	var mana_burn: String = Utils.format_float(_stats.mana_burn, 2)
 	var mana_burn_add: String = Utils.format_float(MANA_BURN_ADD, 2)

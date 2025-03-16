@@ -40,7 +40,7 @@ const SACRIFICE_DMG_LOSS: float = 1.0
 const BUFF_DURATION: float = 6
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
 	var bloodspill_mod_attack_speed: String = Utils.format_percent(_stats.bloodspill_mod_attack_speed, 2)
 	var bloodspill_mod_attack_speed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
@@ -104,7 +104,7 @@ func tower_init():
 	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var sacrifice_dmg_loss: String = Utils.format_percent(SACRIFICE_DMG_LOSS, 2)

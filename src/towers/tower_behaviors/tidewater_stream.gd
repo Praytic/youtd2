@@ -10,7 +10,7 @@ var stone_pt: ProjectileType
 const AURA_RANGE: int = 250
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var spring: AbilityInfo = AbilityInfo.new()

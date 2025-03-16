@@ -15,7 +15,7 @@ var gatling_fire_count: int = 0
 var gatling_fire_dmg_ratio: float = 0.0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var rapid_gun: AbilityInfo = AbilityInfo.new()

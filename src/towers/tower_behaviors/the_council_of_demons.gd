@@ -19,7 +19,7 @@ var missile_pt: ProjectileType
 const AURA_RANGE: int = 400
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var maledict: AbilityInfo = AbilityInfo.new()
@@ -76,7 +76,7 @@ func tower_init():
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Impenetrable Darkness"

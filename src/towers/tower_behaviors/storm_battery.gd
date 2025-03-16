@@ -27,7 +27,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var damage_increase: String = Utils.format_percent(_stats.damage_increase, 2)
 	var damage_increase_add: String = Utils.format_percent(_stats.damage_increase_add, 2)
 
@@ -98,7 +98,7 @@ func tower_init():
 	missile_pt.enable_homing(hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)

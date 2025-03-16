@@ -32,7 +32,7 @@ const SOUL_LINK_COUNT: int = 3
 const SOUL_CONSUMPTION_EXP_GAIN: int = 1
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var soul_consumption_exp_gain: String = Utils.format_float(SOUL_CONSUMPTION_EXP_GAIN, 2)
 
 	var list: Array[AbilityInfo] = []
@@ -59,7 +59,7 @@ func tower_init():
 	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var soul_link_count: String = Utils.format_float(SOUL_LINK_COUNT, 2)

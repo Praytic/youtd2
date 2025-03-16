@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
 	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
 	var slow_duration: String = Utils.format_float(SLOW_DURATION, 2)

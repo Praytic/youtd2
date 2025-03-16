@@ -12,7 +12,7 @@ var awakening_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var dreadlord_slash: AbilityInfo = AbilityInfo.new()
@@ -58,7 +58,7 @@ func tower_init():
 	multiboard.set_key(0, "Attack speed Bonus")
 	multiboard.set_key(1, "Mana Bonus")
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Dreadlord's Awakening"

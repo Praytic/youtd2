@@ -7,7 +7,7 @@ var spread_bt: BuffType
 var magic_boost_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var speed_cast: AbilityInfo = AbilityInfo.new()

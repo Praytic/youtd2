@@ -20,7 +20,7 @@ const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
 const AURA_RANGE: float = 300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var shockwave_chance: String = Utils.format_percent(_stats.shockwave_chance, 2)
 	var shockwave_chance_add: String = Utils.format_percent(_stats.shockwave_chance_add, 2)
 	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)

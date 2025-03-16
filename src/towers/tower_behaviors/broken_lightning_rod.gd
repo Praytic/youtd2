@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var damage: String = Utils.format_float(_stats.damage, 2)

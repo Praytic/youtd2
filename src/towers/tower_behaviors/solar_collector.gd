@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var attack_mana_cost: String = Utils.format_float(_stats.attack_mana_cost, 2)
 	
 	var list: Array[AbilityInfo] = []
@@ -46,7 +46,7 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	var release_energy_dmg: String = Utils.format_float(_stats.release_energy_dmg, 2)

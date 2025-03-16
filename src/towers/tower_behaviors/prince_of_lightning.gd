@@ -14,7 +14,7 @@ const STRIKE_CHANCE_ADD: float = 0.004
 const AURA_RANGE: float = 1300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var strike_chance: String = Utils.format_percent(_stats.strike_chance, 2)
 	var strike_chance_add: String = Utils.format_percent(STRIKE_CHANCE_ADD, 2)
 	var strike_damage: String = Utils.format_float(_stats.strike_damage, 2)

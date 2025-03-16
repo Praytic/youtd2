@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var heal_ratio: String = Utils.format_percent(_stats.heal_ratio, 2)
 	var heal_ratio_add: String = Utils.format_percent(_stats.heal_ratio_add, 2)
 

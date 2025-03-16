@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var banish_lvl: String = Utils.format_percent(_stats.banish_lvl * 0.01, 2)
 	var banish_duration: String = Utils.format_float(_stats.banish_duration, 2)
 	var banish_lvl_add: String = Utils.format_percent(_stats.banish_lvl_add * 0.01, 2)

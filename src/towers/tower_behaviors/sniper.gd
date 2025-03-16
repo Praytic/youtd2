@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
 	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
 

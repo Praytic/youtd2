@@ -53,7 +53,7 @@ func tower_init():
 	smoke_tower_bt.set_buff_tooltip("Smoke Bombs\nEach attack silences creeps around the target.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)

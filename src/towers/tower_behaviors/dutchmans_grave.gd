@@ -17,7 +17,7 @@ var dutchman: Projectile
 var current_target: Unit = null
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var cannon: AbilityInfo = AbilityInfo.new()
@@ -87,7 +87,7 @@ func tower_init():
 	multiboard.set_key(0, "Souls")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Soul Storm"

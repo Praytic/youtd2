@@ -31,7 +31,7 @@ func get_tier_stats() -> Dictionary:
 const FREEZE_DURATION_ADD: float = 0.05
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var freeze_chance: String = Utils.format_percent(_stats.freeze_chance, 2)
 	var freeze_chance_add: String = Utils.format_percent(_stats.freeze_chance_add, 2)
 	var freeze_duration: String = Utils.format_float(_stats.freeze_duration, 2)

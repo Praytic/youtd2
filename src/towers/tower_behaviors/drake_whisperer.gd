@@ -42,7 +42,7 @@ var drake_list: Array[Drake] = []
 var feed_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var versatile: AbilityInfo = AbilityInfo.new()

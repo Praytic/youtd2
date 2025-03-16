@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var color: Color = Rarity.get_color(_stats.item_rarity)
 	var item_rarity: String = Rarity.convert_to_string(_stats.item_rarity)
 	item_rarity = item_rarity.capitalize()

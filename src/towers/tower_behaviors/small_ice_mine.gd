@@ -18,7 +18,7 @@ const NOVA_CHANCE_ADD: float = 0.004
 const EXTRA_CRIT_CHANCE: float = 0.30
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var nova_chance: String = Utils.format_percent(NOVA_CHANCE, 2)
 	var nova_chance_add: String = Utils.format_percent(NOVA_CHANCE_ADD, 2)
 	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)

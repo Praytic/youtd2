@@ -19,7 +19,7 @@ const CURSED_DURATION_ADD: float = 0.1
 const AURA_RANGE: float = 350
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var cursed_attack_chance: String = Utils.format_percent(CURSED_ATTACK_CHANCE, 2)
 	var cursed_attack_chance_add: String = Utils.format_percent(CURSED_ATTACK_CHANCE_ADD, 2)
 	var cursed_attack_damage: String = Utils.format_float(_stats.cursed_attack_damage, 2)

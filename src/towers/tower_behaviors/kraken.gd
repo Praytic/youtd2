@@ -48,7 +48,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_unit_comes_in_range(on_unit_in_range, TENTACLE_ATTACK_RADIUS, TargetType.new(TargetType.CREEPS))
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var acid_goo_chance: String = Utils.format_percent(ACID_GOO_CHANCE, 2)
 	var acid_goo_chance_add: String = Utils.format_percent(ACID_GOO_CHANCE_ADD, 2)
 	var acid_goo_armor: String = Utils.format_float(ACID_GOO_ARMOR, 2)

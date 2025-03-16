@@ -10,7 +10,7 @@ var demonic_fire_bt: BuffType
 var shamanic_totem_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var shamanic_totem: AbilityInfo = AbilityInfo.new()
@@ -74,7 +74,7 @@ func tower_init():
 	demonic_fire_bt.add_event_on_damaged(demonic_fire_bt_on_damaged)
 
 	
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
 
 	var autocast: Autocast = Autocast.make()

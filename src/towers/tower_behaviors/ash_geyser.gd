@@ -30,7 +30,7 @@ const IGNITE_DAMAGE: float = 0.15
 const IGNITE_DAMAGE_ADD: float = 0.006
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 
 	var ignite_chance: String = Utils.format_percent(IGNITE_CHANCE, 2)

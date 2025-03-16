@@ -19,7 +19,7 @@ var BUFF_DURATION_ADD: float = 0.1
 var WRATH_MOD_TRIGGER_CHANCES: float = 0.15
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
 	var buff_duration_add: String = Utils.format_float(BUFF_DURATION_ADD, 2)
 	var wrath_mod_trigger_chances: String = Utils.format_percent(WRATH_MOD_TRIGGER_CHANCES, 2)

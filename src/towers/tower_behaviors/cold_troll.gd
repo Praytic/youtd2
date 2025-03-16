@@ -62,7 +62,7 @@ func tower_init():
 	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var blizzard_wave_count: String = Utils.format_float(_stats.blizzard_wave_count, 2)

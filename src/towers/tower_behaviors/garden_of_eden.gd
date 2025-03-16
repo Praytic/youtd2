@@ -6,7 +6,7 @@ var current_spawn_level: int = 0
 var lifeforce_stored: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
 	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
 	var human_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.HUMANOID)
@@ -42,7 +42,7 @@ func tower_init():
 	multiboard.set_key(0, "Lifeforce Stored")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Eden's Wrath"

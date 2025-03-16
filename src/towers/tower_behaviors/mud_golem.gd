@@ -7,7 +7,7 @@ var slow_bt: BuffType
 const AURA_RANGE: int = 150
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
 
 	var list: Array[AbilityInfo] = []

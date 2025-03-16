@@ -7,7 +7,7 @@ var teachings_bt: BuffType
 const AURA_RANGE: int = 900
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var divine_knowledge: AbilityInfo = AbilityInfo.new()
@@ -49,7 +49,7 @@ func tower_init():
 	teachings_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Divine Teachings"

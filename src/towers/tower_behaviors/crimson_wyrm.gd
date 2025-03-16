@@ -11,7 +11,7 @@ var multiboard: MultiboardValues
 var fireball_cd: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var flaming_inferno: AbilityInfo = AbilityInfo.new()

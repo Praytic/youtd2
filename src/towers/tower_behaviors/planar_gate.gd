@@ -7,7 +7,7 @@ var bouncing_pt: ProjectileType
 var falcon_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
 
 	var list: Array[AbilityInfo] = []
@@ -49,7 +49,7 @@ func tower_init():
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)

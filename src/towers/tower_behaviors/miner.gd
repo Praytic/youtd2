@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var attack_speed_bonus: String = Utils.format_percent((_stats.attack_speed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
 	var goldrush_gold_add: String = Utils.format_float(_stats.goldrush_gold_add, 2)

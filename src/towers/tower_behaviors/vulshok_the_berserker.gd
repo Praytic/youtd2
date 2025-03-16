@@ -20,7 +20,7 @@ var do_splash_next: bool = false
 var growth_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var ultimate_fighter: AbilityInfo = AbilityInfo.new()

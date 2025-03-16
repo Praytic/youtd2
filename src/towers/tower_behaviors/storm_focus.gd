@@ -28,7 +28,7 @@ func tower_init():
 	aura_bt.set_buff_tooltip("Gust Aura\nIncreases damage dealt to Air creeps.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Freezing Gust"

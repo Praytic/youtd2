@@ -45,7 +45,7 @@ var fire_all_in_progress: bool = false
 var prev_stored_icicle_angle: float = 0.0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	# and 
@@ -132,7 +132,7 @@ func tower_init():
 	icicle_missile_pt.enable_homing(icicle_missile_pt_on_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Shattering Barrage"

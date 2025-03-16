@@ -19,7 +19,7 @@ var _dark_shroud_damage_dealt: float = 0.0
 const AURA_RANGE: int = 300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var dark_orbs: AbilityInfo = AbilityInfo.new()

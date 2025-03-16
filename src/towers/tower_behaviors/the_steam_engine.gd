@@ -12,7 +12,7 @@ var current_mana_degen: float = 0.0
 const AURA_RANGE: int = 450
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var power_surge: AbilityInfo = AbilityInfo.new()
@@ -53,7 +53,7 @@ func tower_init():
 	multiboard.set_key(1, "Towers Powered")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var autocast_speed_up: Autocast = Autocast.make()

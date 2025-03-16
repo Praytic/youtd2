@@ -23,7 +23,7 @@ const FOR_THE_GOD_DURATION: float = 8.0
 const FOR_THE_GOD_DURATION_ADD: float = 0.1
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var blessed_weapon_chance: String = Utils.format_percent(BLESSED_WEAPON_CHANCE, 2)
 	var blessed_weapon_mana_gain: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN, 2)
 	var blessed_weapon_mana_gain_add: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN_ADD, 2)
@@ -67,7 +67,7 @@ func tower_init():
 	crusader_bt.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var for_the_god_effect: String = Utils.format_percent(_stats.for_the_god_effect, 2)

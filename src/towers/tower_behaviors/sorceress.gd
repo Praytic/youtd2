@@ -56,7 +56,7 @@ var data: Data
 var current_missile_mod: MissileMod
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
@@ -127,7 +127,7 @@ func tower_init():
 	multiboard.set_key(7, "AoE")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var autocast_choose: Autocast = Autocast.make()

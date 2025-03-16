@@ -21,7 +21,7 @@ var spell_damage_from_growth: float = 0.0
 var fungus_strike_activated: bool = false
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var fungus_strike: AbilityInfo = AbilityInfo.new()
@@ -85,7 +85,7 @@ func on_create(_preceding: Tower):
 	grow_buff.set_displayed_stacks(growth_count)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Mystical Trance"

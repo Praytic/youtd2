@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var frenzy_max_bonus: String = Utils.format_percent(_stats.frenzy_max_bonus, 2)
 	
 	var list: Array[AbilityInfo] = []
@@ -84,7 +84,7 @@ func tower_init():
 	multiboard.set_key(0, "Speed Bonus")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)

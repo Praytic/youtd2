@@ -21,7 +21,7 @@ const GRENADE_MOD_DMG_RECEIVED_ADD: float = 0.001
 const GRENADE_MOD_DMG_RECEIVED_MAX: float = 0.50
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var grenade_chance: String = Utils.format_percent(_stats.grenade_chance, 2)
 	var grenade_chance_add: String = Utils.format_percent(_stats.grenade_chance_add, 2)
 	var grenade_count: String = Utils.format_float(_stats.grenade_count, 2)
@@ -73,7 +73,7 @@ func tower_init():
 	shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var stim_attack_speed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)

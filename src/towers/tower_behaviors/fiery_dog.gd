@@ -20,7 +20,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var stack_bonus: String = Utils.format_percent(_stats.level_multiplier * 0.0005, 2)
 	
 	var list: Array[AbilityInfo] = []

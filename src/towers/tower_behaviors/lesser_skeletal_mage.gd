@@ -40,7 +40,7 @@ func tower_init():
 	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var vuln: String = Utils.format_percent(_stats.vuln, 2)

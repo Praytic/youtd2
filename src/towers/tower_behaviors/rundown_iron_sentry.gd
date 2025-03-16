@@ -19,7 +19,7 @@ const ALERT_RANGE: int = 500
 const TRESSPASSER_RANGE: int = 925
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var alert_duration: String = Utils.format_float(_stats.alert_duration, 2)
 	var alert_range: String = Utils.format_float(ALERT_RANGE, 2)
 	var alert_mod_dmg: String = Utils.format_percent(ALERT_MOD_DMG, 2)

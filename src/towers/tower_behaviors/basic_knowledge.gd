@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var experience: String = Utils.format_float(_stats.exp, 2)
 	
 	var list: Array[AbilityInfo] = []

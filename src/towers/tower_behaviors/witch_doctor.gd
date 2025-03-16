@@ -33,7 +33,7 @@ var periodic_interval: float
 const STACK_MALEDICT_FROM_WARD_CHANCE: float = 0.35
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var stack_maledict_from_ward_chance: String = Utils.format_percent(STACK_MALEDICT_FROM_WARD_CHANCE, 2)
 
 	var list: Array[AbilityInfo] = []
@@ -92,7 +92,7 @@ func tower_init():
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)
 
 	
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Maledict"

@@ -139,7 +139,7 @@ func tower_init():
 	sprite_pt.enable_homing(sprite_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var secondary_effect_chance: String = Utils.format_percent(SECONDARY_EFFECT_CHANCE, 2)

@@ -14,7 +14,7 @@ var dmg_bonus_from_meld: float = 0.0
 const AURA_RANGE: int = 175
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var wrath: AbilityInfo = AbilityInfo.new()

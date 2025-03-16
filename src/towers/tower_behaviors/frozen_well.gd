@@ -7,7 +7,7 @@ var mist_bt: BuffType
 const AURA_RANGE: int = 500
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var freezing_mist: AbilityInfo = AbilityInfo.new()

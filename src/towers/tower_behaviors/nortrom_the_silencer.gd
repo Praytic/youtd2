@@ -8,7 +8,7 @@ var glaive_pt: ProjectileType
 const AURA_RANGE: int = 350
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 
 	var list: Array[AbilityInfo] = []

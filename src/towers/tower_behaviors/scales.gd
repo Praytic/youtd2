@@ -9,7 +9,7 @@ var i_scale_level: int = 0
 var i_scale_value: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var i_scale: AbilityInfo = AbilityInfo.new()
@@ -73,7 +73,7 @@ func tower_init():
 	multiboard.set_key(2, "Spell Crit Chance Bonus")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 	
 	autocast.title = "Lightmare"

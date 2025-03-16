@@ -26,7 +26,7 @@ const NOVA_MOD_MOVESPEED_ADD: float = 0.005
 const NOVA_SLOW_DURATION: float = 4.0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var nova_chance: String = Utils.format_percent(NOVA_CHANCE, 2)
 	var nova_chance_add: String = Utils.format_percent(NOVA_CHANCE_ADD, 2)
 	var nova_range: String = Utils.format_float(NOVA_RANGE, 2)

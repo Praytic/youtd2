@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bug_dmg: String = Utils.format_float(_stats.bug_dmg, 2)
 	var production_for_decrease: String = Utils.format_float(_stats.production_for_decrease, 2)
 

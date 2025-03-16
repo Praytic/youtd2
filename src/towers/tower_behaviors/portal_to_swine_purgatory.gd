@@ -51,7 +51,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var pig_count: String = Utils.format_float(_stats.pig_count, 2)
 	var home_range: String = Utils.format_float(_stats.home_range, 2)
 	var home_range_add: String = Utils.format_float(HOME_RANGE_ADD, 2)

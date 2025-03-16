@@ -10,7 +10,7 @@ var current_attack_count: int = -1
 var strangle_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var fishermans_net: AbilityInfo = AbilityInfo.new()

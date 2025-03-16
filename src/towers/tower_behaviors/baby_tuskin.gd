@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var stun_temple_duration: String = Utils.format_float(_stats.stun_temple_duration, 2)
 	var stun_knockdown_duration: String = Utils.format_float(_stats.stun_knockdown_duration, 2)
 	var hit_chance_add: String = Utils.format_percent(_stats.hit_chance_add, 2)

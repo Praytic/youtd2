@@ -11,7 +11,7 @@ var icy_touch_bt: BuffType
 var frostbolt_pt: ProjectileType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
 
 	var list: Array[AbilityInfo] = []

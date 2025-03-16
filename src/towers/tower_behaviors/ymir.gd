@@ -7,7 +7,7 @@ var aura_bt: BuffType
 var wrath_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
 
 	var list: Array[AbilityInfo] = []

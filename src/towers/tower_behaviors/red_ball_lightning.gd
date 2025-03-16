@@ -17,7 +17,7 @@ const SHOCK_CRIT_CHANCE: float = 0.10
 const SHOCK_CRIT_DAMAGE: float = 0.60
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var shock_chance: String = Utils.format_percent(SHOCK_CHANCE, 2)
 	var shock_chance_add: String = Utils.format_percent(SHOCK_CHANCE_ADD, 2)
 	var shock_damage: String = Utils.format_float(_stats.shock_damage, 2)

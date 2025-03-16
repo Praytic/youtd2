@@ -59,7 +59,7 @@ const TURN_TO_TOWER_MARGIN: float = 25
 const GHOST_ABILITY_TIMER_MAX: int = 20
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
 	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
 	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
@@ -97,7 +97,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	return list
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Targeted Run"

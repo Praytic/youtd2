@@ -35,7 +35,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var flame_dmg_ratio: String = Utils.format_percent(_stats.flame_dmg_ratio, 2)
 	var flame_dmg_ratio_add: String = Utils.format_percent(_stats.flame_dmg_ratio_add, 2)
 	var pulse_dmg_ratio: String = Utils.format_percent(_stats.pulse_dmg_ratio, 2)

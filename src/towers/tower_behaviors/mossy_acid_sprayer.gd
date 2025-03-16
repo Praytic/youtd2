@@ -20,7 +20,7 @@ const DEBUFF_DURATION: float = 3.0
 const DEBUFF_DURATION_ADD: float = 0.12
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var debuff_duration: String = Utils.format_float(DEBUFF_DURATION, 2)
 	var debuff_duration_add: String = Utils.format_float(DEBUFF_DURATION_ADD, 2)
 	var armor_base: String = Utils.format_float(_stats.armor_base, 3)

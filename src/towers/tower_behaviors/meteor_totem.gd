@@ -20,7 +20,7 @@ var missile_pt: ProjectileType
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
@@ -61,7 +61,7 @@ func tower_init():
 	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Attraction"

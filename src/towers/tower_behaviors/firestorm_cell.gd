@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var firestorm_chance: String = Utils.format_percent(_stats.firestorm_chance, 2)
 	var firestorm_chance_add: String = Utils.format_percent(_stats.firestorm_chance_add, 2)
 	var firestorm_damage: String = Utils.format_float(_stats.firestorm_damage, 2)

@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var damage_mana_multiplier: String = Utils.format_float(_stats.damage_mana_multiplier, 2)
 	var elemental_attack_type_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
 	var unstable_mana_ratio: String = Utils.format_percent(UNSTABLE_MANA_RATIO, 2)

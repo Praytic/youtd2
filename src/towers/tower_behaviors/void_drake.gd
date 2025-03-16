@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var silence_duration: String = Utils.format_float(_stats.silence_duration, 2)
 	var silence_duration_add: String = Utils.format_float(_stats.silence_duration_add, 2)
 	var boss_silence_multiplier: String = Utils.format_percent(_stats.boss_silence_multiplier, 2)

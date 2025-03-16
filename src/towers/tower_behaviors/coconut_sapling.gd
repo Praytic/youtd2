@@ -18,7 +18,7 @@ const STUN_CD: float = 1.5
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var coconut_chance_decrease: String = Utils.format_percent(_stats.coconut_chance_decrease, 2)
 	var coconut_damage: String = Utils.format_float(_stats.coconut_damage, 2)
 	var coconut_damage_add: String = Utils.format_float(_stats.coconut_damage_add, 2)

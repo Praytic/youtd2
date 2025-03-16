@@ -16,7 +16,7 @@ var ignite_bt: BuffType
 var firestar_pt: ProjectileType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var burn: AbilityInfo = AbilityInfo.new()

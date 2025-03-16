@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var cooldown: String = Utils.format_float(_stats.cooldown, 2)
 	var max_targets: String = Utils.format_float(_stats.max_targets, 2)
 	var base_damage: String = Utils.format_float(_stats.base_damage, 2)

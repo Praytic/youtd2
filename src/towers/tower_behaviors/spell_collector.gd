@@ -35,7 +35,7 @@ var BARRAGE_CHANCE: float = 0.20
 var BARRAGE_CHANCE_ADD: float = 0.008
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var barrage_chance: String = Utils.format_percent(BARRAGE_CHANCE, 2)
 	var barrage_chance_add: String = Utils.format_percent(BARRAGE_CHANCE_ADD, 2)
 	var missile_count_max: String = Utils.format_float(_stats.missile_count_max, 2)

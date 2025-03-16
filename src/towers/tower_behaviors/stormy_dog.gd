@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var attack_speed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
 
 	var list: Array[AbilityInfo] = []

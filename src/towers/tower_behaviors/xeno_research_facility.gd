@@ -36,7 +36,7 @@ var bonus_map: Dictionary = {
 }
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var sample: AbilityInfo = AbilityInfo.new()

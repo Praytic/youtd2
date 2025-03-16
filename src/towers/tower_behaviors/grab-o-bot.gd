@@ -5,7 +5,7 @@ var grapple_bt: BuffType
 var shock_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
 	
 	var ability: AbilityInfo = AbilityInfo.new()
@@ -43,7 +43,7 @@ func tower_init():
 	shock_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	autocast.title = "Shock"

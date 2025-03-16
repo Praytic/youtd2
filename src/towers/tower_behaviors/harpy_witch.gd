@@ -28,7 +28,7 @@ const SPARKS_DURATION_ADD: float = 0.3
 const TWISTER_DURATION: float = 5.0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var twister_chance: String = Utils.format_percent(_stats.twister_chance, 2)
 	var twister_chance_add: String = Utils.format_percent(_stats.twister_chance_add, 2)
 	var twister_tornado_count: String = Utils.format_float(_stats.twister_tornado_count, 2)
@@ -81,7 +81,7 @@ func tower_init():
 	missile_pt.enable_homing(harpy_missile_on_hit, 0)
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var autocast: Autocast = Autocast.make()
 
 	var sparks_range: String = Utils.format_float(SPARKS_RANGE, 2)

@@ -7,7 +7,7 @@ const BONE_SHATTER_DAMAGE_RATIO: float = 0.25
 const SHARD_SPREAD_RADIUS: float = 300
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bone_shatter_damage_ratio: String = Utils.format_percent(BONE_SHATTER_DAMAGE_RATIO, 2)
 
 	var list: Array[AbilityInfo] = []

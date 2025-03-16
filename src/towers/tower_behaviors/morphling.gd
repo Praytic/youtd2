@@ -17,7 +17,7 @@ var multiboard: MultiboardValues
 var evolve_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
 
 	var list: Array[AbilityInfo] = []
@@ -98,7 +98,7 @@ func tower_init():
 	multiboard.set_key(1, "Morph level")
 
 
-func create_autocasts() -> Array[Autocast]:
+func create_autocasts_DELETEME() -> Array[Autocast]:
 	var list: Array[Autocast] = []
 
 	var autocast_might: Autocast = Autocast.make()

@@ -9,7 +9,7 @@ var liquid_ice_bt: BuffType
 var shard_pt: ProjectileType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
 
 	var list: Array[AbilityInfo] = []

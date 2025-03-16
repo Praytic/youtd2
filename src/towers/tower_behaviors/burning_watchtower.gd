@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bonus_damage: String = Utils.format_float(_stats.bonus_damage, 2)
 	var bonus_damage_other: String = Utils.format_float(_stats.bonus_damage * 0.3, 2)
 	var explode_damage: String = Utils.format_float(_stats.explode_damage, 2)

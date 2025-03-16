@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	var bonus_1_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count, 0)
 	var bonus_2_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count + 1, 0)
 	var bonus_3_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count + 2, 0)
