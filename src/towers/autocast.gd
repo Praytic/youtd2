@@ -166,7 +166,7 @@ func _ready():
 
 	_check_buff_target_type()
 
-	_target_type = _calculate_target_type()
+	_target_type = Autocast.calculate_target_type(autocast_type, buff_target_type)
 
 
 #########################
@@ -332,17 +332,17 @@ func _get_target_is_in_range(target: Unit) -> bool:
 	return target_is_in_range
 
 
-func _calculate_target_type() -> TargetType:
-	match autocast_type:
+static func calculate_target_type(autocast_type_arg: Autocast.Type, buff_target_type_arg: TargetType) -> TargetType:
+	match autocast_type_arg:
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF:
-			if buff_target_type != null:
-				return buff_target_type
+			if buff_target_type_arg != null:
+				return buff_target_type_arg
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE: return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF:
-			if buff_target_type != null:
-				return buff_target_type
+			if buff_target_type_arg != null:
+				return buff_target_type_arg
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
@@ -353,7 +353,7 @@ func _calculate_target_type() -> TargetType:
 		Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER: return TargetType.new(TargetType.PLAYER_TOWERS)
 		Autocast.Type.AC_TYPE_NOAC_POINT: return TargetType.new(0)
 
-	push_error("_calculate_target_type doesn't support type: ", autocast_type)
+	push_error("_calculate_target_type doesn't support type: ", autocast_type_arg)
 
 	return TargetType.new(0)
 

@@ -44,7 +44,6 @@ enum RangeColumn {
 }
 
 const PROPERTIES_PATH = "res://data/tower_properties.csv"
-const TOWER_RANGES_PATH: String = "res://data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://src/towers/tower_sprites"
 const TOWER_BEHAVIORS_DIR: String = "res://src/towers/tower_behaviors"
 const TOWER_ICON_DIR: String = "res://resources/icons/tower_icons"
@@ -60,7 +59,6 @@ var _min_required_wave_for_build_mode = {
 }
 
 var _properties: Dictionary = {}
-var _tower_ranges: Dictionary = {}
 var _element_map: Dictionary = {}
 var _attack_type_map: Dictionary = {}
 var _rarity_map: Dictionary = {}
@@ -75,8 +73,6 @@ var _rarity_map: Dictionary = {}
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
-	_tower_ranges = _load_tower_ranges_map()
-	
 	for tower_id in get_tower_id_list():
 		var element_string: String = _get_property(tower_id, CsvProperty.ELEMENT)
 		var element: Element.enm = Element.from_string(element_string)
@@ -525,12 +521,60 @@ func get_upgrade_id_for_tower(tower_id: int) -> int:
 
 
 func get_range_data_list(tower_id: int) -> Array[RangeData]:
-	if !_tower_ranges.has(tower_id):
-		var empty_list: Array[RangeData] = []
+	var range_data_list: Array[RangeData] = []
 
-		return empty_list
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
+	if attack_enabled:
+		var attack_range: float = TowerProperties.get_range(tower_id)
+		var ability_name_english: String = Constants.TOWER_ATTACK_ABILITY_NAME
+		var ability_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 
-	var range_data_list: Array[RangeData] = _tower_ranges[tower_id]
+		var range_data: RangeData = RangeData.new(ability_name_english, attack_range, ability_target_type)
+		range_data_list.append(range_data)
+
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var ability_range: float = AbilityProperties.get_ability_range(ability_id)
+		
+		var ability_has_range: bool = ability_range != 0
+		if !ability_has_range:
+			continue
+
+		var ability_name_english: String = AbilityProperties.get_name_english(ability_id)
+		var ability_target_type: TargetType = AbilityProperties.get_target_type(ability_id)
+
+		var range_data: RangeData = RangeData.new(ability_name_english, ability_range, ability_target_type)
+		range_data_list.append(range_data)
+
+	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
+	for aura_id in aura_id_list:
+		var aura_name_english: String = AuraProperties.get_name_english(aura_id)
+		var aura_range: float = AuraProperties.get_aura_range(aura_id)
+		var aura_target_type: TargetType = AuraProperties.get_target_type(aura_id)
+
+		var range_data: RangeData = RangeData.new(aura_name_english, aura_range, aura_target_type)
+
+#		NOTE: only range of aura abilities are affected by
+#		builder bonuses
+		range_data.affected_by_builder = true
+
+		range_data_list.append(range_data)
+
+	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
+	for autocast_id in autocast_id_list:
+		var autocast_range: float = AutocastProperties.get_cast_range(autocast_id)
+		
+		var autocast_has_range: bool = autocast_range != 0
+		if !autocast_has_range:
+			continue
+
+		var autocast_name_english: String = AutocastProperties.get_name_english(autocast_id)
+		var autocast_type: Autocast.Type = AutocastProperties.get_autocast_type(autocast_id)
+		var autocast_buff_target_type: TargetType = AutocastProperties.get_buff_target_type(autocast_id)
+		var autocast_target_type: TargetType = Autocast.calculate_target_type(autocast_type, autocast_buff_target_type)
+
+		var range_data: RangeData = RangeData.new(autocast_name_english, autocast_range, autocast_target_type)
+		range_data_list.append(range_data)
 
 	return range_data_list
 
@@ -582,35 +626,6 @@ func _get_property(tower_id: int, csv_property: CsvProperty) -> String:
 	var value: String = properties[csv_property]
 
 	return value
-
-
-# Create range data based on attack ranges and extra ranges
-# for abilities, defined in ranges csv
-func _load_tower_ranges_map() -> Dictionary:
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(TOWER_RANGES_PATH)
-
-	var result: Dictionary = {}
-
-	var tower_id_list: Array = TowerProperties.get_tower_id_list()
-
-	for tower_id in tower_id_list:
-		var empty_list: Array[RangeData] = []
-		result[tower_id] = empty_list
-
-	for csv_line in csv:
-		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
-		var tower_id: int = properties[TowerProperties.RangeColumn.TOWER_ID].to_int()
-		var range_name: String = properties[TowerProperties.RangeColumn.NAME]
-		var radius: float = properties[TowerProperties.RangeColumn.RADIUS].to_float()
-		var targets_creeps_string: String = properties[TowerProperties.RangeColumn.TARGETS_CREEPS]
-		var targets_creeps: bool = targets_creeps_string == "TRUE"
-
-		var range_data: RangeData = RangeData.new(range_name, radius)
-		range_data.targets_creeps = targets_creeps
-
-		result[tower_id].append(range_data)
-
-	return result
 
 
 func _convert_string_to_id_list(string: String) -> Array[int]:

@@ -61,10 +61,6 @@ func load_triggers(triggers_buff_type: BuffType):
 # 	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
 
 
-# func get_ability_ranges() -> Array[RangeData]:
-# 	return [RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
-
-
 func tower_init():
 	var light_mod: Modifier = Modifier.new()
 	holy_weak_bt = BuffType.new("holy_weak_bt", _stats.duration, _stats.duration_add, false, self)

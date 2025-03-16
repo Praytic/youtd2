@@ -980,7 +980,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var attack_ability: AbilityInfo = AbilityInfo.new()
 		var attack_description: String = _get_attack_ability_description()
 		var attack_range: float = get_range()
-		attack_ability.name = "Normal attack"
+		attack_ability.name = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
 		attack_ability.description_full = attack_description
 		attack_ability.description_short = ""
