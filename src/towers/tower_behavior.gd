@@ -9,7 +9,6 @@ class_name TowerBehavior extends Node
 
 var tower: Tower
 var _stats: Dictionary = {}
-var _ability_info_list: Array[AbilityInfo] = []
 
 
 #########################
@@ -43,11 +42,6 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 #	tower_init() because some auras and autocasts use buff
 #	types which are initialized inside tower_init().
 	var tower_id: int = tower.get_id()
-	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
-	for ability_id in ability_id_list:
-		var ability: AbilityInfo = AbilityInfo.make(ability_id)
-		_ability_info_list.append(ability)
-
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
 		var aura_type: AuraType = _make_aura_type(aura_id)
