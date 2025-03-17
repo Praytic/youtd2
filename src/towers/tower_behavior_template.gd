@@ -22,10 +22,6 @@ extends TowerBehavior
 # 	triggers.add_event_on_damage(on_damage)
 
 
-# func load_specials(modifier: Modifier):
-# 	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-
-
 # func tower_init():
 # 	example_bt = BuffType.new("example_bt", 5, 0, true, self)
 # 	var example_bt_mod: Modifier = Modifier.new()

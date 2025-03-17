@@ -1,6 +1,80 @@
 extends Node
 
 
+func get_tower_specials_text(tower_id: int) -> String:
+	var text: String = ""
+
+	var attack_target_type: TargetType = TowerProperties.get_attack_target_type(tower_id)
+	var attacks_ground_only: bool = attack_target_type.equals_to(Tower.TARGET_TYPE_GROUND_ONLY)
+	var attacks_air_only: bool = attack_target_type.equals_to(Tower.TARGET_TYPE_AIR_ONLY)
+	if attacks_ground_only:
+		text += "[color=RED]Attacks GROUND only[/color]\n"
+	elif attacks_air_only:
+		text += "[color=RED]Attacks AIR only[/color]\n"
+
+	var specials_modifier: Modifier = TowerProperties.get_specials_modifier(tower_id)
+	var modifier_text: String = specials_modifier.get_tooltip_text()
+	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
+
+	if !modifier_text.is_empty():
+		if !text.is_empty():
+			text += " \n"
+		text += modifier_text
+
+	return text
+
+
+func get_tower_multishot_text(tower_id: int) -> String:
+	var multishot_count: int = TowerProperties.get_multishot(tower_id)
+	
+	if multishot_count <= 1:
+		return ""
+
+	var text: String = "Attacks up to [color=GOLD]%d[/color] targets at the same time.\n" % multishot_count
+
+	return text
+
+
+func get_tower_splash_attack_text(tower_id: int) -> String:
+	var splash_attack_map: Dictionary = TowerProperties.get_splash_attack(tower_id)
+
+	if splash_attack_map.is_empty():
+		return ""
+
+	var text: String = ""
+
+	var splash_range_list: Array = splash_attack_map.keys()
+	splash_range_list.sort()
+
+	for splash_range in splash_range_list:
+		var splash_ratio: float = splash_attack_map[splash_range]
+		var splash_percentage: int = floor(splash_ratio * 100)
+		text += "[color=GOLD]%d[/color] AoE: [color=GOLD]%d%%[/color] damage\n" % [splash_range, splash_percentage]
+
+	return text
+
+
+func get_tower_bounce_attack_text(tower_id: int) -> String:
+	var bounce_attack_values: Array = TowerProperties.get_bounce_attack(tower_id)
+
+	if bounce_attack_values.is_empty():
+		return ""
+
+	var bounce_count: int = bounce_attack_values[0]
+	var bounce_multiplier: int = bounce_attack_values[1]
+
+	var text: String = ""
+	
+	if bounce_multiplier != 0:
+		var bounce_dmg_percent: String = Utils.format_percent(bounce_multiplier, 0)
+		text = "[color=GOLD]%d[/color] targets\n" % bounce_count \
+		+ "[color=GOLD]-%s[/color] damage per bounce\n" % bounce_dmg_percent
+	else:
+		text = "[color=GOLD]%d[/color] targets\n" % bounce_count
+
+	return text
+
+
 func get_research_text(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
@@ -139,6 +213,30 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 
 func get_tower_ability_text_short(tower_id: int) -> String:
 	var text: String = ""
+
+	var specials_text: String = get_tower_specials_text(tower_id)
+	if !specials_text.is_empty():
+		text += "[color=GOLD]Specials[/color]\n" \
+		+ "%s" % specials_text \
+		+ " \n"
+
+	var splash_text: String = get_tower_splash_attack_text(tower_id)
+	if !splash_text.is_empty():
+		text += "[color=GOLD]Splash Attack[/color]\n" \
+		+ "%s" % splash_text \
+		+ " \n"
+
+	var bounce_text: String = get_tower_bounce_attack_text(tower_id)
+	if !bounce_text.is_empty():
+		text += "[color=GOLD]Bounce Attack[/color]\n" \
+		+ "%s" % bounce_text \
+		+ " \n"
+
+	var multishot_text: String = get_tower_multishot_text(tower_id)
+	if !multishot_text.is_empty():
+		text += "[color=GOLD]Multishot[/color]\n" \
+		+ "%s" % multishot_text \
+		+ " \n"
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:

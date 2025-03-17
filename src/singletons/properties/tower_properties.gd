@@ -23,6 +23,11 @@ enum CsvProperty {
 	MISSILE_SPEED,
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
+	ATTACK_TARGET_TYPE,
+	MULTISHOT,
+	SPLASH_ATTACK,
+	BOUNCE_ATTACK,
+	SPECIALS,
 	ABILITY_LIST,
 	AURA_LIST,
 	AUTOCAST_LIST,
@@ -211,6 +216,86 @@ func get_missile_use_lightning_visual(tower_id: int) -> bool:
 	var value: bool = _get_property(tower_id, CsvProperty.MISSILE_USE_LIGHTNING_VISUAL) == "TRUE"
 
 	return value
+
+
+func get_attack_target_type(tower_id: int) -> TargetType:
+	var string: String = _get_property(tower_id, CsvProperty.ATTACK_TARGET_TYPE)
+	var attack_target_type: TargetType = TargetType.convert_from_string(string)
+
+	return attack_target_type
+
+
+func get_multishot(tower_id: int) -> bool:
+	var string: String = _get_property(tower_id, CsvProperty.MULTISHOT)
+	var multishot: int
+	if !string.is_empty():
+		multishot = string.to_int()
+	else:
+		multishot = 1
+
+	return multishot
+
+
+func get_splash_attack(tower_id: int) -> Dictionary:
+	var string: String = _get_property(tower_id, CsvProperty.SPLASH_ATTACK)
+	
+	if string.is_empty():
+		return {}
+	
+	var value_list: Array = string.split(",")
+	var result: Dictionary = {}
+
+	for i in range(0, value_list.size(), 2):
+		var splash_range: float = value_list[i].to_float()
+		var splash_multiplier: float = value_list[i + 1].to_float()
+
+		result[splash_range] = splash_multiplier
+
+	return result
+
+
+func get_bounce_attack(tower_id: int) -> Array:
+	var string: String = _get_property(tower_id, CsvProperty.BOUNCE_ATTACK)
+	
+	if string.is_empty():
+		return []
+	
+	var string_list: Array = string.split(",")
+	var value_list: Array = []
+
+	if string_list.size() == 2:
+		value_list.append(string_list[0].to_int())
+		value_list.append(string_list[1].to_float())
+	else:
+		value_list = []
+
+	return value_list
+
+
+func get_specials_modifier(tower_id: int) -> Modifier:
+	var string: String = _get_property(tower_id, CsvProperty.SPECIALS)
+	
+	if string.is_empty():
+		return Modifier.new()
+
+	var mod_string_list: Array = string.split("|")
+
+	var modifier: Modifier = Modifier.new()
+
+	for mod_string in mod_string_list:
+		var mod_params: PackedStringArray = mod_string.split(",")
+
+		if mod_params.size() != 3:
+			continue
+
+		var mod_type_string: String = mod_params[0]
+		var mod_type: Modification.Type = Modification.convert_string_to_mod(mod_type_string)
+		var value_base: float = mod_params[1].to_float()
+		var level_add: float = mod_params[2].to_float()
+
+		modifier.add_modification(mod_type, value_base, level_add)
+
+	return modifier
 
 
 func get_sell_price(tower_id: int) -> int:

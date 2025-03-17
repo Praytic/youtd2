@@ -9,7 +9,6 @@ class_name TowerBehavior extends Node
 
 var tower: Tower
 var _stats: Dictionary = {}
-var _specials_modifier: Modifier = Modifier.new()
 var _ability_info_list: Array[AbilityInfo] = []
 
 
@@ -28,9 +27,6 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 		_stats = stats_for_all_tiers[tier]
 	else:
 		_stats = {}
-
-	load_specials(_specials_modifier)
-	tower.add_modifier(_specials_modifier)
 
 #	NOTE: need to call load_triggers() after loading stats
 #	because stats must be available in load_triggers().
@@ -65,10 +61,6 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 	on_create(preceding_tower)
 
 
-func get_specials_modifier() -> Modifier:
-	return _specials_modifier
-
-
 # Override in subclass to define custom stats for each tower
 # tier. Access as _stats.
 func get_tier_stats() -> Dictionary:
@@ -84,7 +76,7 @@ func load_triggers(_triggers_bt: BuffType):
 # Override in subclass to add tower specials. This includes
 # adding modifiers and changing attack styles to splash or
 # bounce.
-func load_specials(_modifier: Modifier):
+func load_specials_DELETEME(_modifier: Modifier):
 	pass
 
 
