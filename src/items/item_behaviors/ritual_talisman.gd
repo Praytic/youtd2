@@ -27,7 +27,8 @@ func item_init():
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Shamanistic Ritual"
-	autocast.description = get_autocast_description()
+	autocast.description_long = get_autocast_description()
+	autocast.description_short = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "res://src/effects/healing_wave_target.tscn"

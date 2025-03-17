@@ -38,13 +38,16 @@ func item_init():
 	var attack_speed_bonus: String = Utils.format_percent(ATTACKSPEED_BONUS, 2)
 	var cooldown: String = Utils.format_float(COOLDOWN, 2)
 
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Chrono Jump"
-	autocast.description = "[color=GOLD]Chrono Jump[/color]\n" \
+	var autocast_description: String = "[color=GOLD]Chrono Jump[/color]\n" \
 	+ "Tower makes a leap through space to a target free location for %s seconds, then returns to its original position. Increases attack speed by %s for the duration.\n" % [jump_duration, attack_speed_bonus] \
 	+ " \n" \
 	+ "%ss cooldown\n" % cooldown\
 	+ ""
+
+	var autocast: Autocast = Autocast.make()
+	autocast.title = "Chrono Jump"
+	autocast.description_long = autocast_description
+	autocast.description_short = autocast_description
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""

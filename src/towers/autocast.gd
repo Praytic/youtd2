@@ -102,7 +102,7 @@ var _point_type_list: Array[Autocast.Type] = [
 # used for regular autocasts that cast automatically.
 var name_english: String = "Placeholder Title"
 var title: String = "Placeholder Title"
-var description: String = "Description"
+var description_long: String = "Description Long"
 var description_short: String = "Description Short"
 var icon: String = "res://resources/icons/hud/gold.tres"
 var caster_art: String = ""

@@ -329,7 +329,7 @@ func get_item_text(item: Item) -> String:
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
-		var autocast_text: String = get_autocast_text(autocast)
+		var autocast_text: String = get_autocast_text_long(autocast)
 		text += " \n"
 		text += autocast_text
 
@@ -442,16 +442,16 @@ func get_aura_text_short(aura_type: AuraType) -> String:
 	return text
 
 
-func get_autocast_text(autocast: Autocast) -> String:
+func get_autocast_text_long(autocast: Autocast) -> String:
 	var title: String = autocast.title
-	var autocast_description: String = autocast.description
-	autocast_description = add_color_to_numbers(autocast_description)
+	var autocast_description_long: String = autocast.description_long
+	autocast_description_long = add_color_to_numbers(autocast_description_long)
 	var stats_text: String = get_autocast_stats_text(autocast)
 
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % title
 	text += " \n"
-	text += "%s\n" % autocast_description
+	text += "%s\n" % autocast_description_long
 	text += "%s\n" % stats_text
 
 	return text
@@ -474,7 +474,7 @@ func get_autocast_text_short(autocast_id: int) -> String:
 func get_autocast_tooltip(autocast: Autocast) -> String:
 	var text: String = ""
 
-	text += RichTexts.get_autocast_text(autocast)
+	text += RichTexts.get_autocast_text_long(autocast)
 	text += " \n"
 
 	if autocast.can_use_auto_mode():

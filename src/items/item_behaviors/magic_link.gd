@@ -12,7 +12,8 @@ func get_autocast_description() -> String:
 func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Transfer Experience"
-	autocast.description = get_autocast_description()
+	autocast.description_long = get_autocast_description()
+	autocast.description_short = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = "res://src/effects/dispel_magic_target.tscn"
 	autocast.target_art = ""

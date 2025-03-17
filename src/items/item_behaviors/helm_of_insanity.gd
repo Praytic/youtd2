@@ -28,9 +28,12 @@ func on_damage(event: Event):
 			
 
 func item_init():
+	var autocast_description: String = "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% attack damage on the next 16 attacks.\n"
+
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Insane Strength"
-	autocast.description = "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% attack damage on the next 16 attacks.\n"
+	autocast.description_long = autocast_description
+	autocast.description_short = autocast_description
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""

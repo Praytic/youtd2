@@ -4,7 +4,7 @@ var name_english: String = "PLACEHOLDER name"
 var name: String = "PLACEHOLDER name"
 var icon: String = "PLACEHOLDER icon"
 var description_short: String = "PLACEHOLDER description_short"
-var description_full: String = "PLACEHOLDER description_full"
+var description_long: String = "PLACEHOLDER description_long"
 
 # NOTE: these values should be defined if ability has a
 # range
@@ -25,6 +25,6 @@ static func make(ability_id: int) -> AbilityInfo:
 	ability.target_type = AbilityProperties.get_target_type(ability_id)
 	ability.icon = AbilityProperties.get_icon_path(ability_id)
 	ability.description_short = AbilityProperties.get_description_short(ability_id)
-	ability.description_full = AbilityProperties.get_description_full(ability_id)
+	ability.description_long = AbilityProperties.get_description_long(ability_id)
 
 	return ability

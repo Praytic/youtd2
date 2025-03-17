@@ -19,7 +19,7 @@ var name_english: String = ""
 var name: String = ""
 var icon: String = ""
 var description_short: String = ""
-var description_full: String = ""
+var description_long: String = ""
 
 # NOTE: if this value is set to true, the aura won't be
 # shown as an ability icon in tower menu and won't be

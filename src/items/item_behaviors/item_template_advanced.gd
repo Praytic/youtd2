@@ -23,7 +23,8 @@ extends ItemBehavior
 
 # 	var autocast: Autocast = Autocast.make()
 #	autocast.title = "Title"
-#	autocast.description = "description"
+#	autocast.description_long = "description"
+#	autocast.description_short = "description"
 #	autocast.icon = "res://resources/icons/hud/gold.tres"
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""

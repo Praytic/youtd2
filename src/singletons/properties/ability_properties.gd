@@ -9,7 +9,7 @@ enum CsvProperty {
 	ICON_PATH,
 	NAME,
 	DESCRIPTION_SHORT,
-	DESCRIPTION_FULL,
+	DESCRIPTION_LONG,
 }
 
 const PROPERTIES_PATH = "res://data/ability_properties.csv"
@@ -96,11 +96,11 @@ func get_description_short(id: int) -> String:
 	return description_short
 
 
-func get_description_full(id: int) -> String:
-	var description_full_text_id: String = _get_property(id, CsvProperty.DESCRIPTION_FULL)
-	var description_full: String = tr(description_full_text_id)
+func get_description_long(id: int) -> String:
+	var description_long_text_id: String = _get_property(id, CsvProperty.DESCRIPTION_LONG)
+	var description_long: String = tr(description_long_text_id)
 
-	return description_full
+	return description_long
 
 
 #########################

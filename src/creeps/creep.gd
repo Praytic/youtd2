@@ -594,7 +594,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var armor_type_ability: AbilityInfo = AbilityInfo.new()
 	armor_type_ability.name = "[color=GOLD]%s[/color] armor" % armor_type_name
 	armor_type_ability.icon = "res://resources/icons/shields/shield_green.tres"
-	armor_type_ability.description_full = armor_type_description
+	armor_type_ability.description_long = armor_type_description
 	armor_type_ability.description_short = armor_type_description
 	list.append(armor_type_ability)
 
@@ -606,7 +606,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var ability: AbilityInfo = AbilityInfo.new()
 		ability.name = special_name
 		ability.icon = special_icon
-		ability.description_full = special_description
+		ability.description_long = special_description
 		ability.description_short = special_description
 		list.append(ability)
 

@@ -60,7 +60,8 @@ func check_level():
 func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Purchase an Item"
-	autocast.description = get_autocast_description()
+	autocast.description_long = get_autocast_description()
+	autocast.description_short = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""

@@ -117,7 +117,7 @@ func _make_autocast(autocast_id: int) -> Autocast:
 	autocast.title = AutocastProperties.get_autocast_name(autocast_id)
 	autocast.icon = AutocastProperties.get_icon_path(autocast_id)
 	autocast.description_short = AutocastProperties.get_description_short(autocast_id)
-	autocast.description = AutocastProperties.get_description_full(autocast_id)
+	autocast.description_long = AutocastProperties.get_description_long(autocast_id)
 
 	autocast.caster_art = AutocastProperties.get_caster_art(autocast_id)
 	autocast.target_art = AutocastProperties.get_target_art(autocast_id)
@@ -165,7 +165,7 @@ func _make_aura_type(aura_id: int) -> AuraType:
 	aura.name = AuraProperties.get_aura_name(aura_id)
 	aura.icon = AuraProperties.get_icon_path(aura_id)
 	aura.description_short = AuraProperties.get_description_short(aura_id)
-	aura.description_full = AuraProperties.get_description_full(aura_id)
+	aura.description_long = AuraProperties.get_description_long(aura_id)
 	aura.aura_range = AuraProperties.get_aura_range(aura_id)
 	aura.target_type = AuraProperties.get_target_type(aura_id)
 	aura.target_self = AuraProperties.get_target_self(aura_id)

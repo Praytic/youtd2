@@ -932,7 +932,7 @@ func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 		attack_ability.name_english = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.name = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
-		attack_ability.description_full = attack_description
+		attack_ability.description_long = attack_description
 		attack_ability.description_short = ""
 		attack_ability.radius = attack_range
 		attack_ability.target_type = TargetType.new(TargetType.CREEPS)
@@ -943,7 +943,7 @@ func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 		var specials: AbilityInfo = AbilityInfo.new()
 		specials.name = "Specials"
 		specials.icon = "res://resources/icons/rockets/rocket_04.tres"
-		specials.description_full = specials_description
+		specials.description_long = specials_description
 		specials.description_short = specials_description
 		list.append(specials)
 
@@ -952,7 +952,7 @@ func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 		splash_attack.name = "Splash Attack"
 		splash_attack.icon = "res://resources/icons/rockets/rocket_05.tres"
 		var splash_attack_text: String = RichTexts.get_tower_splash_attack_text(tower_id)
-		splash_attack.description_full = splash_attack_text
+		splash_attack.description_long = splash_attack_text
 		splash_attack.description_short = splash_attack_text
 		list.append(splash_attack)
 
@@ -961,7 +961,7 @@ func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 		bounce_attack.name = "Bounce Attack"
 		bounce_attack.icon = "res://resources/icons/daggers/dagger_09.tres"
 		var bounce_attack_text: String = RichTexts.get_tower_bounce_attack_text(tower_id)
-		bounce_attack.description_full = bounce_attack_text
+		bounce_attack.description_long = bounce_attack_text
 		bounce_attack.description_short = bounce_attack_text
 		list.append(bounce_attack)
 
@@ -974,7 +974,7 @@ func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 		multishot.icon = "res://resources/icons/spears/many_spears_01.tres"
 		var multishot_tooltip: String = RichTexts.get_tower_multishot_text(tower_id)
 		multishot.description_short = multishot_tooltip
-		multishot.description_full = multishot_tooltip
+		multishot.description_long = multishot_tooltip
 		list.append(multishot)
 	
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
