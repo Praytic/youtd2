@@ -10,25 +10,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var armor_ignored: String = Utils.format_percent(_stats.armor_ignored, 2)
-	var armor_ignored_add: String = Utils.format_percent(_stats.armor_ignored_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Piercing Shot"
-	ability.icon = "res://resources/icons/rockets/rocket_02.tres"
-	ability.description_short = "A portion of this tower's attack damage ignores creep's armor.\n"
-	ability.description_full = "%s of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage ratio\n" % armor_ignored_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

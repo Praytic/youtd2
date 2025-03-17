@@ -13,28 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var damage: String = Utils.format_float(_stats.damage, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
-	var rock_range: String = Utils.format_float(_stats.rock_range, 2)
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Rock Throw"
-	ability.icon = "res://resources/icons/tower_variations/mossy_acid_sprayer_gray.tres"
-	ability.description_short = "Chance to throw a rock towards the attacked creep, dealing AoE spell damage.\n"
-	ability.description_full = "30%% chance to throw a rock towards the attacked creep, dealing %s spell damage in a %s AoE.\n" % [damage, rock_range] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+%s damage\n" % damage_add
-
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

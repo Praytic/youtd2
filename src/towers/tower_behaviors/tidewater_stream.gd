@@ -7,36 +7,6 @@ var splash_bt: BuffType
 var water_pt: ProjectileType
 var stone_pt: ProjectileType
 
-const AURA_RANGE: int = 250
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var spring: AbilityInfo = AbilityInfo.new()
-	spring.name = "Spring Tide"
-	spring.icon = "res://resources/icons/food/lard.tres"
-	spring.description_short = "Whenever this tower attacks it has chance to launch a wave which deals spell damage to each creep it hits.\n"
-	spring.description_full = "Whenever this tower attacks it has a 15% chance to launch a wave. The wave travels 1200 units and has a 200 AoE. It deals 2200 spell damage to each creep it hits. Every 0.4 seconds the wave has a 35% chance to drag a stone with it. The stone travels 500 units, deals 2200 spell damage on collision and stuns for 0.65 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+88 spell damage\n" \
-	+ "+0.6% chance to launch a wave\n"
-	list.append(spring)
-
-	var splash: AbilityInfo = AbilityInfo.new()
-	splash.name = "Splash"
-	splash.icon = "res://resources/icons/trinkets/trinket_02.tres"
-	splash.description_short = "Whenever this tower hits a creep, it has a chance to deal spell damage in AoE around the creep and increase spell damage taken of all affected creeps.\n"
-	splash.description_full = "Whenever this tower hits a creep, it has a 20% chance to deal 4000 spell damage in 175 AoE around the creep. Also increases spell damage taken by all affected creeps by 12.5% for 6 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+160 spell damage\n" \
-	+ "+0.5% more spell damage taken\n"
-	list.append(splash)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
@@ -67,27 +37,6 @@ func tower_init():
 
 	stone_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 500, 800, self)
 	stone_pt.enable_collision(stone_pt_on_hit, 64, TargetType.new(TargetType.CREEPS), true)
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Calming Noises"
-	aura.icon = "res://resources/icons/dioramas/church.tres"
-	aura.description_short = "Increases the spell crit chance of nearby towers.\n"
-	aura.description_full = "Increases the spell crit chance of towers in %d range by 10%%.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% spell crit chance\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_attack(event: Event):

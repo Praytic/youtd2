@@ -12,25 +12,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var damage: String = Utils.format_float(_stats.damage, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Frozen Thorn"
-	ability.icon = "res://resources/icons/trinkets/claw_03.tres"
-	ability.description_short = "Chance to deal additional spell damage to hit creeps.\n"
-	ability.description_full = "15%% chance to deal %s additional spell damage to hit creeps.\n" % damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

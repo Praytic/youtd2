@@ -18,15 +18,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 0.5)
 
 
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_ground_only_DELETEME()
-	tower.set_attack_style_splash_DELETEME({
-		400: 1.00,
-		500: 0.75,
-		600: 0.50,
-		})
-
-
 func tower_init():
 	targeted_pt = BuffType.new("targeted_pt", -1, 0, false, self)
 	targeted_pt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")

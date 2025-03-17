@@ -17,32 +17,6 @@ const MOD_VALUE_ADD: float = 0.001
 const STUN_DURATION: float = 2
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var mod_value: String = Utils.format_percent(_stats.mod_value, 2)
-	var mod_value_add: String = Utils.format_percent(MOD_VALUE_ADD, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var energy_accel: AbilityInfo = AbilityInfo.new()
-	energy_accel.name = "Energy Acceleration"
-	energy_accel.icon = "res://resources/icons/trinkets/trinket_10.tres"
-	energy_accel.description_short = "Every attack increases attack speed and attack damage.\n"
-	energy_accel.description_full = "Every attack increases attack speed and attack damage by %s.\n" % mod_value \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack speed and attack damage\n" % mod_value_add
-	list.append(energy_accel)
-
-	var errant: AbilityInfo = AbilityInfo.new()
-	errant.name = "Errant Tachyons"
-	errant.icon = "res://resources/icons/magic/fire.tres"
-	errant.description_short = "On kill, this tower is stunned and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n"
-	errant.description_full = "On kill, this tower is stunned for %s seconds and the bonus from [color=GOLD]Energy Acceleration[/color] is lost.\n" % STUN_DURATION
-	list.append(errant)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)

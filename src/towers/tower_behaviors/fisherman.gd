@@ -10,51 +10,9 @@ var current_attack_count: int = -1
 var strangle_count: int = 0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var fishermans_net: AbilityInfo = AbilityInfo.new()
-	fishermans_net.name = "Fisherman's Net"
-	fishermans_net.icon = "res://resources/icons/food/lard.tres"
-	fishermans_net.description_short = "Catches hit creeps in a net, slowing them.\n"
-	fishermans_net.description_full = "Catches hit creeps in a net, slowing them by 25% for 3 seconds. If a creep's movement speed is below 120 when [color=GOLD]Fisherman's Net[/color] expires, it will have failed to free itself and will have a 3% chance of getting strangled in the net and dying. Bosses and immune units receive 400% attack damage from this tower instead of death. The chance to die is adjusted by how long the creep was ensnared: the longer the [color=GOLD]Fisherman's Net[/color] duration, the greater the chance and vice versa. Stunned creeps will also trigger the instant kill chance.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% slow\n" \
-	+ "+2.4 movement speed required\n" \
-	+ "+0.2% chance\n"
-	list.append(fishermans_net)
-
-	var fresh_fish_ability: AbilityInfo = AbilityInfo.new()
-	fresh_fish_ability.name = "Fresh Fish!"
-	fresh_fish_ability.icon = "res://resources/icons/animals/fish_01.tres"
-	fresh_fish_ability.description_short = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, it increases the DPS of nearby towers.\n"
-	fresh_fish_ability.description_full = "Each time [color=GOLD]Fisherman's Net[/color] strangles a creep, the DPS of towers in 500 range is increased by 15% of this tower's DPS for 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.1 second duration\n" \
-	+ "+0.004 damage per second multipler\n"
-	fresh_fish_ability.radius = 500
-	fresh_fish_ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(fresh_fish_ability)
-
-	var impatient: AbilityInfo = AbilityInfo.new()
-	impatient.name = "Impatient"
-	impatient.icon = "res://resources/icons/daggers/dagger_06.tres"
-	impatient.description_short = "After 4 attacks on the same target the Fisherman will attack a different unit.\n"
-	impatient.description_full = "After 4 attacks on the same target the Fisherman will attack a different unit. Favoring creeps that are not suffering the effect of [color=GOLD]Fisherman's Net[/color].\n"
-	list.append(impatient)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 
 func tower_init():

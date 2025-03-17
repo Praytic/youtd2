@@ -27,35 +27,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
-	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
-	var mod_dmg_from_fire: String = Utils.format_percent(_stats.mod_dmg_from_fire, 2)
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Incinerate"
-	ability.icon = "res://resources/icons/tower_icons/ash_geyser.tres"
-	ability.description_short = "Incinerates hit creeps. An incinerated creep takes more damage from %s towers and suffers spell damage over time\n" % fire_string
-	ability.description_full = "Incinerates hit creeps. An incinerated creep takes %s more damage from %s towers and suffers %s spell damage every second for 9 seconds.\n" % [mod_dmg_from_fire, fire_string, periodic_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % periodic_damage_add \
-	+ "+0.3 seconds duration\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 0.2)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
 
 
 func on_autocast(_event: Event):
@@ -96,38 +70,6 @@ func tower_init():
 
 	fireball_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	fireball_pt.enable_homing(fireball_pt_on_hit, 0)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
-	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
-	
-	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/icons/tower_icons/fire_battery.tres"
-	autocast.description_short = "Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Incinerate[/color].\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Incinerate[/color].\n" % [projectile_damage] \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] this ability does not trigger any \"on hit\" effects.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % projectile_damage_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 20
-	autocast.is_extended = false
-	autocast.mana_cost = 100
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 800
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

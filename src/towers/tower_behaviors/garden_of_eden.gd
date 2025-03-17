@@ -6,64 +6,14 @@ var current_spawn_level: int = 0
 var lifeforce_stored: int = 0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
-	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
-	var human_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.HUMANOID)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Essence of the Mortals"
-	ability.icon = "res://resources/icons/dioramas/mountain.tres"
-	ability.description_short = "When the Garden kills a %s, %s and %s creep, its lifeforce is captured in the fountain. The lifeforce is used to deal extra spell damage.\n" % [nature_string, orc_string, human_string]
-	ability.description_full = "When the Garden kills a %s, %s and %s creep, its lifeforce is captured in the fountain. Whenever the Garden attacks, it deals [color=GOLD][current spawn level x 2][/color] spell damage, for each lifeforce stored in the fountain, to the main target. Maximum of 5 stored lifeforce.\n" % [nature_string, orc_string, human_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 maximum lifeforce\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
 
 
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.50, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.50, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.50, 0.0)
-
-
 func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Lifeforce Stored")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Eden's Wrath"
-	autocast.icon = "res://resources/icons/trinkets/trinket_03.tres"
-	autocast.description_short = "Create a huge explosion.\n"
-	autocast.description = "The garden uses half of the stored lifeforce to create a huge explosion, dealing [color=gold][current wave level x 15][/color] spell damage in 1600 AoE for each lifeforce stored.\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 800
-	autocast.auto_range = 800
-	autocast.cooldown = 10
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

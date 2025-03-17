@@ -24,29 +24,6 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var chance: String = Utils.format_percent(_stats.chance, 2)
-	var chance_for_bosses: String = Utils.format_percent(_stats.chance * MULTIPLIER_FOR_BOSSES, 2)
-	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)
-	var chance_add: String = Utils.format_percent(_stats.chance_add, 2)
-	var chance_add_for_bosses: String = Utils.format_percent(_stats.chance_add * MULTIPLIER_FOR_BOSSES, 2)
-	var slow_duration: String = Utils.format_float(SLOW_DURATION, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Atrophy"
-	ability.icon = "res://resources/icons/gloves/curse.tres"
-	ability.description_short = "Chance to slow the attacked creep.\n"
-	ability.description_full = "%s chance to slow the attacked creep by %s for %s seconds. Chance is reduced to %s for bosses.\n" % [chance, slow_value, slow_duration, chance_for_bosses] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
 

@@ -67,13 +67,6 @@ func load_triggers(_triggers_bt: BuffType):
 	pass
 
 
-# Override in subclass to add tower specials. This includes
-# adding modifiers and changing attack styles to splash or
-# bounce.
-func load_specials_DELETEME(_modifier: Modifier):
-	pass
-
-
 # Override in subclass to initialize tower.
 # NOTE: do NOT use _init() function - that's a native Godot
 # function and it's called too early which will make some

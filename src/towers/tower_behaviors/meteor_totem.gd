@@ -20,29 +20,8 @@ var missile_pt: ProjectileType
 
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Torture"
-	ability.icon = "res://resources/icons/tower_icons/ash_geyser.tres"
-	ability.description_short = "Debuffs hit creeps. Whenever a debuffed creep takes attack damage it receives additional spell damage.\n"
-	ability.description_full = "Debuffs hit creeps for 2.5 seconds. Whenever a debuffed creep is dealt at least 500 attack damage it receives an additional 8% of that damage as spell damage. This ability cannot crit.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.05 seconds duration\n" \
-	+ "+0.1% damage as spell damage\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_style_splash_DELETEME({325: 0.5})
 
 
 func tower_init():
@@ -59,35 +38,6 @@ func tower_init():
 
 	missile_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 950, self)
 	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Attraction"
-	autocast.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	autocast.description_short = "This tower buffs 4 towers in range and gives them a chance to release a meteor when attacking or casting spells.\n"
-	autocast.description = "This tower buffs 4 towers in 500 range and gives them a 35% attack speed adjusted chance on attack to release a meteor dealing 200 spell damage, or a 100% chance to release a meteor on spell cast dealing 500 spell damage. The Meteors fly towards a random target in 1000 range and deal damage in 220 AoE around the main target. The buff lasts until a meteor is released. Meteor damage is dealt by the buffed tower.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 tower buffed every 5 levels\n" \
-	+ "+8 spell damage on attack\n" \
-	+ "+20 spell damage on cast\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 500
-	autocast.auto_range = 500
-	autocast.cooldown = 4
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

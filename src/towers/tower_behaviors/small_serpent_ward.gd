@@ -33,45 +33,6 @@ func tower_init():
 	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
 
 
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var mod_mana: String = Utils.format_percent(_stats.mod_mana, 2)
-	var mod_mana_add: String = Utils.format_percent(_stats.mod_mana_add, 2)
-	var mod_mana_regen: String = Utils.format_percent(_stats.mod_mana_regen, 2)
-	var mod_mana_regen_add: String = Utils.format_percent(_stats.mod_mana_regen_add, 2)
-	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
-	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
-	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
-	var buff_duration_bonus_at_25: String = Utils.format_float(BUFF_DURATION_BONUS_AT_25, 2)
-
-	autocast.title = "Snake Charm"
-	autocast.icon = "res://resources/icons/undead/skull_wand_03.tres"
-	autocast.description_short = "This unit will increase nearby towers' mana, mana regeneration and spell damage.\n"
-	autocast.description = "Increases the target's maximum mana by %s, its mana regeneration by %s and its spell damage by %s. The buff lasts %s seconds.\n" % [mod_mana, mod_mana_regen, mod_spell_damage, buff_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s mana \n" % mod_mana_add \
-	+ "+%s mana regeneration\n" % mod_mana_regen_add \
-	+ "+%s spell damage\n" % mod_spell_damage_add \
-	+ "+%s seconds duration at level 25\n" % buff_duration_bonus_at_25
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 1
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
-	autocast.cast_range = 200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 5
-	autocast.is_extended = false
-	autocast.mana_cost = 10
-	autocast.buff_type = charm_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.auto_range = 200
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()

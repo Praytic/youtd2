@@ -11,35 +11,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var smite_damage: String = Utils.format_float(_stats.smite_damage, 2)
-	var smite_damage_add: String = Utils.format_float(_stats.smite_damage_add, 2)
-	var armor_reduce: String = Utils.format_float(_stats.armor_reduce, 2)
-	var armor_reduce_boss: String = Utils.format_float(_stats.armor_reduce_boss, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Smite"
-	ability.icon = "res://resources/icons/electricity/lightning_glowing.tres"
-	ability.description_short = "Chance to smite hit creeps, dealing spell damage.\n"
-	ability.description_full = "5%% chance to smite hit creeps, dealing %s spell damage.\n" % smite_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% chance\n" \
-	+ "+%s spell damage\n" % smite_damage_add \
-	+ "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]
-	list.append(ability)
-
-	return list
-
-
-# NOTE: this tower's tooltip in original game does NOT
-# include innate stats
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

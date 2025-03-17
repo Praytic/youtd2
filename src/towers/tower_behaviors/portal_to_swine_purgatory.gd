@@ -45,52 +45,10 @@ const INITIATIVE_STACK_MAX: float = 16
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {dmg_to_air = 0.20, initiative_range = 900, pig_count = 2, home_range = 275, pig_speed = 380, pig_speed_add = 2},
-		2: {dmg_to_air = 0.25, initiative_range = 900, pig_count = 3, home_range = 290, pig_speed = 390, pig_speed_add = 4},
-		3: {dmg_to_air = 0.25, initiative_range = 1400, pig_count = 3, home_range = 310, pig_speed = 400, pig_speed_add = 8},
+		1: {initiative_range = 900, pig_count = 2, home_range = 275, pig_speed = 380, pig_speed_add = 2},
+		2: {initiative_range = 900, pig_count = 3, home_range = 290, pig_speed = 390, pig_speed_add = 4},
+		3: {initiative_range = 1400, pig_count = 3, home_range = 310, pig_speed = 400, pig_speed_add = 8},
 	}
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var pig_count: String = Utils.format_float(_stats.pig_count, 2)
-	var home_range: String = Utils.format_float(_stats.home_range, 2)
-	var home_range_add: String = Utils.format_float(HOME_RANGE_ADD, 2)
-	var pig_speed: String = Utils.format_float(_stats.pig_speed, 2)
-	var pig_speed_add: String = Utils.format_float(_stats.pig_speed_add, 2)
-	var splash_ratio: String = Utils.format_percent(SPLASH_DMG_RATIO, 2)
-	var splash_ratio_add: String = Utils.format_percent(SPLASH_DMG_RATIO_ADD, 2)
-	var splash_radius: String = Utils.format_float(SPLASH_RADIUS, 2)
-	var initiative_range: String = Utils.format_float(_stats.initiative_range, 2)
-	var initiative_stack_max: String = Utils.format_float(INITIATIVE_STACK_MAX, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var rampage_of_pigs: AbilityInfo = AbilityInfo.new()
-	rampage_of_pigs.name = "Rampage of Pigs"
-	rampage_of_pigs.icon = "res://resources/icons/food/pork_without_plate.tres"
-	rampage_of_pigs.description_short = "Attacks with a rampage of %s exploding pigs that deal attack damage to a single target and AoE spell damage.\n" % pig_count
-	rampage_of_pigs.description_full = "Attacks with a rampage of %s pigs from hell. Pigs will home in on creeps and explode upon contact, dealing the tower's attack damage to the main target and splashing an extra %s of the tower's attack damage in %s AoE as spell damage, divided by the number of creeps hit.\n" % [pig_count, splash_ratio, splash_radius] \
-	+ " \n" \
-	+ "Pigs move at %s speed and home in on targets from %s range.\n" % [pig_speed, home_range] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s homing range\n" % home_range_add \
-	+ "+%s splash damage\n" % splash_ratio_add \
-	+ "+1 pig at levels 5 and 15\n" \
-	+ "%s pig speed per level" % pig_speed_add \
-	+ ""
-	list.append(rampage_of_pigs)
-
-	var initiative: AbilityInfo = AbilityInfo.new()
-	initiative.name = "Initiative"
-	initiative.icon = "res://resources/icons/weapons_misc/barbed_spike.tres"
-	initiative.description_short = "The portal will occasionally release an extra [color=GOLD]Rampage of Pigs[/color].\n"
-	initiative.description_full = "The portal will occasionally release an extra [color=GOLD]Rampage of Pigs[/color]. The cooldown for [color=GOLD]Initiative[/color] is reduced every time a creep comes within %s range of this tower and also whenever this tower kills a creep. [color=GOLD]Initiative[/color] will trigger every %sth mass creep and more often for larger creeps.\n" % [initiative_range, initiative_stack_max]
-	initiative.radius = _stats.initiative_range
-	initiative.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(initiative)
-
-	return list
 
 
 func load_triggers(triggers: BuffType):
@@ -98,10 +56,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, _stats.initiative_range, TargetType.new(TargetType.CREEPS))
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, _stats.dmg_to_air, 0.0)
 
 
 func tower_init():

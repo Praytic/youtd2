@@ -21,8 +21,6 @@ func get_tier_stats() -> Dictionary:
 		3: {soul_damage = 18, soul_damage_add = 0.9, soul_experience = 3},
 	}
 
-const AURA_RANGE: float = 1000
-
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
@@ -40,31 +38,6 @@ func on_tower_details() -> MultiboardValues:
 	multiboard.set_value(0, damage_bonus_text)
 
 	return multiboard
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var soul_damage: String = Utils.format_float(_stats.soul_damage, 2)
-	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 2)
-	var soul_experience: String = Utils.format_float(_stats.soul_experience, 2)
-
-	aura.name = "Revenge of Souls"
-	aura.icon = "res://resources/icons/masks/mask_06.tres"
-	aura.description_short = "This tower gains permanent bonus attack damage and experience every time a creep dies near the tower.\n"
-	aura.description_full = "This tower gains %s permanent bonus attack damage and %s experience every time a creep in %d range dies.\n" % [soul_damage, soul_experience, AURA_RANGE] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage per kill\n" % soul_damage_add
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	
-	return [aura]
 
 
 # Carry over soul damage from previous tier

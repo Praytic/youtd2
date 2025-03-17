@@ -45,48 +45,6 @@ var fire_all_in_progress: bool = false
 var prev_stored_icicle_angle: float = 0.0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	# and 
-	var icicles: AbilityInfo = AbilityInfo.new()
-	icicles.name = "Icicles"
-	icicles.icon = "res://resources/icons/gems/gem_03.tres"
-	icicles.description_short = "Chance to create [color=GOLD]Icicles[/color] when hitting creeps. [color=GOLD]Icicles[/color] increase tower's attack damage and mana regen. When [color=GOLD]Icicles[/color] are fired they deal [color=GOLD]Frostburn[/color] damage.\n"
-	icicles.description_full = "15% chance to create an [color=GOLD]Icicle[/color] when hitting a creep. [color=GOLD]Icy Bombardments[/color] also has a 5% chance to create an [color=GOLD]Icicle[/color]. [color=GOLD]Icicles[/color] are stored and passively increase attack damage by 5% and mana regen by 0.5 mana per second each. Maximum of 5 [color=GOLD]Icicles[/color]. At maximum [color=GOLD]Icicles[/color], any extra [color=GOLD]Icicles[/color] created are instantly fired at the target. Each [color=GOLD]Icicle[/color] deals 3000 [color=GOLD]Frostburn[/color] damage and permanently increases the damage dealt by future [color=GOLD]Icicles[/color] from this tower by 2%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance on attack\n" \
-	+ "+0.1% chance on Icy Bombardment\n" \
-	+ "+80 damage\n" \
-	+ "+1 max icicle every 5 levels\n"
-	list.append(icicles)
-
-	var icy_bobmardment: AbilityInfo = AbilityInfo.new()
-	icy_bobmardment.name = "Icy Bombardment"
-	icy_bobmardment.icon = "res://resources/icons/trinkets/claw_03.tres"
-	icy_bobmardment.description_short = "Whenever this tower attacks, it has a chance to fire a projectile at a random point which deals AoE [color=GOLD]Frostburn[/color] damage.\n"
-	icy_bobmardment.description_full = "Whenever this tower attacks, it has a 15% chance to fire a projectile at a random point within 150 range of the attacked creep that deals 25% of current attack damage as [color=GOLD]Frostburn[/color] damage in 200 AoE splash. Each additional projectile has a 30% chance to fire another, up to a maximum of 4 per attack.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% initial chance\n" \
-	+ "+0.4% additional chance\n" \
-	+ "+0.6% damage\n"
-	list.append(icy_bobmardment)
-
-	var frostburn: AbilityInfo = AbilityInfo.new()
-	frostburn.name = "Frostburn"
-	frostburn.icon = "res://resources/icons/fire/flame_blue_glowing.tres"
-	frostburn.description_short = "This tower's attacks and abilities deal [color=GOLD]Frostburn[/color] damage. The damage is split into attack damage and spell damage over time.\n"
-	frostburn.description_full = "This tower's attacks and abilities deal [color=GOLD]Frostburn[/color] damage. 50% of the damage is dealt immediately as attack damage. 100% of the remaining damage is dealt as spell damage over 5 seconds. If this effect is reapplied, any remaining damage will be added to the new duration.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% damage over time\n"
-	list.append(frostburn)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -130,33 +88,6 @@ func tower_init():
 
 	icicle_missile_pt = ProjectileType.create("path_to_projectile_sprite", 5, 1400, self)
 	icicle_missile_pt.enable_homing(icicle_missile_pt_on_hit, 0)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Shattering Barrage"
-	autocast.icon = "res://resources/icons/tower_variations/meteor_totem_blue.tres"
-	autocast.description_short = "Spends all mana to encase the target in ice.\n"
-	autocast.description = "Spends all mana to encase the target in ice, stunning it and increasing all damage taken by 100% for up to [color=GOLD][mana / 150][/color] seconds. All icicles are then fired at the target. Duration is reduced by 75% on Bosses, to a minimum of 2 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-1 mana divisor\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 1000
-	autocast.auto_range = 750
-	autocast.cooldown = 30
-	autocast.mana_cost = 300
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

@@ -41,10 +41,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 0.4)
 
 
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 500.0)
-
-
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
@@ -60,80 +56,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Mana required")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var list: Array[Autocast] = []
-
-	var autocast1: Autocast = Autocast.make()
-	autocast1.title = "Cloudy Thunderstorm"
-	autocast1.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
-	autocast1.description_short = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in range, dealing spell damage.\n"
-	autocast1.description = "Summons [color=GOLD]Cloudy Thunderstorm[/color] which strikes random creeps in 1000 range every 0.4 seconds with lightning. Each strike deals [color=GOLD][current mana x 0.5][/color] spell damage and costs mana based on the target's size and the damage dealt. The storm ends when this tower's mana falls below 1000, or no creep comes within range for 4 seconds.\n" \
-	+ " \n" \
-	+ "This ability will also activate automatically when this tower's mana reaches a set threshold, as determined by the [color=GOLD]Adjust Autocast Threshold[/color] ability. You can check current threshold in Tower Details.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.02 damage per current mana\n"
-	autocast1.caster_art = ""
-	autocast1.target_art = ""
-	autocast1.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast1.num_buffs_before_idle = 0
-	autocast1.cast_range = 1000
-	autocast1.auto_range = 0
-	autocast1.cooldown = 0.01
-	autocast1.mana_cost = 1000
-	autocast1.target_self = false
-	autocast1.is_extended = false
-	autocast1.buff_type = null
-	autocast1.buff_target_type = null
-	autocast1.handler = on_autocast_cloud_thunderstorm
-	list.append(autocast1)
-
-	var autocast2: Autocast = Autocast.make()
-	autocast2.title = "Adjust Thunderstorm Threshold"
-	autocast2.icon = "res://resources/icons/mechanical/compass.tres"
-	autocast2.description_short = "Adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n"
-	autocast2.description = "Use this ability to adjust the percentual mana required for [color=GOLD]Cloudy Thunderstorm[/color].\n" \
-	+ " \n" \
-	+ "You can check current threshold in Tower Details.\n"
-	autocast2.caster_art = ""
-	autocast2.target_art = ""
-	autocast2.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast2.num_buffs_before_idle = 0
-	autocast2.cast_range = 0
-	autocast2.auto_range = 0
-	autocast2.cooldown = 0.01
-	autocast2.mana_cost = 0
-	autocast2.target_self = false
-	autocast2.is_extended = false
-	autocast2.buff_type = null
-	autocast2.buff_target_type = null
-	autocast2.handler = on_autocast_adjust_threshold
-	list.append(autocast2)
-
-	return list
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Cloud of Absorption"
-	aura.icon = "res://resources/icons/trinkets/trinket_01.tres"
-	aura.description_short = "Creates a lightning ball if a creep in range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple as mana.\n"
-	aura.description_full = "Creates a lightning ball if a creep in %d range is killed with more damage than needed. The lighting ball absorbs the redundant damage and transfers it to this temple. Every 1 damage absorbed grants 1 mana.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.05 mana per absorbed damage\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_autocast_cloud_thunderstorm(_event: Event):

@@ -5,31 +5,8 @@ var slow_bt: BuffType
 var stun_bt: BuffType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Freezing Breath"
-	ability.icon = "res://resources/icons/elements/ice.tres"
-	ability.description_short = "Chance to slow or stun hit creeps.\n"
-	ability.description_full = "25% chance to slow hit creeps by 27% for 4 seconds. 5% chance to stun hit creeps for 1.5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% chance to slow\n" \
-	+ "+0.2% chance to stun\n" \
-	+ "+0.2% slow\n" \
-	+ "+0.24s slow duration\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_style_splash_DELETEME({550: 0.20})
 
 
 func tower_init():

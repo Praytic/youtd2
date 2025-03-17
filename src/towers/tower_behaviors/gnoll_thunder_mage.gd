@@ -19,41 +19,6 @@ func tower_init():
 	multiboard.set_key(0, "Thunder Shock Dmg")
 
 
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var recast_chance: String = Utils.format_percent(RECAST_CHANCE, 2)
-	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
-	var base_damage_add: String = Utils.format_float(_stats.base_damage_add, 2)
-	var damage_per_tower: String = Utils.format_float(_stats.damage_per_tower, 2)
-	var damage_per_tower_add: String = Utils.format_float(_stats.damage_per_tower_add, 2)
-	
-	autocast.title = "Thunder Shock"
-	autocast.icon = "res://resources/icons/electricity/lightning_glowing.tres"
-	autocast.description_short = "Releases a strong lightning on the target, dealing spell damage."
-	autocast.description = "Deals [%s + (%s x amount of player towers)] spell damage to a target creep. This ability has a %s chance to recast itself when cast. Maximum of 1 extra cast.\n" % [base_damage, damage_per_tower, recast_chance] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s base spell damage\n" % base_damage_add \
-	+ "+%s spell damage per player tower\n" % damage_per_tower_add \
-	+ "+1 extra cast at levels 15 and 25\n"
-	autocast.caster_art = "res://src/effects/purge_buff_target.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 1200
-	autocast.auto_range = 1200
-	autocast.cooldown = 3
-	autocast.mana_cost = 12
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
 func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()

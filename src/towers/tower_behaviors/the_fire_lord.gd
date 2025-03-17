@@ -16,39 +16,6 @@ var hellfire_bt: BuffType
 var liquid_fire_bt: BuffType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var hellfire: AbilityInfo = AbilityInfo.new()
-	hellfire.name = "Hellfire"
-	hellfire.icon = "res://resources/icons/orbs/orb_fire.tres"
-	hellfire.description_short = "When the Fire Lord attacks there is a chance that it gains a multishot ability and bonus attack speed.\n"
-	hellfire.description_full = "When the Fire Lord attacks there is a 25% chance that it gains a 5 target multishot and 25% bonus attack speed for 7.5 seconds. Cannot retrigger!\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2 seconds duration\n" \
-	+ "+0.4% attack speed\n" \
-	+ "+0.2% chance\n" \
-	+ "+1 target at level 15 and 25\n"
-	list.append(hellfire)
-
-	var liquid_fire: AbilityInfo = AbilityInfo.new()
-	liquid_fire.name = "Liquid Fire"
-	liquid_fire.icon = "res://resources/icons/potions/potion_orange_03.tres"
-	liquid_fire.description_short = "Sets hit creeps on fire, dealing spell damage and increasing damage taken from %s towers.\n" % fire_string
-	liquid_fire.description_full = "Sets hit creeps on fire, dealing 500 spell damage per second and increasing damage taken from %s towers by 10%%. Lasts 5 seconds.\n" % fire_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+50 spell damage per second " \
-	+ "+0.1 seconds duration\n" \
-	+ "+0.4%% bonus damage from %s towers\n" % fire_string
-	list.append(liquid_fire)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

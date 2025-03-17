@@ -59,68 +59,6 @@ const TURN_TO_TOWER_MARGIN: float = 25
 const GHOST_ABILITY_TIMER_MAX: int = 20
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
-	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-	
-	var special_training: AbilityInfo = AbilityInfo.new()
-	special_training.name = "Special Training"
-	special_training.icon = "res://resources/icons/books/book_06.tres"
-	special_training.description_short = "On higher levels, copters gain special abilities.\n"
-	special_training.description_full = "On higher levels the copters specialize.\n" \
-	+ "On level 7: Copter #1 has its damage type changed to %s, each rocket's AoE is increased by 25%% and the attacks gain a napalm modifier. Napalm causes a 20%% slow and 50%% of the tower's attack damage as %s damage per second for 5 seconds.\n" % [elemental_string, elemental_string] \
-	+ " \n" \
-	+ "On level 15: Copter #2 will change its machine-gun-missiles to a long ranged tesla coil, changing the damage type to %s and increasing attack range to 210. Furthermore its armor reduction base effect is increased to 50%%, but the slow is decreased to 10%%.\n" % [energy_string] \
-	+ " \n" \
-	+ "On level 25: Copter #3 will become a legendary Ghost Warrior. Ghost Warriors have an on-board teleportation device, allowing them to teleport behind targets every 5 seconds. Shooting delays the charging of the teleportation device.\n" \
-	+ ""
-	list.append(special_training)
-
-	var helicopter_zone: AbilityInfo = AbilityInfo.new()
-	helicopter_zone.name = "Helicopter Zone"
-	helicopter_zone.icon = "res://resources/icons/armor/vest_02.tres"
-	helicopter_zone.description_short = "3 helicopters circle around the tower trying to stay within 1000 range of it. The helicopters attack creeps in front of them, dealing the tower's attack damage. Helicopters also reduce movement speed and armor of hit creeps. These helicopters are not affected by attack speed.\n"
-	helicopter_zone.description_full = "3 helicopters circle around the tower trying to stay within 1000 range of it. If there are creeps in front of a helicopter, it will attack them dealing the tower's attack damage as %s damage.\n"  % [physical_string] \
-	+ " \n" \
-	+ "Helicopters attack every 0.25 seconds with a barrage of 3 missiles spaced 250 range apart and exploding in 140 AoE. Hit creeps are slowed by 50% and their armor is reduced by 30% for 0.8 seconds. Not affected by attack speed.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% armor reduction\n" \
-	+ ""
-	helicopter_zone.radius = 1000
-	helicopter_zone.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(helicopter_zone)
-
-	return list
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Targeted Run"
-	autocast.icon = "res://resources/icons/rings/ring_06.tres"
-	autocast.description_short = "Copter #1 will teleport behind the target after a delay.\n"
-	autocast.description = "Copter #1 will teleport behind the target after a delay of 1 second.\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 1000
-	autocast.auto_range = 1000
-	autocast.cooldown = 15
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_level_up(on_level_up)
 	triggers.add_event_on_damage(on_damage)

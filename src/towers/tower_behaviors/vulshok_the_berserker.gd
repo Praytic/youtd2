@@ -20,49 +20,9 @@ var do_splash_next: bool = false
 var growth_count: int = 0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ultimate_fighter: AbilityInfo = AbilityInfo.new()
-	ultimate_fighter.name = "Ultimate Fighter"
-	ultimate_fighter.icon = "res://resources/icons/weapons_misc/glaive_02.tres"
-	ultimate_fighter.description_short = "Vulshok uses his great power to specialize his attacks. Attacks will sometimes deal bonus attack damage, AoE attack damage or empower Vulshok.\n"
-	ultimate_fighter.description_full = "Vulshok uses his great power to specialize his attacks:\n" \
-	+ "- Every 3rd attack adds a critical hit\n" \
-	+ "- Every 7th attack deals 3000 bonus attack damage\n" \
-	+ "- Every 12th attack splashes all damage over 200 AoE\n" \
-	+ "- Every 15th attack adds 0.5% attack damage permanently\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+200 attack damage on 7th attack\n"
-	list.append(ultimate_fighter)
-
-	var maim: AbilityInfo = AbilityInfo.new()
-	maim.name = "Maim"
-	maim.icon = "res://resources/icons/clubs/club_glowing.tres"
-	maim.description_short = "Slows hit creeps.\n"
-	maim.description_full = "Slows hit creeps for 5 seconds. The slow amount starts at 10% and increases by 5% every second. Lasts for 5 seconds and cannot be refreshed.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.5% slow \n" \
-	+ "+0.1% extra slow per second\n"
-	list.append(maim)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats in some cases
-# crit dmg = yes
-# attack speed add = no
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
 
 
 func tower_init():

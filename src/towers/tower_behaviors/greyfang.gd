@@ -7,50 +7,9 @@ const BONE_SHATTER_DAMAGE_RATIO: float = 0.25
 const SHARD_SPREAD_RADIUS: float = 300
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var bone_shatter_damage_ratio: String = Utils.format_percent(BONE_SHATTER_DAMAGE_RATIO, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var dire_instinct: AbilityInfo = AbilityInfo.new()
-	dire_instinct.name = "Dire Instinct"
-	dire_instinct.icon = "res://resources/icons/shields/shield_wood_small_glowing.tres"
-	dire_instinct.description_short = "This tower has extra luck with multicrit compared to other towers. This ability affects only normal attacks.\n"
-	dire_instinct.description_full = "This tower has extra luck with multicrit compared to other towers. This ability affects only normal attacks.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Details:[/color]\n" \
-	+ "This tower overrides normal logic for calculating attack criticals. It rolls for every multicrit even if an earlier one fails. In addition, multicrit chance reduction occurs only on successful critical rolls. At starting stats, this tower is more likely to get crits than non-crits!\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "At level 25, rolls again for failed multicrits, which boosts multicrits even further.\n" \
-	+ ""
-	list.append(dire_instinct)
-
-	var bone_shatter: AbilityInfo = AbilityInfo.new()
-	bone_shatter.name = "Bone Shatter"
-	bone_shatter.icon = "res://resources/icons/swords/greatsword_01.tres"
-	bone_shatter.description_short = "Creeps killed by this tower release a number of spiky shards in random directions that deal attack damage.\n"
-	bone_shatter.description_full = "Creeps killed by this tower release a number of spiky shards in random directions that deal %s of this tower's attack damage to creeps they hit.\n" % bone_shatter_damage_ratio \
-	+ " \n" \
-	+ "The number of shards is equivalent to this tower's multicrit count.\n" \
-	+ " \n" \
-	+ "One shard can hit multiple creeps but will lose a fifth of its current damage after each hit.\n" \
-	+ ""
-	list.append(bone_shatter)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.20, 0.004)
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 2.0, 0.04)
-	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.022)
 
 
 func tower_init():

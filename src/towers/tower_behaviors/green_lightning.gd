@@ -18,48 +18,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var spell_crit: String = Utils.format_percent(_stats.spell_crit, 2)
-	var spell_crit_add: String = Utils.format_percent(_stats.spell_crit_add, 2)
-	var damage_from_mana_multiplier: String = Utils.format_float(_stats.damage_from_mana_multiplier, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var mana_feed: AbilityInfo = AbilityInfo.new()
-	mana_feed.name = "Mana Feed"
-	mana_feed.icon = "res://resources/icons/magic/magic_stone.tres"
-	mana_feed.description_short = "Attacks restore mana to the tower and increase spell crit chance.\n"
-	mana_feed.description_full = "Attacks restore 4 mana to the tower and increase spell crit chance by %s.\n" % spell_crit \
-	+ " \n" \
-	+ "[color=GOLD]Hint:[/color] Mana regeneration increases mana gained.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell crit chance\n" % spell_crit_add
-	list.append(mana_feed)
-
-	var burst: AbilityInfo = AbilityInfo.new()
-	burst.name = "Lightning Burst"
-	burst.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
-	burst.description_short = "Chance to deal additional spell damage to hit creeps. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n"
-	burst.description_full = "12.5%% chance to deal %s times current mana as spell damage to hit creeps. This ability resets spell crit bonus of [color=GOLD]Mana Feed[/color].\n" % damage_from_mana_multiplier \
-	+ " \n" \
-	+ "Resets the bonus spell crit of [color=GOLD]Mana Feed[/color].\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.5% chance\n"
-	list.append(burst)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.20, 0.0)
 
 
 func on_autocast(_event: Event):
@@ -86,36 +47,6 @@ func tower_init():
 	surge_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
 	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.surge_bt_level_bonus, 2)
-	
-	autocast.title = "Lightning Surge"
-	autocast.icon = "res://resources/icons/electricity/lightning_circle_white.tres"
-	autocast.description_short = "Increases the attack speed of this tower for next few attacks.\n"
-	autocast.description = "Increases the attack speed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attack_speed \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% attack speed\n" \
-	+ "+1 attack per 5 levels\n"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 6
-	autocast.is_extended = false
-	autocast.mana_cost = 60
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 1200
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(_event: Event):

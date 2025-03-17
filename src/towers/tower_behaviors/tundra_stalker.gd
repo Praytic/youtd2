@@ -16,28 +16,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var frenzy_max_bonus: String = Utils.format_percent(_stats.frenzy_max_bonus, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Frenzy"
-	ability.icon = "res://resources/icons/undead/skull_03.tres"
-	ability.description_short = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased permanently.\n"
-	ability.description_full = "Each time [color=GOLD]Ice Claw[/color] is cast, attack speed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus \
-	+ " \n" \
-	+ "The stacks are lost if this tower is transformed into a tower of another family.\n" \
-	+ ""
-	list.append(ability)
-
-	return list
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
-
-
 func on_autocast(event: Event):
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005
@@ -82,38 +60,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Speed Bonus")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
-	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
-	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
-
-	autocast.title = "Ice Claw"
-	autocast.icon = "res://resources/icons/magic/claw_02.tres"
-	autocast.description_short = "Causes the target creep to be slowed and suffer spell damage over time.\n"
-	autocast.description = "Ravages a target creep in 850 range, causing it to be slowed by %s and suffer %s spell damage per second. Effect lasts 5 seconds.\n" % [slow_amount, spell_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage per second\n" % spell_damage_add \
-	+ "+0.2 second duration\n"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 1
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.cast_range = 850
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 2
-	autocast.is_extended = false
-	autocast.mana_cost = 10
-	autocast.buff_type = ice_claw_bt
-	autocast.buff_target_type = null
-	autocast.auto_range = 850
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_create(preceding: Tower):

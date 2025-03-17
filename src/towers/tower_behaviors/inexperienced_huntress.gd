@@ -21,56 +21,9 @@ const STAR_GLAIVE_CHANCE_ADD: float = 0.004
 const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var shadow_glaive_chance: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE, 2)
-	var shadow_glaive_chance_add: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE_ADD, 2)
-	var shadow_glaive_attack_speed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACK_SPEED, 2)
-	var shadow_glaive_attack_speed_add: String = Utils.format_percent(SHADOW_GLAIVE_ATTACK_SPEED_ADD, 2)
-	var shadow_glaive_crit_bonus: String = Utils.format_percent(_stats.shadow_glaive_crit_bonus, 2)
-	var shadow_glaive_crit_bonus_add: String = Utils.format_percent(_stats.shadow_glaive_crit_bonus_add, 2)
-	var star_glaive_chance: String = Utils.format_percent(STAR_GLAIVE_CHANCE, 2)
-	var star_glaive_chance_add: String = Utils.format_percent(STAR_GLAIVE_CHANCE_ADD, 2)
-	var star_glaive_dmg_ratio: String = Utils.format_percent(_stats.star_glaive_dmg_ratio, 2)
-	var star_glaive_dmg_ratio_add: String = Utils.format_percent(STAR_GLAIVE_DMG_RATIO_ADD, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var shadow_glaive: AbilityInfo = AbilityInfo.new()
-	shadow_glaive.name = "Shadow Glaive"
-	shadow_glaive.icon = "res://resources/icons/daggers/dagger_07.tres"
-	shadow_glaive.description_short = "Whenever this tower attacks, it has a chance to do a fast follow-up attack which is guaranteed to be critical.\n"
-	shadow_glaive.description_full = "Whenever this tower attacks, it has a %s chance to gain %s attack speed until the next attack. The next attack will also crit for sure and deal %s more crit damage.\n" % [shadow_glaive_chance, shadow_glaive_attack_speed, shadow_glaive_crit_bonus] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s crit damage\n" % shadow_glaive_crit_bonus_add \
-	+ "+%s attack speed\n" % shadow_glaive_attack_speed_add \
-	+ "+%s chance\n" % shadow_glaive_chance_add
-	list.append(shadow_glaive)
-
-	var star_glaive: AbilityInfo = AbilityInfo.new()
-	star_glaive.name = "Star Glaive"
-	star_glaive.icon = "res://resources/icons/swords/greatsword_01.tres"
-	star_glaive.description_short = "Chance to deal additional spell damage to hit creeps.\n"
-	star_glaive.description_full = "%s chance to deal additional %s of the attack's damage as spell damage to hit creeps.\n" % [star_glaive_chance, star_glaive_dmg_ratio] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % star_glaive_chance_add \
-	+ "+%s attack damage as spell damage\n" % star_glaive_dmg_ratio_add
-	list.append(star_glaive)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-# NOTE: this tower's tooltip in original game does NOT
-# include innate stats
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.024)
-	tower.set_attack_style_bounce_DELETEME(4, 0.25)
 
 
 func tower_init():

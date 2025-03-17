@@ -13,36 +13,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var catch_chance: String = Utils.format_percent(_stats.catch_chance, 2)
-	var cyclone_duration: String = Utils.format_float(_stats.cyclone_duration, 2)
-	var cyclone_damage: String = Utils.format_float(_stats.cyclone_damage, 2)
-	var cyclone_damage_add: String = Utils.format_float(_stats.cyclone_damage_add, 2)
-	var catch_chance_add: String = Utils.format_percent(_stats.catch_chance_add, 2)
-	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Wind of Death"
-	ability.icon = "res://resources/icons/elements/storm.tres"
-	ability.description_short = "On attack, this tower has a chance to catch the target in a cyclone. When the caught creep falls down, this tower deals %s damage to all creeps near the target. Doesn't work on bosses and air creeps.\n" % physical_string
-	ability.description_full = "On attack, this tower has a %s chance to catch the target in a cyclone for %s seconds. When the caught creep falls down, this tower deals %s %s damage to creeps in 300 AoE around the target. AoE damage is increased by 25%% if the target is a champion. Doesn't work on bosses and air creeps.\n" % [catch_chance, cyclone_duration, physical_string, cyclone_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % cyclone_damage_add \
-	+ "+%s chance to catch\n" % catch_chance_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
 
 
 func tower_init():

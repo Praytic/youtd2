@@ -19,43 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
-	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
-	var damage_from_spells: String = Utils.format_percent(_stats.buff_level * 0.1 * 0.01, 2)
-	var damage_at_15: String = Utils.format_float(_stats.spell_damage_15 - _stats.spell_damage, 2)
-	var damage_from_spells_at_15: String = Utils.format_percent((_stats.buff_level_15 - _stats.buff_level)  * 0.1 * 0.01, 2)
-
-	autocast.title = "Lunar Grace"
-	autocast.icon = "res://resources/icons/orbs/moon.tres"
-	autocast.description_short = "Smites a target creep dealing spell damage. There is also a chance to stun the creep and make it more vulnerable to spells.\n"
-	autocast.description = "Smites a target creep dealing %s spell damage to it. There is also a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s inital and chanced spell damage\n" % spell_damage_add \
-	+ "+0.5% chance\n" \
-	+ "+%s initial damage at level 15\n" % damage_at_15 \
-	+ "+%s spell damage received at level 15\n" % damage_from_spells_at_15 \
-	+ "+0.1 seconds stun at level 25"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = "res://src/effects/spell_aiil.tscn"
-	autocast.cooldown = 2
-	autocast.is_extended = true
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 1200
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 

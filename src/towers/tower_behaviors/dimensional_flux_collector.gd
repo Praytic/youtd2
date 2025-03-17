@@ -20,26 +20,6 @@ var link_time: float = 0.0
 var logged_link_ability: bool = false
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Dimensional Distortion Field"
-	ability.icon = "res://resources/icons/dioramas/fountain.tres"
-	ability.description_short = "Each second this tower attacks a creep in range, dealing %s damage based on linked tower's spell damage per second.\n" % energy_string
-	ability.description_full = "Each second this tower attacks a creep within 800 range, dealing 25%% of the linked tower's spell damage per second as %s damage to the target creep. This tower can only attack if a link exists for at least 10 seconds. Benefits from attack speed bonuses.\n" % energy_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% of spell DPS as damage\n"
-	ability.radius = 800
-	ability.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
@@ -60,54 +40,6 @@ func tower_init():
 
 	flux_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	flux_pt.set_event_on_interpolation_finished(flux_pt_on_hit)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Dimensional Link"
-	autocast.icon = "res://resources/icons/mechanical/circuit_board.tres"
-	autocast.description_short = "Creates a link between this tower and the target tower.\n"
-	autocast.description = "Creates a link between this tower and the target tower. This tower will now monitor any spell damage dealt by the linked tower to creeps within 2000 range of this tower. If the linked tower is sold, replaced or upgraded the link will dissolve.\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 800
-	autocast.auto_range = 800
-	autocast.cooldown = 1
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-# NOTE: this aura is hidden because it's used internaly to
-# keep track of spell damage dealt by tower linked via
-# Dimensional Link. Wouldn't make sense to show it to the
-# player.
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.is_hidden = true
-
-	aura.name = "Distortion Flux Collector hidden aura"
-	aura.icon = "hidden"
-	aura.description_short = "hidden"
-	aura.description_full = "hidden"
-
-	aura.aura_range = 2150
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_destruct():

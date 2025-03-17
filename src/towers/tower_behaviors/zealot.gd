@@ -16,48 +16,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var affected_gold_cost: String = Utils.format_float(_stats.affected_gold_cost, 2)
-	var shield_power: String = Utils.format_percent(_stats.shield_power * 0.0001, 2)
-	var wound_power: String = Utils.format_percent(_stats.wound_power, 2)
-	var wound_power_add: String = Utils.format_percent(_stats.wound_power_add, 2)
-#	NOTE: use floor to approximate the value of leech/stack down to nearest percent
-	var leech_power_base: String = Utils.format_percent(floor(_stats.leech_power_base * 0.01) * 0.01, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var zeal: AbilityInfo = AbilityInfo.new()
-	zeal.name = "Zeal"
-	zeal.icon = "res://resources/icons/holy/cross_01.tres"
-	zeal.description_short = "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
-	zeal.description_full = "Each attack works the Zealot into a greater frenzy, increasing his attack speed by %s from each tower in 175 range. These towers have their attack speed slowed by %s. Both effects stack up to 5 times and last 2.5 seconds. The attack speed amount reduces slightly with more towers.\n" % [leech_power_base, leech_power_base] \
-	+ " \n" \
-	+ "Only towers that cost %s gold or more are affected by this.\n" % affected_gold_cost \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 max stack per 5 levels\n"
-	list.append(zeal)
-
-	var lightning_shield: AbilityInfo = AbilityInfo.new()
-	lightning_shield.name = "Lightning Shield"
-	lightning_shield.icon = "res://resources/icons/tower_icons/lightning_generator.tres"
-	lightning_shield.description_short = "As the zealot gets pumped up, debuff durations are reduced.\n"
-	lightning_shield.description_full = "Each stack of [color=GOLD]Zeal[/color] reduces debuff durations by %s.\n" % shield_power
-	list.append(lightning_shield)
-
-	var phase_blade: AbilityInfo = AbilityInfo.new()
-	phase_blade.name = "Phase Blade"
-	phase_blade.icon = "res://resources/icons/swords/sword_swing_02.tres"
-	phase_blade.description_short = "Each hit on the same creep penetrates deeper through its armor.\n"
-	phase_blade.description_full = "Each hit on the same creep penetrates deeper through its armor. Per hit %s of this tower's attack damage won't be reduced by armor resistances. This effect stacks up to 5 times.\n" % wound_power \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage per stack\n" % wound_power_add
-	list.append(phase_blade)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_attack(on_attack)

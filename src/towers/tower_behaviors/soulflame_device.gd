@@ -8,41 +8,9 @@ var soulflame_pt: ProjectileType
 var multiboard: MultiboardValues
 var awaken_count: int = 0
 
-const AURA_RANGE: int = 350
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var soulfire: AbilityInfo = AbilityInfo.new()
-	soulfire.name = "Soulfire"
-	soulfire.icon = "res://resources/icons/fire/flame_purple.tres"
-	soulfire.description_short = "Chance to burn hit creeps, dealing spell damage.\n"
-	soulfire.description_full = "20% chance to burn hit creeps, dealing 1000 spell damage per second for 5 seconds. This effect stacks.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+40 spell damage\n"
-	list.append(soulfire)
-
-	var soul_consumption: AbilityInfo = AbilityInfo.new()
-	soul_consumption.name = "Soul Consumption"
-	soul_consumption.icon = "res://resources/icons/tower_icons/dark_battery.tres"
-	soul_consumption.description_short = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps.\n"
-	soul_consumption.description_full = "When a creep dies under the effect of [color=GOLD]Soulfire[/color], [color=GOLD]Soulfire[/color] spreads to nearby creeps within 200 range. The creep is consumed by the tower, restoring 5 mana.\n"
-	list.append(soul_consumption)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	tower.set_target_count_DELETEME(8)
-
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.40, 0.01)
 
 
 func tower_init():
@@ -70,56 +38,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Awaken Cast")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Awaken"
-	autocast.icon = "res://resources/icons/magic/fire.tres"
-	autocast.description_short = "Increases the attack speed of nearby towers and permanently increases the attack speed of this tower.\n"
-	autocast.description = "Increases the attack speed of towers within 350 range by 50% for 3 seconds and permanently increases the attack speed of this tower by 1%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% attack speed\n"
-	autocast.caster_art = "res://src/effects/incinerate.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 900
-	autocast.auto_range = 900
-	autocast.cooldown = 4
-	autocast.mana_cost = 50
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
-
-	aura.name = "Evil Device"
-	aura.icon = "res://resources/icons/mechanical/battery.tres"
-	aura.description_short = "Increases attack stats of nearby Common and Uncommon %s towers.\n" % darkness_string
-	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [darkness_string, AURA_RANGE] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% stats\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_DARKNESS + TargetType.RARITY_UNCOMMON + TargetType.RARITY_COMMON)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = evil_device_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

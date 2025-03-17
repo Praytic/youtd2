@@ -30,39 +30,8 @@ const IGNITE_DAMAGE: float = 0.15
 const IGNITE_DAMAGE_ADD: float = 0.006
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var ignite_chance: String = Utils.format_percent(IGNITE_CHANCE, 2)
-	var ignite_duration: String = Utils.format_float(IGNITE_DURATION, 2)
-	var mod_regen: String = Utils.format_percent(_stats.mod_regen, 2)
-	var mod_regen_add: String = Utils.format_percent(_stats.mod_regen_add, 2)
-	var ignite_damage: String = Utils.format_percent(IGNITE_DAMAGE, 2)
-	var ignite_damage_add: String = Utils.format_percent(IGNITE_DAMAGE_ADD, 2)
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Ignite"
-	ability.icon = "res://resources/icons/misc/teapot_04.tres"
-	ability.description_short = "Chance to ignite hit creeps, dealing a portion of tower's attack damage as spell damage per second and reducing target's health regeneration.\n"
-	ability.description_full = "%s chance to ignite hit creeps, dealing %s of tower's attack damage as spell damage per second and reducing target's health regeneration by %s for %s seconds.\n" % [ignite_chance, ignite_damage, mod_regen, ignite_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack damage\n" % ignite_damage_add \
-	+ "+%s health regeneration reduction\n" % mod_regen_add
-
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	tower.set_attack_style_splash_DELETEME({175: 0.30})
-
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NORMAL, 0.20, 0.004)
 
 
 # NOTE: drol_fireDot_Damage() in original script

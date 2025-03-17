@@ -33,51 +33,10 @@ var periodic_interval: float
 const STACK_MALEDICT_FROM_WARD_CHANCE: float = 0.35
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var stack_maledict_from_ward_chance: String = Utils.format_percent(STACK_MALEDICT_FROM_WARD_CHANCE, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var serpent_ward: AbilityInfo = AbilityInfo.new()
-	serpent_ward.name = "Serpent Ward"
-	serpent_ward.icon = "res://resources/icons/tower_icons/small_serpent_ward.tres"
-	serpent_ward.description_short = "Whenever Witch Doctor attacks, he has a chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] attacks a random target in range, dealing attack damage.\n"
-	serpent_ward.description_full = "Whenever Witch Doctor attacks, he has a 18%% chance to summon 1 of 2 [color=GOLD]Serpent Wards[/color] to assist him. Each [color=GOLD]Serpent Ward[/color] lasts 6 seconds modified by this tower's buff duration stat, deals 20%% of Witch Doctor's attack damage and has Witch Doctor's current attack speed at cast. Each [color=GOLD]Serpent Ward[/color] attacks a random target in 800 range and has a %s chance to stack [color=GOLD]Maledict[/color] on attack targets. Wards can not be resummoned and their duration cannot be refreshed.\n" % stack_maledict_from_ward_chance \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% attack damage\n" \
-	+ "+0.1 seconds duration\n" \
-	+ "+0.28% chance to summon a ward\n" \
-	+ "+1 maximum ward at level 15 and 25\n"
-	serpent_ward.radius = 800
-	serpent_ward.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(serpent_ward)
-
-	var purify: AbilityInfo = AbilityInfo.new()
-	purify.name = "Purify"
-	purify.icon = "res://resources/icons/holy/white_trinket.tres"
-	purify.description_short = "Whenever Witch Doctor hits a creep, it purges all buffs and debuffs and deals bonus attack damage based on the purge count. This ability has a 4 second cooldown\n"
-	purify.description_full = "Whenever Witch Doctor hits a creep, it purges all buffs and debuffs and deals bonus 12% attack damage for each purged effect. This ability has a 4 second cooldown.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.04 seconds cooldown\n" \
-	+ "+0.16% damage per purged effect\n"
-	list.append(purify)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 0.1)
-
-
-# NOTE: this tower's tooltip in original game does NOT
-# include innate stats
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 
 func tower_init():
@@ -90,33 +49,6 @@ func tower_init():
 
 	voljin_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)
-
-	
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Maledict"
-	autocast.icon = "res://resources/icons/undead/monster_hand.tres"
-	autocast.description_short = "Witch Doctor jinxes all units in range with [color=GOLD]Maledict[/color] which deals spell damage to the target.\n"
-	autocast.description = "Witch Doctor jinxes all units in 800 range with [color=GOLD]Maledict[/color] which will deal spell damage to the target after 8 seconds. The damage is equal to 15% of the total damage received by the target while [color=GOLD]Maledict[/color] was active. [color=GOLD]Maledict[/color] stacks, with each stack adding 3.5% additional damage. If [color=GOLD]Maledict[/color] is purged it deals double damage. This ability is unaffected by Buff Duration.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.14% damage per stack\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 800
-	autocast.auto_range = 800
-	autocast.cooldown = 5
-	autocast.mana_cost = 30
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

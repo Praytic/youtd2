@@ -26,12 +26,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.25, 0.0)
-
-
 func on_autocast(event: Event):
 	var u: Unit = event.get_target()
 	blizzard_st.point_cast_from_caster_on_point(tower, Vector2(u.get_x(), u.get_y()), 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
@@ -67,50 +61,3 @@ func tower_init():
 	blizzard_st.data.blizzard.damage = _stats.blizzard_damage
 	blizzard_st.data.blizzard.radius = _stats.blizzard_radius
 	blizzard_st.data.blizzard.wave_count = _stats.blizzard_wave_count
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var blizzard_wave_count: String = Utils.format_float(_stats.blizzard_wave_count, 2)
-	var blizzard_damage: String = Utils.format_float(_stats.blizzard_damage, 2)
-	var blizzard_damage_add: String = Utils.format_float(round(_stats.blizzard_damage * _stats.damage_ratio_add), 2)
-	var blizzard_radius: String = Utils.format_float(_stats.blizzard_radius, 2)
-	
-	var slow_chance: String = Utils.format_percent(_stats.slow_chance, 2)
-	var slow_chance_add: String = Utils.format_percent(SLOW_CHANCE_ADD, 2)
-	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
-	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
-	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
-	
-	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
-	var stun_chance_add: String = Utils.format_percent(STUN_CHANCE_ADD, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-	
-	autocast.title = "Blizzard"
-	autocast.icon = "res://resources/icons/tower_variations/meteor_totem_blue.tres"
-	autocast.description_short = "Summons a mighty [color=GOLD]Blizzard[/color]. Each wave deals spell damage and has a chance to slow and stun all enemy units in the target area.\n"
-	autocast.description = "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s spell damage in an AoE of %s.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius] \
-	+ " \n" \
-	+ "Each time a creep is damaged by [color=GOLD]Blizzard[/color] there is a %s chance to slow the creep by %s for %s seconds and a %s chance to stun the creep for %s seconds.\n" % [slow_chance, mod_movespeed, slow_duration, stun_chance, stun_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % blizzard_damage_add \
-	+ "+%s slow\n" % mod_movespeed_add \
-	+ "+%s chance for slow\n" % slow_chance_add \
-	+ "+%s chance for stun\n" % stun_chance_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.cast_range = 900
-	autocast.target_self = true
-	autocast.target_art = ""
-	autocast.cooldown = 10
-	autocast.is_extended = false
-	autocast.mana_cost = 95
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 900
-	autocast.handler = on_autocast
-
-	return [autocast]

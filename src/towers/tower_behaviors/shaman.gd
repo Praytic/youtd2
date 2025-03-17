@@ -14,14 +14,7 @@ func get_tier_stats() -> Dictionary:
 
 const BLOODLUST_DURATION: float = 5.0
 const BLOODLUST_DURATION_ADD: float = 0.12
-const BLOODY_EXPERIENCE_RANGE: float = 250
 const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.0)
 
 
 func tower_init():
@@ -37,63 +30,6 @@ func tower_init():
 	aura_bt.add_event_on_damage(bloody_exp_aura_on_damage)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
-	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
-	var bloodlust_attack_speed: String = Utils.format_percent(_stats.bloodlust_attack_speed, 2)
-	var bloodlust_attack_speed_add: String = Utils.format_percent(_stats.bloodlust_attack_speed_add, 2)
-
-	autocast.title = "Bloodlust"
-	autocast.icon = "res://resources/icons/masks/mask_07.tres"
-	autocast.description_short = "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attack speed.\n"
-	autocast.description = "The Shaman makes a friendly tower lust for blood, increasing its crit damage by x%s and attack speed by %s for %s seconds.\n" % [bloodlust_crit_damage, bloodlust_attack_speed, BLOODLUST_DURATION] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+x%s crit damage\n" % bloodlust_crit_damage_add \
-	+ "+%s attack speed\n" % bloodlust_attack_speed_add \
-	+ "+%s seconds duration\n" % BLOODLUST_DURATION_ADD
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 1
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.cast_range = 500
-	autocast.target_self = true
-	autocast.target_art = "res://src/effects/roar.tscn"
-	autocast.cooldown = 5
-	autocast.is_extended = false
-	autocast.mana_cost = 15
-	autocast.buff_type = bloodlust_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.auto_range = 500
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var bloody_experience_level_cap: String = Utils.format_float(_stats.bloody_experience_level_cap, 2)
-	var bloody_experience_gain: String = Utils.format_float(BLOODY_EXPERIENCE_EXP_GAIN, 2)
-
-	aura.name = "Bloody Experience"
-	aura.icon = "res://resources/icons/gems/gem_07.tres"
-	aura.description_short = "Nearby towers receive experience every time they crit with an attack.\n"
-	aura.description_full = "Every tower below %s level in %d range receives %s experience every time it crits with an attack. The amount of experience gained is base attack speed and range adjusted. Level cap does not affect the Shaman himself.\n" % [bloody_experience_level_cap, _stats.bloody_experience_range, bloody_experience_gain] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 level cap every 5 levels\n"
-
-	aura.aura_range = _stats.bloody_experience_range
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	return [aura]
 
 
 func on_autocast(event: Event):

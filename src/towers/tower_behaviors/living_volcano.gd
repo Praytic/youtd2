@@ -4,44 +4,9 @@ extends TowerBehavior
 var aura_bt: BuffType
 var lava_pt: ProjectileType
 
-const AURA_RANGE: int = 700
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var heat_stroke: AbilityInfo = AbilityInfo.new()
-	heat_stroke.name = "Heat Stroke"
-	heat_stroke.icon = "res://resources/icons/tower_icons/fire_star.tres"
-	heat_stroke.description_short = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a chance that it will explode and deal AoE spell damage.\n"
-	heat_stroke.description_full = "Whenever a creep dies while under the effect of [color=GOLD]Heat Aura[/color], there is a 40% chance that it will explode, dealing 4500 spell damage in 300 AoE.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+100 damage\n"
-	list.append(heat_stroke)
-
-	var lava_attack: AbilityInfo = AbilityInfo.new()
-	lava_attack.name = "Lava Attack"
-	lava_attack.icon = "res://resources/icons/orbs/orb_fire.tres"
-	lava_attack.description_short = "Whenever this tower attacks, it has a chance to throw a burning lava ball towards the main target, dealing AoE spell damage.\n"
-	lava_attack.description_full = "Whenever this tower attacks, it has a 25% chance to throw a burning lava ball towards the main target, dealing 3500 spell damage to creeps in 300 AoE.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+5 AoE\n" \
-	+ "+100 spell damage\n"
-	list.append(lava_attack)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.45, 0.02)
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.075)
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.015)
 
 
 func tower_init():
@@ -53,24 +18,6 @@ func tower_init():
 
 	lava_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 650, self)
 	lava_pt.set_event_on_cleanup(lava_pt_on_cleanup)
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Heat Aura"
-	aura.icon = "res://resources/icons/tower_icons/fire_battery.tres"
-	aura.description_short = "Burns every enemy in range, making them lose life every second.\n"
-	aura.description_full = "Burns every enemy in %d range, making them lose 3%% of their current life every second.\n" % AURA_RANGE
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_attack(event: Event):

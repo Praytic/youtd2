@@ -26,46 +26,6 @@ const SWARM_START_RADIUS: float = 100
 const SWARM_END_RADIUS: float = 300
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
-	var on_attack_chance_add: String = Utils.format_percent(ON_ATTACK_CHANCE_ADD, 2)
-	var swarm_damage_night: String = Utils.format_float(_stats.swarm_damage_night, 2)
-	var swarm_damage_night_add: String = Utils.format_float(_stats.swarm_damage_night_add, 2)
-	var swarm_damage_day: String = Utils.format_float(_stats.swarm_damage_day, 2)
-	var swarm_damage_day_add: String = Utils.format_float(_stats.swarm_damage_day_add, 2)
-	var attack_damage_night: String = Utils.format_percent(ATTACK_DAMAGE_NIGHT, 2)
-	var attack_damage_night_add: String = Utils.format_percent(_stats.attack_damage_night_add, 2)
-	var attack_damage_day: String = Utils.format_percent(ATTACK_DAMAGE_DAY, 2)
-	var attack_damage_day_add: String = Utils.format_percent(_stats.attack_damage_day_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var bat_swarm: AbilityInfo = AbilityInfo.new()
-	bat_swarm.name = "Bat Swarm"
-	bat_swarm.icon = "res://resources/icons/animals/bat_03.tres"
-	bat_swarm.description_short = "This tower has a chance on attack to release a swarm of bats at the main target. The swarm deals spell damage in a cone.\n"
-	bat_swarm.description_full = "This tower has a %s chance on attack to release a swarm of bats at the main target. The swarm deals %s spell damage at nighttime or %s spell damage at daytime to all enemies in a cone. The cone grows from a %s AoE radius at the start to a %s AoE radius at the end.\n" % [on_attack_chance, swarm_damage_night, swarm_damage_day, SWARM_START_RADIUS, SWARM_END_RADIUS] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % on_attack_chance_add \
-	+ "+%s damage during night\n" % swarm_damage_night_add \
-	+ "+%s damage during day\n" % swarm_damage_day_add
-	list.append(bat_swarm)
-
-	var creature: AbilityInfo = AbilityInfo.new()
-	creature.name = "Creature of the Night"
-	creature.icon = "res://resources/icons/animals/spider_03.tres"
-	creature.description_short = "This tower deals more attack damage during nighttime.\n"
-	creature.description_full = "This tower deals %s attack damage during nighttime and %s attack damage during daytime.\n" % [attack_damage_night, attack_damage_day] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage during night\n" % attack_damage_night_add \
-	+ "+%s damage during day\n" % attack_damage_day_add
-	list.append(creature)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -85,32 +45,6 @@ func tower_init():
 	swarm_st.data.swarm.end_radius = SWARM_END_RADIUS
 	swarm_st.data.swarm.travel_distance = 1200
 	swarm_st.data.swarm.effect_path = "res://src/effects/death_coil.tscn"
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)
-
-	autocast.title = "Engulfing Darkness"
-	autocast.icon = "res://resources/icons/orbs/orb_shadow.tres"
-	autocast.description_short = "This tower engulfs itself in darkness, gaining power as if it's night.\n"
-	autocast.description = "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
-	autocast.caster_art = "res://src/effects/animated_dead_target.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 0
-	autocast.auto_range = 0
-	autocast.cooldown = 6
-	autocast.mana_cost = 45
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = darkness_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

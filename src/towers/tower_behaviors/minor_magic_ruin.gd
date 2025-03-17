@@ -15,26 +15,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var exp_bonus: String = Utils.format_percent(_stats.exp_bonus, 2)
-	var exp_bonus_add: String = Utils.format_percent(_stats.exp_bonus_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Illuminate"
-	ability.icon = "res://resources/icons/staves/wand_glowing.tres"
-	ability.description_short = "Makes hit creeps grant more experience once killed.\n"
-	ability.description_full = "Makes hit creeps grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s experience\n" % exp_bonus_add \
-	+ "+0.2 seconds\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

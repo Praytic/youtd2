@@ -10,40 +10,9 @@ var aura_bt: BuffType
 var unleash_bt: BuffType
 var chanlightning_st: SpellType
 
-const AURA_RANGE: int = 350
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var absorb: AbilityInfo = AbilityInfo.new()
-	absorb.name = "Absorb Energy"
-	absorb.icon = "res://resources/icons/undead/skull_phazing.tres"
-	absorb.description_short = "Attacks do no damage but every hit has a chance to restore mana and steal mana from the target.\n"
-	absorb.description_full = "Attacks do no damage. There is a 10% chance per hit to gather energy, restoring 50 mana to the tower and the target will lose 50 mana if it has mana.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 mana\n" \
-	+ "+0.2% chance\n"
-	list.append(absorb)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats in some cases
-# spell crit chance = yes
-# spell crit chance add = no
-# spell crit damage = yes
-# spell crit damage add = no
-func load_specials_DELETEME(modifier: Modifier):
-	tower.set_target_count_DELETEME(10)
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.005)
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.25, 0.05)
 
 
 func tower_init():
@@ -66,57 +35,6 @@ func tower_init():
 	chanlightning_st.data.chain_lightning.damage = 1.0
 	chanlightning_st.data.chain_lightning.damage_reduction = 0.25
 	chanlightning_st.data.chain_lightning.chain_count = 1
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Unleash"
-	autocast.icon = "res://resources/icons/electricity/electricity_blue.tres"
-	autocast.description_short = "Unleashes built up energy, dealing spell damage to a single creep and increasing the spell crit damage of nearby towers.\n"
-	autocast.description = "Unleashes built up energy, dealing [color=GOLD][400 x wave][/color] spell damage to a single creep and increasing the spell crit damage of nearby towers within 350 range by x0.75 for 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+8 spell damage per wave\n" \
-	+ "+x0.03 spell crit damage\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 1200
-	autocast.auto_range = 1200
-	autocast.cooldown = 0.5
-	autocast.mana_cost = 400
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = TargetType.new(TargetType.CREEPS)
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-
-	aura.name = "Conduit"
-	aura.icon = "res://resources/icons/trinkets/trinket_06.tres"
-	aura.description_short = "Half of attack bonuses on this tower are applied to nearby Common and Uncommon %s towers.\n" % storm_string
-	aura.description_full = "Attack speed, trigger chances, spell damage, spell crit chance and spell crit damage bonuses on this tower are applied to Common and Uncommon %s towers in %d range at a rate of 50%%.\n" % [storm_string, AURA_RANGE] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% stats\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS + TargetType.ELEMENT_STORM + TargetType.RARITY_UNCOMMON + TargetType.RARITY_COMMON)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

@@ -833,28 +833,6 @@ func hide_attack_projectiles():
 	_hide_attack_projectiles = true
 
 
-func set_attack_ground_only_DELETEME():
-	pass
-
-
-func set_attack_air_only_DELETEME():
-	pass
-
-
-func set_attack_style_splash_DELETEME(_splash_map: Dictionary):
-	pass
-
-
-func set_attack_style_bounce_DELETEME(_bounce_count_max: int, _bounce_damage_multiplier: float):
-	pass
-
-
-# NOTE: this is a placeholder until all calls to this f-n
-# are deleted.
-func set_target_count_DELETEME(_count: int):
-	pass
-
-
 # This f-n changes how many targets the tower can attack at
 # the same time. Note that the default value of this
 # property is loaded from tower properties CSV when tower is

@@ -27,31 +27,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var slow_duration: String = Utils.format_float(SLOW_DURATION, 2)
-	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
-	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)
-	var wrath_damage: String = Utils.format_float(_stats.wrath_damage, 2)
-	var wrath_damage_add: String = Utils.format_float(_stats.wrath_damage_add, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-	var damage_and_stun_chance: String = Utils.format_percent(_stats.damage_and_stun_chance, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Glacial Wrath"
-	ability.icon = "res://resources/icons/tower_icons/genis_sage.tres"
-	ability.description_short = "Slows hit creeps and has a chance to stun.\n"
-	ability.description_full = "Slows hit creeps by %s for %s seconds. There's also a %s chance to deal %s spell damage and stun the creep for %s seconds. Whenever the stun fails to happen, the chance is increased by %s. Bonus chance resets when stun suceeds.\n" % [mod_movespeed, slow_duration, damage_and_stun_chance, wrath_damage, stun_duration, damage_and_stun_chance] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % wrath_damage_add \
-	+ "+%s slow\n" % mod_movespeed_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

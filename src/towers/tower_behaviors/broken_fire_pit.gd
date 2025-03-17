@@ -18,34 +18,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var mod_crit_chance: String = Utils.format_percent(_stats.mod_crit_chance, 2)
-	var mod_crit_chance_add: String = Utils.format_percent(MOD_CRIT_CHANCE_ADD, 2)
-	var duration: String = Utils.format_float(_stats.duration, 2)
-	var duration_add: String = Utils.format_float(DURATION_ADD, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Hot Coals"
-	ability.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	ability.description_short = "On kill, this tower gains increased crit chance.\n"
-	ability.description_full = "On kill, this tower gains %s bonus crit chance for %s seconds.\n" % [mod_crit_chance, duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s sec duration\n" % duration_add \
-	+ "+%s crit chance\n" % mod_crit_chance_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
 
 
 func tower_init():

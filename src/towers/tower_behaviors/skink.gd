@@ -9,7 +9,6 @@ extends TowerBehavior
 var poison_skin_bt: BuffType
 var poison_bt: BuffType
 
-const AURA_RANGE: int = 200
 const POISON_DURATION: float = 5.0
 
 
@@ -71,27 +70,3 @@ func tower_init():
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1.0)
 	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
-
-	
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var dmg: String = Utils.format_float(_stats.dmg, 2)
-	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
-	var poison_duration: String = Utils.format_float(POISON_DURATION, 2)
-
-	aura.name = "Poisonous Skin"
-	aura.icon = "res://resources/icons/tower_icons/poison_battery.tres"
-	aura.description_short = "This and nearby towers gain a poisonous attack, which deals spell damage.\n"
-	aura.description_full = "This and any towers in %d range gain a poisonous attack. The poison applies to the main target and deals %s spell damage per second for %s seconds. The effect stacks and is adjusted based on the attack speed and range of the buffed tower. Note that poison damage is dealt by [color=GOLD]Skink[/color] instead of the buffed tower.\n" % [AURA_RANGE, dmg, poison_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage per second" % dmg_add
-
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.aura_effect = poison_skin_bt
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_range = AURA_RANGE
-	return [aura]

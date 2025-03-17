@@ -16,25 +16,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var num_shots: String = Utils.format_float(_stats.num_shots, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Burst Lightning"
-	ability.icon = "res://resources/icons/electricity/thunderstorm.tres"
-	ability.description_short = "Chance on attack to fire extra projectiles at random creeps around the main target. Projectiles deal attack damage.\n"
-	ability.description_full = "20%% chance on attack to fire %s extra projectiles at random creeps in 300 range around the main target. Each extra projectile deals the same amount of attack damage as a normal attack.\n" % num_shots \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% chance\n" \
-	+ "+1 extra projectile at levels 15 and 25\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

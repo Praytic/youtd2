@@ -9,25 +9,8 @@ extends TowerBehavior
 # delayed compared to the lightning visual.
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Wrath of the Storm"
-	ability.icon = "res://resources/icons/electricity/lightning_circle_cyan.tres"
-	ability.description_short = "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack.\n"
-	ability.description_full = "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack.\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.10, 0.01)
 
 
 func on_attack(_event: Event):

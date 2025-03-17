@@ -15,48 +15,10 @@ var gatling_fire_count: int = 0
 var gatling_fire_dmg_ratio: float = 0.0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var rapid_gun: AbilityInfo = AbilityInfo.new()
-	rapid_gun.name = "Rapid Gun Fire"
-	rapid_gun.icon = "res://resources/icons/cannons/cannon_05.tres"
-	rapid_gun.description_short = "Has a chance on attack to shoot an extra projectile which deals attack damage.\n"
-	rapid_gun.description_full = "Has a 65% chance on attack to shoot an extra projectile at the main target. Every extra projectile can be followed up by another projectile, but the chance is reduced by 6% each time. Every extra projectile deals the same amount of damage as a normal attack and has a 10% chance to explode, dealing that damage in 200 AoE around the target. Maximum of 10 extra projectiles per attack.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+0.3% chance to explode\n"
-	list.append(rapid_gun)
-
-	var sentry: AbilityInfo = AbilityInfo.new()
-	sentry.name = "Sentry"
-	sentry.icon = "res://resources/icons/magic/eye.tres"
-	sentry.description_short = "This tower gains attack damage whenever a creep comes within range.\n"
-	sentry.description_full = "This tower gains 15% attack damage whenever a creep comes within 800 range of it. Lasts 3 seconds and stacks up to 20 times.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.5% damage\n" \
-	+ "+0.05 seconds duration\n"
-	sentry.radius = 800
-	sentry.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(sentry)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 0.1)
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 800, TargetType.new(TargetType.CREEPS))
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats in some cases
-# crit chance = yes
-# crit chance add = no
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0875, 0.005)
 
 
 func tower_init():

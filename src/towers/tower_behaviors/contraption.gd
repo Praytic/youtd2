@@ -10,27 +10,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var mana_burned: String = Utils.format_float(_stats.mana_burned, 2)
-	var mana_burned_add: String = Utils.format_float(_stats.mana_burned_add, 2)
-	var dmg_bonus_per_mana: String = Utils.format_percent(_stats.dmg_bonus_per_mana, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Mana Break"
-	ability.icon = "res://resources/icons/rockets/rocket_07.tres"
-	ability.description_short = "Whenever this tower hits a creep, it burns mana and deals extra damage for every point of mana burned.\n"
-	ability.description_full = "Whenever this tower hits a creep, it burns %s mana and deals %s more damage for every point of mana burned.\n" % [mana_burned, dmg_bonus_per_mana] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s mana burned\n" % mana_burned_add \
-	+ ""
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

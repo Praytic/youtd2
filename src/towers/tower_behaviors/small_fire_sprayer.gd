@@ -12,33 +12,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var miss_chance_add: String = Utils.format_percent(_stats.miss_chance_add, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Spray and Pray"
-	ability.icon = "res://resources/icons/tower_icons/meteor_totem.tres"
-	ability.description_short = "Due to its high rate of fire, this tower often misses its target.\n"
-	ability.description_full = "Each attack of this tower has a 33% chance to miss the target.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-%s miss chance" % miss_chance_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-# NOTE: this tower's tooltip in original game does NOT
-# include innate stats
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 0.03)
 
 
 func on_damage(event: Event):

@@ -10,26 +10,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var heal_ratio: String = Utils.format_percent(_stats.heal_ratio, 2)
-	var heal_ratio_add: String = Utils.format_percent(_stats.heal_ratio_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Grace"
-	ability.icon = "res://resources/icons/gloves/heal.tres"
-	ability.description_short = "Whenever this tower hits a creep, a portion of the attack damage will be revoked over 3 seconds.\n"
-	ability.description_full = "Whenever this tower hits a creep, %s of the attack damage will be revoked over 3 seconds. Does not affect immune targets.\n" % heal_ratio \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-%s of the damage healed\n" % heal_ratio_add \
-	+ "+1 second needed to heal at level 15 and 25\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_level_up(on_level_up)

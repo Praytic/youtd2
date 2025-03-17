@@ -33,103 +33,14 @@ var summoner_units: Dictionary = {}
 var time_when_last_transported: float = 0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var transport_cd: String = Utils.format_float(TRANSPORT_CD, 2)
-	var field_damage: String = Utils.format_float(FIELD_DAMAGE, 2)
-	var field_damage_add: String = Utils.format_float(FIELD_DAMAGE_ADD, 2)
-	
-	var dark_ritual: AbilityInfo = AbilityInfo.new()
-	dark_ritual.name = "Dark Ritual"
-	dark_ritual.icon = "res://resources/icons/furniture/artifact_on_pedestal.tres"
-	dark_ritual.description_short = "When this tower attacks, it awakens powerful dark magic and transports all creeps from [color=GOLD]Corruption Field[/color] to [color=GOLD]Recreation Field[/color]. The tower will also deal spell damage to creeps standing in one of the [color=GOLD]Fields[/color].\n"
-	dark_ritual.description_full = "When this tower attacks, it awakens powerful dark magic and transports all creeps from [color=GOLD]Corruption Field[/color] to [color=GOLD]Recreation Field[/color]. This ability works only once per creep and doesn't affect bosses.\n" \
-	+ " \n" \
-	+ "This tower will also deal %s spell damage to all creeps unfortunate enough to be standing in the [color=GOLD]Recreation Field[/color] and [color=GOLD]Corruption Field[/color].\n" % field_damage \
-	+ " \n" \
-	+ "%s sec cooldown.\n" % transport_cd \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % field_damage_add
-	list.append(dark_ritual)
-
-	var hunger: AbilityInfo = AbilityInfo.new()
-	hunger.name = "It Hunger"
-	hunger.icon = "res://resources/icons/furniture/wooden_stand_with_nail.tres"
-	hunger.description_short = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains spell damage.\n"
-	hunger.description_full = "Every time a creep is transported by [color=GOLD]Dark Ritual[/color] or killed by this tower, It permanently gains 0.1% spell damage. There is a maximum of 700% bonus spell damage.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.01% spell damage\n"
-	list.append(hunger)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
 
 
-# NOTE: tooltip in original game includes innate stats in some cases
-# spell crit chance = yes
-# crit chance add = no
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
-
-
 func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spelldamage Bonus")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var list: Array[Autocast] = []
-
-	var field_radius: String = Utils.format_float(FIELD_RADIUS, 2)
-
-	var autocast_recreation: Autocast = Autocast.make()
-	autocast_recreation.title = "Recreation Field"
-	autocast_recreation.icon = "res://resources/icons/magic/magic_stone.tres"
-	autocast_recreation.description_short = "Set up [color=GOLD]Recreation Field[/color] at a chosen location.\n"
-	autocast_recreation.description = "Set up [color=GOLD]Recreation Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has %s AoE.\n" % field_radius
-	autocast_recreation.caster_art = ""
-	autocast_recreation.target_art = ""
-	autocast_recreation.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
-	autocast_recreation.num_buffs_before_idle = 0
-	autocast_recreation.cast_range = 800
-	autocast_recreation.auto_range = 0
-	autocast_recreation.cooldown = 5
-	autocast_recreation.mana_cost = 0
-	autocast_recreation.target_self = false
-	autocast_recreation.is_extended = true
-	autocast_recreation.buff_type = null
-	autocast_recreation.buff_target_type = null
-	autocast_recreation.handler = on_autocast_recreation
-	list.append(autocast_recreation)
-
-	var autocast_corruption: Autocast = Autocast.make()
-	autocast_corruption.title = "Corruption Field"
-	autocast_corruption.icon = "res://resources/icons/misc/poison_02.tres"
-	autocast_corruption.description_short = "Set up [color=GOLD]Corruption Field[/color] at a chosen location.\n"
-	autocast_corruption.description = "Set up [color=GOLD]Corruption Field[/color] at a chosen location. Creeps walking over [color=GOLD]Corruption Field[/color] will sometimes get transported to [color=GOLD]Recreation Field[/color]. Field has %s AoE.\n" % field_radius
-	autocast_corruption.caster_art = ""
-	autocast_corruption.target_art = ""
-	autocast_corruption.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
-	autocast_corruption.num_buffs_before_idle = 0
-	autocast_corruption.cast_range = 800
-	autocast_corruption.auto_range = 0
-	autocast_corruption.cooldown = 5
-	autocast_corruption.mana_cost = 0
-	autocast_corruption.target_self = false
-	autocast_corruption.is_extended = true
-	autocast_corruption.buff_type = null
-	autocast_corruption.buff_target_type = null
-	autocast_corruption.handler = on_autocast_corruption
-	list.append(autocast_corruption)
-
-	return list
 
 
 func on_destruct():

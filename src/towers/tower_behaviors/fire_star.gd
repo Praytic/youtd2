@@ -16,39 +16,8 @@ var ignite_bt: BuffType
 var firestar_pt: ProjectileType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var burn: AbilityInfo = AbilityInfo.new()
-	burn.name = "Burn!"
-	burn.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	burn.description_short = "Ignites hit creeps, dealing attack damage over time and slowing the creep.\n"
-	burn.description_full = "Ignites hit creeps, dealing attack damage every 2 seconds. Ignite damage is equal to this tower's current attack damage. Ignite slows movement speed by 5%, lasts 2.5 seconds and stacks. Each stack increases the damage by 5% and the slow by 1%.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+4% initial damage\n" \
-	+ "+0.2% damage per stack\n"
-	list.append(burn)
-
-	var double_the_trouble: AbilityInfo = AbilityInfo.new()
-	double_the_trouble.name = "Double the Trouble"
-	double_the_trouble.icon = "res://resources/icons/cannons/cannon_05.tres"
-	double_the_trouble.description_short = "Whenever this tower hits a creep, it has a chance to launch an additional projectile which deals the same damage as a normal attack.\n"
-	double_the_trouble.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to launch an additional projectile that deals the same damage as a normal attack.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.5% chance\n"
-	list.append(double_the_trouble)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_target_count_DELETEME(14)
 
 
 func tower_init():

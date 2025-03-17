@@ -7,9 +7,9 @@ var axe_pt: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {dmg_special = 0.10, dmg_special_add = 0.002, smashing_axe_dmg = 0.20, smashing_axe_dmg_add = 0.004, coated_axes_dmg = 0.0060, coated_axes_dmg_add = 0.00020},
-		2: {dmg_special = 0.15, dmg_special_add = 0.003, smashing_axe_dmg = 0.25, smashing_axe_dmg_add = 0.005, coated_axes_dmg = 0.0065, coated_axes_dmg_add = 0.00025},
-		3: {dmg_special = 0.20, dmg_special_add = 0.004, smashing_axe_dmg = 0.30, smashing_axe_dmg_add = 0.006, coated_axes_dmg = 0.0070, coated_axes_dmg_add = 0.00030},
+		1: {smashing_axe_dmg = 0.20, smashing_axe_dmg_add = 0.004, coated_axes_dmg = 0.0060, coated_axes_dmg_add = 0.00020},
+		2: {smashing_axe_dmg = 0.25, smashing_axe_dmg_add = 0.005, coated_axes_dmg = 0.0065, coated_axes_dmg_add = 0.00025},
+		3: {smashing_axe_dmg = 0.30, smashing_axe_dmg_add = 0.006, coated_axes_dmg = 0.0070, coated_axes_dmg_add = 0.00030},
 	}
 
 const ON_ATTACK_CHANCE: float = 0.15
@@ -21,54 +21,9 @@ const FATIGUE_DURATION: float = 3
 const PURGE_COUNT_FOR_STUN: float = 5
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
-	var smashing_axe_dmg: String = Utils.format_percent(_stats.smashing_axe_dmg, 2)
-	var smashing_axe_dmg_add: String = Utils.format_percent(_stats.smashing_axe_dmg_add, 2)
-	var purge_count_for_stun: String = Utils.format_float(PURGE_COUNT_FOR_STUN, 2)
-	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)
-	var stun_duration_for_bosses: String = Utils.format_float(STUN_DURATION_FOR_BOSSES, 2)
-	var mod_attack_speed: String = Utils.format_percent(MOD_ATTACKSPEED, 2)
-	var mod_attack_speed_add: String = Utils.format_percent(MOD_ATTACKSPEED_ADD, 2)
-	var fatigue_duration: String = Utils.format_float(FATIGUE_DURATION, 2)
-	var coated_axes_dmg: String = Utils.format_percent(_stats.coated_axes_dmg, 2)
-	var coated_axes_dmg_add: String = Utils.format_percent(_stats.coated_axes_dmg_add, 2)
-	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ice_smashing_axe: AbilityInfo = AbilityInfo.new()
-	ice_smashing_axe.name = "Ice Smashing Axe"
-	ice_smashing_axe.icon = "res://resources/icons/weapons_misc/axe_01.tres"
-	ice_smashing_axe.description_short = "Whenever the Troll attacks, he has a chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs and debuffs from the creep and deals %s damage.\n" % elemental_string
-	ice_smashing_axe.description_full = "Whenever the Troll attacks, he has a %s chance to throw [color=GOLD]Ice Smashing Axe[/color] at the main target. [color=GOLD]Ice Smashing Axe[/color] shatters all the buffs and debuffs from its target and deals %s of the tower's attack damage as %s damage for each buff purged. If more than %s buffs are removed the target is also stunned for %s seconds (%s on bosses). The axe is so heavy that its wielder's attack speed is slowed by %s for %s seconds after throwing it.\n" % [on_attack_chance, smashing_axe_dmg, elemental_string, purge_count_for_stun, stun_duration, stun_duration_for_bosses, mod_attack_speed, fatigue_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage per buff\n" % smashing_axe_dmg_add \
-	+ "-%s attack speed reduction\n" % mod_attack_speed_add
-	list.append(ice_smashing_axe)
-
-	var ice_coated_axes: AbilityInfo = AbilityInfo.new()
-	ice_coated_axes.name = "Ice Coated Axes"
-	ice_coated_axes.icon = "res://resources/icons/weapons_misc/glaive_01.tres"
-	ice_coated_axes.description_short = "Whenever the Troll hits a slowed creep, it deals bonus damage.\n"
-	ice_coated_axes.description_full = "Whenever the Troll hits a slowed creep, it deals %s bonus damage for every 1%% movement speed the creep is missing.\n" % coated_axes_dmg \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % coated_axes_dmg_add
-	list.append(ice_coated_axes)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, _stats.dmg_special, _stats.dmg_special_add)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.dmg_special, _stats.dmg_special_add)
 
 
 func tower_init():

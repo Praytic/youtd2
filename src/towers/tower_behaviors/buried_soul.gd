@@ -14,40 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var banish_lvl: String = Utils.format_percent(_stats.banish_lvl * 0.01, 2)
-	var banish_duration: String = Utils.format_float(_stats.banish_duration, 2)
-	var banish_lvl_add: String = Utils.format_percent(_stats.banish_lvl_add * 0.01, 2)
-	var damage: String = Utils.format_float(_stats.damage, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var soul_scattering: AbilityInfo = AbilityInfo.new()
-	soul_scattering.name = "Soul Scattering"
-	soul_scattering.icon = "res://resources/icons/gloves/curse.tres"
-	soul_scattering.description_short = "Whenever this tower attacks, it has a chance to reduce its own attack speed and make the main target more vulnerable to spells.\n"
-	soul_scattering.description_full = "Whenever this tower attacks, it has a 10%% chance to reduce its own attack speed by 60%% and make the main target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% attack speed\n" \
-	+ "+%s spell damage received\n" % banish_lvl_add
-	list.append(soul_scattering)
-
-	var shadowstrike: AbilityInfo = AbilityInfo.new()
-	shadowstrike.name = "Shadowstrike"
-	shadowstrike.icon = "res://resources/icons/swords/sword_swing_02.tres"
-	shadowstrike.description_short = "Chance to deal additional spell damage to the attacked creep.\n"
-	shadowstrike.description_full = "25%% chance to deal %s additional spell damage to the attacked creep.\n" % damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % damage_add \
-	+ "+0.5% chance\n"
-	list.append(shadowstrike)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
 

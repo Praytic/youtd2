@@ -7,46 +7,9 @@ var aura_bt: BuffType
 var wrath_bt: BuffType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var wrath: AbilityInfo = AbilityInfo.new()
-	wrath.name = "Wrath of Ymir"
-	wrath.icon = "res://resources/icons/animals/dragon_05.tres"
-	wrath.description_short = "Whenever this tower hits a creep, it has a chance to deal portion of attack damage as spell damage and slow the creep.\n"
-	wrath.description_full = "Whenever this tower hits a creep, it has a 20% chance to deal additional 10% of tower's attack damage as spell damage and slow the creep by an amount equal to the percent of its remaining hitpoints for 2 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+0.6% damage\n"
-	list.append(wrath)
-
-	var blood: AbilityInfo = AbilityInfo.new()
-	blood.name = "Blood of Ymir"
-	blood.icon = "res://resources/icons/gems/gem_07.tres"
-	blood.description_short = "Creeps that come into range of Ymir temporarily take extra damage from %s towers.\n" % ice_string
-	blood.description_full = "When a creep comes in 900 range of Ymir, he debuffs the creep for 6 seconds, increasing vulnerability to %s towers by 25%%.\n" % ice_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08 seconds duration\n" \
-	+ "+0.4% vulnerability\n"
-	blood.radius = 900
-	blood.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(blood)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 900, TargetType.new(TargetType.CREEPS))
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	tower.set_attack_style_splash_DELETEME({400: 0.25})
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 
 
 func tower_init():
@@ -73,27 +36,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Wrath Spelldamage")
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Flesh of Ymir"
-	aura.icon = "res://resources/icons/scrolls/scroll_01.tres"
-	aura.description_short = "The ancient Flesh of Ymir grants him reduced debuff duration.\n"
-	aura.description_full = "The ancient Flesh of Ymir grants him -25% debuff duration.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.6% debuff duration\n"
-
-	aura.aura_range = 0
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

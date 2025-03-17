@@ -26,8 +26,8 @@ var bloodspill_fatigue_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_mana_regen_add = 0.1, bloodspill_chance_add = 0.002, bloodspill_mod_attack_speed = 0.50, bloodspill_exp = 0.25, sacrifice_dmg_ratio = 0.30},
-		2: {mod_mana_regen_add = 0.2, bloodspill_chance_add = 0.004, bloodspill_mod_attack_speed = 0.75, bloodspill_exp = 0.50, sacrifice_dmg_ratio = 0.45},
+		1: {bloodspill_chance_add = 0.002, bloodspill_mod_attack_speed = 0.50, bloodspill_exp = 0.25, sacrifice_dmg_ratio = 0.30},
+		2: {bloodspill_chance_add = 0.004, bloodspill_mod_attack_speed = 0.75, bloodspill_exp = 0.50, sacrifice_dmg_ratio = 0.45},
 	}
 
 const BLOODSPILL_DMG_LOSS: float = 1.0
@@ -40,40 +40,8 @@ const SACRIFICE_DMG_LOSS: float = 1.0
 const BUFF_DURATION: float = 6
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
-	var bloodspill_mod_attack_speed: String = Utils.format_percent(_stats.bloodspill_mod_attack_speed, 2)
-	var bloodspill_mod_attack_speed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
-	var bloodspill_chance: String = Utils.format_percent(BLOODSPILL_CHANCE, 2)
-	var bloodspill_chance_add: String = Utils.format_percent(_stats.bloodspill_chance_add, 2)
-	var bloodspill_range: String = Utils.format_float(BLOODSPILL_RANGE, 2)
-	var bloodspill_exp: String = Utils.format_float(_stats.bloodspill_exp, 2)
-	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Blood Spill"
-	ability.icon = "res://resources/icons/helmets/helmet_06.tres"
-	ability.description_short = "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
-	ability.description_full = "On attack, this tower has a %s chance to lose %s attack speed and boost the attack speed of all towers in %s range by %s, equally divided among them, for %s seconds. Every time it casts [color=GOLD]Blood Spill[/color], the tower gains %s experience for every other tower affected. Cannot retrigger while active.\n" % [bloodspill_chance, bloodspill_dmg_loss, bloodspill_range, bloodspill_mod_attack_speed, buff_duration, bloodspill_exp] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack speed\n" % bloodspill_mod_attack_speed_add \
-	+ "+%s chance\n" % bloodspill_chance_add
-	ability.radius = BLOODSPILL_RANGE
-	ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, _stats.mod_mana_regen_add)
 
 
 func tower_init():
@@ -102,39 +70,6 @@ func tower_init():
 	sacrifice_fatigue_bt.set_buff_modifier(dave_sacrifice_altar)
 	sacrifice_fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var sacrifice_dmg_loss: String = Utils.format_percent(SACRIFICE_DMG_LOSS, 2)
-	var sacrifice_range: String = Utils.format_float(SACRIFICE_RANGE, 2)
-	var sacrifice_dmg_ratio: String = Utils.format_percent(_stats.sacrifice_dmg_ratio, 2)
-	var sacrifice_dmg_ratio_add: String = Utils.format_percent(SACRIFICE_DMG_RATIO_ADD, 2)
-	var buff_duration: String = Utils.format_float(BUFF_DURATION, 2)
-
-	autocast.title = "Sacrifice"
-	autocast.icon = "res://resources/icons/furniture/artifact_on_pedestal.tres"
-	autocast.description_short = "This tower loses a portion of its attack damage to boost the DPS of a nearby tower.\n"
-	autocast.description = "This tower loses %s of its attack damage to boost the DPS of a tower in %s range by %s of its total attack damage for %s seconds. This buff has no effect on towers of the same family.\n" % [sacrifice_dmg_loss, sacrifice_range, sacrifice_dmg_ratio, buff_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bonus damage\n" % sacrifice_dmg_ratio_add
-	autocast.caster_art = "res://src/effects/faerie_dragon_missile.tscn"
-	autocast.target_art = "res://src/effects/frost_armor_damage_purple.tscn"
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = SACRIFICE_RANGE
-	autocast.auto_range = SACRIFICE_RANGE
-	autocast.cooldown = 6
-	autocast.mana_cost = 90
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = sacrifice_boost_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(_event: Event):

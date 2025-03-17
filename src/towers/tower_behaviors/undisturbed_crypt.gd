@@ -29,41 +29,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var debuff_effect: String = Utils.format_percent(_stats.buff_level * 0.001, 2)
-	var debuff_effect_add: String = Utils.format_percent(_stats.buff_level_add * 0.001, 2)
-	var critical_mass_chance: String = Utils.format_percent(_stats.critical_mass_chance, 2)
-	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
-
-	var list: Array[AbilityInfo] = []
-	
-	var corpse_explosion: AbilityInfo = AbilityInfo.new()
-	corpse_explosion.name = "Corpse Explosion"
-	corpse_explosion.icon = "res://resources/icons/undead/skull_doll.tres"
-	corpse_explosion.description_short = "Occasionally explodes a nearby corpse, making nearby enemies more vulnerable to %s and slowing them. Doesn't affect Air.\n" % darkness_string
-	corpse_explosion.description_full = "Explodes a corpse within 1000 range of the tower, causing enemies in 500 range of the corpse to take %s more damage from %s towers and move %s slower for 8 seconds. 5 second cooldown. Doesn't affect Air.\n" % [debuff_effect, darkness_string, debuff_effect] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s slow and damage taken\n" % debuff_effect_add \
-	+ "+0.25 seconds duration\n"
-	corpse_explosion.radius = 1000
-	corpse_explosion.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(corpse_explosion)
-
-	var critical_mass: AbilityInfo = AbilityInfo.new()
-	critical_mass.name = "Critical Mass"
-	critical_mass.icon = "res://resources/icons/orbs/orb_fire.tres"
-	critical_mass.description_short = "Attacks have a chance to shoot multiple projectiles at the main target, dealing attack damage.\n"
-	critical_mass.description_full = "Attacks have a 30%% chance to shoot an extra projectile at the main target. Projectiles deal attack damage equal to tower's normal attack damage. For each projectile after the initial one, there is a %s chance to shoot an extra projectile. There is a maximum of 14 projectiles fired per attack.\n" % critical_mass_chance \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.3% initial chance\n" \
-	+ "+0.6% extra chance\n"
-	list.append(critical_mass)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 5)

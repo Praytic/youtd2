@@ -10,24 +10,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Magic Split"
-	ability.icon = "res://resources/icons/magic/claw_01.tres"
-	ability.description_short = "Deals additional spell damage to hit creeps, equal to 100% of this tower's attack damage.\n"
-	ability.description_full = "Deals additional spell damage to hit creeps, equal to 100%% of this tower's attack damage. If the creep is immune the damage is dealt as %s damage equal to 80%% of tower's attack damage, not affected by level bonus.\n" % energy_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% damage\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

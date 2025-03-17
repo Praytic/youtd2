@@ -5,21 +5,6 @@ var curse_bt: BuffType
 var aura_bt: BuffType
 var multiboard: MultiboardValues
 
-const AURA_RANGE: int = 900
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var icy_curse: AbilityInfo = AbilityInfo.new()
-	icy_curse.name = "Icy Curse"
-	icy_curse.icon = "res://resources/icons/furniture/furniture.tres"
-	icy_curse.description_short = "Increases debuff duration of hit creeps.\n"
-	icy_curse.description_full = "Increases debuff duration of hit creeps by 30% for 5 seconds.\n"
-	list.append(icy_curse)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
@@ -42,28 +27,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Stored Damage")
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "King's Authority"
-	aura.icon = "res://resources/icons/helmets/helmet_07.tres"
-	aura.description_short = "The Lich King rules over every creep in range. Every creep leaving this range will be punished and suffer spell damage.\n"
-	aura.description_full = "The Lich King rules over every creep in %d range. Every creep leaving this range will be punished with 500 spell damage for every second it was under this aura's effect.\n" % AURA_RANGE \
-	+ "If a creep dies in this area of authority, the spell damage that didn't get dealt is stored. The next creep to then leave the Lich King's area will be punished with [color=GOLD][stored damage x 0.5][/color] spell damage.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+20 damage per second\n" \
-	+ "[color=GOLD]+[stored damage x 0.04][/color] spell damage\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 500
-	aura.level_add = 20
-	aura.aura_effect = aura_bt
-	return [aura]
 
 
 func on_damage(event: Event):

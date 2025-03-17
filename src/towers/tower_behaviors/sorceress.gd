@@ -56,24 +56,6 @@ var data: Data
 var current_missile_mod: MissileMod
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Magic Missile"
-	ability.icon = "res://resources/icons/tower_icons/charged_obelisk.tres"
-	ability.description_short = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction.\n"
-	ability.description_full = "Whenever this tower attacks it launches a [color=GOLD]Magic Missile[/color] in the main target's direction. The missile hits all units in 150 AoE and deals 100% of the tower's attack damage as spell damage to hit units.\n" \
-	+ " \n" \
-	+ "[color=GOLD]Magic Missile[/color] can also apply debuffs to hit units. You can customize this effect with the [color=GOLD]Choose Modification[/color], [color=GOLD]Apply Modification[/color] and [color=GOLD]Remove Modification[/color] abilities.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% spell damage\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -125,87 +107,6 @@ func tower_init():
 	multiboard.set_key(5, "Armor")
 	multiboard.set_key(6, "Spell Vuln")
 	multiboard.set_key(7, "AoE")
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var list: Array[Autocast] = []
-
-	var autocast_choose: Autocast = Autocast.make()
-	autocast_choose.title = "Choose Modification"
-	autocast_choose.icon = "res://resources/icons/trinkets/trinket_01.tres"
-	autocast_choose.description_short = "Cycle through modifications.\n"
-	autocast_choose.description = "Cycle through modifications. Selected modification will be used as target for [color=GOLD]Apply Modification[/color] and [color=GOLD]Remove Modification[/color] abilities. Note that you must apply modification after selection to make it active.\n" \
-	+ " \n" \
-	+ "[color=ROYAL_BLUE]Slow[/color]: 8% for 5 seconds; costs 20% missile dmg\n" \
-	+ "[color=DARK_SEA_GREEN]Silence[/color]: 5 seconds, 50% chance; costs 40% missile dmg\n" \
-	+ "[color=ORANGE_RED]Health Regeneration[/color]: -10% for 5 seconds; costs 25% missile dmg\n" \
-	+ "[color=TAN]Armor[/color]: -6% for 5 seconds; costs 25% missile dmg\n" \
-	+ "[color=MEDIUM_PURPLE]Spell Vulnerability[/color]: 12% for 5 seconds; costs 25% missile dmg\n" \
-	+ "[color=LIME_GREEN]AoE radius[/color]: +50; costs 15% missile dmg\n" \
-	+ " \n" \
-	+ "You can check current modification status in Tower Details.\n"
-	autocast_choose.caster_art = ""
-	autocast_choose.target_art = ""
-	autocast_choose.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_choose.num_buffs_before_idle = 0
-	autocast_choose.cast_range = 0
-	autocast_choose.auto_range = 0
-	autocast_choose.cooldown = 0.25
-	autocast_choose.mana_cost = 0
-	autocast_choose.target_self = true
-	autocast_choose.is_extended = false
-	autocast_choose.buff_type = null
-	autocast_choose.buff_target_type = null
-	autocast_choose.handler = on_autocast_choose
-	list.append(autocast_choose)
-
-	var autocast_add: Autocast = Autocast.make()
-	autocast_add.title = "Apply Modification"
-	autocast_add.icon = "res://resources/icons/magic/claw_02.tres"
-	autocast_add.description_short = "Applies modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.\n"
-	autocast_add.description = "Applies currently selected modification to [color=GOLD]Magic Missile[/color] if the tower has enough damage left.\n" \
-	+ " \n" \
-	+ "Multiple different modifications can be applied at the same time.\n" \
-	+ " \n" \
-	+ "You can check current modification status in Tower Details.\n"
-	autocast_add.caster_art = ""
-	autocast_add.target_art = ""
-	autocast_add.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_add.num_buffs_before_idle = 0
-	autocast_add.cast_range = 0
-	autocast_add.auto_range = 0
-	autocast_add.cooldown = 0.25
-	autocast_add.mana_cost = 0
-	autocast_add.target_self = 0
-	autocast_add.is_extended = false
-	autocast_add.buff_type = null
-	autocast_add.buff_target_type = null
-	autocast_add.handler = on_autocast_add
-	list.append(autocast_add)
-
-	var autocast_remove: Autocast = Autocast.make()
-	autocast_remove.title = "Remove Modification"
-	autocast_remove.icon = "res://resources/icons/magic/claw_04.tres"
-	autocast_remove.description_short = "Removes modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.\n"
-	autocast_remove.description = "Removes currently selected modification from [color=GOLD]Magic Missile[/color] and refunds the damage used.\n" \
-	+ " \n" \
-	+ "You can check current modification status in Tower Details.\n"
-	autocast_remove.caster_art = ""
-	autocast_remove.target_art = ""
-	autocast_remove.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_remove.num_buffs_before_idle = 0
-	autocast_remove.cast_range = 0
-	autocast_remove.auto_range = 0
-	autocast_remove.cooldown = 0.25
-	autocast_remove.mana_cost = 0
-	autocast_remove.target_self = 0
-	autocast_remove.is_extended = false
-	autocast_remove.buff_type = null
-	autocast_remove.buff_target_type = null
-	autocast_remove.handler = on_autocast_remove
-	list.append(autocast_remove)
-
-	return list
 
 
 func on_attack(event: Event):

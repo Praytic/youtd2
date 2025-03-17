@@ -13,30 +13,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase * 0.001, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Cold Feet"
-	ability.icon = "res://resources/icons/furniture/furniture.tres"
-	ability.description_short = "On attack this tower decreases its attack speed while increasing its attack damage.\n"
-	ability.description_full = "On attack this tower cools down decreasing its attack speed by 5%% while increasing attack damage it deals by %s. The cold lasts for 6 seconds and stacks up to 10 times.\n" % dmg_increase \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-1% attack speed reduction at level 15 and 25\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_style_splash_DELETEME({300: 0.35})
 
 
 func on_cleanup(event: Event):

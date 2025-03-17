@@ -21,33 +21,6 @@ const GRENADE_MOD_DMG_RECEIVED_ADD: float = 0.001
 const GRENADE_MOD_DMG_RECEIVED_MAX: float = 0.50
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var grenade_chance: String = Utils.format_percent(_stats.grenade_chance, 2)
-	var grenade_chance_add: String = Utils.format_percent(_stats.grenade_chance_add, 2)
-	var grenade_count: String = Utils.format_float(_stats.grenade_count, 2)
-	var grenade_damage: String = Utils.format_float(_stats.grenade_damage, 2)
-	var grenade_damage_add: String = Utils.format_float(_stats.grenade_damage_add, 2)
-	var grenade_mod_dmg_received: String = Utils.format_percent(GRENADE_MOD_DMG_RECEIVED, 2)
-	var grenade_mod_dmg_received_add: String = Utils.format_percent(GRENADE_MOD_DMG_RECEIVED_ADD, 2)
-	var grenade_mod_dmg_received_max: String = Utils.format_percent(GRENADE_MOD_DMG_RECEIVED_MAX, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Frag Grenade"
-	ability.icon = "res://resources/icons/misc/balls_02.tres"
-	ability.description_short = "When this tower hits a creep, it has a chance to fire a frag grenade. Grenades deal spell damage.\n"
-	ability.description_full = "When this tower hits a creep, it has a %s chance to fire a frag grenade that will split into %s smaller grenades after a short delay. When a grenade collides with a creep it deals %s spell damage and increases the damage the target takes from attacks by %s, stacking up to a maximum of %s.\n" % [grenade_chance, grenade_count, grenade_damage, grenade_mod_dmg_received, grenade_mod_dmg_received_max] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % grenade_chance_add \
-	+ "+%s spell damage\n" % grenade_damage_add \
-	+ "+%s damage increase\n" % grenade_mod_dmg_received_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -71,38 +44,6 @@ func tower_init():
 	shard_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 400, 500, self)
 	shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
 	shard_pt.enable_collision(boekie_shard_on_collide, 75, TargetType.new(TargetType.CREEPS), true)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var stim_attack_speed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
-	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
-	var stim_duration: String = Utils.format_float(STIM_DURATION, 2)
-	var stim_duration_add: String = Utils.format_float(STIM_DURATION_ADD, 2)
-
-	autocast.title = "Stim"
-	autocast.icon = "res://resources/icons/rockets/rocket_06.tres"
-	autocast.description_short = "This marine uses a stim, increasing its attack speed and decreasing its attack damage.\n"
-	autocast.description = "This marine uses a stim, increasing its attack speed by %s and decreasing its attack damage by %s. This buff lasts %s seconds.\n" % [stim_attack_speed, stim_attack_dmg, stim_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s seconds duration\n" % stim_duration_add
-	autocast.caster_art = "res://src/effects/avatar_caster.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 1200
-	autocast.auto_range = 1200
-	autocast.cooldown = 1
-	autocast.mana_cost = 25
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

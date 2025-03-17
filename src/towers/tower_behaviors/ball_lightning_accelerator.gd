@@ -9,40 +9,13 @@ var slow_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_mana_add = 50, mod_mana_regen_add = 1, projectile_damage = 500, projectile_damage_add = 25},
-		2: {mod_mana_add = 100, mod_mana_regen_add = 3, projectile_damage = 1000, projectile_damage_add = 50},
+		1: {projectile_damage = 500, projectile_damage_add = 25},
+		2: {projectile_damage = 1000, projectile_damage_add = 50},
 	}
-
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
-	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Energetic Weapon"
-	ability.icon = "res://resources/icons/rockets/rocket_03.tres"
-	ability.description_short = "The Accelerator attacks with energetic missiles, which deal AoE spell damage scaled with tower's current mana. Additionally, the missile slows hit creeps.\n"
-	ability.description_full = "The Accelerator attacks with energetic missiles, which deal %s plus 3 times the current mana as spell damage to all units in 250 range of the missile. Additionally, the missile slows all units by 1%% for each 4000 damage it deals to a creep for 1.5 seconds. Cannot slow by more than 20%%. Each attack consumes 20%% of this tower's current mana.\n" % projectile_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % projectile_damage_add \
-	+ "+5% mana converted to damage\n" \
-	+ "+0.04 seconds slow duration\n"
-	list.append(ability)
-
-	return list
 
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, _stats.mod_mana_add)
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0, _stats.mod_mana_regen_add)
 
 
 func tower_init():
@@ -69,35 +42,6 @@ func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Energy Absorb"
-	autocast.icon = "res://resources/icons/rings/ring_06.tres"
-	autocast.description_short = "Decreases attack speed of all towers in range. Increases mana regeneration of the Accelerator.\n"
-	autocast.description = "Decreases the attack speed of all towers in 1000 range by 10%. Increases the mana regeneration of the Accelerator by 2 mana per second for each weakened tower. Both effects last 8 seconds\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.1% attack speed weakening\n" \
-	+ "+0.04 mana per second\n"
-
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 1000
-	autocast.auto_range = 1000
-	autocast.cooldown = 40
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

@@ -17,42 +17,9 @@ var stormbolt_pt: ProjectileType
 var hammer_pt: ProjectileType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
-
-	var list: Array[AbilityInfo] = []
-
-	var storm_hammer: AbilityInfo = AbilityInfo.new()
-	storm_hammer.name = "Mystical Storm Hammer"
-	storm_hammer.icon = "res://resources/icons/blunt_weapons/hammer_04.tres"
-	storm_hammer.description_short = "This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage.\n"
-	storm_hammer.description_full = "This tower attacks with a hammer, which deals part of the damage as spell damage and the rest as attack damage. The amount of spell damage depends on the spell damage resistance of the target. The higher the resistance, the smaller ratio of spell damage dealt. Deals no spell damage against immune creeps and deals no %s damage against ethereal creeps. If this [color=GOLD]Storm Hammer[/color] deals all the damage in one type, it will have 5%% increased critchance.\n" % physical_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1.8% crit chance\n"
-	list.append(storm_hammer)
-
-	var storm_bolt: AbilityInfo = AbilityInfo.new()
-	storm_bolt.name = "Storm Bolt"
-	storm_bolt.icon = "res://resources/icons/rockets/rocket_07.tres"
-	storm_bolt.description_short = "When this tower attacks, it launches a [color=GOLD]Storm Bolt[/color] towards the main target. [color=GOLD]Storm Bolt[/color] deals AoE attack damage.\n"
-	storm_bolt.description_full = "When this tower attacks, it launches a [color=GOLD]Storm Bolt[/color] towards the main target. Upon collision, [color=GOLD]Storm Bolt[/color] deals the tower's attack damage to the target and creates a trail of 5 storm explosions. The explosions deal the tower's attack damage to every unit in 85 AoE. Each explosion deals 40% less damage than the previous one.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-1.2% damage reduction\n"
-	list.append(storm_bolt)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	tower.set_attack_ground_only_DELETEME()
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 
 func tower_init():
@@ -72,33 +39,6 @@ func tower_init():
 
 	hammer_pt = ProjectileType.create("path_to_projectile_sprite", 90, 0, self)
 	hammer_pt.enable_physics(hammer_pt_on_impact, -30)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Hammer Fall"
-	autocast.icon = "res://resources/icons/blunt_weapons/hammer_02.tres"
-	autocast.description_short = "Summons a hammer which falls from the sky and deals AoE spell damage.\n"
-	autocast.description = "Summons a hammer which falls from the sky. The hammer deals 10000 spell damage to all units in 600 AoE and stuns them for 1 second. Each of the player's storm tower in 2500 range loses 10% attack damage for 6 seconds but increases the spell damage of the hammer by 5%. Can gain a maximum of 100% bonus damage.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% damage from towers\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 900
-	autocast.auto_range = 900
-	autocast.cooldown = 10
-	autocast.mana_cost = 50
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

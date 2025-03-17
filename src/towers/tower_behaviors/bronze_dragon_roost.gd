@@ -4,31 +4,8 @@ extends TowerBehavior
 var bronze_bt: BuffType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Bronzefication"
-	ability.icon = "res://resources/icons/potions/potion_07.tres"
-	ability.description_short = "Chance to turn the flesh of the hit creep into bronze. The creep is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
-	ability.description_full = "10% chance to turn the flesh of the hit creep into bronze for 5 seconds. The creep is slowed by 50%, loses 50% of its health regeneration, has a 25% higher item quality and has 50% more armor.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-1% hp regen\n" \
-	+ "-0.8% armor\n" \
-	+ "+1% item quality\n" \
-	+ "+0.4% chance\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_style_bounce_DELETEME(6, 0.10)
 
 
 func tower_init():

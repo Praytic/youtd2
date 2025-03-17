@@ -13,34 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var bonus_damage: String = Utils.format_float(_stats.bonus_damage, 2)
-	var bonus_damage_other: String = Utils.format_float(_stats.bonus_damage * 0.3, 2)
-	var explode_damage: String = Utils.format_float(_stats.explode_damage, 2)
-	var bonus_damage_add: String = Utils.format_float(_stats.bonus_damage_add, 2)
-	var bonus_damage_add_other: String = Utils.format_float(_stats.bonus_damage_add * 0.3, 2)
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Burn"
-	ability.icon = "res://resources/icons/fire/torch.tres"
-	ability.description_short = "Burns hit creeps. Whenever a %s tower hits a burning creep, the damage will be increased by a flat amount.\n" % [fire_string]
-	ability.description_full = "Burns hit creeps. Whenever a %s tower hits a burning creep, the damage will be increased by a flat amount. The amount of bonus damage starts at 0 and increases on every hit. Towers from this family increase the damage by %s, any other %s towers by %s. If the creep dies, it explodes and deals %s spell damage to nearby creeps in a range of 200.\n" % [fire_string, bonus_damage, fire_string, bonus_damage_other, explode_damage] \
-	+ " \n" \
-	+ "Lasts 5 seconds after the last attack of a %s tower.\n" % fire_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage gain (Same family towers)\n" % bonus_damage_add \
-	+ "+%s damage gain (Other %s towers)\n" % [bonus_damage_add_other, fire_string] \
-	+ "+0.12 seconds burn duration\n"
-	list.append(ability)
-
-	return list
-
-
 # b.userReal: The user Real is the current bonus damage of the buff. Init with 0
 # NOTE: initOnCreate() in original script
 func burning_bt_on_create(event: Event):

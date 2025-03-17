@@ -18,63 +18,9 @@ const DEBUFF_DURATION: float = 5.0
 const ERUPT_RANGE: float = 200
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var target_count: String = Utils.format_float(_stats.target_count, 2)
-	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
-	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 3)
-	var debuff_duration: String = Utils.format_float(DEBUFF_DURATION, 2)
-
-	var erupt_damage: String = Utils.format_float(_stats.erupt_damage, 2)
-	var erupt_range: String = Utils.format_float(ERUPT_RANGE, 2)
-	var armor_regain: String = Utils.format_percent(_stats.armor_regain, 2)
-	var armor_regain_add: String = Utils.format_percent(_stats.armor_regain_add, 2)
-
-	var element_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var twin_attack: AbilityInfo = AbilityInfo.new()
-	twin_attack.name = "Twin Attack"
-	twin_attack.icon = "res://resources/icons/bows/arrow_02.tres"
-	twin_attack.description_short = "The Phoenix attacks multiple targets at once.\n"
-	twin_attack.description_full = "The Phoenix attacks up to %s targets at once. If there are less creeps than attacks, the remaining attacks will hit the main target. Each attack applies [color=GOLD]Phoenixfire[/color].\n" % [target_count] \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] these extra attacks are not considered as a \"true multishot\" and do not trigger any \"on hit\" abilities, other than [color=GOLD]Phoenixfire[/color].\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1 target at level 15\n"
-	list.append(twin_attack)
-
-	var phoenixfire: AbilityInfo = AbilityInfo.new()
-	phoenixfire.name = "Phoenixfire"
-	phoenixfire.icon = "res://resources/icons/orbs/orb_molten.tres"
-	phoenixfire.description_short = "Reduces armor of hit creeps.\n"
-	phoenixfire.description_full = "Reduces armor of hit creeps by %s for %s seconds. This effect is stackable.\n" % [mod_armor, debuff_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s armor reduction\n" % mod_armor_add
-	list.append(phoenixfire)
-
-	var phoenix_explosion: AbilityInfo = AbilityInfo.new()
-	phoenix_explosion.name = "Phoenix Explosion"
-	phoenix_explosion.icon = "res://resources/icons/elements/fire.tres"
-	phoenix_explosion.description_short = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals AoE attack damage.\n"
-	phoenix_explosion.description_full = "When [color=GOLD]Phoenixfire[/color] expires, it erupts and deals %s %s damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage.\n" % [erupt_damage, element_string, erupt_range, armor_regain] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-%s armor regain\n" % armor_regain_add
-	list.append(phoenix_explosion)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.20, 0.01)
 
 
 # NOTE: tomy_PhoenixAttackHit() in original script 
@@ -125,30 +71,6 @@ func tower_init():
 
 	phoenix_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 800, self)
 	phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Eruption"
-	autocast.icon = "res://resources/icons/fire/fire_bowl_02.tres"
-	autocast.description_short = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color].\n"
-	autocast.description = "Explodes all creeps affected by [color=GOLD]Phoenixfire[/color], triggering the [color=GOLD]Phoenix Explosion[/color] ability. [color=GOLD]Phoenixfire[/color] debuff expires after explosion.\n"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast.cast_range = 0
-	autocast.target_self = true
-	autocast.target_art = ""
-	autocast.cooldown = 1
-	autocast.is_extended = false
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 0
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

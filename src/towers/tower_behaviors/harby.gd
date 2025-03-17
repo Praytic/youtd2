@@ -6,46 +6,11 @@ var awaken_bt: BuffType
 var missile_pt: ProjectileType
 var is_awake: bool = false
 
-const AURA_RANGE: int = 350
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var arcane_orb: AbilityInfo = AbilityInfo.new()
-	arcane_orb.name = "Arcane Orb"
-	arcane_orb.icon = "res://resources/icons/tower_icons/dark_battery.tres"
-	arcane_orb.description_short = "Infuses Harby's attacks with arcane energy at the cost of mana, dealing bonus spell damage.\n"
-	arcane_orb.description_full = "Infuses Harby's attacks with arcane energy at the cost of 100 mana per attack. Deals [color=GOLD][6 x Current Mana][/color] as bonus spell damage. This ability also passively grants 1 bonus maximum mana for each creep Harby kills.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "[color=GOLD]+[0.1 x Current Mana][/color] as bonus spell damage\n"
-	list.append(arcane_orb)
-	
-	var awakening: AbilityInfo = AbilityInfo.new()
-	awakening.name = "Grotesque Awakening"
-	awakening.icon = "res://resources/icons/animals/bat_03.tres"
-	awakening.description_short = "Whenever this tower is hit by a spell, it comes to life.\n"
-	awakening.description_full = "Whenever this tower is hit by a spell, it comes to life for 5 seconds, enabling it to attack. This ability is affected by buff duration.\n"
-	list.append(awakening)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
 	triggers.add_event_on_spell_targeted(on_spell_targeted)
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats in some cases
-# spell crit damage = yes
-# spell crit damage add = no
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.20, 0.05)
-	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.55, -0.01)
-	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 10)
 
 
 func tower_init():
@@ -63,28 +28,6 @@ func tower_init():
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1500, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Arcane Aura"
-	aura.icon = "res://resources/icons/tower_icons/astral_rift.tres"
-	aura.description_short = "Towers in range have a chance to replenish their mana.\n"
-	aura.description_full = "Towers in %d range have a 10%% chance to replenish 10%% of their total manapool when casting an ability that costs mana. Cannot retrigger on the same tower within 5 seconds. This effect will also proc off Harby's [color=GOLD]Arcane Orb[/color] attacks, without the retrigger restriction.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+0.2% maximum mana replenished\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_attack(event: Event):

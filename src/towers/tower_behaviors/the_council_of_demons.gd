@@ -16,25 +16,6 @@ var maledict_bt: BuffType
 var darkness_bt: BuffType
 var missile_pt: ProjectileType
 
-const AURA_RANGE: int = 400
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var maledict: AbilityInfo = AbilityInfo.new()
-	maledict.name = "Maledict"
-	maledict.icon = "res://resources/icons/orbs/orb_shadow.tres"
-	maledict.description_short = "Chance to increase spell vulnerability of hit creeps. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n"
-	maledict.description_full = "20% chance to increase spell vulnerability of hit creeps by 20% for 5 seconds. Every time the affected creep is targeted by a spell, this tower deals additional spell damage equal to 3 times the goldcost of the caster.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+0.6% spell damage received\n"
-	list.append(maledict)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
@@ -74,58 +55,6 @@ func tower_init():
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1300, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Impenetrable Darkness"
-	autocast.icon = "res://resources/icons/orbs/orb_molten_dull.tres"
-	autocast.description_short = "Shrouds a creep in darkness, slowing it and converting attack damage it takes into spell damage.\n"
-	autocast.description = "Shrouds a creep in darkness, slowing it by 40% for 5 seconds and reducing the damage it takes from attacks by 95%. [color=GOLD]Impenetrable Darkness[/color] also deals 1000 spell damage per second.\n" \
-	+ " \n" \
-	+ "When [color=GOLD]Impenetrable Darkness[/color] expires, it will deal spell damage equal to 75% of all the damage it received during the effect. This damage can't be a critical hit.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+40 damage per second\n" \
-	+ "+1% damage on expire \n" \
-	+ "+0.8% slow\n"
-	autocast.caster_art = ""
-	autocast.target_art = "res://src/effects/frag_boom_spawn.tscn"
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 850
-	autocast.auto_range = 850
-	autocast.cooldown = 8
-	autocast.mana_cost = 90
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = darkness_bt
-	autocast.buff_target_type = TargetType.new(TargetType.CREEPS)
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types_DELETEME() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Demonic Edict"
-	aura.icon = "res://resources/icons/misc/flag_02.tres"
-	aura.description_short = "Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower. Doesn't include AoE spells\n"
-	aura.description_full = "Whenever a tower in %d range casts a spell on a creep, this tower fires a projectile from the casting unit to its current target, dealing [color=GOLD][2 x caster goldcost x spell cd][/color] spell damage. The casting tower also has its mana regeneration increased by 100%% for 3 seconds. Doesn't include AoE spells.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% mana regeneration\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

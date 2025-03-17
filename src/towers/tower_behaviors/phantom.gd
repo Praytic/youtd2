@@ -16,10 +16,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
-
-
 func phantom_attack(event: Event):
 	var b: Buff = event.get_buff()
 
@@ -62,40 +58,6 @@ func tower_init():
 	chainlightning_st_2.data.chain_lightning.damage = 100
 	chainlightning_st_2.data.chain_lightning.damage_reduction = 0.25
 	chainlightning_st_2.data.chain_lightning.chain_count = 4
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var attack_speed: String = Utils.format_percent(_stats.attack_speed, 2)
-	var chain_damage: String = Utils.format_float(100 * (1.0 + _stats.user_real_base * 0.04), 2)
-	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
-
-	autocast.title = "Wind Shear"
-	autocast.icon = "res://resources/icons/plants/leaf_02.tres"
-	autocast.description_short = "Increases the attack speed of a tower and gives it a chance to cast [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals spell damage.\n"
-	autocast.description = "Increases the attack speed of a tower in 300 range by %s and gives it a 25%% attack speed adjusted chance to cast a [color=GOLD]Chain Lightning[/color] on attack. [color=GOLD]Chain Lightning[/color] deals %s initial spell damage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attack_speed, chain_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% attack speed\n" \
-	+ "+%s spell damage\n" % chain_damage_add \
-	+ "+1 target at level 20\n" \
-	+ "+0.1 sec duration\n"
-	autocast.caster_art = ""
-	autocast.target_art = "res://src/effects/wind_shear.tscn"
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
-	autocast.target_self = true
-	autocast.cooldown = 3
-	autocast.is_extended = false
-	autocast.mana_cost = 15
-	autocast.buff_type = wind_shear_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.cast_range = 300
-	autocast.auto_range = 300
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_autocast(event: Event):

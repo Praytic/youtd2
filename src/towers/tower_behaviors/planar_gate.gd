@@ -7,27 +7,6 @@ var bouncing_pt: ProjectileType
 var falcon_count: int = 0
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Planeshift"
-	ability.icon = "res://resources/icons/tower_icons/harpy_witch.tres"
-	ability.description_short = "On attack the Gate releases a magical falcon at the main target. The falcon deals %s damage and bounces to multiple targets.\n" % energy_string
-	ability.description_full = "On attack the Gate releases a magical falcon at the main target.\n" \
-	+ "The falcon deals %s damage equal to the Gate's current attack damage and bounces until it runs out of damage. Each bounce deals 5%% less damage.\n" % energy_string \
-	+ "There is a maximum of 1 falcon summoned at a time and a 20% chance to ignore the maximum.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.1% damage loss per bounce\n" \
-	+ "+1 falcon every 8 levels\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -47,35 +26,6 @@ func tower_init():
 
 	bouncing_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1250, self)
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
-
-	autocast.title = "Astral Eruption"
-	autocast.icon = "res://resources/icons/magic/magic_stone.tres"
-	autocast.description_short = "Releases a huge wave of astral power through the gate. This empowers falcons.\n"
-	autocast.description = "Releases a huge wave of astral power through the gate, weakening the boundary between the planes. This empowers all currently alive falcons and any that are created during the next 6 seconds, allowing them to deal double damage and partially shift their targets into the astral plane, increasing the damage they take from %s towers by 1%% of the falcon's current damage ratio.\n" % astral_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.18 seconds\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 0
-	autocast.auto_range = 700
-	autocast.cooldown = 35
-	autocast.mana_cost = 1000
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = eruption_bt
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

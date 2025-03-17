@@ -19,10 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials_DELETEME(_modifier: Modifier):
-	tower.set_attack_air_only_DELETEME()
-
-
 func junction_on_create(event: Event):
 	var b: Buff = event.get_buff()
 	var buffee: Tower = b.get_buffed_unit()
@@ -70,38 +66,6 @@ func tower_init():
 	jolt_bt.add_event_on_attack(junction_on_damage)
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
 	jolt_bt.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
-
-	
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var attack_speed: String = Utils.format_percent(_stats.attack_speed, 2)
-	var attack_speed_add: String = Utils.format_percent(_stats.attack_speed_add, 2)
-	var damage_on_attack: String = Utils.format_float(_stats.damage_on_attack, 2)
-	var damage_on_attack_add: String = Utils.format_float(_stats.damage_on_attack / 25.0, 2)
-	
-	autocast.title = "Jolt"
-	autocast.icon = "res://resources/icons/electricity/electricity_yellow.tres"
-	autocast.description_short = "Buffs a tower in range increasing its attack speed. The buffed tower deals extra attack damage and spell damage.\n"
-	autocast.description = "Buffs a tower in 500 range for 10 seconds increasing its attack speed by %s. The buffed tower deals %s attack damage and %s spell damage on attack multiplied with its base attack speed.\n" % [attack_speed, damage_on_attack, damage_on_attack] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack and spell damage\n" % damage_on_attack_add \
-	+ "+%s attack speed\n" % attack_speed_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
-	autocast.cast_range = 500
-	autocast.target_self = true
-	autocast.target_art = ""
-	autocast.cooldown = 8
-	autocast.is_extended = false
-	autocast.mana_cost = 15
-	autocast.buff_type = jolt_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.auto_range = 500
-
-	return [autocast]
 
 
 func on_create(_preceding_tower: Tower):

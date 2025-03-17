@@ -13,36 +13,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
-	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Rocket Strike"
-	ability.icon = "res://resources/icons/rockets/rocket_01.tres"
-	ability.description_short = "Whenever this tower attacks, it has a chance to deal AoE spell damage around the main target.\n"
-	ability.description_full = "Whenever this tower attacks, it has a 30%% chance to fire a rocket towards the main target. On impact it deals %s spell damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+%s damage\n" % rocket_damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, -0.70, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NORMAL, -0.30, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_CHAMPION, 0.20, 0.016)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, 0.50, 0.04)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.20, 0.016)
 
 
 func rocket_hit(p: Projectile, _t: Unit):

@@ -21,32 +21,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var dmg_ratio: String = Utils.format_percent(_stats.dmg_ratio, 2)
-	var dmg_ratio_add: String = Utils.format_percent(_stats.dmg_ratio_add, 2)
-	var ember_radius: String = Utils.format_float(EMBER_RADIUS, 2)
-	var elemental_string: String = AttackType.convert_to_colored_string(AttackType.enm.ELEMENTAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Embers"
-	ability.icon = "res://resources/icons/tower_icons/fiery_pebble.tres"
-	ability.description_short = "Every second, causes nearby Common towers to launch embers at random creeps in the attack range of this tower.\n"
-	ability.description_full = "Every second, causes Common towers in %s range to launch embers at random creeps in the attack range of this tower. Embers deal %s of the Common tower's attack damage as %s damage.\n" % [ember_radius, dmg_ratio, elemental_string] \
-	+ " \n" \
-	+ "Note that ember damage is dealt by this tower, not the Common tower.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % dmg_ratio_add \
-	+ ""
-	ability.radius = EMBER_RADIUS
-	ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 

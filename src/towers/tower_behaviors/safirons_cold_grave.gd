@@ -9,34 +9,6 @@ var liquid_ice_bt: BuffType
 var shard_pt: ProjectileType
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ice_shard: AbilityInfo = AbilityInfo.new()
-	ice_shard.name = "Ice Shard"
-	ice_shard.icon = "res://resources/icons/gems/gem_03.tres"
-	ice_shard.description_short = "Whenever this tower hits a creep, it also fires an [color=GOLD]Ice Shard[/color] which splits into multiple shards. [color=GOLD]Ice Shard[/color] deals spell damage if it collides with a creep.\n"
-	ice_shard.description_full = "Whenever this tower hits a creep, it also fires an [color=GOLD]Ice Shard[/color]. After a distance of 300 the [color=GOLD]Ice Shard[/color] splits into 2 new shards which will split again. If a shard collides with a creep it deals 2280 spell damage. There is a maximum of 4 splits.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+85 damage\n"
-	list.append(ice_shard)
-
-	var liquid_ice: AbilityInfo = AbilityInfo.new()
-	liquid_ice.name = "Liquide Ice"
-	liquid_ice.icon = "res://resources/icons/potions/potion_10.tres"
-	liquid_ice.description_short = "Each time an [color=GOLD]Ice Shard[/color] deals damage, it decreases the target's defense against %s towers.\n" % ice_string
-	liquid_ice.description_full = "Each time an [color=GOLD]Ice Shard[/color] deals damage, it decreases the target's defense against %s towers. The target takes 15%% more damage from %s towers. The effect lasts until the creep's death and stacks.\n" % [ice_string, ice_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% damage increase\n"
-	list.append(liquid_ice)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

@@ -19,29 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var vuln_value: String = Utils.format_percent(_stats.vuln_value, 2)
-	var vuln_value_add: String = Utils.format_percent(_stats.vuln_value_add, 2)
-
-	var decay_string: String = AttackType.convert_to_colored_string(AttackType.enm.DECAY)
-	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Slumbering Parasite"
-	ability.icon = "res://resources/icons/tower_icons/spider_queen.tres"
-	ability.description_short = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers and causes %s damage after a delay.\n" % [nature_string, decay_string]
-	ability.description_full = "Injects a parasite into hit creeps. The parasite increases creep's vulnerability to %s towers by %s and deals this tower's attack damage as %s damage after a delay of 3 seconds. Vulnerability stacks with multiple Parasites.\n" % [nature_string, vuln_value, decay_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s %s vulnerability\n" % [vuln_value_add, nature_string]
-
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

@@ -6,45 +6,16 @@ var armor_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {splash_125_damage = 0.45, splash_225_damage = 0.15, armor_decrease = 2},
-		2: {splash_125_damage = 0.45, splash_225_damage = 0.20, armor_decrease = 3},
-		3: {splash_125_damage = 0.50, splash_225_damage = 0.25, armor_decrease = 5},
-		4: {splash_125_damage = 0.50, splash_225_damage = 0.30, armor_decrease = 7},
-		5: {splash_125_damage = 0.55, splash_225_damage = 0.35, armor_decrease = 10},
+		1: {armor_decrease = 2},
+		2: {armor_decrease = 3},
+		3: {armor_decrease = 5},
+		4: {armor_decrease = 7},
+		5: {armor_decrease = 10},
 	}
-
-
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var armor_decrease: String = Utils.format_float(_stats.armor_decrease, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Afterglow"
-	ability.icon = "res://resources/icons/gloves/heal.tres"
-	ability.description_short = "Chance to melt armor of hit creeps.\n"
-	ability.description_full = "5%% chance to reduce armor of hit creeps by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+0.25 seconds duration\n"
-	list.append(ability)
-
-	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	var splash_map: Dictionary = {
-		125: _stats.splash_125_damage,
-		225: _stats.splash_225_damage,
-	}
-	tower.set_attack_style_splash_DELETEME(splash_map)
-
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 
 
 func tower_init():

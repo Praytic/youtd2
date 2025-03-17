@@ -27,36 +27,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
-	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
-	var mod_attack_damage: String = Utils.format_percent(_stats.mod_attack_damage, 2)
-	var mod_attack_damage_add: String = Utils.format_percent(_stats.mod_attack_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Corruption"
-	ability.icon = "res://resources/icons/tower_variations/meteor_totem_purple.tres"
-	ability.description_short = "Corrupts hit creeps, increasing damage received from attacks and spells.\n"
-	ability.description_full = "Corrupts hit creeps, increasing damage received from attacks by %s and damage received from spells by %s for 9 seconds\n" % [mod_attack_damage, mod_spell_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage from attacks\n" % mod_attack_damage_add \
-	+ "+%s damage from spells\n" % mod_spell_damage_add \
-	+ "+0.3 seconds duration\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 0.2)
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
 
 
 func on_autocast(_event: Event):
@@ -87,38 +60,6 @@ func tower_init():
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)
-
-
-func create_autocasts_DELETEME() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
-	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
-
-	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/icons/mechanical/battery.tres"
-	autocast.description_short = "Attacks very fast while consuming mana, dealing spell damage and applying [color=GOLD]Corruption[/color].\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Corruption[/color].\n" % [projectile_damage] \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] this ability does not trigger any \"on hit\" effects.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % projectile_damage_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 20
-	autocast.is_extended = false
-	autocast.mana_cost = 100
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 800
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

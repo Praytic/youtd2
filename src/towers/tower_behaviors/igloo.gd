@@ -18,39 +18,8 @@ const COLD_SLOW_DURATION: float = 4
 const COLD_RANGE: float = 900
 
 
-func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
-	var cold_range: String = Utils.format_float(COLD_RANGE, 2)
-	var cold_damage: String = Utils.format_float(_stats.cold_damage, 2)
-	var cold_damage_add: String = Utils.format_float(_stats.cold_damage_add, 2)
-	var cold_slow: String = Utils.format_percent(_stats.cold_slow, 2)
-	var cold_slow_add: String = Utils.format_percent(COLD_SLOW_ADD, 2)
-	var cold_slow_duration: String = Utils.format_float(COLD_SLOW_DURATION, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Extreme Cold"
-	ability.icon = "res://resources/icons/furniture/furniture.tres"
-	ability.description_short = "Creeps that come in range of this tower will suffer spell damage and become slowed.\n"
-	ability.description_full = "Creeps that come within %s AoE of this tower will be affected by extreme cold, suffering %s spell damage, and becoming slowed by %s for %s seconds. When the slow expires they will get stunned for %s seconds.\n" % [cold_range, cold_damage, cold_slow, cold_slow_duration, stun_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage \n" % cold_damage_add \
-	+ "+%s slow\n" % cold_slow_add
-	ability.radius = COLD_RANGE
-	ability.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, COLD_RANGE, TargetType.new(TargetType.CREEPS))
-
-
-func load_specials_DELETEME(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, -0.50, 0.0)
 
 
 func boekie_igloo_end(event: Event):
