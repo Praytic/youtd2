@@ -1,6 +1,13 @@
 extends TowerBehavior
 
 
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where tooltip had
+# incorrect value (but logic was correct). For tier 1 troll,
+# Blizzard spell, tooltip says level bonus is "+0.1% slow"
+# when it's really "+0.01% slow" like it is for all other
+# tiers.
+
+
 var slow_bt: BuffType
 var blizzard_st: SpellType
 var stun_bt: BuffType
@@ -12,7 +19,7 @@ const STUN_CHANCE_ADD: float = 0.001
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {slow_chance = 0.30, mod_movespeed = 0.07, mod_movespeed_add = 0.001, slow_duration = 4.0, stun_chance = 0.10, stun_duration = 0.25, blizzard_damage = 60, blizzard_radius = 200, blizzard_wave_count = 5, damage_ratio_add = 0.1},
+		1: {slow_chance = 0.30, mod_movespeed = 0.07, mod_movespeed_add = 0.0001, slow_duration = 4.0, stun_chance = 0.10, stun_duration = 0.25, blizzard_damage = 60, blizzard_radius = 200, blizzard_wave_count = 5, damage_ratio_add = 0.1},
 		2: {slow_chance = 0.35, mod_movespeed = 0.09, mod_movespeed_add = 0.0001, slow_duration = 4.5, stun_chance = 0.15, stun_duration = 0.50, blizzard_damage = 333, blizzard_radius = 300, blizzard_wave_count = 6, damage_ratio_add = 0.036},
 		3: {slow_chance = 0.40, mod_movespeed = 0.11, mod_movespeed_add = 0.0001, slow_duration = 5.0, stun_chance = 0.20, stun_duration = 0.75, blizzard_damage = 572, blizzard_radius = 400, blizzard_wave_count = 7, damage_ratio_add = 0.033},
 		4: {slow_chance = 0.45, mod_movespeed = 0.14, mod_movespeed_add = 0.0001, slow_duration = 5.5, stun_chance = 0.25, stun_duration = 1.00, blizzard_damage = 1000, blizzard_radius = 500, blizzard_wave_count = 8, damage_ratio_add = 0.05},
