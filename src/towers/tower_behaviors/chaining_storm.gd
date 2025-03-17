@@ -42,7 +42,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.50, 0.02)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 15)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)

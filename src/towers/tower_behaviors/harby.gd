@@ -42,7 +42,7 @@ func load_triggers(triggers: BuffType):
 # innate stats in some cases
 # spell crit damage = yes
 # spell crit damage add = no
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.20, 0.05)
 	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.55, -0.01)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 10)

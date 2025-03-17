@@ -19,8 +19,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_air_only()
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_air_only_DELETEME()
 
 
 func junction_on_create(event: Event):

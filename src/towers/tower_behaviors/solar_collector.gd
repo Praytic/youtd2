@@ -35,7 +35,7 @@ func load_triggers(triggers: BuffType):
 # spell crit chance = yes
 # spell crit chance add = no
 # spell crit damage = yes
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, _stats.mana_add)

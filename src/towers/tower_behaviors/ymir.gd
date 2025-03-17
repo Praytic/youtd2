@@ -44,8 +44,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 900, TargetType.new(TargetType.CREEPS))
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_splash({400: 0.25})
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({400: 0.25})
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 
 

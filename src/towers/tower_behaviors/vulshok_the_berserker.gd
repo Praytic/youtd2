@@ -60,7 +60,7 @@ func load_triggers(triggers: BuffType):
 # innate stats in some cases
 # crit dmg = yes
 # attack speed add = no
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
 

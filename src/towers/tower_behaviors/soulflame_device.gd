@@ -39,8 +39,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
-	tower.set_target_count(8)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_target_count_DELETEME(8)
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.40, 0.01)
 

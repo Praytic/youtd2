@@ -45,7 +45,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, _stats.mod_dmg_to_orc, 0.01)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.mod_dmg_to_humanoid, 0.01)
 

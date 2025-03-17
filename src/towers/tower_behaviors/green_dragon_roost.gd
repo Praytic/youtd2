@@ -11,8 +11,8 @@ const AURA_RANGE: int = 200
 # crit chance add = no
 # crit dmg = yes
 # crit dmg add = no
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_bounce(4, 0.10)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_bounce_DELETEME(4, 0.10)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.005)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.25, 0.05)
 

@@ -31,7 +31,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.50, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.50, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.50, 0.0)

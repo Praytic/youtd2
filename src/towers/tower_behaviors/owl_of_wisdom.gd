@@ -68,7 +68,7 @@ func load_triggers(triggers: BuffType):
 # innate stats in some cases
 # spell crit chance = yes
 # spell crit chance add = no
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.0015)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.01)
 

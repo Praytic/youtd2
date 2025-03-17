@@ -7,8 +7,8 @@ var aura_bt: BuffType
 const AURA_RANGE: int = 800
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_air_only()
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_air_only_DELETEME()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.0)
 
 

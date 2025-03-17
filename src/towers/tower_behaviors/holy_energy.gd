@@ -25,8 +25,8 @@ const GLIMMER_MOD_DEBUFF_DURATION: float = 0.15
 const GLIMMER_MOD_DEBUFF_DURATION_ADD: float = 0.002
 
 
-func load_specials(modifier: Modifier):
-	tower.set_target_count(3)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_target_count_DELETEME(3)
 
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.01)

@@ -114,7 +114,7 @@ func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	return list
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, 0.1, 0.01)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
 

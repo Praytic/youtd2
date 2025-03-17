@@ -46,7 +46,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.20, 0.004)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 2.0, 0.04)
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)

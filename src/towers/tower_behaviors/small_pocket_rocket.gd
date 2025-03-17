@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_splash({125: 0.55})
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({125: 0.55})
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, 0.02)

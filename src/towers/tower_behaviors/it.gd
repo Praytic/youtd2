@@ -75,7 +75,7 @@ func load_triggers(triggers: BuffType):
 # NOTE: tooltip in original game includes innate stats in some cases
 # spell crit chance = yes
 # crit chance add = no
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
 
 

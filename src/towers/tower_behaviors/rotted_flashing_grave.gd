@@ -26,7 +26,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.10, 0.01)
 
 

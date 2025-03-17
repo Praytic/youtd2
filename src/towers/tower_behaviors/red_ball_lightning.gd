@@ -45,8 +45,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_bounce(_stats.bounce_count, 0.60)
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_style_bounce_DELETEME(_stats.bounce_count, 0.60)
 
 
 func tower_init():

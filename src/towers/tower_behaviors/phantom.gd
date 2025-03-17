@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
 
 

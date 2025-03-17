@@ -36,7 +36,7 @@ func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 
 # NOTE: this tower's tooltip in original game does NOT
 # include innate stats
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
 
 

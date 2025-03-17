@@ -41,8 +41,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_splash({325: 0.5})
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({325: 0.5})
 
 
 func tower_init():

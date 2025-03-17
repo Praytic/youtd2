@@ -20,7 +20,7 @@ const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
 
 # NOTE: this tower's tooltip in original game includes
 # innate stats
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.0)
 
 

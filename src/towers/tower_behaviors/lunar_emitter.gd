@@ -11,8 +11,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_splash({
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({
 		50: 1.0,
 		350: 0.4,
 		})

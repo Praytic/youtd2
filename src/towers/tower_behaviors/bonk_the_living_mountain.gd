@@ -63,8 +63,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 25)
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_splash({100: 1.0})
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({100: 1.0})
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.005)
 
 

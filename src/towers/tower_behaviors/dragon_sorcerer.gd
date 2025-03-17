@@ -4,7 +4,7 @@ extends TowerBehavior
 var mark_bt: BuffType
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 5.0)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 

@@ -75,8 +75,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_bounce(2, 0.0)
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_style_bounce_DELETEME(2, 0.0)
 
 
 func tower_init():

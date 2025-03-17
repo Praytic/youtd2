@@ -12,8 +12,8 @@ var chain_lightning_st: SpellType
 var orb_pt: ProjectileType
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_bounce(3, 0.70)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_bounce_DELETEME(3, 0.70)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 25)
 
 

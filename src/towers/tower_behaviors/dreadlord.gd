@@ -40,7 +40,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_PERC, 0.0, 0.05)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.05)
 

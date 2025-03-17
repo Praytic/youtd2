@@ -29,7 +29,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 5.0)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
 

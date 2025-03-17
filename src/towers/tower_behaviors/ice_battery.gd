@@ -53,7 +53,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 0.2)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
 
 

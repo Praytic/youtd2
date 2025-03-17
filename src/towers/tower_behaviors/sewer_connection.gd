@@ -38,7 +38,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.60, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.60, 0.02)
 

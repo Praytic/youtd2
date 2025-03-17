@@ -93,7 +93,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.3, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.2, 0.0)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.08)

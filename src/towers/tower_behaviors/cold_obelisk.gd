@@ -39,8 +39,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_splash({_stats.splash_radius: 0.35})
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_style_splash_DELETEME({_stats.splash_radius: 0.35})
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.45, 0.02)
 

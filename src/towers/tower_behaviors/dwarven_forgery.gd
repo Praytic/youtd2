@@ -6,7 +6,7 @@ var aura_bt: BuffType
 const AURA_RANGE: int = 550
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.50, 0.01)
 
 

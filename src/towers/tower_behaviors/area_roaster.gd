@@ -47,8 +47,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_target_count(4)
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_target_count_DELETEME(4)
 
 
 # NOTE: sir_area_damage() in original script

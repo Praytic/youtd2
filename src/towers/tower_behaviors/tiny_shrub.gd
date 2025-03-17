@@ -20,6 +20,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.crit_chance, _stats.crit_chance_add)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.crit_damage, _stats.crit_damage_add)

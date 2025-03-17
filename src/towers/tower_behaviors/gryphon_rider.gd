@@ -50,8 +50,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_ground_only()
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_ground_only_DELETEME()
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 

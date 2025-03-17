@@ -62,8 +62,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_level_up(on_level_up)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_target_count(3)
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_target_count_DELETEME(3)
 
 
 func tower_init():

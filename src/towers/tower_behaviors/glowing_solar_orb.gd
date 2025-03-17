@@ -37,12 +37,12 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	var splash_map: Dictionary = {
 		125: _stats.splash_125_damage,
 		225: _stats.splash_225_damage,
 	}
-	tower.set_attack_style_splash(splash_map)
+	tower.set_attack_style_splash_DELETEME(splash_map)
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 

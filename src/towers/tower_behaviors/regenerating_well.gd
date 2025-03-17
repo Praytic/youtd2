@@ -21,7 +21,7 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.20, 0.008)
 
 

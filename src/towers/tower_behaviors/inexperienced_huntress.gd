@@ -68,9 +68,9 @@ func load_triggers(triggers: BuffType):
 
 # NOTE: this tower's tooltip in original game does NOT
 # include innate stats
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.024)
-	tower.set_attack_style_bounce(4, 0.25)
+	tower.set_attack_style_bounce_DELETEME(4, 0.25)
 
 
 func tower_init():

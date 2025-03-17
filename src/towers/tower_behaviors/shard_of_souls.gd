@@ -47,7 +47,7 @@ func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	return list
 
 
-func load_specials(modifier: Modifier):
+func load_specials_DELETEME(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.02)
 
 

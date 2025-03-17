@@ -41,9 +41,9 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 3.0)
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_ground_only()
-	tower.set_attack_style_splash({
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_ground_only_DELETEME()
+	tower.set_attack_style_splash_DELETEME({
 		25: 1.00,
 		50: 0.40,
 		150: 0.25,

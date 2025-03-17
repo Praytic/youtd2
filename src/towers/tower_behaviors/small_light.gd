@@ -56,7 +56,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
 
-# func load_specials(_modifier: Modifier):
+# func load_specials_DELETEME(_modifier: Modifier):
 # 	magical_sight_bt = MagicalSightBuff.new("magical_sight_bt", _stats.magical_sight_range, self)
 # 	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
 

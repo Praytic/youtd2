@@ -40,8 +40,8 @@ func load_triggers(triggers: BuffType):
 # spell crit chance add = no
 # spell crit damage = yes
 # spell crit damage add = no
-func load_specials(modifier: Modifier):
-	tower.set_target_count(10)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_target_count_DELETEME(10)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.005)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.25, 0.05)
 

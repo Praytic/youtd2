@@ -35,8 +35,8 @@ func get_ability_info_list_DELETEME() -> Array[AbilityInfo]:
 	return list
 
 
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_bounce(_stats.bounce_count, 0.0)
+func load_specials_DELETEME(_modifier: Modifier):
+	tower.set_attack_style_bounce_DELETEME(_stats.bounce_count, 0.0)
 
 
 func load_triggers(triggers: BuffType):

@@ -50,9 +50,9 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_ground_only()
-	tower.set_attack_style_bounce(5, 0.1)
+func load_specials_DELETEME(modifier: Modifier):
+	tower.set_attack_ground_only_DELETEME()
+	tower.set_attack_style_bounce_DELETEME(5, 0.1)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 1)
 
