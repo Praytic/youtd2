@@ -811,7 +811,7 @@ func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
 	return camel_case
 
 
-func bit_is_set(mask: int, bit: int) -> bool:
+static func bit_is_set(mask: int, bit: int) -> bool:
 	var is_set: bool = (mask & bit) != 0x0
 
 	return is_set

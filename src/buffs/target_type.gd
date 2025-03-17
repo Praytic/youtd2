@@ -196,6 +196,12 @@ func _init(bitmask: int):
 ###       Public      ###
 #########################
 
+func equals_to(target_type: TargetType) -> bool:
+	var result: bool = _bitmask == target_type._bitmask
+
+	return result
+
+
 # NOTE: need to use bitmask to get optimal performance.
 # TargetType.match() will get called very frequently via
 # Utils.get_units_in_range().
@@ -218,10 +224,10 @@ func player_towers_is_set() -> bool:
 #########################
 
 static func _get_unit_type(bitmask: int) -> UnitType:
-	var creeps_set: bool = Utils.bit_is_set(bitmask, CREEPS)
-	var towers_set: bool = Utils.bit_is_set(bitmask, TOWERS)
-	var player_towers_set: bool = Utils.bit_is_set(bitmask, PLAYER_TOWERS)
-	var corpses_set: bool = Utils.bit_is_set(bitmask, CORPSES)
+	var creeps_set: bool = UtilsStatic.bit_is_set(bitmask, CREEPS)
+	var towers_set: bool = UtilsStatic.bit_is_set(bitmask, TOWERS)
+	var player_towers_set: bool = UtilsStatic.bit_is_set(bitmask, PLAYER_TOWERS)
+	var corpses_set: bool = UtilsStatic.bit_is_set(bitmask, CORPSES)
 
 	if creeps_set:
 		return UnitType.CREEPS
