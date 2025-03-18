@@ -41,16 +41,6 @@ extends ItemBehavior
 # 	autocast.handler = on_autocast
 # 	item.set_autocast(autocast)
 
-# 	var aura: AuraType = AuraType.new()
-# 	aura.aura_range = 200
-# 	aura.target_type = TargetType.new(TargetType.TOWERS)
-# 	aura.target_self = true
-# 	aura.level = 0
-# 	aura.level_add = 1
-# 	aura.aura_effect = aura_effect
-# 	item.add_aura(aura)
-
-
 # func on_damage(event: Event):
 #	pass
 

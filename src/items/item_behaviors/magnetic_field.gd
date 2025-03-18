@@ -13,11 +13,3 @@ func item_init():
 	mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.1, 0.0)
 	magnetic_bt.set_buff_modifier(mod)
 	
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = 200
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = magnetic_bt
-	item.add_aura(aura)

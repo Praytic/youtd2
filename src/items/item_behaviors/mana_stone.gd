@@ -17,15 +17,6 @@ func item_init():
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
 	aura_bt.set_buff_modifier(mod)
 
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = 200
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	item.add_aura(aura)
-
 
 func on_attack(_event: Event):
 	item.user_int = item.user_int + 1

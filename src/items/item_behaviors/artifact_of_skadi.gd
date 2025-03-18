@@ -11,12 +11,3 @@ func item_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.14, 0.0)
 	slow_bt.set_buff_modifier(mod)
-
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = 800
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = slow_bt
-	item.add_aura(aura)

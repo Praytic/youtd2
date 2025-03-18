@@ -18,12 +18,3 @@ func item_init():
 	mod.add_modification(Modification.Type.MOD_MANA_PERC, 0.02, 0.004)
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.02, 0.004)
 	charitable_bt.set_buff_modifier(mod)
-
-	var aura_type: AuraType = AuraType.new()
-	aura_type.aura_range = 300
-	aura_type.target_type = TargetType.new(TargetType.TOWERS)
-	aura_type.target_self = true
-	aura_type.level = 0
-	aura_type.level_add = 1
-	aura_type.aura_effect = charitable_bt
-	item.add_aura(aura_type)

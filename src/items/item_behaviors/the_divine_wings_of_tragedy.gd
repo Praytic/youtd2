@@ -16,12 +16,3 @@ func item_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.15, 0.0)
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.15, 0.0)
 	divine_wings_bt.set_buff_modifier(mod)
-
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = 250
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = divine_wings_bt
-	item.add_aura(aura)

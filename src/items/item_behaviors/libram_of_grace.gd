@@ -11,13 +11,3 @@ func item_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.1, 0.004)
 	grace_bt.set_buff_modifier(mod)
-
-	var aura: AuraType = AuraType.new()
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.aura_effect = grace_bt
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_range = 150
-
-	item.add_aura(aura)
