@@ -25,8 +25,8 @@ func on_autocast(_event: Event):
 func item_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Search For Item"
-	autocast.description_short = get_autocast_description_short()
-	autocast.description_long = get_autocast_description_long()
+	autocast.description_short = get_autocast_description()
+	autocast.description_long = get_autocast_description()
 	autocast.icon = "res://resources/icons/hud/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
