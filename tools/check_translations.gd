@@ -54,6 +54,11 @@ func run():
 			print("\n !!!!Mismatch in text id: old = %s, new = %s" % [text_id_old, text_id_new])
 			all_is_ok = false
 
+		var text_id_is_correct_length: bool = text_id_new.length() == 4
+		if !text_id_is_correct_length:
+			print("\n !!!!Text id has incorrect length, must be 4 characters: %s" % [text_id_new])
+			all_is_ok = false
+
 		var english_text_old: String = line_old[1]
 		var english_text_new: String = line_new[1]
 		var english_text_is_ok: bool = english_text_old == english_text_new
