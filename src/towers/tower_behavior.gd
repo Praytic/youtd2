@@ -44,7 +44,7 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 	var tower_id: int = tower.get_id()
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
-		var aura_type: AuraType = _make_aura_type(aura_id)
+		var aura_type: AuraType = AuraType.make_aura_type(aura_id, self)
 		tower.add_aura(aura_type)
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
@@ -156,27 +156,3 @@ func _make_autocast(autocast_id: int) -> Autocast:
 	autocast.handler = handler_function
 
 	return autocast
-
-
-func _make_aura_type(aura_id: int) -> AuraType:
-	var aura: AuraType = AuraType.new()
-
-	aura.name_english = AuraProperties.get_name_english(aura_id)
-	aura.name = AuraProperties.get_aura_name(aura_id)
-	aura.icon = AuraProperties.get_icon_path(aura_id)
-	aura.description_short = AuraProperties.get_description_short(aura_id)
-	aura.description_long = AuraProperties.get_description_long(aura_id)
-	aura.aura_range = AuraProperties.get_aura_range(aura_id)
-	aura.target_type = AuraProperties.get_target_type(aura_id)
-	aura.target_self = AuraProperties.get_target_self(aura_id)
-	aura.level = AuraProperties.get_level(aura_id)
-	aura.level_add = AuraProperties.get_level_add(aura_id)
-	aura.is_hidden = AuraProperties.get_is_hidden(aura_id)
-
-	var buff_type_string: String = AuraProperties.get_buff_type(aura_id)
-	var buff_type: BuffType = get(buff_type_string)
-	if buff_type == null:
-		push_error("Failed to find buff type for aura. Buff type = %s, tower id = %d" % [buff_type_string, tower.get_id()])
-	aura.aura_effect = buff_type
-	
-	return aura

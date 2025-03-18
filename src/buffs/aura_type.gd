@@ -58,3 +58,27 @@ func get_range(player: Player) -> float:
 	var total_range: float = original_range + builder_range_bonus
 
 	return total_range
+
+
+static func make_aura_type(aura_id: int, object_with_buff_var: Object) -> AuraType:
+	var aura: AuraType = AuraType.new()
+
+	aura.name_english = AuraProperties.get_name_english(aura_id)
+	aura.name = AuraProperties.get_aura_name(aura_id)
+	aura.icon = AuraProperties.get_icon_path(aura_id)
+	aura.description_short = AuraProperties.get_description_short(aura_id)
+	aura.description_long = AuraProperties.get_description_long(aura_id)
+	aura.aura_range = AuraProperties.get_aura_range(aura_id)
+	aura.target_type = AuraProperties.get_target_type(aura_id)
+	aura.target_self = AuraProperties.get_target_self(aura_id)
+	aura.level = AuraProperties.get_level(aura_id)
+	aura.level_add = AuraProperties.get_level_add(aura_id)
+	aura.is_hidden = AuraProperties.get_is_hidden(aura_id)
+
+	var buff_type_string: String = AuraProperties.get_buff_type(aura_id)
+	var buff_type: BuffType = object_with_buff_var.get(buff_type_string)
+	if buff_type == null:
+		push_error("Failed to find buff type for aura. Buff type = %s, aura id = %d" % [buff_type_string, aura_id])
+	aura.aura_effect = buff_type
+	
+	return aura

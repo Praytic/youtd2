@@ -10,6 +10,7 @@ enum CsvProperty {
 	RARITY,
 	COST,
 	REQUIRED_WAVE_LEVEL,
+	AURA_LIST,
 	SCRIPT_PATH,
 	ICON,
 	NAME,
@@ -51,6 +52,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_aura_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.AURA_LIST)
+	var aura_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return aura_id_list
+
 
 func get_script_path(item_id: int):
 	var script_path: String = _get_property(item_id, CsvProperty.SCRIPT_PATH)

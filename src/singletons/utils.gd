@@ -1,6 +1,21 @@
 class_name UtilsStatic extends Node
 
 
+static func convert_string_to_id_list(string: String) -> Array[int]:
+	var id_list: Array[int] = []
+
+	if string.is_empty():
+		return id_list
+
+	var id_string_list: Array = string.split(",")
+	id_string_list.erase("")
+	for id_string in id_string_list:
+		var id: int = id_string.to_int()
+		id_list.append(id)
+
+	return id_list
+
+
 # Takes in a "x_properties" csv and outputs modified version
 # of columns + translation map of id->text. 
 func setup_translation_map_from_csv(csv_path: String, column_list: Array):
@@ -75,6 +90,7 @@ func print_new_translation_ids(amount: int):
 
 func generate_new_translation_ids(amount: int):
 	var chars_for_id: Array = []
+	var chars_for_id_only_letters: Array = []
 	
 #	Digits
 	for char_int in range(48, 57 + 1):
@@ -85,7 +101,8 @@ func generate_new_translation_ids(amount: int):
 	for char_int in range(65, 90 + 1):
 		var char_str: String = String.chr(char_int)
 		chars_for_id.append(char_str)
-	
+		chars_for_id_only_letters.append(char_str)
+
 	var existing_key_list: Array[String] = []
 	var csv: Array[PackedStringArray] = UtilsStatic.load_csv("res://data/texts.csv")
 	for csv_line in csv:
@@ -99,7 +116,16 @@ func generate_new_translation_ids(amount: int):
 		for j in range(0, amount):
 			var generated_key: String = ""
 			for k in range(0, 4):
-				var random_char: String = chars_for_id.pick_random()
+				var random_char: String
+
+#				NOTE: need to force first char to be letter
+#				and not digit to avoid issues caused by
+#				Excel recognizing the id as a number.
+				if k == 0:
+					random_char = chars_for_id_only_letters.pick_random()
+				else:
+					random_char = chars_for_id.pick_random()
+
 				generated_key += random_char
 			
 			generated_key_list.append(generated_key)

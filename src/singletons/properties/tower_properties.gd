@@ -672,21 +672,21 @@ func get_sprite_path(tower_id: int) -> String:
 
 func get_ability_id_list(tower_id: int) -> Array[int]:
 	var string: String = _get_property(tower_id, CsvProperty.ABILITY_LIST)
-	var ability_id_list: Array[int] = _convert_string_to_id_list(string)
+	var ability_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
 
 	return ability_id_list
 
 
 func get_aura_id_list(tower_id: int) -> Array[int]:
 	var string: String = _get_property(tower_id, CsvProperty.AURA_LIST)
-	var aura_id_list: Array[int] = _convert_string_to_id_list(string)
+	var aura_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
 
 	return aura_id_list
 
 
 func get_autocast_id_list(tower_id: int) -> Array[int]:
 	var string: String = _get_property(tower_id, CsvProperty.AUTOCAST_LIST)
-	var autocast_id_list: Array[int] = _convert_string_to_id_list(string)
+	var autocast_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
 
 	return autocast_id_list
 
@@ -711,18 +711,3 @@ func _get_property(tower_id: int, csv_property: CsvProperty) -> String:
 	var value: String = properties[csv_property]
 
 	return value
-
-
-func _convert_string_to_id_list(string: String) -> Array[int]:
-	var id_list: Array[int] = []
-
-	if string.is_empty():
-		return id_list
-
-	var id_string_list: Array = string.split(",")
-	id_string_list.erase("")
-	for id_string in id_string_list:
-		var id: int = id_string.to_int()
-		id_list.append(id)
-
-	return id_list

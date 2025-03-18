@@ -19,6 +19,16 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 
 	load_modifier(modifier)
 	item_init()
+
+#	NOTE: Order is important here! Auras must be loaded
+#	after calling item_init() because buffs are setup in
+#	item_init() and auras rely on buffs.
+	var item_id: int = item.get_id()
+	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
+	for aura_id in aura_id_list:
+		var aura_type: AuraType = AuraType.make_aura_type(aura_id, self)
+		item.add_aura(aura_type)
+
 	load_triggers(triggers_buff_type)
 	on_create()
 
