@@ -4,16 +4,6 @@ extends ItemBehavior
 var speed_bt: BuffType
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Upon activation, towers in 350 range receive 10% bonus attack speed for 4 seconds. Costs 1 charge.\n"
-	text += " \n"
-	text += "Regenerates 3 charges every 40 seconds up to a maximum of 10 charges.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 40)
 
@@ -25,28 +15,6 @@ func item_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
 	speed_bt.set_buff_modifier(mod)
-
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Speed Boost"
-	autocast.description_long = get_autocast_description()
-	autocast.description_short = get_autocast_description()
-	autocast.icon = "res://resources/icons/hud/gold.tres"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.target_self = true
-	autocast.cooldown = 4
-	autocast.is_extended = false
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.cast_range = 0
-	autocast.auto_range = 1000
-	autocast.handler = on_autocast
-	autocast.item_owner = item
-	autocast.dont_cast_at_zero_charges = true
-	item.set_autocast(autocast)
 
 
 func on_autocast(_event: Event):

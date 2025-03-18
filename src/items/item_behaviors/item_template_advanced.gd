@@ -21,25 +21,6 @@ extends ItemBehavior
 # 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 # 	example_bt.set_buff_modifier(mod)
 
-# 	var autocast: Autocast = Autocast.make()
-#	autocast.title = "Title"
-#	autocast.description_long = "description"
-#	autocast.description_short = "description"
-#	autocast.icon = "res://resources/icons/hud/gold.tres"
-# 	autocast.caster_art = ""
-# 	autocast.target_art = ""
-# 	autocast.num_buffs_before_idle = 0
-# 	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
-# 	autocast.target_self = true
-# 	autocast.cooldown = 15
-# 	autocast.is_extended = false
-# 	autocast.mana_cost = 0
-# 	autocast.buff_type = null
-# 	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-# 	autocast.cast_range = 200
-# 	autocast.auto_range = 200
-# 	autocast.handler = on_autocast
-# 	item.set_autocast(autocast)
 
 # func on_damage(event: Event):
 #	pass

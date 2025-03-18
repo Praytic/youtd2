@@ -49,7 +49,7 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
-		var autocast: Autocast = _make_autocast(autocast_id)
+		var autocast: Autocast = Autocast.make_from_id(autocast_id, self)
 		tower.add_autocast(autocast)
 
 	on_create(preceding_tower)
@@ -104,55 +104,3 @@ func on_tower_details() -> MultiboardValues:
 
 func get_tower() -> Tower:
 	return tower
-
-
-#########################
-###      Private      ###
-#########################
-
-func _make_autocast(autocast_id: int) -> Autocast:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.name_english = AutocastProperties.get_name_english(autocast_id)
-	autocast.title = AutocastProperties.get_autocast_name(autocast_id)
-	autocast.icon = AutocastProperties.get_icon_path(autocast_id)
-	autocast.description_short = AutocastProperties.get_description_short(autocast_id)
-	autocast.description_long = AutocastProperties.get_description_long(autocast_id)
-
-	autocast.caster_art = AutocastProperties.get_caster_art(autocast_id)
-	autocast.target_art = AutocastProperties.get_target_art(autocast_id)
-	autocast.num_buffs_before_idle = AutocastProperties.get_num_buffs_before_idle(autocast_id)
-	autocast.autocast_type = AutocastProperties.get_autocast_type(autocast_id)
-	autocast.cast_range = AutocastProperties.get_cast_range(autocast_id)
-	autocast.auto_range = AutocastProperties.get_auto_range(autocast_id)
-	autocast.target_self = AutocastProperties.get_target_self(autocast_id)
-	autocast.cooldown = AutocastProperties.get_cooldown(autocast_id)
-	autocast.is_extended = AutocastProperties.get_is_extended(autocast_id)
-	autocast.mana_cost = AutocastProperties.get_mana_cost(autocast_id)
-	autocast.buff_target_type = AutocastProperties.get_buff_target_type(autocast_id)
-
-	var buff_type_string: String = AutocastProperties.get_buff_type(autocast_id)
-	var buff_type: BuffType
-	if !buff_type_string.is_empty():
-		buff_type = get(buff_type_string)
-		
-		if buff_type == null:
-			push_error("Failed to find buff type for autocast. Buff type = %s, tower id = %d" % [buff_type_string, tower.get_id()])
-	else:
-		buff_type = null
-	
-	autocast.buff_type = buff_type
-
-	var handler_function_string: String = AutocastProperties.get_handler_function(autocast_id)
-	var handler_function: Callable
-	if !handler_function_string.is_empty():
-		handler_function = Callable(self, handler_function_string)
-		
-		if handler_function.is_null():
-			push_error("Failed to find handle function for autocast. Handler function = %s, tower id = %d" % [handler_function_string, tower.get_id()])
-	else:
-		handler_function = Callable()
-	
-	autocast.handler = handler_function
-
-	return autocast

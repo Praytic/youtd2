@@ -9,41 +9,12 @@ var backpack_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_autocast_description() -> String:
-	var text: String = ""
-
-	text += "Every 150 seconds the next kill will drop an item for sure.\n"
-
-	return text
-
-
 func on_autocast(_event: Event):
 	var tower: Unit = item.get_carrier()
 	backpack_bt.apply_only_timed(tower, tower, 1000)
 
 
 func item_init():
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Search For Item"
-	autocast.description_short = get_autocast_description()
-	autocast.description_long = get_autocast_description()
-	autocast.icon = "res://resources/icons/hud/gold.tres"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
-	autocast.target_self = true
-	autocast.cooldown = 150
-	autocast.is_extended = false
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.cast_range = 300
-	autocast.auto_range = 0
-	autocast.handler = on_autocast
-
-	item.set_autocast(autocast)
-
 	backpack_bt = BuffType.new("backpack_bt", 0, 0, true, self)
 	backpack_bt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	backpack_bt.set_buff_tooltip(tr("XNNT"))

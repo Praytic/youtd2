@@ -11,6 +11,7 @@ enum CsvProperty {
 	COST,
 	REQUIRED_WAVE_LEVEL,
 	AURA_LIST,
+	AUTOCAST_LIST,
 	SCRIPT_PATH,
 	ICON,
 	NAME,
@@ -58,6 +59,13 @@ func get_aura_id_list(item_id: int) -> Array[int]:
 	var aura_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
 
 	return aura_id_list
+
+
+func get_autocast_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.AUTOCAST_LIST)
+	var autocast_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return autocast_id_list
 
 
 func get_script_path(item_id: int):

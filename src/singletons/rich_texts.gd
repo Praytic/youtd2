@@ -326,21 +326,23 @@ func get_item_text(item: Item) -> String:
 	if !extra_text.is_empty():
 		text += " \n%s\n" % extra_text
 
-	var autocast: Autocast = item.get_autocast()
-
-	if autocast != null:
-		var autocast_text: String = get_autocast_text_long(autocast)
+	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
+	for autocast_id in autocast_id_list:
+		var autocast_text: String = get_autocast_text_short(autocast_id)
 		text += " \n"
 		text += autocast_text
 
-		var item_is_on_tower: bool = item.get_carrier() != null
-		var can_use_auto_mode: bool = autocast.can_use_auto_mode()
+	var item_is_on_tower: bool = item.get_carrier() != null
 
-		if item_is_on_tower:
-			text += " \n"
-			if can_use_auto_mode:
-				text += "[color=YELLOW]Shift Right Click to toggle automatic casting.[/color]\n"
-			text += "[color=YELLOW]Right Click to use item.[/color]\n"
+	if !autocast_id_list.is_empty() && item_is_on_tower:
+		text += " \n"
+	
+		var autocast_id: int = autocast_id_list[0]
+		
+		var can_use_auto_mode: bool = Autocast.can_use_auto_mode_for_id(autocast_id)
+		if can_use_auto_mode:
+			text += "[color=YELLOW]Shift Right Click to toggle automatic casting.[/color]\n"
+		text += "[color=YELLOW]Right Click to use item.[/color]\n"
 
 	if is_consumable:
 		text += " \n[color=ORANGE]Right Click to use item. Item is consumed after use.[/color]"
