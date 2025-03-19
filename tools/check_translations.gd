@@ -43,6 +43,9 @@ func run():
 		print("Mismatch in row counts: old = %s, new = %s" % [row_count_old, row_count_new])
 		all_is_ok = false
 
+
+	var digit_list: Array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+
 	for i in range(csv_old.size()):
 		var line_old: PackedStringArray = csv_old[i]
 		var line_new: PackedStringArray = csv_new[i]
@@ -52,6 +55,11 @@ func run():
 		var text_id_is_ok: bool = text_id_old == text_id_new
 		if !text_id_is_ok:
 			print("\n !!!!Mismatch in text id: old = %s, new = %s" % [text_id_old, text_id_new])
+			all_is_ok = false
+
+		var text_id_first_char_is_ok: bool = !digit_list.has(text_id_new.substr(0, 1))
+		if !text_id_first_char_is_ok:
+			print("\n !!!!Bad text id: %s" % [text_id_new])
 			all_is_ok = false
 
 		var text_id_is_correct_length: bool = text_id_new.length() == 4
