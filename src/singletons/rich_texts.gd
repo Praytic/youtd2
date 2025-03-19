@@ -17,9 +17,10 @@ func get_tower_specials_text(tower_id: int) -> String:
 	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
 
 	if !modifier_text.is_empty():
-		if !text.is_empty():
-			text += " \n"
-		text += modifier_text
+		text += modifier_text \
+		+ " \n"
+
+	text = text.trim_suffix(" \n")
 
 	return text
 
@@ -81,7 +82,7 @@ func get_research_text(element: Element.enm, player: Player) -> String:
 	var current_element_level = player.get_element_level(element)
 	var reached_max_level: bool = current_element_level == Constants.MAX_ELEMENT_LEVEL
 	if reached_max_level:
-		return "Can't research any further."
+		return "Can't research any further.\n"
 
 	var element_string: String = Element.convert_to_colored_string(element)
 	var flavor_text: String = Element.get_flavor_text(element)
@@ -91,18 +92,19 @@ func get_research_text(element: Element.enm, player: Player) -> String:
 	var can_afford: bool = player.can_afford_research(element)
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
-	text += "Research %s level %s\n" % [element_string, research_level]
-	text += "[img=32x32]res://resources/icons/hud/knowledge_tome.tres[/img] %s\n" % cost_string
-
+	var explanation_text: String = ""
 	match Globals.get_game_mode():
-		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
-		GameMode.enm.RANDOM_WITH_UPGRADES: text += "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
-		GameMode.enm.TOTALLY_RANDOM: text += "Research next element level to unlock new towers of this element.\n"
+		GameMode.enm.BUILD: explanation_text = "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
+		GameMode.enm.RANDOM_WITH_UPGRADES: explanation_text = "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
+		GameMode.enm.TOTALLY_RANDOM: explanation_text = "Research next element level to unlock new towers of this element.\n"
 
-	text += " \n"
-	text += "[color=LIGHTBLUE]%s[/color]\n" % flavor_text
-	text += " \n"
-	text += "[color=GOLD]Main attack types:[/color] %s\n" % main_attack_types
+	text += "Research %s level %s\n" % [element_string, research_level] \
+	+ "[img=32x32]res://resources/icons/hud/knowledge_tome.tres[/img] %s\n" % cost_string \
+	+ " \n" \
+	+ explanation_text \
+	+ "[color=LIGHTBLUE]%s[/color]\n" % flavor_text \
+	+ " \n" \
+	+ "[color=GOLD]Main attack types:[/color] %s\n" % main_attack_types
 
 	return text
 
@@ -203,11 +205,15 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 
 	if mana > 0:
 		text += "[color=YELLOW]Mana:[/color] [color=CORNFLOWER_BLUE]%d[/color] ([color=CORNFLOWER_BLUE]+%d[/color]/sec)\n" % [mana, mana_regen]
+	
+	text += " \n"
 
 	if !ability_text.is_empty():
-		text += " \n"
-		text += ability_text
+		text += ability_text \
+		+ " \n"
 	
+	text = text.trim_suffix(" \n")
+
 	return text
 
 
@@ -217,51 +223,44 @@ func get_tower_ability_text_short(tower_id: int) -> String:
 	var specials_text: String = get_tower_specials_text(tower_id)
 	if !specials_text.is_empty():
 		text += "[color=GOLD]Specials[/color]\n" \
-		+ "%s" % specials_text \
+		+ specials_text \
 		+ " \n"
 
 	var splash_text: String = get_tower_splash_attack_text(tower_id)
 	if !splash_text.is_empty():
 		text += "[color=GOLD]Splash Attack[/color]\n" \
-		+ "%s" % splash_text \
+		+ splash_text \
 		+ " \n"
 
 	var bounce_text: String = get_tower_bounce_attack_text(tower_id)
 	if !bounce_text.is_empty():
 		text += "[color=GOLD]Bounce Attack[/color]\n" \
-		+ "%s" % bounce_text \
+		+ bounce_text \
 		+ " \n"
 
 	var multishot_text: String = get_tower_multishot_text(tower_id)
 	if !multishot_text.is_empty():
 		text += "[color=GOLD]Multishot[/color]\n" \
-		+ "%s" % multishot_text \
+		+ multishot_text \
 		+ " \n"
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:
-		var ability_name: String = AbilityProperties.get_ability_name(ability_id)
-		var ability_description_short: String = AbilityProperties.get_description_short(ability_id)
-
-		text += "[color=GOLD]%s[/color]\n" % ability_name \
-		+ "%s" % ability_description_short \
+		var ability_text: String = get_ability_text_short(ability_id)
+		text += ability_text \
 		+ " \n"
 
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
-		var aura_name: String = AuraProperties.get_aura_name(aura_id)
-		var aura_description_short: String = AuraProperties.get_description_short(aura_id)
-
-		text += "[color=GOLD]%s[/color]\n" % aura_name \
-		+ "%s" % aura_description_short \
+		var aura_text: String = get_aura_text_short(aura_id)
+		text += aura_text \
 		+ " \n"
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
 		var autocast_text: String = get_autocast_text_short(autocast_id)
-
-		text += autocast_text
-		text += " \n"
+		text += autocast_text \
+		+ " \n"
 
 	text = text.trim_suffix(" \n")
 	
@@ -287,9 +286,9 @@ func get_tower_requirements_text(tower_id: int, player: Player) -> String:
 	var element: Element.enm = TowerProperties.get_element(tower_id)
 	var element_string: String = Element.convert_to_string(element)
 
-	text += "[color=GOLD][b]Requirements[/b][/color]\n"
-	text += "Wave level: %s\n" % wave_level_string
-	text += "%s research level: %s\n" % [element_string.capitalize(), element_level_string]
+	text += "[color=GOLD][b]Requirements[/b][/color]\n" \
+	+ "Wave level: %s\n" % wave_level_string \
+	+ "%s research level: %s\n" % [element_string.capitalize(), element_level_string]
 	
 	return text
 
@@ -311,47 +310,61 @@ func get_item_text(item: Item) -> String:
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = ItemProperties.get_ability_text(item_id)
-	extra_text = add_color_to_numbers(extra_text)
 
-	text += "[b]%s[/b]\n" % display_name_colored
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
-	text += "[color=YELLOW]Level:[/color] %s\n" % level
-	text += "[color=YELLOW]Author:[/color] %s\n" % author
+	text += "[b]%s[/b]\n" % display_name_colored \
+	+ "[color=LIGHT_BLUE]%s[/color]\n" % description \
+	+ "[color=YELLOW]Level:[/color] %s\n" % level \
+	+ "[color=YELLOW]Author:[/color] %s\n" % author \
+	+ " \n"
 
 	if !specials_text.is_empty():
-		text += " \n[color=YELLOW]Effects:[/color]\n"
-		text += "%s\n" % specials_text
+		text += "[color=YELLOW]Effects:[/color]\n" \
+		+ specials_text \
+		+ " \n"
 
-	if !extra_text.is_empty():
-		text += " \n%s\n" % extra_text
+	var ability_id_list: Array = ItemProperties.get_ability_id_list(item_id)
+	for ability_id in ability_id_list:
+		var ability_text: String = get_ability_text_short(ability_id)
+		text += ability_text \
+		+ " \n"
+
+	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
+	for aura_id in aura_id_list:
+		var aura_text: String = get_aura_text_short(aura_id)
+		text += aura_text \
+		+ " \n"
 
 	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
 	for autocast_id in autocast_id_list:
 		var autocast_text: String = get_autocast_text_short(autocast_id)
-		text += " \n"
-		text += autocast_text
+		text += autocast_text \
+		+ " \n"
 
 	var item_is_on_tower: bool = item.get_carrier() != null
 
 	if !autocast_id_list.is_empty() && item_is_on_tower:
-		text += " \n"
-	
 		var autocast_id: int = autocast_id_list[0]
 		
 		var can_use_auto_mode: bool = Autocast.can_use_auto_mode_for_id(autocast_id)
 		if can_use_auto_mode:
 			text += "[color=YELLOW]Shift Right Click to toggle automatic casting.[/color]\n"
-		text += "[color=YELLOW]Right Click to use item.[/color]\n"
+		
+		text += "[color=YELLOW]Right Click to use item.[/color]\n" \
+		+ " \n"
 
 	if is_consumable:
-		text += " \n[color=ORANGE]Right Click to use item. Item is consumed after use.[/color]"
+		text += "[color=ORANGE]Right Click to use item. Item is consumed after use.[/color]\n" \
+		+ " \n"
 
 	if is_oil:
-		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"
+		text += "[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]\n" \
+		+ " \n"
 
 	if is_disabled:
-		text += " \n[color=RED]THIS ITEM IS DISABLED[/color]"
+		text += "[color=RED]THIS ITEM IS DISABLED[/color]\n" \
+		+ " \n"
+
+	text = text.trim_suffix(" \n")
 
 	return text
 
@@ -432,14 +445,26 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	return string
 
 
-func get_aura_text_short(aura_type: AuraType) -> String:
-	var aura_name: String = aura_type.name
-	var description: String = aura_type.description_short
+func get_ability_text_short(ability_id: int) -> String:
+	var ability_name: String = AbilityProperties.get_ability_name(ability_id)
+	var description: String = AbilityProperties.get_description_short(ability_id)
+	description = add_color_to_numbers(description)
+
+	var text: String = ""
+	text += "[color=GOLD]%s[/color]\n" % ability_name
+	text += "%s\n" % description
+
+	return text
+
+
+func get_aura_text_short(aura_id: int) -> String:
+	var aura_name: String = AuraProperties.get_aura_name(aura_id)
+	var description: String = AuraProperties.get_description_short(aura_id)
 	description = add_color_to_numbers(description)
 
 	var text: String = ""
 	text += "[color=GOLD]%s - Aura[/color]\n" % aura_name
-	text += "%s" % description
+	text += "%s\n" % description
 
 	return text
 
@@ -465,10 +490,9 @@ func get_autocast_text_short(autocast_id: int) -> String:
 	autocast_description_short = add_color_to_numbers(autocast_description_short)
 	var stats_text: String = get_autocast_stats_text_from_autocast_id(autocast_id)
 
-	var text: String = ""
-	text += "[color=GOLD]%s[/color]\n" % title
-	text += "%s\n" % autocast_description_short
-	text += "%s\n" % stats_text
+	var text: String = "[color=GOLD]%s[/color]\n" % title \
+	+ "%s\n" % autocast_description_short \
+	+ "%s\n" % stats_text
 
 	return text
 

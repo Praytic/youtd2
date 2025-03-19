@@ -10,13 +10,13 @@ enum CsvProperty {
 	RARITY,
 	COST,
 	REQUIRED_WAVE_LEVEL,
+	ABILITY_LIST,
 	AURA_LIST,
 	AUTOCAST_LIST,
 	SCRIPT_PATH,
 	ICON,
 	NAME,
-	DESCRIPTION,
-	ABILITY_TEXT,
+	DESCRIPTION
 }
 
 const PROPERTIES_PATH = "res://data/item_properties.csv"
@@ -53,6 +53,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_ability_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.ABILITY_LIST)
+	var ability_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return ability_id_list
+
 
 func get_aura_id_list(item_id: int) -> Array[int]:
 	var string: String = _get_property(item_id, CsvProperty.AURA_LIST)
@@ -105,13 +112,6 @@ func get_icon(item_id: int) -> Texture2D:
 	var item_icon: Texture2D = load(icon_path)
 
 	return item_icon
-
-
-func get_ability_text(item_id: int) -> String:
-	var ability_text_id: String = _get_property(item_id, CsvProperty.ABILITY_TEXT)
-	var ability_text: String = tr(ability_text_id)
-
-	return ability_text
 
 
 func get_display_name(item_id: int) -> String:
