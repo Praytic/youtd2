@@ -311,8 +311,6 @@ func get_item_text(item: Item) -> String:
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = ItemProperties.get_ability_text(item_id)
-	extra_text = add_color_to_numbers(extra_text)
 
 	text += "[b]%s[/b]\n" % display_name_colored
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
@@ -322,9 +320,23 @@ func get_item_text(item: Item) -> String:
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Effects:[/color]\n"
 		text += "%s\n" % specials_text
+		text += " \n"
 
-	if !extra_text.is_empty():
-		text += " \n%s\n" % extra_text
+	var ability_id_list: Array = ItemProperties.get_ability_id_list(item_id)
+	for ability_id in ability_id_list:
+		var ability_name: String = AbilityProperties.get_ability_name(ability_id)
+		var ability_description_short: String = AbilityProperties.get_description_short(ability_id)
+		ability_description_short = add_color_to_numbers(ability_description_short)
+
+		text += "[color=GOLD]%s[/color]\n" % ability_name \
+		+ "%s" % ability_description_short \
+		+ " \n"
+
+	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
+	for aura_id in aura_id_list:
+		var aura_text: String = get_aura_text_short(aura_id)
+		text += " \n"
+		text += aura_text
 
 	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
 	for autocast_id in autocast_id_list:
@@ -432,9 +444,9 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	return string
 
 
-func get_aura_text_short(aura_type: AuraType) -> String:
-	var aura_name: String = aura_type.name
-	var description: String = aura_type.description_short
+func get_aura_text_short(aura_id: int) -> String:
+	var aura_name: String = AuraProperties.get_aura_name(aura_id)
+	var description: String = AuraProperties.get_description_short(aura_id)
 	description = add_color_to_numbers(description)
 
 	var text: String = ""
