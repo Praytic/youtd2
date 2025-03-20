@@ -1,6 +1,11 @@
 extends ItemBehavior
 
 
+var wave_accumulator: int = 0
+var charge_counter: int = 0
+var last_accumulated_level: int = 0
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 10)
 
@@ -22,7 +27,7 @@ func on_autocast(_event: Event):
 		var random_item: int = ItemDropCalc.get_random_item_at_rarity_bounded(rarity, 14, 25)
 		
 		if random_item != 0:
-			item.user_int2 = item.user_int2 - 1
+			charge_counter -= 1
 			p.give_gold(-500, tower, false, true)
 			new = Item.create(tower.get_player(), random_item, tower.get_position_wc3())
 			new.fly_to_stash(0.0)
@@ -33,25 +38,26 @@ func on_autocast(_event: Event):
 func check_level():
 	var cur_level: int = item.get_player().get_team().get_level()
 
-	if cur_level > item.user_int3:
-		item.user_int = item.user_int + (cur_level - item.user_int3)
-		item.user_int3 = cur_level
+	if cur_level > last_accumulated_level:
+		wave_accumulator = wave_accumulator + (cur_level - last_accumulated_level)
+
+		last_accumulated_level = cur_level
 
 	while true:
-		if item.user_int < 5 || item.user_int2 >= 5:
+		if wave_accumulator < 5 || charge_counter >= 5:
 			break
 
-		item.user_int = item.user_int - 5
-		item.user_int2 = item.user_int2 + 1
+		wave_accumulator = wave_accumulator - 5
+		charge_counter += 1
 
-	item.set_charges(item.user_int2)
+	item.set_charges(charge_counter)
 
 
 func on_create():
 	item.set_charges(1)
-	item.user_int = 0
-	item.user_int2 = 1
-	item.user_int3 = item.get_player().get_team().get_level()
+	wave_accumulator = 0
+	charge_counter = 1
+	last_accumulated_level = item.get_player().get_team().get_level()
 	check_level()
 
 
