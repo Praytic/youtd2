@@ -45,8 +45,6 @@ config/run_test_items_tool=false
 config/run_test_horadric_tool=false
 config/run_test_tower_sprite_size=false
 config/run_test_item_drop_chances=false
-config/run_save_tooltips_tool=false
-config/run_save_ranges_tool=false
 config/unlimited_portal_lives=false
 config/show_hidden_buffs=false
 config/update_ticks_per_physics_tick=1
@@ -95,6 +93,9 @@ SanitizeText="*res://src/singletons/sanitize_text.gd"
 MissionProperties="*res://src/singletons/properties/mission_properties.gd"
 MissionStatus="*res://src/singletons/mission_status.gd"
 MissionTracking="*res://src/singletons/mission_tracking.gd"
+AutocastProperties="*res://src/singletons/properties/autocast_properties.gd"
+AuraProperties="*res://src/singletons/properties/aura_properties.gd"
+AbilityProperties="*res://src/singletons/properties/ability_properties.gd"
 
 [debug]
 
@@ -184,6 +185,10 @@ ctrl={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194326,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://data/texts.en.translation")
 
 [physics]
 

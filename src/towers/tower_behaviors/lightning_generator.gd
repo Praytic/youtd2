@@ -13,38 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var chain_damage: String = Utils.format_float(_stats.chain_damage, 2)
-	var chain_dmg_add: String = Utils.format_float(_stats.chain_damage * 0.02, 2)
-	var on_attack_damage: String = Utils.format_float(_stats.on_attack_damage, 2)
-	var on_attack_damage_add: String = Utils.format_float(_stats.on_attack_damage * 0.02, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var chain: AbilityInfo = AbilityInfo.new()
-	chain.name = "Chain Lightning"
-	chain.icon = "res://resources/icons/electricity/thunderstorm.tres"
-	chain.description_short = "On attack, this tower has a chance to release [color=GOLD]Chain Lightning[/color], dealing spell damage.\n"
-	chain.description_full = "On attack, this tower has a 19.5%% chance to release a [color=GOLD]Chain Lightning[/color] that does %s spell damage and hits up to 3 units.\n" % chain_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % chain_dmg_add \
-	+ "+0.25% chance\n"
-	list.append(chain)
-
-	var force_attack: AbilityInfo = AbilityInfo.new()
-	force_attack.name = "Force Attack"
-	force_attack.icon = "res://resources/icons/tower_icons/charged_obelisk.tres"
-	force_attack.description_short = "This tower's attacks deal spell damage instead of attack damage.\n"
-	force_attack.description_full = "This tower's attacks deal %s spell damage instead of attack damage.\n" % on_attack_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage" % on_attack_damage_add
-	list.append(force_attack)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_attack)
 	triggers.add_event_on_damage(on_damage)

@@ -6,43 +6,16 @@ var axe_pt: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {miss_chance_add = 0.01, dmg_to_boss_add = 0.006, dmg_to_undead_add = 0.004, dmg_to_nature_add = 0.004},
-		2: {miss_chance_add = 0.011, dmg_to_boss_add = 0.007, dmg_to_undead_add = 0.005, dmg_to_nature_add = 0.005},
-		3: {miss_chance_add = 0.011, dmg_to_boss_add = 0.008, dmg_to_undead_add = 0.006, dmg_to_nature_add = 0.006},
-		4: {miss_chance_add = 0.012, dmg_to_boss_add = 0.009, dmg_to_undead_add = 0.007, dmg_to_nature_add = 0.007},
+		1: {miss_chance_add = 0.01},
+		2: {miss_chance_add = 0.011},
+		3: {miss_chance_add = 0.011},
+		4: {miss_chance_add = 0.012},
 	}
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var miss_chance_add: String = Utils.format_percent(_stats.miss_chance_add, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Hail of Axes"
-	ability.icon = "res://resources/icons/hud/recipe_reassemble.tres"
-	ability.description_short = "Militia guardians throw axes to up to 3 enemies at once, but each axe has a chance to miss.\n"
-	ability.description_full = "Militia guardians throw axes to up to 3 enemies at once, but each axe has 33% chance to miss. If there are less creeps than axes, the remaining axes will hit the main target.\n" \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] these extra axes will not trigger any \"on hit\" abilities.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-%s chance to miss\n" % miss_chance_add \
-	+ "+1 target at levels 15 and 25\n"
-	list.append(ability)
-
-	return list
 
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, -0.20, _stats.dmg_to_boss_add)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.20, _stats.dmg_to_undead_add)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.20, _stats.dmg_to_nature_add)
 
 
 func axe_pt_hit(_p: Projectile, target: Unit):

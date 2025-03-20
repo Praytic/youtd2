@@ -17,8 +17,6 @@ var nature_bt: BuffType
 var orc_bt: BuffType
 var humanoid_bt: BuffType
 
-const AURA_RANGE: float = 280
-
 
 var bonus_levels_in_progress: bool = false
 var force_show_research_message: bool = false
@@ -34,23 +32,6 @@ var bonus_map: Dictionary = {
 	CreepCategory.enm.HUMANOID: 0,
 	CreepCategory.enm.CHALLENGE: 0,
 }
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var sample: AbilityInfo = AbilityInfo.new()
-	sample.name = "Sample Collection"
-	sample.icon = "res://resources/icons/mechanical/alchemy_kit_01.tres"
-	sample.description_short = "Has a chance to collect a tissue sample from attacked creeps. Once researched, it will provide a bonus vs the race of that creep to nearby towers.\n"
-	sample.description_full = "Has a 25% chance to collect a tissue sample from attacked creeps. Once researched, it will provide a 5% bonus vs the race of that creep, through the [color=GOLD]Xeno Vulnerability Research Aura[/color]. Maximum bonus per race is 25%. Whenever a different race is attacked, half of the research bonuses against all other races are lost.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% chance to collect sample\n" \
-	+ "+1% maximum bonus per race\n"
-	list.append(sample)
-
-	return list
 
 
 func load_triggers(triggers: BuffType):
@@ -98,25 +79,6 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
 	aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
-
-	
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Xeno Vulnerability Research"
-	aura.icon = "res://resources/icons/orbs/orb_green.tres"
-	aura.description_short = "Improves damage vs various creep races for all towers in range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Stops working in the Bonus Level.\n"
-	aura.description_full = "Improves damage vs various creep races for all towers in %d range. Improvement amount depends on the [color=GOLD]Sample Collection[/color]. Research results are published every 6 seconds and whenever a different race is attacked. Stops working in the Bonus Level.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] For this tower, research overrides any and all other race modifications. So the race bonuses of this tower reflect the bonuses given by this aura.\n"
-	
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	return [aura]
 
 
 func on_attack(event: Event):

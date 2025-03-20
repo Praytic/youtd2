@@ -17,40 +17,6 @@ var dutchman: Projectile
 var current_target: Unit = null
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var cannon: AbilityInfo = AbilityInfo.new()
-	cannon.name = "Cannon"
-	cannon.icon = "res://resources/icons/cannons/cannon_07.tres"
-	cannon.description_short = "The Dutchman attacks a random creep in range, dealing AoE attack damage.\n"
-	cannon.description_full = "The Dutchman attacks a random creep in 800 range, dealing the tower's attack damage in 250 AoE around the target on hit. Uses the tower's attack speed.\n"
-	list.append(cannon)
-
-	var soul_attack: AbilityInfo = AbilityInfo.new()
-	soul_attack.name = "Soul Attack"
-	soul_attack.icon = "res://resources/icons/tower_icons/mossy_acid_sprayer.tres"
-	soul_attack.description_short = "Every 5 seconds the Dutchman attacks a random creep in range with a collected soul, dealing spell damage.\n"
-	soul_attack.description_full = "Every 5 seconds the Dutchman attacks a random creep in 1200 range with a collected soul. Deals 14000 spell damage to the target.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1400 spell damage\n"
-	list.append(soul_attack)
-
-	var panic: AbilityInfo = AbilityInfo.new()
-	panic.name = "Panic"
-	panic.icon = "res://resources/icons/undead/skull_03.tres"
-	panic.description_short = "Whenever the Dutchman kills a creep, it collects its soul. Reduces armor of other creeps near the killed creep but also causes them to move faster.\n"
-	panic.description_full = "Whenever the Dutchman kills a creep, it collects its soul. All creeps in a range of 300 around the killed creep start to panic. They have only one thing in mind: RUN!. They don't care about their defense and their armor is reduced by 25, but they run 20% faster. This effect lasts 10 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-1 armor\n" \
-	+ "-0.2% movement speed\n"
-	list.append(panic)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -85,30 +51,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Soul Storm"
-	autocast.icon = "res://resources/icons/misc/flag_02.tres"
-	autocast.description_short = "When this spell is activated 2 souls will be periodically released.\n"
-	autocast.description = "When this spell is activated 2 souls will be released every 0.3 seconds. When a soul collides with a creep it deals 14000 spell damage. When a soul damages a creep, its damage is reduced by 50%.\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 600
-	autocast.auto_range = 600
-	autocast.cooldown = 5
-	autocast.mana_cost = 0
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_create(_preceding: Tower):

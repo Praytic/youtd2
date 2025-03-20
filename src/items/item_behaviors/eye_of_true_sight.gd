@@ -4,24 +4,9 @@ extends ItemBehavior
 var true_sight_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Eye of True Sight[/color]\n"
-	text += "Reveals invisible enemies in 900 range.\n"
-	text += " \n"
-	text += "[color=GOLD]True Sight[/color]\n"
-	text += "Increases damage of attacks against invisible creeps by 20%.\n"
-	text += " \n"
-	text += "Level Bonus:\n"
-	text += "+0.8% damage\n"
-
-	return text
-
-
 func item_init():
 	true_sight_bt = MagicalSightBuff.new("true_sight_bt", 900, self)
-	true_sight_bt.set_buff_tooltip("Eye of True Sight\nReveals invisible units in range.")
+	true_sight_bt.set_buff_tooltip(tr("SH63"))
 
 
 func load_triggers(triggers: BuffType):

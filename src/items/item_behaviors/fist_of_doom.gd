@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Pay With Blood[/color]\n"
-	text += "Every 10 seconds, the user of this item loses 2 experience.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.40, 0.0)
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.40, 0.0)

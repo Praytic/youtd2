@@ -4,6 +4,7 @@ class_name HelpMenuTab extends VBoxContainer
 signal closed()
 
 enum CsvProperty {
+	TITLE_ENGLISH,
 	TITLE,
 	TEXT,
 }
@@ -33,9 +34,11 @@ func _ready():
 	for id in id_list:
 		var displayed_index: int = id + 1
 		var entry: Dictionary = _properties[id]
-		var title: String = entry[CsvProperty.TITLE]
-		var text: String = entry[CsvProperty.TEXT]
-		
+		var title_text_id: String = entry[CsvProperty.TITLE]
+		var title: String = tr(title_text_id)
+		var text_text_id: String = entry[CsvProperty.TEXT]
+		var text: String = tr(text_text_id)
+
 		var tree_item_text: String = "%d. %s" % [displayed_index, title]
 		var child: TreeItem = _tree.create_item(root)
 		child.set_text(0, tree_item_text)

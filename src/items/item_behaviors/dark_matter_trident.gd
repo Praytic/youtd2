@@ -5,18 +5,6 @@ var boost_bt: BuffType
 var drain_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Drain Physical Energy[/color]\n"
-	text += "Whenever the carrier hits the main target, the carrier gains 2% attack speed and the target is slowed by 2%. Both effects are attack speed adjusted, last 5 seconds and stack up to 20 times.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.1 second duration\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -24,14 +12,14 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	boost_bt = BuffType.new("boost_bt", 2.5, 0.0, true, self)
 	boost_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	boost_bt.set_buff_tooltip("Boost Physical Energy\nIncreases attack speed.")
+	boost_bt.set_buff_tooltip(tr("2MER"))
 	var boost_bt_mod: Modifier = Modifier.new()
 	boost_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0002)
 	boost_bt.set_buff_modifier(boost_bt_mod)
 
 	drain_bt = BuffType.new("drain_bt", 2.5, 0.0, false, self)
 	drain_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
-	drain_bt.set_buff_tooltip("Drain Physical Energy\nReduces movement speed.")
+	drain_bt.set_buff_tooltip(tr("3KMZ"))
 	var drain_bt_mod: Modifier = Modifier.new()
 	drain_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.0002)
 	drain_bt.set_buff_modifier(drain_bt_mod)

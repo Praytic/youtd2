@@ -18,7 +18,6 @@ extends ItemBehavior
 
 const JUMP_DURATION: float = 10.0
 const ATTACKSPEED_BONUS: float = 0.10
-const COOLDOWN: float = 30.0
 
 var jumper_bt: BuffType
 var original_pos: Vector2 = Vector2.ZERO
@@ -30,37 +29,9 @@ func item_init():
 	jumper_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, ATTACKSPEED_BONUS, 0.0)
 	jumper_bt.set_buff_modifier(jumper_bt_mod)
 	jumper_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-	jumper_bt.set_buff_tooltip("Chrono Jump\nThis tower has performed a Chrono Jump.")
+	jumper_bt.set_buff_tooltip(tr("1UM5"))
 	jumper_bt.add_event_on_create(jumper_bt_on_create)
 	jumper_bt.add_event_on_cleanup(jumper_bt_on_cleanup)
-
-	var jump_duration: String = Utils.format_float(JUMP_DURATION, 2)
-	var attack_speed_bonus: String = Utils.format_percent(ATTACKSPEED_BONUS, 2)
-	var cooldown: String = Utils.format_float(COOLDOWN, 2)
-
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Chrono Jump"
-	autocast.description = "[color=GOLD]Chrono Jump[/color]\n" \
-	+ "Tower makes a leap through space to a target free location for %s seconds, then returns to its original position. Increases attack speed by %s for the duration.\n" % [jump_duration, attack_speed_bonus] \
-	+ " \n" \
-	+ "%ss cooldown\n" % cooldown\
-	+ ""
-	autocast.icon = "res://resources/icons/hud/gold.tres"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_POINT
-	autocast.target_self = false
-	autocast.cooldown = COOLDOWN
-	autocast.is_extended = true
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.cast_range = 1500
-	autocast.auto_range = 1500
-	autocast.handler = on_autocast
-
-	item.set_autocast(autocast)
 
 
 # NOTE: there are convoluted conversions between wc3 and

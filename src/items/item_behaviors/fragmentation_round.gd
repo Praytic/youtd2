@@ -5,15 +5,6 @@ var frag_pt: ProjectileType
 var frag_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Fragmentation Round[/color]\n"
-	text += "Whenever the carrier hits the main target, it has a 40% chance to hit up to 2 other creeps within 500 range of the main target with fragments. Fragments deal 45% of the attack damage and cause creeps to take 40% more damage from further fragments for the next 5 seconds. Fragments also cause creeps to take 40% extra damage from splash attacks for the next 5 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -52,7 +43,7 @@ func item_init():
 
 	frag_bt = BuffType.new("frag_bt", 5.0, 0.0, false, self)
 	frag_bt.set_buff_icon("res://resources/icons/generic_icons/mine_explosion.tres")
-	frag_bt.set_buff_tooltip("Fragment Hit\nIncreases damage taken from Fragmentation Rounds and splash attacks.")
+	frag_bt.set_buff_tooltip(tr("7ZPH"))
 	frag_bt.add_event_on_damaged(frag_bt_on_damaged)
 
 

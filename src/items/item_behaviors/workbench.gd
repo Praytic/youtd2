@@ -4,14 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Improve Item[/color]\n"
-	text += "Every kill increases item quality by 0.15%. The quality improvement is bound to the item.\n"
-
-	return text
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

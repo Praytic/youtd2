@@ -12,28 +12,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var firestorm_chance: String = Utils.format_percent(_stats.firestorm_chance, 2)
-	var firestorm_chance_add: String = Utils.format_percent(_stats.firestorm_chance_add, 2)
-	var firestorm_damage: String = Utils.format_float(_stats.firestorm_damage, 2)
-	var firestorm_damage_add: String = Utils.format_float(_stats.firestorm_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Firestorm"
-	ability.icon = "res://resources/icons/tower_variations/mossy_acid_sprayer_red.tres"
-	ability.description_short = "Attacks have a chance to cause repeating AoE spell damage around the main target.\n"
-	ability.description_full = "Attacks have a %s chance to apply 3 charges of [color=GOLD]Firestorm[/color] to the target. Each second, a charge will be spent, dealing %s spell damage to enemies in 300 range. If the target already has charges, the charges will accumulate and a charge will be consumed instantly. On death all remaining [color=GOLD]Firestorm[/color] charges get consumed at once.\n" % [firestorm_chance, firestorm_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % firestorm_chance_add \
-	+ "+%s damage\n" % firestorm_damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

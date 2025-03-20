@@ -17,36 +17,6 @@ var soulsteal_bt: BuffType
 var aura_bt: BuffType
 var acid_skull_pt: ProjectileType
 
-const AURA_RANGE: int = 775
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var acid_skull: AbilityInfo = AbilityInfo.new()
-	acid_skull.name = "Acid Skull"
-	acid_skull.icon = "res://resources/icons/tower_variations/ash_geyser_green.tres"
-	acid_skull.description_short = "Whenever this tower attacks, it has a chance to throw an [color=GOLD]Acid Skull[/color] onto the main target and nearby units, dealing spell damage.\n"
-	acid_skull.description_full = "Whenever this tower attacks, it has a 25% chance to throw an [color=GOLD]Acid Skull[/color] onto the main target, dealing 1800 spell damage to the main target and 1440 spell damage to targets in 225 range and reducing their armor by 5 over 4.5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+5% spell damage\n" \
-	+ "+0.4% chance\n"
-	list.append(acid_skull)
-
-	var soulsteal: AbilityInfo = AbilityInfo.new()
-	soulsteal.name = "Soulsteal"
-	soulsteal.icon = "res://resources/icons/undead/skull_phazing.tres"
-	soulsteal.description_short = "Whenever this tower hits a creep, it has a chance to lock the target's soul. A unit without a soul will receive more spell damage.\n"
-	soulsteal.description_full = "Whenever this tower hits a creep, it has a 12.5% chance to lock the target's soul. A unit without a soul will receive 50% more spell damage.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.1% chance\n" \
-	+ "+2% more spell damage taken\n"
-	list.append(soulsteal)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
@@ -77,27 +47,6 @@ func tower_init():
 
 	acid_skull_pt = ProjectileType.create("path_to_projectile_sprite", 20, 700, self)
 	acid_skull_pt.enable_homing(acid_skull_pt_on_hit, 0)
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Vault's Presence"
-	aura.icon = "res://resources/icons/tower_icons/small_frost_fire.tres"
-	aura.description_short = "Units in range have their armor reduced.\n"
-	aura.description_full = "Units in %d range have their armor reduced by 25%%.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% armor reduction\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_attack(event: Event):

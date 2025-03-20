@@ -10,24 +10,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var color: Color = Rarity.get_color(_stats.item_rarity)
-	var item_rarity: String = Rarity.convert_to_string(_stats.item_rarity)
-	item_rarity = item_rarity.capitalize()
-	item_rarity = Utils.get_colored_string(item_rarity, color)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Rejection"
-	ability.icon = "res://resources/icons/clubs/club_01.tres"
-	ability.description_short = "This tower drops all except %s items on attack.\n" % item_rarity
-	ability.description_full = "This tower drops all except %s items on attack.\n" % item_rarity
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

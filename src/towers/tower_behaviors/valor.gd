@@ -6,39 +6,6 @@ var valor_light_bt: BuffType
 var lastline_real_bt: BuffType
 var lastline_dummy_bt: BuffType
 
-const AURA_RANGE: int = 400
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var valors_light: AbilityInfo = AbilityInfo.new()
-	valors_light.name = "Valor's Light"
-	valors_light.icon = "res://resources/icons/tower_icons/small_light.tres"
-	valors_light.description_short = "Deals spell damage and slows creeps coming in range of this tower.\n"
-	valors_light.description_full = "Whenever a creep comes within 800 range of this tower it takes an initial 2000 spell damage per second and its movement speed is decreased by 30%. The damage and slow of this ability decay by 50% every second. Lasts 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+80 spell damage\n" \
-	+ "+1.2% slow\n"
-	valors_light.radius = 800
-	valors_light.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(valors_light)
-	
-	var last_line: AbilityInfo = AbilityInfo.new()
-	last_line.name = "Last Line of Defense"
-	last_line.icon = "res://resources/icons/shields/shield_castle.tres"
-	last_line.description_short = "Any creep passing this tower twice will take more spell and attack damage.\n"
-	last_line.description_full = "Any creep passing this tower twice will take 1% more spell and attack damage for each tower within 400 range of this tower. This effect is goldcost adjusted, towers with a goldcost of 2500 provide the full bonus.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08% spell and attack damage taken per tower\n"
-	last_line.radius = 400
-	last_line.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(last_line)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 800, TargetType.new(TargetType.CREEPS))
@@ -68,26 +35,6 @@ func tower_init():
 	valor_light_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	valor_light_bt.add_periodic_event(valor_light_bt_periodic, 1.0)
 	valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "We Will Not Fall!"
-	aura.icon = "res://resources/icons/animals/rooster_warrior.tres"
-	aura.description_short = "Increases the attack damage and spell damage of all towers in range.\n"
-	aura.description_full = "Increases the attack damage and spell damage of all towers in %d range by 0.5%% for each percent of lost lives. If the team has more than 100%% lives, towers will deal less damage!\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.02% more spell and attack damage\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = wewillnotfall_bt
-
-	return [aura]
 
 
 func on_unit_in_range(event: Event):

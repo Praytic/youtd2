@@ -6,42 +6,16 @@ var roar_bt: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {self_attack_speed_add = 0.0, buff_scale = 6},
-		2: {self_attack_speed_add = 0.015, buff_scale = 9},
-		3: {self_attack_speed_add = 0.018, buff_scale = 12},
-		4: {self_attack_speed_add = 0.021, buff_scale = 15},
-		5: {self_attack_speed_add = 0.024, buff_scale = 18},
+		1: {buff_scale = 6},
+		2: {buff_scale = 9},
+		3: {buff_scale = 12},
+		4: {buff_scale = 15},
+		5: {buff_scale = 18},
 	}
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var attack_speed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Thunderous Roar"
-	ability.icon = "res://resources/icons/animals/dragon_03.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Thunderous Roar[/color], increasing attack speed of nearby towers.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has a 30%% chance to release a [color=GOLD]Thunderous Roar[/color]. [color=GOLD]Thunderous Roar[/color] increases attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has [color=GOLD]Thunderous Roar[/color], then attack speed is increased by %s and duration is refreshed. Stacks up to 100 times.\n" % attack_speed \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack speed" % attack_speed
-	ability.radius = 420
-	ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(ability)
-
-	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-# NOTE: this tower's tooltip in original game does NOT
-# include innate stats
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, _stats.self_attack_speed_add)
 
 
 func tower_init():

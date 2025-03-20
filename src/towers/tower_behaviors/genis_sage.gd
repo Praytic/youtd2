@@ -7,58 +7,6 @@ var spread_bt: BuffType
 var magic_boost_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var speed_cast: AbilityInfo = AbilityInfo.new()
-	speed_cast.name = "Speed Cast"
-	speed_cast.icon = "res://resources/icons/trinkets/trinket_01.tres"
-	speed_cast.description_short = "Whenever Genis uses one of his abilities, he has a chance to increase trigger chances and attack speed.\n"
-	speed_cast.description_full = "Whenever Genis uses one of his abilities, he has a 15% chance to increase his trigger chances and his attack speed by 25% for 3.5 seconds. This ability does not stack, but can be retriggered.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% trigger chance\n" \
-	+ "+1% attack speed\n" \
-	+ "+0.1 seconds\n"
-	list.append(speed_cast)
-
-	var aqua_edge: AbilityInfo = AbilityInfo.new()
-	aqua_edge.name = "Aqua Edge"
-	aqua_edge.icon = "res://resources/icons/animals/fish_02.tres"
-	aqua_edge.description_short = "Each attack has a chance to launch 3 blades of water at target, which deal spell damage.\n"
-	aqua_edge.description_full = "Each attack Genis has a 20% chance to launch 3 blades of water in front of him at different angles. Each blade deals 1500 spell damage to each creep it passes through. Costs 15 mana.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+150 spell damage\n"
-	list.append(aqua_edge)
-
-	var spread: AbilityInfo = AbilityInfo.new()
-	spread.name = "Spread"
-	spread.icon = "res://resources/icons/magic/claw_02.tres"
-	spread.description_short = "Whenever this tower hits a creep, it has a chance to lift up creeps near the main target and deal spell damage to affected creeps.\n"
-	spread.description_full = "Whenever this tower hits a creep, it has a 10% chance to lift up creeps in 250 AoE around the main target for 0.8 seconds. Each creep is also dealt 3000 spell damage. Costs 40 mana.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% chance\n" \
-	+ "+200 spell damage\n"
-	list.append(spread)
-
-	var magic_boost: AbilityInfo = AbilityInfo.new()
-	magic_boost.name = "Magic Boost"
-	magic_boost.icon = "res://resources/icons/tower_icons/storm_battery.tres"
-	magic_boost.description_short = "Chance to increase spell damage of nearby towers.\n"
-	magic_boost.description_full = "Every 7 seconds Genis has a 30% chance to increase the spell damage of all towers within 350 range of him by 20% for 3 seconds. Costs 10 mana.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% spell damage\n"
-	magic_boost.radius = 350
-	magic_boost.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(magic_boost)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

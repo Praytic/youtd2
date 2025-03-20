@@ -11,28 +11,6 @@ func get_tier_stats() -> Dictionary:
 		}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var damage: String = Utils.format_percent(_stats.damage, 2)
-	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
-	var magic_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.MAGIC)
-	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
-	var nature_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.NATURE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Banish"
-	ability.icon = "res://resources/icons/magic/magic_stone_green.tres"
-	ability.description_short = "Deals extra spell damage when hitting %s, %s and %s creeps.\n" % [magic_string, undead_string, nature_string]
-	ability.description_full = "Deals additional %s spell damage when hitting %s, %s and %s creeps.\n" % [damage, magic_string, undead_string, nature_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

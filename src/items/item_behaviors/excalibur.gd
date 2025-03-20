@@ -4,18 +4,6 @@ extends ItemBehavior
 var power_bt: BuffType
 
 
-func get_ability_description() -> String:
-    var text: String = ""
-
-    text += "[color=GOLD]Power of the Sword[/color]\n"
-    text += "Whenever the carrier hits the main target, it decreases the armor of the target by 5 or 10 for 5 seconds, with equal chances for both values.\n"
-    text += " \n"
-    text += "[color=ORANGE]Level Bonus:[/color]\n"
-    text += "+0.2 armor reduction.\n"
-
-    return text
-
-
 func load_triggers(triggers: BuffType):
     triggers.add_event_on_damage(on_damage)
 
@@ -29,7 +17,7 @@ func load_modifier(modifier: Modifier):
 func item_init():
     power_bt = BuffType.new("power_bt", 5, 0, false, self)
     power_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
-    power_bt.set_buff_tooltip("Power of the Sword\nReduces armor.")
+    power_bt.set_buff_tooltip(tr("F9SA"))
     var mod: Modifier = Modifier.new()
     mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.2)
     power_bt.set_buff_modifier(mod)

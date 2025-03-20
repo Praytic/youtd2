@@ -3,15 +3,20 @@ extends Node
 
 enum CsvProperty {
 	ID,
-	NAME,
+	NAME_ENGLISH,
 	SCRIPT_NAME,
 	TYPE,
 	AUTHOR,
 	RARITY,
 	COST,
-	DESCRIPTION,
 	REQUIRED_WAVE_LEVEL,
+	ABILITY_LIST,
+	AURA_LIST,
+	AUTOCAST_LIST,
+	SCRIPT_PATH,
 	ICON,
+	NAME,
+	DESCRIPTION
 }
 
 const PROPERTIES_PATH = "res://data/item_properties.csv"
@@ -49,15 +54,31 @@ func _ready():
 ###       Public      ###
 #########################
 
-func get_script_path(item_id: int):
-	var item_name: String = ItemProperties.get_display_name(item_id)
-	item_name = item_name.replace("'", "")
-	item_name = item_name.replace(".", "")
-	item_name = item_name.replace(",", "")
-	item_name = item_name.to_snake_case()
-	var path: String = "res://src/items/item_behaviors/%s.gd" % [item_name]
+func get_ability_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.ABILITY_LIST)
+	var ability_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
 
-	return path
+	return ability_id_list
+
+
+func get_aura_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.AURA_LIST)
+	var aura_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return aura_id_list
+
+
+func get_autocast_id_list(item_id: int) -> Array[int]:
+	var string: String = _get_property(item_id, CsvProperty.AUTOCAST_LIST)
+	var autocast_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return autocast_id_list
+
+
+func get_script_path(item_id: int):
+	var script_path: String = _get_property(item_id, CsvProperty.SCRIPT_PATH)
+
+	return script_path
 
 
 func get_item_id_list() -> Array:
@@ -93,8 +114,11 @@ func get_icon(item_id: int) -> Texture2D:
 	return item_icon
 
 
-func get_item_name(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.NAME)
+func get_display_name(item_id: int) -> String:
+	var display_name_text_id: String = _get_property(item_id, CsvProperty.NAME)
+	var display_name: String = tr(display_name_text_id)
+
+	return display_name
 
 
 func get_author(item_id: int) -> String:
@@ -113,7 +137,10 @@ func get_cost(item_id: int) -> int:
 
 
 func get_description(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(item_id, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
+
+	return description
 
 
 func get_required_wave_level(item_id: int) -> int:
@@ -126,12 +153,8 @@ func get_icon_path(item_id: int) -> String:
 	return icon_path
 
 
-func get_display_name(item_id: int) -> String:
-	return _get_property(item_id, CsvProperty.NAME)
-
-
 func get_tooltip_text(item_id: int) -> String:
-	var item_name: String = get_item_name(item_id)
+	var item_name: String = get_display_name(item_id)
 	var item_description: String = get_description(item_id)
 	var text: String = "%s\n%s" % [item_name, item_description]
 
@@ -173,4 +196,3 @@ func _get_property(item: int, property: CsvProperty) -> String:
 	var property_value: String = map[property]
 
 	return property_value
-

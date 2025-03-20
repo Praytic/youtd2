@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Golden Hit[/color]\n"
-	text += "Grants 2 gold for each multicrit on a critical attack. Gold gain is base attack speed adjusted and scales with bounty received.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

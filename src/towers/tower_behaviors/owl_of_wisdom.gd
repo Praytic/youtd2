@@ -11,66 +11,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var dmg_ratio_for_immune: String = Utils.format_percent(_stats.dmg_ratio_for_immune, 2)
-	var dmg_ratio_for_immune_add: String = Utils.format_percent(_stats.dmg_ratio_for_immune_add, 2)
-	var periodic_event_period: String = Utils.format_float(_stats.periodic_event_period, 2)
-	var energyball_chance: String = Utils.format_percent(_stats.energyball_chance, 2)
-	var energyball_radius_add: String = Utils.format_float(_stats.energyball_radius_add, 2)
-	var energyball_dmg_base: String = Utils.format_float(_stats.energyball_dmg_base, 2)
-	var energyball_dmg_exp_scale: String = Utils.format_float(_stats.energyball_dmg_exp_scale, 2)
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-
-	var energyball: AbilityInfo = AbilityInfo.new()
-	energyball.name = "Energyball"
-	energyball.icon = "res://resources/icons/tower_icons/storm_battery.tres"
-	energyball.description_short = "The Owl of Wisdom has a chance on attack to cast [color=GOLD]Energyball[/color] on the main target. [color=GOLD]Energyball[/color] deals AoE spell damage scales with tower's experience.\n"
-	energyball.description_full = "The Owl of Wisdom has a %s chance on attack to cast [color=GOLD]Energyball[/color] on the main target. The [color=GOLD]Energyball[/color] deals [color=GOLD][%s + (%s x  tower exp)][/color] spell damage in a 100 AoE around the attacked creep. The experience bonus cannot exceed [color=GOLD][150x current wave][/color] damage.\n" % [energyball_chance, energyball_dmg_base, energyball_dmg_exp_scale] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s AoE range\n" % energyball_radius_add \
-	+ "+0.4% chance\n"
-	list.append(energyball)
-
-	var weak_spots: AbilityInfo = AbilityInfo.new()
-	weak_spots.name = "Weak Spots"
-	weak_spots.icon = "res://resources/icons/orbs/orb_ice_melting.tres"
-	weak_spots.description_short = "The Owl of Wisdom is able to find weak spots even on magic immune units.\n"
-	weak_spots.description_full = "The Owl of Wisdom is able to find weak spots even on magic immune units. It's [color=GOLD]Energyball[/color] deals %s of its spell damage as %s damage to immune units.\n" % [dmg_ratio_for_immune, energy_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % dmg_ratio_for_immune_add
-	list.append(weak_spots)
-
-	var energy_detection: AbilityInfo = AbilityInfo.new()
-	energy_detection.name = "Energy Detection"
-	energy_detection.icon = "res://resources/icons/trinkets/trinket_10.tres"
-	energy_detection.description_short = "The Owl of Wisdom sometimes randomly casts [color=GOLD]Energyball[/color].\n"
-	energy_detection.description_full = "Every %s seconds, for each creep in 900 range the Owl of Wisdom has a 10%% chance to cast [color=GOLD]Energyball[/color] on it.\n" % periodic_event_period \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% chance\n"
-	energy_detection.radius = 900
-	energy_detection.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(energy_detection)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, _stats.periodic_event_period)
-
-
-# NOTE: this tower's tooltip in original game includes
-# innate stats in some cases
-# spell crit chance = yes
-# spell crit chance add = no
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.0015)
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.01)
 
 
 func tower_init():

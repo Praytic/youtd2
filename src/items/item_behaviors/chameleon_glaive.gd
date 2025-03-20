@@ -4,18 +4,6 @@ extends ItemBehavior
 var chameleon_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Launch Glaive[/color]\n"
-	text += "Whenever the carrier attacks, it has a 40% chance to fire an extra projectile at the target. The projectile deals the same amount of damage as a normal attack and can crit.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

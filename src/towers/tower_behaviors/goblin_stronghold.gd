@@ -20,57 +20,6 @@ var robot_bt: BuffType
 var emitter_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var reimbursement: AbilityInfo = AbilityInfo.new()
-	reimbursement.name = "Reimbursement"
-	reimbursement.icon = "res://resources/icons/mechanical/gold_machine.tres"
-	reimbursement.description_short = "Reimburses gold when no ability is used.\n"
-	reimbursement.description_full = "Whenever this tower attacks and doesn't trigger any of it's abilities, the player is reimbursed 5 gold.\n"
-	list.append(reimbursement)
-
-	var field: AbilityInfo = AbilityInfo.new()
-	field.name = "Probability Field Emitter"
-	field.icon = "res://resources/icons/dioramas/fountain.tres"
-	field.description_short = "Whenever this tower attacks, it has a chance to launch a [color=GOLD]Probability Field Emitter[/color] at a random tower, increasing trigger chances.\n"
-	field.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Probability Field Emitter[/color] at a random tower within 500 range, increasing trigger chances by [color=GOLD]30%-60%[/color] for 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+0.6% trigger chances\n"
-	field.radius = 500
-	field.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(field)
-
-	var clockwork: AbilityInfo = AbilityInfo.new()
-	clockwork.name = "Clockwork Engineer"
-	clockwork.icon = "res://resources/icons/mechanical/mech_badge.tres"
-	clockwork.description_short = "Whenever this tower attacks, it has a chance to launch a [color=GOLD]Clockwork Engineer[/color] at a random tower, increasing attack speed and damage.\n"
-	clockwork.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Clockwork Engineer[/color] at a random tower within 500 range, increasing attack speed and attack damage by [color=GOLD]10%-40%[/color] for 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+0.6% attack speed and damage\n"
-	clockwork.radius = 500
-	clockwork.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(clockwork)
-
-	var sapper: AbilityInfo = AbilityInfo.new()
-	sapper.name = "Goblin Sapper"
-	sapper.icon = "res://resources/icons/faces/mech_zombie.tres"
-	sapper.description_short = "Whenever this tower attacks, it has chance to launch a [color=GOLD]Goblin Sapper[/color] at the main target, dealing AoE spell damage and slowing creeps in an AoE.\n"
-	sapper.description_full = "Whenever this tower attacks, it has a 20% chance to launch a [color=GOLD]Goblin Sapper[/color] at the main target. On contact [color=GOLD]Goblin Sapper[/color] deals [color=GOLD]1350-7650[/color] spell damage to the main target and all creeps within 250 range. Also slows all affected creeps by [color=GOLD]25%-45%[/color] for 3 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance\n" \
-	+ "+180 spell damage\n" \
-	+ "+0.6% slow\n"
-	list.append(sapper)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

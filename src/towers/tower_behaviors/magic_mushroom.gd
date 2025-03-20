@@ -21,41 +21,9 @@ var spell_damage_from_growth: float = 0.0
 var fungus_strike_activated: bool = false
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var fungus_strike: AbilityInfo = AbilityInfo.new()
-	fungus_strike.name = "Fungus Strike"
-	fungus_strike.icon = "res://resources/icons/tower_icons/razorboar_thornweaver.tres"
-	fungus_strike.description_short = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive more damage from spells.\n"
-	fungus_strike.description_full = "After casting [color=GOLD]Mystical Trance[/color] the Mushroom's next attack will be a [color=GOLD]Fungus Strike[/color]. [color=GOLD]Fungus Strike[/color] deals 100% of its damage as spell damage, has extra 20% chance to crit and makes the target creep receive 10% more damage from spells. This effect is permanent and stacks.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% spell damage\n" \
-	+ "+0.8% spell crit chance\n"
-	list.append(fungus_strike)
-
-	var rapid_growth: AbilityInfo = AbilityInfo.new()
-	rapid_growth.name = "Rapid Growth"
-	rapid_growth.icon = "res://resources/icons/tower_icons/baby_plant.tres"
-	rapid_growth.description_short = "Chance to grow, permanently gaining bonus spell damage.\n"
-	rapid_growth.description_full = "Every 20 seconds the Mushroom has a 40% chance to grow, permanently gaining 3% bonus spell damage. Maximum of 40 succesful growths.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.4 seconds\n" \
-	+ "+0.12% bonus spell damage\n"
-	list.append(rapid_growth)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 20.0)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.16)
 
 
 func tower_init():
@@ -83,35 +51,6 @@ func tower_init():
 func on_create(_preceding: Tower):
 	var grow_buff: Buff = grow_bt.apply_to_unit_permanent(tower, tower, 0)
 	grow_buff.set_displayed_stacks(growth_count)
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Mystical Trance"
-	autocast.icon = "res://resources/icons/masks/mask_05.tres"
-	autocast.description_short = "Buffs a tower in range, increasing its spell damage and trigger chances.\n"
-	autocast.description = "Buffs a tower in 500 range, increasing its spell damage and trigger chances by 25%. Lasts 5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2 sec duration\n" \
-	+ "+1% spell damage\n" \
-	+ "+1% trigger chances\n"
-	autocast.caster_art = "res://src/effects/spell_aire.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 500
-	autocast.auto_range = 500
-	autocast.cooldown = 2
-	autocast.mana_cost = 50
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = trance_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

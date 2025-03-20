@@ -4,21 +4,6 @@ extends ItemBehavior
 var aura_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Mana Charge[/color]\n"
-	text += "On every 3rd attack the carrier regenerates 1% of its maximum mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Absorb[/color]\n"
-	text += "Whenever the carrier kills a creep it regenerates 3% of its maximum mana.\n"
-	text += " \n"
-	text += "[color=GOLD]Mana Aura - Aura[/color]\n"
-	text += "Increases mana regeneration of all towers in 200 range of the carrier by 7.5%.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)
@@ -27,19 +12,10 @@ func load_triggers(triggers: BuffType):
 func item_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
-	aura_bt.set_buff_tooltip("Mana Aura\nIncreases mana regeneration.")
+	aura_bt.set_buff_tooltip(tr("2UJE"))
 	var mod: Modifier = Modifier.new() 
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
 	aura_bt.set_buff_modifier(mod)
-
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = 200
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	item.add_aura(aura)
 
 
 func on_attack(_event: Event):

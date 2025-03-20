@@ -11,32 +11,8 @@ var omnislashed_bt: BuffType
 var mirror_image_pt: ProjectileType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var physical_string: String = AttackType.convert_to_colored_string(AttackType.enm.PHYSICAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Omnislash"
-	ability.icon = "res://resources/icons/daggers/dagger_07.tres"
-	ability.description_short = "On each attack the Omnislasher moves with insane speed towards the battlefield.\n"
-	ability.description_full = "On each attack the Omnislasher moves with insane speed towards the battlefield. There, he deals attack damage up to 10 times before returning to his triumphant pedestal. Each such damage instance deals 10%% of this tower's normal attack damage and permanently increases the damage its target takes from %s type attacks by 4%%.\n" % physical_string \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] Omnislasher won't trigger any \"on hit\" abilities from items or other towers.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2 slashes every 5 levels\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 
 
 func tower_init():

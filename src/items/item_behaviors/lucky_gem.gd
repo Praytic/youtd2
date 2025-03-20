@@ -6,20 +6,6 @@ var slow_bt: BuffType
 var armor_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Luck![/color]\n"
-	text += "Whenever the carrier hits the main target, it has a 20% attack speed adjusted chance to get a random effect:\n"
-	text += " Gain 1 experience\n"
-	text += " Gain 10 gold\n"
-	text += " Stun for 0.5 seconds\n"
-	text += " Slow by 10% for 3 seconds\n"
-	text += " Decrease armor by 5 for 3 seconds\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -29,14 +15,14 @@ func item_init():
 	
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Gem Slow\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("KRA1"))
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 
 	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
 	armor_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
-	armor_bt.set_buff_tooltip("Gem Armor\nReduces armor.")
+	armor_bt.set_buff_tooltip(tr("PJYW"))
 	var armor_bt_mod: Modifier = Modifier.new()
 	armor_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
 	armor_bt.set_buff_modifier(armor_bt_mod)

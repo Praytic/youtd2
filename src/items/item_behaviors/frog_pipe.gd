@@ -14,17 +14,6 @@ extends ItemBehavior
 var frog_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Frog Piper[/color]\n"
-	text += "Gives carrier attacks a 20% chance to summon 4 frogs that deal 100% attack damage when they hit an enemy.\n"
-	text += " \n"
-	text += "Frogs cannot hit air.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

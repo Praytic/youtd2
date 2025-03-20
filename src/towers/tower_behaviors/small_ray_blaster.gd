@@ -14,28 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var value: String = Utils.format_percent(_stats.value * 0.01 * 0.01, 2)
-	var value_add: String = Utils.format_percent(_stats.value_add * 0.01 * 0.01, 2)
-	var duration: String = Utils.format_float(_stats.duration, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Phaze"
-	ability.icon = "res://resources/icons/mechanical/lamp.tres"
-	ability.description_short = "Increases item chance and item quality of hit creeps .\n"
-	ability.description_full = "Increases item chance and item quality of hit creeps by %s for %s seconds.\n" % [value, duration] \
-	+ " \n"\
-	+ "[color=ORANGE]Level Bonus:[/color]\n"\
-	+ "+%s item chance\n" % value_add\
-	+ "+%s item quality\n" % value_add\
-	+ "+0.1 seconds"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

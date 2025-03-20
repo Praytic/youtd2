@@ -15,32 +15,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var vapor_damage: String = Utils.format_float(_stats.vapor_damage / 10, 2)
-	var vapor_damage_add: String = Utils.format_float(_stats.vapor_damage_add / 10, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Toxic Vapor"
-	ability.icon = "res://resources/icons/mechanical/factory_fumes.tres"
-	ability.description_short = "On attack, this tower has a chance to apply a debuff to the main target, dealing spell damage over time.\n"
-	ability.description_full = "On attack, this tower has a 30%% chance to apply a debuff to the the main target that deals %s spell damage per second. Lasts for 10 seconds.\n" % vapor_damage \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage per second\n" % vapor_damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.60, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.60, 0.02)
 
 
 func D1000_Toxic_Damage(event: Event):

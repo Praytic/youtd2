@@ -24,8 +24,8 @@ const ELEMENT_TO_EXPLOSION_ART: Dictionary = {
 
 
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
-var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
-var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
+static var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
+static var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
 
 @export var _id: int = 0
 var _splash_map: Dictionary = {}
@@ -190,6 +190,27 @@ func _ready():
 	innate_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD)
 	add_modifier(innate_modifier)
 
+	var tower_id: int = get_id()
+
+	var multishot_count: int = TowerProperties.get_multishot(tower_id)
+	set_target_count(multishot_count)
+
+	var bounce_attack_values: Array = TowerProperties.get_bounce_attack(tower_id)
+	var splash_attack_values: Dictionary = TowerProperties.get_splash_attack(tower_id)
+	if !bounce_attack_values.is_empty():
+		_attack_style = AttackStyle.BOUNCE
+		_bounce_count_max = bounce_attack_values[0]
+		_bounce_damage_multiplier = bounce_attack_values[1]
+	elif !splash_attack_values.is_empty():
+		_attack_style = AttackStyle.SPLASH
+		_splash_map = splash_attack_values
+
+	var attack_target_type: TargetType = TowerProperties.get_attack_target_type(tower_id)
+	_attack_target_type = attack_target_type
+
+	var specials_modifier = TowerProperties.get_specials_modifier(tower_id)
+	add_modifier(specials_modifier)
+
 	_tower_behavior.init(self, _temp_preceding_tower)
 
 #	NOTE: add aura range indicators to "visual" for correct
@@ -283,16 +304,12 @@ func reset_attack_crits():
 	_current_crit_damage = 0.0
 
 
-func set_range_indicator_visible(ability_name: String, value: bool):
+func set_range_indicator_visible(ability_name_english: String, value: bool):
 	for range_indicator in _range_indicator_list:
-		var name_match: bool = range_indicator.ability_name == ability_name
+		var name_match: bool = range_indicator.ability_name_english == ability_name_english
 		
 		if name_match:
 			range_indicator.visible = value
-
-
-func get_aura_types() -> Array[AuraType]:
-	return _tower_behavior.get_aura_types()
 
 
 func on_tower_details() -> MultiboardValues:
@@ -342,30 +359,6 @@ func issue_target_order(target: Unit):
 #########################
 ###      Private      ###
 #########################
-
-# This function automatically generates a description for
-# specials that tower instance defined in load_specials().
-func _get_specials_description() -> String:
-	var text: String = ""
-
-	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
-	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
-	if attacks_ground_only:
-		text += "[color=RED]Attacks GROUND only[/color]\n"
-	elif attacks_air_only:
-		text += "[color=RED]Attacks AIR only[/color]\n"
-	
-	var specials_modifier: Modifier = _tower_behavior.get_specials_modifier()
-	var modifier_text: String = specials_modifier.get_tooltip_text()
-	modifier_text = RichTexts.add_color_to_numbers(modifier_text)
-
-	if !modifier_text.is_empty():
-		if !text.is_empty():
-			text += " \n"
-		text += modifier_text
-
-	return text
-
 
 func _get_attack_ability_description() -> String:
 	var text: String = ""
@@ -674,33 +667,6 @@ func _remove_target(target):
 	_target_list.erase(target)
 
 
-func _get_splash_attack_description() -> String:
-	var text: String = ""
-
-	var splash_range_list: Array = _splash_map.keys()
-	splash_range_list.sort()
-
-	for splash_range in splash_range_list:
-		var splash_ratio: float = _splash_map[splash_range]
-		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "[color=GOLD]%d[/color] AoE: [color=GOLD]%d%%[/color] damage\n" % [splash_range, splash_percentage]
-
-	return text
-
-
-func _get_bounce_attack_description() -> String:
-	var text: String
-
-	if _bounce_damage_multiplier != 0:
-		var bounce_dmg_percent: String = Utils.format_percent(_bounce_damage_multiplier, 0)
-		text = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max \
-		+ "[color=GOLD]-%s[/color] damage per bounce\n" % bounce_dmg_percent
-	else:
-		text = "[color=GOLD]%d[/color] targets\n" % _bounce_count_max
-
-	return text
-
-
 func _get_next_bounce_target(bounce_pos: Vector3, visited_list: Array[Unit]) -> Creep:
 	var bounce_pos_2d: Vector2 = Vector2(bounce_pos.x, bounce_pos.y)
 	var creep_list: Array = Utils.get_units_in_range(self, _attack_target_type, bounce_pos_2d, Constants.BOUNCE_ATTACK_RANGE)
@@ -867,30 +833,11 @@ func hide_attack_projectiles():
 	_hide_attack_projectiles = true
 
 
-# NOTE: call this in load_specials() of tower instance
-func set_attack_ground_only():
-	_attack_target_type = TARGET_TYPE_GROUND_ONLY
-
-
-# NOTE: call this in load_specials() of tower instance
-func set_attack_air_only():
-	_attack_target_type = TARGET_TYPE_AIR_ONLY
-
-
-# NOTE: call this in load_specials() of tower instance
-func set_attack_style_splash(splash_map: Dictionary):
-	_attack_style = AttackStyle.SPLASH
-	_splash_map = splash_map
-
-
-# NOTE: call this in load_specials() of tower instance
-func set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
-	_attack_style = AttackStyle.BOUNCE
-	_bounce_count_max = bounce_count_max
-	_bounce_damage_multiplier = bounce_damage_multiplier
-
-
-# NOTE: call this in load_specials() of tower instance
+# This f-n changes how many targets the tower can attack at
+# the same time. Note that the default value of this
+# property is loaded from tower properties CSV when tower is
+# created. After that, if this f-n is called from tower
+# script the original value is overwritten.
 func set_target_count(count: int):
 	_target_count_from_tower = count
 
@@ -972,28 +919,31 @@ func get_item_container() -> ItemContainer:
 	return _item_container
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
+func get_ability_info_list_for_buttons() -> Array[AbilityInfo]:
 	var list: Array[AbilityInfo] = []
+
+	var tower_id: int = get_id()
 
 	var attack_enabled: bool = TowerProperties.get_attack_enabled(get_id())
 	if attack_enabled:
 		var attack_ability: AbilityInfo = AbilityInfo.new()
 		var attack_description: String = _get_attack_ability_description()
 		var attack_range: float = get_range()
-		attack_ability.name = "Normal attack"
+		attack_ability.name_english = Constants.TOWER_ATTACK_ABILITY_NAME
+		attack_ability.name = Constants.TOWER_ATTACK_ABILITY_NAME
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
-		attack_ability.description_full = attack_description
+		attack_ability.description_long = attack_description
 		attack_ability.description_short = ""
 		attack_ability.radius = attack_range
 		attack_ability.target_type = TargetType.new(TargetType.CREEPS)
 		list.append(attack_ability)
 
-	var specials_description: String = _get_specials_description()
+	var specials_description: String = RichTexts.get_tower_specials_text(tower_id)
 	if !specials_description.is_empty():
 		var specials: AbilityInfo = AbilityInfo.new()
 		specials.name = "Specials"
 		specials.icon = "res://resources/icons/rockets/rocket_04.tres"
-		specials.description_full = specials_description
+		specials.description_long = specials_description
 		specials.description_short = specials_description
 		list.append(specials)
 
@@ -1001,16 +951,18 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var splash_attack: AbilityInfo = AbilityInfo.new()
 		splash_attack.name = "Splash Attack"
 		splash_attack.icon = "res://resources/icons/rockets/rocket_05.tres"
-		splash_attack.description_full = _get_splash_attack_description()
-		splash_attack.description_short = splash_attack.description_full
+		var splash_attack_text: String = RichTexts.get_tower_splash_attack_text(tower_id)
+		splash_attack.description_long = splash_attack_text
+		splash_attack.description_short = splash_attack_text
 		list.append(splash_attack)
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var bounce_attack: AbilityInfo = AbilityInfo.new()
 		bounce_attack.name = "Bounce Attack"
 		bounce_attack.icon = "res://resources/icons/daggers/dagger_09.tres"
-		bounce_attack.description_full = _get_bounce_attack_description()
-		bounce_attack.description_short = bounce_attack.description_full
+		var bounce_attack_text: String = RichTexts.get_tower_bounce_attack_text(tower_id)
+		bounce_attack.description_long = bounce_attack_text
+		bounce_attack.description_short = bounce_attack_text
 		list.append(bounce_attack)
 
 #	NOTE: need to use _target_count_from_tower without
@@ -1020,14 +972,16 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var multishot: AbilityInfo = AbilityInfo.new()
 		multishot.name = "Multishot"
 		multishot.icon = "res://resources/icons/spears/many_spears_01.tres"
-		var multishot_tooltip: String = "Attacks up to [color=GOLD]%d[/color] targets at the same time.\n" % _target_count_from_tower
+		var multishot_tooltip: String = RichTexts.get_tower_multishot_text(tower_id)
 		multishot.description_short = multishot_tooltip
-		multishot.description_full = multishot_tooltip
+		multishot.description_long = multishot_tooltip
 		list.append(multishot)
 	
-	var extra_abilities: Array[AbilityInfo] = _tower_behavior.get_ability_info_list()
-	list.append_array(extra_abilities)
-	
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var ability: AbilityInfo = AbilityInfo.make(ability_id)
+		list.append(ability)
+
 	return list
 
 

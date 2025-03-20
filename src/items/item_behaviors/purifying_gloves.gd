@@ -5,18 +5,6 @@ var chain_lightning_st: SpellType
 var stun_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
-	var orc_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.ORC)
-
-	var text: String = ""
-
-	text += "[color=GOLD]Purify[/color]\n"
-	text += "Whenever the carrier attacks, it has a 12.5%% attack speed adjusted chance to cast a purifying beam of magic on the main target. The beam deals 250 spell damage to the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%%. %s and %s creeps also get stunned for 0.5 seconds when hit by this beam.\n" % [undead_string, orc_string]
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

@@ -63,32 +63,32 @@ enum Type {
 }
 
 
-var _types_that_can_use_auto_mode: Array[Autocast.Type] = [
+const _types_that_can_use_auto_mode: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_ALWAYS_BUFF,
 	Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
 	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
 	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
 ]
-var _immediate_type_list: Array[Autocast.Type] = [
+const _immediate_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
 	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
 	Autocast.Type.AC_TYPE_NOAC_IMMEDIATE,
 ]
-var _buff_type_list: Array[Autocast.Type] = [
+const _buff_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_ALWAYS_BUFF,
 	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
 ]
-var _offensive_type_list: Array[Autocast.Type] = [
+const _offensive_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
 	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
 	Autocast.Type.AC_TYPE_OFFENSIVE_POINT,
 ]
-var _unit_type_list: Array[Autocast.Type] = [
+const _unit_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
 ]
-var _point_type_list: Array[Autocast.Type] = [
+const _point_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_POINT,
 	Autocast.Type.AC_TYPE_NOAC_POINT,
 ]
@@ -100,8 +100,9 @@ var _point_type_list: Array[Autocast.Type] = [
 # NOTE: cast_range is the range used when autocast is
 # manually triggered by the user, auto_range is the range
 # used for regular autocasts that cast automatically.
+var name_english: String = "Placeholder Title"
 var title: String = "Placeholder Title"
-var description: String = "Description"
+var description_long: String = "Description Long"
 var description_short: String = "Description Short"
 var icon: String = "res://resources/icons/hud/gold.tres"
 var caster_art: String = ""
@@ -166,7 +167,7 @@ func _ready():
 
 	_check_buff_target_type()
 
-	_target_type = _calculate_target_type()
+	_target_type = Autocast.calculate_target_type(autocast_type, buff_target_type)
 
 
 #########################
@@ -277,6 +278,14 @@ func can_use_auto_mode() -> bool:
 	return can_use
 
 
+# Some autocast types are always manual
+static func can_use_auto_mode_for_id(autocast_id: int) -> bool:
+	var autocast_type: Autocast.Type = AutocastProperties.get_autocast_type(autocast_id)
+	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
+
+	return can_use
+
+
 func add_cast_error_message():
 	var cast_error: String = _get_cast_error()
 
@@ -332,17 +341,17 @@ func _get_target_is_in_range(target: Unit) -> bool:
 	return target_is_in_range
 
 
-func _calculate_target_type() -> TargetType:
-	match autocast_type:
+static func calculate_target_type(autocast_type_arg: Autocast.Type, buff_target_type_arg: TargetType) -> TargetType:
+	match autocast_type_arg:
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF:
-			if buff_target_type != null:
-				return buff_target_type
+			if buff_target_type_arg != null:
+				return buff_target_type_arg
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE: return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF:
-			if buff_target_type != null:
-				return buff_target_type
+			if buff_target_type_arg != null:
+				return buff_target_type_arg
 			else:
 				return TargetType.new(0)
 		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
@@ -353,7 +362,7 @@ func _calculate_target_type() -> TargetType:
 		Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER: return TargetType.new(TargetType.PLAYER_TOWERS)
 		Autocast.Type.AC_TYPE_NOAC_POINT: return TargetType.new(0)
 
-	push_error("_calculate_target_type doesn't support type: ", autocast_type)
+	push_error("_calculate_target_type doesn't support type: ", autocast_type_arg)
 
 	return TargetType.new(0)
 
@@ -587,3 +596,85 @@ static func make() -> Autocast:
 	var autocast: Autocast = Preloads.autocast_scene.instantiate()
 
 	return autocast
+
+
+static func make_from_id(autocast_id: int, creator_object: Object) -> Autocast:
+	var autocast: Autocast = Autocast.make()
+
+	autocast.name_english = AutocastProperties.get_name_english(autocast_id)
+	autocast.title = AutocastProperties.get_autocast_name(autocast_id)
+	autocast.icon = AutocastProperties.get_icon_path(autocast_id)
+	autocast.description_short = AutocastProperties.get_description_short(autocast_id)
+	autocast.description_long = AutocastProperties.get_description_long(autocast_id)
+
+	autocast.caster_art = AutocastProperties.get_caster_art(autocast_id)
+	autocast.target_art = AutocastProperties.get_target_art(autocast_id)
+	autocast.num_buffs_before_idle = AutocastProperties.get_num_buffs_before_idle(autocast_id)
+	autocast.autocast_type = AutocastProperties.get_autocast_type(autocast_id)
+	autocast.cast_range = AutocastProperties.get_cast_range(autocast_id)
+	autocast.auto_range = AutocastProperties.get_auto_range(autocast_id)
+	autocast.target_self = AutocastProperties.get_target_self(autocast_id)
+	autocast.cooldown = AutocastProperties.get_cooldown(autocast_id)
+	autocast.is_extended = AutocastProperties.get_is_extended(autocast_id)
+	autocast.mana_cost = AutocastProperties.get_mana_cost(autocast_id)
+	autocast.buff_target_type = AutocastProperties.get_buff_target_type(autocast_id)
+
+	var buff_type_string: String = AutocastProperties.get_buff_type(autocast_id)
+	var buff_type: BuffType
+	if !buff_type_string.is_empty():
+		buff_type = creator_object.get(buff_type_string)
+		
+		if buff_type == null:
+			push_error("Failed to find buff type for autocast. Buff type = %s, autocast id = %s" % [buff_type_string, autocast_id])
+	else:
+		buff_type = null
+	
+	autocast.buff_type = buff_type
+
+	var handler_function_string: String = AutocastProperties.get_handler_function(autocast_id)
+	var handler_function: Callable
+	if !handler_function_string.is_empty():
+		handler_function = Callable(creator_object, handler_function_string)
+		
+		if handler_function.is_null():
+			push_error("Failed to find handle function for autocast. Handler function = %s, autocast id = %d" % [handler_function_string, autocast_id])
+	else:
+		handler_function = Callable()
+	
+	autocast.handler = handler_function
+
+	return autocast
+
+
+static func autocast_type_to_string(t: Type) -> String:
+	match t:
+		Type.AC_TYPE_ALWAYS_BUFF: return "AC_TYPE_ALWAYS_BUFF"
+		Type.AC_TYPE_ALWAYS_IMMEDIATE: return "AC_TYPE_ALWAYS_IMMEDIATE"
+		Type.AC_TYPE_OFFENSIVE_BUFF: return "AC_TYPE_OFFENSIVE_BUFF"
+		Type.AC_TYPE_OFFENSIVE_UNIT: return "AC_TYPE_OFFENSIVE_UNIT"
+		Type.AC_TYPE_OFFENSIVE_IMMEDIATE: return "AC_TYPE_OFFENSIVE_IMMEDIATE"
+		Type.AC_TYPE_OFFENSIVE_POINT: return "AC_TYPE_OFFENSIVE_POINT"
+		Type.AC_TYPE_NOAC_IMMEDIATE: return "AC_TYPE_NOAC_IMMEDIATE"
+		Type.AC_TYPE_NOAC_CREEP: return "AC_TYPE_NOAC_CREEP"
+		Type.AC_TYPE_NOAC_TOWER: return "AC_TYPE_NOAC_TOWER"
+		Type.AC_TYPE_NOAC_PLAYER_TOWER: return "AC_TYPE_NOAC_PLAYER_TOWER"
+		Type.AC_TYPE_NOAC_POINT: return "AC_TYPE_NOAC_POINT"
+
+	return "UNKNOWN"
+
+
+static func string_to_autocast_type(t_string: String) -> Type:
+	match t_string:
+		"AC_TYPE_ALWAYS_BUFF": return Type.AC_TYPE_ALWAYS_BUFF
+		"AC_TYPE_ALWAYS_IMMEDIATE": return Type.AC_TYPE_ALWAYS_IMMEDIATE
+		"AC_TYPE_OFFENSIVE_BUFF": return Type.AC_TYPE_OFFENSIVE_BUFF
+		"AC_TYPE_OFFENSIVE_UNIT": return Type.AC_TYPE_OFFENSIVE_UNIT
+		"AC_TYPE_OFFENSIVE_IMMEDIATE": return Type.AC_TYPE_OFFENSIVE_IMMEDIATE
+		"AC_TYPE_OFFENSIVE_POINT": return Type.AC_TYPE_OFFENSIVE_POINT
+		"AC_TYPE_NOAC_IMMEDIATE": return Type.AC_TYPE_NOAC_IMMEDIATE
+		"AC_TYPE_NOAC_CREEP": return Type.AC_TYPE_NOAC_CREEP
+		"AC_TYPE_NOAC_TOWER": return Type.AC_TYPE_NOAC_TOWER
+		"AC_TYPE_NOAC_PLAYER_TOWER": return Type.AC_TYPE_NOAC_PLAYER_TOWER
+		"AC_TYPE_NOAC_POINT": return Type.AC_TYPE_NOAC_POINT
+
+	return Type.AC_TYPE_NOAC_POINT

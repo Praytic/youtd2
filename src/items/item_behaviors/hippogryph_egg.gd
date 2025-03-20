@@ -10,18 +10,6 @@ extends ItemBehavior
 var hippo_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Hippogryph Young[/color]\n"
-	text += "Whenever the carrier attacks, it has a 15% attack speed adjusted chance to release a hippogryph that attacks the target, dealing 1250 spell damage in 200 range of the target.\n"
-	text += " \n"
-	text += "Level Bonus:\n"
-	text += "+50 spell damage\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

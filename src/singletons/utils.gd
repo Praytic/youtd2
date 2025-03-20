@@ -1,6 +1,143 @@
 class_name UtilsStatic extends Node
 
 
+static func convert_string_to_id_list(string: String) -> Array[int]:
+	var id_list: Array[int] = []
+
+	if string.is_empty():
+		return id_list
+
+	var id_string_list: Array = string.split(",")
+	id_string_list.erase("")
+	for id_string in id_string_list:
+		var id: int = id_string.to_int()
+		id_list.append(id)
+
+	return id_list
+
+
+# Takes in a "x_properties" csv and outputs modified version
+# of columns + translation map of id->text. 
+func setup_translation_map_from_csv(csv_path: String, column_list: Array):
+	var csv_contents: Array[PackedStringArray] = UtilsStatic.load_csv(csv_path)
+	
+	var modified_csv_contents: String = ""
+	var translation_map_contents: String = ""
+
+	var column_count: int = column_list.size()
+	var row_count: int = csv_contents.size()
+	var translation_id_count: int = column_count * row_count
+	var new_translation_ids: Array = Utils.generate_new_translation_ids(translation_id_count)
+
+	for line in csv_contents:
+		var source_text_list: Array[String] = []
+
+		for column in column_list:
+			var source_text: String = line[column]
+			source_text_list.append(source_text)
+
+		var text_id_list: Array = []
+		for i in range(column_list.size()):
+			var text_id: String = new_translation_ids.pop_front()
+			text_id_list.append(text_id)
+
+#		Add new lines to texts csv
+		for i in range(column_list.size()):
+			var text_id: String = text_id_list[i]
+			var source_text: String = source_text_list[i]
+			translation_map_contents += "\"%s\",\"%s\"\n" % [text_id, source_text]
+
+#		Add new line to props csv
+		var modified_csv_line: String 
+		for text_id in text_id_list:
+			modified_csv_contents += "\"%s\"," % text_id
+		modified_csv_contents.trim_suffix(",")
+		modified_csv_contents += "\n"
+
+	var modified_csv: FileAccess = FileAccess.open("user://modified_csv.csv", FileAccess.WRITE)
+	modified_csv.store_string(modified_csv_contents)
+
+	var translation_map_csv: FileAccess = FileAccess.open("user://translation_map_csv.csv", FileAccess.WRITE)
+	translation_map_csv.store_string(translation_map_contents)
+
+
+func bool_to_string(value: bool) -> String:
+	var result: String
+	if value == true:
+		result = "TRUE"
+	else:
+		result = "FALSE"
+	
+	return result
+
+
+func string_to_bool(bool_string: String) -> bool:
+	var result: bool
+	if bool_string == "TRUE":
+		result = true
+	else:
+		result = false
+	
+	return result
+
+
+func print_new_translation_ids(amount: int):
+	var id_list = Utils.generate_new_translation_ids(amount)
+
+	for id in id_list:
+		print(id)
+
+
+func generate_new_translation_ids(amount: int):
+	var chars_for_id: Array = []
+	var chars_for_id_only_letters: Array = []
+	
+#	Digits
+	for char_int in range(48, 57 + 1):
+		var char_str: String = String.chr(char_int)
+		chars_for_id.append(char_str)
+
+#	Upper-case letters
+	for char_int in range(65, 90 + 1):
+		var char_str: String = String.chr(char_int)
+		chars_for_id.append(char_str)
+		chars_for_id_only_letters.append(char_str)
+
+	var existing_key_list: Array[String] = []
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv("res://data/texts.csv")
+	for csv_line in csv:
+		var key: String = csv_line[0]
+		existing_key_list.append(key)
+	
+	var generated_key_list: Array[String] = []
+
+#	NOTE: repeat multiple times in case there are too many collisions with existing keys
+	for i in range(0, 10):
+		for j in range(0, amount):
+			var generated_key: String = ""
+			for k in range(0, 4):
+				var random_char: String
+
+#				NOTE: need to force first char to be letter
+#				and not digit to avoid issues caused by
+#				Excel recognizing the id as a number.
+				if k == 0:
+					random_char = chars_for_id_only_letters.pick_random()
+				else:
+					random_char = chars_for_id.pick_random()
+
+				generated_key += random_char
+			
+			generated_key_list.append(generated_key)
+	
+		for existing_key in existing_key_list:
+			generated_key_list.erase(existing_key)
+			
+		if generated_key_list.size() >= amount:
+			break
+	
+	return generated_key_list
+
 
 # NOTE: in original youtd, range checks for abilities are
 # extended slightly so that range check is done from the
@@ -700,7 +837,7 @@ func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
 	return camel_case
 
 
-func bit_is_set(mask: int, bit: int) -> bool:
+static func bit_is_set(mask: int, bit: int) -> bool:
 	var is_set: bool = (mask & bit) != 0x0
 
 	return is_set
@@ -814,7 +951,7 @@ func setup_range_indicators(range_data_list: Array[RangeData], parent: Node2D, p
 #		indicators, like tower auras, we should not do
 #		floor collisions because the range indicator may be
 #		fully located on the second floor.
-		range_indicator.ability_name = range_data.name
+		range_indicator.ability_name_english = range_data.name_english
 		range_indicator.enable_floor_collisions = range_data.targets_creeps
 		range_indicator.set_radius(indicator_radius)
 		var range_color: Color = RangeData.get_color_for_index(i)

@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Infuse with Regeneration[/color]\n"
-	text += "Every 5th time the carrier deals damage with an attack, the damage is increased by its percentual mana regeneration.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

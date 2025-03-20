@@ -26,37 +26,6 @@ const NOVA_MOD_MOVESPEED_ADD: float = 0.005
 const NOVA_SLOW_DURATION: float = 4.0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var nova_chance: String = Utils.format_percent(NOVA_CHANCE, 2)
-	var nova_chance_add: String = Utils.format_percent(NOVA_CHANCE_ADD, 2)
-	var nova_range: String = Utils.format_float(NOVA_RANGE, 2)
-	var nova_damage_radius: String = Utils.format_float(NOVA_AOE_RADIUS, 2)
-	var nova_dmg: String = Utils.format_float(_stats.nova_dmg, 2)
-	var nova_dmg_add: String = Utils.format_float(_stats.nova_dmg_add, 2)
-	var nova_mod_movespeed: String = Utils.format_percent(NOVA_MOD_MOVESPEED, 2)
-	var nova_mod_movespeed_add: String = Utils.format_percent(NOVA_MOD_MOVESPEED_ADD, 2)
-	var nova_slow_duration: String = Utils.format_float(NOVA_SLOW_DURATION, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Nova Storm"
-	ability.icon = "res://resources/icons/magic/claw_02.tres"
-	ability.description_short = "Whenever this tower attacks, it has a chance to blast creeps near the tower with ice novas. Ice novas deal AoE spell damage.\n"
-	ability.description_full = "Whenever this tower attacks, it has a %s chance to hit 3 creeps in %s range around the tower with ice novas. A nova hits all creeps in %s AoE dealing %s spell damage at the centre, dropping off to 50%% at the sides. Also slows by %s for %s seconds.\n" % [nova_chance, nova_range, nova_damage_radius, nova_dmg, nova_mod_movespeed, nova_slow_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % nova_dmg_add \
-	+ "+%s chance\n" % nova_chance_add \
-	+ "+%s slow\n" % nova_mod_movespeed_add \
-	+ "+1 nova at lvl 15 and 25\n"
-	ability.radius = NOVA_RANGE
-	ability.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

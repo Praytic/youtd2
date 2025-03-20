@@ -7,25 +7,6 @@ extends ItemBehavior
 # and 4 at night, so average it down to 3.
 
 
-# Original description:
-# func get_ability_description() -> String:
-# 	var text: String = ""
-
-# 	text += "[color=GOLD]Celestial Wisdom[/color]\n"
-# 	text += "Grants the wielder 2 experience every 15 seconds. The amount of experience is increased by 2 at night.\n"
-
-# 	return text
-
-
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Celestial Wisdom[/color]\n"
-	text += "Grants the wielder 3 experience every 15 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 15)
 

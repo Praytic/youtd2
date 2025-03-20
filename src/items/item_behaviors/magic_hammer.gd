@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Magic Weapon[/color]\n"
-	text += "Every 5th spell cast will deal critical spell damage. The crit will be applied only to the first instance of spell damage for spells which deal spell damage multiple times.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_casted(on_spell_cast)
 

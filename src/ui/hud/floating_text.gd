@@ -49,3 +49,6 @@ func _ready():
 
 	var queue_free_tween = create_tween()
 	queue_free_tween.tween_callback(queue_free).set_delay(duration)
+
+	var enable_floating_text: bool = Settings.get_bool_setting(Settings.ENABLE_FLOATING_TEXT)
+	visible = enable_floating_text

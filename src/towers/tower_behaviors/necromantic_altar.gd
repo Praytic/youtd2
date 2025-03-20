@@ -14,40 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var damage_1: String = Utils.format_float(_stats.damage, 2)
-	var damage_2: String = Utils.format_float(_stats.damage * 2, 2)
-	var damage_3: String = Utils.format_float(_stats.damage * 3, 2)
-	var damage_add_1: String = Utils.format_float(_stats.damage_add, 2)
-	var damage_add_2: String = Utils.format_float(_stats.damage_add * 2, 2)
-	var damage_add_3: String = Utils.format_float(_stats.damage_add * 3, 2)
-
-	autocast.title = "Soul Revenge"
-	autocast.icon = "res://resources/icons/orbs/orb_shadow.tres"
-	autocast.description_short = "Hits 3 random creeps with dark powers, dealing spell damage.\n"
-	autocast.description = "Hits 3 random creeps in 875 range, the first one suffers %s spell damage, the second one suffers %s spell damage and the third one suffers %s spell damage.\n" % [damage_1, damage_2, damage_3] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s/%s/%s spell damage\n" % [damage_add_1, damage_add_2, damage_add_3]
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 875
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 1
-	autocast.is_extended = false
-	autocast.mana_cost = 20
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 875
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
 func on_autocast(_event: Event):
 	var lvl: int = tower.get_level()
 	var iterate: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 875)

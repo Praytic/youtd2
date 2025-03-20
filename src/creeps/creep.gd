@@ -279,7 +279,7 @@ func drop_item_by_id(caster: Tower, use_creep_player: bool, item_id: int):
 	var item_position: Vector3 = get_position_wc3()
 	var item: Item = Item.create(player_for_item, item_id, item_position)
 
-	var item_name: String = ItemProperties.get_item_name(item_id)
+	var item_name: String = ItemProperties.get_display_name(item_id)
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 
@@ -594,7 +594,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	var armor_type_ability: AbilityInfo = AbilityInfo.new()
 	armor_type_ability.name = "[color=GOLD]%s[/color] armor" % armor_type_name
 	armor_type_ability.icon = "res://resources/icons/shields/shield_green.tres"
-	armor_type_ability.description_full = armor_type_description
+	armor_type_ability.description_long = armor_type_description
 	armor_type_ability.description_short = armor_type_description
 	list.append(armor_type_ability)
 
@@ -606,7 +606,7 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var ability: AbilityInfo = AbilityInfo.new()
 		ability.name = special_name
 		ability.icon = special_icon
-		ability.description_full = special_description
+		ability.description_long = special_description
 		ability.description_short = special_description
 		list.append(ability)
 

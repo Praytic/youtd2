@@ -19,6 +19,21 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 
 	load_modifier(modifier)
 	item_init()
+
+#	NOTE: Order is important here! Auras and autocasts must
+#	be loaded after calling item_init() because buffs are
+#	setup in item_init() and auras/autocasts rely on buffs.
+	var item_id: int = item.get_id()
+	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
+	for aura_id in aura_id_list:
+		var aura_type: AuraType = AuraType.make_aura_type(aura_id, self)
+		item.add_aura(aura_type)
+
+	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
+	for autocast_id in autocast_id_list:
+		var autocast: Autocast = Autocast.make_from_id(autocast_id, self)
+		item.set_autocast(autocast)
+
 	load_triggers(triggers_buff_type)
 	on_create()
 
@@ -33,14 +48,6 @@ func load_triggers(_triggers: BuffType):
 # added to carrier of the item
 func load_modifier(_modifier_arg: Modifier):
 	pass
-
-
-# Override in subclass to define the description of item
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
-func get_ability_description() -> String:
-	return ""
 
 
 # Override in subclass to initialize subclass item

@@ -9,32 +9,9 @@ var powered_tower_count: int = 0
 var permanent_effect_id: int = 0
 var current_mana_degen: float = 0.0
 
-const AURA_RANGE: int = 450
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var power_surge: AbilityInfo = AbilityInfo.new()
-	power_surge.name = "Power Surge"
-	power_surge.icon = "res://resources/icons/electricity/electricity_yellow.tres"
-	power_surge.description_short = "Towers under the effect of [color=GOLD]Steam Power[/color] have a chance to cause a surge in the Steam Engine, generating exp.\n"
-	power_surge.description_full = "Towers under the effect of [color=GOLD]Steam Power[/color] have a 1% base attack speed adjusted chance to cause a surge in the Steam Engine, granting it 1 exp.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.04 exp\n"
-	list.append(power_surge)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.05)
 
 
 func tower_init():
@@ -51,70 +28,6 @@ func tower_init():
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Power Level")
 	multiboard.set_key(1, "Towers Powered")
-
-
-func create_autocasts() -> Array[Autocast]:
-	var list: Array[Autocast] = []
-
-	var autocast_speed_up: Autocast = Autocast.make()
-	autocast_speed_up.title = "Speed Up"
-	autocast_speed_up.icon = "res://resources/icons/magic/claw_03.tres"
-	autocast_speed_up.description_short = "Increases the power level of the engine.\n"
-	autocast_speed_up.description = "Increases the power level of the engine by 1. Maximum power level is 50.\n"
-	autocast_speed_up.caster_art = ""
-	autocast_speed_up.target_art = ""
-	autocast_speed_up.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_speed_up.num_buffs_before_idle = 0
-	autocast_speed_up.cast_range = 0
-	autocast_speed_up.auto_range = 0
-	autocast_speed_up.cooldown = 0.5
-	autocast_speed_up.mana_cost = 0
-	autocast_speed_up.target_self = true
-	autocast_speed_up.is_extended = false
-	autocast_speed_up.buff_type = null
-	autocast_speed_up.buff_target_type = null
-	autocast_speed_up.handler = on_autocast_speed_up
-	list.append(autocast_speed_up)
-
-	var autocast_speed_down: Autocast = Autocast.make()
-	autocast_speed_down.title = "Speed Down"
-	autocast_speed_down.icon = "res://resources/icons/magic/claw_04.tres"
-	autocast_speed_down.description_short = "Decreases the power level of the engine.\n"
-	autocast_speed_down.description = "Decreases the power level of the engine by 1.\n"
-	autocast_speed_down.caster_art = ""
-	autocast_speed_down.target_art = ""
-	autocast_speed_down.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_speed_down.num_buffs_before_idle = 0
-	autocast_speed_down.cast_range = 0
-	autocast_speed_down.auto_range = 0
-	autocast_speed_down.cooldown = 5.0
-	autocast_speed_down.mana_cost = 0
-	autocast_speed_down.target_self = true
-	autocast_speed_down.is_extended = false
-	autocast_speed_down.buff_type = null
-	autocast_speed_down.buff_target_type = null
-	autocast_speed_down.handler = on_autocast_speed_down
-	list.append(autocast_speed_down)
-
-	return list
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Steam Power"
-	aura.icon = "res://resources/icons/tower_icons/cloudy_temple_of_absorption.tres"
-	aura.description_short = "Increases attack damage and attack speed of towers in range. Consumes mana.\n"
-	aura.description_full = "Increases attack damage of towers in %d AoE by [color=GOLD][6 x power level]%%[/color] and attack speed by half this amount. In order to sustain this, the engine consumes a lot of mana. Mana regeneration is reduced by [color=GOLD][10 x power level x squareroot(towers powered)]%%[/color]. If the mana of the engine reaches zero it will deactivate itself for 120 seconds. Does not stack with other Steam Engines!\n" % AURA_RANGE
-	
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = steam_bt
-
-	return [aura]
 
 
 func on_create(_preceding_tower: Tower):

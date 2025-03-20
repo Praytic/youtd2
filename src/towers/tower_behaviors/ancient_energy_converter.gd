@@ -12,11 +12,6 @@ var chain_lightning_st: SpellType
 var orb_pt: ProjectileType
 
 
-func load_specials(modifier: Modifier):
-	tower.set_attack_style_bounce(3, 0.70)
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 25)
-
-
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
@@ -28,37 +23,6 @@ func tower_init():
 
 	orb_pt = ProjectileType.create("path_to_projectile_sprite", 12, 250, self)
 	orb_pt.enable_periodic(orb_pt_periodic, 1.0)
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	autocast.title = "Energy Conversion"
-	autocast.icon = "res://resources/icons/mechanical/battery.tres"
-	autocast.description_short = "Spawns 3 chain lightning orbs that fly around the Converter. Orbs deal spell damage and stun nearby units.\n"
-	autocast.description = "Spawns 3 orbs that last 12 seconds flying around the Converter. Each orb deals 1500 spell damage per second to random units in 650 range. Additionally, the orbs have a 25% chance every second to cast a [color=GOLD]Chain Lightning[/color] that deals 1500 initial spell damage and hits up to 4 targets dealing 25% less damage with each bounce.\n" \
-	+ " \n" \
-	+ "Units hit by the [color=GOLD]Chain Lightning[/color] are stunned for 0.8 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+75 orb damage\n" \
-	+ "+1 orb spawned per 5 levels\n"
-
-	autocast.caster_art = "res://src/effects/mass_teleport_caster.tscn"
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 0
-	autocast.auto_range = 650
-	autocast.cooldown = 12
-	autocast.mana_cost = 1200
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-	
-	return [autocast]
 
 
 func on_autocast(_event: Event):

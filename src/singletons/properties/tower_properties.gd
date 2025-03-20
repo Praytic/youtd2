@@ -4,7 +4,7 @@ extends Node
 # NOTE: order of CsvProperty enums must match the order of
 # the columns in tower_properties.csv
 enum CsvProperty {
-	NAME,
+	NAME_ENGLISH,
 	TIER,
 	ID,
 	FAMILY_ID,
@@ -23,6 +23,18 @@ enum CsvProperty {
 	MISSILE_SPEED,
 	MISSILE_ARC,
 	MISSILE_USE_LIGHTNING_VISUAL,
+	ATTACK_TARGET_TYPE,
+	MULTISHOT,
+	SPLASH_ATTACK,
+	BOUNCE_ATTACK,
+	SPECIALS,
+	ABILITY_LIST,
+	AURA_LIST,
+	AUTOCAST_LIST,
+	SCRIPT_PATH,
+	ICON_PATH,
+	SPRITE_PATH,
+	NAME,
 	DESCRIPTION,
 }
 
@@ -37,8 +49,6 @@ enum RangeColumn {
 }
 
 const PROPERTIES_PATH = "res://data/tower_properties.csv"
-const TOWER_TOOLTIPS_PATH = "res://data/tower_tooltips.csv"
-const TOWER_RANGES_PATH: String = "res://data/tower_ranges.csv"
 const TOWER_SPRITES_DIR: String = "res://src/towers/tower_sprites"
 const TOWER_BEHAVIORS_DIR: String = "res://src/towers/tower_behaviors"
 const TOWER_ICON_DIR: String = "res://resources/icons/tower_icons"
@@ -54,8 +64,6 @@ var _min_required_wave_for_build_mode = {
 }
 
 var _properties: Dictionary = {}
-var _tower_tooltips: Dictionary = {}
-var _tower_ranges: Dictionary = {}
 var _element_map: Dictionary = {}
 var _attack_type_map: Dictionary = {}
 var _rarity_map: Dictionary = {}
@@ -69,10 +77,7 @@ var _rarity_map: Dictionary = {}
 # so that we avoid this overhead during runtime.
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
-	UtilsStatic.load_csv_properties(TOWER_TOOLTIPS_PATH, _tower_tooltips, 0)
 
-	_tower_ranges = _load_tower_ranges_map()
-	
 	for tower_id in get_tower_id_list():
 		var element_string: String = _get_property(tower_id, CsvProperty.ELEMENT)
 		var element: Element.enm = Element.from_string(element_string)
@@ -135,9 +140,8 @@ func get_tier(tower_id: int) -> int:
 	return _get_property(tower_id, CsvProperty.TIER).to_int()
 
 
-func get_icon_path(id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(id)
-	var icon_path: String = "%s/%s.tres" % [TOWER_ICON_DIR, family_name]
+func get_icon_path(tower_id: int) -> String:
+	var icon_path: String = _get_property(tower_id, CsvProperty.ICON_PATH)
 
 	return icon_path
 
@@ -169,14 +173,10 @@ func get_rarity(tower_id: int) -> Rarity.enm:
 	
 
 func get_display_name(tower_id: int) -> String:
-	return _get_property(tower_id, CsvProperty.NAME)
+	var name_text_id: String = _get_property(tower_id, CsvProperty.NAME)
+	var display_name: String = tr(name_text_id)
 
-
-func get_tooltip_text(tower_id: int) -> String:
-	var display_name: String = get_display_name(tower_id)
-	var tooltip: String = "%s, %s" % [display_name, tower_id]
-
-	return tooltip
+	return display_name
 
 
 func get_cost(tower_id: int) -> int:
@@ -218,6 +218,86 @@ func get_missile_use_lightning_visual(tower_id: int) -> bool:
 	return value
 
 
+func get_attack_target_type(tower_id: int) -> TargetType:
+	var string: String = _get_property(tower_id, CsvProperty.ATTACK_TARGET_TYPE)
+	var attack_target_type: TargetType = TargetType.convert_from_string(string)
+
+	return attack_target_type
+
+
+func get_multishot(tower_id: int) -> bool:
+	var string: String = _get_property(tower_id, CsvProperty.MULTISHOT)
+	var multishot: int
+	if !string.is_empty():
+		multishot = string.to_int()
+	else:
+		multishot = 1
+
+	return multishot
+
+
+func get_splash_attack(tower_id: int) -> Dictionary:
+	var string: String = _get_property(tower_id, CsvProperty.SPLASH_ATTACK)
+	
+	if string.is_empty():
+		return {}
+	
+	var value_list: Array = string.split(",")
+	var result: Dictionary = {}
+
+	for i in range(0, value_list.size(), 2):
+		var splash_range: float = value_list[i].to_float()
+		var splash_multiplier: float = value_list[i + 1].to_float()
+
+		result[splash_range] = splash_multiplier
+
+	return result
+
+
+func get_bounce_attack(tower_id: int) -> Array:
+	var string: String = _get_property(tower_id, CsvProperty.BOUNCE_ATTACK)
+	
+	if string.is_empty():
+		return []
+	
+	var string_list: Array = string.split(",")
+	var value_list: Array = []
+
+	if string_list.size() == 2:
+		value_list.append(string_list[0].to_int())
+		value_list.append(string_list[1].to_float())
+	else:
+		value_list = []
+
+	return value_list
+
+
+func get_specials_modifier(tower_id: int) -> Modifier:
+	var string: String = _get_property(tower_id, CsvProperty.SPECIALS)
+	
+	if string.is_empty():
+		return Modifier.new()
+
+	var mod_string_list: Array = string.split("|")
+
+	var modifier: Modifier = Modifier.new()
+
+	for mod_string in mod_string_list:
+		var mod_params: PackedStringArray = mod_string.split(",")
+
+		if mod_params.size() != 3:
+			continue
+
+		var mod_type_string: String = mod_params[0]
+		var mod_type: Modification.Type = Modification.convert_string_to_mod(mod_type_string)
+		var value_base: float = mod_params[1].to_float()
+		var level_add: float = mod_params[2].to_float()
+
+		modifier.add_modification(mod_type, value_base, level_add)
+
+	return modifier
+
+
 func get_sell_price(tower_id: int) -> int:
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
@@ -228,7 +308,8 @@ func get_sell_price(tower_id: int) -> int:
 
 
 func get_description(tower_id: int) -> String:
-	var description: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
 
 	return description
 
@@ -490,15 +571,6 @@ func get_inventory_capacity(tower_id: int) -> int:
 	return result_capacity
 
 
-func get_generated_tooltip(tower_id: int) -> String:
-	if !_tower_tooltips.has(tower_id) || !_tower_tooltips[tower_id].has(1):
-		return "[missing tooltip]"
-
-	var tooltip: String = _tower_tooltips[tower_id][1]
-
-	return tooltip
-
-
 func get_dps(tower_id: int) -> float:
 	var damage: int = TowerProperties.get_base_damage(tower_id)
 	var attack_speed: float = TowerProperties.get_base_attack_speed(tower_id)
@@ -534,51 +606,93 @@ func get_upgrade_id_for_tower(tower_id: int) -> int:
 
 
 func get_range_data_list(tower_id: int) -> Array[RangeData]:
-	if !_tower_ranges.has(tower_id):
-		var empty_list: Array[RangeData] = []
+	var range_data_list: Array[RangeData] = []
 
-		return empty_list
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
+	if attack_enabled:
+		var attack_range: float = TowerProperties.get_range(tower_id)
+		var ability_name_english: String = Constants.TOWER_ATTACK_ABILITY_NAME
+		var ability_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 
-	var range_data_list: Array[RangeData] = _tower_ranges[tower_id]
+		var range_data: RangeData = RangeData.new(ability_name_english, attack_range, ability_target_type)
+		range_data_list.append(range_data)
+
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var ability_range: float = AbilityProperties.get_ability_range(ability_id)
+		
+		var ability_has_range: bool = ability_range != 0
+		if !ability_has_range:
+			continue
+
+		var ability_name_english: String = AbilityProperties.get_name_english(ability_id)
+		var ability_target_type: TargetType = AbilityProperties.get_target_type(ability_id)
+
+		var range_data: RangeData = RangeData.new(ability_name_english, ability_range, ability_target_type)
+		range_data_list.append(range_data)
+
+	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
+	for aura_id in aura_id_list:
+		var aura_name_english: String = AuraProperties.get_name_english(aura_id)
+		var aura_range: float = AuraProperties.get_aura_range(aura_id)
+		var aura_target_type: TargetType = AuraProperties.get_target_type(aura_id)
+
+		var range_data: RangeData = RangeData.new(aura_name_english, aura_range, aura_target_type)
+
+#		NOTE: only range of aura abilities are affected by
+#		builder bonuses
+		range_data.affected_by_builder = true
+
+		range_data_list.append(range_data)
+
+	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
+	for autocast_id in autocast_id_list:
+		var autocast_range: float = AutocastProperties.get_cast_range(autocast_id)
+		
+		var autocast_has_range: bool = autocast_range != 0
+		if !autocast_has_range:
+			continue
+
+		var autocast_name_english: String = AutocastProperties.get_name_english(autocast_id)
+		var autocast_type: Autocast.Type = AutocastProperties.get_autocast_type(autocast_id)
+		var autocast_buff_target_type: TargetType = AutocastProperties.get_buff_target_type(autocast_id)
+		var autocast_target_type: TargetType = Autocast.calculate_target_type(autocast_type, autocast_buff_target_type)
+
+		var range_data: RangeData = RangeData.new(autocast_name_english, autocast_range, autocast_target_type)
+		range_data_list.append(range_data)
 
 	return range_data_list
 
 
-# Family name is the name of the first tier tower in the
-# family, converted to snake case. Used to construct filenames
-# for tower scenes and scripts.
-func get_family_name(tower_id: int) -> String:
-	var family_id: int = TowerProperties.get_family(tower_id)
-	var towers_in_family: Array = TowerProperties.get_towers_in_family(family_id)
-
-	if towers_in_family.is_empty():
-		return ""
-
-	var first_tier_id: int = towers_in_family.front()
-	var first_tier_name: String = TowerProperties.get_display_name(first_tier_id)
-
-#	NOTE: remove weird chars because family name is used for
-#	filenames
-	var family_name: String = first_tier_name
-	family_name = family_name.replace("'", "")
-	family_name = family_name.replace(".", "")
-	family_name = family_name.replace(",", "")
-	family_name = family_name.to_snake_case()
-
-	return family_name
-
-
 func get_sprite_path(tower_id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(tower_id)
-	var tier: int = TowerProperties.get_tier(tower_id)
-	var sprite_path: String = "%s/%s_%s.tscn" % [TOWER_SPRITES_DIR, family_name, str(tier)]
+	var sprite_path: String = _get_property(tower_id, CsvProperty.SPRITE_PATH)
 	
 	return sprite_path
 
 
-func get_script_path(id: int) -> String:
-	var family_name: String = TowerProperties.get_family_name(id)
-	var script_path: String = "%s/%s.gd" % [TOWER_BEHAVIORS_DIR, family_name]
+func get_ability_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.ABILITY_LIST)
+	var ability_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return ability_id_list
+
+
+func get_aura_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.AURA_LIST)
+	var aura_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return aura_id_list
+
+
+func get_autocast_id_list(tower_id: int) -> Array[int]:
+	var string: String = _get_property(tower_id, CsvProperty.AUTOCAST_LIST)
+	var autocast_id_list: Array[int] = UtilsStatic.convert_string_to_id_list(string)
+
+	return autocast_id_list
+
+
+func get_script_path(tower_id: int) -> String:
+	var script_path: String = _get_property(tower_id, CsvProperty.SCRIPT_PATH)
 
 	return script_path
 
@@ -597,32 +711,3 @@ func _get_property(tower_id: int, csv_property: CsvProperty) -> String:
 	var value: String = properties[csv_property]
 
 	return value
-
-
-# Create range data based on attack ranges and extra ranges
-# for abilities, defined in ranges csv
-func _load_tower_ranges_map() -> Dictionary:
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(TOWER_RANGES_PATH)
-
-	var result: Dictionary = {}
-
-	var tower_id_list: Array = TowerProperties.get_tower_id_list()
-
-	for tower_id in tower_id_list:
-		var empty_list: Array[RangeData] = []
-		result[tower_id] = empty_list
-
-	for csv_line in csv:
-		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
-		var tower_id: int = properties[TowerProperties.RangeColumn.TOWER_ID].to_int()
-		var range_name: String = properties[TowerProperties.RangeColumn.NAME]
-		var radius: float = properties[TowerProperties.RangeColumn.RADIUS].to_float()
-		var targets_creeps_string: String = properties[TowerProperties.RangeColumn.TARGETS_CREEPS]
-		var targets_creeps: bool = targets_creeps_string == "TRUE"
-
-		var range_data: RangeData = RangeData.new(range_name, radius)
-		range_data.targets_creeps = targets_creeps
-
-		result[tower_id].append(range_data)
-
-	return result

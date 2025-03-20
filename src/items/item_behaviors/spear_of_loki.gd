@@ -9,15 +9,6 @@ extends ItemBehavior
 var stun_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Tricky Weapon[/color]\n"
-	text += "Each attack there is a 15% chance the carrier gets stunned for 1 second.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

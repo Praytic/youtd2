@@ -40,63 +40,10 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var moth_count: String = Utils.format_float(_stats.moth_count, 2)
-	var mana_burn: String = Utils.format_float(_stats.mana_burn, 2)
-	var mana_burn_add: String = Utils.format_float(MANA_BURN_ADD, 2)
-	var mana_burn_bonus_if_fire: String = Utils.format_float(_stats.mana_burn_bonus_if_fire, 2)
-	var rare_breed_radius: String = Utils.format_float(RARE_BREED_RADIUS, 2)
-	var moth_damage: String = Utils.format_float(_stats.moth_damage, 2)
-	var moth_damage_if_darkness: String = Utils.format_float(_stats.moth_damage_if_darkness, 2)
-	var moth_damage_period: String = Utils.format_float(MOTH_DAMAGE_PERIOD, 2)
-	var moth_damage_radius: String = Utils.format_float(MOTH_DAMAGE_RADIUS, 2)
-
-	var darkness_string: String = Element.convert_to_colored_string(Element.enm.DARKNESS)
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-
-	var list: Array[AbilityInfo] = []
-	
-	var moths: AbilityInfo = AbilityInfo.new()
-	moths.name = "Moths of Prey"
-	moths.icon = "res://resources/icons/animals/bat_03.tres"
-	moths.description_short = "This tower controls %s magical moths which deal spell damage.\n" % moth_count
-	moths.description_full = "This tower controls %s magical moths.\n" % moth_count \
-	+ " \n" \
-	+ "Each moth deals %s spell damage every %s seconds to a random creep within %s range of the moth. The moths also burn %s mana on damage.\n" % [moth_damage, moth_damage_period, moth_damage_radius, mana_burn] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s mana burned\n" % mana_burn_add \
-	+ ""
-	list.append(moths)
-
-	var rare_breed: AbilityInfo = AbilityInfo.new()
-	rare_breed.name = "Rare Breed"
-	rare_breed.icon = "res://resources/icons/magic/eyes_many.tres"
-	rare_breed.description_short = "[color=GOLD]Moths of Prey[/color] will change their abilities depending on sum of gold costs of nearby towers.\n"
-	rare_breed.description_full = "[color=GOLD]Moths of Prey[/color] will change their abilities depending on the sum of gold costs of towers in %s range. This also includes the gold cost of this tower. The ability is picked based on the element of the biggest gold cost sum.\n" % rare_breed_radius \
-	+ " \n" \
-	+ "%s: increases damage to %s.\n" % [darkness_string, moth_damage_if_darkness] \
-	+ "%s: increases mana burn amount by %s.\n" % [fire_string, mana_burn_bonus_if_fire] \
-	+ "%s: increases speed of the moths.\n" % storm_string \
-	+ ""
-	rare_breed.radius = RARE_BREED_RADIUS
-	rare_breed.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(rare_breed)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 1.0)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.3, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.2, 0.0)
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.08)
 
 
 func tower_init():

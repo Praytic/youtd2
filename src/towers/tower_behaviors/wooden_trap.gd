@@ -14,31 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var cooldown: String = Utils.format_float(_stats.cooldown, 2)
-	var max_targets: String = Utils.format_float(_stats.max_targets, 2)
-	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
-	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Activate Trap"
-	ability.icon = "res://resources/icons/furniture/chest.tres"
-	ability.description_short = "Periodically traps random %s creeps in range, dealing spell damage and stunning them.\n" % max_targets
-	ability.description_full = "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spell damage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % damage_add \
-	+ "-0.2 seconds cooldown"
-	ability.radius = 950
-	ability.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_periodic_event(on_periodic, 2)
 

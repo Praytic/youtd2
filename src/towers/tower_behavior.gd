@@ -9,7 +9,6 @@ class_name TowerBehavior extends Node
 
 var tower: Tower
 var _stats: Dictionary = {}
-var _specials_modifier: Modifier = Modifier.new()
 
 
 #########################
@@ -28,9 +27,6 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 	else:
 		_stats = {}
 
-	load_specials(_specials_modifier)
-	tower.add_modifier(_specials_modifier)
-
 #	NOTE: need to call load_triggers() after loading stats
 #	because stats must be available in load_triggers().
 	var triggers_bt: BuffType = BuffType.new("triggers_bt", 0, 0, true, self)
@@ -45,52 +41,18 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 #	NOTE: must setup auras and autocasts after calling
 #	tower_init() because some auras and autocasts use buff
 #	types which are initialized inside tower_init().
-	var aura_type_list: Array[AuraType] = get_aura_types()
-	for aura_type in aura_type_list:
+	var tower_id: int = tower.get_id()
+	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
+	for aura_id in aura_id_list:
+		var aura_type: AuraType = AuraType.make_aura_type(aura_id, self)
 		tower.add_aura(aura_type)
 
-	var autocast_list: Array[Autocast] = create_autocasts()
-	for autocast in autocast_list:
+	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
+	for autocast_id in autocast_id_list:
+		var autocast: Autocast = Autocast.make_from_id(autocast_id, self)
 		tower.add_autocast(autocast)
 
 	on_create(preceding_tower)
-
-#	Check that ability icons are valid
-	var ability_info_list: Array[AbilityInfo] = get_ability_info_list()
-	var tower_id: int = tower.get_id()
-	var tower_name: String = TowerProperties.get_display_name(tower_id)
-	for ability_info in ability_info_list:
-		var ability_name: String = ability_info.name
-		var icon_path: String = ability_info.icon
-		var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
-
-		if !icon_path_is_valid:
-			push_error("Invalid ability icon for tower %s, ability %s: %s" % [tower_name, ability_name, icon_path])
-
-# 	Check ranges
-	for ability_info in ability_info_list:
-		var range_is_defined: bool = ability_info.radius != 0
-		var target_type_is_defined: bool = ability_info.target_type != null
-
-		if range_is_defined != target_type_is_defined:
-			push_error("Invalid ability config for tower %s. Both range radius and target_type must be defined." % [tower_name])
-
-
-
-#	Check aura types
-	for aura_type in aura_type_list:
-		var name_defined: bool = !aura_type.name.is_empty()
-		var icon_defined: bool = !aura_type.icon.is_empty()
-		var description_short_defined: bool = !aura_type.description_short.is_empty()
-		var description_full_defined: bool = !aura_type.description_full.is_empty()
-		var aura_type_is_valid: bool = name_defined && icon_defined && description_short_defined && description_full_defined
-
-		if !aura_type_is_valid:
-			push_error("Not all properties are defined for aura type for tower %s" % [tower_name])
-
-
-func get_specials_modifier() -> Modifier:
-	return _specials_modifier
 
 
 # Override in subclass to define custom stats for each tower
@@ -99,22 +61,9 @@ func get_tier_stats() -> Dictionary:
 	return {}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	return list
-
-
 # Override in subclass to attach trigger handlers to
 # triggers buff passed in the argument.
 func load_triggers(_triggers_bt: BuffType):
-	pass
-
-
-# Override in subclass to add tower specials. This includes
-# adding modifiers and changing attack styles to splash or
-# bounce.
-func load_specials(_modifier: Modifier):
 	pass
 
 
@@ -127,14 +76,7 @@ func tower_init():
 	pass
 
 
-# Override in subclass to define auras.
-# NOTE: must be called after tower_init()
-func get_aura_types() -> Array[AuraType]:
-	var empty_list: Array[AuraType] = []
-
-	return empty_list
-
-
+# TODO: remove this f-n and implementations in tower scripts
 # Override in subclass to define auras.
 # NOTE: must be called after tower_init()
 func create_autocasts() -> Array[Autocast]:

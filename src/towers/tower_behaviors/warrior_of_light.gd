@@ -17,30 +17,6 @@ func get_tier_stats() -> Dictionary:
 const SHOCKWAVE_START_RADIUS: float = 100
 const SHOCKWAVE_END_RADIUS: float = 300
 const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
-const AURA_RANGE: float = 300
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var shockwave_chance: String = Utils.format_percent(_stats.shockwave_chance, 2)
-	var shockwave_chance_add: String = Utils.format_percent(_stats.shockwave_chance_add, 2)
-	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)
-	var shockwave_damage: String = Utils.format_float(_stats.shockwave_damage, 2)
-	var shockwave_damage_add: String = Utils.format_float(_stats.shockwave_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ain_soph_aur: AbilityInfo = AbilityInfo.new()
-	ain_soph_aur.name = "Ain Soph Aur"
-	ain_soph_aur.icon = "res://resources/icons/shields/shield_with_gold_helmet.tres"
-	ain_soph_aur.description_short = "Whenever this tower attacks, it has a chance to create a shockwave of light, dealing spell damage in a path.\n"
-	ain_soph_aur.description_full = "Whenever this tower attacks, it has a %s chance to create a shockwave of light that starts at the main target and travels %s units behind that creep dealing %s spell damage to all creeps in its path.\n" % [shockwave_chance, shockwave_range_from_target, shockwave_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % shockwave_chance_add \
-	+ "+%s damage\n" % shockwave_damage_add
-	list.append(ain_soph_aur)
-
-	return list
 
 
 func load_triggers(triggers: BuffType):
@@ -64,30 +40,6 @@ func tower_init():
 	shockwave_st.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
 	shockwave_st.data.swarm.travel_distance = SHOCKWAVE_RANGE_FROM_TARGET
 	shockwave_st.data.swarm.effect_path = "res://src/effects/shockwave_missile.tscn"
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var mod_dmg_to_undead: String = Utils.format_percent(_stats.mod_dmg_to_undead, 2)
-	var mod_dmg_to_undead_add: String = Utils.format_percent(_stats.mod_dmg_to_undead_add, 2)
-	var aura_radius: String = Utils.format_float(AURA_RANGE, 2)
-
-	aura.name = "Aura of Light"
-	aura.icon = "res://resources/icons/gloves/heal.tres"
-	aura.description_short = "Nearby towers deal more damage to undead creeps.\n"
-	aura.description_full = "Towers in %s range deal %s more damage to undead creeps.\n" % [aura_radius, mod_dmg_to_undead] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % mod_dmg_to_undead_add
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	return [aura]
 
 
 func on_attack(event: Event):

@@ -113,6 +113,9 @@ func _create_internal(effect_path: String) -> int:
 			if effect_child is AudioStreamPlayer2D || effect_child is AudioStreamPlayer:
 				effect_child.autoplay = false
 
+	var enable_vfx: bool = Settings.get_bool_setting(Settings.ENABLE_VFX)
+	effect.visible = enable_vfx
+
 	var id: int = _make_effect_id()
 	_effect_map[id] = effect
 	_effect_original_scale_map[id] = effect.scale

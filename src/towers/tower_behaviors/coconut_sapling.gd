@@ -8,8 +8,8 @@ var coco_pt: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_dmg_to_orc = 0.30, mod_dmg_to_humanoid = 0.20, coconut_chance_decrease = 0.20, coconut_damage = 1625, coconut_damage_add = 162.5, coconut_aoe = 150},
-		2: {mod_dmg_to_orc = 0.50, mod_dmg_to_humanoid = 0.40, coconut_chance_decrease = 0.17, coconut_damage = 2600, coconut_damage_add = 260.0, coconut_aoe = 190},
+		1: {coconut_chance_decrease = 0.20, coconut_damage = 1625, coconut_damage_add = 162.5, coconut_aoe = 150},
+		2: {coconut_chance_decrease = 0.17, coconut_damage = 2600, coconut_damage_add = 260.0, coconut_aoe = 190},
 	}
 
 
@@ -17,37 +17,8 @@ const STUN_DURATION: float = 0.5
 const STUN_CD: float = 1.5
 
 
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var coconut_chance_decrease: String = Utils.format_percent(_stats.coconut_chance_decrease, 2)
-	var coconut_damage: String = Utils.format_float(_stats.coconut_damage, 2)
-	var coconut_damage_add: String = Utils.format_float(_stats.coconut_damage_add, 2)
-	var coconut_aoe: String = Utils.format_float(_stats.coconut_aoe, 2)
-	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)
-	var stun_cd: String = Utils.format_float(STUN_CD, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Coconut Rain"
-	ability.icon = "res://resources/icons/orbs/orb_green.tres"
-	ability.description_short = "Chance to drop coconuts on hit creeps, dealing AoE spell damage and stunning affected creeps.\n"
-	ability.description_full = "Chance to drop coconuts on hit creeps. The chance to drop a coconut is 100%% for the 1st one and %s less for each additional one. Each coconut deals %s spell damage in %s AoE and stuns for %s seconds. Hit units are immune to the stun of this ability for the next %s seconds.\n" % [coconut_chance_decrease, coconut_damage, coconut_aoe, stun_duration, stun_cd] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage\n" % coconut_damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, _stats.mod_dmg_to_orc, 0.01)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.mod_dmg_to_humanoid, 0.01)
 
 
 func tower_init():

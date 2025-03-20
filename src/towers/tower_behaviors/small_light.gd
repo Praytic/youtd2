@@ -22,47 +22,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	# var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
-	var duration: String = Utils.format_float(_stats.duration, 2)
-	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
-	var vuln: String = Utils.format_percent(_stats.vuln, 2)
-	var vuln_add: String = Utils.format_percent(_stats.vuln_add, 2)
-	var undead_string: String = CreepCategory.convert_to_colored_string(CreepCategory.enm.UNDEAD)
-
-	var list: Array[AbilityInfo] = []
-	
-	var power_of_light: AbilityInfo = AbilityInfo.new()
-	power_of_light.name = "Power of Light"
-	power_of_light.icon = "res://resources/icons/electricity/electricity_yellow.tres"
-	power_of_light.description_short = "Weakens %s hit creeps, increasing attack and spell damage taken.\n" % undead_string
-	power_of_light.description_full = "Weakens %s hit creeps, increasing attack and spell damage taken by %s for %s seconds.\n" % [undead_string, vuln, duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s seconds\n" % duration_add \
-	+ "+%s damage" % vuln_add
-	list.append(power_of_light)
-
-	# var magical_sight: AbilityInfo = AbilityInfo.new()
-	# magical_sight.name = "Magical Sight"
-	# magical_sight.description_short = "Can see invisible enemy units.\n"
-	# magical_sight.description_full = "Can see invisible enemy units in %s range.\n" % magical_sight_range
-	# list.append(magical_sight)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-# func load_specials(_modifier: Modifier):
-# 	magical_sight_bt = MagicalSightBuff.new("magical_sight_bt", _stats.magical_sight_range, self)
-# 	magical_sight_bt.apply_to_unit_permanent(tower, tower, 0)
-
-
-# func get_ability_ranges() -> Array[RangeData]:
-# 	return [RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

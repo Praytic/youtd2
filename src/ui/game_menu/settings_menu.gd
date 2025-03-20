@@ -6,10 +6,13 @@ signal ok_pressed()
 
 
 @export var _damage_numbers: CheckBox
+@export var _enable_floating_text: CheckBox
+@export var _enable_vfx: CheckBox
 @export var _enable_sfx: CheckBox
 @export var _enable_mouse_scroll: CheckBox
 @export var _show_combat_log: CheckBox
 @export var _show_tutorial_on_start: CheckBox
+@export var _projectile_density: Slider
 @export var _mouse_scroll: Slider
 @export var _keyboard_scroll: Slider
 @export var _interface_size_button_group: ButtonGroup
@@ -39,6 +42,8 @@ func _ready():
 	
 	_setting_to_checkbox_map = {
 		Settings.SHOW_ALL_DAMAGE_NUMBERS: _damage_numbers,
+		Settings.ENABLE_FLOATING_TEXT: _enable_floating_text,
+		Settings.ENABLE_VFX: _enable_vfx,
 		Settings.ENABLE_SFX: _enable_sfx,
 		Settings.ENABLE_MOUSE_SCROLL: _enable_mouse_scroll,
 		Settings.SHOW_COMBAT_LOG: _show_combat_log,
@@ -50,6 +55,7 @@ func _ready():
 		checkbox.pressed.connect(_on_checkbox_pressed)
 		
 	_setting_to_slider_map = {
+		Settings.PROJECTILE_DENSITY: _projectile_density,
 		Settings.MOUSE_SCROLL: _mouse_scroll,
 		Settings.KEYBOARD_SCROLL: _keyboard_scroll,
 	}

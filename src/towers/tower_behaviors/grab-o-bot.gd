@@ -5,32 +5,8 @@ var grapple_bt: BuffType
 var shock_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Grapple"
-	ability.icon = "res://resources/icons/gloves/gloves_08.tres"
-	ability.description_short = "Chance to grab the attacked creep, holding it in place for 2.5 seconds.\n"
-	ability.description_full = "8% chance to grab the attacked creep, holding it in place for 2.5 seconds. The duration is reduced to 0.9 seconds for champions and bosses.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.32% chance\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_splash({
-		75: 1.00,
-		100: 0.66,
-		125: 0.33,
-		})
 
 
 func tower_init():
@@ -41,33 +17,6 @@ func tower_init():
 
 	shock_bt = CbStun.new("shock_bt", 2.5, 0, false, self)
 	shock_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Shock"
-	autocast.icon = "res://resources/icons/electricity/electricity_blue.tres"
-	autocast.description_short = "Slams all creeps around the target, dealing spell damage and stunning them.\n"
-	autocast.description = "Slams all creeps in 250 AoE around the target, dealing 1250 spell damage and stunning for 2 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+185 damage\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 900
-	autocast.auto_range = 900
-	autocast.cooldown = 15
-	autocast.mana_cost = 50
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_attack(event: Event):

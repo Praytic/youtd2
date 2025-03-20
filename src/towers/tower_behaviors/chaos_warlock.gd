@@ -29,28 +29,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var bolt_count: String = Utils.format_float(_stats.bolt_count, 2)
-	var bolt_damage: String = Utils.format_float(_stats.bolt_damage, 2)
-	var bolt_damage_add: String = Utils.format_float(_stats.bolt_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var shadowbolt: AbilityInfo = AbilityInfo.new()
-	shadowbolt.name = "Shadowbolt Wave"
-	shadowbolt.icon = "res://resources/icons/tower_variations/meteor_totem_purple.tres"
-	shadowbolt.description_short = "Every autocast has a chance to release a wave of shadowbolts. Shadowbolts deal spell damage.\n"
-	shadowbolt.description_full = "Every autocast of this tower has a 20%% chance to release %s shadowbolts. Every shadowbolt flies towards a random target in 1000 range and deals %s spell damage. This spell has a 40%% chance to trigger if the last autocast released a shadowbolt wave.\n" % [bolt_count, bolt_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % bolt_damage_add
-	shadowbolt.radius = 1000
-	shadowbolt.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(shadowbolt)
-
-	return list
-
-
 func tower_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 
@@ -75,60 +53,6 @@ func tower_init():
 
 	attack_shadowbolt_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1000, self)
 	attack_shadowbolt_pt.enable_homing(attack_shadowbolt_pt_on_hit, 0)
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-	
-	var essence_string: String = AttackType.convert_to_colored_string(AttackType.enm.ESSENCE)
-
-	autocast.title = "Siphon Essence"
-	autocast.icon = "res://resources/icons/fire/flame_purple.tres"
-	autocast.description_short = "Stuns nearby towers and steals their damage.\n"
-	autocast.description = "Casts a buff on a nearby tower, if that tower tries to attack in the next 5 seconds it will be stunned for 2.5 seconds and this tower will deal [color=GOLD][stunned tower's DPS x 3][/color] as %s damage to the target of the buffed tower.\n" % essence_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.02 seconds stun duration\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
-	autocast.num_buffs_before_idle = 1
-	autocast.cast_range = 400
-	autocast.auto_range = 400
-	autocast.cooldown = _stats.autocast_cooldown
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = true
-	autocast.buff_type = siphon_bt
-	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types() -> Array[AuraType]:
-#	NOTE: only tier 2 of this family has the aura
-	if tower.get_tier() == 1:
-		return []
-
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Slow Decay"
-	aura.icon = "res://resources/icons/faces/green_demon.tres"
-	aura.description_short = "Chaos Diabolist will instantly kill all low health creeps in range. Doesn't work on bosses.\n"
-	aura.description_full = "Creeps in %d range around the Chaos Diabolist with less then 5.5%% of their healthpoints will be killed. Doesn't work on bosses.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.06% healthpoints needed for instantkill\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_autocast(event: Event):

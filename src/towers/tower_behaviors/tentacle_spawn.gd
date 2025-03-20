@@ -15,27 +15,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var increased_spell_damage: String = Utils.format_percent((0.02 + 0.01 * _stats.apply_level), 2)
-	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
-	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Rend"
-	ability.icon = "res://resources/icons/clubs/club_glowing.tres"
-	ability.description_short = "Chance to rend hit creeps, dealing spell damage over time and increasing vulnerability to spell damage.\n"
-	ability.description_full = "25%% chance to rend hit creeps. [color=GOLD]Rend[/color] makes the creep suffer %s increased spell damage and deals %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% chance\n" \
-	+ "+%s spell damage per second" % periodic_damage_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

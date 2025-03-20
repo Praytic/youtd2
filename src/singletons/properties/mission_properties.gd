@@ -67,7 +67,8 @@ func get_section(id: int) -> String:
 
 
 func get_description(id: int) -> String:
-	var description: String = _get_property(id, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(id, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
 
 	return description
 

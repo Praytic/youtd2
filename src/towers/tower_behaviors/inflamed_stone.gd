@@ -28,44 +28,8 @@ func get_tier_stats() -> Dictionary:
 const MANA_THRESHOLD_BASE: float = 20
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var spellfire_ratio: String = Utils.format_percent(_stats.spellfire_ratio, 2)
-	var spellfire_ratio_add: String = Utils.format_percent(_stats.spellfire_ratio_add, 2)
-	var mana_threshold_base: String = Utils.format_float(MANA_THRESHOLD_BASE, 2)
-	var mana_threshold_add: String = Utils.format_float(_stats.mana_threshold_add, 2)
-	var extra_crit_dmg_per_mana: String = Utils.format_percent(_stats.extra_crit_dmg_per_mana, 2)
-
-	var list: Array[AbilityInfo] = []
-
-	var spellfire: AbilityInfo = AbilityInfo.new()
-	spellfire.name = "Spellfire"
-	spellfire.icon = "res://resources/icons/scrolls/scroll_03.tres"
-	spellfire.description_short = "This tower treats all spell modifiers as attack bonuses.\n"
-	spellfire.description_full = "This tower treats all spell modifiers as attack bonuses, with %s bonus gain of stated effect. This is recalculated before every attack.\n" % spellfire_ratio \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bonus gain\n" % spellfire_ratio_add
-	list.append(spellfire)
-	
-	var spellfire_projectiles: AbilityInfo = AbilityInfo.new()
-	spellfire_projectiles.name = "Spellfire Projectiles"
-	spellfire_projectiles.icon = "res://resources/icons/daggers/dagger_07.tres"
-	spellfire_projectiles.description_short = "If this tower has enough mana, it will spend all its mana to make the next attack critical.\n"
-	spellfire_projectiles.description_full = "If this tower has at least %s mana, it will spend all its mana to make the next attack critical. %s mana is used to grant the critical strike and every further point of mana spent grants %s more critical damage to that attack.\n" % [mana_threshold_base, mana_threshold_base, extra_crit_dmg_per_mana] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-%s Mana needed\n" % mana_threshold_add
-	list.append(spellfire_projectiles)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.02)
 
 
 func tower_init():

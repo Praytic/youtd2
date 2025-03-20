@@ -161,10 +161,6 @@ func get_autocast() -> Autocast:
 	return _autocast
 
 
-func get_ability_description() -> String:
-	return _item_behavior.get_ability_description()
-
-
 # NOTE: item.onTowerDetails() in JASS
 func on_tower_details() -> MultiboardValues:
 	return _item_behavior.on_tower_details()

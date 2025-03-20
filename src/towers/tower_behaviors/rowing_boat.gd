@@ -4,8 +4,6 @@ extends TowerBehavior
 var aura_bt: BuffType
 var multiboard: MultiboardValues
 
-const AURA_RANGE: int = 300
-
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -16,32 +14,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var plunder_amount: String = Utils.format_float(_stats.plunder_amount, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var pirates: AbilityInfo = AbilityInfo.new()
-	pirates.name = "Pirates"
-	pirates.icon = "res://resources/icons/tower_icons/dutchmans_grave.tres"
-	pirates.description_short = "This tower plunders gold each attack.\n"
-	pirates.description_full = "This tower plunders %s gold each attack.\n" % plunder_amount
-	list.append(pirates)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(_modifier: Modifier):
-	tower.set_attack_ground_only()
-	tower.set_attack_style_splash({
-		25: 1.0,
-		150: 0.4,
-		250: 0.1,
-		})
 
 
 func tower_init():
@@ -55,29 +29,6 @@ func tower_init():
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Gold Plundered")
-
-	
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	var mod_bounty: String = Utils.format_percent(_stats.mod_bounty, 2)
-	var mod_bounty_add: String = Utils.format_percent(_stats.mod_bounty_add, 2)
-
-	aura.name = "Treasure Seeker"
-	aura.icon = "res://resources/icons/trinkets/trinket_05.tres"
-	aura.description_short = "Increases the bounty gain of nearby towers.\n"
-	aura.description_full = "Increases the bounty gain of towers in %d range by %s.\n" % [AURA_RANGE, mod_bounty] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bounty\n" % mod_bounty_add
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-	return [aura]
 
 
 func on_attack(_event: Event):

@@ -10,18 +10,6 @@ extends ItemBehavior
 var ascended_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ascension[/color]\n"
-	text += "Whenever the carrier hits the main target, it has a 8% base attack speed adjusted chance to ascend the target, lifting it up for 2 seconds and making it grant 20% more experience when killed in the air. Only works on normal and mass creeps.\n"
-	text += " \n"
-	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.8% experience\n"
-
-	return text
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
@@ -58,7 +46,7 @@ func ascended_bt_on_cleanup(event: Event):
 func item_init():
 	ascended_bt = CbStun.new("ascended_bt", 2.0, 0, false, self)
 	ascended_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
-	ascended_bt.set_buff_tooltip("Ascended\nStuns and increases experience granted if killed while in the air.")
+	ascended_bt.set_buff_tooltip(tr("MJ83"))
 	ascended_bt.add_event_on_create(ascended_bt_on_create)
 	ascended_bt.add_periodic_event(ascended_bt_periodic, 0.1)
 	ascended_bt.add_event_on_cleanup(ascended_bt_on_cleanup)

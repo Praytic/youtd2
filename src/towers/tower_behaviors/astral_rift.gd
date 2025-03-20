@@ -8,26 +8,6 @@ var slow_bt: BuffType
 const AURA_RANGE: int = 750
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var spacial_rift: AbilityInfo = AbilityInfo.new()
-	spacial_rift.name = "Spacial Rift"
-	spacial_rift.icon = "res://resources/icons/furniture/exploding_mirror.tres"
-	spacial_rift.description_short = "Chance to teleport hit creeps backwards.\n"
-	spacial_rift.description_full = "10% chance to teleport hit creeps backwards by 175 units. Upon triggering there is a further 15% chance that all creeps in 175 AoE of the target will also be moved back 175 units. Costs 30 mana. Chance is halved for bosses. The original target and creeps around it will get startled and become slowed by 30% for 2 seconds in a 250 AoE.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% chance to move creep\n" \
-	+ "+1 units moved\n" \
-	+ "+1 units moved\n" \
-	+ "+1 slow and unit move AoE\n" \
-	+ "+1% slow\n"
-	list.append(spacial_rift)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -44,27 +24,6 @@ func tower_init():
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/ophiucus.tres")
 	aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Presence of the Rift"
-	aura.icon = "res://resources/icons/clubs/club_glowing.tres"
-	aura.description_full = "The Astral Rift's presence is so powerful that it deals spell damage to creeps equal to 200%% of their movement speed every second in an area of %d.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+16% damage increase\n"
-	aura.description_short = "Deals periodic spell damage to creeps in range, scaled by their movement speed.\n"
-	
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

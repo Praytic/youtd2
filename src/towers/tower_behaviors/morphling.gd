@@ -17,37 +17,6 @@ var multiboard: MultiboardValues
 var evolve_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
-
-	var list: Array[AbilityInfo] = []
-	
-	var morphling_strike: AbilityInfo = AbilityInfo.new()
-	morphling_strike.name = "Morphling Strike"
-	morphling_strike.icon = "res://resources/icons/misc/poison_01.tres"
-	morphling_strike.description_short = "Every time this tower hits a creep, it has a chance to launch 3 projectiles to random creeps, dealing spell damage.\n"
-	morphling_strike.description_full = "Every time this tower hits a creep, if it has at least 25 stacks of [color=GOLD]Morph: Might[/color] or [color=GOLD]Morph: Swiftness[/color], there is a 20%% chance to launch 3 projectiles to random creeps in 900 range, dealing 2000 spell damage to them. On impact, if [color=GOLD]Morph: Might[/color] has at least 25 stacks, the projectiles deal additional spell damage equal to 25%% of the tower's damage per second for 5 seconds; if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks, they slow the targets by 20%% and increase the damage they receive from %s by 15%% for 8 seconds.\n" % nature_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+60 damage\n" \
-	+ "+0.8% damage per second\n" \
-	+ "+0.4% slow\n" \
-	+ "+0.2%% damage from %s\n" % nature_string \
-	+ "+0.6% chance\n"
-	morphling_strike.radius = 900
-	morphling_strike.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(morphling_strike)
-
-	var evolve: AbilityInfo = AbilityInfo.new()
-	evolve.name = "Evolve"
-	evolve.icon = "res://resources/icons/plants/tree.tres"
-	evolve.description_short = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains power, depending on current [color=GOLD]Morph[/color] stacks.\n"
-	evolve.description_full = "Every time this tower uses [color=GOLD]Morphling Strike[/color], it permanently gains 0.2% base damage and 0.1% attack speed if [color=GOLD]Morph: Might[/color] has at least 25 stacks, or 0.2% attack speed and 0.1% base damage if [color=GOLD]Morph: Swiftness[/color] has at least 25 stacks.  Can evolve a maximum of 500 times.\n"
-	list.append(evolve)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
@@ -96,72 +65,6 @@ func tower_init():
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Evolve")
 	multiboard.set_key(1, "Morph level")
-
-
-func create_autocasts() -> Array[Autocast]:
-	var list: Array[Autocast] = []
-
-	var autocast_might: Autocast = Autocast.make()
-	autocast_might.title = "Morph: Might"
-	autocast_might.icon = "res://resources/icons/trinkets/trinket_07.tres"
-	autocast_might.description_short = "Activates [color=GOLD]Morph: Might[/color].\n"
-	autocast_might.description = "Activates [color=GOLD]Morph: Might[/color]. As long as this buff is on this tower gains 2% base damage and loses 2% attack speed on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Swiftness[/color] and resets its bonus when activated.\n"
-	autocast_might.caster_art = ""
-	autocast_might.target_art = ""
-	autocast_might.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_might.num_buffs_before_idle = 1
-	autocast_might.cast_range = 0
-	autocast_might.auto_range = 0
-	autocast_might.cooldown = 1
-	autocast_might.mana_cost = 0
-	autocast_might.target_self = true
-	autocast_might.is_extended = false
-	autocast_might.buff_type = might_bt
-	autocast_might.buff_target_type = null
-	autocast_might.handler = on_autocast_might
-	list.append(autocast_might)
-
-	var autocast_swiftness: Autocast = Autocast.make()
-	autocast_swiftness.title = "Morph: Swiftness"
-	autocast_swiftness.icon = "res://resources/icons/trinkets/trinket_08.tres"
-	autocast_swiftness.description_short = "Activates [color=GOLD]Morph: Swiftness[/color].\n"
-	autocast_swiftness.description = "Activates [color=GOLD]Morph: Swiftness[/color]. As long as this buff is on this tower gains 2% attack speed and loses 2% base damage on every attack, up to a maximum of 50 times. Removes [color=GOLD]Morph: Might[/color] and resets its bonus when activated.\n"
-	autocast_swiftness.caster_art = ""
-	autocast_swiftness.target_art = ""
-	autocast_swiftness.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_swiftness.num_buffs_before_idle = 1
-	autocast_swiftness.cast_range = 0
-	autocast_swiftness.auto_range = 0
-	autocast_swiftness.cooldown = 1
-	autocast_swiftness.mana_cost = 0
-	autocast_swiftness.target_self = true
-	autocast_swiftness.is_extended = false
-	autocast_swiftness.buff_type = swiftness_bt
-	autocast_swiftness.buff_target_type = null
-	autocast_swiftness.handler = on_autocast_swiftness
-	list.append(autocast_swiftness)
-
-	var autocast_adapt: Autocast = Autocast.make()
-	autocast_adapt.title = "Adapt"
-	autocast_adapt.icon = "res://resources/icons/trinkets/trinket_01.tres"
-	autocast_adapt.description_short = "Stops the effect of morphs.\n"
-	autocast_adapt.description = "Stops the effect of [color=GOLD]Morphs[/color], leaving the current [color=GOLD]Morph[/color] buff on the tower. Using the spell again removes [color=GOLD]Adapt[/color].\n"
-	autocast_adapt.caster_art = ""
-	autocast_adapt.target_art = ""
-	autocast_adapt.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast_adapt.num_buffs_before_idle = 0
-	autocast_adapt.cast_range = 0
-	autocast_adapt.auto_range = 0
-	autocast_adapt.cooldown = 1
-	autocast_adapt.mana_cost = 0
-	autocast_adapt.target_self = true
-	autocast_adapt.is_extended = false
-	autocast_adapt.buff_type = adapt_bt
-	autocast_adapt.buff_target_type = null
-	autocast_adapt.handler = on_autocast_adapt
-	list.append(autocast_adapt)
-
-	return list
 
 
 func on_attack(_event: Event):

@@ -148,14 +148,6 @@ func _ready():
 #	NOTE: 515 is Lesser Iron Defender, average placeholder looking tower
 	_range_checker.set_tower(515)
 	
-#	NOTE: below are special tools which are not run during
-#	normal gameplay.
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run(local_player)
-	
-	if Config.run_save_ranges_tool():
-		SaveTowerRangesTool.run(local_player)
-
 #	NOTE: tower tests need to run after everything else has
 #	been initialized
 	if Config.run_test_towers_tool():

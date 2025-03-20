@@ -15,30 +15,6 @@ extends TowerBehavior
 # 	}
 
 
-# func get_ability_description() -> String:
-# 	var damage_base: String = Utils.format_percent(_stats.damage_base, 2)
-# 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
-
-# 	var text: String = ""
-
-# 	text += "[color=GOLD]Light in the Dark[/color]\n"
-# 	text += "Deals %s additional damage to invisible creeps.\n" % damage_base
-# 	text += " \n"
-# 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-# 	text += "+%s damage" % damage_add
-
-# 	return text
-
-
-# func get_ability_description_short() -> String:
-# 	var text: String = ""
-
-# 	text += "[color=GOLD]Light in the Dark[/color]\n"
-# 	text += "Deals additional damage to invisible creeps."
-
-# 	return text
-
-
 # func load_triggers(triggers_buff_type: BuffType):
 # 	triggers_buff_type.add_event_on_damage(on_damage)
 

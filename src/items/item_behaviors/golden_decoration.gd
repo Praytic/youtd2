@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Rich[/color]\n"
-	text += "Whilst carried by a tower, this item increases the interest rate of the player by [color=GOLD][0.4 x carrier's goldcost / 2500]%[/color].\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.10, 0.004)
 

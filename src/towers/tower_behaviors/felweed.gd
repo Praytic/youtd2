@@ -12,43 +12,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var bonus_1_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count, 0)
-	var bonus_2_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count + 1, 0)
-	var bonus_3_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count + 2, 0)
-	var bonus_4_attack_count: String = Utils.format_float(_stats.bonus_1_attack_count + 3, 0)
-
-	var bonus_1: String = Utils.format_percent(_stats.bonus_1 - 1.0, 2)
-	var bonus_2: String = Utils.format_percent(_stats.bonus_2 - 1.0, 2)
-	var bonus_3: String = Utils.format_percent(_stats.bonus_3 - 1.0, 2)
-	var bonus_4: String = Utils.format_percent(_stats.bonus_4 - 1.0, 2)
-
-	var bonus_1_add: String = Utils.format_percent(_stats.bonus_1_add, 2)
-	var bonus_2_add: String = Utils.format_percent(_stats.bonus_2_add, 2)
-	var bonus_3_add: String = Utils.format_percent(_stats.bonus_3_add, 2)
-	var bonus_4_add: String = Utils.format_percent(_stats.bonus_4_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Fireblossom"
-	ability.icon = "res://resources/icons/plants/flower_02.tres"
-	ability.description_short = "Every few attacks this tower deals some bonus damage.\n"
-	ability.description_full = "Every %sth attack deals %s bonus damage.\n" % [bonus_1_attack_count, bonus_1] \
-	+ "Every %sth attack deals %s bonus damage.\n" % [bonus_2_attack_count, bonus_2] \
-	+ "Every %sth attack deals %s bonus damage.\n" % [bonus_3_attack_count, bonus_3] \
-	+ "Every %sth attack deals %s bonus damage.\n" % [bonus_4_attack_count, bonus_4] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s bonus damage every %sth attack.\n" % [bonus_1_add, bonus_1_attack_count] \
-	+ "+%s bonus damage every %sth attack.\n" % [bonus_2_add, bonus_2_attack_count] \
-	+ "+%s bonus damage every %sth attack.\n" % [bonus_3_add, bonus_3_attack_count] \
-	+ "+%s bonus damage every %sth attack.\n" % [bonus_4_add, bonus_4_attack_count]
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

@@ -8,15 +8,6 @@ extends ItemBehavior
 var lightning_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Ball Lightning[/color]\n"
-	text += "Every 3 seconds this item jumps to another tower in 1500 range. If there's no tower with an empty slot, this item will fly to stash.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 3.0)
 

@@ -3,49 +3,25 @@ extends TowerBehavior
 
 var roar_bt: BuffType
 
-# NOTE: This is basically a magic number. Here's a table
-# from original script demonstrating how it works for tier
-# 2:
+# NOTE: level_multiplier here is basically a magic number.
+# Here's a table from original script demonstrating how it
+# works for tier 2:
 #
 # 0.0005  0.003, 0.0045, 0.006, 0.0075, 0.009
 # 0.05    0.05 , 0.05  , 0.05 , 0.05  , 0.05
 #         70   , 210   , 840  , 1680  , 3360
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_damage_add = 0.00, level_multiplier = 6},
-		2: {mod_damage_add = 0.05, level_multiplier = 9},
-		3: {mod_damage_add = 0.06, level_multiplier = 12},
-		4: {mod_damage_add = 0.07, level_multiplier = 15},
-		5: {mod_damage_add = 0.08, level_multiplier = 18},
+		1: {level_multiplier = 6},
+		2: {level_multiplier = 9},
+		3: {level_multiplier = 12},
+		4: {level_multiplier = 15},
+		5: {level_multiplier = 18},
 	}
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var stack_bonus: String = Utils.format_percent(_stats.level_multiplier * 0.0005, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Roar"
-	ability.icon = "res://resources/icons/animals/dragon_03.tres"
-	ability.description_short = "Whenever this tower hits a creep, it has a chance to release a [color=GOLD]Roar[/color] which increases attack damage of nearby towers.\n"
-	ability.description_full = "Whenever this tower hits a creep, it has 30%% chance to release a [color=GOLD]Roar[/color]. The cry increases attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower already has [color=GOLD]Roar[/color], then attack damage is increased by %s and duration is refreshed. Stacks up to 100 times.\n" % stack_bonus \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s attack damage\n" % stack_bonus
-	ability.radius = 420
-	ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(ability)
-
-	return list
 
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, _stats.mod_damage_add)
 
 
 func tower_init():

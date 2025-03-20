@@ -18,24 +18,8 @@ extends TowerBehavior
 # 	}
 
 
-# func get_ability_info_list() -> Array[AbilityInfo]:
-# 	var list: Array[AbilityInfo] = []
-	
-# 	var ability: AbilityInfo = AbilityInfo.new()
-# 	ability.name = "Ability Foo"
-# 	ability.description_short = "FOOBAR\n"
-# 	ability.description_full = "FOOBAR\n"
-# 	list.append(ability)
-
-# 	return list
-
-
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
-
-
-# func load_specials(modifier: Modifier):
-# 	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 
 
 # func tower_init():
@@ -45,7 +29,7 @@ extends TowerBehavior
 # 	example_bt.set_buff_modifier(example_bt_mod)
 # 	example_bt.set_buff_icon("res://resources/icons/generic_icons/egg.tres")
 # 	example_bt.set_buff_icon_color(Color.WHITE)
-# 	example_bt.set_buff_tooltip("Title\nDescription.")
+# 	example_bt.set_buff_tooltip(tr("TRANSLATION_ID_GOES_HERE"))
 
 #	example_pt = ProjectileType.create("path_to_projectile_sprite", 0, 1000, self)
 #	example_pt.enable_homing(example_pt_on_hit, 0)
@@ -53,48 +37,6 @@ extends TowerBehavior
 #	multiboard = MultiboardValues.new(2)
 #	multiboard.set_key(0, "Foo")
 #	multiboard.set_key(1, "Bar")
-
-
-# func create_autocasts() -> Array[Autocast]:
-# 	var autocast: Autocast = Autocast.make()
-
-# 	autocast.title = "Title"
-# 	autocast.icon = "res://path/to/icon.png"
-# 	autocast.description_short = ""
-# 	autocast.description = ""
-# 	autocast.caster_art = ""
-# 	autocast.target_art = ""
-# 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-# 	autocast.num_buffs_before_idle = 0
-# 	autocast.cast_range = 1200
-# 	autocast.auto_range = 1200
-# 	autocast.cooldown = 1
-# 	autocast.mana_cost = 20
-# 	autocast.target_self = false
-# 	autocast.is_extended = false
-# 	autocast.buff_type = null
-# 	autocast.buff_target_type = TargetType.new(TargetType.TOWERS)
-# 	autocast.handler = on_autocast
-
-#	return [autocast]
-
-
-# func get_aura_types() -> Array[AuraType]:
-# 	var aura: AuraType = AuraType.new()
-
-# 	aura.name = ""
-# 	aura.icon = ""
-# 	aura.description_short = ""
-# 	aura.description_full = ""
-
-# 	aura.aura_range = 200
-# 	aura.target_type = TargetType.new(TargetType.TOWERS)
-# 	aura.target_self = true
-# 	aura.level = 0
-# 	aura.level_add = 1
-# 	aura.aura_effect = aura_effect
-
-# 	return [aura]
 
 
 # func on_damage(event: Event):

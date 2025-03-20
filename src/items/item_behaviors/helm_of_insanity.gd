@@ -25,27 +25,6 @@ func on_damage(event: Event):
 		if event.is_main_target():
 			tower.get_player().display_small_floating_text("Insane!", tower, Color8(255, 150, 0), 30)
 			item.user_int = item.user_int + 1
-			
-
-func item_init():
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Insane Strength"
-	autocast.description = "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% attack damage on the next 16 attacks.\n"
-	autocast.icon = "res://resources/icons/hud/gold.tres"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
-	autocast.target_self = true
-	autocast.cooldown = 120
-	autocast.is_extended = false
-	autocast.mana_cost = 0
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.cast_range = 0
-	autocast.auto_range = 0
-	autocast.handler = on_autocast
-	item.set_autocast(autocast)
 
 
 func on_create():

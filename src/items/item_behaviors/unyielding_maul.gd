@@ -11,15 +11,6 @@ extends ItemBehavior
 # how attack event is handled in godot engine if needed.
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Miss[/color]\n"
-	text += "Makes the carrier miss 10% of attacks.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.25, 0.0)
 

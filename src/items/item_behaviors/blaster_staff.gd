@@ -4,15 +4,6 @@ extends ItemBehavior
 var staff_pt: ProjectileType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Blasting Attack[/color]\n"
-	text += "Every second, the staff launches a magical missile at a random creep, dealing 60 spell damage. The staff has a range of 1000.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 

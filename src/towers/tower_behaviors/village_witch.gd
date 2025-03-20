@@ -21,35 +21,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
-	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
-	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
-	var mod_attack_speed: String = Utils.format_percent(_stats.mod_attack_speed, 0)
-	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.01, 0)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Soul Split"
-	ability.icon = "res://resources/icons/undead/skull_phazing.tres"
-	ability.description_short = "When the Witch hits a creep, it has a chance to deal additional spell damage and to increase the Witch's attack speed.\n"
-	ability.description_full = "When the Witch hits a creep, it has a %s chance to deal %s spell damage to the creep and to increase the Witch's attack speed by %s. When this ability triggers, the chance to trigger again is decreased by %s. These effects last 10 seconds and stack. If the target is under the influence of [color=GOLD]Love Potion[/color], the attack speed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attack_speed, soul_chance_decrease] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % soul_damage_add
-	list.append(ability)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 1)
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
 func on_autocast(event: Event):
@@ -86,40 +60,6 @@ func tower_init():
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 999.99, 1100, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var potion_duration: String = Utils.format_float(POTION_DURATION, 2)
-	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
-	var mod_movespeed_add: String = Utils.format_percent(MOD_MOVESPEED_ADD, 2)
-	var mod_item_chance: String = Utils.format_percent(_stats.mod_item_chance, 2)
-	var mod_item_chance_add: String = Utils.format_percent(MOD_ITEM_CHANCE_ADD, 2)
-	
-	autocast.title = "Love Potion"
-	autocast.icon = "res://resources/icons/potions/potion_heart_02.tres"
-	autocast.description_short = "The Witch throws a love potion on the target, applying a slow and increasing target's item chance.\n"
-	autocast.description = "The Witch throws a love potion on the target, slowing it by %s and increasing its item chance by %s. The potion lasts %s seconds.\n" % [mod_movespeed, mod_item_chance, potion_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s slow\n" % mod_movespeed_add \
-	+ "+%s item drop chance\n" % mod_item_chance_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 1
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.cast_range = 1100
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 3
-	autocast.is_extended = false
-	autocast.mana_cost = 25
-	autocast.buff_type = love_bt
-	autocast.buff_target_type = null
-	autocast.auto_range = 1100
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

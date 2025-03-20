@@ -12,20 +12,6 @@ extends ItemBehavior
 var followup_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Follow Up[/color]\n"
-	text += "Whenever this tower attacks, it has a 10% chance to gain 300% attack speed until next attack. The next attack will crit for sure but deals 50% less crit damage.\n"
-	text += "\n"
-	text += "[color=GOLD]Level Bonus:[/color]\n"
-	text += "+0.4% chance\n"
-	text += "+4% attack speed\n"
-	text += "+1% crit damage\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -42,7 +28,7 @@ func followup_bt_on_attack(event: Event):
 func item_init():
 	followup_bt = BuffType.new("followup_bt", 30, 0, true, self)
 	followup_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
-	followup_bt.set_buff_tooltip("Follow Up\nNext attack will be faster and will always be critical.")
+	followup_bt.set_buff_tooltip(tr("F6D7"))
 	followup_bt.add_event_on_attack(followup_bt_on_attack)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 3.0, 0.04)

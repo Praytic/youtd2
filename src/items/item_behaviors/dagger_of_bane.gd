@@ -9,15 +9,6 @@ extends ItemBehavior
 var poison_bt: BuffType
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Deadly Poison[/color]\n"
-	text += "Whenever the carrier hits the main target, it applies a deadly poison. Each second the poison deals 15% of the tower's base damage as spell damage to the target. The spell damage is always critical. Lasts 4 seconds.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
@@ -37,7 +28,7 @@ func item_init():
 #	+ 0.01 seconds is a dirty hack to make damage tick 4 times with 100% duration
 	poison_bt = BuffType.new("poison_bt", 4.01, 0, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
-	poison_bt.set_buff_tooltip("Deadly Poison\nDeals damage over time.")
+	poison_bt.set_buff_tooltip(tr("IF2L"))
 	poison_bt.add_periodic_event(poison_bt_periodic, 1)
 
 

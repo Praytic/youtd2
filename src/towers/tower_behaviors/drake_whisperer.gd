@@ -42,59 +42,9 @@ var drake_list: Array[Drake] = []
 var feed_count: int = 0
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var versatile: AbilityInfo = AbilityInfo.new()
-	versatile.name = "Versatile"
-	versatile.icon = "res://resources/icons/weapons_misc/barbed_spike.tres"
-	versatile.description_short = "Every time this tower deals spell damage through its abilities, it increases its DPS.\n"
-	versatile.description_full = "Every time this tower deals spell damage through its abilities, it increases its DPS by 1.5% of the spell damage dealt. Lasts 2.5 seconds and stacks. Maximum bonus of [color=GOLD][200 x (current wave)][/color].\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.04% damage\n"
-	list.append(versatile)
-
-	var unleash: AbilityInfo = AbilityInfo.new()
-	unleash.name = "Unleash"
-	unleash.icon = "res://resources/icons/tower_icons/bronze_dragon_roost.tres"
-	unleash.description_short = "Whenever this tower attacks, it has a chance to unleash a bronze drake towards the main target.\n"
-	unleash.description_full = "Whenever this tower attacks, it has a 12.5% chance to unleash a bronze drake towards the main target. The bronze drake deals 1250 spell damage to a random creep in front of itself in 600 range every 0.2 seconds. Lasts 2 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+40 spell damage\n" \
-	+ "+0.3% chance\n"
-	list.append(unleash)
-
-	var feed: AbilityInfo = AbilityInfo.new()
-	feed.name = "Feed the Drakes"
-	feed.icon = "res://resources/icons/undead/skull_04.tres"
-	feed.description_short = "The Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target.\n"
-	feed.description_full = "Every 1.5 seconds, the Drake Whisperer feeds a nearby corpse to one of his drakes and unleashes it on a random target in 1000 range. If there is no target, the drake will attack on the next feeding, with a maximum of 5 fed drakes. Each corpse has a 15% chance to feed 2 drakes.\n" \
-	+ " \n" \
-	+ "[color=BLUE]Blue[/color] Drake deals 6000 spell damage in 125 AoE and slows by 25% for 3 seconds.\n" \
-	+ "[color=RED]Red[/color] Drake deals 200% of the tower's attack damage and stuns for 3 seconds.\n" \
-	+ "[color=GREEN]Green[/color] Drake deals 5000 spell damage and spreads [color=GOLD]Versatile's[/color] current DPS bonus to towers in 175 range for 2.5 seconds.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% double feed chance\n" \
-	+ "[color=BLUE]Blue[/color] Drake : +150 spell damage\n" \
-	+ "[color=RED]Red[/color] Drake : +8% damage\n" \
-	+ "[color=GREEN]Green[/color] Drake : +0.04 seconds duration\n"
-	feed.radius = 1000
-	feed.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(feed)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 1.5)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.15, 0.004)
 
 
 func tower_init():

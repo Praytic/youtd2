@@ -173,3 +173,5 @@ const MAX_CHAT_MESSAGE_LENGTH: int = 200
 const PLAYER_NAME_ALLOWED_CHARS: String = "[A-Za-z]"
 const PLAYER_NAME_LENGTH_MIN: int = 2
 const PLAYER_NAME_LENGTH_MAX: int = 15
+
+const TOWER_ATTACK_ABILITY_NAME: String = "Normal attack"

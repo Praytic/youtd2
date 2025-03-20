@@ -13,7 +13,10 @@ const SETTINGS_PATH: String = "user://settings.save"
 
 # List of setting names
 const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
+const ENABLE_FLOATING_TEXT: String = "enable_floating_text"
+const ENABLE_VFX: String = "enable_vfx"
 const ENABLE_SFX: String = "enable_sfx"
+const PROJECTILE_DENSITY: String = "projectile_density"
 const MOUSE_SCROLL: String = "mouse_scroll"
 const KEYBOARD_SCROLL: String = "keyboard_scroll"
 const ENABLE_MOUSE_SCROLL: String = "enable_mouse_scroll"
@@ -48,7 +51,10 @@ var _cache: Dictionary = {}
 # checking of cache will fail.
 var _default_value_map: Dictionary = {
 	SHOW_ALL_DAMAGE_NUMBERS: false,
+	ENABLE_FLOATING_TEXT: true,
+	ENABLE_VFX: true,
 	ENABLE_SFX: true,
+	PROJECTILE_DENSITY: 1.0,
 	MOUSE_SCROLL: 0.5,
 	KEYBOARD_SCROLL: 0.5,
 	ENABLE_MOUSE_SCROLL: false,

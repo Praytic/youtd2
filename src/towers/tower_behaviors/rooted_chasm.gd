@@ -19,27 +19,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var entangle_duration: String = Utils.format_float(_stats.entangle_duration, 2)
-	var base_entangle_dps: String = Utils.format_float(_stats.base_entangle_dps, 2)
-	var base_entangle_dps_add: String = Utils.format_float(_stats.base_entangle_dps / 20.0, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Entangle"
-	ability.icon = "res://resources/icons/plants/branch_01.tres"
-	ability.description_short = "Chance to entangle hit creeps. Entangled creeps are immobile and suffer spell damage over time. Cannot entangle air or boss units.\n"
-	ability.description_full = "12.5%% chance to entangle hit creeps for %s seconds. Entangled creeps are immobile and suffer %s spell damage per second. Cannot entangle air or boss units.\n" % [entangle_duration, base_entangle_dps] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.2% chance to entangle\n" \
-	+ "+%s spell damage per second" % base_entangle_dps_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

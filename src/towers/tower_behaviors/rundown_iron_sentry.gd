@@ -19,47 +19,6 @@ const ALERT_RANGE: int = 500
 const TRESSPASSER_RANGE: int = 925
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var alert_duration: String = Utils.format_float(_stats.alert_duration, 2)
-	var alert_range: String = Utils.format_float(ALERT_RANGE, 2)
-	var alert_mod_dmg: String = Utils.format_percent(ALERT_MOD_DMG, 2)
-	var alert_mod_dmg_add: String = Utils.format_percent(ALERT_MOD_DMG_ADD, 2)
-	var armor_shred_chance: String = Utils.format_percent(_stats.armor_shred_chance, 2)
-	var armor_shred_amount: String = Utils.format_float(_stats.armor_shred_amount, 2)
-	var armor_shred_amount_add: String = Utils.format_float(_stats.armor_shred_amount_add, 2)
-	var awareness_duration: String = Utils.format_float(_stats.awareness_duration, 2)
-	var armor_shred_stacks_max: String = Utils.format_float(ARMOR_SHRED_STACKS_MAX, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var alert: AbilityInfo = AbilityInfo.new()
-	alert.name = "Alert"
-	alert.icon = "res://resources/icons/misc/red_knight.tres"
-	alert.description_short = "Nearby towers get alerted of trespassers.\n"
-	alert.description_full = "Towers in %s range get alerted whenever a creep of size air, champion or boss enters the sentry's attack range. They have their base damage increased by %s for %s seconds. Does not stack.\n" % [alert_range, alert_mod_dmg, alert_duration] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s base damage bonus\n" % alert_mod_dmg_add
-	alert.radius = ALERT_RANGE
-	alert.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(alert)
-
-	var tresspasser: AbilityInfo = AbilityInfo.new()
-	tresspasser.name = "Trespasser Awareness"
-	tresspasser.icon = "res://resources/icons/magic/eye.tres"
-	tresspasser.description_short = "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
-	tresspasser.description_full = "This tower strengthens its defenses when uninvited units enter its territory. It gains bonus [color=GOLD]5%%-40%%[/color] base percent damage with each creep entering its attack range, based on the creep's size. Bonus damage lasts %s seconds and new stacks of damage do not refresh duration of old ones. There is also a %s chance that the trespassing creep will permanently have its armor reduced by %s, which stacks up to %s times.\n" % [awareness_duration, armor_shred_chance, armor_shred_amount, armor_shred_stacks_max] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s armor reduction\n" % [armor_shred_amount_add] \
-	+ "+[color=GOLD]0.1%-0.8%[/color] bonus base percent damage\n"
-	tresspasser.radius = TRESSPASSER_RANGE
-	tresspasser.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(tresspasser)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, TRESSPASSER_RANGE, TargetType.new(TargetType.CREEPS))
 

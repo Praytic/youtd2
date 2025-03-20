@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Sacred Wisdom[/color]\n"
-	text += "Grants 200 flat experience to the holder. The experience is bound to the item and lost on drop. If the tower has less than 200 experience when the item is dropped, the item will drain experience from the next tower it is placed in, up to 200 experience.\n"
-
-	return text
-
-
 func on_create():
 	item.user_real = 200
 

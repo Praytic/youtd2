@@ -13,28 +13,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var slow_base: String = Utils.format_percent(_stats.slow_base, 2)
-	var slow_add: String = Utils.format_percent(_stats.slow_add, 2)
-	var duration_base: String = Utils.format_float(_stats.duration_base, 2)
-	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Icy Touch"
-	ability.icon = "res://resources/icons/tower_variations/ash_geyser_blue.tres"
-	ability.description_short = "Slows hit creeps.\n"
-	ability.description_full = "Slows hit creeps by %s for %s seconds.\n" % [slow_base, duration_base] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s seconds duration\n" % duration_add \
-	+ "+%s slow" % slow_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

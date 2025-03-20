@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Power[/color]\n"
-	text += "Each time the user of this cloak kills a unit, its DPS is increased by 10. There is a maximum of 4000 bonus DPS. The extra damage is bound to the item.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

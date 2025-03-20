@@ -27,36 +27,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var poison_damage: String = Utils.format_float(_stats.poison_damage, 2)
-	var poison_damage_add: String = Utils.format_float(_stats.poison_damage_add, 2)
-	var mod_movespeed: String = Utils.format_percent(-_stats.mod_movespeed, 2)
-	var mod_movespeed_add: String = Utils.format_percent(-_stats.mod_movespeed_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Poison"
-	ability.icon = "res://resources/icons/potions/potion_green_02.tres"
-	ability.description_short = "Poisons hit creeps, causing spell damage over time and slowing.\n"
-	ability.description_full = "Poisons hit creeps, causing %s spell damage every second and slowing the creep by %s for 9 seconds.\n" % [poison_damage, mod_movespeed] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s poison damage\n" % poison_damage_add \
-	+ "+%s slow\n" % mod_movespeed_add \
-	+ "+0.3 seconds duration\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 0.2)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 10)
 
 
 func on_autocast(_event: Event):
@@ -96,38 +69,6 @@ func tower_init():
 
 	orb_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	orb_pt.enable_homing(hit, 0)
-
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
-	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
-
-	autocast.title = "Battery Overload"
-	autocast.icon = "res://resources/icons/tower_icons/poison_battery.tres"
-	autocast.description_short = "Starts attacking very fast until out of mana, dealing spell damage and applying [color=GOLD]Poison[/color].\n"
-	autocast.description = "The tower attacks creeps in a range of 1200 every 0.2 seconds till all mana is gone. Each attack (or try to attack) costs 10 mana, deals %s spell damage and applies [color=GOLD]Poison[/color].\n" % [projectile_damage] \
-	+ " \n" \
-	+ "[color=GOLD]Note:[/color] this ability does not trigger any \"on hit\" effects.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage\n" % projectile_damage_add
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 20
-	autocast.is_extended = false
-	autocast.mana_cost = 100
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 800
-	autocast.handler = on_autocast
-
-	return [autocast]
 
 
 func on_damage(event: Event):

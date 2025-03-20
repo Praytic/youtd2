@@ -34,35 +34,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var damage: String = Utils.format_float(_stats.damage, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Poisonous Spittle"
-	ability.icon = "res://resources/icons/misc/poison_01.tres"
-	ability.description_short = "Infects hit creeps, dealing spell damage over time.\n"
-	ability.description_full = "Infects hit creeps, dealing %s spell damage per second for 5 seconds. Further attacks on the same creep will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks.\n" % damage \
-	+ " \n" \
-	+ "If there are multiple towers of this family, then [color=GOLD]Poisonous Spittle[/color] damage at 5 stacks will be equal to damage of the most powerful tower.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage per second\n" % damage_add \
-	+ "+0.05 second duration\n" \
-	+ "+1 stack every 5 levels\n"
-	list.append(ability)
-
-	return list
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, -0.30, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.10, 0.0)
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.20, 0.0)
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

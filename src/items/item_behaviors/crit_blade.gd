@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Critical Accumulation[/color]\n"
-	text += "On attack, increases critical strike chance by 2% up to a maximum of 40%. The bonus is lost when a critical strike is made. The bonus is bound to the item.\n"
-
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.8, 0.0)
 

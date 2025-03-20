@@ -11,43 +11,10 @@ var aura_bt: BuffType
 var seconds_since_last_attack: int = 0
 var dmg_bonus_from_meld: float = 0.0
 
-const AURA_RANGE: int = 175
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var wrath: AbilityInfo = AbilityInfo.new()
-	wrath.name = "Protectress's Wrath"
-	wrath.icon = "res://resources/icons/plants/leaf_01.tres"
-	wrath.description_short = "Whenever this tower hits a creep, it has a chance to deal additional attack damage to all units in range around the target. Slows all damaged units.\n"
-	wrath.description_full = "Whenever this tower hits a creep, it has a [color=GOLD][seconds since last attack x 5]%[/color] chance to deal 50% additional attack damage to all creeps in 250 range around the main target. The maximum chance is 75%. Slows all affected creeps by 50% for 1.5 seconds. Tower's attack speed affects time needed to gain a charge.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+2% damage\n" \
-	+ "+0.04 seconds\n"
-	list.append(wrath)
-
-	var meld: AbilityInfo = AbilityInfo.new()
-	meld.name = "Meld with the Forest"
-	meld.icon = "res://resources/icons/faces/sleeping_leaf_spirit.tres"
-	meld.description_short = "The Protectress gains additional attack damage for each second she doesn't attack.\n"
-	meld.description_full = "The Protectress gains 18% additional attack damage for each second she doesn't attack. There is a maximum of 12 seconds. On attack the bonus disappears. Increased attack speed decreases the time needed to gain a charge.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1% damage per second\n"
-	list.append(meld)
-
-	return list
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 1.0)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.06)
 
 
 func tower_init():
@@ -63,27 +30,6 @@ func tower_init():
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
 	aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nIncreases crit chance based on target's health.")
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Strike the Unprepared"
-	aura.icon = "res://resources/icons/daggers/dagger_07.tres"
-	aura.description_short = "Increases the attack critical chance of towers in range based on hp of attacked creeps.\n"
-	aura.description_full = "Increases the attack critical chance of towers in %d range by 0.25%% for each 1%% hp the attacked creep has left.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.01% attack crit chance\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = aura_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

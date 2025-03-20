@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Wheel of Fortune[/color]\n"
-	text += "With every kill there is a 25% chance to spin the wheel. Every spin will either increase (66% fixed chance) or decrease (33% fixed chance) the item chance by 4%. Total range: -24% to +48%. The bonus is bound to the item.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

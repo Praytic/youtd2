@@ -9,43 +9,8 @@ var storm_power: int = 0
 const AURA_RANGE: int = 900
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var storm_string: String = Element.convert_to_colored_string(Element.enm.STORM)
-	var ice_string: String = Element.convert_to_colored_string(Element.enm.ICE)
-	var astral_string: String = Element.convert_to_colored_string(Element.enm.ASTRAL)
-
-	var list: Array[AbilityInfo] = []
-	
-	var storm_power_ability: AbilityInfo = AbilityInfo.new()
-	storm_power_ability.name = "Storm Power"
-	storm_power_ability.icon = "res://resources/icons/tower_icons/lightning_generator.tres"
-	storm_power_ability.description_short = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted into mana and boosts this tower's abilities.\n"
-	storm_power_ability.description_full = "If a creep dies while under the effect of [color=GOLD]Strong Wind[/color] its living energy is converted in +35 mana and boost this tower's abilities. Each death increases the triggerchance for this [color=GOLD]Chaining Storm[/color] tower by 0.02% (75% max) and also increase the damage dealt with [color=GOLD]Strong Winds[/color] by 0.05 damage per 1% slow.\n"
-	list.append(storm_power_ability)
-
-	var chaining_storm: AbilityInfo = AbilityInfo.new()
-	chaining_storm.name = "Chaining Storm"
-	chaining_storm.icon = "res://resources/icons/electricity/thunderstorm.tres"
-	chaining_storm.description_short = "Chance to cast [color=GOLD]Chaining Storm[/color] at the attacked creep. All creeps in range of the [color=GOLD]Chaining Storm[/color] suffer spell damage.\n"
-	chaining_storm.description_full = "25%% chance to cast [color=GOLD]Chaining Storm[/color] at the attacked creep for the cost of 100 mana. All creeps in 350 range of the [color=GOLD]Chaining Storm[/color] suffer 200 spell damage multiplied by the number of creeps hit. They are also weakened to receive [color=GOLD][2 x creep count]%%[/color] more damage from %s, %s and %s towers. All effects of this [color=GOLD]Chaining Storm[/color] tower are doubled and a 25%% higher spell critical chance is applied whenever the main target is an air unit.\n" % [storm_string, ice_string, astral_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+1.25% trigger chance\n" \
-	+ "+65 damage\n" \
-	+ "+0.12% received damage\n"
-	list.append(chaining_storm)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.50, 0.02)
-	modifier.add_modification(Modification.Type.MOD_MANA, 0, 15)
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
 func tower_init():
@@ -59,27 +24,6 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Storm Power")
 
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Strong Wind"
-	aura.icon = "res://resources/icons/electricity/lightning_circle_cyan.tres"
-	aura.description_short = "All creeps in range are affected by [color=GOLD]Strong Winds[/color]. Creeps are slowed and will receive periodic damage.\n"
-	aura.description_full = "All creeps in %d range are affected by [color=GOLD]Strong Winds[/color]. Every second a creep is under this effect, it loses 3%% of its movement speed and it is dealt 10%% of towers attack damage for every 1%% of movement speed it is missing. Slow effect stacks up to 15 times. Slow effect and damage is doubled for air units.\n" % AURA_RANGE \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.08% slow\n" \
-	+ "+5 damage per 1% slow\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = strong_wind_bt
-
-	return [aura]
 
 
 func on_attack(event: Event):

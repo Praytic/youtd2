@@ -6,48 +6,9 @@ var army_bt: BuffType
 var multiboard: MultiboardValues
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var plague: AbilityInfo = AbilityInfo.new()
-	plague.name = "Plague"
-	plague.icon = "res://resources/icons/undead/skull_04.tres"
-	plague.description_short = "Infects hit creeps with [color=GOLD]Plague[/color] which deals spell damage over time.\n"
-	plague.description_full = "Infects hit creeps with [color=GOLD]Plague[/color]. [color=GOLD]Plague[/color] deals 750 spell damage per second and lasts 5 seconds. Every 1.5 seconds [color=GOLD]Plague[/color] can spread to a creep in 250 range around the infected creep. If an infected creep is infected again, the duration will refresh and the damage is increased by 375.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+30 damage\n" \
-	+ "+0.2 seconds duration\n" \
-	+ "+15 damage per rebuff\n"
-	list.append(plague)
-
-	var army: AbilityInfo = AbilityInfo.new()
-	army.name = "Army of the Damned"
-	army.icon = "res://resources/icons/shields/shield_skull.tres"
-	army.description_short = "If there is a corpse in range, this tower will extract its soul increasing its attack speed and attack damage. This will also increase the rate of spread of [color=GOLD]Plague[/color].\n"
-	army.description_full = "Every 3 seconds, if there is a corpse within 1150 range this tower will extract its soul, increasing its attack speed and attack damage by 5%. This will also increase the rate of spread of [color=GOLD]Plague[/color] by 10%. This buff lasts 20 seconds and stacks, but new stacks will not refresh the duration of old ones.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4 seconds duration\n"
-	army.radius = 1150
-	army.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(army)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 3.0)
-
-
-func load_specials(_modifier: Modifier):
-	tower.set_attack_ground_only()
-	tower.set_attack_style_splash({
-		25: 1.00,
-		50: 0.40,
-		150: 0.25,
-		})
 
 
 func tower_init():

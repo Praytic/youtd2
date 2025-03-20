@@ -17,38 +17,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-
-	var ignite_duration: String = Utils.format_float(IGNITE_DURATION, 2)
-	var ignite_duration_add: String = Utils.format_float(IGNITE_DURATION_ADD, 2)
-	var ignite_damage_period: String = Utils.format_float(IGNITE_DAMAGE_PERIOD, 2)
-	var dmg_from_fire: String = Utils.format_percent(_stats.mod_dmg_from_fire, 2)
-	var ignite_damage: String = Utils.format_float(_stats.ignite_damage, 2)
-	var ignite_damage_add: String = Utils.format_float(1.4 * _stats.ignite_damage_add, 2)
-	var fire_string: String = Element.convert_to_colored_string(Element.enm.FIRE)
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Ignite"
-	ability.icon = "res://resources/icons/orbs/orb_fire.tres"
-	ability.description_short = "Ignites hit creeps, causing spell damage over time and increasing vulnerability to %s towers.\n" % fire_string
-	ability.description_full = "Ignites hit creeps, causing %s spell damage every %s seconds for %s seconds and increasing vulnerability to %s towers by %s. The damage over time effect stacks.\n" % [ignite_damage, ignite_damage_period, ignite_duration, fire_string, dmg_from_fire] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s spell damage \n" % ignite_damage_add \
-	+ "+%s seconds duration\n" % ignite_duration_add
-
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-
-
-func load_specials(_modifier: Modifier):
-	tower.set_target_count(4)
 
 
 # NOTE: sir_area_damage() in original script

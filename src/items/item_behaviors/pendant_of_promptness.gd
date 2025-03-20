@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Energy Drainer[/color]\n"
-	text += "Attacking with super speed comes at a price. The carrier burns 5% of its maximum mana per attack. Without mana it is unable to attack.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

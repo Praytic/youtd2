@@ -4,15 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Soul Power[/color]\n"
-	text += "After each kill, the scythe's critical strike damage is increased by x0.005. Maximum of x3 bonus crit. The bonus is bound to the item.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

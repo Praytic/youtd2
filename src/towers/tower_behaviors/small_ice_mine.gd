@@ -18,32 +18,6 @@ const NOVA_CHANCE_ADD: float = 0.004
 const EXTRA_CRIT_CHANCE: float = 0.30
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var nova_chance: String = Utils.format_percent(NOVA_CHANCE, 2)
-	var nova_chance_add: String = Utils.format_percent(NOVA_CHANCE_ADD, 2)
-	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
-	var aoe_range: String = Utils.format_float(_stats.aoe_range, 2)
-	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)
-	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
-	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
-	var extra_crit_chance: String = Utils.format_percent(EXTRA_CRIT_CHANCE, 2)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Ice Nova"
-	ability.icon = "res://resources/icons/elements/ice.tres"
-	ability.description_short = "Chance to blast hit creeps target with an [color=GOLD]Ice Nova[/color], dealing AoE spell damage and slowing all affected creeps.\n"
-	ability.description_full = "%s chance to blast hit creeps with an [color=GOLD]Ice Nova[/color], dealing %s spell damage in %s range and slowing all affected creeps by %s for %s seconds. Has a %s bonus chance to crit.\n" % [nova_chance, aoe_damage, aoe_range, slow_value, slow_duration, extra_crit_chance] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s chance\n" % [nova_chance_add] \
-	+ "+%s spell damage\n" % [aoe_damage_add]
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

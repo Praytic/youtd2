@@ -15,7 +15,8 @@ func _init(parent: Node):
 func on_create(event: Event):
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "none"
-	autocast.description = "none"
+	autocast.description_long = "none"
+	autocast.description_short = "none"
 	autocast.icon = "none"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

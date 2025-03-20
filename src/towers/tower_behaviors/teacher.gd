@@ -9,33 +9,13 @@ var red_pt: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {exp_received = 0.20, exp_teach = 1.0},
-		2: {exp_received = 0.35, exp_teach = 1.3},
-		3: {exp_received = 0.45, exp_teach = 1.5},
-		4: {exp_received = 0.60, exp_teach = 1.8},
-		5: {exp_received = 0.70, exp_teach = 2.0},
-		6: {exp_received = 0.80, exp_teach = 2.2},
+		1: {exp_teach = 1.0},
+		2: {exp_teach = 1.3},
+		3: {exp_teach = 1.5},
+		4: {exp_teach = 1.8},
+		5: {exp_teach = 2.0},
+		6: {exp_teach = 2.2},
 	}
-
-
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var exp_teach: String = Utils.format_float(_stats.exp_teach, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Knowledge"
-	ability.icon = "res://resources/icons/dioramas/pyramid.tres"
-	ability.description_short = "Whenever this tower attacks, it has a chance to grant experience to a random nearby tower.\n"
-	ability.description_full = "Whenever this tower attacks, it has a 10%% chance to grant %s experience to a random tower in 600 range\n" % exp_teach \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance"
-	ability.radius = 600
-	ability.target_type = TargetType.new(TargetType.TOWERS)
-	list.append(ability)
-
-	return list
 
 
 func hit(p: Projectile, result: Unit):
@@ -87,10 +67,6 @@ func teacher_attack(xp: float):
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_received, 0)
 
 
 func tower_init():

@@ -20,40 +20,6 @@ var leaf_storm_st: SpellType
 const AURA_RANGE: int = 450
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var nature_string: String = Element.convert_to_colored_string(Element.enm.NATURE)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var leaf_storm: AbilityInfo = AbilityInfo.new()
-	leaf_storm.name = "Leaf Storm"
-	leaf_storm.icon = "res://resources/icons/plants/leaf_01.tres"
-	leaf_storm.description_short = "Whenever this tower hits a creep, it has a chance to summon a [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it and deals spell damage over time.\n"
-	leaf_storm.description_full = "Whenever this tower hits a creep, it has a 15% chance to summon a 200 AoE [color=GOLD]Leaf Storm[/color] at the creep's position. [color=GOLD]Leaf Storm[/color] slows creeps inside it by 30% for 1 second and deals 2100 spell damage over time.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.6% chance\n" \
-	+ "+90 spell damage\n" \
-	+ "+0.6% slow\n" \
-	+ "+0.04 seconds slow duration\n"
-	list.append(leaf_storm)
-
-	var thorned: AbilityInfo = AbilityInfo.new()
-	thorned.name = "Thorned!"
-	thorned.icon = "res://resources/icons/tower_icons/razorboar_thornweaver.tres"
-	thorned.description_short = "When a unit comes in range it receives the [color=GOLD]Thorned[/color] debuff. The debuff increases damage taken from %s towers.\n" % nature_string
-	thorned.description_full = "When a unit comes in 950 range to this tower it receives the [color=GOLD]Thorned[/color] debuff. The debuff lasts 3 seconds and increases damage taken from %s towers by 30%%.\n" % nature_string \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.06 seconds duration\n" \
-	+ "+0.6% damage taken\n"
-	thorned.radius = 950
-	thorned.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(thorned)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 950, TargetType.new(TargetType.CREEPS))
@@ -96,55 +62,6 @@ func tower_init():
 	thorned_bt.set_buff_modifier(thorned_mod)
 	thorned_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
-
-func create_autocasts() -> Array[Autocast]:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.title = "Entangling Roots"
-	autocast.icon = "res://resources/icons/plants/branch_01.tres"
-	autocast.description_short = "Launches roots towards the target which will entangle creeps and deal spell damage.\n"
-	autocast.description = "Launches 3 rows of roots towards the target which will travel a distance of 1000, entangling creeps hit for 1.5 seconds, causing them to become immobilized and take 1100 spell damage per second.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+44 spell damage\n" \
-	+ "+0.02 seconds\n"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 950
-	autocast.auto_range = 950
-	autocast.cooldown = 10.0
-	autocast.mana_cost = 90
-	autocast.target_self = true
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
-
-	return [autocast]
-
-
-func get_aura_types() -> Array[AuraType]:
-	var aura: AuraType = AuraType.new()
-
-	aura.name = "Tranquility"
-	aura.icon = "res://resources/icons/misc/flag_03.tres"
-	aura.description_short = "Decreases the attack speed of all nearby towers and increases their attack damage.\n"
-	aura.description_full = "Decreases the attack speed of all towers in a %d AoE by 20%% and increases their attack damage by 40%%.\n" % AURA_RANGE\
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.4% attack damage\n" \
-	+ "+0.4% attack speed\n"
-
-	aura.aura_range = AURA_RANGE
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.aura_effect = tranquility_bt
-
-	return [aura]
 
 
 func on_damage(event: Event):

@@ -5,19 +5,6 @@ var multiboard: MultiboardValues
 var copied_item_list: Array[Item] = []
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Imitation[/color]\n"
-	text += "On pick up, this item copies effects of other items in tower inventory, except active abilities and other Distorted Idols.\n" \
-	+ " \n" \
-	+ "The effects are lost when this item is dropped or the carrier is upgraded or transformed.\n" \
-	+ " \n" \
-	+ "[color=GOLD]Restriction[/color]\n" \
-	+ "This item can only be picked up by a tower in a corner with cliffs on two sides."
-	return text
-
-
 func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.60, 0.0)
 

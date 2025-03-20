@@ -1,15 +1,6 @@
 extends ItemBehavior
 
 
-func get_ability_description() -> String:
-	var text: String = ""
-
-	text += "[color=GOLD]Circle of Power[/color]\n"
-	text += "Every 5 seconds, if the carrier has less mana than it had 5 seconds ago, the carrier has a 25% chance to restore mana to what it was before.\n"
-
-	return text
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 5)
 

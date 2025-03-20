@@ -4,31 +4,8 @@ extends TowerBehavior
 var chaos_bt: BuffType
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Chaos"
-	ability.icon = "res://resources/icons/books/note_02.tres"
-	ability.description_short = "All creeps that come in range have a chance to lose their armor.\n"
-	ability.description_full = "All creeps that come in 750 range around this tower have a 45% chance to lose 100% of their armor for 3 seconds. The armor reduction is halved for Bosses and Challenges.\n" \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+0.1 seconds\n" \
-	+ "+0.4% chance\n"
-	ability.radius = 750
-	ability.target_type = TargetType.new(TargetType.CREEPS)
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 750, TargetType.new(TargetType.CREEPS))
-
-
-func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.25, 0.01)
 
 
 func tower_init():

@@ -5,8 +5,7 @@ const PROPERTIES_PATH: String = "res://data/wave_special_properties.csv"
 
 enum CsvProperty {
 	ID,
-	NAME,
-	SHORT_NAME,
+	NAME_ENGLISH,
 	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
@@ -15,8 +14,11 @@ enum CsvProperty {
 	GROUP_LIST,
 	USES_MANA,
 	COLOR,
+	NAME,
+	SHORT_NAME,
 	DESCRIPTION,
 	ENABLED,
+	SCRIPT_PATH,
 	ICON_PATH,
 }
 
@@ -80,21 +82,21 @@ func get_all_specials_list() -> Array:
 
 
 func get_special_name(special: int) -> String:
-	var string: String = _get_property(special, CsvProperty.NAME)
+	var string_text_id: String = _get_property(special, CsvProperty.NAME)
+	var string: String = tr(string_text_id)
 
 	return string
 
 
 func get_short_name(special: int) -> String:
-	var string: String = _get_property(special, CsvProperty.SHORT_NAME)
+	var string_text_id: String = _get_property(special, CsvProperty.SHORT_NAME)
+	var string: String = tr(string_text_id)
 
 	return string
 
 
 func get_script_path(special: int) -> String:
-	var special_name: String = WaveSpecialProperties.get_special_name(special)
-	special_name = special_name.to_snake_case()
-	var script_path: String = "res://src/creeps/special_buffs/creep_%s.gd" % special_name
+	var script_path: String = _get_property(special, CsvProperty.SCRIPT_PATH)
 
 	return script_path
 
@@ -131,7 +133,8 @@ func get_base_color(special_list: Array[int]) -> Color:
 
 
 func get_description(special: int) -> String:
-	var description: String = _get_property(special, CsvProperty.DESCRIPTION)
+	var description_text_id: String = _get_property(special, CsvProperty.DESCRIPTION)
+	var description: String = tr(description_text_id)
 
 	return description
 

@@ -11,32 +11,8 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var lightning_dmg: String = Utils.format_float(_stats.lightning_dmg, 2)
-	var lightning_dmg_add: String = Utils.format_float(_stats.lightning_dmg_add, 2)
-	var energy_string: String = AttackType.convert_to_colored_string(AttackType.enm.ENERGY)
-
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Lightning Strike"
-	ability.icon = "res://resources/icons/electricity/lightning_glowing.tres"
-	ability.description_short = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The Lightning bolt deals %s damage.\n" % energy_string
-	ability.description_full = "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s %s damage.\n" % [lightning_dmg, energy_string] \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "+%s damage" % lightning_dmg_add
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
-
-
-func load_specials(_modifier: Modifier):
-	tower.set_attack_style_bounce(2, 0.0)
 
 
 func on_create(_preceding_tower: Tower):

@@ -11,24 +11,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var miss_chance_base: String = Utils.format_percent(_stats.miss_chance_base, 2)
-	
-	var list: Array[AbilityInfo] = []
-	
-	var ability: AbilityInfo = AbilityInfo.new()
-	ability.name = "Warming Up"
-	ability.icon = "res://resources/icons/magic/fire.tres"
-	ability.description_short = "This tower is a bit old and has lost the accuracy it had in the past.\n"
-	ability.description_full = "%s chance to miss attacks.\n" % miss_chance_base \
-	+ " \n" \
-	+ "[color=ORANGE]Level Bonus:[/color]\n" \
-	+ "-0.6% miss chance\n"
-	list.append(ability)
-
-	return list
-
-
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
