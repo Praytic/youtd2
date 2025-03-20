@@ -45,7 +45,7 @@ func on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var protector: Unit = buff.get_buffed_unit()
 
-	var autocast: Autocast = Autocast.make_from_id(172, self)
+	var autocast: Autocast = Autocast.make(172, self)
 	protector.add_autocast(autocast)
 
 

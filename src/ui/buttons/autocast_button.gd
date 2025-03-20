@@ -15,7 +15,7 @@ var _autocast: Autocast = null
 #########################
 
 func _ready():
-	var icon_path: String = _autocast.icon
+	var icon_path: String = _autocast.get_icon_path()
 	var icon_path_is_valid: bool = ResourceLoader.exists(icon_path)
 
 	if !icon_path_is_valid:

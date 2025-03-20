@@ -18,7 +18,7 @@ func on_spell_cast(event: Event):
 	var T: Tower = item.get_carrier()
 	var t: Unit = T
 
-	if !event.get_autocast_type().get_manacost() > 0.45:
+	if !event.get_autocast_type().get_mana_cost() > 0.45:
 #	  No cheating
 		return
 

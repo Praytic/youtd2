@@ -30,7 +30,7 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 
 	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
 	for autocast_id in autocast_id_list:
-		var autocast: Autocast = Autocast.make_from_id(autocast_id, self)
+		var autocast: Autocast = Autocast.make(autocast_id, self)
 		item.set_autocast(autocast)
 
 	load_triggers(triggers_buff_type)

@@ -93,41 +93,15 @@ const _point_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_NOAC_POINT,
 ]
 
-# NOTE: num_buffs_before_idle, buff_target_type and buff_type are
+# NOTE: buff_target_type and buff_type are
 # only relevant to "_BUFF" autocast types. For other
 # autocast types leave these values blank.
 
-# NOTE: cast_range is the range used when autocast is
-# manually triggered by the user, auto_range is the range
-# used for regular autocasts that cast automatically.
-var name_english: String = "Placeholder Title"
-var title: String = "Placeholder Title"
-var description_long: String = "Description Long"
-var description_short: String = "Description Short"
-var icon: String = "res://resources/icons/hud/gold.tres"
-var caster_art: String = ""
-var caster_art_scale: float = 1.0
-var caster_art_z_index: int = -1
-var cooldown: float = 0.1
-# NOTE: in original engine "num_buffs_before_idle"
-# determines how many times autocast is triggered before it
-# checks whether tower is still in combat. This is needed
-# because in original engine checking if tower is still in
-# combat takes time. In godot engine, combat check is
-# instant so it looks like this value isn't needed.
-var num_buffs_before_idle: int = 0
-var is_extended: bool = false
-var autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
-var mana_cost: int = 0
-var cast_range: float = 1000
-var buff_type: BuffType = null
-var target_self: bool = false
-var buff_target_type: TargetType = null
-var target_art: String = ""
-var target_art_scale: float = 1.0
-var target_art_z_index: int = -1
-var auto_range: float = 1000
-var handler: Callable = Callable()
+var _autocast_id: int = -1
+var _autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
+var _buff_type: BuffType = null
+var _buff_target_type: TargetType = null
+var _handler: Callable = Callable()
 var item_owner: Item = null
 var dont_cast_at_zero_charges: bool = false
 # NOTE: only used for POINT type autocasts
@@ -154,7 +128,7 @@ var _uid: int = 0
 #########################
 
 func _ready():
-	_cooldown_timer.wait_time = cooldown
+	_cooldown_timer.wait_time = get_cooldown()
 	_cooldown_timer.one_shot = true
 
 	_uid = _uid_max
@@ -167,12 +141,54 @@ func _ready():
 
 	_check_buff_target_type()
 
-	_target_type = Autocast.calculate_target_type(autocast_type, buff_target_type)
+	_target_type = Autocast.calculate_target_type(_autocast_type, _buff_target_type)
 
 
 #########################
 ###       Public      ###
 #########################
+
+func get_name_english() -> String:
+	var name_english: String = AutocastProperties.get_name_english(_autocast_id)
+
+	return name_english
+
+
+func get_autocast_name() -> String:
+	var autocast_name: String = AutocastProperties.get_autocast_name(_autocast_id)
+
+	return autocast_name
+
+
+func get_description_long() -> String:
+	var description_long: String = AutocastProperties.get_description_long(_autocast_id)
+
+	return description_long
+
+
+func get_icon_path() -> String:
+	var icon_path: String = AutocastProperties.get_icon_path(_autocast_id)
+
+	return icon_path
+
+
+func get_target_self() -> bool:
+	var target_self: bool = AutocastProperties.get_target_self(_autocast_id)
+
+	return target_self
+
+
+func get_cast_range() -> float:
+	var cast_range: float = AutocastProperties.get_cast_range(_autocast_id)
+
+	return cast_range
+
+
+func get_auto_range() -> float:
+	var auto_range: float = AutocastProperties.get_auto_range(_autocast_id)
+
+	return auto_range
+
 
 func get_uid() -> int:
 	return _uid
@@ -201,19 +217,20 @@ func do_cast(target: Unit):
 
 	_cooldown_timer.start()
 	
-	if !handler.is_null():
+	if !_handler.is_null():
 		var autocast_event: Event = _make_autocast_event(target)
-		handler.call(autocast_event)
-	elif buff_type != null:
-		buff_type.apply(_caster, target, _caster.get_level())
+		_handler.call(autocast_event)
+	elif _buff_type != null:
+		_buff_type.apply(_caster, target, _caster.get_level())
 	else:
-		push_error("Incorrect autocast state, handler = %s, buff_type= %s" % [handler, buff_type])
+		push_error("Incorrect autocast state, _handler = %s, _buff_type= %s" % [_handler, _buff_type])
 
 		return
 
 #	NOTE: need to subtract mana after performing autocast
 #	because some autocast handlers need to check mana value
 #	before it is spent.
+	var mana_cost: int = get_mana_cost()
 	_caster.subtract_mana(mana_cost, false)
 
 	var spell_casted_event: Event = _make_autocast_event(target)
@@ -223,19 +240,13 @@ func do_cast(target: Unit):
 		var spell_targeted_event: Event = _make_autocast_event(_caster)
 		target.spell_targeted.emit(spell_targeted_event)
 
+	var caster_art: String = AutocastProperties.get_caster_art(_autocast_id)
 	if !caster_art.is_empty():
-		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
-		Effect.set_scale(effect, caster_art_scale)
+		Effect.create_simple_at_unit(caster_art, _caster)
 
-		if caster_art_z_index != -1:
-			Effect.set_z_index(effect, caster_art_z_index)
-
+	var target_art: String = AutocastProperties.get_target_art(_autocast_id)
 	if !target_art.is_empty() && target != null:
-		var effect: int = Effect.create_simple_at_unit(target_art, target)
-		Effect.set_scale(effect, target_art_scale)
-
-		if target_art_z_index != -1:
-			Effect.set_z_index(effect, target_art_z_index)
+		Effect.create_simple_at_unit(target_art, target)
 
 
 func check_target_for_unit_autocast(target: Unit) -> bool:
@@ -246,6 +257,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
 	var target_is_self: bool = target == _caster
+	var target_self: bool = get_target_self()
 	var targetting_self_when_forbidden: bool = !target_self && target_is_self
 	var target_is_ok: bool = target_is_in_range && target_type_is_valid && !target_is_immune && !targetting_self_when_forbidden
 
@@ -253,7 +265,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 
 func target_pos_is_in_range(target_pos: Vector2) -> bool:
-	var in_range: float = VectorUtils.in_range(_caster.get_position_wc3_2d(), target_pos, cast_range)
+	var in_range: float = VectorUtils.in_range(_caster.get_position_wc3_2d(), target_pos, get_cast_range())
 
 	return in_range
 
@@ -263,6 +275,7 @@ func can_cast() -> bool:
 		return false
 
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+	var mana_cost: int = get_mana_cost()
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
 	var stunned: bool = _caster.is_stunned()
@@ -273,7 +286,7 @@ func can_cast() -> bool:
 
 # Some autocast types are always manual
 func can_use_auto_mode() -> bool:
-	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
+	var can_use: bool = _types_that_can_use_auto_mode.has(_autocast_type)
 
 	return can_use
 
@@ -295,23 +308,23 @@ func add_cast_error_message():
 
 
 func type_is_immediate() -> bool:
-	return _immediate_type_list.has(autocast_type)
+	return _immediate_type_list.has(_autocast_type)
 
 
 func type_is_point() -> bool:
-	return _point_type_list.has(autocast_type)
+	return _point_type_list.has(_autocast_type)
 
 
 func type_is_buff() -> bool:
-	return _buff_type_list.has(autocast_type)
+	return _buff_type_list.has(_autocast_type)
 
 
 func type_is_offensive() -> bool:
-	return _offensive_type_list.has(autocast_type)
+	return _offensive_type_list.has(_autocast_type)
 
 
 func type_is_unit() -> bool:
-	return _unit_type_list.has(autocast_type)
+	return _unit_type_list.has(_autocast_type)
 
 
 #########################
@@ -321,10 +334,10 @@ func type_is_unit() -> bool:
 func _check_buff_target_type():
 	var ac_type_is_buff: bool = type_is_buff()
 
-	if ac_type_is_buff && buff_target_type == null:
-		push_error("Autocast %s has autocast type buff but doesn't have buff_target_type defined. You should define a non-null buff_target_type." % title)
-	elif !ac_type_is_buff && buff_target_type != null:
-		push_error("Autocast %s doesn't have autocast type buff but has non-null buff_target_type. You should change buff_target_type to null." % title)
+	if ac_type_is_buff && _buff_target_type == null:
+		push_error("Autocast %s has autocast type buff but doesn't have buff_target_type defined. You should define a non-null buff_target_type." % get_name_english())
+	elif !ac_type_is_buff && _buff_target_type != null:
+		push_error("Autocast %s doesn't have autocast type buff but has non-null buff_target_type. You should change buff_target_type to null." % get_name_english())
 
 
 func _make_autocast_event(target: Unit) -> Event:
@@ -335,7 +348,7 @@ func _make_autocast_event(target: Unit) -> Event:
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
-	var range_extended: float = Utils.apply_unit_range_extension(auto_range, _target_type)
+	var range_extended: float = Utils.apply_unit_range_extension(get_auto_range(), _target_type)
 	var target_is_in_range: bool = VectorUtils.in_range(target.get_position_wc3_2d(), _caster.get_position_wc3_2d(), range_extended)
 
 	return target_is_in_range
@@ -393,7 +406,7 @@ func _get_target_for_unit_autocast() -> Unit:
 
 
 func _get_target_for_buff_autocast() -> Unit:
-	var unit_list: Array = Utils.get_units_in_range(_caster, _target_type, _caster.get_position_wc3_2d(), auto_range)
+	var unit_list: Array = Utils.get_units_in_range(_caster, _target_type, _caster.get_position_wc3_2d(), get_auto_range())
 
 # 	NOTE: should not filter targets by buff groups if
 # 	targets are creeps. Buff groups is a feature only for towers
@@ -403,6 +416,7 @@ func _get_target_for_buff_autocast() -> Unit:
 	
 	Utils.shuffle(Globals.synced_rng, unit_list)
 
+	var target_self: bool = get_target_self()
 	if !target_self:
 		unit_list.erase(_caster)
 
@@ -410,14 +424,14 @@ func _get_target_for_buff_autocast() -> Unit:
 		if !Utils.unit_is_valid(unit):
 			continue
 
-		if buff_type == null:
+		if _buff_type == null:
 			return unit
 
 		var unit_is_immune: bool = unit.is_immune()
 		if unit_is_immune:
 			continue
 
-		var buff: Buff = unit.get_buff_of_type(buff_type)
+		var buff: Buff = unit.get_buff_of_type(_buff_type)
 		var unit_has_buff: bool = buff != null
 
 		if !unit_has_buff:
@@ -468,6 +482,7 @@ func _get_cast_error() -> String:
 		return ""
 
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+	var mana_cost: int = get_mana_cost()
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
 	var stunned: bool = _caster.is_stunned()
@@ -539,6 +554,8 @@ func get_autocast_index() -> int:
 
 # NOTE: autocast.getCooldown() in JASS
 func get_cooldown() -> float:
+	var cooldown: float = AutocastProperties.get_cooldown(_autocast_id)
+
 	return cooldown
 
 
@@ -551,7 +568,9 @@ func get_remaining_cooldown() -> float:
 	return _cooldown_timer.time_left
 
 # NOTE: autocast.getManacost() in JASS
-func get_manacost() -> int:
+func get_mana_cost() -> int:
+	var mana_cost: int = AutocastProperties.get_mana_cost(_autocast_id)
+
 	return mana_cost
 
 
@@ -571,6 +590,7 @@ func get_target_error_message(target: Unit) -> String:
 	var target_type_is_valid = _target_type.match(target)
 	var target_is_immune: bool = target.is_immune()
 	var target_is_self: bool = target != null && target == _caster
+	var target_self: bool = get_target_self()
 	var targetting_self_when_forbidden: bool = !target_self && target_is_self
 
 	if !target_is_in_range:
@@ -592,33 +612,7 @@ func get_target_error_message(target: Unit) -> String:
 ###       Static      ###
 #########################
 
-static func make() -> Autocast:
-	var autocast: Autocast = Preloads.autocast_scene.instantiate()
-
-	return autocast
-
-
-static func make_from_id(autocast_id: int, creator_object: Object) -> Autocast:
-	var autocast: Autocast = Autocast.make()
-
-	autocast.name_english = AutocastProperties.get_name_english(autocast_id)
-	autocast.title = AutocastProperties.get_autocast_name(autocast_id)
-	autocast.icon = AutocastProperties.get_icon_path(autocast_id)
-	autocast.description_short = AutocastProperties.get_description_short(autocast_id)
-	autocast.description_long = AutocastProperties.get_description_long(autocast_id)
-
-	autocast.caster_art = AutocastProperties.get_caster_art(autocast_id)
-	autocast.target_art = AutocastProperties.get_target_art(autocast_id)
-	autocast.num_buffs_before_idle = AutocastProperties.get_num_buffs_before_idle(autocast_id)
-	autocast.autocast_type = AutocastProperties.get_autocast_type(autocast_id)
-	autocast.cast_range = AutocastProperties.get_cast_range(autocast_id)
-	autocast.auto_range = AutocastProperties.get_auto_range(autocast_id)
-	autocast.target_self = AutocastProperties.get_target_self(autocast_id)
-	autocast.cooldown = AutocastProperties.get_cooldown(autocast_id)
-	autocast.is_extended = AutocastProperties.get_is_extended(autocast_id)
-	autocast.mana_cost = AutocastProperties.get_mana_cost(autocast_id)
-	autocast.buff_target_type = AutocastProperties.get_buff_target_type(autocast_id)
-
+static func make(autocast_id: int, creator_object: Object) -> Autocast:
 	var buff_type_string: String = AutocastProperties.get_buff_type(autocast_id)
 	var buff_type: BuffType
 	if !buff_type_string.is_empty():
@@ -628,8 +622,6 @@ static func make_from_id(autocast_id: int, creator_object: Object) -> Autocast:
 			push_error("Failed to find buff type for autocast. Buff type = %s, autocast id = %s" % [buff_type_string, autocast_id])
 	else:
 		buff_type = null
-	
-	autocast.buff_type = buff_type
 
 	var handler_function_string: String = AutocastProperties.get_handler_function(autocast_id)
 	var handler_function: Callable
@@ -641,7 +633,17 @@ static func make_from_id(autocast_id: int, creator_object: Object) -> Autocast:
 	else:
 		handler_function = Callable()
 	
-	autocast.handler = handler_function
+#	NOTE: need to store autocast_type and buff_target_type
+#	in variables instead of getting them from
+#	AutocastProperties every time because these properties
+#	are a bit costly too calculate all the time. Other
+#	properties are okay to get through AutocastProperties.
+	var autocast: Autocast = Preloads.autocast_scene.instantiate()
+	autocast._autocast_id = autocast_id
+	autocast._autocast_type = AutocastProperties.get_autocast_type(autocast_id)
+	autocast._buff_target_type = AutocastProperties.get_buff_target_type(autocast_id)
+	autocast._buff_type = buff_type
+	autocast._handler = handler_function
 
 	return autocast
 

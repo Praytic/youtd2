@@ -20,7 +20,7 @@ func _init(parent: Node):
 
 
 func on_create(event: Event):
-	var autocast: Autocast = Autocast.make_from_id(171, self)
+	var autocast: Autocast = Autocast.make(171, self)
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	creep.add_autocast(autocast)

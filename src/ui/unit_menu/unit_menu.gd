@@ -314,7 +314,7 @@ func _set_autocast_range_visible(button: AutocastButton, value: bool):
 		return
 
 	var autocast: Autocast = button.get_autocast()
-	var autocast_name_english: String = autocast.name_english
+	var autocast_name_english: String = autocast.get_name_english()
 	_tower.set_range_indicator_visible(autocast_name_english, value)
 
 

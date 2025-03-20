@@ -48,7 +48,7 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
-		var autocast: Autocast = Autocast.make_from_id(autocast_id, self)
+		var autocast: Autocast = Autocast.make(autocast_id, self)
 		tower.add_autocast(autocast)
 
 	on_create(preceding_tower)

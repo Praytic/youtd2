@@ -213,7 +213,7 @@ class AutocastEntry extends Entry:
 			_target_name = target.get_log_name()
 		else:
 			_target_name = ""
-		_autocast_name = autocast.title
+		_autocast_name = autocast.get_autocast_name()
 
 		var timestamp_string: String = get_timestamp_string()
 		var type_name: String = get_type_name()

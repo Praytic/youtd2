@@ -87,6 +87,8 @@ func get_mana_cost(id: int) -> int:
 	return mana_cost
 
 
+# NOTE: cast_range is the range used when autocast is casted
+# by the player.
 func get_cast_range(id: int) -> float:
 	var cast_range_string: String = _get_property(id, CsvProperty.CAST_RANGE)
 	var cast_range: float = cast_range_string.to_float()
@@ -94,6 +96,8 @@ func get_cast_range(id: int) -> float:
 	return cast_range
 
 
+# NOTE: auto_range is the range used when autocast is casted
+# automatically, without player input.
 func get_auto_range(id: int) -> float:
 	var auto_range_string: String = _get_property(id, CsvProperty.AUTO_RANGE)
 	var auto_range: float = auto_range_string.to_float()
@@ -128,6 +132,13 @@ func get_buff_target_type(id: int) -> TargetType:
 	return buff_target_type
 
 
+# NOTE: this property is currently unused. In original
+# engine "num_buffs_before_idle" determines how many times
+# autocast is triggered before it checks whether tower is
+# still in combat. This is needed because in original engine
+# checking if tower is still in combat takes time. In godot
+# engine, combat check is instant so it looks like this
+# value isn't needed.
 func get_num_buffs_before_idle(id: int) -> int:
 	var string: String = _get_property(id, CsvProperty.	NUM_BUFFS_BEFORE_IDLE)
 	var num_buffs_before_idle: int = string.to_int()
