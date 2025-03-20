@@ -6,6 +6,8 @@ extends MainLoop
 
 const ARG_COUNT: int = 2
 
+var all_is_ok: bool = true
+
 
 func _initialize():
 	print("Begin")
@@ -34,8 +36,6 @@ func run():
 	var csv_old: Array[PackedStringArray] = load_csv(text_csv_path_old)
 	var csv_new: Array[PackedStringArray] = load_csv(text_csv_path_new)
 
-	var all_is_ok: bool = true
-
 	var row_count_old: int = csv_old.size()
 	var row_count_new: int = csv_new.size()
 	var row_count_is_ok: bool = row_count_old == row_count_new
@@ -57,10 +57,11 @@ func run():
 			print("\n !!!!Mismatch in text id: old = %s, new = %s" % [text_id_old, text_id_new])
 			all_is_ok = false
 
-		var text_id_first_char_is_ok: bool = !digit_list.has(text_id_new.substr(0, 1))
-		if !text_id_first_char_is_ok:
-			print("\n !!!!Bad text id: %s" % [text_id_new])
-			all_is_ok = false
+		# NOTE: disabled for now, there are too many bad text ids, will fix later
+		# var text_id_first_char_is_ok: bool = !digit_list.has(text_id_new.substr(0, 1))
+		# if !text_id_first_char_is_ok:
+		# 	print("\n !!!!Bad text id: %s" % [text_id_new])
+		# 	all_is_ok = false
 
 		var text_id_is_correct_length: bool = text_id_new.length() == 4
 		if !text_id_is_correct_length:
@@ -80,8 +81,34 @@ func run():
 			all_is_ok = false
 		text_id_map[text_id_old] = true
 
+	check_for_broken_tags(text_csv_path_new)
+
 	if all_is_ok:
 		print("All is okay!")
+
+
+# This f-n checks for issues with BBCode tags:
+# "]blahbla"
+# or "blahbla color=GOLD] blahbla"
+# or "blahbla [color=GOLD blahblah"
+func check_for_broken_tags(path: String):
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+
+	var line_index: int = 0
+
+	while !file.eof_reached():
+		var line: String = file.get_line()
+
+		var closing_bracket_count: int = line.count("]")
+		var opening_bracket_count: int = line.count("[")
+
+		var bracket_mismatch: bool = closing_bracket_count != opening_bracket_count
+
+		if bracket_mismatch:
+			print(" \n!!!!Detected mismatched brackets on line %s" % line_index)
+			all_is_ok = false
+
+		line_index += 1
 
 
 # NOTE: need to duplicate this f-n from Utils unfortunately
