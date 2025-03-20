@@ -102,14 +102,11 @@ var _autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
 var _buff_type: BuffType = null
 var _buff_target_type: TargetType = null
 var _handler: Callable = Callable()
-var item_owner: Item = null
-var dont_cast_at_zero_charges: bool = false
-# NOTE: only used for POINT type autocasts
 var _target_pos: Vector2 = Vector2.ZERO
 var _target_type: TargetType = null
-
 var _caster: Unit = null
 var _is_item_autocast: bool = false
+var _item_owner: Item = null
 
 # Tracks how much time is left before ability can be used.
 @export var _cooldown_timer: ManualTimer
@@ -327,6 +324,13 @@ func type_is_unit() -> bool:
 	return _unit_type_list.has(_autocast_type)
 
 
+# NOTE: this is used if this autocast is "owned" by an item
+# instead of a tower.
+func set_item_owner(item: Item):
+	_item_owner = item
+	_is_item_autocast = true
+
+
 #########################
 ###      Private      ###
 #########################
@@ -517,7 +521,7 @@ func _on_auto_timer_timeout():
 	if cant_cast_because_not_in_combat:
 		return
 
-	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
+	var cant_cast_because_zero_charges: bool = _item_owner != null && _item_owner.get_charges() == 0 && _item_owner.uses_charges()
 
 	if cant_cast_because_zero_charges:
 		return

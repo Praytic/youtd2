@@ -152,7 +152,7 @@ func is_visible() -> bool:
 
 
 func set_autocast(autocast: Autocast):
-	autocast._is_item_autocast = true
+	autocast.set_item_owner(self)
 	_autocast = autocast
 	add_child(autocast)
 
