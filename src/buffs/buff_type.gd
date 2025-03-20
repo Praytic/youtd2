@@ -38,6 +38,10 @@ class RangeHandlerData:
 	var radius: float
 	var target_type: TargetType
 
+class AuraCreationInfo:
+	var aura_id: int
+	var object_with_buff_var: Object
+
 
 var _unique_name: String
 var _time_base: float
@@ -47,7 +51,7 @@ var _modifier: Modifier = Modifier.new()
 var _common_handler_list: Array[CommonHandlerData] = []
 var _periodic_handler_list: Array[PeriodicHandlerData] = []
 var _range_handler_list: Array[RangeHandlerData] = []
-var _aura_type_list: Array[AuraType] = []
+var _aura_creation_info_list: Array[AuraCreationInfo] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
 var _buff_icon_color: Color = Color.GRAY
@@ -145,8 +149,10 @@ func _apply_internal(caster: Unit, target: Unit, level: int, time: float) -> Buf
 	for handler in _range_handler_list:
 		buff._add_event_handler_unit_comes_in_range(handler.handler, handler.radius, handler.target_type)
 
-	for aura_type in _aura_type_list:
-		buff._add_aura(aura_type)
+	for aura_creation_info in _aura_creation_info_list:
+		var aura_id: int = aura_creation_info.aura_id
+		var object_with_buff_var: Object = aura_creation_info.object_with_buff_var
+		buff._add_aura(aura_id, object_with_buff_var)
 
 #	NOTE: need to handle edge cases where buff should not be
 #	applied:
@@ -336,8 +342,15 @@ func add_event_on_purge(handler: Callable):
 	add_event_handler(Event.Type.PURGE, handler)
 
 
-func add_aura(aura_type: AuraType):
-	_aura_type_list.append(aura_type)
+# NOTE: when aura is added to buff type, we only store the
+# creation info. The actual aura instance is created later
+# when buff is applied on a unit.
+func add_aura(aura_id: int, object_with_buff_var: Object):
+	var aura_creation_info: AuraCreationInfo = AuraCreationInfo.new()
+	aura_creation_info.aura_id = aura_id
+	aura_creation_info.object_with_buff_var = object_with_buff_var
+	
+	_aura_creation_info_list.append(aura_creation_info)
 
 
 # NOTE: this is useful in rare cases like trigger buffs and

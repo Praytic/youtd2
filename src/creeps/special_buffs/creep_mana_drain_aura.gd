@@ -16,5 +16,4 @@ func _init(parent: Node):
 	slow_aura_effect.set_buff_modifier(modifier)
 	slow_aura_effect.set_buff_tooltip("Drain Gang\nDrains mana and reduces mana regeneration.")
 
-	var aura: AuraType = AuraType.make_aura_type(105, self)
-	add_aura(aura)
+	add_aura(105, self)

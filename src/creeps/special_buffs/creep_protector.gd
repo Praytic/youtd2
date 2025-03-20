@@ -38,8 +38,7 @@ func _init(parent: Node):
 	aura_bt.add_event_on_death(aura_bt_on_death)
 	aura_bt.set_hidden()
 
-	var aura: AuraType = AuraType.make_aura_type(107, self)
-	add_aura(aura)
+	add_aura(107, self)
 
 
 func on_create(event: Event):

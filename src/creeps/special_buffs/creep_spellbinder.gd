@@ -41,7 +41,7 @@ func on_periodic(event: Event):
 		silence_bt.apply_only_timed(creep, tower, 5.0) 
 
 		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, creep, tower)
-		lightning.modulate = Color.LIGHT_BLUE
+		lightning.modulate = Color.PURPLE
 		lightning.set_lifetime(0.2)
 
 		zap_count += 1

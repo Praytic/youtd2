@@ -26,8 +26,7 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 	var item_id: int = item.get_id()
 	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
 	for aura_id in aura_id_list:
-		var aura_type: AuraType = AuraType.make_aura_type(aura_id, self)
-		item.add_aura(aura_type)
+		item.add_aura(aura_id, self)
 
 	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
 	for autocast_id in autocast_id_list:
