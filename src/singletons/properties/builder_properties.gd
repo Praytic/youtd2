@@ -32,7 +32,7 @@ func _ready():
 	_string_to_id_map = _make_string_to_id_map()
 
 #	Check BACKPACKER_BUILDER_ID
-	var backpacker_name: String = get_display_name(BACKPACKER_BUILDER_ID)
+	var backpacker_name: String = get_name_english(BACKPACKER_BUILDER_ID)
 	if !backpacker_name.contains("Backpacker"):
 		push_error("BACKPACKER_BUILDER_ID is incorrect.")
 
@@ -61,6 +61,12 @@ func get_id_list() -> Array:
 	id_list.sort()
 
 	return id_list
+
+
+func get_name_english(builder: int) -> String:
+	var string: String = _get_property(builder, CsvProperty.NAME_ENGLISH)
+
+	return string
 
 
 func get_display_name(builder: int) -> String:
