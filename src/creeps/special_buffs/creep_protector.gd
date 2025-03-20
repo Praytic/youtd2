@@ -38,13 +38,7 @@ func _init(parent: Node):
 	aura_bt.add_event_on_death(aura_bt_on_death)
 	aura_bt.set_hidden()
 
-	var aura: AuraType = AuraType.new()
-	aura.aura_range = PROTECTOR_RANGE
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 0
-	aura.aura_effect = aura_bt
+	var aura: AuraType = AuraType.make_aura_type(107, self)
 	add_aura(aura)
 
 
@@ -52,22 +46,7 @@ func on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var protector: Unit = buff.get_buffed_unit()
 
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "Protector Curse"
-	autocast.icon = "res://path/to/icon.png"
-	autocast.caster_art = ""
-	autocast.target_art = ""
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE
-	autocast.num_buffs_before_idle = 0
-	autocast.cast_range = 0
-	autocast.auto_range = 0
-	autocast.cooldown = 1
-	autocast.mana_cost = 0
-	autocast.target_self = false
-	autocast.is_extended = false
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.handler = on_autocast
+	var autocast: Autocast = Autocast.make_from_id(172, self)
 	protector.add_autocast(autocast)
 
 

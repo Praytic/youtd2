@@ -16,12 +16,5 @@ func _init(parent: Node):
 	slow_aura_effect.set_buff_modifier(modifier)
 	slow_aura_effect.set_buff_tooltip("Slow\nReduces attack speed.")
 
-	var aura: AuraType = AuraType.new()
-	aura.level = 0
-	aura.level_add = 0
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.aura_effect = slow_aura_effect
-	aura.target_self = false
-	aura.aura_range = 800
-
+	var aura: AuraType = AuraType.make_aura_type(108, self)
 	add_aura(aura)
