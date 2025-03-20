@@ -1,6 +1,13 @@
 extends ItemBehavior
 
 
+# NOTE: [ORIGINAL_GAME_BUG] Fixed bug where this item would
+# accumulate hidden charges above 5. Bug happened because
+# the charge count was capped to 5 but the "accumulator"
+# variable was uncapped and would accumulate and then get
+# converted to real charges when item was used.
+
+
 var wave_accumulator: int = 0
 var charge_counter: int = 0
 var last_accumulated_level: int = 0
@@ -40,6 +47,12 @@ func check_level():
 
 	if cur_level > last_accumulated_level:
 		wave_accumulator = wave_accumulator + (cur_level - last_accumulated_level)
+
+#		NOTE: need to set accumulator to 0 here because if
+#		charge count is at 5, then it's capped out and we
+#		need to stop accumulating charges from waves.
+		if charge_counter == 5:
+			wave_accumulator = 0
 
 		last_accumulated_level = cur_level
 
