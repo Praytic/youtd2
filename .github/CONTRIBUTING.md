@@ -11,25 +11,29 @@ You can contribute in different ways:
 For the last one, you will need to download the Godot editor and obtain assets.
 Read below to find out how to obtain assets.
 
-## Assets
+## Editing the game in the Godot editor
 
-Follow this link to the assets folder: [link](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=sharing)
+First, obtain necessary files:
 
-Open this link and then follow these steps:
+1. Download Godot editor *version 4.3* from the [Godot website](https://godotengine.org).
+2. Clone the game repository using Git.
+3. Download assets folder from this [Google Drive folder](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=sharing).
+4. Copy and paste downloaded assets into 'assets' folder in the game repository.
+5. You will see a popup asking whether you want to replace some files - press "Yes".
 
-1. Download the whole folder.
-2. Copy the contents of the downloaded folder.
-3. Paste into 'assets' folder in the game repo.
-4. You should see a popup asking whether you want to replace the files - press "Yes".
-5. Open the Godot editor and make sure that all of the assets were loaded correctly.
+Then, follow these steps to correctly import assets into Godot editor:
 
-Note that public version of assets contains censored versions of item icons, tower icons and tower sprites. Such assets will look like they are a solid "blue" color.
+1. Open the game project in the Godot editor.
+2. Wait for Godot editor to import assets. Open the "Output" window to confirm that the process is finished. There will be some errors - that's expected.
+3. Press Ctrl-S to save changes.
+4. Close Godot editor
+5. Open a terminal with Git and run this command: $ git status. You should see that some files were modified (by Godot editor).
+6. Run this command: $ git restore
+7. Open the game project in the Godot editor again.
+8. Wait for Godot editor to import assets. This time, there should be no errors.
+9. Run this command again: $ git status. There should be no local changes if steps were followed correctly.
 
-## Running the game in editor
-
-After you've obtained the Godot editor and assets you can start the editor and try to run the game.
-
-Note that the topic of how to use Godot editor is out of scope of this document. Godot documentation and tutorials are available online.
+Note: Public version of assets contains censored versions of item icons, tower icons and tower sprites. Such assets will look like they are a solid "blue" color.
 
 ## Copyright / Contributor License Agreement
 Any code you submit will become part of the repository and be distributed under the YouTD2 license. By submitting code to the project you agree that the code is your work and you can give it to the project.
