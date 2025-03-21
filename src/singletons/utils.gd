@@ -104,7 +104,7 @@ func generate_new_translation_ids(amount: int):
 		chars_for_id_only_letters.append(char_str)
 
 	var existing_key_list: Array[String] = []
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv("res://data/texts.csv")
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv("res://assets/texts/texts.csv")
 	for csv_line in csv:
 		var key: String = csv_line[0]
 		existing_key_list.append(key)
