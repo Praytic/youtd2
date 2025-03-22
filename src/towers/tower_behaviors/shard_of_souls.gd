@@ -37,7 +37,7 @@ func tower_init():
 	soul_link_bt.add_event_on_damaged(soul_link_on_damaged)
 	soul_link_bt.add_event_on_death(soul_link_on_death)
 	soul_link_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
-	soul_link_bt.set_buff_tooltip("Soul Link\nDeals damage when linked creeps take damage.")
+	soul_link_bt.set_buff_tooltip(tr("LRFT"))
 
 
 func on_autocast(event: Event):

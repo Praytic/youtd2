@@ -25,7 +25,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
-	aura_bt.set_buff_tooltip("Dark Shroud Aura\nA portion of attack damage is stolen and dealt as Decay damage instead.")
+	aura_bt.set_buff_tooltip(tr("ETJO"))
 	aura_bt.add_event_on_damage(aura_bt_on_damage)
 
 	orb_pt = ProjectileType.create("path_to_projectile_sprite", 8, 200, self)

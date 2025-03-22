@@ -23,7 +23,7 @@ func tower_init():
 #	enable_advanced(). It starts at 0.01 to change to real
 #	period as quickly as possible.
 	plague_bt.add_periodic_event(cedi_crypt_plague_periodic_spread, 0.01)
-	plague_bt.set_buff_tooltip("Plague\nDeals damage over time.")
+	plague_bt.set_buff_tooltip(tr("I2A2"))
 
 	army_bt = BuffType.new("army_bt", -1, 0, true, self)
 	var cedi_crypt_army_mod: Modifier = Modifier.new()
@@ -31,7 +31,7 @@ func tower_init():
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	army_bt.set_buff_modifier(cedi_crypt_army_mod)
 	army_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
-	army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
+	army_bt.set_buff_tooltip(tr("HDAQ"))
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Souls Extracted")

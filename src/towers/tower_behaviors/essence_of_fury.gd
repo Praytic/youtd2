@@ -31,7 +31,7 @@ func tower_init():
 
 	poison_bt.add_periodic_event(deal_damage, 1)
 
-	poison_bt.set_buff_tooltip("Poisoned Heart\nDeals spell damage over time.")
+	poison_bt.set_buff_tooltip(tr("LSQD"))
 
 
 func on_damage(event: Event):

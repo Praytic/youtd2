@@ -49,14 +49,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -MOD_MOVESPEED_ADD)
 	love_bt.set_buff_modifier(mod)
 	love_bt.set_buff_icon("res://resources/icons/generic_icons/charm.tres")
-	love_bt.set_buff_tooltip("In Love\nReduces movement speed and increases chance of dropping items.")
+	love_bt.set_buff_tooltip(tr("W4SL"))
 
 #	NOTE: this buff is needed to display the effect of the
 #	"Soul Split" ability. The actual effect of the ability
 #	is implemented via modify_property().
 	soul_split_bt = BuffType.new("soul_split_bt", 10, 0, true, self)
 	soul_split_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
-	soul_split_bt.set_buff_tooltip("Soul Split\nIncreases attack speed and reduces chance to trigger Soul Split.")
+	soul_split_bt.set_buff_tooltip(tr("BNH6"))
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 999.99, 1100, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)

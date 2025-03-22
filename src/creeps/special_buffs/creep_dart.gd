@@ -21,7 +21,7 @@ func _init(parent: Node):
 		)
 	tired_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	tired_bt.set_buff_icon_color(Color.LIGHT_BLUE)
-	tired_bt.set_buff_tooltip("Tired from Darting\nThis creep is too tired to dart.")
+	tired_bt.set_buff_tooltip(tr("MS3N"))
 	tired_bt.set_is_purgable(false)
 
 

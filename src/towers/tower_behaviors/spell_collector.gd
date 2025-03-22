@@ -45,11 +45,11 @@ func tower_init():
 	spell_gathering_bt = BuffType.create_aura_effect_type("spell_gathering_bt", true, self)
 	spell_gathering_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	spell_gathering_bt.add_event_on_spell_casted(spell_gathering_bt_on_spell_casted)
-	spell_gathering_bt.set_buff_tooltip("Spell Gathering\nEmpowers a nearby tower when buffed tower casts spells.")
+	spell_gathering_bt.set_buff_tooltip(tr("LLEH"))
 
 	missile_stacks_bt = BuffType.new("missile_stacks_bt", 20, 0, true, self)
 	missile_stacks_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
-	missile_stacks_bt.set_buff_tooltip("Absorbed Missile\nMagical missiles are ready to be fired.")
+	missile_stacks_bt.set_buff_tooltip(tr("RK0P"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spells Harvested")

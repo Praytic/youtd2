@@ -22,7 +22,7 @@ func _init(parent: Node):
 	channel_bt = BuffType.new("channel_bt", 0, 0, true, self)
 	channel_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	channel_bt.set_buff_icon_color(Color.DARK_RED)
-	channel_bt.set_buff_tooltip("Protector Channel\nChannels a protector curse.")
+	channel_bt.set_buff_tooltip(tr("LT32"))
 	
 	curse_bt = BuffType.new("curse_bt", 1.5, 0, false, self
 		)
@@ -31,7 +31,7 @@ func _init(parent: Node):
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, -2, 0.0)
 	curse_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	curse_bt.set_buff_icon_color(Color.DARK_RED)
-	curse_bt.set_buff_tooltip("Protector Curse\nReduces attack damage and multicrit.")
+	curse_bt.set_buff_tooltip(tr("M3QZ"))
 	curse_bt.set_buff_modifier(modifier)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)

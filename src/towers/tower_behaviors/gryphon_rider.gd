@@ -32,7 +32,7 @@ func tower_init():
 	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
 	hammer_fall_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
-	hammer_fall_bt.set_buff_tooltip("Hammer Fall\nReduces attack damage.")
+	hammer_fall_bt.set_buff_tooltip(tr("JNYZ"))
 
 	stormbolt_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1100, self)
 	stormbolt_pt.set_event_on_interpolation_finished(stormbolt_pt_on_hit)

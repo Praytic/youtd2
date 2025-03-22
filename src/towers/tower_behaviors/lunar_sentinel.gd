@@ -27,7 +27,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
 	lunar_energy_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 
-	lunar_energy_bt.set_buff_tooltip("Lunar Energy\nIncreases spell damage taken.")
+	lunar_energy_bt.set_buff_tooltip(tr("LSE1"))
 
 
 func on_autocast(event: Event):

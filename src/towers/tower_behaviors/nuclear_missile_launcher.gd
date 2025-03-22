@@ -23,7 +23,7 @@ func tower_init():
 	targeted_pt.set_buff_icon("res://resources/icons/generic_icons/pokecog.tres")
 	targeted_pt.add_event_on_create(targeted_pt_on_create)
 	targeted_pt.add_event_on_refresh(targeted_pt_on_refresh)
-	targeted_pt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")
+	targeted_pt.set_buff_tooltip(tr("PVP0"))
 
 
 func on_create(_preceding_tower: Tower):

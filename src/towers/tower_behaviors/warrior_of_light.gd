@@ -29,7 +29,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, _stats.mod_dmg_to_undead_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
-	aura_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
+	aura_bt.set_buff_tooltip(tr("HZID"))
 
 #	NOTE: original script and tooltip don't mention the
 #	radius of swarm so made it the same as for "Hell Bat"

@@ -24,7 +24,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_dmg, _stats.mod_spell_dmg_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-	aura_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
+	aura_bt.set_buff_tooltip(tr("B1E6"))
 
 
 func on_autocast(_event: Event):

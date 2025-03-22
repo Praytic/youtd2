@@ -25,7 +25,7 @@ func tower_init():
 	
 	morale_bt = BuffType.new("morale_bt", 10, 0, true, self)
 	morale_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	morale_bt.set_buff_tooltip("Morale Boost\nIncreases attack speed and attack damage.")
+	morale_bt.set_buff_tooltip(tr("Z5K1"))
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.10, 0.004)
@@ -33,7 +33,7 @@ func tower_init():
 
 	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
 	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
-	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
+	grow_bt.set_buff_tooltip(tr("VCSG"))
 
 	rock_pt = ProjectileType.create("path_to_projectile_sprite", 4, 700, self)
 	rock_pt.enable_homing(rock_pt_on_hit, 0)

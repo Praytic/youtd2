@@ -26,7 +26,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	parasite_bt = BuffType.new("parasite_bt", 0, 0, true, self)
 	parasite_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
-	parasite_bt.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals Decay damage when the parasite surfaces.")
+	parasite_bt.set_buff_tooltip(tr("DCFN"))
 
 
 func on_damage(event: Event):

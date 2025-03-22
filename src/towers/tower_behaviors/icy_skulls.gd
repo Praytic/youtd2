@@ -24,7 +24,7 @@ func tower_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_mod)
 
-	slow_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("PTSP"))
 
 
 func on_damage(event: Event):

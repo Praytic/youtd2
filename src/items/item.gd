@@ -75,12 +75,12 @@ func _init(id: int, player: Player):
 #	BuffType._init() doesn't work here because script name
 #	is always "Item.gd".
 	_aura_carrier_bt = BuffType.new("item-%d-_aura_carrier_bt" % _id, 0, 0, true, self)
-	_aura_carrier_bt.set_buff_tooltip("Aura carrier buff for item %s" % item_name)
+	_aura_carrier_bt.set_buff_tooltip("DEBUG Aura carrier buff for item %s" % item_name)
 	_aura_carrier_bt.set_hidden()
 	_aura_carrier_bt.disable_stacking_behavior()
 	
 	_triggers_bt = BuffType.new("item-%d-_triggers_bt" % _id, 0, 0, true, self)
-	_triggers_bt.set_buff_tooltip("Triggers buff for item %s" % item_name)
+	_triggers_bt.set_buff_tooltip("DEBUG Triggers buff for item %s" % item_name)
 	_triggers_bt.set_hidden()
 	_triggers_bt.disable_stacking_behavior()
 

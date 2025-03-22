@@ -46,7 +46,7 @@ func tower_init():
 	surge_bt.set_buff_modifier(surge_bt_mod)
 	surge_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
-	surge_bt.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
+	surge_bt.set_buff_tooltip(tr("Q9D4"))
 
 
 func on_attack(_event: Event):

@@ -67,7 +67,7 @@ func tower_init():
 	electrified_bt = BuffType.new("electrified_bt", 9, 0.3, false, self)
 	electrified_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	electrified_bt.add_event_on_damaged(debuff_on_damaged)
-	electrified_bt.set_buff_tooltip("Electrified\nDeals extra damage when the creep is damaged by attacks or spells.")
+	electrified_bt.set_buff_tooltip(tr("NVVL"))
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)

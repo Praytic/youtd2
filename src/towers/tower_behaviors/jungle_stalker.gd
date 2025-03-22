@@ -29,11 +29,11 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	rage_bt.set_buff_modifier(mod)
 	rage_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	rage_bt.set_buff_tooltip("Enraged\nIncreases attack speed.")
+	rage_bt.set_buff_tooltip(tr("BLU0"))
 
 	feral_bt = BuffType.new("feral_bt", -1, 0, true, self)
 	feral_bt.set_buff_icon("res://resources/icons/generic_icons/orc_head.tres")
-	feral_bt.set_buff_tooltip("Feral Aggression\nPermanently increases attack damage.")
+	feral_bt.set_buff_tooltip(tr("XZ11"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Damage Bonus")

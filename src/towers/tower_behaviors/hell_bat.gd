@@ -34,7 +34,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	darkness_bt = BuffType.new("darkness_bt", 5, 0, true, self)
 	darkness_bt.set_buff_icon("res://resources/icons/generic_icons/fire_dash.tres")
-	darkness_bt.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
+	darkness_bt.set_buff_tooltip(tr("E2YG"))
 
 #	NOTE: settubg damage to "1.0" here because value for
 #	actual damage is passed when spell is casted as

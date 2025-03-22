@@ -23,7 +23,7 @@ func tower_init():
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	aura_bt.add_event_on_refresh(aura_bt_on_refresh)
-	aura_bt.set_buff_tooltip("Beast Dung\nIncreases attack damage, attack speed, crit chance and crit damage.")
+	aura_bt.set_buff_tooltip(tr("V23V"))
 
 
 func on_attack(event: Event):

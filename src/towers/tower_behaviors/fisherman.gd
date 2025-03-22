@@ -21,7 +21,7 @@ func tower_init():
 	fisherman_dps_boost_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 0.001)
 	dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
 	dps_boost_bt.set_buff_icon("res://resources/icons/generic_icons/meat.tres")
-	dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
+	dps_boost_bt.set_buff_tooltip(tr("ZRPB"))
 
 	slow_bt = BuffType.new("slow_bt", 3, 0, false, self)
 	var fisherman_slow_mod: Modifier = Modifier.new()
@@ -30,7 +30,7 @@ func tower_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.add_event_on_create(slow_bt_on_create)
 	slow_bt.add_event_on_expire(slow_bt_on_expire)
-	slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("AEHQ"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Strangled Units")

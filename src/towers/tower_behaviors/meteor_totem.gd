@@ -29,12 +29,12 @@ func tower_init():
 	attraction_bt.add_event_on_attack(attraction_bt_on_attack)
 	attraction_bt.add_event_on_spell_casted(attraction_bt_on_spell_casted)
 	attraction_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")
-	attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
+	attraction_bt.set_buff_tooltip(tr("TNB5"))
 
 	torture_bt = BuffType.new("torture_bt", 2.5, 0.05, false, self)
 	torture_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	torture_bt.add_event_on_damaged(torture_bt_on_damaged)
-	torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
+	torture_bt.set_buff_tooltip(tr("SUFS"))
 
 	missile_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 950, self)
 	missile_pt.set_event_on_interpolation_finished(missile_pt_on_hit)

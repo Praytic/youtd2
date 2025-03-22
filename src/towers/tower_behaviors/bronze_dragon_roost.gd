@@ -19,7 +19,7 @@ func tower_init():
 	bronze_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	bronze_bt.add_event_on_create(bronze_bt_on_create)
 	bronze_bt.add_event_on_cleanup(bronze_bt_on_cleanup)
-	bronze_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")
+	bronze_bt.set_buff_tooltip(tr("MCA0"))
 
 
 func on_damage(event: Event):

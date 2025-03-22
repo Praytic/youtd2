@@ -23,14 +23,14 @@ func tower_init():
 	dave_taita_blood_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.005)
 	cold_blood_bt.set_buff_modifier(dave_taita_blood_mod)
 	cold_blood_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	cold_blood_bt.set_buff_tooltip("Cold Blood\nIncreases attack speed.")
+	cold_blood_bt.set_buff_tooltip(tr("BZF0"))
 
 	icy_touch_bt = BuffType.new("icy_touch_bt", 5, 0, false, self)
 	var dave_taita_touch_mod: Modifier = Modifier.new()
 	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
 	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
 	icy_touch_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	icy_touch_bt.set_buff_tooltip("Icy Touch\nReduces movement speed.")
+	icy_touch_bt.set_buff_tooltip(tr("YSCT"))
 
 	frostbolt_pt = ProjectileType.create("path_to_projectile_sprite", 4, 900, self)
 	frostbolt_pt.enable_homing(frostbolt_pt_on_hit, 0)

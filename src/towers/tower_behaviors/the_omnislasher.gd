@@ -18,7 +18,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	omnislashed_bt = BuffType.new("omnislashed_bt", -1, 0, false, self)
 	omnislashed_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")
-	omnislashed_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
+	omnislashed_bt.set_buff_tooltip(tr("Q9VE"))
 	omnislashed_bt.add_event_on_damaged(omnislashed_bt_on_damaged)
 
 	mirror_image_pt = ProjectileType.create_interpolate("res://src/projectiles/projectile_visuals/omnislasher_mirror_image.tscn", 1000.0, self)

@@ -20,7 +20,7 @@ func tower_init():
 
 	liquid_ice_bt = BuffType.new("liquid_ice_bt", -1, 0, false, self)
 	liquid_ice_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
-	liquid_ice_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
+	liquid_ice_bt.set_buff_tooltip(tr("MRU0"))
 
 
 func on_damage(event: Event):

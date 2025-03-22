@@ -32,7 +32,7 @@ func tower_init():
 	roots_bt = BuffType.new("roots_bt", 0, 0, false, self)
 	roots_bt.set_buff_icon("res://resources/icons/generic_icons/root_tip.tres")
 	roots_bt.set_buff_modifier(mod)
-	roots_bt.set_buff_tooltip("Forest Roots\nReduces movement speed.")
+	roots_bt.set_buff_tooltip(tr("FDSR"))
 
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 

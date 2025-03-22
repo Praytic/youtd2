@@ -17,7 +17,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
 	charge_bt.set_buff_modifier(mod)
 	charge_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
-	charge_bt.set_buff_tooltip("Charge\nIncreases attack speed.")
+	charge_bt.set_buff_tooltip(tr("NJH8"))
 	charge_bt.add_periodic_event(charge_bt_periodic, 1.0)
 
 

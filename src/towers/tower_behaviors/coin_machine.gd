@@ -22,7 +22,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty_gain, MOD_BOUNTY_GAIN_ADD)
 	golden_bt.set_buff_modifier(mod)
 	golden_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
-	golden_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
+	golden_bt.set_buff_tooltip(tr("W9ET"))
 
 
 func on_autocast(event: Event):

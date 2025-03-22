@@ -25,7 +25,7 @@ func tower_init():
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	phazed_bt.set_buff_modifier(iron_mod)
 	phazed_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
-	phazed_bt.set_buff_tooltip("Phazed\nIncreases item chance and item quality.")
+	phazed_bt.set_buff_tooltip(tr("TILM"))
 
 
 func on_damage(event: Event):

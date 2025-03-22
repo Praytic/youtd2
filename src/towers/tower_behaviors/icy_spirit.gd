@@ -37,7 +37,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", NOVA_SLOW_DURATION, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_tooltip("Nova Storm\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("KHEG"))
 
 
 func on_attack(_event: Event):

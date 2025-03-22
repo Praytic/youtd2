@@ -32,8 +32,8 @@ func tower_init():
 	cripple_bt.set_buff_modifier(cripple)
 	banish_bt.set_buff_modifier(banish)
 
-	cripple_bt.set_buff_tooltip("Cripple\nReduces attack speed.")
-	banish_bt.set_buff_tooltip("Banish\nIncreases spell damage taken.")
+	cripple_bt.set_buff_tooltip(tr("ANC7"))
+	banish_bt.set_buff_tooltip(tr("BRYE"))
 
 
 func on_attack(event: Event):

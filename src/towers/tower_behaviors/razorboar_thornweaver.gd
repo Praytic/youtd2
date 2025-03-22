@@ -32,7 +32,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	thorns_bt = BuffType.new("thorns_bt", QUILLSPRAY_DEBUFF_DURATION, 0, false, self)
 	thorns_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
-	thorns_bt.set_buff_tooltip("Thorns\nIncreases attack damage taken when hit by Thornspray.")
+	thorns_bt.set_buff_tooltip(tr("F7TS"))
 
 	thornspray_pt = ProjectileType.create("res://src/projectiles/projectile_visuals/quillspray_projectile.tscn", 2, 1300, self)
 	thornspray_pt.enable_homing(on_projectile_hit, 0)

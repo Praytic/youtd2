@@ -28,7 +28,7 @@ func tower_init():
 	toxic_bt = BuffType.new("toxic_bt", 10, 0, false, self)
 	toxic_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	toxic_bt.add_periodic_event(D1000_Toxic_Damage, 1)
-	toxic_bt.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
+	toxic_bt.set_buff_tooltip(tr("JMRY"))
 
 
 func on_attack(event: Event):

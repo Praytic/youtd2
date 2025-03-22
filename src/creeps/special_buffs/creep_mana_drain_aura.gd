@@ -14,6 +14,6 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, -2.0, 0.0)
 	slow_aura_effect.set_buff_modifier(modifier)
-	slow_aura_effect.set_buff_tooltip("Drain Gang\nDrains mana and reduces mana regeneration.")
+	slow_aura_effect.set_buff_tooltip(tr("RTAD"))
 
 	add_aura(105, self)

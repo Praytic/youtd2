@@ -23,7 +23,7 @@ func tower_init():
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_periodic_event(aura_bt_periodic, 5.0)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
-	aura_bt.set_buff_tooltip("Flames of the Forge\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	aura_bt.set_buff_tooltip(tr("C1M6"))
 
 	intense_heat_bt = BuffType.new("intense_heat_bt", 4, 0, true, self)
 	var intense_heat_bt_mod: Modifier = Modifier.new()
@@ -31,12 +31,12 @@ func tower_init():
 	intense_heat_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
 	intense_heat_bt.set_buff_modifier(intense_heat_bt_mod)
 	intense_heat_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
-	intense_heat_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
+	intense_heat_bt.set_buff_tooltip(tr("TTEZ"))
 
 	lingering_flames_bt = BuffType.new("lingering_flames_bt", 10, 0, false, self)
 	lingering_flames_bt.add_periodic_event(lingering_flames_bt_periodic, 1.0)
 	lingering_flames_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
-	lingering_flames_bt.set_buff_tooltip("Lingering Flames\nDeals damage over time.")
+	lingering_flames_bt.set_buff_tooltip(tr("G9ZF"))
 
 
 func on_attack(_event: Event):

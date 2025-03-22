@@ -32,7 +32,7 @@ func tower_init():
 	roar_bt.set_buff_icon("res://resources/icons/generic_icons/wolf_howl.tres")
 	roar_bt.set_buff_modifier(mod)
 
-	roar_bt.set_buff_tooltip("Roar\nIncreases attack damage.")
+	roar_bt.set_buff_tooltip(tr("HWW3"))
 
 
 # NOTE: need to skip stacking for buffs with stronger active

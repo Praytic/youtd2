@@ -33,7 +33,7 @@ func ignite_bt_periodic(event: Event):
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", IGNITE_DURATION, IGNITE_DURATION_ADD, false, self)
 	ignite_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
-	ignite_bt.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
+	ignite_bt.set_buff_tooltip(tr("WGVN"))
 	ignite_bt.add_periodic_event(ignite_bt_periodic, IGNITE_DAMAGE_PERIOD)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0.0)

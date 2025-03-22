@@ -55,14 +55,14 @@ func tower_init():
 	versatile_bt_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 1.0)
 	versatile_bt.set_buff_modifier(versatile_bt_mod)
 	versatile_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
-	versatile_bt.set_buff_tooltip("Versatile\nIncreases DPS.")
+	versatile_bt.set_buff_tooltip(tr("A5KK"))
 
 	slow_bt = BuffType.new("slow_bt", 3.0, 0, false, self)
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
-	slow_bt.set_buff_tooltip("Blue Drake Breath\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("FZBS"))
 
 	blue_drake_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	blue_drake_pt.disable_explode_on_hit()

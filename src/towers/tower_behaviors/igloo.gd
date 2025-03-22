@@ -34,7 +34,7 @@ func tower_init():
 	extreme_cold_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	extreme_cold_bt.set_buff_modifier(modifier)
 	extreme_cold_bt.add_event_on_expire(boekie_igloo_end)
-	extreme_cold_bt.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")
+	extreme_cold_bt.set_buff_tooltip(tr("V5N2"))
 
 	stun_bt = CbStun.new("igloo_stun", 0, 0, false, self)
 

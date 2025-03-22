@@ -52,10 +52,10 @@ func tower_init():
 	drain_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
 	shield_bt.set_buff_icon("res://resources/icons/generic_icons/turtle_shell.tres")
 
-	zeal_bt.set_buff_tooltip("Zeal\nIncreases attack speed.")
-	wound_bt.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")
-	drain_bt.set_buff_tooltip("Zeal Drain\nDecreases attack speed.")
-	shield_bt.set_buff_tooltip("Lightning Shield\nReduces debuff duration.")
+	zeal_bt.set_buff_tooltip(tr("Q8Y1"))
+	wound_bt.set_buff_tooltip(tr("G2AM"))
+	drain_bt.set_buff_tooltip(tr("X4ZO"))
+	shield_bt.set_buff_tooltip(tr("XI2Z"))
 
 	shield_bt.add_event_on_cleanup(shield_bt_cleanup)
 

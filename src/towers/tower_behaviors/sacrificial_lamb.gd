@@ -50,26 +50,26 @@ func tower_init():
 	dave_blood_target.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
 	bloodspill_boost_bt.set_buff_modifier(dave_blood_target)
 	bloodspill_boost_bt.set_buff_icon("res://resources/icons/generic_icons/sprint.tres")
-	bloodspill_boost_bt.set_buff_tooltip("Blood Spill Boost\nIncreases attack speed.")
+	bloodspill_boost_bt.set_buff_tooltip(tr("YX3K"))
 
 	bloodspill_fatigue_bt = BuffType.new("bloodspill_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_blood_altar: Modifier = Modifier.new()
 	dave_blood_altar.add_modification(Modification.Type.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
 	bloodspill_fatigue_bt.set_buff_modifier(dave_blood_altar)
 	bloodspill_fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/bat_mask.tres")
-	bloodspill_fatigue_bt.set_buff_tooltip("Blood Spill Fatigue\nReduces attack damage by 100%.")
+	bloodspill_fatigue_bt.set_buff_tooltip(tr("OOCC"))
 
 	sacrifice_boost_bt = BuffType.new("sacrifice_boost_bt", BUFF_DURATION, 0, true, self)
 	sacrifice_boost_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	sacrifice_boost_bt.add_event_on_cleanup(dave_sacrifice_target_on_cleanup)
-	sacrifice_boost_bt.set_buff_tooltip("Sacrifice Boost\nIncreases DPS.")
+	sacrifice_boost_bt.set_buff_tooltip(tr("N984"))
 
 	sacrifice_fatigue_bt = BuffType.new("sacrifice_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_sacrifice_altar: Modifier = Modifier.new()
 	dave_sacrifice_altar.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
 	sacrifice_fatigue_bt.set_buff_modifier(dave_sacrifice_altar)
 	sacrifice_fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
-	sacrifice_fatigue_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
+	sacrifice_fatigue_bt.set_buff_tooltip(tr("LW5F"))
 
 
 func on_attack(_event: Event):

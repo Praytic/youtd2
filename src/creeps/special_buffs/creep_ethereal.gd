@@ -17,7 +17,7 @@ func _init(parent: Node):
 	ethereal_active_buff.add_event_on_cleanup(on_cleanup)
 	ethereal_active_buff.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	ethereal_active_buff.set_buff_icon_color(Color.CYAN)
-	ethereal_active_buff.set_buff_tooltip("Ethereal\nImmune against attack damage but takes extra Arcane attack damage and spell damage.")
+	ethereal_active_buff.set_buff_tooltip(tr("W31K"))
 
 	add_periodic_event(on_periodic, ETHEREAL_PERIOD)
 

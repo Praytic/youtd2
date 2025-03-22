@@ -25,7 +25,7 @@ func tower_init():
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty, _stats.mod_bounty_add)
 	aura_bt.set_buff_modifier(bounty_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
-	aura_bt.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
+	aura_bt.set_buff_tooltip(tr("KAMW"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Gold Plundered")

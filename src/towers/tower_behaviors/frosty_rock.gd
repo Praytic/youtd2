@@ -34,7 +34,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Glacial Wrath\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("US8A"))
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
 	slow_bt.set_buff_modifier(slow_bt_mod)

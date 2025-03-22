@@ -22,18 +22,18 @@ func tower_init():
 	figher_totem_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
 	fighter_totem_bt.set_buff_modifier(figher_totem_bt_mod)
 	fighter_totem_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
-	fighter_totem_bt.set_buff_tooltip("Fighter Totem\nIncreases attack damage, crit chance and crit damage.")
+	fighter_totem_bt.set_buff_tooltip(tr("VAVG"))
 
 	shamanic_totem_bt = BuffType.new("shamanic_totem_bt", 5, 0.2, true, self)
 	var shamanic_totem_bt_mod: Modifier = Modifier.new()
 	shamanic_totem_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
 	shamanic_totem_bt.set_buff_modifier(shamanic_totem_bt_mod)
 	shamanic_totem_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
-	shamanic_totem_bt.set_buff_tooltip("Shamanic Totem\nIncreases spell damage.")
+	shamanic_totem_bt.set_buff_tooltip(tr("QK8O"))
 
 	demonic_fire_bt = BuffType.new("demonic_fire_bt", 5, 0.2, false, self)
 	demonic_fire_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
-	demonic_fire_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
+	demonic_fire_bt.set_buff_tooltip(tr("L44U"))
 	demonic_fire_bt.add_event_on_damaged(demonic_fire_bt_on_damaged)
 
 

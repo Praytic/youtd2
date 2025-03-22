@@ -27,7 +27,7 @@ func tower_init():
 	rend_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")
 	rend_bt.add_periodic_event(drol_tentacleDamage, 1)
 	rend_bt.set_buff_modifier(m)
-	rend_bt.set_buff_tooltip("Rend\nDeals spell damage over time and increases spell damage taken.")
+	rend_bt.set_buff_tooltip(tr("OH6K"))
 
 
 func drol_tentacleDamage(event: Event):

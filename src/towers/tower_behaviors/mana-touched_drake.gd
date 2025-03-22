@@ -44,7 +44,7 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/moebius_trefoil.tres")
 	aura_bt.add_event_on_attack(drake_aura_manaburn)
-	aura_bt.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
+	aura_bt.set_buff_tooltip(tr("Z3II"))
 
 
 func on_damage(event: Event):

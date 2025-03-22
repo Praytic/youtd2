@@ -29,14 +29,14 @@ func tower_init():
 	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
 	alert_bt.set_buff_modifier(alert_mod)
 	alert_bt.set_buff_icon("res://resources/icons/generic_icons/barbute.tres")
-	alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
+	alert_bt.set_buff_tooltip(tr("RILU"))
 
 	trespasser_bt = BuffType.new("trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
 	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 	trespasser_bt.set_buff_modifier(trespasser_mod)
 	trespasser_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
-	trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
+	trespasser_bt.set_buff_tooltip(tr("G6KV"))
 
 
 func on_unit_in_range(event: Event):

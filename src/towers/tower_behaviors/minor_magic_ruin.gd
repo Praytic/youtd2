@@ -26,7 +26,7 @@ func tower_init():
 	illuminate_bt.set_buff_modifier(astral_mod)
 	illuminate_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	
-	illuminate_bt.set_buff_tooltip("Illuminate\nIncreases experience granted.")
+	illuminate_bt.set_buff_tooltip(tr("ODJT"))
 
 
 func on_damage(event: Event):

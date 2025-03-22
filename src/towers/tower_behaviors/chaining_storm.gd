@@ -19,7 +19,7 @@ func tower_init():
 	strong_wind_bt.add_event_on_create(strong_wind_bt_on_create)
 	strong_wind_bt.add_periodic_event(strong_wind_bt_periodic, 1.0)
 	strong_wind_bt.add_event_on_cleanup(strong_wind_bt_on_cleanup)
-	strong_wind_bt.set_buff_tooltip("Strong Wind\nReduces movement speed and deals damage over time.")
+	strong_wind_bt.set_buff_tooltip(tr("M1X0"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Storm Power")

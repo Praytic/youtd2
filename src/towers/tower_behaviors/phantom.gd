@@ -45,7 +45,7 @@ func tower_init():
 	
 	wind_shear_bt.add_event_on_attack(phantom_attack)
 	
-	wind_shear_bt.set_buff_tooltip("Wind Shear\nIncreases attack speed and grants a chance to cast chain of lightning on attack.")
+	wind_shear_bt.set_buff_tooltip(tr("TQVI"))
 
 	chainlightning_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 5.00, self)
 	chainlightning_st.set_source_height(40.0)

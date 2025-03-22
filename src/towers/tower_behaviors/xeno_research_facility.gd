@@ -46,39 +46,39 @@ func tower_init():
 	palandu_xeno_undead_mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
 	undead_bt.set_buff_modifier(palandu_xeno_undead_mod)
 	undead_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	undead_bt.set_buff_tooltip("Xeno Undead Research\nIncreases damage dealt to Undead creeps.")
+	undead_bt.set_buff_tooltip(tr("JRUK"))
 
 	magic_bt = BuffType.new("magic_bt", 1, 0, true, self)
 	var palandu_xeno_magic_mod: Modifier = Modifier.new()
 	palandu_xeno_magic_mod.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.0, 0.001)
 	magic_bt.set_buff_modifier(palandu_xeno_magic_mod)
 	magic_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	magic_bt.set_buff_tooltip("Xeno Magic Research\nIncreases damage dealt to Magic creeps.")
+	magic_bt.set_buff_tooltip(tr("O429"))
 
 	nature_bt = BuffType.new("nature_bt", 1, 0, true, self)
 	var palandu_xeno_nature_mod: Modifier = Modifier.new()
 	palandu_xeno_nature_mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.0, 0.001)
 	nature_bt.set_buff_modifier(palandu_xeno_nature_mod)
 	nature_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	nature_bt.set_buff_tooltip("Xeno Nature Research\nIncreases damage dealt to Nature creeps.")
+	nature_bt.set_buff_tooltip(tr("V3LT"))
 
 	orc_bt = BuffType.new("orc_bt", 1, 0, true, self)
 	var palandu_xeno_orc_mod: Modifier = Modifier.new()
 	palandu_xeno_orc_mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.0, 0.001)
 	orc_bt.set_buff_modifier(palandu_xeno_orc_mod)
 	orc_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	orc_bt.set_buff_tooltip("Xeno Orc Research\nIncreases damage dealt to Orc creeps.")
+	orc_bt.set_buff_tooltip(tr("BZQR"))
 
 	humanoid_bt = BuffType.new("humanoid_bt", 1, 0, true, self)
 	var palandu_xeno_humanoid_mod: Modifier = Modifier.new()
 	palandu_xeno_humanoid_mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.0, 0.001)
 	humanoid_bt.set_buff_modifier(palandu_xeno_humanoid_mod)
 	humanoid_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	humanoid_bt.set_buff_tooltip("Xeno Humanoid Research\nIncreases damage dealt to Humanoid creeps.")
+	humanoid_bt.set_buff_tooltip(tr("UELS"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
-	aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
+	aura_bt.set_buff_tooltip(tr("QS5Q"))
 
 
 func on_attack(event: Event):

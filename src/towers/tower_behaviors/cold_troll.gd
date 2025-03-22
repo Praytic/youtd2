@@ -52,7 +52,7 @@ func tower_init():
 	slow_bt.set_buff_modifier(mod2)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 
-	slow_bt.set_buff_tooltip("Blizzard\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("UPAM"))
 
 	stun_bt = CbStun.new("stun_bt", _stats.stun_duration, 0, false, self)
 

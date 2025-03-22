@@ -47,7 +47,7 @@ func tower_init():
 	panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	panic_bt.set_buff_modifier(panic_bt_mod)
 	panic_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
-	panic_bt.set_buff_tooltip("Panic\nReduces armor and movement speed.")
+	panic_bt.set_buff_tooltip(tr("EC2N"))
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")

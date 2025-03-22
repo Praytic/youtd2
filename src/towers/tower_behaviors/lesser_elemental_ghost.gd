@@ -30,7 +30,7 @@ func tower_init():
 	wrath_bt = BuffType.new("wrath_bt", BUFF_DURATION, BUFF_DURATION_ADD, true, self)
 	wrath_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	wrath_bt.set_buff_modifier(modifier)
-	wrath_bt.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
+	wrath_bt.set_buff_tooltip(tr("ANUA"))
 
 
 func on_attack(_event: Event):

@@ -25,7 +25,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, _stats.slow_duration_add, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_tooltip("Soul Chill\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("NIT5"))
 
 
 func on_autocast(event: Event):

@@ -34,11 +34,11 @@ func _ready():
 	var builder_name: String = BuilderProperties.get_display_name(_id)
 
 	if _tower_buff != null:
-		_tower_buff.set_buff_tooltip("Buff from builder %s" % builder_name)
+		_tower_buff.set_buff_tooltip("DEBUG Buff from builder %s" % builder_name)
 		_tower_buff.set_hidden()
 	
 	if _creep_buff != null:
-		_creep_buff.set_buff_tooltip("Buff from builder %s" % builder_name)
+		_creep_buff.set_buff_tooltip("DEBUG Buff from builder %s" % builder_name)
 		_creep_buff.set_hidden()
 
 

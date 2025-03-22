@@ -26,7 +26,7 @@ func tower_init():
 	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
 	electrify_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
-	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
+	electrify_bt.set_buff_tooltip(tr("CO3N"))
 
 	multiboard = MultiboardValues.new(3)
 	multiboard.set_key(0, "Spell Damage Bonus")
