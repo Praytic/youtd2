@@ -7,6 +7,9 @@ extends BuffType
 # range of another unit with magical sight, then the creep
 # will stay visible.
 
+# NOTE: aura definition was removed because invisiblity
+# mechanic was disabled
+
 var magical_sight_debuff: BuffType
 
 func _init(type: String, radius: float, parent: Node):
@@ -20,22 +23,6 @@ func _init(type: String, radius: float, parent: Node):
 	magical_sight_debuff.add_event_on_cleanup(on_effect_cleanup)
 	
 	magical_sight_debuff.set_buff_tooltip("Seen\nDispells invisibility.")
-
-	var aura_type: AuraType = AuraType.new()
-	aura_type.aura_range = radius
-	aura_type.target_type = TargetType.new(TargetType.CREEPS)
-	aura_type.target_self = false
-	aura_type.level = 0
-	aura_type.level_add = 0
-	aura_type.aura_effect = magical_sight_debuff
-
-#	NOTE: normally, aura's do not affect invisible units, so
-#	to be able to make invisible units visible using an
-#	aura, we need to force the aura to affect invisible
-#	units.
-	aura_type._include_invisible = true
-
-	add_aura(aura_type)
 
 
 func on_effect_create(event: Event):

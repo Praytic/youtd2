@@ -87,7 +87,7 @@ func aura_bt_on_spell_casted(event: Event):
 #	NOTE: in original script it was 125 instead of 5 because
 #	original API get_game_time() returns seconds multiplied
 #	by 25. Youtd2 get_game_time() returns seconds.
-	var can_proc: bool = last_proc_time + 5 < Utils.get_time() && autocast.get_manacost() > 0
+	var can_proc: bool = last_proc_time + 5 < Utils.get_time() && autocast.get_mana_cost() > 0
 
 	if !can_proc:
 		return

@@ -81,6 +81,12 @@ func get_all_specials_list() -> Array:
 	return _properties.keys()
 
 
+func get_name_english(special: int) -> String:
+	var string: String = _get_property(special, CsvProperty.NAME_ENGLISH)
+
+	return string
+
+
 func get_special_name(special: int) -> String:
 	var string_text_id: String = _get_property(special, CsvProperty.NAME)
 	var string: String = tr(string_text_id)
@@ -245,7 +251,7 @@ func _find_flock_id() -> int:
 	var special_list: Array = WaveSpecialProperties.get_all_specials_list()
 
 	for special in special_list:
-		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var special_name: String = WaveSpecialProperties.get_name_english(special)
 
 		if special_name == "Flock":
 			flock_id = special

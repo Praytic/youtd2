@@ -579,8 +579,8 @@ func set_special_list(special_list: Array[int]):
 	_special_list = special_list
 
 
-func get_ability_info_list() -> Array[AbilityInfo]:
-	var list: Array[AbilityInfo] = []
+func get_ability_button_data_list() -> Array[AbilityButton.Data]:
+	var list: Array[AbilityButton.Data] = []
 
 	var armor_type: ArmorType.enm = get_armor_type()
 	var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
@@ -591,11 +591,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 	+ "Damage from:\n" \
 	+ " \n" \
 	+ "%s\n" % armor_type_damage_taken
-	var armor_type_ability: AbilityInfo = AbilityInfo.new()
-	armor_type_ability.name = "[color=GOLD]%s[/color] armor" % armor_type_name
+	var armor_type_ability: AbilityButton.Data = AbilityButton.Data.new()
+	armor_type_ability.ability_name = "%s armor" % armor_type_name
 	armor_type_ability.icon = "res://resources/icons/shields/shield_green.tres"
 	armor_type_ability.description_long = armor_type_description
-	armor_type_ability.description_short = armor_type_description
 	list.append(armor_type_ability)
 
 	for special in _special_list:
@@ -603,11 +602,10 @@ func get_ability_info_list() -> Array[AbilityInfo]:
 		var special_description: String = WaveSpecialProperties.get_description(special)
 		var special_icon: String = WaveSpecialProperties.get_icon_path(special)
 
-		var ability: AbilityInfo = AbilityInfo.new()
-		ability.name = special_name
+		var ability: AbilityButton.Data = AbilityButton.Data.new()
+		ability.ability_name = special_name
 		ability.icon = special_icon
 		ability.description_long = special_description
-		ability.description_short = special_description
 		list.append(ability)
 
 	return list

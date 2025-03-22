@@ -123,8 +123,8 @@ func get_uid() -> int:
 	return _uid
 
 
-func add_aura(aura: AuraType):
-	_aura_carrier_bt.add_aura(aura)
+func add_aura(aura_id: int, object_with_buff_var: Object):
+	_aura_carrier_bt.add_aura(aura_id, object_with_buff_var)
 
 
 # Consume item. Only applicable to items of consumable type.
@@ -152,7 +152,7 @@ func is_visible() -> bool:
 
 
 func set_autocast(autocast: Autocast):
-	autocast._is_item_autocast = true
+	autocast.set_item_owner(self)
 	_autocast = autocast
 	add_child(autocast)
 

@@ -379,8 +379,8 @@ func add_autocast(autocast: Autocast):
 	add_child(autocast)
 
 
-func add_aura(aura_type: AuraType):
-	var aura: Aura = aura_type.make(self)
+func add_aura(aura_id: int, object_with_buff_var: Object):
+	var aura: Aura = Aura.make(aura_id, object_with_buff_var, self)
 	_aura_list.append(aura)
 	add_child(aura)
 

@@ -20,25 +20,7 @@ func _init(parent: Node):
 
 
 func on_create(event: Event):
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "none"
-	autocast.description_long = "none"
-	autocast.description_short = "none"
-	autocast.icon = "none"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 6
-	autocast.is_extended = false
-	autocast.mana_cost = 30
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 0
-	autocast.handler = on_autocast
-
+	var autocast: Autocast = Autocast.make(171, self)
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	creep.add_autocast(autocast)

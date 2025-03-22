@@ -204,14 +204,21 @@ func _connect_to_autocast_button(button: AutocastButton):
 
 
 func _setup_tower_ability_buttons():	
-	var ability_info_list: Array[AbilityInfo] = _tower.get_ability_info_list_for_buttons()
+	var button_data_list: Array[AbilityButton.Data] = _tower.get_ability_button_data_list()
 	
-	for ability_info in ability_info_list:
-		var button: AbilityButton = AbilityButton.make(ability_info)
+	for button_data in button_data_list:
+		var button: AbilityButton = AbilityButton.make_from_data(button_data)
 		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
 	var tower_id: int = _tower.get_id()
+	
+	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
+	for ability_id in ability_id_list:
+		var button: AbilityButton = AbilityButton.make_from_ability_id(ability_id)
+		_ability_grid.add_child(button)
+		_connect_to_ability_button(button)
+
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
 		var aura_is_hidden: bool = AuraProperties.get_is_hidden(aura_id)
@@ -244,10 +251,10 @@ func _setup_tower_ability_buttons():
 
 
 func _setup_creep_ability_buttons():
-	var ability_info_list: Array[AbilityInfo] = _creep.get_ability_info_list()
+	var button_data_list: Array[AbilityButton.Data] = _creep.get_ability_button_data_list()
 	
-	for ability_info in ability_info_list:
-		var button: AbilityButton = AbilityButton.make(ability_info)
+	for button_data in button_data_list:
+		var button: AbilityButton = AbilityButton.make_from_data(button_data)
 		_ability_grid.add_child(button)
 		_connect_to_ability_button(button)
 
@@ -314,7 +321,7 @@ func _set_autocast_range_visible(button: AutocastButton, value: bool):
 		return
 
 	var autocast: Autocast = button.get_autocast()
-	var autocast_name_english: String = autocast.name_english
+	var autocast_name_english: String = autocast.get_name_english()
 	_tower.set_range_indicator_visible(autocast_name_english, value)
 
 

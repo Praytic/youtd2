@@ -9,37 +9,12 @@ func _init(parent: Node):
 
 	silence_bt = CbSilence.new("silence_bt", 0, 0, false, self)
 
-	add_event_on_create(on_create)
+	add_periodic_event(on_periodic, 5.0)
 
 
-func on_create(event: Event):
-	var autocast: Autocast = Autocast.make()
-	autocast.title = "none"
-	autocast.description_long = "none"
-	autocast.description_short = "none"
-	autocast.icon = "none"
-	autocast.caster_art = ""
-	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
-	autocast.cast_range = 1200
-	autocast.target_self = false
-	autocast.target_art = ""
-	autocast.cooldown = 5
-	autocast.is_extended = false
-	autocast.mana_cost = 20
-	autocast.buff_type = null
-	autocast.buff_target_type = null
-	autocast.auto_range = 0
-	autocast.handler = on_autocast
-
+func on_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
-	creep.add_autocast(autocast)
-
-
-func on_autocast(event: Event):
-	var autocast: Autocast = event.get_autocast_type()
-	var creep: Unit = autocast.get_caster()
 
 	var I: Iterate = Iterate.over_units_in_range_of_caster(creep, TargetType.new(TargetType.TOWERS), 1100.0)
 
@@ -51,20 +26,22 @@ func on_autocast(event: Event):
 		if tower == null:
 			break
 
-		var creep_mana_before: float = creep.get_mana()
-
 		if zap_count >= 3:
 			break
 
-		var tower_mana_before: float = tower.get_mana()
-		var stolen_mana: float = tower_mana_before * 0.3
+		if creep.get_mana() < 50:
+			break
 
-		var creep_mana_after: float = creep_mana_before + stolen_mana
-		creep.set_mana(creep_mana_after)
+		creep.subtract_mana(50, true)
 
-		var tower_mana_after: float = tower_mana_before - stolen_mana
-		tower.set_mana(tower_mana_after)
+		var stolen_mana: float = tower.get_overall_mana() * 0.3
+		creep.add_mana(stolen_mana)
+		tower.subtract_mana(stolen_mana, true)
 
 		silence_bt.apply_only_timed(creep, tower, 5.0) 
+
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, creep, tower)
+		lightning.modulate = Color.PURPLE
+		lightning.set_lifetime(0.2)
 
 		zap_count += 1

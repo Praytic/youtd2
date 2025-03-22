@@ -4,6 +4,13 @@ class_name AbilityButton extends Button
 # Button for tower abilities. Note that this is for not-active abilities. Active abilities use AutocastButton.
 
 
+class Data:
+	var name_english: String = "PLACEHOLDER name"
+	var ability_name: String = "PLACEHOLDER name"
+	var icon: String = "PLACEHOLDER icon"
+	var description_long: String = "PLACEHOLDER description_long"
+
+
 const FALLBACK_ICON: String = "res://resources/icons/mechanical/compass.tres"
 
 
@@ -42,15 +49,29 @@ func get_ability_name_english() -> String:
 ###       Static      ###
 #########################
 
-static func make(ability_info: AbilityInfo) -> AbilityButton:
+static func make_from_data(data: AbilityButton.Data) -> AbilityButton:
 	var button: AbilityButton = Preloads.ability_button_scene.instantiate()
-	button._icon_path = ability_info.icon
+	button._icon_path = data.icon
 	
-	var description: String = ability_info.description_long
+	var ability_name: String = data.ability_name
+	var description: String = data.description_long
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
-	button._tooltip_text = "[color=GOLD]%s[/color]\n \n%s" % [ability_info.name, description_colored]
+	button._tooltip_text = "[color=GOLD]%s[/color]\n \n%s" % [ability_name, description_colored]
 
-	button._ability_name_english = ability_info.name_english
+	button._ability_name_english = data.name_english
+
+	return button
+
+
+static func make_from_ability_id(ability_id: int) -> AbilityButton:
+	var button: AbilityButton = Preloads.ability_button_scene.instantiate()
+	
+	button._icon_path = AbilityProperties.get_icon_path(ability_id)
+
+	var ability_name: String = AbilityProperties.get_ability_name(ability_id)
+	var description: String = AbilityProperties.get_description_long(ability_id)
+	description = RichTexts.add_color_to_numbers(description)
+	button._tooltip_text = "[color=GOLD]%s[/color]\n \n%s" % [ability_name, description]
 
 	return button
 

@@ -2,12 +2,21 @@ class_name Aura
 extends Node2D
 
 # Aura applies an aura effect(buff) to targets in range of
-# caster. Should be created using AuraType.
+# caster.
 
 # NOTE: it is important to use get_units_in_range() for all
 # aura range checking code. get_units_in_range() does the
 # special range extension for towers - other range/distance
 # functions don't.
+
+# NOTE: level and level_add parameters define how aura level
+# scales with tower level.
+# aura level = level + level_add * tower_level
+# - Setting level to 0 and level_add to 1 will make aura
+#   level the same as tower level.
+# - Setting level to 100 and level_add to 2 will make aura
+#   level start at 200 and incrase by 2 for each tower
+#   level.
 
 var _aura_range: float = 10.0
 var _target_type: TargetType = null
@@ -193,3 +202,26 @@ func _on_caster_level_up(_level_increased: bool):
 
 		if need_to_level_down:
 			_change_buff_level_to_this_aura_level(active_buff)
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(aura_id: int, object_with_buff_var: Object, caster: Unit) -> Aura:
+	var aura: Aura = Preloads.aura_scene.instantiate()
+
+	aura._aura_range = AuraProperties.get_aura_range(aura_id)
+	aura._target_type = AuraProperties.get_target_type(aura_id)
+	aura._target_self = AuraProperties.get_target_self(aura_id)
+	aura._level = AuraProperties.get_level(aura_id)
+	aura._level_add = AuraProperties.get_level_add(aura_id)
+	aura._caster = caster
+
+	var buff_type_string: String = AuraProperties.get_buff_type(aura_id)
+	var buff_type: BuffType = object_with_buff_var.get(buff_type_string)
+	if buff_type == null:
+		push_error("Failed to find buff type for aura. Buff type = %s, aura id = %d" % [buff_type_string, aura_id])
+	aura._aura_effect = buff_type
+	
+	return aura

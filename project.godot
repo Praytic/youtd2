@@ -63,7 +63,6 @@ ItemProperties="*res://src/singletons/properties/item_properties.gd"
 EventBus="*res://src/singletons/event_bus.gd"
 SFX="*res://src/singletons/sfx.gd"
 Messages="*res://src/singletons/messages.gd"
-WaveSpecialProperties="*res://src/singletons/properties/wave_special_properties.gd"
 WaveSpecial="*res://src/singletons/wave_special.gd"
 ItemDropCalc="*res://src/singletons/item_drop_calc.gd"
 Experience="*res://src/singletons/experience.gd"
@@ -96,6 +95,7 @@ MissionTracking="*res://src/singletons/mission_tracking.gd"
 AutocastProperties="*res://src/singletons/properties/autocast_properties.gd"
 AuraProperties="*res://src/singletons/properties/aura_properties.gd"
 AbilityProperties="*res://src/singletons/properties/ability_properties.gd"
+WaveSpecialProperties="*res://src/singletons/properties/wave_special_properties.gd"
 
 [debug]
 
@@ -188,7 +188,7 @@ ctrl={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://data/texts.en.translation")
+locale/translations=PackedStringArray("res://assets/texts/texts.cn.translation", "res://assets/texts/texts.en.translation")
 
 [physics]
 

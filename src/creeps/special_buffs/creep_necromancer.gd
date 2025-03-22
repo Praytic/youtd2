@@ -25,15 +25,7 @@ func _init(parent: Node):
 	necromancer_aura_bt.set_hidden()
 	necromancer_aura_bt.add_event_on_death(necromancer_aura_bt_on_death)
 
-	var aura: AuraType = AuraType.new()
-	aura.level = 0
-	aura.level_add = 0
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.aura_effect = necromancer_aura_bt
-	aura.target_self = false
-	aura.aura_range = 1000
-
-	add_aura(aura)
+	add_aura(106, self)
 
 
 func necromancer_aura_bt_on_death(event: Event):

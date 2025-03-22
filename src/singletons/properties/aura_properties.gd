@@ -95,6 +95,9 @@ func get_target_type(id: int) -> TargetType:
 	return target_type
 
 
+# NOTE: if this value is set to true, the aura won't be
+# shown as an ability icon in tower menu and won't be
+# included in tower tooltip.
 func get_is_hidden(id: int) -> bool:
 	var is_hidden_string: String = _get_property(id, CsvProperty.IS_HIDDEN)
 	var is_hidden: bool = Utils.string_to_bool(is_hidden_string)

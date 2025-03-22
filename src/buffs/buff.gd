@@ -271,8 +271,8 @@ func _upgrade_by_new_buff(new_level: int):
 	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
 
 
-func _add_aura(aura_type: AuraType):
-	var aura: Aura = aura_type.make(get_caster())
+func _add_aura(aura_id: int, object_with_buff_var: Object):
+	var aura: Aura = Aura.make(aura_id, object_with_buff_var, get_caster())
 	add_child(aura)
 
 
