@@ -13,7 +13,7 @@ static func make(target_uid: int, selected_tower_uid: int) -> Action:
 
 static func verify(player: Player, target: Unit, selected_tower: Tower) -> bool:
 	if target == null:
-		Utils.add_ui_error(player, "Invalid target")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_INVALID_TARGET"))
 
 		return false
 
@@ -21,7 +21,7 @@ static func verify(player: Player, target: Unit, selected_tower: Tower) -> bool:
 		var player_match: bool = selected_tower.get_player() == player
 
 		if !player_match:
-			Utils.add_ui_error(player, "You don't own this tower")
+			Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_TOWER"))
 
 			return false
 

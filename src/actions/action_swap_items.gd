@@ -26,7 +26,7 @@ static func execute(action: Dictionary, player: Player):
 
 	var verify_ok: bool = ActionSwapItems.verify(player, item_src, item_dest, src_item_container, dest_item_container)
 	if !verify_ok:
-		Utils.add_ui_error(player, "Failed to swap items.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_SWAP_ITEMS"))
 		
 		return
 
@@ -64,20 +64,20 @@ static func execute(action: Dictionary, player: Player):
 # items doesn't change the amount of items in each container
 static func verify(player: Player, item_src: Item, item_dest: Item, src_container: ItemContainer, dest_container: ItemContainer) -> bool:
 	if item_src == null || item_dest == null || src_container == null || dest_container == null:
-		Utils.add_ui_error(player, "Failed to swap items")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_SWAP_ITEMS"))
 		
 		return false
 
 	var player_match: bool = item_src.get_player() == player && item_dest.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_ITEM"))
 		
 		return false
 
 	var item_exists_in_src_container: bool = src_container.has(item_src)
 	var item_exists_in_dest_container: bool = dest_container.has(item_dest)
 	if !item_exists_in_src_container || !item_exists_in_dest_container:
-		Utils.add_ui_error(player, "Failed to swap items")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_SWAP_ITEMS"))
 
 		return false
 
@@ -85,7 +85,7 @@ static func verify(player: Player, item_src: Item, item_dest: Item, src_containe
 	var dest_trying_to_move_consumable_to_tower: bool = item_dest.is_consumable() && src_container is TowerItemContainer
 
 	if src_trying_to_move_consumable_to_tower || dest_trying_to_move_consumable_to_tower:
-		Utils.add_ui_error(player, "Can't place consumables into towers")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_EQUIP_CONSUMABLES"))
 		
 		return false
 

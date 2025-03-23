@@ -35,19 +35,19 @@ static func execute(action: Dictionary, player: Player):
 
 static func verify(player: Player, item: Item, src_container: ItemContainer) -> bool:
 	if item == null || src_container == null:
-		Utils.add_ui_error(player, "Failed to drop item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_DROP_ITEM"))
 		
 		return false
 
 	var item_exists_in_src_container: bool = src_container.has(item)
 	if !item_exists_in_src_container:
-		Utils.add_ui_error(player, "Failed to drop item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_DROP_ITEM"))
 		
 		return false
 
 	var player_match: bool = item.get_player() == player && src_container.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_ITEM"))
 
 		return false
 

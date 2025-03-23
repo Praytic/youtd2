@@ -13,20 +13,20 @@ static func make(prev_tower_uid: int, new_tower_id: int) -> Action:
 
 static func verify(player: Player, prev_tower: Tower, new_tower_id: int) -> bool:
 	if prev_tower == null:
-		Utils.add_ui_error(player, "Failed to upgrade")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_UPGRADE"))
 
 		return false
 
 	var player_match: bool = prev_tower.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_TOWER"))
 		
 		return false
 
 	var tower_stash: TowerStash = player.get_tower_stash()
 	var tower_exists_in_stash: bool = tower_stash.has_tower(new_tower_id)
 	if !tower_exists_in_stash:
-		Utils.add_ui_error(player, "You don't have this tower in stash")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_HAVE_TOWER_IN_STASH"))
 
 		return false
 
@@ -39,13 +39,13 @@ static func verify(player: Player, prev_tower: Tower, new_tower_id: int) -> bool
 
 	var game_mode_allows_transform: bool = Globals.game_mode_allows_transform()
 	if !game_mode_allows_transform:
-		Utils.add_ui_error(player, "Can't transform in build mode")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_TRANSFORM_IN_BUILD_MODE"))
 
 		return false
 
 	var transform_is_allowed: bool = prev_tower.get_transform_is_allowed()
 	if !transform_is_allowed:
-		Utils.add_ui_error(player, "Can't transform right now")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_TRANSFORM_RIGHT_NOW"))
 
 		return false
 

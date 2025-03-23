@@ -37,32 +37,32 @@ static func execute(action: Dictionary, player: Player):
 # Returns true if can move.
 static func verify(player: Player, item: Item, src_container: ItemContainer, dest_container: ItemContainer, clicked_index: int) -> bool:
 	if item == null || src_container == null || dest_container == null:
-		Utils.add_ui_error(player, "Failed to move item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_MOVE_ITEM"))
 		
 		return false
 
 	var item_player_match: bool = item.get_player() == player
 	if !item_player_match:
-		Utils.add_ui_error(player, "You don't own this item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_ITEM"))
 		
 		return false
 
 	var container_player_match: bool = src_container.get_player() == player && dest_container.get_player() == player
 	if !container_player_match:
-		Utils.add_ui_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_TOWER"))
 		
 		return false
 
 	var item_exists_in_src_container: bool = src_container.has(item)
 	if !item_exists_in_src_container:
-		Utils.add_ui_error(player, "Failed to move item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_MOVE_ITEM"))
 		
 		return false
 
 	var capacity: int = dest_container.get_capacity()
 
 	if clicked_index != -1 && clicked_index >= capacity:
-		Utils.add_ui_error(player, "Invalid slot index")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_INVALID_SLOT_INDEX"))
 
 		return false
 
@@ -71,14 +71,14 @@ static func verify(player: Player, item: Item, src_container: ItemContainer, des
 	var dest_has_space: bool = dest_container.can_add_item(item)
 
 	if !dest_has_space:
-		Utils.add_ui_error(player, "No space for item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NO_SPACE_FOR_ITEM"))
 
 		return false
 
 	var trying_to_move_consumable_to_tower: bool = item.is_consumable() && dest_container is TowerItemContainer
 
 	if trying_to_move_consumable_to_tower:
-		Utils.add_ui_error(player, "Can't place consumables into towers")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_EQUIP_CONSUMABLES"))
 		
 		return false
 

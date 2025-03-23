@@ -16,7 +16,7 @@ static func execute(_action: Dictionary, player: Player):
 	var can_transmute: bool = current_recipe != HoradricCube.Recipe.NONE
 	
 	if !can_transmute:
-		Utils.add_ui_error(player, "Not a valid recipe.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_VALID_RECIPE"))
 
 		return
 
@@ -24,7 +24,7 @@ static func execute(_action: Dictionary, player: Player):
 	var generated_items: bool = !result_item_id_list.is_empty()
 
 	if !generated_items:
-		Utils.add_ui_error(player, "Transmute failed to generate any items. This shouldn't happen.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_TRANSMUTE_FAILED"))
 		
 		return
 

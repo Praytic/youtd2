@@ -292,7 +292,7 @@ func drop_item_by_id(caster: Tower, use_creep_player: bool, item_id: int):
 		
 		var oil_name: String = item.get_display_name()
 		var tower_name: String = autooil_tower.get_display_name()
-		Messages.add_normal(player_for_item, "[color=CYAN]Autooil: applied [color=GOLD]%s[/color] to tower [color=GOLD]%s[/color].[/color]" % [oil_name, tower_name])
+		Messages.add_normal(player_for_item, tr("MESSAGE_AUTOOIL_APPLY").format({OIL_NAME = oil_name, TOWER_NAME = tower_name}))
 
 		return
 	else:
@@ -351,12 +351,12 @@ func _deal_damage_to_portal():
 	var player: Player = get_player()
 	
 	if creep_size == CreepSize.enm.BOSS:
-		Messages.add_normal(player, "[color=ORANGE_RED]Dealt %s damage to a BOSS creep.[/color]" % damage_done_string)
+		Messages.add_normal(player, tr("MESSAGE_DAMAGE_TO_BOSS").format({DAMAGE = damage_done_string}))
 	else:
-		Messages.add_normal(player, "[color=ORANGE_RED]Failed to kill a %s creep.[/color]" % creep_size_string.to_upper())
+		Messages.add_normal(player, tr("MESSAGE_FAILED_TO_KILL").format({CREEP_SIZE = creep_size_string.to_upper()}))
 
 	if damage_to_portal > 0:
-		Messages.add_normal(player, "[color=ORANGE_RED]You lose %s of your lives![/color]" % damage_to_portal_string)
+		Messages.add_normal(player, tr("MESSAGE_LOSE_LIVES").format({LOST_LIVES = damage_to_portal_string}))
 
 #	NOTE: creeps still give partial score if they are not
 #	killed. Ratio depends on creep health.

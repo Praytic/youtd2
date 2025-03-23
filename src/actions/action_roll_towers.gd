@@ -26,14 +26,14 @@ static func verify(player: Player) -> bool:
 			researched_any_elements = true
 	
 	if !researched_any_elements:
-		Utils.add_ui_error(player, "Cannot roll towers yet! You need to research at least one element.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_ROLL_TOWERS"))
 	
 		return false
 
 	var tower_count_for_roll: int = player.get_tower_count_for_starting_roll()
 
 	if tower_count_for_roll <= 0:
-		Utils.add_ui_error(player, "Can't roll anymore.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_ROLLS_MAXED"))
 
 		return false
 

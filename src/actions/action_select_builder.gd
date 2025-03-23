@@ -28,7 +28,7 @@ static func verify(player: Player) -> bool:
 	var builder_already_selected: bool = player.get_builder() != null
 
 	if !builder_already_selected:
-		Utils.add_ui_error(player, "You already selected a builder")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_ALREADY_SELECTED_BUILDER"))
 
 		return false
 

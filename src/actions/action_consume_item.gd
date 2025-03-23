@@ -12,13 +12,13 @@ static func make(item_uid_arg: int) -> Action:
 
 static func verify(player: Player, item: Item) -> bool:
 	if item == null:
-		Utils.add_ui_error(player, "Failed to consume item.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAIL_CONSUME_ITEM"))
 
 		return false
 
 	var player_match: bool = item.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this item")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_ITEM"))
 
 		return false
 

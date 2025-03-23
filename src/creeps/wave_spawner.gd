@@ -134,12 +134,12 @@ func _add_message_about_wave(wave: Wave):
 	var wave_is_bonus: int = Utils.wave_is_bonus(wave_level)
 	var wave_header_text: String
 	if !wave_is_bonus:
-		wave_header_text = "[color=GOLD]=== LEVEL %s ===[/color]" % wave_level
+		wave_header_text = tr("MESSAGE_WAVE_LEVEL").format({LEVEL = wave_level})
 	else:
-		wave_header_text = "[color=GOLD]=== BONUS LEVEL %s ===[/color]" % wave_level
+		wave_header_text = tr("MESSAGE_WAVE_LEVEL_BONUS").format({LEVEL = wave_level})
 
 	Messages.add_normal(_player, wave_header_text)
-	Messages.add_normal(_player, "%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
+	Messages.add_normal(_player, tr("MESSAGE_WAVE_PROPS").format({CREEP_COMBINATION = combination_string, RACE = race_string, ARMOR = armor_string}))
 
 	var special_list: Array[int] = wave.get_specials()
 

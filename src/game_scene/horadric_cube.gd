@@ -199,10 +199,10 @@ static func get_result_item_for_recipe(player: Player, recipe: Recipe, item_list
 	if recipe_is_regular and recipe != Recipe.PRECIPITATE:
 		var luck_message: String
 		match random_bonus_mod:
-			LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_UNLUCKY: luck_message = Utils.tr("MESSAGE_TRANSMUTE_UNLUCKY").format({BONUS_LEVELS = random_bonus_mod})
 			LEVEL_MOD_NORMAL: luck_message = ""
-			LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
-			LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
+			LEVEL_MOD_LUCKY: luck_message =  Utils.tr("MESSAGE_TRANSMUTE_LUCKY").format({BONUS_LEVELS = random_bonus_mod})
+			LEVEL_MOD_SUPER_LUCKY: luck_message = Utils.tr("MESSAGE_TRANSMUTE_SUPER_LUCKY").format({BONUS_LEVELS = random_bonus_mod})
 
 		if !luck_message.is_empty():
 			Messages.add_normal(player, luck_message)

@@ -588,7 +588,7 @@ func get_target_pos() -> Vector2:
 
 func get_target_error_message(target: Unit) -> String:
 	if target == null:
-		return "No target selected"
+		return tr("MESSAGE_NO_TARGET")
 
 	var target_is_in_range: bool = _get_target_is_in_range(target)
 	var target_type_is_valid = _target_type.match(target)
@@ -598,18 +598,18 @@ func get_target_error_message(target: Unit) -> String:
 	var targetting_self_when_forbidden: bool = !target_self && target_is_self
 
 	if !target_is_in_range:
-		return "Target is out of range"
+		return tr("MESSAGE_OUT_OF_RANGE")
 
 	if !target_type_is_valid:
-		return "Not a valid target for this ability"
+		return tr("MESSAGE_TARGET_NOT_VALID")
 
 	if target_is_immune:
-		return "Target is immune"
+		return tr("MESSAGE_TARGET_IMMUNE")
 
 	if targetting_self_when_forbidden:
-		return "Can't cast this ability on self"
+		return tr("MESSAGE_CANT_CAST_ON_SELF")
 
-	return "Target is valid"
+	return tr("MESSAGE_TARGET_IS_VALID")
 
 
 #########################

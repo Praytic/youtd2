@@ -12,20 +12,20 @@ static func make(tower_uid: int) -> Action:
 
 static func verify(player: Player, prev_tower: Tower) -> bool:
 	if prev_tower == null:
-		Utils.add_ui_error(player, "Failed to upgrade")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_UPGRADE_FAILED"))
 
 		return false
 
 	var player_match: bool = prev_tower.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_TOWER"))
 		
 		return false
 
 	var prev_tower_id: int = prev_tower.get_id()
 	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(prev_tower_id)
 	if upgrade_id == -1:
-		Utils.add_ui_error(player, "Failed to find upgrade id")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_UPGRADE_FAILED_NO_ID"))
 
 		return false
 
@@ -37,7 +37,7 @@ static func verify(player: Player, prev_tower: Tower) -> bool:
 
 	var transform_is_allowed: bool = prev_tower.get_transform_is_allowed()
 	if !transform_is_allowed:
-		Utils.add_ui_error(player, "Can't transform right now")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_CANT_TRANSFORM_NOW"))
 
 		return false
 

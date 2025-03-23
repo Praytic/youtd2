@@ -30,7 +30,7 @@ func finish(map: Map):
 	var target_pos: Vector2 = VectorUtils.canvas_to_wc3_2d(target_pos_canvas)
 	var in_range: bool = _autocast.target_pos_is_in_range(target_pos)
 	if !in_range:
-		Utils.add_ui_error(PlayerManager.get_local_player(), "Out of range")
+		Utils.add_ui_error(PlayerManager.get_local_player(), tr("MESSAGE_OUT_OF_RANGE"))
 
 		return
 	
