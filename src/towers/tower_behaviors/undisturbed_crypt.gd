@@ -91,9 +91,9 @@ func periodic(_event: Event):
 		if corpse == null:
 			break
 
-		var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(corpse.get_x(), corpse.get_y()), 500)
+		var creeps_in_range_of_corpse_it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(corpse.get_x(), corpse.get_y()), 500)
 
-		if creeps_in_range.count() > 0:
+		if creeps_in_range_of_corpse_it.count() > 0:
 			target_corpse = corpse
 
 			break
@@ -107,12 +107,12 @@ func periodic(_event: Event):
 	Effect.add_special_effect("res://src/effects/starfall_target.tscn", Vector2(tx, ty))
 	Effect.create_scaled("res://src/effects/blood_splatter.tscn", Vector3(tx, ty, 0), Globals.synced_rng.randf_range(0, 360), 2)
 
-	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(tx, ty), 500)
+	var corpse_explosion_it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), Vector2(tx, ty), 500)
 
 	var buff_level: int = _stats.buff_level + _stats.buff_level_add * tower.get_level()
 
 	while true:
-		var creep: Unit = creeps_in_range.next()
+		var creep: Unit = corpse_explosion_it.next()
 
 		if creep == null:
 			break

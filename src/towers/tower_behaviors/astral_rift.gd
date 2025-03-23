@@ -52,10 +52,10 @@ func on_damage(event: Event):
 	if move_aoe:
 		CombatLog.log_ability(tower, target, "Spacial Rift AoE")
 
-		var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 175 + level)
+		var spacial_rift_aoe_it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 175 + level)
 
 		while true:
-			var next: Unit = it.next()
+			var next: Unit = spacial_rift_aoe_it.next()
 
 			if next == null:
 				break
@@ -68,10 +68,10 @@ func on_damage(event: Event):
 
 	Effect.create_simple("res://src/effects/silence_area.tscn", Vector2(target.get_x(), target.get_y()))
 
-	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
+	var slow_aoe_it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
 
 	while true:
-		var next: Unit = it.next()
+		var next: Unit = slow_aoe_it.next()
 
 		if next == null:
 			break

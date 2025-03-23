@@ -55,7 +55,6 @@ func setup_translation_map_from_csv(csv_path: String, column_list: Array):
 			translation_map_contents += "\"%s\",\"%s\"\n" % [text_id, source_text]
 
 #		Add new line to props csv
-		var modified_csv_line: String 
 		for text_id in text_id_list:
 			modified_csv_contents += "\"%s\"," % text_id
 		modified_csv_contents.trim_suffix(",")
