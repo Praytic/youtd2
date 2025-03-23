@@ -26,8 +26,10 @@ func tower_init():
 	steam_bt.set_buff_tooltip(tr("Z4JU"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Power Level")
-	multiboard.set_key(1, "Towers Powered")
+	var power_level_label: String = tr("MMIX")
+	var towers_powered_label: String = tr("E78H")
+	multiboard.set_key(0, power_level_label)
+	multiboard.set_key(1, towers_powered_label)
 
 
 func on_create(_preceding_tower: Tower):

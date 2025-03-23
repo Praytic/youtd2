@@ -44,8 +44,10 @@ func tower_init():
 	grow_bt.set_buff_tooltip(tr("BK1C"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Growths")
-	multiboard.set_key(1, "Spell Damage")
+	var growth_count_label: String = tr("E1OK")
+	var spell_damage_label: String = tr("ANUM")
+	multiboard.set_key(0, growth_count_label)
+	multiboard.set_key(1, spell_damage_label)
 
 
 func on_create(_preceding: Tower):

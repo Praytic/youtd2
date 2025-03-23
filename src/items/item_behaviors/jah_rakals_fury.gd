@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Attack speed Increase")
+	var attack_speed_increase_label: String = tr("RWPC")
+	multiboard.set_key(0, attack_speed_increase_label)
 
 
 func on_attack(event: Event):

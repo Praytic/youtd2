@@ -28,7 +28,8 @@ func tower_init():
 	spider_pt.disable_explode_on_hit()
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Damage Gained")
+	var damage_gained_label: String = tr("GTNC")
+	multiboard.set_key(0, damage_gained_label)
 
 
 func on_damage(event: Event):

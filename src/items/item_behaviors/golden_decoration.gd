@@ -10,7 +10,8 @@ func load_modifier(modifier: Modifier):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Interest Bonus")
+	var interest_bonus_label: String = tr("Q7IE")
+	multiboard.set_key(0, interest_bonus_label)
 
 
 func on_create():

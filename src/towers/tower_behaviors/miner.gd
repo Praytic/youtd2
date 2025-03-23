@@ -34,8 +34,10 @@ func tower_init():
 	goldrush_bt.set_buff_tooltip(tr("AXB0"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Gold gained")
-	multiboard.set_key(1, "Goldrush bonus")
+	var gold_gained_label: String = tr("EX70")
+	var goldrush_bonus_label: String = tr("RZJV")
+	multiboard.set_key(0, gold_gained_label)
+	multiboard.set_key(1, goldrush_bonus_label)
 
 
 func on_attack(_event: Event):

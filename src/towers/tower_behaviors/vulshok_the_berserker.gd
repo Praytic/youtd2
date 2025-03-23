@@ -27,10 +27,14 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(4)
-	multiboard.set_key(0, "Attacks to crit")
-	multiboard.set_key(1, "Attacks to damage")
-	multiboard.set_key(2, "Attacks to splash")
-	multiboard.set_key(3, "Attacks to grow")
+	var attacks_to_crit_label: String = tr("HZU6")
+	var attacks_to_damage_label: String = tr("NB2A")
+	var attacks_to_splash_label: String = tr("HFOL")
+	var attacks_to_grow_label: String = tr("LBKG")
+	multiboard.set_key(0, attacks_to_crit_label)
+	multiboard.set_key(1, attacks_to_damage_label)
+	multiboard.set_key(2, attacks_to_splash_label)
+	multiboard.set_key(3, attacks_to_grow_label)
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()

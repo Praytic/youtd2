@@ -50,7 +50,8 @@ func tower_init():
 	panic_bt.set_buff_tooltip(tr("EC2N"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Souls")
+	var soul_count_label: String = tr("X8AI")
+	multiboard.set_key(0, soul_count_label)
 
 
 func on_create(_preceding: Tower):

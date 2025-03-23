@@ -33,7 +33,8 @@ func tower_init():
 	slow_bt.set_buff_tooltip(tr("AEHQ"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Strangled Units")
+	var strangled_count_label: String = tr("AFH7")
+	multiboard.set_key(0, strangled_count_label)
 
 
 func on_attack(event: Event):

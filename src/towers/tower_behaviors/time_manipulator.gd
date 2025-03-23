@@ -34,7 +34,8 @@ func tower_init():
 	aura_bt.set_buff_tooltip(tr("WG04"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Exp Exchanged")
+	var exp_exchanged_label: String = tr("MOLD")
+	multiboard.set_key(0, exp_exchanged_label)
 
 
 func on_create(_preceding: Tower):

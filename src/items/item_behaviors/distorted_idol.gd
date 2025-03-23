@@ -11,7 +11,8 @@ func load_modifier(modifier: Modifier):
 func create_multiboard(size: int):
 	multiboard = MultiboardValues.new(size)
 	for i in range(size):
-		multiboard.set_key(i, "Distorted #%s" % i)
+		var distorted_item_label: String = tr("BHLE").format({NUMBER = i})
+		multiboard.set_key(i, distorted_item_label)
 
 func item_init():
 	create_multiboard(1)

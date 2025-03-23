@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Total Gold Awarded")
+	var gold_awarded_label: String = tr("R9SJ")
+	multiboard.set_key(0, gold_awarded_label)
 
 
 func on_attack(event: Event):

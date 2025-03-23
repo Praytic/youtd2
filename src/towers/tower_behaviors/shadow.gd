@@ -35,7 +35,8 @@ func tower_init():
 	lesser_orb_pt.enable_periodic(lesser_orb_pt_periodic, 1.0)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Dark Shroud DPS")
+	var dark_shroud_dps_label: String = tr("BTFP")
+	multiboard.set_key(0, dark_shroud_dps_label)
 
 
 func on_create(_preceding: Tower):

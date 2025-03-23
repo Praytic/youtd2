@@ -22,7 +22,8 @@ func tower_init():
 	strong_wind_bt.set_buff_tooltip(tr("M1X0"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Storm Power")
+	var storm_power_label: String = tr("KPSU")
+	multiboard.set_key(0, storm_power_label)
 
 
 

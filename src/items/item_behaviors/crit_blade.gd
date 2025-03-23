@@ -14,7 +14,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Crit Gained")
+	var crit_gained_label: String = tr("E3XG")
+	multiboard.set_key(0, crit_gained_label)
 
 
 func on_attack(event: Event):

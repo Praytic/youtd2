@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Gold found")
+	var gold_found_label: String = tr("H12F")
+	multiboard.set_key(0, gold_found_label)
 
 
 func on_create():

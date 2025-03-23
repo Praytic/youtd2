@@ -39,7 +39,8 @@ func tower_init():
 	rock_pt.enable_homing(rock_pt_on_hit, 0)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Number of Grows")
+	var grow_count_label: String = tr("D7GE")
+	multiboard.set_key(0, grow_count_label)
 
 
 func on_create(_preceding: Tower):

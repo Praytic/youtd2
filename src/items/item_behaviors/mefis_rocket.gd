@@ -30,7 +30,8 @@ func item_init():
 	rocket_pt.set_event_on_interpolation_finished(rocket_pt_on_hit)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Damage")
+	var damage_label: String = tr("VLPO")
+	multiboard.set_key(0, damage_label)
 
 
 func on_pickup():

@@ -28,7 +28,8 @@ func tower_init():
 	aura_bt.set_buff_tooltip(tr("KAMW"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Gold Plundered")
+	var gold_plundered_label: String = tr("OMXK")
+	multiboard.set_key(0, gold_plundered_label)
 
 
 func on_attack(_event: Event):

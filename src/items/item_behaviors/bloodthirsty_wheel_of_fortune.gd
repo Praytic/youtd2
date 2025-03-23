@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Wheel of Fortune Bonus")
+	var fortune_bonus_label: String = tr("ILG6")
+	multiboard.set_key(0, fortune_bonus_label)
 
 
 func on_create():

@@ -26,7 +26,8 @@ func tower_init():
 	aura_bt.set_buff_tooltip(tr("FOMA"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Stored Damage")
+	var stored_damage_label: String = tr("HXEE")
+	multiboard.set_key(0, stored_damage_label)
 
 
 func on_damage(event: Event):

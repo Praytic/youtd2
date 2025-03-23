@@ -59,7 +59,8 @@ func tower_init():
 	frenzy_bt.set_buff_tooltip(tr("LGWY"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Speed Bonus")
+	var speed_bonus_label: String = tr("U88K")
+	multiboard.set_key(0, speed_bonus_label)
 
 
 func on_create(preceding: Tower):

@@ -63,8 +63,10 @@ func tower_init():
 	speed_pt.enable_homing(speed_pt_on_hit, 0)
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Evolve")
-	multiboard.set_key(1, "Morph level")
+	var evolve_label: String = tr("R92N")
+	var morph_level_label: String = tr("V3M2")
+	multiboard.set_key(0, evolve_label)
+	multiboard.set_key(1, morph_level_label)
 
 
 func on_attack(_event: Event):

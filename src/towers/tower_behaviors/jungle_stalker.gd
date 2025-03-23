@@ -36,7 +36,8 @@ func tower_init():
 	feral_bt.set_buff_tooltip(tr("XZ11"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Damage Bonus")
+	var damage_bonus_label: String = tr("DS1C")
+	multiboard.set_key(0, damage_bonus_label)
 
 
 func on_damage(event: Event):

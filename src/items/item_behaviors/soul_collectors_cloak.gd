@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "DPS Gained")
+	var dps_gained_label: String = tr("HI9K")
+	multiboard.set_key(0, dps_gained_label)
 
 
 func on_create():

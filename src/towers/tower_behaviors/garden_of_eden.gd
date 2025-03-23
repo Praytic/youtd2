@@ -13,7 +13,8 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Lifeforce Stored")
+	var lifeforce_stored_label: String = tr("LZQX")
+	multiboard.set_key(0, lifeforce_stored_label)
 
 
 func on_attack(event: Event):

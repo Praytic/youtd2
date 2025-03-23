@@ -16,7 +16,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Arms Sold$")
+	var arms_sold_label: String = tr("YQK4")
+	multiboard.set_key(0, arms_sold_label)
 
 
 func on_create():

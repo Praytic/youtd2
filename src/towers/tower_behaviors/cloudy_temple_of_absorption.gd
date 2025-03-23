@@ -55,7 +55,8 @@ func tower_init():
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Mana required")
+	var mana_required_label: String = tr("NL9R")
+	multiboard.set_key(0, mana_required_label)
 
 
 func on_autocast_cloud_thunderstorm(_event: Event):

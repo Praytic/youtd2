@@ -24,7 +24,8 @@ func get_tier_stats() -> Dictionary:
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Revenge damage")
+	var revenge_damage_label: String = tr("UUFH")
+	multiboard.set_key(0, revenge_damage_label)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")

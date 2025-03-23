@@ -30,7 +30,8 @@ func update_effect_speed():
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Acceleration")
+	var acceleration_label: String = tr("GPF2")
+	multiboard.set_key(0, acceleration_label)
 
 	stun_bt = CbStun.new("particle_accelerator_stun", 0, 0, false, self)
 

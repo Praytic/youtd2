@@ -52,7 +52,8 @@ func tower_init():
 	missile_stacks_bt.set_buff_tooltip(tr("RK0P"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Spells Harvested")
+	var harvest_count_label: String = tr("X7BJ")
+	multiboard.set_key(0, harvest_count_label)
 
 
 func on_attack(event: Event):

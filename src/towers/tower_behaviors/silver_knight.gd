@@ -19,7 +19,8 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Gold Greed")
+	var gold_greed_damage_label: String = tr("DUIY")
+	multiboard.set_key(0, gold_greed_damage_label)
 
 
 func on_damage(event: Event):

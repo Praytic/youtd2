@@ -42,7 +42,8 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", _stats.stun_duration, 0, false, self)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Wrath stun chance")
+	var stun_chance_label: String = tr("KP18")
+	multiboard.set_key(0, stun_chance_label)
 
 
 func on_damage(event: Event):

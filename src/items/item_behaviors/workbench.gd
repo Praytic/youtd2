@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Workbench")
+	var item_quality_label: String = tr("ZF07")
+	multiboard.set_key(0, item_quality_label)
 
 
 func on_create():

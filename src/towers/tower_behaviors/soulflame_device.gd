@@ -37,7 +37,8 @@ func tower_init():
 	soulflame_pt = ProjectileType.create("path_to_projectile_sprite", 5, 9000, self)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Awaken Cast")
+	var awaken_count_label: String = tr("Q0SH")
+	multiboard.set_key(0, awaken_count_label)
 
 
 func on_damage(event: Event):

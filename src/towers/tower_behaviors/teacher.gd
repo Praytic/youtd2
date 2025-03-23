@@ -71,7 +71,8 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Xp Granted")
+	var xp_granted_label: String = tr("WXGT")
+	multiboard.set_key(0, xp_granted_label)
 
 	green_pt = ProjectileType.create("path_to_projectile_sprite", 20.0, 450.00, self)
 	green_pt.disable_explode_on_hit()

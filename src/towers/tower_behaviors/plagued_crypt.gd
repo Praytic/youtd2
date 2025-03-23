@@ -34,8 +34,10 @@ func tower_init():
 	army_bt.set_buff_tooltip(tr("HDAQ"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Souls Extracted")
-	multiboard.set_key(1, "Infection Rate")
+	var souls_extracted_label: String = tr("E8AJ")
+	var infection_rate_label: String = tr("MIK6")
+	multiboard.set_key(0, souls_extracted_label)
+	multiboard.set_key(1, infection_rate_label)
 
 
 func on_damage(event: Event):

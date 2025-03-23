@@ -35,7 +35,8 @@ func tower_init():
 	wrath_bt.set_buff_tooltip(tr("SCJ8"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Wrath Spelldamage")
+	var wrath_damage_label: String = tr("OEII")
+	multiboard.set_key(0, wrath_damage_label)
 
 
 func on_damage(event: Event):
