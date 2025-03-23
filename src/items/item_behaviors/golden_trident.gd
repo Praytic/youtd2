@@ -21,6 +21,7 @@ func on_attack(event: Event):
 		gold_bonus = gold_bonus * event.get_number_of_crits() * tower.get_base_attack_speed() * tower.get_prop_bounty_received()
 
 		tower.get_player().give_gold(int(gold_bonus), tower, true, true)
+		item.user_real += gold_bonus
 
 
 func on_create():
