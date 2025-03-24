@@ -183,7 +183,7 @@ func update_text():
 		_level_x_at_left.text = "MAX_LVL_REACHED"
 		_level_x_at_right.text = ""
 	else:
-		_level_x_at_left.text = tr("LEVEL_%S_AT") % str(next_level)
+		_level_x_at_left.text = tr("LEVEL_AT_LABEL").format({NEXT_LEVEL = next_level})
 		_level_x_at_right.text = TowerDetails.int_format(exp_for_next_level)
 
 # 	Mana
