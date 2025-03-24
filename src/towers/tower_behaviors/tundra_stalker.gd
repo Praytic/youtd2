@@ -52,14 +52,15 @@ func tower_init():
 	ice_claw_bt.add_periodic_event(drol_f_tundraStalker, 1)
 	ice_claw_bt.add_event_on_cleanup(drol_fade_tundraStalker)
 
-	ice_claw_bt.set_buff_tooltip("Ice Claw\nDeals spell damage over time and reduces movement speed.")
+	ice_claw_bt.set_buff_tooltip(tr("MEE0"))
 
 	frenzy_bt = BuffType.new("frenzy_bt", -1, 0, true, self)
 	frenzy_bt.set_buff_icon("res://resources/icons/generic_icons/alligator_clip.tres")
-	frenzy_bt.set_buff_tooltip("Frenzy\nPermanently increases attack speed.")
+	frenzy_bt.set_buff_tooltip(tr("LGWY"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Speed Bonus")
+	var speed_bonus_label: String = tr("U88K")
+	multiboard.set_key(0, speed_bonus_label)
 
 
 func on_create(preceding: Tower):

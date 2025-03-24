@@ -65,7 +65,7 @@ func tower_init():
 	jolt_bt.add_event_on_create(junction_on_create)
 	jolt_bt.add_event_on_attack(junction_on_damage)
 	jolt_bt.add_event_on_cleanup(junction_on_cleanup)
-	jolt_bt.set_buff_tooltip("Jolt\nIncreases attack speed and deals extra damage when attacking.")
+	jolt_bt.set_buff_tooltip(tr("J0NB"))
 
 
 func on_create(_preceding_tower: Tower):

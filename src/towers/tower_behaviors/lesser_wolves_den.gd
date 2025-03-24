@@ -18,4 +18,4 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed, _stats.mod_attack_speed_add)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
-	aura_bt.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
+	aura_bt.set_buff_tooltip(tr("GGZN"))

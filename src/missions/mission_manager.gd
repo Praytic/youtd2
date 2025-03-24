@@ -121,7 +121,7 @@ func _on_game_win():
 			_hud.set_mission_track_state(mission_id, MissionTrackIndicator.State.COMPLETED)
 
 			MissionStatus.set_mission_is_complete(mission_id, true)
-			Messages.add_normal(null, "Mission was COMPLETED: %s!" % mission_description)
+			Messages.add_normal(null, tr("MESSAGE_MISSION_COMPLETED").format({MISSION_DESCRIPTION = mission_description}))
 			print_verbose("Mission was completed: %s" % mission_description)
 
 

@@ -32,7 +32,7 @@ func init(tower_arg: Tower, preceding_tower: Tower):
 	var triggers_bt: BuffType = BuffType.new("triggers_bt", 0, 0, true, self)
 	triggers_bt.set_hidden()
 	triggers_bt.disable_stacking_behavior()
-	triggers_bt.set_buff_tooltip("Triggers buff for tower")
+	triggers_bt.set_buff_tooltip("DEBUG Triggers buff for tower")
 	load_triggers(triggers_bt)
 	triggers_bt.apply_to_unit_permanent(tower, tower, 0)
 

@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Tombstone Kills")
+	var kill_count_label: String = tr("UICO")
+	multiboard.set_key(0, kill_count_label)
 
 
 func on_attack(event: Event):

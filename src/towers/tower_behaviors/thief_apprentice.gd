@@ -24,7 +24,8 @@ func tower_init():
 	steal_pt.set_event_on_interpolation_finished(steal)
 	
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Gold Stolen")
+	var gold_stolen_label: String = tr("PZL1")
+	multiboard.set_key(0, gold_stolen_label)
 
 
 func on_create(preceding_tower: Tower):

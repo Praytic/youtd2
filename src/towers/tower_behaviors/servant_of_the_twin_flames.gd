@@ -46,14 +46,14 @@ func tower_init():
 	dave_physical_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	attack_bt.set_buff_modifier(dave_physical_mod)
 	attack_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
-	attack_bt.set_buff_tooltip("Attack Discipline\nIncreases crit chance.")
+	attack_bt.set_buff_tooltip(tr("GAL7"))
 
 	spell_bt = BuffType.new("spell_bt", 7, 0, true, self)
 	var dave_spell_mod: Modifier = Modifier.new()
 	dave_spell_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	spell_bt.set_buff_modifier(dave_spell_mod)
 	spell_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
-	spell_bt.set_buff_tooltip("Spell Discipline\nIncreases spell crit chance.")
+	spell_bt.set_buff_tooltip(tr("VKU9"))
 
 	red_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	red_pt.set_event_on_interpolation_finished(red_pt_on_hit)

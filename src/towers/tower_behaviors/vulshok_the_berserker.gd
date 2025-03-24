@@ -27,22 +27,26 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(4)
-	multiboard.set_key(0, "Attacks to crit")
-	multiboard.set_key(1, "Attacks to damage")
-	multiboard.set_key(2, "Attacks to splash")
-	multiboard.set_key(3, "Attacks to grow")
+	var attacks_to_crit_label: String = tr("HZU6")
+	var attacks_to_damage_label: String = tr("NB2A")
+	var attacks_to_splash_label: String = tr("HFOL")
+	var attacks_to_grow_label: String = tr("LBKG")
+	multiboard.set_key(0, attacks_to_crit_label)
+	multiboard.set_key(1, attacks_to_damage_label)
+	multiboard.set_key(2, attacks_to_splash_label)
+	multiboard.set_key(3, attacks_to_grow_label)
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
 	slow_bt.set_buff_modifier(mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Maim\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("GLMC"))
 	slow_bt.add_periodic_event(slow_bt_periodic, 1.0)
 
 	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
 	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
-	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
+	grow_bt.set_buff_tooltip(tr("KQ64"))
 
 
 func on_create(_preceding: Tower):

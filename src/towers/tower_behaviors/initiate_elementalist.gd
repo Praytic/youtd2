@@ -28,7 +28,7 @@ func tower_init():
 	slow_bt = BuffType.new("slow_bt", 0, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)
-	slow_bt.set_buff_tooltip("Slow\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("SZF9"))
 
 
 func on_attack(event: Event):

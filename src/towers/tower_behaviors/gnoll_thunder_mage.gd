@@ -16,7 +16,8 @@ const RECAST_CHANCE: float = 0.25
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Thunder Shock Dmg")
+	var shock_dmg_label: String = tr("IXB0")
+	multiboard.set_key(0, shock_dmg_label)
 
 
 func on_autocast(event: Event):

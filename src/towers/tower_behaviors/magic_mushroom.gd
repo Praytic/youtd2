@@ -29,7 +29,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	fungus_bt = BuffType.new("fungus_bt", 3600, 0, false, self)
 	fungus_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
-	fungus_bt.set_buff_tooltip("Fungus Strike\nIncreases spell damage taken.")
+	fungus_bt.set_buff_tooltip(tr("TFNM"))
 
 	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
 	var drol_mushroom_trance_mod: Modifier = Modifier.new()
@@ -37,15 +37,17 @@ func tower_init():
 	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
 	trance_bt.set_buff_icon("res://resources/icons/generic_icons/beard.tres")
-	trance_bt.set_buff_tooltip("Mystical Trance\nIncreases spell damage and trigger chances.")
+	trance_bt.set_buff_tooltip(tr("PFRX"))
 
 	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
 	grow_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
-	grow_bt.set_buff_tooltip("Grow\nPermanently increases attack damage.")
+	grow_bt.set_buff_tooltip(tr("BK1C"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Growths")
-	multiboard.set_key(1, "Spell Damage")
+	var growth_count_label: String = tr("E1OK")
+	var spell_damage_label: String = tr("ANUM")
+	multiboard.set_key(0, growth_count_label)
+	multiboard.set_key(1, spell_damage_label)
 
 
 func on_create(_preceding: Tower):

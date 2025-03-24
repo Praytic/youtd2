@@ -145,7 +145,7 @@ func vote_ready():
 
 	_is_ready = true
 	var player_name: String = get_player_name_with_color()
-	Messages.add_normal(null, "%s is ready." % player_name)
+	Messages.add_normal(null, tr("MESSAGE_PLAYER_IS_READY").format({PLAYER_NAME = player_name}))
 	voted_ready.emit()
 
 
@@ -619,7 +619,7 @@ func roll_starting_towers():
 	var can_roll_again: bool = _tower_count_for_starting_roll > 0
 
 	if can_roll_again:
-		Messages.add_normal(self, "You have [color=GOLD]%d[/color] rerolls remaining." % _tower_count_for_starting_roll)
+		Messages.add_normal(self, tr("MESSAGE_REROLLS_REMAINING").format({REROLL_COUNT = _tower_count_for_starting_roll}))
 	else:
 		disable_rolling()
 
@@ -643,7 +643,7 @@ func _set_tomes(value):
 
 
 func _add_message_about_rolled_towers(rolled_towers: Array[int]):
-	Messages.add_normal(self, "New towers were added to stash:")
+	Messages.add_normal(self, tr("MESSAGE_NEW_TOWERS"))
 
 #	Sort tower list by element to group messages for same
 #	element together
@@ -701,8 +701,8 @@ func _on_wave_spawner_wave_finished(level: int):
 
 	_builder.apply_wave_finished_effect(self)
 
-	Messages.add_normal(self, "[color=GOLD]=== Level %d completed! ===[/color]" % level)
-	Messages.add_normal(self, "Income: [color=GOLD]%d[/color] upkeep, [color=GOLD]%d[/color] interest." % [upkeep, interest])
+	Messages.add_normal(self, tr("MESSAGE_LEVEL_COMPLETED").format({LEVEL = level}))
+	Messages.add_normal(self, tr("MESSAGE_INCOME").format({UPKEEP = upkeep, INTEREST = interest}))
 
 	var game_mode_is_random: bool = Globals.game_mode_is_random()
 	if game_mode_is_random:
@@ -720,7 +720,7 @@ func _on_wave_spawner_wave_finished(level: int):
 	var too_many_tomes: bool = current_tomes >= Constants.TOMES_WARNING_THRESHOLD
 	var tome_warnings_are_stopped: bool = level >= Constants.WAVE_LEVEL_AFTER_WHICH_TOME_WARNINGS_STOP
 	if too_many_tomes && !tome_warnings_are_stopped:
-		Messages.add_normal(self, "[color=CORNFLOWER_BLUE]You have[/color] [color=GOLD]%d[/color] [color=CORNFLOWER_BLUE]unspent knowledge tomes. Make sure to spend them on researching elements![/color]" % current_tomes)
+		Messages.add_normal(self, tr("MESSAGE_UNSPENT_TOMES").format({TOME_COUNT = current_tomes}))
 
 	wave_finished.emit(level)
 

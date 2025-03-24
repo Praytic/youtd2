@@ -37,4 +37,4 @@ func tower_init():
 	curse_bt = BuffType.new("curse_bt", CURSE_DURATION, CURSE_DURATION_ADD, false, self)
 	curse_bt.set_buff_modifier(m)
 	curse_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
-	curse_bt.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
+	curse_bt.set_buff_tooltip(tr("N9AS"))

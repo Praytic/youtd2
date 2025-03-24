@@ -597,7 +597,7 @@ func _on_player_requested_start_game():
 			local_player_has_towers = true
 
 	if !local_player_has_towers:
-		Utils.add_ui_error(local_player, "You have to build some towers before you can start the game!")
+		Utils.add_ui_error(local_player, tr("MESSAGE_BUILD_TOWERS_BEFORE_START"))
 
 		return
 
@@ -733,7 +733,7 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 	var can_autofill: bool = !autofill_list.is_empty()
 	
 	if !can_autofill:
-		Utils.add_ui_error(local_player, "Not enough items for recipe!")
+		Utils.add_ui_error(local_player, tr("MESSAGE_NOT_ENOUGH_ITEMS_FOR_RECIPE"))
 		
 		return
 
@@ -797,8 +797,8 @@ func _on_player_selected_builder():
 	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
 	var local_player: Player = PlayerManager.get_local_player()
 
-	Messages.add_normal(local_player, "Welcome to You TD 2!")
-	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
+	Messages.add_normal(local_player, tr("MESSAGE_WELCOME_1"))
+	Messages.add_normal(local_player, tr("MESSAGE_WELCOME_2").format({WAVE_COUNT = wave_count, DIFFICULTY = difficulty_string, GAME_MODE = game_mode_string}))
 
 
 func _on_player_voted_ready():
@@ -813,12 +813,12 @@ func _on_player_voted_ready():
 	var all_players_are_ready: bool = not_ready_player_list.is_empty()
 
 	if all_players_are_ready:
-		Messages.add_normal(null, "All players are ready, starting game.")
+		Messages.add_normal(null, tr("MESSAGE_PLAYERS_READY"))
 		_start_game()
 	else:
 		for player in not_ready_player_list:
 			var player_name: String = player.get_player_name_with_color()
-			Messages.add_normal(null, "Waiting for %s to ready up." % player_name)
+			Messages.add_normal(null, tr("MESSAGE_WAITING_FOR_PLAYER").format({PLAYER_NAME = player_name}))
 
 
 func _on_player_right_clicked_autocast(autocast: Autocast):

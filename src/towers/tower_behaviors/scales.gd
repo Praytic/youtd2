@@ -26,12 +26,15 @@ func tower_init():
 	electrify_bt = BuffType.new("electrify_bt", 5, 0, false, self)
 	electrify_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	electrify_bt.add_periodic_event(electrify_bt_periodic, 1.0)
-	electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
+	electrify_bt.set_buff_tooltip(tr("CO3N"))
 
 	multiboard = MultiboardValues.new(3)
-	multiboard.set_key(0, "Spell Damage Bonus")
-	multiboard.set_key(1, "Spell Crit Damage Bonus")
-	multiboard.set_key(2, "Spell Crit Chance Bonus")
+	var spell_damage_bonus_label: String = tr("A9ZA")
+	var spell_crit_damage_bonus_label: String = tr("KPO5")
+	var spell_crit_chance_bonus_label: String = tr("AMJ9")
+	multiboard.set_key(0, spell_damage_bonus_label)
+	multiboard.set_key(1, spell_crit_damage_bonus_label)
+	multiboard.set_key(2, spell_crit_chance_bonus_label)
 
 
 func on_create(_preceding: Tower):

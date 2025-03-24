@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Crit Bonus")
+	var crit_bonus_label: String = tr("YA2C")
+	multiboard.set_key(0, crit_bonus_label)
 
 
 func on_create():

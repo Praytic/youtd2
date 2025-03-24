@@ -33,7 +33,7 @@ func tower_init():
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.vuln, _stats.vuln_add)
 	holy_weak_bt.set_buff_modifier(light_mod)
 	holy_weak_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
-	holy_weak_bt.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
+	holy_weak_bt.set_buff_tooltip(tr("Y0VY"))
 
 
 func on_damage(event: Event):

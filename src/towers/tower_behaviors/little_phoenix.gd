@@ -67,7 +67,7 @@ func tower_init():
 	phoenix_fire_bt.set_buff_modifier(mod)
 	phoenix_fire_bt.add_event_on_cleanup(phoenix_fire_bt_on_cleanup)
 	phoenix_fire_bt.add_event_on_purge(phoenix_fire_bt_on_purge)
-	phoenix_fire_bt.set_buff_tooltip("Phoenixfire\nReduces armor and makes the creep explode when the debuff expires.")
+	phoenix_fire_bt.set_buff_tooltip(tr("C1QL"))
 
 	phoenix_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 800, self)
 	phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)

@@ -25,7 +25,7 @@ func tower_init():
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
 	roar_bt.set_buff_icon("res://resources/icons/generic_icons/wolf_howl.tres")
 	roar_bt.set_buff_modifier(mod)
-	roar_bt.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
+	roar_bt.set_buff_tooltip(tr("XYY8"))
 
 
 # NOTE: need to skip stacking for buffs with higher active

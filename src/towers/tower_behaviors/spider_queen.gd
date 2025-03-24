@@ -21,14 +21,15 @@ func tower_init():
 	parasite_bt.add_periodic_event(parasite_bt_periodic, 1.0)
 	parasite_bt.add_event_on_death(parasite_bt_on_death)
 	parasite_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
-	parasite_bt.set_buff_tooltip("Parasite\nDeals damage over time.")
+	parasite_bt.set_buff_tooltip(tr("GBJV"))
 
 	spider_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 500, self)
 	spider_pt.set_event_on_cleanup(spider_pt_on_cleanup)
 	spider_pt.disable_explode_on_hit()
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Damage Gained")
+	var damage_gained_label: String = tr("GTNC")
+	multiboard.set_key(0, damage_gained_label)
 
 
 func on_damage(event: Event):

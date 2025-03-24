@@ -133,7 +133,7 @@ func tower_init():
 	gift_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	gift_bt.add_event_on_create(gift_bt_on_create)
 	gift_bt.add_event_on_cleanup(gift_bt_on_cleanup)
-	gift_bt.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
+	gift_bt.set_buff_tooltip(tr("I7WD"))
 
 	sprite_pt = ProjectileType.create("res://src/effects/keeper_grove_missile.tscn", 4, 400, self)
 	sprite_pt.enable_homing(sprite_hit, 0)

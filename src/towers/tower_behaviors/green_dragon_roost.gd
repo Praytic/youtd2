@@ -12,4 +12,4 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
-	aura_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
+	aura_bt.set_buff_tooltip(tr("RGO6"))

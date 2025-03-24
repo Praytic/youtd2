@@ -45,7 +45,7 @@ func tower_init():
 	maledict_bt.add_event_on_damaged(maledict_bt_on_damaged)
 	maledict_bt.add_event_on_expire(maledict_bt_on_expire)
 	maledict_bt.add_event_on_purge(maledict_bt_on_purge)
-	maledict_bt.set_buff_tooltip("Maledict\nDeals spell damage on expiry.")
+	maledict_bt.set_buff_tooltip(tr("F1C0"))
 
 	voljin_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)

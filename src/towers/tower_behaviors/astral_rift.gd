@@ -15,14 +15,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", 2, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("DQPN"))
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
 	slow_bt.set_buff_modifier(mod)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/ophiucus.tres")
-	aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
+	aura_bt.set_buff_tooltip(tr("KSQW"))
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
 
 
@@ -52,10 +52,10 @@ func on_damage(event: Event):
 	if move_aoe:
 		CombatLog.log_ability(tower, target, "Spacial Rift AoE")
 
-		var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 175 + level)
+		var spacial_rift_aoe_it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 175 + level)
 
 		while true:
-			var next: Unit = it.next()
+			var next: Unit = spacial_rift_aoe_it.next()
 
 			if next == null:
 				break
@@ -68,10 +68,10 @@ func on_damage(event: Event):
 
 	Effect.create_simple("res://src/effects/silence_area.tscn", Vector2(target.get_x(), target.get_y()))
 
-	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
+	var slow_aoe_it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250 + level)
 
 	while true:
-		var next: Unit = it.next()
+		var next: Unit = slow_aoe_it.next()
 
 		if next == null:
 			break

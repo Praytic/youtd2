@@ -64,9 +64,9 @@ func tower_init():
 	poison_skin_bt = BuffType.create_aura_effect_type("poison_skin_bt", true, self)
 	poison_skin_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_skin_bt.add_event_on_attack(poison_skin_bt_on_attack)
-	poison_skin_bt.set_buff_tooltip("Poisonous Skin\nApplies poison on attack.")
+	poison_skin_bt.set_buff_tooltip(tr("Z9Z7"))
 
 	poison_bt = BuffType.new("poison_bt", POISON_DURATION, 0.0, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	poison_bt.add_periodic_event(poison_bt_periodic, 1.0)
-	poison_bt.set_buff_tooltip("Poison\nDeals damage over time.")
+	poison_bt.set_buff_tooltip(tr("VS62"))

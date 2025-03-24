@@ -32,14 +32,14 @@ func tower_init():
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	stim_bt.set_buff_modifier(boekie_stim_mod)
 	stim_bt.set_buff_icon("res://resources/icons/generic_icons/meat.tres")
-	stim_bt.set_buff_tooltip("Stim\nIncreases attack speed and decreases attack damage.")
+	stim_bt.set_buff_tooltip(tr("SY0C"))
 
 	fragged_bt = BuffType.new("fragged_bt", -1, 0, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	fragged_bt.set_buff_modifier(boekie_grenade_mod)
 	fragged_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
-	fragged_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
+	fragged_bt.set_buff_tooltip(tr("SMHW"))
 
 	shard_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 400, 500, self)
 	shard_pt.set_event_on_expiration(boekie_shard_on_expiration)

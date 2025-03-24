@@ -44,7 +44,7 @@ func ignite_bt_periodic(event: Event):
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", IGNITE_DURATION, 0, false, self)
 	ignite_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")
-	ignite_bt.set_buff_tooltip("Ignite\nDeals spell damage over time and reduces health regeneration.")
+	ignite_bt.set_buff_tooltip(tr("M9RF"))
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -_stats.mod_regen, -_stats.mod_regen)

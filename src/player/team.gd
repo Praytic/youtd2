@@ -160,9 +160,9 @@ func convert_local_player_score_to_exp():
 	var new_upgrade_count: int = Utils.get_wisdom_upgrade_count_for_player_level(new_player_level)
 	var gained_new_wisdom_upgrade_slot: bool = new_upgrade_count > old_upgrade_count
 
-	var exp_gain_message: String = "You gained [color=GOLD]%d[/color] experience." % exp_gain
-	var level_up_message: String = "You leveled up! You are now level [color=GOLD]%d[/color]." % new_player_level
-	var wisdom_message: String = "You obtained a new wisdom upgrade slot! You can select wisdom upgrades in the [color=GOLD]Profile[/color] menu on the Title screen."
+	var exp_gain_message: String = tr("MESSAGE_GAINED_EXPERIENCE").format({EXP_GAIN = exp_gain})
+	var level_up_message: String = tr("MESSAGE_PLAYER_LEVEL_UP").format({LEVEL = new_player_level})
+	var wisdom_message: String = tr("MESSAGE_NEW_WISDOM_UPGRADE")
 
 	var title_screen_notification: String = ""
 
@@ -170,7 +170,7 @@ func convert_local_player_score_to_exp():
 		Messages.add_normal(local_player, exp_gain_message)
 		title_screen_notification += exp_gain_message
 	elif exp_gain == 0:
-		Messages.add_normal(local_player, "Your score is too low! You gained no experience.")
+		Messages.add_normal(local_player, tr("MESSAGE_NO_EXPERIENCE_GAINED"))
 	elif exp_gain < 0:
 		push_error("Exp gained is negative!")
 
@@ -185,7 +185,7 @@ func convert_local_player_score_to_exp():
 		title_screen_notification += wisdom_message
 
 	if !title_screen_notification.is_empty():
-		title_screen_notification = "During last game:\n" +title_screen_notification
+		title_screen_notification = tr("NOTIFICATION_AFTER_GAME") + "\n" +title_screen_notification
 		Globals.add_title_screen_notification(title_screen_notification)
 
 
@@ -233,9 +233,9 @@ func _do_game_win():
 	
 	var game_win_message: String
 	if game_is_neverending:
-		game_win_message = "[color=GOLD]You are a winner... but the waves are[/color] [color=RED]Neverending[/color][color=GOLD]![/color]"
+		game_win_message = tr("MESSAGE_GAME_WIN_NEVERENDING")
 	else:
-		game_win_message = "[color=GOLD]You are a winner![/color]"
+		game_win_message = tr("MESSAGE_GAME_WIN_NORMAL")
 
 	for player in _player_list:
 		Messages.add_normal(PlayerManager.get_local_player(), game_win_message)
@@ -280,7 +280,7 @@ func _do_game_lose():
 	_next_wave_timer.stop()
 
 	for player in _player_list:
-		Messages.add_normal(player, "[color=RED]The portal has been destroyed! The game is over.[/color]")
+		Messages.add_normal(player, tr("MESSAGE_GAME_LOSE"))
 
 	if is_local():
 		convert_local_player_score_to_exp()

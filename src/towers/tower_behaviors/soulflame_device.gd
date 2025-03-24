@@ -19,25 +19,26 @@ func tower_init():
 	evil_device_bt.add_event_on_create(evil_device_bt_on_create)
 	evil_device_bt.add_event_on_cleanup(evil_device_bt_on_cleanup)
 	evil_device_bt.add_periodic_event(evil_device_bt_periodic, 5)
-	evil_device_bt.set_buff_tooltip("Evil Device\nIncreases attack speed, trigger changes, spell damage, spell crit chance and attack damage.")
+	evil_device_bt.set_buff_tooltip(tr("Q9GW"))
 
 	soulfire_bt = BuffType.new("soulfire_bt", 5, 0, false, self)
 	soulfire_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
 	soulfire_bt.add_periodic_event(soulfire_bt_periodic, 1)
 	soulfire_bt.add_event_on_death(soulfire_bt_on_death)
-	soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
+	soulfire_bt.set_buff_tooltip(tr("RSZ5"))
 
 	awaken_bt = BuffType.new("awaken_bt", 3, 0, true, self)
 	var awaken_bt_mod: Modifier = Modifier.new()
 	awaken_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0.02)
 	awaken_bt.set_buff_modifier(awaken_bt_mod)
 	awaken_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
-	awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
+	awaken_bt.set_buff_tooltip(tr("QODF"))
 
 	soulflame_pt = ProjectileType.create("path_to_projectile_sprite", 5, 9000, self)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Awaken Cast")
+	var awaken_count_label: String = tr("Q0SH")
+	multiboard.set_key(0, awaken_count_label)
 
 
 func on_damage(event: Event):

@@ -30,7 +30,7 @@ func tower_init():
 	charm_bt = BuffType.new("charm_bt", 0, 0, true, self)
 	charm_bt.set_buff_icon("res://resources/icons/generic_icons/charm.tres")
 	charm_bt.set_buff_modifier(m)
-	charm_bt.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
+	charm_bt.set_buff_tooltip(tr("YNTO"))
 
 
 func on_autocast(event: Event):

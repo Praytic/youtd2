@@ -56,7 +56,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR, -ACID_GOO_ARMOR, -ACID_GOO_ARMOR_ADD)
 	acid_goo_bt.set_buff_modifier(mod)
 	acid_goo_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
-	acid_goo_bt.set_buff_tooltip("Acid Goo\nDecreases armor.")
+	acid_goo_bt.set_buff_tooltip(tr("L7ND"))
 
 
 func on_kill(event: Event):

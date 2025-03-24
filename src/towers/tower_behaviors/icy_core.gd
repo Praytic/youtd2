@@ -17,4 +17,4 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
-	aura_bt.set_buff_tooltip("Frost Aura\nReduces movement speed.")
+	aura_bt.set_buff_tooltip(tr("BHFS"))

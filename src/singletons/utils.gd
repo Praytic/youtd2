@@ -1,6 +1,13 @@
 class_name UtilsStatic extends Node
 
 
+# NOTE: about Utils.tr() calls in other scripts. tr() is a
+# f-n from Object base class. These calls are necessary in
+# cases where a translation is needed from inside a static
+# f-n where no Object is available. Using Utils as that
+# Object solves the problem.
+
+
 static func convert_string_to_id_list(string: String) -> Array[int]:
 	var id_list: Array[int] = []
 
@@ -48,7 +55,6 @@ func setup_translation_map_from_csv(csv_path: String, column_list: Array):
 			translation_map_contents += "\"%s\",\"%s\"\n" % [text_id, source_text]
 
 #		Add new line to props csv
-		var modified_csv_line: String 
 		for text_id in text_id_list:
 			modified_csv_contents += "\"%s\"," % text_id
 		modified_csv_contents.trim_suffix(",")

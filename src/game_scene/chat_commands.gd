@@ -108,14 +108,14 @@ func process_command(player: Player, command: String):
 	var is_multiplayer: bool = player_mode == PlayerMode.enm.MULTIPLAYER
 	var command_not_allowed_in_multiplayer: bool = not_allowed_in_multiplayer.has(command_main)
 	if is_multiplayer && command_not_allowed_in_multiplayer:
-		_add_error(player, "This command is not allowed in multiplayer.")
+		_add_error(player, tr("COMMAND_NOT_ALLOWED_IN_MULTIPLAYER"))
 
 		return
 
 	var command_is_dev: bool = dev_command_list.has(command_main)
 	var enable_dev_commands: bool = Config.enable_dev_commands()
 	if command_is_dev && !enable_dev_commands:
-		_add_error(player, "This command is only available in dev mode.")
+		_add_error(player, tr("COMMAND_ONLY_DEV_MODE"))
 		
 		return
 
@@ -129,7 +129,7 @@ func process_command(player: Player, command: String):
 	var command_is_host_only: bool = host_command_list.has(command_main)
 	var player_is_host: bool = player.get_peer_id() == 1
 	if command_is_host_only && !player_is_host:
-		_add_error(player, "This command is only available to host.")
+		_add_error(player, tr("COMMAND_ONLY_HOST"))
 		
 		return
 
@@ -182,7 +182,7 @@ func process_command(player: Player, command: String):
 	elif ALLOW_ALL.has(command_main):
 		_command_allow_all(player)
 	else:
-		_add_error(player, "Unknown command: %s" % command_main)
+		_add_error(player, tr("COMMAND_UNKNOWN").format({COMMAND = command_main}))
 
 
 #########################
@@ -200,20 +200,20 @@ func _command_ready(player: Player):
 
 func _command_gamespeed(player: Player, args: Array):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
 	var value: int = args[0].to_int()
 
 	if GAMESPEED_MIN > value || value > GAMESPEED_MAX:
-		_add_error(player, "Gamespeed value must be within [%s,%s] range." % [GAMESPEED_MIN, GAMESPEED_MAX])
+		_add_error(player, tr("COMMAND_GAMESPEED_OUT_OF_RANGE").format({MIN = GAMESPEED_MIN, MAX = GAMESPEED_MAX}))
 
 		return
 
 	Globals.set_update_ticks_per_physics_tick(value)
 
-	_add_status(player, "Set gamespeed to %d." % value)
+	_add_status(player, tr("COMMAND_GAMESPEED_SUCCESS").format({GAMESPEED = value}))
 
 
 func _command_pause_waves(_player: Player):
@@ -221,7 +221,7 @@ func _command_pause_waves(_player: Player):
 	for team in team_list:
 		team.set_waves_paused(true)
 
-	_add_status(null, "Paused the waves. Unpause by typing /unpause.")
+	_add_status(null, tr("COMMAND_PAUSE_WAVES"))
 
 
 func _command_unpause_waves(_player: Player):
@@ -229,12 +229,12 @@ func _command_unpause_waves(_player: Player):
 	for team in team_list:
 		team.set_waves_paused(false)
 
-	_add_status(null, "Unpaused the waves.")
+	_add_status(null, tr("COMMAND_UNPAUSE_WAVES"))
 
 
 func _command_create_item(player: Player, args: Array):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
@@ -242,12 +242,12 @@ func _command_create_item(player: Player, args: Array):
 	var item: Item = Item.create(player, item_id, Vector3(0, 0, 0))
 	item.fly_to_stash(0.0)
 
-	_add_status(player, "Created item %d" % item_id)
+	_add_status(player, tr("COMMAND_CREATED_ITEM").format({ITEM_ID = item_id}))
 
 
 func _command_autospawn(player: Player, args: Array):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
@@ -258,20 +258,20 @@ func _command_autospawn(player: Player, args: Array):
 
 	if disable_autospawn:
 		team.set_autospawn_time(-1)
-		_add_status_for_team(team, "Disabled autospawn.")
+		_add_status_for_team(team, tr("COMMAND_AUTOSPAWN_DISABLE"))
 
 		return
 
 	var autospawn_time: int = option.to_int()
 
 	if 1.0 > autospawn_time || autospawn_time > 100:
-		_add_error(player, "Invalid time argument.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
 	team.set_autospawn_time(autospawn_time)
 
-	_add_status_for_team(team, "Set autospawn time to [color=GOLD]%d[/color]." % roundi(autospawn_time))
+	_add_status_for_team(team, tr("COMMAND_AUTOSPAWN_SET").format({TIME = roundi(autospawn_time)}))
 
 func _is_tower(unit: Unit) -> bool:
 	# return false if non-tower is selected or unit is null
@@ -279,14 +279,14 @@ func _is_tower(unit: Unit) -> bool:
 
 func _require_tower(unit: Unit, player: Player) -> bool:
 	if not unit is Tower:
-		_add_error(player, "You must select a tower to execute this mode of autooil command.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 		return false
 	return true
 
 func _require_owner(tower: Tower, player: Player) -> bool:
 	# other player case
 	if tower.get_player() != player:
-		_add_error(player, "You don't own this tower.")
+		_add_error(player, tr("MESSAGE_DONT_OWN_TOWER"))
 		return false
 	return true
 
@@ -306,20 +306,20 @@ func _resolve_autooil_arg(player: Player, option: String):
 		"list":
 			var oil_type_list: Array = AutoOil.get_oil_type_list()
 			var text: String = ", ".join(oil_type_list)
-			_add_status(player, "Available oils for autooil:")
+			_add_status(player, tr("COMMAND_AVAILABLE_OILS"))
 			_add_status(player, text)
 		"show":
 			var status_text: String = player.get_autooil_status()
-			_add_status(player, "Autooil status:")
+			_add_status(player, tr("COMMAND_AUTOOIL_STATUS"))
 			Messages.add_normal(player, status_text)
 		"clear":
 			if not is_tower:
 				player.clear_all_autooil()
-				_add_status(player, "Cleared all autooils.")
+				_add_status(player, tr("COMMAND_AUTOOIL_CLEAR_ALL"))
 			else:
 				if _require_owner(tower, player):
 					player.clear_autooil_for_tower(tower)
-					_add_status(player, "Cleared autooils for %s." % tower_name)
+					_add_status(player, tr("COMMAND_AUTOOIL_CLEAR_FOR_TOWER").format({TOWER = tower_name}))
 				else:
 					return
 		_:
@@ -333,13 +333,13 @@ func _resolve_autooil_arg(player: Player, option: String):
 		var oil_type_is_valid: bool = AutoOil.get_oil_type_is_valid(oil_type)
 		
 		if not oil_type_is_valid:
-			_add_error(player, "Invalid oil type: \"%s\"." % oil_type)
+			_add_error(player, tr("COMMAND_INVALID_OIL_TYPE").format({OIL = oil_type}))
 			return
 		
 		var full_oil_type: String = AutoOil.convert_short_type_to_full(oil_type)
 		player.set_autooil_for_tower(full_oil_type, tower)
-		_add_status(player, "Set autooil for tower [color=GOLD]%s[/color] to [color=GOLD]%s[/color] oils." % [tower_name, full_oil_type])
-	
+		_add_status(player, tr("COMMAND_AUTOOIL_SET").format({TOWER = tower_name, OIL_TYPE = full_oil_type}))
+
 		return
 	else:
 		return
@@ -352,38 +352,38 @@ func _command_autooil(player: Player, args: Array):
 
 func _command_add_exp(player: Player, args: Array):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
 	var selected_tower: Unit = player.get_selected_unit()
 
 	if selected_tower == null:
-		_add_error(player, "You must selected a tower before executing this command.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 
 		return
 
 	var exp_amount: int = args[0].to_int()
 	selected_tower.add_exp(exp_amount)
 
-	_add_status(player, "Added %d exp to selected tower." % exp_amount)
+	_add_status(player, tr("COMMAND_ADD_EXP").format({EXP_AMOUNT = exp_amount}))
 
 
 func _command_add_test_oils(player: Player, _args: Array):
 	var selected_tower: Unit = player.get_selected_unit()
 
 	if selected_tower == null:
-		_add_error(player, "You must selected a tower before executing this command.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 
 		return
 
 	_add_test_oils(player, selected_tower)
-	_add_status(player, "Added test oils to selected tower.")
+	_add_status(player, tr("COMMAND_ADD_TEST_OILS"))
 
 
 func _command_spawn_challenge(player: Player, args: Array):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS"))
 
 		return
 
@@ -403,27 +403,27 @@ func _command_spawn_challenge(player: Player, args: Array):
 
 	Utils.add_object_to_world(creep)
 
-	_add_status(player, "Spawned level %d challenge." % creep_level)
+	_add_status(player, tr("COMMAND_SPAWN_CHALLENGE").format({LEVEL = creep_level}))
 
 
 func _command_setup_test_tower(player: Player, _args: Array):
 	var selected_tower: Unit = player.get_selected_unit()
 
 	if selected_tower == null:
-		_add_error(player, "You must selected a tower before executing this command.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 
 		return
 
 	selected_tower.add_exp(1000)
 	_add_test_oils(player, selected_tower)
-	_add_status(player, "Test tower is ready")
+	_add_status(player, tr("COMMAND_SETUP_TEST_TOWER"))
 
 
 func _command_full_mana(player: Player, _args: Array):
 	var selected_tower: Unit = player.get_selected_unit()
 
 	if selected_tower == null:
-		_add_error(player, "You must selected a tower before executing this command.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 
 		return
 
@@ -441,7 +441,7 @@ func _command_damage_meters(player: Player, _args: Array):
 			return damage_a > damage_b
 			)
 
-	_add_status(player, "Top towers by damage:")
+	_add_status(player, tr("COMMAND_TOP_TOWERS_BY_DAMAGE"))
 
 	var count: int = 0
 	for tower in tower_list:
@@ -468,7 +468,7 @@ func _command_damage_meters_recent(player: Player, _args: Array):
 			return damage_a > damage_b
 			)
 
-	_add_status(player, "Top towers by recent damage:")
+	_add_status(player, tr("COMMAND_TOP_TOWERS_BY_RECENT_DAMAGE"))
 
 	var count: int = 0
 	for tower in tower_list:
@@ -496,7 +496,7 @@ func _command_unignore(player: Player, args: Array):
 # players who have the target name.
 func _command_ignore_helper(player: Player, args: Array, ignored_value: bool):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args. Must specify player name.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS_FOR_IGNORE"))
 
 		return
 
@@ -514,11 +514,11 @@ func _command_ignore_helper(player: Player, args: Array, ignored_value: bool):
 			var player_name_with_color: String = p.get_player_name_with_color()
 			var status_string: String
 			if ignored_value == true:
-				status_string = "Ignoring player %s."
+				status_string = tr("COMMAND_IGNORE_START").format({PLAYER = player_name_with_color})
 			else:
-				status_string = "Stopped ignoring player %s."
+				status_string = tr("COMMAND_IGNORE_STOP").format({PLAYER = player_name_with_color})
 
-			_add_status(player, status_string % player_name_with_color)
+			_add_status(player, status_string)
 
 
 func _command_ping():
@@ -551,7 +551,7 @@ func _command_print_ranges_to_towers(player: Player):
 	var selected_unit: Unit = player.get_selected_unit()
 	
 	if selected_unit == null || !selected_unit is Tower:
-		_add_error(player, "Select a tower first.")
+		_add_error(player, tr("COMMAND_MUST_SELECT_TOWER"))
 
 		return
 
@@ -567,7 +567,7 @@ func _command_print_ranges_to_towers(player: Player):
 		var range_to_tower: float = selected_tower_pos.distance_to(other_tower_pos)
 		range_to_tower -= Constants.RANGE_CHECK_BONUS_FOR_TOWERS
 		range_to_tower = round(range_to_tower)
-		var message: String = "Range to %s = %s" % [other_tower_name, range_to_tower]
+		var message: String = tr("COMMAND_RANGE_BETWEEN_TOWERS").format({TOWER = other_tower_name, RANGE = range_to_tower})
 		message_list.append(message)
 
 	for message in message_list:
@@ -591,12 +591,12 @@ func _command_allow_all(player: Player):
 
 	team.enable_allow_shared_build_space()
 
-	_add_status_for_team(team, "Players in  this team can now build towers in each other's area.")
+	_add_status_for_team(team, tr("COMMAND_ALLOW_SHARED_BUILDING"))
 
 
 func _command_check_range_helper(player: Player, args: Array, friendly: bool):
 	if args.size() != 1:
-		_add_error(player, "Invalid command args. Must specify range value or \"off\" to disable range checker.")
+		_add_error(player, tr("COMMAND_INVALID_ARGS_FOR_RANGE_CHECK"))
 
 		return
 	
@@ -604,7 +604,7 @@ func _command_check_range_helper(player: Player, args: Array, friendly: bool):
 	
 	if arg_string == "off":
 		_range_checker.hide()
-		_add_status(player, "Disabled range checker.")
+		_add_status(player, tr("COMMAND_RANGE_CHECK_DISABLE"))
 		
 		return
 	

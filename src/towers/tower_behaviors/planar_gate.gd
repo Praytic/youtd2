@@ -17,12 +17,12 @@ func tower_init():
 
 	eruption_bt = BuffType.new("eruption_bt", 6, 0.18, true, self)
 	eruption_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	eruption_bt.set_buff_tooltip("Astral Eruption\nEmpowers falcons to deal more damage.")
+	eruption_bt.set_buff_tooltip(tr("BOPO"))
 
 	planar_shift_bt = BuffType.new("planar_shift_bt", -1, 0, false, self)
 	planar_shift_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	planar_shift_bt.add_event_on_cleanup(planar_shift_bt_on_cleanup)
-	planar_shift_bt.set_buff_tooltip("Planar Shift\nIncreases damage taken from Astral towers.")
+	planar_shift_bt.set_buff_tooltip(tr("I8HW"))
 
 	bouncing_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1250, self)
 	bouncing_pt.set_event_on_interpolation_finished(bouncing_pt_on_hit)

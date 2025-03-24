@@ -45,17 +45,18 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	aura_bt.add_event_on_damaged(aura_bt_on_damaged)
-	aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
+	aura_bt.set_buff_tooltip(tr("JTSQ"))
 
 	storm_bt = BuffType.new("storm_bt", -1.0, 0.0, false, self)
 	storm_bt.add_event_on_damaged(storm_bt_on_damaged)
-	storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nDeals damage over time.")
+	storm_bt.set_buff_tooltip(tr("RO3D"))
 
 	missile_pt = ProjectileType.create_ranged("path_to_projectile_sprite", 1000 + 100, 500, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0.0)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Mana required")
+	var mana_required_label: String = tr("NL9R")
+	multiboard.set_key(0, mana_required_label)
 
 
 func on_autocast_cloud_thunderstorm(_event: Event):

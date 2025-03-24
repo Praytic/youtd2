@@ -29,12 +29,12 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	attraction_bt = BuffType.new("attraction_bt", -1, 0, false, self)
 	attraction_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
-	attraction_bt.set_buff_tooltip("Attraction\nSpreads Attraction and deals damage to nearby units when target dies.")
+	attraction_bt.set_buff_tooltip(tr("M22D"))
 	attraction_bt.add_event_on_death(attraction_bt_on_death)
 
 	manastorm_bt = BuffType.new("manastorm_bt", 2.0, 0, true, self)
 	manastorm_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
-	manastorm_bt.set_buff_tooltip("Mana Storm\nIncreases multicrit.")
+	manastorm_bt.set_buff_tooltip(tr("ME8L"))
 	var manastorm_bt_mod: Modifier = Modifier.new()
 	manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
 	manastorm_bt.set_buff_modifier(manastorm_bt_mod)

@@ -11,9 +11,12 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(3)
-	multiboard.set_key(0, "Waves Left")
-	multiboard.set_key(1, "Item Quality")
-	multiboard.set_key(2, "Item Chance")
+	var waves_left_label: String = tr("L3GS")
+	var item_quality_label: String = tr("L71R")
+	var item_chance_label: String = tr("SK6C")
+	multiboard.set_key(0, waves_left_label)
+	multiboard.set_key(1, item_quality_label)
+	multiboard.set_key(2, item_chance_label)
 
 
 func on_attack(event: Event):

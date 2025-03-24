@@ -30,7 +30,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
 	glimmer_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
-	glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
+	glimmer_bt.set_buff_tooltip(tr("IROC"))
 
 	sunlight_bt = CbStun.new("sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
 	sunlight_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")

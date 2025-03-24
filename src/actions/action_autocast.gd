@@ -14,7 +14,7 @@ static func make(autocast_uid: int, target_uid: int, target_pos: Vector2) -> Act
 
 static func verify(player: Player, autocast: Autocast) -> bool:
 	if autocast == null:
-		Utils.add_ui_error(player, "Failed to cast")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_FAILED_TO_CAST"))
 
 		return false
 
@@ -26,7 +26,7 @@ static func verify(player: Player, autocast: Autocast) -> bool:
 	var caster: Unit = autocast.get_caster()
 	var player_match: bool = caster.get_player() == player
 	if !player_match:
-		Utils.add_ui_error(player, "You don't own this tower")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_DONT_OWN_TOWER"))
 
 		return false
 
@@ -57,7 +57,7 @@ static func execute(action: Dictionary, player: Player):
 		var target: Unit = GroupManager.get_by_uid("units", target_uid)
 
 		if target == null:
-			Utils.add_ui_error(player, "Target is not valid.")
+			Utils.add_ui_error(player, Utils.tr("MESSAGE_TARGET_NOT_VALID"))
 
 			return
 

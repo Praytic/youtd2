@@ -19,14 +19,14 @@ func tower_init():
 #	Real buff, adding the damage bonus.
 	lastline_real_bt = BuffType.new("lastline_real_bt", -1.0, 0, false, self)
 	lastline_real_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
-	lastline_real_bt.set_buff_tooltip("Last Line of Defense\nIncreases damage taken.")
+	lastline_real_bt.set_buff_tooltip(tr("ZCGI"))
 
 	wewillnotfall_bt = BuffType.create_aura_effect_type("wewillnotfall_bt", true, self)
 	wewillnotfall_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	wewillnotfall_bt.add_event_on_create(wewillnotfall_bt_on_create)
 	wewillnotfall_bt.add_periodic_event(wewillnotfall_bt_periodic, 15.0)
 	wewillnotfall_bt.add_event_on_cleanup(wewillnotfall_bt_on_cleanup)
-	wewillnotfall_bt.set_buff_tooltip("We Will Not Fall! Aura\nIncreases damage dealt based on lost portal lives.")
+	wewillnotfall_bt.set_buff_tooltip(tr("I9KE"))
 
 	valor_light_bt = BuffType.new("valor_light_bt", 5.0, 0, false, self)
 	var cedi_valor_light_mod: Modifier = Modifier.new()
@@ -34,7 +34,7 @@ func tower_init():
 	valor_light_bt.set_buff_modifier(cedi_valor_light_mod)
 	valor_light_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	valor_light_bt.add_periodic_event(valor_light_bt_periodic, 1.0)
-	valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
+	valor_light_bt.set_buff_tooltip(tr("X9QW"))
 
 
 func on_unit_in_range(event: Event):

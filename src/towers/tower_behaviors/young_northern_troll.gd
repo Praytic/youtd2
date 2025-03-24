@@ -34,7 +34,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
 	fatigue_bt.set_buff_modifier(mod)
 	fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
-	fatigue_bt.set_buff_tooltip("Ice Smashing Axe Fatigue\nReduces attack speed.")
+	fatigue_bt.set_buff_tooltip(tr("NU0J"))
 
 	axe_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 900, self)
 	axe_pt.set_event_on_interpolation_finished(on_projectile_hit)

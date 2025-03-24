@@ -15,7 +15,7 @@ func _init(parent: Node):
 	slow_attack.set_buff_modifier(modifier)
 	slow_attack.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_attack.set_buff_icon_color(Color.DARK_RED)
-	slow_attack.set_buff_tooltip("Revenge\nReduces attack speed.")
+	slow_attack.set_buff_tooltip(tr("N3BA"))
 	slow_attack.set_special_effect("res://src/effects/purge_buff_target.tscn", 50, 1.0, Color(Color.GREEN, 0.75))
 
 

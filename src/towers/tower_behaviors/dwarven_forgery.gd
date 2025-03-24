@@ -10,4 +10,4 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.15, 0.004)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
-	aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
+	aura_bt.set_buff_tooltip(tr("RSGI"))

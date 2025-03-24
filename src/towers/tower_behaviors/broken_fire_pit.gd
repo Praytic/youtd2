@@ -28,7 +28,7 @@ func tower_init():
 	coals_bt = BuffType.new("coals_bt ", _stats.duration, DURATION_ADD, true, self)
 	coals_bt.set_buff_modifier(m)
 	coals_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")
-	coals_bt.set_buff_tooltip("Hot Coals\nIncreases critical chance.")
+	coals_bt.set_buff_tooltip(tr("BB66"))
 
 
 func on_kill(_event: Event):

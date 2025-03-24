@@ -34,7 +34,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
-	slow_bt.set_buff_tooltip("Glacial Wrath\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("US8A"))
 	var slow_bt_mod: Modifier = Modifier.new()
 	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
 	slow_bt.set_buff_modifier(slow_bt_mod)
@@ -42,7 +42,8 @@ func tower_init():
 	stun_bt = CbStun.new("stun_bt", _stats.stun_duration, 0, false, self)
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Wrath stun chance")
+	var stun_chance_label: String = tr("KP18")
+	multiboard.set_key(0, stun_chance_label)
 
 
 func on_damage(event: Event):

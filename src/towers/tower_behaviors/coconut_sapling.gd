@@ -29,7 +29,7 @@ func tower_init():
 
 	cooldown_bt = BuffType.new("cooldown_bt", STUN_CD, 0, false, self)
 	cooldown_bt.set_buff_icon("res://resources/icons/generic_icons/turtle_shell.tres")
-	cooldown_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
+	cooldown_bt.set_buff_tooltip(tr("OC56"))
 
 
 func on_damage(event: Event):

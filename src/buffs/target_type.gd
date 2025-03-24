@@ -311,7 +311,7 @@ static func convert_to_string(target_type: TargetType) -> String:
 
 	var set_bit_list: Array[int] = []
 	for bit in bit_list:
-		var bit_is_set: int = Utils.bit_is_set(bitmask, bit)
+		var bit_is_set: int = UtilsStatic.bit_is_set(bitmask, bit)
 
 		if bit_is_set:
 			set_bit_list.append(bit)

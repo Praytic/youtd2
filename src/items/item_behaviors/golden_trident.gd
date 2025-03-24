@@ -10,7 +10,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(1, "Golden Trident")
+	var gold_bonus_label: String = tr("VA0V")
+	multiboard.set_key(1, gold_bonus_label)
 
 
 func on_attack(event: Event):
@@ -21,6 +22,7 @@ func on_attack(event: Event):
 		gold_bonus = gold_bonus * event.get_number_of_crits() * tower.get_base_attack_speed() * tower.get_prop_bounty_received()
 
 		tower.get_player().give_gold(int(gold_bonus), tower, true, true)
+		item.user_real += gold_bonus
 
 
 func on_create():

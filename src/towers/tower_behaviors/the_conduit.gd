@@ -21,14 +21,14 @@ func tower_init():
 	aura_bt.add_event_on_create(aura_bt_on_create)
 	aura_bt.add_event_on_cleanup(aura_bt_on_cleanup)
 	aura_bt.add_periodic_event(aura_bt_periodic, 5)
-	aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	aura_bt.set_buff_tooltip(tr("OYR4"))
 
 	unleash_bt = BuffType.new("unleash_bt", 3, 0, false, self)
 	var unleash_bt_mod: Modifier = Modifier.new()
 	unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
 	unleash_bt.set_buff_modifier(unleash_bt_mod)
 	unleash_bt.set_buff_icon("res://resources/icons/generic_icons/bat_mask.tres")
-	unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
+	unleash_bt.set_buff_tooltip(tr("Z7S7"))
 
 	chanlightning_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 1.0, self)
 	chanlightning_st.set_source_height(220)

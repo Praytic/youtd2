@@ -35,7 +35,7 @@ func tower_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
 	
-	slow_bt.set_buff_tooltip("Atrophy\nReduces movement speed.")
+	slow_bt.set_buff_tooltip(tr("FCCP"))
 
 
 func on_attack(event: Event):

@@ -20,19 +20,19 @@ func tower_init():
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.01)
 	speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
 	speedcast_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
-	speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
+	speedcast_bt.set_buff_tooltip(tr("FY84"))
 
 	spread_bt = CbStun.new("spread_bt", 0.8, 0, false, self)
 	spread_bt.add_event_on_create(spread_bt_on_create)
 	spread_bt.add_event_on_cleanup(spread_bt_on_cleanup)
-	spread_bt.set_buff_tooltip("Spread\nStunned.")
+	spread_bt.set_buff_tooltip(tr("EG93"))
 
 	magic_boost_bt = BuffType.new("magic_boost_bt", 3, 0, true, self)
 	var mock_genis_magic_boost_mod: Modifier = Modifier.new()
 	mock_genis_magic_boost_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.2, 0.01)
 	magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
 	magic_boost_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
-	magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
+	magic_boost_bt.set_buff_tooltip(tr("MF10"))
 
 	swarm_st = SpellType.new(SpellType.Name.CARRION_SWARM, 1, self)
 	swarm_st.data.swarm.damage = 1.0

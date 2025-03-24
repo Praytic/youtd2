@@ -18,9 +18,12 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(3)
-	multiboard.set_key(0, "Gold Hoarded")
-	multiboard.set_key(1, "Bonus Damage")
-	multiboard.set_key(2, "Atks to Fireballs")
+	var gold_hoarded_label: String = tr("GRZ6")
+	var bonus_damage_label: String = tr("YQK4")
+	var atks_to_fireballs_label: String = tr("CE54")
+	multiboard.set_key(0, gold_hoarded_label)
+	multiboard.set_key(1, bonus_damage_label)
+	multiboard.set_key(2, atks_to_fireballs_label)
 
 	wyrm_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 700, self)
 	wyrm_pt.set_event_on_interpolation_finished(wyrm_pt_on_hit)

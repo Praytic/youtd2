@@ -35,12 +35,12 @@ func tower_init():
 	siphon_bt = BuffType.new("siphon_bt", 5, 0, true, self)
 	siphon_bt.set_buff_icon("res://resources/icons/generic_icons/omega.tres")
 	siphon_bt.add_event_on_attack(siphon_bt_on_attack)
-	siphon_bt.set_buff_tooltip("Siphon Essence\nStuns tower on attack.")
+	siphon_bt.set_buff_tooltip(tr("DY1R"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	aura_bt.add_periodic_event(aura_bt_periodic, 1.0)
-	aura_bt.set_buff_tooltip("Slow Decay Aura\nKills creep instantly if it reaches low health.")
+	aura_bt.set_buff_tooltip(tr("LX2N"))
 
 #	NOTE: this tower uses two separate projectile types.
 #	1. The first one is launched from the tower in all

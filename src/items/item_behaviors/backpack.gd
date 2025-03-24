@@ -21,7 +21,8 @@ func item_init():
 	backpack_bt.add_event_on_kill(backpack_bt_on_kill)
 	
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Items Backpacked")
+	var items_backpacked_label: String = tr("DRQK")
+	multiboard.set_key(0, items_backpacked_label)
 
 
 # NOTE: backpackKill() in original script

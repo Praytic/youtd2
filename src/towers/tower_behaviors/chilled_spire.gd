@@ -41,7 +41,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	frozen_bt.set_buff_modifier(mod)
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	frozen_bt.set_buff_tooltip("Cold\nReduces health regeneration.")
+	frozen_bt.set_buff_tooltip(tr("RVIN"))
 
 
 func on_damage(event: Event):

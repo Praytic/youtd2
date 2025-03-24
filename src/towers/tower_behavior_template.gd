@@ -35,8 +35,8 @@ extends TowerBehavior
 #	example_pt.enable_homing(example_pt_on_hit, 0)
 
 #	multiboard = MultiboardValues.new(2)
-#	multiboard.set_key(0, "Foo")
-#	multiboard.set_key(1, "Bar")
+#	var foo_label: String = tr("XYZW")
+#	multiboard.set_key(0, foo_label)
 
 
 # func on_damage(event: Event):
@@ -49,7 +49,6 @@ extends TowerBehavior
 
 # func on_tower_details() -> MultiboardValues:
 # 	multiboard.set_value(0, "Foo value")
-# 	multiboard.set_value(1, "Bar value")
 
 # 	return multiboard
 

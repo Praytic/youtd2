@@ -21,4 +21,4 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_IRON, _stats.vuln, _stats.vuln_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
-	aura_bt.set_buff_tooltip("Sunshine Aura\nReduces armor and increases damage taken from Astral, Fire, Iron and Nature towers.")
+	aura_bt.set_buff_tooltip(tr("TDD3"))

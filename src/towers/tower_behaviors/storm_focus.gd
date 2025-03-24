@@ -11,14 +11,14 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.1, 0.008)
 	freezing_bt.set_buff_modifier(mod)
 	freezing_bt.set_buff_icon("res://resources/icons/generic_icons/energy_breath.tres")
-	freezing_bt.set_buff_tooltip("Freezing Gust\nDoubles the effect of Gust Aura.")
+	freezing_bt.set_buff_tooltip(tr("EY29"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	aura_bt.add_event_on_create(gust_on_create)
 	aura_bt.add_periodic_event(gust_periodic, 1.0)
 	aura_bt.add_event_on_cleanup(gust_on_cleanup)
-	aura_bt.set_buff_tooltip("Gust Aura\nIncreases damage dealt to Air creeps.")
+	aura_bt.set_buff_tooltip(tr("N6RI"))
 
 
 func gust_on_create(event: Event):

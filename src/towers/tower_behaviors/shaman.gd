@@ -24,12 +24,12 @@ func tower_init():
 	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.bloodlust_crit_damage, _stats.bloodlust_crit_damage_add)
 	bloodlust_bt.set_buff_icon("res://resources/icons/generic_icons/moebius_trefoil.tres")
 	bloodlust_bt.set_buff_modifier(bloodlust_mod)
-	bloodlust_bt.set_buff_tooltip("Bloodlust\nIncreases crit damage and attack speed.")
+	bloodlust_bt.set_buff_tooltip(tr("NSMT"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.add_event_on_damage(bloody_exp_aura_on_damage)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
-	aura_bt.set_buff_tooltip("Bloody Experience\nGrants experience every time tower crits.")
+	aura_bt.set_buff_tooltip(tr("UFI6"))
 
 
 func on_autocast(event: Event):

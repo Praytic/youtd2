@@ -14,6 +14,6 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.50, 0.0)
 	slow_aura_effect.set_buff_modifier(modifier)
-	slow_aura_effect.set_buff_tooltip("Slow\nReduces attack speed.")
+	slow_aura_effect.set_buff_tooltip(tr("ZW9E"))
 
 	add_aura(108, self)

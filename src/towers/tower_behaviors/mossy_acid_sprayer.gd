@@ -31,7 +31,7 @@ func tower_init():
 	acid_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_bt.set_buff_modifier(m)
 
-	acid_bt.set_buff_tooltip("Acid Corosion\nReduces armor.")
+	acid_bt.set_buff_tooltip(tr("Y1IG"))
 
 
 func on_damage(event: Event):

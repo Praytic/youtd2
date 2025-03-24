@@ -24,11 +24,13 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
 	awakening_bt.set_buff_modifier(mod)
 	awakening_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
-	awakening_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
+	awakening_bt.set_buff_tooltip(tr("CYSV"))
 
 	multiboard = MultiboardValues.new(2)
-	multiboard.set_key(0, "Attack speed Bonus")
-	multiboard.set_key(1, "Mana Bonus")
+	var attack_speed_bonus_label: String = tr("CYIQ")
+	var mana_bonus_label: String = tr("CUYM")
+	multiboard.set_key(0, attack_speed_bonus_label)
+	multiboard.set_key(1, mana_bonus_label)
 
 
 func on_damage(event: Event):

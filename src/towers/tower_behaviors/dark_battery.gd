@@ -56,7 +56,7 @@ func tower_init():
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
 	corruption_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")
 	corruption_bt.set_buff_modifier(modifier)
-	corruption_bt.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
+	corruption_bt.set_buff_tooltip(tr("K2J4"))
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 10, 1200, self)
 	missile_pt.enable_homing(hit, 0)

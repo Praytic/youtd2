@@ -31,7 +31,7 @@ func tower_init():
 	darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
 	darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
 	darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
-	darkness_bt.set_buff_tooltip("Impenetrable Darkness\nIncreases spell damage taken but reduces attack damage taken. Also deals damage on expiry.")
+	darkness_bt.set_buff_tooltip(tr("XJLT"))
 
 	maledict_bt = BuffType.new("maledict_bt", 5, 0, false, self)
 	var dave_council_maledict_mod: Modifier = Modifier.new()
@@ -39,19 +39,19 @@ func tower_init():
 	maledict_bt.set_buff_modifier(dave_council_maledict_mod)
 	maledict_bt.set_buff_icon("res://resources/icons/generic_icons/fire_dash.tres")
 	maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
-	maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
+	maledict_bt.set_buff_tooltip(tr("Q488"))
 
 	demonic_mana_bt = BuffType.new("demonic_mana_bt", 3, 0, true, self)
 	var dave_council_mana_mod: Modifier = Modifier.new()
 	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
 	demonic_mana_bt.set_buff_modifier(dave_council_mana_mod)
 	demonic_mana_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
-	demonic_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
+	demonic_mana_bt.set_buff_tooltip(tr("LN06"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")
 	aura_bt.add_event_on_spell_casted(aura_bt_on_spell_casted)
-	aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
+	aura_bt.set_buff_tooltip(tr("RTYZ"))
 
 	missile_pt = ProjectileType.create("path_to_projectile_sprite", 4, 1300, self)
 	missile_pt.enable_homing(missile_pt_on_hit, 0)

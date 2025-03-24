@@ -62,9 +62,9 @@ func try_to_finish(player: Player):
 	if !can_build && !can_transform:
 		var error: String
 		if attempting_to_transform && !transform_is_allowed:
-			error = "Can't transform towers in build mode."
+			error = tr("MESSAGE_CANT_TRANSFORM_IN_BUILD_MODE")
 		else:
-			error = "Can't build here."
+			error = tr("MESSAGE_CANT_BUILD_HERE")
 
 		Utils.add_ui_error(player, error)
 	elif can_transform:
@@ -118,9 +118,9 @@ static func add_error_about_tower_only_gold_and_tomes(tower_id: int, player: Pla
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
 
 	if !enough_gold:
-		Utils.add_ui_error(player, "Not enough gold.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_GOLD"))
 	elif !enough_tomes:
-		Utils.add_ui_error(player, "Not enough tomes.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES"))
 
 
 static func add_error_about_building_tower(tower_id: int, player: Player, preceding_tower_id: int = -1):
@@ -129,11 +129,11 @@ static func add_error_about_building_tower(tower_id: int, player: Player, preced
 	var enough_food: bool = player.enough_food_for_tower(tower_id, preceding_tower_id)
 
 	if !enough_gold:
-		Utils.add_ui_error(player, "Not enough gold.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_GOLD"))
 	elif !enough_tomes:
-		Utils.add_ui_error(player, "Not enough tomes.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES"))
 	elif !enough_food:
-		Utils.add_ui_error(player, "Not enough food.")
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_FOOD"))
 
 
 #########################

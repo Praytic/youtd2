@@ -32,12 +32,12 @@ func tower_init():
 	tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	tranquility_bt.set_buff_modifier(tranquility_mod)
 	tranquility_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
-	tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
+	tranquility_bt.set_buff_tooltip(tr("I4NZ"))
 
 	entangle_bt = CbStun.new("entangle_bt", 1.5, 0.02, false, self)
 	entangle_bt.set_buff_icon("res://resources/icons/generic_icons/root_tip.tres")
 	entangle_bt.add_periodic_event(entangle_bt_periodic, 1.0)
-	entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
+	entangle_bt.set_buff_tooltip(tr("ZXE9"))
 
 	roots_pt = ProjectileType.create_ranged("", 1000, 600, self)
 	roots_pt.enable_collision(roots_pt_on_hit, 175, TargetType.new(TargetType.CREEPS), false)
@@ -54,14 +54,14 @@ func tower_init():
 	leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(leaf_storm_mod)
 	leaf_storm_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
-	leaf_storm_bt.set_buff_tooltip("Leaf Storm\nReduces movement speed.")
+	leaf_storm_bt.set_buff_tooltip(tr("BCDD"))
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var thorned_mod: Modifier = Modifier.new()
 	thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	thorned_bt.set_buff_modifier(thorned_mod)
 	thorned_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
-	thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
+	thorned_bt.set_buff_tooltip(tr("AB6M"))
 
 
 func on_damage(event: Event):

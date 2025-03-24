@@ -40,7 +40,8 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Spelldamage Bonus")
+	var spelldamage_bonus_label: String = tr("KERS")
+	multiboard.set_key(0, spelldamage_bonus_label)
 
 
 func on_destruct():

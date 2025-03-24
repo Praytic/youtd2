@@ -18,7 +18,7 @@ func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	aura_bt.add_event_on_attack(aura_bt_on_attack)
-	aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
+	aura_bt.set_buff_tooltip(tr("E4O4"))
 
 	glaive_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 1000, self)
 	glaive_pt.set_event_on_interpolation_finished(glaive_pt_on_hit)

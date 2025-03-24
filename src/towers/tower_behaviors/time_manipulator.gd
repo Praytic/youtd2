@@ -21,7 +21,7 @@ func tower_init():
 	time_field_bt.set_special_effect("res://src/effects/spell_aire.tscn", 150, 1.0)
 	time_field_bt.add_periodic_event(time_field_bt_periodic, 1.0)
 	time_field_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
-	time_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
+	time_field_bt.set_buff_tooltip(tr("ZD87"))
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var aura_bt_mod: Modifier = Modifier.new()
@@ -31,10 +31,11 @@ func tower_init():
 	aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
 	aura_bt.set_buff_modifier(aura_bt_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
-	aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
+	aura_bt.set_buff_tooltip(tr("WG04"))
 
 	multiboard = MultiboardValues.new(1)
-	multiboard.set_key(0, "Exp Exchanged")
+	var exp_exchanged_label: String = tr("MOLD")
+	multiboard.set_key(0, exp_exchanged_label)
 
 
 func on_create(_preceding: Tower):
