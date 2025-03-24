@@ -25,7 +25,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
-text = "Wisdom Upgrades"
+text = "WISDOM_UPGRADES_HEAD"
 
 [node name="NextUpgradeUnlockLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -38,7 +38,7 @@ size_flags_horizontal = 8
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Available:"
+text = "WISDOM_UPGRADES_AVAILABLE"
 
 [node name="AvailableLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

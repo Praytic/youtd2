@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://resources/icons/hud/dice.tres" id="10_qe6ob"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://resources/ui_textures/rect_container_m.tres" id="10_wf4k3"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touq2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6gup"]
@@ -168,7 +167,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
-text = "Elements"
+text = "ELEMENTS_MENU_TITLE"
 horizontal_alignment = 1
 
 [node name="CloseButton" type="Button" parent="."]

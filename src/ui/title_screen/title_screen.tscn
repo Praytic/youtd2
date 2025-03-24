@@ -93,31 +93,31 @@ theme_override_constants/separation = 5
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Start"
+text = "SINGLEPLAYER_BUTTON"
 
 [node name="MultiplayerButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Multiplayer"
+text = "MULTIPLAYER_BUTTON"
 
 [node name="ProfileButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Profile"
+text = "PROFILE_BUTTON"
 
 [node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Settings"
+text = "SETTINGS_BUTTON"
 
 [node name="CreditsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Credits"
+text = "CREDITS_BUTTON"
 
 [node name="Spacer" type="VBoxContainer" parent="UI/TabContainer/MainTab/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
@@ -128,7 +128,7 @@ size_flags_vertical = 3
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonLarge"
-text = "Quit"
+text = "QUIT_BUTTON"
 
 [node name="ConfigureSingleplayerMenu" parent="UI/TabContainer" instance=ExtResource("6_nj3u5")]
 visible = false

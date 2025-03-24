@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx86ea3loo8a2"]
+[gd_scene load_steps=6 format=3 uid="uid://cx86ea3loo8a2"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_73d58"]
 [ext_resource type="Script" path="res://src/ui/game_menu/settings_menu.gd" id="2_2dtmk"]
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
 [ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://resources/theme/selected_unit_info/panel_container.tres" id="4_o5p4r"]
+[ext_resource type="Script" path="res://src/ui/game_menu/language_option_button.gd" id="5_foonh"]
 
 [node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
 custom_minimum_size = Vector2(800, 900)
@@ -66,27 +67,41 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Display"
+text = "SETTINGS_SECTION_DISPLAY"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
-text = "Display Mode"
+text = "SETTINGS_DISPLAY_MODE"
 
 [node name="DisplayModeCombo" type="OptionButton" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 selected = 0
 item_count = 3
-popup/item_0/text = "Full Screen"
-popup/item_1/text = "Borderless Full Screen"
+popup/item_0/text = "SETTINGS_DISPLAY_MODE_FS"
+popup/item_1/text = "SETTINGS_DISPLAY_MODE_BFS"
 popup/item_1/id = 1
-popup/item_2/text = "Windowed"
+popup/item_2/text = "SETTINGS_DISPLAY_MODE_W"
 popup/item_2/id = 2
+
+[node name="LanguageLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS_LANGUAGE"
+
+[node name="Language" type="OptionButton" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_1/text = "中文"
+popup/item_1/id = 1
+script = ExtResource("5_foonh")
 
 [node name="InterfaceSizeLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
-text = "Interface size"
+text = "SETTINGS_INTERFACE_SIZE"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
@@ -98,7 +113,7 @@ focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_group = ExtResource("2_fh8ol")
-text = "Small"
+text = "SETTINGS_INTERFACE_SMALL"
 flat = true
 
 [node name="MediumInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7"]
@@ -108,7 +123,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("2_fh8ol")
-text = "Medium"
+text = "SETTINGS_INTERFACE_MEDIUM"
 flat = true
 
 [node name="LargeInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7"]
@@ -117,30 +132,29 @@ focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_group = ExtResource("2_fh8ol")
-text = "Large"
+text = "SETTINGS_INTERFACE_LARGE"
 flat = true
 
 [node name="DamageNumbers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Show all damage numbers"
+text = "SETTINGS_DMG_NUM"
 
 [node name="FloatingText" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Enable floating text"
+text = "SETTINGS_FLOATING_TXT"
 
 [node name="EnableVfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Enable visual effects"
+text = "SETTINGS_VFX"
 
 [node name="ProjectileDensityLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Decreasing this setting can reduce lag in late game."
 mouse_filter = 1
-text = "Projectile Density
-"
+text = "SETTINGS_PJT_DST"
 
 [node name="ProjectileDensity" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
@@ -163,18 +177,18 @@ theme_override_constants/separation = 10
 [node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Input"
+text = "SETTINGS_INPUT"
 horizontal_alignment = 1
 
 [node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Enables moving the camera by placing the mouse on the edge of the screen."
 focus_mode = 0
-text = "Enable mouse scroll"
+text = "SETTINGS_ENBL_MOUSE_SCRL"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 layout_mode = 2
-text = "Mouse scroll"
+text = "SETTINGS_MOUSE_SCRL"
 
 [node name="MouseScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
@@ -188,7 +202,7 @@ scrollable = false
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 layout_mode = 2
-text = "Keyboard scroll"
+text = "SETTINGS_KBD_SCRL"
 
 [node name="KeyboardScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
@@ -211,23 +225,23 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Misc"
+text = "SETTINGS_MISC"
 horizontal_alignment = 1
 
 [node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Enable sound effects"
+text = "SETTINGS_SFX"
 
 [node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Show combat log"
+text = "SETTINGS_LOG"
 
 [node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Display tutorial"
+text = "SETTINGS_TUTRL"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -242,16 +256,18 @@ text = "OK"
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
-text = "Cancel"
+text = "CANCEL_BUTTON"
 
 [node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 disabled = true
-text = "Apply"
+text = "APPLY_BUTTON"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/DisplayModeCombo" to="." method="_on_display_mode_combo_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" to="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" method="_on_item_selected"]
+[connection signal="ready" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" to="." method="_on_language_ready"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]

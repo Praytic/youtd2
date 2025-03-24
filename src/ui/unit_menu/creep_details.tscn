@@ -94,7 +94,7 @@ theme_override_constants/separation = 20
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.901961, 0.537255, 0.0392157, 1)
-text = "Armor:"
+text = "CREEP_DETAILS_ARMOR"
 
 [node name="ArmorContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -102,7 +102,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
-text = "Base"
+text = "CREEP_DETAILS_BASE"
 
 [node name="BaseArmor" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
@@ -112,7 +112,7 @@ horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
-text = "Bonus"
+text = "CREEP_DETAILS_BONUS"
 
 [node name="ArmorBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
@@ -122,7 +122,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
-text = "Bonus %"
+text = "CREEP_DETAILS_BONUS_PST"
 
 [node name="ArmorBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
@@ -132,7 +132,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
-text = "Overall"
+text = "CREEP_DETAILS_OVERALL"
 
 [node name="OverallArmor" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
@@ -142,7 +142,7 @@ horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
-text = "Dmg reduction"
+text = "CREEP_DETAILS_ARMOR_DMG_RDT"
 
 [node name="DamageReduction" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
 layout_mode = 2
@@ -153,7 +153,7 @@ horizontal_alignment = 2
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.709804, 0, 1)
-text = "Defense:"
+text = "CREEP_DETAILS_DEFENSE"
 
 [node name="DefenseContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -161,7 +161,7 @@ columns = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
 layout_mode = 2
-text = "Dmg from attacks"
+text = "CREEP_DETAILS_DEFENSE_DFA"
 
 [node name="DmgFromAttacks" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
 layout_mode = 2
@@ -171,7 +171,7 @@ horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
 layout_mode = 2
-text = "Dmg from spells"
+text = "CREEP_DETAILS_DEFENSE_DFS"
 
 [node name="DmgFromSpells" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
 layout_mode = 2
@@ -182,7 +182,7 @@ horizontal_alignment = 2
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.168627, 0.662745, 0.760784, 1)
-text = "Damage from element:"
+text = "CREEP_DETAILS_DEFENSE_DFE"
 
 [node name="DamageFromElementContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -190,7 +190,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Astral"
+text = "ELEMENT_ASTRAL"
 
 [node name="DmgFromAstral" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -200,7 +200,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Darkness"
+text = "ELEMENT_DARKNESS"
 
 [node name="DmgFromDarkness" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -210,7 +210,7 @@ horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Nature"
+text = "ELEMENT_NATURE"
 
 [node name="DmgFromNature" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -220,7 +220,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Ice"
+text = "ELEMENT_ICE"
 
 [node name="DmgFromIce" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -230,7 +230,7 @@ horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Fire"
+text = "ELEMENT_FIRE"
 
 [node name="DmgFromFire" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -240,7 +240,7 @@ horizontal_alignment = 2
 
 [node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Storm"
+text = "ELEMENT_STORM"
 
 [node name="DmgFromStorm" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -250,7 +250,7 @@ horizontal_alignment = 2
 
 [node name="Label8" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
-text = "Iron"
+text = "ELEMENT_IRON"
 
 [node name="DmgFromIron" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
 layout_mode = 2
@@ -276,7 +276,7 @@ theme_override_constants/separation = 20
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.858824, 0.254902, 0.219608, 1)
-text = "Health:"
+text = "CREEP_DETAILS_HEALTH"
 
 [node name="HealthContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -284,7 +284,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Base"
+text = "CREEP_DETAILS_BASE"
 
 [node name="BaseHealth" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -294,7 +294,7 @@ horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Bonus"
+text = "CREEP_DETAILS_BONUS"
 
 [node name="HealthBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -304,7 +304,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Bonus %"
+text = "CREEP_DETAILS_BONUS_PST"
 
 [node name="HealthBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -314,7 +314,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Overall"
+text = "CREEP_DETAILS_OVERALL"
 
 [node name="OverallHealth" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -324,7 +324,7 @@ horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Base regen"
+text = "CREEP_DETAILS_BASE_REG"
 
 [node name="BaseHealthRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -334,7 +334,7 @@ horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Bonus regen"
+text = "CREEP_DETAILS_BONUS_REG"
 
 [node name="HealthRegenBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -344,7 +344,7 @@ horizontal_alignment = 2
 
 [node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Bonus regen %"
+text = "CREEP_DETAILS_BONUS_REG_PST"
 
 [node name="HealthRegenBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -354,7 +354,7 @@ horizontal_alignment = 2
 
 [node name="Label8" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
-text = "Overall regen"
+text = "CREEP_DETAILS_OVERALL_REG"
 
 [node name="OverallHealthRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
 layout_mode = 2
@@ -365,7 +365,7 @@ horizontal_alignment = 2
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.380392, 0.517647, 1, 1)
-text = "Mana:"
+text = "CREEP_DETAILS_MANA"
 
 [node name="ManaContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -373,7 +373,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Base"
+text = "CREEP_DETAILS_BASE"
 
 [node name="BaseMana" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -383,7 +383,7 @@ horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Bonus"
+text = "CREEP_DETAILS_BONUS"
 
 [node name="ManaBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -393,7 +393,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Bonus %"
+text = "CREEP_DETAILS_BONUS_PST"
 
 [node name="ManaBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -403,7 +403,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Overall"
+text = "CREEP_DETAILS_OVERALL"
 
 [node name="OverallMana" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -413,7 +413,7 @@ horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Base regen"
+text = "CREEP_DETAILS_BASE_REG"
 
 [node name="BaseManaRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -423,7 +423,7 @@ horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Bonus regen"
+text = "CREEP_DETAILS_BONUS_REG"
 
 [node name="ManaRegenBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -433,7 +433,7 @@ horizontal_alignment = 2
 
 [node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Bonus regen %"
+text = "CREEP_DETAILS_BONUS_REG_PST"
 
 [node name="ManaRegenBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -443,7 +443,7 @@ horizontal_alignment = 2
 
 [node name="Label8" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
-text = "Overall regen"
+text = "CREEP_DETAILS_OVERALL_REG"
 
 [node name="OverallManaRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -462,7 +462,7 @@ theme_override_constants/separation = 20
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.415686, 0.596078, 0.996078, 1)
-text = "Movement speed:"
+text = "CREEP_DETAILS_MOV_SPEED"
 
 [node name="MovespeedContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
 layout_mode = 2
@@ -470,7 +470,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
-text = "Base"
+text = "CREEP_DETAILS_BASE"
 
 [node name="BaseMovespeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
@@ -480,7 +480,7 @@ horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
-text = "Bonus"
+text = "CREEP_DETAILS_BONUS"
 
 [node name="MovespeedBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
@@ -490,7 +490,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
-text = "Bonus %"
+text = "CREEP_DETAILS_BONUS_PST"
 
 [node name="MovespeedBonusPerc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
@@ -500,7 +500,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
-text = "Overall"
+text = "CREEP_DETAILS_OVERALL"
 
 [node name="OverallMovespeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MovespeedContainer"]
 layout_mode = 2
@@ -511,7 +511,7 @@ horizontal_alignment = 2
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
-text = "Misc:"
+text = "CREEP_DETAILS_MISC"
 
 [node name="MiscContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
 layout_mode = 2
@@ -519,7 +519,7 @@ columns = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Bounty ratio"
+text = "CREEP_DETAILS_BOUNTY_RAT"
 
 [node name="BountyRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
@@ -529,7 +529,7 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Exp ratio"
+text = "CREEP_DETAILS_EXP_RAT"
 
 [node name="ExpRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
@@ -539,7 +539,7 @@ horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Item drop ratio"
+text = "CREEP_DETAILS_DROP_RAT"
 
 [node name="ItemDropRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
@@ -549,7 +549,7 @@ horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Item quality ratio"
+text = "CREEP_DETAILS_QUALITY_RAT"
 
 [node name="ItemQualityRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
@@ -559,7 +559,7 @@ horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Buff duration"
+text = "CREEP_DETAILS_BUFF_DUR"
 
 [node name="BuffDuration" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
@@ -569,7 +569,7 @@ horizontal_alignment = 2
 
 [node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2
-text = "Debuff duration"
+text = "CREEP_DETAILS_DEBUFF_DUR"
 
 [node name="DebuffDuration" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer/MiscContainer"]
 layout_mode = 2

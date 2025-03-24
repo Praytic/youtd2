@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://src/ui/game_menu/help_menu.tscn" id="3_vf4xx"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://src/ui/game_menu/settings_menu.tscn" id="5_y1l7h"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6c4dp"]
 
 [node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
@@ -32,22 +31,22 @@ theme_override_constants/separation = 5
 [node name="ContinueButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Continue"
+text = "CONTINUE_BUTTON"
 
 [node name="HelpButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Help"
+text = "HELP_BUTTON"
 
 [node name="SettingsButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Settings"
+text = "SETTINGS_BUTTON"
 
 [node name="QuitButton" type="Button" parent="TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Quit To Menu"
+text = "QUIT_TO_MENU_BUTTON"
 
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false

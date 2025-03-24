@@ -36,6 +36,11 @@ func _ready():
 	_setting_to_combo_map = {
 		Settings.DISPLAY_MODE: _display_mode_combo,
 	}
+	
+	#init TranslationServer locale based on OS locale
+	var preferred_language = OS.get_locale_language()
+	TranslationServer.set_locale(preferred_language)
+	
 	for setting in _setting_to_combo_map.keys():
 		var combo: OptionButton = _setting_to_combo_map[setting]
 		combo.item_selected.connect(_on_combo_changed)

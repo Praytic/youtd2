@@ -11,8 +11,8 @@
 theme = ExtResource("1_fewds")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hwtay")
 script = ExtResource("2_j6xl1")
-_wave_status = NodePath("TabContainer/Wave Status")
-_game_stats = NodePath("TabContainer/Game Stats")
+_wave_status = NodePath("TabContainer/TOP_LEFT_MENU_WAVE")
+_game_stats = NodePath("TabContainer/TOP_LEFT_MENU_GAME")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 self_modulate = Color(1, 1, 1, 0.705882)
@@ -21,11 +21,11 @@ layout_mode = 2
 current_tab = 0
 tab_focus_mode = 0
 
-[node name="Wave Status" parent="TabContainer" instance=ExtResource("3_8qtkf")]
+[node name="TOP_LEFT_MENU_WAVE" parent="TabContainer" instance=ExtResource("3_8qtkf")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Game Stats" parent="TabContainer" instance=ExtResource("4_8lyyh")]
+[node name="TOP_LEFT_MENU_GAME" parent="TabContainer" instance=ExtResource("4_8lyyh")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1

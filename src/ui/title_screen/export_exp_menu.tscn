@@ -36,8 +36,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Copy the experience password below and import it into another game client.
-(note that copy-paste may fail in browser, you will need to type the password manually)"
+text = "EXPORT_POPUP"
 autowrap_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer"]
@@ -50,6 +49,6 @@ context_menu_enabled = false
 [node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Close"
+text = "CLOSE_BUTTON"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

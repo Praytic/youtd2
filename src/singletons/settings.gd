@@ -27,9 +27,9 @@ const COMBAT_LOG_X: String = "combat_log_x"
 const COMBAT_LOG_Y: String = "combat_log_y"
 const INTERFACE_SIZE: String = "interface_size"
 const INTERFACE_SIZE_DICT: Dictionary = {
-	"Small": 0.75,
-	"Medium": 1.0,
-	"Large": 1.25
+	"SETTINGS_INTERFACE_SMALL": 0.75,
+	"SETTINGS_INTERFACE_MEDIUM": 1.0,
+	"SETTINGS_INTERFACE_LARGE": 1.25
 }
 const SHOW_TUTORIAL_ON_START: String = "show_tutorial_on_start"
 const CACHED_GAME_DIFFICULTY: String = "CACHED_GAME_DIFFICULTY"
@@ -41,6 +41,7 @@ const WISDOM_UPGRADES_CACHED: String = "WISDOM_UPGRADES_CACHED"
 const DISPLAY_MODE: String = "DISPLAY_MODE"
 const MISSION_STATUS: String = "MISSION_STATUS"
 const SHOWED_ONE_TIME_HELP_POPUP: String = "SHOWED_ONE_TIME_HELP_POPUP"
+const LANGUAGE: String = "LANGUAGE"
 
 
 var _cache: Dictionary = {}
@@ -61,7 +62,7 @@ var _default_value_map: Dictionary = {
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20.0,
 	COMBAT_LOG_Y: 600.0,
-	INTERFACE_SIZE: "Medium",
+	INTERFACE_SIZE: "SETTINGS_INTERFACE_MEDIUM",
 	SHOW_TUTORIAL_ON_START: true,
 	CACHED_GAME_DIFFICULTY: "beginner",
 	CACHED_GAME_MODE: "random_with_upgrades",
@@ -72,6 +73,7 @@ var _default_value_map: Dictionary = {
 	DISPLAY_MODE: DisplayMode.enm.FULLSCREEN as float,
 	MISSION_STATUS: {},
 	SHOWED_ONE_TIME_HELP_POPUP: false,
+	LANGUAGE: "en"
 }
 
 

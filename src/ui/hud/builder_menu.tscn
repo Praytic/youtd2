@@ -31,7 +31,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Select Builder:"
+text = "BUILDER_MENU_TITLE"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -45,7 +45,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Beginner"
+text = "BUILDER_MENU_BEGINNER"
 horizontal_alignment = 1
 
 [node name="BeginnerContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
@@ -54,7 +54,7 @@ columns = 6
 
 [node name="Label2" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Advanced"
+text = "BUILDER_MENU_ADVANCED"
 horizontal_alignment = 1
 
 [node name="AdvancedContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
@@ -64,8 +64,7 @@ columns = 6
 [node name="Label3" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Specialist
-"
+text = "BUILDER_MENU_SPECIALIST"
 
 [node name="SpecialistContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -73,7 +72,7 @@ columns = 6
 
 [node name="Label4" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Hardcore"
+text = "BUILDER_MENU_HARDCORE"
 horizontal_alignment = 1
 
 [node name="HardcoreContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]

@@ -37,9 +37,7 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Paste experience password exported from another game client.
-
-(note that copy-paste may fail in browser, you will need to type the password manually)"
+text = "IMPORT_POPUP"
 autowrap_mode = 2
 
 [node name="ExpPasswordEdit" type="TextEdit" parent="PanelContainer/VBoxContainer"]
@@ -57,12 +55,12 @@ size_flags_horizontal = 8
 
 [node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Close"
+text = "CLOSE_BUTTON"
 
 [node name="ImportButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Apply"
+text = "IMPORT_BUTTON"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
