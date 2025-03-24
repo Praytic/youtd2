@@ -18,6 +18,7 @@ signal ok_pressed()
 @export var _interface_size_button_group: ButtonGroup
 @export var _apply_button: Button
 @export var _display_mode_combo: OptionButton
+@export var _language_combo: OptionButton
 @export var _interface_size_button_small: Button
 @export var _interface_size_button_medium: Button
 @export var _interface_size_button_large: Button
@@ -42,11 +43,8 @@ func _ready():
 #	NOTE: need to setup these maps inside ready() because this map uses @export vars which are not ready before ready()
 	_setting_to_combo_map = {
 		Settings.DISPLAY_MODE: _display_mode_combo,
+		Settings.LANGUAGE: _language_combo,
 	}
-	
-	#init TranslationServer locale based on OS locale
-	var preferred_language = OS.get_locale_language()
-	TranslationServer.set_locale(preferred_language)
 	
 	for setting in _setting_to_combo_map.keys():
 		var combo: OptionButton = _setting_to_combo_map[setting]
@@ -86,10 +84,12 @@ func _ready():
 #########################
 
 func _load_current_settings():
-	for setting in _setting_to_combo_map.keys():
-		var checkbox: OptionButton = _setting_to_combo_map[setting]
-		var selected_index: int = Settings.get_setting(setting) as int
-		checkbox.select(selected_index)
+	var selected_display_mode_int: int = Settings.get_setting(Settings.DISPLAY_MODE) as int
+	_display_mode_combo.select(selected_display_mode_int)
+	
+	var language_string: String = Settings.get_setting(Settings.LANGUAGE)
+	var selected_language_int: int = Language.get_option_from_locale(language_string)
+	_language_combo.select(selected_language_int)
 	
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
@@ -113,6 +113,11 @@ func _load_current_settings():
 	_clear_dirty_state()
 
 
+# NOTE: language and display settings are special cases and
+# are not handled here. Instead, they are handled in
+# specialised callbacks:
+# _on_display_mode_combo_item_selected() and
+# _on_language_item_selected()
 func _apply_changes():
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
@@ -186,3 +191,9 @@ func _on_visibility_changed():
 func _on_display_mode_combo_item_selected(index: int):
 	var display_mode_int: int = index
 	Settings.set_setting(Settings.DISPLAY_MODE, display_mode_int)
+
+
+func _on_language_item_selected(index: int) -> void:
+	var selected_locale: String = Language.get_locale_from_option(index)
+	TranslationServer.set_locale(selected_locale)
+	Settings.set_setting(Settings.LANGUAGE, selected_locale)

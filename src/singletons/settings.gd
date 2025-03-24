@@ -79,7 +79,7 @@ var _default_value_map: Dictionary = {
 	DISPLAY_MODE: DisplayMode.enm.FULLSCREEN as float,
 	MISSION_STATUS: {},
 	SHOWED_ONE_TIME_HELP_POPUP: false,
-	LANGUAGE: "en"
+	LANGUAGE: OS.get_locale_language(),
 }
 
 
@@ -116,6 +116,9 @@ func _ready():
 		flush()
 
 	_load_window_settings()
+	
+	var selected_language: String = get_setting(Settings.LANGUAGE)
+	TranslationServer.set_locale(selected_language)
 
 
 #########################

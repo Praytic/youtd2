@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx86ea3loo8a2"]
+[gd_scene load_steps=5 format=3 uid="uid://cx86ea3loo8a2"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_73d58"]
 [ext_resource type="Script" path="res://src/ui/game_menu/settings_menu.gd" id="2_2dtmk"]
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
 [ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://resources/theme/selected_unit_info/panel_container.tres" id="4_o5p4r"]
-[ext_resource type="Script" path="res://src/ui/game_menu/language_option_button.gd" id="5_foonh"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo", "_interface_size_button_small", "_interface_size_button_medium", "_interface_size_button_large")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo", "_language_combo", "_interface_size_button_small", "_interface_size_button_medium", "_interface_size_button_large")]
 custom_minimum_size = Vector2(800, 900)
 theme = ExtResource("1_73d58")
 theme_type_variation = &"MainPanelContainer"
@@ -24,6 +23,7 @@ _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Margi
 _interface_size_button_group = ExtResource("2_fh8ol")
 _apply_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ApplyButton")
 _display_mode_combo = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/DisplayModeCombo")
+_language_combo = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language")
 _interface_size_button_small = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/SmallInterfaceSizeButton")
 _interface_size_button_medium = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/MediumInterfaceSizeButton")
 _interface_size_button_large = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/LargeInterfaceSizeButton")
@@ -100,7 +100,6 @@ item_count = 2
 popup/item_0/text = "English"
 popup/item_1/text = "中文"
 popup/item_1/id = 1
-script = ExtResource("5_foonh")
 
 [node name="InterfaceSizeLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
@@ -269,7 +268,7 @@ text = "APPLY_BUTTON"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/DisplayModeCombo" to="." method="_on_display_mode_combo_item_selected"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" to="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" method="_on_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" to="." method="_on_language_item_selected"]
 [connection signal="ready" from="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/Language" to="." method="_on_language_ready"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
