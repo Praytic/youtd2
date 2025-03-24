@@ -15,7 +15,7 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Missions"
+text = "MISSIONS_MENU_MISSIONS"
 horizontal_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
@@ -23,24 +23,24 @@ custom_minimum_size = Vector2(0, 800)
 layout_mode = 2
 current_tab = 0
 
-[node name="General" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
+[node name="MISSIONS_MENU_TAB_GENERAL" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
 layout_mode = 2
 _section_name = "general"
 metadata/_tab_index = 0
 
-[node name="Elements" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
+[node name="MISSIONS_MENU_TAB_ELEMENTS" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
 visible = false
 layout_mode = 2
 _section_name = "elements"
 metadata/_tab_index = 1
 
-[node name="Builders" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
+[node name="MISSIONS_MENU_TAB_BUILDERS" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
 visible = false
 layout_mode = 2
 _section_name = "builders"
 metadata/_tab_index = 2
 
-[node name="Special" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
+[node name="MISSIONS_MENU_TAB_SPECIAL" parent="VBoxContainer/TabContainer" instance=ExtResource("2_u6yfm")]
 visible = false
 layout_mode = 2
 _section_name = "special"
@@ -49,6 +49,6 @@ metadata/_tab_index = 3
 [node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Close"
+text = "CLOSE_BUTTON"
 
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

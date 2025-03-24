@@ -180,10 +180,10 @@ func update_text():
 	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
 	
 	if _tower.reached_max_level():
-		_level_x_at_left.text = "Max level reached!"
+		_level_x_at_left.text = "MAX_LVL_REACHED"
 		_level_x_at_right.text = ""
 	else:
-		_level_x_at_left.text = "Level %s at" % str(next_level)
+		_level_x_at_left.text = tr("LEVEL_%S_AT") % str(next_level)
 		_level_x_at_right.text = TowerDetails.int_format(exp_for_next_level)
 
 # 	Mana

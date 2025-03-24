@@ -16,9 +16,7 @@ theme_override_constants/separation = 50
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Press [color=GOLD]ESCAPE[/color] key to pause the game.
- 
-Check [color=GOLD]Help[/color] menu for useful info about the game!"
+text = "ONE_TIME_HELP_POP"
 fit_content = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -27,6 +25,6 @@ size_flags_horizontal = 4
 
 [node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Close"
+text = "CLOSE_BUTTON"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

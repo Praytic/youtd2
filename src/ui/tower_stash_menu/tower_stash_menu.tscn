@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://src/ui/filter_buttons/rarity_filter.tscn" id="6_x6hx1"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://src/ui/filter_buttons/element_filter.tscn" id="7_s88kh"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h654a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh5fy"]
@@ -157,7 +156,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("4_jlt7a")
-text = "Tower Stash"
+text = "TOWER_STASH_MENU_TITLE"
 horizontal_alignment = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]

@@ -16,7 +16,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Choose game settings:"
+text = "ONLINE_MATCH_MENU_LABEL"
 
 [node name="MatchConfigPanel" parent="VBoxContainer" instance=ExtResource("3_cxmya")]
 layout_mode = 2
@@ -32,13 +32,12 @@ alignment = 2
 [node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Cancel"
+text = "CANCEL_BUTTON"
 
 [node name="CreateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-text = "Create
-"
+text = "CREATE_BUTTON"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]

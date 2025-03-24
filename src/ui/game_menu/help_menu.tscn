@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://src/ui/game_menu/help_menu.gd" id="2_jpay6"]
 [ext_resource type="PackedScene" uid="uid://dqb37g0dwa4o2" path="res://src/ui/game_menu/help_menu_tab.tscn" id="3_iygdm"]
 
-
 [node name="HelpMenu" type="TabContainer"]
 custom_minimum_size = Vector2(1100, 700)
 offset_right = 900.0
@@ -14,48 +13,48 @@ theme_type_variation = &"MainPanelContainer"
 current_tab = 0
 script = ExtResource("2_jpay6")
 
-[node name="Basics" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_BASICS" parent="." instance=ExtResource("3_iygdm")]
 layout_mode = 2
 csv_path = "res://data/hints/basics.csv"
 metadata/_tab_index = 0
 
-[node name="Tutorial" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_TUTORIAL" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/tutorial.csv"
 metadata/_tab_index = 1
 
-[node name="Chat Commands" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_CHAT_COMMANDS" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/chat_commands.csv"
 metadata/_tab_index = 2
 
-[node name="Towers" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_TOWERS" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/towers.csv"
 metadata/_tab_index = 3
 
-[node name="Items" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_ITEMS" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/items.csv"
 metadata/_tab_index = 4
 
-[node name="Creeps" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_CREEPS" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/creeps.csv"
 metadata/_tab_index = 5
 
-[node name="Creep Specials" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_CREEP_SPECIALS" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/creep_specials.csv"
 metadata/_tab_index = 6
 
-[node name="Advanced" parent="." instance=ExtResource("3_iygdm")]
+[node name="HELP_MENU_ADVANCED" parent="." instance=ExtResource("3_iygdm")]
 visible = false
 layout_mode = 2
 csv_path = "res://data/hints/advanced.csv"

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://src/ui/hud/floating_text.gd" id="2"]
 
-
 [node name="FloatingText" type="Node2D" node_paths=PackedStringArray("label")]
 script = ExtResource("2")
 label = NodePath("Label")

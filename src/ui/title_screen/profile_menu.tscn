@@ -27,7 +27,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"LabelLarge"
-text = "Profile"
+text = "PROFILE_MENU_PROFILE"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -45,7 +45,7 @@ columns = 2
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Name:"
+text = "PROFILE_MENU_NAME"
 
 [node name="NameEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -59,7 +59,7 @@ caret_blink = true
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Level:"
+text = "PROFILE_MENU_LEVEL"
 
 [node name="LevelLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -70,7 +70,7 @@ text = "0"
 [node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "Experience:"
+text = "PROFILE_MENU_EXPERIENCE"
 
 [node name="ExperienceLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -81,7 +81,7 @@ text = "0"
 [node name="ExpForNextLvlLeftLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
-text = "For next level:"
+text = "PROFILE_MENU_FNL"
 
 [node name="ExpForNextLvlLabel" type="Label" parent="VBoxContainer/HBoxContainer3/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -100,18 +100,18 @@ size_flags_horizontal = 0
 [node name="ExportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
-text = "Export experience"
+text = "PROFILE_MENU_EXPORT"
 
 [node name="ImportExpButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
-text = "Import experience"
+text = "PROFILE_MENU_IMPORT"
 
 [node name="MissionsButton" type="Button" parent="VBoxContainer/HBoxContainer3/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
-text = "Missions"
+text = "PROFILE_MENU_MISSIONS"
 
 [node name="Spacer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
@@ -124,7 +124,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
-text = "Close"
+text = "CLOSE_BUTTON"
 
 [node name="ExportExpMenu" parent="." instance=ExtResource("2_son4h")]
 visible = false

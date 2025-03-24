@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://src/ui/title_screen/missions_menu/missions_menu_tab.gd" id="1_sk0ti"]
 
-
 [node name="MissionsMenuTab" type="MarginContainer" node_paths=PackedStringArray("_mission_box", "_completed_count_label")]
 custom_minimum_size = Vector2(400, 400)
 size_flags_horizontal = 3
@@ -30,7 +29,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "Missions Completed"
+text = "MISSIONS_MENU_TAB"
 
 [node name="Spacer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)

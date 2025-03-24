@@ -3,39 +3,38 @@
 [ext_resource type="Script" path="res://src/ui/unit_menu/creep_mini_details.gd" id="1_0rr73"]
 [ext_resource type="PackedScene" uid="uid://b5kapr6gujqbt" path="res://src/ui/unit_menu/mini_details_label.tscn" id="2_swo34"]
 
-
 [node name="CreepMiniDetails" type="TabContainer" node_paths=PackedStringArray("_stats_left_label", "_stats_right_label", "_dmg_left_label", "_dmg_right_label")]
 custom_minimum_size = Vector2(400, 300)
 size_flags_vertical = 8
 current_tab = 0
 tab_focus_mode = 0
 script = ExtResource("1_0rr73")
-_stats_left_label = NodePath("Stats/StatsLeftLabel")
-_stats_right_label = NodePath("Stats/StatsRightLabel")
-_dmg_left_label = NodePath("Dmg/DmgLeftLabel")
-_dmg_right_label = NodePath("Dmg/DmgRightLabel")
+_stats_left_label = NodePath("CREEP_MINI_DETAILS_STATS/StatsLeftLabel")
+_stats_right_label = NodePath("CREEP_MINI_DETAILS_STATS/StatsRightLabel")
+_dmg_left_label = NodePath("CREEP_MINI_DETAILS_DMG/DmgLeftLabel")
+_dmg_right_label = NodePath("CREEP_MINI_DETAILS_DMG/DmgRightLabel")
 
 [node name="UpdateTimer" type="Timer" parent="."]
 
-[node name="Stats" type="HBoxContainer" parent="."]
+[node name="CREEP_MINI_DETAILS_STATS" type="HBoxContainer" parent="."]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="StatsLeftLabel" parent="Stats" instance=ExtResource("2_swo34")]
+[node name="StatsLeftLabel" parent="CREEP_MINI_DETAILS_STATS" instance=ExtResource("2_swo34")]
 layout_mode = 2
 
-[node name="StatsRightLabel" parent="Stats" instance=ExtResource("2_swo34")]
+[node name="StatsRightLabel" parent="CREEP_MINI_DETAILS_STATS" instance=ExtResource("2_swo34")]
 layout_mode = 2
 
-[node name="Dmg" type="HBoxContainer" parent="."]
+[node name="CREEP_MINI_DETAILS_DMG" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="DmgLeftLabel" parent="Dmg" instance=ExtResource("2_swo34")]
+[node name="DmgLeftLabel" parent="CREEP_MINI_DETAILS_DMG" instance=ExtResource("2_swo34")]
 layout_mode = 2
 
-[node name="DmgRightLabel" parent="Dmg" instance=ExtResource("2_swo34")]
+[node name="DmgRightLabel" parent="CREEP_MINI_DETAILS_DMG" instance=ExtResource("2_swo34")]
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://qcct52drete4" path="res://src/ui/filter_buttons/rarity_filter.tscn" id="14_bh43e"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://assets/hud/misc3.png" id="17_ba6s8"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_od67h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qiyn0"]
@@ -76,7 +75,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 tooltip_text = "Sorts all items in item stash according to item type, rarity and level."
 focus_mode = 0
-text = "SORT"
+text = "ITEM_SORT"
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/VBoxContainer"]
 layout_mode = 2
@@ -103,7 +102,7 @@ theme_override_constants/margin_top = -10
 [node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemsPanel/MarginContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelSectionTitle"
-text = "Items"
+text = "ITEMS_PANEL_ITEMS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -162,7 +161,7 @@ theme_override_constants/margin_top = -10
 [node name="Label" type="Label" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/MarginContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelSectionTitle"
-text = "Horadric Cube"
+text = "HORADRIC_CUBE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -297,13 +296,13 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "Convert ingredients into a new item. This button will become enabled when it's possible to convert ingredients."
 focus_mode = 0
-text = "MERGE"
+text = "ITEMS_PANEL_MERGE"
 
 [node name="ReturnButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Returns all items in Horadric Cube to item stash."
 focus_mode = 0
-text = "RETURN"
+text = "ITEMS_PANEL_RETURN"
 
 [node name="MarginContainer2" type="MarginContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -388,7 +387,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("3_tvpws")
-text = "Item Stash"
+text = "ITEMS_PANEL_ITEM_STASH"
 horizontal_alignment = 1
 
 [connection signal="toggled" from="TabContainer/VBoxContainer/HBoxContainer/LockFilterButton" to="." method="_on_lock_filter_button_toggled"]

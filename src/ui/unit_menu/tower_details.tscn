@@ -109,7 +109,7 @@ modulate = Color(1, 0.32549, 0.32549, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Attack:"
+text = "TOWER_DETAILS_ATK"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -126,7 +126,7 @@ size_flags_horizontal = 3
 tooltip_text = "The standard attack damage the tower deals
 without any bonuses at level 0."
 mouse_filter = 1
-text = "Base damage"
+text = "TOWER_DETAILS_BASE_DMG"
 
 [node name="BaseDamage" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -142,7 +142,7 @@ tooltip_text = "This value is added on the base damage. It is
 calculated into the white numbers of the tower's
 attack damage."
 mouse_filter = 1
-text = "Base bonus"
+text = "TOWER_DETAILS_BASE_BONUS"
 
 [node name="BaseDamageBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -160,7 +160,7 @@ the white numbers. Bonus damage granted by
 oils and damage the tower gains by leveling is
 added to this value."
 mouse_filter = 1
-text = "Base bonus %"
+text = "TOWER_DETAILS_BASE_BONUS_PST"
 
 [node name="BaseDamageBonusPercent" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -179,7 +179,7 @@ white numbers of the tower's damage. DPS
 gain by special abilities and items is usually
 added to this value."
 mouse_filter = 1
-text = "Damage add"
+text = "TOWER_DETAILS_BASE_DNG_ADD"
 
 [node name="DamageAdd" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -198,7 +198,7 @@ Percent bonuses from permanent items,
 buffs, auras and special abilities is ususally
 added to this value."
 mouse_filter = 1
-text = "Damage add %"
+text = "TOWER_DETAILS_BASE_DNG_ADD_PST"
 
 [node name="DamageAddPercent" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -211,7 +211,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Overall damage"
+text = "TOWER_DETAILS_OVERALL_DNG"
 
 [node name="OverallDamage" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -233,7 +233,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Base attack speed"
+text = "TOWER_DETAILS_BASE_ATK_SPEED"
 
 [node name="BaseAttackSpeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -248,7 +248,7 @@ size_flags_horizontal = 3
 tooltip_text = "This value divides the base cooldown to get
 overall cooldown."
 mouse_filter = 1
-text = "Attack speed mod"
+text = "TOWER_DETAILS_ATK_SPEED_MOD"
 
 [node name="AttackSpeedModifier" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -262,7 +262,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Time between tower attacks."
 mouse_filter = 1
-text = "Overall attack speed"
+text = "TOWER_DETAILS_OVERALL_ATK_SPEED"
 
 [node name="OverallAttackSpeed" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -284,7 +284,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Overall DPS"
+text = "TOWER_DETAILS_OVERALL_DPS"
 
 [node name="OverallDPS" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
 layout_mode = 2
@@ -307,7 +307,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Chance to deal a critical strike on attack."
 mouse_filter = 1
-text = "Crit chance"
+text = "TOWER_DETAILS_CRIT_CHANCE"
 
 [node name="PropAtkCritChance" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
@@ -321,7 +321,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "The amount of extra damage which will be added if an attack is critical."
 mouse_filter = 1
-text = "Crit damage"
+text = "TOWER_DETAILS_CRIT_DMG"
 
 [node name="PropAtkCritDamage" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
@@ -339,7 +339,7 @@ example, then in very rare cases the tower may
 crit 2 times, which will add Crit Damage bonus
 twice."
 mouse_filter = 1
-text = "Multicrit count"
+text = "TOWER_DETAILS_MULTICRIT_COUNT"
 
 [node name="PropMulticritCount" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
@@ -361,7 +361,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "DPS with crit"
+text = "TOWER_DETAILS_DPS_WITH_CRIT"
 
 [node name="DPS_WithCrit" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
 layout_mode = 2
@@ -394,7 +394,7 @@ modulate = Color(0.145098, 0.831373, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Spells:"
+text = "TOWER_DETAILS_SPELLS"
 
 [node name="AttackContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -405,7 +405,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Spell damage"
+text = "TOWER_DETAILS_SPELL_DMG"
 
 [node name="PropSpellDamageDealt" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/AttackContainer"]
 layout_mode = 2
@@ -421,7 +421,7 @@ tooltip_text = "Chance to do critical damage when dealing spell
 damage. Note that spell damage cannot
 multicrit."
 mouse_filter = 1
-text = "Crit chance"
+text = "TOWER_DETAILS_SPELL_CRIT_CHANCE"
 
 [node name="SpellCritChance" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/AttackContainer"]
 layout_mode = 2
@@ -434,7 +434,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Crit damage"
+text = "TOWER_DETAILS_SPELLS_CRIT_DMG"
 
 [node name="SpellCritDamage" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/AttackContainer"]
 layout_mode = 2
@@ -448,7 +448,7 @@ modulate = Color(0.423529, 0.458824, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mana:"
+text = "TOWER_DETAILS_MANA"
 
 [node name="ManaContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -459,7 +459,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Base mana"
+text = "TOWER_DETAILS_BASE_MANA"
 
 [node name="BaseMana" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -472,7 +472,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mana bonus"
+text = "TOWER_DETAILS_MANA_BONUS"
 
 [node name="BaseManaBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -485,7 +485,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mana bonus %"
+text = "TOWER_DETAILS_MANA_BONUS_PST"
 
 [node name="BaseManaBonusPercent" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -498,7 +498,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Overall mana"
+text = "TOWER_DETAILS_OVERALL_MANA"
 
 [node name="OverallMana" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -511,7 +511,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Base mana regen"
+text = "TOWER_DETAILS_BASE_MANA_REG"
 
 [node name="BaseManaRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -524,7 +524,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mana regen bonus"
+text = "TOWER_DETAILS_MANA_REG_BONUS"
 
 [node name="BaseManaRegenBonus" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -537,7 +537,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mana regen bonus %"
+text = "TOWER_DETAILS_MANA_REG_BONUS_PST"
 
 [node name="BaseManaRegenBonusPercent" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -550,7 +550,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Overall mana reg"
+text = "TOWER_DETAILS_MANA_OVERALL_MANA_REG"
 
 [node name="OverallManaRegen" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
 layout_mode = 2
@@ -583,7 +583,7 @@ modulate = Color(0.47451, 1, 0.470588, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Veteran:"
+text = "TOWER_DETAILS_VETERAN"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -598,7 +598,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Total damage dealt by this tower."
 mouse_filter = 1
-text = "Damage"
+text = "TOWER_DETAILS_VETERAN_DMG"
 
 [node name="Damage" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -611,7 +611,7 @@ horizontal_alignment = 2
 layout_mode = 2
 tooltip_text = "Total damage dealt by this tower during the last 5 waves."
 mouse_filter = 1
-text = "Recent damage"
+text = "TOWER_DETAILS_VETERAN_RCT_DMG"
 
 [node name="TotalDamageRecent" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -622,7 +622,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Best Hit"
+text = "TOWER_DETAILS_VETERAN_BEST_HIT"
 
 [node name="BestHit" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -635,7 +635,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Kills"
+text = "TOWER_DETAILS_VETERAN_KILLS"
 
 [node name="Kills" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -648,7 +648,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Experience"
+text = "TOWER_DETAILS_VETERAN_EXP"
 
 [node name="Exp" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -684,7 +684,7 @@ modulate = Color(1, 0.733333, 0.129412, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Misc:"
+text = "TOWER_DETAILS_MISC"
 
 [node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -700,7 +700,7 @@ size_flags_horizontal = 3
 tooltip_text = "This value is multiplied with gold dropped by
 creeps when this tower kills creeps."
 mouse_filter = 1
-text = "Bounty ratio"
+text = "TOWER_DETAILS_BOUNTY_RAT"
 
 [node name="PropBountyReceived" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -715,7 +715,7 @@ size_flags_horizontal = 3
 tooltip_text = "This tower multiplies experience dropped by
 creeps when this tower kills creeps."
 mouse_filter = 1
-text = "Exp ratio"
+text = "TOWER_DETAILS_EXP_RAT"
 
 [node name="ExpRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -730,7 +730,7 @@ size_flags_horizontal = 3
 tooltip_text = "This value changes the chance that creeps killed
 by this tower will drop an item."
 mouse_filter = 1
-text = "Item drop ratio"
+text = "TOWER_DETAILS_DROP_RAT"
 
 [node name="ItemDropRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -746,7 +746,7 @@ tooltip_text = "This value changes the quality of items dropped
 by creeps. Works only for creeps killed by this
 tower."
 mouse_filter = 1
-text = "Item quality ratio"
+text = "TOWER_DETAILS_QUALITY_RAT"
 
 [node name="ItemQualityRatio" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -763,7 +763,7 @@ triggering. If a tower ability tooltip says it has
 a chance to trigger, then it is affected by this
 value."
 mouse_filter = 1
-text = "Trigger chances"
+text = "TOWER_DETAILS_MISC"
 
 [node name="PropTriggerChances" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -779,7 +779,7 @@ tooltip_text = "This value changes the duration of buffs which
 are applied by this tower on other towers or itself. Doesn't affect the duration of buffs applied
 on this tower by other towers."
 mouse_filter = 1
-text = "Buff duration"
+text = "TOWER_DETAILS_BUFF_DUR"
 
 [node name="PropBuffDuration" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -794,7 +794,7 @@ size_flags_horizontal = 3
 tooltip_text = "Changes the duration of debuffs applied by
 creeps on this tower."
 mouse_filter = 1
-text = "Debuff duration"
+text = "TOWER_DETAILS_DEBUFF_DUR"
 
 [node name="PropDebuffDuration" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -829,7 +829,7 @@ modulate = Color(0.6, 0.341176, 0.113725, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Damage to race:"
+text = "DMG_TO_RACE"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3"]
 layout_mode = 2
@@ -844,7 +844,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Undead"
+text = "RACE_UNDEAD"
 
 [node name="DamageToUndead" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -857,7 +857,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Magical"
+text = "RACE_MAGICAL"
 
 [node name="DamageToMagic" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -870,7 +870,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Nature"
+text = "RACE_NATURE"
 
 [node name="DamageToNature" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -883,7 +883,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Orc"
+text = "RACE_ORC"
 
 [node name="DamageToOrc" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -896,7 +896,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Humanoid"
+text = "RACE_HUMANOID"
 
 [node name="DamageToHumanoid" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -914,7 +914,7 @@ modulate = Color(0.6, 0.341176, 0.113725, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Damage to size:"
+text = "DMG_TO_SIZE"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3"]
 layout_mode = 2
@@ -929,7 +929,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Mass"
+text = "SIZE_MASS"
 
 [node name="DamageToMass" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -942,7 +942,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Normal"
+text = "SIZE_NORMAL"
 
 [node name="DamageToNormal" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -955,7 +955,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Air"
+text = "SIZE_AIR"
 
 [node name="DamageToAir" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -968,7 +968,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Champion"
+text = "SIZE_CHAMPION"
 
 [node name="DamageToChampion" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -981,7 +981,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Boss"
+text = "SIZE_BOSS"
 
 [node name="DamageToBoss" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2

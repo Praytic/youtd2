@@ -54,7 +54,7 @@ func load_wisdom_upgrades_from_settings():
 	_next_upgrade_unlock_label.visible = next_unlock_level_exists
 	_next_upgrade_unlock_label.clear()
 	if next_unlock_level_exists:
-		_next_upgrade_unlock_label.append_text("Next upgrade slot will unlock at level [color=GOLD]%d[/color]." % next_unlock_level)
+		_next_upgrade_unlock_label.append_text(tr("WISDOM_UPGRADES_UNLOCK_LABEL") + "[color=GOLD]%d[/color]." % next_unlock_level)
 
 	_update_available_label()
 

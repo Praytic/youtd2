@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://src/ui/title_screen/match_config_panel.gd" id="1_wksi8"]
 
-
 [node name="MatchConfigPanel" type="GridContainer" node_paths=PackedStringArray("_difficulty_combo", "_game_length_combo", "_game_mode_combo", "_team_mode_label", "_team_mode_combo")]
 theme_override_constants/v_separation = 5
 columns = 2
@@ -15,41 +14,41 @@ _team_mode_combo = NodePath("TeamModeCombo")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Difficulty:"
+text = "MATCH_CONFIG_DIFFICULTY"
 
 [node name="DifficultyCombo" type="OptionButton" parent="."]
 layout_mode = 2
 focus_mode = 0
 selected = 2
 item_count = 5
-popup/item_0/text = "Beginner"
-popup/item_1/text = "Easy"
+popup/item_0/text = "MATCH_CONFIG_BEGINNER"
+popup/item_1/text = "MATCH_CONFIG_EASY"
 popup/item_1/id = 1
-popup/item_2/text = "Medium"
+popup/item_2/text = "MATCH_CONFIG_MEDIUM"
 popup/item_2/id = 2
-popup/item_3/text = "Hard"
+popup/item_3/text = "MATCH_CONFIG_HARD"
 popup/item_3/id = 3
-popup/item_4/text = "Extreme"
+popup/item_4/text = "MATCH_CONFIG_EXTREME"
 popup/item_4/id = 4
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
-text = "Game length:"
+text = "MATCH_CONFIG_GAME_LENGTH"
 
 [node name="GameLengthCombo" type="OptionButton" parent="."]
 layout_mode = 2
 focus_mode = 0
 selected = 1
 item_count = 3
-popup/item_0/text = "80 waves"
-popup/item_1/text = "120 waves"
+popup/item_0/text = "MATCH_CONFIG_80_WAVE"
+popup/item_1/text = "MATCH_CONFIG_120_WAVE"
 popup/item_1/id = 1
-popup/item_2/text = "240+ waves"
+popup/item_2/text = "MATCH_CONFIG_240_WAVE"
 popup/item_2/id = 2
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 2
-text = "Game mode:"
+text = "MATCH_CONFIG_GAME_MODE"
 
 [node name="GameModeCombo" type="OptionButton" parent="."]
 layout_mode = 2
@@ -64,15 +63,15 @@ Not recommended - game is best played in random modes."
 focus_mode = 0
 selected = 1
 item_count = 3
-popup/item_0/text = "Builld (lame)"
-popup/item_1/text = "Random with upgrades"
+popup/item_0/text = "MATCH_CONFIG_BUILLD"
+popup/item_1/text = "MATCH_CONFIG_RWU"
 popup/item_1/id = 1
-popup/item_2/text = "Totally random"
+popup/item_2/text = "MATCH_CONFIG_TOTALLY_RANDOM"
 popup/item_2/id = 2
 
 [node name="TeamModeLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Team mode:"
+text = "MATCH_CONFIG_TEAM_MODE"
 
 [node name="TeamModeCombo" type="OptionButton" parent="."]
 layout_mode = 2
@@ -80,6 +79,6 @@ tooltip_text = "Co-op - 2 players per team
 FFA - 1 player per team"
 selected = 1
 item_count = 2
-popup/item_0/text = "FFA"
-popup/item_1/text = "Co-op"
+popup/item_0/text = "MATCH_CONFIG_FFA"
+popup/item_1/text = "MATCH_CONFIG_COOP"
 popup/item_1/id = 1
