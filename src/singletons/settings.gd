@@ -11,6 +11,12 @@ signal changed()
 
 const SETTINGS_PATH: String = "user://settings.save"
 
+enum InterfaceSize {
+	SMALL,
+	MEDIUM,
+	LARGE
+}
+
 # List of setting names
 const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
 const ENABLE_FLOATING_TEXT: String = "enable_floating_text"
@@ -27,9 +33,9 @@ const COMBAT_LOG_X: String = "combat_log_x"
 const COMBAT_LOG_Y: String = "combat_log_y"
 const INTERFACE_SIZE: String = "interface_size"
 const INTERFACE_SIZE_DICT: Dictionary = {
-	"SETTINGS_INTERFACE_SMALL": 0.75,
-	"SETTINGS_INTERFACE_MEDIUM": 1.0,
-	"SETTINGS_INTERFACE_LARGE": 1.25
+	InterfaceSize.SMALL: 0.75,
+	InterfaceSize.MEDIUM: 1.0,
+	InterfaceSize.LARGE: 1.25
 }
 const SHOW_TUTORIAL_ON_START: String = "show_tutorial_on_start"
 const CACHED_GAME_DIFFICULTY: String = "CACHED_GAME_DIFFICULTY"
@@ -62,7 +68,7 @@ var _default_value_map: Dictionary = {
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20.0,
 	COMBAT_LOG_Y: 600.0,
-	INTERFACE_SIZE: "SETTINGS_INTERFACE_MEDIUM",
+	INTERFACE_SIZE: InterfaceSize.MEDIUM as float,
 	SHOW_TUTORIAL_ON_START: true,
 	CACHED_GAME_DIFFICULTY: "beginner",
 	CACHED_GAME_MODE: "random_with_upgrades",
@@ -149,9 +155,16 @@ func flush():
 	changed.emit()
 
 
+func get_interface_size_enum() -> Settings.InterfaceSize:
+	var interface_size_int: int = Settings.get_setting(Settings.INTERFACE_SIZE) as int
+	var interface_size_enum: Settings.InterfaceSize = interface_size_int as Settings.InterfaceSize
+	
+	return interface_size_enum
+
+
 func get_interface_size() -> float:
-	var interface_size_string: String = _cache[Settings.INTERFACE_SIZE]
-	var interface_size: float = INTERFACE_SIZE_DICT[interface_size_string]
+	var interface_size_enum: Settings.InterfaceSize = get_interface_size_enum()
+	var interface_size: float = INTERFACE_SIZE_DICT[interface_size_enum]
 
 	return interface_size
 

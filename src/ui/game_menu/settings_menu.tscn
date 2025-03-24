@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://resources/theme/selected_unit_info/panel_container.tres" id="4_o5p4r"]
 [ext_resource type="Script" path="res://src/ui/game_menu/language_option_button.gd" id="5_foonh"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo", "_interface_size_button_small", "_interface_size_button_medium", "_interface_size_button_large")]
 custom_minimum_size = Vector2(800, 900)
 theme = ExtResource("1_73d58")
 theme_type_variation = &"MainPanelContainer"
@@ -24,6 +24,9 @@ _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Margi
 _interface_size_button_group = ExtResource("2_fh8ol")
 _apply_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ApplyButton")
 _display_mode_combo = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/DisplayModeCombo")
+_interface_size_button_small = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/SmallInterfaceSizeButton")
+_interface_size_button_medium = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/MediumInterfaceSizeButton")
+_interface_size_button_large = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/HBoxContainer7/LargeInterfaceSizeButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

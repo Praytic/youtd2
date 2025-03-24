@@ -18,12 +18,19 @@ signal ok_pressed()
 @export var _interface_size_button_group: ButtonGroup
 @export var _apply_button: Button
 @export var _display_mode_combo: OptionButton
+@export var _interface_size_button_small: Button
+@export var _interface_size_button_medium: Button
+@export var _interface_size_button_large: Button
 
 
 var _setting_to_combo_map: Dictionary
 var _setting_to_checkbox_map: Dictionary
 var _setting_to_slider_map: Dictionary
-var _setting_to_button_group_map: Dictionary
+@onready var _interface_size_button_to_size_map: Dictionary = {
+	_interface_size_button_small: Settings.InterfaceSize.SMALL,
+	_interface_size_button_medium: Settings.InterfaceSize.MEDIUM,
+	_interface_size_button_large: Settings.InterfaceSize.LARGE,
+}
 var _is_dirty: bool = false
 
 
@@ -69,13 +76,7 @@ func _ready():
 		var slider: Slider = _setting_to_slider_map[setting]
 		slider.changed.connect(_on_slider_changed)
 	
-	_setting_to_button_group_map = {
-		Settings.INTERFACE_SIZE: _interface_size_button_group,
-	}
-	
-	for setting in _setting_to_button_group_map.keys():
-		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
-		button_group.pressed.connect(_on_button_group_pressed)
+	_interface_size_button_group.pressed.connect(_on_interface_size_button_group_pressed)
 	
 	_load_current_settings()
 
@@ -100,13 +101,14 @@ func _load_current_settings():
 		var value: float = Settings.get_setting(setting) as float
 		slider.value = value
 	
-	for setting in _setting_to_button_group_map.keys():
-		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
-		var value: String = Settings.get_setting(setting)
-		for button in button_group.get_buttons():
-			if button.text == value:
-				button.set_pressed(true)
-				break
+	var selected_interface_size: Settings.InterfaceSize = Settings.get_interface_size_enum()
+	for button in _interface_size_button_to_size_map.keys():
+		var button_interface_size: Settings.InterfaceSize = _interface_size_button_to_size_map[button]
+		var button_is_selected: bool = button_interface_size == selected_interface_size
+		
+		if button_is_selected:
+			button.set_pressed(true)
+			break
 	
 	_clear_dirty_state()
 
@@ -122,10 +124,9 @@ func _apply_changes():
 		var value: float = slider.value
 		Settings.set_setting(setting, value)
 	
-	for setting in _setting_to_button_group_map.keys():
-		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
-		var value: String = button_group.get_pressed_button().text
-		Settings.set_setting(setting, value)
+	var pressed_interface_size_button: Button = _interface_size_button_group.get_pressed_button()
+	var selected_interface_size: Settings.InterfaceSize = _interface_size_button_to_size_map[pressed_interface_size_button]
+	Settings.set_setting(Settings.INTERFACE_SIZE, selected_interface_size)
 	
 	Settings.flush()
 	
@@ -160,7 +161,7 @@ func _on_ok_button_pressed():
 	ok_pressed.emit()
 
 
-func _on_button_group_pressed(_button: BaseButton):
+func _on_interface_size_button_group_pressed(_button: BaseButton):
 	_set_dirty_state()
 
 
