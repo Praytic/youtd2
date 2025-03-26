@@ -31,6 +31,18 @@ static func convert_to_string(type: Difficulty.enm):
 	return _string_map[type]
 
 
+static func get_display_string(type: Difficulty.enm) -> String:
+	var string: String
+	match type:
+		Difficulty.enm.BEGINNER: string = Utils.tr("DIFFICULTY_BEGINNER")
+		Difficulty.enm.EASY: string = Utils.tr("DIFFICULTY_EASY")
+		Difficulty.enm.MEDIUM: string = Utils.tr("DIFFICULTY_MEDIUM")
+		Difficulty.enm.HARD: string = Utils.tr("DIFFICULTY_HARD")
+		Difficulty.enm.EXTREME: string = Utils.tr("DIFFICULTY_EXTREME")
+
+	return string
+
+
 static func from_string(string: String) -> Difficulty.enm:
 	var key = _string_map.find_key(string)
 	
@@ -49,7 +61,7 @@ static func get_color(difficulty: Difficulty.enm) -> Color:
 
 
 static func convert_to_colored_string(type: Difficulty.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = get_color(type)
 	var out: String = Utils.get_colored_string(string, color)
 

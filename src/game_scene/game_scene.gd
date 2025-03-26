@@ -794,7 +794,7 @@ func _on_player_selected_builder():
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode)
 	var local_player: Player = PlayerManager.get_local_player()
 
 	Messages.add_normal(local_player, tr("MESSAGE_WELCOME_1"))

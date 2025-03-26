@@ -174,4 +174,4 @@ const PLAYER_NAME_ALLOWED_CHARS: String = "[A-Za-z]"
 const PLAYER_NAME_LENGTH_MIN: int = 2
 const PLAYER_NAME_LENGTH_MAX: int = 15
 
-const TOWER_ATTACK_ABILITY_NAME: String = "Normal attack"
+const TOWER_ATTACK_ABILITY_NAME_ENGLISH: String = "Normal attack"

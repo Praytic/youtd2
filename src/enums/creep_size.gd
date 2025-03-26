@@ -155,8 +155,22 @@ static func convert_to_string(type: CreepSize.enm) -> String:
 	return _string_map[type]
 
 
+static func get_display_string(type: CreepSize.enm) -> String:
+	var string: String
+	match type:
+		CreepSize.enm.MASS: string = Utils.tr("CREEP_SIZE_MASS")
+		CreepSize.enm.NORMAL: string = Utils.tr("CREEP_SIZE_NORMAL")
+		CreepSize.enm.AIR: string = Utils.tr("CREEP_SIZE_AIR")
+		CreepSize.enm.CHAMPION: string = Utils.tr("CREEP_SIZE_CHAMPION")
+		CreepSize.enm.BOSS: string = Utils.tr("CREEP_SIZE_BOSS")
+		CreepSize.enm.CHALLENGE_MASS: string = Utils.tr("CREEP_SIZE_CHALLENGE_MASS")
+		CreepSize.enm.CHALLENGE_BOSS: string = Utils.tr("CREEP_SIZE_CHALLENGE_BOSS")
+
+	return string
+
+
 static func convert_to_colored_string(type: CreepSize.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
 

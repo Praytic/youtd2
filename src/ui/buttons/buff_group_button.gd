@@ -32,13 +32,13 @@ func set_buff_group_mode(value: BuffGroupMode.enm):
 	match value:
 		BuffGroupMode.enm.NONE: 
 			_texture_rect.texture = _buff_group_none_icon
-			tooltip_text = "This tower is not part of buffgroup %d. Press to change\nmode to CASTER." % _buff_group_number
+			tooltip_text = tr("BUFFGROUP_DESCRIPTION_NONE").format({BUFFGROUP_NUMBER = _buff_group_number})
 		BuffGroupMode.enm.OUTGOING: 
 			_texture_rect.texture = _buff_group_outgoing_icon
-			tooltip_text = "This tower is a CASTER in buffgroup %d. It is forced\nto apply buffs to RECEIVER towers in buffgroup %d.\nPress to change mode to RECEIVER." % [_buff_group_number, _buff_group_number]
+			tooltip_text = tr("BUFFGROUP_DESCRIPTION_OUTGOING").format({BUFFGROUP_NUMBER = _buff_group_number})
 		BuffGroupMode.enm.INCOMING: 
 			_texture_rect.texture = _buff_group_incoming_icon
-			tooltip_text = "This tower is a RECEIVER in buffgroup %d. CASTERS in\nbuffgroup %d are forced to buff this tower.\nPress to change mode to BOTH." % [_buff_group_number, _buff_group_number]
+			tooltip_text = tr("BUFFGROUP_DESCRIPTION_INCOMING").format({BUFFGROUP_NUMBER = _buff_group_number})
 		BuffGroupMode.enm.BOTH: 
 			_texture_rect.texture = _buff_group_both_icon
-			tooltip_text = "This tower is a both a CASTER and a RECEIVER in\nbuffgroup %d. It is forced to apply buffs to RECEIVER\ntowers in buffgroup %d. In addition, CASTERS in\nbuffgroup %d are forced to buff this tower.\nPress to change mode to NONE." % [_buff_group_number, _buff_group_number, _buff_group_number]
+			tooltip_text = tr("BUFFGROUP_DESCRIPTION_BOTH").format({BUFFGROUP_NUMBER = _buff_group_number})

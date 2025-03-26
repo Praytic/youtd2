@@ -162,7 +162,7 @@ func xeno_buff_towers(is_type_change: bool):
 	var buff_level: int = bonus_map[current_creep_category]
 	prev_creep_category = current_creep_category
 
-	var category_string = CreepCategory.convert_to_string(current_creep_category).capitalize()
+	var category_string = CreepCategory.get_display_string(current_creep_category)
 	var category_color: Color = CreepCategory.get_color(current_creep_category)
 	var floating_text: String = "%s Research Published" % category_string
 

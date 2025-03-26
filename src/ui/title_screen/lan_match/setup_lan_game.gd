@@ -78,7 +78,7 @@ func _connect_to_lobby(address: String) -> bool:
 	var create_client_result: Error = peer.create_client(address, Constants.SERVER_PORT)
 
 	if create_client_result != OK:
-		Utils.show_popup_message(self, "Error", "Failed to create client. Details:" % error_string(create_client_result))
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("SETUP_LAN_ERROR_FAILED_CLIENT").format({ERROR = error_string(create_client_result)}))
 
 		return false
 
@@ -157,7 +157,7 @@ func _on_create_lan_match_menu_create_pressed():
 	# Maximum of 1 peer, since it's a 2-player co-op.
 	var create_server_result: Error = peer.create_server(Constants.SERVER_PORT, 1)
 	if create_server_result != OK:
-		Utils.show_popup_message(self, "Error", "Failed to create server, port might already be in use. Details: %s." % error_string(create_server_result))
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("SETUP_LAN_ERROR_FAILED_SERVER").format({ERROR = error_string(create_server_result)}))
 
 		return
 
@@ -184,7 +184,7 @@ func _on_lan_connect_menu_create_pressed():
 func _on_lan_lobby_menu_start_pressed():
 	var is_host: bool = multiplayer.is_server()
 	if !is_host:
-		Utils.show_popup_message(self, "Error", "Only the host can start the game.")
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("SETUP_LAN_ERROR_ONLY_HOST_CAN_START"))
 		
 		return
 	
@@ -203,7 +203,7 @@ func _on_lan_connect_menu_join_pressed():
 	var address: String = _lan_connect_menu.get_entered_address()
 	
 	if address.is_empty():
-		Utils.show_popup_message(self, "Error", "You must enter an address first.")
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("SETUP_LAN_ERROR_MISSING_ADDRESS"))
 		
 		return
 	

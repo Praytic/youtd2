@@ -345,7 +345,7 @@ func _deal_damage_to_portal():
 	var damage_done: float = get_damage_done()
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
 	var creep_size: CreepSize.enm = get_size_including_challenge_sizes()
-	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+	var creep_size_string: String = CreepSize.get_display_string(creep_size)
 	var creep_score: float = get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
 	var player: Player = get_player()
@@ -494,7 +494,7 @@ func get_base_bounty_value() -> float:
 
 
 func get_log_name() -> String:
-	var size_name: String = CreepSize.convert_to_string(_size)
+	var size_name: String = CreepSize.get_display_string(_size)
 	var log_name: String = "%s-%d" % [size_name, get_uid()]
 
 	return log_name
@@ -560,7 +560,7 @@ func get_armor_type() -> ArmorType.enm:
 	return _armor_type
 
 func get_display_name() -> String:
-	return "Generic Creep"
+	return tr("CREEP_GENERIC_NAME")
 
 
 func get_move_path() -> Path2D:
@@ -583,16 +583,12 @@ func get_ability_button_data_list() -> Array[AbilityButton.Data]:
 	var list: Array[AbilityButton.Data] = []
 
 	var armor_type: ArmorType.enm = get_armor_type()
-	var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
+	var armor_type_name: String = ArmorType.get_display_string(armor_type)
 	var armor_type_name_colored: String = ArmorType.convert_to_colored_string(armor_type)
 	var armor_type_damage_taken: String = ArmorType.get_rich_text_for_damage_taken(armor_type)
-	var armor_type_description: String = "Armor type: %s\n" % armor_type_name_colored \
-	+ " \n" \
-	+ "Damage from:\n" \
-	+ " \n" \
-	+ "%s\n" % armor_type_damage_taken
+	var armor_type_description: String = tr("CREEP_ARMOR_ABILITY_DESCRIPTION").format({ARMOR_TYPE = armor_type_name_colored, DAMAGE_FROM_TEXT = armor_type_damage_taken})
 	var armor_type_ability: AbilityButton.Data = AbilityButton.Data.new()
-	armor_type_ability.ability_name = "%s armor" % armor_type_name
+	armor_type_ability.ability_name = tr("CREEP_ARMOR_ABILITY_TITLE").format({ARMOR_TYPE = armor_type_name})
 	armor_type_ability.icon = "res://resources/icons/shields/shield_green.tres"
 	armor_type_ability.description_long = armor_type_description
 	list.append(armor_type_ability)

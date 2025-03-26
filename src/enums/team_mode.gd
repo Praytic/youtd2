@@ -15,12 +15,6 @@ static var _string_map: Dictionary = {
 }
 
 
-static var _display_string_map: Dictionary = {
-	TeamMode.enm.ONE_PLAYER_PER_TEAM: "FFA",
-	TeamMode.enm.TWO_PLAYERS_PER_TEAM: "Co-op",
-}
-
-
 static var _player_count_max_map: Dictionary = {
 	TeamMode.enm.ONE_PLAYER_PER_TEAM: 4,
 	TeamMode.enm.TWO_PLAYERS_PER_TEAM: 8,
@@ -49,7 +43,12 @@ static func from_string(string: String) -> TeamMode.enm:
 
 
 static func convert_to_display_string(type: TeamMode.enm):
-	return _display_string_map[type]
+	var string: String
+	match type:
+		TeamMode.enm.ONE_PLAYER_PER_TEAM: string = Utils.tr("TEAM_MODE_ONE_PLAYER_PER_TEAM")
+		TeamMode.enm.TWO_PLAYERS_PER_TEAM: string = Utils.tr("TEAM_MODE_TWO_PLAYERS_PER_TEAM")
+
+	return string
 
 
 static func get_player_count_max(type: TeamMode.enm):

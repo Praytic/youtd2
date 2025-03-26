@@ -10,9 +10,6 @@ enum State {
 	COMPLETED,
 }
 
-const STATUS_FAILED: String = "[color=RED]FAILED[/color]"
-const STATUS_COMPLETED: String = "[color=GOLD]COMPLETED[/color]"
-
 var _mission_id: int
 
 @export var _description_label: Label

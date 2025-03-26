@@ -23,17 +23,6 @@ static var _string_map: Dictionary = {
 	Element.enm.NONE: "none",
 }
 
-static var _flavor_text_map: Dictionary = {
-	Element.enm.ICE: "The element of frost magic. Ice towers use slowing and drowning effects on enemies.",
-	Element.enm.NATURE: "The element of life. Nature towers focus on supportive effects to enhance other towers. Strong against orc enemies.",
-	Element.enm.FIRE: "The element of destruction. Fire towers focus on dealing high damage and splash damage. Strong against humand and mass enemies.",
-	Element.enm.ASTRAL: "The good element. Astral towers use special astral related abilities to buff other towers. Strong against undead enemies.",
-	Element.enm.DARKNESS: "The evil element. Darkness towers specialize in curses, necromancy and debuffs which weaken enemies. Strong against nature enemies.",
-	Element.enm.IRON: "The manmade element. Iron towers are balanced all around fighters. Strong against boss enemies.",
-	Element.enm.STORM: "The weather element. Storm towers use lightning and other weather phenomena to deal damage to enemies. Strong against Air and Magic creeps.",
-	Element.enm.NONE: "none",
-}
-
 static var _main_attack_types_map: Dictionary = {
 	Element.enm.ICE: [AttackType.enm.ELEMENTAL, AttackType.enm.ENERGY],
 	Element.enm.NATURE: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY, AttackType.enm.ESSENCE],
@@ -91,12 +80,27 @@ static func convert_to_string(element: Element.enm) -> String:
 	return _string_map[element]
 
 
+static func get_display_string(element: Element.enm) -> String:
+	var string: String
+	match element:
+		Element.enm.ICE: string = Utils.tr("ELEMENT_ICE")
+		Element.enm.NATURE: string = Utils.tr("ELEMENT_NATURE")
+		Element.enm.FIRE: string = Utils.tr("ELEMENT_FIRE")
+		Element.enm.ASTRAL: string = Utils.tr("ELEMENT_ASTRAL")
+		Element.enm.DARKNESS: string = Utils.tr("ELEMENT_DARKNESS")
+		Element.enm.IRON: string = Utils.tr("ELEMENT_IRON")
+		Element.enm.STORM: string = Utils.tr("ELEMENT_STORM")
+		Element.enm.NONE: string = "none"
+
+	return string
+
+
 static func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
 	return _dmg_from_element_map[element]
 
 
 static func convert_to_colored_string(type: Element.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = get_color(type)
 	var out: String = Utils.get_colored_string(string, color)
 
@@ -122,9 +126,18 @@ static func get_color(element: Element.enm) -> Color:
 
 
 static func get_flavor_text(element: Element.enm) -> String:
-	var flavor_text: String = _flavor_text_map[element]
+	var string: String
+	match element:
+		Element.enm.ICE: string = Utils.tr("ELEMENT_FLAVOR_TEXT_ICE")
+		Element.enm.NATURE: string = Utils.tr("ELEMENT_FLAVOR_TEXT_NATURE")
+		Element.enm.FIRE: string = Utils.tr("ELEMENT_FLAVOR_TEXT_FIRE")
+		Element.enm.ASTRAL: string = Utils.tr("ELEMENT_FLAVOR_TEXT_ASTRAL")
+		Element.enm.DARKNESS: string = Utils.tr("ELEMENT_FLAVOR_TEXT_DARKNESS")
+		Element.enm.IRON: string = Utils.tr("ELEMENT_FLAVOR_TEXT_IRON")
+		Element.enm.STORM: string = Utils.tr("ELEMENT_FLAVOR_TEXT_STORM")
+		Element.enm.NONE: string = "none"
 
-	return flavor_text
+	return string
 
 
 static func get_main_attack_types(element: Element.enm) -> String:

@@ -118,6 +118,19 @@ static func from_string(string: String) -> AttackType.enm:
 		return AttackType.enm.PHYSICAL
 
 
+static func get_display_string(type: AttackType.enm) -> String:
+	var string: String
+	match type:
+		AttackType.enm.PHYSICAL: string = Utils.tr("ATTACK_TYPE_PHYSICAL")
+		AttackType.enm.DECAY: string = Utils.tr("ATTACK_TYPE_DECAY")
+		AttackType.enm.ENERGY: string = Utils.tr("ATTACK_TYPE_ENERGY")
+		AttackType.enm.ESSENCE: string = Utils.tr("ATTACK_TYPE_ESSENCE")
+		AttackType.enm.ELEMENTAL: string = Utils.tr("ATTACK_TYPE_ELEMENTAL")
+		AttackType.enm.ARCANE: string = Utils.tr("ATTACK_TYPE_ARCANE")
+	
+	return string
+
+
 # NOTE: AttackType.PHYSICAL.getDamageAgainst() in JASS
 static func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
@@ -129,8 +142,9 @@ static func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
 	return _no_damage_to_immune_map[attack_type]
 
 
+# TODO: rename to "get_colored_display_string()"
 static func convert_to_colored_string(type: AttackType.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
 
@@ -157,7 +171,7 @@ static func get_rich_text_for_damage_dealt(attack_type: AttackType.enm) -> Strin
 		text += "%s:\t %s\n" % [armor_type_name, damage_dealt_string]
 
 	if attack_type == AttackType.enm.ARCANE:
-		text += "[color=RED]Cannot hit Immune creeps![/color]\n"
+		text += "[color=RED]%s[/color]\n" % Utils.tr("ATTACK_TYPE_CANNOT_HIT_IMMUNE")
 
 	text = RichTexts.add_color_to_numbers(text)
 

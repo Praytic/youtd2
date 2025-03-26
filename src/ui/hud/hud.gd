@@ -72,7 +72,7 @@ func set_waiting_for_lagging_players_indicator_player_list(lagging_player_list: 
 
 
 func set_ping_time(ping_time_ms: float):
-	_ping_label.text = "Ping: %dms" % ceil(ping_time_ms)
+	_ping_label.text = tr("HUD_PING_DISPLAY").format({TIME_MS = ceil(ping_time_ms)})
 
 
 func show_desync_indicator():

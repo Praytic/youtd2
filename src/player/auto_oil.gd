@@ -53,10 +53,11 @@ func get_status() -> String:
 			continue
 		
 		var tower_name: String = tower.get_display_name()
-		text += "[color=GOLD]%s[/color] [color=CYAN]oils are assigned to[/color] [color=GOLD]%s[/color]\n" % [oil_type, tower_name]
+		text += tr("AUTOOIL_STATUS").format({OIL_TYPE = oil_type, TOWER = tower_name})
+		text += "\n"
 
 	if text.is_empty():
-		text += "No autooil assignments found."
+		text += tr("AUTOOIL_STATUS_NONE")
 	
 	return text
 

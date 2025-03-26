@@ -133,7 +133,7 @@ func get_creep_count() -> int:
 func get_creep_combination_string() -> String:
 	var is_final_boss: bool = _level == Utils.get_max_level()
 	if is_final_boss:
-		return "[color=GOLD]Final Boss[/color]"
+		return "[color=GOLD]%S[/color]" % tr("FINAL_BOSS_TEXT")
 
 	var size_count_map: Dictionary = {}
 
@@ -458,6 +458,9 @@ static func get_scene_name_for_creep_type(creep_size: CreepSize.enm, creep_race:
 	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
 		return "ChallengeMass"
 
+#	NOTE: must use convert_to_string() which is non-display
+#	string here because this is for filename, so no
+#	translation needed!
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
 	var creep_race_string: String = CreepCategory.convert_to_string(creep_race)
 #	NOTE: currently, all creep races use orc scenes. Loading

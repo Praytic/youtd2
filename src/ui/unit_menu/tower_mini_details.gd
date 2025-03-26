@@ -83,12 +83,12 @@ func _get_dmg_stats_left_text() -> String:
 	var multicrit_string: String = TowerDetails.int_format(multicrit)
 
 	var text: String = "" \
-	+ "[hint=Base damage][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % base_damage_string \
-	+ "[hint=Overall damage][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % overall_damage_string \
-	+ "[hint=DPS with crit][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % dps_with_crit_string \
-	+ "[hint=Attack crit chance][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % crit_chance_string \
-	+ "[hint=Attack crit damage][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % crit_damage_string \
-	+ "[hint=Multicrit][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % multicrit_string \
+	+ "[hint=%s][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BASE_DAMAGE"), base_damage_string] \
+	+ "[hint=%s][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_OVERALL_DAMAGE"), overall_damage_string] \
+	+ "[hint=%s][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DPS"), dps_with_crit_string] \
+	+ "[hint=%s][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ATTACK_CRIT_CHANCE"), crit_chance_string] \
+	+ "[hint=%s][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ATTACK_CRIT_DAMAGE"), crit_damage_string] \
+	+ "[hint=%s][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_MULTICRIT"), multicrit_string] \
 	+ ""
 
 	return text
@@ -111,11 +111,11 @@ func _get_dmg_stats_right_text() -> String:
 	var overall_mana_regen_string: String = Utils.format_float(overall_mana_regen, 1)
 
 	var text: String = "" \
-	+ "[hint=Attack speed][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % overall_cooldown_string \
-	+ "[hint=Mana regen][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % overall_mana_regen_string \
-	+ "[hint=Spell damage bonus][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % spell_damage_string \
-	+ "[hint=Spell crit chance][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % spell_crit_chance_string \
-	+ "[hint=Spell crit damage][img=30 color=35a8de]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % spell_crit_damage_string \
+	+ "[hint=%s][img=30 color=eb8f34]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ATTACK_SPEED"), overall_cooldown_string] \
+	+ "[hint=%s][img=30 color=31cde8]res://resources/icons/generic_icons/rolling_energy.tres[/img] %s/s[/hint]\n" % [tr("TOWER_MINI_DETAILS_MANA_REGEN"), overall_mana_regen_string] \
+	+ "[hint=%s][img=30 color=31e896]res://resources/icons/generic_icons/flame.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_SPELL_DAMAGE_BONUS"), spell_damage_string] \
+	+ "[hint=%s][img=30 color=35a8de]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_SPELL_CRIT_CHANCE"), spell_crit_chance_string] \
+	+ "[hint=%s][img=30 color=35a8de]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_SPELL_CRIT_DAMAGE"), spell_crit_damage_string] \
 	+ ""
 
 	return text
@@ -138,11 +138,11 @@ func _get_support_stats_left_text() -> String:
 	var trigger_chances_string: String = Utils.format_percent(trigger_chances, 0)
 
 	var text: String = "" \
-	+ "[hint=Bounty ratio][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % bounty_ratio_string \
-	+ "[hint=Exp ratio][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % exp_ratio_string \
-	+ "[hint=Item chance][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % item_drop_ratio_string \
-	+ "[hint=Item quality][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % item_quality_ratio_string \
-	+ "[hint=Trigger chances][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % trigger_chances_string \
+	+ "[hint=%s][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BOUNTY_RATIO"), bounty_ratio_string] \
+	+ "[hint=%s][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % [tr(""), exp_ratio_string] \
+	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr(""), item_drop_ratio_string] \
+	+ "[hint=%s][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ITEM_QUALITY"), item_quality_ratio_string] \
+	+ "[hint=%s][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_TRIGGER_CHANCES"), trigger_chances_string] \
 	+ ""
 
 	return text
@@ -156,8 +156,8 @@ func _get_support_stats_right_text() -> String:
 	var debuff_duration_string: String = Utils.format_percent(debuff_duration, 0)
 
 	var text: String = "" \
-	+ "[hint=Buff duration][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % buff_duration_string \
-	+ "[hint=Debuff duration][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % debuff_duration_string \
+	+ "[hint=%s][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BUFF_DURATION"), buff_duration_string] \
+	+ "[hint=%s][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DEBUFF_DURATION"), debuff_duration_string] \
 	+ ""
 
 	return text
@@ -180,11 +180,11 @@ func _get_dmg_against_left_text() -> String:
 	var dmg_to_humanoid_string: String = Utils.format_percent(dmg_to_humanoid, 0)
 
 	var text: String = "" \
-	+ "[hint=Damage to Undead][img=30 color=9370db]res://resources/icons/generic_icons/animal_skull.tres[/img] %s[/hint]\n" % dmg_to_undead_string \
-	+ "[hint=Damage to Magic][img=30 color=6495ed]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % dmg_to_magic_string \
-	+ "[hint=Damage to Nature][img=30 color=32cd32]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % dmg_to_nature_string \
-	+ "[hint=Damage to Orc][img=30 color=8fbc8f]res://resources/icons/generic_icons/orc_head.tres[/img] %s[/hint]\n" % dmg_to_orc_string \
-	+ "[hint=Damage to Humanoid][img=30 color=d2b48c]res://resources/icons/generic_icons/armor_vest.tres[/img] %s[/hint]\n" % dmg_to_humanoid_string \
+	+ "[hint=%s][img=30 color=9370db]res://resources/icons/generic_icons/animal_skull.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_UNDEAD"), dmg_to_undead_string] \
+	+ "[hint=%s][img=30 color=6495ed]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_MAGIC"), dmg_to_magic_string] \
+	+ "[hint=%s][img=30 color=32cd32]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_NATURE"), dmg_to_nature_string] \
+	+ "[hint=%s][img=30 color=8fbc8f]res://resources/icons/generic_icons/orc_head.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_ORC"), dmg_to_orc_string] \
+	+ "[hint=%s][img=30 color=d2b48c]res://resources/icons/generic_icons/armor_vest.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_HUMANOID"), dmg_to_humanoid_string] \
 	+ ""
 	
 	return text
@@ -207,11 +207,11 @@ func _get_dmg_against_right_text() -> String:
 	var dmg_to_boss_string: String = Utils.format_percent(dmg_to_boss, 0)
 
 	var text: String = "" \
-	+ "[hint=Damage to Mass][img=30 color=ffa500]res://resources/icons/generic_icons/sprint.tres[/img] %s[/hint]\n" % dmg_to_mass_string \
-	+ "[hint=Damage to Normal][img=30 color=8fbc8f]res://resources/icons/generic_icons/barbute.tres[/img] %s[/hint]\n" % dmg_to_normal_string \
-	+ "[hint=Damage to Air][img=30 color=6495ed]res://resources/icons/generic_icons/liberty_wing.tres[/img] %s[/hint]\n" % dmg_to_air_string \
-	+ "[hint=Damage to Champion][img=30 color=9370db]res://resources/icons/generic_icons/horned_helm.tres[/img] %s[/hint]\n" % dmg_to_champion_string \
-	+ "[hint=Damage to Boss][img=30 color=ff4500]res://resources/icons/generic_icons/bat_mask.tres[/img] %s[/hint]\n" % dmg_to_boss_string \
+	+ "[hint=%s][img=30 color=ffa500]res://resources/icons/generic_icons/sprint.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_MASS"), dmg_to_mass_string] \
+	+ "[hint=%s][img=30 color=8fbc8f]res://resources/icons/generic_icons/barbute.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_NORMAL"), dmg_to_normal_string] \
+	+ "[hint=%s][img=30 color=6495ed]res://resources/icons/generic_icons/liberty_wing.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_AIR"), dmg_to_air_string] \
+	+ "[hint=%s][img=30 color=9370db]res://resources/icons/generic_icons/horned_helm.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_CHAMPION"), dmg_to_champion_string] \
+	+ "[hint=%s][img=30 color=ff4500]res://resources/icons/generic_icons/bat_mask.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DAMAGE_TO_BOSS"), dmg_to_boss_string] \
 	+ ""
 	
 	return text
@@ -221,7 +221,7 @@ func _get_tower_oils_text() -> String:
 	var oil_count_map: Dictionary = _get_oil_count_map()
 	
 	if oil_count_map.is_empty():
-		return "No oils applied."
+		return tr("TOWER_MINI_DETAILS_NO_OILS")
 
 	var text: String = ""
 

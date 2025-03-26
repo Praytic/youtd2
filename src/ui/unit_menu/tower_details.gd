@@ -180,7 +180,7 @@ func update_text():
 	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
 	
 	if _tower.reached_max_level():
-		_level_x_at_left.text = "MAX_LVL_REACHED"
+		_level_x_at_left.text = tr("MAX_LVL_REACHED")
 		_level_x_at_right.text = ""
 	else:
 		_level_x_at_left.text = tr("LEVEL_AT_LABEL").format({NEXT_LEVEL = next_level})
@@ -365,7 +365,7 @@ func _get_tower_details_text(tower: Tower) -> String:
 	var all_multiboard_list: Array[MultiboardValues] = item_multiboard_list
 	all_multiboard_list.insert(0, tower_multiboard)
 
-	text += "[color=GOLD]Tower Details:[/color]\n \n"
+	text += "[color=GOLD]%s[/color]\n \n" % tr("TOWER_DETAILS_TITLE")
 
 	text += "[table=2]"
 

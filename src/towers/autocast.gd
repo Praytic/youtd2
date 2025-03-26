@@ -492,13 +492,13 @@ func _get_cast_error() -> String:
 	var stunned: bool = _caster.is_stunned()
 
 	if on_cooldown:
-		return "This ability is not ready yet"
+		return tr("AUTOCAST_ERROR_NOT_READY")
 	elif !enough_mana:
-		return "Not enough mana"
+		return tr("AUTOCAST_ERROR_NOT_ENOUGH_MANA")
 	elif silenced:
-		return "Can't cast ability because caster is silenced"
+		return tr("AUTOCAST_ERROR_SILENCED")
 	elif stunned:
-		return "Can't cast ability because caster is stunned"
+		return tr("AUTOCAST_ERROR_STUNNED")
 	else:
 		return ""
 

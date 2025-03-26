@@ -18,4 +18,4 @@ static func evasion_effect(event: Event, chance: float):
 
 	if evade_success && !event.is_spell_damage():
 		event.damage = 0
-		tower.get_player().display_floating_text_x("Miss", tower, Color.RED, 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x(Utils.tr("FLOATING_TEXT_MISS"), tower, Color.RED, 0.05, 0.0, 2.0)

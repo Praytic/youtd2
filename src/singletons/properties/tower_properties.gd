@@ -611,7 +611,7 @@ func get_range_data_list(tower_id: int) -> Array[RangeData]:
 	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
 	if attack_enabled:
 		var attack_range: float = TowerProperties.get_range(tower_id)
-		var ability_name_english: String = Constants.TOWER_ATTACK_ABILITY_NAME
+		var ability_name_english: String = Constants.TOWER_ATTACK_ABILITY_NAME_ENGLISH
 		var ability_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 
 		var range_data: RangeData = RangeData.new(ability_name_english, attack_range, ability_target_type)

@@ -39,4 +39,4 @@ func backpacker_bt_periodic(event: Event):
             dropped_items = true
     
     if dropped_items:
-        tower.get_player().display_floating_text("Backpacker: Item must have same rarity as tower!", tower, Color.RED)
+        tower.get_player().display_floating_text(tr("BUILDER_BACKPACKER_ERROR_TEXT"), tower, Color.RED)

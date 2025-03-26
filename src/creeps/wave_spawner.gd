@@ -101,14 +101,14 @@ func _print_wave_info():
 		else:
 			specials_string = "none"
 
-		print("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" % [wave_level, creep_combination_string, CreepCategory.convert_to_string(wave.get_race()), ArmorType.convert_to_string(wave.get_armor_type())])
+		print("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" % [wave_level, creep_combination_string, CreepCategory.get_display_string(wave.get_race()), ArmorType.get_display_string(wave.get_armor_type())])
 		print("    Specials: %s" % specials_string)
 
 		var creep_size_list: Array = wave.get_creep_sizes()
 
 		for creep_size in creep_size_list:
 			var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
-			var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+			var creep_size_string: String = CreepSize.get_display_string(creep_size)
 			print("%s's HP: %s" % [creep_size_string, creep_health])
 
 #		NOTE: need to add delay between prints to avoid

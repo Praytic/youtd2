@@ -117,7 +117,7 @@ static func convert_from_dict(dict: Dictionary) -> MatchConfig:
 
 static func convert_configs_to_string(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, team_mode: TeamMode.enm) -> String:
 	var game_length_string: String = _get_game_length_string(game_length)
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode)
 	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
 	var team_mode_string: String = TeamMode.convert_to_display_string(team_mode)
 	
@@ -130,9 +130,9 @@ static func _get_game_length_string(wave_count: int) -> String:
 	var game_length_string: String
 
 	match wave_count:
-		Constants.WAVE_COUNT_TRIAL: game_length_string = "Trial"
-		Constants.WAVE_COUNT_FULL: game_length_string = "Full"
-		Constants.WAVE_COUNT_NEVERENDING: game_length_string = "Neverending"
-		_: "Unknown"
+		Constants.WAVE_COUNT_TRIAL: game_length_string = Utils.tr("GAME_LENGTH_TRIAL")
+		Constants.WAVE_COUNT_FULL: game_length_string = Utils.tr("GAME_LENGTH_FULL")
+		Constants.WAVE_COUNT_NEVERENDING: game_length_string = Utils.tr("GAME_LENGTH_NEVERENDING")
+		_: "DEBUG - Unknown"
 
 	return game_length_string

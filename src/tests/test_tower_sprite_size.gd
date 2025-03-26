@@ -29,7 +29,7 @@ static func run():
 			var tower_name: String = TowerProperties.get_display_name(tower)
 			var tier: int = TowerProperties.get_tier(tower)
 			var element: Element.enm = TowerProperties.get_element(tower)
-			var element_string: String = Element.convert_to_string(element)
+			var element_string: String = Element.get_display_string(element)
 			var height: float = height_map[tower]
 			var diff_from_average: float = (height - average_height) / average_height
 			var height_is_abnormally_short: bool = diff_from_average < 0 && abs(diff_from_average) > ABNORMAL_HEIGHT_THRESHOLD

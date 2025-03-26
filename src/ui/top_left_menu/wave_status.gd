@@ -104,7 +104,7 @@ func _show_wave_list(wave_list: Array[Wave]):
 
 	text += "[table=5]"
 
-	text += "[cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Size[/color][/cell][cell][color=GOLD]Race[/color][/cell][cell][color=GOLD]Armor[/color][/cell][cell][color=GOLD]Special[/color][/cell]"
+	text += "[cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell]" % [tr("WAVE_STATUS_COLUMN_LEVEL"), tr("WAVE_STATUS_COLUMN_SIZE"), tr("WAVE_STATUS_COLUMN_RACE"), tr("WAVE_STATUS_COLUMN_ARMOR"), tr("WAVE_STATUS_COLUMN_SPECIAL")]
 
 	for wave in wave_list:
 		var level: int = wave.get_level()
@@ -165,7 +165,7 @@ func _generate_armor_hints() -> Dictionary:
 
 	for armor_type in ArmorType.get_list():
 		var hint: String = ""
-		hint += "Damage from:\n"
+		hint += "%s\n" % tr("WAVE_STATUS_DAMAGE_FROM")
 		hint += ArmorType.get_text_for_damage_taken(armor_type)
 
 		out[armor_type] = hint
@@ -175,7 +175,7 @@ func _generate_armor_hints() -> Dictionary:
 
 func _get_time_string(timer: ManualTimer) -> String:
 	if timer.is_paused():
-		return "Paused"
+		return tr("WAVE_STATUS_PAUSED")
 
 	var time: int = floori(timer.get_time_left())
 	var time_minutes: int = floor(time / 60.0)

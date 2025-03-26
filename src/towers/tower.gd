@@ -361,8 +361,6 @@ func issue_target_order(target: Unit):
 #########################
 
 func _get_attack_ability_description() -> String:
-	var text: String = ""
-	
 	var tower_id: int = get_id()
 
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
@@ -370,11 +368,7 @@ func _get_attack_ability_description() -> String:
 	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 
-	text += "Attack type: %s.\n" % attack_type_string \
-	+ "Range: %s\n" % attack_range \
-	+ " \n" \
-	+ "Damage to:\n" \
-	+ "%s" % damage_dealt_string
+	var text: String = tr("TOWER_ATTACK_ABILITY_TEXT").format({ATTACK_TYPE = attack_type_string, RANGE = attack_range, DAMAGE_TO_TEXT = damage_dealt_string})
 
 	return text
 
@@ -928,8 +922,8 @@ func get_ability_button_data_list() -> Array[AbilityButton.Data]:
 	if attack_enabled:
 		var attack_ability: AbilityButton.Data = AbilityButton.Data.new()
 		var attack_description: String = _get_attack_ability_description()
-		attack_ability.name_english = Constants.TOWER_ATTACK_ABILITY_NAME
-		attack_ability.ability_name = Constants.TOWER_ATTACK_ABILITY_NAME
+		attack_ability.name_english = Constants.TOWER_ATTACK_ABILITY_NAME_ENGLISH
+		attack_ability.ability_name = tr("TOWER_ATTACK_ABILITY_TITLE")
 		attack_ability.icon = "res://resources/icons/rockets/rocket_01.tres"
 		attack_ability.description_long = attack_description
 		list.append(attack_ability)
@@ -937,14 +931,14 @@ func get_ability_button_data_list() -> Array[AbilityButton.Data]:
 	var specials_description: String = RichTexts.get_tower_specials_text(tower_id)
 	if !specials_description.is_empty():
 		var specials: AbilityButton.Data = AbilityButton.Data.new()
-		specials.ability_name = "Specials"
+		specials.ability_name = tr("TOWER_SPECIALS_TITLE")
 		specials.icon = "res://resources/icons/rockets/rocket_04.tres"
 		specials.description_long = specials_description
 		list.append(specials)
 
 	if _attack_style == AttackStyle.SPLASH:
 		var splash_attack: AbilityButton.Data = AbilityButton.Data.new()
-		splash_attack.ability_name = "Splash Attack"
+		splash_attack.ability_name = tr("TOWER_SPLASH_ATTACK_TITLE")
 		splash_attack.icon = "res://resources/icons/rockets/rocket_05.tres"
 		var splash_attack_text: String = RichTexts.get_tower_splash_attack_text(tower_id)
 		splash_attack.description_long = splash_attack_text
@@ -952,7 +946,7 @@ func get_ability_button_data_list() -> Array[AbilityButton.Data]:
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var bounce_attack: AbilityButton.Data = AbilityButton.Data.new()
-		bounce_attack.ability_name = "Bounce Attack"
+		bounce_attack.ability_name = tr("TOWER_BOUNCE_ATTACK_TITLE")
 		bounce_attack.icon = "res://resources/icons/daggers/dagger_09.tres"
 		var bounce_attack_text: String = RichTexts.get_tower_bounce_attack_text(tower_id)
 		bounce_attack.description_long = bounce_attack_text
@@ -963,7 +957,7 @@ func get_ability_button_data_list() -> Array[AbilityButton.Data]:
 #	not displayed in tower info.
 	if _target_count_from_tower > 1:
 		var multishot: AbilityButton.Data = AbilityButton.Data.new()
-		multishot.ability_name = "Multishot"
+		multishot.ability_name = tr("TOWER_MULTISHOT_TITLE")
 		multishot.icon = "res://resources/icons/spears/many_spears_01.tres"
 		var multishot_tooltip: String = RichTexts.get_tower_multishot_text(tower_id)
 		multishot.description_long = multishot_tooltip

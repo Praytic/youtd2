@@ -297,7 +297,7 @@ func _update_sell_tooltip():
 	var sell_ratio_string: String = Utils.format_percent(sell_ratio, 0)
 	var tower_id: int = _tower.get_id()
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	var tooltip: String = "Sell tower\nYou will receive %d gold (%s of original cost)." % [sell_price, sell_ratio_string]
+	var tooltip: String = tr("SELL_TOWER_BUTTON_TOOLTIP").format({GOLD_AMOUNT = sell_price, SELL_RATIO = sell_ratio_string})
 
 	_sell_button.set_tooltip_text(tooltip)
 
@@ -373,11 +373,11 @@ func _on_upgrade_button_mouse_entered():
 
 	var tooltip: String
 	if upgrade_id != -1:
-		tooltip = "[color=GOLD]Upgrade tower[/color]\n" \
+		tooltip = "[color=GOLD]%s[/color]\n" % tr("UPGRADE_TOWER_BUTTON_TITLE") \
 		+ " \n" \
 		+ RichTexts.get_tower_text(upgrade_id, local_player)
 	else:
-		tooltip = "Cannot upgrade any further."
+		tooltip = tr("UPGRADE_TOWER_BUTTON_CANNOT_UPGRADE")
 
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip, ButtonTooltip.Location.BOTTOM)
 

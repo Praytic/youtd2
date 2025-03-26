@@ -192,16 +192,14 @@ func _get_visible_item_list() -> Array[Item]:
 
 
 func _set_horadric_cube_average_level():
-	var text: String = 'Average item level: '
-	
 	var local_player: Player = PlayerManager.get_local_player()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	var items_in_horadric_stash: Array[Item] = horadric_stash.get_item_list()
 	
 	var avg_level: int = HoradricCube._get_average_ingredient_level(items_in_horadric_stash)
 	
-	text += "%s" % avg_level
-	
+	var text: String = tr("ITEM_STASH_AVG_LEVEL").format({AVG_LEVEL = avg_level})
+
 	_horadric_cube_avg_item_level_label.text = text
 	
 

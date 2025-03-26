@@ -30,12 +30,12 @@ func _process(_delta: float):
 	_stats_label.clear()
 	_stats_label.append_text(player_stats_text)
 	_stats_label.append_text(" \n")
-	_stats_label.append_text("[color=GOLD]Your best towers[/color]\n")
+	_stats_label.append_text("[color=GOLD]%s[/color]\n" % tr("GAME_STATS_YOUR_BEST_TOWERS"))
 	_stats_label.append_text(your_best_towers_text)
 	
 	if Globals.get_player_mode() == PlayerMode.enm.MULTIPLAYER:
 		_stats_label.append_text("\n")
-		_stats_label.append_text("[color=GOLD]Overall best towers[/color]\n")
+		_stats_label.append_text("[color=GOLD]%s[/color]\n" % tr("GAME_STATS_OVERALL_BEST_TOWERS"))
 		_stats_label.append_text(overall_best_towers_text)
 
 
@@ -53,7 +53,7 @@ func _get_player_stats_text() -> String:
 	var text: String = ""
 
 	text += "[table=7]"
-	text += "[cell][color=GOLD]Name[/color][/cell][cell][color=GOLD]Team[/color][/cell][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
+	text += "[cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell][cell][color=GOLD]%s[/color][/cell]" % [tr("GAME_STATS_COLUMN_NAME"), tr("GAME_STATS_COLUMN_TEAM"), tr("GAME_STATS_COLUMN_SCORE"), tr("GAME_STATS_COLUMN_LIVES"), tr("GAME_STATS_COLUMN_LEVEL"), tr("GAME_STATS_COLUMN_TOTAL_DAMAGE"), tr("GAME_STATS_COLUMN_GOLD")]
 
 	player_list.sort_custom(
 		func(a, b) -> bool:
@@ -68,7 +68,7 @@ func _get_player_stats_text() -> String:
 
 		var team: Team = player.get_team()
 		var team_id: int = team.get_id()
-		var team_string: String = "Team %d" % team_id
+		var team_string: String = "%s %d" % [tr("GAME_STATS_COLUMN_TEAM"), team_id]
 
 		var score: float = player.get_score()
 		var score_string: String = TowerDetails.int_format(floori(score))
@@ -144,10 +144,10 @@ func _get_tower_stats_text_generic(tower_list: Array[Tower]) -> String:
 	
 	var text: String = ""
 	text += "[table=3]"
-	text += "[cell]Most Damage:[/cell][cell]%s[/cell][cell]%s[/cell]" % [most_damage_tower_name, most_damage_value]
-	text += "[cell]Best Hit:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [best_hit_tower_name, best_hit_value]
-	text += "[cell]Most Exp:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [most_exp_tower_name, most_exp_value]
-	text += "[cell]Most Kills:[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [most_kills_tower_name, most_kills_value]
+	text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [tr("GAME_STATS_MOST_DAMAGE"), most_damage_tower_name, most_damage_value]
+	text += "[cell]%s[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [tr("GAME_STATS_BEST_HIT"), best_hit_tower_name, best_hit_value]
+	text += "[cell]%s[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [tr("GAME_STATS_MOST_EXP"), most_exp_tower_name, most_exp_value]
+	text += "[cell]%s[/cell][cell]%s[/cell]\t\t[cell]%s[/cell]" % [tr("GAME_STATS_MOST_KILLS"), most_kills_tower_name, most_kills_value]
 	text += "[/table]"
 
 	return text

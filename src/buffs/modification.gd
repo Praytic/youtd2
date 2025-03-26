@@ -448,64 +448,64 @@ func _format_percentage(value: float) -> String:
 
 func _get_type_name() -> String:
 	match type:
-		Type.MOD_ARMOR: return "armor"
-		Type.MOD_ARMOR_PERC: return "armor"
-		Type.MOD_EXP_GRANTED: return "experience granted"
-		Type.MOD_EXP_RECEIVED: return "experience received"
-		Type.MOD_SPELL_DAMAGE_RECEIVED: return "spell damage received"
-		Type.MOD_SPELL_DAMAGE_DEALT: return "spell damage dealt"
-		Type.MOD_SPELL_CRIT_DAMAGE: return "spell crit damage"
-		Type.MOD_SPELL_CRIT_CHANCE: return "spell crit chance"
-		Type.MOD_BOUNTY_GRANTED: return "bounty granted"
-		Type.MOD_BOUNTY_RECEIVED: return "bounty received"
-		Type.MOD_ATK_CRIT_CHANCE: return "crit chance"
-		Type.MOD_ATK_CRIT_DAMAGE: return "crit damage"
-		Type.MOD_ATK_DAMAGE_RECEIVED: return "attack damage received"
-		Type.MOD_ATTACKSPEED: return "attack speed"
-		Type.MOD_MULTICRIT_COUNT: return "multicrit"
-		Type.MOD_ITEM_CHANCE_ON_KILL: return "item chance"
-		Type.MOD_ITEM_QUALITY_ON_KILL: return "item quality"
-		Type.MOD_ITEM_CHANCE_ON_DEATH: return "item chance"
-		Type.MOD_ITEM_QUALITY_ON_DEATH: return "item quality"
-		Type.MOD_BUFF_DURATION: return "buff duration"
-		Type.MOD_DEBUFF_DURATION: return "debuff duration"
-		Type.MOD_TRIGGER_CHANCES: return "trigger chances"
-		Type.MOD_MOVESPEED: return "movement speed"
-		Type.MOD_MOVESPEED_ABSOLUTE: return "movement speed"
-		Type.MOD_DAMAGE_BASE: return "base damage"
-		Type.MOD_DAMAGE_BASE_PERC: return "base damage"
-		Type.MOD_DAMAGE_ADD: return "attack damage"
-		Type.MOD_DAMAGE_ADD_PERC: return "attack damage"
-		Type.MOD_DPS_ADD: return "DPS"
-		Type.MOD_HP: return "health"
-		Type.MOD_HP_PERC: return "health"
-		Type.MOD_HP_REGEN: return "health regen"
-		Type.MOD_HP_REGEN_PERC: return "health regen"
-		Type.MOD_MANA: return "mana"
-		Type.MOD_MANA_PERC: return "mana"
-		Type.MOD_MANA_REGEN: return "mana regen"
-		Type.MOD_MANA_REGEN_PERC: return "mana regen"
+		Type.MOD_ARMOR: return tr("MOD_ARMOR_TEXT")
+		Type.MOD_ARMOR_PERC: return tr("MOD_ARMOR_PERC_TEXT")
+		Type.MOD_EXP_GRANTED: return tr("MOD_EXP_GRANTED_TEXT")
+		Type.MOD_EXP_RECEIVED: return tr("MOD_EXP_RECEIVED_TEXT")
+		Type.MOD_SPELL_DAMAGE_RECEIVED: return tr("MOD_SPELL_DAMAGE_RECEIVED_TEXT")
+		Type.MOD_SPELL_DAMAGE_DEALT: return tr("MOD_SPELL_DAMAGE_DEALT_TEXT")
+		Type.MOD_SPELL_CRIT_DAMAGE: return tr("MOD_SPELL_CRIT_DAMAGE_TEXT")
+		Type.MOD_SPELL_CRIT_CHANCE: return tr("MOD_SPELL_CRIT_CHANCE_TEXT")
+		Type.MOD_BOUNTY_GRANTED: return tr("MOD_BOUNTY_GRANTED_TEXT")
+		Type.MOD_BOUNTY_RECEIVED: return tr("MOD_BOUNTY_RECEIVED_TEXT")
+		Type.MOD_ATK_CRIT_CHANCE: return tr("MOD_ATK_CRIT_CHANCE_TEXT")
+		Type.MOD_ATK_CRIT_DAMAGE: return tr("MOD_ATK_CRIT_DAMAGE_TEXT")
+		Type.MOD_ATK_DAMAGE_RECEIVED: return tr("MOD_ATK_DAMAGE_RECEIVED_TEXT")
+		Type.MOD_ATTACKSPEED: return tr("MOD_ATTACKSPEED_TEXT")
+		Type.MOD_MULTICRIT_COUNT: return tr("MOD_MULTICRIT_COUNT_TEXT")
+		Type.MOD_ITEM_CHANCE_ON_KILL: return tr("MOD_ITEM_CHANCE_ON_KILL_TEXT")
+		Type.MOD_ITEM_QUALITY_ON_KILL: return tr("MOD_ITEM_QUALITY_ON_KILL_TEXT")
+		Type.MOD_ITEM_CHANCE_ON_DEATH: return tr("MOD_ITEM_CHANCE_ON_DEATH_TEXT")
+		Type.MOD_ITEM_QUALITY_ON_DEATH: return tr("MOD_ITEM_QUALITY_ON_DEATH_TEXT")
+		Type.MOD_BUFF_DURATION: return tr("MOD_BUFF_DURATION_TEXT")
+		Type.MOD_DEBUFF_DURATION: return tr("MOD_DEBUFF_DURATION_TEXT")
+		Type.MOD_TRIGGER_CHANCES: return tr("MOD_TRIGGER_CHANCES_TEXT")
+		Type.MOD_MOVESPEED: return tr("MOD_MOVESPEED_TEXT")
+		Type.MOD_MOVESPEED_ABSOLUTE: return tr("MOD_MOVESPEED_ABSOLUTE_TEXT")
+		Type.MOD_DAMAGE_BASE: return tr("MOD_DAMAGE_BASE_TEXT")
+		Type.MOD_DAMAGE_BASE_PERC: return tr("MOD_DAMAGE_BASE_PERC_TEXT")
+		Type.MOD_DAMAGE_ADD: return tr("MOD_DAMAGE_ADD_TEXT")
+		Type.MOD_DAMAGE_ADD_PERC: return tr("MOD_DAMAGE_ADD_PERC_TEXT")
+		Type.MOD_DPS_ADD: return tr("MOD_DPS_ADD_TEXT")
+		Type.MOD_HP: return tr("MOD_HP_TEXT")
+		Type.MOD_HP_PERC: return tr("MOD_HP_PERC_TEXT")
+		Type.MOD_HP_REGEN: return tr("MOD_HP_REGEN_TEXT")
+		Type.MOD_HP_REGEN_PERC: return tr("MOD_HP_REGEN_PERC_TEXT")
+		Type.MOD_MANA: return tr("MOD_MANA_TEXT")
+		Type.MOD_MANA_PERC: return tr("MOD_MANA_PERC_TEXT")
+		Type.MOD_MANA_REGEN: return tr("MOD_MANA_REGEN_TEXT")
+		Type.MOD_MANA_REGEN_PERC: return tr("MOD_MANA_REGEN_PERC_TEXT")
 
-		Type.MOD_DMG_TO_MASS: return "damage to masses"
-		Type.MOD_DMG_TO_NORMAL: return "damage to normals"
-		Type.MOD_DMG_TO_CHAMPION: return "damage to champions"
-		Type.MOD_DMG_TO_BOSS: return "damage to bosses"
-		Type.MOD_DMG_TO_AIR: return "damage to air"
+		Type.MOD_DMG_TO_MASS: return tr("MOD_DMG_TO_MASS_TEXT")
+		Type.MOD_DMG_TO_NORMAL: return tr("MOD_DMG_TO_NORMAL_TEXT")
+		Type.MOD_DMG_TO_CHAMPION: return tr("MOD_DMG_TO_CHAMPION_TEXT")
+		Type.MOD_DMG_TO_BOSS: return tr("MOD_DMG_TO_BOSS_TEXT")
+		Type.MOD_DMG_TO_AIR: return tr("MOD_DMG_TO_AIR_TEXT")
 
-		Type.MOD_DMG_TO_UNDEAD: return "damage to undead"
-		Type.MOD_DMG_TO_MAGIC: return "damage to magic"
-		Type.MOD_DMG_TO_NATURE: return "damage to nature"
-		Type.MOD_DMG_TO_ORC: return "damage to orcs"
-		Type.MOD_DMG_TO_HUMANOID: return "damage to humanoids"
-		Type.MOD_DMG_TO_CHALLENGE: return "damage to challenge"
+		Type.MOD_DMG_TO_UNDEAD: return tr("MOD_DMG_TO_UNDEAD_TEXT")
+		Type.MOD_DMG_TO_MAGIC: return tr("MOD_DMG_TO_MAGIC_TEXT")
+		Type.MOD_DMG_TO_NATURE: return tr("MOD_DMG_TO_NATURE_TEXT")
+		Type.MOD_DMG_TO_ORC: return tr("MOD_DMG_TO_ORC_TEXT")
+		Type.MOD_DMG_TO_HUMANOID: return tr("MOD_DMG_TO_HUMANOID_TEXT")
+		Type.MOD_DMG_TO_CHALLENGE: return tr("MOD_DMG_TO_CHALLENGE_TEXT")
 
-		Type.MOD_DMG_FROM_ASTRAL: return "damage from astral"
-		Type.MOD_DMG_FROM_DARKNESS: return "damage from darkness"
-		Type.MOD_DMG_FROM_NATURE: return "damage from nature"
-		Type.MOD_DMG_FROM_FIRE: return "damage from fire"
-		Type.MOD_DMG_FROM_ICE: return "damage from ice"
-		Type.MOD_DMG_FROM_STORM: return "damage from storm"
-		Type.MOD_DMG_FROM_IRON: return "damage from iron"
+		Type.MOD_DMG_FROM_ASTRAL: return tr("MOD_DMG_FROM_ASTRAL_TEXT")
+		Type.MOD_DMG_FROM_DARKNESS: return tr("MOD_DMG_FROM_DARKNESS_TEXT")
+		Type.MOD_DMG_FROM_NATURE: return tr("MOD_DMG_FROM_NATURE_TEXT")
+		Type.MOD_DMG_FROM_FIRE: return tr("MOD_DMG_FROM_FIRE_TEXT")
+		Type.MOD_DMG_FROM_ICE: return tr("MOD_DMG_FROM_ICE_TEXT")
+		Type.MOD_DMG_FROM_STORM: return tr("MOD_DMG_FROM_STORM_TEXT")
+		Type.MOD_DMG_FROM_IRON: return tr("MOD_DMG_FROM_IRON_TEXT")
 
 	push_error("Unhandled type: ", type)
 

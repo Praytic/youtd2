@@ -39,7 +39,7 @@ func set_presences(presence_list: Array, host_user_id: String):
 		var item_text: String = display_name
 
 		if user_is_host:
-			item_text += " (Host)"
+			item_text += " %s" % tr("LOBBY_HOST_INDICATOR")
 
 		_player_list.add_item(item_text)
 		

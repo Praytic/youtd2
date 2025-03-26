@@ -52,8 +52,22 @@ static func convert_to_string(type: ArmorType.enm) -> String:
 	return _string_map[type]
 
 
+static func get_display_string(type: ArmorType.enm) -> String:
+	var string: String
+	match type:
+		ArmorType.enm.HEL: string = Utils.tr("ARMOR_TYPE_HEL")
+		ArmorType.enm.MYT: string = Utils.tr("ARMOR_TYPE_MYT")
+		ArmorType.enm.LUA: string = Utils.tr("ARMOR_TYPE_LUA")
+		ArmorType.enm.SOL: string = Utils.tr("ARMOR_TYPE_SOL")
+		ArmorType.enm.SIF: string = Utils.tr("ARMOR_TYPE_SIF")
+		ArmorType.enm.ZOD: string = Utils.tr("ARMOR_TYPE_ZOD")
+	
+	return string
+
+
+# TODO: rename to "get_colored_display_string()"
 static func convert_to_colored_string(type: ArmorType.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
 
@@ -72,7 +86,7 @@ static func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 	var attack_type_list: Array[AttackType.enm] = AttackType.get_list()
 
 	for attack_type in attack_type_list:
-		var attack_type_name: String = AttackType.convert_to_string(attack_type).capitalize()
+		var attack_type_name: String = AttackType.get_display_string(attack_type)
 		var damage_taken: float = AttackType.get_damage_against(attack_type, armor_type)
 		var damage_taken_string: String = Utils.format_percent(damage_taken, 2)
 
@@ -80,7 +94,7 @@ static func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 
 	var spell_damage_taken: float = ArmorType.get_spell_damage_taken(armor_type)
 	var spell_damage_taken_string: String = Utils.format_percent(spell_damage_taken, 2)
-	text += "Spell Damage:\t %s\n" % [spell_damage_taken_string]
+	text += Utils.tr("ARMOR_SPELL_DAMAGE_TAKEN") + "\t %s\n" % [spell_damage_taken_string]
 
 	return text
 
@@ -99,7 +113,7 @@ static func get_rich_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 
 	var spell_damage_taken: float = ArmorType.get_spell_damage_taken(armor_type)
 	var spell_damage_taken_string: String = Utils.format_percent(spell_damage_taken, 2)
-	text += "Spell Damage:\t %s\n" % [spell_damage_taken_string]
+	text += Utils.tr("ARMOR_SPELL_DAMAGE_TAKEN") + "\t %s\n" % [spell_damage_taken_string]
 
 	text = RichTexts.add_color_to_numbers(text)
 

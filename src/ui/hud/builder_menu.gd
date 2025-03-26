@@ -36,7 +36,7 @@ func _ready():
 		if builder_is_unlocked:
 			builder_tooltip = "%s\n \n%s" % [display_name, description]
 		else:
-			builder_tooltip = "[color=GOLD]Required level:[/color] [color=RED]%d[/color]\n \n%s\n \n%s" % [required_level, display_name, description]
+			builder_tooltip = "[color=GOLD]%s[/color] [color=RED]%d[/color]\n \n%s\n \n%s" % [tr("BUILDER_REQUIRED_LEVEL"), required_level, display_name, description]
 		
 		var button: Button = Preloads.builder_button_scene.instantiate()
 		var icon_path: String = BuilderProperties.get_icon_path(builder)

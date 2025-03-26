@@ -83,7 +83,7 @@ static func make_from_aura_id(aura_id: int) -> AbilityButton:
 	var aura_name: String = AuraProperties.get_aura_name(aura_id)
 	var description: String = AuraProperties.get_description_long(aura_id)
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
-	button._tooltip_text = "[color=GOLD]%s - Aura[/color]\n \n%s" % [aura_name, description_colored]
+	button._tooltip_text = "[color=GOLD]%s - %s[/color]\n \n%s" % [aura_name, Utils.tr("AURA_WORD_IN_TITLE"), description_colored]
 	
 	button._ability_name_english = AuraProperties.get_name_english(aura_id)
 

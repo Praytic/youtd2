@@ -57,6 +57,19 @@ static func convert_to_string(type: CreepCategory.enm) -> String:
 	return _string_map[type]
 
 
+static func get_display_string(type: CreepCategory.enm) -> String:
+	var string: String
+	match type:
+		CreepCategory.enm.UNDEAD: string = Utils.tr("CREEP_CATEGORY_UNDEAD")
+		CreepCategory.enm.MAGIC: string = Utils.tr("CREEP_CATEGORY_MAGIC")
+		CreepCategory.enm.NATURE: string = Utils.tr("CREEP_CATEGORY_NATURE")
+		CreepCategory.enm.ORC: string = Utils.tr("CREEP_CATEGORY_ORC")
+		CreepCategory.enm.HUMANOID: string = Utils.tr("CREEP_CATEGORY_HUMANOID")
+		CreepCategory.enm.CHALLENGE: string = Utils.tr("CREEP_CATEGORY_CHALLENGE")
+	
+	return string
+
+
 static func get_color(type: CreepCategory.enm) -> Color:
 	var color: Color = _color_map[type]
 
@@ -64,7 +77,7 @@ static func get_color(type: CreepCategory.enm) -> Color:
 
 
 static func convert_to_colored_string(type: CreepCategory.enm) -> String:
-	var string: String = convert_to_string(type).capitalize()
+	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
 

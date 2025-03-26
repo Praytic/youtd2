@@ -55,7 +55,7 @@ func _on_track_check_box_toggled(toggled_on: bool) -> void:
 		var going_over_max: bool = prev_tracked_count == MissionTracking.MAX_TRACKED_COUNT
 		
 		if going_over_max:
-			Utils.show_popup_message(self, "Error", "Can't track more than 3 missions at the same time!")
+			Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("MISSION_TRACK_ERROR_TOO_MANY").format({MAX_TRACKED_COUNT = MissionTracking.MAX_TRACKED_COUNT}))
 			
 			_track_checkbox.set_pressed_no_signal(false)
 			

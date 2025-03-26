@@ -36,7 +36,7 @@ func _ready():
 	
 	var player_exp_is_valid: bool = player_exp != -1
 	if !player_exp_is_valid:
-		_setup_error_list.append("Exp password loaded from settings is invalid. Defaulting to 0 experience.")
+		_setup_error_list.append(tr("PROFILE_MENU_ERROR_LOAD_EXP"))
 		
 		player_exp = 0
 	
@@ -105,7 +105,7 @@ func _on_close_button_pressed():
 
 	var name_is_too_short: bool = player_name.length() < Constants.PLAYER_NAME_LENGTH_MIN
 	if name_is_too_short:
-		Utils.show_popup_message(self, "Error", "Player name is too short.")
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("PROFILE_MENU_ERROR_NAME_TOO_SHORT"))
 
 		return
 
@@ -145,15 +145,15 @@ func _on_import_exp_menu_import_pressed():
 #	from accidentally resetting exp to 0.
 	var player_level_is_valid: bool = player_exp != -1 && !exp_password.is_empty()
 	if !player_level_is_valid:
-		Utils.show_popup_message(self, "Error", "Experience password is invalid.\n")
+		Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), tr("PROFILE_MENU_ERROR_EXP_PASSWORD_INVALID"))
 		
 		return
 	
 	Settings.set_setting(Settings.EXP_PASSWORD, exp_password)
 	Settings.flush()
 
-	var success_message: String = "Successfully imported experience password. You now have [color=GOLD]%d[/color] experience!" % player_exp
-	Utils.show_popup_message(self, "Success", success_message)
+	var success_message: String = tr("PROFILE_MENU_IMPORTED_EXP_PASSWORD").format({EXPERIENCE = player_exp})
+	Utils.show_popup_message(self, tr("GENERIC_SUCCESS_TITLE"), success_message)
 	_load_player_exp(player_exp)
 
 #	NOTE: need to update wisdom upgrades because they depend
@@ -167,7 +167,7 @@ func _on_visibility_changed():
 		
 		if !_setup_error_list.is_empty():
 			for error in _setup_error_list:
-				Utils.show_popup_message(self, "Error", error)
+				Utils.show_popup_message(self, tr("GENERIC_ERROR_TITLE"), error)
 
 			_setup_error_list.clear()
 

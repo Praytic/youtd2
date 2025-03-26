@@ -66,16 +66,16 @@ func _get_match_info_text(match_: NakamaAPI.ApiMatch) -> String:
 	var game_length: int = match_config.get_game_length()
 	var game_length_string: String = str(game_length)
 	var game_mode: GameMode.enm = match_config.get_game_mode()
-	var game_mode_string: String = GameMode.convert_to_long_display_string(game_mode).capitalize()
+	var game_mode_string: String = GameMode.convert_to_long_display_string(game_mode)
 	var team_mode: TeamMode.enm = match_config.get_team_mode()
 	var team_mode_string: String = TeamMode.convert_to_display_string(team_mode)
 
 	var text: String = "" \
 	+ "%s\n" % difficulty_string \
-	+ "%s waves\n" % game_length_string \
+	+ tr("MATCH_CARD_WAVE_COUNT").format({WAVE_COUNT = game_length_string}) + "\n" \
 	+ "%s %s\n" % [game_mode_string, team_mode_string] \
 	+ " \n" \
-	+ "[color=ROYAL_BLUE]Creator: %s[/color]" % host_display_name \
+	+ "[color=ROYAL_BLUE]%s[/color]" % tr("MATCH_CARD_CREATOR").format({CREATOR_NAME = host_display_name}) \
 	+ ""
 
 	return text

@@ -14,18 +14,6 @@ static var _string_map: Dictionary = {
 	GameMode.enm.TOTALLY_RANDOM: "totally_random",
 }
 
-static var _display_string_map: Dictionary = {
-	GameMode.enm.BUILD: "build",
-	GameMode.enm.RANDOM_WITH_UPGRADES: "upgrade",
-	GameMode.enm.TOTALLY_RANDOM: "random",
-}
-
-static var _long_display_string_map: Dictionary = {
-	GameMode.enm.BUILD: "Build",
-	GameMode.enm.RANDOM_WITH_UPGRADES: "Random with upgrades",
-	GameMode.enm.TOTALLY_RANDOM: "Totally random",
-}
-
 static var _sell_ratio_map: Dictionary = {
 	GameMode.enm.BUILD: 0.5,
 	GameMode.enm.RANDOM_WITH_UPGRADES: 0.75,
@@ -38,11 +26,23 @@ static func convert_to_string(type: GameMode.enm):
 
 
 static func convert_to_display_string(type: GameMode.enm):
-	return _display_string_map[type]
+	var string: String
+	match type:
+		GameMode.enm.BUILD: string = Utils.tr("GAME_MODE_BUILD")
+		GameMode.enm.RANDOM_WITH_UPGRADES: string = Utils.tr("GAME_MODE_RANDOM_WITH_UPGRADES")
+		GameMode.enm.TOTALLY_RANDOM: string = Utils.tr("GAME_MODE_TOTALLY_RANDOM")
+	
+	return string
 
 
 static func convert_to_long_display_string(type: GameMode.enm):
-	return _long_display_string_map[type]
+	var string: String
+	match type:
+		GameMode.enm.BUILD: string = Utils.tr("GAME_MODE_LONG_BUILD")
+		GameMode.enm.RANDOM_WITH_UPGRADES: string = Utils.tr("GAME_MODE_LONG_RANDOM_WITH_UPGRADES")
+		GameMode.enm.TOTALLY_RANDOM: string = Utils.tr("GAME_MODE_LONG_TOTALLY_RANDOM")
+	
+	return string
 
 
 static func from_string(string: String) -> GameMode.enm:

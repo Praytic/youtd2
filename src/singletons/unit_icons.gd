@@ -96,6 +96,9 @@ func _get_tier_icon_path(rarity: Rarity.enm, tier: int) -> String:
 	return icon_path
 
 
+# NOTE: must use convert_to_string() which is non-display
+# string here because this is for filename, so no
+# translation needed!
 func _get_creep_icon_path(creep_category: CreepCategory.enm, creep_size: CreepSize.enm) -> String:
 	var creep_category_string: String = CreepCategory.convert_to_string(creep_category)
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
