@@ -83,12 +83,12 @@ func _get_dmg_stats_left_text() -> String:
 	var multicrit_string: String = TowerDetails.int_format(multicrit)
 
 	var text: String = "" \
-	+ "[hint=%s][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BASE_DAMAGE"), base_damage_string] \
-	+ "[hint=%s][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_OVERALL_DAMAGE"), overall_damage_string] \
-	+ "[hint=%s][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DPS"), dps_with_crit_string] \
+	+ "[hint=%s][img=30 color=e37c0e]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_BASE_DMG"), base_damage_string] \
+	+ "[hint=%s][img=30 color=eb4f34]res://resources/icons/generic_icons/hammer_drop.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_OVERALL_DNG"), overall_damage_string] \
+	+ "[hint=%s][img=30 color=e83140]res://resources/icons/generic_icons/open_wound.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_DPS_WITH_CRIT"), dps_with_crit_string] \
 	+ "[hint=%s][img=30 color=eb3495]res://resources/icons/generic_icons/root_tip.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ATTACK_CRIT_CHANCE"), crit_chance_string] \
 	+ "[hint=%s][img=30 color=eb3495]res://resources/icons/generic_icons/mine_explosion.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ATTACK_CRIT_DAMAGE"), crit_damage_string] \
-	+ "[hint=%s][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_MULTICRIT"), multicrit_string] \
+	+ "[hint=%s][img=30 color=de3535]res://resources/icons/generic_icons/triple_scratches.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_MULTICRIT_COUNT"), multicrit_string] \
 	+ ""
 
 	return text
@@ -138,11 +138,11 @@ func _get_support_stats_left_text() -> String:
 	var trigger_chances_string: String = Utils.format_percent(trigger_chances, 0)
 
 	var text: String = "" \
-	+ "[hint=%s][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BOUNTY_RATIO"), bounty_ratio_string] \
-	+ "[hint=%s][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % [tr(""), exp_ratio_string] \
-	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr(""), item_drop_ratio_string] \
-	+ "[hint=%s][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_ITEM_QUALITY"), item_quality_ratio_string] \
-	+ "[hint=%s][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_TRIGGER_CHANCES"), trigger_chances_string] \
+	+ "[hint=%s][img=30 color=deca35]res://resources/icons/generic_icons/shiny_omega.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_BOUNTY_RAT"), bounty_ratio_string] \
+	+ "[hint=%s][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_EXP_RAT"), exp_ratio_string] \
+	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_DROP_RAT"), item_drop_ratio_string] \
+	+ "[hint=%s][img=30 color=c2ae3c]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_QUALITY_RAT"), item_quality_ratio_string] \
+	+ "[hint=%s][img=30 color=35ded5]res://resources/icons/generic_icons/cog.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_TRIGGER_CHANCES"), trigger_chances_string] \
 	+ ""
 
 	return text
@@ -156,8 +156,8 @@ func _get_support_stats_right_text() -> String:
 	var debuff_duration_string: String = Utils.format_percent(debuff_duration, 0)
 
 	var text: String = "" \
-	+ "[hint=%s][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_BUFF_DURATION"), buff_duration_string] \
-	+ "[hint=%s][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_MINI_DETAILS_DEBUFF_DURATION"), debuff_duration_string] \
+	+ "[hint=%s][img=30 color=49c23c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_BUFF_DUR"), buff_duration_string] \
+	+ "[hint=%s][img=30 color=c2433c]res://resources/icons/generic_icons/hourglass.tres[/img] %s[/hint]\n" % [tr("TOWER_DETAILS_DEBUFF_DUR"), debuff_duration_string] \
 	+ ""
 
 	return text

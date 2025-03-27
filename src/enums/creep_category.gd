@@ -60,12 +60,12 @@ static func convert_to_string(type: CreepCategory.enm) -> String:
 static func get_display_string(type: CreepCategory.enm) -> String:
 	var string: String
 	match type:
-		CreepCategory.enm.UNDEAD: string = Utils.tr("CREEP_CATEGORY_UNDEAD")
-		CreepCategory.enm.MAGIC: string = Utils.tr("CREEP_CATEGORY_MAGIC")
-		CreepCategory.enm.NATURE: string = Utils.tr("CREEP_CATEGORY_NATURE")
-		CreepCategory.enm.ORC: string = Utils.tr("CREEP_CATEGORY_ORC")
-		CreepCategory.enm.HUMANOID: string = Utils.tr("CREEP_CATEGORY_HUMANOID")
-		CreepCategory.enm.CHALLENGE: string = Utils.tr("CREEP_CATEGORY_CHALLENGE")
+		CreepCategory.enm.UNDEAD: string = Utils.tr("RACE_UNDEAD")
+		CreepCategory.enm.MAGIC: string = Utils.tr("RACE_MAGICAL")
+		CreepCategory.enm.NATURE: string = Utils.tr("RACE_NATURE")
+		CreepCategory.enm.ORC: string = Utils.tr("RACE_ORC")
+		CreepCategory.enm.HUMANOID: string = Utils.tr("RACE_HUMANOID")
+		CreepCategory.enm.CHALLENGE: string = Utils.tr("RACE_CHALLENGE")
 	
 	return string
 

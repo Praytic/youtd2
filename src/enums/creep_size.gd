@@ -158,13 +158,13 @@ static func convert_to_string(type: CreepSize.enm) -> String:
 static func get_display_string(type: CreepSize.enm) -> String:
 	var string: String
 	match type:
-		CreepSize.enm.MASS: string = Utils.tr("CREEP_SIZE_MASS")
-		CreepSize.enm.NORMAL: string = Utils.tr("CREEP_SIZE_NORMAL")
-		CreepSize.enm.AIR: string = Utils.tr("CREEP_SIZE_AIR")
-		CreepSize.enm.CHAMPION: string = Utils.tr("CREEP_SIZE_CHAMPION")
-		CreepSize.enm.BOSS: string = Utils.tr("CREEP_SIZE_BOSS")
-		CreepSize.enm.CHALLENGE_MASS: string = Utils.tr("CREEP_SIZE_CHALLENGE_MASS")
-		CreepSize.enm.CHALLENGE_BOSS: string = Utils.tr("CREEP_SIZE_CHALLENGE_BOSS")
+		CreepSize.enm.MASS: string = Utils.tr("SIZE_MASS")
+		CreepSize.enm.NORMAL: string = Utils.tr("SIZE_NORMAL")
+		CreepSize.enm.AIR: string = Utils.tr("SIZE_AIR")
+		CreepSize.enm.CHAMPION: string = Utils.tr("SIZE_CHAMPION")
+		CreepSize.enm.BOSS: string = Utils.tr("SIZE_BOSS")
+		CreepSize.enm.CHALLENGE_MASS: string = Utils.tr("SIZE_CHALLENGE_BOSS")
+		CreepSize.enm.CHALLENGE_BOSS: string = Utils.tr("SIZE_CHALLENGE_MASS")
 
 	return string
 

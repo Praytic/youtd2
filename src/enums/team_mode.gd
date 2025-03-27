@@ -45,8 +45,8 @@ static func from_string(string: String) -> TeamMode.enm:
 static func convert_to_display_string(type: TeamMode.enm):
 	var string: String
 	match type:
-		TeamMode.enm.ONE_PLAYER_PER_TEAM: string = Utils.tr("TEAM_MODE_ONE_PLAYER_PER_TEAM")
-		TeamMode.enm.TWO_PLAYERS_PER_TEAM: string = Utils.tr("TEAM_MODE_TWO_PLAYERS_PER_TEAM")
+		TeamMode.enm.ONE_PLAYER_PER_TEAM: string = Utils.tr("TEAM_MODE_FFA")
+		TeamMode.enm.TWO_PLAYERS_PER_TEAM: string = Utils.tr("TEAM_MODE_COOP")
 
 	return string
 

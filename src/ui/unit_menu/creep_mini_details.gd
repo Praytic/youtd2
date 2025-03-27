@@ -66,9 +66,9 @@ func _get_stats_left_text() -> String:
 	var text: String = "" \
 	+ "[hint=%s][img=30 color=6495ed]res://resources/icons/generic_icons/barefoot.tres[/img] %s[/hint]\n" % [tr("CREEP_MINI_DETAILS_SPEED"), slow_amount_string] \
 	+ "[hint=%s][img=30 color=d2b48c]res://resources/icons/generic_icons/abdominal_armor.tres[/img] %s[/hint]\n" % [tr("CREEP_MINI_DETAILS_ARMOR"), overall_armor_string] \
-	+ "[hint=%s][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % [tr("CREEP_MINI_DETAILS_EXP_RATIO"), exp_ratio_string] \
-	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr("CREEP_MINI_DETAILS_ITEM_CHANCE"), item_drop_ratio_string] \
-	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % [tr("CREEP_MINI_DETAILS_ITEM_QUALITY"), item_quality_ratio_string] \
+	+ "[hint=%s][img=30 color=9630f0]res://resources/icons/generic_icons/moebius_trefoil.tres[/img] %s[/hint]\n" % [tr("CREEP_DETAILS_EXP_RAT"), exp_ratio_string] \
+	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/polar_star.tres[/img] %s[/hint]\n" % [tr("CREEP_DETAILS_DROP_RAT"), item_drop_ratio_string] \
+	+ "[hint=%s][img=30 color=bcde35]res://resources/icons/generic_icons/gold_bar.tres[/img] %s[/hint]\n" % [tr("CREEP_DETAILS_QUALITY_RAT"), item_quality_ratio_string] \
 	+ ""
 	
 	return text
