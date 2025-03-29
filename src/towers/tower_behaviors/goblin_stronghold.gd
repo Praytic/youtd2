@@ -115,8 +115,8 @@ func sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	if tower == null:
 		return
 
-	var floating_text: String = "%d%% slow" % (slow_buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 100, 255), 40)
+	var slow_text: String = tr("EMCY") % (slow_buff_level / 10) 
+	tower.get_player().display_small_floating_text(slow_text, target, Color8(100, 100, 255), 40)
 
 	Effect.add_special_effect("res://src/effects/frag_boom_spawn.tscn", Vector2(projectile.get_x(), projectile.get_y()))
 
@@ -144,8 +144,8 @@ func robot_pt_on_hit(_projectile: Projectile, target: Unit):
 
 	robot_bt.apply(tower, target, buff_level)
 
-	var floating_text: String = "%d%% AS and DMG" % (buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)
+	var attackspeed_and_dmg_text: String = tr("F7DM") % (buff_level / 10) 
+	tower.get_player().display_small_floating_text(attackspeed_and_dmg_text, target, Color8(100, 255, 100), 40)
 
 
 func emitter_pt_on_hit(_projectile: Projectile, target: Unit):
@@ -160,5 +160,5 @@ func emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 
 	emitter_bt.apply(tower, target, buff_level)
 
-	var floating_text: String = "%d%% Trigger Chance" % (buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)
+	var trigger_chances_text: String = tr("R735") % (buff_level / 10) 
+	tower.get_player().display_small_trigger_chances_text(trigger_chances_text, target, Color8(100, 255, 100), 40)

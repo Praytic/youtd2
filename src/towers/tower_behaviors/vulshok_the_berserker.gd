@@ -95,13 +95,17 @@ func on_attack(event: Event):
 #		Rare text has increased chance to show with increased triggerchances. ;]
 		var floating_text: String
 		if tower.calc_chance(0.005):
-			floating_text = "I WILL BATHE IN YOUR BLOOD!"
+			var bathe_in_blood_text: String = tr("DQXT")
+			floating_text = bathe_in_blood_text
 		elif tower.calc_chance(0.1):
-			floating_text = "FEAR ME!"
+			var fear_me_text: String = tr("C08E")
+			floating_text = fear_me_text
 		elif tower.calc_chance(0.4):
-			floating_text = "GRRR!"
+			var grrr_text: String = tr("MRXN")
+			floating_text = grrr_text
 		else:
-			floating_text = "ROAR!"
+			var roar_text: String = tr("JXN3")
+			floating_text = roar_text
 
 		tower.get_player().display_floating_text(floating_text, tower, Color8(255, 100, 100))
 

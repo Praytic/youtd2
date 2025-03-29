@@ -23,7 +23,7 @@ func axe_pt_hit(_p: Projectile, target: Unit):
 		return
 
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):
-		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x(tr("FLOATING_TEXT_MISS"), tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
 	else:
 		tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit_no_bonus())
 
@@ -81,7 +81,7 @@ func on_attack(event: Event):
 func on_damage(event: Event):
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):
 		event.damage = 0
-		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x(tr("FLOATING_TEXT_MISS"), tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
 
 
 func on_create(_preceding_tower: Tower):

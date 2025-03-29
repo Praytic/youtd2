@@ -52,7 +52,8 @@ func periodic(_event: Event):
 
 	power_level = 0
 	engine_update_mana_use()
-	tower.get_player().display_floating_text("Power Level: 0", tower, Color8(50, 150, 100))
+	var power_level_text: String = tr("UQAM").format({POWER_LEVEL = 0})
+	tower.get_player().display_floating_text(power_level_text, tower, Color8(50, 150, 100))
 	stun_bt.apply_only_timed(tower, tower, 120)
 
 
@@ -137,8 +138,8 @@ func on_autocast_speed_up(_event: Event):
 	power_level += 1
 	engine_update_mana_use()
 
-	var floating_text: String = "Power Level: %d" % power_level
-	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))
+	var power_level_text: String = tr("UQAM").format({POWER_LEVEL = power_level})
+	tower.get_player().display_floating_text(power_level_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))
 
 
 func on_autocast_speed_down(_event: Event):
@@ -148,5 +149,5 @@ func on_autocast_speed_down(_event: Event):
 	power_level -= 1
 	engine_update_mana_use()
 
-	var floating_text: String = "Power Level: %d" % power_level
-	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))
+	var power_level_text: String = tr("UQAM").format({POWER_LEVEL = power_level})
+	tower.get_player().display_floating_text(power_level_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))

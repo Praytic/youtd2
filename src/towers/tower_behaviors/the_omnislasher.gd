@@ -47,11 +47,14 @@ func on_attack(event: Event):
 	var fun_text: String
 	var fun_value: float = Globals.synced_rng.randf_range(0, 1.0)
 	if fun_value < 0.03:
-		fun_text = "I'm faster than LIGHT!"
+		var faster_than_light_text: String = tr("ZWDX")
+		fun_text = faster_than_light_text
 	elif fun_value < 0.02:
-		fun_text = "Don't listen to Einstein's lies!"
+		var einstein_lies_text: String = tr("B0DP")
+		fun_text = einstein_lies_text
 	elif fun_value < 0.01:
-		fun_text = "I'm debunking relativity. Just watch me!"
+		var relativity_text: String = tr("M4CO")
+		fun_text = relativity_text
 	else:
 		fun_text = ""
 

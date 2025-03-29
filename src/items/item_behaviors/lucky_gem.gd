@@ -39,20 +39,25 @@ func on_damage(event: Event):
 		if a < 1:
 			CombatLog.log_item_ability(item, null, "Stun!")
 			stun_bt.apply_only_timed(tower, target, 0.5)
-			tower.get_player().display_small_floating_text("Stun!", tower, Color8(255, 165, 0), 30)
+			var stun_text: String = tr("NMYW")
+			tower.get_player().display_small_floating_text(stun_text, tower, Color8(255, 165, 0), 30)
 		elif a < 2:
 			CombatLog.log_item_ability(item, null, "Slow!")
 			slow_bt.apply_custom_timed(tower, target, 100, 3)
-			tower.get_player().display_small_floating_text("Slow!", tower, Color8(255, 165, 0), 30)
+			var slow_text: String = tr("Z5NR")
+			tower.get_player().display_small_floating_text(slow_text, tower, Color8(255, 165, 0), 30)
 		elif a < 3:
 			CombatLog.log_item_ability(item, null, "Gold!")
 			tower.get_player().give_gold(10, tower, true, true)
-			tower.get_player().display_small_floating_text("Gold!", tower, Color8(255, 165, 0), 30)
+			var gold_text: String = tr("S88X")
+			tower.get_player().display_small_floating_text(gold_text, tower, Color8(255, 165, 0), 30)
 		elif a < 4:
 			CombatLog.log_item_ability(item, null, "Exp!")
 			tower.add_exp(1.0)
-			tower.get_player().display_small_floating_text("Exp!", tower, Color8(255, 165, 0), 30)
+			var exp_text: String = tr("NUE1")
+			tower.get_player().display_small_floating_text(exp_text, tower, Color8(255, 165, 0), 30)
 		elif a < 5:
 			CombatLog.log_item_ability(item, null, "Armor!")
 			armor_bt.apply_custom_timed(tower, target, 5, 3)
-			tower.get_player().display_small_floating_text("Armor!", tower, Color8(255, 165, 0), 30)
+			var armor_text: String = tr("CC5X")
+			tower.get_player().display_small_floating_text(armor_text, tower, Color8(255, 165, 0), 30)

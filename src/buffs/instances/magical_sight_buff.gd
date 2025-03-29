@@ -12,7 +12,7 @@ extends BuffType
 
 var magical_sight_debuff: BuffType
 
-func _init(type: String, radius: float, parent: Node):
+func _init(type: String, _radius: float, parent: Node):
 	super(type, 0, 0, true, parent)
 
 	set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")

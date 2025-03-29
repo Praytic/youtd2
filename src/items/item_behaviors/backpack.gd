@@ -32,7 +32,8 @@ func backpack_bt_on_kill(event: Event):
 	var creep: Creep = event.get_target()
 
 	creep.drop_item(tower, false)
-	tower.get_player().display_small_floating_text("Backpacked!", tower, Color8(255, 165, 0), 30)
+	var backpacked_text: String = tr("UEGM")
+	tower.get_player().display_small_floating_text(backpacked_text, tower, Color8(255, 165, 0), 30)
 	item.user_int = item.user_int + 1
 	B.remove_buff()
 

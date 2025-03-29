@@ -14,4 +14,5 @@ func on_periodic(event: Event):
 		tower.remove_exp_flat(2)
 		tower.get_player().give_gold(7, tower, true, true)
 	else:
-		tower.get_player().display_floating_text("Not enough credits!", tower, Color8(255, 0, 0))
+		var not_enough_credits_text: String = tr("LOO6")
+		tower.get_player().display_floating_text(not_enough_credits_text, tower, Color8(255, 0, 0))

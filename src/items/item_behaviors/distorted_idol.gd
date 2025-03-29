@@ -27,7 +27,8 @@ func on_pickup():
 #	immediately dropping after adding to inventory
 #	causes problems
 	if !carrier_is_on_corner:
-		player.display_floating_text("Distorted Idol carrier must be on corner!", carrier, Color.PURPLE)
+		var tower_must_be_on_corner_text: String = tr("E8DP")
+		player.display_floating_text(tower_must_be_on_corner_text, carrier, Color.PURPLE)
 
 		await Utils.create_manual_timer(0.1, self).timeout
 		

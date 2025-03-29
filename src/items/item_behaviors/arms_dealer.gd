@@ -44,7 +44,7 @@ func on_unit_in_range(event: Event):
 		
 		reward_value = t.get_level() + boss_level + 25
 		p.give_gold(reward_value, t, true, false)
-		var arms_sold_text: String = "Arms Sold $%d" % reward_value
+		var arms_sold_text: String = "%s %d" % [tr("YQK4"), reward_value]
 		p.display_floating_text(arms_sold_text, t, Color8(0, 255, 0))
 		item.user_int = boss_level
 		item.user_int2 = item.user_int2 + reward_value

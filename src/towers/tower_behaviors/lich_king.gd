@@ -98,7 +98,8 @@ func aura_bt_on_cleanup(event: Event):
 
 	if target.get_health() > 0:
 		if caster.user_real > 0:
-			caster.get_player().display_floating_text("Feel the Wrath!", caster, Color8(15, 15, 200))
+			var feel_the_wrath_text: String = tr("A8KA")
+			caster.get_player().display_floating_text(feel_the_wrath_text, caster, Color8(15, 15, 200))
 			var stored_damage_ratio: float = 0.5 + 0.04 * caster.get_level()
 			damage += caster.user_real * stored_damage_ratio
 			caster.user_real = 0.0

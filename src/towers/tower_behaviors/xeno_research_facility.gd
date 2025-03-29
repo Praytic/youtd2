@@ -121,7 +121,8 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Sample Collection")
 
-	tower.get_player().display_small_floating_text("Sample Collected", creep, Color8(200, 200, 200), 40.0)
+	var sample_collected_text: String = tr("Q346")
+	tower.get_player().display_small_floating_text(sample_collected_text, creep, Color8(200, 200, 200), 40.0)
 	var new_bonus: int = min(current_bonus + 50, bonus_max)
 	bonus_map[creep_category] = new_bonus
 	force_show_research_message = true
@@ -164,10 +165,10 @@ func xeno_buff_towers(is_type_change: bool):
 
 	var category_string = CreepCategory.get_display_string(current_creep_category)
 	var category_color: Color = CreepCategory.get_color(current_creep_category)
-	var floating_text: String = "%s Research Published" % category_string
+	var research_published_text: String = tr("E2IZ").format({CREEP_RACE = category_string})
 
 	if (is_type_change && buff_level > 0) || force_show_research_message:
-		tower.get_player().display_floating_text(floating_text, tower, category_color)
+		tower.get_player().display_floating_text(research_published_text, tower, category_color)
 		force_show_research_message = false
 
 	var category_to_bt: Dictionary = {

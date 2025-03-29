@@ -39,20 +39,23 @@ func on_attack(event: Event):
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 1)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -1)
-			player.display_floating_text("One Item", tower, Color8(0, 0, 255))
+			var one_item_text: String = tr("NJ6M")
+			player.display_floating_text(one_item_text, tower, Color8(0, 0, 255))
 		elif choose == 2:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.5)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.5)
-			player.display_floating_text("Two Items", tower, Color8(0, 0, 255))
+			var two_items_text: String = tr("VVB4")
+			player.display_floating_text(two_items_text, tower, Color8(0, 0, 255))
 		elif choose == 3:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.25)
-			player.display_floating_text("Three Items", tower, Color8(0, 0, 255))
+			var three_items_text: String = tr("MMDP")
+			player.display_floating_text(three_items_text, tower, Color8(0, 0, 255))
 		elif choose == 4:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
@@ -61,15 +64,18 @@ func on_attack(event: Event):
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.1)
 			item.user_real = item.user_real + 0.1
 			item.user_real2 = item.user_real2 + 0.1
-			player.display_floating_text("Two Items + Bonus!", tower, Color8(0, 0, 255))
+			var two_items_and_bonus_text: String = tr("MKEI")
+			player.display_floating_text(two_items_and_bonus_text, tower, Color8(0, 0, 255))
 		elif choose == 5:
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.25)
 			item.user_real2 = item.user_real2 + 0.25
-			player.display_floating_text("Item Chance", tower, Color8(0, 255, 0))
+			var item_chance_text: String = tr("JQ7S")
+			player.display_floating_text(item_chance_text, tower, Color8(0, 255, 0))
 		elif choose == 6:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			item.user_real = item.user_real + 0.25
-			player.display_floating_text("Item Quality", tower, Color8(0, 255, 0))
+			var item_quality_text: String = tr("M64K")
+			player.display_floating_text(item_quality_text, tower, Color8(0, 255, 0))
 
 
 func on_create():

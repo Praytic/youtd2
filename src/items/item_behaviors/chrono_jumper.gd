@@ -45,7 +45,8 @@ func on_autocast(event: Event):
 	var tower_already_jumping: bool = tower.get_buff_of_type(jumper_bt) != null
 
 	if tower_already_jumping:
-		player.display_floating_text("Cannot jump right now.", tower, Color.PURPLE)
+		var cannot_jump_right_now_text: String = tr("MB3D")
+		player.display_floating_text(cannot_jump_right_now_text, tower, Color.PURPLE)
 
 		return
 
@@ -71,7 +72,8 @@ func on_autocast(event: Event):
 		if found_buildable_pos:
 			dest_pos_canvas = nearby_buildable_pos
 		else:
-			player.display_floating_text_at_pos("Cannot jump to this position.", target_pos_wc3, Color.PURPLE)
+			var cannot_jump_to_position_text: String = tr("FJ63")
+			player.display_floating_text_at_pos(cannot_jump_to_position_text, target_pos_wc3, Color.PURPLE)
 			
 			return
 

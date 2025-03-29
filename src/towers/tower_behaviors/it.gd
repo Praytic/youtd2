@@ -120,7 +120,8 @@ func on_autocast_recreation(event: Event):
 	var target_pos_is_on_path: bool = Utils.is_point_on_creep_path(target_pos, tower.get_player())
 
 	if !target_pos_is_on_path:
-		tower.get_player().display_small_floating_text("Invalid location!", tower, Color8(255, 150, 0), 30)
+		var invalid_location_text: String = tr("FFW7")
+		tower.get_player().display_small_floating_text(invalid_location_text, tower, Color8(255, 150, 0), 30)
 
 		return
 

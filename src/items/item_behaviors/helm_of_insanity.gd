@@ -16,14 +16,16 @@ func on_damage(event: Event):
 		event.damage = event.damage * 0.5
 
 		if event.is_main_target():
-			tower.get_player().display_small_floating_text("Exhausted!", tower, Color8(255, 150, 0), 30)
+			var exhausted_text: String = tr("LW28")
+			tower.get_player().display_small_floating_text(exhausted_text, tower, Color8(255, 150, 0), 30)
 			item.user_int = item.user_int + 1
 
 	if item.user_int < 12:
 		event.damage = event.damage * 2
 
 		if event.is_main_target():
-			tower.get_player().display_small_floating_text("Insane!", tower, Color8(255, 150, 0), 30)
+			var insane_text: String = tr("ELMO")
+			tower.get_player().display_small_floating_text(insane_text, tower, Color8(255, 150, 0), 30)
 			item.user_int = item.user_int + 1
 
 
