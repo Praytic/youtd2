@@ -33,7 +33,7 @@ static func verify(player: Player, element: Element.enm) -> bool:
 	var can_afford_research: bool = player.can_afford_research(element)
 
 	if !can_afford_research:
-		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES"))
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES_FOR_RESEARCH"))
 
 		return false
 

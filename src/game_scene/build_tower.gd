@@ -120,7 +120,7 @@ static func add_error_about_tower_only_gold_and_tomes(tower_id: int, player: Pla
 	if !enough_gold:
 		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_GOLD"))
 	elif !enough_tomes:
-		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES"))
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES_FOR_BUILD"))
 
 
 static func add_error_about_building_tower(tower_id: int, player: Player, preceding_tower_id: int = -1):
@@ -131,7 +131,7 @@ static func add_error_about_building_tower(tower_id: int, player: Player, preced
 	if !enough_gold:
 		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_GOLD"))
 	elif !enough_tomes:
-		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES"))
+		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_TOMES_FOR_BUILD"))
 	elif !enough_food:
 		Utils.add_ui_error(player, Utils.tr("MESSAGE_NOT_ENOUGH_FOOD"))
 
