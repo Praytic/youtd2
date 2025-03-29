@@ -39,6 +39,17 @@ static func convert_to_string(rarity: Rarity.enm) -> String:
 	return _string_map[rarity]
 
 
+static func get_display_string(type: Rarity.enm) -> String:
+	var string: String
+	match type:
+		Rarity.enm.COMMON: string = Utils.tr("RARITY_COMMON")
+		Rarity.enm.UNCOMMON: string = Utils.tr("RARITY_UNCOMMON")
+		Rarity.enm.RARE: string = Utils.tr("RARITY_RARE")
+		Rarity.enm.UNIQUE: string = Utils.tr("RARITY_UNIQUE")
+	
+	return string
+
+
 static func get_color(rarity: Rarity.enm) -> Color:
 	return _color_map[rarity]
 

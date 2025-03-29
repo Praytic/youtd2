@@ -19,25 +19,25 @@ rarity_list = Array[int]([0, 1, 2, 3])
 
 [node name="FilterButtonRarity2" parent="." instance=ExtResource("2_j5bkp")]
 layout_mode = 2
-tooltip_text = "Common"
+tooltip_text = "RARITY_COMMON"
 icon = ExtResource("3_nd2bw")
 rarity_list = Array[int]([0])
 
 [node name="FilterButtonRarity3" parent="." instance=ExtResource("2_j5bkp")]
 layout_mode = 2
-tooltip_text = "Uncommon"
+tooltip_text = "RARITY_UNCOMMON"
 icon = ExtResource("4_6gbsy")
 rarity_list = Array[int]([1])
 
 [node name="FilterButtonRarity4" parent="." instance=ExtResource("2_j5bkp")]
 layout_mode = 2
-tooltip_text = "Rare"
+tooltip_text = "RARITY_RARE"
 icon = ExtResource("5_wbg08")
 rarity_list = Array[int]([2])
 
 [node name="FilterButtonRarity5" parent="." instance=ExtResource("2_j5bkp")]
 layout_mode = 2
-tooltip_text = "Unique"
+tooltip_text = "RARITY_UNIQUE"
 icon = ExtResource("6_ufthl")
 rarity_list = Array[int]([3])
 
