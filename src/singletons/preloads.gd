@@ -35,6 +35,10 @@ const ability_button_scene: PackedScene = preload("res://src/ui/buttons/ability_
 const inventory_slot_button_scene: PackedScene = preload("res://src/ui/buttons/inventory_slot_button.tscn")
 const mission_card: PackedScene = preload("res://src/ui/title_screen/missions_menu/mission_card.tscn")
 const mission_track_indicator_scene: PackedScene = preload("res://src/ui/hud/mission_track_indicator.tscn")
+const noto_sans_chinese_font: Font = preload("res://assets/fonts/NotoSansSC-Medium.ttf")
+const friz_font: Font = preload("res://assets/fonts/Friz Quadrata Std Medium.otf")
+
+
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://resources/icons/elements/ice.tres"),
 	Element.enm.NATURE: preload("res://resources/icons/elements/nature.tres"),

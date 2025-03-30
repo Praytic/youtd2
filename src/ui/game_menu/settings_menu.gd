@@ -195,5 +195,4 @@ func _on_display_mode_combo_item_selected(index: int):
 
 func _on_language_item_selected(index: int) -> void:
 	var selected_locale: String = Language.get_locale_from_option(index)
-	TranslationServer.set_locale(selected_locale)
 	Settings.set_setting(Settings.LANGUAGE, selected_locale)

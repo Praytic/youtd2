@@ -117,8 +117,29 @@ func _ready():
 
 	_load_window_settings()
 	
+	load_language_setting()
+
+
+# NOTE: need to switch fonts when switching languages
+# because the English "Friz" font doesn't support Chinese
+# characters. If we don't switch, then on desktop the game
+# will fallback to system font and Chinese will render ok.
+# On html5, system fonts are not available and Chinese
+# characters won't draw at all - that's why this step is
+# necessary.
+func load_language_setting():
 	var selected_language: String = get_setting(Settings.LANGUAGE)
 	TranslationServer.set_locale(selected_language)
+	
+	var chinese_locale: String = Language.get_locale_from_enum(Language.enm.CHINESE)
+	var font_for_selected_language: Font
+	if selected_language == chinese_locale:
+		font_for_selected_language = Preloads.noto_sans_chinese_font
+	else:
+		font_for_selected_language = Preloads.friz_font
+	
+	var theme: Theme = preload("res://resources/theme/wc3_theme.tres")
+	theme.default_font = font_for_selected_language
 
 
 #########################
@@ -145,6 +166,9 @@ func get_bool_setting(setting: String) -> bool:
 
 func set_setting(setting: String, value: Variant):
 	_cache[setting] = value
+	
+	if setting == Settings.LANGUAGE:
+		load_language_setting()
 
 
 # Save all changes to file
