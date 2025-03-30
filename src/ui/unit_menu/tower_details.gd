@@ -280,7 +280,10 @@ func update_text():
 static func int_format(num: float) -> String:
 	# Determine the appropriate suffix for the number
 	var suffix = ""
-	if num >= 1_000_000_000_000:
+	if num >= 1_000_000_000_000_000:
+		num /= 1_000_000_000_000_000
+		suffix = "Q"
+	elif num >= 1_000_000_000_000:
 		num /= 1_000_000_000_000
 		suffix = "T"
 	elif num >= 1_000_000_000:
@@ -317,7 +320,10 @@ static func int_format(num: float) -> String:
 static func int_format_shortest(num: float) -> String:
 	# Determine the appropriate suffix for the number
 	var suffix = ""
-	if num >= 1_000_000_000_000:
+	if num >= 1_000_000_000_000_000:
+		num /= 1_000_000_000_000_000
+		suffix = "Q"
+	elif num >= 1_000_000_000_000:
 		num /= 1_000_000_000_000
 		suffix = "T"
 	elif num >= 1_000_000_000:

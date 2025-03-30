@@ -107,7 +107,7 @@ const INITIAL_TIME_OF_DAY: float = 12.0
 # this because creep hp can go up to billions in bonus
 # waves.
 const DAMAGE_MIN: float = 0
-const DAMAGE_MAX: float = 1000000000000
+const DAMAGE_MAX: float = 1000000000000000
 
 const SIF_CREEP_HEALTH_MULTIPLIER: float = 0.48
 
