@@ -7,6 +7,11 @@ extends MainLoop
 const ARG_COUNT: int = 2
 
 var all_is_ok: bool = true
+# NOTE: reduce this value to process a smaller amount of
+# lines. Useful when there are too many issues posted in
+# output.
+const LINE_LIMIT: int = 10000
+const PRINT_CHANGED_IDS: bool = true
 
 
 func _initialize():
@@ -46,7 +51,14 @@ func run():
 
 	var digit_list: Array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
+	var line_count: int = 0
+
 	for i in range(csv_old.size()):
+		line_count += 1
+
+		if line_count > LINE_LIMIT:
+			break
+
 		var line_old: PackedStringArray = csv_old[i]
 		var line_new: PackedStringArray = csv_new[i]
 
@@ -75,6 +87,14 @@ func run():
 			print(" \n!!!!Detected duplicate text id: %s" % text_id_old)
 			all_is_ok = false
 		text_id_map[text_id_old] = true
+
+		if text_id_is_ok && PRINT_CHANGED_IDS:
+			var chinese_text_old: String = line_old[2]
+			var chinese_text_new: String = line_new[2]
+			var chinese_text_changed: bool = chinese_text_old != chinese_text_new
+
+			if chinese_text_changed:
+				print("Text change at this id: %s" % text_id_old)
 
 	check_for_broken_tags(text_csv_path_new)
 
