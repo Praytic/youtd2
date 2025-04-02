@@ -246,21 +246,21 @@ size_flags_vertical = 0
 
 [node name="ElementsMenuButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
-tooltip_text = "Open Elements Menu"
+tooltip_text = "HUD_TOOLTIP_ELEMENTS"
 button_group = ExtResource("7_8m5sl")
 icon = ExtResource("10_ylm6g")
 _menu = NodePath("../../../MarginContainer2/HBoxContainer/ElementsMenu")
 
 [node name="TowerStashButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
-tooltip_text = "Open Tower Stash"
+tooltip_text = "HUD_TOOLTIP_TOWER_STASH"
 button_group = ExtResource("7_8m5sl")
 shortcut = SubResource("Shortcut_ejtke")
 _menu = NodePath("../../../MarginContainer2/HBoxContainer/TowerStashMenu")
 
 [node name="ItemStashButton" parent="MarginContainer7/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_menu") instance=ExtResource("7_2qbjb")]
 layout_mode = 2
-tooltip_text = "Open Item Stash"
+tooltip_text = "HUD_TOOLTIP_ITEM_STASH"
 button_group = ExtResource("7_8m5sl")
 shortcut = SubResource("Shortcut_ree63")
 icon = ExtResource("12_vixmf")

@@ -129,19 +129,20 @@ expand_icon = true
 
 [node name="ExpBar" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
 layout_mode = 2
-tooltip_text = "Experience"
+tooltip_text = "UNIT_MENU_TOOLTIP_EXP"
 theme_override_styles/background = ExtResource("9_lvj74")
 theme_override_styles/fill = ExtResource("10_6udoc")
 
 [node name="HealthBar" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
 visible = false
 layout_mode = 2
-tooltip_text = "Health"
+tooltip_text = "UNIT_MENU_TOOLTIP_HEALTH"
 theme_override_styles/background = ExtResource("13_10x1w")
 theme_override_styles/fill = ExtResource("14_sjp88")
 
 [node name="ManaBar" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_7iile")]
 layout_mode = 2
+tooltip_text = "UNIT_MENU_TOOLTIP_MANA"
 
 [node name="Abilities" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -290,7 +291,7 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-tooltip_text = "Tower level"
+tooltip_text = "UNIT_MENU_TOOLTIP_TOWER_LEVEL"
 mouse_filter = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -312,7 +313,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-tooltip_text = "Upgrade (U)"
+tooltip_text = "UNIT_MENU_TOOLTIP_UPGRADE"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_bdake")
@@ -336,7 +337,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-tooltip_text = "Sell (R)"
+tooltip_text = "UNIT_MENU_TOOLTIP_SELL"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_ocraw")

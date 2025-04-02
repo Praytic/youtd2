@@ -123,8 +123,7 @@ columns = 2
 [node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "The standard attack damage the tower deals
-without any bonuses at level 0."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_BASE_DMG"
 mouse_filter = 1
 text = "TOWER_DETAILS_BASE_DMG"
 
@@ -138,9 +137,7 @@ horizontal_alignment = 2
 [node name="Label11" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value is added on the base damage. It is
-calculated into the white numbers of the tower's
-attack damage."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_BASE_BONUS"
 mouse_filter = 1
 text = "TOWER_DETAILS_BASE_BONUS"
 
@@ -154,11 +151,7 @@ horizontal_alignment = 2
 [node name="Label17" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "After adding the Base Bonus, this percentage
-is added to the damage. It is also calculated in
-the white numbers. Bonus damage granted by
-oils and damage the tower gains by leveling is
-added to this value."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_BASE_BONUS_PST"
 mouse_filter = 1
 text = "TOWER_DETAILS_BASE_BONUS_PST"
 
@@ -172,12 +165,7 @@ horizontal_alignment = 2
 [node name="Label23" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value is added to the towers damage
-after the Base Damage calculation. It will be
-displayed as green/red numbers behind the
-white numbers of the tower's damage. DPS
-gain by special abilities and items is usually
-added to this value."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_DMG_ADD"
 mouse_filter = 1
 text = "TOWER_DETAILS_BASE_DNG_ADD"
 
@@ -191,12 +179,7 @@ horizontal_alignment = 2
 [node name="Label29" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "After the Damage Add was added to the Base
-Damage, this percentage is added to the
-damage, it is also shown as green numbers.
-Percent bonuses from permanent items,
-buffs, auras and special abilities is ususally
-added to this value."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_DMG_ADD_PST"
 mouse_filter = 1
 text = "TOWER_DETAILS_BASE_DNG_ADD_PST"
 
@@ -245,8 +228,7 @@ horizontal_alignment = 2
 [node name="Label44" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value divides the base cooldown to get
-overall cooldown."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_ATK_SPEED_MOD"
 mouse_filter = 1
 text = "TOWER_DETAILS_ATK_SPEED_MOD"
 
@@ -260,7 +242,7 @@ horizontal_alignment = 2
 [node name="Label50" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Time between tower attacks."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_ATK_SPEED"
 mouse_filter = 1
 text = "TOWER_DETAILS_OVERALL_ATK_SPEED"
 
@@ -305,7 +287,7 @@ columns = 2
 [node name="Label68" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Chance to deal a critical strike on attack."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_CRIT_CHANCE"
 mouse_filter = 1
 text = "TOWER_DETAILS_CRIT_CHANCE"
 
@@ -319,7 +301,7 @@ horizontal_alignment = 2
 [node name="Label74" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "The amount of extra damage which will be added if an attack is critical."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_CRIT_DMG"
 mouse_filter = 1
 text = "TOWER_DETAILS_CRIT_DMG"
 
@@ -333,11 +315,7 @@ horizontal_alignment = 2
 [node name="Label80" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Multicrit is the maximum amount of crits which
-can be scored by the tower. If multicrit is 2 for
-example, then in very rare cases the tower may
-crit 2 times, which will add Crit Damage bonus
-twice."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_MULTICRIT_COUNT"
 mouse_filter = 1
 text = "TOWER_DETAILS_MULTICRIT_COUNT"
 
@@ -417,9 +395,7 @@ horizontal_alignment = 2
 [node name="Label11" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Chance to do critical damage when dealing spell
-damage. Note that spell damage cannot
-multicrit."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_SPELL_CRIT_CHANCE"
 mouse_filter = 1
 text = "TOWER_DETAILS_SPELL_CRIT_CHANCE"
 
@@ -596,7 +572,7 @@ columns = 2
 [node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Total damage dealt by this tower."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_VETERAN_DMG"
 mouse_filter = 1
 text = "TOWER_DETAILS_VETERAN_DMG"
 
@@ -609,7 +585,7 @@ horizontal_alignment = 2
 
 [node name="TotalDamageRecentLeft" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
-tooltip_text = "Total damage dealt by this tower during the last 5 waves."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_VETERAN_RCT_DMG"
 mouse_filter = 1
 text = "TOWER_DETAILS_VETERAN_RCT_DMG"
 
@@ -697,8 +673,7 @@ columns = 2
 [node name="Label40" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value is multiplied with gold dropped by
-creeps when this tower kills creeps."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_BOUNTY_RAT"
 mouse_filter = 1
 text = "TOWER_DETAILS_BOUNTY_RAT"
 
@@ -712,8 +687,7 @@ horizontal_alignment = 2
 [node name="Label46" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This tower multiplies experience dropped by
-creeps when this tower kills creeps."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_EXP_RAT"
 mouse_filter = 1
 text = "TOWER_DETAILS_EXP_RAT"
 
@@ -727,8 +701,7 @@ horizontal_alignment = 2
 [node name="Label52" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value changes the chance that creeps killed
-by this tower will drop an item."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_DROP_RAT"
 mouse_filter = 1
 text = "TOWER_DETAILS_DROP_RAT"
 
@@ -742,9 +715,7 @@ horizontal_alignment = 2
 [node name="Label58" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value changes the quality of items dropped
-by creeps. Works only for creeps killed by this
-tower."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_QUALITY_RAT"
 mouse_filter = 1
 text = "TOWER_DETAILS_QUALITY_RAT"
 
@@ -758,10 +729,7 @@ horizontal_alignment = 2
 [node name="Label66" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value changes the chance of tower abilities
-triggering. If a tower ability tooltip says it has
-a chance to trigger, then it is affected by this
-value."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_TRIGGER_CHANCES"
 mouse_filter = 1
 text = "TOWER_DETAILS_TRIGGER_CHANCES"
 
@@ -775,9 +743,7 @@ horizontal_alignment = 2
 [node name="Label70" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This value changes the duration of buffs which
-are applied by this tower on other towers or itself. Doesn't affect the duration of buffs applied
-on this tower by other towers."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_BUFF_DUR"
 mouse_filter = 1
 text = "TOWER_DETAILS_BUFF_DUR"
 
@@ -791,8 +757,7 @@ horizontal_alignment = 2
 [node name="Label76" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Changes the duration of debuffs applied by
-creeps on this tower."
+tooltip_text = "TOWER_DETAILS_TOOLTIP_DEBUFF_DUR"
 mouse_filter = 1
 text = "TOWER_DETAILS_DEBUFF_DUR"
 

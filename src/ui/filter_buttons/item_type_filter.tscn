@@ -14,7 +14,7 @@ script = ExtResource("1_jj4ac")
 
 [node name="FilterButtonItemType" parent="." instance=ExtResource("2_dcwgy")]
 layout_mode = 2
-tooltip_text = "All item types"
+tooltip_text = "ITEM_TYPE_FILTER_ALL"
 theme = null
 button_pressed = true
 button_group = ExtResource("3_254a3")
@@ -23,7 +23,7 @@ filter_value = Array[int]([0, 1, 2])
 
 [node name="FilterButtonItemType2" parent="." instance=ExtResource("2_dcwgy")]
 layout_mode = 2
-tooltip_text = "Permanent items"
+tooltip_text = "ITEM_TYPE_FILTER_PERMANENT"
 theme = null
 button_group = ExtResource("3_254a3")
 icon = ExtResource("4_0ptir")
@@ -31,7 +31,7 @@ filter_value = Array[int]([0])
 
 [node name="FilterButtonItemType3" parent="." instance=ExtResource("2_dcwgy")]
 layout_mode = 2
-tooltip_text = "Oils and consumables"
+tooltip_text = "ITEM_TYPE_FILTER_OILS"
 theme = null
 button_group = ExtResource("3_254a3")
 icon = ExtResource("5_fd3uu")

@@ -42,13 +42,13 @@ layout_mode = 2
 
 [node name="TrackLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Enable tracking to see mission status while playing."
+tooltip_text = "MISSION_CARD_TOOLTIP_TRACKING"
 mouse_filter = 0
 text = "Track:"
 
 [node name="TrackCheckBox" type="CheckBox" parent="MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Enable tracking to see mission status while playing."
+tooltip_text = "MISSION_CARD_TOOLTIP_TRACKING"
 focus_mode = 0
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]

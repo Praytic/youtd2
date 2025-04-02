@@ -52,14 +52,7 @@ text = "MATCH_CONFIG_GAME_MODE"
 
 [node name="GameModeCombo" type="OptionButton" parent="."]
 layout_mode = 2
-tooltip_text = "Random with upgrades: you get towers randomly after each
-wave. Towers can be upgraded to higher tiers.
- 
-Totally random: you get towers randomly after each wave.
-Upgraded versions of towers are also randomly distributed.
- 
-Build: you can build any tower which meets requirements.
-Not recommended - game is best played in random modes."
+tooltip_text = "MATCH_CONFIG_TOOLTIP_GAME_MODE"
 focus_mode = 0
 selected = 1
 item_count = 3
@@ -75,8 +68,7 @@ text = "MATCH_CONFIG_TEAM_MODE"
 
 [node name="TeamModeCombo" type="OptionButton" parent="."]
 layout_mode = 2
-tooltip_text = "Co-op - 2 players per team
-FFA - 1 player per team"
+tooltip_text = "MATCH_CONFIG_TOOLTIP_TEAM_MODE"
 selected = 1
 item_count = 2
 popup/item_0/text = "TEAM_MODE_FFA"

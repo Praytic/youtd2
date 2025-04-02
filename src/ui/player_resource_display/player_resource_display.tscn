@@ -62,37 +62,25 @@ alignment = 1
 
 [node name="LivesStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 layout_mode = 2
-tooltip_text = "Portal lives
- 
-Creeps will damage the portal if they reach it. Once this number 
-reaches zero it's game over!"
+tooltip_text = "PLAYER_RESOURCE_TOOLTIP_LIVES"
 icon_texture = ExtResource("7_rye6p")
 default_label_text = "0"
 
 [node name="GoldStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(160, 38)
 layout_mode = 2
-tooltip_text = "Gold
- 
-Gold is dropped by creeps and is also given as a reward for
-clearing waves."
+tooltip_text = "PLAYER_RESOURCE_TOOLTIP_GOLD"
 icon_texture = ExtResource("5_uvsoy")
 default_label_text = "0"
 
 [node name="TomesStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 layout_mode = 2
-tooltip_text = "Knowledge Tomes
- 
-Knowledge Tomes are given as a reward for clearing waves
-and can also be obtained from some rare items."
+tooltip_text = "PLAYER_RESOURCE_TOOLTIP_KNOWLEDGE_TOMES"
 icon_texture = ExtResource("6_6qkfi")
 default_label_text = "0"
 
 [node name="FoodStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 layout_mode = 2
-tooltip_text = "Food
- 
-Food determines how many towers you can build. Some
-rare items can raise the food cap."
+tooltip_text = "PLAYER_RESOURCE_TOOLTIP_FOOD"
 icon_texture = ExtResource("8_7hxjl")
 default_label_text = "0/55"

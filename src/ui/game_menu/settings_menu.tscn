@@ -154,7 +154,7 @@ text = "SETTINGS_VFX"
 
 [node name="ProjectileDensityLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Decreasing this setting can reduce lag in late game."
+tooltip_text = "SETTINGS_TOOLTIP_PROJECTILE_DENSITY"
 mouse_filter = 1
 text = "SETTINGS_PJT_DST"
 
@@ -162,7 +162,7 @@ text = "SETTINGS_PJT_DST"
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-tooltip_text = "Decreasing this setting can reduce lag in late game."
+tooltip_text = "SETTINGS_TOOLTIP_PROJECTILE_DENSITY"
 focus_mode = 0
 max_value = 1.0
 step = 0.1
@@ -184,7 +184,7 @@ horizontal_alignment = 1
 
 [node name="EnableMouseScroll" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionInput/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Enables moving the camera by placing the mouse on the edge of the screen."
+tooltip_text = "SETTINGS_TOOLTIP_MOUSE_SCROLL"
 focus_mode = 0
 text = "SETTINGS_ENBL_MOUSE_SCRL"
 

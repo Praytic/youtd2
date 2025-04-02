@@ -60,10 +60,7 @@ layout_mode = 2
 [node name="LockFilterButton" type="Button" parent="TabContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-tooltip_text = "Show only locked items.
- 
-Items can be locked by Ctrl-right-clicking on them.
-Locked items won't be pulled by Horadric Cube autofill."
+tooltip_text = "ITEM_STASH_TOOLTIP_LOCK_FILTER"
 focus_mode = 0
 theme_type_variation = &"FilterButton"
 toggle_mode = true
@@ -73,7 +70,7 @@ expand_icon = true
 [node name="SortButton" type="Button" parent="TabContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-tooltip_text = "Sorts all items in item stash according to item type, rarity and level."
+tooltip_text = "ITEM_STASH_TOOLTIP_SORT"
 focus_mode = 0
 text = "ITEM_SORT"
 
@@ -294,13 +291,13 @@ layout_mode = 2
 
 [node name="TransmuteButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Convert ingredients into a new item. This button will become enabled when it's possible to convert ingredients."
+tooltip_text = "ITEM_STASH_TOOLTIP_TRANSMUTE"
 focus_mode = 0
 text = "ITEMS_PANEL_MERGE"
 
 [node name="ReturnButton" type="Button" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Returns all items in Horadric Cube to item stash."
+tooltip_text = "ITEM_STASH_TOOLTIP_RETURN_ITEMS"
 focus_mode = 0
 text = "ITEMS_PANEL_RETURN"
 
@@ -312,23 +309,6 @@ theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-
-[node name="InfoLabel" type="RichTextLabel" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-theme_override_font_sizes/bold_italics_font_size = 24
-theme_override_font_sizes/italics_font_size = 24
-theme_override_font_sizes/mono_font_size = 24
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
-bbcode_enabled = true
-text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
-
-[color=GOLD]Main attack types:[/color] Elemental, Energy"
-fit_content = true
-scroll_active = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VBoxContainer/MarginContainer/VBoxContainer/HoradricPanel/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
