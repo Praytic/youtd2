@@ -145,6 +145,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_id() -> int:
+	return _autocast_id
+
+
 func get_name_english() -> String:
 	var name_english: String = AutocastProperties.get_name_english(_autocast_id)
 

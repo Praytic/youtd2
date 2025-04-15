@@ -437,11 +437,11 @@ func get_aura_text_short(aura_id: int) -> String:
 	return text
 
 
-func get_autocast_text_long(autocast: Autocast) -> String:
-	var autocast_name: String = autocast.get_autocast_name()
-	var autocast_description_long: String = autocast.get_description_long()
+func get_autocast_text_long(autocast_id: int) -> String:
+	var autocast_name: String = AutocastProperties.get_autocast_name(autocast_id)
+	var autocast_description_long: String = AutocastProperties.get_description_long(autocast_id)
 	autocast_description_long = add_color_to_numbers(autocast_description_long)
-	var stats_text: String = get_autocast_stats_text(autocast)
+	var stats_text: String = get_autocast_stats_text(autocast_id)
 
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % autocast_name
@@ -456,7 +456,7 @@ func get_autocast_text_short(autocast_id: int) -> String:
 	var autocast_name: String = AutocastProperties.get_autocast_name(autocast_id)
 	var autocast_description_short: String = AutocastProperties.get_description_short(autocast_id)
 	autocast_description_short = add_color_to_numbers(autocast_description_short)
-	var stats_text: String = get_autocast_stats_text_from_autocast_id(autocast_id)
+	var stats_text: String = get_autocast_stats_text(autocast_id)
 
 	var text: String = "[color=GOLD]%s[/color]\n" % autocast_name \
 	+ "%s\n" % autocast_description_short \
@@ -468,7 +468,7 @@ func get_autocast_text_short(autocast_id: int) -> String:
 func get_autocast_tooltip(autocast: Autocast) -> String:
 	var text: String = ""
 
-	text += RichTexts.get_autocast_text_long(autocast)
+	text += RichTexts.get_autocast_text_long(autocast.get_id())
 	text += " \n"
 
 	if autocast.can_use_auto_mode():
@@ -480,25 +480,10 @@ func get_autocast_tooltip(autocast: Autocast) -> String:
 	return text
 
 
-func get_autocast_stats_text(autocast: Autocast) -> String:
-	var mana_cost: int = autocast.get_mana_cost()
-	var cast_range: float = autocast.get_cast_range()
-	var cooldown: float = autocast.get_cooldown()
-	var text: String = get_autocast_stats_text_helper(mana_cost, cast_range, cooldown)
-
-	return text
-
-
-func get_autocast_stats_text_from_autocast_id(autocast_id: int) -> String:
+func get_autocast_stats_text(autocast_id: int) -> String:
 	var mana_cost: int = AutocastProperties.get_mana_cost(autocast_id)
 	var cast_range: float = AutocastProperties.get_cast_range(autocast_id)
 	var cooldown: float = AutocastProperties.get_cooldown(autocast_id)
-	var text: String = get_autocast_stats_text_helper(mana_cost, cast_range, cooldown)
-
-	return text
-
-
-func get_autocast_stats_text_helper(mana_cost: int, cast_range: float, cooldown: float) -> String:
 	var mana_cost_string: String = tr("AUTOCAST_TOOLTIP_MANA_COST").format({MANA_COST = str(mana_cost)})
 	var cast_range_string: String = tr("AUTOCAST_TOOLTIP_RANGE").format({RANGE = str(cast_range)})
 	var cooldown_string: String = tr("AUTOCAST_TOOLTIP_COOLDOWN").format({COOLDOWN = str(cooldown)})
