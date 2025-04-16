@@ -13,6 +13,7 @@ enum Tab {
 	ONLINE_LOBBY,
 	LAN_LOBBY,
 	PROFILE,
+	ENCYCLOPEDIA,
 	MISSIONS,
 	SETTINGS,
 	CREDITS,
@@ -156,3 +157,11 @@ func _on_profile_menu_missions_button_pressed() -> void:
 
 func _on_missions_menu_close_pressed() -> void:
 	_tab_container.current_tab = Tab.PROFILE
+
+
+func _on_encyclopedia_button_pressed() -> void:
+	_tab_container.current_tab = Tab.ENCYCLOPEDIA
+
+
+func _on_encyclopedia_menu_close_pressed() -> void:
+	switch_to_tab(TitleScreen.Tab.MAIN)

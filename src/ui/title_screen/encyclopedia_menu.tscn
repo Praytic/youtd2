@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm74dudt8aesd"]
+
+[ext_resource type="Script" path="res://src/ui/title_screen/encyclopedia_menu.gd" id="1_gh8nt"]
+[ext_resource type="PackedScene" uid="uid://bchd7sh3vf6tx" path="res://src/ui/title_screen/encyclopedia_towers.tscn" id="2_mgh3l"]
+
+[node name="EncyclopediaMenu" type="TabContainer"]
+custom_minimum_size = Vector2(1650, 1200)
+current_tab = 0
+script = ExtResource("1_gh8nt")
+
+[node name="ENCYCLOPEDIA_TAB_TOWERS" parent="." instance=ExtResource("2_mgh3l")]
+layout_mode = 2
+
+[connection signal="close_pressed" from="ENCYCLOPEDIA_TAB_TOWERS" to="." method="_on_towers_close_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d12sm4nc5wwqt"]
+[gd_scene load_steps=22 format=3 uid="uid://d12sm4nc5wwqt"]
 
 [ext_resource type="Script" path="res://src/ui/title_screen/title_screen.gd" id="1_dx8oa"]
 [ext_resource type="PackedScene" uid="uid://cusqgcgg37fj7" path="res://src/ui/title_screen/lan_match/setup_lan_game.tscn" id="2_2qgi3"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cecaq4wvkvxv3" path="res://src/ui/title_screen/lan_match/lan_lobby_menu.tscn" id="12_3m802"]
 [ext_resource type="PackedScene" uid="uid://dhvrqpk4snrok" path="res://src/ui/title_screen/missions_menu/missions_menu.tscn" id="14_5jj2m"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://src/ui/hud/build_version_label.tscn" id="16_xve8p"]
+[ext_resource type="PackedScene" uid="uid://dm74dudt8aesd" path="res://src/ui/title_screen/encyclopedia_menu.tscn" id="17_7asif"]
 [ext_resource type="PackedScene" uid="uid://bvc2yim85t7vs" path="res://src/ui/title_screen/notification_panel.tscn" id="17_whg35"]
 [ext_resource type="PackedScene" uid="uid://chegdechhho3d" path="res://src/ui/title_screen/connecting_to_server_indicator.tscn" id="18_5n8qn"]
 
@@ -107,6 +108,12 @@ focus_mode = 0
 theme_type_variation = &"ButtonLarge"
 text = "PROFILE_BUTTON"
 
+[node name="EncyclopediaButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonLarge"
+text = "ENCYCLOPEDIA_BUTTON"
+
 [node name="SettingsButton" type="Button" parent="UI/TabContainer/MainTab/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -170,25 +177,30 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 8
 
-[node name="MissionsMenu" parent="UI/TabContainer" instance=ExtResource("14_5jj2m")]
+[node name="EncyclopediaMenu" parent="UI/TabContainer" instance=ExtResource("17_7asif")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 9
 
-[node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
+[node name="MissionsMenu" parent="UI/TabContainer" instance=ExtResource("14_5jj2m")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 10
 
-[node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
+[node name="SettingsMenu" parent="UI/TabContainer" instance=ExtResource("5_q0hc3")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 11
 
-[node name="LoadingIndicator" type="VBoxContainer" parent="UI/TabContainer"]
+[node name="CreditsMenu" parent="UI/TabContainer" instance=ExtResource("4_rdxi7")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 12
+
+[node name="LoadingIndicator" type="VBoxContainer" parent="UI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 13
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/TabContainer/LoadingIndicator"]
 layout_mode = 2
@@ -248,6 +260,7 @@ layout_mode = 1
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/MultiplayerButton" to="SetupOnlineGame" method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/ProfileButton" to="." method="_on_profile_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/EncyclopediaButton" to="." method="_on_encyclopedia_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="UI/TabContainer/MainTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
@@ -272,6 +285,7 @@ layout_mode = 1
 [connection signal="start_pressed" from="UI/TabContainer/LanLobbyMenu" to="SetupLanGame" method="_on_lan_lobby_menu_start_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_close_pressed"]
 [connection signal="missions_button_pressed" from="UI/TabContainer/ProfileMenu" to="." method="_on_profile_menu_missions_button_pressed"]
+[connection signal="close_pressed" from="UI/TabContainer/EncyclopediaMenu" to="." method="_on_encyclopedia_menu_close_pressed"]
 [connection signal="close_pressed" from="UI/TabContainer/MissionsMenu" to="." method="_on_missions_menu_close_pressed"]
 [connection signal="cancel_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_generic_tab_cancel_pressed"]
 [connection signal="ok_pressed" from="UI/TabContainer/SettingsMenu" to="." method="_on_settings_menu_ok_pressed"]
