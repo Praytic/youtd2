@@ -225,7 +225,7 @@ func get_attack_target_type(tower_id: int) -> TargetType:
 	return attack_target_type
 
 
-func get_multishot(tower_id: int) -> bool:
+func get_multishot(tower_id: int) -> int:
 	var string: String = _get_property(tower_id, CsvProperty.MULTISHOT)
 	var multishot: int
 	if !string.is_empty():
