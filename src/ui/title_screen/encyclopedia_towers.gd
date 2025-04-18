@@ -7,10 +7,7 @@ extends VBoxContainer
 
 signal close_pressed()
 
-@export var _label: RichTextLabel
-@export var _button_grid: GridContainer
-@export var _tower_button_for_selected: TowerButton
-@export var _name_label_for_selected: Label
+@export var _generic_tab: EncyclopediaGenericTab
 
 var _button_list: Array[TowerButton] = []
 var _button_to_searchable_name_map: Dictionary = {}
@@ -21,13 +18,6 @@ var _button_to_searchable_name_map: Dictionary = {}
 #########################
 
 func _ready() -> void:
-	_tower_button_for_selected.hide()
-	_tower_button_for_selected.set_tooltip_is_enabled(false)
-	_tower_button_for_selected.set_tier_visible(true)
-	
-	_label.clear()
-	_name_label_for_selected.text = ""
-	
 	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 	
 #	This sort groups towers by element, rarity and family
@@ -61,7 +51,7 @@ func _ready() -> void:
 		tower_button.set_tower_id(tower_id)
 		tower_button.set_tooltip_is_enabled(false)
 		tower_button.set_tier_visible(true)
-		_button_grid.add_child(tower_button)
+		_generic_tab.add_button_to_grid(tower_button)
 		
 		_button_list.append(tower_button)
 	
@@ -196,18 +186,16 @@ func _make_searchable_string(string: String) -> String:
 #########################
 
 func _on_button_pressed(tower_id: int):
-	_tower_button_for_selected.set_tower_id(tower_id)
-	_tower_button_for_selected.show()
+	_generic_tab.set_selected_tower_id(tower_id)
 	
 	var tower_name: String = TowerProperties.get_display_name(tower_id)
-	_name_label_for_selected.text = tower_name
+	_generic_tab.set_selected_name(tower_name)
 	
 	var text: String = _get_text_for_tower(tower_id)
-	_label.clear()
-	_label.append_text(text)
+	_generic_tab.set_info_text(text)
 
 
-func _on_search_box_text_changed(new_text: String) -> void:
+func _on_encyclopedia_generic_tab_search_text_changed(new_text: String) -> void:
 	var search_text: String = new_text
 	search_text = _make_searchable_string(search_text)
 	
@@ -218,5 +206,5 @@ func _on_search_box_text_changed(new_text: String) -> void:
 		button.visible = button_matches
 
 
-func _on_close_button_pressed() -> void:
+func _on_encyclopedia_generic_tab_close_pressed() -> void:
 	close_pressed.emit()

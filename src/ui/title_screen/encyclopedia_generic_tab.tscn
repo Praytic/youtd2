@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqj4g0gfbrtev"]
+
+[ext_resource type="PackedScene" uid="uid://ni34yd5liwbj" path="res://src/ui/buttons/tower_button.tscn" id="1_j8krt"]
+[ext_resource type="Script" path="res://src/ui/title_screen/encyclopedia_generic_tab.gd" id="1_wu1sd"]
+
+[node name="EncyclopediaGenericTab" type="VBoxContainer" node_paths=PackedStringArray("_info_label", "_button_grid", "_selected_tower_button", "_selected_name_label")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_wu1sd")
+_info_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/InfoLabel")
+_button_grid = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/GridContainer")
+_selected_tower_button = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedTowerButton")
+_selected_name_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedNameLabel")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Search:"
+
+[node name="SearchBox" type="LineEdit" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+focus_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SelectedTowerButton" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_j8krt")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SelectedNameLabel" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Selected name placeholder"
+
+[node name="InfoLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Placeholder description"
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "CLOSE_BUTTON"
+
+[connection signal="text_changed" from="HBoxContainer2/SearchBox" to="." method="_on_search_box_text_changed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
