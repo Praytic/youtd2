@@ -4,7 +4,6 @@ extends Node
 enum CsvProperty {
 	ID,
 	NAME_ENGLISH,
-	SCRIPT_NAME,
 	TYPE,
 	AUTHOR,
 	RARITY,
