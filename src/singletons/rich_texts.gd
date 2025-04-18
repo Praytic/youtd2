@@ -221,6 +221,8 @@ func get_tower_specials_and_extra_text(tower_id: int) -> String:
 		+ multishot_text \
 		+ " \n"
 
+	text = text.trim_suffix(" \n")
+
 	return text
 
 
@@ -484,6 +486,7 @@ func get_autocast_text_long(autocast_id: int) -> String:
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % autocast_name
 	text += "%s\n" % autocast_description_long
+	text += " \n"
 	text += "%s\n" % stats_text
 
 	return text
@@ -497,7 +500,8 @@ func get_autocast_text_short(autocast_id: int) -> String:
 
 	var text: String = "[color=GOLD]%s[/color]\n" % autocast_name \
 	+ "%s\n" % autocast_description_short \
-	+ "%s\n" % stats_text
+	+ " \n" \
+	+ "%s" % stats_text
 
 	return text
 
@@ -536,10 +540,9 @@ func get_autocast_stats_text(autocast_id: int) -> String:
 		stats_list.append(cooldown_string)
 
 	if !stats_list.is_empty():
-		var stats_line: String = ", ".join(stats_list) + "\n";
+		var stats_line: String = ", ".join(stats_list)
 		stats_line = add_color_to_numbers(stats_line)
-		text += " \n"
-		text += stats_line
+		text += "%s\n" % stats_line
 
 	return text
 
