@@ -4,10 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.10, 0.004)
-
-
 func item_init():
 	multiboard = MultiboardValues.new(1)
 	var interest_bonus_label: String = tr("Q7IE")

@@ -12,10 +12,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 3.0)
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
-
-
 # NOTE: BallLightningJump() in original script
 func lightning_pt_on_cleanup(ball: Projectile):
 	var tower: Tower = ball.get_caster()

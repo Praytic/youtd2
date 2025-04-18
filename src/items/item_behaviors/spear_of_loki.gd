@@ -13,10 +13,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.50, 0.01)
-
-
 func item_init():
 	stun_bt = CbStun.new("stun_bt", 0, 0, false, self)
 

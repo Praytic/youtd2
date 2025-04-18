@@ -16,11 +16,6 @@ static var SEEKER_OIL_RANGE: float = 2 * Constants.TILE_SIZE_WC3 - Constants.RAN
 const SEEKER_OIL_ID: int = 1018
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.02, 0.0008)
-	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.02, 0.0008)
-
-
 func on_pickup():
 	SeekersOil.seeker_oil_on_pickup(item, SEEKER_OIL_ID)
 

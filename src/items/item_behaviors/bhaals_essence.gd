@@ -9,10 +9,6 @@ extends ItemBehavior
 var fright_bt: BuffType
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -0.60, 0.0)
-
-
 func item_init():
 	fright_bt = BuffType.create_aura_effect_type("fright_bt", true, self)
 	fright_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")

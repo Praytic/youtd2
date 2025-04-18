@@ -4,11 +4,6 @@ extends ItemBehavior
 var charitable_bt: BuffType
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.20, 0.0)
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -0.20, 0.0)
-
-
 func item_init():
 	charitable_bt = BuffType.create_aura_effect_type("charitable_bt", true, self)
 	charitable_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")

@@ -5,9 +5,6 @@ var multiboard: MultiboardValues
 var copied_item_list: Array[Item] = []
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.60, 0.0)
-
 func create_multiboard(size: int):
 	multiboard = MultiboardValues.new(size)
 	for i in range(size):

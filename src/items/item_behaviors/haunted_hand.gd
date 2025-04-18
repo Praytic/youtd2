@@ -6,10 +6,6 @@ extends ItemBehavior
 # targets.
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.08, 0.002)
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

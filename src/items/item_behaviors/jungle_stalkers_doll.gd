@@ -8,10 +8,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.025, 0.001)
-
-
 func item_init():
 	enraged_bt = BuffType.new("enraged_bt", 0, 0, true, self)
 	enraged_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")

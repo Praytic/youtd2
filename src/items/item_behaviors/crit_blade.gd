@@ -4,10 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.8, 0.0)
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

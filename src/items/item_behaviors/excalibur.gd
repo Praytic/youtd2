@@ -8,12 +8,6 @@ func load_triggers(triggers: BuffType):
     triggers.add_event_on_damage(on_damage)
 
 
-func load_modifier(modifier: Modifier):
-    modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.05, 0.0)
-    modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.10, 0.0)
-    modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.10, 0.0)
-
-
 func item_init():
     power_bt = BuffType.new("power_bt", 5, 0, false, self)
     power_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")

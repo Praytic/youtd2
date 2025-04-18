@@ -11,10 +11,6 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 15)
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.20, 0.0)
-
-
 func periodic(_event: Event):
 	var target_effect: int
 	var tower: Unit = item.get_carrier()

@@ -4,12 +4,6 @@ extends ItemBehavior
 var multiboard: MultiboardValues
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.20, 0)
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -0.20, 0.0)
-	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.50, 0.0)
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 600, TargetType.new(TargetType.CREEPS + TargetType.SIZE_BOSS))
 

@@ -1,9 +1,6 @@
 extends ItemBehavior
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.0)
-
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
