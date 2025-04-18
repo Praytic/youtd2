@@ -94,6 +94,7 @@ func _get_text_for_tower(tower_id: int) -> String:
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 	var mana: int = floor(TowerProperties.get_mana(tower_id))
 	var mana_regen: int = floor(TowerProperties.get_mana_regen(tower_id))
+	var specials_and_extra_text: String = RichTexts.get_tower_specials_and_extra_text(tower_id)
 
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
 	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
@@ -116,6 +117,10 @@ func _get_text_for_tower(tower_id: int) -> String:
 		text += "\n"
 	
 	text += " \n"
+
+	if !specials_and_extra_text.is_empty():
+		text += specials_and_extra_text
+		text += " \n"
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:

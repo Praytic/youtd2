@@ -186,12 +186,12 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	return text
 
 
-func get_tower_ability_text_short(tower_id: int) -> String:
+func get_tower_specials_and_extra_text(tower_id: int) -> String:
 	var text: String = ""
 
 	var specials_text: String = get_tower_specials_text(tower_id)
 	if !specials_text.is_empty():
-		text += "[color=GOLD][/color]\n" \
+		text += "[color=GOLD]%s[/color]\n" % tr("TOWER_SPECIALS_TITLE") \
 		+ specials_text \
 		+ " \n"
 
@@ -211,6 +211,17 @@ func get_tower_ability_text_short(tower_id: int) -> String:
 	if !multishot_text.is_empty():
 		text += "[color=GOLD]%s[/color]\n" % tr("TOWER_MULTISHOT_TITLE") \
 		+ multishot_text \
+		+ " \n"
+
+	return text
+
+
+func get_tower_ability_text_short(tower_id: int) -> String:
+	var text: String = ""
+
+	var specials_and_extra_text: String = get_tower_specials_and_extra_text(tower_id)
+	if !specials_and_extra_text.is_empty():
+		text += specials_and_extra_text \
 		+ " \n"
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
