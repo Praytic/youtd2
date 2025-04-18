@@ -66,10 +66,8 @@ func _get_text_for_item(item_id: int) -> String:
 	var level: int = ItemProperties.get_required_wave_level(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 
-#	TODO: load specials text here. Current problem is that
-#	specials are stored in scripts. Need to store them in
-#	csv, like it's done for towers.
-	var specials_text: String = "SPECIALS TEXT IS CURRENTLY WORK IN PROGRESS"
+	var specials_modifier: Modifier = ItemProperties.get_specials_modifier(item_id)
+	var specials_text: String = specials_modifier.get_tooltip_text()
 	specials_text = RichTexts.add_color_to_numbers(specials_text)
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description \
