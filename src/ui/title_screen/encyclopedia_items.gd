@@ -1,0 +1,128 @@
+extends VBoxContainer
+
+
+signal close_pressed()
+
+
+var _button_list: Array[ItemButton] = []
+var _button_to_searchable_name_map: Dictionary = {}
+
+@export var _generic_tab: EncyclopediaGenericTab
+
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready() -> void:
+	var item_id_list: Array = ItemProperties.get_item_id_list()
+	
+	item_id_list.sort_custom(
+		func (a: int, b: int) -> bool:
+			var item_type_a: ItemType.enm = ItemProperties.get_type(a)
+			var item_type_b: ItemType.enm = ItemProperties.get_type(b)
+			var rarity_a: Rarity.enm = ItemProperties.get_rarity(a)
+			var rarity_b: Rarity.enm = ItemProperties.get_rarity(b)
+			var required_wave_a: int = ItemProperties.get_required_wave_level(a)
+			var required_wave_b: int = ItemProperties.get_required_wave_level(b)
+			
+			if item_type_a != item_type_b:
+				return item_type_a < item_type_b
+			else:
+				if item_type_a == ItemType.enm.REGULAR:
+					if rarity_a != rarity_b:
+						return rarity_a < rarity_b
+					else:
+						return required_wave_a < required_wave_b
+				else:
+					return a < b
+			)
+	
+	for item_id in item_id_list:
+		var button: ItemButton = ItemButton.make()
+		_generic_tab.add_button_to_grid(button)
+		button.set_horadric_lock_visible(false)
+		button.setup_button_for_encyclopedia(item_id)
+		
+		_button_list.append(button)
+		
+		button.pressed.connect(_on_button_pressed.bind(item_id))
+		
+		var item_name: String = ItemProperties.get_display_name(item_id)
+		button.tooltip_text = item_name
+
+		var searchable_name: String = EncyclopediaTowers.make_searchable_string(item_name)
+		_button_to_searchable_name_map[button] = searchable_name
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_text_for_item(item_id: int) -> String:
+	var text: String = ""
+
+	var description: String = ItemProperties.get_description(item_id)
+	var level: int = ItemProperties.get_required_wave_level(item_id)
+	var author: String = ItemProperties.get_author(item_id)
+
+#	TODO: load specials text here. Current problem is that
+#	specials are stored in scripts. Need to store them in
+#	csv, like it's done for towers.
+	var specials_text: String = "SPECIALS TEXT IS CURRENTLY WORK IN PROGRESS"
+	specials_text = RichTexts.add_color_to_numbers(specials_text)
+
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % description \
+	+ "[color=YELLOW]%s[/color] %s\n" % [tr("ITEM_TOOLTIP_LEVEL"), level] \
+	+ "[color=YELLOW]%s[/color] %s\n" % [tr("TOWER_TOOLTIP_AUTHOR"), author] \
+	+ " \n"
+
+	if !specials_text.is_empty():
+		text += "[color=YELLOW]%s[/color]\n" % tr("ITEM_TOOLTIP_EFFECTS") \
+		+ specials_text \
+		+ " \n"
+
+	var ability_id_list: Array = ItemProperties.get_ability_id_list(item_id)
+	for ability_id in ability_id_list:
+		var ability_text: String = EncyclopediaTowers.get_ability_text(ability_id)
+
+		text += ability_text
+		text += " \n"
+
+	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
+	for aura_id in aura_id_list:
+		var aura_text: String = EncyclopediaTowers.get_aura_text(aura_id)
+
+		text += aura_text
+		text += " \n"
+
+	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
+	for autocast_id in autocast_id_list:
+		var autocast_text: String = EncyclopediaTowers.get_autocast_text(autocast_id)
+
+		text += autocast_text
+		text += " \n"
+
+	return text
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_encyclopedia_generic_tab_close_pressed() -> void:
+	close_pressed.emit()
+
+
+func _on_button_pressed(item_id: int):
+	_generic_tab.set_selected_item_id(item_id)
+	
+	var item_name: String = ItemProperties.get_display_name(item_id)
+	_generic_tab.set_selected_name(item_name)
+	
+	var text: String = _get_text_for_item(item_id)
+	_generic_tab.set_info_text(text)
+
+
+func _on_encyclopedia_generic_tab_search_text_changed(new_text: String) -> void:
+	EncyclopediaTowers.process_search_request(new_text, _button_to_searchable_name_map)

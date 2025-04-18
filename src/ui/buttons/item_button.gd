@@ -60,6 +60,21 @@ func set_item(item: Item):
 		_set_item_internal(item)
 
 
+func setup_button_for_encyclopedia(item_id: int):
+	_setup_button_appearance(item_id)
+
+#	NOTE: need to change module because _ready() sets it to
+#	TRANSPARENT when item is null. Item is null for buttons
+#	in Encyclopedia.
+	modulate = Color.WHITE
+	
+#	NOTE: can't use set_horadric_lock_visible() here because
+#	it can only be used before _ready()
+	_lock_indicator.visible = false
+	
+	custom_minimum_size = Vector2(120, 120)
+
+
 # NOTE: need this because ItemButtons should display
 # horadric lock only when they are in item stash. Not in
 # tower inventory or horadric stash.
@@ -91,6 +106,14 @@ func set_tooltip_location(value: ButtonTooltip.Location):
 ###      Private      ###
 #########################
 
+func _setup_button_appearance(item_id: int):
+	var item_icon: Texture2D = ItemProperties.get_icon(item_id)
+	set_button_icon(item_icon)
+	
+	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
+	_rarity_background.set_rarity(item_rarity)
+
+
 # NOTE: need this sub f-n to be able to set initial item to
 # null. set_item() only executes if item changed and
 # null->null is detected as no change.
@@ -108,12 +131,7 @@ func _set_item_internal(item: Item):
 
 	if item != null:
 		var item_id: int = _item.get_id()
-		
-		var item_icon: Texture2D = ItemProperties.get_icon(item_id)
-		set_button_icon(item_icon)
-		
-		var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
-		_rarity_background.set_rarity(item_rarity)
+		_setup_button_appearance(item_id)
 
 	var autocast: Autocast
 	if item != null:

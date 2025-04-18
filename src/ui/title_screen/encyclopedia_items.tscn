@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtvkci6f4ocrm"]
+
+[ext_resource type="Script" path="res://src/ui/title_screen/encyclopedia_items.gd" id="1_81wix"]
+[ext_resource type="PackedScene" uid="uid://cqj4g0gfbrtev" path="res://src/ui/title_screen/encyclopedia_generic_tab.tscn" id="1_sa7xi"]
+
+[node name="EncyclopediaItems" type="VBoxContainer" node_paths=PackedStringArray("_generic_tab")]
+script = ExtResource("1_81wix")
+_generic_tab = NodePath("EncyclopediaGenericTab")
+
+[node name="EncyclopediaGenericTab" parent="." instance=ExtResource("1_sa7xi")]
+layout_mode = 2
+
+[connection signal="close_pressed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_close_pressed"]
+[connection signal="search_text_changed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_search_text_changed"]

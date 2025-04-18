@@ -1,4 +1,4 @@
-extends VBoxContainer
+class_name EncyclopediaTowers extends VBoxContainer
 
 
 # This is the towers tab of the Encyclopedia Menu. Shows
@@ -65,7 +65,7 @@ func _ready() -> void:
 	for button in _button_list:
 		var tower_id: int = button.get_tower_id()
 		var tower_name: String = TowerProperties.get_display_name(tower_id)
-		var searchable_name: String = _make_searchable_string(tower_name)
+		var searchable_name: String = EncyclopediaTowers.make_searchable_string(tower_name)
 		
 		_button_to_searchable_name_map[button] = searchable_name
 
@@ -119,21 +119,21 @@ func _get_text_for_tower(tower_id: int) -> String:
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:
-		var ability_text: String = _get_ability_text(ability_id)
+		var ability_text: String = EncyclopediaTowers.get_ability_text(ability_id)
 
 		text += ability_text
 		text += " \n"
 
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
-		var aura_text: String = _get_aura_text(aura_id)
+		var aura_text: String = EncyclopediaTowers.get_aura_text(aura_id)
 
 		text += aura_text
 		text += " \n"
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
-		var autocast_text: String = _get_autocast_text(autocast_id)
+		var autocast_text: String = EncyclopediaTowers.get_autocast_text(autocast_id)
 
 		text += autocast_text
 		text += " \n"
@@ -141,7 +141,7 @@ func _get_text_for_tower(tower_id: int) -> String:
 	return text
 
 
-func _get_ability_text(ability_id: int) -> String:
+static func get_ability_text(ability_id: int) -> String:
 	var ability_name: String = AbilityProperties.get_ability_name(ability_id)
 	var description: String = AbilityProperties.get_description_long(ability_id)
 	description = RichTexts.add_color_to_numbers(description)
@@ -151,7 +151,7 @@ func _get_ability_text(ability_id: int) -> String:
 	return text
 
 
-func _get_aura_text(aura_id: int) -> String:
+static func get_aura_text(aura_id: int) -> String:
 	var aura_name: String = AuraProperties.get_aura_name(aura_id)
 	var description: String = AuraProperties.get_description_long(aura_id)
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
@@ -160,7 +160,7 @@ func _get_aura_text(aura_id: int) -> String:
 	return text
 
 
-func _get_autocast_text(autocast_id: int) -> String:
+static func get_autocast_text(autocast_id: int) -> String:
 	var autocast_name: String = AutocastProperties.get_autocast_name(autocast_id)
 	var description: String = RichTexts.get_autocast_text_long(autocast_id)
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
@@ -168,17 +168,6 @@ func _get_autocast_text(autocast_id: int) -> String:
 	var text: String = "[color=GOLD]%s[/color]\n%s" % [autocast_name, description_colored]
 
 	return text
-
-
-# Simplify string by removing non-significant characters.
-# This makes the string searchable.
-func _make_searchable_string(string: String) -> String:
-	var result: String = string.replace(",", "")
-	result = string.replace(" ", "")
-	result = string.replace("-", "")
-	result = result.to_lower()
-	
-	return result
 
 
 #########################
@@ -196,15 +185,34 @@ func _on_button_pressed(tower_id: int):
 
 
 func _on_encyclopedia_generic_tab_search_text_changed(new_text: String) -> void:
-	var search_text: String = new_text
-	search_text = _make_searchable_string(search_text)
-	
-	for button in _button_list:
-		var searchable_name: String = _button_to_searchable_name_map[button]
-		var button_matches: bool = searchable_name.contains(search_text) || search_text.is_empty()
-		
-		button.visible = button_matches
+	EncyclopediaTowers.process_search_request(new_text, _button_to_searchable_name_map)
 
 
 func _on_encyclopedia_generic_tab_close_pressed() -> void:
 	close_pressed.emit()
+
+
+#########################
+###       Static      ###
+#########################
+
+# Simplify string by removing non-significant characters.
+# This makes the string searchable.
+static func make_searchable_string(string: String) -> String:
+	var result: String = string.replace(",", "")
+	result = string.replace(" ", "")
+	result = string.replace("-", "")
+	result = result.to_lower()
+	
+	return result
+
+
+# Show buttons which match the search text
+static func process_search_request(search_text: String, button_to_searchable_name_map: Dictionary) -> void:
+	search_text = EncyclopediaTowers.make_searchable_string(search_text)
+	
+	for button in button_to_searchable_name_map.keys():
+		var searchable_name: String = button_to_searchable_name_map[button]
+		var button_matches: bool = searchable_name.contains(search_text) || search_text.is_empty()
+		
+		button.visible = button_matches

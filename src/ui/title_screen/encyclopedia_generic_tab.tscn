@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqj4g0gfbrtev"]
+[gd_scene load_steps=4 format=3 uid="uid://cqj4g0gfbrtev"]
 
 [ext_resource type="PackedScene" uid="uid://ni34yd5liwbj" path="res://src/ui/buttons/tower_button.tscn" id="1_j8krt"]
 [ext_resource type="Script" path="res://src/ui/title_screen/encyclopedia_generic_tab.gd" id="1_wu1sd"]
+[ext_resource type="PackedScene" uid="uid://cj8l153f630bb" path="res://src/ui/buttons/item_button.tscn" id="3_16rs4"]
 
-[node name="EncyclopediaGenericTab" type="VBoxContainer" node_paths=PackedStringArray("_info_label", "_button_grid", "_selected_tower_button", "_selected_name_label")]
+[node name="EncyclopediaGenericTab" type="VBoxContainer" node_paths=PackedStringArray("_info_label", "_button_grid", "_selected_tower_button", "_selected_item_button", "_selected_name_label")]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_wu1sd")
 _info_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/InfoLabel")
 _button_grid = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/GridContainer")
 _selected_tower_button = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedTowerButton")
+_selected_item_button = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedItemButton")
 _selected_name_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedNameLabel")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
@@ -69,6 +71,10 @@ theme_override_constants/separation = 20
 [node name="SelectedTowerButton" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_j8krt")]
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="SelectedItemButton" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_16rs4")]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
 
 [node name="SelectedNameLabel" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

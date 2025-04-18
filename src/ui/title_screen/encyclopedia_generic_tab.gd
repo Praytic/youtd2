@@ -9,6 +9,7 @@ signal close_pressed()
 @export var _info_label: RichTextLabel
 @export var _button_grid: GridContainer
 @export var _selected_tower_button: TowerButton
+@export var _selected_item_button: ItemButton
 @export var _selected_name_label: Label
 
 
@@ -36,7 +37,14 @@ func add_button_to_grid(button: Button):
 func set_selected_tower_id(tower_id: int):
 	_selected_tower_button.set_tower_id(tower_id)
 	_selected_tower_button.show()
-	
+	_selected_item_button.hide()
+
+
+func set_selected_item_id(item_id: int):
+	_selected_item_button.setup_button_for_encyclopedia(item_id)
+	_selected_item_button.show()
+	_selected_tower_button.hide()
+
 
 func set_selected_name(selected_name: String):
 	_selected_name_label.text = selected_name
