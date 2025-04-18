@@ -47,7 +47,9 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
-columns = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 5
 
 [node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
