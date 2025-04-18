@@ -12,4 +12,5 @@ metadata/_tab_index = 0
 [node name="EncyclopediaGenericTab" parent="." instance=ExtResource("2_yoawr")]
 layout_mode = 2
 
+[connection signal="close_pressed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_close_pressed"]
 [connection signal="search_text_changed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_search_text_changed"]
