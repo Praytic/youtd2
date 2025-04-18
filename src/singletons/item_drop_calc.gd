@@ -138,11 +138,6 @@ func get_item_list_bounded(rarity: int, lvl_min: int, lvl_max: int) -> Array[int
 		if level_is_ok:
 			available_item_list.append(item)
 
-#	NOTE: some items are disabled because their scripts are
-#	incomplete or broken.
-	for disabled_item in Item.disabled_item_list:
-		available_item_list.erase(disabled_item)
-
 	return available_item_list
 
 
