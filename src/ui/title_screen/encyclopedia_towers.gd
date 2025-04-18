@@ -113,7 +113,12 @@ func _get_text_for_tower(tower_id: int) -> String:
 	else:
 		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost, food_cost]
 	
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += " \n"
+	
+	if !description.is_empty():
+		text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+		text += " \n"
+	
 	text += "[color=YELLOW]%s[/color] %s\n" % [tr("TOWER_TOOLTIP_AUTHOR"), author]
 	text += "[color=YELLOW]%s[/color] %s\n" % [tr("TOWER_TOOLTIP_ELEMENT"), element_string]
 	if attack_enabled:

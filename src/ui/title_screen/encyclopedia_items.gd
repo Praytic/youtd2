@@ -78,8 +78,13 @@ func _get_text_for_item(item_id: int) -> String:
 	var specials_text: String = specials_modifier.get_tooltip_text()
 	specials_text = RichTexts.add_color_to_numbers(specials_text)
 
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % description \
-	+ "[color=YELLOW]%s[/color] %s\n" % [tr("ITEM_TOOLTIP_LEVEL"), level] \
+	text += " \n"
+
+	if !description.is_empty():
+		text += "[color=LIGHT_BLUE]%s[/color]\n" % description \
+		+ " \n"
+	
+	text += "[color=YELLOW]%s[/color] %s\n" % [tr("ITEM_TOOLTIP_LEVEL"), level] \
 	+ "[color=YELLOW]%s[/color] %s\n" % [tr("TOWER_TOOLTIP_AUTHOR"), author] \
 	+ " \n"
 
