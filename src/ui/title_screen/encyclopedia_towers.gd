@@ -124,14 +124,14 @@ func _get_text_for_tower(tower_id: int) -> String:
 
 	var ability_id_list: Array = TowerProperties.get_ability_id_list(tower_id)
 	for ability_id in ability_id_list:
-		var ability_text: String = EncyclopediaTowers.get_ability_text(ability_id)
+		var ability_text: String = RichTexts.get_ability_text_long(ability_id)
 
 		text += ability_text
 		text += " \n"
 
 	var aura_id_list: Array = TowerProperties.get_aura_id_list(tower_id)
 	for aura_id in aura_id_list:
-		var aura_text: String = EncyclopediaTowers.get_aura_text(aura_id)
+		var aura_text: String = RichTexts.get_aura_text_long(aura_id)
 
 		text += aura_text
 		text += " \n"
@@ -142,25 +142,6 @@ func _get_text_for_tower(tower_id: int) -> String:
 
 		text += autocast_text
 		text += " \n"
-
-	return text
-
-
-static func get_ability_text(ability_id: int) -> String:
-	var ability_name: String = AbilityProperties.get_ability_name(ability_id)
-	var description: String = AbilityProperties.get_description_long(ability_id)
-	description = RichTexts.add_color_to_numbers(description)
-
-	var text: String = "[color=GOLD]%s[/color]\n%s" % [ability_name, description]
-
-	return text
-
-
-static func get_aura_text(aura_id: int) -> String:
-	var aura_name: String = AuraProperties.get_aura_name(aura_id)
-	var description: String = AuraProperties.get_description_long(aura_id)
-	var description_colored: String = RichTexts.add_color_to_numbers(description)
-	var text: String = "[color=GOLD]%s - %s[/color]\n%s" % [aura_name, Utils.tr("AURA_WORD_IN_TITLE"), description_colored]
 
 	return text
 

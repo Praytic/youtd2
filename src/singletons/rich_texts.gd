@@ -1,6 +1,14 @@
 extends Node
 
 
+# This class contains various functions which generate rich
+# texts for RichTextLabel's.
+
+
+#########################
+###       Public      ###
+#########################
+
 func get_tower_specials_text(tower_id: int) -> String:
 	var text: String = ""
 
@@ -431,9 +439,33 @@ func get_ability_text_short(ability_id: int) -> String:
 	return text
 
 
+func get_ability_text_long(ability_id: int) -> String:
+	var ability_name: String = AbilityProperties.get_ability_name(ability_id)
+	var description: String = AbilityProperties.get_description_long(ability_id)
+	description = add_color_to_numbers(description)
+
+	var text: String = ""
+	text += "[color=GOLD]%s[/color]\n" % ability_name
+	text += "%s\n" % description
+
+	return text
+
+
 func get_aura_text_short(aura_id: int) -> String:
 	var aura_name: String = AuraProperties.get_aura_name(aura_id)
 	var description: String = AuraProperties.get_description_short(aura_id)
+	description = add_color_to_numbers(description)
+
+	var text: String = ""
+	text += "[color=GOLD]%s - %s[/color]\n" % [aura_name, tr("AURA_WORD_IN_TITLE")]
+	text += "%s\n" % description
+
+	return text
+
+
+func get_aura_text_long(aura_id: int) -> String:
+	var aura_name: String = AuraProperties.get_aura_name(aura_id)
+	var description: String = AuraProperties.get_description_long(aura_id)
 	description = add_color_to_numbers(description)
 
 	var text: String = ""
@@ -511,6 +543,10 @@ func get_autocast_stats_text(autocast_id: int) -> String:
 
 	return text
 
+
+#########################
+###      Private      ###
+#########################
 
 func _get_creep_health_string(creep: Creep) -> String:
 	var health_color: Color

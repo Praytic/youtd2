@@ -82,14 +82,14 @@ func _get_text_for_item(item_id: int) -> String:
 
 	var ability_id_list: Array = ItemProperties.get_ability_id_list(item_id)
 	for ability_id in ability_id_list:
-		var ability_text: String = EncyclopediaTowers.get_ability_text(ability_id)
+		var ability_text: String = RichTexts.get_ability_text_long(ability_id)
 
 		text += ability_text
 		text += " \n"
 
 	var aura_id_list: Array = ItemProperties.get_aura_id_list(item_id)
 	for aura_id in aura_id_list:
-		var aura_text: String = EncyclopediaTowers.get_aura_text(aura_id)
+		var aura_text: String = RichTexts.get_aura_text_long(aura_id)
 
 		text += aura_text
 		text += " \n"
