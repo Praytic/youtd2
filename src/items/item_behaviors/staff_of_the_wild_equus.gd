@@ -18,7 +18,7 @@ func load_triggers(triggers_buff_type: BuffType):
 func ascended_bt_on_create(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
-	b.user_int = Effect.create_simple_at_unit_attached("res://src/effects/SpiritOfVengeanceMissile.tscn", c, Unit.BodyPart.ORIGIN)
+	b.user_int = Effect.create_simple_at_unit_attached("res://src/effects/cyclone_target.tscn", c, Unit.BodyPart.ORIGIN)
 	Effect.set_auto_destroy_enabled(b.user_int, false)
 	c.adjust_height(300, 150)
 
