@@ -90,6 +90,7 @@ text = "Placeholder description"
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 text = "CLOSE_BUTTON"
 
 [connection signal="text_changed" from="HBoxContainer2/SearchBox" to="." method="_on_search_box_text_changed"]
