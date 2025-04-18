@@ -31,8 +31,7 @@ var _is_oil_and_was_applied_already: bool = false
 var _horadric_lock_is_enabled: bool = false
 var _is_fresh: bool = true
 
-# Call add_modification() on _modifier in subclass to add item effects
-var _modifier: Modifier = Modifier.new()
+var _modifier: Modifier
 var _autocast: Autocast = null
 var _aura_carrier_bt: BuffType
 var _triggers_bt: BuffType
@@ -59,6 +58,8 @@ func _init(id: int, player: Player):
 
 	_id = id
 	_player = player
+
+	_modifier = ItemProperties.get_specials_modifier(_id)
 
 	var item_name: String = get_display_name()
 
@@ -355,7 +356,7 @@ func _on_freshness_timer_timeout():
 
 func _set_item_behavior(item_behavior: ItemBehavior):
 	_item_behavior = item_behavior
-	_item_behavior.init(self, _modifier, _triggers_bt)
+	_item_behavior.init(self, _triggers_bt)
 
 
 #########################

@@ -10,6 +10,7 @@ enum CsvProperty {
 	RARITY,
 	COST,
 	REQUIRED_WAVE_LEVEL,
+	SPECIALS,
 	ABILITY_LIST,
 	AURA_LIST,
 	AUTOCAST_LIST,
@@ -53,6 +54,17 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_specials_modifier(item_id: int) -> Modifier:
+	var string: String = _get_property(item_id, CsvProperty.SPECIALS)
+	
+	if string.is_empty():
+		return Modifier.new()
+
+	var modifier: Modifier = Modifier.convert_from_string(string)
+
+	return modifier
+
 
 func get_ability_id_list(item_id: int) -> Array[int]:
 	var string: String = _get_property(item_id, CsvProperty.ABILITY_LIST)

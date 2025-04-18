@@ -14,10 +14,9 @@ var item: Item
 ###       Public      ###
 #########################
 
-func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
+func init(item_arg: Item, triggers_buff_type: BuffType):
 	item = item_arg
 
-	load_modifier(modifier)
 	item_init()
 
 #	NOTE: Order is important here! Auras and autocasts must
@@ -40,12 +39,6 @@ func init(item_arg: Item, modifier: Modifier, triggers_buff_type: BuffType):
 # Override this in subclass to attach trigger handlers to
 # triggers buff passed in the argument.
 func load_triggers(_triggers: BuffType):
-	pass
-
-
-# Override in subclass to define the modifier that will be
-# added to carrier of the item
-func load_modifier(_modifier_arg: Modifier):
 	pass
 
 
