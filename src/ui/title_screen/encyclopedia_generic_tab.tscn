@@ -4,15 +4,44 @@
 [ext_resource type="Script" path="res://src/ui/title_screen/encyclopedia_generic_tab.gd" id="1_wu1sd"]
 [ext_resource type="PackedScene" uid="uid://cj8l153f630bb" path="res://src/ui/buttons/item_button.tscn" id="3_16rs4"]
 
-[node name="EncyclopediaGenericTab" type="VBoxContainer" node_paths=PackedStringArray("_info_label", "_button_grid", "_selected_tower_button", "_selected_item_button", "_selected_name_label")]
+[node name="EncyclopediaGenericTab" type="VBoxContainer" node_paths=PackedStringArray("_info_label", "_button_grid", "_selected_tower_button", "_selected_item_button", "_selected_name_label", "_search_text_edit", "_item_type_filter_container", "_regular_check", "_oil_check", "_consumable_check", "_element_filter_container", "_ice_check", "_nature_check", "_fire_check", "_astral_check", "_darkness_check", "_iron_check", "_storm_check", "_ice_label", "_nature_label", "_fire_label", "_astral_label", "_darkness_label", "_iron_label", "_storm_label", "_common_check", "_uncommon_check", "_rare_check", "_unique_check", "_common_label", "_uncommon_label", "_rare_label", "_unique_label")]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 10
 script = ExtResource("1_wu1sd")
 _info_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/InfoLabel")
 _button_grid = NodePath("HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/GridContainer")
 _selected_tower_button = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedTowerButton")
 _selected_item_button = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedItemButton")
 _selected_name_label = NodePath("HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectedNameLabel")
+_search_text_edit = NodePath("HBoxContainer2/SearchBox")
+_item_type_filter_container = NodePath("ItemTypeFilterContainer")
+_regular_check = NodePath("ItemTypeFilterContainer/RegularCheck")
+_oil_check = NodePath("ItemTypeFilterContainer/OilCheck")
+_consumable_check = NodePath("ItemTypeFilterContainer/ConsumableCheck")
+_element_filter_container = NodePath("ElementFilterContainer")
+_ice_check = NodePath("ElementFilterContainer/IceCheck")
+_nature_check = NodePath("ElementFilterContainer/NatureCheck")
+_fire_check = NodePath("ElementFilterContainer/FireCheck")
+_astral_check = NodePath("ElementFilterContainer/AstralCheck")
+_darkness_check = NodePath("ElementFilterContainer/DarknessCheck")
+_iron_check = NodePath("ElementFilterContainer/IronCheck")
+_storm_check = NodePath("ElementFilterContainer/StormCheck")
+_ice_label = NodePath("ElementFilterContainer/IceLabel")
+_nature_label = NodePath("ElementFilterContainer/NatureLabel")
+_fire_label = NodePath("ElementFilterContainer/FireLabel")
+_astral_label = NodePath("ElementFilterContainer/AstralLabel")
+_darkness_label = NodePath("ElementFilterContainer/DarknessLabel")
+_iron_label = NodePath("ElementFilterContainer/IronLabel")
+_storm_label = NodePath("ElementFilterContainer/StormLabel")
+_common_check = NodePath("RarityFilterContainer/CommonCheck")
+_uncommon_check = NodePath("RarityFilterContainer/UncommonCheck")
+_rare_check = NodePath("RarityFilterContainer/RareCheck")
+_unique_check = NodePath("RarityFilterContainer/UniqueCheck")
+_common_label = NodePath("RarityFilterContainer/CommonLabel")
+_uncommon_label = NodePath("RarityFilterContainer/UncommonLabel")
+_rare_label = NodePath("RarityFilterContainer/RareLabel")
+_unique_label = NodePath("RarityFilterContainer/UniqueLabel")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -26,6 +55,129 @@ text = "Search:"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 focus_mode = 1
+
+[node name="ItemTypeFilterContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RegularCheck" type="CheckBox" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+text = "Regular"
+
+[node name="OilCheck" type="CheckBox" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label2" type="Label" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+text = "Oils"
+
+[node name="ConsumableCheck" type="CheckBox" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Label3" type="Label" parent="ItemTypeFilterContainer"]
+layout_mode = 2
+text = "Consumables"
+
+[node name="RarityFilterContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CommonCheck" type="CheckBox" parent="RarityFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="CommonLabel" type="Label" parent="RarityFilterContainer"]
+layout_mode = 2
+text = "RARITY_COMMON"
+
+[node name="UncommonCheck" type="CheckBox" parent="RarityFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="UncommonLabel" type="Label" parent="RarityFilterContainer"]
+layout_mode = 2
+text = "RARITY_UNCOMMON"
+
+[node name="RareCheck" type="CheckBox" parent="RarityFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="RareLabel" type="Label" parent="RarityFilterContainer"]
+layout_mode = 2
+text = "RARITY_RARE"
+
+[node name="UniqueCheck" type="CheckBox" parent="RarityFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="UniqueLabel" type="Label" parent="RarityFilterContainer"]
+layout_mode = 2
+text = "RARITY_UNIQUE"
+
+[node name="ElementFilterContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IceCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="IceLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_ICE"
+
+[node name="NatureCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="NatureLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_NATURE"
+
+[node name="FireCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="FireLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_FIRE"
+
+[node name="AstralCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="AstralLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_ASTRAL"
+
+[node name="DarknessCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="DarknessLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_DARKNESS"
+
+[node name="IronCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="IronLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_IRON"
+
+[node name="StormCheck" type="CheckBox" parent="ElementFilterContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="StormLabel" type="Label" parent="ElementFilterContainer"]
+layout_mode = 2
+text = "ELEMENT_STORM"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

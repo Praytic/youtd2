@@ -6,6 +6,8 @@ signal close_pressed()
 
 var _button_list: Array[ItemButton] = []
 var _button_to_searchable_name_map: Dictionary = {}
+var _button_to_item_type_map: Dictionary = {}
+var _button_to_rarity_map: Dictionary = {}
 
 @export var _generic_tab: EncyclopediaGenericTab
 
@@ -15,6 +17,8 @@ var _button_to_searchable_name_map: Dictionary = {}
 #########################
 
 func _ready() -> void:
+	_generic_tab.set_element_filters_visible(false)
+	
 	var item_id_list: Array = ItemProperties.get_item_id_list()
 	
 	item_id_list.sort_custom(
@@ -52,7 +56,11 @@ func _ready() -> void:
 		button.tooltip_text = item_name
 
 		var searchable_name: String = EncyclopediaTowers.make_searchable_string(item_name)
+		var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+		var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 		_button_to_searchable_name_map[button] = searchable_name
+		_button_to_item_type_map[button] = item_type
+		_button_to_rarity_map[button] = rarity
 
 
 #########################
@@ -122,5 +130,6 @@ func _on_button_pressed(item_id: int):
 	_generic_tab.set_info_text(text)
 
 
-func _on_encyclopedia_generic_tab_search_text_changed(new_text: String) -> void:
-	EncyclopediaTowers.process_search_request(new_text, _button_to_searchable_name_map)
+func _on_encyclopedia_generic_tab_filter_changed() -> void:
+	var empty_element_map: Dictionary = {}
+	EncyclopediaTowers.update_filtering(_button_list, _generic_tab, _button_to_searchable_name_map, _button_to_item_type_map, _button_to_rarity_map, empty_element_map)

@@ -11,6 +11,8 @@ signal close_pressed()
 
 var _button_list: Array[TowerButton] = []
 var _button_to_searchable_name_map: Dictionary = {}
+var _button_to_element_map: Dictionary = {}
+var _button_to_rarity_map: Dictionary = {}
 
 
 #########################
@@ -18,6 +20,8 @@ var _button_to_searchable_name_map: Dictionary = {}
 #########################
 
 func _ready() -> void:
+	_generic_tab.set_item_type_filters_visible(false)
+	
 	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 	
 #	This sort groups towers by element, rarity and family
@@ -66,8 +70,12 @@ func _ready() -> void:
 		var tower_id: int = button.get_tower_id()
 		var tower_name: String = TowerProperties.get_display_name(tower_id)
 		var searchable_name: String = EncyclopediaTowers.make_searchable_string(tower_name)
+		var element: Element.enm = TowerProperties.get_element(tower_id)
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 		
 		_button_to_searchable_name_map[button] = searchable_name
+		_button_to_element_map[button] = element
+		_button_to_rarity_map[button] = rarity
 
 	for button in _button_list:
 		var tower_id: int = button.get_tower_id()
@@ -160,8 +168,9 @@ func _on_button_pressed(tower_id: int):
 	_generic_tab.set_info_text(text)
 
 
-func _on_encyclopedia_generic_tab_search_text_changed(new_text: String) -> void:
-	EncyclopediaTowers.process_search_request(new_text, _button_to_searchable_name_map)
+func _on_encyclopedia_generic_tab_filter_changed() -> void:
+	var empty_item_type_map: Dictionary = {}
+	EncyclopediaTowers.update_filtering(_button_list, _generic_tab, _button_to_searchable_name_map, empty_item_type_map, _button_to_rarity_map, _button_to_element_map)
 
 
 func _on_encyclopedia_generic_tab_close_pressed() -> void:
@@ -183,12 +192,30 @@ static func make_searchable_string(string: String) -> String:
 	return result
 
 
-# Show buttons which match the search text
-static func process_search_request(search_text: String, button_to_searchable_name_map: Dictionary) -> void:
+static func update_filtering(button_list: Array, generic_tab: EncyclopediaGenericTab, button_to_searchable_name_map: Dictionary, button_to_item_type_map: Dictionary, button_to_rarity_map: Dictionary, button_to_element_map: Dictionary):
+	var item_type_filter_list: Array[ItemType.enm] = generic_tab.get_item_type_filter()
+	var element_filter_list: Array[Element.enm] = generic_tab.get_element_filter()
+	var rarity_filter_list: Array[Rarity.enm] = generic_tab.get_rarity_filter()
+	var search_text: String = generic_tab.get_search_text()
 	search_text = EncyclopediaTowers.make_searchable_string(search_text)
 	
-	for button in button_to_searchable_name_map.keys():
+	for button in button_list:
 		var searchable_name: String = button_to_searchable_name_map[button]
-		var button_matches: bool = searchable_name.contains(search_text) || search_text.is_empty()
+		var name_match: bool = searchable_name.contains(search_text) || search_text.is_empty()
+		var item_type: ItemType.enm = button_to_item_type_map.get(button, ItemType.enm.REGULAR)
+		var item_type_filter_match: bool
+		if !button_to_item_type_map.is_empty():
+			item_type_filter_match = item_type_filter_list.has(item_type)
+		else:
+			item_type_filter_match = true
+		var element: Element.enm = button_to_element_map.get(button, Element.enm.NONE)
+		var element_filter_match: bool
+		if !button_to_element_map.is_empty():
+			element_filter_match = element_filter_list.has(element)
+		else:
+			element_filter_match = true
+		var rarity: Element.enm = button_to_rarity_map[button]
+		var rarity_filter_match: bool = rarity_filter_list.has(rarity)
+		var button_should_be_visible: bool = name_match && item_type_filter_match && element_filter_match && rarity_filter_match
 		
-		button.visible = button_matches
+		button.visible = button_should_be_visible

@@ -11,4 +11,4 @@ _generic_tab = NodePath("EncyclopediaGenericTab")
 layout_mode = 2
 
 [connection signal="close_pressed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_close_pressed"]
-[connection signal="search_text_changed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_search_text_changed"]
+[connection signal="filter_changed" from="EncyclopediaGenericTab" to="." method="_on_encyclopedia_generic_tab_filter_changed"]
