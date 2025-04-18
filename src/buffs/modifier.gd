@@ -17,6 +17,10 @@ func add_modification(modification_type: int, value_base: float, level_add: floa
 	_modification_list.append(modification)
 
 
+func add_modification_instance(modification: Modification):
+	_modification_list.append(modification)
+
+
 func get_modification_list() -> Array:
 	return _modification_list.duplicate(true)
 
@@ -29,3 +33,27 @@ func get_tooltip_text() -> String:
 		text += modification_text
 
 	return text
+
+
+static func convert_to_string(modifier: Modifier) -> String:
+	var modification_string_list: Array[String] = []
+
+	for modification in modifier._modification_list:
+		var modification_string: String = Modification.convert_modification_to_string(modification)
+		modification_string_list.append(modification_string)
+
+	var modifier_string: String = "|".join(modification_string_list)
+
+	return modifier_string
+
+
+static func convert_from_string(modifier_string: String) -> Modifier:
+	var modifier: Modifier = Modifier.new()
+	
+	var mod_string_list: Array = modifier_string.split("|")
+
+	for mod_string in mod_string_list:
+		var modification: Modification = Modification.convert_modification_from_string(mod_string)
+		modifier.add_modification_instance(modification)
+
+	return modifier

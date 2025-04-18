@@ -278,22 +278,7 @@ func get_specials_modifier(tower_id: int) -> Modifier:
 	if string.is_empty():
 		return Modifier.new()
 
-	var mod_string_list: Array = string.split("|")
-
-	var modifier: Modifier = Modifier.new()
-
-	for mod_string in mod_string_list:
-		var mod_params: PackedStringArray = mod_string.split(",")
-
-		if mod_params.size() != 3:
-			continue
-
-		var mod_type_string: String = mod_params[0]
-		var mod_type: Modification.Type = Modification.convert_string_to_mod(mod_type_string)
-		var value_base: float = mod_params[1].to_float()
-		var level_add: float = mod_params[2].to_float()
-
-		modifier.add_modification(mod_type, value_base, level_add)
+	var modifier: Modifier = Modifier.convert_from_string(string)
 
 	return modifier
 

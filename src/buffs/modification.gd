@@ -522,3 +522,28 @@ static func convert_string_to_mod(string: String) -> Modification.Type:
 	var mod_id: Modification.Type = _string_to_mod_map[string]
 
 	return mod_id
+
+
+static func convert_modification_to_string(modification: Modification) -> String:
+	var modification_type_string: String = Modification.convert_mod_to_string(modification.type)
+	var value_base_string: String = str(modification.value_base)
+	var level_add_string: String = str(modification.level_add)
+	var modification_string: String = "%s,%s,%s" % [modification_type_string, value_base_string, level_add_string]
+
+	return modification_string
+
+
+static func convert_modification_from_string(modification_string: String) -> Modification:
+	var mod_params: PackedStringArray = modification_string.split(",")
+
+	if mod_params.size() != 3:
+		return Modification.new(Modification.Type.MOD_DMG_TO_MASS, 0, 0)
+
+	var mod_type_string: String = mod_params[0]
+	var mod_type: Modification.Type = Modification.convert_string_to_mod(mod_type_string)
+	var mod_value_base: float = mod_params[1].to_float()
+	var mod_level_add: float = mod_params[2].to_float()
+
+	var modification: Modification = Modification.new(mod_type, mod_value_base, mod_level_add)
+
+	return modification
