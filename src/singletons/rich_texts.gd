@@ -451,7 +451,6 @@ func get_autocast_text_long(autocast_id: int) -> String:
 
 	var text: String = ""
 	text += "[color=GOLD]%s[/color]\n" % autocast_name
-	text += " \n"
 	text += "%s\n" % autocast_description_long
 	text += "%s\n" % stats_text
 

@@ -138,7 +138,7 @@ func _get_text_for_tower(tower_id: int) -> String:
 
 	var autocast_id_list: Array = TowerProperties.get_autocast_id_list(tower_id)
 	for autocast_id in autocast_id_list:
-		var autocast_text: String = EncyclopediaTowers.get_autocast_text(autocast_id)
+		var autocast_text: String = RichTexts.get_autocast_text_long(autocast_id)
 
 		text += autocast_text
 		text += " \n"
@@ -161,16 +161,6 @@ static func get_aura_text(aura_id: int) -> String:
 	var description: String = AuraProperties.get_description_long(aura_id)
 	var description_colored: String = RichTexts.add_color_to_numbers(description)
 	var text: String = "[color=GOLD]%s - %s[/color]\n%s" % [aura_name, Utils.tr("AURA_WORD_IN_TITLE"), description_colored]
-
-	return text
-
-
-static func get_autocast_text(autocast_id: int) -> String:
-	var autocast_name: String = AutocastProperties.get_autocast_name(autocast_id)
-	var description: String = RichTexts.get_autocast_text_long(autocast_id)
-	var description_colored: String = RichTexts.add_color_to_numbers(description)
-	
-	var text: String = "[color=GOLD]%s[/color]\n%s" % [autocast_name, description_colored]
 
 	return text
 

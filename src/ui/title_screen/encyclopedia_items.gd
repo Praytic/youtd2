@@ -96,7 +96,7 @@ func _get_text_for_item(item_id: int) -> String:
 
 	var autocast_id_list: Array = ItemProperties.get_autocast_id_list(item_id)
 	for autocast_id in autocast_id_list:
-		var autocast_text: String = EncyclopediaTowers.get_autocast_text(autocast_id)
+		var autocast_text: String = RichTexts.get_autocast_text_long(autocast_id)
 
 		text += autocast_text
 		text += " \n"
