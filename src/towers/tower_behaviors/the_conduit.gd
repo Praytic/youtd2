@@ -25,7 +25,7 @@ func tower_init():
 
 	unleash_bt = BuffType.new("unleash_bt", 3, 0, false, self)
 	var unleash_bt_mod: Modifier = Modifier.new()
-	unleash_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
+	unleash_bt_mod.add_modification(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.03)
 	unleash_bt.set_buff_modifier(unleash_bt_mod)
 	unleash_bt.set_buff_icon("res://resources/icons/generic_icons/bat_mask.tres")
 	unleash_bt.set_buff_tooltip(tr("Z7S7"))
@@ -100,11 +100,11 @@ func aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 
 # NOTE: "ashbringer_conduit_update()" in original script
@@ -120,11 +120,11 @@ func unleash_bt_update(buff: Buff):
 	var caster_level: int = caster.get_level()
 	var caster_level_factor: float = 0.5 + 0.02 * caster_level
 
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
@@ -139,8 +139,8 @@ func unleash_bt_update(buff: Buff):
 	buff.user_int = int((caster.get_attack_speed_modifier() - attack_speed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)

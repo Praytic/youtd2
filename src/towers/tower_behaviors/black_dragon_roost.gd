@@ -40,10 +40,10 @@ func tower_init():
 	fear_dark_bt.add_event_on_cleanup(fear_dark_bt_on_cleanup)
 	fear_dark_bt.add_event_on_damaged(fear_dark_bt_on_damaged)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.5, 0.0)
-	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.5, -0.01)
-	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, 0.5, -0.008)
-	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.5, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_HP_REGEN_PERC, -0.5, -0.01)
+	mod.add_modification(ModificationType.enm.MOD_ARMOR_PERC, 0.5, -0.008)
+	mod.add_modification(ModificationType.enm.MOD_ITEM_QUALITY_ON_DEATH, 0.25, 0.01)
 	fear_dark_bt.set_buff_modifier(mod)
 
 

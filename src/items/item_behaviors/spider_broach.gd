@@ -13,7 +13,7 @@ func item_init():
 	threads_bt.set_buff_icon("res://resources/icons/generic_icons/spider_web.tres")
 	threads_bt.set_buff_tooltip(tr("A8WN"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
+	mod.add_modification(ModificationType.enm.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
 	threads_bt.set_buff_modifier(mod)
 
 

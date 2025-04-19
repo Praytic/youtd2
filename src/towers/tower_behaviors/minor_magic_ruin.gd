@@ -22,7 +22,7 @@ func load_triggers(triggers_buff_type: BuffType):
 func tower_init():
 	var astral_mod: Modifier = Modifier.new()
 	illuminate_bt = BuffType.new("illuminate_bt", 5, 0, false, self)
-	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
+	astral_mod.add_modification(ModificationType.enm.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	illuminate_bt.set_buff_modifier(astral_mod)
 	illuminate_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	

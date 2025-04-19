@@ -26,7 +26,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, _stats.mod_dmg_to_undead_add)
+	mod.add_modification(ModificationType.enm.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, _stats.mod_dmg_to_undead_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	aura_bt.set_buff_tooltip(tr("HZID"))

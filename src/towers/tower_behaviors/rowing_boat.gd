@@ -22,7 +22,7 @@ func tower_init():
 	var bounty_mod: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 #	Set by aura
-	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty, _stats.mod_bounty_add)
+	bounty_mod.add_modification(ModificationType.enm.MOD_BOUNTY_RECEIVED, _stats.mod_bounty, _stats.mod_bounty_add)
 	aura_bt.set_buff_modifier(bounty_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	aura_bt.set_buff_tooltip(tr("KAMW"))

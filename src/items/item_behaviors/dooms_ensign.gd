@@ -13,7 +13,7 @@ func item_init():
 	ensign_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	ensign_bt.set_buff_tooltip(tr("QCSJ"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
+	mod.add_modification(ModificationType.enm.MOD_ARMOR_PERC, -0.10, -0.006)
 	ensign_bt.set_buff_modifier(mod)
 
 

@@ -27,8 +27,8 @@ func tower_init():
 	morale_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	morale_bt.set_buff_tooltip(tr("Z5K1"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.10, 0.004)
+	mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.10, 0.004)
 	morale_bt.set_buff_modifier(mod)
 
 	grow_bt = BuffType.new("grow_bt", -1, 0, true, self)
@@ -113,7 +113,7 @@ func periodic(_event: Event):
 	var effect: int = Effect.create_simple_at_unit("res://src/effects/roots.tscn", tower)
 	Effect.set_lifetime(effect, 1.0)
 
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.03 + 0.001 * level)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.03 + 0.001 * level)
 	tower.add_exp(4)
 
 	grow_count += 1

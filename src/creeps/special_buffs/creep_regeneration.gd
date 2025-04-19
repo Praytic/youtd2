@@ -29,4 +29,4 @@ static func regen_special_on_create(event: Event, regen_ratio_map: Dictionary):
 	var regen_ratio: float = regen_ratio_map[creep_size]
 	var regen_value: float = creep_hp * regen_ratio
 
-	creep.modify_property(Modification.Type.MOD_HP_REGEN, regen_value)
+	creep.modify_property(ModificationType.enm.MOD_HP_REGEN, regen_value)

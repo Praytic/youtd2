@@ -16,12 +16,12 @@ func item_init():
 
 func on_attack(event: Event):
 	if event.get_number_of_crits() > 0:
-		item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -item.user_real)
+		item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, -item.user_real)
 		item.user_real = 0
 	else:
 		if item.user_real < 0.40:
 			item.user_real = item.user_real + 0.02
-			item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.02)
+			item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, 0.02)
 
 
 func on_create():
@@ -29,11 +29,11 @@ func on_create():
 
 
 func on_drop():
-	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -item.user_real)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, -item.user_real)
 
 
 func on_pickup():
-	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, item.user_real)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, item.user_real)
 
 
 func on_tower_details() -> MultiboardValues:

@@ -49,9 +49,9 @@ func on_attack(_event: Event):
 		i -= i_scale_level
 		i_scale_value += i
 
-		tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, i / 60.0)
-		tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, i / 60.0)
-		tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, i / 800.0)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, i / 60.0)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, i / 60.0)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, i / 800.0)
 
 		i_scale_level = i2
 

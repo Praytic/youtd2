@@ -26,7 +26,7 @@ var original_pos: Vector2 = Vector2.ZERO
 func item_init():
 	jumper_bt = BuffType.new("jumper_bt", JUMP_DURATION, 0, true, self)
 	var jumper_bt_mod: Modifier = Modifier.new()
-	jumper_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, ATTACKSPEED_BONUS, 0.0)
+	jumper_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, ATTACKSPEED_BONUS, 0.0)
 	jumper_bt.set_buff_modifier(jumper_bt_mod)
 	jumper_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	jumper_bt.set_buff_tooltip(tr("1UM5"))

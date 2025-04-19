@@ -48,7 +48,7 @@ func blizzard_st_on_damage(event: Event, _dummy: DummyUnit):
 func tower_init():
 	var mod2: Modifier = Modifier.new()
 	slow_bt = BuffType.new("slow_bt", _stats.slow_duration, 0.0, false, self)
-	mod2.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
+	mod2.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.mod_movespeed, -_stats.mod_movespeed_add)
 	slow_bt.set_buff_modifier(mod2)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 

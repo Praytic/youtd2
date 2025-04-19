@@ -39,7 +39,7 @@ func on_attack(event: Event):
 	if active_stacks < 10:
 		var new_stacks: int = active_stacks + 1
 		
-		target.modify_property(Modification.Type.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
+		target.modify_property(ModificationType.enm.MOD_DMG_FROM_DARKNESS, _stats.dmg_increase + tower.get_level() * _stats.dmg_increase_add)
 
 		buff = curse_bt.apply_to_unit_permanent(tower, target, new_stacks)
 		buff.set_displayed_stacks(new_stacks)

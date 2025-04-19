@@ -27,8 +27,8 @@ func tower_init():
 
 	army_bt = BuffType.new("army_bt", -1, 0, true, self)
 	var cedi_crypt_army_mod: Modifier = Modifier.new()
-	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.05)
-	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
+	cedi_crypt_army_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, 0.05)
+	cedi_crypt_army_mod.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	army_bt.set_buff_modifier(cedi_crypt_army_mod)
 	army_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	army_bt.set_buff_tooltip(tr("HDAQ"))

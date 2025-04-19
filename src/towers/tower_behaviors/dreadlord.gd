@@ -20,8 +20,8 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	awakening_bt = BuffType.new("awakening_bt", 10, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.02)
-	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.5, 0.02)
+	mod.add_modification(ModificationType.enm.MOD_MANA_REGEN, 20, 0.8)
 	awakening_bt.set_buff_modifier(mod)
 	awakening_bt.set_buff_icon("res://resources/icons/generic_icons/burning_dot.tres")
 	awakening_bt.set_buff_tooltip(tr("CYSV"))
@@ -45,12 +45,12 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
+	tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, 0.005)
 	tower.user_real2 += 0.005
 
 	if tower.user_real <= 2:
 		tower.user_real += 0.01
-		tower.modify_property(Modification.Type.MOD_MANA, 10)
+		tower.modify_property(ModificationType.enm.MOD_MANA, 10)
 
 
 func on_tower_details() -> MultiboardValues:

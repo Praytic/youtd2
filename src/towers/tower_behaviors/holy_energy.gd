@@ -27,7 +27,7 @@ const GLIMMER_MOD_DEBUFF_DURATION_ADD: float = 0.002
 func tower_init():
 	glimmer_bt = BuffType.create_aura_effect_type("glimmer_bt", true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
+	mod.add_modification(ModificationType.enm.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	glimmer_bt.set_buff_modifier(mod)
 	glimmer_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
 	glimmer_bt.set_buff_tooltip(tr("IROC"))

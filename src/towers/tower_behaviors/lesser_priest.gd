@@ -29,6 +29,6 @@ func on_damage(event: Event):
 
 	if level == 25:
 		if creep.get_size() < CreepSize.enm.BOSS:
-			creep.modify_property(Modification.Type.MOD_ARMOR, _stats.armor_reduce)
+			creep.modify_property(ModificationType.enm.MOD_ARMOR, _stats.armor_reduce)
 		else:
-			creep.modify_property(Modification.Type.MOD_ARMOR, _stats.armor_reduce_boss)
+			creep.modify_property(ModificationType.enm.MOD_ARMOR, _stats.armor_reduce_boss)

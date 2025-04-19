@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed, _stats.mod_attack_speed_add)
+	m.add_modification(ModificationType.enm.MOD_ATTACKSPEED, _stats.mod_attack_speed, _stats.mod_attack_speed_add)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/aries.tres")
 	aura_bt.set_buff_tooltip(tr("GGZN"))

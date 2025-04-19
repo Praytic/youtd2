@@ -71,7 +71,7 @@ func on_tower_details() -> MultiboardValues:
 func engine_update_mana_use():
 	var new_mana_degen: float = power_level * sqrt(powered_tower_count) * 10 / 100.0
 	var degen_delta: float = current_mana_degen - new_mana_degen
-	tower.modify_property(Modification.Type.MOD_MANA_REGEN_PERC, degen_delta)
+	tower.modify_property(ModificationType.enm.MOD_MANA_REGEN_PERC, degen_delta)
 	current_mana_degen = new_mana_degen
 
 
@@ -85,8 +85,8 @@ func steam_bt_on_create(event: Event):
 	buff.user_real = mod_value
 	powered_tower_count += 1
 	engine_update_mana_use()
-	buffed_tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, mod_value)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, mod_value / 2.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, mod_value)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, mod_value / 2.0)
 
 
 # NOTE: steam_buff_onAttack() in original script
@@ -116,8 +116,8 @@ func steam_bt_periodic(event: Event):
 	var mod_value_delta: float = new_mod_value - current_mod_value
 	buff.user_real = new_mod_value
 	buff.set_displayed_stacks(power_level)
-	buffed_tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, mod_value_delta)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, mod_value_delta / 2.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, mod_value_delta)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, mod_value_delta / 2.0)
 
 
 # NOTE: steam_buff_onCleanup() in original script
@@ -127,8 +127,8 @@ func steam_bt_on_cleanup(event: Event):
 	powered_tower_count -= 1
 	
 	var current_mod_value: float = buff.user_real
-	buffed_tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -current_mod_value)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -current_mod_value / 2.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -current_mod_value)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -current_mod_value / 2.0)
 
 
 func on_autocast_speed_up(_event: Event):

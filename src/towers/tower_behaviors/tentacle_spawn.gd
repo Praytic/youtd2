@@ -21,7 +21,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
+	m.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
 	rend_bt = BuffType.new("rend_bt", 6, 0, false, self)
 	rend_bt.set_buff_icon("res://resources/icons/generic_icons/triple_scratches.tres")

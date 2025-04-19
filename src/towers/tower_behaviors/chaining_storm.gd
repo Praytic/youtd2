@@ -79,9 +79,9 @@ func on_attack(event: Event):
 		if next == null:
 			break
 
-		next.modify_property(Modification.Type.MOD_DMG_FROM_STORM, mod)
-		next.modify_property(Modification.Type.MOD_DMG_FROM_ICE, mod)
-		next.modify_property(Modification.Type.MOD_DMG_FROM_ASTRAL, mod)
+		next.modify_property(ModificationType.enm.MOD_DMG_FROM_STORM, mod)
+		next.modify_property(ModificationType.enm.MOD_DMG_FROM_ICE, mod)
+		next.modify_property(ModificationType.enm.MOD_DMG_FROM_ASTRAL, mod)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -117,13 +117,13 @@ func strong_wind_bt_periodic(event: Event):
 			buff.user_real2 *= 2
 
 #		Adjust movespeed accordingly
-		creep.modify_property(Modification.Type.MOD_MOVESPEED, buff.user_real - buff.user_real2 * buff.user_int2)
+		creep.modify_property(ModificationType.enm.MOD_MOVESPEED, buff.user_real - buff.user_real2 * buff.user_int2)
 		buff.user_real = buff.user_real2 * buff.user_int2
 
 #	Apply slow
 	if buff.user_int2 < 15:	# Max 15 stacks
 		buff.user_int2 += 1
-		creep.modify_property(Modification.Type.MOD_MOVESPEED, -buff.user_real2)
+		creep.modify_property(ModificationType.enm.MOD_MOVESPEED, -buff.user_real2)
 		buff.user_real = buff.user_real + buff.user_real2
 
 	buff.set_displayed_stacks(buff.user_int2)
@@ -142,7 +142,7 @@ func strong_wind_bt_on_cleanup(event: Event):
 
 	if creep.get_health() > 0:
 #		Give creep its movespeed back
-		creep.modify_property(Modification.Type.MOD_MOVESPEED, buff.user_real)
+		creep.modify_property(ModificationType.enm.MOD_MOVESPEED, buff.user_real)
 	else:
 #		creep died under the effect? Increse storm power!
 		storm_power += 1

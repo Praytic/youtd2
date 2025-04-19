@@ -50,7 +50,7 @@ func hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	var slow: Modifier = Modifier.new()
-	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
+	slow.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.slow_amount, -_stats.slow_amount_add)
 
 	frozen_bt = BuffType.new("frozen_bt", 9, 0.3, false, self)
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")

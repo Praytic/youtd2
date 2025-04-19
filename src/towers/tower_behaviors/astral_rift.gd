@@ -17,7 +17,7 @@ func tower_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip(tr("DQPN"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.3, -0.01)
 	slow_bt.set_buff_modifier(mod)
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)

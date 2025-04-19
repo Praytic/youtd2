@@ -26,7 +26,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, WRATH_MOD_TRIGGER_CHANCES, _stats.wrath_mod_trigger_chances_add)
+	modifier.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, WRATH_MOD_TRIGGER_CHANCES, _stats.wrath_mod_trigger_chances_add)
 	wrath_bt = BuffType.new("wrath_bt", BUFF_DURATION, BUFF_DURATION_ADD, true, self)
 	wrath_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	wrath_bt.set_buff_modifier(modifier)

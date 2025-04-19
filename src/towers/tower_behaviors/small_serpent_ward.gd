@@ -24,9 +24,9 @@ func get_tier_stats() -> Dictionary:
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_MANA_PERC, _stats.mod_mana, _stats.mod_mana_add)
-	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, _stats.mod_mana_regen, _stats.mod_mana_regen_add)
-	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
+	m.add_modification(ModificationType.enm.MOD_MANA_PERC, _stats.mod_mana, _stats.mod_mana_add)
+	m.add_modification(ModificationType.enm.MOD_MANA_REGEN_PERC, _stats.mod_mana_regen, _stats.mod_mana_regen_add)
+	m.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
 	charm_bt = BuffType.new("charm_bt", 0, 0, true, self)
 	charm_bt.set_buff_icon("res://resources/icons/generic_icons/charm.tres")
 	charm_bt.set_buff_modifier(m)

@@ -53,14 +53,14 @@ func phoenix_fire_bt_on_cleanup(event: Event):
 		tower.do_attack_damage_aoe_unit(target, ERUPT_RANGE, eruption_damage, tower.calc_attack_multicrit(0, 0, 0), 0.5)
 		Effect.create_simple_at_unit("res://src/effects/firelord_death_explode.tscn", target)
 
-	target.modify_property(Modification.Type.MOD_ARMOR, armor_regain)
+	target.modify_property(ModificationType.enm.MOD_ARMOR, armor_regain)
 
 	buff_was_purged = false
 
 
 func tower_init():
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
+	mod.add_modification(ModificationType.enm.MOD_ARMOR, 0.0, -0.01)
 
 	phoenix_fire_bt = BuffType.new("phoenix_fire_bt", 5, 0, false, self)
 	phoenix_fire_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")

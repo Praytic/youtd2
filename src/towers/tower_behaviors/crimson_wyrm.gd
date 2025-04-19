@@ -91,11 +91,11 @@ func on_tower_details() -> MultiboardValues:
 
 
 func sir_update(new_gold: float):
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -tower.user_real / 5000)
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -tower.user_real / 5000)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, -tower.user_real / 5000)
+	tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -tower.user_real / 5000)
 	tower.user_real += new_gold
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, tower.user_real / 5000)
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, tower.user_real / 5000)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, tower.user_real / 5000)
+	tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, tower.user_real / 5000)
 
 
 func wyrm_pt_on_hit(p: Projectile, _target: Unit):

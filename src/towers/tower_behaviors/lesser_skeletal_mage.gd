@@ -33,7 +33,7 @@ func on_autocast(event: Event):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.vuln, VULN_ADD)
+	m.add_modification(ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED, _stats.vuln, VULN_ADD)
 	curse_bt = BuffType.new("curse_bt", CURSE_DURATION, CURSE_DURATION_ADD, false, self)
 	curse_bt.set_buff_modifier(m)
 	curse_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")

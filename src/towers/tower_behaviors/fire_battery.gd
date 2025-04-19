@@ -60,7 +60,7 @@ func fireball_pt_on_hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0)
+	modifier.add_modification(ModificationType.enm.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0)
 
 	incinerate_bt = BuffType.new("incinerate_bt", 9, 0.3, false, self)
 	incinerate_bt.set_buff_modifier(modifier)

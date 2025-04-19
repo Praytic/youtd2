@@ -62,8 +62,8 @@ func tower_init():
 	meat_pt = ProjectileType.create_interpolate("path_to_projectile_sprite", 400, self)
 
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
-	m.add_modification(Modification.Type.MOD_DMG_FROM_DARKNESS, 0.0, 0.001)
+	m.add_modification(ModificationType.enm.MOD_MOVESPEED, 0.0, -0.001)
+	m.add_modification(ModificationType.enm.MOD_DMG_FROM_DARKNESS, 0.0, 0.001)
 
 	corpse_explosion_bt = BuffType.new("corpse_explosion_bt", 8, 0.25, false, self)
 	corpse_explosion_bt.set_buff_icon("res://resources/icons/generic_icons/mine_explosion.tres")

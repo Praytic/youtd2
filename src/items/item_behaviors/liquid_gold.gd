@@ -24,7 +24,7 @@ func item_init():
 	drunk_bt.set_buff_tooltip(tr("W9YO"))
 	drunk_bt.add_event_on_expire(drunk_bt_on_expire)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.30, 0.01)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, -0.30, 0.01)
 	drunk_bt.set_buff_modifier(mod)
 
 

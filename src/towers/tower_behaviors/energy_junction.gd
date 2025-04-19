@@ -32,7 +32,7 @@ func junction_on_create(event: Event):
 
 #	NOTE: add & save attack speed
 	b.user_real = tower.user_real + tower.user_real2 * tower.get_level()
-	buffee.modify_property(Modification.Type.MOD_ATTACKSPEED, b.user_real)
+	buffee.modify_property(ModificationType.enm.MOD_ATTACKSPEED, b.user_real)
 
 
 func junction_on_damage(event: Event):
@@ -56,7 +56,7 @@ func junction_on_cleanup(event: Event):
 		if lightning != null:
 			lightning.queue_free()
 
-	b.get_buffed_unit().modify_property(Modification.Type.MOD_ATTACKSPEED, -b.user_real)
+	b.get_buffed_unit().modify_property(ModificationType.enm.MOD_ATTACKSPEED, -b.user_real)
 
 
 func tower_init():

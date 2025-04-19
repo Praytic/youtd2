@@ -24,7 +24,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.mod_crit_chance, MOD_CRIT_CHANCE_ADD)
+	m.add_modification(ModificationType.enm.MOD_ATK_CRIT_CHANCE, _stats.mod_crit_chance, MOD_CRIT_CHANCE_ADD)
 	coals_bt = BuffType.new("coals_bt ", _stats.duration, DURATION_ADD, true, self)
 	coals_bt.set_buff_modifier(m)
 	coals_bt.set_buff_icon("res://resources/icons/generic_icons/burning_meteor.tres")

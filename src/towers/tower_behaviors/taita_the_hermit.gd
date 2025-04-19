@@ -20,14 +20,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	cold_blood_bt = BuffType.new("cold_blood_bt", 3, 0, true, self)
 	var dave_taita_blood_mod: Modifier = Modifier.new()
-	dave_taita_blood_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.5, 0.005)
+	dave_taita_blood_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.5, 0.005)
 	cold_blood_bt.set_buff_modifier(dave_taita_blood_mod)
 	cold_blood_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	cold_blood_bt.set_buff_tooltip(tr("BZF0"))
 
 	icy_touch_bt = BuffType.new("icy_touch_bt", 5, 0, false, self)
 	var dave_taita_touch_mod: Modifier = Modifier.new()
-	dave_taita_touch_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.1)
+	dave_taita_touch_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, 0.0, -0.1)
 	icy_touch_bt.set_buff_modifier(dave_taita_touch_mod)
 	icy_touch_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	icy_touch_bt.set_buff_tooltip(tr("YSCT"))

@@ -39,8 +39,8 @@ func tower_init():
 func on_attack(_event: Event):
 	var lvl: int = tower.get_level()
 	var modify_value: float = _stats.mod_value + MOD_VALUE_ADD * lvl
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, modify_value)
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, modify_value)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, modify_value)
+	tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, modify_value)
 	tower.user_real = tower.user_real + modify_value
 	update_effect_speed()
 
@@ -48,8 +48,8 @@ func on_attack(_event: Event):
 func on_kill(event: Event):
 	var effect: int = Effect.create_simple_at_unit("res://src/effects/ancient_protector_missile.tscn", event.get_target())
 	Effect.set_color(effect, Color.ORANGE)
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -tower.user_real)
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -tower.user_real)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -tower.user_real)
+	tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -tower.user_real)
 	stun_bt.apply_only_timed(tower, tower, STUN_DURATION)
 	tower.user_real = 0
 	update_effect_speed()

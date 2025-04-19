@@ -26,7 +26,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	rage_bt = BuffType.new("rage_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	rage_bt.set_buff_modifier(mod)
 	rage_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	rage_bt.set_buff_tooltip(tr("BLU0"))
@@ -43,7 +43,7 @@ func tower_init():
 func on_damage(event: Event):
 	if event.is_attack_damage_critical() && tower.user_real <= _stats.feral_dmg_max:
 		tower.user_real += _stats.feral_dmg_gain
-		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.feral_dmg_gain)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, _stats.feral_dmg_gain)
 
 		var feral_buff: Buff = tower.get_buff_of_type(feral_bt)
 		var feral_stack_count: int = floori(tower.user_real * 100)
@@ -65,7 +65,7 @@ func on_create(preceding: Tower):
 	if preceding != null && preceding.get_family() == tower.get_family():
 		var damage_bonus: float = preceding.user_real
 		tower.user_real = damage_bonus
-		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, damage_bonus)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, damage_bonus)
 	else:
 		tower.user_real = 0.0
 

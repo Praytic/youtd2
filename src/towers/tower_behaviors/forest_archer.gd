@@ -28,7 +28,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -SLOW_AMOUNT, 0.0)
 	roots_bt = BuffType.new("roots_bt", 0, 0, false, self)
 	roots_bt.set_buff_icon("res://resources/icons/generic_icons/root_tip.tres")
 	roots_bt.set_buff_modifier(mod)

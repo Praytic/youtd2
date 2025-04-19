@@ -12,5 +12,5 @@ func item_init():
 	drum_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	drum_bt.set_buff_tooltip(tr("LBDS"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.075, 0.001)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.075, 0.001)
 	drum_bt.set_buff_modifier(mod)

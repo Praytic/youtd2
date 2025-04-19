@@ -169,7 +169,7 @@ func it_hunger_ability():
 
 	if sum.size < 10.0:
 #		700% cap
-		tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, mod)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, mod)
 		sum.size += mod
 
 	if sum.size < 3.7:

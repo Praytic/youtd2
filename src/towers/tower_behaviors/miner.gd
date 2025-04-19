@@ -28,7 +28,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	var m: Modifier = Modifier.new()
 	goldrush_bt = BuffType.new("goldrush_bt", 5, 0.1, true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.2, 0.01)
+	m.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.2, 0.01)
 	goldrush_bt.set_buff_icon("res://resources/icons/generic_icons/gold_bar.tres")
 	goldrush_bt.set_buff_modifier(m)
 	goldrush_bt.set_buff_tooltip(tr("AXB0"))

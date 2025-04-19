@@ -36,7 +36,7 @@ func tower_init():
 	ignite_bt.set_buff_tooltip(tr("WGVN"))
 	ignite_bt.add_periodic_event(ignite_bt_periodic, IGNITE_DAMAGE_PERIOD)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_DMG_FROM_FIRE, _stats.mod_dmg_from_fire, 0.0)
 	ignite_bt.set_buff_modifier(mod)
 
 

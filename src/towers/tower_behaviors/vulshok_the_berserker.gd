@@ -38,7 +38,7 @@ func tower_init():
 
 	slow_bt = BuffType.new("slow_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.10, -0.001)
 	slow_bt.set_buff_modifier(mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip(tr("GLMC"))
@@ -90,7 +90,7 @@ func on_attack(event: Event):
 	if attack_count % 15 == 0:
 		CombatLog.log_ability(tower, null, "Growth")
 		
-		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.005)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.005)
 
 #		Rare text has increased chance to show with increased triggerchances. ;]
 		var floating_text: String

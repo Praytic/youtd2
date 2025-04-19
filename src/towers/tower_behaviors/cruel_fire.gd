@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.mod_crit, _stats.mod_crit_add)
+	m.add_modification(ModificationType.enm.MOD_ATK_CRIT_CHANCE, _stats.mod_crit, _stats.mod_crit_add)
 	fire_bt = BuffType.create_aura_effect_type("fire_bt", true, self)
 	fire_bt.set_buff_icon("res://resources/icons/generic_icons/shiny_omega.tres")
 	fire_bt.set_buff_modifier(m)

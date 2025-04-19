@@ -31,7 +31,7 @@ func tower_init():
 	
 	fatigue_bt = BuffType.new("fatigue_bt", FATIGUE_DURATION, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, -MOD_ATTACKSPEED, MOD_ATTACKSPEED_ADD)
 	fatigue_bt.set_buff_modifier(mod)
 	fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	fatigue_bt.set_buff_tooltip(tr("NU0J"))

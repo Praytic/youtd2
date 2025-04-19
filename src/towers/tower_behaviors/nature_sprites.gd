@@ -28,13 +28,13 @@ const ITEM_CHANCE_ADD: float = 0.0014
 
 
 const ELEMENT_TO_MOD_MAP: Dictionary = {
-	Element.enm.ASTRAL: Modification.Type.MOD_EXP_RECEIVED,
-	Element.enm.DARKNESS: Modification.Type.MOD_SPELL_DAMAGE_DEALT,
-	Element.enm.NATURE: Modification.Type.MOD_ATK_CRIT_CHANCE,
-	Element.enm.FIRE: Modification.Type.MOD_DAMAGE_ADD_PERC,
-	Element.enm.ICE: Modification.Type.MOD_BUFF_DURATION,
-	Element.enm.STORM: Modification.Type.MOD_ATTACKSPEED,
-	Element.enm.IRON: Modification.Type.MOD_ITEM_CHANCE_ON_KILL,
+	Element.enm.ASTRAL: ModificationType.enm.MOD_EXP_RECEIVED,
+	Element.enm.DARKNESS: ModificationType.enm.MOD_SPELL_DAMAGE_DEALT,
+	Element.enm.NATURE: ModificationType.enm.MOD_ATK_CRIT_CHANCE,
+	Element.enm.FIRE: ModificationType.enm.MOD_DAMAGE_ADD_PERC,
+	Element.enm.ICE: ModificationType.enm.MOD_BUFF_DURATION,
+	Element.enm.STORM: ModificationType.enm.MOD_ATTACKSPEED,
+	Element.enm.IRON: ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL,
 }
 
 
@@ -59,7 +59,7 @@ func gift_bt_on_create(event: Event):
 	if tower == null:
 		return
 
-	var main_mod_type: Modification.Type = ELEMENT_TO_MOD_MAP[tower_element]
+	var main_mod_type: ModificationType.enm = ELEMENT_TO_MOD_MAP[tower_element]
 	var main_mod_value: float = get_mod_value_for_stat(main_mod_type)
 
 	target.modify_property(main_mod_type, main_mod_value)
@@ -82,7 +82,7 @@ func gift_bt_on_create(event: Event):
 		if random_element == tower_element:
 			random_element = Element.enm.IRON
 
-		var secondary_mod_type: Modification.Type = ELEMENT_TO_MOD_MAP[random_element]
+		var secondary_mod_type: ModificationType.enm = ELEMENT_TO_MOD_MAP[random_element]
 		var secondary_mod_value: float = get_mod_value_for_stat(secondary_mod_type)
 
 		target.modify_property(secondary_mod_type, secondary_mod_value)
@@ -106,9 +106,9 @@ func gift_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Tower = buff.get_buffed_unit()
 
-	var main_mod_type: Modification.Type = buff.user_int as Modification.Type
+	var main_mod_type: ModificationType.enm = buff.user_int as ModificationType.enm
 	var main_mod_value: float = buff.user_real
-	var secondary_mod_type: Modification.Type = buff.user_int2 as Modification.Type
+	var secondary_mod_type: ModificationType.enm = buff.user_int2 as ModificationType.enm
 	var secondary_mod_value: float = buff.user_real2
 
 	target.modify_property(main_mod_type, -main_mod_value)
@@ -145,19 +145,19 @@ func on_autocast(event: Event):
 	p.set_color(Color8(50, 255, 50, 255))
 
 
-func get_mod_value_for_stat(mod_type: Modification.Type) -> float:
+func get_mod_value_for_stat(mod_type: ModificationType.enm) -> float:
 	var value: float
 
 	var level: int = tower.get_level()
 
 	match mod_type:
-		Modification.Type.MOD_EXP_RECEIVED: value = EXP_RECEIVED + level * EXP_RECEIVED_ADD
-		Modification.Type.MOD_ITEM_CHANCE_ON_KILL: value = ITEM_CHANCE + level * ITEM_CHANCE_ADD
-		Modification.Type.MOD_SPELL_DAMAGE_DEALT: value = SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD
-		Modification.Type.MOD_ATK_CRIT_CHANCE: value = ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD
-		Modification.Type.MOD_DAMAGE_ADD_PERC: value = DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD
-		Modification.Type.MOD_BUFF_DURATION: value = BUFF_DURATION + level * BUFF_DURATION_ADD
-		Modification.Type.MOD_ATTACKSPEED: value = ATTACKSPEED + level * ATTACKSPEED_ADD
+		ModificationType.enm.MOD_EXP_RECEIVED: value = EXP_RECEIVED + level * EXP_RECEIVED_ADD
+		ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL: value = ITEM_CHANCE + level * ITEM_CHANCE_ADD
+		ModificationType.enm.MOD_SPELL_DAMAGE_DEALT: value = SPELL_DAMAGE_DEALT + level * SPELL_DAMAGE_DEALT_ADD
+		ModificationType.enm.MOD_ATK_CRIT_CHANCE: value = ATK_CRIT_CHANCE + level * ATK_CRIT_CHANCE_ADD
+		ModificationType.enm.MOD_DAMAGE_ADD_PERC: value = DAMAGE_ADD_PERC + level * DAMAGE_ADD_PERC_ADD
+		ModificationType.enm.MOD_BUFF_DURATION: value = BUFF_DURATION + level * BUFF_DURATION_ADD
+		ModificationType.enm.MOD_ATTACKSPEED: value = ATTACKSPEED + level * ATTACKSPEED_ADD
 		_:
 			push_error("Unknown mod_type used in Nature's Sprite script")
 			value = 0.0

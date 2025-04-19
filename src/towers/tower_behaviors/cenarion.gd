@@ -28,8 +28,8 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	tranquility_bt = BuffType.create_aura_effect_type("tranquility_bt", true, self)
 	var tranquility_mod: Modifier = Modifier.new()
-	tranquility_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.004)
-	tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
+	tranquility_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, -0.2, 0.004)
+	tranquility_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	tranquility_bt.set_buff_modifier(tranquility_mod)
 	tranquility_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	tranquility_bt.set_buff_tooltip(tr("I4NZ"))
@@ -51,14 +51,14 @@ func tower_init():
 
 	var leaf_storm_mod: Modifier = Modifier.new()
 	leaf_storm_bt = BuffType.new("leaf_storm_bt", 1.0, 0.04, false, self)
-	leaf_storm_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.006)
+	leaf_storm_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.3, -0.006)
 	leaf_storm_bt.set_buff_modifier(leaf_storm_mod)
 	leaf_storm_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	leaf_storm_bt.set_buff_tooltip(tr("BCDD"))
 
 	thorned_bt = BuffType.new("thorned_bt", 3.0, 0.06, false, self)
 	var thorned_mod: Modifier = Modifier.new()
-	thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
+	thorned_mod.add_modification(ModificationType.enm.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	thorned_bt.set_buff_modifier(thorned_mod)
 	thorned_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	thorned_bt.set_buff_tooltip(tr("AB6M"))

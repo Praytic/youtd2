@@ -27,8 +27,8 @@ func _init(parent: Node):
 	curse_bt = BuffType.new("curse_bt", 1.5, 0, false, self
 		)
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -1.3, 0.0)
-	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, -2, 0.0)
+	modifier.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -1.3, 0.0)
+	modifier.add_modification(ModificationType.enm.MOD_MULTICRIT_COUNT, -2, 0.0)
 	curse_bt.set_buff_icon("res://resources/icons/generic_icons/alien_skull.tres")
 	curse_bt.set_buff_icon_color(Color.DARK_RED)
 	curse_bt.set_buff_tooltip(tr("M3QZ"))

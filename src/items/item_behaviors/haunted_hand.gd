@@ -11,7 +11,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.10, 0.01)
+	modifier.add_modification(ModificationType.enm.MOD_DMG_TO_MAGIC, 0.10, 0.01)
 
 
 func on_attack(_event: Event):

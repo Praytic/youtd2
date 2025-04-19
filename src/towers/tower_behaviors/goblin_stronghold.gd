@@ -36,15 +36,15 @@ func tower_init():
 
 	sapper_bt = BuffType.new("sapper_bt", 3, 0, false, self)
 	var cedi_goblin_sapper_mod: Modifier = Modifier.new()
-	cedi_goblin_sapper_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
+	cedi_goblin_sapper_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, 0.0, -0.001)
 	sapper_bt.set_buff_modifier(cedi_goblin_sapper_mod)
 	sapper_bt.set_buff_icon("res://resources/icons/generic_icons/barefoot.tres")
 	sapper_bt.set_buff_tooltip(tr("SBOV"))
 
 	robot_bt = BuffType.new("robot_bt", 5, 0, true, self)
 	var cedi_goblin_robot_mod: Modifier = Modifier.new()
-	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
-	cedi_goblin_robot_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.001)
+	cedi_goblin_robot_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
+	cedi_goblin_robot_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, 0.001)
 	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
 	robot_bt.set_buff_icon("res://resources/icons/generic_icons/cog.tres")
 	robot_bt.set_special_effect("res://src/effects/holy_bolt.tscn", 200, 5.0)
@@ -52,7 +52,7 @@ func tower_init():
 
 	emitter_bt = BuffType.new("emitter_bt", 5, 0, true, self)
 	var cedi_goblin_emitter_mod: Modifier = Modifier.new()
-	cedi_goblin_emitter_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, 0.001)
+	cedi_goblin_emitter_mod.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
 	emitter_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	emitter_bt.set_special_effect("res://src/effects/frost_bolt_missile.tscn", 200, 5.0)

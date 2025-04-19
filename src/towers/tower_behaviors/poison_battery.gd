@@ -59,7 +59,7 @@ func hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
+	modifier.add_modification(ModificationType.enm.MOD_MOVESPEED, _stats.mod_movespeed, _stats.mod_movespeed_add)
 
 	poison_bt = BuffType.new("poison_bt", 9, 0.3, false, self)
 	poison_bt.set_buff_icon("res://resources/icons/mechanical/battery.tres")

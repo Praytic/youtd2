@@ -33,8 +33,8 @@ func tower_init():
 
 	trance_bt = BuffType.new("trance_bt", 5, 0.2, true, self)
 	var drol_mushroom_trance_mod: Modifier = Modifier.new()
-	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
-	drol_mushroom_trance_mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
+	drol_mushroom_trance_mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, 0.25, 0.01)
+	drol_mushroom_trance_mod.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	trance_bt.set_buff_modifier(drol_mushroom_trance_mod)
 	trance_bt.set_buff_icon("res://resources/icons/generic_icons/beard.tres")
 	trance_bt.set_buff_tooltip(tr("PFRX"))
@@ -79,7 +79,7 @@ func on_damage(event: Event):
 	fungus_buff.user_int = new_stack_count
 	fungus_buff.set_displayed_stacks(new_stack_count)
 
-	target.modify_property(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.10)
+	target.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, 0.10)
 	var fungus_strike_damage: float = event.damage * (1.0 + 0.01 * tower.get_level())
 	tower.do_spell_damage(target, fungus_strike_damage, tower.calc_spell_crit(0.20 + 0.008 * tower.get_level(), 0))
 	event.damage = 0
@@ -111,7 +111,7 @@ func periodic(event: Event):
 
 	var spell_damage_bonus: float = 0.03 + 0.0012 * lvl
 
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, spell_damage_bonus)
+	tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, spell_damage_bonus)
 	spell_damage_from_growth += spell_damage_bonus
 
 	var target_effect: int = Effect.create_scaled("res://src/effects/starfall_target.tscn", tower.get_position_wc3(), 0, 1)

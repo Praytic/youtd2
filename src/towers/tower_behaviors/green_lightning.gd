@@ -42,7 +42,7 @@ func surge_bt_on_attack(event: Event):
 func tower_init():
 	var surge_bt_mod: Modifier = Modifier.new()
 	surge_bt = BuffType.new("surge_bt", 8, 0, true, self)
-	surge_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, 0.02)
+	surge_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 1.0, 0.02)
 	surge_bt.set_buff_modifier(surge_bt_mod)
 	surge_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	surge_bt.add_event_on_attack(surge_bt_on_attack)
@@ -54,7 +54,7 @@ func on_attack(_event: Event):
 
 	tower.set_mana(mana + 4 * tower.get_base_mana_regen_bonus_percent())
 
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, _stats.spell_crit + (tower.get_level() * _stats.spell_crit_add))
+	tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, _stats.spell_crit + (tower.get_level() * _stats.spell_crit_add))
 	tower.user_real = tower.user_real + _stats.spell_crit + tower.get_level() * _stats.spell_crit_add
 
 
@@ -69,7 +69,7 @@ func on_damage(event: Event):
 
 		Effect.create_animated("res://src/effects/holy_bolt_green.tscn", Vector3(creep.get_x(), creep.get_y(), 50), 0)
 		tower.do_spell_damage(creep, tower.get_mana() * _stats.damage_from_mana_multiplier, tower.calc_spell_crit_no_bonus())
-		tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, - tower.user_real)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, - tower.user_real)
 		tower.user_real = 0.0
 
 

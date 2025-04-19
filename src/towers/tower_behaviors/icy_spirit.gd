@@ -32,7 +32,7 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
-	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -NOVA_MOD_MOVESPEED, -NOVA_MOD_MOVESPEED_ADD)
+	slow_bt_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -NOVA_MOD_MOVESPEED, -NOVA_MOD_MOVESPEED_ADD)
 
 	slow_bt = BuffType.new("slow_bt", NOVA_SLOW_DURATION, 0, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")

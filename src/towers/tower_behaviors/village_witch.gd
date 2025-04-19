@@ -45,8 +45,8 @@ func missile_pt_on_hit(_p: Projectile, target: Unit):
 func tower_init():
 	love_bt = BuffType.new("love_bt", POTION_DURATION, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, _stats.mod_item_chance, MOD_ITEM_CHANCE_ADD)
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.mod_movespeed, -MOD_MOVESPEED_ADD)
+	mod.add_modification(ModificationType.enm.MOD_ITEM_CHANCE_ON_DEATH, _stats.mod_item_chance, MOD_ITEM_CHANCE_ADD)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.mod_movespeed, -MOD_MOVESPEED_ADD)
 	love_bt.set_buff_modifier(mod)
 	love_bt.set_buff_icon("res://resources/icons/generic_icons/charm.tres")
 	love_bt.set_buff_tooltip(tr("W4SL"))
@@ -78,7 +78,7 @@ func on_damage(event: Event):
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())
 		var soul_split_buff: Buff = soul_split_bt.apply_custom_timed(tower, tower, 1, _stats.soul_duration * multiplier)
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease
-		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attack_speed * multiplier)
+		tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, _stats.mod_attack_speed * multiplier)
 		current_soul_split_stacks += 1
 
 		soul_split_buff.set_displayed_stacks(current_soul_split_stacks)
@@ -86,7 +86,7 @@ func on_damage(event: Event):
 		await Utils.create_manual_timer(10.0 * multiplier, self).timeout
 
 		if Utils.unit_is_valid(tower):
-			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attack_speed * multiplier)
+			tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -_stats.mod_attack_speed * multiplier)
 			tower.user_real = tower.user_real + _stats.soul_chance_decrease
 			current_soul_split_stacks -= 1
 

@@ -20,7 +20,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.05, 0.0005)
 
 	roar_bt = BuffType.new("roar_bt", 5.0, 0.0, true, self)
 	roar_bt.set_buff_icon("res://resources/icons/generic_icons/wolf_howl.tres")

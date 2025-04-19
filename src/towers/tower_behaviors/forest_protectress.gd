@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", 1.5, 0.04, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.50, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.50, 0.0)
 	slow_bt.set_buff_modifier(mod)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip(tr("X9P5"))
@@ -55,7 +55,7 @@ func on_damage(event: Event):
 		slow_bt.apply(tower, next, tower.get_level())
 
 	tower.set_sprite_color(Color.WHITE)
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -dmg_bonus_from_meld)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -dmg_bonus_from_meld)
 	dmg_bonus_from_meld = 0.0
 	seconds_since_last_attack = 0
 
@@ -71,7 +71,7 @@ func periodic(event: Event):
 #		Changed it to 7 because tower sprite was getting too
 #		transparent.
 		tower.set_sprite_color(Color8(255, 255, 255, 255 - 7 * seconds_since_last_attack))
-		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, bonus_add)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, bonus_add)
 		dmg_bonus_from_meld += bonus_add
 
 	event.enable_advanced(updated_period, false)
@@ -85,8 +85,8 @@ func aura_bt_on_attack(event: Event):
 	var prev_bonus: float = buff.user_real
 	var new_bonus: float = creep.get_health_ratio() * (0.25 + 0.01 * caster.get_level())
 
-	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -prev_bonus)
-	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, new_bonus)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, -prev_bonus)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, new_bonus)
 
 	buff.user_real = new_bonus
 
@@ -95,4 +95,4 @@ func aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	var applied_bonus: float = buff.user_real
-	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -applied_bonus)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATK_CRIT_CHANCE, -applied_bonus)

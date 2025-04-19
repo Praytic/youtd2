@@ -29,7 +29,7 @@ func tower_init():
 
 	awaken_bt = BuffType.new("awaken_bt", 3, 0, true, self)
 	var awaken_bt_mod: Modifier = Modifier.new()
-	awaken_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0.02)
+	awaken_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.50, 0.02)
 	awaken_bt.set_buff_modifier(awaken_bt_mod)
 	awaken_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	awaken_bt.set_buff_tooltip(tr("QODF"))
@@ -63,7 +63,7 @@ func on_autocast(_event: Event):
 		awaken_bt.apply(tower, next, tower.get_level())
 
 	awaken_count += 1
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.01)
+	tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, 0.01)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -81,11 +81,11 @@ func evil_device_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 
 func evil_device_bt_periodic(event: Event):
@@ -99,11 +99,11 @@ func evil_device_bt_update(buff: Buff):
 	var caster_level: int = caster.get_level()
 	var caster_level_factor: float = 0.5 + 0.02 * caster_level
 
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
@@ -118,11 +118,11 @@ func evil_device_bt_update(buff: Buff):
 	buff.user_int = int((caster.get_attack_speed_modifier() - attack_speed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
-	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
-	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
-	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
+	buffed_tower.modify_property(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
+	buffed_tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, buff.user_int / 1000.0)
+	buffed_tower.modify_property(ModificationType.enm.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
 
 
 func soulfire_bt_periodic(event: Event):

@@ -53,7 +53,7 @@ func tower_init():
 
 	acid_goo_bt = BuffType.new("acid_goo_bt", ACID_GOO_DURATION, ACID_GOO_DURATION_ADD, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ARMOR, -ACID_GOO_ARMOR, -ACID_GOO_ARMOR_ADD)
+	mod.add_modification(ModificationType.enm.MOD_ARMOR, -ACID_GOO_ARMOR, -ACID_GOO_ARMOR_ADD)
 	acid_goo_bt.set_buff_modifier(mod)
 	acid_goo_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_goo_bt.set_buff_tooltip(tr("L7ND"))
@@ -64,7 +64,7 @@ func on_kill(event: Event):
 	var target_size: CreepSize.enm = target.get_size()
 
 	var mod_value: float = EAT_THE_DEAD_VALUES.get(target_size, 0)
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_value)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, mod_value)
 
 	var effect: int = Effect.create_simple_at_unit("res://src/effects/blood_splatter.tscn", target)
 	Effect.set_scale(effect, 2)

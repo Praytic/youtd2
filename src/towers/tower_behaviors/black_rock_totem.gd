@@ -17,16 +17,16 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	fighter_totem_bt = BuffType.new("fighter_totem_bt", 5, 0.2, true, self)
 	var figher_totem_bt_mod: Modifier = Modifier.new()
-	figher_totem_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
-	figher_totem_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.05, 0.002)
-	figher_totem_bt_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
+	figher_totem_bt_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.10, 0.004)
+	figher_totem_bt_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_CHANCE, 0.05, 0.002)
+	figher_totem_bt_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, 0.50, 0.020)
 	fighter_totem_bt.set_buff_modifier(figher_totem_bt_mod)
 	fighter_totem_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	fighter_totem_bt.set_buff_tooltip(tr("VAVG"))
 
 	shamanic_totem_bt = BuffType.new("shamanic_totem_bt", 5, 0.2, true, self)
 	var shamanic_totem_bt_mod: Modifier = Modifier.new()
-	shamanic_totem_bt_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
+	shamanic_totem_bt_mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.004)
 	shamanic_totem_bt.set_buff_modifier(shamanic_totem_bt_mod)
 	shamanic_totem_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
 	shamanic_totem_bt.set_buff_tooltip(tr("QK8O"))
@@ -98,4 +98,4 @@ func demonic_fire_bt_on_damaged(event: Event):
 	var mod_value: float = buff.user_real
 
 	if creep.calc_chance(0.2):
-		creep.modify_property(Modification.Type.MOD_DMG_FROM_FIRE, mod_value)
+		creep.modify_property(ModificationType.enm.MOD_DMG_FROM_FIRE, mod_value)

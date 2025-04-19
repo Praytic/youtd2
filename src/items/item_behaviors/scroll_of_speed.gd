@@ -13,7 +13,7 @@ func item_init():
 	speed_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	speed_bt.set_buff_tooltip(tr("P7Z5"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.1, 0)
 	speed_bt.set_buff_modifier(mod)
 
 

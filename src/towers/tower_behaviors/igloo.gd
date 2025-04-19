@@ -29,7 +29,7 @@ func boekie_igloo_end(event: Event):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.cold_slow, -COLD_SLOW_ADD)
+	modifier.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.cold_slow, -COLD_SLOW_ADD)
 	extreme_cold_bt = BuffType.new("extreme_cold_bt", COLD_SLOW_DURATION, 0, false, self)
 	extreme_cold_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	extreme_cold_bt.set_buff_modifier(modifier)

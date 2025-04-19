@@ -29,7 +29,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	glaive_bt = BuffType.new("glaive_bt", 99, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACK_SPEED, SHADOW_GLAIVE_ATTACK_SPEED_ADD)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACK_SPEED, SHADOW_GLAIVE_ATTACK_SPEED_ADD)
 	glaive_bt.set_buff_modifier(mod)
 	glaive_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")
 	glaive_bt.set_buff_tooltip(tr("IWIB"))

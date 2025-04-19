@@ -31,7 +31,7 @@ func melt_bt_on_create(event: Event):
 	var current_melt_damage: float = _stats.melt_damage + _stats.melt_damage_add * lvl
 	buff.user_real = current_mod_armor
 	buff.user_real2 = current_melt_damage
-	target.modify_property(Modification.Type.MOD_ARMOR, -current_mod_armor)
+	target.modify_property(ModificationType.enm.MOD_ARMOR, -current_mod_armor)
 
 
 func melt_bt_on_periodic(event: Event):
@@ -48,12 +48,12 @@ func melt_bt_on_periodic(event: Event):
 	buff.user_real2 = current_melt_damage
 
 	caster.do_spell_damage(target, current_melt_damage, caster.calc_spell_crit_no_bonus())
-	target.modify_property(Modification.Type.MOD_ARMOR, old_mod_armor)
-	target.modify_property(Modification.Type.MOD_ARMOR, -current_mod_armor)
+	target.modify_property(ModificationType.enm.MOD_ARMOR, old_mod_armor)
+	target.modify_property(ModificationType.enm.MOD_ARMOR, -current_mod_armor)
 
 
 func melt_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var current_mod_armor: float = buff.user_real
-	target.modify_property(Modification.Type.MOD_ARMOR, current_mod_armor)
+	target.modify_property(ModificationType.enm.MOD_ARMOR, current_mod_armor)

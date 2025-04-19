@@ -12,7 +12,7 @@ func _init(parent: Node):
 	unlucky_active = BuffType.new("unlucky_active", 8.0, 0, false, self
 		)
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.0, -0.001)
+	modifier.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, 0.0, -0.001)
 	unlucky_active.set_buff_modifier(modifier)
 	unlucky_active.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
 	unlucky_active.set_buff_icon_color(Color.YELLOW)

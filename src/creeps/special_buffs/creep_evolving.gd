@@ -31,7 +31,7 @@ func on_damaged(event: Event):
 	var proc_count: int = buff.user_int
 
 	if damage_ratio > 0.05:
-		var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
+		var mod_type: ModificationType.enm = Element.convert_to_dmg_from_element_mod(element)
 
 		var mod_value: float = -0.4
 		for i in range(0, proc_count):

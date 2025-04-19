@@ -25,16 +25,16 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	might_bt = BuffType.new("might_bt", -1, 0, true, self)
 	var might_bt_mod: Modifier = Modifier.new()
-	might_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
-	might_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.02)
+	might_bt_mod.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.0, 0.02)
+	might_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, -0.02)
 	might_bt.set_buff_modifier(might_bt_mod)
 	might_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
 	might_bt.set_buff_tooltip(tr("MUTT"))
 
 	swiftness_bt = BuffType.new("swiftness_bt", -1, 0, true, self)
 	var swiftness_bt_mod: Modifier = Modifier.new()
-	swiftness_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
-	swiftness_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
+	swiftness_bt_mod.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
+	swiftness_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, 0.02)
 	swiftness_bt.set_buff_modifier(swiftness_bt_mod)
 	swiftness_bt.set_buff_icon("res://resources/icons/generic_icons/sprint.tres")
 	swiftness_bt.set_buff_tooltip(tr("STJ0"))
@@ -50,8 +50,8 @@ func tower_init():
 
 	swift_strike_bt = BuffType.new("swift_strike_bt", 8, 0.1, false, self)
 	var swift_strike_bt_mod: Modifier = Modifier.new()
-	swift_strike_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.004)
-	swift_strike_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
+	swift_strike_bt_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.2, -0.004)
+	swift_strike_bt_mod.add_modification(ModificationType.enm.MOD_DMG_FROM_NATURE, 0.15, 0.002)
 	swift_strike_bt.set_buff_modifier(swift_strike_bt_mod)
 	swift_strike_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	swift_strike_bt.set_buff_tooltip(tr("AZW0"))
@@ -100,15 +100,15 @@ func on_damage(event: Event):
 		projectile_scale = 1.6
 
 		if evolve_count < 500:
-			tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.002)
-			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.001)
+			tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.002)
+			tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, 0.001)
 			evolve_count += 1
 	elif speed_buff != null && speed_buff.get_level() >= 25:
 		pt = speed_pt
 
 		if evolve_count < 500:
-			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.002)
-			tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.001)
+			tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, 0.002)
+			tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.001)
 			evolve_count += 1
 
 	if pt != null:

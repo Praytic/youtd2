@@ -14,7 +14,7 @@ func item_init():
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
 	aura_bt.set_buff_tooltip(tr("2UJE"))
 	var mod: Modifier = Modifier.new() 
-	mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
+	mod.add_modification(ModificationType.enm.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
 	aura_bt.set_buff_modifier(mod)
 
 

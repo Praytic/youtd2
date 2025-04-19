@@ -57,7 +57,7 @@ func on_attack(event: Event):
 
 
 func on_kill(_event: Event):
-	tower.modify_property(Modification.Type.MOD_MANA, 1)
+	tower.modify_property(ModificationType.enm.MOD_MANA, 1)
 
 
 func on_spell_targeted(_event: Event):
@@ -69,7 +69,7 @@ func on_create(preceding_tower: Tower):
 		return
 
 	var preceding_kills: int = preceding_tower.get_kills()
-	tower.modify_property(Modification.Type.MOD_MANA, preceding_kills)
+	tower.modify_property(ModificationType.enm.MOD_MANA, preceding_kills)
 
 
 func aura_bt_on_create(event: Event):

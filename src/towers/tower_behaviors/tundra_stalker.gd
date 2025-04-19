@@ -20,7 +20,7 @@ func on_autocast(event: Event):
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005
 		tower.user_int += 1
-		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
+		tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, 0.005)
 
 		var frenzy_buff: Buff = tower.get_buff_of_type(frenzy_bt)
 		var stack_count: int = tower.user_int
@@ -43,7 +43,7 @@ func drol_fade_tundraStalker(event: Event):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.2, -0.05)
+	m.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.2, -0.05)
 
 	ice_claw_bt = BuffType.new("ice_claw_bt", 5, 0.2, false, self)
 	ice_claw_bt.set_buff_modifier(m)
@@ -67,7 +67,7 @@ func on_create(preceding: Tower):
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real = preceding.user_real
 		tower.user_int = preceding.user_int
-		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, preceding.user_real)
+		tower.modify_property(ModificationType.enm.MOD_ATTACKSPEED, preceding.user_real)
 	else:
 		tower.user_real = 0
 		tower.user_int = 0

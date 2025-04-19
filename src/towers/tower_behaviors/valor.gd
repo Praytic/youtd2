@@ -30,7 +30,7 @@ func tower_init():
 
 	valor_light_bt = BuffType.new("valor_light_bt", 5.0, 0, false, self)
 	var cedi_valor_light_mod: Modifier = Modifier.new()
-	cedi_valor_light_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
+	cedi_valor_light_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, 0.0, -0.001)
 	valor_light_bt.set_buff_modifier(cedi_valor_light_mod)
 	valor_light_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	valor_light_bt.add_periodic_event(valor_light_bt_periodic, 1.0)
@@ -74,8 +74,8 @@ func on_unit_in_range(event: Event):
 				amount += min(next.get_gold_cost() / 2500.0, 1.0) * (0.01 + 0.0008 * tower.get_level())
 
 #		Modify the damage they take.
-		creep.modify_property(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, amount)
-		creep.modify_property(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, amount)
+		creep.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, amount)
+		creep.modify_property(ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED, amount)
 	else:
 #		No, check if it already has the last line buff
 		var lastline_real_buff: Buff = creep.get_buff_of_type(lastline_real_bt)
@@ -103,8 +103,8 @@ func wewillnotfall_bt_adjust_effect(buff: Buff):
 	var delta: float = new_bonus - current_bonus
 
 	if delta != 0:
-		buffed_unit.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, delta)
-		buffed_unit.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, delta)
+		buffed_unit.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, delta)
+		buffed_unit.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, delta)
 		buff.user_real = new_bonus
 
 
@@ -112,8 +112,8 @@ func wewillnotfall_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var current_bonus: float = buff.user_real
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -current_bonus)
-	buffed_unit.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -current_bonus)
+	buffed_unit.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, -current_bonus)
+	buffed_unit.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -current_bonus)
 
 
 func valor_light_bt_periodic(event: Event):

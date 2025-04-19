@@ -29,7 +29,7 @@ func tower_init():
 	
 	hammer_fall_bt = BuffType.new("hammer_fall_bt", 6, 0, false, self)
 	var hammer_fall_bt_mod: Modifier = Modifier.new()
-	hammer_fall_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
+	hammer_fall_bt_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -0.1, 0.0)
 	hammer_fall_bt.set_buff_modifier(hammer_fall_bt_mod)
 	hammer_fall_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	hammer_fall_bt.set_buff_tooltip(tr("JNYZ"))

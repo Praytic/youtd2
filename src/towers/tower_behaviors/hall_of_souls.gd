@@ -50,7 +50,7 @@ func on_create(preceding: Tower):
 	if preceding != null && preceding.get_family() == tower.get_family():
 		var soul_bonus: float = preceding.user_real3
 		tower.user_real3 = soul_bonus
-		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_bonus)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD, soul_bonus)
 	else:
 		tower.user_real3 = 0.0
 
@@ -93,6 +93,6 @@ func apply_soul_bonus(target: Unit):
 	var soul_damage: float = stat_soul_damage + stat_soul_damage_add * target.get_level()
 	var soul_experience: float = stat_soul_experience
 
-	target.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_damage)
+	target.modify_property(ModificationType.enm.MOD_DAMAGE_ADD, soul_damage)
 	target.add_exp(soul_experience)
 	target.user_real3 += soul_damage

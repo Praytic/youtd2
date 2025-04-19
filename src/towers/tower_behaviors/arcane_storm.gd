@@ -36,7 +36,7 @@ func tower_init():
 	manastorm_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
 	manastorm_bt.set_buff_tooltip(tr("ME8L"))
 	var manastorm_bt_mod: Modifier = Modifier.new()
-	manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
+	manastorm_bt_mod.add_modification(ModificationType.enm.MOD_MULTICRIT_COUNT, 3, 0)
 	manastorm_bt.set_buff_modifier(manastorm_bt_mod)
 
 	surge_st = SpellType.new(SpellType.Name.CHAIN_LIGHTNING, 1.0, self)

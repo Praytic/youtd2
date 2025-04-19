@@ -23,7 +23,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
+	mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	aura_bt.set_buff_tooltip(tr("DG3B"))

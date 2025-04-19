@@ -31,7 +31,7 @@ func item_init():
 	followup_bt.set_buff_tooltip(tr("F6D7"))
 	followup_bt.add_event_on_attack(followup_bt_on_attack)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 3.0, 0.04)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 3.0, 0.04)
 	followup_bt.set_buff_modifier(mod)
 
 

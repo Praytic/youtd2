@@ -12,7 +12,7 @@ func _init(parent: Node):
 
 	slow_aura_effect = BuffType.create_aura_effect_type("creep_slow_aura_effect", false, self)
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, -2.0, 0.0)
+	modifier.add_modification(ModificationType.enm.MOD_MANA_REGEN_PERC, -2.0, 0.0)
 	slow_aura_effect.set_buff_modifier(modifier)
 	slow_aura_effect.set_buff_tooltip(tr("RTAD"))
 

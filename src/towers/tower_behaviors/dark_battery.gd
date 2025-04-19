@@ -50,8 +50,8 @@ func hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
-	modifier.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
+	modifier.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
+	modifier.add_modification(ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED, _stats.mod_attack_damage, _stats.mod_attack_damage_add)
 
 	corruption_bt = BuffType.new("corruption_bt", 9, 0.3, false, self)
 	corruption_bt.set_buff_icon("res://resources/icons/generic_icons/poison_gas.tres")

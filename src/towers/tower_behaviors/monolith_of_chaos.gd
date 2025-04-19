@@ -11,7 +11,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	chaos_bt = BuffType.new("chaos_bt", 3.0, 0.1, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
+	mod.add_modification(ModificationType.enm.MOD_ARMOR_PERC, -1.0, 0.50)
 	chaos_bt.set_buff_modifier(mod)
 	chaos_bt.set_buff_icon("res://resources/icons/generic_icons/mine_explosion.tres")
 	chaos_bt.set_buff_tooltip(tr("HEC8"))

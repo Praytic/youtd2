@@ -47,14 +47,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	bloodspill_boost_bt = BuffType.new("bloodspill_boost_bt", BUFF_DURATION, 0, true, self)
 	var dave_blood_target: Modifier = Modifier.new()
-	dave_blood_target.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
+	dave_blood_target.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
 	bloodspill_boost_bt.set_buff_modifier(dave_blood_target)
 	bloodspill_boost_bt.set_buff_icon("res://resources/icons/generic_icons/sprint.tres")
 	bloodspill_boost_bt.set_buff_tooltip(tr("YX3K"))
 
 	bloodspill_fatigue_bt = BuffType.new("bloodspill_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_blood_altar: Modifier = Modifier.new()
-	dave_blood_altar.add_modification(Modification.Type.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
+	dave_blood_altar.add_modification(ModificationType.enm.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
 	bloodspill_fatigue_bt.set_buff_modifier(dave_blood_altar)
 	bloodspill_fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/bat_mask.tres")
 	bloodspill_fatigue_bt.set_buff_tooltip(tr("OOCC"))
@@ -66,7 +66,7 @@ func tower_init():
 
 	sacrifice_fatigue_bt = BuffType.new("sacrifice_fatigue_bt", BUFF_DURATION, 0, false, self)
 	var dave_sacrifice_altar: Modifier = Modifier.new()
-	dave_sacrifice_altar.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
+	dave_sacrifice_altar.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
 	sacrifice_fatigue_bt.set_buff_modifier(dave_sacrifice_altar)
 	sacrifice_fatigue_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	sacrifice_fatigue_bt.set_buff_tooltip(tr("LW5F"))
@@ -123,7 +123,7 @@ func on_autocast(event: Event):
 		var sacrifice_dmg_ratio: float = _stats.sacrifice_dmg_ratio + SACRIFICE_DMG_RATIO_ADD * tower.get_level()
 		var mod_dps_add_value: float = tower.get_current_attack_damage_with_bonus() * sacrifice_dmg_ratio
 		applied_buff.user_real = mod_dps_add_value
-		target.modify_property(Modification.Type.MOD_DPS_ADD, mod_dps_add_value)
+		target.modify_property(ModificationType.enm.MOD_DPS_ADD, mod_dps_add_value)
 
 	sacrifice_fatigue_bt.apply(tower, tower, tower.get_level())
 
@@ -132,4 +132,4 @@ func dave_sacrifice_target_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var mod_dps_add_value: float = buff.user_real
-	buffed_tower.modify_property(Modification.Type.MOD_DPS_ADD, -mod_dps_add_value)
+	buffed_tower.modify_property(ModificationType.enm.MOD_DPS_ADD, -mod_dps_add_value)

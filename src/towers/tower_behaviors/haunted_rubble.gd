@@ -31,7 +31,7 @@ func load_triggers(triggers_buff_type: BuffType):
 func tower_init():
 	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, 0, false, self)
 	var slow: Modifier = Modifier.new()
-	slow.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_value, 0.0)
+	slow.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.slow_value, 0.0)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_bt.set_buff_modifier(slow)
 	

@@ -24,8 +24,8 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	liquid_fire_bt = BuffType.new("liquid_fire_bt", 5, 0.1, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.004)
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_FIRE, 0.10, 0.004)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.25, 0.004)
+	mod.add_modification(ModificationType.enm.MOD_DMG_FROM_FIRE, 0.10, 0.004)
 	liquid_fire_bt.set_buff_modifier(mod)
 	liquid_fire_bt.add_periodic_event(liquid_fire_periodic, 1.0)
 	liquid_fire_bt.set_buff_icon("res://resources/icons/generic_icons/flame.tres")

@@ -30,8 +30,8 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	crusader_bt = BuffType.new("crusader_bt", FOR_THE_GOD_DURATION, FOR_THE_GOD_DURATION_ADD, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
-	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
+	mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
+	mod.add_modification(ModificationType.enm.MOD_EXP_RECEIVED, _stats.for_the_god_effect, _stats.for_the_god_effect_add)
 	crusader_bt.set_buff_modifier(mod)
 	crusader_bt.set_buff_icon("res://resources/icons/generic_icons/angel_wings.tres")
 	crusader_bt.set_buff_tooltip(tr("WED6"))

@@ -51,8 +51,8 @@ func missile_pt_on_hit(_p: Projectile, creep: Unit):
 
 func tower_init():
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
-	modifier.add_modification(Modification.Type.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
+	modifier.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, _stats.mod_spell_damage, _stats.mod_spell_damage_add)
+	modifier.add_modification(ModificationType.enm.MOD_DEBUFF_DURATION, _stats.mod_debuff_duration, _stats.mod_debuff_duration_add)
 
 	faerie_bt = BuffType.new("faerie_bt", 9, 0.3, false, self)
 	faerie_bt.set_buff_icon("res://resources/icons/generic_icons/pisces.tres")

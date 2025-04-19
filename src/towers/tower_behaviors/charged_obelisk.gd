@@ -14,7 +14,7 @@ func tower_init():
 
 	charge_bt = BuffType.new("charge_bt", 10, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.001)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.25, 0.001)
 	charge_bt.set_buff_modifier(mod)
 	charge_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	charge_bt.set_buff_tooltip(tr("NJH8"))

@@ -12,14 +12,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var library_aura_mod: Modifier = Modifier.new()
-	library_aura_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.30, 0.01)
+	library_aura_mod.add_modification(ModificationType.enm.MOD_EXP_GRANTED, 0.30, 0.01)
 	aura_bt.set_buff_modifier(library_aura_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
 	aura_bt.set_buff_tooltip(tr("OTAZ"))
 
 	teachings_bt = BuffType.new("teachings_bt", 10, 0.2, true, self)
 	var library_divine_teachings_mod: Modifier = Modifier.new()
-	library_divine_teachings_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 1.0, 0.02)
+	library_divine_teachings_mod.add_modification(ModificationType.enm.MOD_EXP_RECEIVED, 1.0, 0.02)
 	teachings_bt.set_buff_modifier(library_divine_teachings_mod)
 	teachings_bt.set_buff_icon("res://resources/icons/generic_icons/spell_book.tres")
 	teachings_bt.set_buff_tooltip(tr("TL4V"))

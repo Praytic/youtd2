@@ -17,6 +17,6 @@ func _init():
 
 func _get_tower_modifier() -> Modifier:
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.0)
 
 	return mod

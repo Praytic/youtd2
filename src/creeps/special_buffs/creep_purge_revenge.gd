@@ -11,7 +11,7 @@ func _init(parent: Node):
 
 	slow_attack = BuffType.new("creep_slow_attack", 4.0, 0.0, false, self)
 	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -1.5, 0.0)
+	modifier.add_modification(ModificationType.enm.MOD_ATTACKSPEED, -1.5, 0.0)
 	slow_attack.set_buff_modifier(modifier)
 	slow_attack.set_buff_icon("res://resources/icons/generic_icons/animal_skull.tres")
 	slow_attack.set_buff_icon_color(Color.DARK_RED)

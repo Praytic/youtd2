@@ -21,8 +21,8 @@ func load_triggers(triggers_buff_type: BuffType):
 func tower_init():
 	var iron_mod: Modifier = Modifier.new()
 	phazed_bt = BuffType.new("phazed_bt", 0, 0, false, self)
-	iron_mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
-	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
+	iron_mod.add_modification(ModificationType.enm.MOD_ITEM_QUALITY_ON_DEATH, 0.0, 0.0001)
+	iron_mod.add_modification(ModificationType.enm.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	phazed_bt.set_buff_modifier(iron_mod)
 	phazed_bt.set_buff_icon("res://resources/icons/generic_icons/amber_mosquito.tres")
 	phazed_bt.set_buff_tooltip(tr("TILM"))

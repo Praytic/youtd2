@@ -52,7 +52,7 @@ func shard_pt_on_collide(p: Projectile, target: Unit):
 
 	caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 	Effect.create_simple_at_unit("res://src/effects/frost_bolt_missile.tscn", target)
-	target.modify_property(Modification.Type.MOD_DMG_FROM_ICE, dmg_from_ice_add)
+	target.modify_property(ModificationType.enm.MOD_DMG_FROM_ICE, dmg_from_ice_add)
 
 	if buff == null:
 		buff = liquid_ice_bt.apply(caster, target, 1)

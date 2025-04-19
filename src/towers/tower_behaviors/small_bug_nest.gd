@@ -17,7 +17,7 @@ func load_triggers(triggers: BuffType):
 func on_kill(_event: Event):
 	CombatLog.log_ability(tower, null, "Create Bug #%d" % (tower.user_int + 1))
 
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE, max(_stats.bug_dmg - tower.user_int / _stats.production_for_decrease, 1))
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE, max(_stats.bug_dmg - tower.user_int / _stats.production_for_decrease, 1))
 	tower.user_int = tower.user_int + 1
 
 
@@ -39,6 +39,6 @@ func on_create(preceding_tower: Tower):
 
 		N = mults * _stats.production_for_decrease
 		N = int((_stats.bug_dmg + 0.5 - mults / 2.0) * N) + (tower.user_int - N) * (_stats.bug_dmg - mults)
-		tower.modify_property(Modification.Type.MOD_DAMAGE_BASE, N)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE, N)
 	else:
 		tower.user_int = 0

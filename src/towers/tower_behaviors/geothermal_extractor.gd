@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
-	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.damage_increase, _stats.damage_increase_add)
+	m.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, _stats.damage_increase, _stats.damage_increase_add)
 	aura_bt.set_buff_modifier(m)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/angel_outfit.tres")
 	aura_bt.set_buff_tooltip(tr("LQM2"))

@@ -13,7 +13,7 @@ func item_init():
     power_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
     power_bt.set_buff_tooltip(tr("F9SA"))
     var mod: Modifier = Modifier.new()
-    mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.2)
+    mod.add_modification(ModificationType.enm.MOD_ARMOR, 0.0, -0.2)
     power_bt.set_buff_modifier(mod)
 
 

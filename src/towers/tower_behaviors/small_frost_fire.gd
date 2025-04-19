@@ -21,7 +21,7 @@ func get_tier_stats() -> Dictionary:
 	
 func tower_init():
 	var slow_bt_mod: Modifier = Modifier.new()
-	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.slow_value, -_stats.slow_value_add)
+	slow_bt_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -_stats.slow_value, -_stats.slow_value_add)
 	slow_bt = BuffType.new("slow_bt", SLOW_DURATION, _stats.slow_duration_add, false, self)
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_modifier(slow_bt_mod)

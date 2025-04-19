@@ -47,7 +47,7 @@ func tower_init():
 	ignite_bt.set_buff_tooltip(tr("M9RF"))
 	ignite_bt.add_periodic_event(ignite_bt_periodic, 1)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -_stats.mod_regen, -_stats.mod_regen)
+	mod.add_modification(ModificationType.enm.MOD_HP_REGEN_PERC, -_stats.mod_regen, -_stats.mod_regen)
 	ignite_bt.set_buff_modifier(mod)
 
 

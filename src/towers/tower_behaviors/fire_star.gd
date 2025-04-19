@@ -23,7 +23,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	ignite_bt = BuffType.new("ignite_bt", 2.5, 0, false, self)
 	var ignite_bt_mod: Modifier = Modifier.new()
-	ignite_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, -0.01)
+	ignite_bt_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.05, -0.01)
 	ignite_bt.set_buff_modifier(ignite_bt_mod)
 	ignite_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	ignite_bt.set_buff_tooltip(tr("YCEP"))

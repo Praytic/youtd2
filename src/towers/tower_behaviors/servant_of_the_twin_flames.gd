@@ -43,14 +43,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	attack_bt = BuffType.new("attack_bt", 7, 0, true, self)
 	var dave_physical_mod: Modifier = Modifier.new()
-	dave_physical_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
+	dave_physical_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	attack_bt.set_buff_modifier(dave_physical_mod)
 	attack_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	attack_bt.set_buff_tooltip(tr("GAL7"))
 
 	spell_bt = BuffType.new("spell_bt", 7, 0, true, self)
 	var dave_spell_mod: Modifier = Modifier.new()
-	dave_spell_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
+	dave_spell_mod.add_modification(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, 0.0, _stats.twin_disciplines_crit)
 	spell_bt.set_buff_modifier(dave_spell_mod)
 	spell_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
 	spell_bt.set_buff_tooltip(tr("VKU9"))

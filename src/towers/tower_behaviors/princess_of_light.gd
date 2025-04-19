@@ -33,7 +33,7 @@ func tower_init():
 
 	channel_bt = BuffType.new("channel_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
+	mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	channel_bt.set_buff_modifier(mod)
 	channel_bt.set_buff_icon("res://resources/icons/generic_icons/aquarius.tres")
 	channel_bt.set_buff_tooltip(tr("ETOI"))

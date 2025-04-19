@@ -19,7 +19,7 @@ const MOD_BOUNTY_GAIN_ADD: float = 0.006
 func tower_init():
 	golden_bt = BuffType.new("golden_bt", _stats.buff_duration, BUFF_DURATION_ADD, true, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, _stats.mod_bounty_gain, MOD_BOUNTY_GAIN_ADD)
+	mod.add_modification(ModificationType.enm.MOD_BOUNTY_RECEIVED, _stats.mod_bounty_gain, MOD_BOUNTY_GAIN_ADD)
 	golden_bt.set_buff_modifier(mod)
 	golden_bt.set_buff_icon("res://resources/icons/generic_icons/holy_grail.tres")
 	golden_bt.set_buff_tooltip(tr("W9ET"))

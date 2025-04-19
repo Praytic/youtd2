@@ -19,16 +19,16 @@ func on_create():
 
 
 func on_drop():
-	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, -item.user_real)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, -item.user_real)
 
 
 func on_pickup():
-	item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, item.user_real)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, item.user_real)
 
 
 func on_kill(_event: Event):
 	if item.user_real < 3:
-		item.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.005)
+		item.get_carrier().modify_property(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, 0.005)
 		item.user_real = item.user_real + 0.005
 
 

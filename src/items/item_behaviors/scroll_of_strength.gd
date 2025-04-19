@@ -13,7 +13,7 @@ func item_init():
 	strength_bt.set_buff_icon("res://resources/icons/generic_icons/biceps.tres")
 	strength_bt.set_buff_tooltip(tr("0I23"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
+	mod.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0.1, 0)
 	strength_bt.set_buff_modifier(mod)
 
 

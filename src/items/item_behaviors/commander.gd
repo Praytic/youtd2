@@ -13,7 +13,7 @@ func item_init():
 	attack_bt.set_buff_icon("res://resources/icons/generic_icons/hammer_drop.tres")
 	attack_bt.set_buff_tooltip(tr("W1NC"))
 	var mod: Modifier = Modifier.new() 
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.50, 0) 
 	attack_bt.set_buff_modifier(mod) 
 
 

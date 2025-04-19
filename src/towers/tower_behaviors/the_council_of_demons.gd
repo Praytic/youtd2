@@ -24,8 +24,8 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	darkness_bt = BuffType.new("darkness_bt", 5, 0, false, self)
 	var dave_council_darkness_mod: Modifier = Modifier.new()
-	dave_council_darkness_mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.4, -0.006)
-	dave_council_darkness_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, -0.95, 0.0)
+	dave_council_darkness_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.4, -0.006)
+	dave_council_darkness_mod.add_modification(ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED, -0.95, 0.0)
 	darkness_bt.set_buff_modifier(dave_council_darkness_mod)
 	darkness_bt.set_buff_icon("res://resources/icons/generic_icons/fire_dash.tres")
 	darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
@@ -35,7 +35,7 @@ func tower_init():
 
 	maledict_bt = BuffType.new("maledict_bt", 5, 0, false, self)
 	var dave_council_maledict_mod: Modifier = Modifier.new()
-	dave_council_maledict_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.006)
+	dave_council_maledict_mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.006)
 	maledict_bt.set_buff_modifier(dave_council_maledict_mod)
 	maledict_bt.set_buff_icon("res://resources/icons/generic_icons/fire_dash.tres")
 	maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
@@ -43,7 +43,7 @@ func tower_init():
 
 	demonic_mana_bt = BuffType.new("demonic_mana_bt", 3, 0, true, self)
 	var dave_council_mana_mod: Modifier = Modifier.new()
-	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
+	dave_council_mana_mod.add_modification(ModificationType.enm.MOD_MANA_REGEN_PERC, 1.0, 0.02)
 	demonic_mana_bt.set_buff_modifier(dave_council_mana_mod)
 	demonic_mana_bt.set_buff_icon("res://resources/icons/generic_icons/star_swirl.tres")
 	demonic_mana_bt.set_buff_tooltip(tr("LN06"))

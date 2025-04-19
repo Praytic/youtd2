@@ -34,9 +34,9 @@ func tower_init():
 	var n: Modifier = Modifier.new()
 	var o: Modifier = Modifier.new()
 
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.0001)
-	n.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, -0.0001)
-	o.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.0, -0.0001)
+	m.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, 0.0001)
+	n.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, -0.0001)
+	o.add_modification(ModificationType.enm.MOD_DEBUFF_DURATION, 0.0, -0.0001)
 
 	zeal_bt = BuffType.new("zeal_bt", 2.5, 0, true, self)
 	wound_bt = BuffType.new("wound_bt", 200, 0, false, self)

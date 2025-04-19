@@ -20,8 +20,8 @@ const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
 func tower_init():
 	bloodlust_bt = BuffType.new("bloodlust_bt", BLOODLUST_DURATION, BLOODLUST_DURATION_ADD, true, self)
 	var bloodlust_mod: Modifier = Modifier.new()
-	bloodlust_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.bloodlust_attack_speed, _stats.bloodlust_attack_speed_add)
-	bloodlust_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.bloodlust_crit_damage, _stats.bloodlust_crit_damage_add)
+	bloodlust_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, _stats.bloodlust_attack_speed, _stats.bloodlust_attack_speed_add)
+	bloodlust_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, _stats.bloodlust_crit_damage, _stats.bloodlust_crit_damage_add)
 	bloodlust_bt.set_buff_icon("res://resources/icons/generic_icons/moebius_trefoil.tres")
 	bloodlust_bt.set_buff_modifier(bloodlust_mod)
 	bloodlust_bt.set_buff_tooltip(tr("NSMT"))

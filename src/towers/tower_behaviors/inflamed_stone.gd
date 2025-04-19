@@ -35,19 +35,19 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	damage_bt = BuffType.new("damage_bt", -1, 0, true, self)
 	var spell_flame_damage_mod: Modifier = Modifier.new()
-	spell_flame_damage_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.01)
+	spell_flame_damage_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.0, 0.01)
 	damage_bt.set_buff_modifier(spell_flame_damage_mod)
 	damage_bt.set_hidden()
 
 	crit_chance_bt = BuffType.new("crit_chance_bt", -1, 0, true, self)
 	var spell_flame_crit_chance_mod: Modifier = Modifier.new()
-	spell_flame_crit_chance_mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.0, 0.01)
+	spell_flame_crit_chance_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_CHANCE, 0.0, 0.01)
 	crit_chance_bt.set_buff_modifier(spell_flame_crit_chance_mod)
 	crit_chance_bt.set_hidden()
 
 	crit_damage_bt = BuffType.new("spell_crit_damage_bt", -1, 0, true, self)
 	var spell_crit_damage_mod: Modifier = Modifier.new()
-	spell_crit_damage_mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.0, 0.01)
+	spell_crit_damage_mod.add_modification(ModificationType.enm.MOD_ATK_CRIT_DAMAGE, 0.0, 0.01)
 	crit_damage_bt.set_buff_modifier(spell_crit_damage_mod)
 	crit_damage_bt.set_hidden()
 

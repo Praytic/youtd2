@@ -51,7 +51,7 @@ func item_init():
 	ascended_bt.add_periodic_event(ascended_bt_periodic, 0.1)
 	ascended_bt.add_event_on_cleanup(ascended_bt_on_cleanup)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.2, 0.008)
+	mod.add_modification(ModificationType.enm.MOD_EXP_GRANTED, 0.2, 0.008)
 	ascended_bt.set_buff_modifier(mod)
 
 

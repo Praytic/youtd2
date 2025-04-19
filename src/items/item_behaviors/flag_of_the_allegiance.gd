@@ -11,5 +11,5 @@ func item_init():
 	motivation_bt.set_buff_icon("res://resources/icons/generic_icons/mighty_force.tres")
 	motivation_bt.set_buff_tooltip(tr("7NOD"))
 	var mod: Modifier = Modifier.new() 
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.001) 
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.05, 0.001) 
 	motivation_bt.set_buff_modifier(mod)

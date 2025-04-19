@@ -38,7 +38,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	frozen_bt = CbStun.new("frozen_bt", -1, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, 0.0, -0.001)
+	mod.add_modification(ModificationType.enm.MOD_HP_REGEN_PERC, 0.0, -0.001)
 	frozen_bt.set_buff_modifier(mod)
 	frozen_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
 	frozen_bt.set_buff_tooltip(tr("RVIN"))

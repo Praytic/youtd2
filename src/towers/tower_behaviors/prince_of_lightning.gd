@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, _stats.mod_dmg_from_storm, _stats.mod_dmg_from_storm_add)
+	mod.add_modification(ModificationType.enm.MOD_DMG_FROM_STORM, _stats.mod_dmg_from_storm, _stats.mod_dmg_from_storm_add)
 	aura_bt.set_buff_modifier(mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	aura_bt.set_buff_tooltip(tr("DELR"))

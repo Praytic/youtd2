@@ -28,15 +28,15 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	stim_bt = BuffType.new("stim_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_stim_mod: Modifier = Modifier.new()
-	boekie_stim_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, STIM_ATTACKSPEED, 0.0)
-	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
+	boekie_stim_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, STIM_ATTACKSPEED, 0.0)
+	boekie_stim_mod.add_modification(ModificationType.enm.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	stim_bt.set_buff_modifier(boekie_stim_mod)
 	stim_bt.set_buff_icon("res://resources/icons/generic_icons/meat.tres")
 	stim_bt.set_buff_tooltip(tr("SY0C"))
 
 	fragged_bt = BuffType.new("fragged_bt", -1, 0, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
-	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
+	boekie_grenade_mod.add_modification(ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	fragged_bt.set_buff_modifier(boekie_grenade_mod)
 	fragged_bt.set_buff_icon("res://resources/icons/generic_icons/ankh.tres")
 	fragged_bt.set_buff_tooltip(tr("SMHW"))

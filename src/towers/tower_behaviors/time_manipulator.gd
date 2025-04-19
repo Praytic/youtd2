@@ -25,10 +25,10 @@ func tower_init():
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var aura_bt_mod: Modifier = Modifier.new()
-	aura_bt_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.1, 0.016)
-	aura_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0.01)
-	aura_bt_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.05, 0.02)
-	aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
+	aura_bt_mod.add_modification(ModificationType.enm.MOD_EXP_RECEIVED, 0.1, 0.016)
+	aura_bt_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.1, 0.01)
+	aura_bt_mod.add_modification(ModificationType.enm.MOD_MANA_REGEN_PERC, 0.05, 0.02)
+	aura_bt_mod.add_modification(ModificationType.enm.MOD_BUFF_DURATION, 0.125, 0.015)
 	aura_bt.set_buff_modifier(aura_bt_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	aura_bt.set_buff_tooltip(tr("WG04"))
@@ -57,7 +57,7 @@ func periodic(_event: Event):
 	if tower.get_exp() >= 700:
 		tower.remove_exp_flat(50)
 		exp_exchanged += 50
-		tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.05)
+		tower.modify_property(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, 0.05)
 		Effect.create_simple_at_unit("res://src/effects/charm_target.tscn", tower, Unit.BodyPart.OVERHEAD)
 	else:
 		tower.add_exp(2)

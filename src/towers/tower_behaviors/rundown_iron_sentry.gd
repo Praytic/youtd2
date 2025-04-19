@@ -26,14 +26,14 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	alert_bt = BuffType.new("alert_bt", 0, 0, true, self)
 	var alert_mod: Modifier = Modifier.new()
-	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
+	alert_mod.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
 	alert_bt.set_buff_modifier(alert_mod)
 	alert_bt.set_buff_icon("res://resources/icons/generic_icons/barbute.tres")
 	alert_bt.set_buff_tooltip(tr("RILU"))
 
 	trespasser_bt = BuffType.new("trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
-	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
+	trespasser_mod.add_modification(ModificationType.enm.MOD_ARMOR, 0.0, -0.01)
 	trespasser_bt.set_buff_modifier(trespasser_mod)
 	trespasser_bt.set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	trespasser_bt.set_buff_tooltip(tr("G6KV"))
@@ -76,7 +76,7 @@ func on_unit_in_range(event: Event):
 		var trespasser_buff: Buff = trespasser_bt.apply(tower, creep, buff_level)
 		trespasser_buff.set_displayed_stacks(trespasser_buff.get_level())
 
-	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, mod_damage_value)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, mod_damage_value)
 
 	if size_is_big_enough_for_alert:
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), ALERT_RANGE)
@@ -93,4 +93,4 @@ func on_unit_in_range(event: Event):
 	await Utils.create_manual_timer(_stats.awareness_duration, self).timeout
 
 	if Utils.unit_is_valid(tower):
-		tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -mod_damage_value)
+		tower.modify_property(ModificationType.enm.MOD_DAMAGE_BASE_PERC, -mod_damage_value)

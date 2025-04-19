@@ -19,16 +19,16 @@ func on_create():
 
 
 func on_drop():
-	item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, -item.user_int)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_DPS_ADD, -item.user_int)
 
 
 func on_pickup():
-	item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, item.user_int)
+	item.get_carrier().modify_property(ModificationType.enm.MOD_DPS_ADD, item.user_int)
 
 
 func on_kill(_event: Event):
 	if item.user_int < 4000:
-		item.get_carrier().modify_property(Modification.Type.MOD_DPS_ADD, 10)
+		item.get_carrier().modify_property(ModificationType.enm.MOD_DPS_ADD, 10)
 		item.user_int = item.user_int + 10
 
 

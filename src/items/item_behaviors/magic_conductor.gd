@@ -12,7 +12,7 @@ func item_init():
 	conduction_bt.set_buff_icon("res://resources/icons/generic_icons/rolling_energy.tres")
 	conduction_bt.set_buff_tooltip(tr("0IQV"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.20, 0.005)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.20, 0.005)
 	conduction_bt.set_buff_modifier(mod)
 
 

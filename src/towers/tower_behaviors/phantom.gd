@@ -35,7 +35,7 @@ func phantom_attack(event: Event):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.attack_speed, 0.01)
+	m.add_modification(ModificationType.enm.MOD_ATTACKSPEED, _stats.attack_speed, 0.01)
 	
 	wind_shear_bt = BuffType.new("wind_shear_bt", 5.0, 0.1, true, self)
 	

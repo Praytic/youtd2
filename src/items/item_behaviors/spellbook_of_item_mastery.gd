@@ -36,43 +36,43 @@ func on_attack(event: Event):
 			target = event.get_target()
 
 		if choose == 1:
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 1)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, 1)
 			target.drop_item(tower, false)
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -1)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, -1)
 			var one_item_text: String = tr("NJ6M")
 			player.display_floating_text(one_item_text, tower, Color8(0, 0, 255))
 		elif choose == 2:
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.5)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, 0.5)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.5)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, -0.5)
 			var two_items_text: String = tr("VVB4")
 			player.display_floating_text(two_items_text, tower, Color8(0, 0, 255))
 		elif choose == 3:
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, -0.25)
 			var three_items_text: String = tr("MMDP")
 			player.display_floating_text(three_items_text, tower, Color8(0, 0, 255))
 		elif choose == 4:
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.25)
-			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.1)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, -0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL, 0.1)
 			item.user_real = item.user_real + 0.1
 			item.user_real2 = item.user_real2 + 0.1
 			var two_items_and_bonus_text: String = tr("MKEI")
 			player.display_floating_text(two_items_and_bonus_text, tower, Color8(0, 0, 255))
 		elif choose == 5:
-			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL, 0.25)
 			item.user_real2 = item.user_real2 + 0.25
 			var item_chance_text: String = tr("JQ7S")
 			player.display_floating_text(item_chance_text, tower, Color8(0, 255, 0))
 		elif choose == 6:
-			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
+			tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			item.user_real = item.user_real + 0.25
 			var item_quality_text: String = tr("M64K")
 			player.display_floating_text(item_quality_text, tower, Color8(0, 255, 0))
@@ -87,14 +87,14 @@ func on_create():
 
 func on_drop():
 	var tower: Tower = item.get_carrier()
-	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -item.user_real)
-	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -item.user_real2)
+	tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, -item.user_real)
+	tower.modify_property(ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL, -item.user_real2)
 
 
 func on_pickup():
 	var tower: Tower = item.get_carrier()
-	tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, item.user_real)
-	tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, item.user_real2)
+	tower.modify_property(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL, item.user_real)
+	tower.modify_property(ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL, item.user_real2)
 
 
 func on_tower_details() -> MultiboardValues:

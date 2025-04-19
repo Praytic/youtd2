@@ -13,7 +13,7 @@ func item_init():
 	earth_and_moon_bt.set_buff_icon("res://resources/icons/generic_icons/polar_star.tres")
 	earth_and_moon_bt.set_buff_tooltip(tr("O4EP"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.25, 0.01)
+	mod.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, 0.25, 0.01)
 	earth_and_moon_bt.set_buff_modifier(mod)
 
 

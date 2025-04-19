@@ -13,7 +13,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	curse_bt = BuffType.new("curse_bt", 5, 0, false, self)
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, 0.30, 0.008)
+	mod.add_modification(ModificationType.enm.MOD_DEBUFF_DURATION, 0.30, 0.008)
 	curse_bt.set_buff_modifier(mod)
 	curse_bt.set_buff_icon("res://resources/icons/generic_icons/ghost.tres")
 	curse_bt.set_buff_tooltip(tr("AFMY"))

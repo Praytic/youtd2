@@ -13,7 +13,7 @@ func item_init():
 	resonance_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	resonance_bt.set_buff_tooltip(tr("CRZY"))
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)
 	resonance_bt.set_buff_modifier(mod)
 
 

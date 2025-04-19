@@ -63,7 +63,7 @@ func parasite_bt_periodic(event: Event):
 	var mod_armor: float = -(0.02 + 0.0008 * level)
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-	target.modify_property(Modification.Type.MOD_ARMOR_PERC, mod_armor)
+	target.modify_property(ModificationType.enm.MOD_ARMOR_PERC, mod_armor)
 
 
 func parasite_bt_on_death(event: Event):
@@ -73,7 +73,7 @@ func parasite_bt_on_death(event: Event):
 
 	Effect.create_simple("res://src/effects/crypt_fiend_eggsack.tscn", Vector2(creep.get_x(), creep.get_y()))
 
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0075)
+	tower.modify_property(ModificationType.enm.MOD_DAMAGE_ADD_PERC, 0.0075)
 	tower.user_real += 0.0075
 
 	var new_host: Unit = it.next()

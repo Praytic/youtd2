@@ -13,7 +13,7 @@ func item_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/spider_web.tres") 
 	slow_bt.set_buff_tooltip(tr("Y2QA"))
 	var mod: Modifier = Modifier.new() 
-	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
+	mod.add_modification(ModificationType.enm.MOD_MOVESPEED, -0.05, 0) 
 	slow_bt.set_buff_modifier(mod) 
 
 

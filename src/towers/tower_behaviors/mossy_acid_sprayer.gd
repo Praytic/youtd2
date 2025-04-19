@@ -26,7 +26,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, -_stats.armor_base, -_stats.armor_add)
+	m.add_modification(ModificationType.enm.MOD_ARMOR, -_stats.armor_base, -_stats.armor_add)
 	acid_bt = BuffType.new("acid_bt", DEBUFF_DURATION, DEBUFF_DURATION_ADD, false, self)
 	acid_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	acid_bt.set_buff_modifier(m)

@@ -18,14 +18,14 @@ func tower_init():
 
 	aura_bt = BuffType.create_aura_effect_type("aura_bt", true, self)
 	var cedi_tidewater_aura_mod: Modifier = Modifier.new()
-	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.1, 0.004)
+	cedi_tidewater_aura_mod.add_modification(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, 0.1, 0.004)
 	aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
 	aura_bt.set_buff_icon("res://resources/icons/generic_icons/rss.tres")
 	aura_bt.set_buff_tooltip(tr("WPJN"))
 
 	splash_bt = BuffType.new("splash_bt", 6.0, 0, false, self)
 	var cedi_tidewater_splash_mod: Modifier = Modifier.new()
-	cedi_tidewater_splash_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
+	cedi_tidewater_splash_mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
 	splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
 	splash_bt.set_buff_icon("res://resources/icons/generic_icons/atomic_slashes.tres")
 	splash_bt.set_buff_tooltip(tr("ZD87"))

@@ -17,14 +17,14 @@ func item_init():
 	slow_bt.set_buff_icon("res://resources/icons/generic_icons/foot_trip.tres")
 	slow_bt.set_buff_tooltip(tr("KRA1"))
 	var slow_bt_mod: Modifier = Modifier.new()
-	slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
+	slow_bt_mod.add_modification(ModificationType.enm.MOD_MOVESPEED, 0, -0.001)
 	slow_bt.set_buff_modifier(slow_bt_mod)
 
 	armor_bt = BuffType.new("armor_bt", 0, 0, false, self)
 	armor_bt.set_buff_icon("res://resources/icons/generic_icons/open_wound.tres")
 	armor_bt.set_buff_tooltip(tr("PJYW"))
 	var armor_bt_mod: Modifier = Modifier.new()
-	armor_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
+	armor_bt_mod.add_modification(ModificationType.enm.MOD_ARMOR, 0, -1)
 	armor_bt.set_buff_modifier(armor_bt_mod)
 
 

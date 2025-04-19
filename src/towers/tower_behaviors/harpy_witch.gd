@@ -33,15 +33,15 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	sparks_bt = BuffType.new("sparks_bt", 0, 0, true, self)
 	var sparks_mod: Modifier = Modifier.new()
-	sparks_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
-	sparks_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.15, 0.002)
+	sparks_mod.add_modification(ModificationType.enm.MOD_SPELL_CRIT_CHANCE, 0.10, 0.001)
+	sparks_mod.add_modification(ModificationType.enm.MOD_SPELL_DAMAGE_DEALT, 0.15, 0.002)
 	sparks_bt.set_buff_modifier(sparks_mod)
 	sparks_bt.set_buff_icon("res://resources/icons/generic_icons/electric.tres")
 	sparks_bt.set_buff_tooltip(tr("Q903"))
 
 	twister_bt = BuffType.new("twister_bt", TWISTER_DURATION, 0, false, self)
 	var twister_mod: Modifier = Modifier.new()
-	twister_mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.10, 0.001)
+	twister_mod.add_modification(ModificationType.enm.MOD_DMG_FROM_STORM, 0.10, 0.001)
 	twister_bt.set_buff_modifier(twister_mod)
 	twister_bt.set_buff_icon("res://resources/icons/generic_icons/over_infinity.tres")
 	twister_bt.set_buff_tooltip(tr("GEGK"))

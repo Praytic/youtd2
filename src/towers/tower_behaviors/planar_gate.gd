@@ -144,7 +144,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 	if p.user_int3 == 1:
 		if !target.is_immune():
 			var dmg_mod: float = p.user_real2 * 0.01
-			target.modify_property(Modification.Type.MOD_DMG_FROM_ASTRAL, dmg_mod)
+			target.modify_property(ModificationType.enm.MOD_DMG_FROM_ASTRAL, dmg_mod)
 
 			if dmg_mod_buff != null:
 				dmg_mod_buff.user_real += dmg_mod
@@ -185,4 +185,4 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 func planar_shift_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
-	buffed_unit.modify_property(Modification.Type.MOD_DMG_FROM_ASTRAL, -buff.user_real)
+	buffed_unit.modify_property(ModificationType.enm.MOD_DMG_FROM_ASTRAL, -buff.user_real)

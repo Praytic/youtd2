@@ -3,8 +3,8 @@ extends Builder
 
 func _get_tower_modifier() -> Modifier:
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.10, 0.0)
-	mod.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.30, 0.02)
+	mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.10, 0.0)
+	mod.add_modification(ModificationType.enm.MOD_DMG_TO_AIR, 0.30, 0.02)
 
 	return mod
 
@@ -27,4 +27,4 @@ func _creep_bt_on_create(event: Event):
 	var creep_size: CreepSize.enm = creep.get_size()
 
 	if creep_size == CreepSize.enm.AIR:
-		creep.modify_property(Modification.Type.MOD_MOVESPEED_ABSOLUTE, -60)
+		creep.modify_property(ModificationType.enm.MOD_MOVESPEED_ABSOLUTE, -60)
