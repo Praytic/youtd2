@@ -15,6 +15,7 @@ _dmg_left_label = NodePath("CREEP_MINI_DETAILS_DMG/DmgLeftLabel")
 _dmg_right_label = NodePath("CREEP_MINI_DETAILS_DMG/DmgRightLabel")
 
 [node name="UpdateTimer" type="Timer" parent="."]
+autostart = true
 
 [node name="CREEP_MINI_DETAILS_STATS" type="HBoxContainer" parent="."]
 layout_mode = 2
