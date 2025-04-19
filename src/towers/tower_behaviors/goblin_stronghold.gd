@@ -47,7 +47,7 @@ func tower_init():
 	cedi_goblin_robot_mod.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0.0, 0.001)
 	robot_bt.set_buff_modifier(cedi_goblin_robot_mod)
 	robot_bt.set_buff_icon("res://resources/icons/generic_icons/cog.tres")
-	robot_bt.set_special_effect("res://src/effects/holy_bolt.tscn", 200, 5.0)
+	robot_bt.set_special_effect("res://src/effects/holy_bolt.tscn", 100, 1.0)
 	robot_bt.set_buff_tooltip(tr("ZENW"))
 
 	emitter_bt = BuffType.new("emitter_bt", 5, 0, true, self)
@@ -55,7 +55,7 @@ func tower_init():
 	cedi_goblin_emitter_mod.add_modification(ModificationType.enm.MOD_TRIGGER_CHANCES, 0.0, 0.001)
 	emitter_bt.set_buff_modifier(cedi_goblin_emitter_mod)
 	emitter_bt.set_buff_icon("res://resources/icons/generic_icons/azul_flake.tres")
-	emitter_bt.set_special_effect("res://src/effects/frost_bolt_missile.tscn", 200, 5.0)
+	emitter_bt.set_special_effect("res://src/effects/frost_bolt_missile.tscn", 100, 1.0)
 	emitter_bt.set_buff_tooltip(tr("KB5O"))
 
 
