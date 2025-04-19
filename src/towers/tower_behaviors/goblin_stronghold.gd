@@ -161,4 +161,4 @@ func emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 	emitter_bt.apply(tower, target, buff_level)
 
 	var trigger_chances_text: String = tr("R735") % (buff_level / 10) 
-	tower.get_player().display_small_trigger_chances_text(trigger_chances_text, target, Color8(100, 255, 100), 40)
+	tower.get_player().display_small_floating_text(trigger_chances_text, target, Color8(100, 255, 100), 40)
