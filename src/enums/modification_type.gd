@@ -448,8 +448,7 @@ static func get_display_string(type: ModificationType.enm) -> String:
 		ModificationType.enm.MOD_DMG_FROM_ICE: string = Utils.tr("MOD_DMG_FROM_ICE_TEXT")
 		ModificationType.enm.MOD_DMG_FROM_STORM: string = Utils.tr("MOD_DMG_FROM_STORM_TEXT")
 		ModificationType.enm.MOD_DMG_FROM_IRON: string = Utils.tr("MOD_DMG_FROM_IRON_TEXT")
-
-	push_error("Unhandled type: ", type)
+		_: push_error("Unhandled type: ", type)
 	
 	return string
 
