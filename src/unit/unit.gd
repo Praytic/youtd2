@@ -142,68 +142,68 @@ var _invisible_watcher_count: int = 0
 # MOD_SPELL_CRIT_CHANCE start at 0.01 because by default
 # crit chance is 1%.
 var _mod_value_map: Dictionary = {
-	Modification.Type.MOD_ATK_CRIT_CHANCE: Constants.INNATE_MOD_ATK_CRIT_CHANCE,
-	Modification.Type.MOD_ATK_CRIT_DAMAGE: Constants.INNATE_MOD_ATK_CRIT_DAMAGE,
-	Modification.Type.MOD_TRIGGER_CHANCES: 1.0,
-	Modification.Type.MOD_SPELL_DAMAGE_DEALT: 1.0,
-	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: 1.0,
-	Modification.Type.MOD_SPELL_CRIT_DAMAGE: Constants.INNATE_MOD_SPELL_CRIT_DAMAGE,
-	Modification.Type.MOD_SPELL_CRIT_CHANCE: Constants.INNATE_MOD_SPELL_CRIT_CHANCE,
-	Modification.Type.MOD_BOUNTY_GRANTED: 1.0,
-	Modification.Type.MOD_BOUNTY_RECEIVED: 1.0,
-	Modification.Type.MOD_EXP_GRANTED: 1.0,
-	Modification.Type.MOD_EXP_RECEIVED: 1.0,
-	Modification.Type.MOD_BUFF_DURATION: 1.0,
-	Modification.Type.MOD_DEBUFF_DURATION: 1.0,
-	Modification.Type.MOD_MOVESPEED: 1.0,
-	Modification.Type.MOD_MOVESPEED_ABSOLUTE: 0.0,
-	Modification.Type.MOD_MULTICRIT_COUNT: 1.0,
-	Modification.Type.MOD_ATK_DAMAGE_RECEIVED: 1.0,
-	Modification.Type.MOD_ATTACKSPEED: 1.0,
-	Modification.Type.MOD_DPS_ADD: 0.0,
+	ModificationType.enm.MOD_ATK_CRIT_CHANCE: Constants.INNATE_MOD_ATK_CRIT_CHANCE,
+	ModificationType.enm.MOD_ATK_CRIT_DAMAGE: Constants.INNATE_MOD_ATK_CRIT_DAMAGE,
+	ModificationType.enm.MOD_TRIGGER_CHANCES: 1.0,
+	ModificationType.enm.MOD_SPELL_DAMAGE_DEALT: 1.0,
+	ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED: 1.0,
+	ModificationType.enm.MOD_SPELL_CRIT_DAMAGE: Constants.INNATE_MOD_SPELL_CRIT_DAMAGE,
+	ModificationType.enm.MOD_SPELL_CRIT_CHANCE: Constants.INNATE_MOD_SPELL_CRIT_CHANCE,
+	ModificationType.enm.MOD_BOUNTY_GRANTED: 1.0,
+	ModificationType.enm.MOD_BOUNTY_RECEIVED: 1.0,
+	ModificationType.enm.MOD_EXP_GRANTED: 1.0,
+	ModificationType.enm.MOD_EXP_RECEIVED: 1.0,
+	ModificationType.enm.MOD_BUFF_DURATION: 1.0,
+	ModificationType.enm.MOD_DEBUFF_DURATION: 1.0,
+	ModificationType.enm.MOD_MOVESPEED: 1.0,
+	ModificationType.enm.MOD_MOVESPEED_ABSOLUTE: 0.0,
+	ModificationType.enm.MOD_MULTICRIT_COUNT: 1.0,
+	ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED: 1.0,
+	ModificationType.enm.MOD_ATTACKSPEED: 1.0,
+	ModificationType.enm.MOD_DPS_ADD: 0.0,
 
-	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 1.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 1.0,
-	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 1.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 1.0,
+	ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL: 1.0,
+	ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL: 1.0,
+	ModificationType.enm.MOD_ITEM_CHANCE_ON_DEATH: 1.0,
+	ModificationType.enm.MOD_ITEM_QUALITY_ON_DEATH: 1.0,
 
-	Modification.Type.MOD_ARMOR: 0.0,
-	Modification.Type.MOD_ARMOR_PERC: 1.0,
+	ModificationType.enm.MOD_ARMOR: 0.0,
+	ModificationType.enm.MOD_ARMOR_PERC: 1.0,
 
-	Modification.Type.MOD_DAMAGE_BASE: 0.0,
-	Modification.Type.MOD_DAMAGE_BASE_PERC: 1.0,
-	Modification.Type.MOD_DAMAGE_ADD: 0.0,
-	Modification.Type.MOD_DAMAGE_ADD_PERC: 1.0,
+	ModificationType.enm.MOD_DAMAGE_BASE: 0.0,
+	ModificationType.enm.MOD_DAMAGE_BASE_PERC: 1.0,
+	ModificationType.enm.MOD_DAMAGE_ADD: 0.0,
+	ModificationType.enm.MOD_DAMAGE_ADD_PERC: 1.0,
 
-	Modification.Type.MOD_MANA: 0.0,
-	Modification.Type.MOD_MANA_PERC: 1.0,
-	Modification.Type.MOD_MANA_REGEN: 0.0,
-	Modification.Type.MOD_MANA_REGEN_PERC: 1.0,
-	Modification.Type.MOD_HP: 0.0,
-	Modification.Type.MOD_HP_PERC: 1.0,
-	Modification.Type.MOD_HP_REGEN: 0.0,
-	Modification.Type.MOD_HP_REGEN_PERC: 1.0,
+	ModificationType.enm.MOD_MANA: 0.0,
+	ModificationType.enm.MOD_MANA_PERC: 1.0,
+	ModificationType.enm.MOD_MANA_REGEN: 0.0,
+	ModificationType.enm.MOD_MANA_REGEN_PERC: 1.0,
+	ModificationType.enm.MOD_HP: 0.0,
+	ModificationType.enm.MOD_HP_PERC: 1.0,
+	ModificationType.enm.MOD_HP_REGEN: 0.0,
+	ModificationType.enm.MOD_HP_REGEN_PERC: 1.0,
 
-	Modification.Type.MOD_DMG_TO_MASS: 1.0,
-	Modification.Type.MOD_DMG_TO_NORMAL: 1.0,
-	Modification.Type.MOD_DMG_TO_CHAMPION: 1.0,
-	Modification.Type.MOD_DMG_TO_BOSS: 1.0,
-	Modification.Type.MOD_DMG_TO_AIR: 1.0,
+	ModificationType.enm.MOD_DMG_TO_MASS: 1.0,
+	ModificationType.enm.MOD_DMG_TO_NORMAL: 1.0,
+	ModificationType.enm.MOD_DMG_TO_CHAMPION: 1.0,
+	ModificationType.enm.MOD_DMG_TO_BOSS: 1.0,
+	ModificationType.enm.MOD_DMG_TO_AIR: 1.0,
 
-	Modification.Type.MOD_DMG_TO_UNDEAD: 1.0,
-	Modification.Type.MOD_DMG_TO_MAGIC: 1.0,
-	Modification.Type.MOD_DMG_TO_NATURE: 1.0,
-	Modification.Type.MOD_DMG_TO_ORC: 1.0,
-	Modification.Type.MOD_DMG_TO_HUMANOID: 1.0,
-	Modification.Type.MOD_DMG_TO_CHALLENGE: 1.0,
+	ModificationType.enm.MOD_DMG_TO_UNDEAD: 1.0,
+	ModificationType.enm.MOD_DMG_TO_MAGIC: 1.0,
+	ModificationType.enm.MOD_DMG_TO_NATURE: 1.0,
+	ModificationType.enm.MOD_DMG_TO_ORC: 1.0,
+	ModificationType.enm.MOD_DMG_TO_HUMANOID: 1.0,
+	ModificationType.enm.MOD_DMG_TO_CHALLENGE: 1.0,
 
-	Modification.Type.MOD_DMG_FROM_ASTRAL: 1.0,
-	Modification.Type.MOD_DMG_FROM_DARKNESS: 1.0,
-	Modification.Type.MOD_DMG_FROM_NATURE: 1.0,
-	Modification.Type.MOD_DMG_FROM_FIRE: 1.0,
-	Modification.Type.MOD_DMG_FROM_ICE: 1.0,
-	Modification.Type.MOD_DMG_FROM_STORM: 1.0,
-	Modification.Type.MOD_DMG_FROM_IRON: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_ASTRAL: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_DARKNESS: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_NATURE: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_FIRE: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_ICE: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_STORM: 1.0,
+	ModificationType.enm.MOD_DMG_FROM_IRON: 1.0,
 }
 
 
@@ -212,7 +212,7 @@ var _mod_value_map: Dictionary = {
 #########################
 
 func _init():
-	for mod_type in Modification.Type.values():
+	for mod_type in ModificationType.enm.values():
 		if !_mod_value_map.has(mod_type):
 			push_error("No default value defined for modification type: ", mod_type)
 
@@ -598,7 +598,7 @@ func kill_instantly(target: Unit):
 
 
 # NOTE: unit.modifyProperty() in JASS
-func modify_property(mod_type: Modification.Type, value: float):
+func modify_property(mod_type: ModificationType.enm, value: float):
 	_modify_property_internal(mod_type, value, 1)
 
 
@@ -714,7 +714,7 @@ func _on_selection_area_mouse_exited():
 	EventBus.mouse_exited_unit.emit(self)
 
 
-func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
+func _modify_property_internal(mod_type: ModificationType.enm, value: float, direction: int):
 	var health_ratio: float = get_health_ratio()
 	var mana_ratio: float = get_mana_ratio()
 
@@ -1183,7 +1183,7 @@ func _get_experience_for_target(target: Unit) -> float:
 # Returns a prop value after applying diminishing returns to
 # it. Diminishing returns reduce effectiveness of mods as
 # the prop value gets further away from [0.6, 1.7] range.
-func _get_prop_with_diminishing_returns(type: Modification.Type) -> float:
+func _get_prop_with_diminishing_returns(type: ModificationType.enm) -> float:
 	var value: float = max(0, _mod_value_map[type])
 
 	if value > 1.7:
@@ -1409,100 +1409,100 @@ func get_visual_node() -> Node2D:
 
 # NOTE: "getProp_BuffDuration()" in JASS
 func get_prop_buff_duration() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BUFF_DURATION)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_BUFF_DURATION)
 
 # NOTE: "getProp_DebuffDuration()" in JASS
 func get_prop_debuff_duration() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_DEBUFF_DURATION)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_DEBUFF_DURATION)
 
 # NOTE: "getProp_AtkCritChance()" in JASS
 func get_prop_atk_crit_chance() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_ATK_CRIT_CHANCE])
 
 # NOTE: "getProp_AtkCritDamage()" in JASS
 func get_prop_atk_crit_damage() -> float:
-	return max(1.0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE])
+	return max(1.0, _mod_value_map[ModificationType.enm.MOD_ATK_CRIT_DAMAGE])
 
 # NOTE: "getProp_BountyReceived()" in JASS
 func get_prop_bounty_received() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BOUNTY_RECEIVED)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_BOUNTY_RECEIVED)
 
 # NOTE: "getProp_BountyGranted()" in JASS
 func get_prop_bounty_granted() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_BOUNTY_GRANTED])
 
 # NOTE: "getProp_ExpReceived()" in JASS
 func get_prop_exp_received() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_EXP_RECEIVED)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_EXP_RECEIVED)
 
 # NOTE: "getProp_ExpGranted()" in JASS
 func get_prop_exp_granted() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_EXP_GRANTED])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_EXP_GRANTED])
 
 func get_damage_to_air() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_AIR])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_AIR])
 
 func get_damage_to_boss() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_BOSS])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_BOSS])
 
 func get_damage_to_mass() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_MASS])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_MASS])
 
 func get_damage_to_normal() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_NORMAL])
 
 func get_damage_to_champion() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_CHAMPION])
 
 func get_damage_to_undead() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_UNDEAD])
 
 func get_damage_to_humanoid() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_HUMANOID])
 
 func get_damage_to_nature() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_NATURE])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_NATURE])
 
 func get_damage_to_magic() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_MAGIC])
 
 func get_damage_to_orc() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_ORC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_ORC])
 
 func get_item_drop_ratio() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_ITEM_CHANCE_ON_KILL)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL)
 
 func get_item_quality_ratio() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_ITEM_QUALITY_ON_KILL)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL)
 
 func get_item_drop_ratio_on_death() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_ITEM_CHANCE_ON_DEATH])
 
 func get_item_quality_ratio_on_death() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_ITEM_QUALITY_ON_DEATH])
 
 # NOTE: "getProp_TriggerChances()" in JASS
 func get_prop_trigger_chances() -> float:
-	return _get_prop_with_diminishing_returns(Modification.Type.MOD_TRIGGER_CHANCES)
+	return _get_prop_with_diminishing_returns(ModificationType.enm.MOD_TRIGGER_CHANCES)
 
 func get_prop_multicrit_count() -> int:
-	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
+	return int(max(0, _mod_value_map[ModificationType.enm.MOD_MULTICRIT_COUNT]))
 
 # NOTE: "getProp_SpellDmgDealt()" in JASS
 func get_prop_spell_damage_dealt() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_SPELL_DAMAGE_DEALT])
 
 # NOTE: "getProp_SpellDmgReceived()" in JASS
 func get_prop_spell_damage_received() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_SPELL_DAMAGE_RECEIVED])
 
 # NOTE: "getProp_SpellCritChance()" in JASS
 func get_spell_crit_chance() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_SPELL_CRIT_CHANCE])
 
 # NOTE: "getProp_SpellCritDamage()" in JASS
 func get_spell_crit_damage() -> float:
-	return max(1.0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE])
+	return max(1.0, _mod_value_map[ModificationType.enm.MOD_SPELL_CRIT_DAMAGE])
 
 
 # NOTE: [ORIGINAL_GAME_DEVIATION] in original game,
@@ -1521,7 +1521,7 @@ func get_spell_crit_damage() -> float:
 # 
 # NOTE: "getProp_Attackspeed()" in JASS
 func get_attack_speed_modifier() -> float:
-	var attack_speed_mod: float = _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
+	var attack_speed_mod: float = _mod_value_map[ModificationType.enm.MOD_ATTACKSPEED]
 	attack_speed_mod = clampf(attack_speed_mod, Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
 
 	return attack_speed_mod
@@ -1583,10 +1583,10 @@ func get_base_mana() -> float:
 	return _base_mana
 
 func get_base_mana_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_MANA]
+	return _mod_value_map[ModificationType.enm.MOD_MANA]
 
 func get_base_mana_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_MANA_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_MANA_PERC])
 
 # NOTE: "GetUnitState(unit, UNIT_STATE_MAX_MANA)" in JASS
 func get_overall_mana() -> float:
@@ -1608,11 +1608,11 @@ func get_base_mana_regen() -> float:
 
 # NOTE: "getProp_ManaRegBonus()" in JASS
 func get_base_mana_regen_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_MANA_REGEN]
+	return _mod_value_map[ModificationType.enm.MOD_MANA_REGEN]
 
 # NOTE: "getProp_ManaRegPercBonus()" in JASS
 func get_base_mana_regen_bonus_percent() -> float:
-	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
+	return _mod_value_map[ModificationType.enm.MOD_MANA_REGEN_PERC]
 
 # NOTE: regen values can be negative - this is on purpose.
 # If regen is negative, then unit will start losing mana.
@@ -1659,10 +1659,10 @@ func set_base_health(value: float):
 	_lowest_health = value
 
 func get_base_health_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_HP]
+	return _mod_value_map[ModificationType.enm.MOD_HP]
 
 func get_base_health_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_HP_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_HP_PERC])
 
 # NOTE: do not allow max hp to go below 1 because that
 # doesn't make sense and the combat system won't work
@@ -1683,10 +1683,10 @@ func get_base_health_regen() -> float:
 	return _base_health_regen
 
 func get_base_health_regen_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_HP_REGEN]
+	return _mod_value_map[ModificationType.enm.MOD_HP_REGEN]
 
 func get_base_health_regen_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_HP_REGEN_PERC])
 
 # NOTE: regen values can be negative - this is on purpose.
 # If regen is negative, then unit will start losing health.
@@ -1695,7 +1695,7 @@ func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 
 func get_prop_move_speed() -> float:
-	var base_value: float = _mod_value_map[Modification.Type.MOD_MOVESPEED]
+	var base_value: float = _mod_value_map[ModificationType.enm.MOD_MOVESPEED]
 	var value: float
 
 	if base_value > 1.0:
@@ -1707,13 +1707,13 @@ func get_prop_move_speed() -> float:
 
 
 func get_prop_move_speed_absolute() -> float:
-	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]
+	return _mod_value_map[ModificationType.enm.MOD_MOVESPEED_ABSOLUTE]
 
 func get_base_movespeed() -> float:
 	return Constants.DEFAULT_MOVE_SPEED
 
 func get_prop_atk_damage_received() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_ATK_DAMAGE_RECEIVED])
 
 func get_display_name() -> String:
 	return "Generic Unit"
@@ -1766,16 +1766,16 @@ func set_selected(selected_arg: bool):
 	selected_changed.emit()
 
 func get_base_damage_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE]
+	return _mod_value_map[ModificationType.enm.MOD_DAMAGE_BASE]
 
 func get_base_damage_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DAMAGE_BASE_PERC])
 
 func get_damage_add() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DAMAGE_ADD])
 
 func get_damage_add_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DAMAGE_ADD_PERC])
 
 func get_current_armor_damage_reduction() -> float:
 	var armor: float = get_overall_armor()
@@ -1805,10 +1805,10 @@ func get_base_armor() -> float:
 	return _base_armor
 
 func get_base_armor_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_ARMOR]
+	return _mod_value_map[ModificationType.enm.MOD_ARMOR]
 
 func get_base_armor_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ARMOR_PERC])
+	return max(0, _mod_value_map[ModificationType.enm.MOD_ARMOR_PERC])
 
 func get_overall_armor() -> float:
 	return max(0, (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent())
@@ -1817,11 +1817,11 @@ func get_overall_armor_bonus() -> float:
 	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent() - get_base_armor()
 
 func get_dps_bonus() -> float:
-	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
+	return _mod_value_map[ModificationType.enm.MOD_DPS_ADD]
 
 
 func get_damage_from_element(element: Element.enm) -> float:
-	var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
+	var mod_type: ModificationType.enm = Element.convert_to_dmg_from_element_mod(element)
 	var damage_mod: float = max(0, _mod_value_map[mod_type])
 
 	return damage_mod
@@ -1829,7 +1829,7 @@ func get_damage_from_element(element: Element.enm) -> float:
 
 # NOTE: unit.getDamageToCategory() in JASS
 func get_damage_to_category(category: CreepCategory.enm) -> float:
-	var mod_type: Modification.Type = CreepCategory.convert_to_mod_dmg_type(category)
+	var mod_type: ModificationType.enm = CreepCategory.convert_to_mod_dmg_type(category)
 	var damage_mod: float = max(0, _mod_value_map[mod_type])
 
 	return damage_mod
@@ -1837,7 +1837,7 @@ func get_damage_to_category(category: CreepCategory.enm) -> float:
 
 # NOTE: unit.getDamageToSize() in JASS
 func get_damage_to_size(creep_size: CreepSize.enm) -> float:
-	var mod_type: Modification.Type = CreepSize.convert_to_mod_dmg_type(creep_size)
+	var mod_type: ModificationType.enm = CreepSize.convert_to_mod_dmg_type(creep_size)
 	var damage_mod: float = max(0, _mod_value_map[mod_type])
 
 	return damage_mod

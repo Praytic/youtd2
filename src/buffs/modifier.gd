@@ -39,7 +39,7 @@ static func convert_to_string(modifier: Modifier) -> String:
 	var modification_string_list: Array[String] = []
 
 	for modification in modifier._modification_list:
-		var modification_string: String = Modification.convert_modification_to_string(modification)
+		var modification_string: String = Modification.convert_to_string(modification)
 		modification_string_list.append(modification_string)
 
 	var modifier_string: String = "|".join(modification_string_list)
@@ -53,7 +53,7 @@ static func convert_from_string(modifier_string: String) -> Modifier:
 	var mod_string_list: Array = modifier_string.split("|")
 
 	for mod_string in mod_string_list:
-		var modification: Modification = Modification.convert_modification_from_string(mod_string)
+		var modification: Modification = Modification.from_string(mod_string)
 		modifier.add_modification_instance(modification)
 
 	return modifier

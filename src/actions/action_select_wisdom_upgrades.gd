@@ -36,30 +36,30 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 
 	var upgrade_to_mod_value_map: Dictionary = {
 		WisdomUpgradeProperties.Id.ADVANCED_FORTUNE: {
-			Modification.Type.MOD_TRIGGER_CHANCES: 0.10,
+			ModificationType.enm.MOD_TRIGGER_CHANCES: 0.10,
 		},
 		WisdomUpgradeProperties.Id.SWIFTNESS_MASTERY: {
-			Modification.Type.MOD_ATTACKSPEED: 0.07,
+			ModificationType.enm.MOD_ATTACKSPEED: 0.07,
 		},
 		WisdomUpgradeProperties.Id.COMBAT_MASTERY: {
-			Modification.Type.MOD_DAMAGE_BASE_PERC: 0.08,
+			ModificationType.enm.MOD_DAMAGE_BASE_PERC: 0.08,
 		},
 		WisdomUpgradeProperties.Id.MASTERY_OF_PAIN: {
-			Modification.Type.MOD_ATK_CRIT_CHANCE: 0.04,
-			Modification.Type.MOD_SPELL_CRIT_CHANCE: 0.04,
+			ModificationType.enm.MOD_ATK_CRIT_CHANCE: 0.04,
+			ModificationType.enm.MOD_SPELL_CRIT_CHANCE: 0.04,
 		},
 		WisdomUpgradeProperties.Id.ADVANCED_SORCERY: {
-			Modification.Type.MOD_SPELL_DAMAGE_DEALT: 0.10,
+			ModificationType.enm.MOD_SPELL_DAMAGE_DEALT: 0.10,
 		},
 		WisdomUpgradeProperties.Id.MASTERY_OF_MAGIC: {
-			Modification.Type.MOD_MANA_PERC: 0.20,
-			Modification.Type.MOD_MANA_REGEN_PERC: 0.20,
+			ModificationType.enm.MOD_MANA_PERC: 0.20,
+			ModificationType.enm.MOD_MANA_REGEN_PERC: 0.20,
 		},
 		WisdomUpgradeProperties.Id.LOOT_MASTERY: {
-			Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 0.12,
+			ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL: 0.12,
 		},
 		WisdomUpgradeProperties.Id.ADVANCED_WISDOM: {
-			Modification.Type.MOD_EXP_RECEIVED: 0.20,
+			ModificationType.enm.MOD_EXP_RECEIVED: 0.20,
 		},
 	}
 	

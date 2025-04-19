@@ -36,14 +36,14 @@ static var _main_attack_types_map: Dictionary = {
 
 
 static var _dmg_from_element_map: Dictionary = {
-	Element.enm.ICE: Modification.Type.MOD_DMG_FROM_ICE,
-	Element.enm.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
-	Element.enm.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
-	Element.enm.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
-	Element.enm.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
-	Element.enm.IRON: Modification.Type.MOD_DMG_FROM_IRON,
-	Element.enm.STORM: Modification.Type.MOD_DMG_FROM_STORM,
-	Element.enm.NONE: Modification.Type.MOD_DMG_FROM_ICE,
+	Element.enm.ICE: ModificationType.enm.MOD_DMG_FROM_ICE,
+	Element.enm.NATURE: ModificationType.enm.MOD_DMG_FROM_NATURE,
+	Element.enm.FIRE: ModificationType.enm.MOD_DMG_FROM_FIRE,
+	Element.enm.ASTRAL: ModificationType.enm.MOD_DMG_FROM_ASTRAL,
+	Element.enm.DARKNESS: ModificationType.enm.MOD_DMG_FROM_DARKNESS,
+	Element.enm.IRON: ModificationType.enm.MOD_DMG_FROM_IRON,
+	Element.enm.STORM: ModificationType.enm.MOD_DMG_FROM_STORM,
+	Element.enm.NONE: ModificationType.enm.MOD_DMG_FROM_ICE,
 }
 
 static var _color_map: Dictionary = {
@@ -95,7 +95,7 @@ static func get_display_string(element: Element.enm) -> String:
 	return string
 
 
-static func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
+static func convert_to_dmg_from_element_mod(element: Element.enm) -> ModificationType.enm:
 	return _dmg_from_element_map[element]
 
 

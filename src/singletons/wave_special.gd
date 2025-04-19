@@ -68,7 +68,7 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	creep.set_special_list(applied_list)
 
 	var hp_modifier: float = _get_hp_modifier(applied_list)
-	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
+	creep.modify_property(ModificationType.enm.MOD_HP_PERC, hp_modifier)
 
 #	NOTE: creep needs mana only if the *applied* specials
 #	require mana.

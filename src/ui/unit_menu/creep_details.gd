@@ -127,31 +127,31 @@ func update_text():
 	_dmg_from_spells.set_text(dmg_from_spells_string)
 
 #	Damage from element
-	var dmg_from_astral: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_ASTRAL]
+	var dmg_from_astral: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_ASTRAL]
 	var dmg_from_astral_string: String = Utils.format_percent(dmg_from_astral, 0)
 	_dmg_from_astral.set_text(dmg_from_astral_string)
 
-	var dmg_from_darkness: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_DARKNESS]
+	var dmg_from_darkness: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_DARKNESS]
 	var dmg_from_darkness_string: String = Utils.format_percent(dmg_from_darkness, 0)
 	_dmg_from_darkness.set_text(dmg_from_darkness_string)
 
-	var dmg_from_nature: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_NATURE]
+	var dmg_from_nature: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_NATURE]
 	var dmg_from_nature_string: String = Utils.format_percent(dmg_from_nature, 0)
 	_dmg_from_nature.set_text(dmg_from_nature_string)
 
-	var dmg_from_ice: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_ICE]
+	var dmg_from_ice: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_ICE]
 	var dmg_from_ice_string: String = Utils.format_percent(dmg_from_ice, 0)
 	_dmg_from_ice.set_text(dmg_from_ice_string)
 
-	var dmg_from_fire: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_FIRE]
+	var dmg_from_fire: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_FIRE]
 	var dmg_from_fire_string: String = Utils.format_percent(dmg_from_fire, 0)
 	_dmg_from_fire.set_text(dmg_from_fire_string)
 
-	var dmg_from_storm: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_STORM]
+	var dmg_from_storm: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_STORM]
 	var dmg_from_storm_string: String = Utils.format_percent(dmg_from_storm, 0)
 	_dmg_from_storm.set_text(dmg_from_storm_string)
 
-	var dmg_from_iron: float = _creep._mod_value_map[Modification.Type.MOD_DMG_FROM_IRON]
+	var dmg_from_iron: float = _creep._mod_value_map[ModificationType.enm.MOD_DMG_FROM_IRON]
 	var dmg_from_iron_string: String = Utils.format_percent(dmg_from_iron, 0)
 	_dmg_from_iron.set_text(dmg_from_iron_string)
 

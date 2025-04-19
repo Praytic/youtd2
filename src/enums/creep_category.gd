@@ -84,16 +84,16 @@ static func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	return out
 
 
-static func convert_to_mod_dmg_type(category: CreepCategory.enm) -> Modification.Type:
+static func convert_to_mod_dmg_type(category: CreepCategory.enm) -> ModificationType.enm:
 	const creep_category_to_mod_map: Dictionary = {
-		CreepCategory.enm.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
-		CreepCategory.enm.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
-		CreepCategory.enm.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
-		CreepCategory.enm.ORC: Modification.Type.MOD_DMG_TO_ORC,
-		CreepCategory.enm.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
-		CreepCategory.enm.CHALLENGE: Modification.Type.MOD_DMG_TO_CHALLENGE,
+		CreepCategory.enm.UNDEAD: ModificationType.enm.MOD_DMG_TO_MASS,
+		CreepCategory.enm.MAGIC: ModificationType.enm.MOD_DMG_TO_MAGIC,
+		CreepCategory.enm.NATURE: ModificationType.enm.MOD_DMG_TO_NATURE,
+		CreepCategory.enm.ORC: ModificationType.enm.MOD_DMG_TO_ORC,
+		CreepCategory.enm.HUMANOID: ModificationType.enm.MOD_DMG_TO_HUMANOID,
+		CreepCategory.enm.CHALLENGE: ModificationType.enm.MOD_DMG_TO_CHALLENGE,
 	}
 
-	var mod_type: Modification.Type = creep_category_to_mod_map[category]
+	var mod_type: ModificationType.enm = creep_category_to_mod_map[category]
 
 	return mod_type
