@@ -168,9 +168,9 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	text += "[b]%s[/b]\n" % display_name
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/knowledge_tome.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/knowledge_tome.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] %s\n" % [gold_cost_string, tome_cost_string, food_cost_string]
 	else:
-		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
+		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] %s\n" % [gold_cost_string, food_cost_string]
 	
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]%s[/color] %s\n" % [tr("TOWER_TOOLTIP_AUTHOR"), author]
