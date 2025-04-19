@@ -65,7 +65,6 @@ static func get_display_string(type: ArmorType.enm) -> String:
 	return string
 
 
-# TODO: rename to "get_colored_display_string()"
 static func convert_to_colored_string(type: ArmorType.enm) -> String:
 	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]

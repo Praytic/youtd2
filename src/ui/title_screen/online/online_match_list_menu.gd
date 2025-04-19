@@ -11,7 +11,6 @@ enum State {
 	SHOW_MATCHES,
 }
 
-# TODO: support showing matches beyond 40 match limit. Add pages.
 
 signal join_pressed(match_id: int)
 signal refresh_pressed()
@@ -20,6 +19,7 @@ signal create_match_pressed()
 signal lan_pressed()
 
 
+# NOTE: currently a max of 50 matches are supported
 const MATCH_CARD_COUNT_MAX: int = 50
 
 @export var _searching_label: Label

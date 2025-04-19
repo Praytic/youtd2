@@ -73,15 +73,6 @@ func load_triggers(_triggers_bt: BuffType):
 # NOTE: tower.init() in JASS
 func tower_init():
 	pass
-
-
-# TODO: remove this f-n and implementations in tower scripts
-# Override in subclass to define auras.
-# NOTE: must be called after tower_init()
-func create_autocasts() -> Array[Autocast]:
-	var empty_list: Array[Autocast] = []
-
-	return empty_list
 	
 
 # NOTE: tower.onCreate() in JASS

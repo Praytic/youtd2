@@ -142,7 +142,6 @@ static func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
 	return _no_damage_to_immune_map[attack_type]
 
 
-# TODO: rename to "get_colored_display_string()"
 static func convert_to_colored_string(type: AttackType.enm) -> String:
 	var string: String = get_display_string(type)
 	var color: Color = _color_map[type]
