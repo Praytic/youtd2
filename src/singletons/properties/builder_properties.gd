@@ -2,7 +2,6 @@ extends Node
 
 
 const PROPERTIES_PATH: String = "res://data/builder_properties.csv"
-const BUILDER_SCRIPT_DIR: String = "res://src/builders/instances"
 const BACKPACKER_BUILDER_ID: int = 19
 
 enum CsvProperty {
@@ -11,7 +10,7 @@ enum CsvProperty {
 	SHORT_NAME,
 	TIER,
 	REQUIRED_LEVEL,
-	SCRIPT_NAME,
+	SCRIPT_PATH,
 	ICON,
 	DISPLAY_NAME,
 	DESCRIPTION,
@@ -95,15 +94,8 @@ func get_required_level(builder: int) -> int:
 	return required_level
 
 
-func get_script_name(builder: int) -> String:
-	var string: String = _get_property(builder, CsvProperty.SCRIPT_NAME)
-
-	return string
-
-
 func get_script_path(builder: int) -> String:
-	var script_name: String = get_script_name(builder)
-	var script_path: String = "%s/%s.gd" % [BUILDER_SCRIPT_DIR, script_name]
+	var script_path: String = _get_property(builder, CsvProperty.SCRIPT_PATH)
 
 	return script_path
 
