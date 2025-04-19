@@ -111,7 +111,7 @@ func _get_text_for_tower(tower_id: int) -> String:
 	if tome_cost != 0:
 		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] [color=GOLD]%s[/color] [img=32x32]res://resources/icons/hud/knowledge_tome.tres[/img] [color=GOLD]%s[/color] [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost, tome_cost, food_cost]
 	else:
-		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] %s [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost, food_cost]
+		text += "[img=32x32]res://resources/icons/hud/gold.tres[/img] [color=GOLD]%s[/color] [img=32x32]res://resources/icons/hud/tower_food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost, food_cost]
 	
 	text += " \n"
 	
