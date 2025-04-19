@@ -9,6 +9,7 @@ enum State {
 	SEARCHING,
 	NO_MATCHES_FOUND,
 	SHOW_MATCHES,
+	FAILED_TO_CONNECT,
 }
 
 
@@ -24,7 +25,9 @@ const MATCH_CARD_COUNT_MAX: int = 50
 
 @export var _searching_label: Label
 @export var _no_matches_found_label: Label
+@export var _failed_to_connect_label: Label
 @export var _match_card_grid: GridContainer
+@export var _create_match_button: Button
 @export var _refresh_button: Button
 
 
@@ -53,23 +56,14 @@ func _ready():
 #########################
 
 func set_state(new_state: OnlineMatchListMenu.State):
-	match new_state:
-		State.SEARCHING:
-			clear_match_list()
-			
-			_searching_label.show()
-			_no_matches_found_label.hide()
-			_refresh_button.set_disabled(true)
-		State.NO_MATCHES_FOUND:
-			clear_match_list()
-			
-			_searching_label.hide()
-			_no_matches_found_label.show()
-			_refresh_button.set_disabled(false)
-		State.SHOW_MATCHES:
-			_searching_label.hide()
-			_no_matches_found_label.hide()
-			_refresh_button.set_disabled(false)
+	_searching_label.visible = new_state == OnlineMatchListMenu.State.SEARCHING
+	_no_matches_found_label.visible = new_state == OnlineMatchListMenu.State.NO_MATCHES_FOUND
+	_failed_to_connect_label.visible = new_state == OnlineMatchListMenu.State.FAILED_TO_CONNECT
+	_refresh_button.disabled = !(new_state == OnlineMatchListMenu.State.SHOW_MATCHES || new_state == OnlineMatchListMenu.State.NO_MATCHES_FOUND)
+	_create_match_button.disabled = !(new_state == OnlineMatchListMenu.State.SHOW_MATCHES || new_state == OnlineMatchListMenu.State.NO_MATCHES_FOUND)
+
+	if new_state == State.SEARCHING || new_state == State.NO_MATCHES_FOUND:
+		clear_match_list()
 
 
 func clear_match_list():
@@ -77,14 +71,11 @@ func clear_match_list():
 	
 	for card in card_list:
 		card.hide()
-		
-	_no_matches_found_label.show()
 
 
 func update_match_list(match_list: Array):
 	var found_matches: bool = !match_list.is_empty()
 
-	_searching_label.visible = !found_matches
 	_match_card_grid.visible = found_matches
 	
 	var card_list: Array = _match_card_grid.get_children()

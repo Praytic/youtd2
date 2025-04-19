@@ -111,9 +111,17 @@ func _switch_to_match_list_when_connected():
 	
 	var connection_state: NakamaConnection.State = NakamaConnection.get_state()
 	
-	if connection_state == NakamaConnection.State.CONNECTED:
-		_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+#	NOTE: need to switch to online match list even if failed
+#	to connect so that LAN multiplayer remains accessible
+#	when game can't connect to online server.
+	_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
+	
+	var connected_ok: bool = connection_state == NakamaConnection.State.CONNECTED
+
+	if connected_ok:
 		_refresh_match_list()
+	else:
+		_online_match_list_menu.set_state(OnlineMatchListMenu.State.FAILED_TO_CONNECT)
 
 
 func _get_host_user_id_for_match(match_: NakamaRTAPI.Match) -> String:

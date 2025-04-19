@@ -3,15 +3,16 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_0djlm"]
 [ext_resource type="Script" path="res://src/ui/title_screen/online/online_match_list_menu.gd" id="2_inhau"]
 
-
-[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_searching_label", "_no_matches_found_label", "_match_card_grid", "_refresh_button")]
+[node name="OnlineMatchListMenu" type="PanelContainer" node_paths=PackedStringArray("_searching_label", "_no_matches_found_label", "_failed_to_connect_label", "_match_card_grid", "_create_match_button", "_refresh_button")]
 custom_minimum_size = Vector2(1122, 600)
 theme = ExtResource("1_0djlm")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_inhau")
 _searching_label = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/SearchingLabel")
 _no_matches_found_label = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/NoMatchesFoundLabel")
+_failed_to_connect_label = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/FailedToConnectLabel")
 _match_card_grid = NodePath("VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MatchCardGrid")
+_create_match_button = NodePath("VBoxContainer/HBoxContainer/CreateMatchButton")
 _refresh_button = NodePath("VBoxContainer/HBoxContainer/RefreshButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -59,6 +60,12 @@ visible = false
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "No matches found"
+
+[node name="FailedToConnectLabel" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Failed to connect to server"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 600)
