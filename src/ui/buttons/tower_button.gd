@@ -39,6 +39,13 @@ func _ready():
 ###       Public      ###
 #########################
 
+func hide_freshness_indicator():
+	if is_inside_tree():
+		_freshness_indicator.visible = false
+	else:
+		_show_freshness = false
+
+
 func set_tooltip_is_enabled(value: bool):
 	_tooltip_is_enabled = value
 

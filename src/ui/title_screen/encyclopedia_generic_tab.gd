@@ -92,6 +92,7 @@ func _ready() -> void:
 	_selected_tower_button.hide()
 	_selected_tower_button.set_tooltip_is_enabled(false)
 	_selected_tower_button.set_tier_visible(true)
+	_selected_tower_button.hide_freshness_indicator()
 	
 	_info_label.clear()
 	_selected_name_label.text = ""

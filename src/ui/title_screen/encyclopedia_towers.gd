@@ -55,6 +55,7 @@ func _ready() -> void:
 		tower_button.set_tower_id(tower_id)
 		tower_button.set_tooltip_is_enabled(false)
 		tower_button.set_tier_visible(true)
+		tower_button.hide_freshness_indicator()
 		_generic_tab.add_button_to_grid(tower_button)
 		
 		_button_list.append(tower_button)
