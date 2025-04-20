@@ -636,8 +636,11 @@ static func make(autocast_id: int, creator_object: Object) -> Autocast:
 	if !handler_function_string.is_empty():
 		handler_function = Callable(creator_object, handler_function_string)
 		
-		if handler_function.is_null():
+		if !handler_function.is_valid():
 			push_error("Failed to find handle function for autocast. Handler function = %s, autocast id = %d" % [handler_function_string, autocast_id])
+#			NOTE: Switch to empty callable to prevent
+#			runtime errors
+			handler_function = Callable()
 	else:
 		handler_function = Callable()
 	
