@@ -133,7 +133,7 @@ func get_creep_count() -> int:
 func get_creep_combination_string() -> String:
 	var is_final_boss: bool = _level == Utils.get_max_level()
 	if is_final_boss:
-		return "[color=GOLD]%S[/color]" % tr("FINAL_BOSS_TEXT")
+		return "[color=GOLD]%s[/color]" % tr("FINAL_BOSS_TEXT")
 
 	var size_count_map: Dictionary = {}
 
