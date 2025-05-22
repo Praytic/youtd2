@@ -17,6 +17,7 @@ var _already_damaged_list: Array[Unit] = []
 
 # Spell data
 var _damage: float
+var _start_pos: Vector2
 var _start_radius: float
 var _end_radius: float
 var _travel_distance: float
@@ -29,13 +30,13 @@ var _move_vector: Vector2
 func _ready():
 	super()
 
-	var start_pos: Vector2 = get_position_wc3_2d()
+	_start_pos = get_position_wc3_2d()
 
-	_current_swarm_pos = start_pos
+	_current_swarm_pos = _start_pos
 
 	var lifetime: float = get_lifetime()
 	var move_speed: float = _travel_distance / lifetime
-	_move_vector = (_target_position - start_pos).normalized() * move_speed
+	_move_vector = (_target_position - _start_pos).normalized() * move_speed
 
 
 func _on_move_timer_timeout():
@@ -62,8 +63,9 @@ func _on_move_timer_timeout():
 		do_spell_damage(creep, _damage)
 		_already_damaged_list.append(creep)
 
-	var reached_target: bool = _current_swarm_pos == _target_position
-	
+	var _travel_distance_current: float = _start_pos.distance_to(_current_swarm_pos)
+	var reached_target: bool = round(_travel_distance_current) >= round(_travel_distance)
+
 	if reached_target:
 		_move_timer.stop()
 
