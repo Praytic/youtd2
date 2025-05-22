@@ -34,8 +34,13 @@ func _ready():
 
 	_current_swarm_pos = _start_pos
 
+#	NOTE: need to subtract MOVE_PERIOD here so that the last
+#	move step is done before the spell expires due to
+#	lifetime expiring. If this subtraction is not done, then
+#	the spell will not reach the max distance as it's
+#	supposed to.
 	var lifetime: float = get_lifetime()
-	var move_speed: float = _travel_distance / lifetime
+	var move_speed: float = _travel_distance / (lifetime - MOVE_PERIOD)
 	_move_vector = (_target_position - _start_pos).normalized() * move_speed
 
 
