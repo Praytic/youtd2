@@ -11,9 +11,15 @@ extends BuffType
 # mechanic was disabled
 
 var magical_sight_debuff: BuffType
+# NOTE: this var is unused because aura was removed because
+# invisibility mechanic was removed.
+var _aura_radius: float
 
-func _init(type: String, _radius: float, parent: Node):
+
+func _init(type: String, radius: float, parent: Node):
 	super(type, 0, 0, true, parent)
+
+	_aura_radius = radius
 
 	set_buff_icon("res://resources/icons/generic_icons/semi_closed_eye.tres")
 	
