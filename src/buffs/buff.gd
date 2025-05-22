@@ -66,7 +66,7 @@ func _ready():
 
 	_target.death.connect(_on_target_death)
 	_target.kill.connect(_on_target_kill)
-	_target.level_up.connect(_on_target_level_up)
+	_target.level_changed.connect(_on_target_level_changed)
 	_target.attack.connect(_on_target_attack)
 	_target.attacked.connect(_on_target_attacked)
 	_target.dealt_damage.connect(_on_target_dealt_damage)
@@ -361,10 +361,10 @@ func _on_target_kill(event: Event):
 	_call_event_handler_list(Event.Type.KILL, event)
 
 
-func _on_target_level_up(level_increased: bool):
+func _on_target_level_changed(level_increased: bool):
 	var event: Event = _make_buff_event(_target)
-	event._is_level_up = level_increased
-	_call_event_handler_list(Event.Type.LEVEL_UP, event)
+	event._level_increased_during_event = level_increased
+	_call_event_handler_list(Event.Type.LEVEL_CHANGED, event)
 
 
 func _on_target_attack(event: Event):

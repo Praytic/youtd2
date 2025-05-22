@@ -292,8 +292,8 @@ func add_event_on_kill(handler: Callable):
 
 
 # NOTE: buffType.addEventOnLevelUp() in JASS
-func add_event_on_level_up(handler: Callable):
-	add_event_handler(Event.Type.LEVEL_UP, handler)
+func add_event_on_level_changed(handler: Callable):
+	add_event_handler(Event.Type.LEVEL_CHANGED, handler)
 
 
 # NOTE: buffType.addEventOnAttack() in JASS

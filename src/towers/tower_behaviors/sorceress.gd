@@ -59,7 +59,7 @@ var current_missile_mod: MissileMod
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)
-	triggers.add_event_on_level_up(on_level_up)
+	triggers.add_event_on_level_changed(on_level_changed)
 
 
 func tower_init():
@@ -128,9 +128,9 @@ func on_damage(event: Event):
 	event.damage = 0
 
 
-func on_level_up(event: Event):
+func on_level_changed(event: Event):
 	var dmg_change: int
-	if event.is_level_up():
+	if event.level_increased():
 		dmg_change = 2
 	else:
 		dmg_change = -2

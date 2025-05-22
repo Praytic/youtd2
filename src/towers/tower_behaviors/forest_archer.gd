@@ -23,7 +23,7 @@ const SLOW_DURATION_ADD: float = 0.2
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-	triggers.add_event_on_level_up(on_level_up)
+	triggers.add_event_on_level_changed(on_level_changed)
 
 
 func tower_init():
@@ -53,7 +53,7 @@ func on_damage(event: Event):
 		roots_bt.apply_custom_timed(tower, creep, slow_level, slow_duration)
 
 
-func on_level_up(_event: Event):
+func on_level_changed(_event: Event):
 	if tower.get_level() == 15:
 		tower.set_target_count(4)
 

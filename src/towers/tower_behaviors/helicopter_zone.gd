@@ -60,7 +60,7 @@ const GHOST_ABILITY_TIMER_MAX: int = 20
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_level_up(on_level_up)
+	triggers.add_event_on_level_changed(on_level_changed)
 	triggers.add_event_on_damage(on_damage)
 
 
@@ -128,7 +128,7 @@ func on_destruct():
 		projectile.remove_from_game()
 
 
-func on_level_up(_event: Event):
+func on_level_changed(_event: Event):
 	level_up_copters()
 
 

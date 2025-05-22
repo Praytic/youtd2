@@ -116,7 +116,7 @@ func set_unit(unit: Unit):
 	
 		if prev_unit is Tower:
 			var prev_tower: Tower = prev_unit as Tower
-			prev_tower.level_up.disconnect(_on_tower_level_up)
+			prev_tower.level_changed.disconnect(_on_tower_level_changed)
 	
 #	NOTE: need to setup visibility before calling _load_tower() because it can further hide some controls conditionally.
 	for control in _visible_controls_for_tower:
@@ -160,7 +160,7 @@ func _load_unit():
 
 
 func _load_tower():
-	_tower.level_up.connect(_on_tower_level_up)
+	_tower.level_changed.connect(_on_tower_level_changed)
 	_update_level_label()
 
 	_update_sell_tooltip()
@@ -388,7 +388,7 @@ func _on_close_button_pressed():
 	hide()
 
 
-func _on_tower_level_up(_level_increased: bool):
+func _on_tower_level_changed(_level_increased: bool):
 	_update_level_label()
 
 

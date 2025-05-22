@@ -7,8 +7,7 @@ extends Node2D
 # NOTE: can't use static typing for Buff because of cyclic
 # dependency
 
-# NOTE: level_up() is almost emitted when unit level decreases
-signal level_up(level_increased: bool)
+signal level_changed(level_increased: bool)
 # NOTE: attack event is triggered right before tower fires a
 # projectile at the target. Note that if tower has multishot
 # ability, attack event will be triggered only once for the
@@ -749,7 +748,7 @@ func _change_experience(amount: float) -> float:
 	
 	if level_has_changed:
 		set_level(new_level)
-		level_up.emit(level_increased)
+		level_changed.emit(level_increased)
 		EventBus.unit_leveled_up.emit()
 
 	var sign_string: String

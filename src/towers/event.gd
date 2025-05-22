@@ -8,7 +8,7 @@ enum Type {
 	REFRESH,
 	DEATH,
 	KILL,
-	LEVEL_UP,
+	LEVEL_CHANGED,
 	ATTACK,
 	ATTACKED,
 	DAMAGE,
@@ -34,7 +34,7 @@ var _is_spell_damage: bool = false
 # duration of periodic event.
 var _timer: ManualTimer = null
 var _autocast: Autocast = null
-var _is_level_up: bool = true
+var _level_increased_during_event: bool = false
 
 
 #########################
@@ -109,8 +109,8 @@ func is_attack_damage_critical() -> int:
 	return is_critical
 
 
-# Returns true if current LEVEL_UP event was triggered when
+# Returns true if current LEVEL_CHANGED event was triggered when
 # tower level increased. False if tower level decreased.
 # NOTE: "Event.isLevelUp()" in JASS
-func is_level_up() -> bool:
-	return _is_level_up
+func level_increased() -> bool:
+	return _level_increased_during_event

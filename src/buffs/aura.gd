@@ -38,7 +38,7 @@ var _target_list: Array = []
 #########################
 
 func _ready():
-	_caster.level_up.connect(_on_caster_level_up)
+	_caster.level_changed.connect(_on_caster_level_changed)
 	tree_exited.connect(_on_tree_exited)
 
 
@@ -179,7 +179,7 @@ func _on_tree_exited():
 
 
 # Level down the aura buffs here when tower levels down.
-# Note that level ups are handled in _on_timer_timeout().
+# Note that level changes are handled in _on_timer_timeout().
 # 
 # NOTE: the way lving down is handled is a bit imperfect
 # because if there are two towers with same aura and one of
@@ -187,7 +187,7 @@ func _on_tree_exited():
 # down for 0.2s and then go back up to the level of the
 # strongest aura. It's not critical and I couldn't find a
 # better solution which doesn't break anything else.
-func _on_caster_level_up(_level_increased: bool):
+func _on_caster_level_changed(_level_increased: bool):
 	_remove_invalid_targets()
 	
 	var new_level: int = _caster.get_level()

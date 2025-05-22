@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
-	triggers.add_event_on_level_up(on_level_up)
+	triggers.add_event_on_level_changed(on_level_changed)
 
 
 func on_damage(event: Event):
@@ -40,7 +40,7 @@ func on_damage(event: Event):
 			loop_count = loop_count - 1
 
 
-func on_level_up(_event: Event):
+func on_level_changed(_event: Event):
 	var level: int = tower.get_level()
 
 	if level < 15:
