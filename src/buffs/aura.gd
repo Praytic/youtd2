@@ -25,10 +25,6 @@ var _level: int = 0
 var _level_add: int = 0
 var _aura_effect: BuffType = null
 
-# NOTE: this is only used by MagicalSightBuff. All other
-# aura's do not include invisible units.
-var _include_invisible: bool = false
-
 var _caster: Unit = null
 var _target_list: Array = []
 
@@ -49,7 +45,7 @@ func _ready():
 # Triggers REFRESH event for buffs applied by this aura.
 func refresh():
 	var caster_position: Vector2 = _caster.get_position_wc3_2d()
-	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range, _include_invisible)
+	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range)
 
 	for unit in units_in_range:
 		var buff: Buff = unit.get_buff_of_type(_aura_effect)
@@ -113,16 +109,15 @@ func _on_manual_timer_timeout():
 	_remove_invalid_targets()
 
 	var caster_position: Vector2 = _caster.get_position_wc3_2d()
-	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range, _include_invisible)
+	var units_in_range: Array = Utils.get_units_in_range(_caster, _target_type, caster_position, _aura_range)
 
-# 	Remove buff from units that have went out of range or
-# 	became invisible
+# 	Remove buff from units that have went out of range
 	var removed_target_list: Array = []
 
 	for target in _target_list:
 		var in_range = units_in_range.has(target)
 
-		if !in_range || (target.is_invisible() && !_include_invisible):
+		if !in_range:
 			removed_target_list.append(target)
 
 	for target in removed_target_list:

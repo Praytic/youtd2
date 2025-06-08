@@ -25,8 +25,6 @@ signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
 signal death(event)
-signal became_invisible()
-signal became_visible()
 signal health_changed()
 signal mana_changed()
 signal spell_casted(event: Event)
@@ -50,7 +48,6 @@ enum BodyPart {
 }
 
 
-const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
 
 # NOTE: need to have "_unit_" prefix in names to avoid
@@ -92,7 +89,6 @@ var _base_health: float = 100.0
 var _health: float = 0.0
 var _lowest_health: float = 0.0
 var _base_health_regen: float = 0.0
-var _invisible: bool = false
 var _immune: bool = false
 var _selected: bool = false
 var _hovered: bool = false
@@ -123,11 +119,6 @@ var _total_stun_duration: float = 0.0
 var _selection_indicator: Node = null
 var _unit_selection_outline: Node = null
 
-# This is the count of towers that are currently able to see
-# this invisible creep. If there any towers that can see this
-# creep, then it is considered to be visible to all towers.
-# See Unit.is_invisible() f-n and MagicalSightBuff.
-var _invisible_watcher_count: int = 0
 
 # NOTE: logic for default values is the following. If
 # property is multiplied, then it's default is 1.0 so that
@@ -619,24 +610,6 @@ func change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
 	_apply_modifier(modifier, new_level, 1)
 
 
-# These two functions are used to implement magical sight
-# effects.
-func add_invisible_watcher():
-	_invisible_watcher_count += 1
-	_update_invisible_modulate()
-
-	if !is_invisible():
-		became_visible.emit()
-
-
-func remove_invisible_watcher():
-	_invisible_watcher_count -= 1
-	_update_invisible_modulate()
-
-	if is_invisible():
-		became_invisible.emit()
-
-
 func add_silence():
 	_silence_count += 1
 
@@ -1065,13 +1038,6 @@ func _apply_modifier(modifier: Modifier, level: int, modify_direction: int):
 		_modify_property_internal(modification.type, value, modify_direction)
 
 
-func _update_invisible_modulate():
-	if is_invisible():
-		modulate = INVISIBLE_MODULATE
-	else:
-		modulate = Color(1, 1, 1, 1)
-
-
 func _remove_buff_internal(buff: Buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_level(), -1)
@@ -1251,14 +1217,6 @@ func belongs_to_local_player() -> bool:
 # NOTE: unit.setAnimationByIndex() in JASS
 func set_animation_by_index(_unit: Unit, _index: int):
 	pass
-
-
-# NOTE: this modifies only creep's ability to be invisible.
-# It won't be invisible if the creep is within range of
-# towers that can see invisible units.
-func set_invisible(invisible: bool):
-	_invisible = invisible
-	_update_invisible_modulate()
 
 
 # Sets sprite's base color. Sprite will have this color
@@ -1528,9 +1486,6 @@ func get_attack_speed_modifier() -> float:
 
 func get_level() -> int:
 	return _level
-
-func is_invisible() -> bool:
-	return _invisible && _invisible_watcher_count == 0
 
 func is_silenced() -> bool:
 	return _silence_count > 0

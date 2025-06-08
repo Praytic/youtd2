@@ -385,9 +385,7 @@ func _do_damage_from_projectile(projectile: Projectile, target: Unit, damage: fl
 
 
 # NOTE: this f-n does some unnecessary work in some cases
-# but it's simpler this way. For example, it checks if
-# target is invisible even though the get_units_in_range()
-# f-n already filters out invisible creeps.
+# but it's simpler this way.
 # NOTE: arg needs to be untyped because it may be an invalid
 # instance.
 func _target_is_valid(target) -> bool:
@@ -405,13 +403,11 @@ func _target_is_valid(target) -> bool:
 	
 	var in_range = VectorUtils.in_range(get_position_wc3_2d(), target.get_position_wc3_2d(), attack_range)
 
-	var target_is_invisible: bool = target.is_invisible()
-
 	var target_is_immune: bool = target.is_immune()
 	var attack_type_is_arcane: bool = get_attack_type() == AttackType.enm.ARCANE
 	var target_is_immune_to_attack_type: bool = target_is_immune && attack_type_is_arcane
 
-	var target_is_valid: bool = in_range && !target_is_invisible && !target_is_immune_to_attack_type
+	var target_is_valid: bool = in_range && !target_is_immune_to_attack_type
 
 	return target_is_valid
 
@@ -607,8 +603,8 @@ func _update_target_list():
 	_is_in_combat = !creeps_in_range.is_empty()
 
 #	Remove targets that have become invalid. Targets can
-#	become invalid by moving out of range, becoming
-#	invisible
+#	become invalid for multiple reasons: moving out of
+#	range, dying and other.
 	var removed_target_list: Array = []
 
 	for target in _target_list:

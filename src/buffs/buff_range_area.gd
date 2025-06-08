@@ -33,9 +33,8 @@ func _on_manual_timer_timeout():
 
 	for unit in all_units_in_range:
 		var target_match: bool = _target_type.match(unit)
-		var is_invisible: bool = unit.is_invisible()
 
-		if target_match && !is_invisible:
+		if target_match:
 			matching_units.append(unit)
 
 	for unit in matching_units:

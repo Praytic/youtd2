@@ -708,7 +708,7 @@ func rand_chance(rng: RandomNumberGenerator, chance: float) -> bool:
 
 # NOTE: this f-n extends the range slightly from the center
 # of target unit
-func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
+func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
 	if type == null:
 		return []
 
@@ -744,12 +744,6 @@ func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius:
 
 		if !unit_is_in_range:
 			continue
-
-		if unit is Creep:
-			var creep: Creep = unit as Creep
-
-			if creep.is_invisible() && !include_invisible:
-				continue
 
 		if player_towers_is_set:
 			var player_match: bool = caster.get_player() == unit.get_player()
