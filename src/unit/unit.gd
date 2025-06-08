@@ -7,21 +7,13 @@ extends Node2D
 # NOTE: can't use static typing for Buff because of cyclic
 # dependency
 
+# NOTE: see comments in buff_type.gd for detailed info about
+# unit events. For example, add_event_on_level_changed()
+# function.
 signal level_changed(level_increased: bool)
-# NOTE: attack event is triggered right before tower fires a
-# projectile at the target. Note that if tower has multishot
-# ability, attack event will be triggered only once for the
-# first target.
 signal attack(event)
 signal attacked(event)
-# NOTE: dealt_damage() is emitted only for damage which is
-# caused by tower attacks. This includes multishot, splash
-# and bounce. It is not emitted when doAttackDamage() is
-# called in tower scripts.
 signal dealt_damage(event)
-# NOTE: DAMAGED event is triggered only when attacker is
-# tower. There are a few tower abilities which cause creeps
-# to deal damage to other creeps.
 signal damaged(event)
 signal kill(event)
 signal death(event)

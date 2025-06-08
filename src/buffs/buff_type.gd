@@ -7,11 +7,11 @@ extends Node
 # by subclassing.
 # 
 # Buffs can have event handlers. To add an event handler,
-# define a handler function in your subclass and call the
-# appropriate add_event_handler function. All handler
-# functions are called with one parameter Event which passes
-# information about the event.
-#
+# define a handler function in your subclass and call one of
+# the functions like add_event_on_kill(). All handler
+# functions will receive one parameter of Event type which
+# contains information about the event.
+# 
 # NOTE: BuffType needs to be Node so that it can be used as
 # event handler for Buffs. Buff event handlers must be Node
 # because buff's need to connect to Node's tree_exited()
@@ -234,6 +234,8 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	return buff
 
 
+# Generic function. You should use one of the specialized
+# versions to set handlers for specific events.
 func add_event_handler(event_type: Event.Type, handler: Callable):
 	var data: CommonHandlerData = CommonHandlerData.new()
 	data.handler = handler
@@ -242,6 +244,7 @@ func add_event_handler(event_type: Event.Type, handler: Callable):
 	_common_handler_list.append(data)
 
 
+# This event is fired periodically.
 # NOTE: buffType.addPeriodicEvent() in JASS
 func add_periodic_event(handler: Callable, period: float):
 	var data: PeriodicHandlerData = PeriodicHandlerData.new()
@@ -251,6 +254,10 @@ func add_periodic_event(handler: Callable, period: float):
 	_periodic_handler_list.append(data)
 
 
+# This event is fired whenever a unit comes in range of the
+# buffed unit. If the same unit leaves range and then comes
+# back, this event will fire again. TargetType argument can
+# be used to filter units which will trigger this event.
 # NOTE: buffType.addEventOnUnitComesInRange() in JASS
 func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
 	var data: RangeHandlerData = RangeHandlerData.new()
@@ -261,82 +268,128 @@ func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_t
 	_range_handler_list.append(data)
 
 
+# This event is fired when the buff is removed or
+# the buffed unit dies.
 # NOTE: buffType.addEventOnCleanup() in JASS
 func add_event_on_cleanup(handler: Callable):
 	add_event_handler(Event.Type.CLEANUP, handler)
 
 
+# This event is fired whenever the buff is created (applied
+# on a unit which doesn't have the buff yet).
 # NOTE: buffType.addEventOnCreate() in JASS
 func add_event_on_create(handler: Callable):
 	add_event_handler(Event.Type.CREATE, handler)
 
 
+# This event is fired whenever the buff is upgraded (applied
+# on a unit which already has same buff but with lower
+# level, this is possible if there multiples of same tower
+# at different levels).
 # NOTE: buffType.addEventOnUpgrade() in JASS
 func add_event_on_upgrade(handler: Callable):
 	add_event_handler(Event.Type.UPGRADE, handler)
 
 
+# This event is fired whenever the buff is refreshed (applied
+# on a unit which already has same buff with same level).
 # NOTE: buffType.addEventOnRefresh() in JASS
 func add_event_on_refresh(handler: Callable):
 	add_event_handler(Event.Type.REFRESH, handler)
 
 
+# This event is fired whenever the buffed unit dies.
 # NOTE: buffType.addEventOnDeath() in JASS
 func add_event_on_death(handler: Callable):
 	add_event_handler(Event.Type.DEATH, handler)
 
 
+# This event is fired whenever the buffed unit kills another
+# unit.
 # NOTE: buffType.addEventOnKill() in JASS
 func add_event_on_kill(handler: Callable):
 	add_event_handler(Event.Type.KILL, handler)
 
 
+# This event is fired whenever the level of the buffed unit
+# changes. Both level ups and level downs are included.
 # NOTE: buffType.addEventOnLevelUp() in JASS
 func add_event_on_level_changed(handler: Callable):
 	add_event_handler(Event.Type.LEVEL_CHANGED, handler)
 
 
+# This event is fired whenever the buffed unit attacks.
+# Caveats:
+# - Event is fired before tower launches the attack
+#   projectile at the target.
+# - For multishot attacks, attack event will be fired only
+#   once per attack, for the first target.
 # NOTE: buffType.addEventOnAttack() in JASS
 func add_event_on_attack(handler: Callable):
 	add_event_handler(Event.Type.ATTACK, handler)
 
 
+# This event is fired whenever the buffed unit is attacked.
 # NOTE: buffType.addEventOnAttacked() in JASS
 func add_event_on_attacked(handler: Callable):
 	add_event_handler(Event.Type.ATTACKED, handler)
 
 
-# This event handler will be called when buffed unit deals
-# attack damage (not spell damage!). Note that this event
-# can't recurse. If your handler deals attack damage, that
-# will not trigger another DAMAGE event.
+# This event is fired whenever the buffed unit deals ATTACK
+# damage.
+# 
+# Caveats:
+# - Event is fired only for attack damage caused by normal
+#   tower attacks.
+# - Event is NOT fired for attack damage caused by tower
+#   abilities.
+# - For tower bounce/multishot/splash attacks, event is
+#   fired individually for each hit creep. 5 creeps were hit
+#   means that there will be 5 "damage" events.
+# - This event can't recurse. If your handler deals attack
+#   damage, that will not trigger another DAMAGE event.
 # NOTE: buffType.addEventOnDamage() in JASS
 func add_event_on_damage(handler: Callable):
 	add_event_handler(Event.Type.DAMAGE, handler)
 
 
-# This event handler will be called when buffed unit
-# receives attack damage (not spell damage!).
+# This event is fired whenever the buffed unit receives
+# ATTACK/SPELL damage.
+# 
+# Caveats:
+# - Unlike the "deal damage" event, this "receive damage"
+#   event has much less restrictions. It is fired for almost
+#   all kinds of damage.
+# - This event is NOT fired for rare cases where creep
+#   damages another creep (some weird tower abilities do
+#   that).
 # NOTE: buffType.addEventOnDamaged() in JASS
 func add_event_on_damaged(handler: Callable):
 	add_event_handler(Event.Type.DAMAGED, handler)
 
 
+# This event is fired when the buff is removed due to having
+# used up its duration.
 # NOTE: buffType.setEventOnExpire() in JASS
 func add_event_on_expire(handler: Callable):
 	add_event_handler(Event.Type.EXPIRE, handler)
 
 
+# This event is fired whenever the buffed unit casts a spell
+# (Autocast object).
 # NOTE: buffType.addEventOnSpellCasted() in JASS
 func add_event_on_spell_casted(handler: Callable):
 	add_event_handler(Event.Type.SPELL_CAST, handler)
 
 
+# This event is fired whenever the buffed unit is targeted
+# by a spell (Autocast object).
 # NOTE: buffType.addEventOnSpellTargeted() in JASS
 func add_event_on_spell_targeted(handler: Callable):
 	add_event_handler(Event.Type.SPELL_TARGET, handler)
 
 
+# This event is fired when the buff is purged.
 # NOTE: buffType.addEventOnPurge() in JASS
 func add_event_on_purge(handler: Callable):
 	add_event_handler(Event.Type.PURGE, handler)
