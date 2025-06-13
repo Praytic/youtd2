@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://src/ui/buttons/element_button.gd" id="3_eftv1"]
 
 [node name="ElementButton" type="Button" node_paths=PackedStringArray("_level_label")]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(80, 80)
 focus_mode = 0
 theme = ExtResource("1_qxufv")
-theme_type_variation = &"UnitButton"
+theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("2_y31aw")
 icon_alignment = 1
 expand_icon = true

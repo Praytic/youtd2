@@ -9,7 +9,6 @@ class_name ElementsMenu extends PanelContainer
 @export var _astral_button: ElementButton
 @export var _storm_button: ElementButton
 @export var _roll_towers_button: Button
-@export var _slot_button_to_replace_roll_towers: Button
 
 @onready var _button_map: Dictionary = {
 	Element.enm.ICE: _ice_button,
@@ -56,7 +55,6 @@ func connect_to_local_player(local_player: Player):
 
 func _hide_roll_towers_button():
 	_roll_towers_button.hide()
-	_slot_button_to_replace_roll_towers.show()
 
 
 func _show_element_tooltip(button: Button, element: Element.enm):
