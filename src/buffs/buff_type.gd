@@ -312,7 +312,9 @@ func add_event_on_kill(handler: Callable):
 
 
 # This event is fired whenever the level of the buffed unit
-# changes. Both level ups and level downs are included.
+# changes. Both level ups and level downs are included. Note
+# that unit levels can change by more than 1 at one time. In
+# such cases, this event will be triggered multiple times.
 # NOTE: buffType.addEventOnLevelUp() in JASS
 func add_event_on_level_changed(handler: Callable):
 	add_event_handler(Event.Type.LEVEL_CHANGED, handler)

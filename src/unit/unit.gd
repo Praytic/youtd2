@@ -713,7 +713,14 @@ func _change_experience(amount: float) -> float:
 	
 	if level_has_changed:
 		set_level(new_level)
-		level_changed.emit(level_increased)
+		
+#		NOTE: it is important to emit level_changed() signal
+#		multiple times if level has changed by more than 1.
+#		Some tower logic depend on this behavior.
+		var level_change_amount: int = absi(new_level - old_level)
+		for i in range(0, level_change_amount):
+			level_changed.emit(level_increased)
+		
 		EventBus.unit_leveled_up.emit()
 
 	var sign_string: String
