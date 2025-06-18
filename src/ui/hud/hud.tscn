@@ -238,7 +238,7 @@ theme_override_constants/margin_right = 15
 [node name="MarginContainer4" type="MarginContainer" parent="MarginContainer7"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 70
+theme_override_constants/margin_top = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer7/MarginContainer4"]
 layout_mode = 2
@@ -254,7 +254,7 @@ _menu = NodePath("../../../MarginContainer3/VBoxContainer/ElementsMenu")
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer7"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 270
+theme_override_constants/margin_top = 250
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer7/MarginContainer"]
 layout_mode = 2
@@ -279,7 +279,7 @@ _menu = NodePath("../../../MarginContainer2/HBoxContainer/ItemStashMenu")
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer7"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 120
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer7/MarginContainer3"]
@@ -294,7 +294,7 @@ size_flags_vertical = 0
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer7"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 230
+theme_override_constants/margin_top = 210
 theme_override_constants/margin_right = 120
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer7/MarginContainer2"]
