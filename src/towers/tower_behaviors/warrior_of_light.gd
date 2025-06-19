@@ -14,11 +14,6 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-const SHOCKWAVE_START_RADIUS: float = 100
-const SHOCKWAVE_END_RADIUS: float = 300
-const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -36,9 +31,9 @@ func tower_init():
 #	tower
 	shockwave_st = SpellType.new(SpellType.Name.CARRION_SWARM, 1, self)
 	shockwave_st.data.swarm.damage = 1.0
-	shockwave_st.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
-	shockwave_st.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
-	shockwave_st.data.swarm.travel_distance = SHOCKWAVE_RANGE_FROM_TARGET
+	shockwave_st.data.swarm.start_radius = 30
+	shockwave_st.data.swarm.end_radius = 50
+	shockwave_st.data.swarm.travel_distance = 500
 	shockwave_st.data.swarm.effect_path = "res://src/effects/shockwave_missile.tscn"
 
 

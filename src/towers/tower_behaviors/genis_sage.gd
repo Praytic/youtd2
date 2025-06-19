@@ -36,8 +36,8 @@ func tower_init():
 
 	swarm_st = SpellType.new(SpellType.Name.CARRION_SWARM, 1, self)
 	swarm_st.data.swarm.damage = 1.0
-	swarm_st.data.swarm.start_radius = 100
-	swarm_st.data.swarm.end_radius = 300
+	swarm_st.data.swarm.start_radius = 30
+	swarm_st.data.swarm.end_radius = 50
 	swarm_st.data.swarm.travel_distance = 1200
 	swarm_st.data.swarm.effect_path = "res://src/effects/moonwell_target.tscn"
 
