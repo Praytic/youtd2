@@ -213,6 +213,10 @@ func do_cast_at_pos(target_pos: Vector2):
 
 
 # NOTE: target arg may be null if autocast is immediate
+# NOTE: this function doesn't check conditions like "caster
+# has enough mana", "not on cooldown". This has to be done
+# by the user of this function before calling the do_cast().
+# Use Autocast.can_cast() for checking.
 func do_cast(target: Unit):
 	CombatLog.log_autocast(_caster, target, self)
 
@@ -228,9 +232,10 @@ func do_cast(target: Unit):
 
 		return
 
-#	NOTE: need to subtract mana after performing autocast
-#	because some autocast handlers need to check mana value
-#	before it is spent.
+#	NOTE: the ordering of calls is important here. Must
+#	subtract mana AFTER calling the autocast handler
+#	function. This is because autocast handlers need to
+#	check mana value before it is spent.
 	var mana_cost: int = get_mana_cost()
 	_caster.subtract_mana(mana_cost, false)
 
