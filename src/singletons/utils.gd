@@ -903,10 +903,10 @@ func get_tower_list() -> Array[Tower]:
 
 
 func get_creep_list() -> Array[Creep]:
-	var tower_node_list: Array[Node] = get_tree().get_nodes_in_group("creeps")
+	var creep_node_list: Array[Node] = get_tree().get_nodes_in_group("creeps")
 	var creep_list: Array[Creep] = []
 
-	for creep_node in tower_node_list:
+	for creep_node in creep_node_list:
 		var creep: Creep = creep_node as Creep
 		creep_list.append(creep)
 
