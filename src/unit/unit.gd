@@ -91,8 +91,12 @@ var _base_mana_regen: float = 0.0
 var _base_armor: float = 0.0
 var _kill_count: int = 0
 var _best_hit: float = 0.0
+var _attack_damage_dealt: float = 0.0
+var _spell_damage_dealt: float = 0.0
 var _damage_dealt_total: float = 0.0
 var _damage_dealt_to_wave_map: Dictionary = {}
+var _attack_damage_dealt_to_wave_map: Dictionary = {}
+var _spell_damage_dealt_to_wave_map: Dictionary = {}
 var _ethereal_count: int = 0
 var _silence_count: int = 0
 var _stun_count: int = 0
@@ -941,8 +945,19 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	
 	if !_damage_dealt_to_wave_map.has(wave_level):
 		_damage_dealt_to_wave_map[wave_level] = 0
-	
+	if !_attack_damage_dealt_to_wave_map.has(wave_level):
+		_attack_damage_dealt_to_wave_map[wave_level] = 0
+	if !_spell_damage_dealt_to_wave_map.has(wave_level):
+		_spell_damage_dealt_to_wave_map[wave_level] = 0
+		
 	_damage_dealt_to_wave_map[wave_level] += damage
+	
+	if damage_source == DamageSource.Spell:
+		_spell_damage_dealt += damage
+		_spell_damage_dealt_to_wave_map[wave_level] += damage
+	if damage_source == DamageSource.Attack:
+		_attack_damage_dealt += damage
+		_attack_damage_dealt_to_wave_map[wave_level] += damage
 
 	if damage > _best_hit:
 		_best_hit = damage
