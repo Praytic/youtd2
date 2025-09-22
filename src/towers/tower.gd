@@ -1100,22 +1100,32 @@ func get_overall_dps() -> float:
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.
 func get_dps_with_crit() -> float:
-	var crit_multiplier: float = 1.0
-	var current_crit_chance: float = get_prop_atk_crit_chance()
-	var crit_damage: float = get_prop_atk_crit_damage() - 1.0
-	var multicrit_current: int = get_prop_multicrit_count()
-	var current_dmg_multiplier: float = 1.0
+	# Extra crit damage per successful crit:
+	# if crit_damage = 1.5x, then extra = 0.5
+	var extra_per_crit: float = get_prop_atk_crit_damage() - 1.0
+	
+	# Loop parameters
+	var remaining_multicrits: int = get_prop_multicrit_count()      # M
+	var current_crit_chance: float = get_prop_atk_crit_chance()     # initial p_1
 
-	while multicrit_current > 0:
-		if current_crit_chance > Constants.ATK_CRIT_CHANCE_CAP:
-			current_dmg_multiplier *= Constants.ATK_CRIT_CHANCE_CAP
-		else:
-			current_dmg_multiplier *= current_crit_chance
+	# Probability that the chain survives to stage k (P[crits ≥ k])
+	var chain_prob_at_least_k: float = 1.0
 
-		crit_multiplier += crit_damage * current_dmg_multiplier
+	# Expected crit multiplier:
+	# E[multiplier] = 1 + extra * Σ_{k=1..M} P(crits ≥ k)
+	var expected_crit_multiplier: float = 1.0
+
+	while remaining_multicrits > 0:
+		# Compute effective crit probability for this stage, clamped to cap
+		# and update chain -> probability of reaching at least this stage
+		chain_prob_at_least_k *= clampf(current_crit_chance, 0.0, Constants.ATK_CRIT_CHANCE_CAP)
+
+		# Add contribution of this stage
+		expected_crit_multiplier += extra_per_crit * chain_prob_at_least_k
+
+		# Prepare for next stage: diminish chance
 		current_crit_chance *= Constants.ATK_MULTICRIT_DIMISHING
-
-		multicrit_current -= 1
+		remaining_multicrits -= 1
 
 	var dps: float = get_overall_dps()
 	var dps_with_crit: float = dps * crit_multiplier
