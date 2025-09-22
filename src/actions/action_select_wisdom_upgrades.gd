@@ -22,7 +22,7 @@ static func execute(action: Dictionary, player: Player):
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_SYNERGY]:
 		builder_wisdom_multiplier += 0.06
 	
-	if wisdom_upgrades[WisdomUpgradeProperties.Id.THE_ART_OF_ASCENSION]:
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.THE_PATH_OF_ASCENSION]:
 		var levels_spent = wisdom_upgrades.values().count(true) / Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT
 		var levels_left: int = int(Utils.get_local_player_level() - levels_spent)
 		builder_wisdom_multiplier += 0.001 * levels_left
