@@ -90,26 +90,26 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, build
 			ModificationType.enm.MOD_EXP_RECEIVED: 0.20,
 		},
 		WisdomUpgradeProperties.Id.PILLAGE_MASTERY: {
-			Modification.Type.MOD_BOUNTY_RECEIVED: 0.16,
+			ModificationType.enm.MOD_BOUNTY_RECEIVED: 0.16,
 		},
 		WisdomUpgradeProperties.Id.FORTIFIED_WILL: {
-			Modification.Type.MOD_DEBUFF_DURATION: -0.075,
+			ModificationType.enm.MOD_DEBUFF_DURATION: -0.075,
 		},
 		WisdomUpgradeProperties.Id.INNER_FOCUS: {
-			Modification.Type.MOD_BUFF_DURATION: 0.06,
+			ModificationType.enm.MOD_BUFF_DURATION: 0.06,
 		},
 		WisdomUpgradeProperties.Id.DEADLY_STRIKES: {
-			Modification.Type.MOD_ATK_CRIT_DAMAGE: 0.175,
-			Modification.Type.MOD_SPELL_CRIT_DAMAGE: 0.175,
+			ModificationType.enm.MOD_ATK_CRIT_DAMAGE: 0.175,
+			ModificationType.enm.MOD_SPELL_CRIT_DAMAGE: 0.175,
 		},
 		WisdomUpgradeProperties.Id.FORTUNES_FAVOR: {
-			Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 0.065,
+			ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL: 0.065,
 		},
 		WisdomUpgradeProperties.Id.CHALLENGE_CONQUEROR: {
-			Modification.Type.MOD_DMG_TO_CHALLENGE: 0.08,
+			ModificationType.enm.MOD_DMG_TO_CHALLENGE: 0.08,
 		},
 		WisdomUpgradeProperties.Id.MASTER_OF_DESTRUCTION: {
-			Modification.Type.MOD_DMG_TOTAL_MULTIPLIER: 0.02,
+			ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: 0.02,
 		},
 	}
 	
