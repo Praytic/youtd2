@@ -193,6 +193,7 @@ func _ready():
 	innate_modifier.add_modification(ModificationType.enm.MOD_SPELL_CRIT_DAMAGE, 0, Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD)
 	innate_modifier.add_modification(ModificationType.enm.MOD_DAMAGE_BASE_PERC, 0, Constants.INNATE_MOD_DAMAGE_BASE_PERC_LEVEL_ADD)
 	innate_modifier.add_modification(ModificationType.enm.MOD_ATTACKSPEED, 0, Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD)
+	innate_modifier.add_modification(ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER, 0, 0)
 	add_modifier(innate_modifier)
 
 	var tower_id: int = get_id()

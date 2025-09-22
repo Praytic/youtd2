@@ -71,6 +71,8 @@ class_name TowerDetails extends PanelContainer
 @export var _dmg_to_champion: Label
 @export var _dmg_to_boss: Label
 
+@export var _total_dmg_multiplier: Label
+
 # Details
 @export var _tower_details_label: RichTextLabel
 
@@ -268,7 +270,10 @@ func update_text():
 
 	var dmg_to_boss: float = _tower.get_damage_to_boss()
 	_dmg_to_boss.text = Utils.format_percent(dmg_to_boss, 0)
-
+	
+	var total_dmg_multiplier: float = _tower.get_total_damage_multiplier()
+	_total_dmg_multiplier.text = Utils.format_percent(total_dmg_multiplier, 0)
+	
 #	Details
 	var tower_details_text: String = _get_tower_details_text(_tower)
 	_tower_details_label.clear()
