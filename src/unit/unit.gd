@@ -943,19 +943,28 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	
 	var wave_level: int = target.get_spawn_level()
 	
+	# initialize all maps at once on first damage instance to wave_level
 	if !_damage_dealt_to_wave_map.has(wave_level):
 		_damage_dealt_to_wave_map[wave_level] = 0
-	if !_attack_damage_dealt_to_wave_map.has(wave_level):
-		_attack_damage_dealt_to_wave_map[wave_level] = 0
-	if !_spell_damage_dealt_to_wave_map.has(wave_level):
 		_spell_damage_dealt_to_wave_map[wave_level] = 0
+		_attack_damage_dealt_to_wave_map[wave_level] = 0
+		
 		
 	_damage_dealt_to_wave_map[wave_level] += damage
 	
 	if damage_source == DamageSource.Spell:
+		# re-init as safety fallback
+		if !_spell_damage_dealt_to_wave_map.has(wave_level):
+			_spell_damage_dealt_to_wave_map[wave_level] = 0
+		
 		_spell_damage_dealt += damage
 		_spell_damage_dealt_to_wave_map[wave_level] += damage
+		
 	if damage_source == DamageSource.Attack:
+		# re-init as safety fallback
+		if !_attack_damage_dealt_to_wave_map.has(wave_level):
+			_attack_damage_dealt_to_wave_map[wave_level] = 0
+			
 		_attack_damage_dealt += damage
 		_attack_damage_dealt_to_wave_map[wave_level] += damage
 
