@@ -1128,7 +1128,7 @@ func get_dps_with_crit() -> float:
 		remaining_multicrits -= 1
 
 	var dps: float = get_overall_dps()
-	var dps_with_crit: float = dps * crit_multiplier
+	var dps_with_crit: float = dps * expected_crit_multiplier
 	
 	return dps_with_crit
 
