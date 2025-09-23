@@ -450,7 +450,8 @@ func _command_damage_meters(player: Player, _args: Array):
 
 		var tower_name: String = tower.get_display_name()
 		var damage: float = tower.get_total_damage()
-		var damage_string: String = TowerDetails.int_format(damage)
+		# use roundi to display the same value as tower details
+		var damage_string: String = TowerDetails.int_format(roundi(damage))
 		
 		var damage_attack: float = tower.get_total_damage_by_type(Tower.DamageSource.Attack)
 		var attack_percentage: float = Utils.divide_safe(damage_attack, damage) * 100
@@ -460,7 +461,7 @@ func _command_damage_meters(player: Player, _args: Array):
 		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
 		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
 		
-		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack:%s%%, spell: %s%%" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
 
 		count += 1
 
@@ -484,9 +485,9 @@ func _command_damage_meters_recent(player: Player, _args: Array):
 			break
 
 		var tower_name: String = tower.get_display_name()
-		
 		var damage: float = tower.get_total_damage_recent()
-		var damage_string: String = TowerDetails.int_format(damage)
+		# use roundi to display the same value as tower details
+		var damage_string: String = TowerDetails.int_format(roundi(damage))
 		
 		var damage_attack: float = tower.get_total_damage_recent(true, Tower.DamageSource.Attack)
 		var attack_percentage: float = Utils.divide_safe(damage_attack, damage) * 100
@@ -496,7 +497,7 @@ func _command_damage_meters_recent(player: Player, _args: Array):
 		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
 		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
 		
-		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack:%s%%, spell: %s%%" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
 
 		count += 1
 
