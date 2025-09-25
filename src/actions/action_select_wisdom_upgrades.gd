@@ -90,10 +90,10 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, wisdo
 			ModificationType.enm.MOD_BOUNTY_RECEIVED: 0.16,
 		},
 		WisdomUpgradeProperties.Id.FORTIFIED_WILL: {
-			ModificationType.enm.MOD_DEBUFF_DURATION: -0.075,
+			ModificationType.enm.MOD_DEBUFF_DURATION: -0.09,
 		},
 		WisdomUpgradeProperties.Id.INNER_FOCUS: {
-			ModificationType.enm.MOD_BUFF_DURATION: 0.06,
+			ModificationType.enm.MOD_BUFF_DURATION: 0.065,
 		},
 		WisdomUpgradeProperties.Id.DEADLY_STRIKES: {
 			ModificationType.enm.MOD_ATK_CRIT_DAMAGE: 0.175,
