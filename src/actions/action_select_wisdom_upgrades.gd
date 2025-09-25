@@ -42,7 +42,7 @@ static func execute(action: Dictionary, player: Player):
 		player.get_builder()._tower_exp_bonus += tower_bonus_exp
 	
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_OPTICS]:
-		var bonus_attack_range: float = 20 * wisdom_multiplier
+		var bonus_attack_range: float = 25 * wisdom_multiplier
 		player.get_builder()._attack_range_bonus += bonus_attack_range
 	
 	# Unaffected by wisdom_multiplier
@@ -103,10 +103,10 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, wisdo
 			ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL: 0.065,
 		},
 		WisdomUpgradeProperties.Id.CHALLENGE_CONQUEROR: {
-			ModificationType.enm.MOD_DMG_TO_CHALLENGE: 0.08,
+			ModificationType.enm.MOD_DMG_TO_CHALLENGE: 0.1,
 		},
 		WisdomUpgradeProperties.Id.MASTER_OF_DESTRUCTION: {
-			ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: 0.02,
+			ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: 0.025,
 		},
 	}
 	
