@@ -102,7 +102,8 @@ func generate_random_towers_with_count(player: Player, count: int) -> Array[int]
 		var element: Element.enm = element_list.pop_front()
 		element_list.push_back(element)
 
-		var tower: int = _generate_random_tower_for_element(player, element)
+		var chance_for_element: float = _get_chance_for_element(player, element)
+		var tower: int = _generate_random_tower_for_element(player, element, chance_for_element)
 
 		if tower != 0:
 			tower_list.append(tower)
@@ -213,10 +214,7 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 
 
 # Returns 0 if failed to generate
-func _generate_random_tower_for_element(player: Player, element: Element.enm, chance_for_element: float = -2.0) -> int:
-	if chance_for_element == -2.0:
-		chance_for_element = _get_chance_for_element(player, element)
-	
+func _generate_random_tower_for_element(player: Player, element: Element.enm, chance_for_element: float) -> int:
 	var roll_success: bool = Utils.rand_chance(Globals.synced_rng, chance_for_element)
 	if !roll_success:
 		return 0
