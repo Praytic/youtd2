@@ -91,7 +91,7 @@ func get_research_text(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
 	var current_element_level = player.get_element_level(element)
-	var reached_max_level: bool = current_element_level == Constants.MAX_ELEMENT_LEVEL
+	var reached_max_level: bool = current_element_level == player.get_max_element_level()
 	if reached_max_level:
 		return tr("RESEARCH_ELEMENT_CANT_RESEARCH_FURTHER") + "\n"
 
@@ -124,7 +124,7 @@ func get_research_level_label(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
 	var current_element_level = player.get_element_level(element)
-	var max_element_level = Constants.MAX_ELEMENT_LEVEL
+	var max_element_level = player.get_max_element_level()
 	if current_element_level >= max_element_level:
 		text += " [color=GOLD]%s[/color] " % tr("RESEARCH_ELEMENT_LEVEL_MAX")
 	else:

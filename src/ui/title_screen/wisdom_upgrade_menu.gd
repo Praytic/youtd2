@@ -7,7 +7,8 @@ class_name WisdomUpgradeMenu extends PanelContainer
 @export var _button_container: GridContainer
 @export var _available_label: Label
 @export var _next_upgrade_unlock_label: RichTextLabel
-
+@export var _wisdom_effectiveness_bonus_label: Label
+@export var _wisdom_effectiveness_container: HBoxContainer
 
 var _upgrade_available_count: int
 var _upgrades_cached: Dictionary = {}
@@ -57,6 +58,7 @@ func load_wisdom_upgrades_from_settings():
 		_next_upgrade_unlock_label.append_text(tr("WISDOM_UPGRADES_UNLOCK_LABEL") + "[color=GOLD]%d[/color]." % next_unlock_level)
 
 	_update_available_label()
+	_update_wisdom_effectiveness_label()
 
 
 #########################
@@ -124,6 +126,13 @@ func _update_available_label():
 	_available_label.text = str(available_count)
 
 
+func _update_wisdom_effectiveness_label():
+	var upgrades_wisdom_multiplier_bonus: float = Utils.get_wisdom_multiplier_bonus_from_upgrades(_upgrades_cached)
+	var wisdom_multiplier_bonus_exists: bool = upgrades_wisdom_multiplier_bonus != 0
+	_wisdom_effectiveness_container.visible = wisdom_multiplier_bonus_exists
+	if wisdom_multiplier_bonus_exists:
+		_wisdom_effectiveness_bonus_label.text = "%s%%" % Utils.format_float((1+upgrades_wisdom_multiplier_bonus) * 100, 1)
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -142,6 +151,7 @@ func _on_button_pressed(button: WisdomUpgradeButton, upgrade_id: int):
 	button.set_upgrade_used_status(new_state)
 	
 	_update_available_label()
+	_update_wisdom_effectiveness_label()
 
 	Settings.set_setting(Settings.WISDOM_UPGRADES_CACHED, _upgrades_cached)
 	Settings.flush()

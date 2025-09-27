@@ -301,6 +301,20 @@ func get_wisdom_upgrade_count_for_player_level(player_level: int) -> int:
 	return upgrade_count
 
 
+# returns an additive bonus to wisdom multiplier
+func get_wisdom_multiplier_bonus_from_upgrades(wisdom_upgrades: Dictionary) -> float:
+	var player_level: int = Utils.get_local_player_level()
+	var wisdom_multiplier_bonus: float = 0.0
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_SYNERGY]:
+		wisdom_multiplier_bonus += 0.06
+	
+	if wisdom_upgrades[WisdomUpgradeProperties.Id.THE_PATH_OF_ASCENSION]:
+		var levels_spent = wisdom_upgrades.values().count(true) / Constants.PLAYER_LEVEL_TO_WISDOM_UPGRADE_COUNT
+		var levels_left: int = int(player_level - levels_spent)
+		wisdom_multiplier_bonus += 0.001 * levels_left
+	return wisdom_multiplier_bonus
+
+
 func get_local_player_level() -> int:
 	var exp_password: String = Settings.get_setting(Settings.EXP_PASSWORD)
 	var player_exp: int = ExperiencePassword.decode(exp_password)

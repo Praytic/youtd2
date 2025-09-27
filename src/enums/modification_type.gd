@@ -103,6 +103,11 @@ enum enm {
 #	+1.0 = +1 DPS
 	MOD_DPS_ADD,
 
+#	An extra modifier that
+#	increases total damage dealt after crit and other regular % modifiers.
+#	It is not included in DPS or DPS with crit calculations.
+	MOD_DMG_TOTAL_MULTIPLIER,
+
 # 	Misc modifications
 
 #	Modifies the chance of item drops when this tower kills
@@ -280,6 +285,7 @@ const _mod_to_string_map: Dictionary = {
 	ModificationType.enm.MOD_DAMAGE_ADD: "MOD_DAMAGE_ADD",
 	ModificationType.enm.MOD_DAMAGE_ADD_PERC: "MOD_DAMAGE_ADD_PERC",
 	ModificationType.enm.MOD_DPS_ADD: "MOD_DPS_ADD",
+	ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: "MOD_DMG_TOTAL_MULTIPLIER",
 	ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL: "MOD_ITEM_CHANCE_ON_KILL",
 	ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL: "MOD_ITEM_QUALITY_ON_KILL",
 	ModificationType.enm.MOD_EXP_RECEIVED: "MOD_EXP_RECEIVED",
@@ -339,6 +345,7 @@ const _string_to_mod_map: Dictionary = {
 	"MOD_DAMAGE_ADD": ModificationType.enm.MOD_DAMAGE_ADD,
 	"MOD_DAMAGE_ADD_PERC": ModificationType.enm.MOD_DAMAGE_ADD_PERC,
 	"MOD_DPS_ADD": ModificationType.enm.MOD_DPS_ADD,
+	"MOD_DMG_TOTAL_MULTIPLIER": ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER,
 	"MOD_ITEM_CHANCE_ON_KILL": ModificationType.enm.MOD_ITEM_CHANCE_ON_KILL,
 	"MOD_ITEM_QUALITY_ON_KILL": ModificationType.enm.MOD_ITEM_QUALITY_ON_KILL,
 	"MOD_EXP_RECEIVED": ModificationType.enm.MOD_EXP_RECEIVED,
@@ -419,6 +426,7 @@ static func get_display_string(type: ModificationType.enm) -> String:
 		ModificationType.enm.MOD_DAMAGE_ADD: string = Utils.tr("MOD_DAMAGE_ADD_TEXT")
 		ModificationType.enm.MOD_DAMAGE_ADD_PERC: string = Utils.tr("MOD_DAMAGE_ADD_PERC_TEXT")
 		ModificationType.enm.MOD_DPS_ADD: string = Utils.tr("MOD_DPS_ADD_TEXT")
+		ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: string = Utils.tr("MOD_DMG_TOTAL_MULTIPLIER")
 		ModificationType.enm.MOD_HP: string = Utils.tr("MOD_HP_TEXT")
 		ModificationType.enm.MOD_HP_PERC: string = Utils.tr("MOD_HP_PERC_TEXT")
 		ModificationType.enm.MOD_HP_REGEN: string = Utils.tr("MOD_HP_REGEN_TEXT")

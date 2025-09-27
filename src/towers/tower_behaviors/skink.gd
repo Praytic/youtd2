@@ -39,7 +39,7 @@ func poison_skin_bt_on_attack(event: Event):
 		active_damage = active_buff.user_real
 
 	var new_stacks: int = active_stacks + 1
-	var attack_speed_and_range_adjustment: float = buffed_tower.get_current_attack_speed() / (buffed_tower.get_range() / 800.0)
+	var attack_speed_and_range_adjustment: float = buffed_tower.get_current_attack_speed() / (buffed_tower.get_base_range() / 800.0)
 	var added_damage: float = (_stats.dmg + _stats.dmg_add * level) * attack_speed_and_range_adjustment
 	var new_damage: float = active_damage + added_damage
 

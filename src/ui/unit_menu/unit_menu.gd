@@ -67,7 +67,14 @@ func _process(_delta: float):
 	_mana_bar.set_ratio_custom(mana, mana_max)
 	
 	var unit_level: int = _unit.get_level()
-	var unit_is_max_level: bool = unit_level == Constants.MAX_LEVEL
+	
+	var max_unit_level: int = Constants.MAX_LEVEL
+	var owner: Player = _unit.get_player()
+	
+	if owner != null:
+		max_unit_level = owner.get_max_tower_level()
+		
+	var unit_is_max_level: bool = unit_level == max_unit_level
 	if !unit_is_max_level:
 		var exp_for_current_level: int = Experience.get_exp_for_level(unit_level)
 		var exp_for_next_level: int = Experience.get_exp_for_level(unit_level + 1)
@@ -84,7 +91,7 @@ func _process(_delta: float):
 		_exp_bar.set_as_ratio(exp_ratio)
 	else:
 		var current_exp: int = floori(_unit.get_exp())
-		var exp_for_max_level: int = Experience.get_exp_for_level(Constants.MAX_LEVEL)
+		var exp_for_max_level: int = Experience.get_exp_for_level(max_unit_level)
 		_exp_bar.set_ratio_custom(current_exp, exp_for_max_level)
 	
 	if _tower != null:

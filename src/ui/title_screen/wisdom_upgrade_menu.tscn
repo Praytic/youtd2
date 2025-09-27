@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" path="res://src/ui/title_screen/wisdom_upgrade_menu.gd" id="1_s5krx"]
 
-[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_available_label", "_next_upgrade_unlock_label")]
+[node name="WisdomUpgradeMenu" type="PanelContainer" node_paths=PackedStringArray("_button_container", "_available_label", "_next_upgrade_unlock_label", "_wisdom_effectiveness_bonus_label", "_wisdom_effectiveness_container")]
 offset_right = 294.0
 offset_bottom = 126.0
 script = ExtResource("1_s5krx")
 _button_container = NodePath("MarginContainer/VBoxContainer/ButtonContainer")
 _available_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableLabel")
 _next_upgrade_unlock_label = NodePath("MarginContainer/VBoxContainer/NextUpgradeUnlockLabel")
+_wisdom_effectiveness_bonus_label = NodePath("MarginContainer/VBoxContainer/WisdomEffectivenessHBoxContainer/WisdomEffectivenessBonusLabel")
+_wisdom_effectiveness_container = NodePath("MarginContainer/VBoxContainer/WisdomEffectivenessHBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -45,6 +47,19 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 text = "123"
 
+[node name="WisdomEffectivenessHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/WisdomEffectivenessHBoxContainer"]
+layout_mode = 2
+text = "WISDOM_EFFECTIVENESS_BONUS"
+
+[node name="WisdomEffectivenessBonusLabel" type="Label" parent="MarginContainer/VBoxContainer/WisdomEffectivenessHBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+text = "123"
+
 [node name="ButtonContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-columns = 2
+columns = 4

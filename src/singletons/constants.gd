@@ -41,7 +41,8 @@ const SPELL_DAMAGE_RATIO: float = 0.9
 const SPELL_DAMAGE_RATIO_FOR_SIF: float = 0.4
 
 const MAX_LEVEL: int = 25
-const PLAYER_MAX_LEVEL: int = 225
+const MAX_LEVEL_WITH_BONUS: int = 30
+const PLAYER_MAX_LEVEL: int = 300
 const SIF_ARMOR_CHANCE: float = 0.15
 const MIN_WAVE_FOR_SPECIAL: int = 8
 
