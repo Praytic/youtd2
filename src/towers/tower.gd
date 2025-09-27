@@ -161,6 +161,10 @@ func _ready():
 		_best_hit = _temp_preceding_tower._best_hit
 		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
 		_damage_dealt_to_wave_map = _temp_preceding_tower._damage_dealt_to_wave_map
+		_attack_damage_dealt = _temp_preceding_tower._attack_damage_dealt
+		_spell_damage_dealt = _temp_preceding_tower._spell_damage_dealt
+		_attack_damage_dealt_to_wave_map = _temp_preceding_tower._attack_damage_dealt_to_wave_map
+		_spell_damage_dealt_to_wave_map = _temp_preceding_tower._spell_damage_dealt_to_wave_map
 		
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
@@ -1137,16 +1141,29 @@ func get_dps_with_crit() -> float:
 # NOTE: getOverallDamage() in JASS, renamed to avoid confusion
 func get_total_damage() -> float:
 	return _damage_dealt_total
+	
+func get_total_damage_by_type(damage_source: DamageSource = DamageSource.Attack) -> float:
+	if damage_source == DamageSource.Attack:
+		return _attack_damage_dealt
+	if damage_source == DamageSource.Spell:
+		return _spell_damage_dealt
+	return 0.0
 
-# How much damage the tower dealt in total, during last 5 min
-func get_total_damage_recent() -> float:
+# How much damage the tower dealt in total, during last 5 waves
+func get_total_damage_recent(use_damage_source: bool = false, damage_source: DamageSource = DamageSource.Attack) -> float:
 	var total_damage_recent: float = 0
 	
 	var team: Team = _player.get_team()
 	var current_wave_level: int = team.get_level()
 	
+	var damage_dealt_to_wave_map: Dictionary = _damage_dealt_to_wave_map
+	if use_damage_source and damage_source == DamageSource.Attack:
+		damage_dealt_to_wave_map = _attack_damage_dealt_to_wave_map
+	if use_damage_source and damage_source == DamageSource.Spell:
+		damage_dealt_to_wave_map = _spell_damage_dealt_to_wave_map
+		
 	for i in range(current_wave_level, current_wave_level - 5, -1):
-		var damage_to_wave: float = _damage_dealt_to_wave_map.get(i, 0)
+		var damage_to_wave: float = damage_dealt_to_wave_map.get(i, 0)
 		total_damage_recent += damage_to_wave
 	
 	return total_damage_recent
