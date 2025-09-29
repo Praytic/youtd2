@@ -74,15 +74,19 @@ func get_exp_for_level(level: int) -> int:
 
 # Returns what level the tower should be at when it has a
 # certain amount of experience
-func get_level_at_exp(experience_float: float) -> int:
+func get_level_at_exp(experience_float: float, player: Player) -> int:
 	var experience: int = floori(experience_float)
-
+	var level: int
+	
 	if experience >= 0:
 		if _level_at_exp.has(experience):
-			var level: int = _level_at_exp[experience]
-
-			return level
+			level = _level_at_exp[experience]
 		else:
-			return Constants.MAX_LEVEL_WITH_BONUS
+			level = Constants.MAX_LEVEL_WITH_BONUS
 	else:
-		return 0
+		level = 0
+	
+	# limit by player's max tower level
+	if player != null:
+		level = min(level, player.get_max_tower_level())
+	return level

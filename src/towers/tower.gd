@@ -165,22 +165,14 @@ func _ready():
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
 	else:
-#		NOTE: only apply builder tower lvl bonus if tower is
+#		NOTE: only apply tower exp and lvl bonus if tower is
 #		"fresh". When tower is transformed or upgraded, it
-#		inherits level of preceding tower and this builder
-#		lvl bonus can't be applied.
-		var builder: Builder = get_player().get_builder()
-		var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
-		var tower_exp_bonus: float = builder.get_tower_exp_bonus()
-		
-		var current_lvl: int = min(get_player().get_max_tower_level(), Experience.get_level_at_exp(tower_exp_bonus))
-		var experience_for_current_level: int = Experience.get_exp_for_level(current_lvl)
-		var increased_lvl: int = min(get_player().get_max_tower_level(), current_lvl + tower_lvl_bonus)
-		var experience_for_increased_level: int = Experience.get_exp_for_level(increased_lvl)
-		var added_exp: float = float(experience_for_increased_level - experience_for_current_level)
-		
-		set_level(increased_lvl)
-		_experience = tower_exp_bonus + added_exp
+#		inherits level of preceding tower
+#		and these bonuses can't be applied.
+		var exp_from_bonuses: float = _calculate_exp_from_bonuses()
+		var lvl_from_bonuses: int = Experience.get_level_at_exp(exp_from_bonuses, get_player())
+		set_level(lvl_from_bonuses)
+		_experience = exp_from_bonuses
 
 	var wisdom_modifier: Modifier = get_player().get_wisdom_modifier()
 	add_modifier(wisdom_modifier)
@@ -364,6 +356,23 @@ func issue_target_order(target: Unit):
 #########################
 ###      Private      ###
 #########################
+
+func _calculate_exp_from_bonuses() -> float:
+	var player = get_player()
+	var builder: Builder = player.get_builder()
+	
+	var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
+	var tower_exp_bonus: float = builder.get_tower_exp_bonus()
+	
+	var current_lvl: int = Experience.get_level_at_exp(tower_exp_bonus, player)
+	var experience_for_current_level: int = Experience.get_exp_for_level(current_lvl)
+	var increased_lvl: int = min(current_lvl + tower_lvl_bonus, player.get_max_tower_level())
+	var experience_for_increased_level: int = Experience.get_exp_for_level(increased_lvl)
+	
+	var added_exp: float = float(experience_for_increased_level - experience_for_current_level)
+	
+	return tower_exp_bonus + added_exp
+
 
 func _get_attack_ability_description() -> String:
 	var tower_id: int = get_id()

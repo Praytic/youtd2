@@ -706,7 +706,7 @@ func _change_experience(amount: float) -> float:
 	var new_exp: float = max(0.0, _experience + amount)
 	var actual_change = new_exp - old_exp
 	var old_level: int = _level
-	var new_level: int = min(get_player().get_max_tower_level(), Experience.get_level_at_exp(new_exp))
+	var new_level: int = Experience.get_level_at_exp(new_exp, get_player())
 
 	_experience = new_exp
 
