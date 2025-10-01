@@ -10,6 +10,12 @@ extends Node2D
 # NOTE: see comments in buff_type.gd for detailed info about
 # unit events. For example, add_event_on_level_changed()
 # function.
+# 
+# NOTE: if a tower is created at level greater than 0, this
+# level_changed() signal will NOT be emitted. If your tower
+# script needs to scale some values with tower level, then
+# you should add such logic to BOTH on_level_changed() and
+# TowerBehavior.on_create().
 signal level_changed(level_increased: bool)
 signal attack(event)
 signal attacked(event)
