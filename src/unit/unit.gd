@@ -196,6 +196,8 @@ var _mod_value_map: Dictionary = {
 	ModificationType.enm.MOD_DMG_FROM_ICE: 1.0,
 	ModificationType.enm.MOD_DMG_FROM_STORM: 1.0,
 	ModificationType.enm.MOD_DMG_FROM_IRON: 1.0,
+	
+	ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: 1.0,
 }
 
 
@@ -714,7 +716,7 @@ func _change_experience(amount: float) -> float:
 	var new_exp: float = max(0.0, _experience + amount)
 	var actual_change = new_exp - old_exp
 	var old_level: int = _level
-	var new_level: int = Experience.get_level_at_exp(new_exp)
+	var new_level: int = Experience.get_level_at_exp(new_exp, get_player())
 
 	_experience = new_exp
 
@@ -918,6 +920,9 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 #	damage ***AFTER*** the onDamage event, so there is no
 #	need to care about it in this trigger."
 	damage *= crit_ratio
+	
+	var total_damage_multiplier: float = get_total_damage_multiplier()
+	damage *= total_damage_multiplier
 
 	var damage_before_damaged_event: float = damage
 
@@ -1446,6 +1451,9 @@ func get_damage_to_undead() -> float:
 func get_damage_to_humanoid() -> float:
 	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_HUMANOID])
 
+func get_damage_to_challenge() -> float:
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_CHALLENGE])
+
 func get_damage_to_nature() -> float:
 	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TO_NATURE])
 
@@ -1825,6 +1833,8 @@ func get_damage_to_size(creep_size: CreepSize.enm) -> float:
 
 	return damage_mod
 
+func get_total_damage_multiplier() -> float:
+	return max(0, _mod_value_map[ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER])
 
 func get_attack_type() -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
@@ -1834,7 +1844,12 @@ func get_exp() -> float:
 
 
 func reached_max_level() -> bool:
-	var is_max_level: bool = _level == Constants.MAX_LEVEL
+	var max_level: int = Constants.MAX_LEVEL
+	var player: Player = get_player()
+	if player != null:
+		max_level = player.get_max_tower_level()
+		
+	var is_max_level: bool = _level == max_level
 
 	return is_max_level
 

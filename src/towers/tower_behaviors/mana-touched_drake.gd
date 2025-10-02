@@ -25,7 +25,7 @@ func drake_aura_manaburn(event: Event):
 	var buffed_tower: Unit = b.get_buffed_unit()
 	var target: Unit = event.get_target()
 	var caster: Unit = b.get_caster()
-	var speed_and_range_adjust: float = buffed_tower.get_base_attack_speed() * 800 / buffed_tower.get_range()
+	var speed_and_range_adjust: float = buffed_tower.get_base_attack_speed() * 800 / buffed_tower.get_base_range()
 	var mana_cost_for_drake: float = _stats.aura_mana_cost * speed_and_range_adjust
 	var mana_burned_intended: float = _stats.mana_burn_amount * speed_and_range_adjust
 	var level: int = caster.get_level()

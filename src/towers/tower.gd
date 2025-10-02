@@ -169,17 +169,14 @@ func _ready():
 #		Transition all buff groups from preceding tower
 		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
 	else:
-#		NOTE: only apply builder tower lvl bonus if tower is
+#		NOTE: only apply tower exp and lvl bonus if tower is
 #		"fresh". When tower is transformed or upgraded, it
-#		inherits level of preceding tower and this builder
-#		lvl bonus can't be applied.
-		var builder: Builder = get_player().get_builder()
-		var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
-
-		if tower_lvl_bonus > 0:
-			set_level(tower_lvl_bonus)
-			var experience_for_level: int = Experience.get_exp_for_level(tower_lvl_bonus)
-			_experience = experience_for_level
+#		inherits level of preceding tower
+#		and these bonuses can't be applied.
+		var exp_from_bonuses: float = _calculate_exp_from_bonuses()
+		var lvl_from_bonuses: int = Experience.get_level_at_exp(exp_from_bonuses, get_player())
+		set_level(lvl_from_bonuses)
+		_experience = exp_from_bonuses
 
 	var wisdom_modifier: Modifier = get_player().get_wisdom_modifier()
 	add_modifier(wisdom_modifier)
@@ -364,15 +361,37 @@ func issue_target_order(target: Unit):
 ###      Private      ###
 #########################
 
+func _calculate_exp_from_bonuses() -> float:
+	var player = get_player()
+	var builder: Builder = player.get_builder()
+	
+	var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
+	var tower_exp_bonus: float = builder.get_tower_exp_bonus()
+	
+	var current_lvl: int = Experience.get_level_at_exp(tower_exp_bonus, player)
+	var experience_for_current_level: int = Experience.get_exp_for_level(current_lvl)
+	var increased_lvl: int = min(current_lvl + tower_lvl_bonus, player.get_max_tower_level())
+	var experience_for_increased_level: int = Experience.get_exp_for_level(increased_lvl)
+	
+	var added_exp: float = float(experience_for_increased_level - experience_for_current_level)
+	
+	return tower_exp_bonus + added_exp
+
+
 func _get_attack_ability_description() -> String:
 	var tower_id: int = get_id()
 
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var base_attack_range: int = floor(get_base_range())
+	var bonus_attack_range: int = floor(get_range() - base_attack_range)
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var damage_dealt_string: String = AttackType.get_rich_text_for_damage_dealt(attack_type)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
-
-	var text: String = tr("TOWER_ATTACK_ABILITY_TEXT").format({ATTACK_TYPE = attack_type_string, RANGE = attack_range, DAMAGE_TO_TEXT = damage_dealt_string})
+	
+	var attack_range_str: String = "%s" % base_attack_range
+	if bonus_attack_range != 0:
+		attack_range_str += " + %s" % bonus_attack_range
+	
+	var text: String = tr("TOWER_ATTACK_ABILITY_TEXT").format({ATTACK_TYPE = attack_type_string, RANGE = attack_range_str, DAMAGE_TO_TEXT = damage_dealt_string})
 
 	return text
 
@@ -1176,12 +1195,16 @@ func get_kills() -> int:
 func get_best_hit() -> float:
 	return _best_hit
 
+func get_base_range() -> float:
+	return TowerProperties.get_range(_id)
+
 # NOTE: tower.getRange() in JASS
 func get_range() -> float:
-	var original_range: float = TowerProperties.get_range(_id)
+	var original_range: float = get_base_range()
 	var builder: Builder = get_player().get_builder()
 	var builder_range_bonus: float = builder.get_range_bonus()
-	var total_range: float = original_range + builder_range_bonus
+	var builder_attack_range_bonus: float = builder.get_attack_range_bonus()
+	var total_range: float = original_range + builder_range_bonus + builder_attack_range_bonus
 
 	return total_range
 
