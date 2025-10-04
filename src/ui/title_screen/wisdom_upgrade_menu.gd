@@ -34,6 +34,9 @@ func _ready():
 		
 		_button_map[upgrade_id] = button
 
+	Settings.changed.connect(_on_settings_changed)
+	_on_settings_changed()
+
 
 #########################
 ###       Public      ###
@@ -155,3 +158,13 @@ func _on_button_pressed(button: WisdomUpgradeButton, upgrade_id: int):
 
 	Settings.set_setting(Settings.WISDOM_UPGRADES_CACHED, _upgrades_cached)
 	Settings.flush()
+
+
+# Hide plus mode upgrades when plus mode is disabled
+func _on_settings_changed():
+	var plus_mode_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_PLUS_MODE)
+	var plus_mode_upgrade_list: Array = WisdomUpgradeProperties.get_plus_mode_upgrade_list()
+
+	for upgrade in plus_mode_upgrade_list:
+		var button: Button = _button_map[upgrade]
+		button.visible = plus_mode_is_enabled		
