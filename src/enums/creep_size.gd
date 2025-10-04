@@ -163,7 +163,7 @@ static func get_display_string(type: CreepSize.enm) -> String:
 		CreepSize.enm.AIR: string = Utils.tr("SIZE_AIR")
 		CreepSize.enm.CHAMPION: string = Utils.tr("SIZE_CHAMPION")
 		CreepSize.enm.BOSS: string = Utils.tr("SIZE_BOSS")
-		CreepSize.enm.CHALLENGE_MASS: string = Utils.tr("CHALLENGE_MASS")
+		CreepSize.enm.CHALLENGE_MASS: string = Utils.tr("SIZE_CHALLENGE_MASS")
 		CreepSize.enm.CHALLENGE_BOSS: string = Utils.tr("SIZE_CHALLENGE_BOSS")
 
 	return string
