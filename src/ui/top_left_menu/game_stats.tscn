@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://jm3vhrboca8b"]
+[gd_scene load_steps=5 format=3 uid="uid://jm3vhrboca8b"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_fcvcc"]
 [ext_resource type="Script" path="res://src/ui/top_left_menu/game_stats.gd" id="2_yyjiq"]
 [ext_resource type="Script" path="res://src/ui/hud/label_with_rich_tooltip.gd" id="3_r8spy"]
+[ext_resource type="PackedScene" uid="uid://213bkal0uk32" path="res://src/ui/top_left_menu/PlusModeLabel.tscn" id="3_ylxqo"]
 
 [node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_stats_label")]
 offset_right = 621.0
@@ -11,11 +12,14 @@ size_flags_horizontal = 0
 size_flags_vertical = 2
 theme = ExtResource("1_fcvcc")
 script = ExtResource("2_yyjiq")
-_settings_label = NodePath("SettingsLabel")
+_settings_label = NodePath("HBoxContainer/SettingsLabel")
 _builder_label = NodePath("GridContainer/BuilderLabel")
 _stats_label = NodePath("StatsLabel")
 
-[node name="SettingsLabel" type="RichTextLabel" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SettingsLabel" type="RichTextLabel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
@@ -24,6 +28,9 @@ bbcode_enabled = true
 text = "[color=GOLD]Neverending[/color], [color=GOLD]Build[/color], [color=4169e1ff]Beginner[/color]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="PlusModeLabel" parent="HBoxContainer" instance=ExtResource("3_ylxqo")]
+layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 2

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://4tcjyre0hoji"]
+[gd_scene load_steps=7 format=3 uid="uid://4tcjyre0hoji"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://resources/theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://src/ui/top_left_menu/wave_status.gd" id="2_fsc15"]
+[ext_resource type="PackedScene" uid="uid://213bkal0uk32" path="res://src/ui/top_left_menu/PlusModeLabel.tscn" id="3_27rq8"]
 [ext_resource type="Script" path="res://src/ui/hud/rich_text_label_with_rich_tooltip.gd" id="3_crgv5"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_srlh2"]
@@ -68,6 +69,9 @@ text = "WAVE_STATS_WAVE_COUNT_DOWN"
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "00:00"
+
+[node name="PlusModeLabel" parent="HBoxContainer" instance=ExtResource("3_27rq8")]
+layout_mode = 2
 
 [node name="DetailsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
