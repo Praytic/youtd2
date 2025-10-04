@@ -121,9 +121,6 @@ const BUFFGROUP_COUNT: int = 6
 
 const MAX_UPDATE_TICKS_PER_PHYSICS_TICK: int = 20
 
-# NOTE: this value is the default, final value can be
-# modified by some builders.
-const WISDOM_UPGRADE_MAX_DEFAULT: int = 8
 # NOTE: this value is the same as in original game. Player
 # earns about 60k score points per hour at medium
 # difficulty. Player must earn lvl 20 to unlock all
