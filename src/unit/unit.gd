@@ -606,7 +606,7 @@ func add_modifier(modifier: Modifier):
 func remove_modifier(modifier: Modifier):
 	if _direct_modifier_list.has(modifier):
 		_apply_modifier(modifier, _level, -1)
-		_direct_modifier_list.append(modifier)
+		_direct_modifier_list.erase(modifier)
 
 
 func change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
