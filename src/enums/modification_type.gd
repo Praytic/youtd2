@@ -1,5 +1,15 @@
 class_name ModificationType extends Node
 
+# This is an enum which represents a "modification" on a
+# tower or creep. For example, attack crit chance, attack
+# speed, move speed, etc. Note that it is also used to
+# represent the based stat values, so the naming of
+# "modification" is a bit misleading.
+
+# NOTE: this enum is a bit convoluted because it lumps
+# modifications for towers and creeps together. This was
+# necessary because some modifications are shared and it is
+# more convenient to use the enum this way.
 
 enum enm {
 #	-----------------------
