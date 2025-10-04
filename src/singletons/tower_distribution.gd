@@ -55,11 +55,21 @@ func _generate_random_towers(player: Player) -> Array[int]:
 	if element_list.is_empty():
 		return []
 
+	var plus_mode_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_PLUS_MODE)
+
 #	On first pass, try to roll each element once. This is
 #	likely to not result in any towers at low element
 #	levels.
 	for element in element_list:
 		var chance_for_element: float = _get_chance_for_element(player, element)
+
+		# NOTE: plus mode introduces a concept of "benefit
+		# from >100%" chance. In original game >100% chance
+		# did not give benefits, so disable it if plus mode
+		# is disabled.
+		if !plus_mode_is_enabled:
+			chance_for_element = clampf(chance_for_element, 0.0, 1.0)
+
 		while chance_for_element > 0:
 			var tower: int = _generate_random_tower_for_element(player, element, chance_for_element)
 
