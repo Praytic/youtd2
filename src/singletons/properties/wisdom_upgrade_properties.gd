@@ -35,6 +35,23 @@ enum Id {
 	THE_PATH_OF_ASCENSION,
 }
 
+const _plus_mode_upgrade_list: Array[WisdomUpgradeProperties.Id] = [
+	Id.PILLAGE_MASTERY,
+	Id.FORTIFIED_WILL,
+	Id.INNER_FOCUS,
+	Id.BOND_OF_UNITY,
+	Id.FOUNDATION_OF_KNOWLEDGE,
+	Id.DEADLY_STRIKES,
+	Id.FORTUNES_FAVOR,
+	Id.CHALLENGE_CONQUEROR,
+	Id.MASTER_OF_DESTRUCTION,
+	Id.ADVANCED_OPTICS,
+	Id.ELEMENTAL_OVERLOAD,
+	Id.PINNACLE_OF_POWER,
+	Id.ADVANCED_SYNERGY,
+	Id.THE_PATH_OF_ASCENSION,
+]
+
 
 const PROPERTIES_PATH = "res://data/wisdom_upgrades.csv"
 
@@ -77,6 +94,10 @@ func get_icon_path(tower_id: int) -> String:
 	var icon_path: String = _get_property(tower_id, CsvProperty.ICON)
 
 	return icon_path
+
+
+static func get_plus_mode_upgrade_list() -> Array[WisdomUpgradeProperties.Id]:
+	return _plus_mode_upgrade_list.duplicate()
 
 
 #########################
