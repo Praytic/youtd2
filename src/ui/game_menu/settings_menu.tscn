@@ -59,6 +59,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
+[node name="SectionOther" type="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_o5p4r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "SETTINGS_MISC"
+horizontal_alignment = 1
+
+[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "SETTINGS_SFX"
+
+[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "SETTINGS_LOG"
+
+[node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "SETTINGS_TUTRL"
+
 [node name="SectionDisplay" type="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("4_o5p4r")
@@ -215,35 +244,6 @@ max_value = 1.0
 step = 0.25
 value = 0.5
 scrollable = false
-
-[node name="SectionOther" type="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("4_o5p4r")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"LabelLarge"
-text = "SETTINGS_MISC"
-horizontal_alignment = 1
-
-[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "SETTINGS_SFX"
-
-[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "SETTINGS_LOG"
-
-[node name="ShowTutorialOnStart" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "SETTINGS_TUTRL"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
