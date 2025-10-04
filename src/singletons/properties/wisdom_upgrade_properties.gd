@@ -96,7 +96,7 @@ func get_icon_path(tower_id: int) -> String:
 	return icon_path
 
 
-static func get_plus_mode_upgrade_list() -> Array[WisdomUpgradeProperties.Id]:
+func get_plus_mode_upgrade_list() -> Array[WisdomUpgradeProperties.Id]:
 	return _plus_mode_upgrade_list.duplicate()
 
 
