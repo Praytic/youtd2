@@ -1844,14 +1844,22 @@ func get_exp() -> float:
 
 
 func reached_max_level() -> bool:
-	var max_level: int = Constants.TOWER_MAX_LEVEL_BASE
-	var player: Player = get_player()
-	if player != null:
-		max_level = player.get_max_tower_level()
-		
+	var max_level: int = get_max_level()
 	var is_max_level: bool = _level == max_level
 
 	return is_max_level
+
+
+func get_max_level() -> int:
+	var max_level: int
+
+	var player: Player = get_player()
+	if player != null:
+		max_level = player.get_max_tower_level()
+	else:
+		max_level = Constants.TOWER_MAX_LEVEL_BASE
+
+	return max_level
 
 
 func get_buff_groups(mode_list: Array) -> Array[int]:
