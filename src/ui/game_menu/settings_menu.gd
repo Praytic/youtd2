@@ -1,4 +1,4 @@
-extends PanelContainer
+class_name SettingsMenu extends PanelContainer
 
 
 signal cancel_pressed()
@@ -79,6 +79,15 @@ func _ready():
 	_interface_size_button_group.pressed.connect(_on_interface_size_button_group_pressed)
 	
 	_load_current_settings()
+
+
+#########################
+###       Public      ###
+#########################
+
+# NOTE: some settings need to be hidden while in-game
+func set_opened_in_game(opened_in_game: bool):
+	_enable_plus_mode.visible = !opened_in_game
 
 
 #########################

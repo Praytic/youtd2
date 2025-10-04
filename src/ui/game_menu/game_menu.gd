@@ -14,6 +14,11 @@ signal quit_pressed()
 
 
 @export var _tab_container: TabContainer
+@export var _settings_menu: SettingsMenu
+
+
+func _ready():
+	_settings_menu.set_opened_in_game(true)
 
 
 func switch_to_help_menu():

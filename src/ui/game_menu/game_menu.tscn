@@ -8,10 +8,11 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6c4dp"]
 
-[node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container")]
+[node name="GameMenu" type="VBoxContainer" node_paths=PackedStringArray("_tab_container", "_settings_menu")]
 theme = ExtResource("1_v8b77")
 script = ExtResource("1_8lyul")
 _tab_container = NodePath("TabContainer")
+_settings_menu = NodePath("TabContainer/SettingsMenu")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
