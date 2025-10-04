@@ -40,8 +40,8 @@ const LEVEL_UP_EFFECT_SIZE: float = 64.0
 const SPELL_DAMAGE_RATIO: float = 0.9
 const SPELL_DAMAGE_RATIO_FOR_SIF: float = 0.4
 
-const MAX_LEVEL: int = 25
-const MAX_LEVEL_WITH_BONUS: int = 30
+const TOWER_MAX_LEVEL_BASE: int = 25
+const TOWER_MAX_LEVEL_WITH_BONUS: int = 30
 const PLAYER_MAX_LEVEL: int = 300
 const SIF_ARMOR_CHANCE: float = 0.15
 const MIN_WAVE_FOR_SPECIAL: int = 8
@@ -115,7 +115,7 @@ const SIF_CREEP_HEALTH_MULTIPLIER: float = 0.48
 const TIME_BEFORE_FIRST_WAVE: float = 180.0
 const TIME_BETWEEN_WAVES: float = 15.0
 
-const MAX_ELEMENT_LEVEL: int = 15
+const MAX_ELEMENT_LEVEL_BASE: int = 15
 
 const BUFFGROUP_COUNT: int = 6
 

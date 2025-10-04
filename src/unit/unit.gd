@@ -1844,7 +1844,7 @@ func get_exp() -> float:
 
 
 func reached_max_level() -> bool:
-	var max_level: int = Constants.MAX_LEVEL
+	var max_level: int = Constants.TOWER_MAX_LEVEL_BASE
 	var player: Player = get_player()
 	if player != null:
 		max_level = player.get_max_tower_level()
