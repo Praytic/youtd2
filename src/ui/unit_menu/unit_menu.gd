@@ -69,10 +69,10 @@ func _process(_delta: float):
 	var unit_level: int = _unit.get_level()
 	
 	var max_unit_level: int = Constants.MAX_LEVEL
-	var owner: Player = _unit.get_player()
+	var unit_owner: Player = _unit.get_player()
 	
-	if owner != null:
-		max_unit_level = owner.get_max_tower_level()
+	if unit_owner != null:
+		max_unit_level = unit_owner.get_max_tower_level()
 		
 	var unit_is_max_level: bool = unit_level == max_unit_level
 	if !unit_is_max_level:
