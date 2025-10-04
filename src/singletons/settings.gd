@@ -18,6 +18,7 @@ enum InterfaceSize {
 }
 
 # List of setting names
+const ENABLE_PLUS_MODE: String = "enable_plus_mode"
 const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
 const ENABLE_FLOATING_TEXT: String = "enable_floating_text"
 const ENABLE_VFX: String = "enable_vfx"
@@ -57,6 +58,7 @@ var _cache: Dictionary = {}
 # only supports floats. If we don't do this, then the type
 # checking of cache will fail.
 var _default_value_map: Dictionary = {
+	ENABLE_PLUS_MODE: false,
 	SHOW_ALL_DAMAGE_NUMBERS: false,
 	ENABLE_FLOATING_TEXT: true,
 	ENABLE_VFX: true,

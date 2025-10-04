@@ -5,6 +5,7 @@ signal cancel_pressed()
 signal ok_pressed()
 
 
+@export var _enable_plus_mode: CheckBox
 @export var _damage_numbers: CheckBox
 @export var _enable_floating_text: CheckBox
 @export var _enable_vfx: CheckBox
@@ -51,6 +52,7 @@ func _ready():
 		combo.item_selected.connect(_on_combo_changed)
 	
 	_setting_to_checkbox_map = {
+		Settings.ENABLE_PLUS_MODE: _enable_plus_mode,
 		Settings.SHOW_ALL_DAMAGE_NUMBERS: _damage_numbers,
 		Settings.ENABLE_FLOATING_TEXT: _enable_floating_text,
 		Settings.ENABLE_VFX: _enable_vfx,

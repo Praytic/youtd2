@@ -5,11 +5,12 @@
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://resources/button_groups/interface_size_setting_button_group.tres" id="2_fh8ol"]
 [ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://resources/theme/selected_unit_info/panel_container.tres" id="4_o5p4r"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo", "_language_combo", "_interface_size_button_small", "_interface_size_button_medium", "_interface_size_button_large")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_enable_plus_mode", "_damage_numbers", "_enable_floating_text", "_enable_vfx", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_show_tutorial_on_start", "_projectile_density", "_mouse_scroll", "_keyboard_scroll", "_apply_button", "_display_mode_combo", "_language_combo", "_interface_size_button_small", "_interface_size_button_medium", "_interface_size_button_large")]
 custom_minimum_size = Vector2(800, 900)
 theme = ExtResource("1_73d58")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_2dtmk")
+_enable_plus_mode = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer/EnablePlusMode")
 _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/DamageNumbers")
 _enable_floating_text = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/FloatingText")
 _enable_vfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionDisplay/VBoxContainer/EnableVfx")
@@ -72,6 +73,12 @@ layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "SETTINGS_MISC"
 horizontal_alignment = 1
+
+[node name="EnablePlusMode" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "+++ Mode unlocks new features which were not available
+in original YouTD. Currently includes new Wisdom Upgrades."
+text = "+++ Mode"
 
 [node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SectionOther/VBoxContainer"]
 layout_mode = 2
