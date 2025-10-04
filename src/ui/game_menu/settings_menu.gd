@@ -143,6 +143,12 @@ func _apply_changes():
 	var pressed_interface_size_button: Button = _interface_size_button_group.get_pressed_button()
 	var selected_interface_size: Settings.InterfaceSize = _interface_size_button_to_size_map[pressed_interface_size_button]
 	Settings.set_setting(Settings.INTERFACE_SIZE, selected_interface_size)
+
+	# NOTE: tricky interaction here, if the player disabled
+	# the "plus mode" setting in the menu, then we need to
+	# also disable all of the "plus mode" upgrades before
+	# saving settings. The function below does this.
+	_filter_wisdom_upgrades_based_on_plus_mode()
 	
 	Settings.flush()
 	
@@ -157,6 +163,27 @@ func _set_dirty_state():
 func _clear_dirty_state():
 	_is_dirty = false
 	_apply_button.disabled = true
+
+
+# Disable all "plus mode" wisdom upgrades. This will also be
+# reflected in the wisdom upgrade UI in Profile menu because
+# Profile menu will pull in the changes when Profile menu is
+# opened.
+func _filter_wisdom_upgrades_based_on_plus_mode():
+	var plus_mode_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_PLUS_MODE)
+
+	# If plus mode is enabled, do not need to filter
+	# anything because all upgrades are available
+	if plus_mode_is_enabled:
+		return
+
+	var upgrades_cache: Dictionary = Settings.get_wisdom_upgrades()
+	var plus_mode_upgrade_list: Array = WisdomUpgradeProperties.get_plus_mode_upgrade_list()
+
+	for upgrade in plus_mode_upgrade_list:
+		upgrades_cache[upgrade] = false
+
+	Settings.set_setting(Settings.WISDOM_UPGRADES_CACHED, upgrades_cache)
 
 
 #########################
