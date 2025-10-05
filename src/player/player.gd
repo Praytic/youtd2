@@ -651,7 +651,17 @@ func roll_starting_towers():
 	_tower_stash.add_towers(rolled_towers)
 	_add_message_about_rolled_towers(rolled_towers)
 	
-	_tower_count_for_starting_roll = max(0, _tower_count_for_starting_roll - 1)
+#	NOTE: the number of rerolls is limited in multiplayer so
+#	that players can compete fairly. In singleplayer, make
+#	the reroll amount unlimited because player can restart
+#	the game to reset rerolls anyway.
+# 
+#	[ORIGINAL_GAME_DEVIATION] In original game, the reroll
+#	count was limited even in singleplayer.
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var is_multiplayer: bool = player_mode == PlayerMode.enm.MULTIPLAYER
+	if is_multiplayer:
+		_tower_count_for_starting_roll = max(0, _tower_count_for_starting_roll - 1)
 
 	var can_roll_again: bool = _tower_count_for_starting_roll > 0
 
