@@ -67,6 +67,8 @@ var _selected_unit: Unit = null
 var _autooil: AutoOil = AutoOil.new()
 var _player_name: String = "Player"
 var _chat_ignored: bool = false
+var _attack_range_bonus: float = 0.0
+var _tower_exp_bonus: float = 0.0
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -99,6 +101,28 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: this attack range bonus will be applied to all
+# towers created by this player. There is a Wisdom Upgrade
+# which adds this bonus.
+func set_attack_range_bonus(value: float):
+	_attack_range_bonus = value
+
+
+func get_attack_range_bonus() -> float:
+	return _attack_range_bonus
+
+
+# NOTE: this exp bonus will be applied to all towers created
+# by this player. There is a Wisdom Upgrade which adds this
+# bonus.
+func set_tower_exp_bonus(value: float):
+	_tower_exp_bonus = value
+
+
+func get_tower_exp_bonus() -> float:
+	return _tower_exp_bonus
+
 
 func set_chat_ignored(value: bool):
 	_chat_ignored = value

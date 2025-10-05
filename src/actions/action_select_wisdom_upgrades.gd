@@ -39,12 +39,12 @@ static func execute(action: Dictionary, player: Player):
 	
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.FOUNDATION_OF_KNOWLEDGE]:
 		var tower_bonus_exp: float = 30 * wisdom_multiplier
-		player.get_builder()._tower_exp_bonus += tower_bonus_exp
+		player.set_tower_exp_bonus(tower_bonus_exp)
 	
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ADVANCED_OPTICS]:
 		var bonus_attack_range: float = 25 * wisdom_multiplier
-		player.get_builder()._attack_range_bonus += bonus_attack_range
-	
+		player.set_attack_range_bonus(bonus_attack_range)
+
 	# Unaffected by wisdom_multiplier
 	if wisdom_upgrades[WisdomUpgradeProperties.Id.ELEMENTAL_OVERLOAD]:
 		var max_element_level_bonus: int = 2

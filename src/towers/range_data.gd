@@ -34,7 +34,7 @@ func get_radius_with_builder_bonus(player: Player):
 		with_bonus += radius_bonus
 	
 	if is_attack_range:
-		with_bonus += builder.get_attack_range_bonus()
+		with_bonus += player.get_attack_range_bonus()
 	
 	return with_bonus
 
