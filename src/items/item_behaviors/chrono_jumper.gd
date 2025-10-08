@@ -129,9 +129,9 @@ func jumper_bt_on_create(_event: Event):
 func jumper_bt_on_cleanup(_event: Event):
 	var tower: Tower = item.get_carrier()
 
-#	NOTE: need to call get_tree() on tower because item is
+#	NOTE: need to call on tower because item is
 #	outside tree during CLEANUP callback
-	await Utils.create_manual_timer(0.1, self).timeout
+	await Utils.create_manual_timer(0.1, tower).timeout
 
 	if !Utils.unit_is_valid(tower):
 		return
