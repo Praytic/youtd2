@@ -14,9 +14,9 @@ func apply_wave_finished_effect(player: Player):
 # 	is how it works in original game.
 	var regen_amount: float
 	if portal_lives < 10:
-		regen_amount = 1
-	elif portal_lives < 50:
 		regen_amount = 2
+	elif portal_lives < 50:
+		regen_amount = 1
 	else:
 		regen_amount = 0
 
