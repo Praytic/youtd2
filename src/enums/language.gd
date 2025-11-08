@@ -3,21 +3,25 @@ class_name Language extends Node
 enum enm {
 	ENGLISH,
 	CHINESE,
+	ITALIAN,
 }
 
 static var language_map: Dictionary = {
 	Language.enm.ENGLISH: "en",
 	Language.enm.CHINESE: "zh",
+	Language.enm.ITALIAN: "it",
 }
 
 static var language_option_map: Dictionary = {
 	Language.enm.ENGLISH: 0,
 	Language.enm.CHINESE: 1,
+	Language.enm.ITALIAN: 2,
 }
 
 static var language_option_locale_map: Dictionary = {
 	0:"en",
 	1:"zh",
+	2:"it",
 }
 
 static var default_language: String = "en"
