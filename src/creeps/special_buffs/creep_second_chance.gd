@@ -1,5 +1,8 @@
 class_name CreepSecondChance extends BuffType
 
+# NOTE: this special is not affected by silence, on purpose.
+# This is how it was in the original game.
+
 
 func _init(parent: Node):
 	super("creep_second_chance", 0, 0, true, parent)

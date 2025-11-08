@@ -10,6 +10,9 @@ class_name CreepNecromancer extends BuffType
 # original amount. Not sure if this is correct? Left at 100%
 # of original health for now.
 
+# NOTE: this special is not affected by silence, on purpose.
+# This is how it was in the original game.
+
 
 const RAISE_DELAY: float = 2
 const RAISE_MANA_COST: float = 10

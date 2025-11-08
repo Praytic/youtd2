@@ -1,5 +1,8 @@
 class_name CreepSpellbinder extends BuffType
 
+# NOTE: this special is not affected by silence, on purpose.
+# This is how it was in the original game.
+
 
 var silence_bt: BuffType
 

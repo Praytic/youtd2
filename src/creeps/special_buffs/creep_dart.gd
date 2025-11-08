@@ -1,5 +1,7 @@
 class_name CreepDart extends BuffType
 
+# NOTE: this special is not affected by silence, on purpose.
+# This is how it was in the original game.
 
 const DART_CHANCE: float = 300
 const DART_CD: float = 6
