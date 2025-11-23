@@ -211,6 +211,10 @@ func current_wave_is_finished() -> bool:
 	return _wave_spawner.current_wave_is_finished()
 
 
+func wave_is_finished(level: int) -> bool:
+	return _wave_spawner.wave_is_finished(level)
+
+
 func set_builder(builder_id: int):
 	if !_have_placeholder_builder:
 		push_error("Player already has a builder. set_builder() should only be called once.")

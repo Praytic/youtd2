@@ -67,6 +67,17 @@ func current_wave_is_finished() -> bool:
 	return is_finished
 
 
+func wave_is_finished(level: int) -> bool:
+	var wave: Wave = get_wave(level)
+
+	if wave == null:
+		return false
+
+	var is_finished: bool = wave.state == Wave.State.FINISHED
+
+	return is_finished
+
+
 #########################
 ###      Private      ###
 #########################
