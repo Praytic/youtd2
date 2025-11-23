@@ -127,6 +127,19 @@ func _on_game_win():
 
 # All in progress missions are failed on game over
 func _on_game_lose():
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_team: Team = local_player.get_team()
+	var current_wave: int = local_team.get_level()
+	var lost_on_bonus_waves: bool = current_wave > Constants.WAVE_COUNT_NEVERENDING
+
+	# NOTE: game loss on bonus waves doesn't affect mission
+	# status. This is to avoid scenarios like:
+	#  
+	# "mission is completed at wave 240, then reverts to
+	# failure when game ends at wave 260."
+	if lost_on_bonus_waves:
+		return
+
 	var mission_list: Array = _mission_list.duplicate()
 	
 	for mission in mission_list:
