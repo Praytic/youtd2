@@ -767,6 +767,10 @@ func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius:
 
 		filtered_unit_list.append(unit)
 
+	# Sort by UID to ensure deterministic iteration order across all clients
+	# This prevents desyncs caused by undefined get_nodes_in_group() order
+	filtered_unit_list.sort_custom(func(a: Unit, b: Unit): return a.get_uid() < b.get_uid())
+
 	return filtered_unit_list
 
 
@@ -781,7 +785,13 @@ class DistanceSorter:
 		var distance_a: float = a_pos.distance_squared_to(origin)
 		var b_pos: Vector2 = b.get_position_wc3_2d()
 		var distance_b: float = b_pos.distance_squared_to(origin)
-		var less_than: bool = distance_a < distance_b
+
+		# Use UID as tiebreaker for deterministic sorting when distances are equal
+		var less_than: bool
+		if absf(distance_a - distance_b) < 0.01:
+			less_than = a.get_uid() < b.get_uid()
+		else:
+			less_than = distance_a < distance_b
 
 		return less_than
 
@@ -815,7 +825,11 @@ class AttackTargetSorter:
 			var b_pos: Vector2 = b.get_position_wc3_2d()
 			var distance_b: float = b_pos.distance_to(origin)
 
-			less_than = distance_a < distance_b
+			# Use UID as tiebreaker for deterministic sorting when distances are equal
+			if absf(distance_a - distance_b) < 0.01:
+				less_than = a.get_uid() < b.get_uid()
+			else:
+				less_than = distance_a < distance_b
 		else:
 			less_than = level_a < level_b
 
