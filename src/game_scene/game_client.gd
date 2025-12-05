@@ -258,6 +258,42 @@ func _calculate_game_state_checksum():
 		game_state.append(lives)
 		game_state.append(level)
 
+	# Include tower state to catch tower-related desyncs
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+	for tower in tower_list:
+		var tower_uid: int = tower.get_uid()
+		var tower_id: int = tower.get_id()
+		var tower_level: int = tower.get_level()
+		var tower_exp: int = floori(tower.get_exp())
+
+		game_state.append(tower_uid)
+		game_state.append(tower_id)
+		game_state.append(tower_level)
+		game_state.append(tower_exp)
+
+		# Include item state to catch item-related desyncs
+		var item_list: Array[Item] = tower.get_item_container().get_item_list()
+		for item in item_list:
+			var item_id: int = item.get_id()
+			var item_uid: int = item.get_uid()
+			var item_charges: int = item.get_charges()
+			var item_user_int: int = item.user_int
+			var item_user_int2: int = item.user_int2
+			var item_user_int3: int = item.user_int3
+			var item_user_real: int = floori(item.user_real)
+			var item_user_real2: int = floori(item.user_real2)
+			var item_user_real3: int = floori(item.user_real3)
+
+			game_state.append(item_id)
+			game_state.append(item_uid)
+			game_state.append(item_charges)
+			game_state.append(item_user_int)
+			game_state.append(item_user_int2)
+			game_state.append(item_user_int3)
+			game_state.append(item_user_real)
+			game_state.append(item_user_real2)
+			game_state.append(item_user_real3)
+
 	ctx.update(game_state)
 
 	var checksum: PackedByteArray = ctx.finish()
