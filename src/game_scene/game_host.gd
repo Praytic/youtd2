@@ -291,6 +291,8 @@ func _verify_checksums(tick: int):
 
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
+	var desynced_players: Array[String] = []
+
 	for player in player_list:
 		var player_id: int = player.get_id()
 		var checksum: PackedByteArray = player_to_checksum[player_id]
@@ -298,10 +300,62 @@ func _verify_checksums(tick: int):
 
 		if !checksum_match:
 			desync_detected = true
+			var player_name: String = player.get_player_name()
+			var peer_id: int = player.get_peer_id()
+			desynced_players.append("%s (peer %d)" % [player_name, peer_id])
 
 	if desync_detected && !_showed_desync_indicator:
+		_log_desync_detected(tick, authority_player, desynced_players, player_to_checksum)
 		_hud.show_desync_indicator()
 		_showed_desync_indicator = true
+
+
+func _log_desync_detected(tick: int, authority_player: Player, desynced_players: Array[String], player_to_checksum: Dictionary):
+	push_error("========================================")
+	push_error("DESYNC DETECTED at tick %d" % tick)
+	push_error("========================================")
+	push_error("Authority player: %s (peer %d)" % [authority_player.get_player_name(), authority_player.get_peer_id()])
+	push_error("Desynced players: %s" % ", ".join(desynced_players))
+	push_error("")
+	push_error("Checksum details:")
+
+	var authority_player_id: int = authority_player.get_id()
+	var authority_checksum: PackedByteArray = player_to_checksum[authority_player_id]
+	var authority_checksum_hex: String = authority_checksum.hex_encode()
+	push_error("  Authority checksum: %s" % authority_checksum_hex)
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	for player in player_list:
+		var player_id: int = player.get_id()
+		if player_id == authority_player_id:
+			continue
+
+		var checksum: PackedByteArray = player_to_checksum[player_id]
+		var checksum_hex: String = checksum.hex_encode()
+		var player_name: String = player.get_player_name()
+		var peer_id: int = player.get_peer_id()
+		var match_status: String = "MATCH" if checksum == authority_checksum else "DESYNC"
+
+		push_error("  %s (peer %d): %s [%s]" % [player_name, peer_id, checksum_hex, match_status])
+
+	push_error("")
+	push_error("Game state summary:")
+
+	# Log current game state for debugging
+	var tower_count: int = Utils.get_tower_list().size()
+	var creep_count: int = Utils.get_creep_list().size()
+
+	push_error("  Total towers: %d" % tower_count)
+	push_error("  Total creeps: %d" % creep_count)
+
+	for player in player_list:
+		var player_name: String = player.get_player_name()
+		var gold: int = floori(player.get_gold())
+		var damage: int = floori(player.get_total_damage())
+		var lives: int = floori(player.get_team().get_lives_percent())
+		push_error("  %s: gold=%d, damage=%d, lives=%d%%" % [player_name, gold, damage, lives])
+
+	push_error("========================================")
 
 
 func _get_player_name_list(player_list: Array[Player]) -> Array[String]:
