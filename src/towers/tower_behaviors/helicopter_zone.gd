@@ -123,7 +123,11 @@ func on_create(_preceding: Tower):
 
 
 func on_destruct():
-	for copter in copter_map.values():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_copter_keys: Array = copter_map.keys()
+	sorted_copter_keys.sort()
+	for key in sorted_copter_keys:
+		var copter: Copter = copter_map[key]
 		var projectile: Projectile = copter.projectile
 		projectile.remove_from_game()
 

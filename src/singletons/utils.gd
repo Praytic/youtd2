@@ -668,7 +668,10 @@ func random_weighted_pick(rng: RandomNumberGenerator, element_to_weight_map: Dic
 
 	var pair_list: Array = []
 
-	for element in element_to_weight_map.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_element_keys: Array = element_to_weight_map.keys()
+	sorted_element_keys.sort()
+	for element in sorted_element_keys:
 		var weight: float = element_to_weight_map[element]
 		var pair: Array = [element, weight]
 
@@ -694,7 +697,8 @@ func random_weighted_pick(rng: RandomNumberGenerator, element_to_weight_map: Dic
 
 	push_error("Failed to generate random element")
 
-	return element_to_weight_map.keys()[0]
+#	NOTE: return first sorted element for determinism
+	return sorted_element_keys[0]
 
 
 # Use this in cases where script stores references to units

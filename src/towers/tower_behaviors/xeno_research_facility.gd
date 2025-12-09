@@ -139,17 +139,23 @@ func xeno_manage_bonuses(is_type_change: bool, current_bonus: int):
 		return
 
 	if is_type_change:
-		for category in bonus_map.keys():
+#		NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+		var sorted_category_keys: Array = bonus_map.keys()
+		sorted_category_keys.sort()
+		for category in sorted_category_keys:
 			bonus_map[category] = bonus_map[category] / 2
 #		now restore the correct one :P
 		bonus_map[current_creep_category] = current_bonus
 
 #	now set the correct race bonuses for this tower
-	for category in bonus_map.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_bonus_keys: Array = bonus_map.keys()
+	sorted_bonus_keys.sort()
+	for category in sorted_bonus_keys:
 		var ideal_bonus: float = 1.0 + bonus_map[category] / 1000.0
 		var current_race_bonus: float = tower.get_damage_to_category(category)
 		var mod_type: ModificationType.enm = CreepCategory.convert_to_mod_dmg_type(category)
-		
+
 		if ideal_bonus != current_race_bonus:
 			var delta: float = ideal_bonus - current_race_bonus
 			tower.modify_property(mod_type, delta)
