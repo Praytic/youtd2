@@ -931,6 +931,9 @@ func get_tower_list() -> Array[Tower]:
 		var tower: Tower = tower_node as Tower
 		tower_list.append(tower)
 
+	# Sort by UID to ensure deterministic iteration order across all clients
+	tower_list.sort_custom(func(a: Tower, b: Tower): return a.get_uid() < b.get_uid())
+
 	return tower_list
 
 
@@ -941,6 +944,9 @@ func get_creep_list() -> Array[Creep]:
 	for creep_node in creep_node_list:
 		var creep: Creep = creep_node as Creep
 		creep_list.append(creep)
+
+	# Sort by UID to ensure deterministic iteration order across all clients
+	creep_list.sort_custom(func(a: Creep, b: Creep): return a.get_uid() < b.get_uid())
 
 	return creep_list
 

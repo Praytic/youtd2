@@ -259,6 +259,7 @@ func _calculate_game_state_checksum():
 		game_state.append(level)
 
 	# Include tower state to catch tower-related desyncs
+	# NOTE: tower_list is already sorted by UID in Utils.get_tower_list()
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
 		var tower_uid: int = tower.get_uid()
@@ -273,6 +274,9 @@ func _calculate_game_state_checksum():
 
 		# Include item state to catch item-related desyncs
 		var item_list: Array[Item] = tower.get_item_container().get_item_list()
+		# Sort by UID to ensure deterministic iteration order
+		item_list.sort_custom(func(a: Item, b: Item): return a.get_uid() < b.get_uid())
+
 		for item in item_list:
 			var item_id: int = item.get_id()
 			var item_uid: int = item.get_uid()
@@ -359,8 +363,15 @@ func _update_state():
 #	ordered by type. This makes gameplay logic more
 #	consistent.
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
+	# Sort by instance_id to ensure deterministic iteration order
+	timer_list.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+
 	var creep_list: Array[Creep] = Utils.get_creep_list()
+
 	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
+	# Sort by instance_id to ensure deterministic iteration order
+	projectile_list.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	var node_list: Array = []
 	node_list.append_array(timer_list)
