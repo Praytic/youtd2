@@ -144,7 +144,7 @@ func _ready():
 #		to new tower. This is to correctly handle items
 #		which grant experience while carried.
 		set_level(_temp_preceding_tower._level)
-		_experience = _temp_preceding_tower._experience
+		_experience_centi = _temp_preceding_tower._experience_centi
 
 #		Add items to new tower
 #		NOTE: for upgrade case, inventory will always be
@@ -176,7 +176,7 @@ func _ready():
 		var exp_from_bonuses: float = _calculate_exp_from_bonuses()
 		var lvl_from_bonuses: int = Experience.get_level_at_exp(exp_from_bonuses, get_player())
 		set_level(lvl_from_bonuses)
-		_experience = exp_from_bonuses
+		_experience_centi = roundi(exp_from_bonuses * 100.0)
 
 	var wisdom_modifier: Modifier = get_player().get_wisdom_modifier()
 	add_modifier(wisdom_modifier)

@@ -50,8 +50,11 @@ var _food: int = 0
 var _food_cap: int = INITIAL_FOOD_CAP
 var _income_rate: float = 1.0
 var _interest_rate: float = 0.05
-var _gold: float = INITIAL_GOLD
-var _gold_farmed: float = 0
+# NOTE: gold is stored as centiunits (multiply by 100)
+# to preserve fractional values while avoiding float precision
+# issues in multiplayer. For example, 1.5 gold is stored as 150.
+var _gold_centi: int = INITIAL_GOLD * 100
+var _gold_farmed_centi: int = 0
 var _tomes: int = INITIAL_TOMES
 var _id: int = -1
 var _peer_id: int = -1
@@ -88,7 +91,7 @@ func _ready():
 	for element in Element.get_list():
 		_element_level_map[element] = 0
 
-	_gold += Config.cheat_gold()
+	_gold_centi += Config.cheat_gold() * 100
 	_tomes += Config.cheat_tomes()
 	_food_cap += Config.cheat_food_cap()
 	
@@ -460,23 +463,24 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 func add_gold(amount: float, source_is_income: bool = false):
 #	NOTE: gold framed should include only gold gained from
 #	creep kills or item/tower effects
-#	NOTE: round gold to avoid floating point precision desyncs
-#	in multiplayer
-	var rounded_amount: float = floor(amount)
+#	NOTE: store gold as centiunits (multiply by 100) to
+#	preserve fractional values while using integer arithmetic
+#	for multiplayer determinism.
+	var amount_centi: int = roundi(amount * 100.0)
 
 	if !source_is_income:
-		_gold_farmed += rounded_amount
+		_gold_farmed_centi += amount_centi
 
-	var new_total: float = floor(_gold + rounded_amount)
-	_set_gold(new_total)
+	var new_total_centi: int = _gold_centi + amount_centi
+	_set_gold_centi(new_total_centi)
 
 
 func get_gold() -> float:
-	return _gold
+	return _gold_centi / 100.0
 
 
 func get_gold_farmed() -> float:
-	return _gold_farmed
+	return _gold_farmed_centi / 100.0
 
 
 # NOTE: player.modifyIncomeRate in JASS
@@ -498,11 +502,12 @@ func enough_gold_for_tower(tower_id: int) -> bool:
 
 
 func spend_gold(amount: float):
-#	NOTE: round gold to avoid floating point precision desyncs
-#	in multiplayer
-	var rounded_amount: float = floor(amount)
-	var new_total: float = floor(_gold - rounded_amount)
-	_set_gold(new_total)
+#	NOTE: store gold as centiunits (multiply by 100) to
+#	preserve fractional values while using integer arithmetic
+#	for multiplayer determinism.
+	var amount_centi: int = roundi(amount * 100.0)
+	var new_total_centi: int = _gold_centi - amount_centi
+	_set_gold_centi(new_total_centi)
 
 
 func get_tomes() -> int:
@@ -692,8 +697,8 @@ func emit_game_lose_signal():
 ###      Private      ###
 #########################
 
-func _set_gold(value: float):
-	_gold = clampf(value, 0, MAX_GOLD)
+func _set_gold_centi(value_centi: int):
+	_gold_centi = clampi(value_centi, 0, MAX_GOLD * 100)
 
 
 func _set_tomes(value):
@@ -749,7 +754,7 @@ func _determine_player_name() -> String:
 
 func _on_wave_spawner_wave_finished(level: int):
 	var upkeep: int = floori((20 + level * 2) * _income_rate)
-	var current_gold: int = floori(_gold)
+	var current_gold: int = _gold_centi / 100
 	var interest: int = floori(min(current_gold * _interest_rate, INTEREST_GAIN_MAX))
 	var income: int = upkeep + interest
 	var source_is_income: bool = true

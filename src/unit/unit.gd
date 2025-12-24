@@ -90,7 +90,10 @@ var _base_health_regen: float = 0.0
 var _immune: bool = false
 var _selected: bool = false
 var _hovered: bool = false
-var _experience: float = 0.0
+# NOTE: experience is stored as centiunits (multiply by 100)
+# to preserve fractional values while avoiding float precision
+# issues in multiplayer. For example, 1.5 exp is stored as 150.
+var _experience_centi: int = 0
 var _mana: float = 0.0
 var _base_mana: float = 0.0
 var _base_mana_regen: float = 0.0
@@ -724,15 +727,20 @@ func _modify_property_internal(mod_type: ModificationType.enm, value: float, dir
 # negative. Level will also be changed accordingly. Note
 # that level downs are possible.
 func _change_experience(amount: float) -> float:
-	var old_exp: float = _experience
-#	NOTE: round experience to avoid floating point precision
-#	desyncs in multiplayer
-	var new_exp: float = max(0.0, floor(_experience + amount))
-	var actual_change = new_exp - old_exp
-	var old_level: int = _level
-	var new_level: int = Experience.get_level_at_exp(new_exp, get_player())
+#	NOTE: store experience as centiunits (multiply by 100) to
+#	preserve fractional values while using integer arithmetic
+#	for multiplayer determinism.
+	var old_exp_centi: int = _experience_centi
+	var amount_centi: int = roundi(amount * 100.0)
+	var new_exp_centi: int = maxi(0, _experience_centi + amount_centi)
+	var actual_change_centi: int = new_exp_centi - old_exp_centi
+	var actual_change: float = actual_change_centi / 100.0
 
-	_experience = new_exp
+	var old_level: int = _level
+	var new_exp_float: float = new_exp_centi / 100.0
+	var new_level: int = Experience.get_level_at_exp(new_exp_float, get_player())
+
+	_experience_centi = new_exp_centi
 
 	var level_has_changed: bool = new_level != old_level
 	var level_increased: bool = new_level > old_level
@@ -1859,7 +1867,7 @@ func get_attack_type() -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
 
 func get_exp() -> float:
-	return _experience
+	return _experience_centi / 100.0
 
 
 func reached_max_level() -> bool:
