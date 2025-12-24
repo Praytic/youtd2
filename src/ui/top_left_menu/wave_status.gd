@@ -123,7 +123,11 @@ func _show_wave_list(wave_list: Array[Wave]):
 		var specials_description: String = _get_specials_description(wave)
 		var specials_string: String = _get_specials_string_short(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell][hint=%s]%s[/hint][/cell][cell][hint=%s]%s[/hint][/cell]" % [level, size_string, race_string, armor_hint, armor_string, specials_description, specials_string]
+		# Escape BBCode in hint parameters to prevent parsing issues
+		var armor_hint_escaped: String = Utils.escape_bbcode(armor_hint)
+		var specials_description_escaped: String = Utils.escape_bbcode(specials_description)
+
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell][hint=%s]%s[/hint][/cell][cell][hint=%s]%s[/hint][/cell]" % [level, size_string, race_string, armor_hint_escaped, armor_string, specials_description_escaped, specials_string]
 	
 	text += "[/table]"
 
