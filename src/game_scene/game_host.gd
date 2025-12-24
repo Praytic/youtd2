@@ -59,6 +59,8 @@ var _player_ping_time_map: Dictionary = {}
 var _player_last_contact_time: Dictionary = {}
 # {tick -> {player_id -> checksum}}
 var _checksum_map: Dictionary = {}
+# {tick -> {player_id -> checksum_data_dict}}
+var _checksum_data_map: Dictionary = {}
 var _showed_desync_indicator: bool = false
 # Stores timeslots which should be sent to players and
 # haven't been ack'ed yet.
@@ -172,6 +174,26 @@ func receive_ping_time_for_player(ping_time: int):
 	var player_id: int = player.get_id()
 
 	_player_ping_time_map[player_id] = ping_time
+
+
+@rpc("any_peer", "call_local", "reliable")
+func receive_checksum_data_from_client(tick: int, checksum_data: Dictionary):
+	var peer_id: int = multiplayer.get_remote_sender_id()
+	var player: Player = PlayerManager.get_player_by_peer_id(peer_id)
+	var player_id: int = player.get_id()
+
+	if !_checksum_data_map.has(tick):
+		_checksum_data_map[tick] = {}
+
+	_checksum_data_map[tick][player_id] = checksum_data
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	var player_count: int = player_list.size()
+	var collected_all_data: bool = _checksum_data_map[tick].size() == player_count
+
+	if collected_all_data:
+		_log_detailed_desync_data(tick)
+		_checksum_data_map.erase(tick)
 
 
 #########################
@@ -309,6 +331,11 @@ func _verify_checksums(tick: int):
 		_hud.show_desync_indicator()
 		_showed_desync_indicator = true
 
+		# Notify all clients to send their detailed checksum data
+		for player in player_list:
+			var peer_id: int = player.get_peer_id()
+			_game_client.receive_desync_notification.rpc_id(peer_id, tick)
+
 
 func _log_desync_detected(tick: int, authority_player: Player, desynced_players: Array[String], player_to_checksum: Dictionary):
 	push_error("========================================")
@@ -356,6 +383,267 @@ func _log_desync_detected(tick: int, authority_player: Player, desynced_players:
 		push_error("  %s: gold=%d, damage=%d, lives=%d%%" % [player_name, gold, damage, lives])
 
 	push_error("========================================")
+
+
+func _log_detailed_desync_data(tick: int):
+	var log_lines: Array[String] = []
+
+	log_lines.append("")
+	log_lines.append("========================================")
+	log_lines.append("DETAILED DESYNC DATA COMPARISON - tick %d" % tick)
+	log_lines.append("========================================")
+
+	var player_list: Array[Player] = PlayerManager.get_player_list()
+	var authority_player: Player = PlayerManager.get_player_by_peer_id(1)
+	var authority_player_id: int = authority_player.get_id()
+
+	if !_checksum_data_map.has(tick):
+		log_lines.append("ERROR: No checksum data collected for tick %d" % tick)
+		push_error("\n".join(log_lines))
+		return
+
+	var player_to_data: Dictionary = _checksum_data_map[tick]
+	var authority_data: Dictionary = player_to_data[authority_player_id]
+
+	# Compare player data
+	log_lines.append("")
+	log_lines.append("=== PLAYER DATA COMPARISON ===")
+	for player_data in authority_data["players"]:
+		var game_player_id: int = player_data["id"]
+		var player_name: String = player_data["name"]
+
+		log_lines.append("")
+		log_lines.append("  Player[%d] %s:" % [game_player_id, player_name])
+
+		# Compare this player's data across all clients
+		for player in player_list:
+			var peer_player_id: int = player.get_id()
+			var peer_player_name: String = player.get_player_name()
+			var peer_data: Dictionary = player_to_data[peer_player_id]
+
+			# Find matching player data
+			var peer_player_data: Dictionary = {}
+			for pd in peer_data["players"]:
+				if pd["id"] == game_player_id:
+					peer_player_data = pd
+					break
+
+			var role: String = "AUTH" if peer_player_id == authority_player_id else "PEER"
+			var desync_markers: Array[String] = []
+
+			# Compare each field
+			if peer_player_data["total_damage"] != player_data["total_damage"]:
+				desync_markers.append("damage")
+			if peer_player_data["gold_farmed"] != player_data["gold_farmed"]:
+				desync_markers.append("gold_farmed")
+			if peer_player_data["gold"] != player_data["gold"]:
+				desync_markers.append("gold")
+			if peer_player_data["tomes"] != player_data["tomes"]:
+				desync_markers.append("tomes")
+			if peer_player_data["lives"] != player_data["lives"]:
+				desync_markers.append("lives")
+			if peer_player_data["level"] != player_data["level"]:
+				desync_markers.append("level")
+
+			var desync_str: String = ""
+			if desync_markers.size() > 0:
+				desync_str = " <<<<< DESYNC in: " + ", ".join(desync_markers)
+
+			log_lines.append("    [%s] %s: damage=%d, gold_farmed=%d, gold=%d, tomes=%d, lives=%d%%, level=%d%s" % [
+				role, peer_player_name,
+				peer_player_data["total_damage"],
+				peer_player_data["gold_farmed"],
+				peer_player_data["gold"],
+				peer_player_data["tomes"],
+				peer_player_data["lives"],
+				peer_player_data["level"],
+				desync_str
+			])
+
+	# Compare tower data
+	log_lines.append("")
+	log_lines.append("=== TOWER DATA COMPARISON ===")
+
+	# First, check if tower counts match
+	var tower_counts: Dictionary = {}
+	for player in player_list:
+		var peer_player_id: int = player.get_id()
+		var peer_data: Dictionary = player_to_data[peer_player_id]
+		tower_counts[peer_player_id] = peer_data["towers"].size()
+
+	var all_same_tower_count: bool = true
+	var authority_tower_count: int = tower_counts[authority_player_id]
+	for peer_player_id in tower_counts.keys():
+		if tower_counts[peer_player_id] != authority_tower_count:
+			all_same_tower_count = false
+			break
+
+	if !all_same_tower_count:
+		log_lines.append("  !! TOWER COUNT MISMATCH !!")
+		for player in player_list:
+			var peer_player_id: int = player.get_id()
+			var peer_player_name: String = player.get_player_name()
+			var role: String = "AUTH" if peer_player_id == authority_player_id else "PEER"
+			log_lines.append("    [%s] %s: %d towers" % [role, peer_player_name, tower_counts[peer_player_id]])
+		log_lines.append("")
+
+	# Compare individual towers
+	log_lines.append("  Comparing %d towers:" % authority_tower_count)
+	for i in range(authority_tower_count):
+		var authority_tower: Dictionary = authority_data["towers"][i]
+		var tower_uid: int = authority_tower["uid"]
+
+		var has_desync: bool = false
+
+		# First pass: check if this tower has any desyncs
+		for player in player_list:
+			var peer_player_id: int = player.get_id()
+			if peer_player_id == authority_player_id:
+				continue
+
+			var peer_data: Dictionary = player_to_data[peer_player_id]
+
+			# Find matching tower by UID
+			var peer_tower: Dictionary = {}
+			for tower in peer_data["towers"]:
+				if tower["uid"] == tower_uid:
+					peer_tower = tower
+					break
+
+			if peer_tower.is_empty():
+				has_desync = true
+				break
+
+			if peer_tower["id"] != authority_tower["id"] || peer_tower["level"] != authority_tower["level"] || peer_tower["exp"] != authority_tower["exp"] || peer_tower["owner_id"] != authority_tower["owner_id"]:
+				has_desync = true
+				break
+
+			# Check items
+			if peer_tower["items"].size() != authority_tower["items"].size():
+				has_desync = true
+				break
+
+			for item_idx in range(authority_tower["items"].size()):
+				var auth_item: Dictionary = authority_tower["items"][item_idx]
+				var peer_item: Dictionary = peer_tower["items"][item_idx]
+
+				if auth_item["uid"] != peer_item["uid"] || auth_item["id"] != peer_item["id"] || auth_item["charges"] != peer_item["charges"] || auth_item["user_int"] != peer_item["user_int"] || auth_item["user_int2"] != peer_item["user_int2"] || auth_item["user_int3"] != peer_item["user_int3"] || auth_item["user_real"] != peer_item["user_real"] || auth_item["user_real2"] != peer_item["user_real2"] || auth_item["user_real3"] != peer_item["user_real3"]:
+					has_desync = true
+					break
+
+			if has_desync:
+				break
+
+		# Only log towers with desyncs
+		if has_desync:
+			log_lines.append("")
+			log_lines.append("  Tower[uid=%d] - DESYNC DETECTED:" % tower_uid)
+
+			for player in player_list:
+				var peer_player_id: int = player.get_id()
+				var peer_player_name: String = player.get_player_name()
+				var peer_data: Dictionary = player_to_data[peer_player_id]
+				var role: String = "AUTH" if peer_player_id == authority_player_id else "PEER"
+
+				# Find matching tower by UID
+				var peer_tower: Dictionary = {}
+				for tower in peer_data["towers"]:
+					if tower["uid"] == tower_uid:
+						peer_tower = tower
+						break
+
+				if peer_tower.is_empty():
+					log_lines.append("    [%s] %s: TOWER MISSING" % [role, peer_player_name])
+					continue
+
+				var tower_desync_markers: Array[String] = []
+				if peer_tower["id"] != authority_tower["id"]:
+					tower_desync_markers.append("id")
+				if peer_tower["level"] != authority_tower["level"]:
+					tower_desync_markers.append("level")
+				if peer_tower["exp"] != authority_tower["exp"]:
+					tower_desync_markers.append("exp")
+				if peer_tower["owner_id"] != authority_tower["owner_id"]:
+					tower_desync_markers.append("owner_id")
+
+				var tower_desync_str: String = ""
+				if tower_desync_markers.size() > 0:
+					tower_desync_str = " <<<<< DESYNC in: " + ", ".join(tower_desync_markers)
+
+				log_lines.append("    [%s] %s: id=%d, level=%d, exp=%d, owner_id=%d, items=%d%s" % [
+					role, peer_player_name,
+					peer_tower["id"],
+					peer_tower["level"],
+					peer_tower["exp"],
+					peer_tower["owner_id"],
+					peer_tower["items"].size(),
+					tower_desync_str
+				])
+
+				# Log items if there's any item desync
+				if peer_tower["items"].size() != authority_tower["items"].size():
+					log_lines.append("      Items: COUNT MISMATCH (AUTH=%d, THIS=%d)" % [authority_tower["items"].size(), peer_tower["items"].size()])
+				elif peer_tower["items"].size() > 0:
+					var has_item_desync: bool = false
+					for item_idx in range(peer_tower["items"].size()):
+						var auth_item: Dictionary = authority_tower["items"][item_idx]
+						var peer_item: Dictionary = peer_tower["items"][item_idx]
+
+						if auth_item["uid"] != peer_item["uid"] || auth_item["id"] != peer_item["id"] || auth_item["charges"] != peer_item["charges"] || auth_item["user_int"] != peer_item["user_int"] || auth_item["user_int2"] != peer_item["user_int2"] || auth_item["user_int3"] != peer_item["user_int3"] || auth_item["user_real"] != peer_item["user_real"] || auth_item["user_real2"] != peer_item["user_real2"] || auth_item["user_real3"] != peer_item["user_real3"]:
+							has_item_desync = true
+							break
+
+					if has_item_desync:
+						for item_idx in range(peer_tower["items"].size()):
+							var peer_item: Dictionary = peer_tower["items"][item_idx]
+							var auth_item: Dictionary = authority_tower["items"][item_idx]
+
+							var item_desync_markers: Array[String] = []
+							if peer_item["uid"] != auth_item["uid"]:
+								item_desync_markers.append("uid")
+							if peer_item["id"] != auth_item["id"]:
+								item_desync_markers.append("id")
+							if peer_item["charges"] != auth_item["charges"]:
+								item_desync_markers.append("charges")
+							if peer_item["user_int"] != auth_item["user_int"]:
+								item_desync_markers.append("int")
+							if peer_item["user_int2"] != auth_item["user_int2"]:
+								item_desync_markers.append("int2")
+							if peer_item["user_int3"] != auth_item["user_int3"]:
+								item_desync_markers.append("int3")
+							if peer_item["user_real"] != auth_item["user_real"]:
+								item_desync_markers.append("real")
+							if peer_item["user_real2"] != auth_item["user_real2"]:
+								item_desync_markers.append("real2")
+							if peer_item["user_real3"] != auth_item["user_real3"]:
+								item_desync_markers.append("real3")
+
+							var item_desync_str: String = ""
+							if item_desync_markers.size() > 0:
+								item_desync_str = " <<<<< DESYNC in: " + ", ".join(item_desync_markers)
+
+							log_lines.append("      Item[%d] uid=%d, id=%d, charges=%d, int=[%d,%d,%d], real=[%d,%d,%d]%s" % [
+								item_idx,
+								peer_item["uid"],
+								peer_item["id"],
+								peer_item["charges"],
+								peer_item["user_int"],
+								peer_item["user_int2"],
+								peer_item["user_int3"],
+								peer_item["user_real"],
+								peer_item["user_real2"],
+								peer_item["user_real3"],
+								item_desync_str
+							])
+
+	log_lines.append("")
+	log_lines.append("========================================")
+	log_lines.append("END DETAILED DESYNC DATA")
+	log_lines.append("========================================")
+	log_lines.append("")
+
+	# Print entire log as one message
+	push_error("\n".join(log_lines))
 
 
 func _get_player_name_list(player_list: Array[Player]) -> Array[String]:

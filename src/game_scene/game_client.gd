@@ -45,6 +45,8 @@ var _ping_history: Array = [0]
 var _received_any_timeslots: bool = false
 var _paused_by_host: bool = false
 var _last_received_timeslot_list: Array = []
+# Store checksum data for desync debugging: {tick -> checksum_data_dict}
+var _checksum_data_map: Dictionary = {}
 
 
 @export var _game_host: GameHost
@@ -157,6 +159,18 @@ func set_lagging_players(lagging_player_list: Array):
 	_hud.set_waiting_for_lagging_players_indicator_visible(players_are_lagging)
 
 
+# Receive desync notification from server and send back stored checksum data
+@rpc("authority", "call_local", "reliable")
+func receive_desync_notification(tick: int):
+	push_error("!!! DESYNC NOTIFICATION received from server for tick %d !!!" % tick)
+
+	if _checksum_data_map.has(tick):
+		var checksum_data: Dictionary = _checksum_data_map[tick]
+		_game_host.receive_checksum_data_from_client.rpc_id(1, tick, checksum_data)
+	else:
+		push_error("  ERROR: No stored checksum data for tick %d" % tick)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -241,6 +255,12 @@ func _calculate_game_state_checksum():
 
 	var game_state: PackedByteArray = PackedByteArray()
 
+	# Store all values for desync debugging
+	var checksum_data: Dictionary = {
+		"players": [],
+		"towers": [],
+	}
+
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	for player in player_list:
@@ -258,6 +278,17 @@ func _calculate_game_state_checksum():
 		game_state.append(lives)
 		game_state.append(level)
 
+		checksum_data["players"].append({
+			"id": player.get_id(),
+			"name": player.get_player_name(),
+			"total_damage": total_damage,
+			"gold_farmed": gold_farmed,
+			"gold": gold,
+			"tomes": tomes,
+			"lives": lives,
+			"level": level,
+		})
+
 	# Include tower state to catch tower-related desyncs
 	# NOTE: tower_list is already sorted by UID in Utils.get_tower_list()
 	var tower_list: Array[Tower] = Utils.get_tower_list()
@@ -271,6 +302,15 @@ func _calculate_game_state_checksum():
 		game_state.append(tower_id)
 		game_state.append(tower_level)
 		game_state.append(tower_exp)
+
+		var tower_data: Dictionary = {
+			"uid": tower_uid,
+			"id": tower_id,
+			"level": tower_level,
+			"exp": tower_exp,
+			"owner_id": tower.get_player().get_id(),
+			"items": [],
+		}
 
 		# Include item state to catch item-related desyncs
 		var item_list: Array[Item] = tower.get_item_container().get_item_list()
@@ -298,9 +338,34 @@ func _calculate_game_state_checksum():
 			game_state.append(item_user_real2)
 			game_state.append(item_user_real3)
 
+			tower_data["items"].append({
+				"uid": item_uid,
+				"id": item_id,
+				"charges": item_charges,
+				"user_int": item_user_int,
+				"user_int2": item_user_int2,
+				"user_int3": item_user_int3,
+				"user_real": item_user_real,
+				"user_real2": item_user_real2,
+				"user_real3": item_user_real3,
+			})
+
+		checksum_data["towers"].append(tower_data)
+
 	ctx.update(game_state)
 
 	var checksum: PackedByteArray = ctx.finish()
+
+	# Store checksum data for this tick
+	_checksum_data_map[_current_tick] = checksum_data
+
+	# Clean up old checksum data (keep last 10 ticks)
+	var ticks_to_remove: Array = []
+	for tick in _checksum_data_map.keys():
+		if tick < _current_tick - CHECKSUM_PERIOD_TICKS * 10:
+			ticks_to_remove.append(tick)
+	for tick in ticks_to_remove:
+		_checksum_data_map.erase(tick)
 
 	return checksum
 
@@ -363,14 +428,14 @@ func _update_state():
 #	ordered by type. This makes gameplay logic more
 #	consistent.
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
-	# Sort by instance_id to ensure deterministic iteration order
-	timer_list.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+	# Sort by UID to ensure deterministic iteration order
+	timer_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
 
 	var creep_list: Array[Creep] = Utils.get_creep_list()
 
 	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
-	# Sort by instance_id to ensure deterministic iteration order
-	projectile_list.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+	# Sort by UID to ensure deterministic iteration order
+	projectile_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
 
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	var node_list: Array = []
