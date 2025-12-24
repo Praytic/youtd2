@@ -410,7 +410,7 @@ func get_tower_at_position(position_wc3: Vector2) -> Tower:
 	return null
 
 
-# NOTE: Game.getGameTime() in JASS 
+# NOTE: Game.getGameTime() in JASS
 func get_time() -> float:
 	var game_time: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/GameTime")
 
@@ -418,10 +418,25 @@ func get_time() -> float:
 		push_warning("game_time is null. You can ignore this warning during game restart.")
 
 		return 0.0
-	
+
 	var time: float = game_time.get_time()
 
 	return time
+
+
+# Returns current game tick. Used for deterministic calculations
+# in multiplayer to avoid float precision drift issues.
+func get_current_tick() -> int:
+	var game_client: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/GameClient")
+
+	if game_client == null:
+		push_warning("game_client is null. You can ignore this warning during game restart.")
+
+		return 0
+
+	var tick: int = game_client.get_current_tick()
+
+	return tick
 
 
 # Returns current time of day in the game world, in hours.

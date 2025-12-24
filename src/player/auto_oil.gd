@@ -83,11 +83,14 @@ func set_tower(given_oil_type: String, tower: Tower):
 # Returns tower which is assigned to be autooiled by given oil
 func get_tower(oil_id: int) -> Tower:
 	var matching_oil_type: String = ""
-	
-	for oil_type in OIL_TYPE_MAP.keys():
+
+	# NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_oil_types: Array = OIL_TYPE_MAP.keys()
+	sorted_oil_types.sort()
+	for oil_type in sorted_oil_types:
 		var oil_list: Array = OIL_TYPE_MAP[oil_type]
 		var oil_type_matches: bool = oil_list.has(oil_id)
-		
+
 		if oil_type_matches:
 			matching_oil_type = oil_type
 	
@@ -103,9 +106,12 @@ func get_tower(oil_id: int) -> Tower:
 # when tower is upgraded or transformed, otherwise autooil
 # assignments would be lost!
 func transfer_autooils(prev_tower: Tower, new_tower: Tower):
-	for oil_type in _data.keys():
+	# NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_oil_types: Array = _data.keys()
+	sorted_oil_types.sort()
+	for oil_type in sorted_oil_types:
 		var assigned_tower: Tower = _data[oil_type]
-		
+
 		if assigned_tower == prev_tower:
 			_data[oil_type] = new_tower
 
@@ -118,12 +124,15 @@ func clear_all():
 
 
 func clear_for_tower(tower: Tower):
-	for oil_type in _data.keys():
+	# NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_oil_types: Array = _data.keys()
+	sorted_oil_types.sort()
+	for oil_type in sorted_oil_types:
 		var assigned_tower: Tower = _data[oil_type]
-		
+
 		if assigned_tower == tower:
 			_data[oil_type] = null
-	
+
 	_disconnect_tower(tower)
 
 

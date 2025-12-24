@@ -218,8 +218,11 @@ func _ready():
 	if _player == null:
 		push_error("Unit was not assigned a player. You must assign a player to unit before adding it to tree, using Unit.set_player().")
 
-	_uid = _uid_max
-	_uid_max += 1
+#	NOTE: UID must be assigned before _ready() is called (in
+#	set_player()) to ensure deterministic multiplayer sync.
+	if _uid == 0:
+		push_error("Unit UID was not assigned before _ready(). This should never happen. UID must be assigned in set_player().")
+
 	GroupManager.add("units", self, get_uid())
 
 	_target_bitmask = TargetType.make_unit_bitmask(self)
@@ -294,6 +297,15 @@ func remove_from_game():
 
 func set_player(player: Player):
 	_player = player
+
+#	NOTE: assign UID here instead of in _ready() to ensure
+#	deterministic assignment based on spawn order. UIDs must
+#	be the same on all clients for multiplayer sync.
+#	The _ready() function can be called in different order
+#	on different clients, causing UID mismatches.
+	if _uid == 0:
+		_uid = _uid_max
+		_uid_max += 1
 
 
 # Removes the most recent buff. Returns true if there was a
