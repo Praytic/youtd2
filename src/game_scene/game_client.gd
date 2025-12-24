@@ -102,6 +102,12 @@ func add_action(action: Action):
 	_game_host.receive_action.rpc_id(1, serialized_action)
 
 
+# Returns current tick number. Used for deterministic
+# calculations in multiplayer to avoid float precision issues.
+func get_current_tick() -> int:
+	return _current_tick
+
+
 @rpc("authority", "call_local", "reliable")
 func receive_alive_check():
 	_game_host.receive_alive_check_response.rpc_id(1)
@@ -122,7 +128,10 @@ func receive_timeslots(timeslot_list: Dictionary):
 #	old ticks if it hasn't received ack from client yet due
 #	to network/logic delay. If we don't skip old ticks, then
 #	_timeslot_map would grow forever.
-	for tick in timeslot_list.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_timeslot_keys: Array = timeslot_list.keys()
+	sorted_timeslot_keys.sort()
+	for tick in sorted_timeslot_keys:
 		if tick < _current_tick:
 			continue
 
@@ -360,8 +369,11 @@ func _calculate_game_state_checksum():
 	_checksum_data_map[_current_tick] = checksum_data
 
 	# Clean up old checksum data (keep last 10 ticks)
+	# NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
 	var ticks_to_remove: Array = []
-	for tick in _checksum_data_map.keys():
+	var sorted_checksum_ticks: Array = _checksum_data_map.keys()
+	sorted_checksum_ticks.sort()
+	for tick in sorted_checksum_ticks:
 		if tick < _current_tick - CHECKSUM_PERIOD_TICKS * 10:
 			ticks_to_remove.append(tick)
 	for tick in ticks_to_remove:

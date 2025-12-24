@@ -47,12 +47,12 @@ func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 
-	var buff_apply_time: int = int(Utils.get_time())
+	var buff_apply_tick: int = Utils.get_current_tick()
 	var max_dps: int = buff.get_level()
 	var buff_stored_damage: float = 0.0
 	var caster_id: int = caster.get_instance_id()
 
-	buff.user_int = buff_apply_time
+	buff.user_int = buff_apply_tick
 	buff.user_int2 = max_dps
 	buff.user_int3 = caster_id
 	buff.user_real = buff_stored_damage
@@ -86,14 +86,16 @@ func aura_bt_on_cleanup(event: Event):
 	var target: Unit = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
 
-	var apply_time: int = buff.user_int
+	var apply_tick: int = buff.user_int
 	var max_dps: int = buff.user_int2
 	var buff_stored_damage: float = buff.user_real
 
-#	NOTE: original script multiplies time value by 0.04 here
-#	because in youtd1 getGameTime() returns time multiplied
-#	by 25. Not needed in youtd2, time is simply seconds.
-	var damage: float = (Utils.get_time() - apply_time) * max_dps
+#	NOTE: use tick-based calculation to avoid float precision
+#	drift in multiplayer. Tick delta is exactly 1/30 seconds.
+	var tick_delta: float = 1.0 / 30.0
+	var current_tick: int = Utils.get_current_tick()
+	var elapsed_ticks: int = current_tick - apply_tick
+	var damage: float = elapsed_ticks * tick_delta * max_dps
 	damage += buff_stored_damage
 
 	if target.get_health() > 0:

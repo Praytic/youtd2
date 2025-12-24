@@ -25,7 +25,7 @@ var maledict_bt: BuffType
 var voljin_pt: ProjectileType
 var ward_list: Array[Ward]
 var active_ward_count: int = 0
-var time_for_next_purify: float
+var tick_for_next_purify: int
 var periodic_is_enabled: bool = true
 var first_periodic_event: bool = false
 var periodic_interval: float
@@ -104,13 +104,15 @@ func on_attack(event: Event):
 func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var purged_count: int = 0
-	var purify_is_on_cd: bool = time_for_next_purify > Utils.get_time()
-	
+	var current_tick: int = Utils.get_current_tick()
+	var purify_is_on_cd: bool = tick_for_next_purify > current_tick
+
 	if purify_is_on_cd:
 		return
 
 	var purify_cd: float = 4.0 - 0.04 * tower.get_level()
-	time_for_next_purify = Utils.get_time() + purify_cd
+	var purify_cd_ticks: int = roundi(purify_cd * 30.0)
+	tick_for_next_purify = current_tick + purify_cd_ticks
 
 #	Remove buffs (positive and negative buffs) and count them
 	while true:
@@ -151,7 +153,7 @@ func on_create(_preceding: Tower):
 		ward_list.append(ward)
 
 	active_ward_count = 0
-	time_for_next_purify = Utils.get_time() - 4
+	tick_for_next_purify = Utils.get_current_tick() - 120
 	periodic_interval = 0.0
 
 
