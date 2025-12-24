@@ -713,7 +713,9 @@ func _modify_property_internal(mod_type: ModificationType.enm, value: float, dir
 # that level downs are possible.
 func _change_experience(amount: float) -> float:
 	var old_exp: float = _experience
-	var new_exp: float = max(0.0, _experience + amount)
+#	NOTE: round experience to avoid floating point precision
+#	desyncs in multiplayer
+	var new_exp: float = max(0.0, floor(_experience + amount))
 	var actual_change = new_exp - old_exp
 	var old_level: int = _level
 	var new_level: int = Experience.get_level_at_exp(new_exp, get_player())
@@ -987,7 +989,10 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	CombatLog.log_damage(self, target, damage_source, damage, crit_count)
 
-	get_player().add_to_total_damage(damage)
+#	NOTE: round damage to avoid floating point precision
+#	desyncs in multiplayer
+	var rounded_damage: float = floor(damage)
+	get_player().add_to_total_damage(rounded_damage)
 
 	_add_floating_text_for_damage(damage, crit_count, damage_source, is_main_target, target)
 
@@ -1174,7 +1179,9 @@ func _get_experience_for_target(target: Unit) -> float:
 	var experience_base: float = CreepSize.get_experience(creep_size)
 	var granted_mod: float = creep.get_prop_exp_granted()
 	var received_mod: float = tower.get_prop_exp_received()
-	var experience: float = experience_base * granted_mod * received_mod
+#	NOTE: round experience to avoid floating point precision
+#	desyncs in multiplayer
+	var experience: float = floor(experience_base * granted_mod * received_mod)
 
 	return experience
 

@@ -460,10 +460,14 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 func add_gold(amount: float, source_is_income: bool = false):
 #	NOTE: gold framed should include only gold gained from
 #	creep kills or item/tower effects
-	if !source_is_income:
-		_gold_farmed += amount
+#	NOTE: round gold to avoid floating point precision desyncs
+#	in multiplayer
+	var rounded_amount: float = floor(amount)
 
-	var new_total: float = _gold + amount
+	if !source_is_income:
+		_gold_farmed += rounded_amount
+
+	var new_total: float = floor(_gold + rounded_amount)
 	_set_gold(new_total)
 
 
@@ -494,7 +498,10 @@ func enough_gold_for_tower(tower_id: int) -> bool:
 
 
 func spend_gold(amount: float):
-	var new_total: float = _gold - amount
+#	NOTE: round gold to avoid floating point precision desyncs
+#	in multiplayer
+	var rounded_amount: float = floor(amount)
+	var new_total: float = floor(_gold - rounded_amount)
 	_set_gold(new_total)
 
 

@@ -8,6 +8,10 @@ class_name ManualTimer extends Node
 
 signal timeout()
 
+# UID system for deterministic sorting in multiplayer
+static var _uid_max: int = 1
+var _uid: int = 0
+
 # NOTE: need all of these getsets to have same API as native
 # Timer
 var time_left: float = 0.0: get = get_time_left
@@ -23,6 +27,9 @@ var paused: bool = false: get = is_paused, set = set_paused
 #########################
 
 func _ready():
+	_uid = _uid_max
+	_uid_max += 1
+
 	add_to_group("manual_timers")
 
 	if autostart:
@@ -104,3 +111,7 @@ func is_stopped() -> bool:
 
 func get_time_left() -> float:
 	return time_left
+
+
+func get_uid() -> int:
+	return _uid
