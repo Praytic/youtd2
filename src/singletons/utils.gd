@@ -1088,6 +1088,10 @@ func get_scale_from_grows(sprite_scale_min: float, sprite_scale_max: float, curr
 # Skip sorting for singleplayer because sorting reduces FPS
 # by a lot on high gamespeeds. Specifically for timer and
 # projectile objects.
+# 
+# NOTE: must use custom UID system instead of Godot's
+# built-in get_instance_id(). get_instance_id() doesn't have
+# reliable order.
 func sort_objects_for_multiplayer(object_list: Array):
 	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var is_multiplayer: bool = player_mode == PlayerMode.enm.MULTIPLAYER
