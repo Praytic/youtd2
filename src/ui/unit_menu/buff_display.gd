@@ -22,16 +22,17 @@ func _process(_delta: float):
 	if !is_instance_valid(_buff):
 		return
 
-#	NOTE: limit stacks text to 2 digits to stay in side icon
-#	bounds
+#	NOTE: format stacks text to fit within icon bounds
 	var stacks: int = _buff.get_displayed_stacks()
 	var stacks_text: String
 	if stacks == 0:
 		stacks_text = ""
-	elif stacks <= 999:
+	elif stacks < 1000:
 		stacks_text = str(stacks)
 	else:
-		stacks_text = "999"
+#		Show as "k" format with 1 decimal place (e.g., "1.2k", "15.7k")
+		var stacks_k: float = stacks / 1000.0
+		stacks_text = "%.1fk" % stacks_k
 
 	_stacks_label.text = stacks_text
 	

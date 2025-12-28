@@ -109,8 +109,11 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, wisdo
 			ModificationType.enm.MOD_DMG_TOTAL_MULTIPLIER: 0.025,
 		},
 	}
-	
-	for upgrade_id in wisdom_upgrades.keys():
+
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_upgrade_keys: Array = wisdom_upgrades.keys()
+	sorted_upgrade_keys.sort()
+	for upgrade_id in sorted_upgrade_keys:
 		var upgrade_is_enabled: bool = wisdom_upgrades[upgrade_id] == true
 
 		if !upgrade_is_enabled:
@@ -118,7 +121,10 @@ static func generate_wisdom_upgrades_modifier(wisdom_upgrades: Dictionary, wisdo
 
 		var mod_values: Dictionary = upgrade_to_mod_value_map.get(upgrade_id, {})
 
-		for mod_type in mod_values.keys():
+#		NOTE: sort mod_type keys for deterministic order
+		var sorted_mod_keys: Array = mod_values.keys()
+		sorted_mod_keys.sort()
+		for mod_type in sorted_mod_keys:
 			var mod_value: float = mod_values[mod_type]
 
 			mod_value *= wisdom_multiplier

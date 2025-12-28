@@ -303,7 +303,11 @@ func _add_to_tower(tower: Tower):
 		_autocast.set_caster(_carrier)
 
 	_triggers_buff = _triggers_bt.apply_to_unit_permanent(_carrier, _carrier, 0)
-	for timer in _inherited_periodic_timers.values():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_timer_keys: Array = _inherited_periodic_timers.keys()
+	sorted_timer_keys.sort()
+	for key in sorted_timer_keys:
+		var timer: ManualTimer = _inherited_periodic_timers[key]
 		timer.set_paused(false)
 	_triggers_buff.inherit_periodic_timers(_inherited_periodic_timers)
 	_aura_carrier_bt.apply_to_unit_permanent(_carrier, _carrier, 0)
@@ -343,7 +347,11 @@ func _remove_from_tower():
 		_autocast.set_caster(null)
 
 	_inherited_periodic_timers = _triggers_buff.get_periodic_timers()
-	for timer in _inherited_periodic_timers.values():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_timer_keys: Array = _inherited_periodic_timers.keys()
+	sorted_timer_keys.sort()
+	for key in sorted_timer_keys:
+		var timer: ManualTimer = _inherited_periodic_timers[key]
 		timer.reparent(self)
 		timer.set_paused(true)
 

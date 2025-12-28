@@ -90,7 +90,10 @@ var _base_health_regen: float = 0.0
 var _immune: bool = false
 var _selected: bool = false
 var _hovered: bool = false
-var _experience: float = 0.0
+# NOTE: experience is stored as centiunits (multiply by 100)
+# to preserve fractional values while avoiding float precision
+# issues in multiplayer. For example, 1.5 exp is stored as 150.
+var _experience_centi: int = 0
 var _mana: float = 0.0
 var _base_mana: float = 0.0
 var _base_mana_regen: float = 0.0
@@ -218,8 +221,11 @@ func _ready():
 	if _player == null:
 		push_error("Unit was not assigned a player. You must assign a player to unit before adding it to tree, using Unit.set_player().")
 
-	_uid = _uid_max
-	_uid_max += 1
+#	NOTE: UID must be assigned before _ready() is called (in
+#	set_player()) to ensure deterministic multiplayer sync.
+	if _uid == 0:
+		push_error("Unit UID was not assigned before _ready(). This should never happen. UID must be assigned in set_player().")
+
 	GroupManager.add("units", self, get_uid())
 
 	_target_bitmask = TargetType.make_unit_bitmask(self)
@@ -294,6 +300,15 @@ func remove_from_game():
 
 func set_player(player: Player):
 	_player = player
+
+#	NOTE: assign UID here instead of in _ready() to ensure
+#	deterministic assignment based on spawn order. UIDs must
+#	be the same on all clients for multiplayer sync.
+#	The _ready() function can be called in different order
+#	on different clients, causing UID mismatches.
+	if _uid == 0:
+		_uid = _uid_max
+		_uid_max += 1
 
 
 # Removes the most recent buff. Returns true if there was a
@@ -712,13 +727,20 @@ func _modify_property_internal(mod_type: ModificationType.enm, value: float, dir
 # negative. Level will also be changed accordingly. Note
 # that level downs are possible.
 func _change_experience(amount: float) -> float:
-	var old_exp: float = _experience
-	var new_exp: float = max(0.0, _experience + amount)
-	var actual_change = new_exp - old_exp
-	var old_level: int = _level
-	var new_level: int = Experience.get_level_at_exp(new_exp, get_player())
+#	NOTE: store experience as centiunits (multiply by 100) to
+#	preserve fractional values while using integer arithmetic
+#	for multiplayer determinism.
+	var old_exp_centi: int = _experience_centi
+	var amount_centi: int = roundi(amount * 100.0)
+	var new_exp_centi: int = maxi(0, _experience_centi + amount_centi)
+	var actual_change_centi: int = new_exp_centi - old_exp_centi
+	var actual_change: float = actual_change_centi / 100.0
 
-	_experience = new_exp
+	var old_level: int = _level
+	var new_exp_float: float = new_exp_centi / 100.0
+	var new_level: int = Experience.get_level_at_exp(new_exp_float, get_player())
+
+	_experience_centi = new_exp_centi
 
 	var level_has_changed: bool = new_level != old_level
 	var level_increased: bool = new_level > old_level
@@ -987,7 +1009,10 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	CombatLog.log_damage(self, target, damage_source, damage, crit_count)
 
-	get_player().add_to_total_damage(damage)
+#	NOTE: round damage to avoid floating point precision
+#	desyncs in multiplayer
+	var rounded_damage: float = floor(damage)
+	get_player().add_to_total_damage(rounded_damage)
 
 	_add_floating_text_for_damage(damage, crit_count, damage_source, is_main_target, target)
 
@@ -1840,7 +1865,7 @@ func get_attack_type() -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
 
 func get_exp() -> float:
-	return _experience
+	return _experience_centi / 100.0
 
 
 func reached_max_level() -> bool:

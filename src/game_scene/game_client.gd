@@ -24,7 +24,8 @@ signal received_first_timeslot()
 # lowering.
 const TIMESLOT_BUFFER_SIZE_LOWERING_FACTOR: float = 0.4
 const PING_HISTORY_SIZE: int = 10
-const CHECKSUM_PERIOD_TICKS: int = 30 * GameHost.MULTIPLAYER_TURN_LENGTH
+const TICKS_PER_SECOND: int = 30
+const CHECKSUM_PERIOD_TICKS: int = TICKS_PER_SECOND * GameHost.MULTIPLAYER_TURN_LENGTH
 
 
 var _tick_delta: float
@@ -45,6 +46,8 @@ var _ping_history: Array = [0]
 var _received_any_timeslots: bool = false
 var _paused_by_host: bool = false
 var _last_received_timeslot_list: Array = []
+# Store checksum data for desync debugging: {tick -> checksum_data_dict}
+var _checksum_data_map: Dictionary = {}
 
 
 @export var _game_host: GameHost
@@ -100,6 +103,12 @@ func add_action(action: Action):
 	_game_host.receive_action.rpc_id(1, serialized_action)
 
 
+# Returns current tick number. Used for deterministic
+# calculations in multiplayer to avoid float precision issues.
+func get_current_tick() -> int:
+	return _current_tick
+
+
 @rpc("authority", "call_local", "reliable")
 func receive_alive_check():
 	_game_host.receive_alive_check_response.rpc_id(1)
@@ -120,7 +129,10 @@ func receive_timeslots(timeslot_list: Dictionary):
 #	old ticks if it hasn't received ack from client yet due
 #	to network/logic delay. If we don't skip old ticks, then
 #	_timeslot_map would grow forever.
-	for tick in timeslot_list.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_timeslot_keys: Array = timeslot_list.keys()
+	sorted_timeslot_keys.sort()
+	for tick in sorted_timeslot_keys:
 		if tick < _current_tick:
 			continue
 
@@ -155,6 +167,18 @@ func set_lagging_players(lagging_player_list: Array):
 
 	_hud.set_waiting_for_lagging_players_indicator_player_list(lagging_player_list)
 	_hud.set_waiting_for_lagging_players_indicator_visible(players_are_lagging)
+
+
+# Receive desync notification from server and send back stored checksum data
+@rpc("authority", "call_local", "reliable")
+func receive_desync_notification(tick: int):
+	push_error("!!! DESYNC NOTIFICATION received from server for tick %d !!!" % tick)
+
+	if _checksum_data_map.has(tick):
+		var checksum_data: Dictionary = _checksum_data_map[tick]
+		_game_host.receive_checksum_data_from_client.rpc_id(1, tick, checksum_data)
+	else:
+		push_error("  ERROR: No stored checksum data for tick %d" % tick)
 
 
 #########################
@@ -241,6 +265,12 @@ func _calculate_game_state_checksum():
 
 	var game_state: PackedByteArray = PackedByteArray()
 
+	# Store all values for desync debugging
+	var checksum_data: Dictionary = {
+		"players": [],
+		"towers": [],
+	}
+
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	for player in player_list:
@@ -258,9 +288,96 @@ func _calculate_game_state_checksum():
 		game_state.append(lives)
 		game_state.append(level)
 
+		checksum_data["players"].append({
+			"id": player.get_id(),
+			"name": player.get_player_name(),
+			"total_damage": total_damage,
+			"gold_farmed": gold_farmed,
+			"gold": gold,
+			"tomes": tomes,
+			"lives": lives,
+			"level": level,
+		})
+
+	# Include tower state to catch tower-related desyncs
+	# NOTE: tower_list is already sorted by UID in Utils.get_tower_list()
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+	for tower in tower_list:
+		var tower_uid: int = tower.get_uid()
+		var tower_id: int = tower.get_id()
+		var tower_level: int = tower.get_level()
+		var tower_exp: int = floori(tower.get_exp())
+
+		game_state.append(tower_uid)
+		game_state.append(tower_id)
+		game_state.append(tower_level)
+		game_state.append(tower_exp)
+
+		var tower_data: Dictionary = {
+			"uid": tower_uid,
+			"id": tower_id,
+			"level": tower_level,
+			"exp": tower_exp,
+			"owner_id": tower.get_player().get_id(),
+			"items": [],
+		}
+
+		# Include item state to catch item-related desyncs
+		var item_list: Array[Item] = tower.get_item_container().get_item_list()
+		Utils.sort_objects_for_multiplayer(item_list)
+
+		for item in item_list:
+			var item_id: int = item.get_id()
+			var item_uid: int = item.get_uid()
+			var item_charges: int = item.get_charges()
+			var item_user_int: int = item.user_int
+			var item_user_int2: int = item.user_int2
+			var item_user_int3: int = item.user_int3
+			var item_user_real: int = floori(item.user_real)
+			var item_user_real2: int = floori(item.user_real2)
+			var item_user_real3: int = floori(item.user_real3)
+
+			game_state.append(item_id)
+			game_state.append(item_uid)
+			game_state.append(item_charges)
+			game_state.append(item_user_int)
+			game_state.append(item_user_int2)
+			game_state.append(item_user_int3)
+			game_state.append(item_user_real)
+			game_state.append(item_user_real2)
+			game_state.append(item_user_real3)
+
+			tower_data["items"].append({
+				"uid": item_uid,
+				"id": item_id,
+				"charges": item_charges,
+				"user_int": item_user_int,
+				"user_int2": item_user_int2,
+				"user_int3": item_user_int3,
+				"user_real": item_user_real,
+				"user_real2": item_user_real2,
+				"user_real3": item_user_real3,
+			})
+
+		checksum_data["towers"].append(tower_data)
+
 	ctx.update(game_state)
 
 	var checksum: PackedByteArray = ctx.finish()
+
+	# Store checksum data for this tick
+	_checksum_data_map[_current_tick] = checksum_data
+
+	# Clean up old checksum data (keep last 10 ticks)
+	# NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var ticks_to_remove: Array = []
+	var sorted_checksum_ticks: Array = _checksum_data_map.keys()
+	sorted_checksum_ticks.sort()
+	for tick in sorted_checksum_ticks:
+		if tick < _current_tick - CHECKSUM_PERIOD_TICKS * 10:
+			ticks_to_remove.append(tick)
+	for tick in ticks_to_remove:
+		_checksum_data_map.erase(tick)
 
 	return checksum
 
@@ -323,8 +440,13 @@ func _update_state():
 #	ordered by type. This makes gameplay logic more
 #	consistent.
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
+	Utils.sort_objects_for_multiplayer(timer_list)
+
 	var creep_list: Array[Creep] = Utils.get_creep_list()
+
 	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
+	Utils.sort_objects_for_multiplayer(projectile_list)
+
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	var node_list: Array = []
 	node_list.append_array(timer_list)

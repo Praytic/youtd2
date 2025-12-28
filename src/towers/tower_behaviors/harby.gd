@@ -74,20 +74,21 @@ func on_create(preceding_tower: Tower):
 
 func aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	var last_proc_time: int = 0
-	buff.user_int = last_proc_time
+	var last_proc_tick: int = 0
+	buff.user_int = last_proc_tick
 
 
 func aura_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Tower = buff.get_buffed_unit()
-	var last_proc_time: int = buff.user_int
+	var last_proc_tick: int = buff.user_int
 	var autocast: Autocast = event.get_autocast_type()
 
-#	NOTE: in original script it was 125 instead of 5 because
-#	original API get_game_time() returns seconds multiplied
-#	by 25. Youtd2 get_game_time() returns seconds.
-	var can_proc: bool = last_proc_time + 5 < Utils.get_time() && autocast.get_mana_cost() > 0
+#	NOTE: use tick-based calculation to avoid float precision
+#	drift in multiplayer.
+	var cooldown_ticks: int = Utils.time_to_ticks(5)
+	var current_tick: int = Utils.get_current_tick()
+	var can_proc: bool = last_proc_tick + cooldown_ticks < current_tick && autocast.get_mana_cost() > 0
 
 	if !can_proc:
 		return
@@ -101,8 +102,8 @@ func aura_bt_on_spell_casted(event: Event):
 
 	arcane_mana_replenish(buffed_tower)
 
-	last_proc_time = floori(Utils.get_time())
-	buff.user_int = last_proc_time
+	last_proc_tick = current_tick
+	buff.user_int = last_proc_tick
 
 
 func arcane_mana_replenish(target: Tower):

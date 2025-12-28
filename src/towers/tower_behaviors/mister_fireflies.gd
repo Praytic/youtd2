@@ -206,7 +206,10 @@ func update_element_for_moths():
 	var winning_element: Element.enm = Element.enm.DARKNESS
 	var winning_sum: int = gold_cost_map.get(Element.enm.DARKNESS, 0)
 
-	for element in gold_cost_map.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_element_keys: Array = gold_cost_map.keys()
+	sorted_element_keys.sort()
+	for element in sorted_element_keys:
 		var this_sum: int = gold_cost_map[element]
 
 		if this_sum > winning_sum:

@@ -155,10 +155,13 @@ func get_periodic_timers() -> Dictionary:
 # buff. Used by items to preserve timers of items when they
 # are removed from towers.
 func inherit_periodic_timers(inherited_timers: Dictionary):
-	for handler in _periodic_timer_map.keys():
+#	NOTE: sort keys to ensure deterministic iteration order for multiplayer sync
+	var sorted_handler_keys: Array = _periodic_timer_map.keys()
+	sorted_handler_keys.sort()
+	for handler in sorted_handler_keys:
 		if !inherited_timers.has(handler):
 			continue
-		
+
 #		Remove existing timer
 		var existing_timer: ManualTimer = _periodic_timer_map[handler]
 		remove_child(existing_timer)

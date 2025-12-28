@@ -83,8 +83,8 @@ func on_tower_details() -> MultiboardValues:
 
 func slow_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	var net_start_time: float = Utils.get_time()
-	buff.user_real = net_start_time
+	var net_start_tick: int = Utils.get_current_tick()
+	buff.user_int2 = net_start_tick
 
 
 func slow_bt_on_expire(event: Event):
@@ -92,8 +92,10 @@ func slow_bt_on_expire(event: Event):
 	var target: Unit = buff.get_buffed_unit()
 	var lvl: int = tower.get_level()
 	var movespeed_for_strangle: float = 120 + 2.4 * lvl
-	var net_start_time: float = buff.user_real
-	var net_duration: float = Utils.get_time() - net_start_time
+	var net_start_tick: int = buff.user_int2
+	var current_tick: int = Utils.get_current_tick()
+	var net_duration_ticks: int = current_tick - net_start_tick
+	var net_duration: float = Utils.ticks_to_time(net_duration_ticks)
 	var target_can_be_strangled: bool = target.get_current_movespeed() <= movespeed_for_strangle || target.is_stunned()
 	var strangle_chance: float = (0.03 + 0.002 * lvl) * (net_duration / 3.0)
 	var damage_for_boss: float = tower.get_current_attack_damage_with_bonus() * (4 + 0.16 * lvl)
