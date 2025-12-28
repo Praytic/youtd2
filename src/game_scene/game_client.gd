@@ -323,8 +323,7 @@ func _calculate_game_state_checksum():
 
 		# Include item state to catch item-related desyncs
 		var item_list: Array[Item] = tower.get_item_container().get_item_list()
-		# Sort by UID to ensure deterministic iteration order
-		item_list.sort_custom(func(a: Item, b: Item): return a.get_uid() < b.get_uid())
+		Utils.sort_objects_for_multiplayer(item_list)
 
 		for item in item_list:
 			var item_id: int = item.get_id()
@@ -440,14 +439,12 @@ func _update_state():
 #	ordered by type. This makes gameplay logic more
 #	consistent.
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
-	# Sort by UID to ensure deterministic iteration order
-	timer_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
+	Utils.sort_objects_for_multiplayer(timer_list)
 
 	var creep_list: Array[Creep] = Utils.get_creep_list()
 
 	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
-	# Sort by UID to ensure deterministic iteration order
-	projectile_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
+	Utils.sort_objects_for_multiplayer(projectile_list)
 
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	var node_list: Array = []

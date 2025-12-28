@@ -786,9 +786,7 @@ func get_units_in_range(caster: Unit, type: TargetType, center: Vector2, radius:
 
 		filtered_unit_list.append(unit)
 
-	# Sort by UID to ensure deterministic iteration order across all clients
-	# This prevents desyncs caused by undefined get_nodes_in_group() order
-	filtered_unit_list.sort_custom(func(a: Unit, b: Unit): return a.get_uid() < b.get_uid())
+	Utils.sort_objects_for_multiplayer(filtered_unit_list)
 
 	return filtered_unit_list
 
@@ -946,8 +944,7 @@ func get_tower_list() -> Array[Tower]:
 		var tower: Tower = tower_node as Tower
 		tower_list.append(tower)
 
-	# Sort by UID to ensure deterministic iteration order across all clients
-	tower_list.sort_custom(func(a: Tower, b: Tower): return a.get_uid() < b.get_uid())
+	Utils.sort_objects_for_multiplayer(tower_list)
 
 	return tower_list
 
@@ -960,8 +957,7 @@ func get_creep_list() -> Array[Creep]:
 		var creep: Creep = creep_node as Creep
 		creep_list.append(creep)
 
-	# Sort by UID to ensure deterministic iteration order across all clients
-	creep_list.sort_custom(func(a: Creep, b: Creep): return a.get_uid() < b.get_uid())
+	Utils.sort_objects_for_multiplayer(creep_list)
 
 	return creep_list
 
@@ -1081,3 +1077,20 @@ func get_scale_from_grows(sprite_scale_min: float, sprite_scale_max: float, curr
 	var current_scale: float = 1.0 + (scale_max - 1.0) *grow_ratio
 
 	return current_scale
+
+
+# Sort objects by UID to ensure deterministic iteration
+# order. Default order from Godot cannot be relied upon.
+# 
+# NOTE: the objects in the list must implement get_uid()
+# 
+# NOTE: only sort if the game is actually in multiplayer.
+# Skip sorting for singleplayer because sorting reduces FPS
+# by a lot on high gamespeeds. Specifically for timer and
+# projectile objects.
+func sort_objects_for_multiplayer(object_list: Array):
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
+	var is_multiplayer: bool = player_mode == PlayerMode.enm.MULTIPLAYER
+
+	if is_multiplayer:
+		object_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
