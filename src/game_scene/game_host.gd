@@ -596,15 +596,6 @@ func _log_detailed_desync_data(tick: int):
 			if peer_tower["items"].size() != authority_tower["items"].size():
 				log_lines.append("      Items: COUNT MISMATCH (AUTH=%d, THIS=%d)" % [authority_tower["items"].size(), peer_tower["items"].size()])
 			elif peer_tower["items"].size() > 0:
-				var has_item_desync: bool = false
-				for item_idx in range(peer_tower["items"].size()):
-					var auth_item: Dictionary = authority_tower["items"][item_idx]
-					var peer_item: Dictionary = peer_tower["items"][item_idx]
-
-					if auth_item["uid"] != peer_item["uid"] || auth_item["id"] != peer_item["id"] || auth_item["charges"] != peer_item["charges"] || auth_item["user_int"] != peer_item["user_int"] || auth_item["user_int2"] != peer_item["user_int2"] || auth_item["user_int3"] != peer_item["user_int3"] || auth_item["user_real"] != peer_item["user_real"] || auth_item["user_real2"] != peer_item["user_real2"] || auth_item["user_real3"] != peer_item["user_real3"]:
-						has_item_desync = true
-						break
-
 				# Always log items if there are any
 				for item_idx in range(peer_tower["items"].size()):
 					var peer_item: Dictionary = peer_tower["items"][item_idx]
