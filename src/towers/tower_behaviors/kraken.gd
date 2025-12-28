@@ -91,11 +91,11 @@ func periodic(event: Event):
 
 	if tentacles_are_on_cd:
 		var tentacles_cd: float = get_tentacles_cd()
-		var tentacles_cd_ticks: int = roundi(tentacles_cd * 30.0)
+		var tentacles_cd_ticks: int = Utils.time_to_ticks(tentacles_cd)
 		var current_tick: int = Utils.get_current_tick()
 		var tick_for_next_tentacles: int = last_tick_when_used_tentacles + tentacles_cd_ticks
 		var remaining_cd_ticks: int = tick_for_next_tentacles - current_tick
-		var remaining_cd: float = remaining_cd_ticks / 30.0
+		var remaining_cd: float = Utils.ticks_to_time(remaining_cd_ticks)
 
 		event.enable_advanced(remaining_cd, false)
 	else:
@@ -163,7 +163,7 @@ func get_tentacles_cd() -> float:
 
 func get_tentacles_are_on_cd() -> bool:
 	var tentacles_cd: float = get_tentacles_cd()
-	var tentacles_cd_ticks: int = roundi(tentacles_cd * 30.0)
+	var tentacles_cd_ticks: int = Utils.time_to_ticks(tentacles_cd)
 	var current_tick: int = Utils.get_current_tick()
 	var ticks_since_last_tentacles: int = current_tick - last_tick_when_used_tentacles
 	var tentacles_are_on_cd: bool = ticks_since_last_tentacles < tentacles_cd_ticks

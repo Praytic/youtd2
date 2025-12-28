@@ -58,8 +58,8 @@ func on_attack(_event: Event):
 		return
 
 #	NOTE: use tick-based calculation to avoid float precision
-#	drift in multiplayer. 1 second = 30 ticks at 30 ticks/sec.
-	var transport_cd_ticks: int = roundi(TRANSPORT_CD * 30.0)
+#	drift in multiplayer.
+	var transport_cd_ticks: int = Utils.time_to_ticks(TRANSPORT_CD)
 	var current_tick: int = Utils.get_current_tick()
 	var ticks_since_last_transport: int = current_tick - tick_when_last_transported
 	var transport_is_on_cooldown: bool = ticks_since_last_transport < transport_cd_ticks

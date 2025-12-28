@@ -85,8 +85,8 @@ func aura_bt_on_spell_casted(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
 
 #	NOTE: use tick-based calculation to avoid float precision
-#	drift in multiplayer. 5 seconds = 150 ticks at 30 ticks/sec.
-	var cooldown_ticks: int = 150
+#	drift in multiplayer.
+	var cooldown_ticks: int = Utils.time_to_ticks(5)
 	var current_tick: int = Utils.get_current_tick()
 	var can_proc: bool = last_proc_tick + cooldown_ticks < current_tick && autocast.get_mana_cost() > 0
 

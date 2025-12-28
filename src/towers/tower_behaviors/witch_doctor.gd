@@ -111,7 +111,7 @@ func on_damage(event: Event):
 		return
 
 	var purify_cd: float = 4.0 - 0.04 * tower.get_level()
-	var purify_cd_ticks: int = roundi(purify_cd * 30.0)
+	var purify_cd_ticks: int = Utils.time_to_ticks(purify_cd)
 	tick_for_next_purify = current_tick + purify_cd_ticks
 
 #	Remove buffs (positive and negative buffs) and count them
@@ -153,7 +153,7 @@ func on_create(_preceding: Tower):
 		ward_list.append(ward)
 
 	active_ward_count = 0
-	tick_for_next_purify = Utils.get_current_tick() - 120
+	tick_for_next_purify = Utils.get_current_tick() - Utils.time_to_ticks(4)
 	periodic_interval = 0.0
 
 

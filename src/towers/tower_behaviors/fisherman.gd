@@ -95,7 +95,7 @@ func slow_bt_on_expire(event: Event):
 	var net_start_tick: int = buff.user_int2
 	var current_tick: int = Utils.get_current_tick()
 	var net_duration_ticks: int = current_tick - net_start_tick
-	var net_duration: float = net_duration_ticks / 30.0
+	var net_duration: float = Utils.ticks_to_time(net_duration_ticks)
 	var target_can_be_strangled: bool = target.get_current_movespeed() <= movespeed_for_strangle || target.is_stunned()
 	var strangle_chance: float = (0.03 + 0.002 * lvl) * (net_duration / 3.0)
 	var damage_for_boss: float = tower.get_current_attack_damage_with_bonus() * (4 + 0.16 * lvl)

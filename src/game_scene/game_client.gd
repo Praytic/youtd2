@@ -24,7 +24,8 @@ signal received_first_timeslot()
 # lowering.
 const TIMESLOT_BUFFER_SIZE_LOWERING_FACTOR: float = 0.4
 const PING_HISTORY_SIZE: int = 10
-const CHECKSUM_PERIOD_TICKS: int = 30 * GameHost.MULTIPLAYER_TURN_LENGTH
+const TICKS_PER_SECOND: int = 30
+const CHECKSUM_PERIOD_TICKS: int = TICKS_PER_SECOND * GameHost.MULTIPLAYER_TURN_LENGTH
 
 
 var _tick_delta: float

@@ -91,11 +91,11 @@ func aura_bt_on_cleanup(event: Event):
 	var buff_stored_damage: float = buff.user_real
 
 #	NOTE: use tick-based calculation to avoid float precision
-#	drift in multiplayer. Tick delta is exactly 1/30 seconds.
-	var tick_delta: float = 1.0 / 30.0
+#	drift in multiplayer.
 	var current_tick: int = Utils.get_current_tick()
 	var elapsed_ticks: int = current_tick - apply_tick
-	var damage: float = elapsed_ticks * tick_delta * max_dps
+	var elapsed_time: float = Utils.ticks_to_time(elapsed_ticks)
+	var damage: float = elapsed_time * max_dps
 	damage += buff_stored_damage
 
 	if target.get_health() > 0:

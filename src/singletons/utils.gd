@@ -1098,3 +1098,17 @@ func sort_objects_for_multiplayer(object_list: Array):
 
 	if is_multiplayer:
 		object_list.sort_custom(func(a, b): return a.get_uid() < b.get_uid())
+
+
+# Converts time in seconds to game ticks
+func time_to_ticks(time: float) -> int:
+	var ticks: int = roundi(time * GameClient.TICKS_PER_SECOND)
+
+	return ticks
+
+
+# Converts time in seconds to game ticks
+func ticks_to_time(ticks: int) -> float:
+	var time: float = ticks * 1.0 / GameClient.TICKS_PER_SECOND
+
+	return time
