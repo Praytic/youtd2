@@ -1199,9 +1199,7 @@ func _get_experience_for_target(target: Unit) -> float:
 	var experience_base: float = CreepSize.get_experience(creep_size)
 	var granted_mod: float = creep.get_prop_exp_granted()
 	var received_mod: float = tower.get_prop_exp_received()
-#	NOTE: round experience to avoid floating point precision
-#	desyncs in multiplayer
-	var experience: float = floor(experience_base * granted_mod * received_mod)
+	var experience: float = experience_base * granted_mod * received_mod
 
 	return experience
 
