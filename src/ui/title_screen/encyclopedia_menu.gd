@@ -1,4 +1,4 @@
-extends TabContainer
+class_name EncyclopediaMenu extends TabContainer
 
 
 signal close_pressed()

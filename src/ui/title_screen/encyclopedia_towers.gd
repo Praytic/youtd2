@@ -52,6 +52,7 @@ func _ready() -> void:
 	
 	for tower_id in tower_id_list:
 		var tower_button: TowerButton = TowerButton.make()
+		tower_button.hide_freshness_indicator()
 		tower_button.set_tower_id(tower_id)
 		tower_button.set_tooltip_is_enabled(false)
 		tower_button.set_tier_visible(true)
