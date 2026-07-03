@@ -8,6 +8,20 @@ var _loaded_sfx_map: Dictionary = {}
 var _2d_sfx_player_list: Array = []
 var _sfx_player_list: Array = []
 
+# --- SFX coalescing knobs (tune these two together) ---
+# Within COALESCE_WINDOW_MS, at most MAX_SIMULTANEOUS_PER_SFX
+# plays of the SAME sfx path are allowed; extra copies are
+# dropped. This keeps multi-hit bursts audible (a splash hitting
+# 30 creeps plays ~5 overlapping copies, not 30) without summing
+# identical waveforms into clipping / exhausting audio voices.
+# NOTE: this is client-local/cosmetic (uses real time, not sim
+# time) and does not affect multiplayer determinism.
+const COALESCE_WINDOW_MS: int = 50
+const MAX_SIMULTANEOUS_PER_SFX: int = 5
+
+# sfx_path -> { "window_start": int (ms), "count": int }
+var _recent_play_map: Dictionary = {}
+
 
 #########################
 ###       Public      ###
@@ -39,6 +53,9 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
+	if !_coalesce_allows(sfx_path):
+		return
+
 	var sfx_player: AudioStreamPlayer = _get_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
@@ -57,6 +74,9 @@ func play_sfx(sfx_path: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 
 func sfx_at_pos(sfx_path: String, sfx_position: Vector2, volume_db: float = 0.0, pitch_scale: float = 1.0):
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
+		return
+
+	if !_coalesce_allows(sfx_path):
 		return
 
 	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()
@@ -92,6 +112,29 @@ func sfx_at_unit(sfx_path: String, unit: Unit, volume_db: float = 0.0, pitch_sca
 #########################
 ###      Private      ###
 #########################
+
+# Fixed-window per-path rate cap. Returns false when this sfx
+# path has already played MAX_SIMULTANEOUS_PER_SFX times within
+# the current COALESCE_WINDOW_MS window (so the caller drops it).
+# See the coalescing knobs at the top of this file.
+func _coalesce_allows(sfx_path: String) -> bool:
+	var now: int = Time.get_ticks_msec()
+	var entry: Dictionary = _recent_play_map.get(sfx_path, {})
+
+	var window_expired: bool = entry.is_empty() || now - entry["window_start"] >= COALESCE_WINDOW_MS
+
+	if window_expired:
+		_recent_play_map[sfx_path] = {"window_start": now, "count": 1}
+
+		return true
+
+	if entry["count"] < MAX_SIMULTANEOUS_PER_SFX:
+		entry["count"] += 1
+
+		return true
+
+	return false
+
 
 func _get_sfx(sfx_path: String) -> AudioStream:
 	if _loaded_sfx_map.has(sfx_path):

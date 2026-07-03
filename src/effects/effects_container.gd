@@ -16,6 +16,30 @@ var _effect_map: Dictionary = {}
 var _effect_original_scale_map: Dictionary = {}
 var _free_id_list: Array = []
 
+# effect_path -> PackedScene. Avoids ResourceLoader.exists() +
+# load() on every effect creation (effect scenes are heavy:
+# AnimatedSprite2D with many AtlasTexture frames).
+var _scene_cache: Dictionary = {}
+
+# Cached settings, refreshed on Settings.changed (which only
+# fires on menu close). Avoids two dictionary lookups per effect.
+var _vfx_enabled: bool = true
+var _sfx_enabled: bool = true
+
+
+func _ready():
+	_refresh_cached_settings()
+	Settings.changed.connect(_on_settings_changed)
+
+
+func _on_settings_changed():
+	_refresh_cached_settings()
+
+
+func _refresh_cached_settings():
+	_vfx_enabled = Settings.get_bool_setting(Settings.ENABLE_VFX)
+	_sfx_enabled = Settings.get_bool_setting(Settings.ENABLE_SFX)
+
 
 #########################
 ###       Public      ###
@@ -85,15 +109,7 @@ func get_effect_original_scale(effect_id: int) -> Vector2:
 #########################
 
 func _create_internal(effect_path: String) -> int:
-	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
-
-	var effect_scene: PackedScene
-	if effect_path_exists:
-		effect_scene = load(effect_path)
-	else:
-		effect_scene = Preloads.placeholder_effect_scene
-
-		push_error("Invalid effect path:", effect_path, ". Using placeholder effect.")
+	var effect_scene: PackedScene = _get_effect_scene(effect_path)
 
 	var effect: Node2D = effect_scene.instantiate()
 
@@ -105,22 +121,41 @@ func _create_internal(effect_path: String) -> int:
 
 #	Silence SFX children of effect node, if SFX are disabled
 #	in settings
-	var sfx_are_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_SFX)
-	if !sfx_are_enabled:
+	if !_sfx_enabled:
 		var effect_child_list: Array[Node] = effect.get_children()
 
 		for effect_child in effect_child_list:
 			if effect_child is AudioStreamPlayer2D || effect_child is AudioStreamPlayer:
 				effect_child.autoplay = false
 
-	var enable_vfx: bool = Settings.get_bool_setting(Settings.ENABLE_VFX)
-	effect.visible = enable_vfx
+	effect.visible = _vfx_enabled
 
 	var id: int = _make_effect_id()
 	_effect_map[id] = effect
 	_effect_original_scale_map[id] = effect.scale
 
 	return id
+
+
+# Returns the cached PackedScene for effect_path, falling back
+# to the placeholder if the path is invalid. exists()/load() run
+# once per unique path; the (bad) path is cached to the
+# placeholder so it isn't re-checked on every use.
+func _get_effect_scene(effect_path: String) -> PackedScene:
+	if _scene_cache.has(effect_path):
+		return _scene_cache[effect_path]
+
+	var effect_scene: PackedScene
+	if ResourceLoader.exists(effect_path):
+		effect_scene = load(effect_path)
+	else:
+		effect_scene = Preloads.placeholder_effect_scene
+
+		push_error("Invalid effect path:", effect_path, ". Using placeholder effect.")
+
+	_scene_cache[effect_path] = effect_scene
+
+	return effect_scene
 
 
 func _make_effect_id() -> int:
