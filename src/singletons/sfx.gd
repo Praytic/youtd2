@@ -16,8 +16,8 @@ var _sfx_player_list: Array = []
 # identical waveforms into clipping / exhausting audio voices.
 # NOTE: this is client-local/cosmetic (uses real time, not sim
 # time) and does not affect multiplayer determinism.
-const COALESCE_WINDOW_MS: int = 50
-const MAX_SIMULTANEOUS_PER_SFX: int = 5
+const COALESCE_WINDOW_MS: int = 200
+const MAX_SIMULTANEOUS_PER_SFX: int = 3
 
 # sfx_path -> { "window_start": int (ms), "count": int }
 var _recent_play_map: Dictionary = {}
