@@ -83,8 +83,6 @@ var _is_in_combat: bool = false
 @export var _upgrade_indicator_style: UpgradeIndicatorStyle = UpgradeIndicatorStyle.SHADER_GLOW
 @export var _can_be_upgraded: bool
 
-var _upgrade_shader
-
 #########################
 ###     Built-in      ###
 #########################

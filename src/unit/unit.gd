@@ -264,6 +264,7 @@ func _ready():
 	var selection_shader: ShaderMaterial = Preloads.outline_shader.duplicate()
 	_unit_selection_outline.set_material(selection_shader)
 	_unit_selection_outline_parent = Node2D.new()
+	_unit_selection_outline_parent.scale = _unit_sprite_parent.scale
 	_unit_selection_outline_parent.add_child(_unit_selection_outline)
 	add_child(_unit_selection_outline_parent)
 
