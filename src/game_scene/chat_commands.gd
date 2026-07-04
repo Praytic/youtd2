@@ -16,6 +16,8 @@ const AUTOOIL: Array[String] = ["/autooil", "/ao", "-ao"]
 const GAMESPEED: Array[String] = ["/gamespeed", "/gs"]
 const DAMAGE_METERS: Array[String] = ["/damage-meters", "/dm"]
 const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
+const DAMAGE_METERS_SELF: Array[String] = ["/damage-meters", "/dms"]
+const DAMAGE_METERS_RECENT_SELF: Array[String] = ["/damage-meters-recent", "/dmrs"]
 const IGNORE: Array[String] = ["/ignore"]
 const UNIGNORE: Array[String] = ["/unignore"]
 const PING: Array[String] = ["/ping"]
@@ -61,6 +63,8 @@ const LOCAL_ONLY_COMMANDS_LIST_OF_LISTS: Array = [
 	HELP,
 	DAMAGE_METERS,
 	DAMAGE_METERS_RECENT,
+	DAMAGE_METERS_SELF,
+	DAMAGE_METERS_RECENT_SELF,
 	IGNORE,
 	UNIGNORE,
 	PING,
@@ -167,6 +171,10 @@ func process_command(player: Player, command: String):
 		_command_damage_meters(player, command_args)
 	elif DAMAGE_METERS_RECENT.has(command_main):
 		_command_damage_meters_recent(player, command_args)
+	elif DAMAGE_METERS_SELF.has(command_main):
+		_command_damage_meters_self(player, command_args)
+	elif DAMAGE_METERS_RECENT_SELF.has(command_main):
+		_command_damage_meters_recent_self(player, command_args)
 	elif IGNORE.has(command_main):
 		_command_ignore(player, command_args)
 	elif UNIGNORE.has(command_main):
@@ -463,7 +471,45 @@ func _command_full_mana(player: Player, _args: Array):
 
 func _command_damage_meters(player: Player, _args: Array):
 	var tower_list: Array[Tower] = Utils.get_tower_list()
+	
+	tower_list.sort_custom(
+		func(a: Tower, b: Tower) -> bool:
+			var damage_a: float = a.get_total_damage()
+			var damage_b: float = b.get_total_damage()
+			
+			return damage_a > damage_b
+			)
 
+	_add_status(player, tr("COMMAND_TOP_TOWERS_BY_DAMAGE"))
+
+	var count: int = 0
+	for tower in tower_list:
+		if count > DAMAGE_METERS_TOWER_COUNT:
+			break
+
+		var tower_name: String = tower.get_display_name()
+		var damage: float = tower.get_total_damage()
+		# use roundi to display the same value as tower details
+		var damage_string: String = TowerDetails.int_format(roundi(damage))
+		
+		var damage_attack: float = tower.get_total_damage_by_type(Tower.DamageSource.Attack)
+		var attack_percentage: float = Utils.divide_safe(damage_attack, damage) * 100
+		var attack_percentage_string: String = Utils.format_float(attack_percentage, 1)
+		
+		var damage_spell: float = tower.get_total_damage_by_type(Tower.DamageSource.Spell)
+		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
+		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
+		
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
+
+		count += 1
+
+
+func _command_damage_meters_self(player: Player, _args: Array):
+	var tower_list_all: Array[Tower] = Utils.get_tower_list()
+	var local_player = PlayerManager.get_local_player()
+	var tower_list: Array[Tower] = tower_list_all.filter(func(tower): return tower != null && tower.get_player() == PlayerManager.get_local_player())
+	
 	tower_list.sort_custom(
 		func(a: Tower, b: Tower) -> bool:
 			var damage_a: float = a.get_total_damage()
@@ -499,6 +545,44 @@ func _command_damage_meters(player: Player, _args: Array):
 
 func _command_damage_meters_recent(player: Player, _args: Array):
 	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	tower_list.sort_custom(
+		func(a: Tower, b: Tower) -> bool:
+			var damage_a: float = a.get_total_damage_recent()
+			var damage_b: float = b.get_total_damage_recent()
+			
+			return damage_a > damage_b
+			)
+
+	_add_status(player, tr("COMMAND_TOP_TOWERS_BY_RECENT_DAMAGE"))
+
+	var count: int = 0
+	for tower in tower_list:
+		if count > DAMAGE_METERS_TOWER_COUNT:
+			break
+
+		var tower_name: String = tower.get_display_name()
+		var damage: float = tower.get_total_damage_recent()
+		# use roundi to display the same value as tower details
+		var damage_string: String = TowerDetails.int_format(roundi(damage))
+		
+		var damage_attack: float = tower.get_total_damage_recent(true, Tower.DamageSource.Attack)
+		var attack_percentage: float = Utils.divide_safe(damage_attack, damage) * 100
+		var attack_percentage_string: String = Utils.format_float(attack_percentage, 1)
+
+		var damage_spell: float = tower.get_total_damage_recent(true, Tower.DamageSource.Spell)
+		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
+		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
+		
+		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
+
+		count += 1
+
+func _command_damage_meters_recent_self(player: Player, _args: Array):
+	var tower_list_all: Array[Tower] = Utils.get_tower_list()
+	var local_player = PlayerManager.get_local_player()
+	var tower_list: Array[Tower] = tower_list_all.filter(func(tower): return tower != null && tower.get_player() == PlayerManager.get_local_player())
+	
 
 	tower_list.sort_custom(
 		func(a: Tower, b: Tower) -> bool:
