@@ -257,8 +257,6 @@ func _command_search_item(player: Player, args: Array):
 
 	var search_string: String = args[0].to_lower()
 
-	var search_result_list: Array = []
-
 	var any_found: bool = false
 
 	var id_list: Array = ItemProperties.get_item_id_list()
