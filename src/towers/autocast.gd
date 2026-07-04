@@ -116,7 +116,6 @@ var _item_owner: Item = null
 # paused.
 @export var _auto_timer: ManualTimer
 
-static var _uid_max: int = 1
 var _uid: int = 0
 
 
@@ -128,8 +127,7 @@ func _ready():
 	_cooldown_timer.wait_time = get_cooldown()
 	_cooldown_timer.one_shot = true
 
-	_uid = _uid_max
-	Autocast._uid_max += 1
+	_uid = UidMaxTracker.get_uid_max_and_increment(UidMaxTracker.Type.AUTOCAST)
 
 	GroupManager.add("autocasts", self, get_uid())
 

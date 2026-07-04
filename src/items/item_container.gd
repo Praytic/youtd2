@@ -13,7 +13,6 @@ var _item_list_with_slots: Array[Item] = []
 var _item_to_index_map: Dictionary = {}
 @export var _capacity: int = 0
 
-static var _uid_max: int = 1
 var _uid: int = 0
 var _highest_index: int = 0
 var _player: Player = null
@@ -24,8 +23,7 @@ var _player: Player = null
 #########################
 
 func _ready():
-	_uid = _uid_max
-	ItemContainer._uid_max += 1
+	_uid = UidMaxTracker.get_uid_max_and_increment(UidMaxTracker.Type.ITEM_CONTAINER)
 	GroupManager.add("item_containers", self, get_uid())
 	
 	set_capacity(_capacity)

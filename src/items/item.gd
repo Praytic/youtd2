@@ -40,7 +40,6 @@ var _inherited_periodic_timers: Dictionary = {}
 var _player: Player = null
 var _item_behavior: ItemBehavior
 
-static var _uid_max: int = 1
 var _uid: int = 0
 
 
@@ -52,8 +51,7 @@ func _init(id: int, player: Player):
 #	NOTE: fix "unused variable" warning
 	_is_oil_and_was_applied_already = _is_oil_and_was_applied_already
 
-	_uid = _uid_max
-	Item._uid_max += 1
+	_uid = UidMaxTracker.get_uid_max_and_increment(UidMaxTracker.Type.ITEM)
 	GroupManager.add("items", self, get_uid())
 
 	_id = id

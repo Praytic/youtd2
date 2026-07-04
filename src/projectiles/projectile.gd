@@ -21,8 +21,6 @@ const LIGHTNING_VISUAL_LIFETIME: float = 0.5
 # towers/creeps.
 const UNIT_Z_OFFSET: Vector3 = Vector3(0, 0, 60)
 
-# UID system for deterministic sorting in multiplayer
-static var _uid_max: int = 1
 var _uid: int = 0
 
 var _move_type: MoveType
@@ -92,8 +90,7 @@ var user_real3: float = 0.0
 func _ready():
 	super()
 
-	_uid = _uid_max
-	_uid_max += 1
+	_uid = UidMaxTracker.get_uid_max_and_increment(UidMaxTracker.Type.PROJECTILE)
 
 	_initial_scale = scale
 	_spawn_time = Utils.get_time()

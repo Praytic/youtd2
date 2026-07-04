@@ -104,7 +104,7 @@ func _ready():
 	print_verbose("Origin seed to: ", origin_seed)
 
 #	NOTE: ensure object UID counters are statically reset between sessions
-	_reset_uid_counters()
+	UidMaxTracker.reset()
 
 	_setup_players()
 	PlayerManager.send_players_created_signal()
@@ -281,15 +281,6 @@ func _save_player_exp_on_quit():
 		return
 
 	local_team.convert_local_player_score_to_exp()
-
-
-func _reset_uid_counters():
-	Unit._uid_max = 1
-	Item._uid_max = 1
-	Autocast._uid_max = 1
-	ItemContainer._uid_max = 1
-	Projectile._uid_max = 1
-	ManualTimer._uid_max = 1
 
 
 func _setup_players():

@@ -115,7 +115,6 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 var _buff_groups: Dictionary = {}
 var _player: Player = null
-static var _uid_max: int = 1
 var _uid: int = 0
 # NOTE: up axis is positive z, down axis is negative z.
 var _position_wc3: Vector3
@@ -307,8 +306,7 @@ func set_player(player: Player):
 #	The _ready() function can be called in different order
 #	on different clients, causing UID mismatches.
 	if _uid == 0:
-		_uid = _uid_max
-		_uid_max += 1
+		_uid = UidMaxTracker.get_uid_max_and_increment(UidMaxTracker.Type.UNIT)
 
 
 # Removes the most recent buff. Returns true if there was a
