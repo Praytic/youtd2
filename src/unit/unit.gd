@@ -1241,8 +1241,8 @@ func get_target_bitmask() -> int:
 
 # Returns name used in the combat log
 func get_log_name():
-	var instance_id: int = get_instance_id()
-	var log_name: String = "Unit-%d" % instance_id
+	var instance_uid: int = get_uid()
+	var log_name: String = "Unit-%d" % instance_uid
 
 	return log_name
 

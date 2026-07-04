@@ -50,7 +50,7 @@ func aura_bt_on_create(event: Event):
 	var buff_apply_tick: int = Utils.get_current_tick()
 	var max_dps: int = buff.get_level()
 	var buff_stored_damage: float = 0.0
-	var caster_id: int = caster.get_instance_id()
+	var caster_id: int = caster.get_uid()
 
 	buff.user_int = buff_apply_tick
 	buff.user_int2 = max_dps
@@ -61,10 +61,10 @@ func aura_bt_on_create(event: Event):
 func aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
 	var new_dps: int = buff.get_level()
-	var old_king_id: int = buff.user_int3
-	var old_king: Unit = instance_from_id(old_king_id)
+	var old_king_uid: int = buff.user_int3
+	var old_king: Unit = GroupManager.get_by_uid("towers", old_king_uid)
 	var new_king: Unit = buff.get_caster()
-	var new_king_id: int = new_king.get_instance_id()
+	var new_king_uid: int = new_king.get_uid()
 
 	if old_king == null:
 		return
@@ -72,7 +72,7 @@ func aura_bt_on_refresh(event: Event):
 	var old_wrath_damage: float = old_king.user_real * (0.5 + 0.04 * old_king.get_level())
 
 	old_king.user_real = 0.0
-	buff.user_int3 = new_king_id
+	buff.user_int3 = new_king_uid
 
 	if new_dps > buff.user_int2:
 		buff.user_int2 = new_dps

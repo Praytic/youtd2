@@ -28,6 +28,10 @@ func junction_on_create(event: Event):
 	if tower != buffee:
 		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, buffee)
 		lightning.modulate = Color.LIGHT_BLUE
+
+		# NOTE: usage of get_instance_id() is OK here and
+		# doesn't cause desyncs because the lightning object
+		# is visual only.
 		b.user_int = lightning.get_instance_id()
 
 #	NOTE: add & save attack speed
@@ -52,6 +56,9 @@ func junction_on_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 
 	if b.user_int != 0:
+		# NOTE: usage of instance_from_id() is OK here and
+		# doesn't cause desyncs because the lightning object
+		# is visual only.
 		var lightning: InterpolatedSprite = instance_from_id(b.user_int) as InterpolatedSprite
 		if lightning != null:
 			lightning.queue_free()

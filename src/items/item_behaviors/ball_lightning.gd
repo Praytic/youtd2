@@ -1,10 +1,6 @@
 extends ItemBehavior
 
 
-# NOTE: had to use instance_from_id() to convert user_int to
-# item
-
-
 var lightning_pt: ProjectileType
 
 
@@ -16,8 +12,8 @@ func load_triggers(triggers: BuffType):
 func lightning_pt_on_cleanup(ball: Projectile):
 	var tower: Tower = ball.get_caster()
 	var towers_in_range: Iterate 
-	var ball_item: Item = instance_from_id(ball.user_int) as Item
-	var target_tower: Tower = instance_from_id(ball.user_int2) as Tower
+	var ball_item: Item = GroupManager.get_by_uid("items", ball.user_int) as Item
+	var target_tower: Tower = GroupManager.get_by_uid("towers", ball.user_int2) as Tower
 	var tower_in_range: Tower
 
 	if ball_item == null:
@@ -49,8 +45,8 @@ func lightning_pt_on_cleanup(ball: Projectile):
 
 		if tower_in_range != null:
 			var ball_2 = Projectile.create_bezier_interpolation_from_unit_to_unit(lightning_pt, tower, 0, 0, target_tower, tower_in_range, 1.2, 0.0, 0.5, false)
-			ball_2.user_int = ball_item.get_instance_id()
-			ball_2.user_int2 = tower_in_range.get_instance_id()
+			ball_2.user_int = ball_item.get_uid()
+			ball_2.user_int2 = tower_in_range.get_uid()
 		else:
 			ball_item.set_visible(true)
 			ball_item.fly_to_stash(0.0)
@@ -85,8 +81,8 @@ func periodic(_event: Event):
 		if tower_in_range != tower && tower_in_range.count_free_slots() > 0:
 			item.set_visible(false)
 			ball = Projectile.create_bezier_interpolation_from_unit_to_unit(lightning_pt, tower, 0, 0, tower, tower_in_range, 1.2, 0.0, 0.5, false)
-			ball.user_int = item.get_instance_id()
-			ball.user_int2 = tower_in_range.get_instance_id()
+			ball.user_int = item.get_uid()
+			ball.user_int2 = tower_in_range.get_uid()
 
 			found_tower = true
 

@@ -67,7 +67,7 @@ func aura_bt_on_death(event: Event):
 	else:
 		var attacker: Unit = event.get_target()
 		var new_channel_buff: Buff = channel_bt.apply_to_unit_permanent(protector, protector, 0)
-		new_channel_buff.user_int = attacker.get_instance_id()
+		new_channel_buff.user_int = attacker.get_uid()
 
 
 func on_autocast(event: Event):
@@ -79,8 +79,8 @@ func on_autocast(event: Event):
 	if !protector_is_channeling:
 		return
 	
-	var cursed_tower_instance_id: int = channel_buff.user_int
-	var cursed_tower_object: Object = instance_from_id(cursed_tower_instance_id)
+	var cursed_tower_instance_uid: int = channel_buff.user_int
+	var cursed_tower_object: Object = GroupManager.get_by_uid("towers", cursed_tower_instance_uid)
 
 	if cursed_tower_object == null || !Utils.unit_is_valid(cursed_tower_object):
 		return

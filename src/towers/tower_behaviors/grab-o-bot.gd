@@ -64,6 +64,10 @@ func grapple_bt_on_create(event: Event):
 	var lightning_start: Vector3 = Vector3(caster.get_x(), caster.get_y(), 100)
 	var lightning_end: Vector3 = Vector3(target.get_x(), target.get_y(), 0)
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_point_to_point(InterpolatedSprite.LIGHTNING, lightning_start, lightning_end)
+
+	# NOTE: usage of get_instance_id() is OK here and
+	# doesn't cause desyncs because the lightning object is
+	# visual only.
 	buff.user_int = lightning.get_instance_id()
 
 
@@ -71,6 +75,9 @@ func grapple_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var lightning_id: int = buff.user_int
 
+	# NOTE: usage of instance_from_id() is OK here and
+	# doesn't cause desyncs because the lightning object is
+	# visual only.
 	var lightning_object: Object = instance_from_id(lightning_id)
 
 	if lightning_object != null:
