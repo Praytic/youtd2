@@ -2,7 +2,7 @@ extends ItemBehavior
 
 
 # NOTE: in original, tower is saved in buff's user_int.
-# Changed it so that tower's get_instance_id() is saved instead
+# Changed it so that tower's get_uid() is saved instead
 # because we can't convert references to ints in gdscript.
 
 
@@ -18,7 +18,7 @@ func poison_bt_periodic(event: Event):
 	var b: Buff = event.get_buff()
 	var tower: Tower = b.get_caster()
 
-	if tower.get_instance_id() == b.user_int:
+	if tower.get_uid() == b.user_int:
 		tower.do_spell_damage(b.get_buffed_unit(), tower.get_current_attack_damage_base() * 0.15, tower.get_spell_crit_damage())
 	else:
 		b.remove_buff()
@@ -43,4 +43,4 @@ func on_damage(event: Event):
 		if P != null:
 			poison_bt.apply(item.get_carrier(), event.get_target(), 0)
 		else:
-			poison_bt.apply(item.get_carrier(), event.get_target(), 0).user_int = item.get_carrier().get_instance_id()
+			poison_bt.apply(item.get_carrier(), event.get_target(), 0).user_int = item.get_carrier().get_uid()

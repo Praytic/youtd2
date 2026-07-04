@@ -40,8 +40,8 @@ func tower_init():
 func on_attack(event: Event):
 	var target: Unit = event.get_target()
 
-	if current_attack_target != target.get_instance_id():
-		current_attack_target = target.get_instance_id()
+	if current_attack_target != target.get_uid():
+		current_attack_target = target.get_uid()
 		current_attack_count = 0
 
 	current_attack_count += 1
