@@ -16,8 +16,8 @@ const AUTOOIL: Array[String] = ["/autooil", "/ao", "-ao"]
 const GAMESPEED: Array[String] = ["/gamespeed", "/gs"]
 const DAMAGE_METERS: Array[String] = ["/damage-meters", "/dm"]
 const DAMAGE_METERS_RECENT: Array[String] = ["/damage-meters-recent", "/dmr"]
-const DAMAGE_METERS_SELF: Array[String] = ["/damage-meters", "/dms"]
-const DAMAGE_METERS_RECENT_SELF: Array[String] = ["/damage-meters-recent", "/dmrs"]
+const DAMAGE_METERS_SELF: Array[String] = ["/damage-meters-self", "/dms"]
+const DAMAGE_METERS_RECENT_SELF: Array[String] = ["/damage-meters-recent-self", "/dmrs"]
 const IGNORE: Array[String] = ["/ignore"]
 const UNIGNORE: Array[String] = ["/unignore"]
 const PING: Array[String] = ["/ping"]
@@ -471,12 +471,12 @@ func _command_full_mana(player: Player, _args: Array):
 
 func _command_damage_meters(player: Player, _args: Array):
 	var tower_list: Array[Tower] = Utils.get_tower_list()
-	
+
 	tower_list.sort_custom(
 		func(a: Tower, b: Tower) -> bool:
 			var damage_a: float = a.get_total_damage()
 			var damage_b: float = b.get_total_damage()
-			
+
 			return damage_a > damage_b
 			)
 
@@ -491,15 +491,15 @@ func _command_damage_meters(player: Player, _args: Array):
 		var damage: float = tower.get_total_damage()
 		# use roundi to display the same value as tower details
 		var damage_string: String = TowerDetails.int_format(roundi(damage))
-		
+
 		var damage_attack: float = tower.get_total_damage_by_type(Tower.DamageSource.Attack)
 		var attack_percentage: float = Utils.divide_safe(damage_attack, damage) * 100
 		var attack_percentage_string: String = Utils.format_float(attack_percentage, 1)
-		
+
 		var damage_spell: float = tower.get_total_damage_by_type(Tower.DamageSource.Spell)
 		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
 		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
-		
+
 		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
 
 		count += 1
@@ -537,7 +537,7 @@ func _command_damage_meters_self(player: Player, _args: Array):
 		var damage_spell: float = tower.get_total_damage_by_type(Tower.DamageSource.Spell)
 		var spell_percentage: float = Utils.divide_safe(damage_spell, damage) * 100
 		var spell_percentage_string: String = Utils.format_float(spell_percentage, 1)
-		
+
 		Messages.add_normal(player, "%s: [color=GOLD]%s[/color], attack: [color=GOLD]%s%%[/color], spell: [color=GOLD]%s%%[/color]" % [tower_name, damage_string, attack_percentage_string, spell_percentage_string])
 
 		count += 1
