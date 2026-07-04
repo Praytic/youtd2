@@ -128,3 +128,14 @@ func enable_dev_commands() -> bool:
 
 func print_wave_info() -> bool:
 	return ProjectSettings.get_setting("application/config/print_wave_info") as bool
+
+# If this is disabled, then:
+# - The Multiplayer button in title screen will go straight
+#   to LAN section.
+# - Game won't try to connect to server.
+# - Game won't show "couldn't connect errors".
+# 
+# NOTE: currently online multiplayer is disabled because
+# Nakama server is offline.
+func enable_online_multiplayer() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_online_multiplayer") as bool

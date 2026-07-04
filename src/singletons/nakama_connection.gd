@@ -49,6 +49,13 @@ func connect_to_server():
 		
 		return
 
+	var online_multiplayer_is_enabled: bool = Config.enable_online_multiplayer()
+	if !online_multiplayer_is_enabled:
+		print_verbose("Skipping Nakama connection because online multiplayer is disabled.")
+		_set_state(NakamaConnection.State.FAILED_TO_CONNECT)
+		
+		return
+
 	_set_state(NakamaConnection.State.CONNECTING)
 
 # 	Create Nakama session by authenticating on the server

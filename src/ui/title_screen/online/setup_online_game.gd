@@ -466,7 +466,16 @@ func _on_multiplayer_button_pressed():
 			_title_screen.switch_to_tab(TitleScreen.Tab.ONLINE_MATCH_LIST)
 			_refresh_match_list()
 		NakamaConnection.State.FAILED_TO_CONNECT:
-#			NOTE: if failed to connect previously, try again
-#			here
-			NakamaConnection.connect_to_server()
-			_switch_to_match_list_when_connected()
+			var online_multiplayer_is_enabled: bool = Config.enable_online_multiplayer()
+
+			if online_multiplayer_is_enabled:
+#				NOTE: if failed to connect previously, try again
+#				here
+				NakamaConnection.connect_to_server()
+				_switch_to_match_list_when_connected()
+			else:
+				# If online multiplayer is disabled, then
+				# instead of Title->Online->LAN
+				# go straight to LAN:
+				# Title->LAN
+				_title_screen.switch_to_tab(TitleScreen.Tab.LAN_CONNECT_MENU)
